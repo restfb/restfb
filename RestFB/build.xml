@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  @author Transmogrify, LLC.
+-->
+<project name="RestFB" default="dist">
+
+  <!-- Directories -->
+  <property name="librarySourceDir" value="source/library" />
+  <property name="antBuildDir" value="build/ant" />
+  <property name="antClassesDir" value="${antBuildDir}/classes" />
+	<property name="antJavadocDir" value="${antBuildDir}/javadoc" />
+  <property name="dependenciesDir" value="dependencies" />
+	
+  <!-- Java switches -->
+  <property name="javaVersion" value="1.5" />
+  <property name="javaDebug" value="true" />
+  <property name="javaDebugLevel" value="lines,source" />
+    
+  <!-- Classpaths -->
+  <path id="compilationClasspath">
+    <fileset dir="${dependenciesDir}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+	
+  <target name="compile" description="Compiles library code">
+    <mkdir dir="${antClassesDir}" />
+    <echo message="Compiling..." />
+    <javac srcdir="${librarySourceDir}" destdir="${antClassesDir}" source="${javaVersion}"
+      target="${javaVersion}" debug="${javaDebug}" debuglevel="${javaDebugLevel}">
+      <classpath>
+        <path refid="compilationClasspath" />
+      </classpath>
+    </javac>
+  </target>
+  
+  <target name="dist" depends="clean, compile" description="Builds the RestFB distribution">
+    <echo message="Building distribution..." />
+ 
+    <jar destfile="${antBuildDir}/restfb-1.0.jar">
+      <classes dir="${antClassesDir}"/>     
+		</jar>
+  </target>
+  
+	<target name="doc" description="Builds Javadoc">
+		<mkdir dir="${antJavadocDir}" />
+		<javadoc destdir="${antJavadocDir}" author="true" version="true"
+			use="true" windowtitle="RestFB" access="public">
+			<classpath>
+				<path refid="compilationClasspath" />
+			</classpath>
+			<packageset dir="${librarySourceDir}" defaultexcludes="yes">
+				<exclude name="com/restfb/json" />
+			</packageset>
+
+			<doctitle><![CDATA[<h1>RestFB</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2010 Mark Allen. All Rights Reserved.</i>]]></bottom>
+			<link href="http://java.sun.com/javase/6/docs/api/" />
+			<link href="http://java.sun.com/javaee/5/docs/api/" />			
+			<link href="http://logging.apache.org/log4j/1.2/apidocs/" />			
+		</javadoc>
+	</target>	
+	
+  <target name="clean" description="Gets rid of build artifacts">
+    <echo message="Cleaning build artifacts..." />
+    <delete dir="${antBuildDir}" includeEmptyDirs="true" />    
+  </target>
+</project>
