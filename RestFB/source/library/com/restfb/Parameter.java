@@ -54,7 +54,7 @@ public class Parameter {
       throw new IllegalArgumentException(Parameter.class
           + " instances must have a non-blank name and value.");
 
-    this.name = name.trim().toLowerCase();
+    this.name = StringUtils.trimToEmpty(name).toLowerCase();
     this.value = value;
   }
 

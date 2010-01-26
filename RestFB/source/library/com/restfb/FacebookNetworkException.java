@@ -84,7 +84,8 @@ public class FacebookNetworkException extends FacebookException {
     if (getHttpStatusCode() == null)
       return getMessage();
 
-    return getMessage() + " (HTTP status code " + getHttpStatusCode() + ")";
+    return String.format("%s (HTTP status code %d)", getMessage(),
+      getHttpStatusCode());
   }
 
   /**

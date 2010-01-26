@@ -38,22 +38,22 @@ public class FacebookResponseStatusException extends FacebookException {
   private Integer errorCode;
 
   /**
+   * The Facebook API error message.
+   */
+  private String errorMessage;
+
+  /**
    * Creates an exception with the given message and error code.
    * 
-   * @param message
+   * @param errorMessage
    *          Value of the Facebook response attribute {@code error_msg}.
    * @param errorCode
-   *          Value of the Facebook response attribute {@code error_code}. Must
-   *          not be {@code null}.
-   * @throws NullPointerException
-   *           If {@code errorCode} is {@code null}.
+   *          Value of the Facebook response attribute {@code error_code}.
    */
-  public FacebookResponseStatusException(String message, Integer errorCode) {
-    super(StringUtils.trimToEmpty(message));
-    if (errorCode == null)
-      throw new NullPointerException(
-        "The 'errorCode' parameter must not be null.");
+  public FacebookResponseStatusException(String errorMessage, Integer errorCode) {
+    super("Facebook returned a non-OK response status code.");
     this.errorCode = errorCode;
+    this.errorMessage = StringUtils.trimToEmpty(errorMessage);
   }
 
   /**
@@ -66,13 +66,23 @@ public class FacebookResponseStatusException extends FacebookException {
   }
 
   /**
+   * Gets the Facebook API error message.
+   * 
+   * @return The Facebook API error message.
+   */
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  /**
    * @see java.lang.Throwable#toString()
    */
   @Override
   public String toString() {
     if (getErrorCode() == null)
-      return getMessage();
+      return getErrorMessage();
 
-    return "Error code " + getErrorCode() + ": " + getMessage();
+    return String.format("Error code: %d, error message: %s", getErrorCode(),
+      getErrorMessage());
   }
 }
