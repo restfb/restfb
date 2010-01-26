@@ -26,7 +26,6 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -38,7 +37,6 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import com.restfb.WebRequestor.Response;
-import com.restfb.json.JSONArray;
 import com.restfb.json.JSONException;
 import com.restfb.json.JSONObject;
 
@@ -206,22 +204,8 @@ public class DefaultFacebookClient implements FacebookClient {
   @Override
   public <T> List<T> executeForList(String method, String sessionKey,
       Class<T> resultType, Parameter... parameters) throws FacebookException {
-    String json = makeRequest(method, sessionKey, parameters);
-
-    try {
-      List<T> list = new ArrayList<T>();
-
-      JSONArray jsonArray = new JSONArray(json);
-      for (int i = 0; i < jsonArray.length(); i++)
-        list.add(jsonMapper.toJavaObject(jsonArray.get(i).toString(),
-          resultType));
-
-      return list;
-    } catch (Exception e) {
-      throw new FacebookJsonMappingException(
-        "Unable to convert Facebook response " + "JSON to a list of "
-            + resultType.getName() + " instances", e);
-    }
+    return jsonMapper.toJavaList(makeRequest(method, sessionKey, parameters),
+      resultType);
   }
 
   protected String makeRequest(String method, String sessionKey,

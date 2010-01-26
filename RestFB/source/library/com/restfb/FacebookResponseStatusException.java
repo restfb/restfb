@@ -51,7 +51,7 @@ public class FacebookResponseStatusException extends FacebookException {
    *          Value of the Facebook response attribute {@code error_code}.
    */
   public FacebookResponseStatusException(String errorMessage, Integer errorCode) {
-    super("Facebook returned a non-OK response status code.");
+    super("Facebook returned an error response.");
     this.errorCode = errorCode;
     this.errorMessage = StringUtils.trimToEmpty(errorMessage);
   }
@@ -75,10 +75,10 @@ public class FacebookResponseStatusException extends FacebookException {
   }
 
   /**
-   * @see java.lang.Throwable#toString()
+   * @see java.lang.Throwable#getMessage()
    */
   @Override
-  public String toString() {
+  public String getMessage() {
     if (getErrorCode() == null)
       return getErrorMessage();
 

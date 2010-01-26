@@ -67,10 +67,17 @@ abstract class ReflectionUtils {
     List<FieldWithAnnotation<T>> fieldsWithAnnotation =
         new ArrayList<FieldWithAnnotation<T>>();
 
-    for (Field field : type.getDeclaredFields()) {
-      T annotation = field.getAnnotation(annotationType);
-      if (annotation != null)
-        fieldsWithAnnotation.add(new FieldWithAnnotation<T>(field, annotation));
+    // Walk all superclasses looking for annotated fields until we hit
+    // Object
+    while (!Object.class.equals(type)) {
+      for (Field field : type.getDeclaredFields()) {
+        T annotation = field.getAnnotation(annotationType);
+        if (annotation != null)
+          fieldsWithAnnotation
+            .add(new FieldWithAnnotation<T>(field, annotation));
+      }
+
+      type = type.getSuperclass();
     }
 
     fieldsWithAnnotation = Collections.unmodifiableList(fieldsWithAnnotation);
