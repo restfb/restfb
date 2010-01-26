@@ -22,8 +22,14 @@
 
 package com.restfb;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
+import org.apache.log4j.Logger;
 
 /**
  * A collection of string-handling utility methods.
@@ -35,6 +41,8 @@ abstract class StringUtils {
    * Default charset to use for encoding/decoding strings.
    */
   static final String ENCODING_CHARSET = "UTF-8";
+
+  private static final Logger logger = Logger.getLogger(StringUtils.class);
 
   /**
    * Prevents instantiation.
@@ -130,6 +138,45 @@ abstract class StringUtils {
     } catch (UnsupportedEncodingException e) {
       throw new IllegalStateException("Platform doesn't support "
           + ENCODING_CHARSET, e);
+    }
+  }
+
+  /**
+   * Builds and returns a string representation of the given {@code inputStream}
+   * .
+   * 
+   * @param inputStream
+   *          The stream from which a string representation is built.
+   * 
+   * @return A string representation of the given {@code inputStream}.
+   * @throws IOException
+   *           If an error occurs while processing the {@code inputStream}.
+   */
+  static String fromInputStream(InputStream inputStream) throws IOException {
+    if (inputStream == null)
+      return null;
+
+    BufferedReader reader = null;
+
+    try {
+      reader =
+          new BufferedReader(new InputStreamReader(inputStream,
+            ENCODING_CHARSET));
+      StringBuilder response = new StringBuilder();
+
+      String line = null;
+      while ((line = reader.readLine()) != null)
+        response.append(line);
+
+      return response.toString();
+    } finally {
+      if (reader != null)
+        try {
+          reader.close();
+        } catch (Throwable t) {
+          // Really nothing we can do but log the error
+          logger.warn("Unable to close stream, continuing on...", t);
+        }
     }
   }
 }

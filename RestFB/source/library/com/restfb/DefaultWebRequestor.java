@@ -24,11 +24,9 @@ package com.restfb;
 
 import static com.restfb.StringUtils.ENCODING_CHARSET;
 
-import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -69,45 +67,11 @@ public class DefaultWebRequestor implements WebRequestor {
         logger.warn("An error occurred while POSTing to " + url, e);
       }
 
-      return new Response(httpUrlConnection.getResponseCode(),
-        responseAsString(inputStream));
+      return new Response(httpUrlConnection.getResponseCode(), StringUtils
+        .fromInputStream(inputStream));
     } finally {
-      closeQuietly(inputStream);
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
-    }
-  }
-
-  /**
-   * Builds and returns a string representation of the given {@code inputStream}
-   * .
-   * 
-   * @param inputStream
-   *          The stream from which a string representation is built.
-   * 
-   * @return A string representation of the given {@code inputStream}.
-   * @throws IOException
-   *           If an error occurs while processing the {@code inputStream}.
-   */
-  protected String responseAsString(InputStream inputStream) throws IOException {
-    if (inputStream == null)
-      return null;
-
-    BufferedReader reader = null;
-
-    try {
-      reader =
-          new BufferedReader(new InputStreamReader(inputStream,
-            ENCODING_CHARSET));
-      StringBuilder response = new StringBuilder();
-
-      String line = null;
-      while ((line = reader.readLine()) != null)
-        response.append(line);
-
-      return response.toString();
-    } finally {
-      closeQuietly(reader);
     }
   }
 

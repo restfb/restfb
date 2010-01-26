@@ -22,23 +22,39 @@
 
 package com.restfb;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import static java.net.HttpURLConnection.HTTP_OK;
 
-import org.apache.log4j.Logger;
+import java.io.IOException;
 
 /**
+ * {@link WebRequestor} implementation that loads a file from the classpath
+ * instead of hitting the web. Useful for running unit tests against local JSON
+ * textfiles.
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class ClasspathWebRequestor implements WebRequestor {
-  private String pathToJson;
+  /**
+   * Cached response.
+   */
+  private Response response;
 
-  private static final Logger logger =
-      Logger.getLogger(ClasspathWebRequestor.class);
-
-  public ClasspathWebRequestor(String pathToJson) {
-    this.pathToJson = pathToJson;
+  /**
+   * Creates a web requestor that loads a file from the classpath instead of
+   * hitting the web.
+   * 
+   * @param pathToJson
+   *          The classpath location of the JSON file to load.
+   * @throws IOException
+   *           If an error occurs while processing the classpath JSON file.
+   */
+  public ClasspathWebRequestor(String pathToJson) throws IOException {
+    // Cache off the response immediately instead of recreating it every time in
+    // executePost().
+    response =
+        new Response(HTTP_OK, StringUtils
+          .fromInputStream(ClasspathWebRequestor.class
+            .getResourceAsStream(pathToJson)));
   }
 
   /**
@@ -47,24 +63,6 @@ public class ClasspathWebRequestor implements WebRequestor {
    */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
-    BufferedReader reader =
-        new BufferedReader(new InputStreamReader(ClasspathWebRequestor.class
-          .getResourceAsStream(pathToJson)));
-    StringBuilder json = new StringBuilder();
-    String line;
-
-    try {
-      while ((line = reader.readLine()) != null)
-        json.append(line);
-      return new Response(200, json.toString());
-    } finally {
-      if (reader != null)
-        try {
-          reader.close();
-        } catch (IOException e) {
-          logger.warn("Unable to close file '" + pathToJson
-              + "', continuing...");
-        }
-    }
+    return response;
   }
 }
