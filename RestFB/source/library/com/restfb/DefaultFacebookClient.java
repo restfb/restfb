@@ -268,8 +268,17 @@ public class DefaultFacebookClient implements FacebookClient {
       if (json.startsWith("["))
         return;
 
-      JSONObject errorObject = new JSONObject(json);
-      if (!errorObject.has(ERROR_CODE_ATTRIBUTE_NAME))
+      JSONObject errorObject = null;
+
+      // We need to swallow exceptions here because it's possible to get a legit
+      // Facebook response that contains illegal JSON (e.g.
+      // users.getLoggedInUser returning 1240077) - we're only interested in
+      // whether or not there's an error_code field present.
+      try {
+        errorObject = new JSONObject(json);
+      } catch (JSONException e) {}
+
+      if (errorObject == null || !errorObject.has(ERROR_CODE_ATTRIBUTE_NAME))
         return;
 
       throw new FacebookResponseStatusException(errorObject

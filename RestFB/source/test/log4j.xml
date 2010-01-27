@@ -12,7 +12,7 @@
 	</appender>
 
 	<logger name="com.restfb">
-		<level value="TRACE" />
+		<level value="DEBUG" />
 	</logger>
 
 	<root>

@@ -56,10 +56,22 @@ public class DefaultJsonMapper implements JsonMapper {
       throw new FacebookJsonMappingException(
         "JSON is an empty string - can't map it.");
 
-    if (json.startsWith("{"))
+    if (json.startsWith("{")) {
+      // Sometimes Facebook returns the empty object {} when it really should be
+      // returning an empty list [] (example: do an FQL query for a user's
+      // affiliations - it's a list except when there are none, then it turns
+      // into an object). Check for that special case here.
+      if (isEmptyObject(json)) {
+        if (logger.isTraceEnabled())
+          logger.trace("Encountered {} when we should've seen []. "
+              + "Mapping the {} as an empty list and moving on...");
+        return new ArrayList<T>();
+      }
+
       throw new FacebookJsonMappingException(
         "JSON is an object but is being mapped as a list "
             + "instead. Offending JSON is '" + json + "'.");
+    }
 
     try {
       List<T> list = new ArrayList<T>();
@@ -101,15 +113,11 @@ public class DefaultJsonMapper implements JsonMapper {
       // If there are no annotated fields, assume we're mapping to a built-in
       // type. If this is actually the empty object, just return a new instance
       // of the corresponding Java type.
-      if (fieldsWithAnnotation.size() == 0) {
-        // TODO: nicer way to do this than the replaceAll() call?
-        boolean emptyObject = "{}".equals(json.replaceAll("\\s", ""));
-
-        if (emptyObject)
+      if (fieldsWithAnnotation.size() == 0)
+        if (isEmptyObject(json))
           return type.newInstance();
         else
           return toPrimitiveJavaType(json, type);
-      }
 
       JSONObject jsonObject = new JSONObject(json);
       T instance = type.newInstance();
@@ -131,8 +139,8 @@ public class DefaultJsonMapper implements JsonMapper {
         }
 
         if (!jsonObject.has(facebookFieldName)) {
-          if (logger.isDebugEnabled())
-            logger.debug("No JSON value present for '" + facebookFieldName
+          if (logger.isTraceEnabled())
+            logger.trace("No JSON value present for '" + facebookFieldName
                 + "', skipping. Offending JSON is '" + json + "'.");
           continue;
         }
@@ -192,6 +200,8 @@ public class DefaultJsonMapper implements JsonMapper {
       return (T) new Long(json);
     if (Double.class.equals(type) || Double.TYPE.equals(type))
       return (T) new Double(json);
+    if (Float.class.equals(type) || Float.TYPE.equals(type))
+      return (T) new Float(json);
     if (BigInteger.class.equals(type))
       return (T) new BigInteger(json);
     if (BigDecimal.class.equals(type))
@@ -235,6 +245,9 @@ public class DefaultJsonMapper implements JsonMapper {
       return new Long(jsonObject.getLong(facebookFieldName));
     if (Double.class.equals(type) || Double.TYPE.equals(type))
       return new Double(jsonObject.getDouble(facebookFieldName));
+    if (Float.class.equals(type) || Float.TYPE.equals(type))
+      return new BigDecimal(jsonObject.getString(facebookFieldName))
+        .floatValue();
     if (BigInteger.class.equals(type))
       return new BigInteger(jsonObject.getString(facebookFieldName));
     if (BigDecimal.class.equals(type))
@@ -246,4 +259,18 @@ public class DefaultJsonMapper implements JsonMapper {
     // Some other type - recurse into it
     return toJavaObject(jsonObject.get(facebookFieldName).toString(), type);
   }
+
+  /**
+   * Is the given JSON equivalent to the empty object (<code>{}</code>)?
+   * 
+   * @param json
+   *          The JSON to check.
+   * @return {@code true} if the JSON is equivalent to the empty object, {@code
+   *         false} otherwise.
+   */
+  protected boolean isEmptyObject(String json) {
+    // TODO: nicer way to do this than the replaceAll() call?
+    return "{}".equals(json.replaceAll("\\s", ""));
+  }
+
 }

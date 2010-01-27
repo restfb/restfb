@@ -151,6 +151,32 @@ public class JsonMapperTests {
   }
 
   /**
+   * Can we handle slightly-more-complex mapping, including the workaround for
+   * Facebook's "we gave you an empty object instead of an empty list" bug?
+   */
+  @Test
+  public void usersWithAffiliations() throws FacebookJsonMappingException {
+    List<UserWithAffiliations> usersWithAffiliations =
+        createJsonMapper().toJavaList(
+          jsonFromClasspath("users-with-affiliations"),
+          UserWithAffiliations.class);
+
+    Assert.assertTrue(usersWithAffiliations.size() == 3);
+    Assert.assertTrue("Heather Merlin"
+      .equals(usersWithAffiliations.get(0).name));
+    Assert.assertTrue(("https://secure-profile.facebook.com/profile6/"
+        + "13580/1406/n284asf55_7662.jpg")
+      .equals(usersWithAffiliations.get(0).bigPictureUrl));
+    Assert.assertTrue(usersWithAffiliations.get(0).affiliations.size() == 1);
+    Assert.assertTrue("Intuit".equals(usersWithAffiliations.get(0).affiliations
+      .get(0).name));
+
+    // Make sure the weird Facebook "empty object means empty list" workaround
+    // works
+    Assert.assertTrue(usersWithAffiliations.get(2).affiliations.size() == 0);
+  }
+
+  /**
    * Can we successfully map the results of the auth.createToken call?
    */
   @Test
@@ -189,7 +215,7 @@ public class JsonMapperTests {
     @Facebook
     Long uid;
 
-    @Facebook("name")
+    @Facebook
     String name;
   }
 
@@ -199,8 +225,24 @@ public class JsonMapperTests {
   }
 
   static class UserWithPhotos extends BasicUser {
-    @Facebook(value = "photos", contains = Photo.class)
+    @Facebook(contains = Photo.class)
     List<Photo> photos;
+  }
+
+  static class Affiliation {
+    @Facebook
+    String name;
+
+    @Facebook
+    String type;
+  }
+
+  static class UserWithAffiliations extends BasicUser {
+    @Facebook("pic_big")
+    String bigPictureUrl;
+
+    @Facebook(contains = Affiliation.class)
+    List<Affiliation> affiliations;
   }
 
   private JsonMapper createJsonMapper() {
