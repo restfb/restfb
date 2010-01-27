@@ -26,6 +26,11 @@ import java.util.List;
 
 /**
  * Specifies how a Facebook JSON-to-Java mapper must operate.
+ * <p>
+ * Note that implementors must be able to handle illegal JSON in order to
+ * correctly process Facebook responses. For example, the {@code
+ * Users.getLoggedInUser} API call returns a value like {@code 1240077}, which
+ * is not valid JSON.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -52,18 +57,18 @@ public interface JsonMapper {
 
   /**
    * Given a JSON string, create and return a new instance of a corresponding
-   * Java object of type {@code type}.
+   * Java list which contains elements of type {@code type}.
    * <p>
    * The Java {@code type} must have a visible no-argument constructor.
    * 
    * @param <T>
-   *          Java type to map to.
+   *          Java type to map to for each element of the list.
    * @param json
    *          The JSON to be mapped to a Java type.
    * @param type
    *          Java type token.
-   * @return A Java object (of type {@code type}) representation of the JSON
-   *         input.
+   * @return A Java object (of type {@code List} which contains elements of type
+   *         {@code type}) representation of the JSON input.
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
    */

@@ -55,13 +55,8 @@ public interface WebRequestor {
      *          The HTTP status code of the response.
      * @param body
      *          The response body as text.
-     * @throws NullPointerException
-     *           If {@code statusCode} is {@code null}.
      */
     public Response(Integer statusCode, String body) {
-      if (statusCode == null)
-        throw new NullPointerException("Response status code cannot be null.");
-
       this.statusCode = statusCode;
       this.body = StringUtils.trimToEmpty(body);
     }

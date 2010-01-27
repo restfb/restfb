@@ -102,10 +102,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // type. If this is actually the empty object, just return a new instance
       // of the corresponding Java type.
       if (fieldsWithAnnotation.size() == 0) {
-        boolean emptyObject = false;
-        try {
-          emptyObject = new JSONObject(json).length() == 0;
-        } catch (JSONException e) {}
+        // TODO: nicer way to do this than the replaceAll() call?
+        boolean emptyObject = "{}".equals(json.replaceAll("\\s", ""));
 
         if (emptyObject)
           return type.newInstance();
@@ -143,11 +141,38 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
+  /**
+   * Given a {@code json} value of something like {@code MyValue} or {@code 123}
+   * , return a representation of that value of type {@code type}.
+   * <p>
+   * This is to support non-legal JSON served up by Facebook for API calls like
+   * {@code Friends.get} (example result: {@code [222333,1240079]}).
+   * 
+   * @param <T>
+   *          The Java type to map to.
+   * @param json
+   *          The non-legal JSON to map to the Java type.
+   * @param type
+   *          Type token.
+   * @return Java representation of {@code json}.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while mapping JSON to Java.
+   */
   @SuppressWarnings("unchecked")
   protected <T> T toPrimitiveJavaType(String json, Class<T> type)
       throws FacebookJsonMappingException {
-    if (String.class.equals(type))
+
+    if (String.class.equals(type)) {
+      // If the string starts and ends with quotes, remove them, since Facebook
+      // can serve up strings surrounded by quotes.
+      if (json.length() > 1 && json.startsWith("\"") && json.endsWith("\"")) {
+        json = json.replaceFirst("\"", "");
+        json = json.substring(0, json.length() - 1);
+      }
+
       return (T) json;
+    }
+
     if (Integer.class.equals(type) || Integer.TYPE.equals(type))
       return (T) new Integer(json);
     if (Boolean.class.equals(type) || Boolean.TYPE.equals(type))
@@ -166,6 +191,23 @@ public class DefaultJsonMapper implements JsonMapper {
         + "Offending JSON is '" + json + "'.");
   }
 
+  /**
+   * Extracts JSON data for a field according to its {@code Facebook} annotation
+   * and returns it converted to the proper Java type.
+   * 
+   * @param fieldWithAnnotation
+   *          The field/annotation pair which specifies what Java type to
+   *          convert to.
+   * @param jsonObject
+   *          "Raw" JSON object to pull data from.
+   * @param facebookFieldName
+   *          Specifies what JSON field to pull "raw" data from.
+   * @return A
+   * @throws JSONException
+   *           If an error occurs while mapping JSON to Java.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while mapping JSON to Java.
+   */
   protected Object toJavaType(
       FieldWithAnnotation<Facebook> fieldWithAnnotation, JSONObject jsonObject,
       String facebookFieldName) throws JSONException,

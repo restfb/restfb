@@ -148,16 +148,51 @@ public class JsonMapperTests {
     Assert.assertTrue(privateUser.getUid().equals(1234L));
   }
 
+  /**
+   * Can we successfully map the results of the auth.createToken call?
+   */
+  @Test
+  public void authCreateToken() throws FacebookJsonMappingException {
+    String token =
+        createJsonMapper().toJavaObject(
+          jsonFromClasspath("api/auth.createToken"), String.class);
+    Assert.assertTrue("3e4a22bb2f5ed75114b0fc9995ea85f1".equals(token));
+  }
+
+  /**
+   * Can we successfully map the results of the auth.createToken call?
+   */
+  @Test
+  public void usersGetLoggedInUser() throws FacebookJsonMappingException {
+    Long uid =
+        createJsonMapper().toJavaObject(
+          jsonFromClasspath("api/users.getLoggedInUser"), Long.class);
+    Assert.assertTrue(uid.equals(1240077L));
+  }
+
+  /**
+   * Can we successfully map the results of the friends.get call?
+   */
+  @Test
+  public void friendsGet() throws FacebookJsonMappingException {
+    List<Long> friendUids =
+        createJsonMapper().toJavaList(jsonFromClasspath("api/friends.get"),
+          Long.class);
+    Assert.assertTrue(friendUids.size() == 2);
+    Assert.assertTrue(friendUids.get(0).equals(222333L));
+    Assert.assertTrue(friendUids.get(1).equals(1240079L));
+  }
+
   static class BasicUser {
-    @Facebook(value = "uid")
+    @Facebook("uid")
     Long uid;
 
-    @Facebook(value = "name")
+    @Facebook("name")
     String name;
   }
 
   static class Photo {
-    @Facebook(value = "id")
+    @Facebook("id")
     Long id;
   }
 

@@ -39,11 +39,6 @@ abstract class ReflectionUtils {
    */
   private ReflectionUtils() {}
 
-  // TODO: cache off results per type instead of reflecting every time
-  // private static final Map<Class<?>, List<FieldWithAnnotation<? extends
-  // Annotation>>> fieldsWithAnnotationCache =
-  // new ConcurrentHashMap<Class<?>, List<FieldWithAnnotation<?>>>();
-
   /**
    * Finds fields on the given {@code type} annotated with annotations of type
    * {@code annotationType}.
@@ -59,10 +54,6 @@ abstract class ReflectionUtils {
   static <T extends Annotation> List<FieldWithAnnotation<T>> findFieldsWithAnnotation(
       Class<?> type, Class<T> annotationType) {
     // TODO: cache off results per type instead of reflecting every time
-    // List<FieldWithAnnotation<T>> cached =
-    // (List<FieldWithAnnotation<T>>) fieldsWithAnnotationCache.get(type);
-    // if (cached != null)
-    // return cached;
 
     List<FieldWithAnnotation<T>> fieldsWithAnnotation =
         new ArrayList<FieldWithAnnotation<T>>();
@@ -80,12 +71,7 @@ abstract class ReflectionUtils {
       type = type.getSuperclass();
     }
 
-    fieldsWithAnnotation = Collections.unmodifiableList(fieldsWithAnnotation);
-
-    // TODO: cache off results per type instead of reflecting every time
-    // fieldsWithAnnotationCache.put(type, fieldsWithAnnotation);
-
-    return fieldsWithAnnotation;
+    return Collections.unmodifiableList(fieldsWithAnnotation);
   }
 
   /**
