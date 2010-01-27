@@ -122,6 +122,8 @@ public class JsonMapperTests {
         createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"),
           UserWithPhotos.class);
     Assert.assertTrue(userWithPhotos.photos.size() == 2);
+    Assert.assertTrue(userWithPhotos.photos.get(0).photoId.equals(1L));
+    Assert.assertTrue(userWithPhotos.photos.get(1).photoId.equals(2L));
   }
 
   /**
@@ -184,7 +186,7 @@ public class JsonMapperTests {
   }
 
   static class BasicUser {
-    @Facebook("uid")
+    @Facebook
     Long uid;
 
     @Facebook("name")
@@ -193,7 +195,7 @@ public class JsonMapperTests {
 
   static class Photo {
     @Facebook("id")
-    Long id;
+    Long photoId;
   }
 
   static class UserWithPhotos extends BasicUser {

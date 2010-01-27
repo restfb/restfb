@@ -72,20 +72,10 @@ public class FacebookNetworkException extends FacebookException {
    */
   public FacebookNetworkException(String message, Throwable cause,
       Integer httpStatusCode) {
-    super(message, cause);
+    super(String.format("A network error occurred while trying to "
+        + "communicate with Facebook: %s (HTTP status code %d)", message,
+      httpStatusCode), cause);
     this.httpStatusCode = httpStatusCode;
-  }
-
-  /**
-   * @see java.lang.Throwable#toString()
-   */
-  @Override
-  public String toString() {
-    if (getHttpStatusCode() == null)
-      return getMessage();
-
-    return String.format("%s (HTTP status code %d)", getMessage(),
-      getHttpStatusCode());
   }
 
   /**

@@ -41,7 +41,7 @@ public @interface Facebook {
    * 
    * @return Name of the Facebook API result attribute to map to.
    */
-  String value();
+  String value() default "";
 
   /**
    * If this annotation is placed on a {@code List} type, this attribute

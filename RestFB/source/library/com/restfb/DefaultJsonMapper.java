@@ -114,8 +114,21 @@ public class DefaultJsonMapper implements JsonMapper {
       JSONObject jsonObject = new JSONObject(json);
       T instance = type.newInstance();
 
+      // For each Facebook-annotated field on the current Java object, pull data
+      // out of the JSON object and put it in the Java object
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
         String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
+        Field field = fieldWithAnnotation.getField();
+
+        // If no Facebook field name was specified in the annotation, assume
+        // it's the same name as the Java field
+        if (StringUtils.isBlank(facebookFieldName)) {
+          if (logger.isTraceEnabled())
+            logger.trace("No explicit Facebook field name found for " + field
+                + ", so defaulting to the field name itself ("
+                + field.getName() + ")");
+          facebookFieldName = field.getName();
+        }
 
         if (!jsonObject.has(facebookFieldName)) {
           if (logger.isDebugEnabled())
@@ -124,12 +137,10 @@ public class DefaultJsonMapper implements JsonMapper {
           continue;
         }
 
-        Object fieldValue =
-            toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName);
-
-        Field field = fieldWithAnnotation.getField();
+        // Set the field's value
         field.setAccessible(true);
-        field.set(instance, fieldValue);
+        field.set(instance, toJavaType(fieldWithAnnotation, jsonObject,
+          facebookFieldName));
       }
 
       return instance;

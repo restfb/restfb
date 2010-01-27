@@ -40,8 +40,8 @@ abstract class ReflectionUtils {
   private ReflectionUtils() {}
 
   /**
-   * Finds fields on the given {@code type} annotated with annotations of type
-   * {@code annotationType}.
+   * Finds fields on the given {@code type} and all of its superclasses
+   * annotated with annotations of type {@code annotationType}.
    * 
    * @param <T>
    *          The annotation type.
