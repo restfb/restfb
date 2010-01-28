@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+<head> 
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+	<meta http-equiv="Content-language" content="en" /> 
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+	<meta name="description" content="RestFB is a simple but powerful Facebook REST API client written in Java" /> 
+	<title>RestFB - A Lightweight Java Facebook REST API Client</title> 	
+	<link type="text/css" rel="stylesheet" href="style.css" />
+	<script type="text/javascript" src="prettify.js"></script>	
+</head>
+<body>
+	<h1>RestFB</h1>
+	
+	<p>
+		RestFB is a simple and flexible <a href="http://wiki.developers.facebook.com/index.php/API">Facebook REST API</a> client written in Java.
+	</p>
+	
+	<h2>Motivations</h2>
+	
+	<p>
+		Design goals:		
+		<ul>
+			<li>Minimal public API</li>
+			<li>Maximal extensibility</li>
+			<li>Robustness in the face of frequent Facebook API changes</li>
+			<li>Simple metadata-driven configuration</li>
+			<li>A single dependency, <a href="http://logging.apache.org/log4j/">Apache Log4j</a></li>			
+		</ul> 
+	</p> 	
+	
+	<p>
+		Non-goals:		
+		<ul>
+			<li>Support for non-REST API parts of the Facebook Platform</li>
+			<li>Using XML as a data transfer format</li>
+			<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
+		</ul>
+	</p>
+	
+	<h2>How To Use It</h2>
+	
+	<h3>Initialization</h3>
+	
+	<p>
+		<pre class="prettyprint">
+// <a href="">DefaultFacebookClient</a> is the <a href="">FacebookClient</a> implementation
+// that ships with RestFB.  You can customize it by passing in
+// custom <a href="">JsonMapper</a> and <a href="">WebRequestor</a> implementations, or simply
+// write your own FacebookClient instead for maximum control.
+
+FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);		
+		</pre>
+	</p>		
+	
+	<h3>Making a Simple Call</h3>
+	
+	<p>
+		<pre class="prettyprint">
+// Last parameter specifies that this API call's result
+// should be returned to us as a Long value
+
+Long uid = facebookClient.<a href="">execute</a>("users.getLoggedInUser", sessionKey, Long.class);		
+		</pre>
+	</p>	
+	
+	<h3>Making a More Complex Call</h3>
+	
+	<p>
+		<pre class="prettyprint">
+// FQL query which asks Facebook for your friends' names,
+// profile picture URLs, and network affiliations
+
+String query =
+  "SELECT name, pic_big, affiliations FROM user " +
+  "WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=12345)";
+
+// Executes an API call with result mapped to a list of classes we've defined.
+// Note that you can pass in an arbitrary number of <a href="">Parameter</a>s - here we
+// send along the query as well as the "give me HTTPS URLs" flag
+
+List&lt;User&gt; users =
+  facebookClient.<a href="">executeForList</a>("fql.query", sessionKey, User.class,
+    Parameter.with("query", query), Parameter.with("return_ssl_resources", "true"));		
+		</pre>
+	</p>
+	
+	<p>
+		Visit <a href="http://code.google.com/p/restfb">RestFB on Google Code</a>		
+	</p>
+	
+	<p>
+		Download the current source code using Subversion:		
+		<pre>
+svn checkout http://restfb.googlecode.com/svn/trunk/ restfb
+		</pre>
+	</p>
+	
+	<p>
+		RestFB is written by <a href="mailto:maa@xmog.com">Mark Allen</a> and sponsored by <a href="http://xmog.com">Transmogrify, LLC</a>. 
+	</p>
+	
+	<script type="text/javascript">
+		prettyPrint();
+	</script>
+</body>
+</html>
