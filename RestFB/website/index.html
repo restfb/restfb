@@ -41,13 +41,17 @@
 	
 	<h2>How To Use It</h2>
 	
+	<p>
+		You can jump straight to the <a href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
+	</p>
+	
 	<h3>Initialization</h3>
 	
 	<p>
 		<pre class="prettyprint">
-// <a href="">DefaultFacebookClient</a> is the <a href="">FacebookClient</a> implementation
+// <a href="javadoc/com/restfb/DefaultFacebookClient.html">DefaultFacebookClient</a> is the <a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a> implementation
 // that ships with RestFB.  You can customize it by passing in
-// custom <a href="">JsonMapper</a> and <a href="">WebRequestor</a> implementations, or simply
+// custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
 // write your own FacebookClient instead for maximum control.
 
 FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);		
@@ -61,7 +65,7 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_
 // Last parameter specifies that this API call's result
 // should be returned to us as a Long value
 
-Long uid = facebookClient.<a href="">execute</a>("users.getLoggedInUser", sessionKey, Long.class);		
+Long uid = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#execute(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", sessionKey, Long.class);		
 		</pre>
 	</p>	
 	
@@ -77,11 +81,11 @@ String query =
   "WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=12345)";
 
 // Executes an API call with result mapped to a list of classes we've defined.
-// Note that you can pass in an arbitrary number of <a href="">Parameter</a>s - here we
+// Note that you can pass in an arbitrary number of <a href="javadoc/com/restfb/Parameter.html">Parameter</a>s - here we
 // send along the query as well as the "give me HTTPS URLs" flag
 
 List&lt;User&gt; users =
-  facebookClient.<a href="">executeForList</a>("fql.query", sessionKey, User.class,
+  facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#executeForList(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">executeForList</a>("fql.query", sessionKey, User.class,
     Parameter.with("query", query), Parameter.with("return_ssl_resources", "true"));		
 		</pre>
 	</p>
@@ -97,9 +101,39 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb
 		</pre>
 	</p>
 	
+	<h2>About</h2>
+	
 	<p>
 		RestFB is written by <a href="mailto:maa@xmog.com">Mark Allen</a> and sponsored by <a href="http://xmog.com">Transmogrify, LLC</a>. 
 	</p>
+	
+	<h2>Licensing</h2>
+	
+	<p>
+		RestFB is open source software released under the terms of the MIT License:
+	</p>
+	
+	<pre>
+Copyright (c) 2010 Mark Allen. 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.	
+	</pre>
 	
 	<script type="text/javascript">
 		prettyPrint();

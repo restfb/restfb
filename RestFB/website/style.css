@@ -84,6 +84,15 @@ ul li {
 	margin-left: 30px;
 }
 
+pre {
+	border: 1px solid #888;
+	background-color: #f9f9f9;
+	padding-bottom:0;
+	padding-left:14px;
+	padding-top:16px;
+	margin-bottom: 10px;	
+}
+
 /* end main */
 
 /* highlight */
@@ -133,12 +142,7 @@ ul li {
 }
 
 pre.prettyprint {
-	padding-bottom:0;
-	padding-left:14px;
-	padding-top:16px;
-	border: 1px solid #888;
-	background-color: #f9f9f9;
-	margin-bottom: 10px;
+
 }
 
 @media print {
