@@ -10,7 +10,8 @@
 	<property name="antClassesDir" value="${antBuildDir}/classes" />
 	<property name="antJavadocDir" value="${antBuildDir}/javadoc" />
 	<property name="dependenciesDir" value="dependencies" />
-
+	<property name="websiteDir" value="website" />
+	
 	<!-- Java switches -->
 	<property name="javaVersion" value="1.5" />
 	<property name="javaDebug" value="true" />
@@ -44,6 +45,8 @@
 	</target>
 
 	<target name="doc" description="Builds Javadoc">
+		<echo message="Building Javadoc..." />
+	
 		<mkdir dir="${antJavadocDir}" />
 		<javadoc destdir="${antJavadocDir}" author="true" version="true"
 			use="true" windowtitle="RestFB" access="public">
@@ -60,6 +63,13 @@
 			<link href="http://java.sun.com/javaee/5/docs/api/" />
 			<link href="http://logging.apache.org/log4j/1.2/apidocs/" />
 		</javadoc>
+	</target>
+
+	<target name="website" description="Creates the restfb.com website" depends="doc">
+		<zip destfile="${antBuildDir}/website.zip">
+    		<fileset dir="${antBuildDir}" includes="javadoc/**"/>
+    		<fileset dir="${websiteDir}"/>
+  		</zip>
 	</target>
 
 	<target name="clean" description="Gets rid of build artifacts">
