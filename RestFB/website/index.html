@@ -47,32 +47,35 @@
 	
 	<h3>Initialization</h3>
 	
-	<p>
-		<pre class="prettyprint">
+	<pre class="prettyprint">
 // <a href="javadoc/com/restfb/DefaultFacebookClient.html">DefaultFacebookClient</a> is the <a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a> implementation
 // that ships with RestFB.  You can customize it by passing in
 // custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
 // write your own FacebookClient instead for maximum control.
 
 FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);		
-		</pre>
-	</p>		
+	</pre>		
 	
 	<h3>Making a Simple Call</h3>
 	
 	<p>
-		<pre class="prettyprint">
+		We'll get the <code>UID</code> associated with the current Facebook API session key by calling the API method <code>users.getLoggedInUser</code>.
+	</p>	
+	
+	<pre class="prettyprint">
 // Last parameter specifies that this API call's result
 // should be returned to us as a Long value
 
 Long uid = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#execute(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", sessionKey, Long.class);		
-		</pre>
-	</p>	
-	
+	</pre>
+		
 	<h3>Making a More Complex Call</h3>
 	
 	<p>
-		<pre class="prettyprint">
+		Here we make the API call <code>fql.query</code> to execute a custom query.		
+	</p>
+	
+	<pre class="prettyprint">
 // FQL query which asks Facebook for your friends' names,
 // profile picture URLs, and network affiliations
 
@@ -87,8 +90,130 @@ String query =
 List&lt;User&gt; users =
   facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#executeForList(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">executeForList</a>("fql.query", sessionKey, User.class,
     Parameter.with("query", query), Parameter.with("return_ssl_resources", "true"));		
-		</pre>
+	</pre>	
+	
+	<p>
+		Since RestFB doesn't know in advance what kinds of data you're requesting from the API,
+		you need to define your own classes that map to API responses.  Luckily, this is a simple
+		process - just annotate fields with <code>@Facebook</code> and RestFB will automatically convert
+		Facebook's JSON to real Java objects. 
+	</p>	
+
+	<pre class="prettyprint">
+public class User {
+
+  // By default, assumes JSON attribute name is the same as the Java field name  
+
+  @Facebook
+  String name;
+
+  // If your Java field name is different than the JSON attribute name,
+  // just specify the JSON attribute name
+  
+  @Facebook("pic_big")
+  String pictureUrl;
+
+  // Java doesn't remember generic type information at runtime due to <a href="http://java.sun.com/docs/books/tutorial/java/generics/erasure.html">type erasure</a>.
+  // So, for List type mapping, you have to help out by specifying
+  // what kind of type is contained in the List (Affiliation, in this case)
+  
+  @Facebook(contains = Affiliation.class)
+  List&lt;Affiliation&gt; affiliations;
+
+  public String toString() {
+    return String.format("Name: %s\nProfile Image URL: %s\nAffiliations: %s",
+      name, pictureUrl, affiliations);
+  }
+}
+
+public class Affiliation {
+  @Facebook
+  String name;
+
+  @Facebook
+  String type;
+
+  public String toString() {
+    return String.format("%s (%s)", name, type);
+  }
+}		
+	</pre>
+
+	<p>		
+		So - let's see the results.
 	</p>
+	
+	<pre class="prettyprint">
+for (User user : users)
+  System.out.println(user + "\n");	
+	</pre> 
+	
+	<p>	
+		And here they are:
+	</p>
+	
+	<pre>
+Name: Heather Merlin
+Profile Image URL: https://secure-profile.facebook.com/profile6/13580/1406/n284asf55_7662.jpg
+Affiliations: [Intuit (work)]
+
+Name: Steve Nolan
+Profile Image URL: https://secure-profile.facebook.com/v228/34/54/n40573a87a_1795.jpg
+Affiliations: [Cornell (college), Bain & Company (work)]
+
+Name: Third person
+Profile Image URL: https://secure-profile.facebook.com/v2328/34/54/n40573a87a_1791.jpg
+Affiliations: []
+	</pre>
+	
+	<p>
+		JSON from Facebook was:
+	</p>		
+	
+	<pre class="prettyprint">
+[
+  {
+    "affiliations":
+      [
+        {
+          "nid":50431663,
+          "name":"Intuit",
+          "type":"work",
+          "status":"",
+          "year":0
+        }
+      ],
+    "name":"Heather Merlin",
+    "pic_big":"https:\/\/secure-profile.facebook.com\/profile6\/13580\/1406\/n284asf55_7662.jpg"
+  },
+  {
+    "affiliations":
+      [
+        {
+          "nid":16777221,
+          "name":"Cornell",
+          "type":"college",
+          "status":"Alumnus\/Alumna",
+          "year":2004
+        },
+        {
+          "nid":50431762,
+          "name":"Bain &amp; Company",
+          "type":"work",
+          "status":"",
+          "year":0
+        }
+      ],
+    "name":"Steve Nolan",
+    "pic_big":"https:\/\/secure-profile.facebook.com\/v228\/34\/54\/n40573a87a_1795.jpg"
+  },
+  {
+    "affiliations":{},
+    "name":"Third person",
+    "pic_big":"https:\/\/secure-profile.facebook.com\/v2328\/34\/54\/n40573a87a_1791.jpg"
+  }
+]		
+	</pre>
 	
 	<p>
 		Visit <a href="http://code.google.com/p/restfb">RestFB on Google Code</a>		
