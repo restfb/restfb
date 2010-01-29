@@ -272,5 +272,4 @@ public class DefaultJsonMapper implements JsonMapper {
     // TODO: nicer way to do this than the replaceAll() call?
     return "{}".equals(json.replaceAll("\\s", ""));
   }
-
 }
