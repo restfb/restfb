@@ -56,7 +56,13 @@ table {
 
 /* main */
 
-body {	
+@font-face {
+	font-family: "museo sans 500";
+	src: url("museo_sans_500.otf");
+}
+
+body {
+	font-family: "museo sans 500";
 	margin: 10px;
 	font-size: 14pt;
 }
@@ -84,13 +90,17 @@ ul li {
 	margin-left: 30px;
 }
 
+pre, code, tt {
+	font-family: consolas;
+}
+
 pre {
 	border: 1px solid #888;
 	background-color: #f9f9f9;
 	padding-bottom:0;
 	padding-left:14px;
 	padding-top:16px;
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 }
 
 /* end main */
