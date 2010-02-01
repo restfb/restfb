@@ -283,10 +283,10 @@ Affiliations: []
 				<code>List</code>s of any of the above types
 				<br/>
 				<span class="footnote">
-					(note that, because of type erasure, you must specify what type of object
+					Note that, because of type erasure, you must specify what type of object
 					is stored in the <code>List</code> via the <code>@Facebook</code> annotation's
 					<code>contains</code> attribute or a <code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> will be thrown at runtime.
-					This attribute is ignored if applied to	non-<code>List</code> types).
+					This attribute is ignored if applied to	non-<code>List</code> types.
 				</span>				
 			</li>
 		</ul>
@@ -317,9 +317,73 @@ public class MyClass {
 		
 		<h2>Error Handling</h2>
 
-		<p>
-			TODO
+		<p>					
+			All <code><a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods throw the checked, abstract <code><a href="javadoc/com/restfb/FacebookException.html">FacebookException</a></code>.																	
 		</p>
+		
+		<p>
+			These are the <code>FacebookException</code> subclasses that you may catch:
+		</p>
+		
+		<ul id="exceptions-list">
+			<li>
+				<code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
+				<br/>
+				<span class="footnote">					
+					Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
+					It usually indicates that you've used the <code>@Facebook</code> annotation on a field with an unsupported type or
+					the Facebook API JSON doesn't map correctly to the fields you've annotated (e.g. attempting to map a JSON string to a Java <code>BigDecimal</code>
+					or a JSON object to a Java <code>List</code>).
+					
+					<div class="spacer"></div>
+					
+					You generally should not explicitly catch this exception in your code, as it usually signifies programmer
+					error in setting up <code>@Facebook</code> annotations.  One valid use for catching this exception,
+					however, is to detect when Facebook changes what an API call returns on their end, which would break your live code.
+					It may be useful to catch this exception and then send a notification to you or your ops team to notify them
+					that your application needs to be updated.
+				</span>
+			</li>
+			<li>
+				<code><a href="javadoc/com/restfb/FacebookNetworkException.html">FacebookNetworkException</a></code>
+				<br/>
+				<span class="footnote">
+					Thrown when a failure occurs at the network level.  This can happen if your machine
+					doesn't have a network connection or the Facebook API endpoint returns a non HTTP <code>OK</code> (200) status code.
+					If there's an HTTP status code available, it's included in the exception so you may take custom actions
+					depending on what type of error occurred.
+				</span>				
+			</li>
+			<li>
+				<code><a href="javadoc/com/restfb/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
+				<br/>
+				<span class="footnote">
+					Thrown when a request is made to Facebook and an HTTP <code>OK</code> (200) response is received, but
+					the returned JSON signifies an error condition.
+					
+					<div class="spacer"></div>
+					
+					For example, below is the list of errors the Facebook API may return for the <a href="http://wiki.developers.facebook.com/index.php/Stream.removeLike">Stream.removeLike</a> call:
+					
+					<div class="spacer"></div>					
+					<div class="spacer"></div>
+					
+					<table id="error-table" cellpadding="4" style="border: 1px solid red; margin: 0px; background-color: rgb(255, 153, 153); border-collapse: collapse; border-spacing: 3px; width: 100%;">
+					<tbody><tr><td><b>Code</b></td><td><b>Description</b></td>
+					</tr><tr valign="top"><th style="font-weight: bold;">100</th><td>  Invalid parameter.  </td><td> 
+					</td></tr><tr valign="top"><th style="font-weight: bold;">102</th><td>  Session key invalid or no longer valid (if it's a desktop application and the session is missing).  </td><td>
+					</td></tr><tr valign="top"><th style="font-weight: bold;">200</th><td>  Permissions error. The application does not have permission to perform this action.  </td><td>
+					</td></tr><tr valign="top"><th style="font-weight: bold;">210</th><td>  User not visible. The user doesn't have permission to act on that object.  </td><td>
+					</td></tr></tbody></table>
+					
+					<div class="spacer"></div>
+					<div class="spacer"></div>
+
+					<code>FacebookResponseStatusException</code> will include both the error code and error message returned by the Facebook API
+					so you may take custom actions depending on the type of error that occurred.
+				</span>				
+			</li>
+		</ul>
 		
 		<div class="spacer"></div>
 		

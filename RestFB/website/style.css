@@ -154,6 +154,28 @@ div.spacer {
 	font-size: 11pt;	
 }
 
+#exceptions-list li {
+	margin-bottom: 6px;	
+}
+
+#exceptions-list .spacer {
+	height: 4px;	
+}
+
+#error-table th {
+	padding-left: 8px;	
+}
+
+#error-table b {
+	font-family: "PT Sans Bold";	
+}
+
+#error-table td {
+	padding: 5px;
+	padding-bottom: 2px;
+	padding-left: 8px;	
+}
+
 /* end main */
 
 /* highlight */
