@@ -88,8 +88,7 @@
 // custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
 // write your own FacebookClient instead for maximum control.
 
-FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);
-		</pre>		
+FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);</pre>		
 		
 		<h3>Making a Simple Call</h3>
 		
@@ -101,8 +100,7 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_
 // Last parameter specifies that this API call's result
 // should be returned to us as a Long value.
 
-Long uid = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#execute(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", sessionKey, Long.class);
-		</pre>
+Long uid = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#execute(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", sessionKey, Long.class);</pre>
 			
 		<h3>Making a More Complex Call</h3>
 		
@@ -124,8 +122,7 @@ String query =
 
 List&lt;User&gt; users =
   facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#executeForList(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">executeForList</a>("fql.query", sessionKey, User.class,
-    Parameter.with("query", query), Parameter.with("return_ssl_resources", "true"));
-		</pre>	
+    Parameter.with("query", query), Parameter.with("return_ssl_resources", "true"));</pre>	
 		
 		<h3>1. What Happened Under the Covers</h3>
 		
@@ -175,8 +172,7 @@ List&lt;User&gt; users =
     "name":"Third Person",
     "pic_big":"https:\/\/secure-profile.facebook.com\/v2328\/34\/54\/n40573a87a_1791.jpg"
   }
-]		
-		</pre>		
+]</pre>		
 		
 		<h3>2. Turning JSON into Java</h3>
 		
@@ -224,20 +220,18 @@ public class Affiliation {
   public String toString() {
     return String.format("%s (%s)", name, type);
   }
-}		
-		</pre>
+}</pre>
 	
 		<h3>		
-			3. Let's see the results.
+			3. Let's See the Results
 		</h3>
 		
 		<pre class="prettyprint">
 for (User user : users)
-  System.out.println(user + "\n");	
-		</pre> 
+  System.out.println(user + "\n");</pre> 
 		
 		<p>	
-			And here they are:
+			And here they are on stdout:
 		</p>
 		
 		<pre>
@@ -251,8 +245,7 @@ Affiliations: [Cornell (college), Bain & Company (work)]
 
 Name: Third Person
 Profile Image URL: https://secure-profile.facebook.com/v2328/34/54/n40573a87a_1791.jpg
-Affiliations: []
-		</pre>
+Affiliations: []</pre>
 		
 		<div class="spacer"></div>		
 		
@@ -305,8 +298,7 @@ public class MyClass {
 
   @Facebook(contains = Integer.class)
   List&lt;Integer&gt; numbers;
-}		
-		</pre>			
+}</pre>			
 		
 		<p>
 			As-is, <code>DefaultJsonMapper</code> should meet the needs of the vast majority of users.
@@ -428,8 +420,7 @@ List<Integer> numbers =
 
 // Make sure we got what we were expecting
 assert numbers.size() == 3;
-assert numbers.get(1) == 456;  
-		</pre>
+assert numbers.get(1) == 456;</pre>
 			
 		<div class="spacer"></div>
 		
@@ -446,8 +437,7 @@ assert numbers.get(1) == 456;
 		<p>
 			Download a read-only copy of the current source code using Subversion:		
 			<pre>
-svn checkout http://restfb.googlecode.com/svn/trunk/ restfb
-			</pre>
+svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		</p>
 		
 		<div class="spacer"></div>
@@ -485,8 +475,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.	
-		</pre>
+THE SOFTWARE.</pre>
 
 		<div class="spacer"></div>		
 
