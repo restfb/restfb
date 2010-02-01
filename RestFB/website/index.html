@@ -72,6 +72,10 @@
 			</ul>
 		</p>
 		
+		<p>
+			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.			
+		</p>
+		
 		<div class="spacer"></div>
 		
 		<h2>How To Use It</h2>
@@ -376,6 +380,29 @@ public class MyClass {
 				</span>				
 			</li>
 		</ul>
+		
+		<p>
+			Here's some example code to illustrate the above.  Keep in mind that your code doesn't
+			need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
+		</p>
+		
+		<pre class="prettyprint">
+try {
+  Integer result =
+    facebookClient.execute("Stream.removeLike", sessionKey,
+      Integer.class, Parameter.with("post_id", "12345"));  
+} catch (FacebookJsonMappingException e) {
+  // Looks like this API method didn't really return an Integer
+} catch (FacebookNetworkException e) {
+  // Looks like an error occurred at the network level
+  System.out.println("API returned HTTP status code " + e.getHttpStatusCode());
+} catch (FacebookResponseStatusException e) {
+  // Facebook API returned a specific error
+  if (e.getErrorCode() == 200)
+    System.out.println("Permission denied!");
+} catch (FacebookException e) {
+  // This is the catchall handler for any kind of Facebook exception
+}</pre>
 		
 		<div class="spacer"></div>
 		
