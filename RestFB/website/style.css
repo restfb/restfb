@@ -57,22 +57,38 @@ table {
 /* main */
 
 @font-face {
-	font-family: "museo sans 500";
-	src: url("museo_sans_500.otf");
+	font-family: "PT Sans";
+	src: url("PT_Sans.ttf");
+}
+
+@font-face {
+	font-family: "PT Sans Bold";
+	src: url("PT_Sans_Bold.ttf");
 }
 
 body {
-	font-family: "museo sans 500";
+	font-family: "PT Sans";
 	margin: 10px;
 	font-size: 14pt;
+ 	text-align: center;
+ 	vertical-align: middle; 
+ 	line-height: 1.25;
+}
+
+#content {
+	width: 900px;
+	text-align: left;
+	margin: 0 auto;	
 }
 
 h1 {
+	font-family: "PT Sans Bold";
 	font-size: 16pt;
 	margin-bottom: 10px;
 }
 
 h2, h3 {
+	font-family: "PT Sans Bold";
 	margin-bottom: 10px;
 }
 
@@ -91,7 +107,11 @@ ul li {
 }
 
 pre, code, tt {
-	font-family: consolas;
+	font-family: consolas, monaco;
+}
+
+pre a {
+	font-family: consolas, monaco;
 }
 
 pre {
@@ -101,6 +121,33 @@ pre {
 	padding-left:14px;
 	padding-top:16px;
 	margin-bottom: 10px;
+	overflow-x: auto;
+	overflow-y: hidden;	
+}
+
+a {
+	font-family: "PT Sans Bold";	
+}
+
+a:link {	
+	color: #3B5998;	
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:visited {
+	color: #3B5998;	
+	text-decoration: none;	
+}
+
+a:hover {
+	text-decoration: none;
+	/* border-bottom: 1px solid #aaa;*/
+	background-color: #eaeaea;
+}
+
+div.spacer {
+	height: 10px;	
 }
 
 /* end main */
