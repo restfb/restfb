@@ -110,10 +110,6 @@ pre, code, tt {
 	font-family: consolas, monaco;
 }
 
-pre a {
-	font-family: consolas, monaco;
-}
-
 pre {	
 	border: 1px solid #888;
 	background-color: #f9f9f9;
@@ -133,18 +129,23 @@ a {
 a:link {	
 	color: #3B5998;	
 	text-decoration: none;
-	font-weight: bold;
+	font-family: "PT Sans Bold";
 }
 
 a:visited {
 	color: #3B5998;	
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 a:hover {
 	text-decoration: none;
 	/* border-bottom: 1px solid #aaa;*/
 	background-color: #eaeaea;
+}
+
+pre a:link {
+	font-family: consolas, monaco;
+	font-weight: bold;
 }
 
 div.spacer {
