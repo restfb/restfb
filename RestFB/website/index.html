@@ -41,7 +41,7 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.0 of the library is available via Google Code.  <a href="http://code.google.com/restfb/TODO">Download it here</a>.
+			Version 1.0 of the library is available via Google Code.  <a href="http://code.google.com/p/restfb/TODO">Download it here</a>.
 		</p>
 		
 		<p>
@@ -182,9 +182,9 @@ List&lt;User&gt; users =
 		
 		<p>
 			Since RestFB doesn't know in advance what kinds of data you're requesting from the API,
-			you need to define your own Java Bean classes that map to API responses. Luckily, this is a simple
+			you need to define your own JavaBean classes that map to API responses. Luckily, this is a simple
 			process - just annotate fields with <code><a href="javadoc/com/restfb/Facebook.html">@Facebook</a></code> and RestFB will automatically convert
-			Facebook's JSON to real Java objects.  Make sure you have a public no-argument constructor!
+			Facebook's JSON to real Java objects.
 		</p>	
 	
 		<pre class="prettyprint">
@@ -253,8 +253,67 @@ Name: Third Person
 Profile Image URL: https://secure-profile.facebook.com/v2328/34/54/n40573a87a_1791.jpg
 Affiliations: []
 		</pre>
+		
+		<div class="spacer"></div>		
+		
+		<h2>JSON Mapping Rules</h2>
+
+		<p>
+			Using <code><a href="javadoc/com/restfb/DefaultJsonMapper.html">DefaultJsonMapper</a></code>,
+			RestFB is able to recursively map JSON fields annotated with <code>@Facebook</code> to the following Java types out of the box:
+		</p>		
+		
+		<ul>
+			<li><code>String</code></li>
+			<li><code>Integer</code></li>
+			<li><code>Boolean</code></li>
+			<li><code>Long</code></li>
+			<li><code>Double</code></li>
+			<li><code>Float</code></li>
+			<li><code>BigInteger</code></li>
+			<li><code>BigDecimal</code></li>
+			<li>
+				Your own JavaBean-compliant classes
+				<br/>
+				<span class="footnote">
+					Don't forget to provide a public default constructor!
+				</span>
+			</li>
+			<li>
+				<code>List</code>s of any of the above types
+				<br/>
+				<span class="footnote">
+					(note that, because of type erasure, you must specify what type of object
+					is stored in the <code>List</code> via the <code>@Facebook</code> annotation's
+					<code>contains</code> attribute or a <code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> will be thrown at runtime.
+					This attribute is ignored if applied to	non-<code>List</code> types).
+				</span>				
+			</li>
+		</ul>
+		
+		<p>
+			For example:	
+		</p>
 			
-		<div class="spacer"></div>
+		<pre class="prettyprint">
+public class MyClass {
+  @Facebook
+  String name;
+
+  @Facebook
+  BigDecimal value;
+
+  @Facebook(contains = Integer.class)
+  List&lt;Integer&gt; numbers;
+}		
+		</pre>			
+		
+		<p>
+			As-is, <code>DefaultJsonMapper</code> should meet the needs of the vast majority of users.
+			If it doesn't support a feature you need, you can easily subclass it or write your own implementation of <code><a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a></code> instead.
+		</p>
+			
+		<div class="spacer"></div>		
 		
 		<h2>Error Handling</h2>
 
@@ -313,11 +372,15 @@ assert numbers.get(1) == 456;
 		<h2>Links</h2>
 		
 		<p>
-			Visit <a href="http://code.google.com/p/restfb">RestFB on Google Code</a>		
+			Visit <a href="http://code.google.com/p/restfb">RestFB's home on Google Code</a>.		
 		</p>
 		
 		<p>
-			Download the current source code using Subversion:		
+			Found a bug or have an enhancement request? <a href="http://code.google.com/p/restfb/issues/list">Create a ticket in the issue tracker</a>.		
+		</p>		
+		
+		<p>
+			Download a read-only copy of the current source code using Subversion:		
 			<pre>
 svn checkout http://restfb.googlecode.com/svn/trunk/ restfb
 			</pre>

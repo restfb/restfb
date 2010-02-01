@@ -66,10 +66,15 @@ table {
 	src: url("PT_Sans_Bold.ttf");
 }
 
+@font-face {
+	font-family: "PT Sans Italic";
+	src: url("PT_Sans_Italic.ttf");
+}
+
 body {
 	font-family: "PT Sans";
 	margin: 10px;
-	font-size: 14pt;
+	font-size: 13pt;
  	text-align: center;
  	vertical-align: middle; 
  	line-height: 1.25;
@@ -114,7 +119,7 @@ pre a {
 	font-family: consolas, monaco;
 }
 
-pre {
+pre {	
 	border: 1px solid #888;
 	background-color: #f9f9f9;
 	padding-bottom:0;
@@ -148,6 +153,11 @@ a:hover {
 
 div.spacer {
 	height: 10px;	
+}
+
+.footnote {
+	font-family: "PT Sans Italic";	
+	font-size: 13pt;	
 }
 
 /* end main */
