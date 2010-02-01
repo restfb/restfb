@@ -13,6 +13,8 @@
 	
 	<script type="text/javascript">
 	$(function() {
+		prettyPrint();
+		
 		$("#json-display-link").click(function() {
 			$("#json-display").toggle();
 			return false;
@@ -35,7 +37,11 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.0 is available via Google Code.  <a href="http://code.google.com/restfb/TODO">Download it here</a>.
+			Version 1.0 of the library is available via Google Code.  <a href="http://code.google.com/restfb/TODO">Download it here</a>.
+		</p>
+		
+		<p>
+			You can also <a href="TODO">download example code</a> to get started quickly.
 		</p>
 		
 		<div class="spacer"></div>
@@ -192,7 +198,7 @@ public class User {
   String pictureUrl;
 
   // Java doesn't remember generic type information at runtime due to <a href="http://java.sun.com/docs/books/tutorial/java/generics/erasure.html">type erasure</a>.
-  // So, for List type mapping, you have to help out by specifying
+  // So, for a List type mapping, you have to help out by specifying
   // what kind of type is contained in the List (Affiliation, in this case)
   
   @Facebook(contains = Affiliation.class)
@@ -312,10 +318,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.	
 		</pre>
-		
-		<script type="text/javascript">
-			prettyPrint();
-		</script>
-	</div>		
+
+		<div class="spacer"></div>		
+
+	</div>
+				
 </body>
 </html>
