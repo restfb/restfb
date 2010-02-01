@@ -16,7 +16,11 @@
 		prettyPrint();
 		
 		$("#json-display-link").click(function() {
-			$("#json-display").toggle();
+			$("#json-display").toggle();			
+			var text = $(this).text();
+			$(this).text($("#json-display").is(":visible")
+				? text.replace("see", "hide")
+				: text.replace("hide", "see"));								
 			return false;
 		});
 	});
@@ -41,7 +45,7 @@
 		</p>
 		
 		<p>
-			You can also <a href="TODO">download example code</a> to get started quickly.
+			You can also <a href="Example.java">download example code</a> to get started quickly.
 		</p>
 		
 		<div class="spacer"></div>
@@ -63,7 +67,7 @@
 			Non-goals:		
 			<ul>
 				<li>Support for non-REST API parts of the Facebook Platform</li>
-				<li>Using XML as a data transfer format</li>
+				<li>Using XML as a data transfer format in addition to JSON</li>
 				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
 			</ul>
 		</p>
@@ -123,7 +127,7 @@ List&lt;User&gt; users =
     Parameter.with("query", query), Parameter.with("return_ssl_resources", "true"));
 		</pre>	
 		
-		<h3>What Happened Under the Covers</h3>
+		<h3>1. What Happened Under the Covers</h3>
 		
 		<p>
 			The Facebook API returned JSON in response to our query.  You can <a id="json-display-link" href="javascript://">click here to see it</a>.		
@@ -174,7 +178,7 @@ List&lt;User&gt; users =
 ]		
 		</pre>		
 		
-		<h3>Turning JSON into Java</h3>
+		<h3>2. Turning JSON into Java</h3>
 		
 		<p>
 			Since RestFB doesn't know in advance what kinds of data you're requesting from the API,
@@ -223,9 +227,9 @@ public class Affiliation {
 }		
 		</pre>
 	
-		<p>		
-			So - let's see the results.
-		</p>
+		<h3>		
+			3. Let's see the results.
+		</h3>
 		
 		<pre class="prettyprint">
 for (User user : users)
@@ -260,11 +264,49 @@ Affiliations: []
 		
 		<div class="spacer"></div>
 		
-		<h2>Unit Tests</h2>
+		<h2>Extensibility and Unit Testing</h2>
 
 		<p>
-			TODO
+			In addition to <code><a href="javadoc/com/restfb/DefaultFacebookClient.html">FacebookClient</a></code>, RestFB provides default implementations
+			for <code><a href="javadoc/com/restfb/DefaultWebRequestor.html">WebRequestor</a></code> and
+			<code><a href="javadoc/com/restfb/DefaultJsonMapper.html">JsonMapper</a></code>, two components that
+			<code>DefaultFacebookClient</code> depends on to do its work.						
 		</p>
+		
+		<p>
+			These dependencies are designed to allow for straightforward subclassing (if you only want to replace a little bit of functionality)
+			and simple custom implementations (if you require full control).
+		</p>
+		
+		<p>
+			This comes in handy when unit testing - for example, you can write your own <code>WebRequestor</code> implementation
+			that simulates a Facebook API endpoint response.  You can drop in custom data designed to exercise your application's
+			Facebook integration or simulate error conditions to make sure you're handling them properly.				
+		</p>
+		
+		<p>
+			Here's a trivial example which shows one way you might implement this:
+		</p>
+
+		<pre class="prettyprint">
+FacebookClient facebookClient =
+  new DefaultFacebookClient(API_KEY, SECRET_KEY, new DefaultJsonMapper(),
+    // A one-off WebRequestor for testing that returns a hardcoded JSON
+    // list of numbers instead of hitting the Facebook API endpoint URL
+    new WebRequestor() {
+      public Response executePost(String url, String parameters) throws IOException {
+        return new Response(HttpURLConnection.HTTP_OK, "[123,456,789]");
+      }
+    });
+
+// Make the API request
+List<Integer> numbers =
+  facebookClient.executeForList("ignored", Integer.class); 
+
+// Make sure we got what we were expecting
+assert numbers.size() == 3;
+assert numbers.get(1) == 456;  
+		</pre>
 			
 		<div class="spacer"></div>
 		
