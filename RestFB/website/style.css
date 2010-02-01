@@ -66,11 +66,6 @@ table {
 	src: url("PT_Sans_Bold.ttf");
 }
 
-@font-face {
-	font-family: "PT Sans Italic";
-	src: url("PT_Sans_Italic.ttf");
-}
-
 body {
 	font-family: "PT Sans";
 	margin: 10px;
@@ -155,9 +150,8 @@ div.spacer {
 	height: 10px;	
 }
 
-.footnote {
-	font-family: "PT Sans Italic";	
-	font-size: 13pt;	
+.footnote {	
+	font-size: 11pt;	
 }
 
 /* end main */
