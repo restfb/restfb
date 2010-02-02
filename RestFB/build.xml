@@ -10,8 +10,10 @@
 	<property name="antClassesDir" value="${antBuildDir}/classes" />
 	<property name="antJavadocDir" value="${antBuildDir}/javadoc" />
 	<property name="dependenciesDir" value="dependencies" />
+	<property name="licensingDir" value="licensing" />
+	<property name="miscDir" value="misc" />
 	<property name="websiteDir" value="website" />
-	
+
 	<!-- Java switches -->
 	<property name="javaVersion" value="1.5" />
 	<property name="javaDebug" value="true" />
@@ -36,17 +38,31 @@
 		</javac>
 	</target>
 
-	<target name="dist" depends="clean, compile" description="Builds the RestFB distribution">
+	<target name="dist" depends="clean, compile, doc" description="Builds the RestFB distribution">
 		<echo message="Building distribution..." />
 
 		<jar destfile="${antBuildDir}/restfb-1.0.jar">
 			<fileset dir="${antClassesDir}" />
 		</jar>
+
+		<zip destfile="${antBuildDir}/restfb-1.0.zip">
+			<fileset dir=".">
+				<include name="${librarySourceDir}/**" />
+				<include name="${licensingDir}/**" />
+				<include name="${miscDir}/**" />
+				<include name="${dependenciesDir}/**" />
+				<include name="build.xml" />
+			</fileset>
+			<fileset dir="${antBuildDir}">
+				<include name="restfb-1.0.jar" />
+				<include name="javadoc/**" />
+			</fileset>
+		</zip>
 	</target>
 
 	<target name="doc" description="Builds Javadoc">
 		<echo message="Building Javadoc..." />
-	
+
 		<mkdir dir="${antJavadocDir}" />
 		<javadoc destdir="${antJavadocDir}" author="true" version="true"
 			use="true" windowtitle="RestFB" access="public">
@@ -65,11 +81,12 @@
 		</javadoc>
 	</target>
 
-	<target name="website" description="Creates the restfb.com website" depends="doc">
+	<target name="website" description="Creates the restfb.com website"
+		depends="doc">
 		<zip destfile="${antBuildDir}/website.zip">
-    		<fileset dir="${antBuildDir}" includes="javadoc/**"/>
-    		<fileset dir="${websiteDir}"/>
-  		</zip>
+			<fileset dir="${antBuildDir}" includes="javadoc/**" />
+			<fileset dir="${websiteDir}" />
+		</zip>
 	</target>
 
 	<target name="clean" description="Gets rid of build artifacts">
