@@ -90,7 +90,7 @@
 // <a href="javadoc/com/restfb/DefaultFacebookClient.html">DefaultFacebookClient</a> is the <a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a> implementation
 // that ships with RestFB. You can customize it by passing in
 // custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
-// write your own FacebookClient instead for maximum control.
+// write your own FacebookClient instead for maximum control
 
 FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);</pre>		
 		
@@ -102,7 +102,7 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_
 		
 		<pre class="prettyprint">
 // Last parameter specifies that this API call's result
-// should be returned to us as a Long value.
+// should be returned to us as a Long value
 
 Long uid = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#execute(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", sessionKey, Long.class);</pre>
 			
@@ -433,19 +433,22 @@ try {
 		<pre class="prettyprint">
 FacebookClient facebookClient =
   new DefaultFacebookClient(API_KEY, SECRET_KEY, new DefaultJsonMapper(),
-    // A one-off WebRequestor for testing that returns a hardcoded JSON
+  
+    // A one-off <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> for testing that returns a hardcoded JSON
     // list of numbers instead of hitting the Facebook API endpoint URL
+
     new WebRequestor() {
-      public Response executePost(String url, String parameters) throws IOException {
+      public <a href="javadoc/com/restfb/WebRequestor.Response.html">Response</a> <a href="javadoc/com/restfb/WebRequestor.html#executePost(java.lang.String, java.lang.String)">executePost</a>(String url, String parameters) throws IOException {
         return new Response(HttpURLConnection.HTTP_OK, "[123,456,789]");
       }
     });
 
-// Make the API request
-List<Integer> numbers =
-  facebookClient.executeForList("ignored", Integer.class); 
+// Make an API request using the mocked WebRequestor
+
+List<Integer> numbers = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#executeForList(java.lang.String, java.lang.Class, com.restfb.Parameter...)">executeForList</a>("ignored", Integer.class); 
 
 // Make sure we got what we were expecting
+
 assert numbers.size() == 3;
 assert numbers.get(1) == 456;</pre>
 			
