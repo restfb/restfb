@@ -65,8 +65,13 @@
 		<echo message="Building Javadoc..." />
 
 		<mkdir dir="${antJavadocDir}" />
+
+		<copy todir="${antJavadocDir}">
+			<fileset dir="${websiteDir}" includes="*.ttf" />
+		</copy>
+
 		<javadoc destdir="${antJavadocDir}" author="true" version="true"
-			use="true" windowtitle="RestFB" access="public">
+			use="true" windowtitle="RestFB" access="public" stylesheetfile="${miscDir}/javadoc.css">
 			<classpath>
 				<path refid="compilationClasspath" />
 			</classpath>
