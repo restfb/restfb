@@ -21,6 +21,8 @@
  */
 
 /**
- * TODO: RestFB tutorial.
+ * <a href="http://restfb.com">RestFB</a> is a simple and flexible <a href="http://wiki.developers.facebook.com/index.php/API">Facebook REST API</a> client.
+ * <p>
+ * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
  */
 package com.restfb;

@@ -5,7 +5,8 @@
 <project name="RestFB" default="dist">
 
 	<!-- Directories -->
-	<property name="librarySourceDir" value="source/library" />
+	<property name="sourceDir" value="source" />
+	<property name="librarySourceDir" value="${sourceDir}/library" />
 	<property name="antBuildDir" value="build/ant" />
 	<property name="antClassesDir" value="${antBuildDir}/classes" />
 	<property name="antJavadocDir" value="${antBuildDir}/javadoc" />
@@ -47,7 +48,7 @@
 
 		<zip destfile="${antBuildDir}/restfb-1.0.zip">
 			<fileset dir=".">
-				<include name="${librarySourceDir}/**" />
+				<include name="${sourceDir}/**" />
 				<include name="${licensingDir}/**" />
 				<include name="${miscDir}/**" />
 				<include name="${dependenciesDir}/**" />
