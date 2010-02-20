@@ -142,4 +142,69 @@ public interface FacebookClient {
    */
   <T> List<T> executeForList(String method, String sessionKey,
       Class<T> resultType, Parameter... parameters) throws FacebookException;
+
+  /**
+   * Executes the <a
+   * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">{@code
+   * fql.multiquery}</a> API call, mapping the API response to a single instance
+   * of type {@code resultType}.
+   * <p>
+   * This method exists because the standard
+   * {@link #execute(String, Parameter...)} and
+   * {@link #executeForList(String, Class, Parameter...)} family of methods are
+   * not expressive enough to handle {@code fql.multiquery} in a non-verbose
+   * way.
+   * 
+   * @param <T>
+   *          Java type to map to.
+   * @param resultType
+   *          Result type token.
+   * @param queries
+   *          A multivalued parameter which maps query names to queries. This is
+   *          marshaled to JSON and sent over the wire to the Facebook API
+   *          endpoint as the {@code queries} parameter.
+   * @param additionalParameters
+   *          Additional parameters to include in the API call.
+   * @return An instance of type {@code resultType} which contains API response
+   *         data.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.1
+   */
+  <T> T executeMultiquery(Class<T> resultType, MultiqueryParameter queries,
+      Parameter... additionalParameters) throws FacebookException;
+
+  /**
+   * Executes the <a
+   * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">{@code
+   * fql.multiquery}</a> API call, mapping the API response to a single instance
+   * of type {@code resultType}.
+   * <p>
+   * This method exists because the standard
+   * {@link #execute(String, Parameter...)} and
+   * {@link #executeForList(String, Class, Parameter...)} family of methods are
+   * not expressive enough to handle {@code fql.multiquery} in a non-verbose
+   * way.
+   * 
+   * @param <T>
+   *          Java type to map to.
+   * @param sessionKey
+   *          A Facebook API session key.
+   * @param resultType
+   *          Result type token.
+   * @param queries
+   *          A multivalued parameter which maps query names to queries. This is
+   *          marshaled to JSON and sent over the wire to the Facebook API
+   *          endpoint as the {@code queries} parameter.
+   * @param additionalParameters
+   *          Additional parameters to include in the API call.
+   * @return An instance of type {@code resultType} which contains API response
+   *         data.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.1
+   */
+  <T> T executeMultiquery(String sessionKey, Class<T> resultType,
+      MultiqueryParameter queries, Parameter... additionalParameters)
+      throws FacebookException;
 }

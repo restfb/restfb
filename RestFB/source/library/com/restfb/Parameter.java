@@ -49,7 +49,7 @@ public class Parameter {
    *           If {@code name} or {@code value} is {@code null} or a blank
    *           string.
    */
-  private Parameter(String name, String value) {
+  protected Parameter(String name, String value) {
     if (StringUtils.isBlank(name) || StringUtils.isBlank(value))
       throw new IllegalArgumentException(Parameter.class
           + " instances must have a non-blank name and value.");

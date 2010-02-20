@@ -209,6 +209,30 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
+   * @see com.restfb.FacebookClient#executeMultiquery(java.lang.Class,
+   *      com.restfb.MultiqueryParameter, com.restfb.Parameter[])
+   */
+  @Override
+  public <T> T executeMultiquery(Class<T> resultType,
+      MultiqueryParameter queries, Parameter... additionalParameters)
+      throws FacebookException {
+    return executeMultiquery(null, resultType, queries, additionalParameters);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#executeMultiquery(java.lang.String,
+   *      java.lang.Class, com.restfb.MultiqueryParameter,
+   *      com.restfb.Parameter[])
+   */
+  @Override
+  public <T> T executeMultiquery(String sessionKey, Class<T> resultType,
+      MultiqueryParameter queries, Parameter... additionalParameters)
+      throws FacebookException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  /**
    * Coordinates the process of verifying and transforming API parameters,
    * executing the API POST, and processing the response we receive from the
    * endpoint.
