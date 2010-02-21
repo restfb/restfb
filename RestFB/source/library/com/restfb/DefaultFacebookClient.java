@@ -26,6 +26,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +38,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.json.JSONArray;
 import com.restfb.json.JSONException;
 import com.restfb.json.JSONObject;
 
@@ -228,8 +230,36 @@ public class DefaultFacebookClient implements FacebookClient {
   public <T> T executeMultiquery(String sessionKey, Class<T> resultType,
       MultiqueryParameter queries, Parameter... additionalParameters)
       throws FacebookException {
-    // TODO Auto-generated method stub
-    return null;
+    List<Parameter> parameters = new ArrayList<Parameter>();
+    parameters.add(Parameter.with("queries", queries.getQueriesAsJson()));
+
+    for (Parameter additionalParameter : additionalParameters) {
+      if (additionalParameter.name.equals("queries"))
+        throw new IllegalArgumentException(
+          "You cannot specify a parameter named 'queries' " + "");
+
+      parameters.add(additionalParameter);
+    }
+
+    JSONObject normalizedJson = new JSONObject();
+
+    try {
+      JSONArray jsonArray =
+          new JSONArray(makeRequest("fql.multiquery", sessionKey, parameters
+            .toArray(new Parameter[0])));
+
+      for (int i = 0; i < jsonArray.length(); i++) {
+        JSONObject jsonObject = jsonArray.getJSONObject(i);
+        normalizedJson.put(jsonObject.getString("name"), jsonObject
+          .getJSONArray("fql_result_set"));
+      }
+
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException(
+        "Unable to process fql.multiquery JSON response", e);
+    }
+
+    return jsonMapper.toJavaObject(normalizedJson.toString(), resultType);
   }
 
   /**

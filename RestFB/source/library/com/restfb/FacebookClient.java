@@ -26,6 +26,18 @@ import java.util.List;
 
 /**
  * Specifies how a Facebook API client must operate.
+ * <p>
+ * <ul>
+ * <li>The {@link #execute(String, Parameter...)} family of methods should be
+ * used when performing API calls that return a single object.</li>
+ * <li>The {@link #executeForList(String, Class, Parameter...)} family of
+ * methods should be used when performing API calls that return a list of
+ * objects.</li>
+ * <li>The {@link #executeMultiquery(Class, MultiqueryParameter, Parameter...)}
+ * family of methods should be used when performing <a
+ * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">{@code
+ * fql.multiquery}</a> API calls.</li>
+ * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */

@@ -56,6 +56,13 @@ public class DefaultJsonMapper implements JsonMapper {
       throw new FacebookJsonMappingException(
         "JSON is an empty string - can't map it.");
 
+    if (DefaultEnumClass.class.equals(type))
+      throw new FacebookJsonMappingException(
+        "You must specify the 'contains' attribute of the @"
+            + Facebook.class.getSimpleName()
+            + " annotation when applying it to a List because of type erasure. "
+            + "Offending JSON is '" + json + "'.");
+
     if (json.startsWith("{")) {
       // Sometimes Facebook returns the empty object {} when it really should be
       // returning an empty list [] (example: do an FQL query for a user's
@@ -235,8 +242,26 @@ public class DefaultJsonMapper implements JsonMapper {
       FacebookJsonMappingException {
     Class<?> type = fieldWithAnnotation.getField().getType();
 
-    if (String.class.equals(type))
-      return jsonObject.getString(facebookFieldName);
+    if (String.class.equals(type)) {
+      // Special handling here for better error checking.
+      // Since JSONObject.getString() will return literal JSON text even if it's
+      // _not_ a JSON string, we check the marshaled type and bail if needed.
+      // For example, calling JSONObject.getString("results") on the below
+      // JSON...
+      // {"results":[{"name":"Mark Allen"}]}
+      // ... would return the string "[{"name":"Mark Allen"}]" instead of
+      // throwing an error. So we throw the error ourselves.
+
+      Object value = jsonObject.get(facebookFieldName);
+      if (value instanceof String)
+        return value;
+
+      throw new FacebookJsonMappingException("You cannot map the '"
+          + facebookFieldName
+          + "' field in the following JSON as a String type: "
+          + jsonObject.toString());
+    }
+
     if (Integer.class.equals(type) || Integer.TYPE.equals(type))
       return new Integer(jsonObject.getInt(facebookFieldName));
     if (Boolean.class.equals(type) || Boolean.TYPE.equals(type))

@@ -27,7 +27,7 @@ package com.restfb;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Parameter {
+public final class Parameter {
   /**
    * Parameter name.
    */
@@ -49,7 +49,7 @@ public class Parameter {
    *           If {@code name} or {@code value} is {@code null} or a blank
    *           string.
    */
-  protected Parameter(String name, String value) {
+  private Parameter(String name, String value) {
     if (StringUtils.isBlank(name) || StringUtils.isBlank(value))
       throw new IllegalArgumentException(Parameter.class
           + " instances must have a non-blank name and value.");

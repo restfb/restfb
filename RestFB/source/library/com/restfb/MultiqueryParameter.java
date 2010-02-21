@@ -40,22 +40,37 @@ import com.restfb.json.JSONObject;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.1
  */
-public class MultiqueryParameter extends Parameter {
-  /**
-   * FQL parameter name this type represents.
-   */
-  private static final String QUERIES_PARAM_NAME = "queries";
+public final class MultiqueryParameter {
+  private String queriesAsJson;
 
   /**
-   * Creates a new multiquery parameter with the given {@code value}.
+   * Prevents external instantiation.
    * 
-   * @param value
-   *          The parameter value.
+   * @param queries
+   *          Mapping of query names to queries.
+   * @return A {@code MultiqueryParameter} instance with the given {@code
+   *         queries}.
    * @throws IllegalArgumentException
-   *           If {@code value} is {@code null} or a blank string.
+   *           If {@code queries} contains {@code null} or empty keys or values.
    */
-  private MultiqueryParameter(String value) {
-    super(QUERIES_PARAM_NAME, value);
+  private MultiqueryParameter(Map<String, String> queries) {
+    JSONObject jsonObject = new JSONObject();
+
+    for (Entry<String, String> entry : queries.entrySet())
+      try {
+        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
+          .trimToEmpty(entry.getValue()));
+      } catch (JSONException e) {
+        // Shouldn't happen unless bizarre input is provided
+        throw new IllegalArgumentException("Unable to convert " + queries
+            + " to JSON.", e);
+      }
+
+    queriesAsJson = jsonObject.toString();
+  }
+
+  String getQueriesAsJson() {
+    return queriesAsJson;
   }
 
   /**
@@ -70,18 +85,6 @@ public class MultiqueryParameter extends Parameter {
    *           If {@code queries} contains {@code null} or empty keys or values.
    */
   public static MultiqueryParameter with(Map<String, String> queries) {
-    JSONObject jsonObject = new JSONObject();
-
-    for (Entry<String, String> entry : queries.entrySet())
-      try {
-        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
-          .trimToEmpty(entry.getValue()));
-      } catch (JSONException e) {
-        // Shouldn't happen unless bizarre input is provided
-        throw new IllegalArgumentException("Unable to convert " + queries
-            + " to JSON.", e);
-      }
-
-    return new MultiqueryParameter(jsonObject.toString());
+    return new MultiqueryParameter(queries);
   }
 }
