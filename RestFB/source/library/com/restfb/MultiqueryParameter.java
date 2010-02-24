@@ -22,6 +22,7 @@
 
 package com.restfb;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -41,6 +42,14 @@ import com.restfb.json.JSONObject;
  * @since 1.1
  */
 public final class MultiqueryParameter {
+  /**
+   * Queries provided in {@link #with(Map)}.
+   */
+  private Map<String, String> queries;
+
+  /**
+   * Queries provided in {@link #with(Map)} in JSON format.
+   */
   private String queriesAsJson;
 
   /**
@@ -54,9 +63,18 @@ public final class MultiqueryParameter {
    *           If {@code queries} contains {@code null} or empty keys or values.
    */
   private MultiqueryParameter(Map<String, String> queries) {
+    if (queries == null)
+      throw new IllegalArgumentException("Provided queries cannot be null.");
+
     JSONObject jsonObject = new JSONObject();
 
-    for (Entry<String, String> entry : queries.entrySet())
+    for (Entry<String, String> entry : queries.entrySet()) {
+      if (StringUtils.isBlank(entry.getKey())
+          || StringUtils.isBlank(entry.getValue()))
+        throw new IllegalArgumentException(
+          "Provided queries must have non-blank keys and values. "
+              + "Queries are: " + queries);
+
       try {
         jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
           .trimToEmpty(entry.getValue()));
@@ -65,10 +83,17 @@ public final class MultiqueryParameter {
         throw new IllegalArgumentException("Unable to convert " + queries
             + " to JSON.", e);
       }
+    }
 
     queriesAsJson = jsonObject.toString();
+    this.queries = Collections.unmodifiableMap(queries);
   }
 
+  /**
+   * Gets the queries provided in {@link #with(Map)} in JSON format.
+   * 
+   * @return Queries provided in {@link #with(Map)} in JSON format.
+   */
   String getQueriesAsJson() {
     return queriesAsJson;
   }
@@ -82,9 +107,50 @@ public final class MultiqueryParameter {
    * @return A {@code MultiqueryParameter} instance with the given {@code
    *         queries}.
    * @throws IllegalArgumentException
-   *           If {@code queries} contains {@code null} or empty keys or values.
+   *           If {@code queries} is {@code null} or {@code queries} contains
+   *           {@code null} or empty keys or values.
    */
   public static MultiqueryParameter with(Map<String, String> queries) {
     return new MultiqueryParameter(queries);
+  }
+
+  /**
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null)
+      return false;
+    if (!getClass().equals(obj.getClass()))
+      return false;
+
+    MultiqueryParameter other = (MultiqueryParameter) obj;
+
+    if (this.queries != other.queries && (!this.queries.equals(other.queries)))
+      return false;
+    if (this.queriesAsJson != other.queriesAsJson
+        && (!this.queriesAsJson.equals(other.queriesAsJson)))
+      return false;
+
+    return true;
+  }
+
+  /**
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    int hash = 7;
+    hash = 37 * hash + this.queries.hashCode();
+    hash = 41 * hash + this.queriesAsJson.hashCode();
+    return hash;
+  }
+
+  /**
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return queries.toString();
   }
 }
