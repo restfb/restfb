@@ -41,7 +41,7 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.0 of the library is available via Google Code.  <a href="http://restfb.googlecode.com/files/restfb-1.0.zip">Download it here</a>.
+			Version 1.1 of the library (released Feb 24 2010) is available via Google Code.  <a href="http://restfb.googlecode.com/files/restfb-1.1.zip">Download it here</a>.
 		</p>
 		
 		<p>
@@ -67,6 +67,7 @@
 			Non-goals:		
 			<ul>
 				<li>Support for non-REST API parts of the Facebook Platform</li>
+				<li>Providing a mechanism for obtaining session keys (you must do this yourself via <a href="http://wiki.developers.facebook.com/index.php/Facebook_Connect">Facebook Connect</a>)</li>
 				<li>Using XML as a data transfer format in addition to JSON</li>
 				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
 			</ul>
@@ -250,6 +251,77 @@ Affiliations: [Cornell (college), Bain & Company (work)]
 Name: Third Person
 Profile Image URL: https://secure-profile.facebook.com/v2328/314/454/n137387_5491.jpg
 Affiliations: []</pre>
+		
+		<div class="spacer"></div>		
+		
+		<h2>Making an fql.multiquery Call (Since 1.1)</h2>
+
+		<p>
+			Given the unique nature of the <a href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">fql.multiquery</a> API call,
+			RestFB provides the <a href="javadoc/com/restfb/FacebookClient.html#executeMultiquery(java.lang.Class, com.restfb.MultiqueryParameter, com.restfb.Parameter...)">FacebookClient.executeMultiquery(Class, MultiqueryParameter, Parameter...)</a> family of methods
+			to easily perform multiquery operations with a minimum of configuration.
+		</p>			
+		
+		<p>
+			To use the multiquery support, simply create a map of named queries and create a class to hold the results. Here's an example:
+		</p>
+		
+		<pre class="prettyprint">
+FacebookClient facebookClient = new DefaultFacebookClient(API_KEY, SECRET_KEY);
+
+String friendsQuery =
+  "SELECT name, pic_big FROM user " +
+  "WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=12345)";
+
+String groupsQuery =
+  "SELECT gid, name FROM group WHERE gid IN " +
+  "(SELECT gid FROM group_member WHERE uid=12345)";
+
+// The key names specified here map to field names in the result object
+
+Map&lt;String, String&gt; queries = new HashMap&lt;String, String&gt;();
+queries.put("friends", friendsQuery);
+queries.put("groups", groupsQuery);
+
+// You can send along additional parameters if you'd like, too
+
+Results results =
+  facebookClient.executeMultiquery(sessionKey, Results.class,
+    MultiqueryParameter.with(queries));</pre>
+		
+		<p>
+			Here's the result class and its supporting classes.  By default, results are mapped to <code>@Facebook</code>-annotated fields by the
+			logical query name specified in the map. You may override this behavior by explicitly specifying the value as shown below on the <code>users</code> field. 
+		</p>
+		
+		<pre class="prettyprint">
+class Results {
+  @Facebook(value = "friends", contains = User.class)
+  List&lt;User&gt; users;
+
+  @Facebook(contains = Group.class)
+  List&lt;Group&gt; groups;
+}
+
+// The multiquery support uses the same recursive mapping as the other parts of RestFB.
+// It's not shown in this example, but you can create arbitrarily complex object graphs
+// of @Facebook-annotated fields to handle complex query results.
+
+class Group {
+  @Facebook(value = "gid")
+  Long id;
+
+  @Facebook
+  String name;
+}
+
+class User {
+  @Facebook
+  String name;
+
+  @Facebook("pic_big")
+  String pictureUrl;
+}</pre>		
 		
 		<div class="spacer"></div>		
 		

@@ -236,7 +236,10 @@ public class DefaultFacebookClient implements FacebookClient {
     for (Parameter additionalParameter : additionalParameters) {
       if (additionalParameter.name.equals("queries"))
         throw new IllegalArgumentException(
-          "You cannot specify a parameter named 'queries' " + "");
+          "You cannot specify a parameter named 'queries' "
+              + "because it's reserved for use by RestFB for this call. "
+              + "Use the " + MultiqueryParameter.class.getSimpleName()
+              + " parameter to pass your queries to the Facebook API.");
 
       parameters.add(additionalParameter);
     }
@@ -253,7 +256,6 @@ public class DefaultFacebookClient implements FacebookClient {
         normalizedJson.put(jsonObject.getString("name"), jsonObject
           .getJSONArray("fql_result_set"));
       }
-
     } catch (JSONException e) {
       throw new FacebookJsonMappingException(
         "Unable to process fql.multiquery JSON response", e);
