@@ -26,6 +26,9 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
+	
+	<!-- Other -->
+	<property name="libraryVersion" value="1.1" />
 
 	<target name="compile" description="Compiles library code">
 		<mkdir dir="${antClassesDir}" />
@@ -42,11 +45,11 @@
 	<target name="dist" depends="clean, compile, doc" description="Builds the RestFB distribution">
 		<echo message="Building distribution..." />
 
-		<jar destfile="${antBuildDir}/restfb-1.0.jar">
+		<jar destfile="${antBuildDir}/restfb-${libraryVersion}.jar">
 			<fileset dir="${antClassesDir}" />
 		</jar>
 
-		<zip destfile="${antBuildDir}/restfb-1.0.zip">
+		<zip destfile="${antBuildDir}/restfb-${libraryVersion}.zip">
 			<fileset dir=".">
 				<include name="${sourceDir}/**" />
 				<include name="${licensingDir}/**" />
@@ -55,7 +58,7 @@
 				<include name="build.xml" />
 			</fileset>
 			<fileset dir="${antBuildDir}">
-				<include name="restfb-1.0.jar" />
+				<include name="restfb-${libraryVersion}.jar" />
 				<include name="javadoc/**" />
 			</fileset>
 		</zip>
