@@ -177,6 +177,22 @@ public class JsonMapperTests {
   }
 
   /**
+   * Can we handle nulls nicely?
+   */
+  @Test
+  public void nulls() throws FacebookJsonMappingException {
+    UserWithAffiliations userWithAffiliations =
+        createJsonMapper().toJavaObject(jsonFromClasspath("nulls"),
+          UserWithAffiliations.class);
+
+    Assert.assertTrue(userWithAffiliations != null);
+    Assert.assertTrue(userWithAffiliations.uid != null);
+    Assert.assertTrue(userWithAffiliations.name == null);
+    Assert.assertTrue(userWithAffiliations.bigPictureUrl == null);
+    Assert.assertTrue(userWithAffiliations.affiliations == null);
+  }
+
+  /**
    * Can we successfully map the results of the auth.createToken call?
    */
   @Test
