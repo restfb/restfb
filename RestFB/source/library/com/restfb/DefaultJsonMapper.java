@@ -22,6 +22,8 @@
 
 package com.restfb;
 
+import static com.restfb.json.JSONObject.NULL;
+
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -241,6 +243,11 @@ public class DefaultJsonMapper implements JsonMapper {
       String facebookFieldName) throws JSONException,
       FacebookJsonMappingException {
     Class<?> type = fieldWithAnnotation.getField().getType();
+    Object rawValue = jsonObject.get(facebookFieldName);
+
+    // Short-circuit right off the bat if we've got a null value.
+    if (NULL.equals(rawValue))
+      return null;
 
     if (String.class.equals(type)) {
       // Special handling here for better error checking.
@@ -252,9 +259,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // ... would return the string "[{"name":"Mark Allen"}]" instead of
       // throwing an error. So we throw the error ourselves.
 
-      Object value = jsonObject.get(facebookFieldName);
-      if (value instanceof String)
-        return value;
+      if (rawValue instanceof String)
+        return rawValue;
 
       throw new FacebookJsonMappingException("You cannot map the '"
           + facebookFieldName
