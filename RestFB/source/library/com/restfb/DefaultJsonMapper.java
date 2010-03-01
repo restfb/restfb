@@ -284,11 +284,11 @@ public class DefaultJsonMapper implements JsonMapper {
     if (BigDecimal.class.equals(type))
       return new BigDecimal(jsonObject.getString(facebookFieldName));
     if (List.class.equals(type))
-      return toJavaList(jsonObject.get(facebookFieldName).toString(),
-        fieldWithAnnotation.getAnnotation().contains());
+      return toJavaList(rawValue.toString(), fieldWithAnnotation
+        .getAnnotation().contains());
 
     // Some other type - recurse into it
-    return toJavaObject(jsonObject.get(facebookFieldName).toString(), type);
+    return toJavaObject(rawValue.toString(), type);
   }
 
   /**
