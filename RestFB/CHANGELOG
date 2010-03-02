@@ -1,7 +1,11 @@
+1.2 (March 2, 2010)
+* Fixed bug related to mapping JSON null to Java types
+* Library source is now included in the JAR for easy browsing in your IDE
+
 1.1 (February 23, 2010)
 * Formal support for fql.multiquery API call
 * Minor JSON mapping fixes and error message improvements
-*	Updated website with fql.multiquery documentation and explicit mention of non-support of session key acquisition
+* Updated website with fql.multiquery documentation and explicit mention of non-support of session key acquisition
 
 1.0 (February 2, 2010)
 * Initial release

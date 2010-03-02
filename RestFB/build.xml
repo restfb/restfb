@@ -28,7 +28,7 @@
 	</path>
 	
 	<!-- Other -->
-	<property name="libraryVersion" value="1.1" />
+	<property name="libraryVersion" value="1.2" />
 
 	<target name="compile" description="Compiles library code">
 		<mkdir dir="${antClassesDir}" />
@@ -47,6 +47,7 @@
 
 		<jar destfile="${antBuildDir}/restfb-${libraryVersion}.jar">
 			<fileset dir="${antClassesDir}" />
+			<fileset dir="${librarySourceDir}" />
 		</jar>
 
 		<zip destfile="${antBuildDir}/restfb-${libraryVersion}.zip">
