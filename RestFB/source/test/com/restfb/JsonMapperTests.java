@@ -227,6 +227,19 @@ public class JsonMapperTests {
     Assert.assertTrue(friendUids.get(1).equals(1240079L));
   }
 
+  /**
+   * Can we successfully map the case where Facebook sends us an empty array
+   * instead of an empty string?
+   */
+  @Test
+  public void emptyArray() throws FacebookJsonMappingException {
+    System.out.println("JSON: " + jsonFromClasspath("empty-array-as-string"));
+    BasicUser user =
+        createJsonMapper().toJavaObject(
+          jsonFromClasspath("empty-array-as-string"), BasicUser.class);
+    Assert.assertTrue("".equals(user.name));
+  }
+
   static class BasicUser {
     @Facebook
     Long uid;

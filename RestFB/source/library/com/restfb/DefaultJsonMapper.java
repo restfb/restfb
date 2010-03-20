@@ -259,6 +259,16 @@ public class DefaultJsonMapper implements JsonMapper {
       // ... would return the string "[{"name":"Mark Allen"}]" instead of
       // throwing an error. So we throw the error ourselves.
 
+      // Per Antonello Naccarato, sometimes FB will return an empty JSON array
+      // instead of an empty string. Look for that here.
+      if (rawValue instanceof JSONArray)
+        if (((JSONArray) rawValue).length() == 0) {
+          if (logger.isDebugEnabled())
+            logger.debug("Coercing an empty JSON array "
+                + "to an empty string for " + fieldWithAnnotation);
+          return "";
+        }
+
       if (rawValue instanceof String)
         return rawValue;
 

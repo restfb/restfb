@@ -1,3 +1,7 @@
+1.3 (March 19, 2010)
+* In response to recent FB changes, JSON mapper now coerces empty JSON arrays to empty Java Strings if you're trying to map to a String field.
+  Thanks to Antonello Naccarato for reporting this!
+
 1.2 (March 2, 2010)
 * Fixed bug related to mapping JSON null to Java types
 * Library source is now included in the JAR for easy browsing in your IDE
