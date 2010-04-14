@@ -25,10 +25,11 @@ package com.restfb;
 import java.util.List;
 
 /**
- * Specifies how a Facebook JSON-to-Java mapper must operate.
+ * Specifies how a Facebook JSON-to-Java (and vice-versa) mapper must operate.
  * <p>
- * Note that implementors must be able to handle illegal JSON in order to
- * correctly process Facebook responses. For example, the {@code
+ * Note that implementors must be able to handle illegal JSON in
+ * {@link #toJavaObject(String, Class)} and {@link #toJavaList(String, Class)}
+ * in order to correctly process Facebook responses. For example, the {@code
  * Users.getLoggedInUser} API call returns a value like {@code 1240077}, which
  * is not valid JSON.
  * 
@@ -74,4 +75,20 @@ public interface JsonMapper {
    */
   <T> List<T> toJavaList(String json, Class<T> type)
       throws FacebookJsonMappingException;
+
+  /**
+   * Given a Java {@code object}, create and return a JSON string that
+   * represents it.
+   * <p>
+   * The {@code object}'s properties will be traversed recursively, allowing for
+   * arbitrarily complex JSON generation.
+   * 
+   * @param object
+   *          The Java object to map to JSON. Can be a Javabean, {@code List},
+   *          or {@Map}.
+   * @return A JSON string.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while mapping Java to JSON.
+   */
+  String toJson(Object object) throws FacebookJsonMappingException;
 }

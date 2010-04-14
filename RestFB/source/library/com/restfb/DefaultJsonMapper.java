@@ -29,6 +29,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
@@ -134,6 +136,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
+        // TODO: duplicate logic, pull out when we support automatic
+        // camel-casing
+
         String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
         Field field = fieldWithAnnotation.getField();
 
@@ -167,6 +172,132 @@ public class DefaultJsonMapper implements JsonMapper {
       throw new FacebookJsonMappingException(
         "Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
     }
+  }
+
+  /**
+   * @see com.restfb.JsonMapper#toJson(java.lang.Object)
+   */
+  @Override
+  public String toJson(Object object) throws FacebookJsonMappingException {
+    // Delegate to recursive method
+    return toJsonInternal(object, 0).toString();
+  }
+
+  /**
+   * TODO: Document
+   * 
+   * @param object
+   * @param depth
+   * @return
+   * @throws FacebookJsonMappingException
+   */
+  protected Object toJsonInternal(Object object, int depth)
+      throws FacebookJsonMappingException {
+    ++depth;
+
+    if (object == null)
+      return NULL;
+
+    if (object instanceof List<?>) {
+      JSONArray jsonArray = new JSONArray();
+      for (Object o : (List<?>) object)
+        jsonArray.put(toJsonInternal(o, depth));
+
+      return jsonArray;
+    }
+
+    if (object instanceof Map<?, ?>) {
+      JSONObject jsonObject = new JSONObject();
+      for (Entry<?, ?> entry : ((Map<?, ?>) object).entrySet()) {
+        if (!(entry.getKey() instanceof String))
+          throw new FacebookJsonMappingException(
+            "Your Map keys must be of type " + String.class
+                + " in order to be converted to JSON.  Offending map is "
+                + object);
+
+        try {
+          jsonObject.put((String) entry.getKey(), toJsonInternal(entry
+            .getValue(), depth));
+        } catch (JSONException e) {
+          throw new FacebookJsonMappingException("Unable to process value '"
+              + entry.getValue() + "' for key '" + entry.getKey() + "' in Map "
+              + object, e);
+        }
+      }
+
+      return jsonObject;
+    }
+
+    if (isPrimitive(object))
+      return object;
+
+    if (object instanceof String)
+      return depth == 1 ? "\"" + ((String) object).replace("\"", "\\\"") + "\""
+          : object;
+
+    if (object instanceof BigInteger)
+      return ((BigInteger) object).longValue();
+
+    if (object instanceof BigDecimal)
+      return ((BigDecimal) object).doubleValue();
+
+    // All the special-cased stuff failed, let's try to marshal this as a
+    // Javabean...
+
+    List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation =
+        ReflectionUtils.findFieldsWithAnnotation(object.getClass(),
+          Facebook.class);
+
+    JSONObject jsonObject = new JSONObject();
+
+    for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
+
+      // TODO: duplicate logic, pull out when we support automatic camel-casing
+      String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
+      Field field = fieldWithAnnotation.getField();
+
+      // If no Facebook field name was specified in the annotation, assume
+      // it's the same name as the Java field
+      if (StringUtils.isBlank(facebookFieldName)) {
+        if (logger.isTraceEnabled())
+          logger.trace("No explicit Facebook field name found for " + field
+              + ", so defaulting to the field name itself (" + field.getName()
+              + ")");
+        facebookFieldName = field.getName();
+      }
+
+      field.setAccessible(true);
+
+      try {
+        jsonObject.put(facebookFieldName, toJsonInternal(field.get(object),
+          depth));
+      } catch (Exception e) {
+        throw new FacebookJsonMappingException("Unable to process field '"
+            + facebookFieldName + "' for " + object.getClass().getSimpleName(),
+          e);
+      }
+    }
+
+    return jsonObject;
+  }
+
+  /**
+   * TODO: Document
+   * 
+   * @param object
+   * @return
+   */
+  protected boolean isPrimitive(Object object) {
+    if (object == null)
+      return false;
+
+    Class<?> type = object.getClass();
+
+    return (object instanceof Integer || Integer.TYPE.equals(type))
+        || (object instanceof Boolean || Boolean.TYPE.equals(type))
+        || (object instanceof Long || Long.TYPE.equals(type))
+        || (object instanceof Double || Double.TYPE.equals(type))
+        || (object instanceof Float || Float.TYPE.equals(type));
   }
 
   /**

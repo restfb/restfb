@@ -22,7 +22,6 @@
 
 package com.restfb;
 
-import java.io.IOException;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -30,11 +29,12 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests that exercise {@link JsonMapper} implementations.
+ * Unit tests that exercise {@link JsonMapper} implementations, specifically the
+ * "convert JSON to Java" functionality.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class JsonMapperTests {
+public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   /**
    * Can we handle the empty list?
    */
@@ -272,19 +272,5 @@ public class JsonMapperTests {
 
     @Facebook(contains = Affiliation.class)
     List<Affiliation> affiliations;
-  }
-
-  private JsonMapper createJsonMapper() {
-    return new DefaultJsonMapper();
-  }
-
-  private String jsonFromClasspath(String pathToJson) {
-    try {
-      return StringUtils.fromInputStream(ClasspathWebRequestor.class
-        .getResourceAsStream("/json/" + pathToJson + ".json"));
-    } catch (IOException e) {
-      throw new IllegalStateException("Unable to load JSON from the classpath",
-        e);
-    }
   }
 }
