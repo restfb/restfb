@@ -180,28 +180,25 @@ public class DefaultJsonMapper implements JsonMapper {
   @Override
   public String toJson(Object object) throws FacebookJsonMappingException {
     // Delegate to recursive method
-    return toJsonInternal(object, 0).toString();
+    return toJsonInternal(object).toString();
   }
 
   /**
    * TODO: Document
    * 
    * @param object
-   * @param depth
    * @return
    * @throws FacebookJsonMappingException
    */
-  protected Object toJsonInternal(Object object, int depth)
+  protected Object toJsonInternal(Object object)
       throws FacebookJsonMappingException {
-    ++depth;
-
     if (object == null)
       return NULL;
 
     if (object instanceof List<?>) {
       JSONArray jsonArray = new JSONArray();
       for (Object o : (List<?>) object)
-        jsonArray.put(toJsonInternal(o, depth));
+        jsonArray.put(toJsonInternal(o));
 
       return jsonArray;
     }
@@ -217,7 +214,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
         try {
           jsonObject.put((String) entry.getKey(), toJsonInternal(entry
-            .getValue(), depth));
+            .getValue()));
         } catch (JSONException e) {
           throw new FacebookJsonMappingException("Unable to process value '"
               + entry.getValue() + "' for key '" + entry.getKey() + "' in Map "
@@ -265,12 +262,10 @@ public class DefaultJsonMapper implements JsonMapper {
       field.setAccessible(true);
 
       try {
-        jsonObject.put(facebookFieldName, toJsonInternal(field.get(object),
-          depth));
+        jsonObject.put(facebookFieldName, toJsonInternal(field.get(object)));
       } catch (Exception e) {
         throw new FacebookJsonMappingException("Unable to process field '"
-            + facebookFieldName + "' for " + object.getClass().getSimpleName(),
-          e);
+            + facebookFieldName + "' for " + object.getClass(), e);
       }
     }
 

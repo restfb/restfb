@@ -85,7 +85,7 @@ public interface JsonMapper {
    * 
    * @param object
    *          The Java object to map to JSON. Can be a Javabean, {@code List},
-   *          or {@Map}.
+   *          or {@code Map}.
    * @return A JSON string.
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping Java to JSON.
