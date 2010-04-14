@@ -228,12 +228,8 @@ public class DefaultJsonMapper implements JsonMapper {
       return jsonObject;
     }
 
-    if (isPrimitive(object))
+    if (object instanceof String || ReflectionUtils.isPrimitive(object))
       return object;
-
-    if (object instanceof String)
-      return depth == 1 ? "\"" + ((String) object).replace("\"", "\\\"") + "\""
-          : object;
 
     if (object instanceof BigInteger)
       return ((BigInteger) object).longValue();
@@ -241,8 +237,8 @@ public class DefaultJsonMapper implements JsonMapper {
     if (object instanceof BigDecimal)
       return ((BigDecimal) object).doubleValue();
 
-    // All the special-cased stuff failed, let's try to marshal this as a
-    // Javabean...
+    // We've passed the special-case bits, so let's try to marshal this as a
+    // plain old Javabean...
 
     List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation =
         ReflectionUtils.findFieldsWithAnnotation(object.getClass(),
@@ -279,25 +275,6 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     return jsonObject;
-  }
-
-  /**
-   * TODO: Document
-   * 
-   * @param object
-   * @return
-   */
-  protected boolean isPrimitive(Object object) {
-    if (object == null)
-      return false;
-
-    Class<?> type = object.getClass();
-
-    return (object instanceof Integer || Integer.TYPE.equals(type))
-        || (object instanceof Boolean || Boolean.TYPE.equals(type))
-        || (object instanceof Long || Long.TYPE.equals(type))
-        || (object instanceof Double || Double.TYPE.equals(type))
-        || (object instanceof Float || Float.TYPE.equals(type));
   }
 
   /**

@@ -40,6 +40,31 @@ abstract class ReflectionUtils {
   private ReflectionUtils() {}
 
   /**
+   * Is the given {@code object} a primitive type or wrapper for a primitive
+   * type?
+   * 
+   * @param object
+   *          The object to check for primitive-ness.
+   * @return {@code true} if {@code object} is a primitive type or wrapper for a
+   *         primitive type, {@code false} otherwise.
+   */
+  static boolean isPrimitive(Object object) {
+    if (object == null)
+      return false;
+
+    Class<?> type = object.getClass();
+
+    return (object instanceof Integer || Integer.TYPE.equals(type))
+        || (object instanceof Boolean || Boolean.TYPE.equals(type))
+        || (object instanceof Long || Long.TYPE.equals(type))
+        || (object instanceof Double || Double.TYPE.equals(type))
+        || (object instanceof Float || Float.TYPE.equals(type))
+        || (object instanceof Byte || Byte.TYPE.equals(type))
+        || (object instanceof Short || Short.TYPE.equals(type))
+        || (object instanceof Character || Character.TYPE.equals(type));
+  }
+
+  /**
    * Finds fields on the given {@code type} and all of its superclasses
    * annotated with annotations of type {@code annotationType}.
    * 

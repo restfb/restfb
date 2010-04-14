@@ -25,7 +25,9 @@ package com.restfb;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -70,8 +72,8 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    */
   @Test
   public void primitives() throws FacebookJsonMappingException {
-    Assert.assertTrue("\"Testing\""
-      .equals(createJsonMapper().toJson("Testing")));
+    // Close your eyes and pretend that string is a primitive here
+    Assert.assertTrue("Testing".equals(createJsonMapper().toJson("Testing")));
     Assert.assertTrue("true".equals(createJsonMapper().toJson(true)));
     Assert.assertTrue("1".equals(createJsonMapper().toJson(1)));
     Assert.assertTrue("1".equals(createJsonMapper().toJson(1L)));
@@ -117,6 +119,73 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
         .equals(json));
   }
 
+  /**
+   * Can we handle a full stream.publish example?
+   * <p>
+   * See http://wiki.developers.facebook.com/index.php/Attachment_(Streams).
+   */
+  @Test
+  public void streamPublish() throws FacebookJsonMappingException {
+    ActionLink category = new ActionLink();
+    category.href = "http://bit.ly/KYbaN";
+    category.text = "humor";
+
+    Properties properties = new Properties();
+    properties.category = category;
+    properties.ratings = "5 stars";
+
+    Medium medium = new Medium();
+    medium.href = "http://bit.ly/187gO1";
+    medium.src =
+        "http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg";
+    medium.type = "image";
+
+    List<Medium> media = new ArrayList<Medium>();
+    media.add(medium);
+
+    Attachment attachment = new Attachment();
+    attachment.name = "i'm bursting with joy";
+    attachment.href = "http://bit.ly/187gO1";
+    attachment.caption = "{*actor*} rated the lolcat 5 stars";
+    attachment.description = "a funny looking cat";
+    attachment.properties = properties;
+    attachment.media = media;
+
+    String json = createJsonMapper().toJson(attachment);
+    Assert
+      .assertTrue("{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}"
+        .equals(json));
+  }
+
+  /**
+   * Can we handle an empty Map?
+   */
+  @Test
+  public void emptyMap() throws FacebookJsonMappingException {
+    Assert.assertTrue("{}".equals(createJsonMapper().toJson(
+      new HashMap<String, Object>())));
+  }
+
+  /**
+   * Can we handle a Map?
+   */
+  @Test
+  public void map() throws FacebookJsonMappingException {
+    UserWithPhotos basicUser = new UserWithPhotos();
+    basicUser.uid = 12345L;
+    basicUser.name = "Fred";
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("testId", new BigInteger("412"));
+    map.put("floatId", Float.valueOf(123.45F));
+    map.put("basicUser", basicUser);
+
+    String json = createJsonMapper().toJson(map);
+    Assert
+      .assertTrue("{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}"
+        .equals(json));
+  }
+
   static class BasicUser {
     @Facebook
     Long uid;
@@ -136,7 +205,54 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
   }
 
   static class UserWithPhotos extends BasicUser {
-    @Facebook(contains = Photo.class)
+    @Facebook
     List<Photo> photos;
+  }
+
+  static class ActionLink {
+    @Facebook
+    String text;
+
+    @Facebook
+    String href;
+  }
+
+  static class Medium {
+    @Facebook
+    String type;
+
+    @Facebook
+    String src;
+
+    @Facebook
+    String href;
+  }
+
+  static class Properties {
+    @Facebook
+    ActionLink category;
+
+    @Facebook
+    String ratings;
+  }
+
+  static class Attachment {
+    @Facebook
+    String name;
+
+    @Facebook
+    String href;
+
+    @Facebook
+    String caption;
+
+    @Facebook
+    String description;
+
+    @Facebook
+    Properties properties;
+
+    @Facebook
+    List<Medium> media;
   }
 }
