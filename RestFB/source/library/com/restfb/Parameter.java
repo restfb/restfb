@@ -121,7 +121,7 @@ public final class Parameter {
    */
   public static Parameter with(String name, Object value, JsonMapper jsonMapper)
       throws FacebookJsonMappingException {
-    return Parameter.with(name, value, jsonMapper);
+    return new Parameter(name, value, jsonMapper);
   }
 
   /**
