@@ -1,3 +1,7 @@
+1.4 (April 19, 2010)
+* Added support for Java -> JSON mapping to support more complex API calls like stream.publish.
+  Thanks to Alex Launi and biz@layes.com for their input.
+
 1.3 (March 19, 2010)
 * In response to recent FB changes, JSON mapper now coerces empty JSON arrays to empty Java Strings if you're trying to map to a String field.
   Thanks to Antonello Naccarato for reporting this!

@@ -41,9 +41,9 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.3 of the library (released March 19 2010) is available via Google Code.
+			Version 1.4 of the library (released April 19 2010) is available via Google Code.
 			<a href="http://restfb.googlecode.com/svn/trunk/RestFB/CHANGELOG">View the changelog</a>, 
-			or <a href="http://restfb.googlecode.com/files/restfb-1.3.zip">download it here</a>.
+			or <a href="http://restfb.googlecode.com/files/restfb-1.4.zip">download it here</a>.
 		</p>
 		
 		<p>
@@ -77,6 +77,10 @@
 		
 		<p>
 			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.			
+		</p>
+		
+		<p>
+			If you're a happy RestFB user and would like restfb.com to link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
 		</p>
 		
 		<div class="spacer"></div>
@@ -328,6 +332,22 @@ class User {
   @Facebook("pic_big")
   String pictureUrl;
 }</pre>		
+		
+		<div class="spacer"></div>		
+		
+		<h2>Making a stream.publish Call with Complex Attachments (Since 1.4)</h2>
+
+		<p>
+			The <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">stream.publish</a> API call can accept
+			<code>attachment</code> and <code>privacy</code> (JSON objects) as well as <code>action_links</code> (JSON array) as parameters.
+			The 1.4 release of RestFB now supports mapping of Java types to JSON to simplify this use case - you no longer have to
+			manually create a JSON string, as the framework will take care of that for you for <code>List</code>s, <code>Map</code>s,
+			and your own Javabean types that have fields annotated with the <code>@Facebook</code> annotation.			
+		</p>					
+		
+		<p>
+			TODO: code example
+		</p>
 		
 		<div class="spacer"></div>		
 		
