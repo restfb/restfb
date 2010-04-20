@@ -14,7 +14,10 @@ public class Example {
   private static final String SECRET_KEY = "";
 
   public static void main(String[] args) throws FacebookException {
-    // You need to provide your own Session key.
+    // You need to provide your own session key.
+    // In order to get a session key, you'll need to use Facebook Connect
+    // or another Facebook-provided API (RestFB cannot do this for you!)
+    // See http://wiki.developers.facebook.com/index.php/Facebook_Connect
     String sessionKey = "";
 
     FacebookClient facebookClient =

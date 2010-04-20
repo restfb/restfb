@@ -69,7 +69,7 @@
 			Non-goals:		
 			<ul>
 				<li>Support for non-REST API parts of the Facebook Platform</li>
-				<li>Providing a mechanism for obtaining session keys (you must do this yourself via <a href="http://wiki.developers.facebook.com/index.php/Facebook_Connect">Facebook Connect</a>)</li>
+				<li>Providing a mechanism for obtaining session keys (<span class="important">you must do this yourself via <a href="http://wiki.developers.facebook.com/index.php/Facebook_Connect">Facebook Connect</a>!</span>)</li>
 				<li>Using XML as a data transfer format in addition to JSON</li>
 				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
 			</ul>
@@ -94,6 +94,12 @@
 		<p>
 			If you're looking for help or additional examples, please check out the newly-created <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>.
 		</p>		
+		
+		<p>
+			It's helpful to see exactly what's going over the wire to verify that RestFB is taking your input and sending it
+			to Facebook exactly as you expect.  Feel free to use <a href="log4j.xml">this example log4j.xml file</a> in your own project
+			to see full <code>POST</code> request and response data logged to standard output.
+		</p>
 		
 		<h3>Initialization</h3>
 		
@@ -340,14 +346,118 @@ class User {
 		<p>
 			The <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">stream.publish</a> API call can accept
 			<code>attachment</code> and <code>privacy</code> (JSON objects) as well as <code>action_links</code> (JSON array) as parameters.
-			The 1.4 release of RestFB now supports mapping of Java types to JSON to simplify this use case - you no longer have to
+			The 1.4 release of RestFB supports mapping of Java types to JSON to simplify this use case - you no longer have to
 			manually create a JSON string, as the framework will take care of that for you for <code>List</code>s, <code>Map</code>s,
 			and your own Javabean types that have fields annotated with the <code>@Facebook</code> annotation.			
 		</p>					
 		
+		<pre class="prettyprint">
+FacebookClient facebookClient = new DefaultFacebookClient(API_KEY, SECRET_KEY);
+
+ActionLink category = new ActionLink();
+category.href = "http://bit.ly/KYbaN";
+category.text = "humor";
+
+Properties properties = new Properties();
+properties.category = category;
+properties.ratings = "5 stars";
+
+Medium medium = new Medium();
+medium.href = "http://bit.ly/187gO1";
+medium.src = "http://bit.ly/GaTlC";
+medium.type = "image";
+
+Attachment attachment = new Attachment();
+attachment.name = "i'm bursting with joy";
+attachment.href = "http://bit.ly/187gO1";
+attachment.caption = "{*actor*} rated the lolcat 5 stars";
+attachment.description = "a funny looking cat";
+attachment.properties = properties;
+attachment.media = Collections.singletonList(medium);
+
+// Send the request to Facebook.
+// We specify the session key to use to make the call, the fact that we're
+// expecting a String response, and the attachment (defined above).
+
+String postId = facebookClient.execute("stream.publish", sessionKey, String.class,
+  Parameter.with("attachment", attachment));</pre>
+		
 		<p>
-			TODO: code example
+			Here are the supporting classes.  You may <a href="StreamPublishExample.java">download the full example</a> and run it locally.
+			Note that you don't have to write your own classes - you can just as easily populate <code>Map</code>s instead
+			for a less strongly-typed solution.
+		</p>			
+		
+		<pre class="prettyprint">
+class ActionLink {
+  @Facebook
+  String text;
+
+  @Facebook
+  String href;
+}
+
+class Medium {
+  @Facebook
+  String type;
+
+  @Facebook
+  String src;
+
+  @Facebook
+  String href;
+}
+
+class Properties {
+  @Facebook
+  ActionLink category;
+
+  @Facebook
+  String ratings;
+}
+
+class Attachment {
+  @Facebook
+  String name;
+
+  @Facebook
+  String href;
+
+  @Facebook
+  String caption;
+
+  @Facebook
+  String description;
+
+  @Facebook
+  Properties properties;
+
+  @Facebook
+  List&lt;Medium&gt; media;
+}</pre>
+		
+		<p>
+			One other tip: when converting from Java to JSON like we are here,
+			you don't need to use the <code>contains</code> attribute of the <code>@Facebook</code> annotation when sending a <code>List</code> type.
+			This is because we have enough type information at runtime to perform the conversion process.  When converting from JSON to Java, we need assistance because
+			of type erasure and therefore must specify a value for the <code>contains</code> attribute.			
 		</p>
+		
+		<p>
+			For example:
+		</p>
+		
+		<pre class="prettyprint">
+@Facebook(contains = Medium)
+List&lt;Medium&gt; media;</pre>
+
+		<p>
+			...is unnecessary in this situation.  You may write it as:
+		</p>	
+		
+		<pre class="prettyprint">
+@Facebook
+List&lt;Medium&gt; media;</pre>		
 		
 		<div class="spacer"></div>		
 		
@@ -401,6 +511,15 @@ public class MyClass {
   @Facebook(contains = Integer.class)
   List&lt;Integer&gt; numbers;
 }</pre>			
+		
+		<p>
+			As of 1.4, Java to JSON mapping is supported by default via <a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a>.
+			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
+			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
+			
+			When converting from Java to JSON, you never need to use the <code>contains</code> attribute of the <code>@Facebook</code> annotation - it's always ignored
+			because enough information is available at runtime to perform the conversion correctly.
+		</p>
 		
 		<p>
 			As-is, <code>DefaultJsonMapper</code> should meet the needs of the vast majority of users.

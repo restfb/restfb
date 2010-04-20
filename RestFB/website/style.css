@@ -85,11 +85,13 @@ h1 {
 	font-family: "PT Sans Bold";
 	font-size: 16pt;
 	margin-bottom: 10px;
+	font-weight: bold;	
 }
 
 h2, h3 {
 	font-family: "PT Sans Bold";
 	margin-bottom: 10px;
+	font-weight: bold;	
 }
 
 p {
@@ -169,13 +171,20 @@ div.spacer {
 }
 
 #error-table b {
-	font-family: "PT Sans Bold";	
+	font-family: "PT Sans Bold";
+	font-weight: bold;
 }
 
 #error-table td {
 	padding: 5px;
 	padding-bottom: 2px;
 	padding-left: 8px;	
+}
+
+.important {
+	color: #933;
+	font-family: "PT Sans Bold";	
+	font-weight: bold;
 }
 
 /* end main */

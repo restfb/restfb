@@ -89,6 +89,7 @@ public interface JsonMapper {
    * @return A JSON string.
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping Java to JSON.
+   * @since 1.4
    */
   String toJson(Object object) throws FacebookJsonMappingException;
 }
