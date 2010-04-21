@@ -38,15 +38,24 @@
 		
 		<div class="spacer"></div>
 		
+		<h2>Latest News</h2>
+		
+		<p>
+			Version 1.4 of RestFB is now available (released April 21 2010).
+			<br/>
+			We're hard at work now adding support for the newly-announced
+			<a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> - look for it in the 1.5 release.
+		</p>				
+		
+		<div class="spacer"></div>
+		
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.4 of the library (released April 19 2010) is available via Google Code.
+			Version 1.4 of the library is available via Google Code.
 			<a href="http://restfb.googlecode.com/svn/trunk/RestFB/CHANGELOG">View the changelog</a>, 
 			or <a href="http://restfb.googlecode.com/files/restfb-1.4.zip">download it here</a>.
-		</p>
-		
-		<p>
+			<br/>
 			You can also <a href="Example.java">download example code</a> to get started quickly.
 		</p>
 		
@@ -77,9 +86,7 @@
 		
 		<p>
 			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.			
-		</p>
-		
-		<p>
+			<br/>
 			If you're a happy RestFB user and would like restfb.com to link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
 		</p>
 		
@@ -101,6 +108,8 @@
 			to see full <code>POST</code> request and response data logged to standard output.
 		</p>
 		
+		<div class="spacer"></div>
+		
 		<h3>Initialization</h3>
 		
 		<pre class="prettyprint">
@@ -110,6 +119,8 @@
 // write your own FacebookClient instead for maximum control
 
 FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);</pre>		
+		
+		<div class="spacer"></div>
 		
 		<h3>Making a Simple Call</h3>
 		
@@ -122,6 +133,8 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_
 // should be returned to us as a Long value
 
 Long uid = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#execute(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", sessionKey, Long.class);</pre>
+
+		<div class="spacer"></div>
 			
 		<h3>Making a More Complex Call</h3>
 		
@@ -268,7 +281,7 @@ Name: Third Person
 Profile Image URL: https://secure-profile.facebook.com/v2328/314/454/n137387_5491.jpg
 Affiliations: []</pre>
 		
-		<div class="spacer"></div>		
+		<div class="spacer"></div>				
 		
 		<h2>Making an fql.multiquery Call (Since 1.1)</h2>
 

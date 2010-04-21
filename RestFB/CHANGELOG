@@ -1,4 +1,4 @@
-1.4 (April 19, 2010)
+1.4 (April 21, 2010)
 * Added support for Java -> JSON mapping to support more complex API calls like stream.publish.
   Thanks to Alex Launi and biz@layes.com for their input.
 
