@@ -4,8 +4,6 @@ import com.restfb.DefaultFacebookClient;
 import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.FacebookException;
-import com.restfb.FacebookNetworkException;
-import com.restfb.FacebookResponseStatusException;
 import com.restfb.Parameter;
 
 public class Example {
