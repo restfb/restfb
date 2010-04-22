@@ -43,11 +43,11 @@ import com.restfb.json.JSONException;
 import com.restfb.json.JSONObject;
 
 /**
- * Default implementation of a Facebook API client.
+ * Default implementation of a legacy Facebook API client.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class DefaultFacebookClient implements FacebookClient {
+public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
   /**
    * Facebook API key.
    */
@@ -94,7 +94,7 @@ public class DefaultFacebookClient implements FacebookClient {
       "http://api.facebook.com/restserver.php";
 
   private static final Logger logger =
-      Logger.getLogger(DefaultFacebookClient.class);
+      Logger.getLogger(DefaultLegacyFacebookClient.class);
 
   /**
    * Creates a Facebook API client with the given API key and secret key.
@@ -108,7 +108,7 @@ public class DefaultFacebookClient implements FacebookClient {
    * @throws IllegalArgumentException
    *           If either parameter is a blank string.
    */
-  public DefaultFacebookClient(String apiKey, String secretKey) {
+  public DefaultLegacyFacebookClient(String apiKey, String secretKey) {
     this(apiKey, secretKey, new DefaultWebRequestor(), new DefaultJsonMapper());
   }
 
@@ -130,7 +130,7 @@ public class DefaultFacebookClient implements FacebookClient {
    * @throws IllegalArgumentException
    *           If either {@code apiKey} or {@code secretKey} is a blank string.
    */
-  public DefaultFacebookClient(String apiKey, String secretKey,
+  public DefaultLegacyFacebookClient(String apiKey, String secretKey,
       WebRequestor webRequestor, JsonMapper jsonMapper) {
     verifyParameterPresence("apiKey", apiKey);
     verifyParameterPresence("secretKey", secretKey);
@@ -149,7 +149,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#execute(java.lang.String,
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
    *      com.restfb.Parameter[])
    */
   @Override
@@ -159,7 +159,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#execute(java.lang.String, java.lang.String,
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.String,
    *      com.restfb.Parameter[])
    */
   @Override
@@ -169,7 +169,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#execute(java.lang.String, java.lang.Class,
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.Class,
    *      com.restfb.Parameter[])
    */
   @Override
@@ -179,7 +179,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#execute(java.lang.String, java.lang.String,
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
@@ -190,7 +190,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeForList(java.lang.String,
+   * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
@@ -200,7 +200,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeForList(java.lang.String,
+   * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String,
    *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
@@ -211,7 +211,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeMultiquery(java.lang.Class,
+   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.lang.Class,
    *      com.restfb.MultiqueryParameter, com.restfb.Parameter[])
    */
   @Override
@@ -222,7 +222,7 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeMultiquery(java.lang.String,
+   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.lang.String,
    *      java.lang.Class, com.restfb.MultiqueryParameter,
    *      com.restfb.Parameter[])
    */

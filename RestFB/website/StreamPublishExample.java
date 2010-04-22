@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.restfb.DefaultFacebookClient;
+import com.restfb.DefaultLegacyFacebookClient;
 import com.restfb.Facebook;
-import com.restfb.FacebookClient;
+import com.restfb.LegacyFacebookClient;
 import com.restfb.FacebookException;
 import com.restfb.Parameter;
 

@@ -25,7 +25,13 @@ package com.restfb;
 import java.util.List;
 
 /**
- * Specifies how a Facebook API client must operate.
+ * Specifies how a <a
+ * href="http://developers.facebook.com/docs/reference/rest/">legacy Facebook
+ * API</a> client must operate.
+ * <p>
+ * Green-field projects should use the new <a
+ * href="http://developers.facebook.com/docs/api">Facebook Graph API</a>
+ * instead.
  * <p>
  * <ul>
  * <li>The {@link #execute(String, Parameter...)} family of methods should be
@@ -41,7 +47,7 @@ import java.util.List;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public interface FacebookClient {
+public interface LegacyFacebookClient {
   /**
    * Executes a Facebook API method with the given {@code parameters}, ignoring
    * the response.
