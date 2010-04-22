@@ -65,4 +65,12 @@ public class ClasspathWebRequestor implements WebRequestor {
   public Response executePost(String url, String parameters) throws IOException {
     return response;
   }
+
+  /**
+   * @see com.restfb.WebRequestor#executeGet(java.lang.String)
+   */
+  @Override
+  public Response executeGet(String url) throws IOException {
+    return response;
+  }
 }

@@ -159,8 +159,8 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.String,
-   *      com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
+   *      java.lang.String, com.restfb.Parameter[])
    */
   @Override
   public void execute(String method, String sessionKey, Parameter... parameters)
@@ -169,8 +169,8 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.Class,
-   *      com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
+   *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
   public <T> T execute(String method, Class<T> resultType,
@@ -179,8 +179,8 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.String,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
+   *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
   public <T> T execute(String method, String sessionKey, Class<T> resultType,
@@ -291,10 +291,6 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
     String parametersAsString =
         toParameterString(method, sessionKey, parameters);
 
-    if (logger.isInfoEnabled())
-      logger.info("POSTing to " + FACEBOOK_REST_ENDPOINT_URL + "?"
-          + parametersAsString);
-
     Response response = null;
 
     // Perform a POST to the API endpoint
@@ -326,6 +322,8 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
    * If the {@code error_code} JSON field is present, we've got a response
    * status error for this API call. Extracts relevant information from the JSON
    * and throws a
+   * 
+   * TODO: complete documentation
    * 
    * @param json
    *          The JSON returned by Facebook in response to an API call.

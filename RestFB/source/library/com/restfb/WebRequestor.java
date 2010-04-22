@@ -93,6 +93,18 @@ public interface WebRequestor {
   }
 
   /**
+   * Given a Facebook API endpoint URL, execute a {@code GET} against it.
+   * 
+   * @param url
+   *          The URL to make a {@code GET} request for, including URL
+   *          parameters.
+   * @return HTTP response data.
+   * @throws IOException
+   *           If an error occurs while performing the {@code GET} operation.
+   */
+  Response executeGet(String url) throws IOException;
+
+  /**
    * Given a Facebook API endpoint URL and parameter string, execute a {@code
    * POST} to the endpoint URL.
    * 

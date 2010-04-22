@@ -44,11 +44,45 @@ public class DefaultWebRequestor implements WebRequestor {
       Logger.getLogger(DefaultWebRequestor.class);
 
   /**
+   * @see com.restfb.WebRequestor#executeGet(java.lang.String)
+   */
+  @Override
+  public Response executeGet(String url) throws IOException {
+    if (logger.isInfoEnabled())
+      logger.info("Making a GET request to " + url);
+
+    HttpURLConnection httpUrlConnection = null;
+    InputStream inputStream = null;
+
+    try {
+      httpUrlConnection = (HttpURLConnection) new URL(url).openConnection();
+      httpUrlConnection.setRequestMethod("GET");
+      httpUrlConnection.connect();
+
+      try {
+        inputStream = httpUrlConnection.getInputStream();
+      } catch (IOException e) {
+        logger
+          .warn("An error occurred while making a GET request to " + url, e);
+      }
+
+      return new Response(httpUrlConnection.getResponseCode(), StringUtils
+        .fromInputStream(inputStream));
+    } finally {
+      closeQuietly(httpUrlConnection);
+    }
+  }
+
+  /**
    * @see com.restfb.WebRequestor#executePost(java.lang.String,
    *      java.lang.String)
    */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
+    if (logger.isInfoEnabled())
+      logger.info("Executing a POST to " + url + " with parameters: "
+          + parameters);
+
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
     InputStream inputStream = null;
