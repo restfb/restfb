@@ -22,48 +22,34 @@
 
 package com.restfb.types;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import com.restfb.Facebook;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class User extends FacebookType {
-  @Facebook("first_name")
-  private String firstName;
-
-  @Facebook("last_name")
-  private String lastName;
+public class Album extends FacebookType {
+  @Facebook
+  private From from;
 
   @Facebook
   private String name;
 
   @Facebook
+  private String description;
+
+  @Facebook
+  private String location;
+
+  @Facebook
   private String link;
 
   @Facebook
-  private String about;
+  private Long count;
 
-  @Facebook(value = "interested_in", contains = String.class)
-  private List<String> interestedIn = new ArrayList<String>();
-
-  @Facebook("relationship_status")
-  private String relationshipStatus;
-
-  @Facebook
-  private String religion;
-
-  @Facebook
-  private String website;
-
-  @Facebook
-  private Integer timezone;
-
-  @Facebook
-  private Boolean verified;
+  @Facebook("created_time")
+  private String createdTime;
 
   @Facebook("updated_time")
   private String updatedTime;
@@ -73,57 +59,38 @@ public class User extends FacebookType {
    */
   @Override
   public String toString() {
-    return String.format("%s[id=%s name=%s firstName=%s lastName=%s "
-        + "link=%s about=%s religion=%s website=%s timezone=%d "
-        + "verified=%s updatedTime=%s relationshipStatus=%s interestedIn=%s]",
-      getClass().getSimpleName(), getId(), getName(), getFirstName(),
-      getLastName(), getLink(), getAbout(), getReligion(), getWebsite(),
-      getTimezone(), getVerified(), getUpdatedTime(), getRelationshipStatus(),
-      getInterestedIn());
+    return String.format("%s[id=%s name=%s description=%s location=%s link=%s "
+        + "count=%d createdTime=%s updatedTime=%s]",
+      getClass().getSimpleName(), getId(), getName(), getDescription(),
+      getLocation(), getLink(), getCount(), getCreatedTime(), getUpdatedTime());
   }
 
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
+  public From getFrom() {
+    return from;
   }
 
   public String getName() {
     return name;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
   public String getLink() {
     return link;
   }
 
-  public String getAbout() {
-    return about;
+  public Long getCount() {
+    return count;
   }
 
-  public List<String> getInterestedIn() {
-    return interestedIn;
-  }
-
-  public String getRelationshipStatus() {
-    return relationshipStatus;
-  }
-
-  public String getReligion() {
-    return religion;
-  }
-
-  public String getWebsite() {
-    return website;
-  }
-
-  public Integer getTimezone() {
-    return timezone;
-  }
-
-  public Boolean getVerified() {
-    return verified;
+  public Date getCreatedTime() {
+    return toDate(createdTime);
   }
 
   public Date getUpdatedTime() {
