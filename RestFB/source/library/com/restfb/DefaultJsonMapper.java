@@ -79,9 +79,28 @@ public class DefaultJsonMapper implements JsonMapper {
         return new ArrayList<T>();
       }
 
-      throw new FacebookJsonMappingException(
-        "JSON is an object but is being mapped as a list "
-            + "instead. Offending JSON is '" + json + "'.");
+      // Special case: if the only element of this object is an array called
+      // "data", then treat it as a list. The Graph API uses this convention for
+      // connections in a few other places.
+      // Doing this simplifies mapping, so we don't have to worry about having a
+      // little placeholder object that only has a "data" value.
+      try {
+        JSONObject jsonObject = new JSONObject(json);
+        String[] names = JSONObject.getNames(jsonObject);
+
+        if (!(names.length == 1 && "data".equals(names[0])))
+          throw new FacebookJsonMappingException(
+            "JSON is an object but is being mapped as a list "
+                + "instead. Offending JSON is '" + json + "'.");
+        else
+          // TODO: make sure this is an array!
+          json = jsonObject.getJSONArray("data").toString();
+      } catch (JSONException e) {
+        // Should never get here, but just in case...
+        throw new FacebookJsonMappingException(
+          "Unable to convert Facebook response " + "JSON to a list of "
+              + type.getName() + " instances", e);
+      }
     }
 
     try {

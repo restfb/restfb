@@ -137,7 +137,15 @@ public class DefaultFacebookClient implements FacebookClient {
    */
   protected void throwFacebookResponseStatusExceptionIfNecessary(String json)
       throws FacebookResponseStatusException, FacebookJsonMappingException {
-  // No-op for now
+  // TODO: implement - no-op for now
+
+  // This is what an error object looks like:
+
+  /*
+   * { "error": { "type": "Exception", "message":
+   * "You can only access the \"home\" connection for the current user: " } }
+   */
+
   }
 
   /**

@@ -23,6 +23,7 @@
 package com.restfb;
 
 /**
+ * TODO: Update docs, rename this to LegacyFacebookResponseStatusException.
  * Indicates that the Facebook endpoint returned JSON which contains an error
  * code.
  * <p>
