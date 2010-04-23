@@ -29,7 +29,7 @@ import com.restfb.Facebook;
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Event extends FacebookType {
+public class Group extends FacebookType {
   @Facebook
   private Owner owner;
 
@@ -39,14 +39,8 @@ public class Event extends FacebookType {
   @Facebook
   private String description;
 
-  @Facebook("start_time")
-  private String startTime;
-
-  @Facebook("end_time")
-  private String endTime;
-
   @Facebook
-  private String location;
+  private String link;
 
   @Facebook
   private Venue venue;
@@ -63,10 +57,9 @@ public class Event extends FacebookType {
   @Override
   public String toString() {
     return String.format("%s[id=%s name=%s owner=%s description=%s "
-        + "startTime=%s endTime=%s location=%s "
-        + "privacy=%s updatedTime=%s venue=%s]", getClass().getSimpleName(),
-      getId(), getName(), getOwner(), getDescription(), getStartTime(),
-      getEndTime(), getLocation(), getPrivacy(), getUpdatedTime(), getVenue());
+        + "link=%s privacy=%s updatedTime=%s venue=%s]", getClass()
+      .getSimpleName(), getId(), getName(), getOwner(), getDescription(),
+      getLink(), getPrivacy(), getUpdatedTime(), getVenue());
   }
 
   public Owner getOwner() {
@@ -81,16 +74,8 @@ public class Event extends FacebookType {
     return description;
   }
 
-  public Date getStartTime() {
-    return toDate(startTime);
-  }
-
-  public Date getEndTime() {
-    return toDate(endTime);
-  }
-
-  public String getLocation() {
-    return location;
+  public String getLink() {
+    return link;
   }
 
   public Venue getVenue() {

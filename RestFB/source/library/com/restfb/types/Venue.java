@@ -22,86 +22,62 @@
 
 package com.restfb.types;
 
-import java.util.Date;
-
 import com.restfb.Facebook;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Event extends FacebookType {
+public class Venue {
   @Facebook
-  private Owner owner;
-
-  @Facebook
-  private String name;
+  private String street;
 
   @Facebook
-  private String description;
-
-  @Facebook("start_time")
-  private String startTime;
-
-  @Facebook("end_time")
-  private String endTime;
+  private String city;
 
   @Facebook
-  private String location;
+  private String state;
 
   @Facebook
-  private Venue venue;
+  private String country;
 
   @Facebook
-  private String privacy;
+  private Double latitude;
 
-  @Facebook("updated_time")
-  private String updatedTime;
+  @Facebook
+  private Double longitude;
 
   /**
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return String.format("%s[id=%s name=%s owner=%s description=%s "
-        + "startTime=%s endTime=%s location=%s "
-        + "privacy=%s updatedTime=%s venue=%s]", getClass().getSimpleName(),
-      getId(), getName(), getOwner(), getDescription(), getStartTime(),
-      getEndTime(), getLocation(), getPrivacy(), getUpdatedTime(), getVenue());
+    return String.format("%s[street=%s city=%s state=%s "
+        + "country=%s latitude=%s longitude=%s]", getClass().getSimpleName(),
+      getStreet(), getCity(), getState(), getCountry(), getLatitude(),
+      getLongitude());
   }
 
-  public Owner getOwner() {
-    return owner;
+  public String getStreet() {
+    return street;
   }
 
-  public String getName() {
-    return name;
+  public String getCity() {
+    return city;
   }
 
-  public String getDescription() {
-    return description;
+  public String getState() {
+    return state;
   }
 
-  public Date getStartTime() {
-    return toDate(startTime);
+  public String getCountry() {
+    return country;
   }
 
-  public Date getEndTime() {
-    return toDate(endTime);
+  public Double getLatitude() {
+    return latitude;
   }
 
-  public String getLocation() {
-    return location;
-  }
-
-  public Venue getVenue() {
-    return venue;
-  }
-
-  public String getPrivacy() {
-    return privacy;
-  }
-
-  public Date getUpdatedTime() {
-    return toDate(updatedTime);
+  public Double getLongitude() {
+    return longitude;
   }
 }

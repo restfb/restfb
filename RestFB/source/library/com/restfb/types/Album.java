@@ -59,9 +59,10 @@ public class Album extends FacebookType {
    */
   @Override
   public String toString() {
-    return String.format("%s[id=%s name=%s description=%s location=%s link=%s "
-        + "count=%d createdTime=%s updatedTime=%s]",
-      getClass().getSimpleName(), getId(), getName(), getDescription(),
+    return String.format(
+      "%s[id=%s name=%s from=%s description=%s location=%s link=%s "
+          + "count=%d createdTime=%s updatedTime=%s]", getClass()
+        .getSimpleName(), getId(), getName(), getFrom(), getDescription(),
       getLocation(), getLink(), getCount(), getCreatedTime(), getUpdatedTime());
   }
 
