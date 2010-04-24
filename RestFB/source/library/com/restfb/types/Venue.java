@@ -25,6 +25,8 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document, equals, hashcode
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Venue {
@@ -51,10 +53,10 @@ public class Venue {
    */
   @Override
   public String toString() {
-    return String.format("%s[street=%s city=%s state=%s "
-        + "country=%s latitude=%s longitude=%s]", getClass().getSimpleName(),
-      getStreet(), getCity(), getState(), getCountry(), getLatitude(),
-      getLongitude());
+    return String.format("%s[city=%s country=%s latitude=%s "
+        + "longitude=%s state=%s street=%s]", getClass().getSimpleName(),
+      getCity(), getCountry(), getLatitude(), getLongitude(), getState(),
+      getStreet());
   }
 
   public String getStreet() {

@@ -25,20 +25,16 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Page extends FacebookType {
-  @Facebook
-  private String name;
-
+public class Page extends CategorizedFacebookType {
   @Facebook
   private String picture;
 
   @Facebook
   private String link;
-
-  @Facebook
-  private String category;
 
   @Facebook
   private String username;
@@ -58,33 +54,12 @@ public class Page extends FacebookType {
   @Facebook("fan_count")
   private Long fanCount;
 
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return String.format("%s[id=%s name=%s picture=%s link=%s "
-        + "category=%s username=%s founded=%s "
-        + "companyOverview=%s mission=%s products=%s fanCount=%d]", getClass()
-      .getSimpleName(), getId(), getName(), getPicture(), getLink(),
-      getCategory(), getUsername(), getFounded(), getCompanyOverview(),
-      getMission(), getProducts(), getFanCount());
-  }
-
-  public String getName() {
-    return name;
-  }
-
   public String getPicture() {
     return picture;
   }
 
   public String getLink() {
     return link;
-  }
-
-  public String getCategory() {
-    return category;
   }
 
   public String getUsername() {

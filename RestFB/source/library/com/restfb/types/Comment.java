@@ -27,11 +27,13 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Comment extends FacebookType {
   @Facebook
-  private Owner from;
+  private NamedFacebookType from;
 
   @Facebook
   private String message;
@@ -39,17 +41,7 @@ public class Comment extends FacebookType {
   @Facebook("created_time")
   private String createdTime;
 
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return String.format("%s[id=%s from=%s message=%s createdTime=%s]",
-      getClass().getSimpleName(), getId(), getFrom(), getMessage(),
-      getCreatedTime());
-  }
-
-  public Owner getFrom() {
+  public NamedFacebookType getFrom() {
     return from;
   }
 

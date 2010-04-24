@@ -25,11 +25,13 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Link extends FacebookType {
+public class Link extends NamedFacebookType {
   @Facebook
-  private From from;
+  private NamedFacebookType from;
 
   @Facebook
   private String message;
@@ -41,26 +43,12 @@ public class Link extends FacebookType {
   private String link;
 
   @Facebook
-  private String name;
-
-  @Facebook
   private String description;
 
   @Facebook
   private String icon;
 
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return String.format("%s[id=%s name=%s from=%s message=%s "
-        + "picture=%s link=%s description=%s icon=%s]", getClass()
-      .getSimpleName(), getId(), getName(), getFrom(), getMessage(),
-      getPicture(), getLink(), getDescription(), getIcon());
-  }
-
-  public From getFrom() {
+  public NamedFacebookType getFrom() {
     return from;
   }
 
@@ -74,10 +62,6 @@ public class Link extends FacebookType {
 
   public String getLink() {
     return link;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public String getDescription() {

@@ -25,20 +25,13 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class From extends Owner {
+public class CategorizedFacebookType extends NamedFacebookType {
   @Facebook
   private String category;
-
-  /**
-   * @see com.restfb.types.Owner#toString()
-   */
-  @Override
-  public String toString() {
-    return String.format("%s[id=%s name=%s category=%s]", getClass()
-      .getSimpleName(), getId(), getName(), getCategory());
-  }
 
   public String getCategory() {
     return category;

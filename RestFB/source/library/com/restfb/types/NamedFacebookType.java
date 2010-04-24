@@ -25,20 +25,13 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Owner extends FacebookType {
+public class NamedFacebookType extends FacebookType {
   @Facebook
   private String name;
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return String.format("%s[id=%s name=%s]", getClass().getSimpleName(),
-      getId(), getName());
-  }
 
   public String getName() {
     return name;

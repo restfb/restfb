@@ -101,6 +101,7 @@ public interface WebRequestor {
    * @return HTTP response data.
    * @throws IOException
    *           If an error occurs while performing the {@code GET} operation.
+   * @since 1.5
    */
   Response executeGet(String url) throws IOException;
 

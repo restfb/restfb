@@ -27,11 +27,13 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Note extends FacebookType {
   @Facebook
-  private From from;
+  private NamedFacebookType from;
 
   @Facebook
   private String subject;
@@ -48,18 +50,7 @@ public class Note extends FacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return String.format("%s[id=%s from=%s subject=%s message=%s "
-        + "icon=%s createdTime=%s updatedTime=%s]", getClass().getSimpleName(),
-      getId(), getFrom(), getSubject(), getMessage(), getIcon(),
-      getCreatedTime(), getUpdatedTime());
-  }
-
-  public From getFrom() {
+  public NamedFacebookType getFrom() {
     return from;
   }
 

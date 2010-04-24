@@ -30,14 +30,13 @@ import java.util.List;
 import com.restfb.Facebook;
 
 /**
+ * TODO: document
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Post extends FacebookType {
+public class Post extends NamedFacebookType {
   @Facebook
-  private From from;
-
-  @Facebook
-  private List<Owner> to = new ArrayList<Owner>();
+  private CategorizedFacebookType from;
 
   @Facebook
   private String message;
@@ -47,9 +46,6 @@ public class Post extends FacebookType {
 
   @Facebook
   private String link;
-
-  @Facebook
-  private String name;
 
   @Facebook
   private String caption;
@@ -69,12 +65,6 @@ public class Post extends FacebookType {
   @Facebook
   private Privacy privacy;
 
-  @Facebook(value = "comments", contains = Comment.class)
-  private List<Comment> comments = new ArrayList<Comment>();
-
-  @Facebook(value = "actions", contains = Action.class)
-  private List<Action> actions = new ArrayList<Action>();
-
   @Facebook
   private Long likes;
 
@@ -84,22 +74,20 @@ public class Post extends FacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return String.format("%s[id=%s from=%s to=%s message=%s "
-        + "picture=%s link=%s name=%s caption=%s "
-        + "description=%s source=%s icon=%s attribution=%s "
-        + "privacy=%s actions=%s comments=%s "
-        + "likes=%d createdTime=%s updatedTime=%s]",
-      getClass().getSimpleName(), getId(), getFrom(), getTo(), getMessage(),
-      getPicture(), getLink(), getName(), getCaption(), getDescription(),
-      getSource(), getIcon(), getAttribution(), getPrivacy(), getActions(),
-      getComments(), getLikes(), getCreatedTime(), getUpdatedTime());
-  }
+  @Facebook
+  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
+  @Facebook(value = "comments", contains = Comment.class)
+  private List<Comment> comments = new ArrayList<Comment>();
+
+  @Facebook(value = "actions", contains = Action.class)
+  private List<Action> actions = new ArrayList<Action>();
+
+  /**
+   * TODO: document, equals, hashcode
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   */
   public static class Privacy {
     @Facebook
     private String value;
@@ -118,6 +106,11 @@ public class Post extends FacebookType {
     }
   }
 
+  /**
+   * TODO: document, equals, hashcode
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   */
   public static class Action {
     @Facebook
     private String name;
@@ -130,8 +123,8 @@ public class Post extends FacebookType {
      */
     @Override
     public String toString() {
-      return String.format("%s[name=%s link=%s]", getClass().getSimpleName(),
-        getName(), getLink());
+      return String.format("%s[link=%s name=%s]", getClass().getSimpleName(),
+        getLink(), getName());
     }
 
     public String getName() {
@@ -143,12 +136,8 @@ public class Post extends FacebookType {
     }
   }
 
-  public From getFrom() {
+  public CategorizedFacebookType getFrom() {
     return from;
-  }
-
-  public List<Owner> getTo() {
-    return to;
   }
 
   public String getMessage() {
@@ -161,10 +150,6 @@ public class Post extends FacebookType {
 
   public String getLink() {
     return link;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public String getCaption() {
@@ -191,14 +176,6 @@ public class Post extends FacebookType {
     return privacy;
   }
 
-  public List<Comment> getComments() {
-    return Collections.unmodifiableList(comments);
-  }
-
-  public List<Action> getActions() {
-    return Collections.unmodifiableList(actions);
-  }
-
   public Long getLikes() {
     return likes;
   }
@@ -210,4 +187,17 @@ public class Post extends FacebookType {
   public Date getUpdatedTime() {
     return toDate(updatedTime);
   }
+
+  public List<NamedFacebookType> getTo() {
+    return Collections.unmodifiableList(to);
+  }
+
+  public List<Comment> getComments() {
+    return Collections.unmodifiableList(comments);
+  }
+
+  public List<Action> getActions() {
+    return Collections.unmodifiableList(actions);
+  }
+
 }

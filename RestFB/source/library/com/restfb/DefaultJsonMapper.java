@@ -391,13 +391,12 @@ public class DefaultJsonMapper implements JsonMapper {
           return "";
         }
 
-      if (rawValue instanceof String)
-        return rawValue;
-
-      throw new FacebookJsonMappingException("You cannot map the '"
-          + facebookFieldName
-          + "' field in the following JSON as a String type: "
-          + jsonObject.toString());
+      // If the user wants a string, _always_ give her a string.
+      // This is useful if, for example, you've got a @Facebook-annotated string
+      // field that you'd like to have a numeric type shoved into.
+      // User beware: this will turn *anything* into a string, which might lead
+      // to results you don't expect.
+      return rawValue.toString();
     }
 
     if (Integer.class.equals(type) || Integer.TYPE.equals(type))
