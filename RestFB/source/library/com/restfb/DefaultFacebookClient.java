@@ -26,6 +26,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +34,9 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.json.JSONArray;
+import com.restfb.json.JSONException;
+import com.restfb.json.JSONObject;
 
 /**
  * TODO: Documentation
@@ -99,7 +103,7 @@ public class DefaultFacebookClient implements FacebookClient {
 
     illegalParamNames = new HashSet<String>();
     illegalParamNames.addAll(Arrays.asList(new String[] {
-        ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, IDS_PARAM_NAME }));
+        ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME }));
   }
 
   /**
@@ -115,10 +119,38 @@ public class DefaultFacebookClient implements FacebookClient {
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> List<T> fetchConnection(String connection,
+  public <T> Connection<T> fetchConnection(String connection,
       Class<T> connectionType, Parameter... parameters)
       throws FacebookException {
-    throw new UnsupportedOperationException("TODO: implement");
+    verifyParameterPresence("connection", connection);
+    verifyParameterPresence("connectionType", connectionType);
+
+    List<T> data = new ArrayList<T>();
+    boolean hasPrevious = false;
+    boolean hasNext = false;
+
+    try {
+      JSONObject jsonObject =
+          new JSONObject(makeRequest(connection, parameters));
+
+      // Pull out data
+      JSONArray jsonData = jsonObject.getJSONArray("data");
+      for (int i = 0; i < jsonData.length(); i++)
+        data.add(jsonMapper.toJavaObject(jsonData.get(i).toString(),
+          connectionType));
+
+      // Pull out paging info, if present
+      if (jsonObject.has("paging")) {
+        JSONObject jsonPaging = jsonObject.getJSONObject("paging");
+        hasPrevious = jsonPaging.has("previous");
+        hasNext = jsonPaging.has("next");
+      }
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException(
+        "Unable to map connection JSON to Java objects", e);
+    }
+
+    return new Connection<T>(data, hasPrevious, hasNext);
   }
 
   /**
@@ -128,27 +160,9 @@ public class DefaultFacebookClient implements FacebookClient {
   @Override
   public <T> T fetchObject(String object, Class<T> objectType,
       Parameter... parameters) throws FacebookException {
-    if (StringUtils.isBlank(object))
-      throw new IllegalArgumentException(
-        "The object parameter must be a non-blank string.");
-
-    object = StringUtils.trimToEmpty(object).toLowerCase();
-    if (!object.startsWith("/"))
-      object = "/" + object;
-
-    // TODO: more validation
-
+    verifyParameterPresence("object", object);
+    verifyParameterPresence("objectType", objectType);
     return jsonMapper.toJavaObject(makeRequest(object, parameters), objectType);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#search(java.lang.String, java.lang.String,
-   *      java.lang.Class, com.restfb.Parameter[])
-   */
-  @Override
-  public <T> List<T> search(String query, String type, Class<T> objectType,
-      Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException("TODO: implement");
   }
 
   /**
@@ -158,7 +172,54 @@ public class DefaultFacebookClient implements FacebookClient {
   @Override
   public <T> List<T> fetchObjects(List<String> ids, Class<T> objectType,
       Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException("TODO: implement");
+    verifyParameterPresence("ids", ids);
+    verifyParameterPresence("connectionType", objectType);
+
+    if (ids.size() == 0)
+      throw new IllegalArgumentException("The list of IDs cannot be empty.");
+
+    for (Parameter parameter : parameters)
+      if (IDS_PARAM_NAME.equals(parameter.name))
+        throw new IllegalArgumentException("You cannot specify the '"
+            + IDS_PARAM_NAME + "' URL parameter yourself - "
+            + "RestFB will populate this for you with "
+            + "the list of IDs you passed to this method.");
+
+    // Normalize the IDs
+    for (int i = 0; i < ids.size(); i++) {
+      String id = ids.get(i).trim().toLowerCase();
+      if ("".equals(id))
+        throw new IllegalArgumentException(
+          "The list of IDs cannot contain blank strings.");
+      ids.set(i, id);
+    }
+
+    List<Parameter> parametersWithIds =
+        new ArrayList<Parameter>(Arrays.asList(parameters));
+    parametersWithIds
+      .add(Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)));
+
+    List<T> objects = new ArrayList<T>();
+
+    try {
+      JSONObject jsonObject =
+          new JSONObject(makeRequest("", parametersWithIds
+            .toArray(new Parameter[] {})));
+
+      for (String id : ids) {
+        System.out.println("Checking ID " + id);
+        if (jsonObject.has(id)) {
+          System.out.println("Has ID " + id);
+          objects.add(jsonMapper.toJavaObject(jsonObject.get(id).toString(),
+            objectType));
+        }
+      }
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException(
+        "Unable to map connection JSON to Java objects", e);
+    }
+
+    return Collections.unmodifiableList(objects);
   }
 
   /**
@@ -188,6 +249,10 @@ public class DefaultFacebookClient implements FacebookClient {
   protected String makeRequest(String endpoint, Parameter... parameters)
       throws FacebookException {
     verifyParameterLegality(parameters);
+
+    StringUtils.trimToEmpty(endpoint).toLowerCase();
+    if (!endpoint.startsWith("/"))
+      endpoint = "/" + endpoint;
 
     Response response = null;
     String parameterString = toParameterString(parameters);

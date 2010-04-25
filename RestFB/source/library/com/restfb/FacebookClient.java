@@ -36,12 +36,7 @@ public interface FacebookClient {
   <T> List<T> fetchObjects(List<String> ids, Class<T> objectType,
       Parameter... parameters) throws FacebookException;
 
-  // TODO: should return Connection<T>, which in turn holds List<T> and
-  // hasPrevious() and hasNext()
-  <T> List<T> fetchConnection(String connection, Class<T> connectionType,
-      Parameter... parameters) throws FacebookException;
-
-  <T> List<T> search(String query, String type, Class<T> objectType,
+  <T> Connection<T> fetchConnection(String connection, Class<T> connectionType,
       Parameter... parameters) throws FacebookException;
 
   void publish(String connection, Parameter... parameters)

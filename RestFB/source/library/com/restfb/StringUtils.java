@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -178,5 +179,30 @@ abstract class StringUtils {
           logger.warn("Unable to close stream, continuing on...", t);
         }
     }
+  }
+
+  /**
+   * Joins the given {@code list} into a comma-separated string.
+   * 
+   * @param list
+   *          The list to join.
+   * @return A comma-separated string representation of the given {@code list}.
+   */
+  static String join(List<String> list) {
+    if (list == null)
+      return null;
+
+    StringBuilder joined = new StringBuilder();
+    boolean first = true;
+
+    for (String element : list) {
+      if (first)
+        first = false;
+      else
+        joined.append(",");
+      joined.append(element);
+    }
+
+    return joined.toString();
   }
 }
