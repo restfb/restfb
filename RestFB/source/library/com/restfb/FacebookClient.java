@@ -22,12 +22,30 @@
 
 package com.restfb;
 
+import java.util.List;
+
 /**
  * TODO: Documentation
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public interface FacebookClient {
-  <T> T fetch(String endpoint, Class<T> resultType, Parameter... parameters)
+  <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters)
       throws FacebookException;
+
+  <T> List<T> fetchObjects(List<String> ids, Class<T> objectType,
+      Parameter... parameters) throws FacebookException;
+
+  // TODO: should return Connection<T>, which in turn holds List<T> and
+  // hasPrevious() and hasNext()
+  <T> List<T> fetchConnection(String connection, Class<T> connectionType,
+      Parameter... parameters) throws FacebookException;
+
+  <T> List<T> search(String query, String type, Class<T> objectType,
+      Parameter... parameters) throws FacebookException;
+
+  void publish(String connection, Parameter... parameters)
+      throws FacebookException;
+
+  void deleteObject(String object) throws FacebookException;
 }

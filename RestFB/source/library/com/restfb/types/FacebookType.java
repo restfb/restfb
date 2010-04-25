@@ -22,14 +22,9 @@
 
 package com.restfb.types;
 
-import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
 import com.restfb.Facebook;
 
@@ -41,6 +36,12 @@ import com.restfb.Facebook;
 public class FacebookType {
   @Facebook
   private String id;
+
+  @Facebook
+  Metadata metadata;
+
+  @Facebook
+  String type;
 
   // Facebook date format (ISO 8601).
   // Example: 2010-02-28T16:11:08+0000
@@ -59,41 +60,19 @@ public class FacebookType {
    */
   @Override
   public String toString() {
-    StringBuilder buffer = new StringBuilder(getClass().getSimpleName());
-    buffer.append("[");
-
-    boolean first = true;
-
-    for (Method method : ReflectionUtils.getAccessors(getClass())) {
-      if (first)
-        first = false;
-      else
-        buffer.append(" ");
-
-      try {
-        String methodName = method.getName();
-        int offset = methodName.startsWith("get") ? 3 : 2;
-        methodName =
-            methodName.substring(offset, offset + 1).toLowerCase()
-                + methodName.substring(offset + 1);
-
-        buffer.append(methodName);
-        buffer.append("=");
-
-        // Accessors are guaranteed to take no parameters and return a value
-        buffer.append(method.invoke(this));
-      } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke "
-            + method, e);
-      }
-    }
-
-    buffer.append("]");
-    return buffer.toString();
+    return ReflectionUtils.toString(this);
   }
 
   public String getId() {
     return id;
+  }
+
+  public Metadata getMetadata() {
+    return metadata;
+  }
+
+  public String getType() {
+    return type;
   }
 
   /**
@@ -118,38 +97,225 @@ public class FacebookType {
     }
   }
 
-  private static abstract class ReflectionUtils {
-    private ReflectionUtils() {}
+  /**
+   * TODO: document
+   * 
+   * @param string
+   * @return
+   */
+  private static Boolean toBoolean(String string) {
+    return string != null && !"".equals(string.trim());
+  }
 
-    private static List<Method> getAccessors(Class<?> clazz) {
-      if (clazz == null)
-        throw new IllegalArgumentException(
-          "The 'clazz' parameter cannot be null.");
+  /**
+   * TODO: documentation, equals, hashcode
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   */
+  public static class Metadata {
+    @Facebook
+    private Connections connections;
 
-      List<Method> methods = new ArrayList<Method>();
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
 
-      for (Method method : clazz.getMethods()) {
-        String methodName = method.getName();
-        if (!"getClass".equals(methodName)
-            && method.getReturnType() != null
-            && method.getParameterTypes().length == 0
-            && ((methodName.startsWith("get") && methodName.length() > 3) || (methodName
-              .startsWith("is") && methodName.length() > 2)))
-          methods.add(method);
+    /**
+     * TODO: documentation, equals, hashcode
+     * 
+     * @author <a href="http://restfb.com">Mark Allen</a>
+     */
+    public static class Connections {
+      @Facebook
+      private String home;
+
+      @Facebook
+      private String feed;
+
+      @Facebook
+      private String friends;
+
+      @Facebook
+      private String family;
+
+      @Facebook
+      private String activities;
+
+      @Facebook
+      private String interests;
+
+      @Facebook
+      private String music;
+
+      @Facebook
+      private String books;
+
+      @Facebook
+      private String movies;
+
+      @Facebook
+      private String television;
+
+      @Facebook
+      private String likes;
+
+      @Facebook
+      private String posts;
+
+      @Facebook
+      private String tagged;
+
+      @Facebook
+      private String statuses;
+
+      @Facebook
+      private String links;
+
+      @Facebook
+      private String notes;
+
+      @Facebook
+      private String photos;
+
+      @Facebook
+      private String albums;
+
+      @Facebook
+      private String events;
+
+      @Facebook
+      private String groups;
+
+      @Facebook
+      private String videos;
+
+      @Facebook
+      private String picture;
+
+      @Facebook
+      private String inbox;
+
+      @Facebook
+      private String outbox;
+
+      @Facebook
+      private String updates;
+
+      /**
+       * @see java.lang.Object#toString()
+       */
+      @Override
+      public String toString() {
+        return ReflectionUtils.toString(this);
       }
 
-      // Order the methods alphabetically by name
-      Collections.sort(methods, new Comparator<Method>() {
-        /**
-         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-         */
-        @Override
-        public int compare(Method method1, Method method2) {
-          return method1.getName().compareTo(method2.getName());
-        }
-      });
+      public Boolean hasHome() {
+        return toBoolean(home);
+      }
 
-      return Collections.unmodifiableList(methods);
+      public Boolean hasFeed() {
+        return toBoolean(feed);
+      }
+
+      public Boolean hasFriends() {
+        return toBoolean(friends);
+      }
+
+      public Boolean hasFamily() {
+        return toBoolean(family);
+      }
+
+      public Boolean hasActivities() {
+        return toBoolean(activities);
+      }
+
+      public Boolean hasInterests() {
+        return toBoolean(interests);
+      }
+
+      public Boolean hasMusic() {
+        return toBoolean(music);
+      }
+
+      public Boolean hasBooks() {
+        return toBoolean(books);
+      }
+
+      public Boolean hasMovies() {
+        return toBoolean(movies);
+      }
+
+      public Boolean hasTelevision() {
+        return toBoolean(television);
+      }
+
+      public Boolean hasLikes() {
+        return toBoolean(likes);
+      }
+
+      public Boolean hasPosts() {
+        return toBoolean(posts);
+      }
+
+      public Boolean hasTagged() {
+        return toBoolean(tagged);
+      }
+
+      public Boolean hasStatuses() {
+        return toBoolean(statuses);
+      }
+
+      public Boolean hasLinks() {
+        return toBoolean(links);
+      }
+
+      public Boolean hasNotes() {
+        return toBoolean(notes);
+      }
+
+      public Boolean hasPhotos() {
+        return toBoolean(photos);
+      }
+
+      public Boolean hasAlbums() {
+        return toBoolean(albums);
+      }
+
+      public Boolean hasEvents() {
+        return toBoolean(events);
+      }
+
+      public Boolean hasGroups() {
+        return toBoolean(groups);
+      }
+
+      public Boolean hasVideos() {
+        return toBoolean(videos);
+      }
+
+      public Boolean hasPicture() {
+        return toBoolean(picture);
+      }
+
+      public Boolean hasInbox() {
+        return toBoolean(inbox);
+      }
+
+      public Boolean hasOutbox() {
+        return toBoolean(outbox);
+      }
+
+      public Boolean hasUpdates() {
+        return toBoolean(updates);
+      }
+    }
+
+    public Connections getConnections() {
+      return connections;
     }
   }
 }

@@ -132,10 +132,7 @@ public class User extends NamedFacebookType {
      */
     @Override
     public String toString() {
-      return String.format("%s[employer=%s endDate=%s location=%s "
-          + "position=%s startDate=%s]", getClass().getSimpleName(),
-        getEmployer(), getEndDate(), getLocation(), getPosition(),
-        getStartDate());
+      return ReflectionUtils.toString(this);
     }
 
     public NamedFacebookType getEmployer() {
@@ -180,8 +177,7 @@ public class User extends NamedFacebookType {
      */
     @Override
     public String toString() {
-      return String.format("%s[concentration=%s school=%s year=%s]", getClass()
-        .getSimpleName(), getConcentration(), getSchool(), getYear());
+      return ReflectionUtils.toString(this);
     }
 
     public NamedFacebookType getSchool() {

@@ -53,10 +53,7 @@ public class Venue {
    */
   @Override
   public String toString() {
-    return String.format("%s[city=%s country=%s latitude=%s "
-        + "longitude=%s state=%s street=%s]", getClass().getSimpleName(),
-      getCity(), getCountry(), getLatitude(), getLongitude(), getState(),
-      getStreet());
+    return ReflectionUtils.toString(this);
   }
 
   public String getStreet() {

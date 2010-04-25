@@ -97,8 +97,7 @@ public class Post extends NamedFacebookType {
      */
     @Override
     public String toString() {
-      return String.format("%s[value=%s]", getClass().getSimpleName(),
-        getValue());
+      return ReflectionUtils.toString(this);
     }
 
     public String getValue() {
@@ -123,8 +122,7 @@ public class Post extends NamedFacebookType {
      */
     @Override
     public String toString() {
-      return String.format("%s[link=%s name=%s]", getClass().getSimpleName(),
-        getLink(), getName());
+      return ReflectionUtils.toString(this);
     }
 
     public String getName() {
