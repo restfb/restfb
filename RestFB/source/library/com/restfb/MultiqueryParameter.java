@@ -35,8 +35,10 @@ import com.restfb.json.JSONObject;
  * {@code fql.multiquery}</a> API call.
  * <p>
  * Please see the
- * {@link LegacyFacebookClient#executeMultiquery(Class, MultiqueryParameter, Parameter...)}
- * family of methods for more details on how this is used.
+ * {@link FacebookClient#executeMultiquery(MultiqueryParameter, Class, Parameter...)}
+ * and
+ * {@link LegacyFacebookClient#executeMultiquery(MultiqueryParameter, Class, Parameter...)}
+ * methods for more details on how this is used.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.1

@@ -39,6 +39,12 @@ public interface FacebookClient {
   <T> Connection<T> fetchConnection(String connection, Class<T> connectionType,
       Parameter... parameters) throws FacebookException;
 
+  <T> List<T> executeQuery(String query, Class<T> objectType,
+      Parameter... parameters) throws FacebookException;
+
+  <T> List<T> executeMultiquery(MultiqueryParameter queries,
+      Class<T> objectType, Parameter... parameters) throws FacebookException;
+
   void publish(String connection, Parameter... parameters)
       throws FacebookException;
 

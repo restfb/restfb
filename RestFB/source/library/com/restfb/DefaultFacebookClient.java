@@ -72,6 +72,12 @@ public class DefaultFacebookClient implements FacebookClient {
       "https://graph.facebook.com";
 
   /**
+   * Legacy API endpoint URL, used to support FQL queries.
+   */
+  private static final String FACEBOOK_LEGACY_ENDPOINT_URL =
+      "https://api.facebook.com/method";
+
+  /**
    * Reserved access token parameter name.
    */
   private static final String ACCESS_TOKEN_PARAM_NAME = "access_token";
@@ -85,6 +91,16 @@ public class DefaultFacebookClient implements FacebookClient {
    * Reserved "multiple IDs" parameter name.
    */
   private static final String IDS_PARAM_NAME = "ids";
+
+  /**
+   * Reserved FQL query parameter name.
+   */
+  private static final String QUERY_PARAM_NAME = "query";
+
+  /**
+   * Reserved "result format" parameter name.
+   */
+  private static final String FORMAT_PARAM_NAME = "format";
 
   private static final Logger logger =
       Logger.getLogger(DefaultFacebookClient.class);
@@ -108,7 +124,7 @@ public class DefaultFacebookClient implements FacebookClient {
 
     illegalParamNames = new HashSet<String>();
     illegalParamNames.addAll(Arrays.asList(new String[] {
-        ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME }));
+        ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME }));
   }
 
   /**
@@ -199,17 +215,12 @@ public class DefaultFacebookClient implements FacebookClient {
       ids.set(i, id);
     }
 
-    List<Parameter> parametersWithIds =
-        new ArrayList<Parameter>(Arrays.asList(parameters));
-    parametersWithIds
-      .add(Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)));
-
     List<T> objects = new ArrayList<T>();
 
     try {
       JSONObject jsonObject =
-          new JSONObject(makeRequest("", parametersWithIds
-            .toArray(new Parameter[] {})));
+          new JSONObject(makeRequest("", parametersWithAdditionalParameter(
+            Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
 
       for (String id : ids) {
         System.out.println("Checking ID " + id);
@@ -238,8 +249,40 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * Coordinates the process of executing the API GET request and processing the
-   * response we receive from the endpoint.
+   * @see com.restfb.FacebookClient#executeMultiquery(com.restfb.MultiqueryParameter,
+   *      java.lang.Class, com.restfb.Parameter[])
+   */
+  @Override
+  public <T> List<T> executeMultiquery(MultiqueryParameter queries,
+      Class<T> objectType, Parameter... parameters) throws FacebookException {
+    throw new UnsupportedOperationException("TODO: implement");
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
+   *      java.lang.Class, com.restfb.Parameter[])
+   */
+  @Override
+  public <T> List<T> executeQuery(String query, Class<T> objectType,
+      Parameter... parameters) throws FacebookException {
+    verifyParameterPresence("query", query);
+    verifyParameterPresence("objectType", objectType);
+
+    for (Parameter parameter : parameters)
+      if (QUERY_PARAM_NAME.equals(parameter.name))
+        throw new IllegalArgumentException("You cannot specify the '"
+            + QUERY_PARAM_NAME + "' URL parameter yourself - "
+            + "RestFB will populate this for you with "
+            + "the query you passed to this method.");
+
+    return jsonMapper.toJavaList(makeRequest("fql.query", true, false,
+      parametersWithAdditionalParameter(
+        Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
+  }
+
+  /**
+   * Coordinates the process of executing the API request GET/POST and
+   * processing the response we receive from the endpoint.
    * 
    * @param endpoint
    *          Facebook Graph API endpoint.
@@ -253,6 +296,31 @@ public class DefaultFacebookClient implements FacebookClient {
    */
   protected String makeRequest(String endpoint, Parameter... parameters)
       throws FacebookException {
+    return makeRequest(endpoint, false, false, parameters);
+  }
+
+  /**
+   * Coordinates the process of executing the API request GET/POST and
+   * processing the response we receive from the endpoint.
+   * 
+   * @param endpoint
+   *          Facebook Graph API endpoint.
+   * @param useLegacyEndpoint
+   *          Should we hit the legacy endpoint ({@code true}) or the new Graph
+   *          endpoint ({@code false})?
+   * @param executeAsPost
+   *          {@code true} to execute the web request as a {@code POST}, {@code
+   *          false} to execute as a {@code GET}.
+   * @param parameters
+   *          Arbitrary number of parameters to send along to Facebook as part
+   *          of the API call.
+   * @return The JSON returned by Facebook for the API call.
+   * @throws FacebookException
+   *           If an error occurs while making the Facebook API POST or
+   *           processing the response.
+   */
+  protected String makeRequest(String endpoint, boolean useLegacyEndpoint,
+      boolean executeAsPost, Parameter... parameters) throws FacebookException {
     verifyParameterLegality(parameters);
 
     StringUtils.trimToEmpty(endpoint).toLowerCase();
@@ -260,14 +328,19 @@ public class DefaultFacebookClient implements FacebookClient {
       endpoint = "/" + endpoint;
 
     Response response = null;
-    String parameterString = toParameterString(parameters);
+    String parameterString =
+        toParameterString(parametersWithAdditionalParameter(Parameter.with(
+          FORMAT_PARAM_NAME, "json"), parameters));
+    String fullEndpoint =
+        (useLegacyEndpoint ? FACEBOOK_LEGACY_ENDPOINT_URL
+            : FACEBOOK_GRAPH_ENDPOINT_URL)
+            + endpoint;
 
-    // TODO: support POSTs
-
-    // Perform a GET to the API endpoint
+    // Perform a GET or POST to the API endpoint
     try {
       response =
-          webRequestor.executeGet(FACEBOOK_GRAPH_ENDPOINT_URL + endpoint
+          executeAsPost ? webRequestor.executePost(fullEndpoint,
+            parameterString) : webRequestor.executeGet(fullEndpoint
               + parameterString);
     } catch (Throwable t) {
       throw new FacebookNetworkException("Facebook GET failed", t);
@@ -301,15 +374,26 @@ public class DefaultFacebookClient implements FacebookClient {
    */
   protected void throwFacebookResponseStatusExceptionIfNecessary(String json)
       throws FacebookResponseStatusException, FacebookJsonMappingException {
-  // TODO: implement - no-op for now
+  // TODO: implement - no-op for now. Keep in mind that Graph API and fql API
+  // errors are different!
 
-  // This is what an error object looks like:
+  // This is what an error object looks like in the Graph API:
 
   /*
    * { "error": { "type": "Exception", "message":
    * "You can only access the \"home\" connection for the current user: " } }
    */
 
+  // This is what an error object looks like in the legacy API:
+
+  /*
+   * {"error_code":601,"error_msg":"Parser error: SELECT * is not supported. Please manually list the columns you are interested in."
+   * ,
+   * "request_args":[{"key":"method","value":"fql.query"},{"key":"token","value"
+   * :
+   * "123123123"},{"key":"query","value":"select * from user where uid=1233"},{
+   * "key" :"format","value":"json"}]}
+   */
   }
 
   /**
@@ -343,6 +427,14 @@ public class DefaultFacebookClient implements FacebookClient {
     }
 
     return parameters.length == 0 ? "" : "?" + parameterStringBuilder;
+  }
+
+  protected Parameter[] parametersWithAdditionalParameter(Parameter parameter,
+      Parameter... parameters) {
+    Parameter[] updatedParameters = new Parameter[parameters.length + 1];
+    System.arraycopy(parameters, 0, updatedParameters, 0, parameters.length);
+    updatedParameters[parameters.length] = parameter;
+    return updatedParameters;
   }
 
   /**
