@@ -40,6 +40,11 @@ import org.apache.log4j.Logger;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class DefaultWebRequestor implements WebRequestor {
+  /**
+   * By default, how long should we wait for a response (in ms)?
+   */
+  private static final int DEFAULT_READ_TIMEOUT_IN_MS = 20000;
+
   private static final Logger logger =
       Logger.getLogger(DefaultWebRequestor.class);
 
@@ -56,6 +61,12 @@ public class DefaultWebRequestor implements WebRequestor {
 
     try {
       httpUrlConnection = (HttpURLConnection) new URL(url).openConnection();
+      httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
+
+      // Allow subclasses to customize the connection if they'd like to - set
+      // their own headers, timeouts, etc.
+      customizeConnection(httpUrlConnection);
+
       httpUrlConnection.setRequestMethod("GET");
       httpUrlConnection.connect();
 
@@ -80,8 +91,8 @@ public class DefaultWebRequestor implements WebRequestor {
   @Override
   public Response executePost(String url, String parameters) throws IOException {
     if (logger.isInfoEnabled())
-      logger.info("Executing a POST to " + url + " with parameters: "
-          + parameters);
+      logger.info("Executing a POST to " + url
+          + " with parameters (sent in request body): " + parameters);
 
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
@@ -89,6 +100,12 @@ public class DefaultWebRequestor implements WebRequestor {
 
     try {
       httpUrlConnection = (HttpURLConnection) new URL(url).openConnection();
+      httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
+
+      // Allow subclasses to customize the connection if they'd like to - set
+      // their own headers, timeouts, etc.
+      customizeConnection(httpUrlConnection);
+
       httpUrlConnection.setRequestMethod("POST");
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.connect();
@@ -108,6 +125,19 @@ public class DefaultWebRequestor implements WebRequestor {
       closeQuietly(httpUrlConnection);
     }
   }
+
+  /**
+   * Hook method which allows subclasses to easily customize the {@code
+   * connection}s created by {@link #executeGet(String)} and
+   * {@link #executePost(String, String)} - for example, setting a custom read
+   * timeout or request header.
+   * 
+   * This implementation is a no-op.
+   * 
+   * @param connection
+   *          The connection to customize.
+   */
+  protected void customizeConnection(HttpURLConnection connection) {}
 
   /**
    * Attempts to cleanly close a resource, swallowing any exceptions that might

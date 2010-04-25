@@ -93,13 +93,18 @@ public class DefaultFacebookClient implements FacebookClient {
    * TODO: Documentation
    */
   public DefaultFacebookClient(String accessToken) {
-    if (StringUtils.isBlank(accessToken))
-      throw new IllegalArgumentException(
-        "The accessToken parameter is required.");
+    this(accessToken, new DefaultJsonMapper(), new DefaultWebRequestor());
+  }
+
+  public DefaultFacebookClient(String accessToken, JsonMapper jsonMapper,
+      WebRequestor webRequestor) {
+    verifyParameterPresence("accessToken", accessToken);
+    verifyParameterPresence("jsonMapper", jsonMapper);
+    verifyParameterPresence("webRequestor", webRequestor);
 
     this.accessToken = accessToken;
-    webRequestor = new DefaultWebRequestor();
-    jsonMapper = new DefaultJsonMapper();
+    this.webRequestor = webRequestor;
+    this.jsonMapper = jsonMapper;
 
     illegalParamNames = new HashSet<String>();
     illegalParamNames.addAll(Arrays.asList(new String[] {
