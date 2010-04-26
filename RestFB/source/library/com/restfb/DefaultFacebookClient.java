@@ -98,6 +98,11 @@ public class DefaultFacebookClient implements FacebookClient {
   private static final String QUERY_PARAM_NAME = "query";
 
   /**
+   * Reserved FQL multiquery parameter name.
+   */
+  private static final String QUERIES_PARAM_NAME = "queries";
+
+  /**
    * Reserved "result format" parameter name.
    */
   private static final String FORMAT_PARAM_NAME = "format";
@@ -215,27 +220,22 @@ public class DefaultFacebookClient implements FacebookClient {
       ids.set(i, id);
     }
 
-    List<T> objects = new ArrayList<T>();
-
     try {
       JSONObject jsonObject =
           new JSONObject(makeRequest("", parametersWithAdditionalParameter(
             Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
 
-      for (String id : ids) {
-        System.out.println("Checking ID " + id);
-        if (jsonObject.has(id)) {
-          System.out.println("Has ID " + id);
+      List<T> objects = new ArrayList<T>();
+      for (String id : ids)
+        if (jsonObject.has(id))
           objects.add(jsonMapper.toJavaObject(jsonObject.get(id).toString(),
             objectType));
-        }
-      }
+
+      return Collections.unmodifiableList(objects);
     } catch (JSONException e) {
       throw new FacebookJsonMappingException(
         "Unable to map connection JSON to Java objects", e);
     }
-
-    return Collections.unmodifiableList(objects);
   }
 
   /**
@@ -253,9 +253,37 @@ public class DefaultFacebookClient implements FacebookClient {
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> List<T> executeMultiquery(MultiqueryParameter queries,
+  public <T> T executeMultiquery(MultiqueryParameter queries,
       Class<T> objectType, Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException("TODO: implement");
+    verifyParameterPresence("queries", queries);
+    verifyParameterPresence("objectType", objectType);
+
+    for (Parameter parameter : parameters)
+      if (QUERIES_PARAM_NAME.equals(parameter.name))
+        throw new IllegalArgumentException("You cannot specify the '"
+            + QUERIES_PARAM_NAME + "' URL parameter yourself - "
+            + "RestFB will populate this for you with "
+            + "the queries you passed to this method.");
+
+    try {
+      JSONArray jsonArray =
+          new JSONArray(makeRequest("fql.multiquery", true, false,
+            parametersWithAdditionalParameter(Parameter.with(
+              QUERIES_PARAM_NAME, queries.getQueriesAsJson()), parameters)));
+
+      JSONObject normalizedJson = new JSONObject();
+
+      for (int i = 0; i < jsonArray.length(); i++) {
+        JSONObject jsonObject = jsonArray.getJSONObject(i);
+        normalizedJson.put(jsonObject.getString("name"), jsonObject
+          .getJSONArray("fql_result_set"));
+      }
+
+      return jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException(
+        "Unable to process fql.multiquery JSON response", e);
+    }
   }
 
   /**
