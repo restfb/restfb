@@ -29,7 +29,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
@@ -249,13 +251,12 @@ public class DefaultFacebookClient implements FacebookClient {
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeMultiquery(com.restfb.MultiqueryParameter,
+   * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map,
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T executeMultiquery(MultiqueryParameter queries,
+  public <T> T executeMultiquery(Map<String, String> queries,
       Class<T> objectType, Parameter... parameters) throws FacebookException {
-    verifyParameterPresence("queries", queries);
     verifyParameterPresence("objectType", objectType);
 
     for (Parameter parameter : parameters)
@@ -269,7 +270,7 @@ public class DefaultFacebookClient implements FacebookClient {
       JSONArray jsonArray =
           new JSONArray(makeRequest("fql.multiquery", true, false,
             parametersWithAdditionalParameter(Parameter.with(
-              QUERIES_PARAM_NAME, queries.getQueriesAsJson()), parameters)));
+              QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
 
       JSONObject normalizedJson = new JSONObject();
 
@@ -463,6 +464,34 @@ public class DefaultFacebookClient implements FacebookClient {
     System.arraycopy(parameters, 0, updatedParameters, 0, parameters.length);
     updatedParameters[parameters.length] = parameter;
     return updatedParameters;
+  }
+
+  protected String queriesToJson(Map<String, String> queries) {
+    verifyParameterPresence("queries", queries);
+
+    if (queries.keySet().size() == 0)
+      throw new IllegalArgumentException("You must specify at least one query.");
+
+    JSONObject jsonObject = new JSONObject();
+
+    for (Entry<String, String> entry : queries.entrySet()) {
+      if (StringUtils.isBlank(entry.getKey())
+          || StringUtils.isBlank(entry.getValue()))
+        throw new IllegalArgumentException(
+          "Provided queries must have non-blank keys and values. "
+              + "You provided: " + queries);
+
+      try {
+        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
+          .trimToEmpty(entry.getValue()));
+      } catch (JSONException e) {
+        // Shouldn't happen unless bizarre input is provided
+        throw new IllegalArgumentException("Unable to convert " + queries
+            + " to JSON.", e);
+      }
+    }
+
+    return jsonObject.toString();
   }
 
   /**

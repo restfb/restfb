@@ -23,15 +23,16 @@
 package com.restfb;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Specifies how a <a
- * href="http://developers.facebook.com/docs/reference/rest/">legacy Facebook
+ * href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook
  * API</a> client must operate.
  * <p>
  * Green-field projects should use the new <a
- * href="http://developers.facebook.com/docs/api">Facebook Graph API</a>
- * instead.
+ * href="http://developers.facebook.com/docs/api">Facebook Graph API</a> via
+ * {@link FacebookClient} instead.
  * <p>
  * <ul>
  * <li>The {@link #execute(String, Parameter...)} family of methods should be
@@ -39,8 +40,8 @@ import java.util.List;
  * <li>The {@link #executeForList(String, Class, Parameter...)} family of
  * methods should be used when performing API calls that return a list of
  * objects.</li>
- * <li>The {@link #executeMultiquery(Class, MultiqueryParameter, Parameter...)}
- * family of methods should be used when performing <a
+ * <li>The {@link #executeMultiquery(Map, Class, Parameter...)} family of
+ * methods should be used when performing <a
  * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">{@code
  * fql.multiquery}</a> API calls.</li>
  * </ul>
@@ -175,12 +176,13 @@ public interface LegacyFacebookClient {
    * 
    * @param <T>
    *          Java type to map to.
+   * 
+   * @param queries
+   *          A mapping of query names to queries. This is marshaled to JSON and
+   *          sent over the wire to the Facebook API endpoint as the {@code
+   *          queries} parameter.
    * @param resultType
    *          Result type token.
-   * @param queries
-   *          A multivalued parameter which maps query names to queries. This is
-   *          marshaled to JSON and sent over the wire to the Facebook API
-   *          endpoint as the {@code queries} parameter.
    * @param additionalParameters
    *          Additional parameters to include in the API call.
    * @return An instance of type {@code resultType} which contains API response
@@ -189,7 +191,7 @@ public interface LegacyFacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.1
    */
-  <T> T executeMultiquery(Class<T> resultType, MultiqueryParameter queries,
+  <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType,
       Parameter... additionalParameters) throws FacebookException;
 
   /**
@@ -206,14 +208,14 @@ public interface LegacyFacebookClient {
    * 
    * @param <T>
    *          Java type to map to.
+   * @param queries
+   *          A mapping of query names to queries. This is marshaled to JSON and
+   *          sent over the wire to the Facebook API endpoint as the {@code
+   *          queries} parameter.
    * @param sessionKey
    *          A Facebook API session key.
    * @param resultType
    *          Result type token.
-   * @param queries
-   *          A multivalued parameter which maps query names to queries. This is
-   *          marshaled to JSON and sent over the wire to the Facebook API
-   *          endpoint as the {@code queries} parameter.
    * @param additionalParameters
    *          Additional parameters to include in the API call.
    * @return An instance of type {@code resultType} which contains API response
@@ -222,7 +224,7 @@ public interface LegacyFacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.1
    */
-  <T> T executeMultiquery(String sessionKey, Class<T> resultType,
-      MultiqueryParameter queries, Parameter... additionalParameters)
+  <T> T executeMultiquery(Map<String, String> queries, String sessionKey,
+      Class<T> resultType, Parameter... additionalParameters)
       throws FacebookException;
 }

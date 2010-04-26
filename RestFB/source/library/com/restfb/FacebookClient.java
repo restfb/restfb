@@ -23,6 +23,7 @@
 package com.restfb;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: Documentation
@@ -42,7 +43,7 @@ public interface FacebookClient {
   <T> List<T> executeQuery(String query, Class<T> objectType,
       Parameter... parameters) throws FacebookException;
 
-  <T> T executeMultiquery(MultiqueryParameter queries, Class<T> objectType,
+  <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType,
       Parameter... parameters) throws FacebookException;
 
   void publish(String connection, Parameter... parameters)

@@ -211,35 +211,33 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.lang.Class,
-   *      com.restfb.MultiqueryParameter, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map,
+   *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T executeMultiquery(Class<T> resultType,
-      MultiqueryParameter queries, Parameter... additionalParameters)
+  public <T> T executeMultiquery(Map<String, String> queries,
+      Class<T> resultType, Parameter... additionalParameters)
       throws FacebookException {
-    return executeMultiquery(null, resultType, queries, additionalParameters);
+    return executeMultiquery(queries, resultType, additionalParameters);
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.lang.String,
-   *      java.lang.Class, com.restfb.MultiqueryParameter,
-   *      com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map,
+   *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T executeMultiquery(String sessionKey, Class<T> resultType,
-      MultiqueryParameter queries, Parameter... additionalParameters)
+  public <T> T executeMultiquery(Map<String, String> queries,
+      String sessionKey, Class<T> resultType, Parameter... additionalParameters)
       throws FacebookException {
     List<Parameter> parameters = new ArrayList<Parameter>();
-    parameters.add(Parameter.with("queries", queries.getQueriesAsJson()));
+    parameters.add(Parameter.with("queries", queriesToJson(queries)));
 
     for (Parameter additionalParameter : additionalParameters) {
       if (additionalParameter.name.equals("queries"))
         throw new IllegalArgumentException(
           "You cannot specify a parameter named 'queries' "
               + "because it's reserved for use by RestFB for this call. "
-              + "Use the " + MultiqueryParameter.class.getSimpleName()
-              + " parameter to pass your queries to the Facebook API.");
+              + "Specify your queries in the Map that gets passed to this method.");
 
       parameters.add(additionalParameter);
     }
@@ -455,6 +453,34 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
       // Should never happen
       throw new IllegalStateException("MD5 isn't available on this JVM", e);
     }
+  }
+
+  protected String queriesToJson(Map<String, String> queries) {
+    verifyParameterPresence("queries", queries);
+
+    if (queries.keySet().size() == 0)
+      throw new IllegalArgumentException("You must specify at least one query.");
+
+    JSONObject jsonObject = new JSONObject();
+
+    for (Entry<String, String> entry : queries.entrySet()) {
+      if (StringUtils.isBlank(entry.getKey())
+          || StringUtils.isBlank(entry.getValue()))
+        throw new IllegalArgumentException(
+          "Provided queries must have non-blank keys and values. "
+              + "You provided: " + queries);
+
+      try {
+        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
+          .trimToEmpty(entry.getValue()));
+      } catch (JSONException e) {
+        // Shouldn't happen unless bizarre input is provided
+        throw new IllegalArgumentException("Unable to convert " + queries
+            + " to JSON.", e);
+      }
+    }
+
+    return jsonObject.toString();
   }
 
   /**

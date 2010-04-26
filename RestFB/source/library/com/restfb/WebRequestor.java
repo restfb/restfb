@@ -25,8 +25,8 @@ package com.restfb;
 import java.io.IOException;
 
 /**
- * Specifies how a class that sends {@code POST}s to the Facebook API endpoint
- * must operate.
+ * Specifies how a class that sends {@code HTTP} requests to the Facebook API
+ * endpoint must operate.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */

@@ -21,8 +21,11 @@
  */
 
 /**
- * Contains types used to interact with the <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> and the <a href="http://wiki.developers.facebook.com/index.php/API">Legacy Facebook REST API</a>.
+ * Default implementations of <a href="http://developers.facebook.com/docs/reference/api/">Facebook Graph Objects</a>.
+ * <p>
+ * These are provided for your convenience.  You are free to write your own classes with {@link com.restfb.Facebook}-annotated fields
+ * and use them instead.
  * <p>
  * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
  */
-package com.restfb;
+package com.restfb.types;
