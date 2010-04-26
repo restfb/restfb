@@ -28,14 +28,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
-
-import org.apache.log4j.Logger;
 
 import com.restfb.WebRequestor.Response;
 import com.restfb.json.JSONArray;
@@ -47,7 +43,8 @@ import com.restfb.json.JSONObject;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
+public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
+    LegacyFacebookClient {
   /**
    * Facebook API key.
    */
@@ -57,22 +54,6 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
    * Facebook application secret key.
    */
   private String secretKey;
-
-  /**
-   * Handles {@code POST}s to the Facebook API endpoint.
-   */
-  private WebRequestor webRequestor;
-
-  /**
-   * Handles mapping Facebook response JSON to Java objects.
-   */
-  private JsonMapper jsonMapper;
-
-  /**
-   * Set of parameter names that user must not specify themselves, since we use
-   * these parameters internally.
-   */
-  private Set<String> illegalParamNames;
 
   // Common parameter names/values that must be included in all API requests
   private static final String API_KEY_PARAM_NAME = "api_key";
@@ -92,9 +73,6 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
   // API endpoint URL
   private static final String FACEBOOK_REST_ENDPOINT_URL =
       "http://api.facebook.com/restserver.php";
-
-  private static final Logger logger =
-      Logger.getLogger(DefaultLegacyFacebookClient.class);
 
   /**
    * Creates a Facebook API client with the given API key and secret key.
@@ -142,7 +120,6 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
 
-    illegalParamNames = new HashSet<String>();
     illegalParamNames.addAll(Arrays.asList(new String[] { API_KEY_PARAM_NAME,
         CALL_ID_PARAM_NAME, SIG_PARAM_NAME, METHOD_PARAM_NAME,
         SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME }));
@@ -453,83 +430,5 @@ public class DefaultLegacyFacebookClient implements LegacyFacebookClient {
       // Should never happen
       throw new IllegalStateException("MD5 isn't available on this JVM", e);
     }
-  }
-
-  protected String queriesToJson(Map<String, String> queries) {
-    verifyParameterPresence("queries", queries);
-
-    if (queries.keySet().size() == 0)
-      throw new IllegalArgumentException("You must specify at least one query.");
-
-    JSONObject jsonObject = new JSONObject();
-
-    for (Entry<String, String> entry : queries.entrySet()) {
-      if (StringUtils.isBlank(entry.getKey())
-          || StringUtils.isBlank(entry.getValue()))
-        throw new IllegalArgumentException(
-          "Provided queries must have non-blank keys and values. "
-              + "You provided: " + queries);
-
-      try {
-        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
-          .trimToEmpty(entry.getValue()));
-      } catch (JSONException e) {
-        // Shouldn't happen unless bizarre input is provided
-        throw new IllegalArgumentException("Unable to convert " + queries
-            + " to JSON.", e);
-      }
-    }
-
-    return jsonObject.toString();
-  }
-
-  /**
-   * Verifies that the provided parameter names don't collide with the ones we
-   * internally pass along to Facebook.
-   * 
-   * @param parameters
-   *          The parameters to check.
-   * @throws IllegalArgumentException
-   *           If there's a parameter name collision.
-   */
-  protected void verifyParameterLegality(Parameter... parameters) {
-    for (Parameter parameter : parameters)
-      if (illegalParamNames.contains(parameter.name))
-        throw new IllegalArgumentException("Parameter '" + parameter.name
-            + "' is reserved for RestFB use - "
-            + "you cannot specify it yourself.");
-  }
-
-  /**
-   * Ensures that {@code parameter} isn't {@code null} or an empty string.
-   * 
-   * @param parameterName
-   *          The name of the parameter (to be used in exception message).
-   * @param parameter
-   *          The parameter to check.
-   * @throws IllegalArgumentException
-   *           If {@code parameter} is {@code null} or an empty string.
-   */
-  protected void verifyParameterPresence(String parameterName, String parameter) {
-    verifyParameterPresence(parameterName, (Object) parameter);
-    if (parameter.trim().length() == 0)
-      throw new IllegalArgumentException("The '" + parameterName
-          + "' parameter cannot be an empty string.");
-  }
-
-  /**
-   * Ensures that {@code parameter} isn't {@code null}.
-   * 
-   * @param parameterName
-   *          The name of the parameter (to be used in exception message).
-   * @param parameter
-   *          The parameter to check.
-   * @throws IllegalArgumentException
-   *           If {@code parameter} is {@code null}.
-   */
-  protected void verifyParameterPresence(String parameterName, Object parameter) {
-    if (parameter == null)
-      throw new NullPointerException("The '" + parameterName
-          + "' parameter cannot be null.");
   }
 }
