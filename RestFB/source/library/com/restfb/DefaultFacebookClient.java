@@ -223,7 +223,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   @Override
   public void publish(String connection, Parameter... parameters)
       throws FacebookException {
-    throw new UnsupportedOperationException("TODO: implement");
+    verifyParameterPresence("connection", connection);
+    makeRequest(connection, false, true, parameters);
   }
 
   /**
@@ -332,23 +333,23 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
-    Response response = null;
-
     String fullEndpoint =
         (useLegacyEndpoint ? FACEBOOK_LEGACY_ENDPOINT_URL
             : FACEBOOK_GRAPH_ENDPOINT_URL)
             + endpoint;
 
+    Response response = null;
     String parameterString = toParameterString(parameters);
+    String httpVerb = executeAsPost ? "POST" : "GET";
 
     // Perform a GET or POST to the API endpoint
     try {
       response =
           executeAsPost ? webRequestor.executePost(fullEndpoint,
-            parameterString) : webRequestor.executeGet(fullEndpoint
+            parameterString) : webRequestor.executeGet(fullEndpoint + "?"
               + parameterString);
     } catch (Throwable t) {
-      throw new FacebookNetworkException("Facebook GET failed", t);
+      throw new FacebookNetworkException("Facebook " + httpVerb + " failed", t);
     }
 
     if (logger.isInfoEnabled())
@@ -356,8 +357,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     // If we get any HTTP response code other than a 200 OK, throw an exception
     if (HTTP_OK != response.getStatusCode())
-      throw new FacebookNetworkException("Facebook GET failed", response
-        .getStatusCode());
+      throw new FacebookNetworkException("Facebook " + httpVerb + " failed",
+        response.getStatusCode());
 
     String json = response.getBody();
 
@@ -433,6 +434,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       parameterStringBuilder.append(StringUtils.urlEncode(parameter.value));
     }
 
-    return parameters.length == 0 ? "" : "?" + parameterStringBuilder;
+    return parameterStringBuilder.toString();
   }
 }

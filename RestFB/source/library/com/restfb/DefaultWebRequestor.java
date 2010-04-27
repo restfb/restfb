@@ -70,6 +70,10 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setRequestMethod("GET");
       httpUrlConnection.connect();
 
+      if (logger.isDebugEnabled())
+        logger
+          .debug("Response headers: " + httpUrlConnection.getHeaderFields());
+
       try {
         inputStream = httpUrlConnection.getInputStream();
       } catch (IOException e) {
@@ -111,6 +115,10 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.connect();
       outputStream = httpUrlConnection.getOutputStream();
       outputStream.write(parameters.getBytes(ENCODING_CHARSET));
+
+      if (logger.isDebugEnabled())
+        logger
+          .debug("Response headers: " + httpUrlConnection.getHeaderFields());
 
       try {
         inputStream = httpUrlConnection.getInputStream();
