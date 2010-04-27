@@ -52,7 +52,15 @@ public class FacebookType {
    */
   @Override
   public int hashCode() {
-    return getId() == null ? super.hashCode() : getId().hashCode();
+    return ReflectionUtils.hashCode(this);
+  }
+
+  /**
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object that) {
+    return ReflectionUtils.equals(this, that);
   }
 
   /**
@@ -115,6 +123,22 @@ public class FacebookType {
   public static class Metadata {
     @Facebook
     private Connections connections;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
 
     /**
      * @see java.lang.Object#toString()
@@ -204,6 +228,22 @@ public class FacebookType {
 
       @Facebook
       private String updates;
+
+      /**
+       * @see java.lang.Object#hashCode()
+       */
+      @Override
+      public int hashCode() {
+        return ReflectionUtils.hashCode(this);
+      }
+
+      /**
+       * @see java.lang.Object#equals(java.lang.Object)
+       */
+      @Override
+      public boolean equals(Object that) {
+        return ReflectionUtils.equals(this, that);
+      }
 
       /**
        * @see java.lang.Object#toString()

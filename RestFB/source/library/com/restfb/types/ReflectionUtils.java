@@ -26,7 +26,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: documentation
@@ -48,6 +50,7 @@ final class ReflectionUtils {
       if (!"getClass".equals(methodName)
           && !"hashCode".equals(methodName)
           && method.getReturnType() != null
+          && !Void.class.equals(method.getReturnType())
           && method.getParameterTypes().length == 0
           && ((methodName.startsWith("get") && methodName.length() > 3)
               || (methodName.startsWith("is") && methodName.length() > 2) || (methodName
@@ -95,11 +98,66 @@ final class ReflectionUtils {
         buffer.append(method.invoke(object));
       } catch (Exception e) {
         throw new IllegalStateException("Unable to reflectively invoke "
-            + method, e);
+            + method + " on " + object, e);
       }
     }
 
     buffer.append("]");
     return buffer.toString();
+  }
+
+  static int hashCode(Object object) {
+    if (object == null)
+      return 0;
+
+    int hashCode = 17;
+
+    for (Method method : getAccessors(object.getClass())) {
+      try {
+        Object result = method.invoke(object);
+        if (result != null)
+          hashCode = hashCode * 31 + result.hashCode();
+      } catch (Exception e) {
+        throw new IllegalStateException("Unable to reflectively invoke "
+            + method + " on " + object, e);
+      }
+    }
+
+    return hashCode;
+  }
+
+  static boolean equals(Object object1, Object object2) {
+    if (object1 == null && object2 == null)
+      return true;
+    if (!(object1 != null && object2 != null))
+      return false;
+
+    // Bail if the classes aren't at least one-way assignable to each other
+    if (!(object1.getClass().isInstance(object2) || object2.getClass()
+      .isInstance(object1)))
+      return false;
+
+    // Only compare accessors that are present in both classes
+    Set<Method> accessorMethodsIntersection =
+        new HashSet<Method>(getAccessors(object1.getClass()));
+    accessorMethodsIntersection.retainAll(getAccessors(object2.getClass()));
+
+    for (Method method : accessorMethodsIntersection) {
+      try {
+        Object result1 = method.invoke(object1);
+        Object result2 = method.invoke(object2);
+        if (result1 == null && result2 == null)
+          continue;
+        if (!(object1 != null && object2 != null))
+          return false;
+        if (!result1.equals(result2))
+          return false;
+      } catch (Exception e) {
+        throw new IllegalStateException("Unable to reflectively invoke "
+            + method, e);
+      }
+    }
+
+    return true;
   }
 }
