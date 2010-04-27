@@ -29,7 +29,9 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Base class which encapsulates behavior and properties common to most <a
+ * href="http://developers.facebook.com/docs/reference/api/">Graph API
+ * types</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -43,8 +45,9 @@ public class FacebookType {
   @Facebook
   String type;
 
-  // Facebook date format (ISO 8601).
-  // Example: 2010-02-28T16:11:08+0000
+  /**
+   * Facebook date format (ISO 8601). Example: 2010-02-28T16:11:08+0000
+   */
   private static final String FACEBOOK_DATE_FORMAT = "yyyy-MM-dd'T'kk:mm:ssZ";
 
   /**
@@ -71,14 +74,33 @@ public class FacebookType {
     return ReflectionUtils.toString(this);
   }
 
+  /**
+   * This object's unique Facebook ID.
+   * 
+   * @return This object's unique Facebook ID.
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * This object's metadata, available by including the {@code metadata=1} URL
+   * parameter in an API request.
+   * 
+   * @return This object's metadata, available by including the {@code
+   *         metadata=1} URL parameter in an API request.
+   */
   public Metadata getMetadata() {
     return metadata;
   }
 
+  /**
+   * This object's type metadata, available by including the {@code metadata=1}
+   * URL parameter in an API request.
+   * 
+   * @return This object's type metadata, available by including the {@code
+   *         metadata=1} URL parameter in an API request.
+   */
   public String getType() {
     return type;
   }
@@ -106,17 +128,10 @@ public class FacebookType {
   }
 
   /**
-   * TODO: document
-   * 
-   * @param string
-   * @return
-   */
-  private static Boolean toBoolean(String string) {
-    return string != null && !"".equals(string.trim());
-  }
-
-  /**
-   * TODO: documentation, equals, hashcode
+   * Represents <a
+   * href="http://developers.facebook.com/docs/api#introspection">Facebook
+   * Object metadata</a>, available by including the {@code metadata=1} URL
+   * parameter in an API request.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
@@ -149,7 +164,10 @@ public class FacebookType {
     }
 
     /**
-     * TODO: documentation, equals, hashcode
+     * Represents <a
+     * href="http://developers.facebook.com/docs/api#introspection">Facebook
+     * Object connections metadata</a>, available by including the {@code
+     * metadata=1} URL parameter in an API request.
      * 
      * @author <a href="http://restfb.com">Mark Allen</a>
      */
@@ -253,109 +271,277 @@ public class FacebookType {
         return ReflectionUtils.toString(this);
       }
 
+      /**
+       * Does this object have a 'home' connection?
+       * 
+       * @return {@code true} if this object has a 'home' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasHome() {
         return toBoolean(home);
       }
 
+      /**
+       * Does this object have a 'feed' connection?
+       * 
+       * @return {@code true} if this object has a 'feed' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasFeed() {
         return toBoolean(feed);
       }
 
+      /**
+       * Does this object have a 'friends' connection?
+       * 
+       * @return {@code true} if this object has a 'friends' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasFriends() {
         return toBoolean(friends);
       }
 
+      /**
+       * Does this object have a 'family' connection?
+       * 
+       * @return {@code true} if this object has a 'family' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasFamily() {
         return toBoolean(family);
       }
 
+      /**
+       * Does this object have an 'activities' connection?
+       * 
+       * @return {@code true} if this object has an 'activities' connection,
+       *         {@code false} otherwise.
+       */
       public Boolean hasActivities() {
         return toBoolean(activities);
       }
 
+      /**
+       * Does this object have an 'interests' connection?
+       * 
+       * @return {@code true} if this object has an 'interests' connection,
+       *         {@code false} otherwise.
+       */
       public Boolean hasInterests() {
         return toBoolean(interests);
       }
 
+      /**
+       * Does this object have a 'music' connection?
+       * 
+       * @return {@code true} if this object has a 'music' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasMusic() {
         return toBoolean(music);
       }
 
+      /**
+       * Does this object have a 'books' connection?
+       * 
+       * @return {@code true} if this object has a 'books' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasBooks() {
         return toBoolean(books);
       }
 
+      /**
+       * Does this object have a 'movies' connection?
+       * 
+       * @return {@code true} if this object has a 'movies' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasMovies() {
         return toBoolean(movies);
       }
 
+      /**
+       * Does this object have a 'television' connection?
+       * 
+       * @return {@code true} if this object has a 'television' connection,
+       *         {@code false} otherwise.
+       */
       public Boolean hasTelevision() {
         return toBoolean(television);
       }
 
+      /**
+       * Does this object have a 'likes' connection?
+       * 
+       * @return {@code true} if this object has a 'likes' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasLikes() {
         return toBoolean(likes);
       }
 
+      /**
+       * Does this object have a 'posts' connection?
+       * 
+       * @return {@code true} if this object has a 'posts' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasPosts() {
         return toBoolean(posts);
       }
 
+      /**
+       * Does this object have a 'tagged' connection?
+       * 
+       * @return {@code true} if this object has a 'tagged' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasTagged() {
         return toBoolean(tagged);
       }
 
+      /**
+       * Does this object have a 'statuses' connection?
+       * 
+       * @return {@code true} if this object has a 'statuses' connection,
+       *         {@code false} otherwise.
+       */
       public Boolean hasStatuses() {
         return toBoolean(statuses);
       }
 
+      /**
+       * Does this object have a 'links' connection?
+       * 
+       * @return {@code true} if this object has a 'links' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasLinks() {
         return toBoolean(links);
       }
 
+      /**
+       * Does this object have a 'notes' connection?
+       * 
+       * @return {@code true} if this object has a 'notes' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasNotes() {
         return toBoolean(notes);
       }
 
+      /**
+       * Does this object have a 'photos' connection?
+       * 
+       * @return {@code true} if this object has a 'photos' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasPhotos() {
         return toBoolean(photos);
       }
 
+      /**
+       * Does this object have an 'albums' connection?
+       * 
+       * @return {@code true} if this object has an 'albums' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasAlbums() {
         return toBoolean(albums);
       }
 
+      /**
+       * Does this object have an 'events' connection?
+       * 
+       * @return {@code true} if this object has an 'events' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasEvents() {
         return toBoolean(events);
       }
 
+      /**
+       * Does this object have a 'groups' connection?
+       * 
+       * @return {@code true} if this object has a 'groups' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasGroups() {
         return toBoolean(groups);
       }
 
+      /**
+       * Does this object have a 'videos' connection?
+       * 
+       * @return {@code true} if this object has a 'videos' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasVideos() {
         return toBoolean(videos);
       }
 
+      /**
+       * Does this object have a 'picture' connection?
+       * 
+       * @return {@code true} if this object has a 'picture' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasPicture() {
         return toBoolean(picture);
       }
 
+      /**
+       * Does this object have an 'inbox' connection?
+       * 
+       * @return {@code true} if this object has an 'inbox' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasInbox() {
         return toBoolean(inbox);
       }
 
+      /**
+       * Does this object have an 'outbox' connection?
+       * 
+       * @return {@code true} if this object has an 'outbox' connection, {@code
+       *         false} otherwise.
+       */
       public Boolean hasOutbox() {
         return toBoolean(outbox);
       }
 
+      /**
+       * Does this object have an 'updates' connection?
+       * 
+       * @return {@code true} if this object has an 'updates' connection,
+       *         {@code false} otherwise.
+       */
       public Boolean hasUpdates() {
         return toBoolean(updates);
       }
     }
 
+    /**
+     * The available connections for this object.
+     * 
+     * @return The available connections for this object.
+     */
     public Connections getConnections() {
       return connections;
     }
+  }
+
+  /**
+   * Returns {@code true} if {@code string} is not blank, {@code false}
+   * otherwise.
+   * 
+   * @param string
+   *          The string to check.
+   * @return {@code true} if {@code string} is not blank, {@code false}
+   *         otherwise.
+   */
+  private static Boolean toBoolean(String string) {
+    return string != null && !"".equals(string.trim());
   }
 }

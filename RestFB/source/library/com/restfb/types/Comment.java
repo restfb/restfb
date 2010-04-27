@@ -27,7 +27,9 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/event">Comment Graph
+ * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -41,14 +43,29 @@ public class Comment extends FacebookType {
   @Facebook("created_time")
   private String createdTime;
 
+  /**
+   * User who posted the comment.
+   * 
+   * @return User who posted the comment.
+   */
   public NamedFacebookType getFrom() {
     return from;
   }
 
+  /**
+   * Text contents of the comment.
+   * 
+   * @return Text contents of the comment.
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * Date on which the comment was created.
+   * 
+   * @return Date on which the comment was created.
+   */
   public Date getCreatedTime() {
     return toDate(createdTime);
   }

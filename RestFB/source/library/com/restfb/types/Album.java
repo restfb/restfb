@@ -27,7 +27,9 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/album">Album Graph
+ * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -53,30 +55,66 @@ public class Album extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  /**
+   * An object containing the ID and name of the profile who posted this album.
+   * 
+   * @return An object containing the ID and name of the profile who posted this
+   *         album.
+   */
   public CategorizedFacebookType getFrom() {
     return from;
   }
 
+  /**
+   * The description of the album.
+   * 
+   * @return The description of the album.
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * The location of the album.
+   * 
+   * @return The location of the album.
+   */
   public String getLocation() {
     return location;
   }
 
+  /**
+   * A link to this album on Facebook.
+   * 
+   * @return A link to this album on Facebook.
+   */
   public String getLink() {
     return link;
   }
 
+  /**
+   * The number of photos in this album.
+   * 
+   * @return The number of photos in this album.
+   */
   public Long getCount() {
     return count;
   }
 
+  /**
+   * The time the photo album was initially created.
+   * 
+   * @return The time the photo album was initially created.
+   */
   public Date getCreatedTime() {
     return toDate(createdTime);
   }
 
+  /**
+   * The last time the photo album was updated.
+   * 
+   * @return The last time the photo album was updated.
+   */
   public Date getUpdatedTime() {
     return toDate(updatedTime);
   }

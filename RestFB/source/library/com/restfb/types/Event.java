@@ -27,7 +27,9 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/event">Event Graph
+ * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -56,34 +58,75 @@ public class Event extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  /**
+   * An object containing the name and ID of the user who owns the event
+   * 
+   * @return An object containing the name and ID of the user who owns the
+   *         event.
+   */
   public NamedFacebookType getOwner() {
     return owner;
   }
 
+  /**
+   * The long-form HTML description of the event.
+   * 
+   * @return The long-form HTML description of the event.
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * The start time of the event.
+   * 
+   * @return The start time of the event.
+   */
   public Date getStartTime() {
     return toDate(startTime);
   }
 
+  /**
+   * The end time of the event.
+   * 
+   * @return The end time of the event.
+   */
   public Date getEndTime() {
     return toDate(endTime);
   }
 
+  /**
+   * The location for this event, a string name.
+   * 
+   * @return The location for this event, a string name.
+   */
   public String getLocation() {
     return location;
   }
 
+  /**
+   * The location of this event, a structured address object.
+   * 
+   * @return The location of this event, a structured address object.
+   */
   public Venue getVenue() {
     return venue;
   }
 
+  /**
+   * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
+   * 
+   * @return The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
+   */
   public String getPrivacy() {
     return privacy;
   }
 
+  /**
+   * The last time the event was updated.
+   * 
+   * @return The last time the event was updated.
+   */
   public Date getUpdatedTime() {
     return toDate(updatedTime);
   }

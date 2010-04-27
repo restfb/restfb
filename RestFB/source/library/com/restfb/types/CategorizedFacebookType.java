@@ -25,7 +25,9 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Superclass for <a
+ * href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>
+ * that include a {@code category} field.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -33,6 +35,11 @@ public class CategorizedFacebookType extends NamedFacebookType {
   @Facebook
   private String category;
 
+  /**
+   * The category field for this type.
+   * 
+   * @return The category field for this type.
+   */
   public String getCategory() {
     return category;
   }
