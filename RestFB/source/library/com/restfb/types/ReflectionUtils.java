@@ -148,7 +148,7 @@ final class ReflectionUtils {
         Object result2 = method.invoke(object2);
         if (result1 == null && result2 == null)
           continue;
-        if (!(object1 != null && object2 != null))
+        if (!(result1 != null && result2 != null))
           return false;
         if (!result1.equals(result2))
           return false;
