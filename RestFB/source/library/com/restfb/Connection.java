@@ -22,21 +22,34 @@
 
 package com.restfb;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO: document
+ * Represents a <a href="http://developers.facebook.com/docs/api">Graph API
+ * Connection type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Connection<T> {
-  private List<T> data;
-  private boolean hasPrevious;
-  private boolean hasNext;
+  private final List<T> data;
+  private final boolean hasPrevious;
+  private final boolean hasNext;
 
+  /**
+   * Creates a connection with the given data and previous/next flags.
+   * 
+   * @param data
+   *          The connection's data.
+   * @param hasPrevious
+   *          Is there a previous page of data?
+   * @param hasNext
+   *          Is there a next page of data?
+   */
   Connection(List<T> data, boolean hasPrevious, boolean hasNext) {
-    this.data = Collections.unmodifiableList(data);
+    this.data =
+        Collections.unmodifiableList(data == null ? new ArrayList<T>() : data);
     this.hasPrevious = hasPrevious;
     this.hasNext = hasNext;
   }
@@ -50,14 +63,60 @@ public class Connection<T> {
       .getSimpleName(), getData(), hasPrevious(), hasNext());
   }
 
+  /**
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object object) {
+    if (object == null)
+      return false;
+    if (!(object instanceof Connection<?>))
+      return false;
+
+    Connection<?> otherConnection = (Connection<?>) object;
+
+    return otherConnection.hasNext() == hasNext()
+        && otherConnection.hasPrevious == hasPrevious()
+        && otherConnection.getData().equals(getData());
+  }
+
+  /**
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    int hashCode = super.hashCode();
+    hashCode += 17 * getData().hashCode();
+    hashCode += 43 * Boolean.valueOf(hasPrevious()).hashCode();
+    hashCode += 71 * Boolean.valueOf(hasNext()).hashCode();
+    return hashCode;
+  }
+
+  /**
+   * Data for this connection.
+   * 
+   * @return Data for this connection.
+   */
   public List<T> getData() {
     return data;
   }
 
+  /**
+   * Does this connection have a previous page of data?
+   * 
+   * @return {@code true} if there is a previous page of data for this
+   *         connection, {@code false} otherwise.
+   */
   public boolean hasPrevious() {
     return hasPrevious;
   }
 
+  /**
+   * Does this connection have a next page of data?
+   * 
+   * @return {@code true} if there is a next page of data for this connection,
+   *         {@code false} otherwise.
+   */
   public boolean hasNext() {
     return hasNext;
   }
