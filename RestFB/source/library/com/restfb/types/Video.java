@@ -22,110 +22,89 @@
 
 package com.restfb.types;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
 
 /**
  * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/">Venue Graph API
- * type</a>.
+ * href="http://developers.facebook.com/docs/reference/api/video">Video Graph
+ * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Venue {
+public class Video extends FacebookType {
   @Facebook
-  private String street;
-
-  @Facebook
-  private String city;
+  private CategorizedFacebookType from;
 
   @Facebook
-  private String state;
+  private String message;
 
   @Facebook
-  private String country;
+  private String description;
 
   @Facebook
-  private Double latitude;
+  private Integer length;
 
-  @Facebook
-  private Double longitude;
+  @Facebook("created_time")
+  private String createdTime;
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
+  @Facebook("updated_time")
+  private String updatedTime;
 
   /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
-
-  /**
-   * Street address of the venue.
+   * An object containing the name and ID of the user who posted the video.
    * 
-   * @return Street address of the venue.
+   * @return An object containing the name and ID of the user who posted the
+   *         video.
    */
-  public String getStreet() {
-    return street;
+  public CategorizedFacebookType getFrom() {
+    return from;
   }
 
   /**
-   * The venue's city.
+   * The video title / caption.
    * 
-   * @return The venue's city.
+   * @return The video title / caption.
    */
-  public String getCity() {
-    return city;
+  public String getMessage() {
+    return message;
   }
 
   /**
-   * The venue's state.
+   * The long-form HTML description of the video.
    * 
-   * @return The venue's state.
+   * @return The long-form HTML description of the video.
    */
-  public String getState() {
-    return state;
+  public String getDescription() {
+    return description;
   }
 
   /**
-   * The venue's country.
+   * The length of the video, in seconds.
    * 
-   * @return The venue's country.
+   * @return The length of the video, in seconds.
    */
-  public String getCountry() {
-    return country;
+  public Integer getLength() {
+    return length;
   }
 
   /**
-   * The venue's latitude.
+   * The time the video was initially published.
    * 
-   * @return The venue's latitude.
+   * @return The time the video was initially published.
    */
-  public Double getLatitude() {
-    return latitude;
+  public Date getCreatedTime() {
+    return StringUtils.toDate(createdTime);
   }
 
   /**
-   * The venue's longitude.
+   * The last time the video or its caption were updated.
    * 
-   * @return The venue's longitude.
+   * @return The last time the video or its caption were updated.
    */
-  public Double getLongitude() {
-    return longitude;
+  public Date getUpdatedTime() {
+    return StringUtils.toDate(updatedTime);
   }
 }

@@ -32,7 +32,9 @@ import java.util.List;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/user">User Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -60,6 +62,12 @@ public class User extends NamedFacebookType {
   private String website;
 
   @Facebook
+  private String birthday;
+
+  @Facebook
+  private String email;
+
+  @Facebook
   private Integer timezone;
 
   @Facebook
@@ -78,7 +86,9 @@ public class User extends NamedFacebookType {
   private List<Education> education = new ArrayList<Education>();
 
   /**
-   * TODO: document, equals, hashcode
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/user">Work Graph
+   * API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
@@ -152,29 +162,56 @@ public class User extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
+    /**
+     * The employer for this job.
+     * 
+     * @return The employer for this job.
+     */
     public NamedFacebookType getEmployer() {
       return employer;
     }
 
+    /**
+     * The location of this job.
+     * 
+     * @return The location of this job.
+     */
     public NamedFacebookType getLocation() {
       return location;
     }
 
+    /**
+     * Position held at this job.
+     * 
+     * @return Position held at this job.
+     */
     public NamedFacebookType getPosition() {
       return position;
     }
 
+    /**
+     * Date this job was started.
+     * 
+     * @return Date this job was started.
+     */
     public Date getStartDate() {
       return toMonthYearDate(startDate);
     }
 
+    /**
+     * Date this job ended.
+     * 
+     * @return Date this job ended.
+     */
     public Date getEndDate() {
       return toMonthYearDate(endDate);
     }
   }
 
   /**
-   * TODO: document, equals, hashcode
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/user">Education
+   * Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
@@ -213,67 +250,165 @@ public class User extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
+    /**
+     * The school name and ID.
+     * 
+     * @return The school name and ID.
+     */
     public NamedFacebookType getSchool() {
       return school;
     }
 
+    /**
+     * Graduation year.
+     * 
+     * @return Graduation year.
+     */
     public NamedFacebookType getYear() {
       return year;
     }
 
+    /**
+     * Concentrations/minors.
+     * 
+     * @return Concentrations/minors.
+     */
     public List<NamedFacebookType> getConcentration() {
       return Collections.unmodifiableList(concentration);
     }
   }
 
+  /**
+   * The user's first name
+   * 
+   * @return The user's first name.
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * The user's last name.
+   * 
+   * @return The user's last name.
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * A link to the user's profile.
+   * 
+   * @return A link to the user's profile.
+   */
   public String getLink() {
     return link;
   }
 
+  /**
+   * The user's blurb that appears under their profile picture.
+   * 
+   * @return The user's blurb that appears under their profile picture.
+   */
   public String getAbout() {
     return about;
   }
 
+  /**
+   * The user's relationship status.
+   * 
+   * @return The user's relationship status.
+   */
   public String getRelationshipStatus() {
     return relationshipStatus;
   }
 
+  /**
+   * The user's birthday.
+   * 
+   * @return The user's birthday.
+   */
+  public String getBirthday() {
+    return birthday;
+  }
+
+  /**
+   * The user's religion.
+   * 
+   * @return The user's religion.
+   */
   public String getReligion() {
     return religion;
   }
 
+  /**
+   * A link to the user's personal website.
+   * 
+   * @return A link to the user's personal website.
+   */
   public String getWebsite() {
     return website;
   }
 
+  /**
+   * The proxied or contact email address granted by the user.
+   * 
+   * @return The proxied or contact email address granted by the user.
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * The user's timezone offset.
+   * 
+   * @return The user's timezone offset.
+   */
   public Integer getTimezone() {
     return timezone;
   }
 
+  /**
+   * Is the user verified?
+   * 
+   * @return User verification status.
+   */
   public Boolean getVerified() {
     return verified;
   }
 
+  /**
+   * Date the user's profile was updated.
+   * 
+   * @return Date the user's profile was updated.
+   */
   public Date getUpdatedTime() {
     return StringUtils.toDate(updatedTime);
   }
 
+  /**
+   * The user's interests.
+   * 
+   * @return The user's interests.
+   */
   public List<String> getInterestedIn() {
     return Collections.unmodifiableList(interestedIn);
   }
 
+  /**
+   * A list of the work history from the user's profile
+   * 
+   * @return A list of the work history from the user's profile
+   */
   public List<Work> getWork() {
     return Collections.unmodifiableList(work);
   }
 
+  /**
+   * A list of the education history from the user's profile
+   * 
+   * @return A list of the education history from the user's profile
+   */
   public List<Education> getEducation() {
     return Collections.unmodifiableList(education);
   }
