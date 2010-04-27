@@ -27,9 +27,12 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/group">Group Graph
+ * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Group extends NamedFacebookType {
   @Facebook
@@ -50,27 +53,59 @@ public class Group extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  /**
+   * An object containing the name and ID of the user who owns the group.
+   * 
+   * @return An object containing the name and ID of the user who owns the
+   *         group.
+   */
   public NamedFacebookType getOwner() {
     return owner;
   }
 
+  /**
+   * The group description.
+   * 
+   * @return The group description.
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * The URL for the group's website.
+   * 
+   * @return The URL for the group's website.
+   */
   public String getLink() {
     return link;
   }
 
+  /**
+   * The location of this group, a structured address object.
+   * 
+   * @return The location of this group, a structured address object.
+   */
   public Venue getVenue() {
     return venue;
   }
 
+  /**
+   * The privacy setting of the group, either 'OPEN', 'CLOSED', or 'SECRET'.
+   * 
+   * @return The privacy setting of the group, either 'OPEN', 'CLOSED', or
+   *         'SECRET'.
+   */
   public String getPrivacy() {
     return privacy;
   }
 
+  /**
+   * The last time the group was updated.
+   * 
+   * @return The last time the group was updated.
+   */
   public Date getUpdatedTime() {
-    return toDate(updatedTime);
+    return StringUtils.toDate(updatedTime);
   }
 }

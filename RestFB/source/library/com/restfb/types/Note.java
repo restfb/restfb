@@ -27,9 +27,12 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/note">Note Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Note extends FacebookType {
   @Facebook
@@ -50,27 +53,57 @@ public class Note extends FacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  /**
+   * The ID of the user who posted the note.
+   * 
+   * @return The ID of the user who posted the note.
+   */
   public NamedFacebookType getFrom() {
     return from;
   }
 
+  /**
+   * The title of the note.
+   * 
+   * @return The title of the note.
+   */
   public String getSubject() {
     return subject;
   }
 
+  /**
+   * The note content, an HTML string.
+   * 
+   * @return The note content, an HTML string.
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * The note icon.
+   * 
+   * @return The note icon.
+   */
   public String getIcon() {
     return icon;
   }
 
+  /**
+   * The time the note was initially published.
+   * 
+   * @return The time the note was initially published.
+   */
   public Date getCreatedTime() {
-    return toDate(createdTime);
+    return StringUtils.toDate(createdTime);
   }
 
+  /**
+   * The time the note was last updated.
+   * 
+   * @return The time the note was last updated.
+   */
   public Date getUpdatedTime() {
-    return toDate(updatedTime);
+    return StringUtils.toDate(updatedTime);
   }
 }

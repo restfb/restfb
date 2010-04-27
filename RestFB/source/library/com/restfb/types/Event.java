@@ -32,6 +32,7 @@ import com.restfb.Facebook;
  * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Event extends NamedFacebookType {
   @Facebook
@@ -83,7 +84,7 @@ public class Event extends NamedFacebookType {
    * @return The start time of the event.
    */
   public Date getStartTime() {
-    return toDate(startTime);
+    return StringUtils.toDate(startTime);
   }
 
   /**
@@ -92,7 +93,7 @@ public class Event extends NamedFacebookType {
    * @return The end time of the event.
    */
   public Date getEndTime() {
-    return toDate(endTime);
+    return StringUtils.toDate(endTime);
   }
 
   /**
@@ -128,6 +129,6 @@ public class Event extends NamedFacebookType {
    * @return The last time the event was updated.
    */
   public Date getUpdatedTime() {
-    return toDate(updatedTime);
+    return StringUtils.toDate(updatedTime);
   }
 }

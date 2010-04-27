@@ -22,26 +22,46 @@
 
 package com.restfb.types;
 
-import com.restfb.Facebook;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
- * Superclass for <a
- * href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>
- * that include a {@code category} field.
+ * {@code String}-related utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class CategorizedFacebookType extends NamedFacebookType {
-  @Facebook
-  private String category;
+abstract class StringUtils {
+  /**
+   * Prevents instantiation.
+   */
+  private StringUtils() {}
 
   /**
-   * The category field for this type.
-   * 
-   * @return The category field for this type.
+   * Facebook date format (ISO 8601). Example: 2010-02-28T16:11:08+0000
    */
-  public String getCategory() {
-    return category;
+  private static final String FACEBOOK_DATE_FORMAT = "yyyy-MM-dd'T'kk:mm:ssZ";
+
+  /**
+   * Returns a Java representation of a Facebook {@code date} string.
+   * 
+   * @param date
+   *          Facebook {@code date} string.
+   * @return Java date representation of the given Facebook {@code date} string.
+   * @throws IllegalArgumentException
+   *           If the provided {@code date} isn't in the Facebook date format
+   *           (ISO 8601).
+   */
+  static Date toDate(String date) throws IllegalArgumentException {
+    if (date == null)
+      return null;
+
+    try {
+      return new SimpleDateFormat(FACEBOOK_DATE_FORMAT).parse(date);
+    } catch (ParseException e) {
+      throw new IllegalArgumentException("Unable to parse date '" + date
+          + "' using format string '" + FACEBOOK_DATE_FORMAT + "'", e);
+    }
   }
 }

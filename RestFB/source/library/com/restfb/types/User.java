@@ -35,6 +35,7 @@ import com.restfb.Facebook;
  * TODO: document
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class User extends NamedFacebookType {
   @Facebook("first_name")
@@ -262,7 +263,7 @@ public class User extends NamedFacebookType {
   }
 
   public Date getUpdatedTime() {
-    return toDate(updatedTime);
+    return StringUtils.toDate(updatedTime);
   }
 
   public List<String> getInterestedIn() {

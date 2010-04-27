@@ -31,13 +31,24 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO: documentation
+ * Reflection-related utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
-final class ReflectionUtils {
+abstract class ReflectionUtils {
+  /**
+   * Prevents instantiation.
+   */
   private ReflectionUtils() {}
 
+  /**
+   * Gets all accessor methods for the given {@code clazz}.
+   * 
+   * @param clazz
+   *          The class for which accessors are extracted.
+   * @return All accessor methods for the given {@code clazz}.
+   */
   static List<Method> getAccessors(Class<?> clazz) {
     if (clazz == null)
       throw new IllegalArgumentException(
@@ -72,6 +83,15 @@ final class ReflectionUtils {
     return Collections.unmodifiableList(methods);
   }
 
+  /**
+   * Reflection-based implementation of {@link Object#toString()}.
+   * 
+   * @param object
+   *          The object to convert to a string representation.
+   * @return A string representation of {@code object}.
+   * @throws IllegalStateException
+   *           If an error occurs while performing reflection operations.
+   */
   static String toString(Object object) {
     StringBuilder buffer = new StringBuilder(object.getClass().getSimpleName());
     buffer.append("[");
@@ -106,6 +126,15 @@ final class ReflectionUtils {
     return buffer.toString();
   }
 
+  /**
+   * Reflection-based implementation of {@link Object#hashCode()}.
+   * 
+   * @param object
+   *          The object to hash.
+   * @return A hashcode for {@code object}.
+   * @throws IllegalStateException
+   *           If an error occurs while performing reflection operations.
+   */
   static int hashCode(Object object) {
     if (object == null)
       return 0;
@@ -126,6 +155,17 @@ final class ReflectionUtils {
     return hashCode;
   }
 
+  /**
+   * Reflection-based implementation of {@link Object#equals(Object)}.
+   * 
+   * @param object1
+   *          One object to compare.
+   * @param object2
+   *          Another object to compare.
+   * @return {@code true} if the objects are equal, {@code false} otherwise.
+   * @throws IllegalStateException
+   *           If an error occurs while performing reflection operations.
+   */
   static boolean equals(Object object1, Object object2) {
     if (object1 == null && object2 == null)
       return true;

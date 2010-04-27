@@ -30,9 +30,12 @@ import java.util.List;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/post">Post Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Post extends NamedFacebookType {
   @Facebook
@@ -84,9 +87,12 @@ public class Post extends NamedFacebookType {
   private List<Action> actions = new ArrayList<Action>();
 
   /**
-   * TODO: document, equals, hashcode
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/post">Privacy Graph
+   * API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.5
    */
   public static class Privacy {
     @Facebook
@@ -116,15 +122,23 @@ public class Post extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
+    /**
+     * The description of the privacy value.
+     * 
+     * @return The description of the privacy value.
+     */
     public String getValue() {
       return value;
     }
   }
 
   /**
-   * TODO: document, equals, hashcode
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/post">Action Graph
+   * API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.5
    */
   public static class Action {
     @Facebook
@@ -157,75 +171,170 @@ public class Post extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
+    /**
+     * Gets the name of the action.
+     * 
+     * @return Gets the name of the action.
+     */
     public String getName() {
       return name;
     }
 
+    /**
+     * The link for the action.
+     * 
+     * @return The link for the action.
+     */
     public String getLink() {
       return link;
     }
   }
 
+  /**
+   * An object containing the ID and name of the user who posted the message.
+   * 
+   * @return An object containing the ID and name of the user who posted the
+   *         message.
+   */
   public CategorizedFacebookType getFrom() {
     return from;
   }
 
+  /**
+   * The message.
+   * 
+   * @return The message.
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * If available, a link to the picture included with this post.
+   * 
+   * @return If available, a link to the picture included with this post.
+   */
   public String getPicture() {
     return picture;
   }
 
+  /**
+   * The link attached to this post.
+   * 
+   * @return The link attached to this post.
+   */
   public String getLink() {
     return link;
   }
 
+  /**
+   * The caption of the link (appears beneath the link name).
+   * 
+   * @return The caption of the link (appears beneath the link name).
+   */
   public String getCaption() {
     return caption;
   }
 
+  /**
+   * A description of the link (appears beneath the link caption).
+   * 
+   * @return A description of the link (appears beneath the link caption).
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * If available, the source link attached to this post (for example, a flash
+   * or video file).
+   * 
+   * @return If available, the source link attached to this post (for example, a
+   *         flash or video file).
+   */
   public String getSource() {
     return source;
   }
 
+  /**
+   * A link to an icon representing the type of this post.
+   * 
+   * @return A link to an icon representing the type of this post.
+   */
   public String getIcon() {
     return icon;
   }
 
+  /**
+   * A string indicating which application was used to create this post.
+   * 
+   * @return A string indicating which application was used to create this post.
+   */
   public String getAttribution() {
     return attribution;
   }
 
+  /**
+   * The privacy settings for this post.
+   * 
+   * @return The privacy settings for this post.
+   */
   public Privacy getPrivacy() {
     return privacy;
   }
 
+  /**
+   * The number of likes on this post.
+   * 
+   * @return The number of likes on this post.
+   */
   public Long getLikes() {
     return likes;
   }
 
+  /**
+   * The time the post was initially published.
+   * 
+   * @return The time the post was initially published.
+   */
   public Date getCreatedTime() {
-    return toDate(createdTime);
+    return StringUtils.toDate(createdTime);
   }
 
+  /**
+   * The time of the last comment on this post.
+   * 
+   * @return The time of the last comment on this post.
+   */
   public Date getUpdatedTime() {
-    return toDate(updatedTime);
+    return StringUtils.toDate(updatedTime);
   }
 
+  /**
+   * A list of the profiles mentioned or targeted in this post.
+   * 
+   * @return A list of the profiles mentioned or targeted in this post.
+   */
   public List<NamedFacebookType> getTo() {
     return Collections.unmodifiableList(to);
   }
 
+  /**
+   * The comments for this post.
+   * 
+   * @return The comments for this post.
+   */
   public List<Comment> getComments() {
     return Collections.unmodifiableList(comments);
   }
 
+  /**
+   * A list of available action names and links (including commenting, liking,
+   * and an optional app-specified action).
+   * 
+   * @return A list of available action names and links (including commenting,
+   *         liking, and an optional app-specified action).
+   */
   public List<Action> getActions() {
     return Collections.unmodifiableList(actions);
   }

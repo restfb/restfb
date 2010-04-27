@@ -32,6 +32,7 @@ import com.restfb.Facebook;
  * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Comment extends FacebookType {
   @Facebook
@@ -67,6 +68,6 @@ public class Comment extends FacebookType {
    * @return Date on which the comment was created.
    */
   public Date getCreatedTime() {
-    return toDate(createdTime);
+    return StringUtils.toDate(createdTime);
   }
 }

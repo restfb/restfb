@@ -25,9 +25,12 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/link">Link Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Link extends NamedFacebookType {
   @Facebook
@@ -48,26 +51,57 @@ public class Link extends NamedFacebookType {
   @Facebook
   private String icon;
 
+  /**
+   * An object containing the name and ID of the user who posted the link.
+   * 
+   * @return An object containing the name and ID of the user who posted the
+   *         link.
+   */
   public NamedFacebookType getFrom() {
     return from;
   }
 
+  /**
+   * The link message content.
+   * 
+   * @return The link message content.
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * The picture associated with the link.
+   * 
+   * @return The picture associated with the link.
+   */
   public String getPicture() {
     return picture;
   }
 
+  /**
+   * The actual URL that was shared.
+   * 
+   * @return The actual URL that was shared.
+   */
   public String getLink() {
     return link;
   }
 
+  /**
+   * The link description.
+   * 
+   * @return The link description.
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * The link icon.
+   * 
+   * @return The link icon.
+   */
   public String getIcon() {
     return icon;
   }

@@ -32,6 +32,7 @@ import com.restfb.Facebook;
  * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Album extends NamedFacebookType {
   @Facebook
@@ -107,7 +108,7 @@ public class Album extends NamedFacebookType {
    * @return The time the photo album was initially created.
    */
   public Date getCreatedTime() {
-    return toDate(createdTime);
+    return StringUtils.toDate(createdTime);
   }
 
   /**
@@ -116,6 +117,6 @@ public class Album extends NamedFacebookType {
    * @return The last time the photo album was updated.
    */
   public Date getUpdatedTime() {
-    return toDate(updatedTime);
+    return StringUtils.toDate(updatedTime);
   }
 }

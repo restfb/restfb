@@ -27,5 +27,7 @@
  * and use them instead.
  * <p>
  * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
+ * 
+ * @since 1.5
  */
 package com.restfb.types;

@@ -22,14 +22,20 @@
 
 package com.restfb.types;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/photo">Photo Graph
+ * API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Photo extends NamedFacebookType {
   @Facebook
@@ -59,39 +65,195 @@ public class Photo extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  @Facebook(contains = Tag.class)
+  private List<Tag> tags = new ArrayList<Tag>();
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/photo">Tag Graph
+   * API type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.5
+   */
+  public static class Tag {
+    @Facebook
+    private Integer id;
+
+    @Facebook
+    private Integer name;
+
+    @Facebook
+    private Integer x;
+
+    @Facebook
+    private Integer y;
+
+    @Facebook("created_time")
+    private String createdTime;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * ID of the tagged user.
+     * 
+     * @return ID of the tagged user.
+     */
+    public Integer getId() {
+      return id;
+    }
+
+    /**
+     * Name of the tagged user.
+     * 
+     * @return Name of the tagged user.
+     */
+    public Integer getName() {
+      return name;
+    }
+
+    /**
+     * X coordinate (as a percentage of distance from left vs. width).
+     * 
+     * @return X coordinate (as a percentage of distance from left vs. width).
+     */
+    public Integer getX() {
+      return x;
+    }
+
+    /**
+     * Y coordinate (as a percentage of distance from top vs. height).
+     * 
+     * @return Y coordinate (as a percentage of distance from top vs. height).
+     */
+    public Integer getY() {
+      return y;
+    }
+
+    /**
+     * Date this tag was created.
+     * 
+     * @return Date this tag was created.
+     */
+    public Date getCreatedTime() {
+      return StringUtils.toDate(createdTime);
+    }
+  }
+
+  /**
+   * An object containing the name and ID of the user who posted the photo.
+   * 
+   * @return An object containing the name and ID of the user who posted the
+   *         photo.
+   */
   public CategorizedFacebookType getFrom() {
     return from;
   }
 
+  /**
+   * The album-sized view of the photo.
+   * 
+   * @return The album-sized view of the photo.
+   */
   public String getPicture() {
     return picture;
   }
 
+  /**
+   * The full-sized source of the photo.
+   * 
+   * @return The full-sized source of the photo.
+   */
   public String getSource() {
     return source;
   }
 
+  /**
+   * The height of the photo, in pixels.
+   * 
+   * @return The height of the photo, in pixels.
+   */
   public Integer getHeight() {
     return height;
   }
 
+  /**
+   * The width of the photo, in pixels.
+   * 
+   * @return The width of the photo, in pixels.
+   */
   public Integer getWidth() {
     return width;
   }
 
+  /**
+   * A link to the photo on Facebook.
+   * 
+   * @return A link to the photo on Facebook.
+   */
   public String getLink() {
     return link;
   }
 
+  /**
+   * The icon-sized source of the photo.
+   * 
+   * @return The icon-sized source of the photo.
+   */
   public String getIcon() {
     return icon;
   }
 
+  /**
+   * The time the photo was initially published.
+   * 
+   * @return The time the photo was initially published.
+   */
   public Date getCreatedTime() {
-    return toDate(createdTime);
+    return StringUtils.toDate(createdTime);
   }
 
+  /**
+   * The last time the photo or its caption was updated.
+   * 
+   * @return The last time the photo or its caption was updated.
+   */
   public Date getUpdatedTime() {
-    return toDate(updatedTime);
+    return StringUtils.toDate(updatedTime);
+  }
+
+  /**
+   * An array containing the users and their positions in this photo. The x and
+   * y coordinates are percentages from the left and top edges of the photo,
+   * respectively.
+   * 
+   * @return An array containing the users and their positions in this photo.
+   *         The x and y coordinates are percentages from the left and top edges
+   *         of the photo, respectively.
+   */
+  public List<Tag> getTags() {
+    return Collections.unmodifiableList(tags);
   }
 }

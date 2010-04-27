@@ -25,9 +25,12 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * TODO: document
+ * Represents the <a
+ * href="http://developers.facebook.com/docs/reference/api/page">Page Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Page extends CategorizedFacebookType {
   @Facebook
@@ -54,34 +57,74 @@ public class Page extends CategorizedFacebookType {
   @Facebook("fan_count")
   private Long fanCount;
 
+  /**
+   * The page's picture.
+   * 
+   * @return The page's picture.
+   */
   public String getPicture() {
     return picture;
   }
 
+  /**
+   * The page's link.
+   * 
+   * @return The page's link.
+   */
   public String getLink() {
     return link;
   }
 
+  /**
+   * The page's username.
+   * 
+   * @return The page's username.
+   */
   public String getUsername() {
     return username;
   }
 
+  /**
+   * When the page was founded.
+   * 
+   * @return When the page was founded.
+   */
   public String getFounded() {
     return founded;
   }
 
+  /**
+   * Overview of the page's company.
+   * 
+   * @return Overview of the page's company.
+   */
   public String getCompanyOverview() {
     return companyOverview;
   }
 
+  /**
+   * The page's mission.
+   * 
+   * @return The page's mission.
+   */
   public String getMission() {
     return mission;
   }
 
+  /**
+   * The page's products.
+   * 
+   * @return The page's products.
+   */
   public String getProducts() {
     return products;
   }
 
+  /**
+   * The number of fans the page has.
+   * 
+   * @return The number of fans the page has.
+   */
   public Long getFanCount() {
     return fanCount;
   }

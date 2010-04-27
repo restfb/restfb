@@ -22,10 +22,6 @@
 
 package com.restfb.types;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.restfb.Facebook;
 
 /**
@@ -34,6 +30,7 @@ import com.restfb.Facebook;
  * types</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class FacebookType {
   @Facebook
@@ -44,11 +41,6 @@ public class FacebookType {
 
   @Facebook
   String type;
-
-  /**
-   * Facebook date format (ISO 8601). Example: 2010-02-28T16:11:08+0000
-   */
-  private static final String FACEBOOK_DATE_FORMAT = "yyyy-MM-dd'T'kk:mm:ssZ";
 
   /**
    * @see java.lang.Object#hashCode()
@@ -106,34 +98,13 @@ public class FacebookType {
   }
 
   /**
-   * Returns a Java representation of a Facebook {@code date} string.
-   * 
-   * @param date
-   *          Facebook {@code date} string.
-   * @return Java date representation of the given Facebook {@code date} string.
-   * @throws IllegalArgumentException
-   *           If the provided {@code date} isn't in the Facebook date format
-   *           (ISO 8601).
-   */
-  protected Date toDate(String date) throws IllegalArgumentException {
-    if (date == null)
-      return null;
-
-    try {
-      return new SimpleDateFormat(FACEBOOK_DATE_FORMAT).parse(date);
-    } catch (ParseException e) {
-      throw new IllegalArgumentException("Unable to parse date '" + date
-          + "' using format string '" + FACEBOOK_DATE_FORMAT + "'", e);
-    }
-  }
-
-  /**
    * Represents <a
    * href="http://developers.facebook.com/docs/api#introspection">Facebook
    * Object metadata</a>, available by including the {@code metadata=1} URL
    * parameter in an API request.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.5
    */
   public static class Metadata {
     @Facebook
@@ -170,6 +141,7 @@ public class FacebookType {
      * metadata=1} URL parameter in an API request.
      * 
      * @author <a href="http://restfb.com">Mark Allen</a>
+     * @since 1.5
      */
     public static class Connections {
       @Facebook

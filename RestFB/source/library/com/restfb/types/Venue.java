@@ -28,6 +28,7 @@ import com.restfb.Facebook;
  * TODO: document, equals, hashcode
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class Venue {
   @Facebook

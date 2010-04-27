@@ -30,6 +30,7 @@ import com.restfb.Facebook;
  * that include a {@code name} field.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.5
  */
 public class NamedFacebookType extends FacebookType {
   @Facebook
