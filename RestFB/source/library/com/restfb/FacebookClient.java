@@ -47,11 +47,12 @@ public interface FacebookClient {
   <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType,
       Parameter... parameters) throws FacebookException;
 
-  void publish(String connection, Parameter... parameters)
+  <T> T publish(String connection, Class<T> objectType, Parameter... parameters)
       throws FacebookException;
 
-  void publish(String connection, InputStream binaryAttachment,
-      Parameter... parameters) throws FacebookException;
+  <T> T publish(String connection, Class<T> objectType,
+      InputStream binaryAttachment, Parameter... parameters)
+      throws FacebookException;
 
   boolean deleteObject(String object) throws FacebookException;
 }

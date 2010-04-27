@@ -219,24 +219,26 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   }
 
   /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String,
-   *      com.restfb.Parameter[])
-   */
-  @Override
-  public void publish(String connection, Parameter... parameters)
-      throws FacebookException {
-    publish(connection, null, parameters);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String,
+   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      java.io.InputStream, com.restfb.Parameter[])
    */
   @Override
-  public void publish(String connection, InputStream binaryAttachment,
-      Parameter... parameters) throws FacebookException {
+  public <T> T publish(String connection, Class<T> objectType,
+      InputStream binaryAttachment, Parameter... parameters)
+      throws FacebookException {
     verifyParameterPresence("connection", connection);
-    makeRequest(connection, false, true, false, binaryAttachment, parameters);
+    return jsonMapper.toJavaObject(makeRequest(connection, false, true, false,
+      binaryAttachment, parameters), objectType);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
+   *      com.restfb.Parameter[])
+   */
+  @Override
+  public <T> T publish(String connection, Class<T> objectType,
+      Parameter... parameters) throws FacebookException {
+    return publish(connection, objectType, null, parameters);
   }
 
   /**
