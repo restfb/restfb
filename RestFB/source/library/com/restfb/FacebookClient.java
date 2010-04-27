@@ -49,5 +49,5 @@ public interface FacebookClient {
   void publish(String connection, Parameter... parameters)
       throws FacebookException;
 
-  void deleteObject(String object) throws FacebookException;
+  boolean deleteObject(String object) throws FacebookException;
 }

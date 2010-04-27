@@ -114,8 +114,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * @see com.restfb.FacebookClient#deleteObject(java.lang.String)
    */
   @Override
-  public void deleteObject(String object) throws FacebookException {
-    throw new UnsupportedOperationException("TODO: implement");
+  public boolean deleteObject(String object) throws FacebookException {
+    verifyParameterPresence("object", object);
+    return "true".equals(makeRequest(object, false, true, true));
   }
 
   /**
@@ -224,7 +225,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   public void publish(String connection, Parameter... parameters)
       throws FacebookException {
     verifyParameterPresence("connection", connection);
-    makeRequest(connection, false, true, parameters);
+    makeRequest(connection, false, true, false, parameters);
   }
 
   /**
@@ -245,7 +246,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     try {
       JSONArray jsonArray =
-          new JSONArray(makeRequest("fql.multiquery", true, false,
+          new JSONArray(makeRequest("fql.multiquery", true, false, false,
             parametersWithAdditionalParameter(Parameter.with(
               QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
 
@@ -281,7 +282,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
             + "RestFB will populate this for you with "
             + "the query you passed to this method.");
 
-    return jsonMapper.toJavaList(makeRequest("fql.query", true, false,
+    return jsonMapper.toJavaList(makeRequest("fql.query", true, false, false,
       parametersWithAdditionalParameter(
         Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
   }
@@ -302,7 +303,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    */
   protected String makeRequest(String endpoint, Parameter... parameters)
       throws FacebookException {
-    return makeRequest(endpoint, false, false, parameters);
+    return makeRequest(endpoint, false, false, false, parameters);
   }
 
   /**
@@ -317,6 +318,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * @param executeAsPost
    *          {@code true} to execute the web request as a {@code POST}, {@code
    *          false} to execute as a {@code GET}.
+   * @param executeAsDelete
+   *          {@code true} to add a special 'treat this request as a {@code
+   *          DELETE}' parameter.
    * @param parameters
    *          Arbitrary number of parameters to send along to Facebook as part
    *          of the API call.
@@ -326,8 +330,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *           processing the response.
    */
   protected String makeRequest(String endpoint, boolean useLegacyEndpoint,
-      boolean executeAsPost, Parameter... parameters) throws FacebookException {
+      boolean executeAsPost, boolean executeAsDelete, Parameter... parameters)
+      throws FacebookException {
     verifyParameterLegality(parameters);
+
+    if (executeAsDelete)
+      parameters =
+          parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME,
+            "delete"), parameters);
 
     StringUtils.trimToEmpty(endpoint).toLowerCase();
     if (!endpoint.startsWith("/"))
