@@ -25,6 +25,7 @@ package com.restfb;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * {@link WebRequestor} implementation that loads a file from the classpath
@@ -71,6 +72,12 @@ public class ClasspathWebRequestor implements WebRequestor {
    */
   @Override
   public Response executeGet(String url) throws IOException {
+    return response;
+  }
+
+  @Override
+  public Response executePost(String url, String parameters,
+      InputStream binaryAttachment) throws IOException {
     return response;
   }
 }
