@@ -22,6 +22,7 @@
 
 package com.restfb;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,9 @@ public interface FacebookClient {
 
   void publish(String connection, Parameter... parameters)
       throws FacebookException;
+
+  void publish(String connection, InputStream binaryAttachment,
+      Parameter... parameters) throws FacebookException;
 
   boolean deleteObject(String object) throws FacebookException;
 }

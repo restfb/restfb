@@ -23,6 +23,7 @@
 package com.restfb;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Specifies how a class that sends {@code HTTP} requests to the Facebook API
@@ -118,4 +119,22 @@ public interface WebRequestor {
    *           If an error occurs while performing the {@code POST}.
    */
   Response executePost(String url, String parameters) throws IOException;
+
+  /**
+   * Given a Facebook API endpoint URL and parameter string, execute a {@code
+   * POST} to the endpoint URL.
+   * 
+   * @param url
+   *          The URL to {@code POST} to.
+   * @param parameters
+   *          The parameters to be {@code POST}ed.
+   * @param binaryAttachment
+   *          A binary attachment to be included in the {@code POST} body (e.g.
+   *          a photo).
+   * @return HTTP response data.
+   * @throws IOException
+   *           If an error occurs while performing the {@code POST}.
+   */
+  Response executePost(String url, String parameters,
+      InputStream binaryAttachment) throws IOException;
 }

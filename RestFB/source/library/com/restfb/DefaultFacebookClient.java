@@ -24,6 +24,7 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -116,7 +117,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   @Override
   public boolean deleteObject(String object) throws FacebookException {
     verifyParameterPresence("object", object);
-    return "true".equals(makeRequest(object, false, true, true));
+    return "true".equals(makeRequest(object, false, true, true, null));
   }
 
   /**
@@ -224,8 +225,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   @Override
   public void publish(String connection, Parameter... parameters)
       throws FacebookException {
+    publish(connection, null, parameters);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#publish(java.lang.String,
+   *      java.io.InputStream, com.restfb.Parameter[])
+   */
+  @Override
+  public void publish(String connection, InputStream binaryAttachment,
+      Parameter... parameters) throws FacebookException {
     verifyParameterPresence("connection", connection);
-    makeRequest(connection, false, true, false, parameters);
+    makeRequest(connection, false, true, false, binaryAttachment, parameters);
   }
 
   /**
@@ -246,7 +257,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     try {
       JSONArray jsonArray =
-          new JSONArray(makeRequest("fql.multiquery", true, false, false,
+          new JSONArray(makeRequest("fql.multiquery", true, false, false, null,
             parametersWithAdditionalParameter(Parameter.with(
               QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
 
@@ -283,8 +294,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
             + "the query you passed to this method.");
 
     return jsonMapper.toJavaList(makeRequest("fql.query", true, false, false,
-      parametersWithAdditionalParameter(
-        Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
+      null, parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME,
+        query), parameters)), objectType);
   }
 
   /**
@@ -303,7 +314,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    */
   protected String makeRequest(String endpoint, Parameter... parameters)
       throws FacebookException {
-    return makeRequest(endpoint, false, false, false, parameters);
+    return makeRequest(endpoint, false, false, false, null, parameters);
   }
 
   /**
@@ -321,6 +332,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * @param executeAsDelete
    *          {@code true} to add a special 'treat this request as a {@code
    *          DELETE}' parameter.
+   * @param binaryAttachment
+   *          A binary file to include in a {@code POST} request. Pass {@code
+   *          null} if no attachment should be sent.
    * @param parameters
    *          Arbitrary number of parameters to send along to Facebook as part
    *          of the API call.
@@ -330,7 +344,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *           processing the response.
    */
   protected String makeRequest(String endpoint, boolean useLegacyEndpoint,
-      boolean executeAsPost, boolean executeAsDelete, Parameter... parameters)
+      boolean executeAsPost, boolean executeAsDelete,
+      InputStream binaryAttachment, Parameter... parameters)
       throws FacebookException {
     verifyParameterLegality(parameters);
 
@@ -356,8 +371,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     try {
       response =
           executeAsPost ? webRequestor.executePost(fullEndpoint,
-            parameterString) : webRequestor.executeGet(fullEndpoint + "?"
-              + parameterString);
+            parameterString, binaryAttachment) : webRequestor
+            .executeGet(fullEndpoint + "?" + parameterString);
     } catch (Throwable t) {
       throw new FacebookNetworkException("Facebook " + httpVerb + " failed", t);
     }

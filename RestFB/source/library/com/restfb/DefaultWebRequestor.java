@@ -41,10 +41,34 @@ import org.apache.log4j.Logger;
  */
 public class DefaultWebRequestor implements WebRequestor {
   /**
+   * Arbitrary unique boundary marker for multipart {@code POST}s.
+   */
+  private static final String MULTIPART_BOUNDARY =
+      "**boundarystringwhichwill**neverbeencounteredinthewild**";
+
+  /**
+   * Line separator for multipart {@code POST}s.
+   */
+  private static final String MULTIPART_CARRIAGE_RETURN_AND_NEWLINE = "\r\n";
+
+  /**
+   * Hyphens for multipart {@code POST}s.
+   */
+  private static final String MULTIPART_TWO_HYPHENS = "--";
+
+  /**
+   * Default buffer size for multipart {@code POST}s.
+   */
+  private static final int MULTIPART_DEFAULT_BUFFER_SIZE = 8192;
+
+  /**
    * By default, how long should we wait for a response (in ms)?
    */
   private static final int DEFAULT_READ_TIMEOUT_IN_MS = 20000;
 
+  /**
+   * Logger.
+   */
   private static final Logger logger =
       Logger.getLogger(DefaultWebRequestor.class);
 
@@ -94,16 +118,32 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
+    return executePost(url, parameters, null);
+  }
+
+  /**
+   * @see com.restfb.WebRequestor#executePost(java.lang.String,
+   *      java.lang.String, java.io.InputStream)
+   */
+  @Override
+  public Response executePost(String url, String parameters,
+      InputStream binaryAttachment) throws IOException {
+    boolean hasBinaryAttachment = binaryAttachment != null;
+
     if (logger.isInfoEnabled())
-      logger.info("Executing a POST to " + url
-          + " with parameters (sent in request body): " + parameters);
+      logger.info("Executing a POST to " + url + " with parameters "
+          + (hasBinaryAttachment ? "" : "(sent in request body): ")
+          + parameters
+          + (hasBinaryAttachment ? " and a binary attachment." : ""));
 
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
     InputStream inputStream = null;
 
     try {
-      httpUrlConnection = (HttpURLConnection) new URL(url).openConnection();
+      httpUrlConnection =
+          (HttpURLConnection) new URL(url
+              + (hasBinaryAttachment ? "?" + parameters : "")).openConnection();
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
 
       // Allow subclasses to customize the connection if they'd like to - set
@@ -112,9 +152,37 @@ public class DefaultWebRequestor implements WebRequestor {
 
       httpUrlConnection.setRequestMethod("POST");
       httpUrlConnection.setDoOutput(true);
+      httpUrlConnection.setUseCaches(false);
+
+      if (hasBinaryAttachment) {
+        httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
+        httpUrlConnection.setRequestProperty("Content-Type",
+          "multipart/form-data;boundary=" + MULTIPART_BOUNDARY);
+      }
+
       httpUrlConnection.connect();
       outputStream = httpUrlConnection.getOutputStream();
-      outputStream.write(parameters.getBytes(ENCODING_CHARSET));
+
+      // If we have a binary attachment, the body is just the attachment and the
+      // other parameters are passed in via the URL.
+      // Otherwise the body is the URL parameter string.
+      if (hasBinaryAttachment) {
+        outputStream
+          .write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
+              + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
+              + "Content-Disposition: form-data; filename=\"test.jpg\""
+              + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
+            .getBytes(ENCODING_CHARSET));
+
+        write(binaryAttachment, outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
+
+        outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
+            + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
+            + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
+          .getBytes(ENCODING_CHARSET));
+      } else {
+        outputStream.write(parameters.getBytes(ENCODING_CHARSET));
+      }
 
       if (logger.isDebugEnabled())
         logger
@@ -129,6 +197,7 @@ public class DefaultWebRequestor implements WebRequestor {
       return new Response(httpUrlConnection.getResponseCode(), StringUtils
         .fromInputStream(inputStream));
     } finally {
+      closeQuietly(binaryAttachment);
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
     }
@@ -183,5 +252,17 @@ public class DefaultWebRequestor implements WebRequestor {
     } catch (Throwable t) {
       logger.warn("Unable to disconnect " + httpUrlConnection + ": ", t);
     }
+  }
+
+  protected void write(InputStream source, OutputStream destination,
+      int bufferSize) throws IOException {
+    if (source == null || destination == null)
+      throw new NullPointerException(
+        "Must provide non-null source and destination streams.");
+
+    int read = 0;
+    byte[] chunk = new byte[bufferSize];
+    while ((read = source.read(chunk)) > 0)
+      destination.write(chunk, 0, read);
   }
 }
