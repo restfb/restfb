@@ -22,13 +22,16 @@
 
 package com.restfb.example;
 
+import static java.lang.System.out;
+
 import java.util.Arrays;
-import java.util.List;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
+import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.FacebookException;
+import com.restfb.Parameter;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
 import com.restfb.types.User;
@@ -65,21 +68,41 @@ public class Example {
     fetchObject();
     fetchObjects();
     fetchConnections();
+    search();
+    metadata();
+    paging();
+    selection();
+    rawJsonResponse();
   }
 
   void fetchObject() throws FacebookException {
     User user = facebookClient.fetchObject("me", User.class);
     Page page = facebookClient.fetchObject("cocacola", Page.class);
 
-    System.out.println(String.format("** FETCH OBJECT **\nUser: %s\nPage: %s",
-      user, page));
+    out.println("* Fetching single objects *");
+    out.println("User name: " + user.getName());
+    out.println("Page fan count: " + page.getFanCount());
   }
 
   void fetchObjects() throws FacebookException {
-    List<User> users =
-        facebookClient.fetchObjects(Arrays.asList("me", "arjun"), User.class);
+    FetchObjectsResults fetchObjectsResults =
+        facebookClient.fetchObjects(Arrays.asList("me", "cocacola"),
+          FetchObjectsResults.class);
 
-    System.out.println(String.format("** FETCH OBJECTS **\nUsers: %s", users));
+    out.println("* Fetching multiple objects at once *");
+    out.println("User name: " + fetchObjectsResults.me.getName());
+    out.println("Page fan count: " + fetchObjectsResults.page.getFanCount());
+  }
+
+  /**
+   * Holds results from a "fetchObjects" call.
+   */
+  static class FetchObjectsResults {
+    @Facebook(contains = User.class)
+    User me;
+
+    @Facebook(value = "cocacola", contains = Page.class)
+    Page page;
   }
 
   void fetchConnections() throws FacebookException {
@@ -88,8 +111,48 @@ public class Example {
     Connection<Post> myFeed =
         facebookClient.fetchConnection("me/feed", Post.class);
 
-    System.out.println(String.format(
-      "** FETCH CONNECTIONS **\nMy Friends: %s\nMy Feed: %s", myFriends
-        .getData(), myFeed.getData()));
+    out.println("* Fetching connections *");
+    out.println("Count of my friends: " + myFriends.getData().size());
+    out.println("First item in my feed: "
+        + myFeed.getData().get(0).getMessage());
+  }
+
+  void search() throws FacebookException {
+    Connection<Post> publicSearch =
+        facebookClient.fetchConnection("search", Post.class, Parameter.with(
+          "q", "watermelon"), Parameter.with("type", "post"));
+
+    Connection<User> targetedSearch =
+        facebookClient.fetchConnection("me/home", User.class, Parameter.with(
+          "q", "Mark"), Parameter.with("type", "user"));
+
+    out.println("* Searching connections *");
+    out.println("Public search: " + publicSearch.getData().get(0).getMessage());
+    out.println("Posts on my wall by friends named Mark: "
+        + targetedSearch.getData().size());
+  }
+
+  void metadata() throws FacebookException {
+    User userWithMetadata =
+        facebookClient.fetchObject("me", User.class, Parameter.with("metadata",
+          1));
+
+    out.println("* Fetching metadata *");
+    out.println("User metadata: has albums? "
+        + userWithMetadata.getMetadata().getConnections().hasAlbums());
+  }
+
+  void paging() throws FacebookException {
+  // TODO: implement
+  }
+
+  void selection() throws FacebookException {
+  // TODO: implement
+  }
+
+  void rawJsonResponse() throws FacebookException {
+    System.out.println("* Raw JSON *");
+    System.out.println("User object JSON: "
+        + facebookClient.fetchObject("me", String.class));
   }
 }

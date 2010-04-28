@@ -150,7 +150,16 @@ public class DefaultJsonMapper implements JsonMapper {
           return toPrimitiveJavaType(json, type);
 
       JSONObject jsonObject = new JSONObject(json);
-      T instance = type.newInstance();
+      T instance = null;
+
+      try {
+        instance = type.newInstance();
+      } catch (IllegalAccessException e) {
+        throw new FacebookJsonMappingException(
+          "Unable to create an instance of " + type
+              + ". Please make sure that it's marked 'public' "
+              + "and, if it's a nested class, is marked 'static'.", e);
+      }
 
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object

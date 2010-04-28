@@ -27,7 +27,6 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -176,7 +175,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> List<T> fetchObjects(List<String> ids, Class<T> objectType,
+  public <T> T fetchObjects(List<String> ids, Class<T> objectType,
       Parameter... parameters) throws FacebookException {
     verifyParameterPresence("ids", ids);
     verifyParameterPresence("connectionType", objectType);
@@ -204,14 +203,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       JSONObject jsonObject =
           new JSONObject(makeRequest("", parametersWithAdditionalParameter(
             Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
-
-      List<T> objects = new ArrayList<T>();
-      for (String id : ids)
-        if (jsonObject.has(id))
-          objects.add(jsonMapper.toJavaObject(jsonObject.get(id).toString(),
-            objectType));
-
-      return Collections.unmodifiableList(objects);
+      return jsonMapper.toJavaObject(jsonObject.toString(), objectType);
     } catch (JSONException e) {
       throw new FacebookJsonMappingException(
         "Unable to map connection JSON to Java objects", e);

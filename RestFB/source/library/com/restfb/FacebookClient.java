@@ -35,7 +35,7 @@ public interface FacebookClient {
   <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters)
       throws FacebookException;
 
-  <T> List<T> fetchObjects(List<String> ids, Class<T> objectType,
+  <T> T fetchObjects(List<String> ids, Class<T> objectType,
       Parameter... parameters) throws FacebookException;
 
   <T> Connection<T> fetchConnection(String connection, Class<T> connectionType,

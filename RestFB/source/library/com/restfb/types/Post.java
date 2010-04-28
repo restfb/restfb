@@ -98,6 +98,15 @@ public class Post extends NamedFacebookType {
     @Facebook
     private String value;
 
+    @Facebook
+    private String description;
+
+    @Facebook
+    private String friends;
+
+    @Facebook
+    private String networks;
+
     /**
      * @see java.lang.Object#hashCode()
      */
@@ -129,6 +138,33 @@ public class Post extends NamedFacebookType {
      */
     public String getValue() {
       return value;
+    }
+
+    /**
+     * The privacy description.
+     * 
+     * @return The privacy description.
+     */
+    public String getDescription() {
+      return description;
+    }
+
+    /**
+     * The privacy friends restriction.
+     * 
+     * @return The privacy friends restriction.
+     */
+    public String getFriends() {
+      return friends;
+    }
+
+    /**
+     * The privacy networks restriction.
+     * 
+     * @return The privacy networks restriction.
+     */
+    public String getNetworks() {
+      return networks;
     }
   }
 
