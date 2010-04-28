@@ -79,10 +79,10 @@ public class User extends NamedFacebookType {
   @Facebook(value = "interested_in", contains = String.class)
   private List<String> interestedIn = new ArrayList<String>();
 
-  @Facebook(value = "work", contains = Work.class)
+  @Facebook(contains = Work.class)
   private List<Work> work = new ArrayList<Work>();
 
-  @Facebook(value = "education", contains = Education.class)
+  @Facebook(contains = Education.class)
   private List<Education> education = new ArrayList<Education>();
 
   /**

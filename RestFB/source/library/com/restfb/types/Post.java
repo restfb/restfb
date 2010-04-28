@@ -77,13 +77,13 @@ public class Post extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  @Facebook
+  @Facebook(contains = NamedFacebookType.class)
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
-  @Facebook(value = "comments", contains = Comment.class)
+  @Facebook(contains = Comment.class)
   private List<Comment> comments = new ArrayList<Comment>();
 
-  @Facebook(value = "actions", contains = Action.class)
+  @Facebook(contains = Action.class)
   private List<Action> actions = new ArrayList<Action>();
 
   /**
