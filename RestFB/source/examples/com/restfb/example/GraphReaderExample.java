@@ -45,7 +45,7 @@ import com.restfb.types.User;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Example {
+public class GraphReaderExample {
   /**
    * RestFB Graph API client.
    */
@@ -61,10 +61,10 @@ public class Example {
    *           If an error occurs while talking to the Facebook Graph API.
    */
   public static void main(String[] args) throws FacebookException {
-    new Example(args[0]).runEverything();
+    new GraphReaderExample(args[0]).runEverything();
   }
 
-  Example(String accessToken) {
+  GraphReaderExample(String accessToken) {
     facebookClient = new DefaultFacebookClient(accessToken);
   }
 
