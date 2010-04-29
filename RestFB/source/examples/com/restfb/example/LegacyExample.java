@@ -45,12 +45,12 @@ public class LegacyExample {
 
   /**
    * Entry point. You must provide a single argument on the command line: a
-   * valid Graph API access token.
+   * valid OAuth access token.
    * 
    * @param args
    *          Command-line arguments.
    * @throws FacebookException
-   *           If an error occurs while talking to the Facebook Graph API.
+   *           If an error occurs while talking to the Facebook Legacy API.
    */
   public static void main(String[] args) throws FacebookException {
     new LegacyExample(args[0]).runEverything();
