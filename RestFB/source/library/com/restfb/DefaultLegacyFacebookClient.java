@@ -68,6 +68,12 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   private static final String FACEBOOK_REST_ENDPOINT_URL =
       "http://api.facebook.com/restserver.php";
 
+  /**
+   * OAuth API endpoint URL.
+   */
+  private static final String FACEBOOK_REST_OAUTH_ENDPOINT_URL =
+      "https://api.facebook.com/restserver.php";
+
   // Common parameter names/values that must be included in all API requests
   private static final String METHOD_PARAM_NAME = "method";
   private static final String FORMAT_PARAM_NAME = "format";
@@ -333,8 +339,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
     // Perform a POST to the API endpoint
     try {
       response =
-          webRequestor.executePost(FACEBOOK_REST_ENDPOINT_URL,
-            parametersAsString);
+          webRequestor.executePost(
+            usesAccessTokenAuthentication() ? FACEBOOK_REST_OAUTH_ENDPOINT_URL
+                : FACEBOOK_REST_ENDPOINT_URL, parametersAsString);
     } catch (Throwable t) {
       throw new FacebookNetworkException("Facebook POST failed", t);
     }
@@ -374,6 +381,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
       Parameter... parameters) {
     Map<String, String> sortedParameters = new TreeMap<String, String>();
 
+    for (Parameter param : parameters)
+      sortedParameters.put(param.name, param.value);
+
     sortedParameters.put(FORMAT_PARAM_NAME, FORMAT_PARAM_VALUE);
     sortedParameters.put(METHOD_PARAM_NAME, method);
 
@@ -387,16 +397,13 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
 
       sortedParameters.put(ACCESS_TOKEN_PARAM_NAME, accessToken);
     } else {
-      sortedParameters.put(VERSION_PARAM_NAME, VERSION_PARAM_VALUE);
       sortedParameters.put(API_KEY_PARAM_NAME, apiKey);
+      sortedParameters.put(VERSION_PARAM_NAME, VERSION_PARAM_VALUE);
       sortedParameters.put(CALL_ID_PARAM_NAME, String.valueOf(System
         .currentTimeMillis()));
 
       if (!StringUtils.isBlank(sessionKey))
         sortedParameters.put(SESSION_KEY_PARAM_NAME, sessionKey);
-
-      for (Parameter param : parameters)
-        sortedParameters.put(param.name, param.value);
 
       sortedParameters.put(SIG_PARAM_NAME, generateSignature(sortedParameters));
     }
