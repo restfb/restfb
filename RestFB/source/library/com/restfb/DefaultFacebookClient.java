@@ -259,8 +259,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
       for (int i = 0; i < jsonArray.length(); i++) {
         JSONObject jsonObject = jsonArray.getJSONObject(i);
-        normalizedJson.put(jsonObject.getString("name"), jsonObject
-          .getJSONArray("fql_result_set"));
+
+        // For empty resultsets, Facebook will return an empty object instead of
+        // an empty list. Hack around that here.
+        JSONArray resultsArray =
+            jsonObject.get("fql_result_set") instanceof JSONArray ? jsonObject
+              .getJSONArray("fql_result_set") : new JSONArray();
+
+        normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }
 
       return jsonMapper.toJavaObject(normalizedJson.toString(), objectType);

@@ -68,6 +68,9 @@ public class User extends NamedFacebookType {
   private String email;
 
   @Facebook
+  private String picture;
+
+  @Facebook
   private Integer timezone;
 
   @Facebook
@@ -357,6 +360,15 @@ public class User extends NamedFacebookType {
    */
   public String getEmail() {
     return email;
+  }
+
+  /**
+   * The user's profile picture URL.
+   * 
+   * @return The user's profile picture URL.
+   */
+  public String getPicture() {
+    return picture;
   }
 
   /**

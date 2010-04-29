@@ -94,9 +94,9 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setRequestMethod("GET");
       httpUrlConnection.connect();
 
-      if (logger.isDebugEnabled())
+      if (logger.isTraceEnabled())
         logger
-          .debug("Response headers: " + httpUrlConnection.getHeaderFields());
+          .trace("Response headers: " + httpUrlConnection.getHeaderFields());
 
       try {
         inputStream = httpUrlConnection.getInputStream();
@@ -184,9 +184,9 @@ public class DefaultWebRequestor implements WebRequestor {
         outputStream.write(parameters.getBytes(ENCODING_CHARSET));
       }
 
-      if (logger.isDebugEnabled())
+      if (logger.isTraceEnabled())
         logger
-          .debug("Response headers: " + httpUrlConnection.getHeaderFields());
+          .trace("Response headers: " + httpUrlConnection.getHeaderFields());
 
       try {
         inputStream = httpUrlConnection.getInputStream();

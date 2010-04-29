@@ -22,6 +22,9 @@
 
 package com.restfb;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Representation of a Facebook API request parameter.
  * 
@@ -37,6 +40,11 @@ public final class Parameter {
    * Parameter value.
    */
   public final String value;
+
+  /**
+   * Facebook date format (ISO 8601). Example: 2010-02-28T16:11:08+0000
+   */
+  private static final String FACEBOOK_DATE_FORMAT = "yyyy-MM-dd'T'kk:mm:ssZ";
 
   /**
    * Creates a new parameter with the given {@code name} and {@code value}.
@@ -62,7 +70,12 @@ public final class Parameter {
           + " must not be null.");
 
     this.name = StringUtils.trimToEmpty(name).toLowerCase();
-    this.value = jsonMapper.toJson(value);
+
+    // Special handling for Date types - turn them into Facebook date strings.
+    // Otherwise, use the JSON value of the type.
+    this.value =
+        value instanceof Date ? new SimpleDateFormat(FACEBOOK_DATE_FORMAT)
+          .format(value) : jsonMapper.toJson(value);
   }
 
   /**
