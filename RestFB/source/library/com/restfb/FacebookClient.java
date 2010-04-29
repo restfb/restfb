@@ -27,7 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: Documentation
+ * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook
+ * Graph API</a> client must operate.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -54,5 +55,16 @@ public interface FacebookClient {
       InputStream binaryAttachment, Parameter... parameters)
       throws FacebookException;
 
+  /**
+   * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph
+   * API delete</a> operation on the given {@code object}.
+   * 
+   * @param object
+   *          The ID of the object to delete.
+   * @return {@code true} if Facebook indicated that the object was successfully
+   *         deleted, {@code false} otherwise.
+   * @throws FacebookException
+   *           If an error occurred while attempting to delete the object.
+   */
   boolean deleteObject(String object) throws FacebookException;
 }

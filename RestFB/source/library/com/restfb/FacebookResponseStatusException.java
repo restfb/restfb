@@ -23,12 +23,14 @@
 package com.restfb;
 
 /**
- * TODO: Update docs, rename this to LegacyFacebookResponseStatusException.
- * Indicates that the Facebook endpoint returned JSON which contains an error
- * code.
+ * Indicates that the Legacy REST Facebook endpoint returned JSON which
+ * indicates an error condition.
  * <p>
- * Example: <code>{"error_code": 2,
- * "error_msg": "The service is not available at this time.", ...}</code>.
+ * This exception may also be thrown when executing certain operations against
+ * the Graph API, e.g. FQL queries.
+ * <p>
+ * Example:
+ * <code>{"error_code": 2, "error_msg": "The service is not available at this time.", ...}</code>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -46,12 +48,12 @@ public class FacebookResponseStatusException extends FacebookException {
   /**
    * Creates an exception with the given message and error code.
    * 
-   * @param errorMessage
-   *          Value of the Facebook response attribute {@code error_msg}.
    * @param errorCode
    *          Value of the Facebook response attribute {@code error_code}.
+   * @param errorMessage
+   *          Value of the Facebook response attribute {@code error_msg}.
    */
-  public FacebookResponseStatusException(String errorMessage, Integer errorCode) {
+  public FacebookResponseStatusException(Integer errorCode, String errorMessage) {
     super(String.format("Received Facebook error response (code %d): %s",
       errorCode, errorMessage));
     this.errorCode = errorCode;

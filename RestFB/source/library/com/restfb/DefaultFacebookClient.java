@@ -93,11 +93,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * TODO: Documentation
    */
   public DefaultFacebookClient(String accessToken) {
-    this(accessToken, new DefaultJsonMapper(), new DefaultWebRequestor());
+    this(accessToken, new DefaultWebRequestor(), new DefaultJsonMapper());
   }
 
-  public DefaultFacebookClient(String accessToken, JsonMapper jsonMapper,
-      WebRequestor webRequestor) {
+  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor,
+      JsonMapper jsonMapper) {
     verifyParameterPresence("accessToken", accessToken);
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);

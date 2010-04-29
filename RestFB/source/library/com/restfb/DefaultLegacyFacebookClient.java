@@ -334,11 +334,11 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
         return;
 
       throw new FacebookResponseStatusException(errorObject
-        .getString(ERROR_MSG_ATTRIBUTE_NAME), errorObject
-        .getInt(ERROR_CODE_ATTRIBUTE_NAME));
+        .getInt(ERROR_CODE_ATTRIBUTE_NAME), errorObject
+        .getString(ERROR_MSG_ATTRIBUTE_NAME));
     } catch (JSONException e) {
-      throw new FacebookJsonMappingException("Unable to process JSON response",
-        e);
+      throw new FacebookJsonMappingException(
+        "Unable to process the Facebook API response", e);
     }
   }
 
