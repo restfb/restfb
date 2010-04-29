@@ -81,25 +81,28 @@ public class DefaultJsonMapper implements JsonMapper {
 
       // Special case: if the only element of this object is an array called
       // "data", then treat it as a list. The Graph API uses this convention for
-      // connections in a few other places.
+      // connections and in a few other places, e.g. comments on the Post
+      // object.
       // Doing this simplifies mapping, so we don't have to worry about having a
       // little placeholder object that only has a "data" value.
       try {
         JSONObject jsonObject = new JSONObject(json);
         String[] names = JSONObject.getNames(jsonObject);
+        boolean hasSingleDataProperty =
+            names.length == 1 && "data".equals(names[0]);
+        Object jsonDataObject = jsonObject.get("data");
 
-        if (!(names.length == 1 && "data".equals(names[0])))
+        if (!hasSingleDataProperty && !(jsonDataObject instanceof JSONArray))
           throw new FacebookJsonMappingException(
             "JSON is an object but is being mapped as a list "
                 + "instead. Offending JSON is '" + json + "'.");
-        else
-          // TODO: make sure this is an array!
-          json = jsonObject.getJSONArray("data").toString();
+
+        json = jsonDataObject.toString();
       } catch (JSONException e) {
         // Should never get here, but just in case...
         throw new FacebookJsonMappingException(
           "Unable to convert Facebook response " + "JSON to a list of "
-              + type.getName() + " instances", e);
+              + type.getName() + " instances.  Offending JSON is " + json, e);
       }
     }
 
@@ -164,9 +167,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
-        // TODO: duplicate logic, pull out when we support automatic
+        // TODO: this is duplicate logic, pull out when we support automatic
         // camel-casing
-
         String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
         Field field = fieldWithAnnotation.getField();
 
@@ -212,11 +214,15 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * TODO: Document
+   * Recursively marshal the given {@code object} to JSON.
+   * <p>
+   * Used by {@link #toJson(Object)}.
    * 
    * @param object
-   * @return
+   *          The object to marshal.
+   * @return JSON representation of the given {@code object}.
    * @throws FacebookJsonMappingException
+   *           If an error occurs while marshaling to JSON.
    */
   protected Object toJsonInternal(Object object)
       throws FacebookJsonMappingException {
@@ -273,7 +279,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
 
-      // TODO: duplicate logic, pull out when we support automatic camel-casing
+      // TODO: this is duplicate logic, pull out when we support automatic
+      // camel-casing
       String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
       Field field = fieldWithAnnotation.getField();
 
