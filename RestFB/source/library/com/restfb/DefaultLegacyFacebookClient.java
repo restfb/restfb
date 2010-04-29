@@ -39,7 +39,9 @@ import com.restfb.json.JSONException;
 import com.restfb.json.JSONObject;
 
 /**
- * Default implementation of a legacy Facebook API client.
+ * Default implementation of a <a
+ * href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook
+ * API</a> client.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -66,11 +68,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   private static final String VERSION_PARAM_NAME = "v";
   private static final String VERSION_PARAM_VALUE = "1.0";
 
-  // API error response attributes
-  private static final String ERROR_CODE_ATTRIBUTE_NAME = "error_code";
-  private static final String ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
-
-  // API endpoint URL
+  /**
+   * API endpoint URL.
+   */
   private static final String FACEBOOK_REST_ENDPOINT_URL =
       "http://api.facebook.com/restserver.php";
 
@@ -91,7 +91,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   }
 
   /**
-   * Creates a Facebook API client with the given API key and secret key.
+   * Creates a Facebook API client with the given API key, secret key, {@code
+   * webRequestor}, and {@code jsonMapper}.
    * 
    * @param apiKey
    *          A Facebook API key.
@@ -294,52 +295,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
     String json = response.getBody();
 
     // If the response contained an error code, throw an exception
-    throwFacebookResponseStatusExceptionIfNecessary(json);
+    throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
 
     return json;
-  }
-
-  /**
-   * If the {@code error_code} JSON field is present, we've got a response
-   * status error for this API call. Extracts relevant information from the JSON
-   * and throws a
-   * 
-   * TODO: complete documentation
-   * 
-   * @param json
-   *          The JSON returned by Facebook in response to an API call.
-   * @throws FacebookResponseStatusException
-   *           If the JSON contains an error code.
-   * @throws FacebookJsonMappingException
-   *           If an error occurs while processing the JSON.
-   */
-  protected void throwFacebookResponseStatusExceptionIfNecessary(String json)
-      throws FacebookResponseStatusException, FacebookJsonMappingException {
-    try {
-      // If this is an array and not an object, it's not an error response.
-      if (json.startsWith("["))
-        return;
-
-      JSONObject errorObject = null;
-
-      // We need to swallow exceptions here because it's possible to get a legit
-      // Facebook response that contains illegal JSON (e.g.
-      // users.getLoggedInUser returning 1240077) - we're only interested in
-      // whether or not there's an error_code field present.
-      try {
-        errorObject = new JSONObject(json);
-      } catch (JSONException e) {}
-
-      if (errorObject == null || !errorObject.has(ERROR_CODE_ATTRIBUTE_NAME))
-        return;
-
-      throw new FacebookResponseStatusException(errorObject
-        .getInt(ERROR_CODE_ATTRIBUTE_NAME), errorObject
-        .getString(ERROR_MSG_ATTRIBUTE_NAME));
-    } catch (JSONException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to process the Facebook API response", e);
-    }
   }
 
   /**

@@ -57,9 +57,62 @@ abstract class BaseFacebookClient {
   protected final Set<String> illegalParamNames = new HashSet<String>();
 
   /**
+   * Legacy API error response 'error_code' attribute name.
+   */
+  private static final String LEGACY_ERROR_CODE_ATTRIBUTE_NAME = "error_code";
+
+  /**
+   * Legacy API error response 'error_msg' attribute name.
+   */
+  private static final String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
+
+  /**
    * Logger.
    */
   protected final Logger logger = Logger.getLogger(getClass());
+
+  /**
+   * If the {@code error_code} JSON field is present, we've got a response
+   * status error for this API call. Extracts relevant information from the JSON
+   * and throws an exception which encapsulates it for end-user consumption.
+   * 
+   * @param json
+   *          The JSON returned by Facebook in response to an API call.
+   * @throws FacebookResponseStatusException
+   *           If the JSON contains an error code.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while processing the JSON.
+   */
+  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(
+      String json) throws FacebookResponseStatusException,
+      FacebookJsonMappingException {
+    try {
+      // If this is not an object, it's not an error response.
+      if (!json.startsWith("{"))
+        return;
+
+      JSONObject errorObject = null;
+
+      // We need to swallow exceptions here because it's possible to get a legit
+      // Facebook response that contains illegal JSON (e.g.
+      // users.getLoggedInUser returning 1240077) - we're only interested in
+      // whether or not there's an error_code field present.
+      try {
+        errorObject = new JSONObject(json);
+      } catch (JSONException e) {}
+
+      if (errorObject == null
+          || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME))
+        return;
+
+      throw new FacebookResponseStatusException(errorObject
+        .getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), errorObject
+        .getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException(
+        "Unable to process the Facebook API response", e);
+    }
+  }
 
   /**
    * Appends the given {@code parameter} to the given {@code parameters} array.

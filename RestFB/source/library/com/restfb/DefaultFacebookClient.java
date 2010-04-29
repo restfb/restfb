@@ -22,7 +22,9 @@
 
 package com.restfb;
 
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,7 +38,8 @@ import com.restfb.json.JSONException;
 import com.restfb.json.JSONObject;
 
 /**
- * TODO: Documentation
+ * Default implementation of a <a
+ * href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -90,12 +93,51 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   private static final String FORMAT_PARAM_NAME = "format";
 
   /**
-   * TODO: Documentation
+   * API error response 'error' attribute name.
+   */
+  private static final String ERROR_ATTRIBUTE_NAME = "error";
+
+  /**
+   * API error response 'type' attribute name.
+   */
+  private static final String ERROR_TYPE_ATTRIBUTE_NAME = "type";
+
+  /**
+   * API error response 'message' attribute name.
+   */
+  private static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
+
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth2 access token.
+   * @throws NullPointerException
+   *           If {@code accessToken} is {@code null}.
+   * @throws IllegalArgumentException
+   *           If {@code accessToken} is a blank string.
    */
   public DefaultFacebookClient(String accessToken) {
     this(accessToken, new DefaultWebRequestor(), new DefaultJsonMapper());
   }
 
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken},
+   * {@code webRequestor}, and {@code jsonMapper}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth2 access token.
+   * @param webRequestor
+   *          The {@link WebRequestor} implementation to use for sending
+   *          requests to the API endpoint.
+   * @param jsonMapper
+   *          The {@link JsonMapper} implementation to use for mapping API
+   *          response JSON to Java objects.
+   * @throws NullPointerException
+   *           If any parameter is {@code null}.
+   * @throws IllegalArgumentException
+   *           If either {@code accessToken} is a blank string.
+   */
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor,
       JsonMapper jsonMapper) {
     verifyParameterPresence("accessToken", accessToken);
@@ -380,51 +422,84 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     if (logger.isInfoEnabled())
       logger.info("Facebook responded with " + response);
 
-    // If we get any HTTP response code other than a 200 OK, throw an exception
-    if (HTTP_OK != response.getStatusCode())
+    // If we get any HTTP response code other than a 200 OK or 401 Not
+    // Authorized or 500 Internal Server Error, throw an exception. We handle
+    // 401s and 500s specially.
+    if (HTTP_OK != response.getStatusCode()
+        && HTTP_UNAUTHORIZED != response.getStatusCode()
+        && HTTP_INTERNAL_ERROR != response.getStatusCode())
       throw new FacebookNetworkException("Facebook " + httpVerb + " failed",
         response.getStatusCode());
 
     String json = response.getBody();
 
-    // If the response contained an error code, throw an exception
+    // If the response contained an error code, throw an exception.
+    // The response will usually have a 500 Internal Server Error or 401 Not
+    // Authorized response code in this case.
     throwFacebookResponseStatusExceptionIfNecessary(json);
+
+    // If there was no response error information and this was a 500 or 401
+    // error, something weird happened on Facebook's end. Bail.
+    if (HTTP_INTERNAL_ERROR == response.getStatusCode()
+        || HTTP_UNAUTHORIZED == response.getStatusCode())
+      throw new FacebookNetworkException("Facebook " + httpVerb + " failed",
+        response.getStatusCode());
 
     return json;
   }
 
   /**
-   * TODO: Documentation
+   * Throws an exception if Facebook returned an error response. Using the Graph
+   * API, it's possible to see both the new Graph API-style errors as well as
+   * Legacy API-style errors, so we have to handle both here. This method
+   * extracts relevant information from the error JSON and throws an exception
+   * which encapsulates it for end-user consumption.
+   * <p>
+   * For Graph API errors:
+   * <p>
+   * If the {@code error} JSON field is present, we've got a response status
+   * error for this API call.
+   * <p>
+   * For Legacy errors (e.g. FQL):
+   * <p>
+   * If the {@code error_code} JSON field is present, we've got a response
+   * status error for this API call.
    * 
    * @param json
    *          The JSON returned by Facebook in response to an API call.
+   * @throws FacebookGraphException
+   *           If the JSON contains a Graph API error response.
    * @throws FacebookResponseStatusException
-   *           If the JSON contains an error code.
+   *           If the JSON contains an Legacy API error response.
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    */
   protected void throwFacebookResponseStatusExceptionIfNecessary(String json)
-      throws FacebookResponseStatusException, FacebookJsonMappingException {
-  // TODO: implement - no-op for now. Keep in mind that Graph API and fql API
-  // errors are different!
+      throws FacebookResponseStatusException, FacebookGraphException,
+      FacebookJsonMappingException {
+    // If we have a legacy exception, throw it.
+    throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
 
-  // This is what an error object looks like in the Graph API:
+    try {
+      // If the result is not an object, bail immediately.
+      if (!json.startsWith("{"))
+        return;
 
-  /*
-   * { "error": { "type": "Exception", "message":
-   * "You can only access the \"home\" connection for the current user: " } }
-   */
+      JSONObject errorObject = new JSONObject(json);
 
-  // This is what an error object looks like in the legacy API:
+      if (errorObject == null || !errorObject.has(ERROR_ATTRIBUTE_NAME))
+        return;
 
-  /*
-   * {"error_code":601,"error_msg":"Parser error: SELECT * is not supported. Please manually list the columns you are interested in."
-   * ,
-   * "request_args":[{"key":"method","value":"fql.query"},{"key":"token","value"
-   * :
-   * "123123123"},{"key":"query","value":"select * from user where uid=1233"},{
-   * "key" :"format","value":"json"}]}
-   */
+      JSONObject innerErrorObject =
+          errorObject.getJSONObject(ERROR_ATTRIBUTE_NAME);
+
+      throw new FacebookGraphException(innerErrorObject
+        .getString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject
+        .getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException(
+        "Unable to process the Facebook API response", e);
+    }
   }
 
   /**

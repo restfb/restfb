@@ -57,7 +57,7 @@ public class FacebookGraphException extends FacebookException {
    *          Value of the Facebook response attribute {@code error.message}.
    */
   public FacebookGraphException(String errorType, String errorMessage) {
-    super(String.format("Received Facebook error response (type %s): %s",
+    super(String.format("Received Facebook error response of type %s: %s",
       errorType, errorMessage));
     this.errorType = errorType;
     this.errorMessage = errorMessage;

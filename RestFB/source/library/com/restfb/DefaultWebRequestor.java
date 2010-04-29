@@ -23,6 +23,7 @@
 package com.restfb;
 
 import static com.restfb.StringUtils.ENCODING_CHARSET;
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -99,7 +100,10 @@ public class DefaultWebRequestor implements WebRequestor {
           .trace("Response headers: " + httpUrlConnection.getHeaderFields());
 
       try {
-        inputStream = httpUrlConnection.getInputStream();
+        inputStream =
+            httpUrlConnection.getResponseCode() == HTTP_INTERNAL_ERROR ? httpUrlConnection
+              .getErrorStream()
+                : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         logger
           .warn("An error occurred while making a GET request to " + url, e);
@@ -189,7 +193,10 @@ public class DefaultWebRequestor implements WebRequestor {
           .trace("Response headers: " + httpUrlConnection.getHeaderFields());
 
       try {
-        inputStream = httpUrlConnection.getInputStream();
+        inputStream =
+            httpUrlConnection.getResponseCode() == HTTP_INTERNAL_ERROR ? httpUrlConnection
+              .getErrorStream()
+                : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         logger.warn("An error occurred while POSTing to " + url, e);
       }
@@ -254,6 +261,22 @@ public class DefaultWebRequestor implements WebRequestor {
     }
   }
 
+  /**
+   * Writes the contents of the {@code source} stream to the {@code destination}
+   * stream using the given {@code bufferSize}.
+   * 
+   * @param source
+   *          The source stream to copy from.
+   * @param destination
+   *          The destination stream to copy to.
+   * @param bufferSize
+   *          The size of the buffer to use during the copy operation.
+   * @throws IOException
+   *           If an error occurs when reading from {@code source} or writing to
+   *           {@code destination}.
+   * @throws NullPointerException
+   *           If either {@code source} or @{code destination} is {@code null}.
+   */
   protected void write(InputStream source, OutputStream destination,
       int bufferSize) throws IOException {
     if (source == null || destination == null)

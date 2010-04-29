@@ -30,8 +30,8 @@ import java.util.List;
  * Note that implementors must be able to handle illegal JSON in
  * {@link #toJavaObject(String, Class)} and {@link #toJavaList(String, Class)}
  * in order to correctly process Facebook responses. For example, the {@code
- * Users.getLoggedInUser} API call returns a value like {@code 1240077}, which
- * is not valid JSON.
+ * Users.getLoggedInUser} Legacy API call returns a value like {@code 1240077},
+ * which is not valid JSON.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
