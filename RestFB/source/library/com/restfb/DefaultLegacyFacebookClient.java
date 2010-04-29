@@ -57,16 +57,10 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
    */
   private String secretKey;
 
-  // Common parameter names/values that must be included in all API requests
-  private static final String API_KEY_PARAM_NAME = "api_key";
-  private static final String CALL_ID_PARAM_NAME = "call_id";
-  private static final String SIG_PARAM_NAME = "sig";
-  private static final String METHOD_PARAM_NAME = "method";
-  private static final String SESSION_KEY_PARAM_NAME = "session_key";
-  private static final String FORMAT_PARAM_NAME = "format";
-  private static final String FORMAT_PARAM_VALUE = "json";
-  private static final String VERSION_PARAM_NAME = "v";
-  private static final String VERSION_PARAM_VALUE = "1.0";
+  /**
+   * OAuth2 Access token.
+   */
+  private String accessToken;
 
   /**
    * API endpoint URL.
@@ -74,8 +68,41 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   private static final String FACEBOOK_REST_ENDPOINT_URL =
       "http://api.facebook.com/restserver.php";
 
+  // Common parameter names/values that must be included in all API requests
+  private static final String METHOD_PARAM_NAME = "method";
+  private static final String FORMAT_PARAM_NAME = "format";
+  private static final String FORMAT_PARAM_VALUE = "json";
+
+  // Common parameter names/values that must be included in all API requests
+  // that do not use the new OAuth scheme.
+  private static final String API_KEY_PARAM_NAME = "api_key";
+  private static final String CALL_ID_PARAM_NAME = "call_id";
+  private static final String SIG_PARAM_NAME = "sig";
+  private static final String SESSION_KEY_PARAM_NAME = "session_key";
+  private static final String VERSION_PARAM_NAME = "v";
+  private static final String VERSION_PARAM_VALUE = "1.0";
+
+  // Special OAuth access token parameter name.
+  private static final String ACCESS_TOKEN_PARAM_NAME = "token";
+
   /**
-   * Creates a Facebook API client with the given API key and secret key.
+   * Creates a Facebook API client with the given OAuth access token.
+   * 
+   * @param accessToken
+   *          An OAuth access token.
+   * @throws NullPointerException
+   *           If {@code accessToken} is {@code null}.
+   * @throws IllegalArgumentException
+   *           If {@code accessToken} is a blank string.
+   * @since 1.5
+   */
+  public DefaultLegacyFacebookClient(String accessToken) {
+    this(accessToken, new DefaultWebRequestor(), new DefaultJsonMapper());
+  }
+
+  /**
+   * Creates a Facebook API client with the given API key and secret key (Legacy
+   * authentication).
    * 
    * @param apiKey
    *          A Facebook API key.
@@ -92,7 +119,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
 
   /**
    * Creates a Facebook API client with the given API key, secret key, {@code
-   * webRequestor}, and {@code jsonMapper}.
+   * webRequestor}, and {@code jsonMapper} (Legacy authentication).
    * 
    * @param apiKey
    *          A Facebook API key.
@@ -116,14 +143,42 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
     verifyParameterPresence("webRequestor", webRequestor);
     verifyParameterPresence("jsonMapper", jsonMapper);
 
-    this.apiKey = apiKey;
-    this.secretKey = secretKey;
+    this.apiKey = apiKey.trim();
+    this.secretKey = secretKey.trim();
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
 
-    illegalParamNames.addAll(Arrays.asList(new String[] { API_KEY_PARAM_NAME,
-        CALL_ID_PARAM_NAME, SIG_PARAM_NAME, METHOD_PARAM_NAME,
-        SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME }));
+    initializeIllegalParamNames();
+  }
+
+  /**
+   * Creates a Facebook API client with the given OAuth access token.
+   * 
+   * @param accessToken
+   *          An OAuth access token.
+   * @param webRequestor
+   *          The {@link WebRequestor} implementation to use for {@code POST}ing
+   *          to the API endpoint.
+   * @param jsonMapper
+   *          The {@link JsonMapper} implementation to use for mapping API
+   *          response JSON to Java objects.
+   * @throws NullPointerException
+   *           If any parameter is {@code null}.
+   * @throws IllegalArgumentException
+   *           If {@code accessToken} is a blank string.
+   * @since 1.5
+   */
+  public DefaultLegacyFacebookClient(String accessToken,
+      WebRequestor webRequestor, JsonMapper jsonMapper) {
+    verifyParameterPresence("accessToken", accessToken);
+    verifyParameterPresence("webRequestor", webRequestor);
+    verifyParameterPresence("jsonMapper", jsonMapper);
+
+    this.accessToken = accessToken.trim();
+    this.webRequestor = webRequestor;
+    this.jsonMapper = jsonMapper;
+
+    initializeIllegalParamNames();
   }
 
   /**
@@ -311,24 +366,40 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
    * @param parameters
    *          Arbitrary number of extra parameters to include in the request.
    * @return The parameter string to include in the Facebook API POST.
+   * @throws IllegalArgumentException
+   *           If a session key is provided but we're using OAuth authentication
+   *           instead.
    */
   protected String toParameterString(String method, String sessionKey,
       Parameter... parameters) {
     Map<String, String> sortedParameters = new TreeMap<String, String>();
-    sortedParameters.put(VERSION_PARAM_NAME, VERSION_PARAM_VALUE);
-    sortedParameters.put(API_KEY_PARAM_NAME, apiKey);
-    sortedParameters.put(CALL_ID_PARAM_NAME, String.valueOf(System
-      .currentTimeMillis()));
+
     sortedParameters.put(FORMAT_PARAM_NAME, FORMAT_PARAM_VALUE);
     sortedParameters.put(METHOD_PARAM_NAME, method);
 
-    if (!StringUtils.isBlank(sessionKey))
-      sortedParameters.put(SESSION_KEY_PARAM_NAME, sessionKey);
+    // New OAuth access token parameter is simple: just one value.
+    // The legacy stuff requires a bunch more work.
+    if (usesAccessTokenAuthentication()) {
+      if (sessionKey != null)
+        throw new IllegalArgumentException(
+          "If you're using the OAuth access token "
+              + "for authentication, you cannot " + "specify a session key.");
 
-    for (Parameter param : parameters)
-      sortedParameters.put(param.name, param.value);
+      sortedParameters.put(ACCESS_TOKEN_PARAM_NAME, accessToken);
+    } else {
+      sortedParameters.put(VERSION_PARAM_NAME, VERSION_PARAM_VALUE);
+      sortedParameters.put(API_KEY_PARAM_NAME, apiKey);
+      sortedParameters.put(CALL_ID_PARAM_NAME, String.valueOf(System
+        .currentTimeMillis()));
 
-    sortedParameters.put(SIG_PARAM_NAME, generateSignature(sortedParameters));
+      if (!StringUtils.isBlank(sessionKey))
+        sortedParameters.put(SESSION_KEY_PARAM_NAME, sessionKey);
+
+      for (Parameter param : parameters)
+        sortedParameters.put(param.name, param.value);
+
+      sortedParameters.put(SIG_PARAM_NAME, generateSignature(sortedParameters));
+    }
 
     StringBuilder parameterStringBuilder = new StringBuilder();
     boolean first = true;
@@ -394,5 +465,25 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
       // Should never happen
       throw new IllegalStateException("MD5 isn't available on this JVM", e);
     }
+  }
+
+  /**
+   * Are we using OAuth access token authentication?
+   * 
+   * @return {@code true} if we are, {@code false} if we're using the legacy
+   *         authentication scheme.
+   */
+  protected boolean usesAccessTokenAuthentication() {
+    return !StringUtils.isBlank(accessToken);
+  }
+
+  /**
+   * Initializes the set of illegal URL parameter names.
+   */
+  protected void initializeIllegalParamNames() {
+    illegalParamNames.addAll(Arrays.asList(new String[] { API_KEY_PARAM_NAME,
+        CALL_ID_PARAM_NAME, SIG_PARAM_NAME, METHOD_PARAM_NAME,
+        SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME,
+        ACCESS_TOKEN_PARAM_NAME }));
   }
 }

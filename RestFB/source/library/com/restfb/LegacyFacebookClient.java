@@ -69,11 +69,16 @@ public interface LegacyFacebookClient {
    * @param method
    *          The Facebook API method to call, e.g. {@code fql.query}.
    * @param sessionKey
-   *          A Facebook API session key.
+   *          A Facebook API session key if you're using the legacy API
+   *          key/Secret key authentication scheme. Must be {@code null} if
+   *          using OAuth access token authentication.
    * @param parameters
    *          Parameters to include in the API call.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @throws IllegalArgumentException
+   *           If {@code sessionKey} is provided when using OAuth access token
+   *           authentication.
    */
   void execute(String method, String sessionKey, Parameter... parameters)
       throws FacebookException;
@@ -107,7 +112,9 @@ public interface LegacyFacebookClient {
    * @param method
    *          The Facebook API method to call, e.g. {@code fql.query}.
    * @param sessionKey
-   *          A Facebook API session key.
+   *          A Facebook API session key if you're using the legacy API
+   *          key/Secret key authentication scheme. Must be {@code null} if
+   *          using OAuth access token authentication.
    * @param resultType
    *          Result type token.
    * @param parameters
@@ -116,6 +123,9 @@ public interface LegacyFacebookClient {
    *         data.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @throws IllegalArgumentException
+   *           If {@code sessionKey} is provided when using OAuth access token
+   *           authentication.
    */
   <T> T execute(String method, String sessionKey, Class<T> resultType,
       Parameter... parameters) throws FacebookException;
@@ -149,7 +159,9 @@ public interface LegacyFacebookClient {
    * @param method
    *          The Facebook API method to call, e.g. {@code fql.query}.
    * @param sessionKey
-   *          A Facebook API session key.
+   *          A Facebook API session key if you're using the legacy API
+   *          key/Secret key authentication scheme. Must be {@code null} if
+   *          using OAuth access token authentication.
    * @param resultType
    *          Result type token.
    * @param parameters
@@ -158,6 +170,9 @@ public interface LegacyFacebookClient {
    *         contain API response data.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @throws IllegalArgumentException
+   *           If {@code sessionKey} is provided when using OAuth access token
+   *           authentication.
    */
   <T> List<T> executeForList(String method, String sessionKey,
       Class<T> resultType, Parameter... parameters) throws FacebookException;
@@ -213,7 +228,9 @@ public interface LegacyFacebookClient {
    *          sent over the wire to the Facebook API endpoint as the {@code
    *          queries} parameter.
    * @param sessionKey
-   *          A Facebook API session key.
+   *          A Facebook API session key if you're using the legacy API
+   *          key/Secret key authentication scheme. Must be {@code null} if
+   *          using OAuth access token authentication.
    * @param resultType
    *          Result type token.
    * @param additionalParameters
@@ -222,6 +239,9 @@ public interface LegacyFacebookClient {
    *         data.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @throws IllegalArgumentException
+   *           If {@code sessionKey} is provided when using OAuth access token
+   *           authentication.
    * @since 1.1
    */
   <T> T executeMultiquery(Map<String, String> queries, String sessionKey,

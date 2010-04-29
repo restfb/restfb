@@ -144,7 +144,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);
 
-    this.accessToken = accessToken;
+    this.accessToken = accessToken.trim();
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
 
