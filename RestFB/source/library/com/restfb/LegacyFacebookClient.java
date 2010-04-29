@@ -30,6 +30,12 @@ import java.util.Map;
  * href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook
  * API</a> client must operate.
  * <p>
+ * Implementors must support Legacy authentication (API Key, Application Secret,
+ * and Session Key) as well as the <a
+ * href="http://developers.facebook.com/docs/guides/upgrade#oauth">new OAuth
+ * authentication</a> method. Using OAuth authentication is much simpler and
+ * strongly recommended.
+ * <p>
  * Green-field projects should use the new <a
  * href="http://developers.facebook.com/docs/api">Facebook Graph API</a> via
  * {@link FacebookClient} instead.

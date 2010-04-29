@@ -35,8 +35,8 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 
 /**
- * Default implementation of a service that sends HTTP {@code POST}s to the
- * Facebook API endpoint.
+ * Default implementation of a service that sends HTTP requests to the Facebook
+ * API endpoint.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */

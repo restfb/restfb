@@ -58,7 +58,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   private String secretKey;
 
   /**
-   * OAuth2 Access token.
+   * OAuth Access token.
    */
   private String accessToken;
 
@@ -92,7 +92,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   private static final String ACCESS_TOKEN_PARAM_NAME = "token";
 
   /**
-   * Creates a Facebook API client with the given OAuth access token.
+   * Creates a Facebook API client with the given <a
+   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth
+   * access token</a>.
    * 
    * @param accessToken
    *          An OAuth access token.
@@ -158,7 +160,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   }
 
   /**
-   * Creates a Facebook API client with the given OAuth access token.
+   * Creates a Facebook API client with the given <a
+   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth
+   * access token</a>.
    * 
    * @param accessToken
    *          An OAuth access token.
