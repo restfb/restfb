@@ -107,10 +107,10 @@ public class GraphReaderExample {
    * Holds results from a "fetchObjects" call.
    */
   public static class FetchObjectsResults {
-    @Facebook(contains = User.class)
+    @Facebook
     User me;
 
-    @Facebook(value = "cocacola", contains = Page.class)
+    @Facebook(value = "cocacola")
     Page page;
   }
 

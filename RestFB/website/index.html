@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+<head> 
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+	<meta http-equiv="Content-language" content="en" /> 
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+	<meta name="description" content="RestFB is a simple but powerful Facebook Graph API and REST API client written in Java" />
+	<link rel="canonical" href="http://restfb.com" /> 
+	<title>RestFB - A Lightweight Java Facebook Graph API and Old REST API Client</title> 	
+	<link type="text/css" rel="stylesheet" href="style.css" />	
+	<script type="text/javascript" src="jquery-1.4.1.js"></script>	
+	<script type="text/javascript" src="prettify.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		prettyPrint();
+		
+		$("#json-display-link").click(function() {
+			$("#json-display").toggle();			
+			var text = $(this).text();
+			$(this).text($("#json-display").is(":visible")
+				? text.replace("see", "hide")
+				: text.replace("hide", "see"));								
+			return false;
+		});
+	});
+	</script>		
+</head>
+<body>
+	<div id="content">
+		<div class="spacer"></div>
+	
+		<h1>RestFB</h1>
+		
+		<p>
+			RestFB is a simple and flexible
+			<a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> and 
+			<a href="http://wiki.developers.facebook.com/index.php/API">Old REST API</a> client written in Java.
+		</p>
+		
+		<div class="spacer"></div>
+		
+		<h2>Latest News</h2>
+		
+		<p>
+			Version 1.5 of RestFB, which includes Graph API support, is now available (released April 30 2010).
+		</p>				
+		
+		<div class="spacer"></div>
+		
+		<h2>Download</h2>
+		
+		<p>
+			Version 1.5 of the library is available via Google Code.
+			<a href="http://restfb.googlecode.com/svn/trunk/RestFB/CHANGELOG">View the changelog</a>, 
+			or <a href="http://restfb.googlecode.com/files/restfb-1.5.zip">download it here</a>.
+			<br/>
+			The project zip contains example code which can help you get up and running quickly.
+		</p>
+		
+		<div class="spacer"></div>
+		
+		<h2>Motivations</h2>
+		
+		<p>
+			Design goals:		
+			<ul>
+				<li>Minimal public API</li>
+				<li>Maximal extensibility</li>
+				<li>Robustness in the face of frequent Facebook API changes</li>
+				<li>Simple metadata-driven configuration</li>
+				<li>A single dependency, <a href="http://logging.apache.org/log4j/">Apache Log4j</a></li>			
+			</ul> 
+		</p> 	
+		
+		<p>
+			Non-goals:		
+			<ul>
+				<li>Support for non-Graph/non-REST API parts of the Facebook Platform</li>
+				<li>Providing a mechanism for obtaining session keys (if using the Legacy REST API)
+				<li>Using XML as a data transfer format in addition to JSON</li>
+				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
+			</ul>
+		</p>
+		
+		<p>
+			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.			
+			<br/>
+			If you're a happy RestFB user and would like restfb.com to link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
+		</p>
+		
+		<div class="spacer"></div>
+		
+		<h2>How To Use It</h2>
+		
+		<p>
+			You can jump straight to the <a href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
+		</p>
+		
+		<p>
+			If you're looking for help or additional examples, please check out the newly-created <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>.
+		</p>		
+		
+		<p>
+			It's helpful to see exactly what's going over the wire to verify that RestFB is taking your input and sending it
+			to Facebook exactly as you expect.  Feel free to use <a href="log4j.xml">this example log4j.xml file</a> in your own project
+			to see full <code>POST</code> request and response data logged to standard output.
+		</p>
+		
+		<div class="spacer"></div>
+		
+		<h3>Initialization</h3>
+		
+<pre class="prettyprint">
+// <a href="javadoc/com/restfb/DefaultFacebookClient.html">DefaultFacebookClient</a> is the <a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a> implementation
+// that ships with RestFB. You can customize it by passing in
+// custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
+// write your own FacebookClient instead for maximum control
+
+FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);</pre>		
+		
+		<div class="spacer"></div>
+							
+		<h3>Fetching Single Objects</h3>
+			
+<pre class="prettyprint">
+User user = facebookClient.fetchObject("me", User.class);
+Page page = facebookClient.fetchObject("cocacola", Page.class);
+
+out.println("User name: " + user.getName());
+out.println("Page fan count: " + page.getFanCount());</pre>		
+		
+		<div class="spacer"></div>
+							
+		<h3>Fetching Connections</h3>
+			
+<pre class="prettyprint">
+Connection&lt;User&gt; myFriends = facebookClient.fetchConnection("me/friends", User.class);
+Connection&lt;Post&gt; myFeed = facebookClient.fetchConnection("me/feed", Post.class);
+
+out.println("Count of my friends: " + myFriends.getData().size());
+out.println("First item in my feed: " + myFeed.getData().get(0));
+
+// Connections support paging
+
+if(myFeed.hasNext()) {
+  Connection&lt;User&gt; myFeedPage2 = facebookClient.fetchConnection("me/feed", Post.class,
+    Parameter.with("offset", myFeed.getData().size()));
+  ...
+}</pre>							
+		
+	<div class="spacer"></div>
+							
+	<h3>Selecting Specific Fields (see <a href="http://developers.facebook.com/docs/api#selection">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">
+User user = facebookClient.fetchObject("me", User.class,
+  Parameter.with("fields", "id, name, picture"));
+
+out.println("User picture: " + user.getPicture());</pre>							
+		
+		<div class="spacer"></div>
+							
+		<h3>Fetching Multiple Objects in One Call (see <a href="http://developers.facebook.com/docs/api#selection">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">
+FetchObjectsResults fetchObjectsResults =
+  facebookClient.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
+
+out.println("User name: " + fetchObjectsResults.me.getName());
+out.println("Page fan count: " + fetchObjectsResults.page.getFanCount());
+
+...
+
+// Holds results from a "fetchObjects" call
+
+public class FetchObjectsResults {
+  @Facebook
+  User me;
+
+  @Facebook(value = "cocacola")
+  Page page;
+}</pre>			
+
+		<div class="spacer"></div>
+							
+		<h3>Executing FQL queries (see <a href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>)</h3>
+			
+<pre class="prettyprint">
+String query = "SELECT name FROM user WHERE uid=220439 or uid=7901103";
+List&lt;User&gt; users = facebookClient.executeQuery(query, User.class);
+
+out.println("Users: " + users);</pre>		
+		
+		<div class="spacer"></div>
+		
+		<h2>Links</h2>
+		
+		<p>
+			Visit <a href="http://code.google.com/p/restfb">RestFB's home on Google Code</a>.		
+		</p>
+		
+		<p>
+			Have a question not covered here?  Ask in the <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>.		
+		</p>		
+		
+		<p>
+			Found a bug or have an enhancement request? <a href="http://code.google.com/p/restfb/issues/list">Create a ticket in the issue tracker</a>.		
+		</p>		
+		
+		<p>
+			Download a read-only copy of the current source code using Subversion:		
+			<pre>
+svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
+		</p>
+		
+		<div class="spacer"></div>
+		
+		<h2>About</h2>
+		
+		<p>
+			RestFB is written by <a href="mailto:maa@xmog.com">Mark Allen</a> and sponsored by <a href="http://xmog.com">Transmogrify, LLC</a>. 
+		</p>
+		
+		<p>
+			Transmogrify is a Philadelphia-area software shop specializing in product design and Java, .NET, iPhone, and iPad software development.
+		</p>
+		
+		<div class="spacer"></div>
+		
+		<h2>Licensing</h2>
+		
+		<p>
+			RestFB is open source software released under the terms of the MIT License:
+		</p>
+		
+		<pre>
+Copyright (c) 2010 Mark Allen. 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</pre>
+
+		<div class="spacer"></div>		
+
+	</div>
+				
+	<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-12795899-1");
+			pageTracker._trackPageview();
+		} catch(err) {}
+	</script>
+</body>
+</html>
