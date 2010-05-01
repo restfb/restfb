@@ -68,7 +68,7 @@
 		<h3>Initialization</h3>
 		
 		<pre class="prettyprint">
-// <a href="javadoc/com/restfb/DefaultFacebookClient.html">DefaultFacebookClient</a> is the <a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a> implementation
+// <a href="javadoc/com/restfb/DefaultLegacyFacebookClient.html">DefaultLegacyFacebookClient</a> is the <a href="javadoc/com/restfb/LegacyFacebookClient.html">LegacyFacebookClient</a> implementation
 // that ships with RestFB. You can customize it by passing in
 // custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
 // write your own FacebookClient instead for maximum control
@@ -91,7 +91,7 @@ LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_
 // Last parameter specifies that this API call's result
 // should be returned to us as a Long value
 
-Long uid = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#execute(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", sessionKey, Long.class);</pre>
+Long uid = facebookClient.<a href="javadoc/com/restfb/LegacyFacebookClient.html#execute(java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", Long.class);</pre>
 
 		<div class="spacer"></div>
 			
@@ -114,7 +114,7 @@ String query =
 // send along the query as well as the "give me HTTPS URLs" flag
 
 List&lt;User&gt; users =
-  facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#executeForList(java.lang.String,%20java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">executeForList</a>("fql.query", sessionKey, User.class,
+  facebookClient.<a href="javadoc/com/restfb/LegacyFacebookClient.html#executeForList(java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">executeForList</a>("fql.query", User.class,
     Parameter.with("query", query), Parameter.with("return_ssl_resources", "true"));</pre>	
 		
 		<h3>1. What Happened Under the Covers</h3>
@@ -246,7 +246,7 @@ Affiliations: []</pre>
 
 		<p>
 			Given the unique nature of the <a href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">fql.multiquery</a> API call,
-			RestFB provides the <a href="javadoc/com/restfb/FacebookClient.html#executeMultiquery(java.lang.Class, com.restfb.MultiqueryParameter, com.restfb.Parameter...)">FacebookClient.executeMultiquery(Class, MultiqueryParameter, Parameter...)</a> family of methods
+			RestFB provides the <a href="javadoc/com/restfb/LegacyFacebookClient.html#executeMultiquery(java.lang.Class, com.restfb.MultiqueryParameter, com.restfb.Parameter...)">LegacyFacebookClient.executeMultiquery(Class, MultiqueryParameter, Parameter...)</a> family of methods
 			to easily perform multiquery operations with a minimum of configuration.
 		</p>			
 		
@@ -255,7 +255,7 @@ Affiliations: []</pre>
 		</p>
 		
 		<pre class="prettyprint">
-FacebookClient facebookClient = new DefaultFacebookClient(API_KEY, SECRET_KEY);
+LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN);
 
 String friendsQuery =
   "SELECT name, pic_big FROM user " +
@@ -274,8 +274,7 @@ queries.put("groups", groupsQuery);
 // You can send along additional parameters if you'd like, too
 
 Results results =
-  facebookClient.executeMultiquery(sessionKey, Results.class,
-    MultiqueryParameter.with(queries));</pre>
+  facebookClient.executeMultiquery(Results.class, MultiqueryParameter.with(queries));</pre>
 		
 		<p>
 			Here's the result class and its supporting classes.  By default, results are mapped to <code>@Facebook</code>-annotated fields by the
@@ -324,7 +323,7 @@ class User {
 		</p>					
 		
 		<pre class="prettyprint">
-FacebookClient facebookClient = new DefaultFacebookClient(API_KEY, SECRET_KEY);
+LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN);
 
 ActionLink category = new ActionLink();
 category.href = "http://bit.ly/KYbaN";
@@ -351,7 +350,7 @@ attachment.media = Collections.singletonList(medium);
 // We specify the session key to use to make the call, the fact that we're
 // expecting a String response, and the attachment (defined above).
 
-String postId = facebookClient.execute("stream.publish", sessionKey, String.class,
+String postId = facebookClient.execute("stream.publish", String.class,
   Parameter.with("attachment", attachment));</pre>
 		
 		<p>

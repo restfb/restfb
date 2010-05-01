@@ -120,7 +120,11 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
    *           If either parameter is {@code null}.
    * @throws IllegalArgumentException
    *           If either parameter is a blank string.
+   * @deprecated You should use {@link #DefaultLegacyFacebookClient(String)}
+   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             the old authentication scheme soon.
    */
+  @Deprecated
   public DefaultLegacyFacebookClient(String apiKey, String secretKey) {
     this(apiKey, secretKey, new DefaultWebRequestor(), new DefaultJsonMapper());
   }
@@ -143,7 +147,12 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
    *           If any parameter is {@code null}.
    * @throws IllegalArgumentException
    *           If either {@code apiKey} or {@code secretKey} is a blank string.
+   * @deprecated You should use
+   *             {@link #DefaultLegacyFacebookClient(String, WebRequestor, JsonMapper)}
+   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             the old authentication scheme soon.
    */
+  @Deprecated
   public DefaultLegacyFacebookClient(String apiKey, String secretKey,
       WebRequestor webRequestor, JsonMapper jsonMapper) {
     verifyParameterPresence("apiKey", apiKey);

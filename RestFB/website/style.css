@@ -58,7 +58,7 @@ table {
 /* main */
 
 body {
-	font-family: "Lucida Grande", Tahoma;
+	font-family:"Lucida Grande", "Segoe UI", Tahoma;
 	margin: 10px;
 	font-size: 12pt;
  	text-align: center;
@@ -73,14 +73,14 @@ body {
 }
 
 h1 {
-	font-family:  "Lucida Grande", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma;
 	font-size: 16pt;
 	margin-bottom: 10px;
 	font-weight: bold;	
 }
 
 h2, h3 {
-	font-family:  "Lucida Grande", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma;
 	margin-bottom: 10px;
 	font-weight: bold;	
 }
@@ -130,14 +130,14 @@ pre {
 }
 
 a {
-	font-family:  "Lucida Grande", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma;
 	font-weight: bold;
 }
 
 a:link {	
 	color: #3B5998;	
 	text-decoration: none;
-	font-family:  "Lucida Grande", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma;
 }
 
 a:visited {
@@ -187,7 +187,7 @@ div.spacer {
 }
 
 #error-table b {
-	font-family:  "Lucida Grande", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma;
 	font-weight: bold;
 }
 
@@ -197,7 +197,7 @@ div.spacer {
 
 .important {
 	color: #933;
-	font-family:  "Lucida Grande", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma;
 	font-weight: bold;
 }
 

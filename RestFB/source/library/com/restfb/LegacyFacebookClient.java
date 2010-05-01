@@ -85,7 +85,11 @@ public interface LegacyFacebookClient {
    * @throws IllegalArgumentException
    *           If {@code sessionKey} is provided when using OAuth access token
    *           authentication.
+   * @deprecated Use {@link #execute(String, Parameter...)} instead. Facebook is
+   *             moving to OAuth2 and will stop supporting the old session key
+   *             authentication scheme soon.
    */
+  @Deprecated
   void execute(String method, String sessionKey, Parameter... parameters)
       throws FacebookException;
 
@@ -132,7 +136,13 @@ public interface LegacyFacebookClient {
    * @throws IllegalArgumentException
    *           If {@code sessionKey} is provided when using OAuth access token
    *           authentication.
+   * @deprecated Use {@link #execute(String, Class, Parameter...)} instead.
+   *             Facebook is moving to OAuth2 and will stop supporting the old
+   *             session key authentication scheme soon. Facebook is moving to
+   *             OAuth2 and will stop supporting the old authentication scheme
+   *             soon.
    */
+  @Deprecated
   <T> T execute(String method, String sessionKey, Class<T> resultType,
       Parameter... parameters) throws FacebookException;
 
@@ -179,7 +189,11 @@ public interface LegacyFacebookClient {
    * @throws IllegalArgumentException
    *           If {@code sessionKey} is provided when using OAuth access token
    *           authentication.
+   * @deprecated Use {@link #executeForList(String, Class, Parameter...)}
+   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             the old session key authentication scheme soon.
    */
+  @Deprecated
   <T> List<T> executeForList(String method, String sessionKey,
       Class<T> resultType, Parameter... parameters) throws FacebookException;
 
@@ -249,7 +263,11 @@ public interface LegacyFacebookClient {
    *           If {@code sessionKey} is provided when using OAuth access token
    *           authentication.
    * @since 1.1
+   * @deprecated Use {@link #executeMultiquery(Map, Class, Parameter...)}
+   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             the old session key authentication scheme soon.
    */
+  @Deprecated
   <T> T executeMultiquery(Map<String, String> queries, String sessionKey,
       Class<T> resultType, Parameter... additionalParameters)
       throws FacebookException;
