@@ -8,23 +8,7 @@
 	<meta name="description" content="RestFB is a simple but powerful Facebook Graph API and REST API client written in Java" />
 	<link rel="canonical" href="http://restfb.com" /> 
 	<title>RestFB - A Lightweight Java Facebook Graph API and Old REST API Client</title> 	
-	<link type="text/css" rel="stylesheet" href="style.css" />	
-	<script type="text/javascript" src="jquery-1.4.2.js"></script>	
-	<script type="text/javascript" src="prettify.js"></script>
-	<script type="text/javascript">
-	$(function() {
-		prettyPrint();
-		
-		$("#json-display-link").click(function() {
-			$("#json-display").toggle();			
-			var text = $(this).text();
-			$(this).text($("#json-display").is(":visible")
-				? text.replace("see", "hide")
-				: text.replace("hide", "see"));								
-			return false;
-		});
-	});
-	</script>		
+	<link type="text/css" rel="stylesheet" href="style.css" />		
 </head>
 <body>
 	<div id="content">
@@ -52,7 +36,7 @@
 		
 		<p>
 			Version 1.5 of the library is available via Google Code.
-			<a href="http://restfb.googlecode.com/svn/trunk/RestFB/CHANGELOG">View the changelog</a>, 
+			<a href="http://restfb.googlecode.com/svn/branches/RB-1.5/RestFB/CHANGELOG">View the changelog</a>, 
 			or <a href="http://restfb.googlecode.com/files/restfb-1.5.zip">download it here</a>.
 			<br/>
 			The project zip contains example code which can help you get up and running quickly.
@@ -114,7 +98,7 @@
 						
 			<div>
 				If you'd like to code against the Old REST Facebook API, though, RestFB has you covered.
-				Just use LegacyFacebookClient, which is <a href="legacy-rest-api.html">documented here</a>.  It even supports the new OAuth2 authentication scheme!
+				Just <a href="legacy-rest-api.html">use LegacyFacebookClient, which is documented here</a>.  It even supports the new OAuth2 authentication scheme!
 			</div>	
 		</div>
 		
@@ -256,8 +240,112 @@ public class MultiqueryResults {
   @Facebook(contains = String.class)
   List&lt;String&gt; likers;
 }</pre>		
+
+		<div class="spacer"></div>
+
+		<h3>Searching (see <a href="http://developers.facebook.com/docs/api#search">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">
+// Searching is just a special case of fetching Connections -
+// all you have to do is pass along a few extra parameters.
+
+Connection&lt;Post&gt; publicSearch =
+  facebookClient.fetchConnection("search", Post.class,
+    Parameter.with("q", "watermelon"), Parameter.with("type", "post"));
+
+Connection&lt;User&gt; targetedSearch =
+  facebookClient.fetchConnection("me/home", User.class,
+    Parameter.with("q", "Mark"), Parameter.with("type", "user"));
+
+out.println("Public search: " + publicSearch.getData().get(0).getMessage());
+out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());</pre>								
 		
 		<div class="spacer"></div>
+		
+		<h3>Metadata/Introspection (see <a href="http://developers.facebook.com/docs/api#introspection">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">// You can specify metadata=1 for many calls, not just this one.
+// See the Facebook Graph API documentation for more details. 
+
+User userWithMetadata =
+  facebookClient.fetchObject("me", User.class, Parameter.with("metadata", 1));
+
+out.println("User metadata: has albums? "
+  + userWithMetadata.getMetadata().getConnections().hasAlbums());</pre>								
+		
+		<div class="spacer"></div>	
+				
+		<div class="warning-bubble">
+			<h3>A note about the Publish and Delete examples below</h3>
+						
+			<div>
+				In order to use these, you'll need to create a Facebook Application and then request an OAuth2
+				access token with the proper permissions,	e.g. <code>publish_stream,offline_access,create_event</code>.
+			</div>	
+			
+			<div class="spacer"></div>	
+			
+			<div>	
+				The <a href="http://developers.facebook.com/docs/api#authorization">Facebook Graph API authorization documentation</a>
+				explains how to do this.
+			</div>
+						
+		</div>			
+		
+		<div class="spacer"></div>		
+		
+		<h3>Publishing (see <a href="http://developers.facebook.com/docs/api#publishing">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">// Publishing a simple message.
+// FacebookType represents any Facebook Graph Object that has an ID property.
+
+FacebookType publishMessageResponse =
+  facebookClient.publish("me/feed", FacebookType.class,
+    Parameter.with("message", "RestFB test"));
+
+out.println("Published message ID: " + publishMessageResponse.getId());
+
+// Publishing an event
+
+Long tomorrow = System.currentTimeMillis() / 1000L + 60L * 60L * 24L;
+Long twoDaysFromNow = System.currentTimeMillis() / 1000L + 60L * 60L * 48L;
+
+FacebookType publishEventResponse = facebookClient.publish("me/events", FacebookType.class,
+  Parameter.with("name", "Party"), Parameter.with("start_time", tomorrow),
+    Parameter.with("end_time", twoDaysFromNow));
+
+out.println("Published event ID: " + publishEventResponse.getId());
+
+// Publishing an image to a photo album is easy!
+// Just specify the image you'd like to upload and RestFB will handle it from there.
+
+FacebookType publishPhotoResponse = facebookClient.publish("me/photos", FacebookType.class,
+  getClass().getResourceAsStream("/cat.png"), Parameter.with("message", "Test cat"));
+
+out.println("Published photo ID: " + publishPhotoResponse.getId());</pre>								
+				
+		<div class="spacer"></div>		
+		
+		<h3>Deleting (see <a href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">Boolean deleted = facebookClient.deleteObject("some object ID");
+out.println("Deleted object? " + deleted);</pre>								
+		
+		<div class="spacer"></div>	
+		
+		<h3>Passing Parameters (see <a href="http://developers.facebook.com/docs/api#paging">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">// You can pass along any parameters you'd like to the Facebook endpoint.
+
+Date oneWeekAgo = new Date(System.currentTimeMillis() / 1000L - 60L * 60L * 24L * 7L);
+
+Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", Post.class,
+  Parameter.with("limit", 3), Parameter.with("until", "yesterday"),
+    Parameter.with("since", oneWeekAgo));
+
+out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>								
+		
+		<div class="spacer"></div>				
 		
 		<h2>JSON Mapping Rules</h2>
 
@@ -479,8 +567,8 @@ User user = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#fetch
 
 // Make sure we got what we were expecting
 
-assert numbers.size() == 3;
-assert numbers.get(1) == 456;</pre>
+assert "123456".equals(user.getId());
+assert "Test Person".equals(user.getName());</pre>
 			
 		<div class="spacer"></div>
 		
@@ -514,8 +602,9 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		
 		<p>
 			Transmogrify is a Philadelphia-area software shop specializing in product design and Java, .NET, iPhone, and iPad software development.
+			Our experience runs the gamut from embedded systems to Oracle DBA work to the latest in web and mobile technologies.
 			Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com">product@xmog.com</a> if you need a hand with
-			anything software-related - we can handle everything from initial requirements to development work to ongoing maintenance and support. 
+			anything software-related.  We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support. 
 		</p>
 		
 		<p>
@@ -561,11 +650,13 @@ THE SOFTWARE.</pre>
 
 	</div>
 				
+	<script type="text/javascript" src="prettify.js"></script>				
 	<script type="text/javascript">
+		prettyPrint();
+	
 		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
+		
 		try {
 			var pageTracker = _gat._getTracker("UA-12795899-1");
 			pageTracker._trackPageview();

@@ -121,11 +121,11 @@ pre {
 	border: 1px solid #aaa;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;	
-	background-color: #fec;
-	padding-bottom:0;
+	background-color: #fec;	
 	padding-left: 10px;
 	padding-top: 6px;
 	padding-bottom: 6px;
+	padding-right: 4px;
 	margin-bottom: 10px;
 }
 

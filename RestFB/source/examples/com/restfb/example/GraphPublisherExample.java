@@ -59,7 +59,7 @@ public class GraphPublisherExample {
       throw new IllegalArgumentException(
         "You must provide an OAuth access token parameter. "
             + "See README for more information.");
-    
+
     new GraphPublisherExample(args[0]).runEverything();
   }
 
@@ -90,10 +90,8 @@ public class GraphPublisherExample {
   String publishEvent() throws FacebookException {
     out.println("* Event publishing *");
 
-    Long tomorrow =
-        (System.currentTimeMillis() + 1000L * 60L * 60L * 24L) / 1000L;
-    Long twoDaysFromNow =
-        (System.currentTimeMillis() + 1000L * 60L * 60L * 48L) / 1000L;
+    Long tomorrow = System.currentTimeMillis() / 1000L + 60L * 60L * 24L;
+    Long twoDaysFromNow = System.currentTimeMillis() / 1000L + 60L * 60L * 48L;
 
     FacebookType publishEventResponse =
         facebookClient.publish("me/events", FacebookType.class, Parameter.with(
