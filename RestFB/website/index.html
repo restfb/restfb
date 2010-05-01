@@ -77,7 +77,7 @@
 			Non-goals:		
 			<ul>
 				<li>Support for non-Graph/non-REST API parts of the Facebook Platform</li>
-				<li>Providing a mechanism for obtaining session keys (if using the Legacy REST API)
+				<li>Providing a mechanism for obtaining session keys (if using the Old REST API)
 				<li>Using XML as a data transfer format in addition to JSON</li>
 				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
 			</ul>
@@ -98,7 +98,7 @@
 		</p>
 		
 		<p>
-			If you're looking for help or additional examples, please check out the newly-created <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>.
+			If you're looking for help or additional examples, please check out the <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>.
 		</p>		
 		
 		<p>
@@ -115,11 +115,7 @@
 			<div>
 				If you'd like to code against the Old REST Facebook API, though, RestFB has you covered.
 				Just use LegacyFacebookClient, which is <a href="legacy-rest-api.html">documented here</a>.  It even supports the new OAuth2 authentication scheme!
-			</div>
-			
-			<div>
-				
-			</div>			
+			</div>	
 		</div>
 		
 		<div class="spacer"></div>
@@ -133,6 +129,29 @@
 // write your own FacebookClient instead for maximum control
 
 FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);</pre>		
+		
+		<div class="spacer"></div>
+		
+		<div class="warning-bubble">
+			<h3>Not sure how to get an access token?</h3>
+						
+			<div>
+				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a href="http://developers.facebook.com/docs/api">navigate to the Graph API documentation</a>.
+				Click on one of the example links that shows Graph API data.
+			</div>	
+			
+			<div class="spacer"></div>
+			
+			<div>
+				You should see an <code>access_token</code> parameter in your URL bar.  That's it!  Just copy and paste it into your code.								
+			</div>
+			
+			<div class="spacer"></div>
+			
+			<div>
+				Example: <code>http://graph.facebook.com/btaylor?access_token=XXXXXXX</code>
+			</div>
+		</div>			
 		
 		<div class="spacer"></div>
 							
