@@ -9,7 +9,7 @@
 	<link rel="canonical" href="http://restfb.com" /> 
 	<title>RestFB - A Lightweight Java Facebook REST API Client</title> 	
 	<link type="text/css" rel="stylesheet" href="style.css" />	
-	<script type="text/javascript" src="jquery-1.4.1.js"></script>	
+	<script type="text/javascript" src="jquery-1.4.2.js"></script>	
 	<script type="text/javascript" src="prettify.js"></script>
 	<script type="text/javascript">
 	$(function() {
@@ -30,72 +30,10 @@
 	<div id="content">
 		<div class="spacer"></div>
 	
-		<h1>RestFB</h1>
+		<h1>Using RestFB with Facebook's Old REST API</h1>
 		
 		<p>
-			RestFB is a simple and flexible <a href="http://wiki.developers.facebook.com/index.php/API">Facebook REST API</a> client written in Java.
-		</p>
-		
-		<div class="spacer"></div>
-		
-		<h2>Latest News</h2>
-		
-		<p>
-			Version 1.4 of RestFB is now available (released April 21 2010).
-			<br/>
-			We're hard at work now adding support for the newly-announced
-			<a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> - look for it in the 1.5 release.
-		</p>				
-		
-		<div class="spacer"></div>
-		
-		<h2>Download</h2>
-		
-		<p>
-			Version 1.4 of the library is available via Google Code.
-			<a href="http://restfb.googlecode.com/svn/trunk/RestFB/CHANGELOG">View the changelog</a>, 
-			or <a href="http://restfb.googlecode.com/files/restfb-1.4.zip">download it here</a>.
-			<br/>
-			You can also <a href="Example.java">download example code</a> to get started quickly.
-		</p>
-		
-		<div class="spacer"></div>
-		
-		<h2>Motivations</h2>
-		
-		<p>
-			Design goals:		
-			<ul>
-				<li>Minimal public API</li>
-				<li>Maximal extensibility</li>
-				<li>Robustness in the face of frequent Facebook API changes</li>
-				<li>Simple metadata-driven configuration</li>
-				<li>A single dependency, <a href="http://logging.apache.org/log4j/">Apache Log4j</a></li>			
-			</ul> 
-		</p> 	
-		
-		<p>
-			Non-goals:		
-			<ul>
-				<li>Support for non-REST API parts of the Facebook Platform</li>
-				<li>Providing a mechanism for obtaining session keys (<span class="important">you must do this yourself via <a href="http://wiki.developers.facebook.com/index.php/Facebook_Connect">Facebook Connect</a>!</span>)</li>
-				<li>Using XML as a data transfer format in addition to JSON</li>
-				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
-			</ul>
-		</p>
-		
-		<p>
-			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.			
-			<br/>
-			If you're a happy RestFB user and would like restfb.com to link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
-		</p>
-		
-		<div class="spacer"></div>
-		
-		<h2>How To Use It</h2>
-		
-		<p>
-			You can jump straight to the <a href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
+			As always, you can jump straight to the <a href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
 		</p>
 		
 		<p>
@@ -108,6 +46,23 @@
 			to see full <code>POST</code> request and response data logged to standard output.
 		</p>
 		
+		<div class="spacer"></div>		
+		
+		<div class="warning-bubble">
+			<h3>The below documentation is for the Old REST API component of RestFB.</h3>
+						
+			<div>
+				Keep in mind that it's preferable for new projects to use the default Facebook Graph API component of RestFB, which is <a href="index.html">documented here</a>.
+				Facebook will be deprecating the Old REST API in the future, and most active development work on both Facebook and RestFB will center around the Graph API.				
+			</div>
+			
+			<div class="spacer"></div>
+			
+			<div>
+				It's worth noting that there are still two good reasons to use the Old REST API: Legacy code that depends on it, and functionality gaps in the Graph API.
+			</div>			
+		</div>		
+		
 		<div class="spacer"></div>
 		
 		<h3>Initialization</h3>
@@ -118,7 +73,11 @@
 // custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
 // write your own FacebookClient instead for maximum control
 
-FacebookClient facebookClient = new DefaultFacebookClient(MY_API_KEY, MY_SECRET_KEY);</pre>		
+// Use this constructor if you'd like to go with legacy authentication (not recommended) 
+LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_API_KEY, MY_SECRET_KEY);
+
+// Use this constructor if you'd like to go with the new OAuth2 token authentication (preferred)
+LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN);</pre>		
 		
 		<div class="spacer"></div>
 		
@@ -594,12 +553,12 @@ public class MyClass {
 					<div class="spacer"></div>					
 					<div class="spacer"></div>
 					
-					<table id="error-table" cellpadding="4" style="border: 1px solid red; margin: 0px; background-color: rgb(255, 153, 153); border-collapse: collapse; border-spacing: 3px; width: 100%;">
+					<table id="error-table" cellpadding="4">
 					<tbody><tr><td><b>Code</b></td><td><b>Description</b></td>
 					</tr><tr valign="top"><th style="font-weight: bold;">100</th><td>  Invalid parameter.  </td><td> 
 					</td></tr><tr valign="top"><th style="font-weight: bold;">102</th><td>  Session key invalid or no longer valid (if it's a desktop application and the session is missing).  </td><td>
 					</td></tr><tr valign="top"><th style="font-weight: bold;">200</th><td>  Permissions error. The application does not have permission to perform this action.  </td><td>
-					</td></tr><tr valign="top"><th style="font-weight: bold;">210</th><td>  User not visible. The user doesn't have permission to act on that object.  </td><td>
+					</td></tr><tr valign="top"><th style="font-weight: bold;">210</th><td style="padding-bottom: 7px;">  User not visible. The user doesn't have permission to act on that object.  </td><td>
 					</td></tr></tbody></table>
 					
 					<div class="spacer"></div>
@@ -639,7 +598,7 @@ try {
 		<h2>Extensibility and Unit Testing</h2>
 
 		<p>
-			In addition to <code><a href="javadoc/com/restfb/DefaultFacebookClient.html">FacebookClient</a></code>, RestFB provides default implementations
+			In addition to <code><a href="javadoc/com/restfb/DefaultLegacyFacebookClient.html">LegacyFacebookClient</a></code>, RestFB provides default implementations
 			for <code><a href="javadoc/com/restfb/DefaultWebRequestor.html">WebRequestor</a></code> and
 			<code><a href="javadoc/com/restfb/DefaultJsonMapper.html">JsonMapper</a></code>, two components that
 			<code>DefaultFacebookClient</code> depends on to do its work.						
@@ -661,8 +620,8 @@ try {
 		</p>
 
 		<pre class="prettyprint">
-FacebookClient facebookClient =
-  new DefaultFacebookClient(API_KEY, SECRET_KEY, new DefaultJsonMapper(),
+LegacyFacebookClient facebookClient =
+  new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN, new DefaultJsonMapper(),
   
     // A one-off <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> for testing that returns a hardcoded JSON
     // list of numbers instead of hitting the Facebook API endpoint URL

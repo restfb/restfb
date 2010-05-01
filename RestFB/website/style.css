@@ -20,6 +20,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 body {
 	line-height: 1;
+	/* letter-spacing: 0.175px; */
 }
 
 ol, ul {
@@ -56,20 +57,10 @@ table {
 
 /* main */
 
-@font-face {
-	font-family: "PT Sans";
-	src: url("PT_Sans.ttf");
-}
-
-@font-face {
-	font-family: "PT Sans Bold";
-	src: url("PT_Sans_Bold.ttf");
-}
-
 body {
-	font-family: "PT Sans";
+	font-family: "Lucida Grande", Tahoma;
 	margin: 10px;
-	font-size: 13pt;
+	font-size: 12pt;
  	text-align: center;
  	vertical-align: middle; 
  	line-height: 1.25;
@@ -82,14 +73,14 @@ body {
 }
 
 h1 {
-	font-family: "PT Sans Bold";
+	font-family:  "Lucida Grande", Tahoma;
 	font-size: 16pt;
 	margin-bottom: 10px;
 	font-weight: bold;	
 }
 
 h2, h3 {
-	font-family: "PT Sans Bold";
+	font-family:  "Lucida Grande", Tahoma;
 	margin-bottom: 10px;
 	font-weight: bold;	
 }
@@ -114,6 +105,8 @@ pre, code, tt {
 
 pre {	
 	border: 1px solid #888;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;	
 	background-color: #f9f9f9;
 	padding-bottom:0;
 	padding-left: 10px;
@@ -124,14 +117,27 @@ pre {
 	overflow-y: hidden;	
 }
 
+.warning-bubble {	
+	border: 1px solid #aaa;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;	
+	background-color: #fec;
+	padding-bottom:0;
+	padding-left: 10px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-bottom: 10px;
+}
+
 a {
-	font-family: "PT Sans Bold";	
+	font-family:  "Lucida Grande", Tahoma;
+	font-weight: bold;
 }
 
 a:link {	
 	color: #3B5998;	
 	text-decoration: none;
-	font-family: "PT Sans Bold";
+	font-family:  "Lucida Grande", Tahoma;
 }
 
 a:visited {
@@ -166,24 +172,32 @@ div.spacer {
 	height: 4px;	
 }
 
+#error-table {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;	
+	margin: 0px;
+	background-color: rgb(255, 153, 153);
+	border-collapse: collapse;
+	border-spacing: 3px;
+	width: 100%;
+}
+
 #error-table th {
 	padding-left: 8px;	
 }
 
 #error-table b {
-	font-family: "PT Sans Bold";
+	font-family:  "Lucida Grande", Tahoma;
 	font-weight: bold;
 }
 
 #error-table td {
-	padding: 5px;
-	padding-bottom: 2px;
-	padding-left: 8px;	
+	padding: 6px 5px 2px 8px;
 }
 
 .important {
 	color: #933;
-	font-family: "PT Sans Bold";	
+	font-family:  "Lucida Grande", Tahoma;
 	font-weight: bold;
 }
 
@@ -192,47 +206,47 @@ div.spacer {
 /* highlight */
 
 .str {
-	color: #080
+	color: #080;
 }
 
 .kwd {
-	color: #008
+	color: #008;
 }
 
 .com {
-	color: #800
+	color: #800;
 }
 
 .typ {
-	color: #606
+	color: #606;
 }
 
 .lit {
-	color: #066
+	color: #066;
 }
 
 .pun {
-	color: #660
+	color: #660;
 }
 
 .pln {
-	color: #000
+	color: #000;
 }
 
 .tag {
-	color: #008
+	color: #008;
 }
 
 .atn {
-	color: #606
+	color: #606;
 }
 
 .atv {
-	color: #080
+	color: #080;
 }
 
 .dec {
-	color: #606
+	color: #606;
 }
 
 pre.prettyprint {
@@ -241,38 +255,38 @@ pre.prettyprint {
 
 @media print {
 	.str {
-		color: #060
+		color: #060;
 	}
 	.kwd {
 		color: #006;
-		font-weight: bold
+		font-weight: bold;
 	}
 	.com {
 		color: #600;
-		font-style: italic
+		font-style: italic;
 	}
 	.typ {
 		color: #404;
-		font-weight: bold
+		font-weight: bold;
 	}
 	.lit {
-		color: #044
+		color: #044;
 	}
 	.pun {
-		color: #440
+		color: #440;
 	}
 	.pln {
-		color: #000
+		color: #000;
 	}
 	.tag {
 		color: #006;
-		font-weight: bold
+		font-weight: bold;
 	}
 	.atn {
-		color: #404
+		color: #404;
 	}
 	.atv {
-		color: #060
+		color: #060;
 	}
 }
 

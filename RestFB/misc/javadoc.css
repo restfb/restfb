@@ -2,24 +2,14 @@
 	/* Define colors, fonts and other style attributes here to override the defaults  */
 	/* Page background color */
 	
-@font-face {
-	font-family: "PT Sans";
-	src: url("PT_Sans.ttf");
-}
-
-@font-face {
-	font-family: "PT Sans Bold";
-	src: url("PT_Sans_Bold.ttf");
-}	
-	
 body {
-	font-family:  "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial;
+	font-family:  "Lucida Grande", "Segoe UI", Verdana, Arial;
 	background-color: white;
 	font-size: 11pt;
 }
 
 td {
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
 	font-size: 11pt;
 }
 
@@ -39,7 +29,7 @@ td {
 /* Font used in left-hand frame lists */
 .FrameTitleFont {
 	font-size: normal;
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
 }
 
 font > b {
@@ -49,12 +39,12 @@ font > b {
 
 .FrameHeadingFont {
 	font-size: normal;
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
 }
 
 .FrameItemFont {
 	font-size: normal;
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
 }
 
 /* Example of smaller, sans-serif font in frames */
@@ -70,22 +60,22 @@ font > b {
 
 .NavBarFont1 {
 	font-size: 13pt;
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
 	color: #000000;
 }
 
 .NavBarFont1Rev {
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
 	color: #FFFFFF;
 }
 
 .NavBarCell2 {
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
 	background-color: #FFFFFF;
 }
 
 .NavBarCell3 {
-	font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
 	background-color: #FFFFFF;
 }
 
@@ -185,7 +175,7 @@ HR {
 
 
 /* Header/Footer Colours */
-#Header  { font-family: "PT Sans", "Segoe UI", "Lucida Grande", Verdana, Arial; color: #000000;  background-color:#EEEEFF }
+#Header  { font-family: "Lucida Grande", "Segoe UI", Verdana, Arial; color: #000000;  background-color:#EEEEFF }
 
 /* Line Number */
 #LN     { color: #BBBBBB;  background-color:#FFFFFF }

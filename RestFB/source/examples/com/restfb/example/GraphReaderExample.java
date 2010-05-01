@@ -142,7 +142,7 @@ public class GraphReaderExample {
 
     Map<String, String> queries = new HashMap<String, String>();
     queries.put("users",
-      "SELECT name FROM user WHERE uid=220439 or uid=7901103");
+      "SELECT name FROM user WHERE uid=220439 OR uid=7901103");
     queries.put("likers",
       "SELECT user_id FROM like WHERE object_id=122788341354");
 
