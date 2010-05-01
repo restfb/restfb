@@ -51,8 +51,15 @@ public class GraphPublisherExample {
    *          Command-line arguments.
    * @throws FacebookException
    *           If an error occurs while talking to the Facebook Graph API.
+   * @throws IllegalArgumentException
+   *           If no command-line arguments are provided.
    */
   public static void main(String[] args) throws FacebookException {
+    if (args.length == 0)
+      throw new IllegalArgumentException(
+        "You must provide an OAuth access token parameter. "
+            + "See README for more information.");
+    
     new GraphPublisherExample(args[0]).runEverything();
   }
 

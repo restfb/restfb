@@ -29,9 +29,6 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
-import com.restfb.json.JSONException;
-import com.restfb.json.JSONObject;
-
 /**
  * Base class that contains data and functionality common to
  * {@link DefaultFacebookClient} and {@link DefaultLegacyFacebookClient}.

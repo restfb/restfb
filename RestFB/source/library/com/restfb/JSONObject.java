@@ -1,4 +1,4 @@
-package com.restfb.json;
+package com.restfb;
 
 /*
  Copyright (c) 2002 JSON.org
@@ -90,7 +90,7 @@ import java.util.TreeSet;
  * @version 2009-03-06
  */
 @SuppressWarnings("unchecked")
-public class JSONObject {
+class JSONObject {
 
   /**
    * JSONObject.NULL is equivalent to the value that JavaScript calls null,
@@ -361,8 +361,8 @@ public class JSONObject {
             } else if (result instanceof Map) {
               map.put(key, new JSONObject((Map) result, includeSuperClass));
             } else if (isStandardProperty(result.getClass())) { // Primitives,
-                                                                // String and
-                                                                // Wrapper
+              // String and
+              // Wrapper
               map.put(key, result);
             } else {
               if (result.getClass().getPackage().getName().startsWith("java")
@@ -1165,7 +1165,7 @@ public class JSONObject {
     char c = 0;
     int i;
     int len = string.length();
-    StringBuffer sb = new StringBuffer(len + 4);
+    StringBuilder sb = new StringBuilder(len + 4);
     String t;
 
     sb.append('"');
@@ -1359,7 +1359,7 @@ public class JSONObject {
   public String toString() {
     try {
       Iterator keys = keys();
-      StringBuffer sb = new StringBuffer("{");
+      StringBuilder sb = new StringBuilder("{");
 
       while (keys.hasNext()) {
         if (sb.length() > 1) {
@@ -1418,7 +1418,7 @@ public class JSONObject {
       return "{}";
     }
     Iterator keys = sortedKeys();
-    StringBuffer sb = new StringBuffer("{");
+    StringBuilder sb = new StringBuilder("{");
     int newindent = indent + indentFactor;
     Object o;
     if (n == 1) {

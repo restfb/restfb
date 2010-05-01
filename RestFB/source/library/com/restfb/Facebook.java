@@ -22,9 +22,10 @@
 
 package com.restfb;
 
-import java.lang.annotation.ElementType;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -32,12 +33,12 @@ import java.lang.annotation.Target;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Retention(RUNTIME)
+@Target(FIELD)
 public @interface Facebook {
   /**
-   * Name of the Facebook API result attribute to map to, e.g. {@code
-   * affiliation}.
+   * Name of the Facebook API result attribute to map to - {@code affiliation},
+   * for example.
    * 
    * @return Name of the Facebook API result attribute to map to.
    */
@@ -49,7 +50,7 @@ public @interface Facebook {
    * type erasure).
    * <p>
    * This attribute is required when this annotation is applied to a {@code
-   * List} type and is ignored otherwise.
+   * List} type when mapping from JSON to Java and is ignored otherwise.
    * 
    * @return If the annotated field is of type {@code List}, the type of object
    *         contained in the list. Defaults to a dummy class if none is

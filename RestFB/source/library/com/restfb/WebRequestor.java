@@ -37,7 +37,7 @@ public interface WebRequestor {
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
-  static class Response {
+  public static class Response {
     /**
      * HTTP response status code (e.g. 200).
      */

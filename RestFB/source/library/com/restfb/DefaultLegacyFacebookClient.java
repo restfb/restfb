@@ -34,9 +34,6 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.restfb.WebRequestor.Response;
-import com.restfb.json.JSONArray;
-import com.restfb.json.JSONException;
-import com.restfb.json.JSONObject;
 
 /**
  * Default implementation of a <a

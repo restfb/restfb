@@ -625,7 +625,8 @@ LegacyFacebookClient facebookClient =
     // A one-off <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> for testing that returns a hardcoded JSON
     // list of numbers instead of hitting the Facebook API endpoint URL
 
-    new WebRequestor() {
+    new DefaultWebRequestor() {
+      @Override
       public <a href="javadoc/com/restfb/WebRequestor.Response.html">Response</a> <a href="javadoc/com/restfb/WebRequestor.html#executePost(java.lang.String, java.lang.String)">executePost</a>(String url, String parameters) throws IOException {
         return new Response(HttpURLConnection.HTTP_OK, "[123,456,789]");
       }

@@ -22,7 +22,7 @@
 
 package com.restfb;
 
-import static com.restfb.json.JSONObject.NULL;
+import static com.restfb.JSONObject.NULL;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -35,9 +35,6 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import com.restfb.ReflectionUtils.FieldWithAnnotation;
-import com.restfb.json.JSONArray;
-import com.restfb.json.JSONException;
-import com.restfb.json.JSONObject;
 
 /**
  * Default implementation of a JSON-to-Java mapper.

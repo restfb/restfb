@@ -24,6 +24,7 @@ package com.restfb.example;
 
 import static java.lang.System.out;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.restfb.DefaultLegacyFacebookClient;
@@ -41,7 +42,7 @@ public class LegacyExample {
   /**
    * RestFB Legacy REST API client.
    */
-  private LegacyFacebookClient legacyFacebookClient;
+  private LegacyFacebookClient facebookClient;
 
   /**
    * Entry point. You must provide a single argument on the command line: a
@@ -51,24 +52,32 @@ public class LegacyExample {
    *          Command-line arguments.
    * @throws FacebookException
    *           If an error occurs while talking to the Facebook Legacy API.
+   * @throws IllegalArgumentException
+   *           If no command-line arguments are provided.
    */
   public static void main(String[] args) throws FacebookException {
+    if (args.length == 0)
+      throw new IllegalArgumentException(
+        "You must provide an OAuth access token parameter. "
+            + "See README for more information.");
+
     new LegacyExample(args[0]).runEverything();
   }
 
   LegacyExample(String accessToken) {
-    legacyFacebookClient = new DefaultLegacyFacebookClient(accessToken);
+    facebookClient = new DefaultLegacyFacebookClient(accessToken);
   }
 
   void runEverything() throws FacebookException {
     list();
+    publish();
   }
 
   void list() throws FacebookException {
     out.println("* Call that returns a list *");
 
     List<LegacyUser> users =
-        legacyFacebookClient.executeForList("Users.getInfo", LegacyUser.class,
+        facebookClient.executeForList("Users.getInfo", LegacyUser.class,
           Parameter.with("uids", "220439, 7901103"), Parameter.with("fields",
             "last_name, first_name"));
 
@@ -92,5 +101,90 @@ public class LegacyExample {
     public String toString() {
       return String.format("%s %s", firstName, lastName);
     }
+  }
+
+  void publish() throws FacebookException {
+    out.println("* Publishes to your feed *");
+
+    ActionLink category = new ActionLink();
+    category.href = "http://bit.ly/KYbaN";
+    category.text = "humor";
+
+    Properties properties = new Properties();
+    properties.category = category;
+    properties.ratings = "5 stars";
+
+    Medium medium = new Medium();
+    medium.href = "http://bit.ly/187gO1";
+    medium.src = "http://bit.ly/GaTlC";
+    medium.type = "image";
+
+    Attachment attachment = new Attachment();
+    attachment.name = "i'm bursting with joy";
+    attachment.href = "http://bit.ly/187gO1";
+    attachment.caption = "{*actor*} rated the lolcat 5 stars";
+    attachment.description = "a funny looking cat";
+    attachment.properties = properties;
+    attachment.media = Collections.singletonList(medium);
+
+    // Send the request to Facebook.
+    // We specify the fact that we're expecting a String response and that we're
+    // passing along an attachment (defined above).
+
+    String postId =
+        facebookClient.execute("stream.publish", String.class, Parameter.with(
+          "attachment", attachment));
+
+    out.println("ID of the post you just published: " + postId);
+  }
+
+  // Below are classes that get converted to JSON and passed along to the
+  // stream.publish call.
+
+  public static class ActionLink {
+    @Facebook
+    String text;
+
+    @Facebook
+    String href;
+  }
+
+  public static class Medium {
+    @Facebook
+    String type;
+
+    @Facebook
+    String src;
+
+    @Facebook
+    String href;
+  }
+
+  public static class Properties {
+    @Facebook
+    ActionLink category;
+
+    @Facebook
+    String ratings;
+  }
+
+  public static class Attachment {
+    @Facebook
+    String name;
+
+    @Facebook
+    String href;
+
+    @Facebook
+    String caption;
+
+    @Facebook
+    String description;
+
+    @Facebook
+    Properties properties;
+
+    @Facebook
+    List<Medium> media;
   }
 }

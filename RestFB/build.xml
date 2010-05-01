@@ -26,7 +26,7 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
-	
+
 	<!-- Other -->
 	<property name="libraryVersion" value="1.5" />
 
@@ -79,10 +79,7 @@
 			<classpath>
 				<path refid="compilationClasspath" />
 			</classpath>
-			<packageset dir="${librarySourceDir}" defaultexcludes="yes">
-				<exclude name="com/restfb/json" />
-			</packageset>
-
+			<packageset dir="${librarySourceDir}" defaultexcludes="yes" />
 			<doctitle><![CDATA[<h1>RestFB</h1>]]></doctitle>
 			<bottom><![CDATA[<i>RestFB version ${libraryVersion}. Copyright &#169; 2010 Mark Allen. All Rights Reserved.</i>]]></bottom>
 			<link href="http://java.sun.com/javase/6/docs/api/" />
@@ -99,26 +96,26 @@
 		</zip>
 	</target>
 
-	<!-- 
-		Branches and tags the RestFB code in SVN.		
-		You must provide a version parameter, like so:
-				
-		ant -Dversion=1.99 branch-and-tag
-		
-		NOTE: THIS ASSUMES YOU'RE BRANCHING FROM THE TRUNK!		
+	<!--
+		Branches and tags the RestFB code in SVN. You must provide a version
+		parameter, like so: ant -Dversion=1.99 branch-and-tag NOTE: THIS
+		ASSUMES YOU'RE BRANCHING FROM THE TRUNK!
 	-->
 	<target name="branch-and-tag" description="Branches and tags the RestFB code">
-		<echo message="Branching and tagging version ${version}, this may take a few seconds..." />	
-		
+		<echo
+			message="Branching and tagging version ${version}, this may take a few seconds..." />
+
 		<!-- Branch  -->
 		<exec executable="svn">
-  			<arg line='--username mark.a.allen copy -m "Creating ${version} release branch" https://restfb.googlecode.com/svn/trunk https://restfb.googlecode.com/svn/branches/RB-${version}'/>		
+			<arg
+				line='--username mark.a.allen copy -m "Creating ${version} release branch" https://restfb.googlecode.com/svn/trunk https://restfb.googlecode.com/svn/branches/RB-${version}' />
 		</exec>
-		
-		<!-- Tag -->	
+
+		<!-- Tag -->
 		<exec executable="svn">
-  			<arg line='--username mark.a.allen copy -m "Tagging ${version} release" https://restfb.googlecode.com/svn/branches/RB-${version} https://restfb.googlecode.com/svn/tags/REL-${version}'/>		
-		</exec>					
+			<arg
+				line='--username mark.a.allen copy -m "Tagging ${version} release" https://restfb.googlecode.com/svn/branches/RB-${version} https://restfb.googlecode.com/svn/tags/REL-${version}' />
+		</exec>
 	</target>
 
 	<target name="clean" description="Gets rid of build artifacts">
