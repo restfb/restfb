@@ -133,11 +133,11 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);</pre
 		<div class="spacer"></div>
 		
 		<div class="warning-bubble">
-			<h3>Not sure how to get an access token?</h3>
+			<h3>Not sure how to get an OAuth2 access token?</h3>
 						
 			<div>
 				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a href="http://developers.facebook.com/docs/api">navigate to the Graph API documentation</a>.
-				Click on one of the example links that shows Graph API data.
+				Click on one of the example links that shows Graph API JSON data.
 			</div>	
 			
 			<div class="spacer"></div>
@@ -257,7 +257,232 @@ public class MultiqueryResults {
   List&lt;String&gt; likers;
 }</pre>		
 		
+		<div class="spacer"></div>
+		
+		<h2>JSON Mapping Rules</h2>
+
+		<p>
+			Using <code><a href="javadoc/com/restfb/DefaultJsonMapper.html">DefaultJsonMapper</a></code>,
+			RestFB is able to recursively map JSON fields annotated with <code>@Facebook</code> to the following Java types out of the box:
+		</p>		
+		
+		<ul>
+			<li>The convenience classes provided by RestFB in <code>com.restfb.types</code></li>		
+			<li><code>String</code></li>
+			<li><code>Integer</code></li>
+			<li><code>Boolean</code></li>
+			<li><code>Long</code></li>
+			<li><code>Double</code></li>
+			<li><code>Float</code></li>
+			<li><code>BigInteger</code></li>
+			<li><code>BigDecimal</code></li>			
+			<li>
+				Your own JavaBean-compliant classes
+				<br/>
+				<span class="footnote">
+					Don't forget to provide a public default constructor!
+				</span>
+			</li>
+			<li>
+				<code>List</code>s of any of the above types
+				<br/>
+				<span class="footnote">
+					Note that, because of type erasure, you must specify what type of object
+					is stored in the <code>List</code> via the <code>@Facebook</code> annotation's
+					<code>contains</code> attribute or a <code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> will be thrown at runtime.
+					This attribute is ignored if applied to	non-<code>List</code> types.
+				</span>				
+			</li>
+		</ul>
+		
+		<p>
+			For example:	
+		</p>
+			
+		<pre class="prettyprint">
+public class MyClass {
+  @Facebook
+  String name;
+
+  @Facebook
+  BigDecimal value;
+
+  @Facebook(contains = Integer.class)
+  List&lt;Integer&gt; numbers;
+}</pre>			
+		
+		<p>
+			As of RestFB 1.4, Java to JSON mapping is supported by default via <a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a>.
+			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
+			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
+			
+			When converting from Java to JSON, you never need to use the <code>contains</code> attribute of the <code>@Facebook</code> annotation - it's always ignored
+			because enough information is available at runtime to perform the conversion correctly.
+		</p>
+		
+		<div class="warning-bubble">
+			<h3>A note about Java to JSON mapping with the Graph API</h3>
+						
+			<div>
+				 This feature is only really useful for Old REST API users who <a href="legacy-rest-api.html">connect to Facebook with LegacyFacebookClient</a>.
+				 The Graph API currently does not require you to send any parameters as JSON, but this may change in the future.				 
+			</div>	
+		</div>		
+		
+		<p>
+			As-is, <code>DefaultJsonMapper</code> should meet the needs of the vast majority of users.
+			If it doesn't support a feature you need, you can easily subclass it or write your own implementation of <code><a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a></code> instead.
+		</p>
+			
 		<div class="spacer"></div>		
+		
+		<h2>Error Handling</h2>
+
+		<p>					
+			All <code><a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods throw the checked, abstract <code><a href="javadoc/com/restfb/FacebookException.html">FacebookException</a></code>.																	
+		</p>
+		
+		<p>
+			These are the <code>FacebookException</code> subclasses that you may catch:
+		</p>
+		
+		<ul id="exceptions-list">
+			<li>
+				<code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
+				<br/>
+				<span class="footnote">					
+					Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
+					It usually indicates that you've used the <code>@Facebook</code> annotation on a field with an unsupported type or
+					the Facebook API JSON doesn't map correctly to the fields you've annotated (e.g. attempting to map a JSON string to a Java <code>BigDecimal</code>
+					or a JSON object to a Java <code>List</code>).
+					
+					<div class="spacer"></div>
+					
+					You generally should not explicitly catch this exception in your code, as it usually signifies programmer
+					error in setting up <code>@Facebook</code> annotations.  One valid use for catching this exception,
+					however, is to detect when Facebook changes what an API call returns on their end, which would break your live code.
+					It may be useful to catch this exception and then send a notification to you or your ops team to notify them
+					that your application needs to be updated.
+				</span>
+			</li>
+			<li>
+				<code><a href="javadoc/com/restfb/FacebookNetworkException.html">FacebookNetworkException</a></code>
+				<br/>
+				<span class="footnote">
+					Thrown when a failure occurs at the network level.  This can happen if your machine
+					doesn't have a network connection or the Facebook API endpoint returns an unexpected HTTP status code.
+					If there's an HTTP status code available, it's included in the exception so you may take custom actions
+					depending on what type of error occurred.
+				</span>				
+			</li>
+			<li>
+				<code><a href="javadoc/com/restfb/FacebookGraphException.html">FacebookGraphException</a></code>
+				<br/>
+				<span class="footnote">
+					Thrown when the Graph API returns an error, as shown in the example JSON snippet below.
+					Exposes the <code>type</code> and <code>message</code> so you can
+					handle them in your code and take custom action as needed.
+				</span>			
+					
+<pre style="margin-top: 6px;">{
+  "error": {
+    "type": "OAuthException",
+    "message": "Invalid access token signature."
+  }
+}</pre>				
+			</li>			
+			<li>
+				<code><a href="javadoc/com/restfb/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
+				<br/>
+				<span class="footnote">
+					This is thrown by RestFB when an FQL call fails.  <code>FacebookGraphException</code> is not applicable in that case because
+					Facebook returns this "legacy" exception instead because FQL is not yet a full-fledged member of the Graph API. 
+					
+					<code>FacebookResponseStatusException</code> will include both the error code and error message returned by the Facebook API
+					so you may take custom actions depending on the type of error that occurred.
+				</span>				
+			</li>
+		</ul>
+		
+		<p>
+			Here's some example code to illustrate the above.  Keep in mind that your code doesn't
+			need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
+		</p>
+		
+		<pre class="prettyprint">
+String query = "SELECT name FROM user WHERE uid=220439 or uid=7901103";
+
+try {
+  List&lt;User&gt; users = facebookClient.executeQuery(query, User.class); 
+} catch (FacebookJsonMappingException e) {
+  // Looks like this API method didn't really return a list of users
+} catch (FacebookNetworkException e) {
+  // Looks like an error occurred at the network level
+  System.out.println("API returned HTTP status code " + e.getHttpStatusCode());
+} catch (FacebookGraphException e) {
+  // Facebook API returned a specific error
+  System.out.println("Call failed. API says: " + e.getErrorMessage());
+} catch (FacebookResponseStatusException e) {
+  // Old-style Facebook error response.
+  // The Graph API only throws these when FQL calls fail.
+  // You'll see this exception more if you use the Old REST API
+  // via LegacyFacebookClient.
+  if (e.getErrorCode() == 200)
+    System.out.println("Permission denied!");
+} catch (FacebookException e) {
+  // This is the catchall handler for any kind of Facebook exception
+}</pre>
+		
+		<div class="spacer"></div>
+		
+		<h2>Extensibility and Unit Testing</h2>
+
+		<p>
+			In addition to <code><a href="javadoc/com/restfb/DefaultFacebookClient.html">FacebookClient</a></code>, RestFB provides default implementations
+			for <code><a href="javadoc/com/restfb/DefaultWebRequestor.html">WebRequestor</a></code> and
+			<code><a href="javadoc/com/restfb/DefaultJsonMapper.html">JsonMapper</a></code>, two components that
+			<code>DefaultFacebookClient</code> depends on to do its work.						
+		</p>
+		
+		<p>
+			These dependencies are designed to allow for straightforward subclassing (if you only want to replace a little bit of functionality)
+			and simple custom implementations (if you require full control).
+		</p>
+		
+		<p>
+			This comes in handy when unit testing - for example, you can write your own <code>WebRequestor</code> implementation
+			that simulates a Facebook API endpoint response.  You can drop in custom data designed to exercise your application's
+			Facebook integration or simulate error conditions to make sure you're handling them properly.				
+		</p>
+		
+		<p>
+			Here's a trivial example which shows one way you might implement this:
+		</p>
+
+		<pre class="prettyprint">
+FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN,  
+
+  // A one-off <a href="javadoc/com/restfb/DefaultWebRequestor.html">DefaultWebRequestor</a> for testing that returns a hardcoded JSON
+  // list of numbers instead of hitting the Facebook API endpoint URL
+
+  new DefaultWebRequestor() {
+    @Override
+    public <a href="javadoc/com/restfb/WebRequestor.Response.html">Response</a> <a href="javadoc/com/restfb/WebRequestor.html#executeGet(java.lang.String)">executeGet</a>(String url) throws IOException {
+      return new Response(HttpURLConnection.HTTP_OK,
+        "{'id':'123456','name':'Test Person'}");
+    }
+  }, new DefaultJsonMapper());
+
+// Make an API request using the mocked WebRequestor
+
+User user = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#fetchObject(java.lang.String, java.lang.Class, com.restfb.Parameter...)">fetchObject</a>("ignored", User.class); 
+
+// Make sure we got what we were expecting
+
+assert numbers.size() == 3;
+assert numbers.get(1) == 456;</pre>
+			
+		<div class="spacer"></div>
 		
 		<h2>Links</h2>
 		
@@ -289,6 +514,18 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		
 		<p>
 			Transmogrify is a Philadelphia-area software shop specializing in product design and Java, .NET, iPhone, and iPad software development.
+			Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com">product@xmog.com</a> if you need a hand with
+			anything software-related - we can handle everything from initial requirements to development work to ongoing maintenance and support. 
+		</p>
+		
+		<p>
+			Development of RestFB was aided by
+			<ul>
+				<li><a href="http://en.wikipedia.org/wiki/Dead_Cities,_Red_Seas_%26_Lost_Ghosts"><i>Dead Cities, Red Seas, &amp; Lost Ghosts</i> (M83)</a></li>
+				<li><a href="http://en.wikipedia.org/wiki/Orbital_2"><i>Orbital 2</i> (Orbital)</a></li>
+				<li><a href="http://en.wikipedia.org/wiki/The_Crew_(7_Seconds_album)"><i>The Crew</i> (7 Seconds)</a></li>
+				<li><a href="http://en.wikipedia.org/wiki/Treatment_5"><i>Treatment 5</i> (Osker)</a></li>
+			</ul>			
 		</p>
 		
 		<div class="spacer"></div>

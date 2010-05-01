@@ -81,6 +81,29 @@ LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_
 		
 		<div class="spacer"></div>
 		
+		<div class="warning-bubble">
+			<h3>Not sure how to get an OAuth2 access token?</h3>
+						
+			<div>
+				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a href="http://developers.facebook.com/docs/api">navigate to the Graph API documentation</a>.
+				Click on one of the example links that shows Graph API JSON data.
+			</div>	
+			
+			<div class="spacer"></div>
+			
+			<div>
+				You should see an <code>access_token</code> parameter in your URL bar.  That's it!  Just copy and paste it into your code.								
+			</div>
+			
+			<div class="spacer"></div>
+			
+			<div>
+				Example: <code>http://graph.facebook.com/btaylor?access_token=XXXXXXX</code>
+			</div>
+		</div>			
+		
+		<div class="spacer"></div>
+		
 		<h3>Making a Simple Call</h3>
 		
 		<p>
@@ -484,7 +507,7 @@ public class MyClass {
 }</pre>			
 		
 		<p>
-			As of 1.4, Java to JSON mapping is supported by default via <a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a>.
+			As of RestFB 1.4, Java to JSON mapping is supported by default via <a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a>.
 			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
 			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
 			
@@ -620,9 +643,9 @@ try {
 
 		<pre class="prettyprint">
 LegacyFacebookClient facebookClient =
-  new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN, new DefaultJsonMapper(),
+  new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN,
   
-    // A one-off <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> for testing that returns a hardcoded JSON
+    // A one-off <a href="javadoc/com/restfb/DefaultWebRequestor.html">DefaultWebRequestor</a> for testing that returns a hardcoded JSON
     // list of numbers instead of hitting the Facebook API endpoint URL
 
     new DefaultWebRequestor() {
@@ -630,11 +653,11 @@ LegacyFacebookClient facebookClient =
       public <a href="javadoc/com/restfb/WebRequestor.Response.html">Response</a> <a href="javadoc/com/restfb/WebRequestor.html#executePost(java.lang.String, java.lang.String)">executePost</a>(String url, String parameters) throws IOException {
         return new Response(HttpURLConnection.HTTP_OK, "[123,456,789]");
       }
-    });
+    }, new DefaultJsonMapper());
 
 // Make an API request using the mocked WebRequestor
 
-List&lt;Integer&gt; numbers = facebookClient.<a href="javadoc/com/restfb/FacebookClient.html#executeForList(java.lang.String, java.lang.Class, com.restfb.Parameter...)">executeForList</a>("ignored", Integer.class); 
+List&lt;Integer&gt; numbers = facebookClient.<a href="javadoc/com/restfb/LegacyFacebookClient.html#executeForList(java.lang.String, java.lang.Class, com.restfb.Parameter...)">executeForList</a>("ignored", Integer.class); 
 
 // Make sure we got what we were expecting
 
