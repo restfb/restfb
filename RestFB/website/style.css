@@ -130,14 +130,12 @@ pre {
 }
 
 a {
-	font-family: "Lucida Grande", "Segoe UI", Tahoma;
 	font-weight: bold;
 }
 
 a:link {	
 	color: #3B5998;	
-	text-decoration: none;
-	font-family: "Lucida Grande", "Segoe UI", Tahoma;
+	text-decoration: none;	
 }
 
 a:visited {

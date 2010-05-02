@@ -98,7 +98,7 @@
 						
 			<div>
 				If you'd like to code against the Old REST Facebook API, though, RestFB has you covered.
-				Just <a href="legacy-rest-api.html">use LegacyFacebookClient, which is documented here</a>.  It even supports the new OAuth2 authentication scheme!
+				<a href="legacy-rest-api.html">Just use LegacyFacebookClient, which is documented here</a>.  It even supports the new OAuth2 authentication scheme!
 			</div>	
 		</div>
 		
@@ -197,6 +197,9 @@ public class FetchObjectsResults {
   @Facebook
   User me;
 
+  // If the Facebook property name doesn't match
+  // the Java field name, specify it with the "value" annotation property.
+
   @Facebook(value = "cocacola")
   Page page;
 }</pre>			
@@ -274,6 +277,20 @@ out.println("User metadata: has albums? "
   + userWithMetadata.getMetadata().getConnections().hasAlbums());</pre>								
 		
 		<div class="spacer"></div>	
+		
+		<h3>Passing Parameters (see <a href="http://developers.facebook.com/docs/api#paging">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">// You can pass along any parameters you'd like to the Facebook endpoint.
+
+Date oneWeekAgo = new Date(System.currentTimeMillis() / 1000L - 60L * 60L * 24L * 7L);
+
+Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", Post.class,
+  Parameter.with("limit", 3), Parameter.with("until", "yesterday"),
+    Parameter.with("since", oneWeekAgo));
+
+out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>								
+		
+		<div class="spacer"></div>			
 				
 		<div class="warning-bubble">
 			<h3>A note about the Publish and Delete examples below</h3>
@@ -331,19 +348,47 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());</pre>
 <pre class="prettyprint">Boolean deleted = facebookClient.deleteObject("some object ID");
 out.println("Deleted object? " + deleted);</pre>								
 		
-		<div class="spacer"></div>	
+		<div class="spacer"></div>				
 		
-		<h3>Passing Parameters (see <a href="http://developers.facebook.com/docs/api#paging">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// You can pass along any parameters you'd like to the Facebook endpoint.
-
-Date oneWeekAgo = new Date(System.currentTimeMillis() / 1000L - 60L * 60L * 24L * 7L);
-
-Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", Post.class,
-  Parameter.with("limit", 3), Parameter.with("until", "yesterday"),
-    Parameter.with("since", oneWeekAgo));
-
-out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>								
+		<h2>Facebook Graph Object Types Supported Out-of-the-Box</h2>		
+		
+		<p>
+			RestFB can map JSON to any class that has fields annotated with the <code>@Facebook</code> annotation, which is discussed in more detail in the
+			<a href="#json-mapping-rules">JSON Mapping Rules</a> section.
+		</p>
+		
+		<p>
+			However, for your convenience, all basic <a href="http://developers.facebook.com/docs/reference/api/">Graph API Object</a> types have
+			their own Java implementation in the <code><a href="javadoc/com/restfb/types/package-summary.html">com.restfb.types</a></code> package.
+		</p>
+		
+		<p>
+			You may use these builtin types if you wish, or you can subclass them to add additional fields or functionality, or just write your
+			own if you have special requirements.  The builtins come with reflective implementations of <code>toString()</code>, <code>hashCode()</code>,
+			and <code>equals(Object o)</code> to make your life simpler.  If you subclass any of the builtins and add additional fields with accessors,
+			those fields will be automatically taken into account by the above 3 methods.
+		</p>
+		
+		<p>
+			The builtin types are as follows:
+		</p>
+		
+		<ul>
+			<li><a href="/javadoc/com/restfb/types/Album.html">Album</a></li>			
+			<li><a href="/javadoc/com/restfb/types/Comment.html">Comment</a></li>
+			<li><a href="/javadoc/com/restfb/types/Event.html">Event</a></li>
+			<li><a href="/javadoc/com/restfb/types/Group.html">Group</a></li>
+			<li><a href="/javadoc/com/restfb/types/Link.html">Link</a></li>
+			<li><a href="/javadoc/com/restfb/types/Note.html">Note</a></li>
+			<li><a href="/javadoc/com/restfb/types/Page.html">Page</a></li>
+			<li><a href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>
+			<li><a href="/javadoc/com/restfb/types/Post.html">Post</a></li>
+			<li><a href="/javadoc/com/restfb/types/User.html">User</a></li>
+			<li><a href="/javadoc/com/restfb/types/Venue.html">Venue</a></li>
+			<li><a href="/javadoc/com/restfb/types/Video.html">Video</a></li>
+		</ul>
+		
+		<a name="json-mapping-rules"></a>
 		
 		<div class="spacer"></div>				
 		
@@ -400,7 +445,7 @@ public class MyClass {
 }</pre>			
 		
 		<p>
-			As of RestFB 1.4, Java to JSON mapping is supported by default via <a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a>.
+			As of RestFB 1.4, Java to JSON mapping is supported by default via <code><a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>.
 			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
 			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
 			
