@@ -1,3 +1,13 @@
+1.5 (May 1, 2010)
+* Added support for the new Facebook Graph API
+* Old REST API now has support for the new OAuth2 authentication tokens
+* Fix for multiqueries with empty resultsets throwing a JSON mapping exception
+* WebRequestor now supports POSTs which perform file uploading and GETs
+* The com.restfb.json undocumented package is now gone.  The org.json code is now package-private inside of com.restfb
+* Many small bugfixes and enhancements
+* Enhanced examples and documentation
+  Thanks to Ofer Fort, Ryan Wilson, and Alex Launi for their input.
+
 1.4 (April 21, 2010)
 * Added support for Java -> JSON mapping to support more complex API calls like stream.publish.
   Thanks to Alex Launi and biz@layes.com for their input.
