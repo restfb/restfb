@@ -138,9 +138,7 @@ public interface LegacyFacebookClient {
    *           authentication.
    * @deprecated Use {@link #execute(String, Class, Parameter...)} instead.
    *             Facebook is moving to OAuth2 and will stop supporting the old
-   *             session key authentication scheme soon. Facebook is moving to
-   *             OAuth2 and will stop supporting the old authentication scheme
-   *             soon.
+   *             session key authentication scheme soon.
    */
   @Deprecated
   <T> T execute(String method, String sessionKey, Class<T> resultType,
