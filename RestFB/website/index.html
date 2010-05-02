@@ -142,6 +142,11 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);</pre
 		<h3>Fetching Single Objects</h3>
 			
 <pre class="prettyprint">
+// For all API calls, you need to tell RestFB how to turn the JSON
+// returned by Facebook into Java objects.  In this case, the data
+// we get back should be mapped to the <a href="/javadoc/com/restfb/types/User.html">User</a> and <a href="/javadoc/com/restfb/types/Page.html">Page</a> types, respectively.
+// You can write your own types too!
+
 User user = facebookClient.fetchObject("me", User.class);
 Page page = facebookClient.fetchObject("cocacola", Page.class);
 

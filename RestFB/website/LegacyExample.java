@@ -6,25 +6,17 @@ import com.restfb.LegacyFacebookClient;
 import com.restfb.FacebookException;
 import com.restfb.Parameter;
 
-public class Example {
-  // You need to provide your own API and Secret keys here
-  private static final String API_KEY = "";
-  private static final String SECRET_KEY = "";
+public class LegacyExample {
+  // You need to provide your access token here.
+  // Instructions are available on http://restfb.com.
+  private static final String MY_ACCESS_TOKEN = "";
 
   public static void main(String[] args) throws FacebookException {
-    // You need to provide your own session key.
-    // In order to get a session key, you'll need to use Facebook Connect
-    // or another Facebook-provided API (RestFB cannot do this for you!)
-    // See http://wiki.developers.facebook.com/index.php/Facebook_Connect
-    String sessionKey = "";
-
-    FacebookClient facebookClient =
-        new DefaultFacebookClient(API_KEY, SECRET_KEY);
+    LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN);
 
     // Last parameter specifies that this API call's result should be returned
     // to us as a Long value.
-    Long uid =
-        facebookClient.execute("users.getLoggedInUser", sessionKey, Long.class);
+    Long uid = facebookClient.execute("users.getLoggedInUser", Long.class);
 
     System.out.println("My UID is " + uid);
 
@@ -38,7 +30,7 @@ public class Example {
     // defined. Note that you can pass in an arbitrary number of Parameters -
     // here we send along the query as well as the "give me HTTPS URLs" flag
     List<User> users =
-        facebookClient.executeForList("fql.query", sessionKey, User.class,
+        facebookClient.executeForList("fql.query", User.class,
           Parameter.with("query", query), Parameter.with(
             "return_ssl_resources", "true"));
 

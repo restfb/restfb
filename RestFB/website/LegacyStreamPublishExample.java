@@ -9,19 +9,12 @@ import com.restfb.FacebookException;
 import com.restfb.Parameter;
 
 public class StreamPublishExample {
-  // You need to provide your own API and Secret keys here
-  private static final String API_KEY = "";
-  private static final String SECRET_KEY = "";
+  // You need to provide your access token here.
+  // Instructions are available on http://restfb.com.
+  private static final String MY_ACCESS_TOKEN = "";
 
   public static void main(String[] args) throws FacebookException {
-    // You need to provide your own session key.
-    // In order to get a session key, you'll need to use Facebook Connect
-    // or another Facebook-provided API (RestFB cannot do this for you!)
-    // See http://wiki.developers.facebook.com/index.php/Facebook_Connect
-    String sessionKey = "";
-
-    FacebookClient facebookClient =
-        new DefaultFacebookClient(API_KEY, SECRET_KEY);
+    LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN);
 
     ActionLink category = new ActionLink();
     category.href = "http://bit.ly/KYbaN";
@@ -48,7 +41,7 @@ public class StreamPublishExample {
     // We specify the session key to use to make the call, the fact that we're
     // expecting a String response, and the attachment (defined above).
     String postId =
-        facebookClient.execute("stream.publish", sessionKey, String.class,
+        facebookClient.execute("stream.publish", String.class,
           Parameter.with("attachment", attachment));
 
     System.out.println("Post ID is " + postId);
