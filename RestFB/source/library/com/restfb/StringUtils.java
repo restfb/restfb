@@ -30,8 +30,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 /**
  * A collection of string-handling utility methods.
  * 
@@ -43,7 +41,24 @@ abstract class StringUtils {
    */
   static final String ENCODING_CHARSET = "UTF-8";
 
-  private static final Logger logger = Logger.getLogger(StringUtils.class);
+  /**
+   * Logger.
+   */
+
+  /* if[JUL] */
+  private static final java.util.logging.Logger julLogger =
+      java.util.logging.Logger.getLogger(StringUtils.class.getName());
+  /* end[JUL] */
+
+  /* if[LOG4J] */
+  private static final org.apache.log4j.Logger log4jLogger =
+      org.apache.log4j.Logger.getLogger(StringUtils.class);
+  /* end[LOG4J] */
+
+  /* if[JCL] */
+  private static final org.apache.commons.logging.Log jclLogger =
+      org.apache.commons.logging.LogFactory.getLog(StringUtils.class);
+  /* end[JCL] */
 
   /**
    * Prevents instantiation.
@@ -176,7 +191,19 @@ abstract class StringUtils {
           reader.close();
         } catch (Throwable t) {
           // Really nothing we can do but log the error
-          logger.warn("Unable to close stream, continuing on...", t);
+
+          /* if[JUL] */
+          if (julLogger.isLoggable(java.util.logging.Level.WARNING))
+            julLogger.warning("Unable to close stream, continuing on: " + t);
+          /* end[JUL] */
+
+          /* if[LOG4J] */
+          log4jLogger.warn("Unable to close stream, continuing on...", t);
+          /* end[LOG4J] */
+
+          /* if[JCL] */
+          jclLogger.warn("Unable to close stream, continuing on...", t);
+          /* end[JCL] */
         }
     }
   }

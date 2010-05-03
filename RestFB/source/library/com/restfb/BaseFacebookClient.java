@@ -27,8 +27,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import org.apache.log4j.Logger;
-
 /**
  * Base class that contains data and functionality common to
  * {@link DefaultFacebookClient} and {@link DefaultLegacyFacebookClient}.
@@ -66,7 +64,21 @@ abstract class BaseFacebookClient {
   /**
    * Logger.
    */
-  protected final Logger logger = Logger.getLogger(getClass());
+  
+  /* if[JUL] */
+  protected final java.util.logging.Logger julLogger =
+      java.util.logging.Logger.getLogger(getClass().getName());
+  /* end[JUL] */
+
+  /* if[LOG4J] */
+  protected final org.apache.log4j.Logger log4jLogger =
+      org.apache.log4j.Logger.getLogger(getClass());
+  /* end[LOG4J] */
+
+  /* if[JCL] */
+  protected final org.apache.commons.logging.Log jclLogger =
+      org.apache.commons.logging.LogFactory.getLog(getClass());    
+  /* end[JCL] */
 
   /**
    * If the {@code error_code} JSON field is present, we've got a response
