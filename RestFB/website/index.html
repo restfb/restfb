@@ -271,6 +271,12 @@ public class FqlLiker {
 }
 
 public class MultiqueryResults {
+
+  // Java doesn't remember generic type information at runtime due to <a href="http://java.sun.com/docs/books/tutorial/java/generics/erasure.html">type erasure</a>.
+  // So, for a List type mapping, you have to help out by specifying
+  // what kind of type is contained in the List (FqlUser, in this case).
+  // RestFB can then correctly map Facebook JSON to your Java object.
+
   @Facebook(contains = FqlUser.class)
   List&lt;FqlUser&gt; users;
 
@@ -338,9 +344,27 @@ out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>
 			
 			<div>	
 				The <a href="http://developers.facebook.com/docs/api#authorization">Facebook Graph API authorization documentation</a>
-				explains how to do this.
+				explains how to do this in detail.
+				<br/>
+				If you're in a hurry, though, here's a quick example:
 			</div>
-						
+
+			<div class="spacer"></div>
+											
+			<div>
+				<ul style="list-style-type: decimal;">
+					<li>Create a Facebook Application</li>
+					<li>Request <code>https://graph.facebook.com/oauth/authorize?client_id=MY_API_KEY&amp;
+						redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
+						scope=publish_stream,offline_access,create_event</code></li>
+					<li>Facebook will redirect you to <code>http://www.facebook.com/connect/login_success.html?
+					code=MY_VERIFICATION_CODE</code></li>
+					<li>Request <code>https://graph.facebook.com/oauth/access_token?client_id=MY_API_KEY&amp;
+						redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
+						client_secret=MY_API_SECRET&amp;code=MY_VERIFICATION_CODE</code></li>
+					<li>Facebook will respond with <code>access_token=MY_ACCESS_TOKEN</code></li>
+				</ul>
+			</div>
 		</div>			
 		
 		<div class="spacer"></div>		
