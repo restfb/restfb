@@ -76,17 +76,17 @@ public class GraphReaderExample {
   }
 
   void runEverything() throws FacebookException {
-    fetchObject();
-    fetchObjects();
-    fetchConnections();
+    // fetchObject();
+    // fetchObjects();
+    // fetchConnections();
     query();
     multiquery();
-    search();
-    metadata();
-    paging();
-    selection();
-    parameters();
-    rawJsonResponse();
+    // search();
+    // metadata();
+    // paging();
+    // selection();
+    // parameters();
+    // rawJsonResponse();
   }
 
   void fetchObject() throws FacebookException {
@@ -137,11 +137,12 @@ public class GraphReaderExample {
   void query() throws FacebookException {
     out.println("* FQL Query *");
 
-    List<User> users =
-        facebookClient.executeQuery("SELECT name FROM user WHERE uid=220439",
-          User.class);
+    List<FqlUser> users =
+        facebookClient.executeQuery(
+          "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103",
+          FqlUser.class);
 
-    out.println("User: " + users.get(0).getName());
+    out.println("User: " + users);
   }
 
   void multiquery() throws FacebookException {
@@ -149,26 +150,59 @@ public class GraphReaderExample {
 
     Map<String, String> queries = new HashMap<String, String>();
     queries.put("users",
-      "SELECT name FROM user WHERE uid=220439 OR uid=7901103");
+      "SELECT uid, name FROM user WHERE uid=220439 OR uid=7901103");
     queries.put("likers",
       "SELECT user_id FROM like WHERE object_id=122788341354");
 
     MultiqueryResults multiqueryResults =
         facebookClient.executeMultiquery(queries, MultiqueryResults.class);
 
-    out.println("User count: " + multiqueryResults.users.size());
-    out.println("People who liked: " + multiqueryResults.likers.size());
+    out.println("Users: " + multiqueryResults.users);
+    out.println("People who liked: " + multiqueryResults.likers);
+  }
+
+  /**
+   * Holds results from an "executeQuery" call.
+   * <p>
+   * Be aware that FQL fields don't always map to Graph API Object fields.
+   */
+  public static class FqlUser {
+    @Facebook
+    String uid;
+
+    @Facebook
+    String name;
+
+    @Override
+    public String toString() {
+      return String.format("%s (%s)", name, uid);
+    }
+  }
+
+  /**
+   * Holds results from an "executeQuery" call.
+   * <p>
+   * Be aware that FQL fields don't always map to Graph API Object fields.
+   */
+  public static class FqlLiker {
+    @Facebook("user_id")
+    String userId;
+
+    @Override
+    public String toString() {
+      return userId;
+    }
   }
 
   /**
    * Holds results from a "multiquery" call.
    */
   public static class MultiqueryResults {
-    @Facebook(contains = User.class)
-    List<User> users;
+    @Facebook(contains = FqlUser.class)
+    List<FqlUser> users;
 
-    @Facebook(contains = String.class)
-    List<String> likers;
+    @Facebook(contains = FqlLiker.class)
+    List<FqlLiker> likers;
   }
 
   void search() throws FacebookException {
