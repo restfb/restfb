@@ -76,17 +76,17 @@ public class GraphReaderExample {
   }
 
   void runEverything() throws FacebookException {
-    // fetchObject();
-    // fetchObjects();
-    // fetchConnections();
+    fetchObject();
+    fetchObjects();
+    fetchConnections();
     query();
     multiquery();
-    // search();
-    // metadata();
-    // paging();
-    // selection();
-    // parameters();
-    // rawJsonResponse();
+    search();
+    metadata();
+    paging();
+    selection();
+    parameters();
+    rawJsonResponse();
   }
 
   void fetchObject() throws FacebookException {
