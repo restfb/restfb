@@ -57,6 +57,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /* if[JCL] */
   private static final org.apache.commons.logging.Log jclLogger =
       org.apache.commons.logging.LogFactory.getLog(DefaultJsonMapper.class);
+
   /* end[JCL] */
 
   /**
@@ -140,6 +141,8 @@ public class DefaultJsonMapper implements JsonMapper {
         list.add(toJavaObject(jsonArray.get(i).toString(), type));
 
       return list;
+    } catch (FacebookJsonMappingException e) {
+      throw e;
     } catch (Exception e) {
       throw new FacebookJsonMappingException(
         "Unable to convert Facebook response " + "JSON to a list of "
@@ -180,14 +183,20 @@ public class DefaultJsonMapper implements JsonMapper {
 
       JSONObject jsonObject = new JSONObject(json);
       T instance = null;
+      String cannotCreateInstanceErrorMessage =
+          "Unable to create an instance of " + type
+              + ". Please make sure that it's marked 'public' "
+              + "and, if it's a nested class, is marked 'static'. "
+              + "It should have a public, no-argument constructor.";
 
       try {
         instance = type.newInstance();
       } catch (IllegalAccessException e) {
         throw new FacebookJsonMappingException(
-          "Unable to create an instance of " + type
-              + ". Please make sure that it's marked 'public' "
-              + "and, if it's a nested class, is marked 'static'.", e);
+          cannotCreateInstanceErrorMessage, e);
+      } catch (InstantiationException e) {
+        throw new FacebookJsonMappingException(
+          cannotCreateInstanceErrorMessage, e);
       }
 
       // For each Facebook-annotated field on the current Java object, pull data
