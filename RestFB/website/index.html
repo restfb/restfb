@@ -88,7 +88,7 @@
 		<p>
 			It's helpful to see exactly what's going over the wire to verify that RestFB is taking your input and sending it
 			to Facebook exactly as you expect.  Feel free to use <a href="log4j.xml">this example log4j.xml file</a> in your own project
-			to see full <code>POST</code> request and response data logged to standard output.
+			to see full HTTP <code>GET/POST</code> request and response data logged to standard output.
 		</p>
 		
 		<div class="spacer"></div>
@@ -764,18 +764,21 @@ THE SOFTWARE.</pre>
 		<div class="spacer"></div>		
 
 	</div>
-				
-	<script type="text/javascript" src="prettify.js"></script>				
+
 	<script type="text/javascript">
-		prettyPrint();
-	
 		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-		
+	</script>
+	<script type="text/javascript">
 		try {
 			var pageTracker = _gat._getTracker("UA-12795899-1");
 			pageTracker._trackPageview();
 		} catch(err) {}
+	</script>				
+				
+	<script type="text/javascript" src="prettify.js"></script>				
+	<script type="text/javascript">
+		prettyPrint();
 	</script>
 </body>
 </html>
