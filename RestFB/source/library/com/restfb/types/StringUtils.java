@@ -44,6 +44,11 @@ abstract class StringUtils {
   private static final String FACEBOOK_DATE_FORMAT = "yyyy-MM-dd'T'kk:mm:ssZ";
 
   /**
+   * Facebook short date format. Example: 04/15/1984
+   */
+  private static final String FACEBOOK_SHORT_DATE_FORMAT = "MM/dd/yyyy";
+
+  /**
    * Returns a Java representation of a Facebook {@code date} string.
    * 
    * @param date
@@ -54,14 +59,43 @@ abstract class StringUtils {
    *           (ISO 8601).
    */
   static Date toDate(String date) throws IllegalArgumentException {
+    return toDateWithFormatString(date, FACEBOOK_DATE_FORMAT);
+  }
+
+  /**
+   * Returns a Java representation of a Facebook "short" {@code date} string.
+   * 
+   * @param date
+   *          Facebook {@code date} string.
+   * @return Java date representation of the given Facebook "short" {@code date}
+   *         string.
+   * @throws IllegalArgumentException
+   *           If the provided {@code date} isn't in the Facebook "short" date
+   *           format.
+   */
+  static Date toDateFromShortFormat(String date)
+      throws IllegalArgumentException {
+    return toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
+  }
+
+  /**
+   * Returns a Java representation of a {@code date} string.
+   * 
+   * @param date
+   *          Date in string format.
+   * @return Java date representation of the given {@code date} string.
+   * @throws IllegalArgumentException
+   *           If the provided {@code date} isn't in the given {@code format}.
+   */
+  private static Date toDateWithFormatString(String date, String format) {
     if (date == null)
       return null;
 
     try {
-      return new SimpleDateFormat(FACEBOOK_DATE_FORMAT).parse(date);
+      return new SimpleDateFormat(format).parse(date);
     } catch (ParseException e) {
       throw new IllegalArgumentException("Unable to parse date '" + date
-          + "' using format string '" + FACEBOOK_DATE_FORMAT + "'", e);
+          + "' using format string '" + format + "'", e);
     }
   }
 }

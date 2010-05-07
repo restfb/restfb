@@ -76,11 +76,26 @@ public class User extends NamedFacebookType {
   @Facebook
   private Boolean verified;
 
+  @Facebook
+  private String gender;
+
+  @Facebook
+  private String political;
+
+  @Facebook
+  private NamedFacebookType hometown;
+
+  @Facebook
+  private NamedFacebookType location;
+
   @Facebook("updated_time")
   private String updatedTime;
 
   @Facebook(value = "interested_in", contains = String.class)
   private List<String> interestedIn = new ArrayList<String>();
+
+  @Facebook(value = "meeting_for", contains = String.class)
+  private List<String> meetingFor = new ArrayList<String>();
 
   @Facebook(contains = Work.class)
   private List<Work> work = new ArrayList<Work>();
@@ -225,6 +240,9 @@ public class User extends NamedFacebookType {
     @Facebook
     NamedFacebookType year;
 
+    @Facebook
+    NamedFacebookType degree;
+
     @Facebook(value = "concentration", contains = NamedFacebookType.class)
     private List<NamedFacebookType> concentration =
         new ArrayList<NamedFacebookType>();
@@ -269,6 +287,15 @@ public class User extends NamedFacebookType {
      */
     public NamedFacebookType getYear() {
       return year;
+    }
+
+    /**
+     * Degree acquired.
+     * 
+     * @return Degree acquired.
+     */
+    public NamedFacebookType getDegree() {
+      return degree;
     }
 
     /**
@@ -331,8 +358,8 @@ public class User extends NamedFacebookType {
    * 
    * @return The user's birthday.
    */
-  public String getBirthday() {
-    return birthday;
+  public Date getBirthday() {
+    return StringUtils.toDateFromShortFormat(birthday);
   }
 
   /**
@@ -399,12 +426,57 @@ public class User extends NamedFacebookType {
   }
 
   /**
+   * The user's gender.
+   * 
+   * @return The user's gender.
+   */
+  public String getGender() {
+    return gender;
+  }
+
+  /**
+   * The user's political affiliation.
+   * 
+   * @return The user's political affiliation.
+   */
+  public String getPolitical() {
+    return political;
+  }
+
+  /**
+   * The user's hometown.
+   * 
+   * @return The user's hometown.
+   */
+  public NamedFacebookType getHometown() {
+    return hometown;
+  }
+
+  /**
+   * The user's current location.
+   * 
+   * @return The user's current location.
+   */
+  public NamedFacebookType getLocation() {
+    return location;
+  }
+
+  /**
    * The user's interests.
    * 
    * @return The user's interests.
    */
   public List<String> getInterestedIn() {
     return Collections.unmodifiableList(interestedIn);
+  }
+
+  /**
+   * What genders the user is interested in meeting.
+   * 
+   * @return What genders the user is interested in meeting.
+   */
+  public List<String> getMeetingFor() {
+    return meetingFor;
   }
 
   /**
