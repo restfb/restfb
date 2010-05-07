@@ -107,6 +107,9 @@ public class Post extends NamedFacebookType {
     @Facebook
     private String networks;
 
+    @Facebook
+    private String deny;
+
     /**
      * @see java.lang.Object#hashCode()
      */
@@ -165,6 +168,15 @@ public class Post extends NamedFacebookType {
      */
     public String getNetworks() {
       return networks;
+    }
+
+    /**
+     * The privacy "deny" restriction.
+     * 
+     * @return The privacy "deny" restriction.
+     */
+    public String getDeny() {
+      return deny;
     }
   }
 

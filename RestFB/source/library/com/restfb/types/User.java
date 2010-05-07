@@ -476,7 +476,7 @@ public class User extends NamedFacebookType {
    * @return What genders the user is interested in meeting.
    */
   public List<String> getMeetingFor() {
-    return meetingFor;
+    return Collections.unmodifiableList(meetingFor);
   }
 
   /**
