@@ -22,7 +22,10 @@
 
 package com.restfb.example;
 
+import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
+
+import java.util.Date;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
@@ -90,8 +93,9 @@ public class GraphPublisherExample {
   String publishEvent() throws FacebookException {
     out.println("* Event publishing *");
 
-    Long tomorrow = System.currentTimeMillis() / 1000L + 60L * 60L * 24L;
-    Long twoDaysFromNow = System.currentTimeMillis() / 1000L + 60L * 60L * 48L;
+    Date tomorrow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 24L);
+    Date twoDaysFromNow =
+        new Date(currentTimeMillis() + 1000L * 60L * 60L * 48L);
 
     FacebookType publishEventResponse =
         facebookClient.publish("me/events", FacebookType.class, Parameter.with(

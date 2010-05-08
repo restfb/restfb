@@ -22,6 +22,7 @@
 
 package com.restfb.example;
 
+import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
 
 import java.util.Arrays;
@@ -261,7 +262,7 @@ public class GraphReaderExample {
     out.println("* Parameter support *");
 
     Date oneWeekAgo =
-        new Date(System.currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
+        new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
 
     Connection<Post> filteredFeed =
         facebookClient.fetchConnection("me/feed", Post.class, Parameter.with(
@@ -272,8 +273,8 @@ public class GraphReaderExample {
   }
 
   void rawJsonResponse() throws FacebookException {
-    System.out.println("* Raw JSON *");
-    System.out.println("User object JSON: "
+    out.println("* Raw JSON *");
+    out.println("User object JSON: "
         + facebookClient.fetchObject("me", String.class));
   }
 }
