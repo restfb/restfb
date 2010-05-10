@@ -34,6 +34,7 @@ import java.util.List;
  * A collection of string-handling utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.6
  */
 public final class StringUtils {
   /**

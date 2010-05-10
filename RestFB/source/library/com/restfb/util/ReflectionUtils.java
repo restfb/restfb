@@ -33,9 +33,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *  A collection of reflection-related utility methods.
+ * A collection of reflection-related utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.6
  */
 public final class ReflectionUtils {
   /**
