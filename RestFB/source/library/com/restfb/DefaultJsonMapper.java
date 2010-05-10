@@ -57,7 +57,6 @@ public class DefaultJsonMapper implements JsonMapper {
   /* if[JCL] */
   private static final org.apache.commons.logging.Log jclLogger =
       org.apache.commons.logging.LogFactory.getLog(DefaultJsonMapper.class);
-
   /* end[JCL] */
 
   /**
@@ -177,27 +176,12 @@ public class DefaultJsonMapper implements JsonMapper {
       // of the corresponding Java type.
       if (fieldsWithAnnotation.size() == 0)
         if (isEmptyObject(json))
-          return type.newInstance();
+          return createInstance(type);
         else
           return toPrimitiveJavaType(json, type);
 
       JSONObject jsonObject = new JSONObject(json);
-      T instance = null;
-      String cannotCreateInstanceErrorMessage =
-          "Unable to create an instance of " + type
-              + ". Please make sure that it's marked 'public' "
-              + "and, if it's a nested class, is marked 'static'. "
-              + "It should have a public, no-argument constructor.";
-
-      try {
-        instance = type.newInstance();
-      } catch (IllegalAccessException e) {
-        throw new FacebookJsonMappingException(
-          cannotCreateInstanceErrorMessage, e);
-      } catch (InstantiationException e) {
-        throw new FacebookJsonMappingException(
-          cannotCreateInstanceErrorMessage, e);
-      }
+      T instance = createInstance(type);
 
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object
@@ -535,6 +519,35 @@ public class DefaultJsonMapper implements JsonMapper {
 
     // Some other type - recurse into it
     return toJavaObject(rawValue.toString(), type);
+  }
+
+  /**
+   * Creates a new instance of the given {@code type}.
+   * 
+   * @param <T>
+   *          Java type to map to.
+   * @param type
+   *          Type token.
+   * @return A new instance of {@code type}.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs when creating a new instance ({@code type} is
+   *           inaccessible, doesn't have a public no-arg constructor, etc.)
+   */
+  protected <T> T createInstance(Class<T> type)
+      throws FacebookJsonMappingException {
+    String errorMessage =
+        "Unable to create an instance of " + type
+            + ". Please make sure that it's marked 'public' "
+            + "and, if it's a nested class, is marked 'static'. "
+            + "It should have a public, no-argument constructor.";
+
+    try {
+      return type.newInstance();
+    } catch (IllegalAccessException e) {
+      throw new FacebookJsonMappingException(errorMessage, e);
+    } catch (InstantiationException e) {
+      throw new FacebookJsonMappingException(errorMessage, e);
+    }
   }
 
   /**
