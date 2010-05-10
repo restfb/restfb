@@ -20,27 +20,22 @@
 			RestFB is a simple and flexible
 			<a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> and 
 			<a href="http://wiki.developers.facebook.com/index.php/API">Old REST API</a> client written in Java.
-		</p>
-		
-		<div class="spacer"></div>
-		
-		<h2>Latest News</h2>
-		
-		<p>
-			Version 1.5 of RestFB, which includes Graph API support, is now available (released May 1 2010).
-		</p>				
+		</p>			
 		
 		<div class="spacer"></div>
 		
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.5 of the library is available via Google Code.
-			<a href="http://restfb.googlecode.com/svn/branches/RB-1.5/RestFB/CHANGELOG">View the changelog</a>, 
-			or <a href="http://restfb.googlecode.com/files/restfb-1.5.zip">download it here</a>.
+			Version 1.6 (released May XX 2010) of the library is available via <a href="http://restfb.googlecode.com">Google Code</a>.
 			<br/>
-			The project zip contains example code which can help you get up and running quickly.
+			<a href="http://restfb.googlecode.com/svn/branches/RB-1.6/RestFB/CHANGELOG">View the changelog</a>, 
+			or <a href="http://restfb.googlecode.com/files/restfb-1.6.zip">download it here</a>.
 		</p>
+		
+			<p>
+			The project zip contains sample code in the <code>source/examples</code> directory which can help you get up and running quickly.
+			</p>		
 		
 		<div class="spacer"></div>
 		
@@ -53,7 +48,7 @@
 				<li>Maximal extensibility</li>
 				<li>Robustness in the face of frequent Facebook API changes</li>
 				<li>Simple metadata-driven configuration</li>
-				<li>A single dependency, <a href="http://logging.apache.org/log4j/">Apache Log4j</a></li>			
+				<li><b>Zero</b> dependencies</li>			
 			</ul> 
 		</p> 	
 		
@@ -68,9 +63,7 @@
 		</p>
 		
 		<p>
-			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.			
-			<br/>
-			If you're a happy RestFB user and would like restfb.com to link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
+			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.						
 		</p>
 		
 		<div class="spacer"></div>
@@ -78,16 +71,31 @@
 		<h2>How To Use It</h2>
 		
 		<p>
-			You can jump straight to the <a href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
+			The RestFB distribution includes builds that support <code><a href="http://java.sun.com/javase/6/docs/api/java/util/logging/package-summary.html">java.util.logging</a></code> (no dependencies),
+			<a href="http://logging.apache.org/log4j/">log4j</a>, and <a href="http://commons.apache.org/logging/">commons-logging</a>.  Just pick the <code>JAR</code>
+			you'd like to use and add it to your classpath.  That's it!
+
+			<ul>
+				<li><code>restfb-jul-1.6.jar</code> (Uses <code>java.util.logging</code>, no dependencies)</li>
+				<li><code>restfb-log4j-1.6.jar</code> (Has a dependency on log4j)</li>
+				<li><code>restfb-jcl-1.6.jar</code> (Has a dependency on commons-logging)</li>
+			</ul>			
 		</p>
 		
 		<p>
-			If you're looking for help or additional examples, please check out the <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>.
+			Once you've selected your <code>JAR</code>, you can <a href="#running-examples">run some sample code</a>,
+			jump straight to the <a href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
+		</p>
+		
+		<p>
+			If you're looking for help or additional examples, please check out the <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>
+			or visit the <code>source/examples</code> directory in the RestFB distribution.
 		</p>		
 		
 		<p>
 			It's helpful to see exactly what's going over the wire to verify that RestFB is taking your input and sending it
-			to Facebook exactly as you expect.  Feel free to use <a href="log4j.xml">this example log4j.xml file</a> in your own project
+			to Facebook exactly as you expect.  This should "just work" with the <code>java.util.logging</code> build of RestFB.
+			If you're using log4j, feel free to use <a href="log4j.xml">this example log4j.xml file</a> in your own project
 			to see full HTTP <code>GET/POST</code> request and response data logged to standard output.
 		</p>
 		
@@ -406,6 +414,8 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());</pre>
 <pre class="prettyprint">Boolean deleted = facebookClient.deleteObject("some object ID");
 out.println("Deleted object? " + deleted);</pre>								
 		
+		<a name="running-examples"></a>
+		
 		<div class="spacer"></div>				
 		
 		<h2>Running The Examples</h2>
@@ -621,17 +631,17 @@ try {
   // Looks like this API method didn't really return a list of users
 } catch (FacebookNetworkException e) {
   // Looks like an error occurred at the network level
-  System.out.println("API returned HTTP status code " + e.getHttpStatusCode());
+  out.println("API returned HTTP status code " + e.getHttpStatusCode());
 } catch (FacebookGraphException e) {
   // Facebook API returned a specific error
-  System.out.println("Call failed. API says: " + e.getErrorMessage());
+  out.println("Call failed. API says: " + e.getErrorMessage());
 } catch (FacebookResponseStatusException e) {
   // Old-style Facebook error response.
   // The Graph API only throws these when FQL calls fail.
   // You'll see this exception more if you use the Old REST API
   // via LegacyFacebookClient.
   if (e.getErrorCode() == 200)
-    System.out.println("Permission denied!");
+    out.println("Permission denied!");
 } catch (FacebookException e) {
   // This is the catchall handler for any kind of Facebook exception
 }</pre>
@@ -706,6 +716,18 @@ assert "Test Person".equals(user.getName());</pre>
 			<pre>
 svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		</p>
+		
+		<div class="spacer"></div>
+		
+		<h2>RestFB Users</h2>
+		
+		<ul>
+			<li><a href="http://ou-android.appspot.com">Où? for Android</a> by Sylvain Maucourt</li>
+		</ul>
+		
+		<p>
+			If you're a happy RestFB user and would like to add a link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
+		</p>		
 		
 		<div class="spacer"></div>
 		

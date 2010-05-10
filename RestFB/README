@@ -1,6 +1,15 @@
 RestFB is a pure Java Facebook Graph API and Old REST API client.
+
 See http://restfb.com for complete documentation.
-Examples are available in the "source/examples" directory.
+Example code is available in the "source/examples" directory.
+
+There are 3 different RestFB distributions:
+
+1. restfb-jul-x.y.jar (Uses java.util.logging, no dependencies)
+2. restfb-log4j-x.y.jar (Has a dependency on log4j)
+3. restfb-jcl-x.y.jar (Has a dependency on commons-logging)
+
+Use the distribution that is most appropriate for your environment.
 
 RestFB uses other open-source software - see the "licensing" directory. 
 RestFB itself is open source software released under the terms of the MIT License:

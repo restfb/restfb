@@ -3,5 +3,5 @@ These dependencies can optionally be used at runtime depending on your RestFB di
 There are 3 different RestFB distributions:
 
 1. restfb-jul-x.y.jar (Uses java.util.logging, no dependencies)
-2. restfb-log4j-x.y.jar (Has a dependency on Log4j)
-3. restfb-jcl-x.y.jar (Has a dependency on Commons-Logging)
+2. restfb-log4j-x.y.jar (Has a dependency on log4j)
+3. restfb-jcl-x.y.jar (Has a dependency on commons-logging)
