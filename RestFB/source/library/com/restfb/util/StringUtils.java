@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.restfb;
+package com.restfb.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,11 +35,11 @@ import java.util.List;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-abstract class StringUtils {
+public final class StringUtils {
   /**
    * Default charset to use for encoding/decoding strings.
    */
-  static final String ENCODING_CHARSET = "UTF-8";
+  public static final String ENCODING_CHARSET = "UTF-8";
 
   /**
    * Logger.
@@ -72,7 +72,7 @@ abstract class StringUtils {
    *          The string to check.
    * @return {@code true} if {@code string} is blank, {@code false} otherwise.
    */
-  static boolean isBlank(String string) {
+  public static boolean isBlank(String string) {
     return string == null || "".equals(string.trim());
   }
 
@@ -85,7 +85,7 @@ abstract class StringUtils {
    * @return A trimmed version of {@code string}, or {@code null} if {@code
    *         string} is {@code null} or the trimmed version is a blank string.
    */
-  static String trimToNull(String string) {
+  public static String trimToNull(String string) {
     if (isBlank(string))
       return null;
     return string.trim();
@@ -100,7 +100,7 @@ abstract class StringUtils {
    * @return A trimmed version of {@code string}, or an empty string if {@code
    *         string} is {@code null} or the trimmed version is a blank string.
    */
-  static String trimToEmpty(String string) {
+  public static String trimToEmpty(String string) {
     if (isBlank(string))
       return "";
     return string.trim();
@@ -111,7 +111,7 @@ abstract class StringUtils {
    * <p>
    * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
    * 
-   * @param input
+   * @param string
    *          The string to URL-encode.
    * @return The URL-encoded version of the input string, or {@code null} if
    *         {@code string} is {@code null}.
@@ -119,7 +119,7 @@ abstract class StringUtils {
    *           If unable to URL-encode because the JVM doesn't support
    *           {@value #ENCODING_CHARSET}.
    */
-  static String urlEncode(String string) {
+  public static String urlEncode(String string) {
     if (string == null)
       return null;
     try {
@@ -145,7 +145,7 @@ abstract class StringUtils {
    *           If unable to URL-encode because the JVM doesn't support
    *           {@value #ENCODING_CHARSET}.
    */
-  static byte[] toBytes(String string) {
+  public static byte[] toBytes(String string) {
     if (string == null)
       throw new NullPointerException("Parameter 'string' cannot be null.");
 
@@ -168,7 +168,8 @@ abstract class StringUtils {
    * @throws IOException
    *           If an error occurs while processing the {@code inputStream}.
    */
-  static String fromInputStream(InputStream inputStream) throws IOException {
+  public static String fromInputStream(InputStream inputStream)
+      throws IOException {
     if (inputStream == null)
       return null;
 
@@ -215,7 +216,7 @@ abstract class StringUtils {
    *          The list to join.
    * @return A comma-separated string representation of the given {@code list}.
    */
-  static String join(List<String> list) {
+  public static String join(List<String> list) {
     if (list == null)
       return null;
 

@@ -39,21 +39,6 @@ import java.util.Map;
 public interface JsonMapper {
   /**
    * Given a JSON string, create and return a new instance of a corresponding
-   * Java {@code Map}.
-   * 
-   * @param json
-   *          The JSON to be mapped to a Java {@code Map}.
-   * @param type
-   *          Java type token.
-   * @return A Java {@code Map} representation of the JSON input.
-   * @throws FacebookJsonMappingException
-   *           If an error occurs while mapping JSON to a Java {@code Map}.
-   */
-  Map<String, Object> toJavaMap(String json)
-      throws FacebookJsonMappingException;
-
-  /**
-   * Given a JSON string, create and return a new instance of a corresponding
    * Java object of type {@code type}.
    * <p>
    * The Java {@code type} must have a visible no-argument constructor.
@@ -90,6 +75,20 @@ public interface JsonMapper {
    *           If an error occurs while mapping JSON to Java.
    */
   <T> List<T> toJavaList(String json, Class<T> type)
+      throws FacebookJsonMappingException;
+
+  /**
+   * Given a JSON string, create and return a new instance of a corresponding
+   * Java {@code Map}.
+   * 
+   * @param json
+   *          The JSON to be mapped to a Java {@code Map}.
+   * @return A Java {@code Map} representation of the JSON input.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while mapping JSON to a Java {@code Map}.
+   * @since 1.6
+   */
+  Map<String, Object> toJavaMap(String json)
       throws FacebookJsonMappingException;
 
   /**

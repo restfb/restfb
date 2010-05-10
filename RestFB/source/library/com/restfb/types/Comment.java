@@ -25,6 +25,7 @@ package com.restfb.types;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.util.DateUtils;
 
 /**
  * Represents the <a
@@ -68,6 +69,6 @@ public class Comment extends FacebookType {
    * @return Date on which the comment was created.
    */
   public Date getCreatedTime() {
-    return StringUtils.toDate(createdTime);
+    return DateUtils.toDateFromLongFormat(createdTime);
   }
 }

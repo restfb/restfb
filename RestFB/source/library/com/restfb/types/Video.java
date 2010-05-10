@@ -25,6 +25,7 @@ package com.restfb.types;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.util.DateUtils;
 
 /**
  * Represents the <a
@@ -96,7 +97,7 @@ public class Video extends FacebookType {
    * @return The time the video was initially published.
    */
   public Date getCreatedTime() {
-    return StringUtils.toDate(createdTime);
+    return DateUtils.toDateFromLongFormat(createdTime);
   }
 
   /**
@@ -105,6 +106,6 @@ public class Video extends FacebookType {
    * @return The last time the video or its caption were updated.
    */
   public Date getUpdatedTime() {
-    return StringUtils.toDate(updatedTime);
+    return DateUtils.toDateFromLongFormat(updatedTime);
   }
 }

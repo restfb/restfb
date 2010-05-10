@@ -30,6 +30,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.util.DateUtils;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a
@@ -359,7 +361,7 @@ public class User extends NamedFacebookType {
    * @return The user's birthday.
    */
   public Date getBirthday() {
-    return StringUtils.toDateFromShortFormat(birthday);
+    return DateUtils.toDateFromShortFormat(birthday);
   }
 
   /**
@@ -422,7 +424,7 @@ public class User extends NamedFacebookType {
    * @return Date the user's profile was updated.
    */
   public Date getUpdatedTime() {
-    return StringUtils.toDate(updatedTime);
+    return DateUtils.toDateFromLongFormat(updatedTime);
   }
 
   /**

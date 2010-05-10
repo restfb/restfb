@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.restfb.util.StringUtils;
+
 /**
  * Base class that contains data and functionality common to
  * {@link DefaultFacebookClient} and {@link DefaultLegacyFacebookClient}.

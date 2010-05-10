@@ -24,6 +24,8 @@ package com.restfb;
 
 import java.util.Date;
 
+import com.restfb.util.StringUtils;
+
 /**
  * Representation of a Facebook API request parameter.
  * 

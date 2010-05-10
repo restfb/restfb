@@ -20,46 +20,49 @@
  * THE SOFTWARE.
  */
 
-package com.restfb.types;
+package com.restfb.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * {@code String}-related utility methods.
+ * A collection of date-handling utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
- * @since 1.5
  */
-abstract class StringUtils {
+public final class DateUtils {
+  /**
+   * Facebook "long" date format (ISO 8601). Example: {@code
+   * 2010-02-28T16:11:08+0000}
+   */
+  public static final String FACEBOOK_LONG_DATE_FORMAT =
+      "yyyy-MM-dd'T'kk:mm:ssZ";
+
+  /**
+   * Facebook short date format. Example: {@code 04/15/1984}
+   */
+  public static final String FACEBOOK_SHORT_DATE_FORMAT = "MM/dd/yyyy";
+
   /**
    * Prevents instantiation.
    */
-  private StringUtils() {}
+  private DateUtils() {}
 
   /**
-   * Facebook date format (ISO 8601). Example: 2010-02-28T16:11:08+0000
-   */
-  private static final String FACEBOOK_DATE_FORMAT = "yyyy-MM-dd'T'kk:mm:ssZ";
-
-  /**
-   * Facebook short date format. Example: 04/15/1984
-   */
-  private static final String FACEBOOK_SHORT_DATE_FORMAT = "MM/dd/yyyy";
-
-  /**
-   * Returns a Java representation of a Facebook {@code date} string.
+   * Returns a Java representation of a Facebook "long" {@code date} string.
    * 
    * @param date
    *          Facebook {@code date} string.
-   * @return Java date representation of the given Facebook {@code date} string.
+   * @return Java date representation of the given Facebook "long" {@code date}
+   *         string or {@code null} if {@code date} is {@code null}.
    * @throws IllegalArgumentException
-   *           If the provided {@code date} isn't in the Facebook date format
-   *           (ISO 8601).
+   *           If the provided {@code date} isn't in the Facebook "long" date
+   *           format (ISO 8601).
    */
-  static Date toDate(String date) throws IllegalArgumentException {
-    return toDateWithFormatString(date, FACEBOOK_DATE_FORMAT);
+  public static Date toDateFromLongFormat(String date)
+      throws IllegalArgumentException {
+    return toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
   }
 
   /**
@@ -68,12 +71,12 @@ abstract class StringUtils {
    * @param date
    *          Facebook {@code date} string.
    * @return Java date representation of the given Facebook "short" {@code date}
-   *         string.
+   *         string or {@code null} if {@code date} is {@code null}.
    * @throws IllegalArgumentException
    *           If the provided {@code date} isn't in the Facebook "short" date
    *           format.
    */
-  static Date toDateFromShortFormat(String date)
+  public static Date toDateFromShortFormat(String date)
       throws IllegalArgumentException {
     return toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
   }
@@ -83,7 +86,8 @@ abstract class StringUtils {
    * 
    * @param date
    *          Date in string format.
-   * @return Java date representation of the given {@code date} string.
+   * @return Java date representation of the given {@code date} string or
+   *         {@code null} if {@code date} is {@code null}.
    * @throws IllegalArgumentException
    *           If the provided {@code date} isn't in the given {@code format}.
    */

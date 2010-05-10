@@ -28,6 +28,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.util.DateUtils;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a
@@ -346,7 +348,7 @@ public class Post extends NamedFacebookType {
    * @return The time the post was initially published.
    */
   public Date getCreatedTime() {
-    return StringUtils.toDate(createdTime);
+    return DateUtils.toDateFromLongFormat(createdTime);
   }
 
   /**
@@ -355,7 +357,7 @@ public class Post extends NamedFacebookType {
    * @return The time of the last comment on this post.
    */
   public Date getUpdatedTime() {
-    return StringUtils.toDate(updatedTime);
+    return DateUtils.toDateFromLongFormat(updatedTime);
   }
 
   /**

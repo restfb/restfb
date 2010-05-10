@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a <a

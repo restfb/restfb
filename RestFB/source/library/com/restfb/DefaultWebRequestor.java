@@ -22,7 +22,7 @@
 
 package com.restfb;
 
-import static com.restfb.StringUtils.ENCODING_CHARSET;
+import static com.restfb.util.StringUtils.ENCODING_CHARSET;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 
 import java.io.Closeable;
@@ -31,6 +31,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a service that sends HTTP requests to the Facebook

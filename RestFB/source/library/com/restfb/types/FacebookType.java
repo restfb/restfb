@@ -23,6 +23,7 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Base class which encapsulates behavior and properties common to most <a

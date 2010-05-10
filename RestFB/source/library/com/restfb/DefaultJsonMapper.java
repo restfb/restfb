@@ -34,7 +34,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.restfb.ReflectionUtils.FieldWithAnnotation;
+import com.restfb.util.ReflectionUtils;
+import com.restfb.util.StringUtils;
+import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -59,7 +61,6 @@ public class DefaultJsonMapper implements JsonMapper {
   /* if[JCL] */
   private static final org.apache.commons.logging.Log jclLogger =
       org.apache.commons.logging.LogFactory.getLog(DefaultJsonMapper.class);
-
   /* end[JCL] */
 
   /**

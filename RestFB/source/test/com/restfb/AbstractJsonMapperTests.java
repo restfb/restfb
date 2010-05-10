@@ -24,6 +24,8 @@ package com.restfb;
 
 import java.io.IOException;
 
+import com.restfb.util.StringUtils;
+
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */

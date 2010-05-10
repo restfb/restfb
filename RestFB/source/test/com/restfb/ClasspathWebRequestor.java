@@ -27,6 +27,8 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.restfb.util.StringUtils;
+
 /**
  * {@link WebRequestor} implementation that loads a file from the classpath
  * instead of hitting the web. Useful for running unit tests against local JSON

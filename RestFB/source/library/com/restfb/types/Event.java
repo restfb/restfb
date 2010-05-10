@@ -25,6 +25,7 @@ package com.restfb.types;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.util.DateUtils;
 
 /**
  * Represents the <a
@@ -84,7 +85,7 @@ public class Event extends NamedFacebookType {
    * @return The start time of the event.
    */
   public Date getStartTime() {
-    return StringUtils.toDate(startTime);
+    return DateUtils.toDateFromLongFormat(startTime);
   }
 
   /**
@@ -93,7 +94,7 @@ public class Event extends NamedFacebookType {
    * @return The end time of the event.
    */
   public Date getEndTime() {
-    return StringUtils.toDate(endTime);
+    return DateUtils.toDateFromLongFormat(endTime);
   }
 
   /**
@@ -129,6 +130,6 @@ public class Event extends NamedFacebookType {
    * @return The last time the event was updated.
    */
   public Date getUpdatedTime() {
-    return StringUtils.toDate(updatedTime);
+    return DateUtils.toDateFromLongFormat(updatedTime);
   }
 }
