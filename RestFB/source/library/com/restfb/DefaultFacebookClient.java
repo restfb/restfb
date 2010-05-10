@@ -171,8 +171,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     verifyParameterPresence("connectionType", connectionType);
 
     List<T> data = new ArrayList<T>();
-    boolean hasPrevious = false;
-    boolean hasNext = false;
+    String previous = null;
+    String next = null;
 
     try {
       JSONObject jsonObject =
@@ -187,15 +187,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       // Pull out paging info, if present
       if (jsonObject.has("paging")) {
         JSONObject jsonPaging = jsonObject.getJSONObject("paging");
-        hasPrevious = jsonPaging.has("previous");
-        hasNext = jsonPaging.has("next");
+        previous =
+            jsonPaging.has("previous") ? jsonPaging.getString("previous")
+                : null;
+        next = jsonPaging.has("next") ? jsonPaging.getString("next") : null;
       }
     } catch (JSONException e) {
       throw new FacebookJsonMappingException(
         "Unable to map connection JSON to Java objects", e);
     }
 
-    return new Connection<T>(data, hasPrevious, hasNext);
+    return new Connection<T>(data, previous, next);
   }
 
   /**
