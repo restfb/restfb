@@ -103,7 +103,7 @@ public interface FacebookClient {
   /**
    * Fetches multiple <a
    * href="http://developers.facebook.com/docs/reference/api/">Graph API
-   * objects</a> in a single call and returns them as {@link java.util.Map} a  {@code Map}.
+   * objects</a> in a single call and returns them as a {@link java.util.Map}.
    * 
    * @param ids
    *          IDs of the objects to fetch, e.g. {@code "me", "arjun"}.

@@ -78,10 +78,11 @@ public final class Parameter {
    * Factory method which provides an instance with the given {@code name} and
    * {@code value}.
    * <p>
-   * The {@code value} parameter is often a {@code String} or primitive type
-   * like {@code Integer}, but you may pass in a {@code List}, {@code Map}, or
-   * your own <tt>@Facebook</tt>-annotated Javabean and it will be converted to
-   * JSON automatically. See the "attachment" section of <a
+   * The {@code value} parameter is often a {@link String} or primitive type
+   * like {@link Integer}, but you may pass in a {@link java.util.List},
+   * {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean
+   * and it will be converted to JSON automatically. See the "attachment"
+   * section of <a
    * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the
    * stream.publish API documentation</a> for an example of where this is
    * useful.
@@ -108,10 +109,11 @@ public final class Parameter {
    * {@code value}, using the provided {@code jsonMapper} to turn {@code value}
    * into a JSON string.
    * <p>
-   * The {@code value} parameter is often a {@code String} or primitive type
-   * like {@code Integer}, but you may pass in a {@code List}, {@code Map}, or
-   * your own <tt>@Facebook</tt>-annotated Javabean and it will be converted to
-   * JSON automatically. See the "attachment" section of <a
+   * The {@code value} parameter is often a {@link String} or primitive type
+   * like {@link Integer}, but you may pass in a {@link java.util.List},
+   * {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean
+   * and it will be converted to JSON automatically. See the "attachment"
+   * section of <a
    * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the
    * stream.publish API documentation</a> for an example of where this is
    * useful.

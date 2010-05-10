@@ -79,13 +79,14 @@ public interface JsonMapper {
 
   /**
    * Given a JSON string, create and return a new instance of a corresponding
-   * Java {@code Map}.
+   * Java {@link java.util.Map}.
    * 
    * @param json
-   *          The JSON to be mapped to a Java {@code Map}.
-   * @return A Java {@code Map} representation of the JSON input.
+   *          The JSON to be mapped to a Java {@link java.util.Map}.
+   * @return A Java {@link java.util.Map} representation of the JSON input.
    * @throws FacebookJsonMappingException
-   *           If an error occurs while mapping JSON to a Java {@code Map}.
+   *           If an error occurs while mapping JSON to a Java
+   *           {@link java.util.Map}.
    * @since 1.6
    */
   Map<String, Object> toJavaMap(String json)
@@ -99,8 +100,8 @@ public interface JsonMapper {
    * arbitrarily complex JSON generation.
    * 
    * @param object
-   *          The Java object to map to JSON. Can be a Javabean, {@code List},
-   *          or {@code Map}.
+   *          The Java object to map to JSON. Can be a Javabean,
+   *          {@link java.util.List}, or {@link java.util.Map}.
    * @return A JSON string.
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping Java to JSON.
