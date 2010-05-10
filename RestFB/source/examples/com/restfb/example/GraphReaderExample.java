@@ -25,6 +25,7 @@ package com.restfb.example;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,9 +77,10 @@ public class GraphReaderExample {
     facebookClient = new DefaultFacebookClient(accessToken);
   }
 
-  void runEverything() throws FacebookException {
+  void runEverything() throws FacebookException {    
     fetchObject();
     fetchObjects();
+    fetchObjectsAsMap();
     fetchConnections();
     query();
     multiquery();
@@ -98,6 +100,17 @@ public class GraphReaderExample {
 
     out.println("User name: " + user.getName());
     out.println("Page fan count: " + page.getFanCount());
+  }
+
+  void fetchObjectsAsMap() throws FacebookException {
+    out.println("* Fetching multiple objects at once as a Map *");
+
+    List<String> ids = new ArrayList<String>();
+    ids.add("http://restfb.com");
+    ids.add("http://www.imdb.com/title/tt0117500/");
+
+    Map<String, Object> results = facebookClient.fetchObjects(ids);
+    out.println("Results are " + results);
   }
 
   void fetchObjects() throws FacebookException {

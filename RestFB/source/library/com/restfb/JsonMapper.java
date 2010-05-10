@@ -23,6 +23,7 @@
 package com.restfb;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Specifies how a Facebook JSON-to-Java (and vice-versa) mapper must operate.
@@ -36,6 +37,21 @@ import java.util.List;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public interface JsonMapper {
+  /**
+   * Given a JSON string, create and return a new instance of a corresponding
+   * Java {@code Map}.
+   * 
+   * @param json
+   *          The JSON to be mapped to a Java {@code Map}.
+   * @param type
+   *          Java type token.
+   * @return A Java {@code Map} representation of the JSON input.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while mapping JSON to a Java {@code Map}.
+   */
+  Map<String, Object> toJavaMap(String json)
+      throws FacebookJsonMappingException;
+
   /**
    * Given a JSON string, create and return a new instance of a corresponding
    * Java object of type {@code type}.

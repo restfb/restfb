@@ -101,6 +101,17 @@ public interface FacebookClient {
       Parameter... parameters) throws FacebookException;
 
   /**
+   * TODO: Document
+   * 
+   * @param ids
+   * @param parameters
+   * @return
+   * @throws FacebookException
+   */
+  Map<String, Object> fetchObjects(List<String> ids, Parameter... parameters)
+      throws FacebookException;
+
+  /**
    * Fetches a Graph API {@code Connection} type.
    * 
    * @param <T>

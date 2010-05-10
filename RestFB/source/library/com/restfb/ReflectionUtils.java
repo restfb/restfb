@@ -54,7 +54,8 @@ abstract class ReflectionUtils {
 
     Class<?> type = object.getClass();
 
-    return (object instanceof Integer || Integer.TYPE.equals(type))
+    return object instanceof String
+        || (object instanceof Integer || Integer.TYPE.equals(type))
         || (object instanceof Boolean || Boolean.TYPE.equals(type))
         || (object instanceof Long || Long.TYPE.equals(type))
         || (object instanceof Double || Double.TYPE.equals(type))

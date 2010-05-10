@@ -250,6 +250,39 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   }
 
   /**
+   * @see com.restfb.FacebookClient#fetchObjects(java.util.List,
+   *      com.restfb.Parameter[])
+   */
+  @Override
+  public Map<String, Object> fetchObjects(List<String> ids,
+      Parameter... parameters) throws FacebookException {
+    verifyParameterPresence("ids", ids);
+
+    if (ids.size() == 0)
+      throw new IllegalArgumentException("The list of IDs cannot be empty.");
+
+    for (Parameter parameter : parameters)
+      if (IDS_PARAM_NAME.equals(parameter.name))
+        throw new IllegalArgumentException("You cannot specify the '"
+            + IDS_PARAM_NAME + "' URL parameter yourself - "
+            + "RestFB will populate this for you with "
+            + "the list of IDs you passed to this method.");
+
+    // Normalize the IDs
+    for (int i = 0; i < ids.size(); i++) {
+      String id = ids.get(i).trim().toLowerCase();
+      if ("".equals(id))
+        throw new IllegalArgumentException(
+          "The list of IDs cannot contain blank strings.");
+      ids.set(i, id);
+    }
+
+    return jsonMapper.toJavaMap(makeRequest("",
+      parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME,
+        StringUtils.join(ids)), parameters)));
+  }
+
+  /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      java.io.InputStream, com.restfb.Parameter[])
    */
