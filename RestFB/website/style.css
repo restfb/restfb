@@ -58,7 +58,7 @@ table {
 /* main */
 
 body {
-	font-family:"Lucida Grande", "Segoe UI", Tahoma;
+	font-family:"Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	margin: 10px;
 	font-size: 12pt;
  	text-align: center;
@@ -73,14 +73,14 @@ body {
 }
 
 h1 {
-	font-family: "Lucida Grande", "Segoe UI", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-size: 16pt;
 	margin-bottom: 10px;
 	font-weight: bold;	
 }
 
 h2, h3 {
-	font-family: "Lucida Grande", "Segoe UI", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	margin-bottom: 10px;
 	font-weight: bold;	
 }
@@ -100,7 +100,7 @@ ul li {
 }
 
 pre, code, tt {
-	font-family: consolas, monaco;
+	font-family: Consolas, "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
 }
 
 pre {	
@@ -150,7 +150,7 @@ a:hover {
 }
 
 pre a:link {
-	font-family: consolas, monaco;
+	font-family: Consolas, "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
 	font-weight: bold;
 }
 
@@ -185,7 +185,7 @@ div.spacer {
 }
 
 #error-table b {
-	font-family: "Lucida Grande", "Segoe UI", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 }
 
@@ -195,7 +195,7 @@ div.spacer {
 
 .important {
 	color: #933;
-	font-family: "Lucida Grande", "Segoe UI", Tahoma;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 }
 

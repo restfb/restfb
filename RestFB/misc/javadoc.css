@@ -3,13 +3,13 @@
 	/* Page background color */
 	
 body {
-	font-family:  "Lucida Grande", "Segoe UI", Verdana, Arial;
+	font-family:  "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;
 	background-color: white;
 	font-size: 11pt;
 }
 
 td {
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;
 	font-size: 11pt;
 }
 
@@ -29,22 +29,23 @@ td {
 /* Font used in left-hand frame lists */
 .FrameTitleFont {
 	font-size: normal;
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;
 }
 
 font > b {
 	font-size: 13pt;
-	font-family: "PT Sans Bold";
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;
+	font-weight: bold;
 }
 
 .FrameHeadingFont {
 	font-size: normal;
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;
 }
 
 .FrameItemFont {
 	font-size: normal;
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;
 }
 
 /* Example of smaller, sans-serif font in frames */
@@ -60,22 +61,22 @@ font > b {
 
 .NavBarFont1 {
 	font-size: 13pt;
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	color: #000000;
 }
 
 .NavBarFont1Rev {
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	color: #FFFFFF;
 }
 
 .NavBarCell2 {
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	background-color: #FFFFFF;
 }
 
 .NavBarCell3 {
-	font-family: "Lucida Grande", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	background-color: #FFFFFF;
 }
 
@@ -104,11 +105,12 @@ BLOCKQUOTE {
 }
 
 H2, H3 {
-	font-family: "PT Sans Bold";
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;
+	font-weight: bold;
 }
 
 H2 font {
-	font-family: "PT Sans";
+	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial;	
 }
 
 /*H1, H2, H3, H4, H5, H6    {
@@ -175,7 +177,7 @@ HR {
 
 
 /* Header/Footer Colours */
-#Header  { font-family: "Lucida Grande", "Segoe UI", Verdana, Arial; color: #000000;  background-color:#EEEEFF }
+#Header  { font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial; color: #000000;  background-color:#EEEEFF }
 
 /* Line Number */
 #LN     { color: #BBBBBB;  background-color:#FFFFFF }
