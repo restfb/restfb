@@ -2,7 +2,7 @@
 	<!--
   @author Transmogrify, LLC.
 -->
-<project name="RestFB Examples" default="run-examples">
+<project name="RestFB Examples">
 
 	<!-- Directories -->
 	<property name="examplesSourceDir" value="." />
