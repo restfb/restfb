@@ -62,6 +62,11 @@ abstract class BaseFacebookClient {
    * Legacy API error response 'error_msg' attribute name.
    */
   private static final String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
+  
+  /**
+   * Reserved access token parameter name.
+   */
+  protected static final String ACCESS_TOKEN_PARAM_NAME = "access_token";
 
   /**
    * Logger.

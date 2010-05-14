@@ -61,11 +61,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       "https://api.facebook.com/method";
 
   /**
-   * Reserved access token parameter name.
-   */
-  private static final String ACCESS_TOKEN_PARAM_NAME = "access_token";
-
-  /**
    * Reserved method override parameter name.
    */
   private static final String METHOD_PARAM_NAME = "method";
