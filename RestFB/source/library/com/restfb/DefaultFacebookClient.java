@@ -275,7 +275,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       ids.set(i, id);
     }
 
-    return jsonMapper.toJavaMap(makeRequest("",
+    return jsonMapper.toJavaObject(makeRequest("",
       parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME,
         StringUtils.join(ids)), parameters)));
   }

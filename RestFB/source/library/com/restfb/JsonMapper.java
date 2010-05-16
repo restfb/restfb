@@ -89,13 +89,13 @@ public interface JsonMapper {
    *           {@link java.util.Map}.
    * @since 1.6
    */
-  Map<String, Object> toJavaMap(String json)
+  Map<String, Object> toJavaObject(String json)
       throws FacebookJsonMappingException;
 
   /**
    * Given a JSON string, create and return a new instance of a corresponding
-   * Java {@link java.util.List} which contains elements of type
-   * {@link java.util.Map} or {@link java.util.List}.
+   * Java {@link java.util.List} which contains elements of type {@code
+   * Map<String, Object>} (JSON objects) or {@code List<Object>} (JSON arrays).
    * 
    * @param json
    *          The JSON to be mapped to a Java {@link java.util.List}.

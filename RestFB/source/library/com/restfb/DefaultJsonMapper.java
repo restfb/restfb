@@ -254,10 +254,10 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * @see com.restfb.JsonMapper#toJavaMap(java.lang.String)
+   * @see com.restfb.JsonMapper#toJavaObject(java.lang.String)
    */
   @Override
-  public Map<String, Object> toJavaMap(String json)
+  public Map<String, Object> toJavaObject(String json)
       throws FacebookJsonMappingException {
     verifyThatJsonIsOfObjectType(json);
     Map<String, Object> map = new HashMap<String, Object>();
@@ -283,7 +283,7 @@ public class DefaultJsonMapper implements JsonMapper {
           else if (fieldJson.startsWith("["))
             map.put(fieldName, toJavaList(fieldJson));
           else
-            map.put(fieldName, toJavaMap(fieldJson));
+            map.put(fieldName, toJavaObject(fieldJson));
         }
       }
     } catch (JSONException e) {
@@ -370,7 +370,7 @@ public class DefaultJsonMapper implements JsonMapper {
       JSONArray jsonArray = new JSONArray(json);
       for (int i = 0; i < jsonArray.length(); i++) {
         String elementJson = jsonArray.get(i).toString();
-        list.add(elementJson.startsWith("{") ? toJavaMap(elementJson)
+        list.add(elementJson.startsWith("{") ? toJavaObject(elementJson)
             : toJavaList(elementJson));
       }
 

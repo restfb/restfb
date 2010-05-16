@@ -38,7 +38,7 @@ public class JsonMapperToJavaMapTests extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyMap() throws FacebookJsonMappingException {
-    Map<String, Object> object = createJsonMapper().toJavaMap("{}");
+    Map<String, Object> object = createJsonMapper().toJavaObject("{}");
     assertTrue(object.size() == 0);
   }
 
@@ -55,7 +55,7 @@ public class JsonMapperToJavaMapTests extends AbstractJsonMapperTests {
   @SuppressWarnings("unchecked")
   public void userWithPhotos() throws FacebookJsonMappingException {
     Map<String, Object> object =
-        createJsonMapper().toJavaMap(jsonFromClasspath("user-with-photos"));
+        createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"));
 
     List<Object> photos = (List<Object>) object.get("photos");
     String name = (String) object.get("name");
