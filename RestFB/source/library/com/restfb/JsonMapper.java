@@ -59,7 +59,7 @@ public interface JsonMapper {
 
   /**
    * Given a JSON string, create and return a new instance of a corresponding
-   * Java list which contains elements of type {@code type}.
+   * Java {@link java.util.List} which contains elements of type {@code type}.
    * <p>
    * The Java {@code type} must have a visible no-argument constructor.
    * 
@@ -91,6 +91,21 @@ public interface JsonMapper {
    */
   Map<String, Object> toJavaMap(String json)
       throws FacebookJsonMappingException;
+
+  /**
+   * Given a JSON string, create and return a new instance of a corresponding
+   * Java {@link java.util.List} which contains elements of type
+   * {@link java.util.Map} or {@link java.util.List}.
+   * 
+   * @param json
+   *          The JSON to be mapped to a Java {@link java.util.List}.
+   * @return A Java {@link java.util.List} representation of the JSON input.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while mapping JSON to a Java
+   *           {@link java.util.List}.
+   * @since 1.6
+   */
+  List<Object> toJavaList(String json) throws FacebookJsonMappingException;
 
   /**
    * Given a Java {@code object}, create and return a JSON string that

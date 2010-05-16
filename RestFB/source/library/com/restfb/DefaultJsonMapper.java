@@ -61,6 +61,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /* if[JCL] */
   private static final org.apache.commons.logging.Log jclLogger =
       org.apache.commons.logging.LogFactory.getLog(DefaultJsonMapper.class);
+
   /* end[JCL] */
 
   /**
@@ -117,17 +118,20 @@ public class DefaultJsonMapper implements JsonMapper {
       // little placeholder object that only has a "data" value.
       try {
         JSONObject jsonObject = new JSONObject(json);
-        String[] names = JSONObject.getNames(jsonObject);
-        boolean hasSingleDataProperty =
-            names.length == 1 && "data".equals(names[0]);
-        Object jsonDataObject = jsonObject.get("data");
+        String[] fieldNames = JSONObject.getNames(jsonObject);
 
-        if (!hasSingleDataProperty && !(jsonDataObject instanceof JSONArray))
-          throw new FacebookJsonMappingException(
-            "JSON is an object but is being mapped as a list "
-                + "instead. Offending JSON is '" + json + "'.");
+        if (fieldNames != null) {
+          boolean hasSingleDataProperty =
+              fieldNames.length == 1 && "data".equals(fieldNames[0]);
+          Object jsonDataObject = jsonObject.get("data");
 
-        json = jsonDataObject.toString();
+          if (!hasSingleDataProperty && !(jsonDataObject instanceof JSONArray))
+            throw new FacebookJsonMappingException(
+              "JSON is an object but is being mapped as a list "
+                  + "instead. Offending JSON is '" + json + "'.");
+
+          json = jsonDataObject.toString();
+        }
       } catch (JSONException e) {
         // Should never get here, but just in case...
         throw new FacebookJsonMappingException(
@@ -143,7 +147,7 @@ public class DefaultJsonMapper implements JsonMapper {
       for (int i = 0; i < jsonArray.length(); i++)
         list.add(toJavaObject(jsonArray.get(i).toString(), type));
 
-      return list;
+      return Collections.unmodifiableList(list);
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
@@ -250,10 +254,151 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * TODO: document
+   * @see com.restfb.JsonMapper#toJavaMap(java.lang.String)
+   */
+  @Override
+  public Map<String, Object> toJavaMap(String json)
+      throws FacebookJsonMappingException {
+    verifyThatJsonIsOfObjectType(json);
+    Map<String, Object> map = new HashMap<String, Object>();
+
+    try {
+      JSONObject jsonObject = new JSONObject(json);
+      String[] fieldNames = JSONObject.getNames(jsonObject);
+
+      if (fieldNames != null) {
+        for (String fieldName : fieldNames) {
+          Object fieldValue = jsonObject.get(fieldName);
+
+          // Short-circuit right away if we get a null since we can't put them
+          // in Maps
+          if (fieldValue == null || NULL.equals(fieldValue))
+            continue;
+
+          String fieldJson = fieldValue.toString();
+
+          if (ReflectionUtils.isPrimitive(fieldValue))
+            map.put(fieldName, toPrimitiveJavaType(fieldJson, fieldValue
+              .getClass()));
+          else if (fieldJson.startsWith("["))
+            map.put(fieldName, toJavaList(fieldJson));
+          else
+            map.put(fieldName, toJavaMap(fieldJson));
+        }
+      }
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException(
+        "Unable to map JSON to a Java Map. " + "Offending JSON is '" + json
+            + "'.", e);
+    }
+
+    return Collections.unmodifiableMap(map);
+  }
+
+  /**
+   * @see com.restfb.JsonMapper#toJavaList(java.lang.String)
+   */
+  @Override
+  public List<Object> toJavaList(String json)
+      throws FacebookJsonMappingException {
+    json = StringUtils.trimToEmpty(json);
+
+    if (StringUtils.isBlank(json))
+      throw new FacebookJsonMappingException(
+        "JSON is an empty string - can't map it.");
+
+    if (json.startsWith("{")) {
+      // Sometimes Facebook returns the empty object {} when it really should be
+      // returning an empty list [] (example: do an FQL query for a user's
+      // affiliations - it's a list except when there are none, then it turns
+      // into an object). Check for that special case here.
+      if (isEmptyObject(json)) {
+        /* if[JUL] */
+        if (julLogger.isLoggable(java.util.logging.Level.FINER))
+          julLogger.finer("Encountered {} when we should've seen []. "
+              + "Mapping the {} as an empty list and moving on...");
+        /* end[JUL] */
+
+        /* if[LOG4J] */
+        if (log4jLogger.isTraceEnabled())
+          log4jLogger.trace("Encountered {} when we should've seen []. "
+              + "Mapping the {} as an empty list and moving on...");
+        /* end[LOG4J] */
+
+        /* if[JCL] */
+        if (jclLogger.isTraceEnabled())
+          jclLogger.trace("Encountered {} when we should've seen []. "
+              + "Mapping the {} as an empty list and moving on...");
+        /* end[JCL] */
+
+        return new ArrayList<Object>();
+      }
+
+      // Special case: if the only element of this object is an array called
+      // "data", then treat it as a list. The Graph API uses this convention for
+      // connections and in a few other places, e.g. comments on the Post
+      // object.
+      // Doing this simplifies mapping, so we don't have to worry about having a
+      // little placeholder object that only has a "data" value.
+      try {
+        JSONObject jsonObject = new JSONObject(json);
+        String[] fieldNames = JSONObject.getNames(jsonObject);
+
+        if (fieldNames != null) {
+          boolean hasSingleDataProperty =
+              fieldNames.length == 1 && "data".equals(fieldNames[0]);
+          Object jsonDataObject = jsonObject.get("data");
+
+          if (!hasSingleDataProperty && !(jsonDataObject instanceof JSONArray))
+            throw new FacebookJsonMappingException(
+              "JSON is an object but is being mapped as a list "
+                  + "instead. Offending JSON is '" + json + "'.");
+
+          json = jsonDataObject.toString();
+        }
+      } catch (JSONException e) {
+        // Should never get here, but just in case...
+        throw new FacebookJsonMappingException(
+          "Unable to convert Facebook response "
+              + "JSON to a List of Maps. Offending JSON is " + json, e);
+      }
+    }
+
+    try {
+      List<Object> list = new ArrayList<Object>();
+
+      JSONArray jsonArray = new JSONArray(json);
+      for (int i = 0; i < jsonArray.length(); i++) {
+        String elementJson = jsonArray.get(i).toString();
+        list.add(elementJson.startsWith("{") ? toJavaMap(elementJson)
+            : toJavaList(elementJson));
+      }
+
+      return Collections.unmodifiableList(list);
+    } catch (FacebookJsonMappingException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new FacebookJsonMappingException(
+        "Unable to convert Facebook response " + "JSON to a List of Maps", e);
+    }
+  }
+
+  /**
+   * @see com.restfb.JsonMapper#toJson(java.lang.Object)
+   */
+  @Override
+  public String toJson(Object object) throws FacebookJsonMappingException {
+    // Delegate to recursive method
+    return toJsonInternal(object).toString();
+  }
+
+  /**
+   * Is the given {@code json} a valid JSON object?
    * 
    * @param json
+   *          The JSON to check.
    * @throws FacebookJsonMappingException
+   *           If {@code json} is not a valid JSON object.
    */
   protected void verifyThatJsonIsOfObjectType(String json)
       throws FacebookJsonMappingException {
@@ -266,49 +411,6 @@ public class DefaultJsonMapper implements JsonMapper {
         "JSON is an array but is being mapped as an object "
             + "- you should map it as a List instead. Offending JSON is '"
             + json + "'.");
-  }
-
-  /**
-   * @see com.restfb.JsonMapper#toJavaMap(java.lang.String)
-   */
-  @Override
-  public Map<String, Object> toJavaMap(String json)
-      throws FacebookJsonMappingException {
-    verifyThatJsonIsOfObjectType(json);
-
-    Map<String, Object> map = new HashMap<String, Object>();
-
-    try {
-      JSONObject jsonObject = new JSONObject(json);
-      for (String key : JSONObject.getNames(jsonObject)) {
-        Object value = jsonObject.get(key);
-
-        // Short-circuit right away if we get a null since we can't put them in
-        // Maps
-        if (value == null || NULL.equals(value))
-          continue;
-
-        if (ReflectionUtils.isPrimitive(value))
-          map.put(key, toPrimitiveJavaType(value.toString(), value.getClass()));
-        else
-          map.put(key, toJavaMap(value.toString()));
-      }
-    } catch (JSONException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to map JSON to a Java Map. " + "Offending JSON is '" + json
-            + "'.", e);
-    }
-
-    return Collections.unmodifiableMap(map);
-  }
-
-  /**
-   * @see com.restfb.JsonMapper#toJson(java.lang.Object)
-   */
-  @Override
-  public String toJson(Object object) throws FacebookJsonMappingException {
-    // Delegate to recursive method
-    return toJsonInternal(object).toString();
   }
 
   /**
@@ -606,7 +708,6 @@ public class DefaultJsonMapper implements JsonMapper {
    *         false} otherwise.
    */
   protected boolean isEmptyObject(String json) {
-    // TODO: nicer way to do this than the replaceAll() call?
-    return "{}".equals(json.replaceAll("\\s", ""));
+    return "{}".equals(json);
   }
 }

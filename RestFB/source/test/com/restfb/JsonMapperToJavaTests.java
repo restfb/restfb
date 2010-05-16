@@ -233,7 +233,6 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyArray() throws FacebookJsonMappingException {
-    System.out.println("JSON: " + jsonFromClasspath("empty-array-as-string"));
     BasicUser user =
         createJsonMapper().toJavaObject(
           jsonFromClasspath("empty-array-as-string"), BasicUser.class);
