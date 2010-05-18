@@ -112,6 +112,7 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       httpUrlConnection = (HttpURLConnection) new URL(url).openConnection();
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
+      httpUrlConnection.setUseCaches(false);
 
       // Allow subclasses to customize the connection if they'd like to - set
       // their own headers, timeouts, etc.
