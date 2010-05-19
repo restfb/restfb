@@ -65,7 +65,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * By default, how long should we wait for a response (in ms)?
    */
-  private static final int DEFAULT_READ_TIMEOUT_IN_MS = 20000;
+  private static final int DEFAULT_READ_TIMEOUT_IN_MS = 60000;
 
   /**
    * Logger.
@@ -84,6 +84,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /* if[JCL] */
   private static final org.apache.commons.logging.Log jclLogger =
       org.apache.commons.logging.LogFactory.getLog(DefaultWebRequestor.class);
+
   /* end[JCL] */
 
   /**
