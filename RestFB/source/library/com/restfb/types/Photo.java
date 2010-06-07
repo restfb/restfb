@@ -78,13 +78,7 @@ public class Photo extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Tag {
-    @Facebook
-    private Integer id;
-
-    @Facebook
-    private Integer name;
-
+  public static class Tag extends NamedFacebookType {
     @Facebook
     private Integer x;
 
@@ -116,24 +110,6 @@ public class Photo extends NamedFacebookType {
     @Override
     public String toString() {
       return ReflectionUtils.toString(this);
-    }
-
-    /**
-     * ID of the tagged user.
-     * 
-     * @return ID of the tagged user.
-     */
-    public Integer getId() {
-      return id;
-    }
-
-    /**
-     * Name of the tagged user.
-     * 
-     * @return Name of the tagged user.
-     */
-    public Integer getName() {
-      return name;
     }
 
     /**
