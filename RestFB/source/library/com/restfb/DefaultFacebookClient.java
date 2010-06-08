@@ -25,6 +25,7 @@ package com.restfb;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static java.util.logging.Level.INFO;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -450,20 +451,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       throw new FacebookNetworkException("Facebook " + httpVerb + " failed", t);
     }
 
-    /* if[JUL] */
-    if (julLogger.isLoggable(java.util.logging.Level.INFO))
-      julLogger.info("Facebook responded with " + response);
-    /* end[JUL] */
-
-    /* if[LOG4J] */
-    if (log4jLogger.isInfoEnabled())
-      log4jLogger.info("Facebook responded with " + response);
-    /* end[LOG4J] */
-
-    /* if[JCL] */
-    if (jclLogger.isInfoEnabled())
-      jclLogger.info("Facebook responded with " + response);
-    /* end[JCL] */
+    if (logger.isLoggable(INFO))
+      logger.info("Facebook responded with " + response);
 
     // If we get any HTTP response code other than a 200 OK or 401 Not
     // Authorized or 500 Internal Server Error, throw an exception. We handle

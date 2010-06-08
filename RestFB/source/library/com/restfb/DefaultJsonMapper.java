@@ -23,6 +23,7 @@
 package com.restfb;
 
 import static com.restfb.JSONObject.NULL;
+import static java.util.logging.Level.FINER;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -33,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 import com.restfb.util.ReflectionUtils;
 import com.restfb.util.StringUtils;
@@ -47,22 +49,8 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * Logger.
    */
-
-  /* if[JUL] */
-  private static final java.util.logging.Logger julLogger =
-      java.util.logging.Logger.getLogger(DefaultJsonMapper.class.getName());
-  /* end[JUL] */
-
-  /* if[LOG4J] */
-  private static final org.apache.log4j.Logger log4jLogger =
-      org.apache.log4j.Logger.getLogger(DefaultJsonMapper.class);
-  /* end[LOG4J] */
-
-  /* if[JCL] */
-  private static final org.apache.commons.logging.Log jclLogger =
-      org.apache.commons.logging.LogFactory.getLog(DefaultJsonMapper.class);
-
-  /* end[JCL] */
+  private static final Logger logger =
+      Logger.getLogger(DefaultJsonMapper.class.getName());
 
   /**
    * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
@@ -89,23 +77,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // affiliations - it's a list except when there are none, then it turns
       // into an object). Check for that special case here.
       if (isEmptyObject(json)) {
-        /* if[JUL] */
-        if (julLogger.isLoggable(java.util.logging.Level.FINER))
-          julLogger.finer("Encountered {} when we should've seen []. "
+        if (logger.isLoggable(FINER))
+          logger.finer("Encountered {} when we should've seen []. "
               + "Mapping the {} as an empty list and moving on...");
-        /* end[JUL] */
-
-        /* if[LOG4J] */
-        if (log4jLogger.isTraceEnabled())
-          log4jLogger.trace("Encountered {} when we should've seen []. "
-              + "Mapping the {} as an empty list and moving on...");
-        /* end[LOG4J] */
-
-        /* if[JCL] */
-        if (jclLogger.isTraceEnabled())
-          jclLogger.trace("Encountered {} when we should've seen []. "
-              + "Mapping the {} as an empty list and moving on...");
-        /* end[JCL] */
 
         return new ArrayList<T>();
       }
@@ -192,48 +166,18 @@ public class DefaultJsonMapper implements JsonMapper {
         // If no Facebook field name was specified in the annotation, assume
         // it's the same name as the Java field
         if (StringUtils.isBlank(facebookFieldName)) {
-          /* if[JUL] */
-          if (julLogger.isLoggable(java.util.logging.Level.FINER))
-            julLogger.finer("No explicit Facebook field name found for "
-                + field + ", so defaulting to the field name itself ("
+          if (logger.isLoggable(FINER))
+            logger.finer("No explicit Facebook field name found for " + field
+                + ", so defaulting to the field name itself ("
                 + field.getName() + ")");
-          /* end[JUL] */
-
-          /* if[LOG4J] */
-          if (log4jLogger.isTraceEnabled())
-            log4jLogger.trace("No explicit Facebook field name found for "
-                + field + ", so defaulting to the field name itself ("
-                + field.getName() + ")");
-          /* end[LOG4J] */
-
-          /* if[JCL] */
-          if (jclLogger.isTraceEnabled())
-            jclLogger.trace("No explicit Facebook field name found for "
-                + field + ", so defaulting to the field name itself ("
-                + field.getName() + ")");
-          /* end[JCL] */
 
           facebookFieldName = field.getName();
         }
 
         if (!jsonObject.has(facebookFieldName)) {
-          /* if[JUL] */
-          if (julLogger.isLoggable(java.util.logging.Level.FINER))
-            julLogger.finer("No JSON value present for '" + facebookFieldName
+          if (logger.isLoggable(FINER))
+            logger.finer("No JSON value present for '" + facebookFieldName
                 + "', skipping. Offending JSON is '" + json + "'.");
-          /* end[JUL] */
-
-          /* if[LOG4J] */
-          if (log4jLogger.isTraceEnabled())
-            log4jLogger.trace("No JSON value present for '" + facebookFieldName
-                + "', skipping. Offending JSON is '" + json + "'.");
-          /* end[LOG4J] */
-
-          /* if[JCL] */
-          if (jclLogger.isTraceEnabled())
-            jclLogger.trace("No JSON value present for '" + facebookFieldName
-                + "', skipping. Offending JSON is '" + json + "'.");
-          /* end[JCL] */
 
           continue;
         }
@@ -313,23 +257,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // affiliations - it's a list except when there are none, then it turns
       // into an object). Check for that special case here.
       if (isEmptyObject(json)) {
-        /* if[JUL] */
-        if (julLogger.isLoggable(java.util.logging.Level.FINER))
-          julLogger.finer("Encountered {} when we should've seen []. "
+        if (logger.isLoggable(FINER))
+          logger.finer("Encountered {} when we should've seen []. "
               + "Mapping the {} as an empty list and moving on...");
-        /* end[JUL] */
-
-        /* if[LOG4J] */
-        if (log4jLogger.isTraceEnabled())
-          log4jLogger.trace("Encountered {} when we should've seen []. "
-              + "Mapping the {} as an empty list and moving on...");
-        /* end[LOG4J] */
-
-        /* if[JCL] */
-        if (jclLogger.isTraceEnabled())
-          jclLogger.trace("Encountered {} when we should've seen []. "
-              + "Mapping the {} as an empty list and moving on...");
-        /* end[JCL] */
 
         return new ArrayList<Object>();
       }
@@ -487,26 +417,10 @@ public class DefaultJsonMapper implements JsonMapper {
       // If no Facebook field name was specified in the annotation, assume
       // it's the same name as the Java field
       if (StringUtils.isBlank(facebookFieldName)) {
-        /* if[JUL] */
-        if (julLogger.isLoggable(java.util.logging.Level.FINER))
-          julLogger.finer("No explicit Facebook field name found for " + field
+        if (logger.isLoggable(FINER))
+          logger.finer("No explicit Facebook field name found for " + field
               + ", so defaulting to the field name itself (" + field.getName()
               + ")");
-        /* end[JUL] */
-
-        /* if[LOG4J] */
-        if (log4jLogger.isTraceEnabled())
-          log4jLogger.trace("No explicit Facebook field name found for "
-              + field + ", so defaulting to the field name itself ("
-              + field.getName() + ")");
-        /* end[LOG4J] */
-
-        /* if[JCL] */
-        if (jclLogger.isTraceEnabled())
-          jclLogger.trace("No explicit Facebook field name found for " + field
-              + ", so defaulting to the field name itself (" + field.getName()
-              + ")");
-        /* end[JCL] */
 
         facebookFieldName = field.getName();
       }
@@ -618,23 +532,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // instead of an empty string. Look for that here.
       if (rawValue instanceof JSONArray)
         if (((JSONArray) rawValue).length() == 0) {
-          /* if[JUL] */
-          if (julLogger.isLoggable(java.util.logging.Level.FINER))
-            julLogger.finer("Coercing an empty JSON array "
+          if (logger.isLoggable(FINER))
+            logger.finer("Coercing an empty JSON array "
                 + "to an empty string for " + fieldWithAnnotation);
-          /* end[JUL] */
-
-          /* if[LOG4J] */
-          if (log4jLogger.isTraceEnabled())
-            log4jLogger.trace("Coercing an empty JSON array "
-                + "to an empty string for " + fieldWithAnnotation);
-          /* end[LOG4J] */
-
-          /* if[JCL] */
-          if (jclLogger.isTraceEnabled())
-            jclLogger.trace("Coercing an empty JSON array "
-                + "to an empty string for " + fieldWithAnnotation);
-          /* end[JCL] */
 
           return "";
         }

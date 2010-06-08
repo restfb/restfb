@@ -1,3 +1,5 @@
+1.5.2
+
 1.5.1 (May 14, 2010)
 * OAuth support broke in DefaultLegacyFacebookClient because Facebook changed the "token" param to "access_token".
   Thanks to Antonio Casula for the initial problem report.

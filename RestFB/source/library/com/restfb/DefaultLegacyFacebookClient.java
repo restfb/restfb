@@ -23,6 +23,7 @@
 package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
+import static java.util.logging.Level.INFO;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -354,20 +355,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
       throw new FacebookNetworkException("Facebook POST failed", t);
     }
 
-    /* if[JUL] */
-    if (julLogger.isLoggable(java.util.logging.Level.INFO))
-      julLogger.info("Facebook responded with " + response);
-    /* end[JUL] */
-
-    /* if[LOG4J] */
-    if (log4jLogger.isInfoEnabled())
-      log4jLogger.info("Facebook responded with " + response);
-    /* end[LOG4J] */
-
-    /* if[JCL] */
-    if (jclLogger.isInfoEnabled())
-      jclLogger.info("Facebook responded with " + response);
-    /* end[JCL] */
+    if (logger.isLoggable(INFO))
+      logger.info("Facebook responded with " + response);
 
     // If we get any HTTP response code other than a 200 OK, throw an exception
     if (HTTP_OK != response.getStatusCode())

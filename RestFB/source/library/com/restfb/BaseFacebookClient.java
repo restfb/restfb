@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 import com.restfb.util.StringUtils;
 
@@ -62,7 +63,7 @@ abstract class BaseFacebookClient {
    * Legacy API error response 'error_msg' attribute name.
    */
   private static final String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
-  
+
   /**
    * Reserved access token parameter name.
    */
@@ -71,21 +72,7 @@ abstract class BaseFacebookClient {
   /**
    * Logger.
    */
-  
-  /* if[JUL] */
-  protected final java.util.logging.Logger julLogger =
-      java.util.logging.Logger.getLogger(getClass().getName());
-  /* end[JUL] */
-
-  /* if[LOG4J] */
-  protected final org.apache.log4j.Logger log4jLogger =
-      org.apache.log4j.Logger.getLogger(getClass());
-  /* end[LOG4J] */
-
-  /* if[JCL] */
-  protected final org.apache.commons.logging.Log jclLogger =
-      org.apache.commons.logging.LogFactory.getLog(getClass());    
-  /* end[JCL] */
+  protected final Logger logger = Logger.getLogger(getClass().getName());
 
   /**
    * If the {@code error_code} JSON field is present, we've got a response

@@ -22,6 +22,8 @@
 
 package com.restfb.util;
 
+import static java.util.logging.Level.WARNING;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +31,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * A collection of string-handling utility methods.
@@ -45,21 +48,8 @@ public final class StringUtils {
   /**
    * Logger.
    */
-
-  /* if[JUL] */
-  private static final java.util.logging.Logger julLogger =
-      java.util.logging.Logger.getLogger(StringUtils.class.getName());
-  /* end[JUL] */
-
-  /* if[LOG4J] */
-  private static final org.apache.log4j.Logger log4jLogger =
-      org.apache.log4j.Logger.getLogger(StringUtils.class);
-  /* end[LOG4J] */
-
-  /* if[JCL] */
-  private static final org.apache.commons.logging.Log jclLogger =
-      org.apache.commons.logging.LogFactory.getLog(StringUtils.class);
-  /* end[JCL] */
+  private static final Logger logger =
+      Logger.getLogger(StringUtils.class.getName());
 
   /**
    * Prevents instantiation.
@@ -193,19 +183,8 @@ public final class StringUtils {
           reader.close();
         } catch (Throwable t) {
           // Really nothing we can do but log the error
-
-          /* if[JUL] */
-          if (julLogger.isLoggable(java.util.logging.Level.WARNING))
-            julLogger.warning("Unable to close stream, continuing on: " + t);
-          /* end[JUL] */
-
-          /* if[LOG4J] */
-          log4jLogger.warn("Unable to close stream, continuing on...", t);
-          /* end[LOG4J] */
-
-          /* if[JCL] */
-          jclLogger.warn("Unable to close stream, continuing on...", t);
-          /* end[JCL] */
+          if (logger.isLoggable(WARNING))
+            logger.warning("Unable to close stream, continuing on: " + t);
         }
     }
   }

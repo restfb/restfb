@@ -8,14 +8,8 @@
 	<property name="sourceDir" value="source" />
 	<property name="librarySourceDir" value="${sourceDir}/library" />
 	<property name="antBuildDir" value="build/ant" />
-	<property name="antJulClassesDir" value="${antBuildDir}/jul-classes" />
-	<property name="antLog4jClassesDir" value="${antBuildDir}/log4j-classes" />
-	<property name="antJclClassesDir" value="${antBuildDir}/jcl-classes" />
-	<property name="antJulSourceDir" value="${antBuildDir}/jul-source" />
-	<property name="antLog4jSourceDir" value="${antBuildDir}/log4j-source" />
-	<property name="antJclSourceDir" value="${antBuildDir}/jcl-source" />
-	<property name="antJavadocDir" value="${antBuildDir}/javadoc" />
-	<property name="dependenciesDir" value="dependencies" />
+	<property name="antClassesDir" value="${antBuildDir}/classes" />
+	<property name="antJavadocDir" value="${antBuildDir}/javadoc" />	
 	<property name="licensingDir" value="licensing" />
 	<property name="miscDir" value="misc" />
 	<property name="websiteDir" value="website" />
@@ -23,106 +17,32 @@
 	<!-- Java switches -->
 	<property name="javaVersion" value="1.5" />
 	<property name="javaDebug" value="true" />
-	<property name="javaDebugLevel" value="lines,source" />
-
-	<!-- Classpaths -->
-	<path id="compilationClasspath">
-		<fileset dir="${dependenciesDir}">
-			<include name="**/*.jar" />
-		</fileset>
-	</path>
+	<property name="javaDebugLevel" value="lines,source" />	
 
 	<!-- Other -->
 	<property name="libraryVersion" value="1.6" />
 
-	<target name="munge-source"
-		description="Creates a copy of the RestFB source that uses 'mungeType' logging.">
-		<taskdef name="munge" classname="MungeTask" classpath="${dependenciesDir}/munge.jar" />
-		<mkdir dir="${mungeSourceDir}" />
-		<munge todir="${mungeSourceDir}">
-			<fileset dir="${librarySourceDir}" excludes="test/**,examples**" />
-			<arg value="-D${mungeType}" />
-		</munge>
-	</target>
-
-	<target name="compile-munged" description="Compiles a munged version of the code">
-		<mkdir dir="${mungeClassesDir}" />
+	<target name="compile" description="Compiles library code">
+		<mkdir dir="${antClassesDir}" />
 		<echo message="Compiling..." />
-		<javac srcdir="${mungeSourceDir}" destdir="${mungeClassesDir}"
+		<javac srcdir="${librarySourceDir}" destdir="${antClassesDir}"
 			source="${javaVersion}" target="${javaVersion}" debug="${javaDebug}"
-			debuglevel="${javaDebugLevel}">
-			<classpath>
-				<path refid="compilationClasspath" />
-			</classpath>
-		</javac>
-	</target>
-
-	<target name="compile" description="Compiles all munged versions of the code">
-		<antcall target="munge-source">
-			<param name="mungeSourceDir" value="${antJulSourceDir}" />
-			<param name="mungeType" value="JUL" />
-		</antcall>
-
-		<antcall target="munge-source">
-			<param name="mungeSourceDir" value="${antLog4jSourceDir}" />
-			<param name="mungeType" value="LOG4J" />
-		</antcall>
-
-		<antcall target="munge-source">
-			<param name="mungeSourceDir" value="${antJclSourceDir}" />
-			<param name="mungeType" value="JCL" />
-		</antcall>
-
-		<antcall target="compile-munged">
-			<param name="mungeSourceDir" value="${antJulSourceDir}" />
-			<param name="mungeClassesDir" value="${antJulClassesDir}" />
-		</antcall>
-
-		<antcall target="compile-munged">
-			<param name="mungeSourceDir" value="${antLog4jSourceDir}" />
-			<param name="mungeClassesDir" value="${antLog4jClassesDir}" />
-		</antcall>
-
-		<antcall target="compile-munged">
-			<param name="mungeSourceDir" value="${antJclSourceDir}" />
-			<param name="mungeClassesDir" value="${antJclClassesDir}" />
-		</antcall>
-	</target>
-
-	<target name="jar-munged" description="Creates a JAR with a munged version of the code">
-		<jar destfile="${antBuildDir}/restfb-${mungeType}-${libraryVersion}.jar">
-			<fileset dir="${mungeSourceDir}" />
-			<fileset dir="${mungeClassesDir}" />
-		</jar>
+			debuglevel="${javaDebugLevel}"/>		
 	</target>
 
 	<target name="dist" depends="clean, compile, doc" description="Builds the RestFB distribution">
 		<echo message="Building distribution..." />
-
-		<antcall target="jar-munged">
-			<param name="mungeType" value="jul" />
-			<param name="mungeSourceDir" value="${antJulSourceDir}" />
-			<param name="mungeClassesDir" value="${antJulClassesDir}" />
-		</antcall>
-
-		<antcall target="jar-munged">
-			<param name="mungeType" value="log4j" />
-			<param name="mungeSourceDir" value="${antLog4jSourceDir}" />
-			<param name="mungeClassesDir" value="${antLog4jClassesDir}" />
-		</antcall>
-
-		<antcall target="jar-munged">
-			<param name="mungeType" value="jcl" />
-			<param name="mungeSourceDir" value="${antJclSourceDir}" />
-			<param name="mungeClassesDir" value="${antJclClassesDir}" />
-		</antcall>
+		
+		<jar destfile="${antBuildDir}/restfb-${libraryVersion}.jar">
+			<fileset dir="${librarySourceDir}" />
+			<fileset dir="${antClassesDir}" />
+		</jar>		
 
 		<zip destfile="${antBuildDir}/restfb-${libraryVersion}.zip">
 			<fileset dir=".">
 				<include name="${sourceDir}/**" />
 				<include name="${licensingDir}/**" />
-				<include name="${miscDir}/**" />
-				<include name="${dependenciesDir}/**" />
+				<include name="${miscDir}/**" />				
 				<include name="build.xml" />
 			</fileset>
 			<fileset dir="${antBuildDir}">
@@ -143,9 +63,6 @@
 
 		<javadoc destdir="${antJavadocDir}" author="true" version="true"
 			use="true" windowtitle="RestFB" access="public" stylesheetfile="${miscDir}/javadoc.css">
-			<classpath>
-				<path refid="compilationClasspath" />
-			</classpath>
 			<packageset dir="${librarySourceDir}" defaultexcludes="yes" />
 			<doctitle><![CDATA[<h1>RestFB</h1>]]></doctitle>
 			<bottom><![CDATA[<i>RestFB version ${libraryVersion}. Copyright &#169; 2010 Mark Allen. All Rights Reserved.</i>]]></bottom>
