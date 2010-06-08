@@ -566,7 +566,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
       parameterStringBuilder.append(StringUtils.urlEncode(parameter.name));
       parameterStringBuilder.append("=");
-      parameterStringBuilder.append(StringUtils.urlEncode(parameter.value));
+      parameterStringBuilder.append(urlEncodedValueForParameterName(
+        parameter.name, parameter.value));
     }
 
     return parameterStringBuilder.toString();

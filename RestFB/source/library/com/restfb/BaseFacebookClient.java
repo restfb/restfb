@@ -174,6 +174,31 @@ abstract class BaseFacebookClient {
   }
 
   /**
+   * Gets the URL-encoded version of the given {@code value} for the parameter
+   * named {@code name}.
+   * <p>
+   * Includes special-case handling for access token parameters where we check
+   * if the token is already URL-encoded - if so, we don't encode again. All
+   * other parameter types are always URL-encoded.
+   * 
+   * @param name
+   *          The name of the parameter whose value should be URL-encoded and
+   *          returned.
+   * @param value
+   *          The value of the parameter which should be URL-encoded and
+   *          returned.
+   * @return The URL-encoded version of the given {@code value}.
+   */
+  protected String urlEncodedValueForParameterName(String name, String value) {
+    // Special handling for access_token -
+    // '%7C' is the pipe character and will be present in any access_token
+    // parameter that's already URL-encoded. If we see this combination, don't
+    // URL-encode. Otherwise, URL-encode as normal.
+    return ACCESS_TOKEN_PARAM_NAME.equals(name) && value.contains("%7C") ? value
+        : StringUtils.urlEncode(value);
+  }
+
+  /**
    * Verifies that the provided parameter names don't collide with the ones we
    * internally pass along to Facebook.
    * 

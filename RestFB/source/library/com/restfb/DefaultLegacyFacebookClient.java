@@ -428,7 +428,10 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
 
       parameterStringBuilder.append(StringUtils.urlEncode(entry.getKey()));
       parameterStringBuilder.append("=");
-      parameterStringBuilder.append(StringUtils.urlEncode(entry.getValue()));
+      parameterStringBuilder
+        .append(usesAccessTokenAuthentication() ? urlEncodedValueForParameterName(
+          entry.getKey(), entry.getValue())
+            : StringUtils.urlEncode(entry.getValue()));
     }
 
     return parameterStringBuilder.toString();
