@@ -311,7 +311,7 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * The user's first name
+   * The user's first name.
    * 
    * @return The user's first name.
    */
