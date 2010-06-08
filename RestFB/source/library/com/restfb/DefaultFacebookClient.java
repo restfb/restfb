@@ -101,14 +101,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   private static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
 
   /**
+   * Creates a Facebook Graph API client with no access token.
+   * <p>
+   * Without an access token, you can view and search public graph data but
+   * can't do much else.
+   */
+  public DefaultFacebookClient() {
+    this(null);
+  }
+
+  /**
    * Creates a Facebook Graph API client with the given {@code accessToken}.
    * 
    * @param accessToken
    *          A Facebook OAuth2 access token.
-   * @throws NullPointerException
-   *           If {@code accessToken} is {@code null}.
-   * @throws IllegalArgumentException
-   *           If {@code accessToken} is a blank string.
    */
   public DefaultFacebookClient(String accessToken) {
     this(accessToken, new DefaultWebRequestor(), new DefaultJsonMapper());
@@ -127,17 +133,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *          The {@link JsonMapper} implementation to use for mapping API
    *          response JSON to Java objects.
    * @throws NullPointerException
-   *           If any parameter is {@code null}.
-   * @throws IllegalArgumentException
-   *           If either {@code accessToken} is a blank string.
+   *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor,
       JsonMapper jsonMapper) {
-    verifyParameterPresence("accessToken", accessToken);
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);
 
-    this.accessToken = accessToken.trim();
+    this.accessToken = StringUtils.trimToNull(accessToken);
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
 
@@ -553,9 +556,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    */
   protected String toParameterString(Parameter... parameters)
       throws FacebookJsonMappingException {
-    parameters =
-        parametersWithAdditionalParameter(Parameter.with(
-          ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
+
+    if (!StringUtils.isBlank(accessToken))
+      parameters =
+          parametersWithAdditionalParameter(Parameter.with(
+            ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
+
     parameters =
         parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME,
           "json"), parameters);
