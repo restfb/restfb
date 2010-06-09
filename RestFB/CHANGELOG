@@ -1,4 +1,13 @@
-1.5.2
+1.5.2 (June 8, 2010)
+* No longer require an access token for the Graph API (now have a default constructor for DefaultFacebookClient).
+  Thanks to Yoav Shapira for the enhancement request.
+* Facebook changed the data in the Photo Tag object - updated to reflect that.
+  Thanks to Max for reporting. 
+* Facebook added fields to the User object - updated to reflect that.
+  Thanks to fellahst and ndimiduk for reporting.
+* HTTP GET operations executed by DefaultWebRequestor now use httpUrlConnection.setUseCaches(false).
+  Thanks to Jumpa for reporting this.
+* Special check to only URL-encode access token if it's not already URL-encoded.
 
 1.5.1 (May 14, 2010)
 * OAuth support broke in DefaultLegacyFacebookClient because Facebook changed the "token" param to "access_token".
