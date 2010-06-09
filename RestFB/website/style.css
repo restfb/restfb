@@ -199,6 +199,10 @@ div.spacer {
 	font-weight: bold;
 }
 
+#facebook td {
+	vertical-align: middle;	
+}
+
 /* end main */
 
 /* highlight */

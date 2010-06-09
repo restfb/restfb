@@ -27,7 +27,7 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6 (released May XX 2010) of the library is available via <a href="http://restfb.googlecode.com">Google Code</a>.
+			Version 1.6 (released June XX 2010) of the library is available via <a href="http://restfb.googlecode.com">Google Code</a>.
 			<br/>
 			<a href="http://restfb.googlecode.com/svn/branches/RB-1.6/RestFB/CHANGELOG">View the changelog</a>, 
 			or <a href="http://restfb.googlecode.com/files/restfb-1.6.zip">download it here</a>.
@@ -71,19 +71,12 @@
 		<h2>How To Use It</h2>
 		
 		<p>
-			The RestFB distribution includes builds that support <code><a href="http://java.sun.com/javase/6/docs/api/java/util/logging/package-summary.html">java.util.logging</a></code> (no dependencies),
-			<a href="http://logging.apache.org/log4j/">log4j</a>, and <a href="http://commons.apache.org/logging/">commons-logging</a>.  Just pick the <code>JAR</code>
-			you'd like to use and add it to your classpath.  That's it!
-
-			<ul>
-				<li><code>restfb-jul-1.6.jar</code> (Uses <code>java.util.logging</code>, no dependencies)</li>
-				<li><code>restfb-log4j-1.6.jar</code> (Has a dependency on log4j)</li>
-				<li><code>restfb-jcl-1.6.jar</code> (Has a dependency on commons-logging)</li>
-			</ul>			
+			The RestFB distribution uses <code><a href="http://java.sun.com/javase/6/docs/api/java/util/logging/package-summary.html">java.util.logging</a></code>
+			for logging.  If you're a Log4j or Commons-Logging user and would like to integrate <code>java.util.logging</code>...TODO
 		</p>
 		
 		<p>
-			Once you've selected your <code>JAR</code>, you can <a href="#running-examples">run some sample code</a>,
+			You can <a href="#running-examples">run some sample code</a>,
 			jump straight to the <a href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
 		</p>
 		
@@ -91,13 +84,6 @@
 			If you're looking for help or additional examples, please check out the <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>
 			or visit the <code>source/examples</code> directory in the RestFB distribution.
 		</p>		
-		
-		<p>
-			It's helpful to see exactly what's going over the wire to verify that RestFB is taking your input and sending it
-			to Facebook exactly as you expect.  This should "just work" with the <code>java.util.logging</code> build of RestFB.
-			If you're using log4j, feel free to use <a href="log4j.xml">this example log4j.xml file</a> in your own project
-			to see full HTTP <code>GET/POST</code> request and response data logged to standard output.
-		</p>
 		
 		<div class="spacer"></div>
 		
@@ -118,9 +104,15 @@
 // <a href="javadoc/com/restfb/DefaultFacebookClient.html">DefaultFacebookClient</a> is the <a href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a> implementation
 // that ships with RestFB. You can customize it by passing in
 // custom <a href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
-// write your own FacebookClient instead for maximum control
+// write your own FacebookClient instead for maximum control.
 
-FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);</pre>		
+FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);
+
+// As of 1.5.2, it's also possible to create a client that can only access
+// publicly-visible data - no access token required. 
+// Note that many of the examples below <b>will not work</b> unless you supply an access token! 
+
+FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();</pre>	
 		
 		<div class="spacer"></div>
 		
@@ -737,11 +729,24 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 			RestFB is written by <a href="mailto:maa@xmog.com">Mark Allen</a> and sponsored by <a href="http://xmog.com">Transmogrify, LLC</a>. 
 		</p>
 		
-		<p>
+		<p style="float: left; width: 75%;">
 			Transmogrify is a Philadelphia-area software shop specializing in product design and Java, .NET, iPhone, and iPad software development.
 			Our experience runs the gamut from embedded systems to Oracle DBA work to the latest in web and mobile technologies.
 			Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com">product@xmog.com</a> if you need a hand with
-			anything software-related.  We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support. 
+			anything software-related.  We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.			
+		</p>		
+		
+		<!-- Facebook Like Badge START --><div id="facebook" style="float: right; width: 20%;"><div style="background: #3B5998;padding: 5px;"><img src="http://www.facebook.com/images/fb_logo_small.png" alt="Facebook"/><img src="http://badge.facebook.com/badge/121285737883612.24403847.361498001.png" alt="" width="0" height="0"/></div><div style="background: #EDEFF4;display: block;border-right: 1px solid #D8DFEA;border-bottom: 1px solid #D8DFEA;border-left: 1px solid #D8DFEA;margin: 0px;padding: 0px 0px 5px 0px;"><div style="background: #EDEFF4;display: block;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="top"><img src="http://www.facebook.com/images/icons/fbpage.gif" alt=""/></td><td valign="top"><p style="color: #808080;font-family: verdana;font-size: 11px;margin: 0px 0px 0px 0px;padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/revetkn" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: normal;margin: 0px;padding: 0px 0px 0px 0px;text-decoration: none;" title="Mark Allen">Mark Allen</a> likes</p></td></tr></table></div><div style="background: #FFFFFF;clear: both;display: block;margin: 0px;overflow: hidden;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="middle"><a href="http://www.facebook.com/pages/Conshohocken-PA/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none;" title="Transmogrify"><img src="http://www.facebook.com/profile/pic.php?oid=AAAAAwAgACAAAAAPOvPy4ogfG375u9_v9yR48VzCcQPLtwAzPzinLSAOhR6gQivgRo8lfs8wvF9y3ASEpNNjhJqXyRGkZ8cBJFyfefjDRLQYapa0rYDRj6jTqO3dW8_dEx64jVbgYRCON_u6&size=square" style="border: 0px;margin: 0px;padding: 0px;" alt="Transmogrify"/></a></td><td valign="middle" style="padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/pages/Conshohocken-PA/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none;" title="Transmogrify">Transmogrify</a></td></tr></table></div></div><div style="display: block;float: right;margin: 0px;padding: 4px 0px 0px 0px;"><a href="http://www.facebook.com/facebook-widgets/likebadges.php" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: none;margin: 0px;padding: 0px;text-decoration: none;" title="Create your Like Badge">Create your Like Badge</a></div></div><!-- Facebook Like Badge END -->		
+		
+		
+		<p style="clear: both;">
+			Development of RestFB was aided by
+			<ul>
+				<li><a href="http://en.wikipedia.org/wiki/Dead_Cities,_Red_Seas_%26_Lost_Ghosts"><i>Dead Cities, Red Seas, &amp; Lost Ghosts</i> (M83)</a></li>
+				<li><a href="http://en.wikipedia.org/wiki/Orbital_2"><i>Orbital 2</i> (Orbital)</a></li>
+				<li><a href="http://en.wikipedia.org/wiki/The_Crew_(7_Seconds_album)"><i>The Crew</i> (7 Seconds)</a></li>
+				<li><a href="http://en.wikipedia.org/wiki/Treatment_5"><i>Treatment 5</i> (Osker)</a></li>
+			</ul>			
 		</p>
 		
 		<p>
