@@ -22,7 +22,7 @@
 
 package com.restfb;
 
-import static com.restfb.JSONObject.NULL;
+import static com.restfb.json.JSONObject.NULL;
 import static java.util.logging.Level.FINER;
 
 import java.lang.reflect.Field;
@@ -36,6 +36,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import com.restfb.json.JSONArray;
+import com.restfb.json.JSONException;
+import com.restfb.json.JSONObject;
 import com.restfb.util.ReflectionUtils;
 import com.restfb.util.StringUtils;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;

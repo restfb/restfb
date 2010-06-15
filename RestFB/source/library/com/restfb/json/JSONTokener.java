@@ -1,4 +1,4 @@
-package com.restfb;
+package com.restfb.json;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import java.io.StringReader;
  * @author JSON.org
  * @version 2008-09-18
  */
-class JSONTokener {
+public class JSONTokener {
 
   private int index;
   private Reader reader;

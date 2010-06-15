@@ -28,6 +28,8 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import com.restfb.json.JSONException;
+import com.restfb.json.JSONObject;
 import com.restfb.util.StringUtils;
 
 /**

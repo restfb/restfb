@@ -34,6 +34,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.json.JSONArray;
+import com.restfb.json.JSONException;
+import com.restfb.json.JSONObject;
 import com.restfb.util.StringUtils;
 
 /**
@@ -256,8 +259,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public Map<String, Object> fetchObjects(List<String> ids,
-      Parameter... parameters) throws FacebookException {
+  public JSONObject fetchObjects(List<String> ids, Parameter... parameters)
+      throws FacebookException {
     verifyParameterPresence("ids", ids);
 
     if (ids.size() == 0)
@@ -279,9 +282,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       ids.set(i, id);
     }
 
-    return jsonMapper.toJavaObject(makeRequest("",
-      parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME,
-        StringUtils.join(ids)), parameters)));
+    try {
+      return new JSONObject(makeRequest("", parametersWithAdditionalParameter(
+        Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
+    } catch (JSONException e) {
+      throw new FacebookJsonMappingException("Unable to map JSON to Java.", e);
+    }
   }
 
   /**

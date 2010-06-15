@@ -1,4 +1,4 @@
-package com.restfb;
+package com.restfb.json;
 
 /**
  * The <code>JSONString</code> interface allows a <code>toJSONString()</code>
@@ -8,7 +8,7 @@ package com.restfb;
  * <code>toJSONString</code> method will be used instead of the default behavior
  * of using the Object's <code>toString()</code> method and quoting the result.
  */
-interface JSONString {
+public interface JSONString {
   /**
    * The <code>toJSONString</code> method allows a class to produce its own JSON
    * serialization.

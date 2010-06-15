@@ -1,4 +1,4 @@
-package com.restfb;
+package com.restfb.json;
 
 /**
  * The JSONException is thrown by the JSON.org classes then things are amiss.
@@ -6,7 +6,7 @@ package com.restfb;
  * @author JSON.org
  * @version 2008-09-18
  */
-class JSONException extends Exception {
+public class JSONException extends Exception {
   private Throwable cause;
 
   /**

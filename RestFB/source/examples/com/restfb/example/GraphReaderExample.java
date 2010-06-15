@@ -38,6 +38,7 @@ import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.FacebookException;
 import com.restfb.Parameter;
+import com.restfb.json.JSONObject;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
 import com.restfb.types.User;
@@ -77,7 +78,7 @@ public class GraphReaderExample {
     facebookClient = new DefaultFacebookClient(accessToken);
   }
 
-  void runEverything() throws FacebookException {    
+  void runEverything() throws FacebookException {
     fetchObject();
     fetchObjects();
     fetchObjectsAsMap();
@@ -109,7 +110,7 @@ public class GraphReaderExample {
     ids.add("http://restfb.com");
     ids.add("http://www.imdb.com/title/tt0117500/");
 
-    Map<String, Object> results = facebookClient.fetchObjects(ids);
+    JSONObject results = facebookClient.fetchObjects(ids);
     out.println("Results are " + results);
   }
 

@@ -1,4 +1,4 @@
-package com.restfb;
+package com.restfb.json;
 
 /*
  Copyright (c) 2002 JSON.org
@@ -90,7 +90,7 @@ import java.util.TreeSet;
  * @version 2009-03-06
  */
 @SuppressWarnings("unchecked")
-class JSONObject {
+public class JSONObject {
 
   /**
    * JSONObject.NULL is equivalent to the value that JavaScript calls null,

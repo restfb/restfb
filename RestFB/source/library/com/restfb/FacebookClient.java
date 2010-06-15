@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.restfb.json.JSONObject;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -107,18 +108,18 @@ public interface FacebookClient {
   /**
    * Fetches multiple <a
    * href="http://developers.facebook.com/docs/reference/api/">Graph API
-   * objects</a> in a single call and returns them as a {@link java.util.Map}.
+   * objects</a> in a single call and returns them as a JSON object.
    * 
    * @param ids
    *          IDs of the objects to fetch, e.g. {@code "me", "arjun"}.
    * @param parameters
    *          URL parameters to include in the API call (optional).
-   * @return A mapping of Graph API object IDs to Graph API objects.
+   * @return A JSON object which maps Graph API object IDs to Graph API objects.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  Map<String, Object> fetchObjects(List<String> ids, Parameter... parameters)
+  JSONObject fetchObjects(List<String> ids, Parameter... parameters)
       throws FacebookException;
 
   /**

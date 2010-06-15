@@ -1,4 +1,4 @@
-package com.restfb;
+package com.restfb.json;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -61,7 +61,7 @@ import java.io.Writer;
  * @author JSON.org
  * @version 2008-09-22
  */
-class JSONWriter {
+public class JSONWriter {
   private static final int maxdepth = 20;
 
   /**

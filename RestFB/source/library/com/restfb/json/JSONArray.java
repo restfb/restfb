@@ -1,4 +1,4 @@
-package com.restfb;
+package com.restfb.json;
 
 /*
  Copyright (c) 2002 JSON.org
@@ -80,7 +80,7 @@ import java.util.Map;
  * @version 2009-04-13
  */
 @SuppressWarnings("unchecked")
-class JSONArray {
+public class JSONArray {
 
   /**
    * The arrayList where the JSONArray's properties are kept.
