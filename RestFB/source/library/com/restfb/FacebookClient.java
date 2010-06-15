@@ -23,8 +23,11 @@
 package com.restfb;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook
@@ -52,6 +55,7 @@ import java.util.Map;
  * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @author ScottHernandez
  */
 public interface FacebookClient {
   /**
@@ -243,4 +247,90 @@ public interface FacebookClient {
    *           If an error occurred while attempting to delete the object.
    */
   boolean deleteObject(String object) throws FacebookException;
+
+  /**
+   * Converts an arbitrary number of {@code sessionKeys} to OAuth2 access
+   * tokens.
+   * <p>
+   * See the <a
+   * href="http://developers.facebook.com/docs/guides/upgrade">Facebook Platform
+   * Upgrade Guide</a> for details on how this process works and why you should
+   * convert your application's session keys if you haven't already.
+   * 
+   * @param apiKey
+   *          A Facebook API key.
+   * @param secretKey
+   *          A Facebook application secret key.
+   * @param sessionKeys
+   *          The Old REST API session keys to be converted to OAuth2 access
+   *          tokens.
+   * @return A list of access tokens ordered to correspond to the {@code
+   *         sessionKeys} argument list.
+   * @throws FacebookException
+   *           If an error occurs while attempting to convert the session keys
+   *           to API keys.
+   * @since 1.6
+   */
+  List<AccessToken> convertSessionKeysToAccessTokens(String apiKey,
+      String secretKey, String... sessionKeys) throws FacebookException;
+
+  /**
+   * Represents an access token/expiration date pair.
+   * <p>
+   * Facebook returns these types when converting from legacy session keys to
+   * OAuth2 access tokens - see
+   * {@link com.restfb.FacebookClient#convertSessionKeysToAccessTokens(String, String, String...)}
+   * for details.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   */
+  public static class AccessToken {
+    @Facebook("access_token")
+    private String accessToken;
+
+    @Facebook
+    private Date expires;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The access token's value.
+     * 
+     * @return The access token's value.
+     */
+    public String getAccessToken() {
+      return accessToken;
+    }
+
+    /**
+     * The date on which the access token expires.
+     * 
+     * @return The date on which the access token expires.
+     */
+    public Date getExpires() {
+      return expires == null ? null : (Date) expires.clone();
+    }
+  }
 }

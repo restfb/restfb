@@ -351,6 +351,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   }
 
   /**
+   * @see com.restfb.FacebookClient#convertSessionKeysToAccessTokens(java.lang.String,
+   *      java.lang.String, java.lang.String[])
+   */
+  @Override
+  public List<AccessToken> convertSessionKeysToAccessTokens(String apiKey,
+      String secretKey, String... sessionKeys) throws FacebookException {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
    * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
