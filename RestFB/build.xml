@@ -107,9 +107,7 @@
 	<target name="clean" description="Gets rid of build artifacts">
 		<echo message="Cleaning build artifacts..." />
 		<delete includeEmptyDirs="true">
-			<fileset dir="${buildDir}" defaultexcludes="false">				
-				<exclude name=".svn" />								
-			</fileset>
+			<fileset dir="${buildDir}" includes="**/*" />
 		</delete>
 	</target>
 
