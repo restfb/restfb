@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
@@ -62,7 +63,7 @@ public interface FacebookClient {
   /**
    * Fetches a single <a
    * href="http://developers.facebook.com/docs/reference/api/">Graph API
-   * object</a>.
+   * object</a>, mapping the result to an instance of {@code objectType}.
    * 
    * @param <T>
    *          Java type to map to.
@@ -81,9 +82,30 @@ public interface FacebookClient {
       throws FacebookException;
 
   /**
+   * Fetches a single <a
+   * href="http://developers.facebook.com/docs/reference/api/">Graph API
+   * object</a>.
+   * <p>
+   * Useful if you don't know at compile time what kind of data you plan to
+   * request at run time.
+   * 
+   * @param object
+   *          ID of the object to fetch, e.g. {@code "me"}.
+   * @param parameters
+   *          URL parameters to include in the API call (optional).
+   * @return A JSON object which contains the requested object's data.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6
+   */
+  JsonObject fetchObject(String object, Parameter... parameters)
+      throws FacebookException;
+
+  /**
    * Fetches multiple <a
    * href="http://developers.facebook.com/docs/reference/api/">Graph API
-   * objects</a> in a single call.
+   * objects</a> in a single call, mapping the results to an instance of {@code
+   * objectType}.
    * <p>
    * You'll need to write your own container type ({@code objectType}) to hold
    * the results. See <a href="http://restfb.com">http://restfb.com</a> for an
@@ -109,6 +131,9 @@ public interface FacebookClient {
    * Fetches multiple <a
    * href="http://developers.facebook.com/docs/reference/api/">Graph API
    * objects</a> in a single call and returns them as a JSON object.
+   * <p>
+   * Useful if you don't know at compile time what kind of data you plan to
+   * request at run time.
    * 
    * @param ids
    *          IDs of the objects to fetch, e.g. {@code "me", "arjun"}.
@@ -123,7 +148,8 @@ public interface FacebookClient {
       throws FacebookException;
 
   /**
-   * Fetches a Graph API {@code Connection} type.
+   * Fetches a Graph API {@code Connection} type, mapping the result to an
+   * instance of {@code connectionType}.
    * 
    * @param <T>
    *          Java type to map to.
@@ -142,8 +168,27 @@ public interface FacebookClient {
       Parameter... parameters) throws FacebookException;
 
   /**
+   * Fetches a Graph API connection type and returns it as a JSON object.
+   * <p>
+   * Useful if you don't know at compile time what kind of data you plan to
+   * request at run time.
+   * 
+   * @param connection
+   *          The name of the connection, e.g. {@code "me/feed"}.
+   * @param parameters
+   *          URL parameters to include in the API call (optional).
+   * @return A JSON object which contains the requested Connection's data.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6
+   */
+  JsonObject fetchConnection(String connection, Parameter... parameters)
+      throws FacebookException;
+
+  /**
    * Executes an <a
-   * href="http://developers.facebook.com/docs/reference/fql/">FQL query</a>.
+   * href="http://developers.facebook.com/docs/reference/fql/">FQL query</a>,
+   * mapping the resultset to a {@code List} of instances of {@code objectType}.
    * 
    * @param <T>
    *          Java type to map to.
@@ -161,6 +206,27 @@ public interface FacebookClient {
    */
   <T> List<T> executeQuery(String query, Class<T> objectType,
       Parameter... parameters) throws FacebookException;
+
+  /**
+   * Executes an <a
+   * href="http://developers.facebook.com/docs/reference/fql/">FQL query</a> and
+   * returns the resultset as a JSON array.
+   * <p>
+   * Useful if you don't know at compile time what kind of data you plan to
+   * request at run time.
+   * 
+   * @param query
+   *          The FQL query to execute, e.g. {@code
+   *          "SELECT name FROM user WHERE uid=220439 or uid=7901103"}.
+   * @param parameters
+   *          URL parameters to include in the API call (optional).
+   * @return A JSON array representation of the query results.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6
+   */
+  JsonArray executeQuery(String query, Parameter... parameters)
+      throws FacebookException;
 
   /**
    * Executes an <a
@@ -191,9 +257,34 @@ public interface FacebookClient {
       Parameter... parameters) throws FacebookException;
 
   /**
+   * Executes an <a
+   * href="http://developers.facebook.com/docs/reference/fql/">FQL
+   * multiquery</a>, which allows you to batch multiple queries into a single
+   * request.
+   * <p>
+   * Useful if you don't know at compile time what kind of data you plan to
+   * request at run time.
+   * 
+   * @param queries
+   *          A mapping of query names to queries. This is marshaled to JSON and
+   *          sent over the wire to the Facebook API endpoint as the {@code
+   *          queries} parameter.
+   * @param parameters
+   *          URL parameters to include in the API call (optional).
+   * @return A JSON object which contains a mapping of query names to query
+   *         results.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6
+   */
+  JsonObject executeMultiquery(Map<String, String> queries,
+      Parameter... parameters) throws FacebookException;
+
+  /**
    * Performs a <a
    * href="http://developers.facebook.com/docs/api#publishing">Graph API
-   * publish</a> operation on the given {@code connection}.
+   * publish</a> operation on the given {@code connection}, mapping the result
+   * to an instance of {@code objectType}.
    * 
    * @param <T>
    *          Java type to map to.
@@ -214,8 +305,27 @@ public interface FacebookClient {
   /**
    * Performs a <a
    * href="http://developers.facebook.com/docs/api#publishing">Graph API
-   * publish</a> operation on the given {@code connection} and include a file -
-   * a photo, for example - in the publish request.
+   * publish</a> operation on the given {@code connection}.
+   * 
+   * @param connection
+   *          The Connection to publish to.
+   * @param parameters
+   *          URL parameters to include in the API call.
+   * @return A JSON object which contains the Facebook response to your publish
+   *         request.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6
+   */
+  JsonObject publish(String connection, Parameter... parameters)
+      throws FacebookException;
+
+  /**
+   * Performs a <a
+   * href="http://developers.facebook.com/docs/api#publishing">Graph API
+   * publish</a> operation on the given {@code connection} and includes a file -
+   * a photo, for example - in the publish request, and mapping the result to an
+   * instance of {@code objectType}.
    * 
    * @param <T>
    *          Java type to map to.
@@ -235,6 +345,27 @@ public interface FacebookClient {
   <T> T publish(String connection, Class<T> objectType,
       InputStream binaryAttachment, Parameter... parameters)
       throws FacebookException;
+
+  /**
+   * Performs a <a
+   * href="http://developers.facebook.com/docs/api#publishing">Graph API
+   * publish</a> operation on the given {@code connection} and include a file -
+   * a photo, for example - in the publish request.
+   * 
+   * @param connection
+   *          The Connection to publish to.
+   * @param binaryAttachment
+   *          The file to include in the publish request - a photo, for example.
+   * @param parameters
+   *          URL parameters to include in the API call.
+   * @return A JSON object which contains the Facebook response to your publish
+   *         request.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6
+   */
+  JsonObject publish(String connection, InputStream binaryAttachment,
+      Parameter... parameters) throws FacebookException;
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph

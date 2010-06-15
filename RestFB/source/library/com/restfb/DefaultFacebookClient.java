@@ -203,6 +203,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   }
 
   /**
+   * @see com.restfb.FacebookClient#fetchConnection(java.lang.String,
+   *      com.restfb.Parameter[])
+   */
+  @Override
+  public JsonObject fetchConnection(String connection, Parameter... parameters)
+      throws FacebookException {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
    * @see com.restfb.FacebookClient#fetchObject(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
@@ -212,6 +222,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     verifyParameterPresence("object", object);
     verifyParameterPresence("objectType", objectType);
     return jsonMapper.toJavaObject(makeRequest(object, parameters), objectType);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#fetchObject(java.lang.String,
+   *      com.restfb.Parameter[])
+   */
+  @Override
+  public JsonObject fetchObject(String object, Parameter... parameters)
+      throws FacebookException {
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -304,6 +324,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   }
 
   /**
+   * @see com.restfb.FacebookClient#publish(java.lang.String,
+   *      java.io.InputStream, com.restfb.Parameter[])
+   */
+  @Override
+  public JsonObject publish(String connection, InputStream binaryAttachment,
+      Parameter... parameters) throws FacebookException {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      com.restfb.Parameter[])
    */
@@ -311,6 +341,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   public <T> T publish(String connection, Class<T> objectType,
       Parameter... parameters) throws FacebookException {
     return publish(connection, objectType, null, parameters);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#publish(java.lang.String,
+   *      com.restfb.Parameter[])
+   */
+  @Override
+  public JsonObject publish(String connection, Parameter... parameters)
+      throws FacebookException {
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -357,12 +397,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   }
 
   /**
-   * @see com.restfb.FacebookClient#convertSessionKeysToAccessTokens(java.lang.String,
-   *      java.lang.String, java.lang.String[])
+   * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map,
+   *      com.restfb.Parameter[])
    */
   @Override
-  public List<AccessToken> convertSessionKeysToAccessTokens(String apiKey,
-      String secretKey, String... sessionKeys) throws FacebookException {
+  public JsonObject executeMultiquery(Map<String, String> queries,
+      Parameter... parameters) throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -386,6 +426,26 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     return jsonMapper.toJavaList(makeRequest("fql.query", true, false, false,
       null, parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME,
         query), parameters)), objectType);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
+   *      com.restfb.Parameter[])
+   */
+  @Override
+  public JsonArray executeQuery(String query, Parameter... parameters)
+      throws FacebookException {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#convertSessionKeysToAccessTokens(java.lang.String,
+   *      java.lang.String, java.lang.String[])
+   */
+  @Override
+  public List<AccessToken> convertSessionKeysToAccessTokens(String apiKey,
+      String secretKey, String... sessionKeys) throws FacebookException {
+    throw new UnsupportedOperationException();
   }
 
   /**
