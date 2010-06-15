@@ -35,9 +35,9 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import com.restfb.WebRequestor.Response;
-import com.restfb.json.JSONArray;
-import com.restfb.json.JSONException;
-import com.restfb.json.JSONObject;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
 import com.restfb.util.StringUtils;
 
 /**
@@ -293,25 +293,25 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
       parameters.add(additionalParameter);
     }
 
-    JSONObject normalizedJson = new JSONObject();
+    JsonObject normalizedJson = new JsonObject();
 
     try {
-      JSONArray jsonArray =
-          new JSONArray(makeRequest("fql.multiquery", sessionKey, parameters
+      JsonArray jsonArray =
+          new JsonArray(makeRequest("fql.multiquery", sessionKey, parameters
             .toArray(new Parameter[0])));
 
       for (int i = 0; i < jsonArray.length(); i++) {
-        JSONObject jsonObject = jsonArray.getJSONObject(i);
+        JsonObject jsonObject = jsonArray.getJSONObject(i);
 
         // For empty resultsets, Facebook will return an empty object instead of
         // an empty list. Hack around that here.
-        JSONArray resultsArray =
-            jsonObject.get("fql_result_set") instanceof JSONArray ? jsonObject
-              .getJSONArray("fql_result_set") : new JSONArray();
+        JsonArray resultsArray =
+            jsonObject.get("fql_result_set") instanceof JsonArray ? jsonObject
+              .getJSONArray("fql_result_set") : new JsonArray();
 
         normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to process fql.multiquery JSON response", e);
     }

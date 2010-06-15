@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.restfb.json.JSONObject;
+import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -119,7 +119,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JSONObject fetchObjects(List<String> ids, Parameter... parameters)
+  JsonObject fetchObjects(List<String> ids, Parameter... parameters)
       throws FacebookException;
 
   /**

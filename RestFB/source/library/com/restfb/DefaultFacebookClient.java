@@ -34,9 +34,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.restfb.WebRequestor.Response;
-import com.restfb.json.JSONArray;
-import com.restfb.json.JSONException;
-import com.restfb.json.JSONObject;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
 import com.restfb.util.StringUtils;
 
 /**
@@ -177,24 +177,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     String next = null;
 
     try {
-      JSONObject jsonObject =
-          new JSONObject(makeRequest(connection, parameters));
+      JsonObject jsonObject =
+          new JsonObject(makeRequest(connection, parameters));
 
       // Pull out data
-      JSONArray jsonData = jsonObject.getJSONArray("data");
+      JsonArray jsonData = jsonObject.getJSONArray("data");
       for (int i = 0; i < jsonData.length(); i++)
         data.add(jsonMapper.toJavaObject(jsonData.get(i).toString(),
           connectionType));
 
       // Pull out paging info, if present
       if (jsonObject.has("paging")) {
-        JSONObject jsonPaging = jsonObject.getJSONObject("paging");
+        JsonObject jsonPaging = jsonObject.getJSONObject("paging");
         previous =
             jsonPaging.has("previous") ? jsonPaging.getString("previous")
                 : null;
         next = jsonPaging.has("next") ? jsonPaging.getString("next") : null;
       }
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to map connection JSON to Java objects", e);
     }
@@ -244,11 +244,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     }
 
     try {
-      JSONObject jsonObject =
-          new JSONObject(makeRequest("", parametersWithAdditionalParameter(
+      JsonObject jsonObject =
+          new JsonObject(makeRequest("", parametersWithAdditionalParameter(
             Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
       return jsonMapper.toJavaObject(jsonObject.toString(), objectType);
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to map connection JSON to Java objects", e);
     }
@@ -259,7 +259,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public JSONObject fetchObjects(List<String> ids, Parameter... parameters)
+  public JsonObject fetchObjects(List<String> ids, Parameter... parameters)
       throws FacebookException {
     verifyParameterPresence("ids", ids);
 
@@ -283,9 +283,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     }
 
     try {
-      return new JSONObject(makeRequest("", parametersWithAdditionalParameter(
+      return new JsonObject(makeRequest("", parametersWithAdditionalParameter(
         Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to map JSON to Java.", e);
     }
   }
@@ -330,27 +330,27 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
             + "the queries you passed to this method.");
 
     try {
-      JSONArray jsonArray =
-          new JSONArray(makeRequest("fql.multiquery", true, false, false, null,
+      JsonArray jsonArray =
+          new JsonArray(makeRequest("fql.multiquery", true, false, false, null,
             parametersWithAdditionalParameter(Parameter.with(
               QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
 
-      JSONObject normalizedJson = new JSONObject();
+      JsonObject normalizedJson = new JsonObject();
 
       for (int i = 0; i < jsonArray.length(); i++) {
-        JSONObject jsonObject = jsonArray.getJSONObject(i);
+        JsonObject jsonObject = jsonArray.getJSONObject(i);
 
         // For empty resultsets, Facebook will return an empty object instead of
         // an empty list. Hack around that here.
-        JSONArray resultsArray =
-            jsonObject.get("fql_result_set") instanceof JSONArray ? jsonObject
-              .getJSONArray("fql_result_set") : new JSONArray();
+        JsonArray resultsArray =
+            jsonObject.get("fql_result_set") instanceof JsonArray ? jsonObject
+              .getJSONArray("fql_result_set") : new JsonArray();
 
         normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }
 
       return jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to process fql.multiquery JSON response", e);
     }
@@ -533,18 +533,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       if (!json.startsWith("{"))
         return;
 
-      JSONObject errorObject = new JSONObject(json);
+      JsonObject errorObject = new JsonObject(json);
 
       if (errorObject == null || !errorObject.has(ERROR_ATTRIBUTE_NAME))
         return;
 
-      JSONObject innerErrorObject =
+      JsonObject innerErrorObject =
           errorObject.getJSONObject(ERROR_ATTRIBUTE_NAME);
 
       throw new FacebookGraphException(innerErrorObject
         .getString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject
         .getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to process the Facebook API response", e);
     }

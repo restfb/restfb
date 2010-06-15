@@ -22,7 +22,7 @@
 
 package com.restfb;
 
-import static com.restfb.json.JSONObject.NULL;
+import static com.restfb.json.JsonObject.NULL;
 import static java.util.logging.Level.FINER;
 
 import java.lang.reflect.Field;
@@ -36,9 +36,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import com.restfb.json.JSONArray;
-import com.restfb.json.JSONException;
-import com.restfb.json.JSONObject;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 import com.restfb.util.StringUtils;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
@@ -94,22 +94,22 @@ public class DefaultJsonMapper implements JsonMapper {
       // Doing this simplifies mapping, so we don't have to worry about having a
       // little placeholder object that only has a "data" value.
       try {
-        JSONObject jsonObject = new JSONObject(json);
-        String[] fieldNames = JSONObject.getNames(jsonObject);
+        JsonObject jsonObject = new JsonObject(json);
+        String[] fieldNames = JsonObject.getNames(jsonObject);
 
         if (fieldNames != null) {
           boolean hasSingleDataProperty =
               fieldNames.length == 1 && "data".equals(fieldNames[0]);
           Object jsonDataObject = jsonObject.get("data");
 
-          if (!hasSingleDataProperty && !(jsonDataObject instanceof JSONArray))
+          if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray))
             throw new FacebookJsonMappingException(
               "JSON is an object but is being mapped as a list "
                   + "instead. Offending JSON is '" + json + "'.");
 
           json = jsonDataObject.toString();
         }
-      } catch (JSONException e) {
+      } catch (JsonException e) {
         // Should never get here, but just in case...
         throw new FacebookJsonMappingException(
           "Unable to convert Facebook response " + "JSON to a list of "
@@ -120,7 +120,7 @@ public class DefaultJsonMapper implements JsonMapper {
     try {
       List<T> list = new ArrayList<T>();
 
-      JSONArray jsonArray = new JSONArray(json);
+      JsonArray jsonArray = new JsonArray(json);
       for (int i = 0; i < jsonArray.length(); i++)
         list.add(toJavaObject(jsonArray.get(i).toString(), type));
 
@@ -155,7 +155,7 @@ public class DefaultJsonMapper implements JsonMapper {
         else
           return toPrimitiveJavaType(json, type);
 
-      JSONObject jsonObject = new JSONObject(json);
+      JsonObject jsonObject = new JsonObject(json);
       T instance = createInstance(type);
 
       // For each Facebook-annotated field on the current Java object, pull data
@@ -210,8 +210,8 @@ public class DefaultJsonMapper implements JsonMapper {
     Map<String, Object> map = new HashMap<String, Object>();
 
     try {
-      JSONObject jsonObject = new JSONObject(json);
-      String[] fieldNames = JSONObject.getNames(jsonObject);
+      JsonObject jsonObject = new JsonObject(json);
+      String[] fieldNames = JsonObject.getNames(jsonObject);
 
       if (fieldNames != null) {
         for (String fieldName : fieldNames) {
@@ -233,7 +233,7 @@ public class DefaultJsonMapper implements JsonMapper {
             map.put(fieldName, toJavaObject(fieldJson));
         }
       }
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to map JSON to a Java Map. " + "Offending JSON is '" + json
             + "'.", e);
@@ -274,22 +274,22 @@ public class DefaultJsonMapper implements JsonMapper {
       // Doing this simplifies mapping, so we don't have to worry about having a
       // little placeholder object that only has a "data" value.
       try {
-        JSONObject jsonObject = new JSONObject(json);
-        String[] fieldNames = JSONObject.getNames(jsonObject);
+        JsonObject jsonObject = new JsonObject(json);
+        String[] fieldNames = JsonObject.getNames(jsonObject);
 
         if (fieldNames != null) {
           boolean hasSingleDataProperty =
               fieldNames.length == 1 && "data".equals(fieldNames[0]);
           Object jsonDataObject = jsonObject.get("data");
 
-          if (!hasSingleDataProperty && !(jsonDataObject instanceof JSONArray))
+          if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray))
             throw new FacebookJsonMappingException(
               "JSON is an object but is being mapped as a list "
                   + "instead. Offending JSON is '" + json + "'.");
 
           json = jsonDataObject.toString();
         }
-      } catch (JSONException e) {
+      } catch (JsonException e) {
         // Should never get here, but just in case...
         throw new FacebookJsonMappingException(
           "Unable to convert Facebook response "
@@ -300,7 +300,7 @@ public class DefaultJsonMapper implements JsonMapper {
     try {
       List<Object> list = new ArrayList<Object>();
 
-      JSONArray jsonArray = new JSONArray(json);
+      JsonArray jsonArray = new JsonArray(json);
       for (int i = 0; i < jsonArray.length(); i++) {
         String elementJson = jsonArray.get(i).toString();
         list.add(elementJson.startsWith("{") ? toJavaObject(elementJson)
@@ -363,7 +363,7 @@ public class DefaultJsonMapper implements JsonMapper {
       return NULL;
 
     if (object instanceof List<?>) {
-      JSONArray jsonArray = new JSONArray();
+      JsonArray jsonArray = new JsonArray();
       for (Object o : (List<?>) object)
         jsonArray.put(toJsonInternal(o));
 
@@ -371,7 +371,7 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (object instanceof Map<?, ?>) {
-      JSONObject jsonObject = new JSONObject();
+      JsonObject jsonObject = new JsonObject();
       for (Entry<?, ?> entry : ((Map<?, ?>) object).entrySet()) {
         if (!(entry.getKey() instanceof String))
           throw new FacebookJsonMappingException(
@@ -382,7 +382,7 @@ public class DefaultJsonMapper implements JsonMapper {
         try {
           jsonObject.put((String) entry.getKey(), toJsonInternal(entry
             .getValue()));
-        } catch (JSONException e) {
+        } catch (JsonException e) {
           throw new FacebookJsonMappingException("Unable to process value '"
               + entry.getValue() + "' for key '" + entry.getKey() + "' in Map "
               + object, e);
@@ -408,7 +408,7 @@ public class DefaultJsonMapper implements JsonMapper {
         ReflectionUtils.findFieldsWithAnnotation(object.getClass(),
           Facebook.class);
 
-    JSONObject jsonObject = new JSONObject();
+    JsonObject jsonObject = new JsonObject();
 
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
 
@@ -505,14 +505,14 @@ public class DefaultJsonMapper implements JsonMapper {
    * @param facebookFieldName
    *          Specifies what JSON field to pull "raw" data from.
    * @return A
-   * @throws JSONException
+   * @throws JsonException
    *           If an error occurs while mapping JSON to Java.
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
    */
   protected Object toJavaType(
-      FieldWithAnnotation<Facebook> fieldWithAnnotation, JSONObject jsonObject,
-      String facebookFieldName) throws JSONException,
+      FieldWithAnnotation<Facebook> fieldWithAnnotation, JsonObject jsonObject,
+      String facebookFieldName) throws JsonException,
       FacebookJsonMappingException {
     Class<?> type = fieldWithAnnotation.getField().getType();
     Object rawValue = jsonObject.get(facebookFieldName);
@@ -523,9 +523,9 @@ public class DefaultJsonMapper implements JsonMapper {
 
     if (String.class.equals(type)) {
       // Special handling here for better error checking.
-      // Since JSONObject.getString() will return literal JSON text even if it's
+      // Since JsonObject.getString() will return literal JSON text even if it's
       // _not_ a JSON string, we check the marshaled type and bail if needed.
-      // For example, calling JSONObject.getString("results") on the below
+      // For example, calling JsonObject.getString("results") on the below
       // JSON...
       // {"results":[{"name":"Mark Allen"}]}
       // ... would return the string "[{"name":"Mark Allen"}]" instead of
@@ -533,8 +533,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
       // Per Antonello Naccarato, sometimes FB will return an empty JSON array
       // instead of an empty string. Look for that here.
-      if (rawValue instanceof JSONArray)
-        if (((JSONArray) rawValue).length() == 0) {
+      if (rawValue instanceof JsonArray)
+        if (((JsonArray) rawValue).length() == 0) {
           if (logger.isLoggable(FINER))
             logger.finer("Coercing an empty JSON array "
                 + "to an empty string for " + fieldWithAnnotation);

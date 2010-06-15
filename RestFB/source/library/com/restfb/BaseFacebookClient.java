@@ -28,8 +28,8 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import com.restfb.json.JSONException;
-import com.restfb.json.JSONObject;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
 import com.restfb.util.StringUtils;
 
 /**
@@ -96,15 +96,15 @@ abstract class BaseFacebookClient {
       if (!json.startsWith("{"))
         return;
 
-      JSONObject errorObject = null;
+      JsonObject errorObject = null;
 
       // We need to swallow exceptions here because it's possible to get a legit
       // Facebook response that contains illegal JSON (e.g.
       // users.getLoggedInUser returning 1240077) - we're only interested in
       // whether or not there's an error_code field present.
       try {
-        errorObject = new JSONObject(json);
-      } catch (JSONException e) {}
+        errorObject = new JsonObject(json);
+      } catch (JsonException e) {}
 
       if (errorObject == null
           || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME))
@@ -113,7 +113,7 @@ abstract class BaseFacebookClient {
       throw new FacebookResponseStatusException(errorObject
         .getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), errorObject
         .getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
-    } catch (JSONException e) {
+    } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to process the Facebook API response", e);
     }
@@ -153,7 +153,7 @@ abstract class BaseFacebookClient {
     if (queries.keySet().size() == 0)
       throw new IllegalArgumentException("You must specify at least one query.");
 
-    JSONObject jsonObject = new JSONObject();
+    JsonObject jsonObject = new JsonObject();
 
     for (Entry<String, String> entry : queries.entrySet()) {
       if (StringUtils.isBlank(entry.getKey())
@@ -165,7 +165,7 @@ abstract class BaseFacebookClient {
       try {
         jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
           .trimToEmpty(entry.getValue()));
-      } catch (JSONException e) {
+      } catch (JsonException e) {
         // Shouldn't happen unless bizarre input is provided
         throw new IllegalArgumentException("Unable to convert " + queries
             + " to JSON.", e);
