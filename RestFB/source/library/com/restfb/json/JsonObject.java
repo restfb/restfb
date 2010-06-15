@@ -601,7 +601,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the key is not found or if the value is not a JsonArray.
    */
-  public JsonArray getJSONArray(String key) throws JsonException {
+  public JsonArray getJsonArray(String key) throws JsonException {
     Object o = get(key);
     if (o instanceof JsonArray) {
       return (JsonArray) o;
@@ -619,7 +619,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the key is not found or if the value is not a JsonObject.
    */
-  public JsonObject getJSONObject(String key) throws JsonException {
+  public JsonObject getJsonObject(String key) throws JsonException {
     Object o = get(key);
     if (o instanceof JsonObject) {
       return (JsonObject) o;
@@ -919,7 +919,7 @@ public class JsonObject {
    *          A key string.
    * @return A JsonArray which is the value.
    */
-  public JsonArray optJSONArray(String key) {
+  public JsonArray optJsonArray(String key) {
     Object o = opt(key);
     return o instanceof JsonArray ? (JsonArray) o : null;
   }
@@ -932,7 +932,7 @@ public class JsonObject {
    *          A key string.
    * @return A JsonObject which is the value.
    */
-  public JsonObject optJSONObject(String key) {
+  public JsonObject optJsonObject(String key) {
     Object o = opt(key);
     return o instanceof JsonObject ? (JsonObject) o : null;
   }
@@ -1333,7 +1333,7 @@ public class JsonObject {
    * @throws JsonException
    *           If any of the values are non-finite numbers.
    */
-  public JsonArray toJSONArray(JsonArray names) throws JsonException {
+  public JsonArray toJsonArray(JsonArray names) throws JsonException {
     if (names == null || names.length() == 0) {
       return null;
     }
@@ -1483,7 +1483,7 @@ public class JsonObject {
     if (value instanceof JsonString) {
       Object o;
       try {
-        o = ((JsonString) value).toJSONString();
+        o = ((JsonString) value).toJsonString();
       } catch (Exception e) {
         throw new JsonException(e);
       }
@@ -1536,7 +1536,7 @@ public class JsonObject {
     }
     try {
       if (value instanceof JsonString) {
-        Object o = ((JsonString) value).toJSONString();
+        Object o = ((JsonString) value).toJsonString();
         if (o instanceof String) {
           return (String) o;
         }

@@ -301,13 +301,13 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
             .toArray(new Parameter[0])));
 
       for (int i = 0; i < jsonArray.length(); i++) {
-        JsonObject jsonObject = jsonArray.getJSONObject(i);
+        JsonObject jsonObject = jsonArray.getJsonObject(i);
 
         // For empty resultsets, Facebook will return an empty object instead of
         // an empty list. Hack around that here.
         JsonArray resultsArray =
             jsonObject.get("fql_result_set") instanceof JsonArray ? jsonObject
-              .getJSONArray("fql_result_set") : new JsonArray();
+              .getJsonArray("fql_result_set") : new JsonArray();
 
         normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }

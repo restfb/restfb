@@ -328,7 +328,7 @@ public class JsonArray {
    *           If there is no value for the index. or if the value is not a
    *           JsonArray
    */
-  public JsonArray getJSONArray(int index) throws JsonException {
+  public JsonArray getJsonArray(int index) throws JsonException {
     Object o = get(index);
     if (o instanceof JsonArray) {
       return (JsonArray) o;
@@ -346,7 +346,7 @@ public class JsonArray {
    *           If there is no value for the index or if the value is not a
    *           JsonObject
    */
-  public JsonObject getJSONObject(int index) throws JsonException {
+  public JsonObject getJsonObject(int index) throws JsonException {
     Object o = get(index);
     if (o instanceof JsonObject) {
       return (JsonObject) o;
@@ -543,7 +543,7 @@ public class JsonArray {
    * @return A JsonArray value, or null if the index has no value, or if the
    *         value is not a JsonArray.
    */
-  public JsonArray optJSONArray(int index) {
+  public JsonArray optJsonArray(int index) {
     Object o = opt(index);
     return o instanceof JsonArray ? (JsonArray) o : null;
   }
@@ -557,7 +557,7 @@ public class JsonArray {
    *          The index must be between 0 and length() - 1.
    * @return A JsonObject value.
    */
-  public JsonObject optJSONObject(int index) {
+  public JsonObject optJsonObject(int index) {
     Object o = opt(index);
     return o instanceof JsonObject ? (JsonObject) o : null;
   }
@@ -876,7 +876,7 @@ public class JsonArray {
    * @throws JsonException
    *           If any of the names are null.
    */
-  public JsonObject toJSONObject(JsonArray names) throws JsonException {
+  public JsonObject toJsonObject(JsonArray names) throws JsonException {
     if (names == null || names.length() == 0 || length() == 0) {
       return null;
     }

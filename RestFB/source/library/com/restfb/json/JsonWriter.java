@@ -94,7 +94,7 @@ public class JsonWriter {
   /**
    * Make a fresh JsonWriter. It can be used to build one JSON text.
    */
-  public JSONWriter(Writer w) {
+  public JsonWriter(Writer w) {
     this.comma = false;
     this.mode = 'i';
     this.stack = new JsonObject[maxdepth];

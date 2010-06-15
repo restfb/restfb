@@ -181,14 +181,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
           new JsonObject(makeRequest(connection, parameters));
 
       // Pull out data
-      JsonArray jsonData = jsonObject.getJSONArray("data");
+      JsonArray jsonData = jsonObject.getJsonArray("data");
       for (int i = 0; i < jsonData.length(); i++)
         data.add(jsonMapper.toJavaObject(jsonData.get(i).toString(),
           connectionType));
 
       // Pull out paging info, if present
       if (jsonObject.has("paging")) {
-        JsonObject jsonPaging = jsonObject.getJSONObject("paging");
+        JsonObject jsonPaging = jsonObject.getJsonObject("paging");
         previous =
             jsonPaging.has("previous") ? jsonPaging.getString("previous")
                 : null;
@@ -338,13 +338,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       JsonObject normalizedJson = new JsonObject();
 
       for (int i = 0; i < jsonArray.length(); i++) {
-        JsonObject jsonObject = jsonArray.getJSONObject(i);
+        JsonObject jsonObject = jsonArray.getJsonObject(i);
 
         // For empty resultsets, Facebook will return an empty object instead of
         // an empty list. Hack around that here.
         JsonArray resultsArray =
             jsonObject.get("fql_result_set") instanceof JsonArray ? jsonObject
-              .getJSONArray("fql_result_set") : new JsonArray();
+              .getJsonArray("fql_result_set") : new JsonArray();
 
         normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }
@@ -539,7 +539,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
         return;
 
       JsonObject innerErrorObject =
-          errorObject.getJSONObject(ERROR_ATTRIBUTE_NAME);
+          errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
 
       throw new FacebookGraphException(innerErrorObject
         .getString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject
