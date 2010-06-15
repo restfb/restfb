@@ -23,8 +23,13 @@
 package com.restfb.util;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,6 +41,7 @@ import java.util.Set;
  * A collection of reflection-related utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @author ScottHernandez
  * @since 1.6
  */
 public final class ReflectionUtils {
@@ -94,6 +100,7 @@ public final class ReflectionUtils {
     while (!Object.class.equals(type)) {
       for (Field field : type.getDeclaredFields()) {
         T annotation = field.getAnnotation(annotationType);
+
         if (annotation != null)
           fieldsWithAnnotation
             .add(new FieldWithAnnotation<T>(field, annotation));
@@ -144,6 +151,104 @@ public final class ReflectionUtils {
     });
 
     return Collections.unmodifiableList(methods);
+  }
+
+  /**
+   * TODO: document and test
+   * 
+   * @param <T>
+   * @param type
+   * @param annotationType
+   * @return
+   */
+  public static <T extends Annotation> List<MethodWithAnnotation<T>> findMethodsWithAnnotation(
+      Class<?> type, Class<T> annotationType) {
+    // TODO: cache off results per type instead of reflecting every time
+
+    List<MethodWithAnnotation<T>> methodsWithAnnotation =
+        new ArrayList<MethodWithAnnotation<T>>();
+
+    // Walk all superclasses looking for annotated methods until we hit
+    // Object
+    while (!Object.class.equals(type)) {
+      if (type == null)
+        break;
+
+      for (Method method : type.getDeclaredMethods()) {
+        T annotation = method.getAnnotation(annotationType);
+        if (annotation != null)
+          methodsWithAnnotation.add(new MethodWithAnnotation<T>(method,
+            annotation));
+      }
+
+      type = type.getSuperclass();
+    }
+
+    return Collections.unmodifiableList(methodsWithAnnotation);
+  }
+
+  /**
+   * Get the (first) class that parameterizes the Field supplied.
+   * 
+   * TODO: finish docs, test
+   * 
+   * @param field
+   *          the field
+   * @return the class that parameterizes the field, or null if field is not
+   *         parameterized
+   */
+  public static Class<?> getParameterizedClass(final Field field) {
+    return getParameterizedClass(field, 0);
+  }
+
+  /**
+   * Get the class that parameterizes the Field supplied, at the index supplied
+   * (field can be parameterized with multiple param classes).
+   * 
+   * TODO: finish docs, test
+   * 
+   * @param field
+   *          the field
+   * @param index
+   *          the index of the parameterizing class
+   * @return the class that parameterizes the field, or null if field is not
+   *         parameterized
+   */
+  public static Class<?> getParameterizedClass(final Field field,
+      final int index) {
+    if (field.getGenericType() instanceof ParameterizedType) {
+      ParameterizedType ptype = (ParameterizedType) field.getGenericType();
+      if ((ptype.getActualTypeArguments() != null)
+          && (ptype.getActualTypeArguments().length <= index)) {
+        return null;
+      }
+      Type paramType = ptype.getActualTypeArguments()[index];
+      if (paramType instanceof GenericArrayType) {
+        Class<?> arrayType =
+            (Class<?>) ((GenericArrayType) paramType).getGenericComponentType();
+        return Array.newInstance(arrayType, 0).getClass();
+      } else {
+        if (paramType instanceof ParameterizedType) {
+          ParameterizedType paramPType = (ParameterizedType) paramType;
+          return (Class<?>) paramPType.getRawType();
+        } else {
+          if (paramType instanceof TypeVariable<?>) {
+            // TODO: Figure out what to do... Walk back up the to
+            // the parent class and try to get the variable type
+            // from the T/V/X
+            throw new RuntimeException("Generic Typed Class not supported:  <"
+                + ((TypeVariable<?>) paramType).getName() + "> = "
+                + ((TypeVariable<?>) paramType).getBounds()[0]);
+          } else if (paramType instanceof Class<?>) {
+            return (Class<?>) paramType;
+          } else {
+            throw new RuntimeException(
+              "Unknown type... pretty bad... call for help, wave your hands... yeah!");
+          }
+        }
+      }
+    }
+    return null;
   }
 
   /**
@@ -318,6 +423,63 @@ public final class ReflectionUtils {
     public String toString() {
       return String.format("Field %s.%s (%s): %s", field.getDeclaringClass()
         .getName(), field.getName(), field.getType(), annotation);
+    }
+  }
+
+  /**
+   * A method/annotation pair.
+   * 
+   * @author ScottHernandez
+   */
+  public static class MethodWithAnnotation<T extends Annotation> {
+    /**
+     * A method.
+     */
+    private Method method;
+
+    /**
+     * An annotation on the method.
+     */
+    private T annotation;
+
+    /**
+     * Creates a method/annotation pair.
+     * 
+     * @param method
+     *          A method.
+     * @param annotation
+     *          An annotation on the method.
+     */
+    public MethodWithAnnotation(Method method, T annotation) {
+      this.method = method;
+      this.annotation = annotation;
+    }
+
+    /**
+     * Gets the method.
+     * 
+     * @return The method.
+     */
+    public Method getMethod() {
+      return method;
+    }
+
+    /**
+     * Gets the annotation on the method.
+     * 
+     * @return The annotation on the method.
+     */
+    public T getAnnotation() {
+      return annotation;
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return String.format("Method %s %s.%s : %s", method.getReturnType(),
+        method.getDeclaringClass().getName(), method.getName(), annotation);
     }
   }
 }

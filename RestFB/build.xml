@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<!--
-  @author Transmogrify, LLC.
+  @author Mark Allen
+  @author ScottHernandez
 -->
 <project name="RestFB" default="dist">
 
 	<!-- Directories -->
 	<property name="sourceDir" value="source" />
 	<property name="librarySourceDir" value="${sourceDir}/library" />
-	<property name="antBuildDir" value="build/ant" />
-	<property name="antClassesDir" value="${antBuildDir}/classes" />
-	<property name="antJavadocDir" value="${antBuildDir}/javadoc" />	
+	<property name="testSourceDir" value="${sourceDir}/test" />
+	<property name="buildDir" value="build" />
+	<property name="classesDir" value="${buildDir}/classes" />
+	<property name="javadocDir" value="${buildDir}/javadoc" />
 	<property name="licensingDir" value="licensing" />
 	<property name="miscDir" value="misc" />
 	<property name="websiteDir" value="website" />
@@ -17,35 +19,35 @@
 	<!-- Java switches -->
 	<property name="javaVersion" value="1.5" />
 	<property name="javaDebug" value="true" />
-	<property name="javaDebugLevel" value="lines,source" />	
+	<property name="javaDebugLevel" value="lines,source" />
 
 	<!-- Other -->
 	<property name="libraryVersion" value="1.6" />
 
 	<target name="compile" description="Compiles library code">
-		<mkdir dir="${antClassesDir}" />
+		<mkdir dir="${classesDir}" />
 		<echo message="Compiling..." />
-		<javac srcdir="${librarySourceDir}" destdir="${antClassesDir}"
+		<javac srcdir="${librarySourceDir}" destdir="${classesDir}"
 			source="${javaVersion}" target="${javaVersion}" debug="${javaDebug}"
-			debuglevel="${javaDebugLevel}"/>		
+			debuglevel="${javaDebugLevel}" />
 	</target>
 
 	<target name="dist" depends="clean, compile, doc" description="Builds the RestFB distribution">
 		<echo message="Building distribution..." />
-		
-		<jar destfile="${antBuildDir}/restfb-${libraryVersion}.jar">
-			<fileset dir="${librarySourceDir}" />
-			<fileset dir="${antClassesDir}" />
-		</jar>		
 
-		<zip destfile="${antBuildDir}/restfb-${libraryVersion}.zip">
+		<jar destfile="${buildDir}/restfb-${libraryVersion}.jar">
+			<fileset dir="${librarySourceDir}" />
+			<fileset dir="${classesDir}" />
+		</jar>
+
+		<zip destfile="${buildDir}/restfb-${libraryVersion}.zip">
 			<fileset dir=".">
 				<include name="${sourceDir}/**" />
 				<include name="${licensingDir}/**" />
-				<include name="${miscDir}/**" />				
+				<include name="${miscDir}/**" />
 				<include name="build.xml" />
 			</fileset>
-			<fileset dir="${antBuildDir}">
+			<fileset dir="${buildDir}">
 				<include name="restfb-*.jar" />
 				<include name="javadoc/**" />
 			</fileset>
@@ -55,13 +57,13 @@
 	<target name="doc" description="Builds Javadoc">
 		<echo message="Building Javadoc..." />
 
-		<mkdir dir="${antJavadocDir}" />
+		<mkdir dir="${javadocDir}" />
 
-		<copy todir="${antJavadocDir}">
+		<copy todir="${javadocDir}">
 			<fileset dir="${websiteDir}" includes="*.ttf" />
 		</copy>
 
-		<javadoc destdir="${antJavadocDir}" author="true" version="true"
+		<javadoc destdir="${javadocDir}" author="true" version="true"
 			use="true" windowtitle="RestFB" access="public" stylesheetfile="${miscDir}/javadoc.css">
 			<packageset dir="${librarySourceDir}" defaultexcludes="yes" />
 			<doctitle><![CDATA[<h1>RestFB</h1>]]></doctitle>
@@ -74,8 +76,8 @@
 
 	<target name="website" description="Creates the restfb.com website"
 		depends="doc">
-		<zip destfile="${antBuildDir}/website.zip">
-			<fileset dir="${antBuildDir}" includes="javadoc/**" />
+		<zip destfile="${buildDir}/website.zip">
+			<fileset dir="${buildDir}" includes="javadoc/**" />
 			<fileset dir="${websiteDir}" />
 		</zip>
 	</target>
@@ -104,6 +106,11 @@
 
 	<target name="clean" description="Gets rid of build artifacts">
 		<echo message="Cleaning build artifacts..." />
-		<delete dir="${antBuildDir}" includeEmptyDirs="true" />
+		<delete includeEmptyDirs="true">
+			<fileset dir="${buildDir}" defaultexcludes="false">				
+				<exclude name=".svn" />								
+			</fileset>
+		</delete>
 	</target>
+
 </project>
