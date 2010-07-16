@@ -63,7 +63,8 @@ import java.util.Map;
  * before the closing bracket.</li>
  * <li>The <code>null</code> value will be inserted when there is <code>,</code>
  * &nbsp;<small>(comma)</small> elision.</li>
- * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single quote)</small>.</li>
+ * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single
+ * quote)</small>.</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a quote
  * or single quote, and if they do not contain leading or trailing spaces, and
  * if they do not contain any of these characters:
@@ -72,26 +73,24 @@ import java.util.Map;
  * <code>null</code>.</li>
  * <li>Values can be separated by <code>;</code> <small>(semicolon)</small> as
  * well as by <code>,</code> <small>(comma)</small>.</li>
- * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or <code>0x-</code>
- * <small>(hex)</small> prefix.</li>
+ * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or
+ * <code>0x-</code> <small>(hex)</small> prefix.</li>
  * </ul>
  * 
  * @author JSON.org
  * @version 2009-04-13
  */
-@SuppressWarnings("unchecked")
 public class JsonArray {
-
   /**
    * The arrayList where the JsonArray's properties are kept.
    */
-  private ArrayList myArrayList;
+  private ArrayList<Object> myArrayList;
 
   /**
    * Construct an empty JsonArray.
    */
   public JsonArray() {
-    this.myArrayList = new ArrayList();
+    this.myArrayList = new ArrayList<Object>();
   }
 
   /**
@@ -166,9 +165,10 @@ public class JsonArray {
    * @param collection
    *          A Collection.
    */
-  public JsonArray(Collection collection) {
+  public JsonArray(Collection<?> collection) {
     this.myArrayList =
-        (collection == null) ? new ArrayList() : new ArrayList(collection);
+        (collection == null) ? new ArrayList<Object>() : new ArrayList<Object>(
+          collection);
   }
 
   /**
@@ -179,15 +179,16 @@ public class JsonArray {
    *           If not an array.
    */
 
-  public JsonArray(Collection collection, boolean includeSuperClass) {
-    this.myArrayList = new ArrayList();
+  public JsonArray(Collection<?> collection, boolean includeSuperClass) {
+    this.myArrayList = new ArrayList<Object>();
     if (collection != null) {
-      Iterator iter = collection.iterator();
+      Iterator<?> iter = collection.iterator();
       ;
       while (iter.hasNext()) {
         Object o = iter.next();
         if (o instanceof Map) {
-          this.myArrayList.add(new JsonObject((Map) o, includeSuperClass));
+          this.myArrayList
+            .add(new JsonObject((Map<?, ?>) o, includeSuperClass));
         } else if (!JsonObject.isStandardProperty(o.getClass())) {
           this.myArrayList.add(new JsonObject(o, includeSuperClass));
         } else {
@@ -642,7 +643,7 @@ public class JsonArray {
    *          A Collection value.
    * @return this.
    */
-  public JsonArray put(Collection value) {
+  public JsonArray put(Collection<?> value) {
     put(new JsonArray(value));
     return this;
   }
@@ -695,7 +696,7 @@ public class JsonArray {
    *          A Map value.
    * @return this.
    */
-  public JsonArray put(Map value) {
+  public JsonArray put(Map<?, ?> value) {
     put(new JsonObject(value));
     return this;
   }
@@ -744,7 +745,7 @@ public class JsonArray {
    * @throws JsonException
    *           If the index is negative or if the value is not finite.
    */
-  public JsonArray put(int index, Collection value) throws JsonException {
+  public JsonArray put(int index, Collection<?> value) throws JsonException {
     put(index, new JsonArray(value));
     return this;
   }
@@ -813,7 +814,7 @@ public class JsonArray {
    *           If the index is negative or if the the value is an invalid
    *           number.
    */
-  public JsonArray put(int index, Map value) throws JsonException {
+  public JsonArray put(int index, Map<?, ?> value) throws JsonException {
     put(index, new JsonObject(value));
     return this;
   }
