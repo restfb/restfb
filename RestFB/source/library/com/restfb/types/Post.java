@@ -79,14 +79,70 @@ public class Post extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  @Facebook
+  private Comments comments;
+
   @Facebook(contains = NamedFacebookType.class)
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
-  @Facebook(contains = Comment.class)
-  private List<Comment> comments = new ArrayList<Comment>();
-
   @Facebook(contains = Action.class)
   private List<Action> actions = new ArrayList<Action>();
+
+  /**
+   * Represents a collection of {@link Comment}s.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6
+   */
+  public static class Comments {
+    @Facebook
+    private Long count;
+
+    @Facebook(contains = Comment.class)
+    private List<Comment> data = new ArrayList<Comment>();
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The number of comments.
+     * 
+     * @return The number of comments.
+     */
+    public Long getCount() {
+      return count;
+    }
+
+    /**
+     * The comments.
+     * 
+     * @return The comments.
+     */
+    public List<Comment> getData() {
+      return Collections.unmodifiableList(data);
+    }
+  }
 
   /**
    * Represents the <a
@@ -361,21 +417,21 @@ public class Post extends NamedFacebookType {
   }
 
   /**
+   * The comments for this post.
+   * 
+   * @return The comments for this post.
+   */
+  public Comments getComments() {
+    return comments;
+  }
+
+  /**
    * A list of the profiles mentioned or targeted in this post.
    * 
    * @return A list of the profiles mentioned or targeted in this post.
    */
   public List<NamedFacebookType> getTo() {
     return Collections.unmodifiableList(to);
-  }
-
-  /**
-   * The comments for this post.
-   * 
-   * @return The comments for this post.
-   */
-  public List<Comment> getComments() {
-    return Collections.unmodifiableList(comments);
   }
 
   /**
