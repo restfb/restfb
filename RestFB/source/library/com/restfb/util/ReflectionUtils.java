@@ -286,7 +286,7 @@ public final class ReflectionUtils {
         buffer.append(method.invoke(object));
       } catch (Exception e) {
         throw new IllegalStateException("Unable to reflectively invoke "
-            + method + " on " + object, e);
+            + method + " on " + object.getClass(), e);
       }
     }
 
