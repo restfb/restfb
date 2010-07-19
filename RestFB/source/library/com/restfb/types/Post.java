@@ -92,7 +92,7 @@ public class Post extends NamedFacebookType {
    * Represents a collection of {@link Comment}s.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6
+   * @since 1.5.3
    */
   public static class Comments {
     @Facebook
