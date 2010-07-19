@@ -23,7 +23,7 @@
 package com.restfb;
 
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
-import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.FINER;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
@@ -74,8 +74,8 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * Logger.
    */
-  private static final Logger logger =
-      Logger.getLogger(DefaultWebRequestor.class.getName());
+  private static final Logger logger = Logger
+    .getLogger(DefaultWebRequestor.class.getName());
 
   /**
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
@@ -106,17 +106,16 @@ public class DefaultWebRequestor implements WebRequestor {
 
       try {
         inputStream =
-            httpUrlConnection.getResponseCode() == HTTP_INTERNAL_ERROR ? httpUrlConnection
-              .getErrorStream()
-                : httpUrlConnection.getInputStream();
+            httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection
+              .getErrorStream() : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         if (logger.isLoggable(WARNING))
           logger.warning("An error occurred while making a GET request to "
               + url + ": " + e);
       }
 
-      return new Response(httpUrlConnection.getResponseCode(), StringUtils
-        .fromInputStream(inputStream));
+      return new Response(httpUrlConnection.getResponseCode(),
+        StringUtils.fromInputStream(inputStream));
     } finally {
       closeQuietly(httpUrlConnection);
     }
@@ -200,17 +199,16 @@ public class DefaultWebRequestor implements WebRequestor {
 
       try {
         inputStream =
-            httpUrlConnection.getResponseCode() == HTTP_INTERNAL_ERROR ? httpUrlConnection
-              .getErrorStream()
-                : httpUrlConnection.getInputStream();
+            httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection
+              .getErrorStream() : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         if (logger.isLoggable(WARNING))
           logger
             .warning("An error occurred while POSTing to " + url + ": " + e);
       }
 
-      return new Response(httpUrlConnection.getResponseCode(), StringUtils
-        .fromInputStream(inputStream));
+      return new Response(httpUrlConnection.getResponseCode(),
+        StringUtils.fromInputStream(inputStream));
     } finally {
       closeQuietly(binaryAttachment);
       closeQuietly(outputStream);
@@ -219,8 +217,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
-   * Hook method which allows subclasses to easily customize the {@code
-   * connection}s created by {@link #executeGet(String)} and
+   * Hook method which allows subclasses to easily customize the
+   * {@code connection}s created by {@link #executeGet(String)} and
    * {@link #executePost(String, String)} - for example, setting a custom read
    * timeout or request header.
    * 

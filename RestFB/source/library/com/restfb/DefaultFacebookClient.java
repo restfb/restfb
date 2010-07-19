@@ -22,6 +22,7 @@
 
 package com.restfb;
 
+import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
@@ -265,8 +266,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     try {
       JsonObject jsonObject =
-          new JsonObject(makeRequest("", parametersWithAdditionalParameter(
-            Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
+          new JsonObject(
+            makeRequest(
+              "",
+              parametersWithAdditionalParameter(
+                Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)),
+                parameters)));
       return jsonMapper.toJavaObject(jsonObject.toString(), objectType);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException(
@@ -303,8 +308,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     }
 
     try {
-      return new JsonObject(makeRequest("", parametersWithAdditionalParameter(
-        Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
+      return new JsonObject(makeRequest(
+        "",
+        parametersWithAdditionalParameter(
+          Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to map JSON to Java.", e);
     }
@@ -319,8 +326,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       InputStream binaryAttachment, Parameter... parameters)
       throws FacebookException {
     verifyParameterPresence("connection", connection);
-    return jsonMapper.toJavaObject(makeRequest(connection, false, true, false,
-      binaryAttachment, parameters), objectType);
+    return jsonMapper
+      .toJavaObject(
+        makeRequest(connection, false, true, false, binaryAttachment,
+          parameters), objectType);
   }
 
   /**
@@ -371,9 +380,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     try {
       JsonArray jsonArray =
-          new JsonArray(makeRequest("fql.multiquery", true, false, false, null,
-            parametersWithAdditionalParameter(Parameter.with(
-              QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
+          new JsonArray(makeRequest(
+            "fql.multiquery",
+            true,
+            false,
+            false,
+            null,
+            parametersWithAdditionalParameter(
+              Parameter.with(QUERIES_PARAM_NAME, queriesToJson(queries)),
+              parameters)));
 
       JsonObject normalizedJson = new JsonObject();
 
@@ -423,9 +438,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
             + "RestFB will populate this for you with "
             + "the query you passed to this method.");
 
-    return jsonMapper.toJavaList(makeRequest("fql.query", true, false, false,
-      null, parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME,
-        query), parameters)), objectType);
+    return jsonMapper.toJavaList(
+      makeRequest(
+        "fql.query",
+        true,
+        false,
+        false,
+        null,
+        parametersWithAdditionalParameter(
+          Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
   }
 
   /**
@@ -477,14 +498,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *          Should we hit the legacy endpoint ({@code true}) or the new Graph
    *          endpoint ({@code false})?
    * @param executeAsPost
-   *          {@code true} to execute the web request as a {@code POST}, {@code
-   *          false} to execute as a {@code GET}.
+   *          {@code true} to execute the web request as a {@code POST},
+   *          {@code false} to execute as a {@code GET}.
    * @param executeAsDelete
-   *          {@code true} to add a special 'treat this request as a {@code
-   *          DELETE}' parameter.
+   *          {@code true} to add a special 'treat this request as a
+   *          {@code DELETE}' parameter.
    * @param binaryAttachment
-   *          A binary file to include in a {@code POST} request. Pass {@code
-   *          null} if no attachment should be sent.
+   *          A binary file to include in a {@code POST} request. Pass
+   *          {@code null} if no attachment should be sent.
    * @param parameters
    *          Arbitrary number of parameters to send along to Facebook as part
    *          of the API call.
@@ -501,8 +522,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     if (executeAsDelete)
       parameters =
-          parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME,
-            "delete"), parameters);
+          parametersWithAdditionalParameter(
+            Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
 
     StringUtils.trimToEmpty(endpoint).toLowerCase();
     if (!endpoint.startsWith("/"))
@@ -510,8 +531,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     String fullEndpoint =
         (useLegacyEndpoint ? FACEBOOK_LEGACY_ENDPOINT_URL
-            : FACEBOOK_GRAPH_ENDPOINT_URL)
-            + endpoint;
+            : FACEBOOK_GRAPH_ENDPOINT_URL) + endpoint;
 
     Response response = null;
     String parameterString = toParameterString(parameters);
@@ -530,10 +550,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     if (logger.isLoggable(INFO))
       logger.info("Facebook responded with " + response);
 
-    // If we get any HTTP response code other than a 200 OK or 401 Not
-    // Authorized or 500 Internal Server Error, throw an exception. We handle
-    // 401s and 500s specially.
+    // If we get any HTTP response code other than a 200 OK or 400 Bad Request
+    // or 401 Not Authorized or 500 Internal Server Error, throw an exception.
+    // We handle 401s and 500s specially.
     if (HTTP_OK != response.getStatusCode()
+        && HTTP_BAD_REQUEST != response.getStatusCode()
         && HTTP_UNAUTHORIZED != response.getStatusCode()
         && HTTP_INTERNAL_ERROR != response.getStatusCode())
       throw new FacebookNetworkException("Facebook " + httpVerb + " failed",
@@ -601,9 +622,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       JsonObject innerErrorObject =
           errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
 
-      throw new FacebookGraphException(innerErrorObject
-        .getString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject
-        .getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
+      throw new FacebookGraphException(
+        innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+        innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to process the Facebook API response", e);
@@ -624,12 +645,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     if (!StringUtils.isBlank(accessToken))
       parameters =
-          parametersWithAdditionalParameter(Parameter.with(
-            ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
+          parametersWithAdditionalParameter(
+            Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
 
     parameters =
-        parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME,
-          "json"), parameters);
+        parametersWithAdditionalParameter(
+          Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
 
     StringBuilder parameterStringBuilder = new StringBuilder();
     boolean first = true;
