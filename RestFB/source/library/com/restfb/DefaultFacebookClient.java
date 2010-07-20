@@ -51,59 +51,59 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   /**
    * Graph API access token.
    */
-  private String accessToken;
+  protected String accessToken;
 
   /**
    * API endpoint URL.
    */
-  private static final String FACEBOOK_GRAPH_ENDPOINT_URL =
+  protected static final String FACEBOOK_GRAPH_ENDPOINT_URL =
       "https://graph.facebook.com";
 
   /**
    * Legacy API endpoint URL, used to support FQL queries.
    */
-  private static final String FACEBOOK_LEGACY_ENDPOINT_URL =
+  protected static final String FACEBOOK_LEGACY_ENDPOINT_URL =
       "https://api.facebook.com/method";
 
   /**
    * Reserved method override parameter name.
    */
-  private static final String METHOD_PARAM_NAME = "method";
+  protected static final String METHOD_PARAM_NAME = "method";
 
   /**
    * Reserved "multiple IDs" parameter name.
    */
-  private static final String IDS_PARAM_NAME = "ids";
+  protected static final String IDS_PARAM_NAME = "ids";
 
   /**
    * Reserved FQL query parameter name.
    */
-  private static final String QUERY_PARAM_NAME = "query";
+  protected static final String QUERY_PARAM_NAME = "query";
 
   /**
    * Reserved FQL multiquery parameter name.
    */
-  private static final String QUERIES_PARAM_NAME = "queries";
+  protected static final String QUERIES_PARAM_NAME = "queries";
 
   /**
    * Reserved "result format" parameter name.
    */
-  private static final String FORMAT_PARAM_NAME = "format";
+  protected static final String FORMAT_PARAM_NAME = "format";
 
   /**
    * API error response 'error' attribute name.
    */
-  private static final String ERROR_ATTRIBUTE_NAME = "error";
+  protected static final String ERROR_ATTRIBUTE_NAME = "error";
 
   /**
    * API error response 'type' attribute name.
    */
-  private static final String ERROR_TYPE_ATTRIBUTE_NAME = "type";
+  protected static final String ERROR_TYPE_ATTRIBUTE_NAME = "type";
 
   /**
    * API error response 'message' attribute name.
    */
-  private static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
+  protected static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
 
   /**
    * Creates a Facebook Graph API client with no access token.

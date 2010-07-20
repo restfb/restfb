@@ -52,43 +52,43 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   /**
    * Facebook API key.
    */
-  private String apiKey;
+  protected String apiKey;
 
   /**
    * Facebook application secret key.
    */
-  private String secretKey;
+  protected String secretKey;
 
   /**
    * OAuth Access token.
    */
-  private String accessToken;
+  protected String accessToken;
 
   /**
    * API endpoint URL.
    */
-  private static final String FACEBOOK_REST_ENDPOINT_URL =
+  protected static final String FACEBOOK_REST_ENDPOINT_URL =
       "http://api.facebook.com/restserver.php";
 
   /**
    * OAuth API endpoint URL.
    */
-  private static final String FACEBOOK_REST_OAUTH_ENDPOINT_URL =
+  protected static final String FACEBOOK_REST_OAUTH_ENDPOINT_URL =
       "https://api.facebook.com/restserver.php";
 
   // Common parameter names/values that must be included in all API requests
-  private static final String METHOD_PARAM_NAME = "method";
-  private static final String FORMAT_PARAM_NAME = "format";
-  private static final String FORMAT_PARAM_VALUE = "json";
+  protected static final String METHOD_PARAM_NAME = "method";
+  protected static final String FORMAT_PARAM_NAME = "format";
+  protected static final String FORMAT_PARAM_VALUE = "json";
 
   // Common parameter names/values that must be included in all API requests
   // that do not use the new OAuth scheme.
-  private static final String API_KEY_PARAM_NAME = "api_key";
-  private static final String CALL_ID_PARAM_NAME = "call_id";
-  private static final String SIG_PARAM_NAME = "sig";
-  private static final String SESSION_KEY_PARAM_NAME = "session_key";
-  private static final String VERSION_PARAM_NAME = "v";
-  private static final String VERSION_PARAM_VALUE = "1.0";
+  protected static final String API_KEY_PARAM_NAME = "api_key";
+  protected static final String CALL_ID_PARAM_NAME = "call_id";
+  protected static final String SIG_PARAM_NAME = "sig";
+  protected static final String SESSION_KEY_PARAM_NAME = "session_key";
+  protected static final String VERSION_PARAM_NAME = "v";
+  protected static final String VERSION_PARAM_VALUE = "1.0";
 
   /**
    * Creates a Facebook API client with the given <a
@@ -129,8 +129,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
   }
 
   /**
-   * Creates a Facebook API client with the given API key, secret key, {@code
-   * webRequestor}, and {@code jsonMapper} (Legacy authentication).
+   * Creates a Facebook API client with the given API key, secret key,
+   * {@code webRequestor}, and {@code jsonMapper} (Legacy authentication).
    * 
    * @param apiKey
    *          A Facebook API key.
@@ -297,8 +297,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
 
     try {
       JsonArray jsonArray =
-          new JsonArray(makeRequest("fql.multiquery", sessionKey, parameters
-            .toArray(new Parameter[0])));
+          new JsonArray(makeRequest("fql.multiquery", sessionKey,
+            parameters.toArray(new Parameter[0])));
 
       for (int i = 0; i < jsonArray.length(); i++) {
         JsonObject jsonObject = jsonArray.getJsonObject(i);
@@ -363,8 +363,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
 
     // If we get any HTTP response code other than a 200 OK, throw an exception
     if (HTTP_OK != response.getStatusCode())
-      throw new FacebookNetworkException("Facebook POST failed", response
-        .getStatusCode());
+      throw new FacebookNetworkException("Facebook POST failed",
+        response.getStatusCode());
 
     String json = response.getBody();
 
@@ -411,8 +411,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
     } else {
       sortedParameters.put(API_KEY_PARAM_NAME, apiKey);
       sortedParameters.put(VERSION_PARAM_NAME, VERSION_PARAM_VALUE);
-      sortedParameters.put(CALL_ID_PARAM_NAME, String.valueOf(System
-        .currentTimeMillis()));
+      sortedParameters.put(CALL_ID_PARAM_NAME,
+        String.valueOf(System.currentTimeMillis()));
 
       if (!StringUtils.isBlank(sessionKey))
         sortedParameters.put(SESSION_KEY_PARAM_NAME, sessionKey);
@@ -433,8 +433,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
       parameterStringBuilder.append("=");
       parameterStringBuilder
         .append(usesAccessTokenAuthentication() ? urlEncodedValueForParameterName(
-          entry.getKey(), entry.getValue())
-            : StringUtils.urlEncode(entry.getValue()));
+          entry.getKey(), entry.getValue()) : StringUtils.urlEncode(entry
+          .getValue()));
     }
 
     return parameterStringBuilder.toString();

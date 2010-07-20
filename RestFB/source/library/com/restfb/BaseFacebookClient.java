@@ -59,12 +59,12 @@ abstract class BaseFacebookClient {
   /**
    * Legacy API error response 'error_code' attribute name.
    */
-  private static final String LEGACY_ERROR_CODE_ATTRIBUTE_NAME = "error_code";
+  protected static final String LEGACY_ERROR_CODE_ATTRIBUTE_NAME = "error_code";
 
   /**
    * Legacy API error response 'error_msg' attribute name.
    */
-  private static final String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
+  protected static final String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
 
   /**
    * Reserved access token parameter name.
@@ -110,9 +110,9 @@ abstract class BaseFacebookClient {
           || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME))
         return;
 
-      throw new FacebookResponseStatusException(errorObject
-        .getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), errorObject
-        .getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
+      throw new FacebookResponseStatusException(
+        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME),
+        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException(
         "Unable to process the Facebook API response", e);
@@ -126,8 +126,8 @@ abstract class BaseFacebookClient {
    *          The parameter value to append.
    * @param parameters
    *          The parameters to which the given {@code parameter} is appended.
-   * @return A new array which contains both {@code parameter} and {@code
-   *         parameters}.
+   * @return A new array which contains both {@code parameter} and
+   *         {@code parameters}.
    */
   protected Parameter[] parametersWithAdditionalParameter(Parameter parameter,
       Parameter... parameters) {
@@ -163,8 +163,8 @@ abstract class BaseFacebookClient {
               + "You provided: " + queries);
 
       try {
-        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils
-          .trimToEmpty(entry.getValue()));
+        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()),
+          StringUtils.trimToEmpty(entry.getValue()));
       } catch (JsonException e) {
         // Shouldn't happen unless bizarre input is provided
         throw new IllegalArgumentException("Unable to convert " + queries
