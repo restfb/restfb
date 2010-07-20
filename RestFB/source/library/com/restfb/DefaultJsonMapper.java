@@ -33,14 +33,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
-import com.restfb.util.StringUtils;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
+import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -158,6 +159,16 @@ public class DefaultJsonMapper implements JsonMapper {
       // Check for that and bail early if we find it.
       if ("null".equals(json))
         return null;
+
+      // Facebook will sometimes return the string "false" to mean null.
+      // Check for that and bail early if we find it.
+      if ("false".equals(json)) {
+        if (logger.isLoggable(Level.INFO))
+          logger
+            .info("Encountered 'false' from Facebook when trying to map to "
+                + type.getSimpleName() + " - mapping null instead.");
+        return null;
+      }
 
       JsonObject jsonObject = new JsonObject(json);
       T instance = createInstance(type);
