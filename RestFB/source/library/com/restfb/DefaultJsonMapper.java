@@ -51,8 +51,8 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * Logger.
    */
-  private static final Logger logger =
-      Logger.getLogger(DefaultJsonMapper.class.getName());
+  private static final Logger logger = Logger.getLogger(DefaultJsonMapper.class
+    .getName());
 
   /**
    * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
@@ -154,6 +154,11 @@ public class DefaultJsonMapper implements JsonMapper {
         else
           return toPrimitiveJavaType(json, type);
 
+      // Facebook will sometimes return the string "null".
+      // Check for that and bail early if we find it.
+      if ("null".equals(json))
+        return null;
+
       JsonObject jsonObject = new JsonObject(json);
       T instance = createInstance(type);
 
@@ -186,8 +191,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
         // Set the field's value
         field.setAccessible(true);
-        field.set(instance, toJavaType(fieldWithAnnotation, jsonObject,
-          facebookFieldName));
+        field.set(instance,
+          toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
       }
 
       return instance;
@@ -263,8 +268,8 @@ public class DefaultJsonMapper implements JsonMapper {
                 + object);
 
         try {
-          jsonObject.put((String) entry.getKey(), toJsonInternal(entry
-            .getValue()));
+          jsonObject.put((String) entry.getKey(),
+            toJsonInternal(entry.getValue()));
         } catch (JsonException e) {
           throw new FacebookJsonMappingException("Unable to process value '"
               + entry.getValue() + "' for key '" + entry.getKey() + "' in Map "
@@ -490,8 +495,8 @@ public class DefaultJsonMapper implements JsonMapper {
    * 
    * @param json
    *          The JSON to check.
-   * @return {@code true} if the JSON is equivalent to the empty object, {@code
-   *         false} otherwise.
+   * @return {@code true} if the JSON is equivalent to the empty object,
+   *         {@code false} otherwise.
    */
   protected boolean isEmptyObject(String json) {
     return "{}".equals(json);

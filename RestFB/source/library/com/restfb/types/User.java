@@ -85,6 +85,9 @@ public class User extends NamedFacebookType {
   private String political;
 
   @Facebook
+  private String locale;
+
+  @Facebook
   private NamedFacebookType hometown;
 
   @Facebook
@@ -443,6 +446,15 @@ public class User extends NamedFacebookType {
    */
   public String getPolitical() {
     return political;
+  }
+
+  /**
+   * The user's locale.
+   * 
+   * @return The user's locale.
+   */
+  public String getLocale() {
+    return locale;
   }
 
   /**
