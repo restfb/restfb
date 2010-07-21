@@ -530,8 +530,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       endpoint = "/" + endpoint;
 
     String fullEndpoint =
-        (useLegacyEndpoint ? FACEBOOK_LEGACY_ENDPOINT_URL
-            : FACEBOOK_GRAPH_ENDPOINT_URL) + endpoint;
+        (useLegacyEndpoint ? getFacebookLegacyEndpointUrl()
+            : getFacebookGraphEndpointUrl()) + endpoint;
 
     Response response = null;
     String parameterString = toParameterString(parameters);
@@ -668,5 +668,23 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     }
 
     return parameterStringBuilder.toString();
+  }
+
+  /**
+   * Returns the base endpoint URL for the Graph API.
+   * 
+   * @return The base endpoint URL for the Graph API.
+   */
+  protected String getFacebookGraphEndpointUrl() {
+    return FACEBOOK_GRAPH_ENDPOINT_URL;
+  }
+
+  /**
+   * Returns the base endpoint URL for the Old REST API.
+   * 
+   * @return The base endpoint URL for the Old REST API.
+   */
+  protected String getFacebookLegacyEndpointUrl() {
+    return FACEBOOK_LEGACY_ENDPOINT_URL;
   }
 }

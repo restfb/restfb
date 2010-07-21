@@ -352,8 +352,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
     try {
       response =
           webRequestor.executePost(
-            usesAccessTokenAuthentication() ? FACEBOOK_REST_OAUTH_ENDPOINT_URL
-                : FACEBOOK_REST_ENDPOINT_URL, parametersAsString);
+            usesAccessTokenAuthentication() ? getFacebookRestOauthEndpointUrl()
+                : getFacebookRestEndpointUrl(), parametersAsString);
     } catch (Throwable t) {
       throw new FacebookNetworkException("Facebook POST failed", t);
     }
@@ -507,5 +507,23 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
         CALL_ID_PARAM_NAME, SIG_PARAM_NAME, METHOD_PARAM_NAME,
         SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME,
         ACCESS_TOKEN_PARAM_NAME }));
+  }
+
+  /**
+   * Returns the base endpoint URL for the Old REST API.
+   * 
+   * @return The base endpoint URL for the Old REST API.
+   */
+  protected String getFacebookRestEndpointUrl() {
+    return FACEBOOK_REST_ENDPOINT_URL;
+  }
+
+  /**
+   * Returns the base endpoint URL for the Old REST OAuth API.
+   * 
+   * @return The base endpoint URL for the Old REST OAuth API.
+   */
+  protected String getFacebookRestOauthEndpointUrl() {
+    return FACEBOOK_REST_OAUTH_ENDPOINT_URL;
   }
 }
