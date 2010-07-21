@@ -23,6 +23,7 @@
 package com.restfb;
 
 import static com.restfb.json.JsonObject.NULL;
+import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.FINER;
 
 import java.lang.reflect.Field;
@@ -33,12 +34,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
+import com.restfb.types.NamedFacebookType;
 import com.restfb.util.ReflectionUtils;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
 import com.restfb.util.StringUtils;
@@ -163,9 +164,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // Facebook will sometimes return the string "false" to mean null.
       // Check for that and bail early if we find it.
       if ("false".equals(json)) {
-        if (logger.isLoggable(Level.INFO))
+        if (logger.isLoggable(FINE))
           logger
-            .info("Encountered 'false' from Facebook when trying to map to "
+            .fine("Encountered 'false' from Facebook when trying to map to "
                 + type.getSimpleName() + " - mapping null instead.");
         return null;
       }
@@ -468,8 +469,35 @@ public class DefaultJsonMapper implements JsonMapper {
       return toJavaList(rawValue.toString(), fieldWithAnnotation
         .getAnnotation().contains());
 
+    // Hack for issue 56 where FB will sometimes return things like
+    // "hometown":"Belgrade, Serbia"
+    // instead of
+    // "hometown":{"id":1234,"name":"Belgrade, Serbia"}.
+    //
+    // We look for this situation and turn the short form of the field into a
+    // full NamedFacebookType object.
+    //
+    // Will address this correctly in 1.6, this quick fix is good enough for
+    // 1.5.3. Thanks to ikabiljo for the bug report and workaround.
+    //
+    // TODO: real fix for 1.6
+    String rawValueAsString = rawValue.toString();
+
+    if (NamedFacebookType.class.isAssignableFrom(type)
+        && rawValue.getClass().equals(String.class)) {
+      if (logger.isLoggable(FINE))
+        logger.fine("Encountered the string '" + rawValueAsString
+            + "' but expected a " + NamedFacebookType.class.getSimpleName()
+            + " instead.  Working around that by coercing into a "
+            + NamedFacebookType.class.getSimpleName() + "...");
+
+      JsonObject workaroundJsonObject = new JsonObject();
+      workaroundJsonObject.put("name", rawValue);
+      rawValueAsString = workaroundJsonObject.toString();
+    }
+
     // Some other type - recurse into it
-    return toJavaObject(rawValue.toString(), type);
+    return toJavaObject(rawValueAsString, type);
   }
 
   /**
