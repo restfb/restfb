@@ -1,3 +1,26 @@
+1.5.3 (July 21, 2010)
+* NamedFacebookType now handles situation where FB returns, for example,
+  "hometown":"Beograd", instead of the expected "hometown":{"id":123,"name":"Belgrade, Serbia"}
+  Thanks to ikabiljo for the bug report and suggested fix.
+* Mapper now gracefully handles situation where Facebook returns the not-JSON string "false" and instead of {}.
+  Thanks to ikabiljo for the bug report and suggested fix.
+* The Post type's comments field changed on the Facebook side to include a "count" field.
+  Thanks to huillam for the bug report and suggested fix.
+  Thanks to ikabiljo for the suggested fix.    
+* Fixed infinite recursion bug that was triggerable in exceptional situations in ReflectionUtils.toString().
+  Thanks to ikabiljo for the bug report and suggested fix.
+* Mapper fix for situations where Facebook returns the string "null" instead of an empty object or nothing.
+  Thanks to ikabiljo for the bug report.
+* Timezone field in User is now a Double to account for timezones with fractional offsets.
+  Thanks to Sam for the bug report.
+* Changed Parameter's date marshaling to produce Facebook Date strings in a zero-based hour format.
+  Thanks to huillam for the bug report and suggested fix.
+* Connection<?> has getNext() and getPrevious() methods that return the next/previous URLs returned by Facebook.
+* All fields in BaseFacebookClient, DefaultFacebookClient, and DefaultLegacyFacebookClient are protected for easier subclassing.
+  All Facebook API URLs are now overridable via protected accessor methods.
+  Thanks to Kalle Korhonen and bijuphilip0 for the enhancement requests.
+* Added locale field to User.
+
 1.5.2 (June 8, 2010)
 * No longer require an access token for the Graph API (now have a default constructor for DefaultFacebookClient).
   Thanks to Yoav Shapira for the enhancement request.
