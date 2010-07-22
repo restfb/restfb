@@ -41,7 +41,7 @@ public class Connection<T> {
   private final String next;
 
   /**
-   * Creates a connection with the given data and previous/next flags.
+   * Creates a connection with the given data and previous/next URLs.
    * 
    * @param data
    *          The connection's data.
@@ -97,6 +97,7 @@ public class Connection<T> {
    * 
    * @return This connection's "previous page of data" URL, or {@code null} if
    *         there is no previous page.
+   * @since 1.5.3
    */
   public String getPrevious() {
     return previous;
@@ -107,6 +108,7 @@ public class Connection<T> {
    * 
    * @return This connection's "next page of data" URL, or {@code null} if there
    *         is no next page.
+   * @since 1.5.3
    */
   public String getNext() {
     return next;

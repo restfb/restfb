@@ -63,8 +63,7 @@ import java.util.Map;
  * before the closing bracket.</li>
  * <li>The <code>null</code> value will be inserted when there is <code>,</code>
  * &nbsp;<small>(comma)</small> elision.</li>
- * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single
- * quote)</small>.</li>
+ * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single quote)</small>.</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a quote
  * or single quote, and if they do not contain leading or trailing spaces, and
  * if they do not contain any of these characters:
@@ -73,8 +72,8 @@ import java.util.Map;
  * <code>null</code>.</li>
  * <li>Values can be separated by <code>;</code> <small>(semicolon)</small> as
  * well as by <code>,</code> <small>(comma)</small>.</li>
- * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or
- * <code>0x-</code> <small>(hex)</small> prefix.</li>
+ * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or <code>0x-</code>
+ * <small>(hex)</small> prefix.</li>
  * </ul>
  * 
  * @author JSON.org
@@ -186,7 +185,7 @@ public class JsonArray {
       ;
       while (iter.hasNext()) {
         Object o = iter.next();
-        if (o instanceof Map) {
+        if (o instanceof Map<?, ?>) {
           this.myArrayList
             .add(new JsonObject((Map<?, ?>) o, includeSuperClass));
         } else if (!JsonObject.isStandardProperty(o.getClass())) {

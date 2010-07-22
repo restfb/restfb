@@ -71,8 +71,7 @@ import java.util.TreeSet;
  * <ul>
  * <li>An extra <code>,</code>&nbsp;<small>(comma)</small> may appear just
  * before the closing brace.</li>
- * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single
- * quote)</small>.</li>
+ * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single quote)</small>.</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a quote
  * or single quote, and if they do not contain leading or trailing spaces, and
  * if they do not contain any of these characters:
@@ -83,8 +82,8 @@ import java.util.TreeSet;
  * <code>:</code>.</li>
  * <li>Values can be followed by <code>;</code> <small>(semicolon)</small> as
  * well as by <code>,</code> <small>(comma)</small>.</li>
- * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or
- * <code>0x-</code> <small>(hex)</small> prefix.</li>
+ * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or <code>0x-</code>
+ * <small>(hex)</small> prefix.</li>
  * </ul>
  * 
  * @author JSON.org
@@ -355,10 +354,10 @@ public class JsonObject {
               map.put(key, NULL);
             } else if (result.getClass().isArray()) {
               map.put(key, new JsonArray(result, includeSuperClass));
-            } else if (result instanceof Collection) { // List or Set
+            } else if (result instanceof Collection<?>) { // List or Set
               map.put(key, new JsonArray((Collection<?>) result,
                 includeSuperClass));
-            } else if (result instanceof Map) {
+            } else if (result instanceof Map<?, ?>) {
               map.put(key,
                 new JsonObject((Map<?, ?>) result, includeSuperClass));
             } else if (isStandardProperty(result.getClass())) { // Primitives,
@@ -1500,10 +1499,10 @@ public class JsonObject {
         || value instanceof JsonArray) {
       return value.toString();
     }
-    if (value instanceof Map) {
+    if (value instanceof Map<?, ?>) {
       return new JsonObject((Map<?, ?>) value).toString();
     }
-    if (value instanceof Collection) {
+    if (value instanceof Collection<?>) {
       return new JsonArray((Collection<?>) value).toString();
     }
     if (value.getClass().isArray()) {
@@ -1557,10 +1556,10 @@ public class JsonObject {
     if (value instanceof JsonArray) {
       return ((JsonArray) value).toString(indentFactor, indent);
     }
-    if (value instanceof Map) {
+    if (value instanceof Map<?, ?>) {
       return new JsonObject((Map<?, ?>) value).toString(indentFactor, indent);
     }
-    if (value instanceof Collection) {
+    if (value instanceof Collection<?>) {
       return new JsonArray((Collection<?>) value)
         .toString(indentFactor, indent);
     }
