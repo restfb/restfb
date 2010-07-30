@@ -22,7 +22,10 @@
 
 package com.restfb.types;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.util.DateUtils;
@@ -46,6 +49,15 @@ public class Video extends FacebookType {
   private String description;
 
   @Facebook
+  private String picture;
+
+  @Facebook
+  private String icon;
+
+  @Facebook("embed_html")
+  private String embedHtml;
+
+  @Facebook
   private Integer length;
 
   @Facebook("created_time")
@@ -53,6 +65,9 @@ public class Video extends FacebookType {
 
   @Facebook("updated_time")
   private String updatedTime;
+
+  @Facebook(contains = Comment.class)
+  private List<Comment> comments = new ArrayList<Comment>();
 
   /**
    * An object containing the name and ID of the user who posted the video.
@@ -89,6 +104,42 @@ public class Video extends FacebookType {
    */
   public Integer getLength() {
     return length;
+  }
+
+  /**
+   * A picture URL which represents the video.
+   * 
+   * @return A picture URL which represents the video.
+   */
+  public String getPicture() {
+    return picture;
+  }
+
+  /**
+   * An icon URL which represents the video.
+   * 
+   * @return An icon URL which represents the video.
+   */
+  public String getIcon() {
+    return icon;
+  }
+
+  /**
+   * HTML that may be used to embed the video on another website.
+   * 
+   * @return HTML that may be used to embed the video on another website.
+   */
+  public String getEmbedHtml() {
+    return embedHtml;
+  }
+
+  /**
+   * Comments for the video.
+   * 
+   * @return Comments for the video.
+   */
+  public List<Comment> getComments() {
+    return Collections.unmodifiableList(comments);
   }
 
   /**
