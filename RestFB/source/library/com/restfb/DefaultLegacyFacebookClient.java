@@ -68,7 +68,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements
    * API endpoint URL.
    */
   protected static final String FACEBOOK_REST_ENDPOINT_URL =
-      "http://api.facebook.com/restserver.php";
+      "https://api.facebook.com/restserver.php";
 
   /**
    * OAuth API endpoint URL.
