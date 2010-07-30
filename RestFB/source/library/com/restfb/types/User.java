@@ -52,6 +52,9 @@ public class User extends NamedFacebookType {
   private String link;
 
   @Facebook
+  private String bio;
+
+  @Facebook
   private String about;
 
   @Facebook("relationship_status")
@@ -437,6 +440,15 @@ public class User extends NamedFacebookType {
    */
   public String getGender() {
     return gender;
+  }
+
+  /**
+   * The user's biographical snippet.
+   * 
+   * @return The user's biographical snippet.
+   */
+  public String getBio() {
+    return bio;
   }
 
   /**
