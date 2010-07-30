@@ -27,7 +27,7 @@ package com.restfb;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public abstract class FacebookException extends Exception {
+public abstract class FacebookException extends RuntimeException {
   /**
    * Creates an exception with the given message.
    * 
