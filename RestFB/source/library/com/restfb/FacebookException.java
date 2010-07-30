@@ -23,7 +23,7 @@
 package com.restfb;
 
 /**
- * Root of the RestFB checked exception hierarchy.
+ * Root of the RestFB exception hierarchy.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
