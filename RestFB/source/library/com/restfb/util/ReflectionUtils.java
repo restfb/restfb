@@ -23,28 +23,30 @@
 package com.restfb.util;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * A collection of reflection-related utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @author ikabiljo
  * @author ScottHernandez
+ * 
  * @since 1.6
  */
 public final class ReflectionUtils {
+  private static final Map<PairForCaching, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
+      Collections.synchronizedMap(new HashMap<PairForCaching, List<?>>());
+
   /**
    * Prevents instantiation.
    */
@@ -90,7 +92,15 @@ public final class ReflectionUtils {
    */
   public static <T extends Annotation> List<FieldWithAnnotation<T>> findFieldsWithAnnotation(
       Class<?> type, Class<T> annotationType) {
-    // TODO: cache off results per type instead of reflecting every time
+    PairForCaching pairForCaching = new PairForCaching(type, annotationType);
+
+    @SuppressWarnings("unchecked")
+    List<FieldWithAnnotation<T>> cachedResults =
+        (List<FieldWithAnnotation<T>>) FIELDS_WITH_ANNOTATION_CACHE
+          .get(pairForCaching);
+
+    if (cachedResults != null)
+      return cachedResults;
 
     List<FieldWithAnnotation<T>> fieldsWithAnnotation =
         new ArrayList<FieldWithAnnotation<T>>();
@@ -109,7 +119,9 @@ public final class ReflectionUtils {
       type = type.getSuperclass();
     }
 
-    return Collections.unmodifiableList(fieldsWithAnnotation);
+    fieldsWithAnnotation = Collections.unmodifiableList(fieldsWithAnnotation);
+    FIELDS_WITH_ANNOTATION_CACHE.put(pairForCaching, fieldsWithAnnotation);
+    return fieldsWithAnnotation;
   }
 
   /**
@@ -151,104 +163,6 @@ public final class ReflectionUtils {
     });
 
     return Collections.unmodifiableList(methods);
-  }
-
-  /**
-   * TODO: document and test
-   * 
-   * @param <T>
-   * @param type
-   * @param annotationType
-   * @return
-   */
-  public static <T extends Annotation> List<MethodWithAnnotation<T>> findMethodsWithAnnotation(
-      Class<?> type, Class<T> annotationType) {
-    // TODO: cache off results per type instead of reflecting every time
-
-    List<MethodWithAnnotation<T>> methodsWithAnnotation =
-        new ArrayList<MethodWithAnnotation<T>>();
-
-    // Walk all superclasses looking for annotated methods until we hit
-    // Object
-    while (!Object.class.equals(type)) {
-      if (type == null)
-        break;
-
-      for (Method method : type.getDeclaredMethods()) {
-        T annotation = method.getAnnotation(annotationType);
-        if (annotation != null)
-          methodsWithAnnotation.add(new MethodWithAnnotation<T>(method,
-            annotation));
-      }
-
-      type = type.getSuperclass();
-    }
-
-    return Collections.unmodifiableList(methodsWithAnnotation);
-  }
-
-  /**
-   * Get the (first) class that parameterizes the Field supplied.
-   * 
-   * TODO: finish docs, test
-   * 
-   * @param field
-   *          the field
-   * @return the class that parameterizes the field, or null if field is not
-   *         parameterized
-   */
-  public static Class<?> getParameterizedClass(final Field field) {
-    return getParameterizedClass(field, 0);
-  }
-
-  /**
-   * Get the class that parameterizes the Field supplied, at the index supplied
-   * (field can be parameterized with multiple param classes).
-   * 
-   * TODO: finish docs, test
-   * 
-   * @param field
-   *          the field
-   * @param index
-   *          the index of the parameterizing class
-   * @return the class that parameterizes the field, or null if field is not
-   *         parameterized
-   */
-  public static Class<?> getParameterizedClass(final Field field,
-      final int index) {
-    if (field.getGenericType() instanceof ParameterizedType) {
-      ParameterizedType ptype = (ParameterizedType) field.getGenericType();
-      if ((ptype.getActualTypeArguments() != null)
-          && (ptype.getActualTypeArguments().length <= index)) {
-        return null;
-      }
-      Type paramType = ptype.getActualTypeArguments()[index];
-      if (paramType instanceof GenericArrayType) {
-        Class<?> arrayType =
-            (Class<?>) ((GenericArrayType) paramType).getGenericComponentType();
-        return Array.newInstance(arrayType, 0).getClass();
-      } else {
-        if (paramType instanceof ParameterizedType) {
-          ParameterizedType paramPType = (ParameterizedType) paramType;
-          return (Class<?>) paramPType.getRawType();
-        } else {
-          if (paramType instanceof TypeVariable<?>) {
-            // TODO: Figure out what to do... Walk back up the to
-            // the parent class and try to get the variable type
-            // from the T/V/X
-            throw new RuntimeException("Generic Typed Class not supported:  <"
-                + ((TypeVariable<?>) paramType).getName() + "> = "
-                + ((TypeVariable<?>) paramType).getBounds()[0]);
-          } else if (paramType instanceof Class<?>) {
-            return (Class<?>) paramType;
-          } else {
-            throw new RuntimeException(
-              "Unknown type... pretty bad... call for help, wave your hands... yeah!");
-          }
-        }
-      }
-    }
-    return null;
   }
 
   /**
@@ -427,59 +341,65 @@ public final class ReflectionUtils {
   }
 
   /**
-   * A method/annotation pair.
    * 
-   * @author ScottHernandez
+   * @author ikabiljo
    */
-  public static class MethodWithAnnotation<T extends Annotation> {
-    /**
-     * A method.
-     */
-    private Method method;
+  private static final class PairForCaching {
+    private final Class<?> clazz;
+    private final Class<? extends Annotation> annotation;
 
     /**
-     * An annotation on the method.
-     */
-    private T annotation;
-
-    /**
-     * Creates a method/annotation pair.
      * 
-     * @param method
-     *          A method.
+     * @param clazz
      * @param annotation
-     *          An annotation on the method.
      */
-    public MethodWithAnnotation(Method method, T annotation) {
-      this.method = method;
+    public PairForCaching(Class<?> clazz, Class<? extends Annotation> annotation) {
+      this.clazz = clazz;
       this.annotation = annotation;
     }
 
     /**
-     * Gets the method.
-     * 
-     * @return The method.
-     */
-    public Method getMethod() {
-      return method;
-    }
-
-    /**
-     * Gets the annotation on the method.
-     * 
-     * @return The annotation on the method.
-     */
-    public T getAnnotation() {
-      return annotation;
-    }
-
-    /**
-     * @see java.lang.Object#toString()
+     * @see java.lang.Object#hashCode()
      */
     @Override
-    public String toString() {
-      return String.format("Method %s %s.%s : %s", method.getReturnType(),
-        method.getDeclaringClass().getName(), method.getName(), annotation);
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result =
+          prime * result + (annotation == null ? 0 : annotation.hashCode());
+      result = prime * result + (clazz == null ? 0 : clazz.hashCode());
+      return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null)
+        return false;
+      if (getClass() != obj.getClass())
+        return false;
+
+      PairForCaching other = (PairForCaching) obj;
+
+      if (annotation == null) {
+        if (other.annotation != null)
+          return false;
+      } else if (!annotation.equals(other.annotation)) {
+        return false;
+      }
+
+      if (clazz == null) {
+        if (other.clazz != null)
+          return false;
+      } else if (!clazz.equals(other.clazz)) {
+        return false;
+      }
+
+      return true;
     }
   }
 }
