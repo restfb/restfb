@@ -28,6 +28,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static java.util.logging.Level.INFO;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -172,14 +173,37 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       throws FacebookException {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
+    return mapToConnection(makeRequest(connection, parameters), connectionType);
+  }
 
+  /**
+   * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String,
+   *      java.lang.Class)
+   */
+  @Override
+  public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl,
+      Class<T> connectionType) throws FacebookException {
+    String connectionJson = makeRequestAndProcessResponse(new Requestor() {
+      /**
+       * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
+       */
+      @Override
+      public Response makeRequest() throws IOException {
+        return webRequestor.executeGet(connectionPageUrl);
+      }
+    });
+
+    return mapToConnection(connectionJson, connectionType);
+  }
+
+  protected <T> Connection<T> mapToConnection(String connectionJson,
+      Class<T> connectionType) {
     List<T> data = new ArrayList<T>();
     String previous = null;
     String next = null;
 
     try {
-      JsonObject jsonObject =
-          new JsonObject(makeRequest(connection, parameters));
+      JsonObject jsonObject = new JsonObject(connectionJson);
 
       // Pull out data
       JsonArray jsonData = jsonObject.getJsonArray("data");
@@ -209,6 +233,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    */
   @Override
   public JsonObject fetchConnection(String connection, Parameter... parameters)
+      throws FacebookException {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String)
+   */
+  @Override
+  public JsonObject fetchConnectionPage(String connectionPageUrl)
       throws FacebookException {
     throw new UnsupportedOperationException();
   }
@@ -515,8 +548,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *           processing the response.
    */
   protected String makeRequest(String endpoint, boolean useLegacyEndpoint,
-      boolean executeAsPost, boolean executeAsDelete,
-      InputStream binaryAttachment, Parameter... parameters)
+      final boolean executeAsPost, boolean executeAsDelete,
+      final InputStream binaryAttachment, Parameter... parameters)
       throws FacebookException {
     verifyParameterLegality(parameters);
 
@@ -529,22 +562,38 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
-    String fullEndpoint =
+    final String fullEndpoint =
         (useLegacyEndpoint ? getFacebookLegacyEndpointUrl()
             : getFacebookGraphEndpointUrl()) + endpoint;
 
+    final String parameterString = toParameterString(parameters);
+
+    return makeRequestAndProcessResponse(new Requestor() {
+      /**
+       * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
+       */
+      @Override
+      public Response makeRequest() throws IOException {
+        return executeAsPost ? webRequestor.executePost(fullEndpoint,
+          parameterString, binaryAttachment) : webRequestor
+          .executeGet(fullEndpoint + "?" + parameterString);
+      }
+    });
+  }
+
+  protected static interface Requestor {
+    Response makeRequest() throws IOException;
+  }
+
+  protected String makeRequestAndProcessResponse(Requestor requestor)
+      throws FacebookException {
     Response response = null;
-    String parameterString = toParameterString(parameters);
-    String httpVerb = executeAsPost ? "POST" : "GET";
 
     // Perform a GET or POST to the API endpoint
     try {
-      response =
-          executeAsPost ? webRequestor.executePost(fullEndpoint,
-            parameterString, binaryAttachment) : webRequestor
-            .executeGet(fullEndpoint + "?" + parameterString);
+      response = requestor.makeRequest();
     } catch (Throwable t) {
-      throw new FacebookNetworkException("Facebook " + httpVerb + " failed", t);
+      throw new FacebookNetworkException("Facebook request failed", t);
     }
 
     if (logger.isLoggable(INFO))
@@ -557,7 +606,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
         && HTTP_BAD_REQUEST != response.getStatusCode()
         && HTTP_UNAUTHORIZED != response.getStatusCode()
         && HTTP_INTERNAL_ERROR != response.getStatusCode())
-      throw new FacebookNetworkException("Facebook " + httpVerb + " failed",
+      throw new FacebookNetworkException("Facebook request failed",
         response.getStatusCode());
 
     String json = response.getBody();
@@ -571,7 +620,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     // error, something weird happened on Facebook's end. Bail.
     if (HTTP_INTERNAL_ERROR == response.getStatusCode()
         || HTTP_UNAUTHORIZED == response.getStatusCode())
-      throw new FacebookNetworkException("Facebook " + httpVerb + " failed",
+      throw new FacebookNetworkException("Facebook request failed",
         response.getStatusCode());
 
     return json;

@@ -104,8 +104,8 @@ public interface FacebookClient {
   /**
    * Fetches multiple <a
    * href="http://developers.facebook.com/docs/reference/api/">Graph API
-   * objects</a> in a single call, mapping the results to an instance of {@code
-   * objectType}.
+   * objects</a> in a single call, mapping the results to an instance of
+   * {@code objectType}.
    * <p>
    * You'll need to write your own container type ({@code objectType}) to hold
    * the results. See <a href="http://restfb.com">http://restfb.com</a> for an
@@ -168,6 +168,25 @@ public interface FacebookClient {
       Parameter... parameters) throws FacebookException;
 
   /**
+   * Fetches a previous/next page of a Graph API {@code Connection} type,
+   * mapping the result to an instance of {@code connectionType}.
+   * 
+   * @param <T>
+   *          Java type to map to.
+   * @param connectionPageUrl
+   *          The URL of the connection page to fetch, usually retrieved via
+   *          {@link Connection#getPrevious()} or {@link Connection#getNext()}.
+   * @param connectionType
+   *          Connection type token.
+   * @return An instance of type {@code connectionType} which contains the
+   *         requested Connection's data.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   */
+  <T> Connection<T> fetchConnectionPage(String connectionPageUrl,
+      Class<T> connectionType) throws FacebookException;
+
+  /**
    * Fetches a Graph API connection type and returns it as a JSON object.
    * <p>
    * Useful if you don't know at compile time what kind of data you plan to
@@ -186,6 +205,24 @@ public interface FacebookClient {
       throws FacebookException;
 
   /**
+   * Fetches a previous/next page of a Graph API {@code Connection} type and
+   * returns it as a JSON object.
+   * <p>
+   * Useful if you don't know at compile time what kind of data you plan to
+   * request at run time.
+   * 
+   * @param connectionPageUrl
+   *          The URL of the connection page to fetch, usually retrieved via
+   *          {@link Connection#getPrevious()} or {@link Connection#getNext()}.
+   * @return A JSON object which contains the requested Connection's data.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6
+   */
+  JsonObject fetchConnectionPage(String connectionPageUrl)
+      throws FacebookException;
+
+  /**
    * Executes an <a
    * href="http://developers.facebook.com/docs/reference/fql/">FQL query</a>,
    * mapping the resultset to a {@code List} of instances of {@code objectType}.
@@ -193,8 +230,8 @@ public interface FacebookClient {
    * @param <T>
    *          Java type to map to.
    * @param query
-   *          The FQL query to execute, e.g. {@code
-   *          "SELECT name FROM user WHERE uid=220439 or uid=7901103"}.
+   *          The FQL query to execute, e.g.
+   *          {@code "SELECT name FROM user WHERE uid=220439 or uid=7901103"}.
    * @param objectType
    *          Resultset object type token.
    * @param parameters
@@ -216,8 +253,8 @@ public interface FacebookClient {
    * request at run time.
    * 
    * @param query
-   *          The FQL query to execute, e.g. {@code
-   *          "SELECT name FROM user WHERE uid=220439 or uid=7901103"}.
+   *          The FQL query to execute, e.g.
+   *          {@code "SELECT name FROM user WHERE uid=220439 or uid=7901103"}.
    * @param parameters
    *          URL parameters to include in the API call (optional).
    * @return A JSON array representation of the query results.
@@ -242,8 +279,8 @@ public interface FacebookClient {
    *          Java type to map to.
    * @param queries
    *          A mapping of query names to queries. This is marshaled to JSON and
-   *          sent over the wire to the Facebook API endpoint as the {@code
-   *          queries} parameter.
+   *          sent over the wire to the Facebook API endpoint as the
+   *          {@code queries} parameter.
    * @param objectType
    *          Object type token.
    * @param parameters
@@ -267,8 +304,8 @@ public interface FacebookClient {
    * 
    * @param queries
    *          A mapping of query names to queries. This is marshaled to JSON and
-   *          sent over the wire to the Facebook API endpoint as the {@code
-   *          queries} parameter.
+   *          sent over the wire to the Facebook API endpoint as the
+   *          {@code queries} parameter.
    * @param parameters
    *          URL parameters to include in the API call (optional).
    * @return A JSON object which contains a mapping of query names to query
@@ -396,8 +433,8 @@ public interface FacebookClient {
    * @param sessionKeys
    *          The Old REST API session keys to be converted to OAuth2 access
    *          tokens.
-   * @return A list of access tokens ordered to correspond to the {@code
-   *         sessionKeys} argument list.
+   * @return A list of access tokens ordered to correspond to the
+   *         {@code sessionKeys} argument list.
    * @throws FacebookException
    *           If an error occurs while attempting to convert the session keys
    *           to API keys.
