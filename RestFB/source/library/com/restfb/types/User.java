@@ -122,13 +122,13 @@ public class User extends NamedFacebookType {
    */
   public static class Work {
     @Facebook
-    NamedFacebookType employer;
+    private NamedFacebookType employer;
 
     @Facebook
-    NamedFacebookType location;
+    private NamedFacebookType location;
 
     @Facebook
-    NamedFacebookType position;
+    private NamedFacebookType position;
 
     @Facebook("start_date")
     private String startDate;
@@ -215,13 +215,13 @@ public class User extends NamedFacebookType {
    */
   public static class Education {
     @Facebook
-    NamedFacebookType school;
+    private NamedFacebookType school;
 
     @Facebook
-    NamedFacebookType year;
+    private NamedFacebookType year;
 
     @Facebook
-    NamedFacebookType degree;
+    private NamedFacebookType degree;
 
     @Facebook(value = "concentration", contains = NamedFacebookType.class)
     private List<NamedFacebookType> concentration =

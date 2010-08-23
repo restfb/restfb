@@ -39,10 +39,10 @@ public class FacebookType {
   private String id;
 
   @Facebook
-  Metadata metadata;
+  private Metadata metadata;
 
   @Facebook
-  String type;
+  private String type;
 
   /**
    * @see java.lang.Object#hashCode()
@@ -81,8 +81,8 @@ public class FacebookType {
    * This object's metadata, available by including the {@code metadata=1} URL
    * parameter in an API request.
    * 
-   * @return This object's metadata, available by including the {@code
-   *         metadata=1} URL parameter in an API request.
+   * @return This object's metadata, available by including the
+   *         {@code metadata=1} URL parameter in an API request.
    */
   public Metadata getMetadata() {
     return metadata;
@@ -92,8 +92,8 @@ public class FacebookType {
    * This object's type metadata, available by including the {@code metadata=1}
    * URL parameter in an API request.
    * 
-   * @return This object's type metadata, available by including the {@code
-   *         metadata=1} URL parameter in an API request.
+   * @return This object's type metadata, available by including the
+   *         {@code metadata=1} URL parameter in an API request.
    */
   public String getType() {
     return type;
@@ -139,8 +139,8 @@ public class FacebookType {
     /**
      * Represents <a
      * href="http://developers.facebook.com/docs/api#introspection">Facebook
-     * Object connections metadata</a>, available by including the {@code
-     * metadata=1} URL parameter in an API request.
+     * Object connections metadata</a>, available by including the
+     * {@code metadata=1} URL parameter in an API request.
      * 
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.5
@@ -248,8 +248,8 @@ public class FacebookType {
       /**
        * Does this object have a 'home' connection?
        * 
-       * @return {@code true} if this object has a 'home' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'home' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasHome() {
         return !StringUtils.isBlank(home);
@@ -258,8 +258,8 @@ public class FacebookType {
       /**
        * Does this object have a 'feed' connection?
        * 
-       * @return {@code true} if this object has a 'feed' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'feed' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasFeed() {
         return !StringUtils.isBlank(feed);
@@ -268,8 +268,8 @@ public class FacebookType {
       /**
        * Does this object have a 'friends' connection?
        * 
-       * @return {@code true} if this object has a 'friends' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'friends' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasFriends() {
         return !StringUtils.isBlank(friends);
@@ -278,8 +278,8 @@ public class FacebookType {
       /**
        * Does this object have a 'family' connection?
        * 
-       * @return {@code true} if this object has a 'family' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'family' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasFamily() {
         return !StringUtils.isBlank(family);
@@ -308,8 +308,8 @@ public class FacebookType {
       /**
        * Does this object have a 'music' connection?
        * 
-       * @return {@code true} if this object has a 'music' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'music' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasMusic() {
         return !StringUtils.isBlank(music);
@@ -318,8 +318,8 @@ public class FacebookType {
       /**
        * Does this object have a 'books' connection?
        * 
-       * @return {@code true} if this object has a 'books' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'books' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasBooks() {
         return !StringUtils.isBlank(books);
@@ -328,8 +328,8 @@ public class FacebookType {
       /**
        * Does this object have a 'movies' connection?
        * 
-       * @return {@code true} if this object has a 'movies' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'movies' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasMovies() {
         return !StringUtils.isBlank(movies);
@@ -348,8 +348,8 @@ public class FacebookType {
       /**
        * Does this object have a 'likes' connection?
        * 
-       * @return {@code true} if this object has a 'likes' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'likes' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasLikes() {
         return !StringUtils.isBlank(likes);
@@ -358,8 +358,8 @@ public class FacebookType {
       /**
        * Does this object have a 'posts' connection?
        * 
-       * @return {@code true} if this object has a 'posts' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'posts' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasPosts() {
         return !StringUtils.isBlank(posts);
@@ -368,8 +368,8 @@ public class FacebookType {
       /**
        * Does this object have a 'tagged' connection?
        * 
-       * @return {@code true} if this object has a 'tagged' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'tagged' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasTagged() {
         return !StringUtils.isBlank(tagged);
@@ -388,8 +388,8 @@ public class FacebookType {
       /**
        * Does this object have a 'links' connection?
        * 
-       * @return {@code true} if this object has a 'links' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'links' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasLinks() {
         return !StringUtils.isBlank(links);
@@ -398,8 +398,8 @@ public class FacebookType {
       /**
        * Does this object have a 'notes' connection?
        * 
-       * @return {@code true} if this object has a 'notes' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'notes' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasNotes() {
         return !StringUtils.isBlank(notes);
@@ -408,8 +408,8 @@ public class FacebookType {
       /**
        * Does this object have a 'photos' connection?
        * 
-       * @return {@code true} if this object has a 'photos' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'photos' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasPhotos() {
         return !StringUtils.isBlank(photos);
@@ -418,8 +418,8 @@ public class FacebookType {
       /**
        * Does this object have an 'albums' connection?
        * 
-       * @return {@code true} if this object has an 'albums' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has an 'albums' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasAlbums() {
         return !StringUtils.isBlank(albums);
@@ -428,8 +428,8 @@ public class FacebookType {
       /**
        * Does this object have an 'events' connection?
        * 
-       * @return {@code true} if this object has an 'events' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has an 'events' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasEvents() {
         return !StringUtils.isBlank(events);
@@ -438,8 +438,8 @@ public class FacebookType {
       /**
        * Does this object have a 'groups' connection?
        * 
-       * @return {@code true} if this object has a 'groups' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'groups' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasGroups() {
         return !StringUtils.isBlank(groups);
@@ -448,8 +448,8 @@ public class FacebookType {
       /**
        * Does this object have a 'videos' connection?
        * 
-       * @return {@code true} if this object has a 'videos' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'videos' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasVideos() {
         return !StringUtils.isBlank(videos);
@@ -458,8 +458,8 @@ public class FacebookType {
       /**
        * Does this object have a 'picture' connection?
        * 
-       * @return {@code true} if this object has a 'picture' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has a 'picture' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasPicture() {
         return !StringUtils.isBlank(picture);
@@ -468,8 +468,8 @@ public class FacebookType {
       /**
        * Does this object have an 'inbox' connection?
        * 
-       * @return {@code true} if this object has an 'inbox' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has an 'inbox' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasInbox() {
         return !StringUtils.isBlank(inbox);
@@ -478,8 +478,8 @@ public class FacebookType {
       /**
        * Does this object have an 'outbox' connection?
        * 
-       * @return {@code true} if this object has an 'outbox' connection, {@code
-       *         false} otherwise.
+       * @return {@code true} if this object has an 'outbox' connection,
+       *         {@code false} otherwise.
        */
       public Boolean hasOutbox() {
         return !StringUtils.isBlank(outbox);
