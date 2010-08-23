@@ -44,8 +44,13 @@ import java.util.Set;
  * @since 1.6
  */
 public final class ReflectionUtils {
-  private static final Map<PairForCaching, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
-      Collections.synchronizedMap(new HashMap<PairForCaching, List<?>>());
+  /**
+   * In-memory shared cache of reflection data for
+   * {@link #findFieldsWithAnnotation(Class, Class)}.
+   */
+  private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
+      Collections
+        .synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
 
   /**
    * Prevents instantiation.
@@ -92,12 +97,13 @@ public final class ReflectionUtils {
    */
   public static <T extends Annotation> List<FieldWithAnnotation<T>> findFieldsWithAnnotation(
       Class<?> type, Class<T> annotationType) {
-    PairForCaching pairForCaching = new PairForCaching(type, annotationType);
+    ClassAnnotationCacheKey cacheKey =
+        new ClassAnnotationCacheKey(type, annotationType);
 
     @SuppressWarnings("unchecked")
     List<FieldWithAnnotation<T>> cachedResults =
         (List<FieldWithAnnotation<T>>) FIELDS_WITH_ANNOTATION_CACHE
-          .get(pairForCaching);
+          .get(cacheKey);
 
     if (cachedResults != null)
       return cachedResults;
@@ -120,7 +126,7 @@ public final class ReflectionUtils {
     }
 
     fieldsWithAnnotation = Collections.unmodifiableList(fieldsWithAnnotation);
-    FIELDS_WITH_ANNOTATION_CACHE.put(pairForCaching, fieldsWithAnnotation);
+    FIELDS_WITH_ANNOTATION_CACHE.put(cacheKey, fieldsWithAnnotation);
     return fieldsWithAnnotation;
   }
 
@@ -341,19 +347,32 @@ public final class ReflectionUtils {
   }
 
   /**
+   * Cache key composed of a class and annotation pair. Used by
+   * {@link ReflectionUtils#FIELDS_WITH_ANNOTATION_CACHE}.
    * 
    * @author ikabiljo
    */
-  private static final class PairForCaching {
+  private static final class ClassAnnotationCacheKey {
+    /**
+     * Class component of this cache key.
+     */
     private final Class<?> clazz;
+
+    /**
+     * Annotation component of this cache key.
+     */
     private final Class<? extends Annotation> annotation;
 
     /**
+     * Creates a cache key with the given {@code clazz}/@{code annotation} pair.
      * 
      * @param clazz
+     *          Class component of this cache key.
      * @param annotation
+     *          Annotation component of this cache key.
      */
-    public PairForCaching(Class<?> clazz, Class<? extends Annotation> annotation) {
+    private ClassAnnotationCacheKey(Class<?> clazz,
+        Class<? extends Annotation> annotation) {
       this.clazz = clazz;
       this.annotation = annotation;
     }
@@ -383,7 +402,7 @@ public final class ReflectionUtils {
       if (getClass() != obj.getClass())
         return false;
 
-      PairForCaching other = (PairForCaching) obj;
+      ClassAnnotationCacheKey other = (ClassAnnotationCacheKey) obj;
 
       if (annotation == null) {
         if (other.annotation != null)
