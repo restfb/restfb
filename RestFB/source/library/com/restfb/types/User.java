@@ -22,8 +22,6 @@
 
 package com.restfb.types;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -32,6 +30,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils;
+import com.restfb.util.StringUtils;
 
 /**
  * Represents the <a
@@ -96,6 +95,9 @@ public class User extends NamedFacebookType {
   @Facebook
   private NamedFacebookType location;
 
+  @Facebook("significant_other")
+  private NamedFacebookType significantOther;
+
   @Facebook("updated_time")
   private String updatedTime;
 
@@ -119,10 +121,6 @@ public class User extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
   public static class Work {
-    // Facebook month-year only date format.
-    // Example: 2007-03
-    private static final String FACEBOOK_MONTH_YEAR_DATE_FORMAT = "yyyy-MM";
-
     @Facebook
     NamedFacebookType employer;
 
@@ -137,32 +135,6 @@ public class User extends NamedFacebookType {
 
     @Facebook("end_date")
     private String endDate;
-
-    /**
-     * Returns a Java representation of a Facebook month-year {@code date}
-     * string.
-     * 
-     * @param date
-     *          Facebook month-year {@code date} string.
-     * @return Java date representation of the given Facebook {@code date}
-     *         string.
-     * @throws IllegalArgumentException
-     *           If the provided {@code date} isn't in the Facebook month-year
-     *           date format.
-     */
-    protected Date toMonthYearDate(String date) throws IllegalArgumentException {
-      if (date == null)
-        return null;
-
-      try {
-        return new SimpleDateFormat(FACEBOOK_MONTH_YEAR_DATE_FORMAT)
-          .parse(date);
-      } catch (ParseException e) {
-        throw new IllegalArgumentException(
-          "Unable to parse date '" + date + "' using format string '"
-              + FACEBOOK_MONTH_YEAR_DATE_FORMAT + "'", e);
-      }
-    }
 
     /**
      * @see java.lang.Object#hashCode()
@@ -221,7 +193,7 @@ public class User extends NamedFacebookType {
      * @return Date this job was started.
      */
     public Date getStartDate() {
-      return toMonthYearDate(startDate);
+      return DateUtils.toDateFromMonthYearFormat(startDate);
     }
 
     /**
@@ -230,7 +202,7 @@ public class User extends NamedFacebookType {
      * @return Date this job ended.
      */
     public Date getEndDate() {
-      return toMonthYearDate(endDate);
+      return DateUtils.toDateFromMonthYearFormat(endDate);
     }
   }
 
@@ -362,11 +334,29 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * The user's birthday.
+   * The user's birthday as a {@code String}.
+   * <p>
+   * Will always succeed, even if the user has specified month/year format only.
+   * If you'd like to use a typed version of this accessor, call
+   * {@link #getBirthdayAsDate()} instead.
    * 
-   * @return The user's birthday.
+   * @return The user's birthday as a {@code String}.
    */
-  public Date getBirthday() {
+  public String getBirthday() {
+    return birthday;
+  }
+
+  /**
+   * The user's birthday, typed to {@code java.util.Date} if possible.
+   * 
+   * @return The user's birthday, or {@code null} if unavailable or only
+   *         available in month/year format.
+   */
+  public Date getBirthdayAsDate() {
+    if (StringUtils.isBlank(getBirthday())
+        || getBirthday().split("/").length < 2)
+      return null;
+
     return DateUtils.toDateFromShortFormat(birthday);
   }
 
@@ -485,6 +475,15 @@ public class User extends NamedFacebookType {
    */
   public NamedFacebookType getLocation() {
     return location;
+  }
+
+  /**
+   * The user's significant other.
+   * 
+   * @return The user's significant other.
+   */
+  public NamedFacebookType getSignificantOther() {
+    return significantOther;
   }
 
   /**
