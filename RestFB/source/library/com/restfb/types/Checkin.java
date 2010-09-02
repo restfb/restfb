@@ -22,7 +22,14 @@
 
 package com.restfb.types;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 import com.restfb.Facebook;
+import com.restfb.util.DateUtils;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a
@@ -34,10 +41,146 @@ import com.restfb.Facebook;
  */
 public class Checkin extends FacebookType {
   @Facebook
+  private String message;
+
+  @Facebook
   private NamedFacebookType from;
 
-  // TODO: the rest of the fields once this feature is turned on and I can test
-  // it!
+  @Facebook
+  private NamedFacebookType application;
+
+  @Facebook
+  private Place place;
+
+  @Facebook("created_time")
+  private String createdTime;
+
+  @Facebook(contains = Comment.class)
+  private List<Comment> comments = new ArrayList<Comment>();
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/checkin">Place
+   * Graph API type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6
+   */
+  public static class Place extends NamedFacebookType {
+    @Facebook
+    private Location location;
+
+    /**
+     * Represents the <a
+     * href="http://developers.facebook.com/docs/reference/api/checkin">Location
+     * Graph API type</a>.
+     * 
+     * @author <a href="http://restfb.com">Mark Allen</a>
+     * @since 1.6
+     */
+    public static class Location {
+      @Facebook
+      private Float latitude;
+
+      @Facebook
+      private Float longitude;
+
+      /**
+       * @see java.lang.Object#hashCode()
+       */
+      @Override
+      public int hashCode() {
+        return ReflectionUtils.hashCode(this);
+      }
+
+      /**
+       * @see java.lang.Object#equals(java.lang.Object)
+       */
+      @Override
+      public boolean equals(Object that) {
+        return ReflectionUtils.equals(this, that);
+      }
+
+      /**
+       * @see java.lang.Object#toString()
+       */
+      @Override
+      public String toString() {
+        return ReflectionUtils.toString(this);
+      }
+
+      /**
+       * The latitude of the check-in.
+       * 
+       * @return The latitude of the check-in.
+       */
+      public Float getLatitude() {
+        return latitude;
+      }
+
+      /**
+       * The longitude of the check-in.
+       * 
+       * @return The longitude of the check-in.
+       */
+      public Float getLongitude() {
+        return longitude;
+      }
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The latitude/longitude of the check-in.
+     * 
+     * @return The latitude/longitude of the check-in.
+     */
+    public Location getLocation() {
+      return location;
+    }
+  }
+
+  /**
+   * The ID, name, and location of the Facebook Page that represents the
+   * location of the check-in.
+   * 
+   * @return The ID, name, and location of the Facebook Page that represents the
+   *         location of the check-in.
+   */
+  public Place getPlace() {
+    return place;
+  }
+
+  /**
+   * The ID and name of the application that made the check-in.
+   * 
+   * @return The ID and name of the application that made the check-in.
+   */
+  public NamedFacebookType getApplication() {
+    return application;
+  }
 
   /**
    * The ID and name of the user who made the check-in.
@@ -46,5 +189,32 @@ public class Checkin extends FacebookType {
    */
   public NamedFacebookType getFrom() {
     return from;
+  }
+
+  /**
+   * The message the user added to the check-in.
+   * 
+   * @return The message the user added to the check-in.
+   */
+  public String getMessage() {
+    return message;
+  }
+
+  /**
+   * The time the check-in was created.
+   * 
+   * @return The time the check-in was created.
+   */
+  public Date getCreatedTime() {
+    return DateUtils.toDateFromLongFormat(createdTime);
+  }
+
+  /**
+   * The comments for the check-in.
+   * 
+   * @return The comments for the check-in.
+   */
+  public List<Comment> getComments() {
+    return Collections.unmodifiableList(comments);
   }
 }
