@@ -1,3 +1,7 @@
+1.5.4 (September 16, 2010)
+* Post comment type now handles case where FB returns an empty array instead of an object type.
+  Thanks to Pipo, CR, S13_Alan, ikabiljo, and huillam.
+
 1.5.3 (July 21, 2010)
 * NamedFacebookType now handles situation where FB returns, for example,
   "hometown":"Beograd", instead of the expected "hometown":{"id":123,"name":"Belgrade, Serbia"}
