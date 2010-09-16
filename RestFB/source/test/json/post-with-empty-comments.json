@@ -1,0 +1,23 @@
+{
+   "id": "1234",
+   "from": {
+      "name": "Manuel Martin",
+      "id": "4132"
+   },
+   "to": {
+      "data": [
+         {
+            "name": "Vodafone",
+            "category": "Communications",
+            "id": "512331"
+         }
+      ]
+   },
+   "message": "hello world!",
+   "type": "status",
+   "created_time": "2010-09-14T22:41:25+0000",
+   "updated_time": "2010-09-14T22:41:25+0000",
+   "comments": [
+      
+   ]
+}

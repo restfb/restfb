@@ -40,6 +40,7 @@ import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.NamedFacebookType;
+import com.restfb.types.Post.Comments;
 import com.restfb.util.ReflectionUtils;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
 import com.restfb.util.StringUtils;
@@ -493,6 +494,22 @@ public class DefaultJsonMapper implements JsonMapper {
 
       JsonObject workaroundJsonObject = new JsonObject();
       workaroundJsonObject.put("name", rawValue);
+      rawValueAsString = workaroundJsonObject.toString();
+    }
+
+    if (Comments.class.isAssignableFrom(type) && rawValue instanceof JsonArray) {
+      // Hack for issue 76 where FB will sometimes return a Post's Comments as
+      // "[]" instead of an object type (wtf)
+      if (logger.isLoggable(FINE))
+        logger.fine("Encountered comment array '" + rawValueAsString
+            + "' but expected a " + Comments.class.getSimpleName()
+            + " object instead.  Working around that "
+            + "by coercing into an empty " + Comments.class.getSimpleName()
+            + " instance...");
+
+      JsonObject workaroundJsonObject = new JsonObject();
+      workaroundJsonObject.put("count", 0);
+      workaroundJsonObject.put("data", new JsonArray());
       rawValueAsString = workaroundJsonObject.toString();
     }
 
