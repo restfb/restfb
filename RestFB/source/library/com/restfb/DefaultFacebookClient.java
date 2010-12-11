@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Mark Allen.
+ * Copyright (c) 2010-2011 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -131,7 +131,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Creates a Facebook Graph API client with the given {@code accessToken}.
    * 
    * @param accessToken
-   *          A Facebook OAuth2 access token.
+   *          A Facebook OAuth access token.
    */
   public DefaultFacebookClient(String accessToken) {
     this(accessToken, new DefaultWebRequestor(), new DefaultJsonMapper());
@@ -142,7 +142,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * {@code webRequestor}, and {@code jsonMapper}.
    * 
    * @param accessToken
-   *          A Facebook OAuth2 access token.
+   *          A Facebook OAuth access token.
    * @param webRequestor
    *          The {@link WebRequestor} implementation to use for sending
    *          requests to the API endpoint.

@@ -27,7 +27,7 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6 (released June XX 2010) of the library is available via <a href="http://restfb.googlecode.com">Google Code</a>.
+			Version 1.6 (released December XX 2010) of the library is available via <a href="http://restfb.googlecode.com">Google Code</a>.
 			<br/>
 			<a href="http://restfb.googlecode.com/svn/branches/RB-1.6/RestFB/CHANGELOG">View the changelog</a>, 
 			or <a href="http://restfb.googlecode.com/files/restfb-1.6.zip">download it here</a>.
@@ -65,9 +65,7 @@
 		<div class="spacer"></div>				
 		
 		<p>
-			If RestFB doesn't meet your needs, <a href="http://wiki.developers.facebook.com/index.php/User:Java">there are some alternative clients available</a>.
-			<br/>
-			<a href="http://batchfb.googlecode.com/">BatchFB</a>, a sister project, is a good lower-level client especially if you're concerned with batching and performance.
+			If RestFB doesn't meet your needs, check out sister project <a href="http://batchfb.googlecode.com/">BatchFB</a>.  It's a good lower-level client, especially if you're concerned with batching and performance.
 		</p>
 		
 		<div class="spacer"></div>
@@ -96,7 +94,7 @@
 						
 			<div>
 				If you'd like to code against the Old REST Facebook API, though, RestFB has you covered.
-				<a href="legacy-rest-api.html">Just use LegacyFacebookClient, which is documented here</a>.  It even supports the new OAuth2 authentication scheme!
+				<a href="legacy-rest-api.html">Just use LegacyFacebookClient, which is documented here</a>.  It even supports the new OAuth authentication scheme!
 			</div>	
 		</div>
 		
@@ -121,7 +119,7 @@ FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();</pre>
 		<div class="spacer"></div>
 		
 		<div class="warning-bubble">
-			<h3>Not sure how to get an OAuth2 access token?</h3>
+			<h3>Not sure how to get an OAuth access token?</h3>
 						
 			<div>
 				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a href="http://developers.facebook.com/docs/api">navigate to the Graph API documentation</a>.
@@ -340,7 +338,7 @@ out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>
 			<h3>A note about the Publish and Delete examples below</h3>
 						
 			<div>
-				In order to use these, you'll need to create a Facebook Application and then request an OAuth2
+				In order to use these, you'll need to create a Facebook Application and then request an OAuth
 				access token with the proper permissions,	e.g. <code>publish_stream,offline_access,create_event</code>.
 			</div>	
 			
@@ -718,6 +716,7 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		<h2>RestFB Users</h2>
 		
 		<ul>
+			<li><a href="http://www.ibm.com/cn/zh/">IBM</a></li>
 			<li><a href="http://ou-android.appspot.com">Où? for Android</a> by Sylvain Maucourt</li>
 		</ul>
 		
@@ -772,7 +771,7 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		</p>
 		
 		<pre>
-Copyright (c) 2010 Mark Allen. 
+Copyright (c) 2010-2011 Mark Allen. 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

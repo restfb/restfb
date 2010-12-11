@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Mark Allen.
+ * Copyright (c) 2010-2011 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -405,7 +405,7 @@ public interface FacebookClient {
   boolean deleteObject(String object) throws FacebookException;
 
   /**
-   * Converts an arbitrary number of {@code sessionKeys} to OAuth2 access
+   * Converts an arbitrary number of {@code sessionKeys} to OAuth access
    * tokens.
    * <p>
    * See the <a
@@ -418,7 +418,7 @@ public interface FacebookClient {
    * @param secretKey
    *          A Facebook application secret key.
    * @param sessionKeys
-   *          The Old REST API session keys to be converted to OAuth2 access
+   *          The Old REST API session keys to be converted to OAuth access
    *          tokens.
    * @return A list of access tokens ordered to correspond to the
    *         {@code sessionKeys} argument list.
@@ -434,7 +434,7 @@ public interface FacebookClient {
    * Represents an access token/expiration date pair.
    * <p>
    * Facebook returns these types when converting from legacy session keys to
-   * OAuth2 access tokens - see
+   * OAuth access tokens - see
    * {@link com.restfb.FacebookClient#convertSessionKeysToAccessTokens(String, String, String...)}
    * for details.
    * 

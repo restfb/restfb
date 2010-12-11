@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Mark Allen.
+ * Copyright (c) 2010-2011 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -88,7 +88,7 @@ public interface LegacyFacebookClient {
    *           If {@code sessionKey} is provided when using OAuth access token
    *           authentication.
    * @deprecated Use {@link #execute(String, Parameter...)} instead. Facebook is
-   *             moving to OAuth2 and will stop supporting the old session key
+   *             moving to OAuth and will stop supporting the old session key
    *             authentication scheme soon.
    */
   @Deprecated
@@ -137,7 +137,7 @@ public interface LegacyFacebookClient {
    *           If {@code sessionKey} is provided when using OAuth access token
    *           authentication.
    * @deprecated Use {@link #execute(String, Class, Parameter...)} instead.
-   *             Facebook is moving to OAuth2 and will stop supporting the old
+   *             Facebook is moving to OAuth and will stop supporting the old
    *             session key authentication scheme soon.
    */
   @Deprecated
@@ -187,7 +187,7 @@ public interface LegacyFacebookClient {
    *           If {@code sessionKey} is provided when using OAuth access token
    *           authentication.
    * @deprecated Use {@link #executeForList(String, Class, Parameter...)}
-   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             instead. Facebook is moving to OAuth and will stop supporting
    *             the old session key authentication scheme soon.
    */
   @Deprecated
@@ -261,7 +261,7 @@ public interface LegacyFacebookClient {
    *           authentication.
    * @since 1.1
    * @deprecated Use {@link #executeMultiquery(Map, Class, Parameter...)}
-   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             instead. Facebook is moving to OAuth and will stop supporting
    *             the old session key authentication scheme soon.
    */
   @Deprecated

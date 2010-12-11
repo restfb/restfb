@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Mark Allen.
+ * Copyright (c) 2010-2011 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -120,7 +120,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @throws IllegalArgumentException
    *           If either parameter is a blank string.
    * @deprecated You should use {@link #DefaultLegacyFacebookClient(String)}
-   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             instead. Facebook is moving to OAuth and will stop supporting
    *             the old authentication scheme soon.
    */
   @Deprecated
@@ -148,7 +148,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *           If either {@code apiKey} or {@code secretKey} is a blank string.
    * @deprecated You should use
    *             {@link #DefaultLegacyFacebookClient(String, WebRequestor, JsonMapper)}
-   *             instead. Facebook is moving to OAuth2 and will stop supporting
+   *             instead. Facebook is moving to OAuth and will stop supporting
    *             the old authentication scheme soon.
    */
   @Deprecated

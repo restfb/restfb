@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Mark Allen.
+ * Copyright (c) 2010-2011 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,8 @@ package com.restfb.exception;
  * Example:<code>
   {
       "error": {
-        "type": "QueryParseException",
-        "message": "Some of the aliases you requested do not exist: xxxxx"
+        "type": "Exception",
+        "message": "..."
       }
   } </code>
  * 

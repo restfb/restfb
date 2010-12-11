@@ -20,33 +20,9 @@
  * THE SOFTWARE.
  */
 
-package com.restfb.exception;
-
 /**
- * Indicates that the Facebook Graph API endpoint returned JSON which indicates
- * an error condition related to FQL query parsing.
+ * Contains exceptions that RestFB may throw while attempting to communicate with the Facebook API endpoints.
  * <p>
- * Example:<code>
-  {
-      "error": {
-        "type": "QueryParseException",
-        "message": "Some of the aliases you requested do not exist: xxxxx"
-      }
-  } </code>
- * 
- * @author <a href="http://restfb.com">Mark Allen</a>
- * @since 1.6
+ * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
  */
-public class FacebookQueryParseException extends FacebookGraphException {
-  /**
-   * Creates an exception with the given error type and message.
-   * 
-   * @param errorType
-   *          Value of the Facebook response attribute {@code error.type}.
-   * @param errorMessage
-   *          Value of the Facebook response attribute {@code error.message}.
-   */
-  public FacebookQueryParseException(String errorType, String errorMessage) {
-    super(errorType, errorMessage);
-  }
-}
+package com.restfb.exception;
