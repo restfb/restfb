@@ -42,6 +42,7 @@ import com.restfb.exception.FacebookGraphExceptionMapper;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookNetworkException;
 import com.restfb.exception.FacebookOAuthException;
+import com.restfb.exception.FacebookPermissionException;
 import com.restfb.exception.FacebookQueryParseException;
 import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonArray;
@@ -617,8 +618,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
 
-      throw new FacebookGraphException(innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
-        innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
+      throw facebookGraphExceptionMapper
+        .exceptionForTypeAndMessage(innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+          innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -645,6 +647,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
         if ("QueryParseException".equals(type))
           return new FacebookQueryParseException(type, message);
+
+        // Check copied from BatchFB source:
+        // Special case, permission exceptions are poorly structured
+        if ("Exception".equals(type) && message.startsWith("(#200)"))
+          return new FacebookPermissionException(type, message);
 
         // Don't recognize this exception type? Just go with the standard
         // FacebookGraphException.
