@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.restfb;
+package com.restfb.exception;
 
 /**
  * Indicates that the Legacy REST Facebook endpoint returned JSON which
@@ -54,8 +54,7 @@ public class FacebookResponseStatusException extends FacebookException {
    *          Value of the Facebook response attribute {@code error_msg}.
    */
   public FacebookResponseStatusException(Integer errorCode, String errorMessage) {
-    super(String.format("Received Facebook error response (code %d): %s",
-      errorCode, errorMessage));
+    super(String.format("Received Facebook error response (code %d): %s", errorCode, errorMessage));
     this.errorCode = errorCode;
     this.errorMessage = errorMessage;
   }

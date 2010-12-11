@@ -30,6 +30,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.types.NamedFacebookType;
 import com.restfb.types.User;
 
@@ -63,8 +64,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void simplePrimitive() throws FacebookJsonMappingException {
-    String tag =
-        createJsonMapper().toJavaObject(jsonFromClasspath("tag"), String.class);
+    String tag = createJsonMapper().toJavaObject(jsonFromClasspath("tag"), String.class);
     assertTrue("Good".equals(tag));
   }
 
@@ -73,9 +73,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void simplePrimitiveNumber() throws FacebookJsonMappingException {
-    Integer number =
-        createJsonMapper().toJavaObject(jsonFromClasspath("number"),
-          Integer.class);
+    Integer number = createJsonMapper().toJavaObject(jsonFromClasspath("number"), Integer.class);
     assertTrue(number.equals(1234));
   }
 
@@ -84,8 +82,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void simplePrimitiveList() throws FacebookJsonMappingException {
-    List<String> tags =
-        createJsonMapper().toJavaList(jsonFromClasspath("tags"), String.class);
+    List<String> tags = createJsonMapper().toJavaList(jsonFromClasspath("tags"), String.class);
     assertTrue(tags.size() == 3);
     assertTrue("Good".equals(tags.get(0)));
     assertTrue("Better".equals(tags.get(1)));
@@ -97,9 +94,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void simplePrimitiveNumericList() throws FacebookJsonMappingException {
-    List<Integer> numbers =
-        createJsonMapper().toJavaList(jsonFromClasspath("numbers"),
-          Integer.class);
+    List<Integer> numbers = createJsonMapper().toJavaList(jsonFromClasspath("numbers"), Integer.class);
     assertTrue(numbers.size() == 3);
     assertTrue(numbers.get(0).equals(1234));
     assertTrue(numbers.get(1).equals(5678));
@@ -111,9 +106,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void simpleObject() throws FacebookJsonMappingException {
-    BasicUser basicUser =
-        createJsonMapper().toJavaObject(jsonFromClasspath("basic-user"),
-          BasicUser.class);
+    BasicUser basicUser = createJsonMapper().toJavaObject(jsonFromClasspath("basic-user"), BasicUser.class);
     assertTrue(basicUser.uid.equals(1234L));
     assertTrue("Test Person".equals(basicUser.name));
   }
@@ -124,8 +117,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   @Test
   public void simpleObjectWithList() throws FacebookJsonMappingException {
     UserWithPhotos userWithPhotos =
-        createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"),
-          UserWithPhotos.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), UserWithPhotos.class);
     assertTrue(userWithPhotos.photos.size() == 2);
     assertTrue(userWithPhotos.photos.get(0).photoId.equals(1L));
     assertTrue(userWithPhotos.photos.get(1).photoId.equals(2L));
@@ -137,8 +129,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   @Test
   public void fieldsFromSuperclass() throws FacebookJsonMappingException {
     UserWithPhotos userWithPhotos =
-        createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"),
-          UserWithPhotos.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), UserWithPhotos.class);
     assertTrue(userWithPhotos.uid.equals(1234L));
     assertTrue("Test Person".equals(userWithPhotos.name));
     assertTrue(userWithPhotos.photos.size() == 2);
@@ -149,9 +140,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void privateFields() throws FacebookJsonMappingException {
-    PrivateUser privateUser =
-        createJsonMapper().toJavaObject(jsonFromClasspath("basic-user"),
-          PrivateUser.class);
+    PrivateUser privateUser = createJsonMapper().toJavaObject(jsonFromClasspath("basic-user"), PrivateUser.class);
     assertTrue(privateUser.getUid().equals(1234L));
   }
 
@@ -162,20 +151,14 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   @Test
   public void usersWithAffiliations() throws FacebookJsonMappingException {
     List<UserWithAffiliations> usersWithAffiliations =
-        createJsonMapper().toJavaList(
-          jsonFromClasspath("users-with-affiliations"),
-          UserWithAffiliations.class);
+        createJsonMapper().toJavaList(jsonFromClasspath("users-with-affiliations"), UserWithAffiliations.class);
 
     assertTrue(usersWithAffiliations.size() == 3);
-    Assert
-      .assertTrue("Heather Merlin".equals(usersWithAffiliations.get(0).name));
-    Assert
-      .assertTrue(("https://secure-profile.facebook.com/profile6/"
-          + "13580/1406/n284asf55_7662.jpg").equals(usersWithAffiliations
-        .get(0).bigPictureUrl));
+    Assert.assertTrue("Heather Merlin".equals(usersWithAffiliations.get(0).name));
+    Assert.assertTrue(("https://secure-profile.facebook.com/profile6/" + "13580/1406/n284asf55_7662.jpg")
+      .equals(usersWithAffiliations.get(0).bigPictureUrl));
     assertTrue(usersWithAffiliations.get(0).affiliations.size() == 1);
-    assertTrue("Intuit"
-      .equals(usersWithAffiliations.get(0).affiliations.get(0).name));
+    assertTrue("Intuit".equals(usersWithAffiliations.get(0).affiliations.get(0).name));
 
     // Make sure the weird Facebook "empty object means empty list" workaround
     // works
@@ -188,8 +171,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   @Test
   public void nulls() throws FacebookJsonMappingException {
     UserWithAffiliations userWithAffiliations =
-        createJsonMapper().toJavaObject(jsonFromClasspath("nulls"),
-          UserWithAffiliations.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("nulls"), UserWithAffiliations.class);
 
     assertTrue(userWithAffiliations != null);
     assertTrue(userWithAffiliations.uid != null);
@@ -203,9 +185,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void authCreateToken() throws FacebookJsonMappingException {
-    String token =
-        createJsonMapper().toJavaObject(
-          jsonFromClasspath("api/auth.createToken"), String.class);
+    String token = createJsonMapper().toJavaObject(jsonFromClasspath("api/auth.createToken"), String.class);
     assertTrue("3e4a22bb2f5ed75114b0fc9995ea85f1".equals(token));
   }
 
@@ -214,9 +194,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void usersGetLoggedInUser() throws FacebookJsonMappingException {
-    Long uid =
-        createJsonMapper().toJavaObject(
-          jsonFromClasspath("api/users.getLoggedInUser"), Long.class);
+    Long uid = createJsonMapper().toJavaObject(jsonFromClasspath("api/users.getLoggedInUser"), Long.class);
     assertTrue(uid.equals(1240077L));
   }
 
@@ -225,9 +203,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void friendsGet() throws FacebookJsonMappingException {
-    List<Long> friendUids =
-        createJsonMapper().toJavaList(jsonFromClasspath("api/friends.get"),
-          Long.class);
+    List<Long> friendUids = createJsonMapper().toJavaList(jsonFromClasspath("api/friends.get"), Long.class);
     assertTrue(friendUids.size() == 2);
     assertTrue(friendUids.get(0).equals(222333L));
     assertTrue(friendUids.get(1).equals(1240079L));
@@ -239,9 +215,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyArray() throws FacebookJsonMappingException {
-    BasicUser user =
-        createJsonMapper().toJavaObject(
-          jsonFromClasspath("empty-array-as-string"), BasicUser.class);
+    BasicUser user = createJsonMapper().toJavaObject(jsonFromClasspath("empty-array-as-string"), BasicUser.class);
     assertTrue("".equals(user.name));
   }
 
@@ -250,11 +224,8 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    * of the full {'hometown':{'id':123456,'name':'Belgrade, Serbia'}}
    */
   @Test
-  public void testNamedTypeShortFormWorkaround()
-      throws FacebookJsonMappingException {
-    User user =
-        createJsonMapper().toJavaObject(
-          jsonFromClasspath("named-facebook-type-short-form"), User.class);
+  public void testNamedTypeShortFormWorkaround() throws FacebookJsonMappingException {
+    User user = createJsonMapper().toJavaObject(jsonFromClasspath("named-facebook-type-short-form"), User.class);
     assertTrue("Belgrade, Serbia".equals(user.getHometown().getName()));
   }
 
@@ -274,8 +245,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
    */
   public void testNulls() throws FacebookJsonMappingException {
     List<NamedFacebookType> types =
-        createJsonMapper().toJavaList(jsonFromClasspath("nulls-in-list"),
-          NamedFacebookType.class);
+        createJsonMapper().toJavaList(jsonFromClasspath("nulls-in-list"), NamedFacebookType.class);
     assertTrue(types.size() == 3);
   }
 

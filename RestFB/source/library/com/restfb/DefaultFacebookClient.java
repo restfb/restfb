@@ -36,6 +36,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.exception.FacebookException;
+import com.restfb.exception.FacebookGraphException;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.exception.FacebookNetworkException;
+import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
@@ -47,8 +52,7 @@ import com.restfb.util.StringUtils;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class DefaultFacebookClient extends BaseFacebookClient implements
-    FacebookClient {
+public class DefaultFacebookClient extends BaseFacebookClient implements FacebookClient {
   /**
    * Graph API access token.
    */
@@ -57,14 +61,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
   /**
    * API endpoint URL.
    */
-  protected static final String FACEBOOK_GRAPH_ENDPOINT_URL =
-      "https://graph.facebook.com";
+  protected static final String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
 
   /**
    * Legacy API endpoint URL, used to support FQL queries.
    */
-  protected static final String FACEBOOK_LEGACY_ENDPOINT_URL =
-      "https://api.facebook.com/method";
+  protected static final String FACEBOOK_LEGACY_ENDPOINT_URL = "https://api.facebook.com/method";
 
   /**
    * Reserved method override parameter name.
@@ -141,8 +143,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
-  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor,
-      JsonMapper jsonMapper) {
+  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);
 
@@ -150,8 +151,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
 
-    illegalParamNames.addAll(Arrays.asList(new String[] {
-        ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME }));
+    illegalParamNames.addAll(Arrays
+      .asList(new String[] { ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME }));
   }
 
   /**
@@ -168,8 +169,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> Connection<T> fetchConnection(String connection,
-      Class<T> connectionType, Parameter... parameters)
+  public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters)
       throws FacebookException {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
@@ -181,8 +181,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.Class)
    */
   @Override
-  public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl,
-      Class<T> connectionType) throws FacebookException {
+  public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType)
+      throws FacebookException {
     String connectionJson = makeRequestAndProcessResponse(new Requestor() {
       /**
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
@@ -196,8 +196,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     return mapToConnection(connectionJson, connectionType);
   }
 
-  protected <T> Connection<T> mapToConnection(String connectionJson,
-      Class<T> connectionType) {
+  protected <T> Connection<T> mapToConnection(String connectionJson, Class<T> connectionType) {
     List<T> data = new ArrayList<T>();
     String previous = null;
     String next = null;
@@ -208,20 +207,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       // Pull out data
       JsonArray jsonData = jsonObject.getJsonArray("data");
       for (int i = 0; i < jsonData.length(); i++)
-        data.add(jsonMapper.toJavaObject(jsonData.get(i).toString(),
-          connectionType));
+        data.add(jsonMapper.toJavaObject(jsonData.get(i).toString(), connectionType));
 
       // Pull out paging info, if present
       if (jsonObject.has("paging")) {
         JsonObject jsonPaging = jsonObject.getJsonObject("paging");
-        previous =
-            jsonPaging.has("previous") ? jsonPaging.getString("previous")
-                : null;
+        previous = jsonPaging.has("previous") ? jsonPaging.getString("previous") : null;
         next = jsonPaging.has("next") ? jsonPaging.getString("next") : null;
       }
     } catch (JsonException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to map connection JSON to Java objects", e);
+      throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
     }
 
     return new Connection<T>(data, previous, next);
@@ -232,8 +227,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public JsonObject fetchConnection(String connection, Parameter... parameters)
-      throws FacebookException {
+  public JsonObject fetchConnection(String connection, Parameter... parameters) throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -241,8 +235,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String)
    */
   @Override
-  public JsonObject fetchConnectionPage(String connectionPageUrl)
-      throws FacebookException {
+  public JsonObject fetchConnectionPage(String connectionPageUrl) throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -251,8 +244,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T fetchObject(String object, Class<T> objectType,
-      Parameter... parameters) throws FacebookException {
+  public <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) throws FacebookException {
     verifyParameterPresence("object", object);
     verifyParameterPresence("objectType", objectType);
     return jsonMapper.toJavaObject(makeRequest(object, parameters), objectType);
@@ -263,8 +255,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public JsonObject fetchObject(String object, Parameter... parameters)
-      throws FacebookException {
+  public JsonObject fetchObject(String object, Parameter... parameters) throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -273,8 +264,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T fetchObjects(List<String> ids, Class<T> objectType,
-      Parameter... parameters) throws FacebookException {
+  public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) throws FacebookException {
     verifyParameterPresence("ids", ids);
     verifyParameterPresence("connectionType", objectType);
 
@@ -283,32 +273,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     for (Parameter parameter : parameters)
       if (IDS_PARAM_NAME.equals(parameter.name))
-        throw new IllegalArgumentException("You cannot specify the '"
-            + IDS_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with "
-            + "the list of IDs you passed to this method.");
+        throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
+            + "RestFB will populate this for you with " + "the list of IDs you passed to this method.");
 
     // Normalize the IDs
     for (int i = 0; i < ids.size(); i++) {
       String id = ids.get(i).trim().toLowerCase();
       if ("".equals(id))
-        throw new IllegalArgumentException(
-          "The list of IDs cannot contain blank strings.");
+        throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
       ids.set(i, id);
     }
 
     try {
       JsonObject jsonObject =
-          new JsonObject(
-            makeRequest(
-              "",
-              parametersWithAdditionalParameter(
-                Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)),
-                parameters)));
+          new JsonObject(makeRequest("",
+            parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
       return jsonMapper.toJavaObject(jsonObject.toString(), objectType);
     } catch (JsonException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to map connection JSON to Java objects", e);
+      throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
     }
   }
 
@@ -317,8 +299,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public JsonObject fetchObjects(List<String> ids, Parameter... parameters)
-      throws FacebookException {
+  public JsonObject fetchObjects(List<String> ids, Parameter... parameters) throws FacebookException {
     verifyParameterPresence("ids", ids);
 
     if (ids.size() == 0)
@@ -326,25 +307,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     for (Parameter parameter : parameters)
       if (IDS_PARAM_NAME.equals(parameter.name))
-        throw new IllegalArgumentException("You cannot specify the '"
-            + IDS_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with "
-            + "the list of IDs you passed to this method.");
+        throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
+            + "RestFB will populate this for you with " + "the list of IDs you passed to this method.");
 
     // Normalize the IDs
     for (int i = 0; i < ids.size(); i++) {
       String id = ids.get(i).trim().toLowerCase();
       if ("".equals(id))
-        throw new IllegalArgumentException(
-          "The list of IDs cannot contain blank strings.");
+        throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
       ids.set(i, id);
     }
 
     try {
-      return new JsonObject(makeRequest(
-        "",
-        parametersWithAdditionalParameter(
-          Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
+      return new JsonObject(makeRequest("",
+        parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to map JSON to Java.", e);
     }
@@ -355,14 +331,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.io.InputStream, com.restfb.Parameter[])
    */
   @Override
-  public <T> T publish(String connection, Class<T> objectType,
-      InputStream binaryAttachment, Parameter... parameters)
+  public <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters)
       throws FacebookException {
     verifyParameterPresence("connection", connection);
-    return jsonMapper
-      .toJavaObject(
-        makeRequest(connection, false, true, false, binaryAttachment,
-          parameters), objectType);
+    return jsonMapper.toJavaObject(makeRequest(connection, false, true, false, binaryAttachment, parameters),
+      objectType);
   }
 
   /**
@@ -370,8 +343,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.io.InputStream, com.restfb.Parameter[])
    */
   @Override
-  public JsonObject publish(String connection, InputStream binaryAttachment,
-      Parameter... parameters) throws FacebookException {
+  public JsonObject publish(String connection, InputStream binaryAttachment, Parameter... parameters)
+      throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -380,8 +353,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public <T> T publish(String connection, Class<T> objectType,
-      Parameter... parameters) throws FacebookException {
+  public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) throws FacebookException {
     return publish(connection, objectType, null, parameters);
   }
 
@@ -390,8 +362,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public JsonObject publish(String connection, Parameter... parameters)
-      throws FacebookException {
+  public JsonObject publish(String connection, Parameter... parameters) throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -400,28 +371,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T executeMultiquery(Map<String, String> queries,
-      Class<T> objectType, Parameter... parameters) throws FacebookException {
+  public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters)
+      throws FacebookException {
     verifyParameterPresence("objectType", objectType);
 
     for (Parameter parameter : parameters)
       if (QUERIES_PARAM_NAME.equals(parameter.name))
-        throw new IllegalArgumentException("You cannot specify the '"
-            + QUERIES_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with "
+        throw new IllegalArgumentException("You cannot specify the '" + QUERIES_PARAM_NAME
+            + "' URL parameter yourself - " + "RestFB will populate this for you with "
             + "the queries you passed to this method.");
 
     try {
       JsonArray jsonArray =
-          new JsonArray(makeRequest(
-            "fql.multiquery",
-            true,
-            false,
-            false,
-            null,
-            parametersWithAdditionalParameter(
-              Parameter.with(QUERIES_PARAM_NAME, queriesToJson(queries)),
-              parameters)));
+          new JsonArray(makeRequest("fql.multiquery", true, false, false, null,
+            parametersWithAdditionalParameter(Parameter.with(QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
 
       JsonObject normalizedJson = new JsonObject();
 
@@ -431,16 +394,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
         // For empty resultsets, Facebook will return an empty object instead of
         // an empty list. Hack around that here.
         JsonArray resultsArray =
-            jsonObject.get("fql_result_set") instanceof JsonArray ? jsonObject
-              .getJsonArray("fql_result_set") : new JsonArray();
+            jsonObject.get("fql_result_set") instanceof JsonArray ? jsonObject.getJsonArray("fql_result_set")
+                : new JsonArray();
 
         normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }
 
       return jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
     } catch (JsonException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to process fql.multiquery JSON response", e);
+      throw new FacebookJsonMappingException("Unable to process fql.multiquery JSON response", e);
     }
   }
 
@@ -449,8 +411,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public JsonObject executeMultiquery(Map<String, String> queries,
-      Parameter... parameters) throws FacebookException {
+  public JsonObject executeMultiquery(Map<String, String> queries, Parameter... parameters) throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -459,27 +420,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> List<T> executeQuery(String query, Class<T> objectType,
-      Parameter... parameters) throws FacebookException {
+  public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) throws FacebookException {
     verifyParameterPresence("query", query);
     verifyParameterPresence("objectType", objectType);
 
     for (Parameter parameter : parameters)
       if (QUERY_PARAM_NAME.equals(parameter.name))
-        throw new IllegalArgumentException("You cannot specify the '"
-            + QUERY_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with "
+        throw new IllegalArgumentException("You cannot specify the '" + QUERY_PARAM_NAME
+            + "' URL parameter yourself - " + "RestFB will populate this for you with "
             + "the query you passed to this method.");
 
     return jsonMapper.toJavaList(
-      makeRequest(
-        "fql.query",
-        true,
-        false,
-        false,
-        null,
-        parametersWithAdditionalParameter(
-          Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
+      makeRequest("fql.query", true, false, false, null,
+        parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
   }
 
   /**
@@ -487,8 +440,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      com.restfb.Parameter[])
    */
   @Override
-  public JsonArray executeQuery(String query, Parameter... parameters)
-      throws FacebookException {
+  public JsonArray executeQuery(String query, Parameter... parameters) throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -497,8 +449,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *      java.lang.String, java.lang.String[])
    */
   @Override
-  public List<AccessToken> convertSessionKeysToAccessTokens(String apiKey,
-      String secretKey, String... sessionKeys) throws FacebookException {
+  public List<AccessToken> convertSessionKeysToAccessTokens(String apiKey, String secretKey, String... sessionKeys)
+      throws FacebookException {
     throw new UnsupportedOperationException();
   }
 
@@ -516,8 +468,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *           If an error occurs while making the Facebook API POST or
    *           processing the response.
    */
-  protected String makeRequest(String endpoint, Parameter... parameters)
-      throws FacebookException {
+  protected String makeRequest(String endpoint, Parameter... parameters) throws FacebookException {
     return makeRequest(endpoint, false, false, false, null, parameters);
   }
 
@@ -547,24 +498,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    *           If an error occurs while making the Facebook API POST or
    *           processing the response.
    */
-  protected String makeRequest(String endpoint, boolean useLegacyEndpoint,
-      final boolean executeAsPost, boolean executeAsDelete,
-      final InputStream binaryAttachment, Parameter... parameters)
-      throws FacebookException {
+  protected String makeRequest(String endpoint, boolean useLegacyEndpoint, final boolean executeAsPost,
+      boolean executeAsDelete, final InputStream binaryAttachment, Parameter... parameters) throws FacebookException {
     verifyParameterLegality(parameters);
 
     if (executeAsDelete)
-      parameters =
-          parametersWithAdditionalParameter(
-            Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
+      parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
 
     StringUtils.trimToEmpty(endpoint).toLowerCase();
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
     final String fullEndpoint =
-        (useLegacyEndpoint ? getFacebookLegacyEndpointUrl()
-            : getFacebookGraphEndpointUrl()) + endpoint;
+        (useLegacyEndpoint ? getFacebookLegacyEndpointUrl() : getFacebookGraphEndpointUrl()) + endpoint;
 
     final String parameterString = toParameterString(parameters);
 
@@ -574,8 +520,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
        */
       @Override
       public Response makeRequest() throws IOException {
-        return executeAsPost ? webRequestor.executePost(fullEndpoint,
-          parameterString, binaryAttachment) : webRequestor
+        return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachment) : webRequestor
           .executeGet(fullEndpoint + "?" + parameterString);
       }
     });
@@ -585,8 +530,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     Response makeRequest() throws IOException;
   }
 
-  protected String makeRequestAndProcessResponse(Requestor requestor)
-      throws FacebookException {
+  protected String makeRequestAndProcessResponse(Requestor requestor) throws FacebookException {
     Response response = null;
 
     // Perform a GET or POST to the API endpoint
@@ -602,12 +546,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
     // If we get any HTTP response code other than a 200 OK or 400 Bad Request
     // or 401 Not Authorized or 500 Internal Server Error, throw an exception.
     // We handle 401s and 500s specially.
-    if (HTTP_OK != response.getStatusCode()
-        && HTTP_BAD_REQUEST != response.getStatusCode()
-        && HTTP_UNAUTHORIZED != response.getStatusCode()
-        && HTTP_INTERNAL_ERROR != response.getStatusCode())
-      throw new FacebookNetworkException("Facebook request failed",
-        response.getStatusCode());
+    if (HTTP_OK != response.getStatusCode() && HTTP_BAD_REQUEST != response.getStatusCode()
+        && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_INTERNAL_ERROR != response.getStatusCode())
+      throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
 
     String json = response.getBody();
 
@@ -618,10 +559,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
     // If there was no response error information and this was a 500 or 401
     // error, something weird happened on Facebook's end. Bail.
-    if (HTTP_INTERNAL_ERROR == response.getStatusCode()
-        || HTTP_UNAUTHORIZED == response.getStatusCode())
-      throw new FacebookNetworkException("Facebook request failed",
-        response.getStatusCode());
+    if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode())
+      throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
 
     return json;
   }
@@ -652,9 +591,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    */
-  protected void throwFacebookResponseStatusExceptionIfNecessary(String json)
-      throws FacebookResponseStatusException, FacebookGraphException,
-      FacebookJsonMappingException {
+  protected void throwFacebookResponseStatusExceptionIfNecessary(String json) throws FacebookResponseStatusException,
+      FacebookGraphException, FacebookJsonMappingException {
     // If we have a legacy exception, throw it.
     throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
 
@@ -668,15 +606,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
       if (errorObject == null || !errorObject.has(ERROR_ATTRIBUTE_NAME))
         return;
 
-      JsonObject innerErrorObject =
-          errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
+      JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
 
-      throw new FacebookGraphException(
-        innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+      throw new FacebookGraphException(innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
         innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
     } catch (JsonException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to process the Facebook API response", e);
+      throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
   }
 
@@ -689,17 +624,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
    * @throws FacebookJsonMappingException
    *           If an error occurs when building the parameter string.
    */
-  protected String toParameterString(Parameter... parameters)
-      throws FacebookJsonMappingException {
+  protected String toParameterString(Parameter... parameters) throws FacebookJsonMappingException {
 
     if (!StringUtils.isBlank(accessToken))
-      parameters =
-          parametersWithAdditionalParameter(
-            Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
+      parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
 
-    parameters =
-        parametersWithAdditionalParameter(
-          Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
+    parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
 
     StringBuilder parameterStringBuilder = new StringBuilder();
     boolean first = true;
@@ -712,8 +642,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements
 
       parameterStringBuilder.append(StringUtils.urlEncode(parameter.name));
       parameterStringBuilder.append("=");
-      parameterStringBuilder.append(urlEncodedValueForParameterName(
-        parameter.name, parameter.value));
+      parameterStringBuilder.append(urlEncodedValueForParameterName(parameter.name, parameter.value));
     }
 
     return parameterStringBuilder.toString();

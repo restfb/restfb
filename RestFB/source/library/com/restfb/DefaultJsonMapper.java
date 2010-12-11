@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
@@ -54,27 +55,22 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger(DefaultJsonMapper.class
-    .getName());
+  private static final Logger logger = Logger.getLogger(DefaultJsonMapper.class.getName());
 
   /**
    * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
    */
   @Override
-  public <T> List<T> toJavaList(String json, Class<T> type)
-      throws FacebookJsonMappingException {
+  public <T> List<T> toJavaList(String json, Class<T> type) throws FacebookJsonMappingException {
     json = StringUtils.trimToEmpty(json);
 
     if (StringUtils.isBlank(json))
-      throw new FacebookJsonMappingException(
-        "JSON is an empty string - can't map it.");
+      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
 
     if (DefaultEnumClass.class.equals(type))
-      throw new FacebookJsonMappingException(
-        "You must specify the 'contains' attribute of the @"
-            + Facebook.class.getSimpleName()
-            + " annotation when applying it to a List because of type erasure. "
-            + "Offending JSON is '" + json + "'.");
+      throw new FacebookJsonMappingException("You must specify the 'contains' attribute of the @"
+          + Facebook.class.getSimpleName() + " annotation when applying it to a List because of type erasure. "
+          + "Offending JSON is '" + json + "'.");
 
     if (json.startsWith("{")) {
       // Sometimes Facebook returns the empty object {} when it really should be
@@ -100,22 +96,19 @@ public class DefaultJsonMapper implements JsonMapper {
         String[] fieldNames = JsonObject.getNames(jsonObject);
 
         if (fieldNames != null) {
-          boolean hasSingleDataProperty =
-              fieldNames.length == 1 && "data".equals(fieldNames[0]);
+          boolean hasSingleDataProperty = fieldNames.length == 1 && "data".equals(fieldNames[0]);
           Object jsonDataObject = jsonObject.get("data");
 
           if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray))
-            throw new FacebookJsonMappingException(
-              "JSON is an object but is being mapped as a list "
-                  + "instead. Offending JSON is '" + json + "'.");
+            throw new FacebookJsonMappingException("JSON is an object but is being mapped as a list "
+                + "instead. Offending JSON is '" + json + "'.");
 
           json = jsonDataObject.toString();
         }
       } catch (JsonException e) {
         // Should never get here, but just in case...
-        throw new FacebookJsonMappingException(
-          "Unable to convert Facebook response " + "JSON to a list of "
-              + type.getName() + " instances.  Offending JSON is " + json, e);
+        throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
+            + type.getName() + " instances.  Offending JSON is " + json, e);
       }
     }
 
@@ -130,9 +123,8 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      throw new FacebookJsonMappingException(
-        "Unable to convert Facebook response " + "JSON to a list of "
-            + type.getName() + " instances", e);
+      throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
+          + type.getName() + " instances", e);
     }
   }
 
@@ -140,8 +132,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @see com.restfb.JsonMapper#toJavaObject(java.lang.String, java.lang.Class)
    */
   @Override
-  public <T> T toJavaObject(String json, Class<T> type)
-      throws FacebookJsonMappingException {
+  public <T> T toJavaObject(String json, Class<T> type) throws FacebookJsonMappingException {
     verifyThatJsonIsOfObjectType(json);
 
     try {
@@ -166,9 +157,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // Check for that and bail early if we find it.
       if ("false".equals(json)) {
         if (logger.isLoggable(FINE))
-          logger
-            .fine("Encountered 'false' from Facebook when trying to map to "
-                + type.getSimpleName() + " - mapping null instead.");
+          logger.fine("Encountered 'false' from Facebook when trying to map to " + type.getSimpleName()
+              + " - mapping null instead.");
         return null;
       }
 
@@ -188,32 +178,29 @@ public class DefaultJsonMapper implements JsonMapper {
         if (StringUtils.isBlank(facebookFieldName)) {
           if (logger.isLoggable(FINER))
             logger.finer("No explicit Facebook field name found for " + field
-                + ", so defaulting to the field name itself ("
-                + field.getName() + ")");
+                + ", so defaulting to the field name itself (" + field.getName() + ")");
 
           facebookFieldName = field.getName();
         }
 
         if (!jsonObject.has(facebookFieldName)) {
           if (logger.isLoggable(FINER))
-            logger.finer("No JSON value present for '" + facebookFieldName
-                + "', skipping. Offending JSON is '" + json + "'.");
+            logger.finer("No JSON value present for '" + facebookFieldName + "', skipping. Offending JSON is '" + json
+                + "'.");
 
           continue;
         }
 
         // Set the field's value
         field.setAccessible(true);
-        field.set(instance,
-          toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+        field.set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
       }
 
       return instance;
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      throw new FacebookJsonMappingException(
-        "Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
+      throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
     }
   }
 
@@ -234,17 +221,13 @@ public class DefaultJsonMapper implements JsonMapper {
    * @throws FacebookJsonMappingException
    *           If {@code json} is not a valid JSON object.
    */
-  protected void verifyThatJsonIsOfObjectType(String json)
-      throws FacebookJsonMappingException {
+  protected void verifyThatJsonIsOfObjectType(String json) throws FacebookJsonMappingException {
     if (StringUtils.isBlank(json))
-      throw new FacebookJsonMappingException(
-        "JSON is an empty string - can't map it.");
+      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
 
     if (json.startsWith("["))
-      throw new FacebookJsonMappingException(
-        "JSON is an array but is being mapped as an object "
-            + "- you should map it as a List instead. Offending JSON is '"
-            + json + "'.");
+      throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
+          + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
   }
 
   /**
@@ -258,8 +241,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while marshaling to JSON.
    */
-  protected Object toJsonInternal(Object object)
-      throws FacebookJsonMappingException {
+  protected Object toJsonInternal(Object object) throws FacebookJsonMappingException {
     if (object == null)
       return NULL;
 
@@ -275,18 +257,14 @@ public class DefaultJsonMapper implements JsonMapper {
       JsonObject jsonObject = new JsonObject();
       for (Entry<?, ?> entry : ((Map<?, ?>) object).entrySet()) {
         if (!(entry.getKey() instanceof String))
-          throw new FacebookJsonMappingException(
-            "Your Map keys must be of type " + String.class
-                + " in order to be converted to JSON.  Offending map is "
-                + object);
+          throw new FacebookJsonMappingException("Your Map keys must be of type " + String.class
+              + " in order to be converted to JSON.  Offending map is " + object);
 
         try {
-          jsonObject.put((String) entry.getKey(),
-            toJsonInternal(entry.getValue()));
+          jsonObject.put((String) entry.getKey(), toJsonInternal(entry.getValue()));
         } catch (JsonException e) {
-          throw new FacebookJsonMappingException("Unable to process value '"
-              + entry.getValue() + "' for key '" + entry.getKey() + "' in Map "
-              + object, e);
+          throw new FacebookJsonMappingException("Unable to process value '" + entry.getValue() + "' for key '"
+              + entry.getKey() + "' in Map " + object, e);
         }
       }
 
@@ -306,8 +284,7 @@ public class DefaultJsonMapper implements JsonMapper {
     // plain old Javabean...
 
     List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation =
-        ReflectionUtils.findFieldsWithAnnotation(object.getClass(),
-          Facebook.class);
+        ReflectionUtils.findFieldsWithAnnotation(object.getClass(), Facebook.class);
 
     JsonObject jsonObject = new JsonObject();
 
@@ -323,8 +300,7 @@ public class DefaultJsonMapper implements JsonMapper {
       if (StringUtils.isBlank(facebookFieldName)) {
         if (logger.isLoggable(FINER))
           logger.finer("No explicit Facebook field name found for " + field
-              + ", so defaulting to the field name itself (" + field.getName()
-              + ")");
+              + ", so defaulting to the field name itself (" + field.getName() + ")");
 
         facebookFieldName = field.getName();
       }
@@ -334,8 +310,8 @@ public class DefaultJsonMapper implements JsonMapper {
       try {
         jsonObject.put(facebookFieldName, toJsonInternal(field.get(object)));
       } catch (Exception e) {
-        throw new FacebookJsonMappingException("Unable to process field '"
-            + facebookFieldName + "' for " + object.getClass(), e);
+        throw new FacebookJsonMappingException("Unable to process field '" + facebookFieldName + "' for "
+            + object.getClass(), e);
       }
     }
 
@@ -360,8 +336,7 @@ public class DefaultJsonMapper implements JsonMapper {
    *           If an error occurs while mapping JSON to Java.
    */
   @SuppressWarnings("unchecked")
-  protected <T> T toPrimitiveJavaType(String json, Class<T> type)
-      throws FacebookJsonMappingException {
+  protected <T> T toPrimitiveJavaType(String json, Class<T> type) throws FacebookJsonMappingException {
 
     if (String.class.equals(type)) {
       // If the string starts and ends with quotes, remove them, since Facebook
@@ -389,9 +364,8 @@ public class DefaultJsonMapper implements JsonMapper {
     if (BigDecimal.class.equals(type))
       return (T) new BigDecimal(json);
 
-    throw new FacebookJsonMappingException("Don't know how to map JSON to "
-        + type + ". Are you sure you're mapping to the right class? "
-        + "Offending JSON is '" + json + "'.");
+    throw new FacebookJsonMappingException("Don't know how to map JSON to " + type
+        + ". Are you sure you're mapping to the right class? " + "Offending JSON is '" + json + "'.");
   }
 
   /**
@@ -411,10 +385,8 @@ public class DefaultJsonMapper implements JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
    */
-  protected Object toJavaType(
-      FieldWithAnnotation<Facebook> fieldWithAnnotation, JsonObject jsonObject,
-      String facebookFieldName) throws JsonException,
-      FacebookJsonMappingException {
+  protected Object toJavaType(FieldWithAnnotation<Facebook> fieldWithAnnotation, JsonObject jsonObject,
+      String facebookFieldName) throws JsonException, FacebookJsonMappingException {
     Class<?> type = fieldWithAnnotation.getField().getType();
     Object rawValue = jsonObject.get(facebookFieldName);
 
@@ -437,8 +409,7 @@ public class DefaultJsonMapper implements JsonMapper {
       if (rawValue instanceof JsonArray)
         if (((JsonArray) rawValue).length() == 0) {
           if (logger.isLoggable(FINER))
-            logger.finer("Coercing an empty JSON array "
-                + "to an empty string for " + fieldWithAnnotation);
+            logger.finer("Coercing an empty JSON array " + "to an empty string for " + fieldWithAnnotation);
 
           return "";
         }
@@ -460,15 +431,13 @@ public class DefaultJsonMapper implements JsonMapper {
     if (Double.class.equals(type) || Double.TYPE.equals(type))
       return new Double(jsonObject.getDouble(facebookFieldName));
     if (Float.class.equals(type) || Float.TYPE.equals(type))
-      return new BigDecimal(jsonObject.getString(facebookFieldName))
-        .floatValue();
+      return new BigDecimal(jsonObject.getString(facebookFieldName)).floatValue();
     if (BigInteger.class.equals(type))
       return new BigInteger(jsonObject.getString(facebookFieldName));
     if (BigDecimal.class.equals(type))
       return new BigDecimal(jsonObject.getString(facebookFieldName));
     if (List.class.equals(type))
-      return toJavaList(rawValue.toString(), fieldWithAnnotation
-        .getAnnotation().contains());
+      return toJavaList(rawValue.toString(), fieldWithAnnotation.getAnnotation().contains());
 
     // Hack for issue 56 where FB will sometimes return things like
     // "hometown":"Belgrade, Serbia"
@@ -484,12 +453,10 @@ public class DefaultJsonMapper implements JsonMapper {
     // TODO: real fix for 1.6
     String rawValueAsString = rawValue.toString();
 
-    if (NamedFacebookType.class.isAssignableFrom(type)
-        && rawValue.getClass().equals(String.class)) {
+    if (NamedFacebookType.class.isAssignableFrom(type) && rawValue.getClass().equals(String.class)) {
       if (logger.isLoggable(FINE))
-        logger.fine("Encountered the string '" + rawValueAsString
-            + "' but expected a " + NamedFacebookType.class.getSimpleName()
-            + " instead.  Working around that by coercing into a "
+        logger.fine("Encountered the string '" + rawValueAsString + "' but expected a "
+            + NamedFacebookType.class.getSimpleName() + " instead.  Working around that by coercing into a "
             + NamedFacebookType.class.getSimpleName() + "...");
 
       JsonObject workaroundJsonObject = new JsonObject();
@@ -501,11 +468,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // Hack for issue 76 where FB will sometimes return a Post's Comments as
       // "[]" instead of an object type (wtf)
       if (logger.isLoggable(FINE))
-        logger.fine("Encountered comment array '" + rawValueAsString
-            + "' but expected a " + Comments.class.getSimpleName()
-            + " object instead.  Working around that "
-            + "by coercing into an empty " + Comments.class.getSimpleName()
-            + " instance...");
+        logger.fine("Encountered comment array '" + rawValueAsString + "' but expected a "
+            + Comments.class.getSimpleName() + " object instead.  Working around that " + "by coercing into an empty "
+            + Comments.class.getSimpleName() + " instance...");
 
       JsonObject workaroundJsonObject = new JsonObject();
       workaroundJsonObject.put("count", 0);
@@ -529,13 +494,10 @@ public class DefaultJsonMapper implements JsonMapper {
    *           If an error occurs when creating a new instance ({@code type} is
    *           inaccessible, doesn't have a public no-arg constructor, etc.)
    */
-  protected <T> T createInstance(Class<T> type)
-      throws FacebookJsonMappingException {
+  protected <T> T createInstance(Class<T> type) throws FacebookJsonMappingException {
     String errorMessage =
-        "Unable to create an instance of " + type
-            + ". Please make sure that it's marked 'public' "
-            + "and, if it's a nested class, is marked 'static'. "
-            + "It should have a public, no-argument constructor.";
+        "Unable to create an instance of " + type + ". Please make sure that it's marked 'public' "
+            + "and, if it's a nested class, is marked 'static'. " + "It should have a public, no-argument constructor.";
 
     try {
       return type.newInstance();

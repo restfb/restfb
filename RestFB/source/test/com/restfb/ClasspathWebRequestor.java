@@ -55,9 +55,7 @@ public class ClasspathWebRequestor implements WebRequestor {
     // Cache off the response immediately instead of recreating it every time in
     // executePost().
     response =
-        new Response(HTTP_OK, StringUtils
-          .fromInputStream(ClasspathWebRequestor.class
-            .getResourceAsStream(pathToJson)));
+        new Response(HTTP_OK, StringUtils.fromInputStream(ClasspathWebRequestor.class.getResourceAsStream(pathToJson)));
   }
 
   /**
@@ -78,8 +76,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executePost(String url, String parameters,
-      InputStream binaryAttachment) throws IOException {
+  public Response executePost(String url, String parameters, InputStream binaryAttachment) throws IOException {
     return response;
   }
 }

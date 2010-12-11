@@ -20,21 +20,21 @@
  * THE SOFTWARE.
  */
 
-package com.restfb;
+package com.restfb.exception;
 
 /**
- * Root of the RestFB exception hierarchy.
+ * Indicates that an error occurred while mapping JSON data to a Java object.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public abstract class FacebookException extends RuntimeException {
+public class FacebookJsonMappingException extends FacebookException {
   /**
    * Creates an exception with the given message.
    * 
    * @param message
    *          A message describing this exception.
    */
-  public FacebookException(String message) {
+  public FacebookJsonMappingException(String message) {
     super(message);
   }
 
@@ -46,7 +46,7 @@ public abstract class FacebookException extends RuntimeException {
    * @param cause
    *          The exception that caused this exception to be thrown.
    */
-  public FacebookException(String message, Throwable cause) {
+  public FacebookJsonMappingException(String message, Throwable cause) {
     super(message, cause);
   }
 }

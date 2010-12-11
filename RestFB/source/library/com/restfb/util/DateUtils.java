@@ -40,8 +40,7 @@ public final class DateUtils {
    * Facebook "long" date format (ISO 8601). Example:
    * {@code 2010-02-28T16:11:08+0000}
    */
-  public static final String FACEBOOK_LONG_DATE_FORMAT =
-      "yyyy-MM-dd'T'HH:mm:ssZ";
+  public static final String FACEBOOK_LONG_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
   /**
    * Facebook short date format. Example: {@code 04/15/1984}
@@ -56,8 +55,7 @@ public final class DateUtils {
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger(DateUtils.class
-    .getName());
+  private static final Logger logger = Logger.getLogger(DateUtils.class.getName());
 
   /**
    * Prevents instantiation.
@@ -72,8 +70,7 @@ public final class DateUtils {
    * @return Java date representation of the given Facebook "long" {@code date}
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
-  public static Date toDateFromLongFormat(String date)
-      throws IllegalArgumentException {
+  public static Date toDateFromLongFormat(String date) throws IllegalArgumentException {
     return toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
   }
 
@@ -85,8 +82,7 @@ public final class DateUtils {
    * @return Java date representation of the given Facebook "short" {@code date}
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
-  public static Date toDateFromShortFormat(String date)
-      throws IllegalArgumentException {
+  public static Date toDateFromShortFormat(String date) throws IllegalArgumentException {
     return toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
   }
 
@@ -100,8 +96,7 @@ public final class DateUtils {
    *         {@code date} string or {@code null} if {@code date} is {@code null}
    *         or invalid.
    */
-  public static Date toDateFromMonthYearFormat(String date)
-      throws IllegalArgumentException {
+  public static Date toDateFromMonthYearFormat(String date) throws IllegalArgumentException {
     return toDateWithFormatString(date, FACEBOOK_MONTH_YEAR_DATE_FORMAT);
   }
 
@@ -121,8 +116,7 @@ public final class DateUtils {
       return new SimpleDateFormat(format).parse(date);
     } catch (ParseException e) {
       if (logger.isLoggable(WARNING))
-        logger.warning("Unable to parse date '" + date
-            + "' using format string '" + format + "': " + e);
+        logger.warning("Unable to parse date '" + date + "' using format string '" + format + "': " + e);
 
       return null;
     }

@@ -29,9 +29,9 @@ import java.util.List;
 
 import com.restfb.DefaultLegacyFacebookClient;
 import com.restfb.Facebook;
-import com.restfb.FacebookException;
 import com.restfb.LegacyFacebookClient;
 import com.restfb.Parameter;
+import com.restfb.exception.FacebookException;
 
 /**
  * Examples of RestFB's Legacy REST API functionality.
@@ -57,9 +57,8 @@ public class LegacyExample {
    */
   public static void main(String[] args) throws FacebookException {
     if (args.length == 0)
-      throw new IllegalArgumentException(
-        "You must provide an OAuth access token parameter. "
-            + "See README for more information.");
+      throw new IllegalArgumentException("You must provide an OAuth access token parameter. "
+          + "See README for more information.");
 
     new LegacyExample(args[0]).runEverything();
   }
@@ -84,9 +83,8 @@ public class LegacyExample {
     out.println("* Call that returns a list *");
 
     List<LegacyUser> users =
-        facebookClient.executeForList("Users.getInfo", LegacyUser.class,
-          Parameter.with("uids", "220439, 7901103"), Parameter.with("fields",
-            "last_name, first_name"));
+        facebookClient.executeForList("Users.getInfo", LegacyUser.class, Parameter.with("uids", "220439, 7901103"),
+          Parameter.with("fields", "last_name, first_name"));
 
     out.println("Users: " + users);
   }
@@ -116,16 +114,15 @@ public class LegacyExample {
     // FQL query which asks Facebook for your friends' names, profile picture
     // URLs, and network affiliations
     String query =
-        "SELECT name, pic_big, affiliations FROM user "
-            + "WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=" + uid + ")";
+        "SELECT name, pic_big, affiliations FROM user " + "WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=" + uid
+            + ")";
 
     // Executes an API call with result mapped to a list of classes we've
     // defined. Note that you can pass in an arbitrary number of Parameters -
     // here we send along the query as well as the "give me HTTPS URLs" flag
     List<LegacyFqlUser> users =
-        facebookClient.executeForList("fql.query", LegacyFqlUser.class,
-          Parameter.with("query", query), Parameter.with(
-            "return_ssl_resources", "true"));
+        facebookClient.executeForList("fql.query", LegacyFqlUser.class, Parameter.with("query", query),
+          Parameter.with("return_ssl_resources", "true"));
 
     System.out.println("My friends and their affiliations:");
 
@@ -154,8 +151,7 @@ public class LegacyExample {
     List<Affiliation> affiliations;
 
     public String toString() {
-      return String.format("Name: %s\nProfile Image URL: %s\nAffiliations: %s",
-        name, pictureUrl, affiliations);
+      return String.format("Name: %s\nProfile Image URL: %s\nAffiliations: %s", name, pictureUrl, affiliations);
     }
   }
 
@@ -199,9 +195,7 @@ public class LegacyExample {
     // We specify the fact that we're expecting a String response and that we're
     // passing along an attachment (defined above).
 
-    String postId =
-        facebookClient.execute("stream.publish", String.class, Parameter.with(
-          "attachment", attachment));
+    String postId = facebookClient.execute("stream.publish", String.class, Parameter.with("attachment", attachment));
 
     out.println("ID of the post you just published: " + postId);
   }

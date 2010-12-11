@@ -48,9 +48,8 @@ public final class ReflectionUtils {
    * In-memory shared cache of reflection data for
    * {@link #findFieldsWithAnnotation(Class, Class)}.
    */
-  private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
-      Collections
-        .synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
+  private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE = Collections
+    .synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
 
   /**
    * Prevents instantiation.
@@ -72,13 +71,10 @@ public final class ReflectionUtils {
 
     Class<?> type = object.getClass();
 
-    return object instanceof String
-        || (object instanceof Integer || Integer.TYPE.equals(type))
+    return object instanceof String || (object instanceof Integer || Integer.TYPE.equals(type))
         || (object instanceof Boolean || Boolean.TYPE.equals(type))
-        || (object instanceof Long || Long.TYPE.equals(type))
-        || (object instanceof Double || Double.TYPE.equals(type))
-        || (object instanceof Float || Float.TYPE.equals(type))
-        || (object instanceof Byte || Byte.TYPE.equals(type))
+        || (object instanceof Long || Long.TYPE.equals(type)) || (object instanceof Double || Double.TYPE.equals(type))
+        || (object instanceof Float || Float.TYPE.equals(type)) || (object instanceof Byte || Byte.TYPE.equals(type))
         || (object instanceof Short || Short.TYPE.equals(type))
         || (object instanceof Character || Character.TYPE.equals(type));
   }
@@ -95,21 +91,18 @@ public final class ReflectionUtils {
    *          The annotation type token.
    * @return A list of field/annotation pairs.
    */
-  public static <T extends Annotation> List<FieldWithAnnotation<T>> findFieldsWithAnnotation(
-      Class<?> type, Class<T> annotationType) {
-    ClassAnnotationCacheKey cacheKey =
-        new ClassAnnotationCacheKey(type, annotationType);
+  public static <T extends Annotation> List<FieldWithAnnotation<T>> findFieldsWithAnnotation(Class<?> type,
+      Class<T> annotationType) {
+    ClassAnnotationCacheKey cacheKey = new ClassAnnotationCacheKey(type, annotationType);
 
     @SuppressWarnings("unchecked")
     List<FieldWithAnnotation<T>> cachedResults =
-        (List<FieldWithAnnotation<T>>) FIELDS_WITH_ANNOTATION_CACHE
-          .get(cacheKey);
+        (List<FieldWithAnnotation<T>>) FIELDS_WITH_ANNOTATION_CACHE.get(cacheKey);
 
     if (cachedResults != null)
       return cachedResults;
 
-    List<FieldWithAnnotation<T>> fieldsWithAnnotation =
-        new ArrayList<FieldWithAnnotation<T>>();
+    List<FieldWithAnnotation<T>> fieldsWithAnnotation = new ArrayList<FieldWithAnnotation<T>>();
 
     // Walk all superclasses looking for annotated fields until we hit
     // Object
@@ -118,8 +111,7 @@ public final class ReflectionUtils {
         T annotation = field.getAnnotation(annotationType);
 
         if (annotation != null)
-          fieldsWithAnnotation
-            .add(new FieldWithAnnotation<T>(field, annotation));
+          fieldsWithAnnotation.add(new FieldWithAnnotation<T>(field, annotation));
       }
 
       type = type.getSuperclass();
@@ -139,8 +131,7 @@ public final class ReflectionUtils {
    */
   public static List<Method> getAccessors(Class<?> clazz) {
     if (clazz == null)
-      throw new IllegalArgumentException(
-        "The 'clazz' parameter cannot be null.");
+      throw new IllegalArgumentException("The 'clazz' parameter cannot be null.");
 
     List<Method> methods = new ArrayList<Method>();
 
@@ -152,8 +143,8 @@ public final class ReflectionUtils {
           && !Void.class.equals(method.getReturnType())
           && method.getParameterTypes().length == 0
           && ((methodName.startsWith("get") && methodName.length() > 3)
-              || (methodName.startsWith("is") && methodName.length() > 2) || (methodName
-            .startsWith("has") && methodName.length() > 3)))
+              || (methodName.startsWith("is") && methodName.length() > 2) || (methodName.startsWith("has") && methodName
+            .length() > 3)))
         methods.add(method);
     }
 
@@ -195,9 +186,7 @@ public final class ReflectionUtils {
       try {
         String methodName = method.getName();
         int offset = methodName.startsWith("is") ? 2 : 3;
-        methodName =
-            methodName.substring(offset, offset + 1).toLowerCase()
-                + methodName.substring(offset + 1);
+        methodName = methodName.substring(offset, offset + 1).toLowerCase() + methodName.substring(offset + 1);
 
         buffer.append(methodName);
         buffer.append("=");
@@ -205,8 +194,7 @@ public final class ReflectionUtils {
         // Accessors are guaranteed to take no parameters and return a value
         buffer.append(method.invoke(object));
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke "
-            + method + " on " + object.getClass(), e);
+        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object.getClass(), e);
       }
     }
 
@@ -235,8 +223,7 @@ public final class ReflectionUtils {
         if (result != null)
           hashCode = hashCode * 31 + result.hashCode();
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke "
-            + method + " on " + object, e);
+        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object, e);
       }
     }
 
@@ -261,13 +248,11 @@ public final class ReflectionUtils {
       return false;
 
     // Bail if the classes aren't at least one-way assignable to each other
-    if (!(object1.getClass().isInstance(object2) || object2.getClass()
-      .isInstance(object1)))
+    if (!(object1.getClass().isInstance(object2) || object2.getClass().isInstance(object1)))
       return false;
 
     // Only compare accessors that are present in both classes
-    Set<Method> accessorMethodsIntersection =
-        new HashSet<Method>(getAccessors(object1.getClass()));
+    Set<Method> accessorMethodsIntersection = new HashSet<Method>(getAccessors(object1.getClass()));
     accessorMethodsIntersection.retainAll(getAccessors(object2.getClass()));
 
     for (Method method : accessorMethodsIntersection) {
@@ -281,8 +266,7 @@ public final class ReflectionUtils {
         if (!result1.equals(result2))
           return false;
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke "
-            + method, e);
+        throw new IllegalStateException("Unable to reflectively invoke " + method, e);
       }
     }
 
@@ -341,8 +325,8 @@ public final class ReflectionUtils {
      */
     @Override
     public String toString() {
-      return String.format("Field %s.%s (%s): %s", field.getDeclaringClass()
-        .getName(), field.getName(), field.getType(), annotation);
+      return String.format("Field %s.%s (%s): %s", field.getDeclaringClass().getName(), field.getName(),
+        field.getType(), annotation);
     }
   }
 
@@ -371,8 +355,7 @@ public final class ReflectionUtils {
      * @param annotation
      *          Annotation component of this cache key.
      */
-    private ClassAnnotationCacheKey(Class<?> clazz,
-        Class<? extends Annotation> annotation) {
+    private ClassAnnotationCacheKey(Class<?> clazz, Class<? extends Annotation> annotation) {
       this.clazz = clazz;
       this.annotation = annotation;
     }
@@ -384,8 +367,7 @@ public final class ReflectionUtils {
     public int hashCode() {
       final int prime = 31;
       int result = 1;
-      result =
-          prime * result + (annotation == null ? 0 : annotation.hashCode());
+      result = prime * result + (annotation == null ? 0 : annotation.hashCode());
       result = prime * result + (clazz == null ? 0 : clazz.hashCode());
       return result;
     }

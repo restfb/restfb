@@ -26,6 +26,7 @@ import static junit.framework.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.types.Post;
 
 /**
@@ -42,9 +43,7 @@ public class SpecialCommentHandlingTests extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyArrayTest() throws FacebookJsonMappingException {
-    Post post =
-        createJsonMapper().toJavaObject(
-          jsonFromClasspath("post-with-empty-comments"), Post.class);
+    Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-empty-comments"), Post.class);
     assertTrue(post.getComments().getCount() == 0);
     assertTrue(post.getComments().getData().size() == 0);
   }
@@ -54,9 +53,7 @@ public class SpecialCommentHandlingTests extends AbstractJsonMapperTests {
    */
   @Test
   public void onlyCountTest() throws FacebookJsonMappingException {
-    Post post =
-        createJsonMapper().toJavaObject(
-          jsonFromClasspath("post-with-comment-count-only"), Post.class);
+    Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-comment-count-only"), Post.class);
     assertTrue(post.getComments().getCount() == 3);
   }
 
@@ -65,9 +62,7 @@ public class SpecialCommentHandlingTests extends AbstractJsonMapperTests {
    */
   @Test
   public void normalTest() throws FacebookJsonMappingException {
-    Post post =
-        createJsonMapper().toJavaObject(
-          jsonFromClasspath("post-with-normal-comments"), Post.class);
+    Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-normal-comments"), Post.class);
     assertTrue(post.getComments().getData().size() == 1);
   }
 }

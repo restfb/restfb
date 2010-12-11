@@ -33,6 +33,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.restfb.exception.FacebookJsonMappingException;
+
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the
  * "convert Java to JSON" functionality.
@@ -79,10 +81,8 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
     Assert.assertTrue("1".equals(createJsonMapper().toJson(1L)));
     Assert.assertTrue("1.0".equals(createJsonMapper().toJson(1F)));
     Assert.assertTrue("1.0".equals(createJsonMapper().toJson(1D)));
-    Assert.assertTrue("1"
-      .equals(createJsonMapper().toJson(new BigInteger("1"))));
-    Assert.assertTrue("1.0".equals(createJsonMapper().toJson(
-      new BigDecimal("1"))));
+    Assert.assertTrue("1".equals(createJsonMapper().toJson(new BigInteger("1"))));
+    Assert.assertTrue("1.0".equals(createJsonMapper().toJson(new BigDecimal("1"))));
   }
 
   /**
@@ -162,8 +162,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyMap() throws FacebookJsonMappingException {
-    Assert.assertTrue("{}".equals(createJsonMapper().toJson(
-      new HashMap<String, Object>())));
+    Assert.assertTrue("{}".equals(createJsonMapper().toJson(new HashMap<String, Object>())));
   }
 
   /**

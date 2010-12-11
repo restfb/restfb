@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.restfb.exception.FacebookException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
@@ -78,8 +79,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters)
-      throws FacebookException;
+  <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) throws FacebookException;
 
   /**
    * Fetches a single <a
@@ -98,8 +98,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonObject fetchObject(String object, Parameter... parameters)
-      throws FacebookException;
+  JsonObject fetchObject(String object, Parameter... parameters) throws FacebookException;
 
   /**
    * Fetches multiple <a
@@ -124,8 +123,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T fetchObjects(List<String> ids, Class<T> objectType,
-      Parameter... parameters) throws FacebookException;
+  <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) throws FacebookException;
 
   /**
    * Fetches multiple <a
@@ -144,8 +142,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonObject fetchObjects(List<String> ids, Parameter... parameters)
-      throws FacebookException;
+  JsonObject fetchObjects(List<String> ids, Parameter... parameters) throws FacebookException;
 
   /**
    * Fetches a Graph API {@code Connection} type, mapping the result to an
@@ -164,8 +161,8 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> Connection<T> fetchConnection(String connection, Class<T> connectionType,
-      Parameter... parameters) throws FacebookException;
+  <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters)
+      throws FacebookException;
 
   /**
    * Fetches a previous/next page of a Graph API {@code Connection} type,
@@ -183,8 +180,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> Connection<T> fetchConnectionPage(String connectionPageUrl,
-      Class<T> connectionType) throws FacebookException;
+  <T> Connection<T> fetchConnectionPage(String connectionPageUrl, Class<T> connectionType) throws FacebookException;
 
   /**
    * Fetches a Graph API connection type and returns it as a JSON object.
@@ -201,8 +197,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonObject fetchConnection(String connection, Parameter... parameters)
-      throws FacebookException;
+  JsonObject fetchConnection(String connection, Parameter... parameters) throws FacebookException;
 
   /**
    * Fetches a previous/next page of a Graph API {@code Connection} type and
@@ -219,8 +214,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonObject fetchConnectionPage(String connectionPageUrl)
-      throws FacebookException;
+  JsonObject fetchConnectionPage(String connectionPageUrl) throws FacebookException;
 
   /**
    * Executes an <a
@@ -241,8 +235,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> List<T> executeQuery(String query, Class<T> objectType,
-      Parameter... parameters) throws FacebookException;
+  <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) throws FacebookException;
 
   /**
    * Executes an <a
@@ -262,8 +255,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonArray executeQuery(String query, Parameter... parameters)
-      throws FacebookException;
+  JsonArray executeQuery(String query, Parameter... parameters) throws FacebookException;
 
   /**
    * Executes an <a
@@ -290,8 +282,8 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType,
-      Parameter... parameters) throws FacebookException;
+  <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters)
+      throws FacebookException;
 
   /**
    * Executes an <a
@@ -314,8 +306,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonObject executeMultiquery(Map<String, String> queries,
-      Parameter... parameters) throws FacebookException;
+  JsonObject executeMultiquery(Map<String, String> queries, Parameter... parameters) throws FacebookException;
 
   /**
    * Performs a <a
@@ -336,8 +327,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType, Parameter... parameters)
-      throws FacebookException;
+  <T> T publish(String connection, Class<T> objectType, Parameter... parameters) throws FacebookException;
 
   /**
    * Performs a <a
@@ -354,8 +344,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonObject publish(String connection, Parameter... parameters)
-      throws FacebookException;
+  JsonObject publish(String connection, Parameter... parameters) throws FacebookException;
 
   /**
    * Performs a <a
@@ -379,8 +368,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType,
-      InputStream binaryAttachment, Parameter... parameters)
+  <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters)
       throws FacebookException;
 
   /**
@@ -401,8 +389,7 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.6
    */
-  JsonObject publish(String connection, InputStream binaryAttachment,
-      Parameter... parameters) throws FacebookException;
+  JsonObject publish(String connection, InputStream binaryAttachment, Parameter... parameters) throws FacebookException;
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph
@@ -440,8 +427,8 @@ public interface FacebookClient {
    *           to API keys.
    * @since 1.6
    */
-  List<AccessToken> convertSessionKeysToAccessTokens(String apiKey,
-      String secretKey, String... sessionKeys) throws FacebookException;
+  List<AccessToken> convertSessionKeysToAccessTokens(String apiKey, String secretKey, String... sessionKeys)
+      throws FacebookException;
 
   /**
    * Represents an access token/expiration date pair.

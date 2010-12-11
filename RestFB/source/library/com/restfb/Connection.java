@@ -53,8 +53,7 @@ public class Connection<T> {
    *          none.
    */
   Connection(List<T> data, String previous, String next) {
-    this.data =
-        Collections.unmodifiableList(data == null ? new ArrayList<T>() : data);
+    this.data = Collections.unmodifiableList(data == null ? new ArrayList<T>() : data);
     this.previous = previous;
     this.next = next;
   }

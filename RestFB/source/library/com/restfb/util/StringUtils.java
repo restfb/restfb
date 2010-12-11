@@ -48,8 +48,7 @@ public final class StringUtils {
   /**
    * Logger.
    */
-  private static final Logger logger =
-      Logger.getLogger(StringUtils.class.getName());
+  private static final Logger logger = Logger.getLogger(StringUtils.class.getName());
 
   /**
    * Prevents instantiation.
@@ -68,13 +67,14 @@ public final class StringUtils {
   }
 
   /**
-   * Returns a trimmed version of {@code string}, or {@code null} if {@code
-   * string} is {@code null} or the trimmed version is a blank string.
+   * Returns a trimmed version of {@code string}, or {@code null} if
+   * {@code string} is {@code null} or the trimmed version is a blank string.
    * 
    * @param string
    *          The string to trim.
-   * @return A trimmed version of {@code string}, or {@code null} if {@code
-   *         string} is {@code null} or the trimmed version is a blank string.
+   * @return A trimmed version of {@code string}, or {@code null} if
+   *         {@code string} is {@code null} or the trimmed version is a blank
+   *         string.
    */
   public static String trimToNull(String string) {
     if (isBlank(string))
@@ -83,13 +83,14 @@ public final class StringUtils {
   }
 
   /**
-   * Returns a trimmed version of {@code string}, or an empty string if {@code
-   * string} is {@code null} or the trimmed version is a blank string.
+   * Returns a trimmed version of {@code string}, or an empty string if
+   * {@code string} is {@code null} or the trimmed version is a blank string.
    * 
    * @param string
    *          The string to trim.
-   * @return A trimmed version of {@code string}, or an empty string if {@code
-   *         string} is {@code null} or the trimmed version is a blank string.
+   * @return A trimmed version of {@code string}, or an empty string if
+   *         {@code string} is {@code null} or the trimmed version is a blank
+   *         string.
    */
   public static String trimToEmpty(String string) {
     if (isBlank(string))
@@ -116,8 +117,7 @@ public final class StringUtils {
     try {
       return URLEncoder.encode(string, ENCODING_CHARSET);
     } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support "
-          + ENCODING_CHARSET, e);
+      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
     }
   }
 
@@ -143,8 +143,7 @@ public final class StringUtils {
     try {
       return string.getBytes(ENCODING_CHARSET);
     } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support "
-          + ENCODING_CHARSET, e);
+      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
     }
   }
 
@@ -159,17 +158,14 @@ public final class StringUtils {
    * @throws IOException
    *           If an error occurs while processing the {@code inputStream}.
    */
-  public static String fromInputStream(InputStream inputStream)
-      throws IOException {
+  public static String fromInputStream(InputStream inputStream) throws IOException {
     if (inputStream == null)
       return null;
 
     BufferedReader reader = null;
 
     try {
-      reader =
-          new BufferedReader(new InputStreamReader(inputStream,
-            ENCODING_CHARSET));
+      reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET));
       StringBuilder response = new StringBuilder();
 
       String line = null;

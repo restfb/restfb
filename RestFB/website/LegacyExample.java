@@ -3,7 +3,7 @@ import java.util.List;
 import com.restfb.DefaultLegacyFacebookClient;
 import com.restfb.Facebook;
 import com.restfb.LegacyFacebookClient;
-import com.restfb.FacebookException;
+import com.restfb.exception.FacebookException;
 import com.restfb.Parameter;
 
 public class LegacyExample {

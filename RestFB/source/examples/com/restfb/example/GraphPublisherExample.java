@@ -29,8 +29,8 @@ import java.util.Date;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
-import com.restfb.FacebookException;
 import com.restfb.Parameter;
+import com.restfb.exception.FacebookException;
 import com.restfb.types.FacebookType;
 
 /**
@@ -59,9 +59,8 @@ public class GraphPublisherExample {
    */
   public static void main(String[] args) throws FacebookException {
     if (args.length == 0)
-      throw new IllegalArgumentException(
-        "You must provide an OAuth access token parameter. "
-            + "See README for more information.");
+      throw new IllegalArgumentException("You must provide an OAuth access token parameter. "
+          + "See README for more information.");
 
     new GraphPublisherExample(args[0]).runEverything();
   }
@@ -83,8 +82,7 @@ public class GraphPublisherExample {
     out.println("* Feed publishing *");
 
     FacebookType publishMessageResponse =
-        facebookClient.publish("me/feed", FacebookType.class, Parameter.with(
-          "message", "RestFB test"));
+        facebookClient.publish("me/feed", FacebookType.class, Parameter.with("message", "RestFB test"));
 
     out.println("Published message ID: " + publishMessageResponse.getId());
     return publishMessageResponse.getId();
@@ -94,13 +92,11 @@ public class GraphPublisherExample {
     out.println("* Event publishing *");
 
     Date tomorrow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 24L);
-    Date twoDaysFromNow =
-        new Date(currentTimeMillis() + 1000L * 60L * 60L * 48L);
+    Date twoDaysFromNow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 48L);
 
     FacebookType publishEventResponse =
-        facebookClient.publish("me/events", FacebookType.class, Parameter.with(
-          "name", "Party"), Parameter.with("start_time", tomorrow), Parameter
-          .with("end_time", twoDaysFromNow));
+        facebookClient.publish("me/events", FacebookType.class, Parameter.with("name", "Party"),
+          Parameter.with("start_time", tomorrow), Parameter.with("end_time", twoDaysFromNow));
 
     out.println("Published event ID: " + publishEventResponse.getId());
     return publishEventResponse.getId();
@@ -110,9 +106,8 @@ public class GraphPublisherExample {
     out.println("* Binary file publishing *");
 
     FacebookType publishPhotoResponse =
-        facebookClient.publish("me/photos", FacebookType.class, getClass()
-          .getResourceAsStream("/cat.png"), Parameter.with("message",
-          "Test cat"));
+        facebookClient.publish("me/photos", FacebookType.class, getClass().getResourceAsStream("/cat.png"),
+          Parameter.with("message", "Test cat"));
 
     out.println("Published photo ID: " + publishPhotoResponse.getId());
     return publishPhotoResponse.getId();
@@ -120,7 +115,6 @@ public class GraphPublisherExample {
 
   void delete(String objectId) throws FacebookException {
     out.println("* Object deletion *");
-    out.println(String.format("Deleted %s: %s", objectId, facebookClient
-      .deleteObject(objectId)));
+    out.println(String.format("Deleted %s: %s", objectId, facebookClient.deleteObject(objectId)));
   }
 }

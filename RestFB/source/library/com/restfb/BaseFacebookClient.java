@@ -28,6 +28,8 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.util.StringUtils;
@@ -88,9 +90,8 @@ abstract class BaseFacebookClient {
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    */
-  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(
-      String json) throws FacebookResponseStatusException,
-      FacebookJsonMappingException {
+  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json)
+      throws FacebookResponseStatusException, FacebookJsonMappingException {
     try {
       // If this is not an object, it's not an error response.
       if (!json.startsWith("{"))
@@ -106,16 +107,13 @@ abstract class BaseFacebookClient {
         errorObject = new JsonObject(json);
       } catch (JsonException e) {}
 
-      if (errorObject == null
-          || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME))
+      if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME))
         return;
 
-      throw new FacebookResponseStatusException(
-        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME),
+      throw new FacebookResponseStatusException(errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME),
         errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
     } catch (JsonException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to process the Facebook API response", e);
+      throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
   }
 
@@ -129,8 +127,7 @@ abstract class BaseFacebookClient {
    * @return A new array which contains both {@code parameter} and
    *         {@code parameters}.
    */
-  protected Parameter[] parametersWithAdditionalParameter(Parameter parameter,
-      Parameter... parameters) {
+  protected Parameter[] parametersWithAdditionalParameter(Parameter parameter, Parameter... parameters) {
     Parameter[] updatedParameters = new Parameter[parameters.length + 1];
     System.arraycopy(parameters, 0, updatedParameters, 0, parameters.length);
     updatedParameters[parameters.length] = parameter;
@@ -156,19 +153,15 @@ abstract class BaseFacebookClient {
     JsonObject jsonObject = new JsonObject();
 
     for (Entry<String, String> entry : queries.entrySet()) {
-      if (StringUtils.isBlank(entry.getKey())
-          || StringUtils.isBlank(entry.getValue()))
-        throw new IllegalArgumentException(
-          "Provided queries must have non-blank keys and values. "
-              + "You provided: " + queries);
+      if (StringUtils.isBlank(entry.getKey()) || StringUtils.isBlank(entry.getValue()))
+        throw new IllegalArgumentException("Provided queries must have non-blank keys and values. " + "You provided: "
+            + queries);
 
       try {
-        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()),
-          StringUtils.trimToEmpty(entry.getValue()));
+        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils.trimToEmpty(entry.getValue()));
       } catch (JsonException e) {
         // Shouldn't happen unless bizarre input is provided
-        throw new IllegalArgumentException("Unable to convert " + queries
-            + " to JSON.", e);
+        throw new IllegalArgumentException("Unable to convert " + queries + " to JSON.", e);
       }
     }
 
@@ -196,8 +189,7 @@ abstract class BaseFacebookClient {
     // '%7C' is the pipe character and will be present in any access_token
     // parameter that's already URL-encoded. If we see this combination, don't
     // URL-encode. Otherwise, URL-encode as normal.
-    return ACCESS_TOKEN_PARAM_NAME.equals(name) && value.contains("%7C") ? value
-        : StringUtils.urlEncode(value);
+    return ACCESS_TOKEN_PARAM_NAME.equals(name) && value.contains("%7C") ? value : StringUtils.urlEncode(value);
   }
 
   /**
@@ -212,8 +204,7 @@ abstract class BaseFacebookClient {
   protected void verifyParameterLegality(Parameter... parameters) {
     for (Parameter parameter : parameters)
       if (illegalParamNames.contains(parameter.name))
-        throw new IllegalArgumentException("Parameter '" + parameter.name
-            + "' is reserved for RestFB use - "
+        throw new IllegalArgumentException("Parameter '" + parameter.name + "' is reserved for RestFB use - "
             + "you cannot specify it yourself.");
   }
 
@@ -230,8 +221,7 @@ abstract class BaseFacebookClient {
   protected void verifyParameterPresence(String parameterName, String parameter) {
     verifyParameterPresence(parameterName, (Object) parameter);
     if (parameter.trim().length() == 0)
-      throw new IllegalArgumentException("The '" + parameterName
-          + "' parameter cannot be an empty string.");
+      throw new IllegalArgumentException("The '" + parameterName + "' parameter cannot be an empty string.");
   }
 
   /**
@@ -246,7 +236,6 @@ abstract class BaseFacebookClient {
    */
   protected void verifyParameterPresence(String parameterName, Object parameter) {
     if (parameter == null)
-      throw new NullPointerException("The '" + parameterName
-          + "' parameter cannot be null.");
+      throw new NullPointerException("The '" + parameterName + "' parameter cannot be null.");
   }
 }

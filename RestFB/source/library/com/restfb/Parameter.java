@@ -27,6 +27,7 @@ import static com.restfb.util.DateUtils.FACEBOOK_LONG_DATE_FORMAT;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.util.StringUtils;
 
 /**
@@ -58,23 +59,20 @@ public final class Parameter {
    *           If {@code name} is {@code null} or a blank string or either
    *           {@code value} or {@code jsonMapper} is {@code null}.
    */
-  private Parameter(String name, Object value, JsonMapper jsonMapper)
-      throws FacebookJsonMappingException {
+  private Parameter(String name, Object value, JsonMapper jsonMapper) throws FacebookJsonMappingException {
     if (StringUtils.isBlank(name) || value == null)
-      throw new IllegalArgumentException(Parameter.class
-          + " instances must have a non-blank name and non-null value.");
+      throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value.");
 
     if (jsonMapper == null)
-      throw new IllegalArgumentException("Provided " + JsonMapper.class
-          + " must not be null.");
+      throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");
 
     this.name = StringUtils.trimToEmpty(name).toLowerCase();
 
     // Special handling for Date types - turn them into Facebook date strings.
     // Otherwise, use the JSON value of the type.
     this.value =
-        value instanceof Date ? new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT)
-          .format(value) : jsonMapper.toJson(value);
+        value instanceof Date ? new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT).format(value) : jsonMapper
+          .toJson(value);
   }
 
   /**
@@ -102,8 +100,7 @@ public final class Parameter {
    * @throws FacebookJsonMappingException
    *           If an error occurs when converting {@code value} to JSON.
    */
-  public static Parameter with(String name, Object value)
-      throws FacebookJsonMappingException {
+  public static Parameter with(String name, Object value) throws FacebookJsonMappingException {
     return Parameter.with(name, value, new DefaultJsonMapper());
   }
 
@@ -133,8 +130,7 @@ public final class Parameter {
    * @throws FacebookJsonMappingException
    *           If an error occurs when converting {@code value} to JSON.
    */
-  public static Parameter with(String name, Object value, JsonMapper jsonMapper)
-      throws FacebookJsonMappingException {
+  public static Parameter with(String name, Object value, JsonMapper jsonMapper) throws FacebookJsonMappingException {
     return new Parameter(name, value, jsonMapper);
   }
 

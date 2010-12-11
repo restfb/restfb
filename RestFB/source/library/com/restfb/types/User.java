@@ -224,8 +224,7 @@ public class User extends NamedFacebookType {
     private NamedFacebookType degree;
 
     @Facebook(value = "concentration", contains = NamedFacebookType.class)
-    private List<NamedFacebookType> concentration =
-        new ArrayList<NamedFacebookType>();
+    private List<NamedFacebookType> concentration = new ArrayList<NamedFacebookType>();
 
     /**
      * @see java.lang.Object#hashCode()
@@ -353,8 +352,7 @@ public class User extends NamedFacebookType {
    *         available in month/year format.
    */
   public Date getBirthdayAsDate() {
-    if (StringUtils.isBlank(getBirthday())
-        || getBirthday().split("/").length < 2)
+    if (StringUtils.isBlank(getBirthday()) || getBirthday().split("/").length < 2)
       return null;
 
     return DateUtils.toDateFromShortFormat(birthday);

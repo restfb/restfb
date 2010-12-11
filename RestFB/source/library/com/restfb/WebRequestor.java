@@ -88,10 +88,8 @@ public interface WebRequestor {
     @Override
     public String toString() {
       if (StringUtils.isBlank(getBody()))
-        return String.format("HTTP status code %d and an empty response body.",
-          getStatusCode());
-      return String.format("HTTP status code %d and response body: %s",
-        getStatusCode(), getBody());
+        return String.format("HTTP status code %d and an empty response body.", getStatusCode());
+      return String.format("HTTP status code %d and response body: %s", getStatusCode(), getBody());
     }
   }
 
@@ -109,8 +107,8 @@ public interface WebRequestor {
   Response executeGet(String url) throws IOException;
 
   /**
-   * Given a Facebook API endpoint URL and parameter string, execute a {@code
-   * POST} to the endpoint URL.
+   * Given a Facebook API endpoint URL and parameter string, execute a
+   * {@code POST} to the endpoint URL.
    * 
    * @param url
    *          The URL to {@code POST} to.
@@ -123,8 +121,8 @@ public interface WebRequestor {
   Response executePost(String url, String parameters) throws IOException;
 
   /**
-   * Given a Facebook API endpoint URL and parameter string, execute a {@code
-   * POST} to the endpoint URL.
+   * Given a Facebook API endpoint URL and parameter string, execute a
+   * {@code POST} to the endpoint URL.
    * 
    * @param url
    *          The URL to {@code POST} to.
@@ -137,6 +135,5 @@ public interface WebRequestor {
    * @throws IOException
    *           If an error occurs while performing the {@code POST}.
    */
-  Response executePost(String url, String parameters,
-      InputStream binaryAttachment) throws IOException;
+  Response executePost(String url, String parameters, InputStream binaryAttachment) throws IOException;
 }

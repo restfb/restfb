@@ -42,8 +42,7 @@ import java.io.Writer;
  * example,
  * 
  * <pre>
- * new JsonWriter(myWriter).object().key(&quot;JSON&quot;).value(&quot;Hello, World!&quot;)
- *   .endObject();
+ * new JsonWriter(myWriter).object().key(&quot;JSON&quot;).value(&quot;Hello, World!&quot;).endObject();
  * </pre>
  * 
  * which writes
@@ -167,8 +166,7 @@ public class JsonWriter {
    */
   private JsonWriter end(char m, char c) throws JsonException {
     if (this.mode != m) {
-      throw new JsonException(m == 'o' ? "Misplaced endObject."
-          : "Misplaced endArray.");
+      throw new JsonException(m == 'o' ? "Misplaced endObject." : "Misplaced endArray.");
     }
     this.pop(m);
     try {
@@ -279,8 +277,7 @@ public class JsonWriter {
       throw new JsonException("Nesting error.");
     }
     this.top -= 1;
-    this.mode =
-        this.top == 0 ? 'd' : this.stack[this.top - 1] == null ? 'a' : 'k';
+    this.mode = this.top == 0 ? 'd' : this.stack[this.top - 1] == null ? 'a' : 'k';
   }
 
   /**

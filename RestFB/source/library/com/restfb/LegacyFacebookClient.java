@@ -25,6 +25,8 @@ package com.restfb;
 import java.util.List;
 import java.util.Map;
 
+import com.restfb.exception.FacebookException;
+
 /**
  * Specifies how a <a
  * href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook
@@ -48,8 +50,8 @@ import java.util.Map;
  * objects.</li>
  * <li>The {@link #executeMultiquery(Map, Class, Parameter...)} family of
  * methods should be used when performing <a
- * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">{@code
- * fql.multiquery}</a> API calls.</li>
+ * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">
+ * {@code fql.multiquery}</a> API calls.</li>
  * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -90,8 +92,7 @@ public interface LegacyFacebookClient {
    *             authentication scheme soon.
    */
   @Deprecated
-  void execute(String method, String sessionKey, Parameter... parameters)
-      throws FacebookException;
+  void execute(String method, String sessionKey, Parameter... parameters) throws FacebookException;
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -110,8 +111,7 @@ public interface LegacyFacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T execute(String method, Class<T> resultType, Parameter... parameters)
-      throws FacebookException;
+  <T> T execute(String method, Class<T> resultType, Parameter... parameters) throws FacebookException;
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -141,8 +141,8 @@ public interface LegacyFacebookClient {
    *             session key authentication scheme soon.
    */
   @Deprecated
-  <T> T execute(String method, String sessionKey, Class<T> resultType,
-      Parameter... parameters) throws FacebookException;
+  <T> T execute(String method, String sessionKey, Class<T> resultType, Parameter... parameters)
+      throws FacebookException;
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -161,8 +161,7 @@ public interface LegacyFacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> List<T> executeForList(String method, Class<T> resultType,
-      Parameter... parameters) throws FacebookException;
+  <T> List<T> executeForList(String method, Class<T> resultType, Parameter... parameters) throws FacebookException;
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -192,14 +191,14 @@ public interface LegacyFacebookClient {
    *             the old session key authentication scheme soon.
    */
   @Deprecated
-  <T> List<T> executeForList(String method, String sessionKey,
-      Class<T> resultType, Parameter... parameters) throws FacebookException;
+  <T> List<T> executeForList(String method, String sessionKey, Class<T> resultType, Parameter... parameters)
+      throws FacebookException;
 
   /**
    * Executes the <a
-   * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">{@code
-   * fql.multiquery}</a> API call, mapping the API response to a single instance
-   * of type {@code resultType}.
+   * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">
+   * {@code fql.multiquery}</a> API call, mapping the API response to a single
+   * instance of type {@code resultType}.
    * <p>
    * This method exists because the standard
    * {@link #execute(String, Parameter...)} and
@@ -212,8 +211,8 @@ public interface LegacyFacebookClient {
    * 
    * @param queries
    *          A mapping of query names to queries. This is marshaled to JSON and
-   *          sent over the wire to the Facebook API endpoint as the {@code
-   *          queries} parameter.
+   *          sent over the wire to the Facebook API endpoint as the
+   *          {@code queries} parameter.
    * @param resultType
    *          Result type token.
    * @param additionalParameters
@@ -224,14 +223,14 @@ public interface LegacyFacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.1
    */
-  <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType,
-      Parameter... additionalParameters) throws FacebookException;
+  <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType, Parameter... additionalParameters)
+      throws FacebookException;
 
   /**
    * Executes the <a
-   * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">{@code
-   * fql.multiquery}</a> API call, mapping the API response to a single instance
-   * of type {@code resultType}.
+   * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">
+   * {@code fql.multiquery}</a> API call, mapping the API response to a single
+   * instance of type {@code resultType}.
    * <p>
    * This method exists because the standard
    * {@link #execute(String, Parameter...)} and
@@ -243,8 +242,8 @@ public interface LegacyFacebookClient {
    *          Java type to map to.
    * @param queries
    *          A mapping of query names to queries. This is marshaled to JSON and
-   *          sent over the wire to the Facebook API endpoint as the {@code
-   *          queries} parameter.
+   *          sent over the wire to the Facebook API endpoint as the
+   *          {@code queries} parameter.
    * @param sessionKey
    *          A Facebook API session key if you're using the legacy API
    *          key/Secret key authentication scheme. Must be {@code null} if
@@ -266,7 +265,6 @@ public interface LegacyFacebookClient {
    *             the old session key authentication scheme soon.
    */
   @Deprecated
-  <T> T executeMultiquery(Map<String, String> queries, String sessionKey,
-      Class<T> resultType, Parameter... additionalParameters)
-      throws FacebookException;
+  <T> T executeMultiquery(Map<String, String> queries, String sessionKey, Class<T> resultType,
+      Parameter... additionalParameters) throws FacebookException;
 }

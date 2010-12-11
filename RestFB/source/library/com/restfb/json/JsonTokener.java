@@ -226,7 +226,8 @@ public class JsonTokener {
    * 
    * @param quote
    *          The quoting character, either <code>"</code>&nbsp;<small>(double
-   *          quote)</small> or <code>'</code>&nbsp;<small>(single quote)</small>.
+   *          quote)</small> or <code>'</code>&nbsp;<small>(single
+   *          quote)</small>.
    * @return A String.
    * @throws JsonException
    *           Unterminated string.

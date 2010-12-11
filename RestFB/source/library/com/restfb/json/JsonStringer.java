@@ -41,9 +41,7 @@ import java.io.StringWriter;
  * example,
  * 
  * <pre>
- * myString =
- *     new JsonStringer().object().key(&quot;JSON&quot;).value(&quot;Hello, World!&quot;).endObject()
- *       .toString();
+ * myString = new JsonStringer().object().key(&quot;JSON&quot;).value(&quot;Hello, World!&quot;).endObject().toString();
  * </pre>
  * 
  * which produces the string

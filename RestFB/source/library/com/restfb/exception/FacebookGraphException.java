@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.restfb;
+package com.restfb.exception;
 
 /**
  * Indicates that the Facebook Graph API endpoint returned JSON which indicates
@@ -57,8 +57,7 @@ public class FacebookGraphException extends FacebookException {
    *          Value of the Facebook response attribute {@code error.message}.
    */
   public FacebookGraphException(String errorType, String errorMessage) {
-    super(String.format("Received Facebook error response of type %s: %s",
-      errorType, errorMessage));
+    super(String.format("Received Facebook error response of type %s: %s", errorType, errorMessage));
     this.errorType = errorType;
     this.errorMessage = errorMessage;
   }
@@ -80,5 +79,4 @@ public class FacebookGraphException extends FacebookException {
   public String getErrorMessage() {
     return errorMessage;
   }
-
 }

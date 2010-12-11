@@ -24,14 +24,16 @@ package com.restfb;
 
 import java.util.List;
 
+import com.restfb.exception.FacebookJsonMappingException;
+
 /**
  * Specifies how a Facebook JSON-to-Java (and vice-versa) mapper must operate.
  * <p>
  * Note that implementors must be able to handle illegal JSON in
  * {@link #toJavaObject(String, Class)} and {@link #toJavaList(String, Class)}
- * in order to correctly process Facebook responses. For example, the {@code
- * Users.getLoggedInUser} Legacy API call returns a value like {@code 1240077},
- * which is not valid JSON.
+ * in order to correctly process Facebook responses. For example, the
+ * {@code Users.getLoggedInUser} Legacy API call returns a value like
+ * {@code 1240077}, which is not valid JSON.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -53,8 +55,7 @@ public interface JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
    */
-  <T> T toJavaObject(String json, Class<T> type)
-      throws FacebookJsonMappingException;
+  <T> T toJavaObject(String json, Class<T> type) throws FacebookJsonMappingException;
 
   /**
    * Given a JSON string, create and return a new instance of a corresponding
@@ -73,8 +74,7 @@ public interface JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
    */
-  <T> List<T> toJavaList(String json, Class<T> type)
-      throws FacebookJsonMappingException;
+  <T> List<T> toJavaList(String json, Class<T> type) throws FacebookJsonMappingException;
 
   /**
    * Given a Java {@code object}, create and return a JSON string that

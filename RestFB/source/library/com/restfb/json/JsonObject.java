@@ -71,7 +71,8 @@ import java.util.TreeSet;
  * <ul>
  * <li>An extra <code>,</code>&nbsp;<small>(comma)</small> may appear just
  * before the closing brace.</li>
- * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single quote)</small>.</li>
+ * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single
+ * quote)</small>.</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a quote
  * or single quote, and if they do not contain leading or trailing spaces, and
  * if they do not contain any of these characters:
@@ -82,8 +83,8 @@ import java.util.TreeSet;
  * <code>:</code>.</li>
  * <li>Values can be followed by <code>;</code> <small>(semicolon)</small> as
  * well as by <code>,</code> <small>(comma)</small>.</li>
- * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or <code>0x-</code>
- * <small>(hex)</small> prefix.</li>
+ * <li>Numbers may have the <code>0-</code> <small>(octal)</small> or
+ * <code>0x-</code> <small>(hex)</small> prefix.</li>
  * </ul>
  * 
  * @author JSON.org
@@ -262,8 +263,7 @@ public class JsonObject {
         if (isStandardProperty(e.getValue().getClass())) {
           this.map.put(e.getKey(), e.getValue());
         } else {
-          this.map.put(e.getKey(), new JsonObject(e.getValue(),
-            includeSuperClass));
+          this.map.put(e.getKey(), new JsonObject(e.getValue(), includeSuperClass));
         }
       }
     }
@@ -328,8 +328,7 @@ public class JsonObject {
       includeSuperClass = false;
     }
 
-    Method[] methods =
-        (includeSuperClass) ? klass.getMethods() : klass.getDeclaredMethods();
+    Method[] methods = (includeSuperClass) ? klass.getMethods() : klass.getDeclaredMethods();
     for (int i = 0; i < methods.length; i += 1) {
       try {
         Method method = methods[i];
@@ -341,8 +340,7 @@ public class JsonObject {
           } else if (name.startsWith("is")) {
             key = name.substring(2);
           }
-          if (key.length() > 0 && Character.isUpperCase(key.charAt(0))
-              && method.getParameterTypes().length == 0) {
+          if (key.length() > 0 && Character.isUpperCase(key.charAt(0)) && method.getParameterTypes().length == 0) {
             if (key.length() == 1) {
               key = key.toLowerCase();
             } else if (!Character.isUpperCase(key.charAt(1))) {
@@ -355,11 +353,9 @@ public class JsonObject {
             } else if (result.getClass().isArray()) {
               map.put(key, new JsonArray(result, includeSuperClass));
             } else if (result instanceof Collection<?>) { // List or Set
-              map.put(key, new JsonArray((Collection<?>) result,
-                includeSuperClass));
+              map.put(key, new JsonArray((Collection<?>) result, includeSuperClass));
             } else if (result instanceof Map<?, ?>) {
-              map.put(key,
-                new JsonObject((Map<?, ?>) result, includeSuperClass));
+              map.put(key, new JsonObject((Map<?, ?>) result, includeSuperClass));
             } else if (isStandardProperty(result.getClass())) { // Primitives,
               // String and
               // Wrapper
@@ -381,14 +377,10 @@ public class JsonObject {
   }
 
   static boolean isStandardProperty(Class<?> clazz) {
-    return clazz.isPrimitive() || clazz.isAssignableFrom(Byte.class)
-        || clazz.isAssignableFrom(Short.class)
-        || clazz.isAssignableFrom(Integer.class)
-        || clazz.isAssignableFrom(Long.class)
-        || clazz.isAssignableFrom(Float.class)
-        || clazz.isAssignableFrom(Double.class)
-        || clazz.isAssignableFrom(Character.class)
-        || clazz.isAssignableFrom(String.class)
+    return clazz.isPrimitive() || clazz.isAssignableFrom(Byte.class) || clazz.isAssignableFrom(Short.class)
+        || clazz.isAssignableFrom(Integer.class) || clazz.isAssignableFrom(Long.class)
+        || clazz.isAssignableFrom(Float.class) || clazz.isAssignableFrom(Double.class)
+        || clazz.isAssignableFrom(Character.class) || clazz.isAssignableFrom(String.class)
         || clazz.isAssignableFrom(Boolean.class);
   }
 
@@ -546,11 +538,9 @@ public class JsonObject {
    */
   public boolean getBoolean(String key) throws JsonException {
     Object o = get(key);
-    if (o.equals(Boolean.FALSE)
-        || (o instanceof String && ((String) o).equalsIgnoreCase("false"))) {
+    if (o.equals(Boolean.FALSE) || (o instanceof String && ((String) o).equalsIgnoreCase("false"))) {
       return false;
-    } else if (o.equals(Boolean.TRUE)
-        || (o instanceof String && ((String) o).equalsIgnoreCase("true"))) {
+    } else if (o.equals(Boolean.TRUE) || (o instanceof String && ((String) o).equalsIgnoreCase("true"))) {
       return true;
     }
     throw new JsonException("JsonObject[" + quote(key) + "] is not a Boolean.");
@@ -569,8 +559,7 @@ public class JsonObject {
   public double getDouble(String key) throws JsonException {
     Object o = get(key);
     try {
-      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf(
-        (String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();
     } catch (Exception e) {
       throw new JsonException("JsonObject[" + quote(key) + "] is not a number.");
     }
@@ -606,8 +595,7 @@ public class JsonObject {
     if (o instanceof JsonArray) {
       return (JsonArray) o;
     }
-    throw new JsonException("JsonObject[" + quote(key)
-        + "] is not a JsonArray.");
+    throw new JsonException("JsonObject[" + quote(key) + "] is not a JsonArray.");
   }
 
   /**
@@ -624,8 +612,7 @@ public class JsonObject {
     if (o instanceof JsonObject) {
       return (JsonObject) o;
     }
-    throw new JsonException("JsonObject[" + quote(key)
-        + "] is not a JsonObject.");
+    throw new JsonException("JsonObject[" + quote(key) + "] is not a JsonObject.");
   }
 
   /**
@@ -641,8 +628,7 @@ public class JsonObject {
    */
   public long getLong(String key) throws JsonException {
     Object o = get(key);
-    return o instanceof Number ? ((Number) o).longValue()
-        : (long) getDouble(key);
+    return o instanceof Number ? ((Number) o).longValue() : (long) getDouble(key);
   }
 
   /**
@@ -872,8 +858,7 @@ public class JsonObject {
   public double optDouble(String key, double defaultValue) {
     try {
       Object o = opt(key);
-      return o instanceof Number ? ((Number) o).doubleValue() : new Double(
-        (String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : new Double((String) o).doubleValue();
     } catch (Exception e) {
       return defaultValue;
     }
@@ -1200,8 +1185,7 @@ public class JsonObject {
         sb.append("\\r");
         break;
       default:
-        if (c < ' ' || (c >= '\u0080' && c < '\u00a0')
-            || (c >= '\u2000' && c < '\u2100')) {
+        if (c < ' ' || (c >= '\u0080' && c < '\u00a0') || (c >= '\u2000' && c < '\u2100')) {
           t = "000" + Integer.toHexString(c);
           sb.append("\\u" + t.substring(t.length() - 4));
         } else {
@@ -1495,8 +1479,7 @@ public class JsonObject {
     if (value instanceof Number) {
       return numberToString((Number) value);
     }
-    if (value instanceof Boolean || value instanceof JsonObject
-        || value instanceof JsonArray) {
+    if (value instanceof Boolean || value instanceof JsonObject || value instanceof JsonArray) {
       return value.toString();
     }
     if (value instanceof Map<?, ?>) {
@@ -1529,8 +1512,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the object contains an invalid number.
    */
-  static String valueToString(Object value, int indentFactor, int indent)
-      throws JsonException {
+  static String valueToString(Object value, int indentFactor, int indent) throws JsonException {
     if (value == null || value.equals(null)) {
       return "null";
     }
@@ -1560,8 +1542,7 @@ public class JsonObject {
       return new JsonObject((Map<?, ?>) value).toString(indentFactor, indent);
     }
     if (value instanceof Collection<?>) {
-      return new JsonArray((Collection<?>) value)
-        .toString(indentFactor, indent);
+      return new JsonArray((Collection<?>) value).toString(indentFactor, indent);
     }
     if (value.getClass().isArray()) {
       return new JsonArray(value).toString(indentFactor, indent);

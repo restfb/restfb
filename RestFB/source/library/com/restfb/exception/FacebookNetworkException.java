@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.restfb;
+package com.restfb.exception;
 
 /**
  * Indicates that a network error occurred while trying to connect to the
@@ -70,11 +70,9 @@ public class FacebookNetworkException extends FacebookException {
    * @param httpStatusCode
    *          The HTTP response status code.
    */
-  public FacebookNetworkException(String message, Throwable cause,
-      Integer httpStatusCode) {
+  public FacebookNetworkException(String message, Throwable cause, Integer httpStatusCode) {
     super(String.format("A network error occurred while trying to "
-        + "communicate with Facebook: %s (HTTP status code %d)", message,
-      httpStatusCode), cause);
+        + "communicate with Facebook: %s (HTTP status code %d)", message, httpStatusCode), cause);
     this.httpStatusCode = httpStatusCode;
   }
 
