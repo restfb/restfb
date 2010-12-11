@@ -23,6 +23,7 @@
 package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
+import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
@@ -42,7 +43,6 @@ import com.restfb.exception.FacebookGraphExceptionMapper;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookNetworkException;
 import com.restfb.exception.FacebookOAuthException;
-import com.restfb.exception.FacebookPermissionException;
 import com.restfb.exception.FacebookQueryParseException;
 import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonArray;
@@ -554,17 +554,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       logger.info("Facebook responded with " + response);
 
     // If we get any HTTP response code other than a 200 OK or 400 Bad Request
-    // or 401 Not Authorized or 500 Internal Server Error, throw an exception.
-    // We handle 401s and 500s specially.
+    // or 401 Not Authorized or 403 Forbidden or 500 Internal Server Error,
+    // throw an exception.
     if (HTTP_OK != response.getStatusCode() && HTTP_BAD_REQUEST != response.getStatusCode()
-        && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_INTERNAL_ERROR != response.getStatusCode())
+        && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_INTERNAL_ERROR != response.getStatusCode()
+        && HTTP_FORBIDDEN != response.getStatusCode())
       throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
 
     String json = response.getBody();
 
     // If the response contained an error code, throw an exception.
-    // The response will usually have a 500 Internal Server Error or 401 Not
-    // Authorized response code in this case.
     throwFacebookResponseStatusExceptionIfNecessary(json);
 
     // If there was no response error information and this was a 500 or 401
@@ -647,11 +646,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
         if ("QueryParseException".equals(type))
           return new FacebookQueryParseException(type, message);
-
-        // Check copied from BatchFB source:
-        // Special case, permission exceptions are poorly structured
-        if ("Exception".equals(type) && message.startsWith("(#200)"))
-          return new FacebookPermissionException(type, message);
 
         // Don't recognize this exception type? Just go with the standard
         // FacebookGraphException.
