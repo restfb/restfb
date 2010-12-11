@@ -38,8 +38,11 @@ import java.util.Map;
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookException;
 import com.restfb.exception.FacebookGraphException;
+import com.restfb.exception.FacebookGraphExceptionMapper;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookNetworkException;
+import com.restfb.exception.FacebookOAuthException;
+import com.restfb.exception.FacebookQueryParseException;
 import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
@@ -57,6 +60,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Graph API access token.
    */
   protected String accessToken;
+
+  /**
+   * Knows how to map Graph API exceptions to formal Java exception types.
+   */
+  protected FacebookGraphExceptionMapper facebookGraphExceptionMapper;
 
   /**
    * API endpoint URL.
@@ -150,6 +158,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.accessToken = StringUtils.trimToNull(accessToken);
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
+    this.facebookGraphExceptionMapper = createFacebookGraphExceptionMapper();
 
     illegalParamNames.addAll(Arrays
       .asList(new String[] { ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME }));
@@ -613,6 +622,35 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
+  }
+
+  /**
+   * Specifies how we map Graph API exception types/messages to real Java
+   * exceptions.
+   * <p>
+   * Thanks to BatchFB's Jeff Schnitzer for doing some of the legwork to find
+   * these exception type names.
+   * 
+   * @return An instance of the exception mapper we should use.
+   */
+  protected FacebookGraphExceptionMapper createFacebookGraphExceptionMapper() {
+    return new FacebookGraphExceptionMapper() {
+      /**
+       * @see com.restfb.exception.FacebookGraphExceptionMapper#exceptionForTypeAndMessage(java.lang.String,
+       *      java.lang.String)
+       */
+      public FacebookGraphException exceptionForTypeAndMessage(String type, String message) {
+        if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
+          return new FacebookOAuthException(type, message);
+
+        if ("QueryParseException".equals(type))
+          return new FacebookQueryParseException(type, message);
+
+        // Don't recognize this exception type? Just go with the standard
+        // FacebookGraphException.
+        return new FacebookGraphException(type, message);
+      }
+    };
   }
 
   /**
