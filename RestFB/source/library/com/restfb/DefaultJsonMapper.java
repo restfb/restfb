@@ -23,6 +23,11 @@
 package com.restfb;
 
 import static com.restfb.json.JsonObject.NULL;
+import static com.restfb.util.ReflectionUtils.findFieldsWithAnnotation;
+import static com.restfb.util.ReflectionUtils.isPrimitive;
+import static com.restfb.util.StringUtils.isBlank;
+import static com.restfb.util.StringUtils.trimToEmpty;
+import static java.util.Collections.unmodifiableList;
 import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.FINER;
 
@@ -30,7 +35,6 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -42,9 +46,7 @@ import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.NamedFacebookType;
 import com.restfb.types.Post.Comments;
-import com.restfb.util.ReflectionUtils;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
-import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -62,9 +64,9 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) throws FacebookJsonMappingException {
-    json = StringUtils.trimToEmpty(json);
+    json = trimToEmpty(json);
 
-    if (StringUtils.isBlank(json))
+    if (isBlank(json))
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
 
     if (DefaultEnumClass.class.equals(type))
@@ -119,7 +121,7 @@ public class DefaultJsonMapper implements JsonMapper {
       for (int i = 0; i < jsonArray.length(); i++)
         list.add(toJavaObject(jsonArray.get(i).toString(), type));
 
-      return Collections.unmodifiableList(list);
+      return unmodifiableList(list);
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
@@ -132,12 +134,16 @@ public class DefaultJsonMapper implements JsonMapper {
    * @see com.restfb.JsonMapper#toJavaObject(java.lang.String, java.lang.Class)
    */
   @Override
+  @SuppressWarnings("unchecked")
   public <T> T toJavaObject(String json, Class<T> type) throws FacebookJsonMappingException {
     verifyThatJsonIsOfObjectType(json);
 
     try {
-      List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation =
-          ReflectionUtils.findFieldsWithAnnotation(type, Facebook.class);
+      // Are we asked to map to JsonObject? If so, short-circuit right away.
+      if (type.equals(JsonObject.class))
+        return (T) new JsonObject(json);
+
+      List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);
 
       // If there are no annotated fields, assume we're mapping to a built-in
       // type. If this is actually the empty object, just return a new instance
@@ -165,6 +171,9 @@ public class DefaultJsonMapper implements JsonMapper {
       JsonObject jsonObject = new JsonObject(json);
       T instance = createInstance(type);
 
+      if (instance instanceof JsonObject)
+        return (T) jsonObject;
+
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
@@ -175,7 +184,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
         // If no Facebook field name was specified in the annotation, assume
         // it's the same name as the Java field
-        if (StringUtils.isBlank(facebookFieldName)) {
+        if (isBlank(facebookFieldName)) {
           if (logger.isLoggable(FINER))
             logger.finer("No explicit Facebook field name found for " + field
                 + ", so defaulting to the field name itself (" + field.getName() + ")");
@@ -222,7 +231,7 @@ public class DefaultJsonMapper implements JsonMapper {
    *           If {@code json} is not a valid JSON object.
    */
   protected void verifyThatJsonIsOfObjectType(String json) throws FacebookJsonMappingException {
-    if (StringUtils.isBlank(json))
+    if (isBlank(json))
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
 
     if (json.startsWith("["))
@@ -271,7 +280,7 @@ public class DefaultJsonMapper implements JsonMapper {
       return jsonObject;
     }
 
-    if (ReflectionUtils.isPrimitive(object))
+    if (isPrimitive(object))
       return object;
 
     if (object instanceof BigInteger)
@@ -284,7 +293,7 @@ public class DefaultJsonMapper implements JsonMapper {
     // plain old Javabean...
 
     List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation =
-        ReflectionUtils.findFieldsWithAnnotation(object.getClass(), Facebook.class);
+        findFieldsWithAnnotation(object.getClass(), Facebook.class);
 
     JsonObject jsonObject = new JsonObject();
 
@@ -297,7 +306,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
       // If no Facebook field name was specified in the annotation, assume
       // it's the same name as the Java field
-      if (StringUtils.isBlank(facebookFieldName)) {
+      if (isBlank(facebookFieldName)) {
         if (logger.isLoggable(FINER))
           logger.finer("No explicit Facebook field name found for " + field
               + ", so defaulting to the field name itself (" + field.getName() + ")");

@@ -233,23 +233,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#fetchConnection(java.lang.String,
-   *      com.restfb.Parameter[])
-   */
-  @Override
-  public JsonObject fetchConnection(String connection, Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String)
-   */
-  @Override
-  public JsonObject fetchConnectionPage(String connectionPageUrl) throws FacebookException {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
    * @see com.restfb.FacebookClient#fetchObject(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
@@ -258,15 +241,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("object", object);
     verifyParameterPresence("objectType", objectType);
     return jsonMapper.toJavaObject(makeRequest(object, parameters), objectType);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#fetchObject(java.lang.String,
-   *      com.restfb.Parameter[])
-   */
-  @Override
-  public JsonObject fetchObject(String object, Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException();
   }
 
   /**
@@ -305,38 +279,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#fetchObjects(java.util.List,
-   *      com.restfb.Parameter[])
-   */
-  @Override
-  public JsonObject fetchObjects(List<String> ids, Parameter... parameters) throws FacebookException {
-    verifyParameterPresence("ids", ids);
-
-    if (ids.size() == 0)
-      throw new IllegalArgumentException("The list of IDs cannot be empty.");
-
-    for (Parameter parameter : parameters)
-      if (IDS_PARAM_NAME.equals(parameter.name))
-        throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with " + "the list of IDs you passed to this method.");
-
-    // Normalize the IDs
-    for (int i = 0; i < ids.size(); i++) {
-      String id = ids.get(i).trim().toLowerCase();
-      if ("".equals(id))
-        throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
-      ids.set(i, id);
-    }
-
-    try {
-      return new JsonObject(makeRequest("",
-        parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
-    } catch (JsonException e) {
-      throw new FacebookJsonMappingException("Unable to map JSON to Java.", e);
-    }
-  }
-
-  /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      java.io.InputStream, com.restfb.Parameter[])
    */
@@ -349,31 +291,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String,
-   *      java.io.InputStream, com.restfb.Parameter[])
-   */
-  @Override
-  public JsonObject publish(String connection, InputStream binaryAttachment, Parameter... parameters)
-      throws FacebookException {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
    *      com.restfb.Parameter[])
    */
   @Override
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) throws FacebookException {
     return publish(connection, objectType, null, parameters);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String,
-   *      com.restfb.Parameter[])
-   */
-  @Override
-  public JsonObject publish(String connection, Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException();
   }
 
   /**
@@ -417,15 +340,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map,
-   *      com.restfb.Parameter[])
-   */
-  @Override
-  public JsonObject executeMultiquery(Map<String, String> queries, Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
    * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
    *      java.lang.Class, com.restfb.Parameter[])
    */
@@ -443,15 +357,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return jsonMapper.toJavaList(
       makeRequest("fql.query", true, false, false, null,
         parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
-   *      com.restfb.Parameter[])
-   */
-  @Override
-  public JsonArray executeQuery(String query, Parameter... parameters) throws FacebookException {
-    throw new UnsupportedOperationException();
   }
 
   /**

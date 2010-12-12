@@ -22,11 +22,14 @@
 
 package com.restfb.util;
 
+import static java.util.Collections.sort;
+import static java.util.Collections.synchronizedMap;
+import static java.util.Collections.unmodifiableList;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,8 +51,8 @@ public final class ReflectionUtils {
    * In-memory shared cache of reflection data for
    * {@link #findFieldsWithAnnotation(Class, Class)}.
    */
-  private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE = Collections
-    .synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
+  private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
+      synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
 
   /**
    * Prevents instantiation.
@@ -117,7 +120,7 @@ public final class ReflectionUtils {
       type = type.getSuperclass();
     }
 
-    fieldsWithAnnotation = Collections.unmodifiableList(fieldsWithAnnotation);
+    fieldsWithAnnotation = unmodifiableList(fieldsWithAnnotation);
     FIELDS_WITH_ANNOTATION_CACHE.put(cacheKey, fieldsWithAnnotation);
     return fieldsWithAnnotation;
   }
@@ -149,7 +152,7 @@ public final class ReflectionUtils {
     }
 
     // Order the methods alphabetically by name
-    Collections.sort(methods, new Comparator<Method>() {
+    sort(methods, new Comparator<Method>() {
       /**
        * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
        */
@@ -159,7 +162,7 @@ public final class ReflectionUtils {
       }
     });
 
-    return Collections.unmodifiableList(methods);
+    return unmodifiableList(methods);
   }
 
   /**

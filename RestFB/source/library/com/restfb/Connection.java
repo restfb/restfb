@@ -22,12 +22,13 @@
 
 package com.restfb;
 
+import static com.restfb.util.StringUtils.isBlank;
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.restfb.util.ReflectionUtils;
-import com.restfb.util.StringUtils;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API
@@ -37,25 +38,25 @@ import com.restfb.util.StringUtils;
  */
 public class Connection<T> {
   private final List<T> data;
-  private final String previous;
-  private final String next;
+  private final String previousPageUrl;
+  private final String nextPageUrl;
 
   /**
    * Creates a connection with the given data and previous/next URLs.
    * 
    * @param data
    *          The connection's data.
-   * @param previous
+   * @param previousPageUrl
    *          The URL for the previous page of data, or {@code null} if there is
    *          none.
-   * @param next
+   * @param nextPageUrl
    *          The URL for the next page of data, or {@code null} if there is
    *          none.
    */
-  Connection(List<T> data, String previous, String next) {
-    this.data = Collections.unmodifiableList(data == null ? new ArrayList<T>() : data);
-    this.previous = previous;
-    this.next = next;
+  Connection(List<T> data, String previousPageUrl, String nextPageUrl) {
+    this.data = unmodifiableList(data == null ? new ArrayList<T>() : data);
+    this.previousPageUrl = previousPageUrl;
+    this.nextPageUrl = nextPageUrl;
   }
 
   /**
@@ -98,8 +99,8 @@ public class Connection<T> {
    *         there is no previous page.
    * @since 1.5.3
    */
-  public String getPrevious() {
-    return previous;
+  public String getPreviousPageUrl() {
+    return previousPageUrl;
   }
 
   /**
@@ -109,8 +110,8 @@ public class Connection<T> {
    *         is no next page.
    * @since 1.5.3
    */
-  public String getNext() {
-    return next;
+  public String getNextPageUrl() {
+    return nextPageUrl;
   }
 
   /**
@@ -120,7 +121,7 @@ public class Connection<T> {
    *         connection, {@code false} otherwise.
    */
   public boolean hasPrevious() {
-    return !StringUtils.isBlank(getPrevious());
+    return !isBlank(getPreviousPageUrl());
   }
 
   /**
@@ -130,6 +131,6 @@ public class Connection<T> {
    *         {@code false} otherwise.
    */
   public boolean hasNext() {
-    return !StringUtils.isBlank(getNext());
+    return !isBlank(getNextPageUrl());
   }
 }
