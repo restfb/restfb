@@ -206,6 +206,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return mapToConnection(connectionJson, connectionType);
   }
 
+  @SuppressWarnings("unchecked")
   protected <T> Connection<T> mapToConnection(String connectionJson, Class<T> connectionType) {
     List<T> data = new ArrayList<T>();
     String previous = null;
@@ -217,7 +218,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       // Pull out data
       JsonArray jsonData = jsonObject.getJsonArray("data");
       for (int i = 0; i < jsonData.length(); i++)
-        data.add(jsonMapper.toJavaObject(jsonData.get(i).toString(), connectionType));
+        data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : jsonMapper.toJavaObject(jsonData
+          .get(i).toString(), connectionType));
 
       // Pull out paging info, if present
       if (jsonObject.has("paging")) {
@@ -248,6 +250,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
+  @SuppressWarnings("unchecked")
   public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) throws FacebookException {
     verifyParameterPresence("ids", ids);
     verifyParameterPresence("connectionType", objectType);
@@ -272,7 +275,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       JsonObject jsonObject =
           new JsonObject(makeRequest("",
             parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
-      return jsonMapper.toJavaObject(jsonObject.toString(), objectType);
+
+      return objectType.equals(JsonObject.class) ? (T) jsonObject : jsonMapper.toJavaObject(jsonObject.toString(),
+        objectType);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
     }
@@ -304,6 +309,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
+  @SuppressWarnings("unchecked")
   public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters)
       throws FacebookException {
     verifyParameterPresence("objectType", objectType);
@@ -333,7 +339,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }
 
-      return jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
+      return objectType.equals(JsonObject.class) ? (T) normalizedJson : jsonMapper.toJavaObject(
+        normalizedJson.toString(), objectType);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process fql.multiquery JSON response", e);
     }
