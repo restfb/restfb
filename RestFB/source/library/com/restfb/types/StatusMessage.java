@@ -49,10 +49,10 @@ public class StatusMessage extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  @Facebook(contains = NamedFacebookType.class)
+  @Facebook
   private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
 
-  @Facebook(contains = Comment.class)
+  @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
   /**

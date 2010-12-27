@@ -86,10 +86,10 @@ public class Post extends NamedFacebookType {
   @Facebook
   private Comments comments;
 
-  @Facebook(contains = NamedFacebookType.class)
+  @Facebook
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
-  @Facebook(contains = Action.class)
+  @Facebook
   private List<Action> actions = new ArrayList<Action>();
 
   /**
@@ -102,7 +102,7 @@ public class Post extends NamedFacebookType {
     @Facebook
     private Long count;
 
-    @Facebook(contains = NamedFacebookType.class)
+    @Facebook
     private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
 
     /**
@@ -158,7 +158,7 @@ public class Post extends NamedFacebookType {
     @Facebook
     private Long count;
 
-    @Facebook(contains = Comment.class)
+    @Facebook
     private List<Comment> data = new ArrayList<Comment>();
 
     /**

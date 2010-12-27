@@ -43,18 +43,4 @@ public @interface Facebook {
    * @return Name of the Facebook API result attribute to map to.
    */
   String value() default "";
-
-  /**
-   * If this annotation is placed on a {@code List} type, this attribute
-   * specifies what type of object is contained in the list (necessary due to
-   * type erasure).
-   * <p>
-   * This attribute is required when this annotation is applied to a
-   * {@code List} type when mapping from JSON to Java and is ignored otherwise.
-   * 
-   * @return If the annotated field is of type {@code List}, the type of object
-   *         contained in the list. Defaults to a dummy class if none is
-   *         explicitly specified.
-   */
-  Class<?> contains() default DefaultEnumClass.class;
 }

@@ -67,7 +67,7 @@ public class Photo extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  @Facebook(contains = Tag.class)
+  @Facebook
   private List<Tag> tags = new ArrayList<Tag>();
 
   /**

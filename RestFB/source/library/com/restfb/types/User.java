@@ -107,16 +107,16 @@ public class User extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  @Facebook(value = "interested_in", contains = String.class)
+  @Facebook("interested_in")
   private List<String> interestedIn = new ArrayList<String>();
 
-  @Facebook(value = "meeting_for", contains = String.class)
+  @Facebook("meeting_for")
   private List<String> meetingFor = new ArrayList<String>();
 
-  @Facebook(contains = Work.class)
+  @Facebook
   private List<Work> work = new ArrayList<Work>();
 
-  @Facebook(contains = Education.class)
+  @Facebook
   private List<Education> education = new ArrayList<Education>();
 
   /**
@@ -229,7 +229,7 @@ public class User extends NamedFacebookType {
     @Facebook
     private NamedFacebookType degree;
 
-    @Facebook(value = "concentration", contains = NamedFacebookType.class)
+    @Facebook
     private List<NamedFacebookType> concentration = new ArrayList<NamedFacebookType>();
 
     /**

@@ -221,16 +221,6 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   }
 
   /**
-   * Case where FB will sometimes return {'hometown':'Belgrade, Serbia'} instead
-   * of the full {'hometown':{'id':123456,'name':'Belgrade, Serbia'}}
-   */
-  @Test
-  public void testNamedTypeShortFormWorkaround() throws FacebookJsonMappingException {
-    User user = createJsonMapper().toJavaObject(jsonFromClasspath("named-facebook-type-short-form"), User.class);
-    assertTrue("Belgrade, Serbia".equals(user.getHometown().getName()));
-  }
-
-  /**
    * Workaround where Facebook can return the illegal JSON "false" instead of an
    * object - just map as null instead of throwing an exception.
    */
@@ -242,16 +232,18 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
 
   @Test
   public void testMultipleFieldsWithSameName() {
-    User user1 = createJsonMapper().toJavaObject(jsonFromClasspath("user-with-hometown-v1"), User.class);
+    JsonMapper jsonMapper = createJsonMapper();
+
+    User user1 = jsonMapper.toJavaObject(jsonFromClasspath("user-with-hometown-v1"), User.class);
     System.out.println("Hometown: " + user1.getHometown());
 
-    User user2 = createJsonMapper().toJavaObject(jsonFromClasspath("user-with-hometown-v2"), User.class);
+    User user2 = jsonMapper.toJavaObject(jsonFromClasspath("user-with-hometown-v2"), User.class);
     System.out.println("Hometown: " + user2.getHometownAsString());
 
-    Post post1 = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-likes-v1"), Post.class);
+    Post post1 = jsonMapper.toJavaObject(jsonFromClasspath("post-with-likes-v1"), Post.class);
     System.out.println("Likes: " + post1.getLikesAsNumber());
 
-    Post post2 = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-likes-v2"), Post.class);
+    Post post2 = jsonMapper.toJavaObject(jsonFromClasspath("post-with-likes-v2"), Post.class);
     System.out.println("Likes: " + post2.getLikes());
   }
 
@@ -279,7 +271,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   }
 
   static class UserWithPhotos extends BasicUser {
-    @Facebook(contains = Photo.class)
+    @Facebook
     List<Photo> photos;
   }
 
@@ -295,7 +287,7 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
     @Facebook("pic_big")
     String bigPictureUrl;
 
-    @Facebook(contains = Affiliation.class)
+    @Facebook
     List<Affiliation> affiliations;
   }
 }

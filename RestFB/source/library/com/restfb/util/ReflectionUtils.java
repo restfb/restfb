@@ -29,6 +29,8 @@ import static java.util.Collections.unmodifiableList;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -123,6 +125,27 @@ public final class ReflectionUtils {
     fieldsWithAnnotation = unmodifiableList(fieldsWithAnnotation);
     FIELDS_WITH_ANNOTATION_CACHE.put(cacheKey, fieldsWithAnnotation);
     return fieldsWithAnnotation;
+  }
+
+  /**
+   * For a given {@code field}, get its first parameterized type argument (e.g.
+   * a field of type {@code List<Long>} would have a first type argument of
+   * @{code Long.class}. If the field has no type arguments, {@code null} is
+   * returned.
+   * 
+   * @param field
+   *          The field to check.
+   * @return The field's first parameterized type argument, or {@code null} if
+   *         none exists.
+   */
+  public static Class<?> getFirstParameterizedTypeArgument(Field field) {
+    Type type = field.getGenericType();
+    if (!(type instanceof ParameterizedType))
+      return null;
+
+    ParameterizedType parameterizedType = (ParameterizedType) type;
+    Type firstTypeArgument = parameterizedType.getActualTypeArguments()[0];
+    return (firstTypeArgument instanceof Class) ? (Class<?>) firstTypeArgument : null;
   }
 
   /**

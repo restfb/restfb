@@ -67,7 +67,7 @@ public class Video extends FacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  @Facebook(contains = Comment.class)
+  @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
   /**

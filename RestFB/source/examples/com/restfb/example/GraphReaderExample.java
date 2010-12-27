@@ -203,10 +203,10 @@ public class GraphReaderExample {
    * Holds results from a "multiquery" call.
    */
   public static class MultiqueryResults {
-    @Facebook(contains = FqlUser.class)
+    @Facebook
     List<FqlUser> users;
 
-    @Facebook(contains = FqlLiker.class)
+    @Facebook
     List<FqlLiker> likers;
   }
 

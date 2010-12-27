@@ -24,6 +24,7 @@ package com.restfb;
 
 import static com.restfb.json.JsonObject.NULL;
 import static com.restfb.util.ReflectionUtils.findFieldsWithAnnotation;
+import static com.restfb.util.ReflectionUtils.getFirstParameterizedTypeArgument;
 import static com.restfb.util.ReflectionUtils.isPrimitive;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
@@ -35,6 +36,7 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -44,7 +46,6 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
-import com.restfb.types.NamedFacebookType;
 import com.restfb.types.Post.Comments;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
 
@@ -69,10 +70,8 @@ public class DefaultJsonMapper implements JsonMapper {
     if (isBlank(json))
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
 
-    if (DefaultEnumClass.class.equals(type))
-      throw new FacebookJsonMappingException("You must specify the 'contains' attribute of the @"
-          + Facebook.class.getSimpleName() + " annotation when applying it to a List because of type erasure. "
-          + "Offending JSON is '" + json + "'.");
+    if (type == null)
+      throw new FacebookJsonMappingException("You must specify the Java type to map to.");
 
     if (json.startsWith("{")) {
       // Sometimes Facebook returns the empty object {} when it really should be
@@ -213,6 +212,13 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
+  protected Map<FieldWithAnnotation<Facebook>, Integer> fieldsWithIdenticalFacebookNames(
+      List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
+    Map<FieldWithAnnotation<Facebook>, Integer> fieldsWithIdenticalFacebookNames =
+        new HashMap<FieldWithAnnotation<Facebook>, Integer>();
+    return fieldsWithIdenticalFacebookNames;
+  }
+
   /**
    * @see com.restfb.JsonMapper#toJson(java.lang.Object)
    */
@@ -297,8 +303,10 @@ public class DefaultJsonMapper implements JsonMapper {
 
     JsonObject jsonObject = new JsonObject();
 
-    for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
+    // TODO: throw exception if there are multiple @Facebook-annotated fields
+    // with the same name
 
+    for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
       // TODO: this is duplicate logic, pull out when we support automatic
       // camel-casing
       String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
@@ -446,36 +454,13 @@ public class DefaultJsonMapper implements JsonMapper {
     if (BigDecimal.class.equals(type))
       return new BigDecimal(jsonObject.getString(facebookFieldName));
     if (List.class.equals(type))
-      return toJavaList(rawValue.toString(), fieldWithAnnotation.getAnnotation().contains());
+      return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
 
-    // Hack for issue 56 where FB will sometimes return things like
-    // "hometown":"Belgrade, Serbia"
-    // instead of
-    // "hometown":{"id":1234,"name":"Belgrade, Serbia"}.
-    //
-    // We look for this situation and turn the short form of the field into a
-    // full NamedFacebookType object.
-    //
-    // Will address this correctly in 1.6, this quick fix is good enough for
-    // 1.5.3. Thanks to ikabiljo for the bug report and workaround.
-    //
-    // TODO: real fix for 1.6
     String rawValueAsString = rawValue.toString();
 
-    if (NamedFacebookType.class.isAssignableFrom(type) && rawValue.getClass().equals(String.class)) {
-      if (logger.isLoggable(FINE))
-        logger.fine("Encountered the string '" + rawValueAsString + "' but expected a "
-            + NamedFacebookType.class.getSimpleName() + " instead.  Working around that by coercing into a "
-            + NamedFacebookType.class.getSimpleName() + "...");
-
-      JsonObject workaroundJsonObject = new JsonObject();
-      workaroundJsonObject.put("name", rawValue);
-      rawValueAsString = workaroundJsonObject.toString();
-    }
-
+    // Hack for issue 76 where FB will sometimes return a Post's Comments as
+    // "[]" instead of an object type (wtf)
     if (Comments.class.isAssignableFrom(type) && rawValue instanceof JsonArray) {
-      // Hack for issue 76 where FB will sometimes return a Post's Comments as
-      // "[]" instead of an object type (wtf)
       if (logger.isLoggable(FINE))
         logger.fine("Encountered comment array '" + rawValueAsString + "' but expected a "
             + Comments.class.getSimpleName() + " object instead.  Working around that " + "by coercing into an empty "

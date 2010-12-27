@@ -144,10 +144,7 @@ public class LegacyExample {
     @Facebook("pic_big")
     String pictureUrl;
 
-    // Java doesn't remember generic type information at runtime due to type
-    // erasure. So, for a List type mapping, you have to help out by specifying
-    // what kind of type is contained in the List (Affiliation, in this case)
-    @Facebook(contains = Affiliation.class)
+    @Facebook
     List<Affiliation> affiliations;
 
     public String toString() {

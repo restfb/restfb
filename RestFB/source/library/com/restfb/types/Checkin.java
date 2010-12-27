@@ -56,7 +56,7 @@ public class Checkin extends FacebookType {
   @Facebook("created_time")
   private String createdTime;
 
-  @Facebook(contains = Comment.class)
+  @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
   /**
