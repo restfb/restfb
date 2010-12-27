@@ -117,8 +117,8 @@ FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();</pre>
 			<h3>Not sure how to get an OAuth access token?</h3>
 						
 			<div>
-				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a href="http://developers.facebook.com/docs/api">navigate to the Graph API documentation</a>.
-				Click on one of the example links that shows Graph API JSON data.
+				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a href="http://developers.facebook.com/docs/reference/api/user/">navigate to the Graph API documentation</a>.
+				Click on the "Example" link that shows Graph API JSON data.
 			</div>	
 			
 			<div class="spacer"></div>
@@ -164,8 +164,8 @@ out.println("First item in my feed: " + myFeed.getData().get(0));
 // Connections support paging
 
 if(myFeed.hasNext()) {
-  Connection&lt;User&gt; myFeedPage2 = facebookClient.fetchConnection("me/feed", Post.class,
-    Parameter.with("offset", myFeed.getData().size()));
+  Connection&lt;User&gt; myFeedPage2 =
+    facebookClient.fetchConnectionPage(myFeed.getNextPageUrl(), Post.class);
   ...
 }</pre>							
 		
@@ -175,9 +175,9 @@ if(myFeed.hasNext()) {
 			
 <pre class="prettyprint">
 User user = facebookClient.fetchObject("me", User.class,
-  Parameter.with("fields", "id, name, picture"));
+  Parameter.with("fields", "id, name"));
 
-out.println("User picture: " + user.getPicture());</pre>							
+out.println("User name: " + user.getName());</pre>							
 		
 		<div class="spacer"></div>
 							
@@ -200,9 +200,9 @@ public class FetchObjectsResults {
   User me;
 
   // If the Facebook property name doesn't match
-  // the Java field name, specify it with the "value" annotation property.
+  // the Java field name, specify the Facebook field name in the annotation.
 
-  @Facebook(value = "cocacola")
+  @Facebook("cocacola")
   Page page;
 }</pre>			
 
@@ -268,16 +268,10 @@ public class FqlLiker {
 }
 
 public class MultiqueryResults {
-
-  // Java doesn't remember generic type information at runtime due to <a href="http://java.sun.com/docs/books/tutorial/java/generics/erasure.html">type erasure</a>.
-  // So, for a List type mapping, you have to help out by specifying
-  // what kind of type is contained in the List (FqlUser, in this case).
-  // RestFB can then correctly map Facebook JSON to your Java object.
-
-  @Facebook(contains = FqlUser.class)
+  @Facebook
   List&lt;FqlUser&gt; users;
 
-  @Facebook(contains = FqlLiker.class)
+  @Facebook
   List&lt;FqlLiker&gt; likers;
 }</pre>		
 
@@ -442,8 +436,10 @@ $ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>
 			The builtin types are as follows:
 		</p>
 		
-		<ul>
-			<li><a href="/javadoc/com/restfb/types/Album.html">Album</a></li>			
+		<ul>			
+			<li><a href="/javadoc/com/restfb/types/Album.html">Album</a></li>
+			<li><a href="/javadoc/com/restfb/types/Application.html">Application</a></li>
+			<li><a href="/javadoc/com/restfb/types/Checkin.html">Checkin</a></li>
 			<li><a href="/javadoc/com/restfb/types/Comment.html">Comment</a></li>
 			<li><a href="/javadoc/com/restfb/types/Event.html">Event</a></li>
 			<li><a href="/javadoc/com/restfb/types/Group.html">Group</a></li>
@@ -452,6 +448,7 @@ $ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>
 			<li><a href="/javadoc/com/restfb/types/Page.html">Page</a></li>
 			<li><a href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>
 			<li><a href="/javadoc/com/restfb/types/Post.html">Post</a></li>
+			<li><a href="/javadoc/com/restfb/types/StatusMessage.html">Status Message</a></li>
 			<li><a href="/javadoc/com/restfb/types/User.html">User</a></li>
 			<li><a href="/javadoc/com/restfb/types/Venue.html">Venue</a></li>
 			<li><a href="/javadoc/com/restfb/types/Video.html">Video</a></li>
@@ -487,13 +484,6 @@ $ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>
 			</li>
 			<li>
 				<code>List</code>s of any of the above types
-				<br/>
-				<span class="footnote">
-					Note that, because of type erasure, you must specify what type of object
-					is stored in the <code>List</code> via the <code>@Facebook</code> annotation's
-					<code>contains</code> attribute or a <code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> will be thrown at runtime.
-					This attribute is ignored if applied to	non-<code>List</code> types.
-				</span>				
 			</li>
 		</ul>
 		
@@ -509,7 +499,7 @@ public class MyClass {
   @Facebook
   BigDecimal value;
 
-  @Facebook(contains = Integer.class)
+  @Facebook
   List&lt;Integer&gt; numbers;
 }</pre>			
 		
@@ -517,9 +507,6 @@ public class MyClass {
 			As of RestFB 1.4, Java to JSON mapping is supported by default via <code><a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>.
 			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
 			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
-			
-			When converting from Java to JSON, you never need to use the <code>contains</code> attribute of the <code>@Facebook</code> annotation - it's always ignored
-			because enough information is available at runtime to perform the conversion correctly.
 		</p>
 		
 		<div class="warning-bubble">
