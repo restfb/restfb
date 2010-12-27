@@ -22,8 +22,9 @@
 
 package com.restfb.types;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -283,7 +284,7 @@ public class User extends NamedFacebookType {
      * @return Concentrations/minors.
      */
     public List<NamedFacebookType> getConcentration() {
-      return Collections.unmodifiableList(concentration);
+      return unmodifiableList(concentration);
     }
   }
 
@@ -490,7 +491,7 @@ public class User extends NamedFacebookType {
    * @return The user's interests.
    */
   public List<String> getInterestedIn() {
-    return Collections.unmodifiableList(interestedIn);
+    return unmodifiableList(interestedIn);
   }
 
   /**
@@ -499,7 +500,7 @@ public class User extends NamedFacebookType {
    * @return What genders the user is interested in meeting.
    */
   public List<String> getMeetingFor() {
-    return Collections.unmodifiableList(meetingFor);
+    return unmodifiableList(meetingFor);
   }
 
   /**
@@ -508,7 +509,7 @@ public class User extends NamedFacebookType {
    * @return A list of the work history from the user's profile
    */
   public List<Work> getWork() {
-    return Collections.unmodifiableList(work);
+    return unmodifiableList(work);
   }
 
   /**
@@ -517,6 +518,6 @@ public class User extends NamedFacebookType {
    * @return A list of the education history from the user's profile
    */
   public List<Education> getEducation() {
-    return Collections.unmodifiableList(education);
+    return unmodifiableList(education);
   }
 }
