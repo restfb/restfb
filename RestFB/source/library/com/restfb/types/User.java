@@ -44,6 +44,9 @@ public class User extends NamedFacebookType {
   @Facebook("first_name")
   private String firstName;
 
+  @Facebook("middle_name")
+  private String middleName;
+
   @Facebook("last_name")
   private String lastName;
 
@@ -291,6 +294,15 @@ public class User extends NamedFacebookType {
    */
   public String getFirstName() {
     return firstName;
+  }
+
+  /**
+   * The user's middle name.
+   * 
+   * @return The user's middle name.
+   */
+  public String getMiddleName() {
+    return middleName;
   }
 
   /**
