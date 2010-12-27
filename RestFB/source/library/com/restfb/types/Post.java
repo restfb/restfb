@@ -22,13 +22,14 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -140,7 +141,7 @@ public class Post extends NamedFacebookType {
      * @return The comments.
      */
     public List<Comment> getData() {
-      return Collections.unmodifiableList(data);
+      return unmodifiableList(data);
     }
   }
 
@@ -404,7 +405,7 @@ public class Post extends NamedFacebookType {
    * @return The time the post was initially published.
    */
   public Date getCreatedTime() {
-    return DateUtils.toDateFromLongFormat(createdTime);
+    return toDateFromLongFormat(createdTime);
   }
 
   /**
@@ -413,7 +414,7 @@ public class Post extends NamedFacebookType {
    * @return The time of the last comment on this post.
    */
   public Date getUpdatedTime() {
-    return DateUtils.toDateFromLongFormat(updatedTime);
+    return toDateFromLongFormat(updatedTime);
   }
 
   /**
@@ -431,7 +432,7 @@ public class Post extends NamedFacebookType {
    * @return A list of the profiles mentioned or targeted in this post.
    */
   public List<NamedFacebookType> getTo() {
-    return Collections.unmodifiableList(to);
+    return unmodifiableList(to);
   }
 
   /**
@@ -442,6 +443,6 @@ public class Post extends NamedFacebookType {
    *         liking, and an optional app-specified action).
    */
   public List<Action> getActions() {
-    return Collections.unmodifiableList(actions);
+    return unmodifiableList(actions);
   }
 }

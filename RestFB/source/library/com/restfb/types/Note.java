@@ -22,10 +22,11 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.util.DateUtils;
 
 /**
  * Represents the <a
@@ -96,7 +97,7 @@ public class Note extends FacebookType {
    * @return The time the note was initially published.
    */
   public Date getCreatedTime() {
-    return DateUtils.toDateFromLongFormat(createdTime);
+    return toDateFromLongFormat(createdTime);
   }
 
   /**
@@ -105,6 +106,6 @@ public class Note extends FacebookType {
    * @return The time the note was last updated.
    */
   public Date getUpdatedTime() {
-    return DateUtils.toDateFromLongFormat(updatedTime);
+    return toDateFromLongFormat(updatedTime);
   }
 }

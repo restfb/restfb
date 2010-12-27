@@ -22,13 +22,14 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.util.DateUtils;
 
 /**
  * Represents the <a
@@ -111,7 +112,7 @@ public class Photo extends NamedFacebookType {
      * @return Date this tag was created.
      */
     public Date getCreatedTime() {
-      return DateUtils.toDateFromLongFormat(createdTime);
+      return toDateFromLongFormat(createdTime);
     }
   }
 
@@ -185,7 +186,7 @@ public class Photo extends NamedFacebookType {
    * @return The time the photo was initially published.
    */
   public Date getCreatedTime() {
-    return DateUtils.toDateFromLongFormat(createdTime);
+    return toDateFromLongFormat(createdTime);
   }
 
   /**
@@ -194,7 +195,7 @@ public class Photo extends NamedFacebookType {
    * @return The last time the photo or its caption was updated.
    */
   public Date getUpdatedTime() {
-    return DateUtils.toDateFromLongFormat(updatedTime);
+    return toDateFromLongFormat(updatedTime);
   }
 
   /**
@@ -207,6 +208,6 @@ public class Photo extends NamedFacebookType {
    *         of the photo, respectively.
    */
   public List<Tag> getTags() {
-    return Collections.unmodifiableList(tags);
+    return unmodifiableList(tags);
   }
 }

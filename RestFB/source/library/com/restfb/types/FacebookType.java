@@ -22,9 +22,10 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.StringUtils.isBlank;
+
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
-import com.restfb.util.StringUtils;
 
 /**
  * Base class which encapsulates behavior and properties common to most <a
@@ -252,7 +253,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasHome() {
-        return !StringUtils.isBlank(home);
+        return !isBlank(home);
       }
 
       /**
@@ -262,7 +263,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasFeed() {
-        return !StringUtils.isBlank(feed);
+        return !isBlank(feed);
       }
 
       /**
@@ -272,7 +273,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasFriends() {
-        return !StringUtils.isBlank(friends);
+        return !isBlank(friends);
       }
 
       /**
@@ -282,7 +283,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasFamily() {
-        return !StringUtils.isBlank(family);
+        return !isBlank(family);
       }
 
       /**
@@ -292,7 +293,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasActivities() {
-        return !StringUtils.isBlank(activities);
+        return !isBlank(activities);
       }
 
       /**
@@ -302,7 +303,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasInterests() {
-        return !StringUtils.isBlank(interests);
+        return !isBlank(interests);
       }
 
       /**
@@ -312,7 +313,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasMusic() {
-        return !StringUtils.isBlank(music);
+        return !isBlank(music);
       }
 
       /**
@@ -322,7 +323,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasBooks() {
-        return !StringUtils.isBlank(books);
+        return !isBlank(books);
       }
 
       /**
@@ -332,7 +333,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasMovies() {
-        return !StringUtils.isBlank(movies);
+        return !isBlank(movies);
       }
 
       /**
@@ -342,7 +343,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasTelevision() {
-        return !StringUtils.isBlank(television);
+        return !isBlank(television);
       }
 
       /**
@@ -352,7 +353,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasLikes() {
-        return !StringUtils.isBlank(likes);
+        return !isBlank(likes);
       }
 
       /**
@@ -362,7 +363,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasPosts() {
-        return !StringUtils.isBlank(posts);
+        return !isBlank(posts);
       }
 
       /**
@@ -372,7 +373,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasTagged() {
-        return !StringUtils.isBlank(tagged);
+        return !isBlank(tagged);
       }
 
       /**
@@ -382,7 +383,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasStatuses() {
-        return !StringUtils.isBlank(statuses);
+        return !isBlank(statuses);
       }
 
       /**
@@ -392,7 +393,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasLinks() {
-        return !StringUtils.isBlank(links);
+        return !isBlank(links);
       }
 
       /**
@@ -402,7 +403,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasNotes() {
-        return !StringUtils.isBlank(notes);
+        return !isBlank(notes);
       }
 
       /**
@@ -412,7 +413,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasPhotos() {
-        return !StringUtils.isBlank(photos);
+        return !isBlank(photos);
       }
 
       /**
@@ -422,7 +423,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasAlbums() {
-        return !StringUtils.isBlank(albums);
+        return !isBlank(albums);
       }
 
       /**
@@ -432,7 +433,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasEvents() {
-        return !StringUtils.isBlank(events);
+        return !isBlank(events);
       }
 
       /**
@@ -442,7 +443,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasGroups() {
-        return !StringUtils.isBlank(groups);
+        return !isBlank(groups);
       }
 
       /**
@@ -452,7 +453,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasVideos() {
-        return !StringUtils.isBlank(videos);
+        return !isBlank(videos);
       }
 
       /**
@@ -462,7 +463,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasPicture() {
-        return !StringUtils.isBlank(picture);
+        return !isBlank(picture);
       }
 
       /**
@@ -472,7 +473,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasInbox() {
-        return !StringUtils.isBlank(inbox);
+        return !isBlank(inbox);
       }
 
       /**
@@ -482,7 +483,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasOutbox() {
-        return !StringUtils.isBlank(outbox);
+        return !isBlank(outbox);
       }
 
       /**
@@ -492,7 +493,7 @@ public class FacebookType {
        *         {@code false} otherwise.
        */
       public Boolean hasUpdates() {
-        return !StringUtils.isBlank(updates);
+        return !isBlank(updates);
       }
 
       /**

@@ -22,6 +22,10 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
+import static com.restfb.util.DateUtils.toDateFromShortFormat;
+import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
@@ -29,9 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils;
-import com.restfb.util.StringUtils;
 
 /**
  * Represents the <a
@@ -194,7 +196,7 @@ public class User extends NamedFacebookType {
      * @return Date this job was started.
      */
     public Date getStartDate() {
-      return DateUtils.toDateFromMonthYearFormat(startDate);
+      return toDateFromMonthYearFormat(startDate);
     }
 
     /**
@@ -203,7 +205,7 @@ public class User extends NamedFacebookType {
      * @return Date this job ended.
      */
     public Date getEndDate() {
-      return DateUtils.toDateFromMonthYearFormat(endDate);
+      return toDateFromMonthYearFormat(endDate);
     }
   }
 
@@ -362,10 +364,10 @@ public class User extends NamedFacebookType {
    *         available in month/year format.
    */
   public Date getBirthdayAsDate() {
-    if (StringUtils.isBlank(getBirthday()) || getBirthday().split("/").length < 2)
+    if (isBlank(getBirthday()) || getBirthday().split("/").length < 2)
       return null;
 
-    return DateUtils.toDateFromShortFormat(birthday);
+    return toDateFromShortFormat(birthday);
   }
 
   /**
@@ -419,7 +421,7 @@ public class User extends NamedFacebookType {
    * @return Date the user's profile was updated.
    */
   public Date getUpdatedTime() {
-    return DateUtils.toDateFromLongFormat(updatedTime);
+    return toDateFromLongFormat(updatedTime);
   }
 
   /**

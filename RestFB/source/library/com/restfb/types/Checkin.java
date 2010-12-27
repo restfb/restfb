@@ -22,13 +22,14 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -206,7 +207,7 @@ public class Checkin extends FacebookType {
    * @return The time the check-in was created.
    */
   public Date getCreatedTime() {
-    return DateUtils.toDateFromLongFormat(createdTime);
+    return toDateFromLongFormat(createdTime);
   }
 
   /**
@@ -215,6 +216,6 @@ public class Checkin extends FacebookType {
    * @return The comments for the check-in.
    */
   public List<Comment> getComments() {
-    return Collections.unmodifiableList(comments);
+    return unmodifiableList(comments);
   }
 }

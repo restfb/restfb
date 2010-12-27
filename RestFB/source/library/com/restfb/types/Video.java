@@ -22,13 +22,14 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.util.DateUtils;
 
 /**
  * Represents the <a
@@ -139,7 +140,7 @@ public class Video extends FacebookType {
    * @return Comments for the video.
    */
   public List<Comment> getComments() {
-    return Collections.unmodifiableList(comments);
+    return unmodifiableList(comments);
   }
 
   /**
@@ -148,7 +149,7 @@ public class Video extends FacebookType {
    * @return The time the video was initially published.
    */
   public Date getCreatedTime() {
-    return DateUtils.toDateFromLongFormat(createdTime);
+    return toDateFromLongFormat(createdTime);
   }
 
   /**
@@ -157,6 +158,6 @@ public class Video extends FacebookType {
    * @return The last time the video or its caption were updated.
    */
   public Date getUpdatedTime() {
-    return DateUtils.toDateFromLongFormat(updatedTime);
+    return toDateFromLongFormat(updatedTime);
   }
 }
