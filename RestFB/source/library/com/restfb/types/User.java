@@ -95,6 +95,9 @@ public class User extends NamedFacebookType {
   @Facebook
   private NamedFacebookType hometown;
 
+  @Facebook("hometown")
+  private String hometownAsString;
+
   @Facebook
   private NamedFacebookType location;
 
@@ -462,11 +465,29 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's hometown.
+   * <p>
+   * Sometimes this can be {@code null} - check {@link #getHometownAsString()}
+   * instead in that case.
    * 
    * @return The user's hometown.
    */
   public NamedFacebookType getHometown() {
     return hometown;
+  }
+
+  /**
+   * The user's hometown name.
+   * <p>
+   * Sometimes this can be {@code null} - check {@link #getHometown()} instead
+   * in that case.
+   * 
+   * @return The user's hometown name.
+   */
+  public String getHometownAsString() {
+    if (getHometown() != null)
+      return getHometown().getName();
+
+    return hometownAsString;
   }
 
   /**

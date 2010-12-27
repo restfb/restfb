@@ -32,6 +32,7 @@ import org.junit.Test;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.types.NamedFacebookType;
+import com.restfb.types.Post;
 import com.restfb.types.User;
 
 /**
@@ -237,6 +238,21 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
   public void testFalseInsteadOfObject() throws FacebookJsonMappingException {
     User user = createJsonMapper().toJavaObject("false", User.class);
     assertTrue(user == null);
+  }
+
+  @Test
+  public void testMultipleFieldsWithSameName() {
+    User user1 = createJsonMapper().toJavaObject(jsonFromClasspath("user-with-hometown-v1"), User.class);
+    System.out.println("Hometown: " + user1.getHometown());
+
+    User user2 = createJsonMapper().toJavaObject(jsonFromClasspath("user-with-hometown-v2"), User.class);
+    System.out.println("Hometown: " + user2.getHometownAsString());
+
+    Post post1 = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-likes-v1"), Post.class);
+    System.out.println("Likes: " + post1.getLikesAsNumber());
+
+    Post post2 = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-likes-v2"), Post.class);
+    System.out.println("Likes: " + post2.getLikes());
   }
 
   /**

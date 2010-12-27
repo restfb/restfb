@@ -71,8 +71,11 @@ public class Post extends NamedFacebookType {
   @Facebook
   private Privacy privacy;
 
+  @Facebook("likes")
+  private Long likesAsNumber;
+
   @Facebook
-  private Long likes;
+  private Likes likes;
 
   @Facebook("created_time")
   private String createdTime;
@@ -88,6 +91,62 @@ public class Post extends NamedFacebookType {
 
   @Facebook(contains = Action.class)
   private List<Action> actions = new ArrayList<Action>();
+
+  /**
+   * Represents a collection of {@link Likes}s.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6
+   */
+  public static class Likes {
+    @Facebook
+    private Long count;
+
+    @Facebook(contains = NamedFacebookType.class)
+    private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The number of likes.
+     * 
+     * @return The number of likes.
+     */
+    public Long getCount() {
+      return count;
+    }
+
+    /**
+     * The likes.
+     * 
+     * @return The likes.
+     */
+    public List<NamedFacebookType> getData() {
+      return unmodifiableList(data);
+    }
+  }
 
   /**
    * Represents a collection of {@link Comment}s.
@@ -392,10 +451,28 @@ public class Post extends NamedFacebookType {
 
   /**
    * The number of likes on this post.
+   * <p>
+   * Sometimes this can be {@code null} - check {@link #getLikes()} instead in
+   * that case.
    * 
    * @return The number of likes on this post.
    */
-  public Long getLikes() {
+  public Long getLikesAsNumber() {
+    if (getLikes() != null)
+      return getLikes().getCount();
+
+    return likesAsNumber;
+  }
+
+  /**
+   * The likes on this post.
+   * <p>
+   * Sometimes this can be {@code null} - check {@link #getLikesAsNumber()}
+   * instead in that case.
+   * 
+   * @return The likes on this post.
+   */
+  public Likes getLikes() {
     return likes;
   }
 
