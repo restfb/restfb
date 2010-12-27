@@ -22,10 +22,11 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.util.DateUtils;
 
 /**
  * Represents the <a
@@ -44,6 +45,9 @@ public class Comment extends FacebookType {
 
   @Facebook("created_time")
   private String createdTime;
+
+  @Facebook
+  private Long likes;
 
   /**
    * User who posted the comment.
@@ -69,6 +73,15 @@ public class Comment extends FacebookType {
    * @return Date on which the comment was created.
    */
   public Date getCreatedTime() {
-    return DateUtils.toDateFromLongFormat(createdTime);
+    return toDateFromLongFormat(createdTime);
+  }
+
+  /**
+   * The number of likes on this comment.
+   * 
+   * @return The number of likes on this comment.
+   */
+  public Long getLikes() {
+    return likes;
   }
 }
