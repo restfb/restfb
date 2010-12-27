@@ -248,9 +248,9 @@ public class GraphReaderExample {
   void selection() throws FacebookException {
     out.println("* Selecting specific fields *");
 
-    User user = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id,name,picture"));
+    User user = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id,name"));
 
-    out.println("User picture: " + user.getPicture());
+    out.println("User name: " + user.getName());
   }
 
   void parameters() throws FacebookException {
