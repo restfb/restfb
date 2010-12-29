@@ -235,18 +235,20 @@ public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
     JsonMapper jsonMapper = createJsonMapper();
 
     User user1 = jsonMapper.toJavaObject(jsonFromClasspath("user-with-hometown-v1"), User.class);
-    assertTrue("Beograd".equals(user1.getHometownAsString()));
+    assertTrue("Beograd".equals(user1.getHometownName()));
+    assertTrue(user1.getHometown() == null);
 
     User user2 = jsonMapper.toJavaObject(jsonFromClasspath("user-with-hometown-v2"), User.class);
     assertTrue("Belgrade, Serbia".equals(user2.getHometown().getName()));
-    assertTrue("Belgrade, Serbia".equals(user2.getHometownAsString()));
+    assertTrue("Belgrade, Serbia".equals(user2.getHometownName()));
 
     Post post1 = jsonMapper.toJavaObject(jsonFromClasspath("post-with-likes-v1"), Post.class);
-    assertTrue(post1.getLikesAsNumber() == 4);
+    assertTrue(post1.getLikesCount() == 4);
+    assertTrue(post1.getLikes() == null);
 
     Post post2 = jsonMapper.toJavaObject(jsonFromClasspath("post-with-likes-v2"), Post.class);
     assertTrue(post2.getLikes().getCount() == 49);
-    assertTrue(post2.getLikesAsNumber() == 49);
+    assertTrue(post2.getLikesCount() == 49);
   }
 
   /**

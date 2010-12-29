@@ -71,9 +71,17 @@ public class Post extends NamedFacebookType {
   @Facebook
   private Privacy privacy;
 
+  /**
+   * Duplicate mapping for "likes" since FB can return it differently in
+   * different situations.
+   */
   @Facebook("likes")
-  private Long likesAsNumber;
+  private Long likesCount;
 
+  /**
+   * Duplicate mapping for "likes" since FB can return it differently in
+   * different situations.
+   */
   @Facebook
   private Likes likes;
 
@@ -451,24 +459,21 @@ public class Post extends NamedFacebookType {
 
   /**
    * The number of likes on this post.
-   * <p>
-   * Sometimes this can be {@code null} - check {@link #getLikes()} instead in
-   * that case.
    * 
    * @return The number of likes on this post.
    */
-  public Long getLikesAsNumber() {
+  public Long getLikesCount() {
     if (getLikes() != null)
       return getLikes().getCount();
 
-    return likesAsNumber;
+    return likesCount;
   }
 
   /**
    * The likes on this post.
    * <p>
-   * Sometimes this can be {@code null} - check {@link #getLikesAsNumber()}
-   * instead in that case.
+   * Sometimes this can be {@code null} - check {@link #getLikesCount()} instead
+   * in that case.
    * 
    * @return The likes on this post.
    */

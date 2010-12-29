@@ -92,9 +92,17 @@ public class User extends NamedFacebookType {
   @Facebook
   private String locale;
 
+  /**
+   * Duplicate mapping for "hometown" since FB can return it differently in
+   * different situations.
+   */
   @Facebook
   private NamedFacebookType hometown;
 
+  /**
+   * Duplicate mapping for "hometown" since FB can return it differently in
+   * different situations.
+   */
   @Facebook("hometown")
   private String hometownAsString;
 
@@ -466,7 +474,7 @@ public class User extends NamedFacebookType {
   /**
    * The user's hometown.
    * <p>
-   * Sometimes this can be {@code null} - check {@link #getHometownAsString()}
+   * Sometimes this can be {@code null} - check {@link #getHometownName()}
    * instead in that case.
    * 
    * @return The user's hometown.
@@ -477,13 +485,10 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's hometown name.
-   * <p>
-   * Sometimes this can be {@code null} - check {@link #getHometown()} instead
-   * in that case.
    * 
    * @return The user's hometown name.
    */
-  public String getHometownAsString() {
+  public String getHometownName() {
     if (getHometown() != null)
       return getHometown().getName();
 
