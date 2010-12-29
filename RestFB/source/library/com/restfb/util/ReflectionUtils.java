@@ -22,6 +22,7 @@
 
 package com.restfb.util;
 
+import static java.lang.String.format;
 import static java.util.Collections.sort;
 import static java.util.Collections.synchronizedMap;
 import static java.util.Collections.unmodifiableList;
@@ -130,8 +131,9 @@ public final class ReflectionUtils {
   /**
    * For a given {@code field}, get its first parameterized type argument (e.g.
    * a field of type {@code List<Long>} would have a first type argument of
+   * 
    * @{code Long.class}. If the field has no type arguments, {@code null} is
-   * returned.
+   *        returned.
    * 
    * @param field
    *          The field to check.
@@ -351,8 +353,8 @@ public final class ReflectionUtils {
      */
     @Override
     public String toString() {
-      return String.format("Field %s.%s (%s): %s", field.getDeclaringClass().getName(), field.getName(),
-        field.getType(), annotation);
+      return format("Field %s.%s (%s): %s", field.getDeclaringClass().getName(), field.getName(), field.getType(),
+        annotation);
     }
   }
 

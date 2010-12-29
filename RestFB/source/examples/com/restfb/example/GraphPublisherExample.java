@@ -22,6 +22,7 @@
 
 package com.restfb.example;
 
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
 
@@ -115,6 +116,6 @@ public class GraphPublisherExample {
 
   void delete(String objectId) throws FacebookException {
     out.println("* Object deletion *");
-    out.println(String.format("Deleted %s: %s", objectId, facebookClient.deleteObject(objectId)));
+    out.println(format("Deleted %s: %s", objectId, facebookClient.deleteObject(objectId)));
   }
 }

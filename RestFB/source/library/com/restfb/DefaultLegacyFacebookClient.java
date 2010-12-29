@@ -22,6 +22,9 @@
 
 package com.restfb;
 
+import static com.restfb.util.StringUtils.isBlank;
+import static com.restfb.util.StringUtils.toBytes;
+import static com.restfb.util.StringUtils.urlEncode;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.INFO;
 
@@ -31,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookException;
@@ -41,7 +44,6 @@ import com.restfb.exception.FacebookNetworkException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
-import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a <a
@@ -395,7 +397,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
       sortedParameters.put(VERSION_PARAM_NAME, VERSION_PARAM_VALUE);
       sortedParameters.put(CALL_ID_PARAM_NAME, String.valueOf(System.currentTimeMillis()));
 
-      if (!StringUtils.isBlank(sessionKey))
+      if (!isBlank(sessionKey))
         sortedParameters.put(SESSION_KEY_PARAM_NAME, sessionKey);
 
       sortedParameters.put(SIG_PARAM_NAME, generateSignature(sortedParameters));
@@ -410,10 +412,10 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
       else
         parameterStringBuilder.append("&");
 
-      parameterStringBuilder.append(StringUtils.urlEncode(entry.getKey()));
+      parameterStringBuilder.append(urlEncode(entry.getKey()));
       parameterStringBuilder.append("=");
       parameterStringBuilder.append(usesAccessTokenAuthentication() ? urlEncodedValueForParameterName(entry.getKey(),
-        entry.getValue()) : StringUtils.urlEncode(entry.getValue()));
+        entry.getValue()) : urlEncode(entry.getValue()));
     }
 
     return parameterStringBuilder.toString();
@@ -454,7 +456,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   protected String generateMd5(String string) {
     try {
       MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-      byte[] bytes = StringUtils.toBytes(string);
+      byte[] bytes = toBytes(string);
 
       StringBuilder result = new StringBuilder();
       for (byte b : messageDigest.digest(bytes)) {
@@ -475,7 +477,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *         authentication scheme.
    */
   protected boolean usesAccessTokenAuthentication() {
-    return !StringUtils.isBlank(accessToken);
+    return !isBlank(accessToken);
   }
 
   /**

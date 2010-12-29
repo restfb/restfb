@@ -22,6 +22,8 @@
 
 package com.restfb.exception;
 
+import static java.lang.String.format;
+
 /**
  * Indicates that a network error occurred while trying to connect to the
  * Facebook API endpoint.
@@ -71,8 +73,8 @@ public class FacebookNetworkException extends FacebookException {
    *          The HTTP response status code.
    */
   public FacebookNetworkException(String message, Throwable cause, Integer httpStatusCode) {
-    super(String.format("A network error occurred while trying to "
-        + "communicate with Facebook: %s (HTTP status code %d)", message, httpStatusCode), cause);
+    super(format("A network error occurred while trying to " + "communicate with Facebook: %s (HTTP status code %d)",
+      message, httpStatusCode), cause);
     this.httpStatusCode = httpStatusCode;
   }
 

@@ -22,6 +22,7 @@
 
 package com.restfb.example;
 
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.out;
 
@@ -192,7 +193,7 @@ public class GraphReaderExample {
 
     @Override
     public String toString() {
-      return String.format("%s (%s)", name, uid);
+      return format("%s (%s)", name, uid);
     }
   }
 

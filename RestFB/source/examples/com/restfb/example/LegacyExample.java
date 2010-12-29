@@ -22,9 +22,10 @@
 
 package com.restfb.example;
 
+import static java.lang.String.format;
 import static java.lang.System.out;
+import static java.util.Collections.singletonList;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.restfb.DefaultLegacyFacebookClient;
@@ -104,7 +105,7 @@ public class LegacyExample {
      */
     @Override
     public String toString() {
-      return String.format("%s %s", firstName, lastName);
+      return format("%s %s", firstName, lastName);
     }
   }
 
@@ -148,7 +149,7 @@ public class LegacyExample {
     List<Affiliation> affiliations;
 
     public String toString() {
-      return String.format("Name: %s\nProfile Image URL: %s\nAffiliations: %s", name, pictureUrl, affiliations);
+      return format("Name: %s\nProfile Image URL: %s\nAffiliations: %s", name, pictureUrl, affiliations);
     }
   }
 
@@ -160,7 +161,7 @@ public class LegacyExample {
     String type;
 
     public String toString() {
-      return String.format("%s (%s)", name, type);
+      return format("%s (%s)", name, type);
     }
   }
 
@@ -186,7 +187,7 @@ public class LegacyExample {
     attachment.caption = "{*actor*} rated the lolcat 5 stars";
     attachment.description = "a funny looking cat";
     attachment.properties = properties;
-    attachment.media = Collections.singletonList(medium);
+    attachment.media = singletonList(medium);
 
     // Send the request to Facebook.
     // We specify the fact that we're expecting a String response and that we're

@@ -22,9 +22,9 @@
 
 package com.restfb;
 
-import java.io.IOException;
+import static com.restfb.util.StringUtils.fromInputStream;
 
-import com.restfb.util.StringUtils;
+import java.io.IOException;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -36,8 +36,7 @@ public abstract class AbstractJsonMapperTests {
 
   protected String jsonFromClasspath(String pathToJson) {
     try {
-      return StringUtils.fromInputStream(ClasspathWebRequestor.class.getResourceAsStream("/json/" + pathToJson
-          + ".json"));
+      return fromInputStream(ClasspathWebRequestor.class.getResourceAsStream("/json/" + pathToJson + ".json"));
     } catch (IOException e) {
       throw new IllegalStateException("Unable to load JSON from the classpath", e);
     }

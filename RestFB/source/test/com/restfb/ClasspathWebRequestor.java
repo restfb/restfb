@@ -22,12 +22,11 @@
 
 package com.restfb;
 
+import static com.restfb.util.StringUtils.fromInputStream;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import com.restfb.util.StringUtils;
 
 /**
  * {@link WebRequestor} implementation that loads a file from the classpath
@@ -54,8 +53,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   public ClasspathWebRequestor(String pathToJson) throws IOException {
     // Cache off the response immediately instead of recreating it every time in
     // executePost().
-    response =
-        new Response(HTTP_OK, StringUtils.fromInputStream(ClasspathWebRequestor.class.getResourceAsStream(pathToJson)));
+    response = new Response(HTTP_OK, fromInputStream(ClasspathWebRequestor.class.getResourceAsStream(pathToJson)));
   }
 
   /**

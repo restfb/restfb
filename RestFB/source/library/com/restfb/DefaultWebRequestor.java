@@ -23,6 +23,7 @@
 package com.restfb;
 
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
+import static com.restfb.util.StringUtils.fromInputStream;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.FINER;
 import static java.util.logging.Level.INFO;
@@ -35,8 +36,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Logger;
-
-import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a service that sends HTTP requests to the Facebook
@@ -110,7 +109,7 @@ public class DefaultWebRequestor implements WebRequestor {
           logger.warning("An error occurred while making a GET request to " + url + ": " + e);
       }
 
-      return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+      return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
     } finally {
       closeQuietly(httpUrlConnection);
     }
@@ -192,7 +191,7 @@ public class DefaultWebRequestor implements WebRequestor {
           logger.warning("An error occurred while POSTing to " + url + ": " + e);
       }
 
-      return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+      return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
     } finally {
       closeQuietly(binaryAttachment);
       closeQuietly(outputStream);

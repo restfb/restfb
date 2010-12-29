@@ -22,17 +22,20 @@
 
 package com.restfb;
 
+import static com.restfb.util.StringUtils.isBlank;
+import static com.restfb.util.StringUtils.trimToEmpty;
+import static com.restfb.util.StringUtils.urlEncode;
+
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
-import com.restfb.util.StringUtils;
 
 /**
  * Base class that contains data and functionality common to
@@ -153,12 +156,12 @@ abstract class BaseFacebookClient {
     JsonObject jsonObject = new JsonObject();
 
     for (Entry<String, String> entry : queries.entrySet()) {
-      if (StringUtils.isBlank(entry.getKey()) || StringUtils.isBlank(entry.getValue()))
+      if (isBlank(entry.getKey()) || isBlank(entry.getValue()))
         throw new IllegalArgumentException("Provided queries must have non-blank keys and values. " + "You provided: "
             + queries);
 
       try {
-        jsonObject.put(StringUtils.trimToEmpty(entry.getKey()), StringUtils.trimToEmpty(entry.getValue()));
+        jsonObject.put(trimToEmpty(entry.getKey()), trimToEmpty(entry.getValue()));
       } catch (JsonException e) {
         // Shouldn't happen unless bizarre input is provided
         throw new IllegalArgumentException("Unable to convert " + queries + " to JSON.", e);
@@ -189,7 +192,7 @@ abstract class BaseFacebookClient {
     // '%7C' is the pipe character and will be present in any access_token
     // parameter that's already URL-encoded. If we see this combination, don't
     // URL-encode. Otherwise, URL-encode as normal.
-    return ACCESS_TOKEN_PARAM_NAME.equals(name) && value.contains("%7C") ? value : StringUtils.urlEncode(value);
+    return ACCESS_TOKEN_PARAM_NAME.equals(name) && value.contains("%7C") ? value : urlEncode(value);
   }
 
   /**

@@ -22,10 +22,12 @@
 
 package com.restfb;
 
+import static com.restfb.util.StringUtils.isBlank;
+import static com.restfb.util.StringUtils.trimToEmpty;
+import static java.lang.String.format;
+
 import java.io.IOException;
 import java.io.InputStream;
-
-import com.restfb.util.StringUtils;
 
 /**
  * Specifies how a class that sends {@code HTTP} requests to the Facebook API
@@ -61,7 +63,7 @@ public interface WebRequestor {
      */
     public Response(Integer statusCode, String body) {
       this.statusCode = statusCode;
-      this.body = StringUtils.trimToEmpty(body);
+      this.body = trimToEmpty(body);
     }
 
     /**
@@ -87,9 +89,9 @@ public interface WebRequestor {
      */
     @Override
     public String toString() {
-      if (StringUtils.isBlank(getBody()))
-        return String.format("HTTP status code %d and an empty response body.", getStatusCode());
-      return String.format("HTTP status code %d and response body: %s", getStatusCode(), getBody());
+      if (isBlank(getBody()))
+        return format("HTTP status code %d and an empty response body.", getStatusCode());
+      return format("HTTP status code %d and response body: %s", getStatusCode(), getBody());
     }
   }
 

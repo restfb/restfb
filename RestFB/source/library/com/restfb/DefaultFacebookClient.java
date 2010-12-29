@@ -22,6 +22,11 @@
 
 package com.restfb;
 
+import static com.restfb.util.StringUtils.isBlank;
+import static com.restfb.util.StringUtils.join;
+import static com.restfb.util.StringUtils.trimToEmpty;
+import static com.restfb.util.StringUtils.trimToNull;
+import static com.restfb.util.StringUtils.urlEncode;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
@@ -48,7 +53,6 @@ import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
-import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a <a
@@ -156,7 +160,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);
 
-    this.accessToken = StringUtils.trimToNull(accessToken);
+    this.accessToken = trimToNull(accessToken);
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
     this.facebookGraphExceptionMapper = createFacebookGraphExceptionMapper();
@@ -274,7 +278,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       JsonObject jsonObject =
           new JsonObject(makeRequest("",
-            parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, StringUtils.join(ids)), parameters)));
+            parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, join(ids)), parameters)));
 
       return objectType.equals(JsonObject.class) ? (T) jsonObject : jsonMapper.toJavaObject(jsonObject.toString(),
         objectType);
@@ -427,7 +431,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (executeAsDelete)
       parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
 
-    StringUtils.trimToEmpty(endpoint).toLowerCase();
+    trimToEmpty(endpoint).toLowerCase();
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
@@ -576,8 +580,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs when building the parameter string.
    */
   protected String toParameterString(Parameter... parameters) throws FacebookJsonMappingException {
-
-    if (!StringUtils.isBlank(accessToken))
+    if (!isBlank(accessToken))
       parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
 
     parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
@@ -591,7 +594,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       else
         parameterStringBuilder.append("&");
 
-      parameterStringBuilder.append(StringUtils.urlEncode(parameter.name));
+      parameterStringBuilder.append(urlEncode(parameter.name));
       parameterStringBuilder.append("=");
       parameterStringBuilder.append(urlEncodedValueForParameterName(parameter.name, parameter.value));
     }

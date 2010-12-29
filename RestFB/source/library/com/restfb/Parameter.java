@@ -23,12 +23,14 @@
 package com.restfb;
 
 import static com.restfb.util.DateUtils.FACEBOOK_LONG_DATE_FORMAT;
+import static com.restfb.util.StringUtils.isBlank;
+import static com.restfb.util.StringUtils.trimToEmpty;
+import static java.lang.String.format;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.util.StringUtils;
 
 /**
  * Representation of a Facebook API request parameter.
@@ -60,13 +62,13 @@ public final class Parameter {
    *           {@code value} or {@code jsonMapper} is {@code null}.
    */
   private Parameter(String name, Object value, JsonMapper jsonMapper) throws FacebookJsonMappingException {
-    if (StringUtils.isBlank(name) || value == null)
+    if (isBlank(name) || value == null)
       throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value.");
 
     if (jsonMapper == null)
       throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");
 
-    this.name = StringUtils.trimToEmpty(name).toLowerCase();
+    this.name = trimToEmpty(name).toLowerCase();
 
     // Special handling for Date types - turn them into Facebook date strings.
     // Otherwise, use the JSON value of the type.
@@ -170,6 +172,6 @@ public final class Parameter {
    */
   @Override
   public String toString() {
-    return String.format("Parameter[%s=%s]", name, value);
+    return format("Parameter[%s=%s]", name, value);
   }
 }
