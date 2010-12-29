@@ -29,6 +29,7 @@ import static com.restfb.util.ReflectionUtils.isPrimitive;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableSet;
 import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.FINER;
 
@@ -37,9 +38,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.restfb.exception.FacebookJsonMappingException;
@@ -143,6 +146,7 @@ public class DefaultJsonMapper implements JsonMapper {
         return (T) new JsonObject(json);
 
       List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);
+      Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
 
       // If there are no annotated fields, assume we're mapping to a built-in
       // type. If this is actually the empty object, just return a new instance
@@ -176,32 +180,38 @@ public class DefaultJsonMapper implements JsonMapper {
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
-        // TODO: this is duplicate logic, pull out when we support automatic
-        // camel-casing
-        String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
-        Field field = fieldWithAnnotation.getField();
-
-        // If no Facebook field name was specified in the annotation, assume
-        // it's the same name as the Java field
-        if (isBlank(facebookFieldName)) {
-          if (logger.isLoggable(FINER))
-            logger.finer("No explicit Facebook field name found for " + field
-                + ", so defaulting to the field name itself (" + field.getName() + ")");
-
-          facebookFieldName = field.getName();
-        }
+        String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
 
         if (!jsonObject.has(facebookFieldName)) {
           if (logger.isLoggable(FINER))
-            logger.finer("No JSON value present for '" + facebookFieldName + "', skipping. Offending JSON is '" + json
-                + "'.");
+            logger.finer("No JSON value present for '" + facebookFieldName + "', skipping. JSON is '" + json + "'.");
 
           continue;
         }
 
-        // Set the field's value
-        field.setAccessible(true);
-        field.set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+        // Set the Java field's value.
+        //
+        // If we notice that this Facebook field name is mapped more than once,
+        // go into a special mode where we swallow any exceptions that occur
+        // when mapping to the Java field. This is because Facebook will
+        // sometimes return data in different formats for the same field name.
+        // See issues 56 and 90 for examples of this behavior and discussion.
+        fieldWithAnnotation.getField().setAccessible(true);
+
+        if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
+          try {
+            fieldWithAnnotation.getField()
+              .set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+          } catch (FacebookJsonMappingException e) {
+            logger.info("Could not map '" + facebookFieldName + "' to " + fieldAsString(fieldWithAnnotation.getField())
+                + ". JSON is " + json);
+          } catch (JsonException e) {
+            logger.info("Could not map '" + facebookFieldName + "' to " + fieldAsString(fieldWithAnnotation.getField())
+                + ". JSON is " + json);
+          }
+        } else {
+          fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+        }
       }
 
       return instance;
@@ -212,11 +222,47 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
-  protected Map<FieldWithAnnotation<Facebook>, Integer> fieldsWithIdenticalFacebookNames(
-      List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
-    Map<FieldWithAnnotation<Facebook>, Integer> fieldsWithIdenticalFacebookNames =
-        new HashMap<FieldWithAnnotation<Facebook>, Integer>();
-    return fieldsWithIdenticalFacebookNames;
+  protected String fieldAsString(Field field) {
+    return field.getDeclaringClass().getSimpleName() + "." + field.getName();
+  }
+
+  protected String getFacebookFieldName(FieldWithAnnotation<Facebook> fieldWithAnnotation) {
+    String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
+    Field field = fieldWithAnnotation.getField();
+
+    // If no Facebook field name was specified in the annotation, assume
+    // it's the same name as the Java field
+    if (isBlank(facebookFieldName)) {
+      if (logger.isLoggable(FINER))
+        logger.finer("No explicit Facebook field name found for " + field
+            + ", so defaulting to the field name itself (" + field.getName() + ")");
+
+      facebookFieldName = field.getName();
+    }
+
+    return facebookFieldName;
+  }
+
+  protected Set<String> facebookFieldNamesWithMultipleMappings(List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
+    Map<String, Integer> facebookFieldsNamesWithOccurrenceCount = new HashMap<String, Integer>();
+    Set<String> facebookFieldNamesWithMultipleMappings = new HashSet<String>();
+
+    // Get a count of Facebook field name occurrences for each
+    // @Facebook-annotated field
+    for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
+      String fieldName = getFacebookFieldName(fieldWithAnnotation);
+      int occurrenceCount =
+          facebookFieldsNamesWithOccurrenceCount.containsKey(fieldName) ? facebookFieldsNamesWithOccurrenceCount
+            .get(fieldName) : 0;
+      facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
+    }
+
+    // Pull out only those field names with multiple mappings
+    for (Entry<String, Integer> entry : facebookFieldsNamesWithOccurrenceCount.entrySet())
+      if (entry.getValue() > 1)
+        facebookFieldNamesWithMultipleMappings.add(entry.getKey());
+
+    return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
   }
 
   /**
@@ -303,29 +349,18 @@ public class DefaultJsonMapper implements JsonMapper {
 
     JsonObject jsonObject = new JsonObject();
 
-    // TODO: throw exception if there are multiple @Facebook-annotated fields
-    // with the same name
+    Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
+    if (facebookFieldNamesWithMultipleMappings.size() > 0)
+      throw new FacebookJsonMappingException("Unable to convert to JSON because multiple @"
+          + Facebook.class.getSimpleName() + " annotations for the same name are present: "
+          + facebookFieldNamesWithMultipleMappings);
 
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
-      // TODO: this is duplicate logic, pull out when we support automatic
-      // camel-casing
-      String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
-      Field field = fieldWithAnnotation.getField();
-
-      // If no Facebook field name was specified in the annotation, assume
-      // it's the same name as the Java field
-      if (isBlank(facebookFieldName)) {
-        if (logger.isLoggable(FINER))
-          logger.finer("No explicit Facebook field name found for " + field
-              + ", so defaulting to the field name itself (" + field.getName() + ")");
-
-        facebookFieldName = field.getName();
-      }
-
-      field.setAccessible(true);
+      String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
+      fieldWithAnnotation.getField().setAccessible(true);
 
       try {
-        jsonObject.put(facebookFieldName, toJsonInternal(field.get(object)));
+        jsonObject.put(facebookFieldName, toJsonInternal(fieldWithAnnotation.getField().get(object)));
       } catch (Exception e) {
         throw new FacebookJsonMappingException("Unable to process field '" + facebookFieldName + "' for "
             + object.getClass(), e);
