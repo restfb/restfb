@@ -32,6 +32,7 @@ import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static java.util.Collections.emptyList;
 import static java.util.logging.Level.INFO;
 
 import java.io.IOException;
@@ -375,9 +376,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.String, java.lang.String[])
    */
   @Override
-  public List<AccessToken> convertSessionKeysToAccessTokens(String apiKey, String secretKey, String... sessionKeys)
+  public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys)
       throws FacebookException {
-    throw new UnsupportedOperationException();
+    if (sessionKeys == null || sessionKeys.length == 0)
+      return emptyList();
+
+    String json =
+        makeRequest("/oauth/exchange_sessions", false, true, false, null, Parameter.with("client_id", appId),
+          Parameter.with("client_secret", secretKey), Parameter.with("sessions", join(sessionKeys)));
+
+    return jsonMapper.toJavaList(json, AccessToken.class);
   }
 
   /**

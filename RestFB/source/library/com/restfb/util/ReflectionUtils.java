@@ -44,8 +44,8 @@ import java.util.Set;
  * A collection of reflection-related utility methods.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
- * @author ikabiljo
- * @author ScottHernandez
+ * @author Igor Kabiljo
+ * @author Scott Hernandez
  * 
  * @since 1.6
  */
@@ -362,7 +362,7 @@ public final class ReflectionUtils {
    * Cache key composed of a class and annotation pair. Used by
    * {@link ReflectionUtils#FIELDS_WITH_ANNOTATION_CACHE}.
    * 
-   * @author ikabiljo
+   * @author Igor Kabiljo
    */
   private static final class ClassAnnotationCacheKey {
     /**

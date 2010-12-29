@@ -56,7 +56,8 @@ import com.restfb.util.ReflectionUtils;
  * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
- * @author ScottHernandez
+ * @author Scott Hernandez
+ * @author raibaz
  */
 public interface FacebookClient {
   /**
@@ -258,8 +259,8 @@ public interface FacebookClient {
    * Upgrade Guide</a> for details on how this process works and why you should
    * convert your application's session keys if you haven't already.
    * 
-   * @param apiKey
-   *          A Facebook API key.
+   * @param appId
+   *          A Facebook application ID.
    * @param secretKey
    *          A Facebook application secret key.
    * @param sessionKeys
@@ -272,7 +273,7 @@ public interface FacebookClient {
    *           to API keys.
    * @since 1.6
    */
-  List<AccessToken> convertSessionKeysToAccessTokens(String apiKey, String secretKey, String... sessionKeys)
+  List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys)
       throws FacebookException;
 
   /**
@@ -290,7 +291,7 @@ public interface FacebookClient {
     private String accessToken;
 
     @Facebook
-    private Date expires;
+    private Long expires;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -331,7 +332,7 @@ public interface FacebookClient {
      * @return The date on which the access token expires.
      */
     public Date getExpires() {
-      return expires == null ? null : (Date) expires.clone();
+      return expires == null ? null : new Date(1000L * expires);
     }
   }
 }

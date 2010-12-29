@@ -1,20 +1,20 @@
 1.5.4 (September 16, 2010)
 * Post comment type now handles case where FB returns an empty array instead of an object type.
-  Thanks to Pipo, CR, S13_Alan, ikabiljo, and huillam.
+  Thanks to Pipo, CR, S13_Alan, Igor Kabiljo, and huillam.
 
 1.5.3 (July 21, 2010)
 * NamedFacebookType now handles situation where FB returns, for example,
   "hometown":"Beograd", instead of the expected "hometown":{"id":123,"name":"Belgrade, Serbia"}
-  Thanks to ikabiljo for the bug report and suggested fix.
+  Thanks to Igor Kabiljo for the bug report and suggested fix.
 * Mapper now gracefully handles situation where Facebook returns the not-JSON string "false" and instead of {}.
-  Thanks to ikabiljo for the bug report and suggested fix.
+  Thanks to Igor Kabiljo for the bug report and suggested fix.
 * The Post type's comments field changed on the Facebook side to include a "count" field.
   Thanks to huillam for the bug report and suggested fix.
-  Thanks to ikabiljo for the suggested fix.    
+  Thanks to Igor Kabiljo for the suggested fix.    
 * Fixed infinite recursion bug that was triggerable in exceptional situations in ReflectionUtils.toString().
-  Thanks to ikabiljo for the bug report and suggested fix.
+  Thanks to Igor Kabiljo for the bug report and suggested fix.
 * Mapper fix for situations where Facebook returns the string "null" instead of an empty object or nothing.
-  Thanks to ikabiljo for the bug report.
+  Thanks to Igor Kabiljo for the bug report.
 * Timezone field in User is now a Double to account for timezones with fractional offsets.
   Thanks to Sam for the bug report.
 * Changed Parameter's date marshaling to produce Facebook Date strings in a zero-based hour format.

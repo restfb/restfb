@@ -22,6 +22,7 @@
 
 package com.restfb.util;
 
+import static java.util.Arrays.asList;
 import static java.util.logging.Level.WARNING;
 
 import java.io.BufferedReader;
@@ -183,6 +184,17 @@ public final class StringUtils {
             logger.warning("Unable to close stream, continuing on: " + t);
         }
     }
+  }
+
+  /**
+   * Joins the given {@code array} into a comma-separated string.
+   * 
+   * @param array
+   *          The array to join.
+   * @return A comma-separated string representation of the given {@code array}.
+   */
+  public static String join(String[] array) {
+    return array == null ? null : join(asList(array));
   }
 
   /**
