@@ -1,6 +1,36 @@
+1.6
+
+* Now use java.util.logging instead of Log4j - RestFB now has 0 dependencies.
+* FacebookException now extends RuntimeException - you no longer have to catch it if you don't want to.
+* Exposed and cleaned up previously-internal RestFB's repackaged JSON.org code in the new com.restfb.json package.
+* You may now tell JsonMapper to map to JsonObject, which permits you to have total control over result mapping at run time
+  (as opposed to the compile-time-only @Facebook annotation).
+* JsonMapper now supports having a Facebook JSON field mapped to multiple @Facebook-annotated Java fields.
+  This addresses the issue of Facebook returning the same field name but differently-structured data in certain situations.
+  See issues 56 and 90 for details.
+  Thanks to Daniel Winterstein, Igor Kabiljo, Marcel Stör, Pramod Biligiri, and Tom Schindl for their input.
+* Exposed and cleaned up previously-internal RestFB utilities in the new com.restfb.util package. 
+* Added new exception package com.restfb.exception and exception types
+  (FacebookOAuthException, FacebookQueryParseException) for simple handling of common Graph API exception types.
+* Added formal support for Connection paging by URL via FacebookClient.fetchConnectionPage() and the new Connection.getPreviousPageUrl()/getNextPageUrl().  No more manual offset calculation required.  Example:
+  
+  Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
+
+  if(myFeed.hasNext()) {
+    Connection<Post> myFeedPage2 = facebookClient.fetchConnectionPage(myFeed.getNextPageUrl(), Post.class);
+    ...
+  }
+  
+  Thanks to Jakub Danilewicz.
+
+* Fixed issue where User.birthday causes mapping to fail if "show only month & date" is set on FB.
+  Thanks to Kalle Korhonen.
+* Old REST API now always uses the HTTPS endpoint.
+  Thanks to Christopher Östlund.
+
 1.5.4 (September 16, 2010)
 * Post comment type now handles case where FB returns an empty array instead of an object type.
-  Thanks to Pipo, CR, S13_Alan, Igor Kabiljo, and huillam.
+  Thanks to Pipo, CR, S13_Alan, Igor Kabiljo, and Jakub Danilewicz.
 
 1.5.3 (July 21, 2010)
 * NamedFacebookType now handles situation where FB returns, for example,
@@ -9,7 +39,7 @@
 * Mapper now gracefully handles situation where Facebook returns the not-JSON string "false" and instead of {}.
   Thanks to Igor Kabiljo for the bug report and suggested fix.
 * The Post type's comments field changed on the Facebook side to include a "count" field.
-  Thanks to huillam for the bug report and suggested fix.
+  Thanks to Jakub Danilewicz for the bug report and suggested fix.
   Thanks to Igor Kabiljo for the suggested fix.    
 * Fixed infinite recursion bug that was triggerable in exceptional situations in ReflectionUtils.toString().
   Thanks to Igor Kabiljo for the bug report and suggested fix.
@@ -18,7 +48,7 @@
 * Timezone field in User is now a Double to account for timezones with fractional offsets.
   Thanks to Sam for the bug report.
 * Changed Parameter's date marshaling to produce Facebook Date strings in a zero-based hour format.
-  Thanks to huillam for the bug report and suggested fix.
+  Thanks to Jakub Danilewicz for the bug report and suggested fix.
 * Connection<?> has getNext() and getPrevious() methods that return the next/previous URLs returned by Facebook.
 * All fields in BaseFacebookClient, DefaultFacebookClient, and DefaultLegacyFacebookClient are protected for easier subclassing.
   All Facebook API URLs are now overridable via protected accessor methods.

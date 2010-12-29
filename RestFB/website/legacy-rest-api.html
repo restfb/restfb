@@ -40,12 +40,6 @@
 			If you're looking for help or additional examples, please check out the <a href="http://groups.google.com/group/restfb">RestFB Google Group</a>.
 		</p>		
 		
-		<p>
-			It's helpful to see exactly what's going over the wire to verify that RestFB is taking your input and sending it
-			to Facebook exactly as you expect.  Feel free to use <a href="log4j.xml">this example log4j.xml file</a> in your own project
-			to see full <code>POST</code> request and response data logged to standard output.
-		</p>
-		
 		<div class="spacer"></div>		
 		
 		<div class="warning-bubble">
@@ -212,12 +206,8 @@ public class User {
   
   @Facebook("pic_big")
   String pictureUrl;
-
-  // Java doesn't remember generic type information at runtime due to <a href="http://java.sun.com/docs/books/tutorial/java/generics/erasure.html">type erasure</a>.
-  // So, for a List type mapping, you have to help out by specifying
-  // what kind of type is contained in the List (Affiliation, in this case)
   
-  @Facebook(contains = Affiliation.class)
+  @Facebook
   List&lt;Affiliation&gt; affiliations;
 
   public String toString() {
@@ -306,10 +296,10 @@ Results results =
 		
 		<pre class="prettyprint">
 class Results {
-  @Facebook(value = "friends", contains = User.class)
+  @Facebook("friends")
   List&lt;User&gt; users;
 
-  @Facebook(contains = Group.class)
+  @Facebook
   List&lt;Group&gt; groups;
 }
 
@@ -430,29 +420,6 @@ class Attachment {
   List&lt;Medium&gt; media;
 }</pre>
 		
-		<p>
-			One other tip: when converting from Java to JSON like we are here,
-			you don't need to use the <code>contains</code> attribute of the <code>@Facebook</code> annotation when sending a <code>List</code> type.
-			This is because we have enough type information at runtime to perform the conversion process.  When converting from JSON to Java, we need assistance because
-			of type erasure and therefore must specify a value for the <code>contains</code> attribute.			
-		</p>
-		
-		<p>
-			For example:
-		</p>
-		
-		<pre class="prettyprint">
-@Facebook(contains = Medium)
-List&lt;Medium&gt; media;</pre>
-
-		<p>
-			...is unnecessary in this situation.  You may write it as:
-		</p>	
-		
-		<pre class="prettyprint">
-@Facebook
-List&lt;Medium&gt; media;</pre>		
-		
 		<div class="spacer"></div>				
 		
 		<h2>Running The Examples</h2>
@@ -490,14 +457,7 @@ $ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>
 				</span>
 			</li>
 			<li>
-				<code>List</code>s of any of the above types
-				<br/>
-				<span class="footnote">
-					Note that, because of type erasure, you must specify what type of object
-					is stored in the <code>List</code> via the <code>@Facebook</code> annotation's
-					<code>contains</code> attribute or a <code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code> will be thrown at runtime.
-					This attribute is ignored if applied to	non-<code>List</code> types.
-				</span>				
+				<code>List</code>s of any of the above types		
 			</li>
 		</ul>
 		
@@ -513,7 +473,7 @@ public class MyClass {
   @Facebook
   BigDecimal value;
 
-  @Facebook(contains = Integer.class)
+  @Facebook
   List&lt;Integer&gt; numbers;
 }</pre>			
 		
@@ -521,9 +481,6 @@ public class MyClass {
 			As of RestFB 1.4, Java to JSON mapping is supported by default <code><a href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>.
 			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
 			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
-			
-			When converting from Java to JSON, you never need to use the <code>contains</code> attribute of the <code>@Facebook</code> annotation - it's always ignored
-			because enough information is available at runtime to perform the conversion correctly.
 		</p>
 		
 		<p>

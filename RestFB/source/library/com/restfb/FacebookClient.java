@@ -133,7 +133,8 @@ public interface FacebookClient {
    *          Java type to map to.
    * @param connectionPageUrl
    *          The URL of the connection page to fetch, usually retrieved via
-   *          {@link Connection#getPrevious()} or {@link Connection#getNext()}.
+   *          {@link Connection#getPreviousPageUrl()} or
+   *          {@link Connection#getNextPageUrl()}.
    * @param connectionType
    *          Connection type token.
    * @return An instance of type {@code connectionType} which contains the
