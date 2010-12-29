@@ -164,7 +164,7 @@ out.println("First item in my feed: " + myFeed.getData().get(0));
 // Connections support paging
 
 if(myFeed.hasNext()) {
-  Connection&lt;User&gt; myFeedPage2 =
+  Connection&lt;Post&gt; myFeedPage2 =
     facebookClient.fetchConnectionPage(myFeed.getNextPageUrl(), Post.class);
   ...
 }</pre>							

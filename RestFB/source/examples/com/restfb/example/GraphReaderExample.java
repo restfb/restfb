@@ -34,12 +34,17 @@ import java.util.Map;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
+import com.restfb.DefaultJsonMapper;
 import com.restfb.Facebook;
 import com.restfb.FacebookClient;
+import com.restfb.JsonMapper;
 import com.restfb.Parameter;
 import com.restfb.exception.FacebookException;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
+import com.restfb.types.Url;
 import com.restfb.types.User;
 
 /**
@@ -64,7 +69,7 @@ public class GraphReaderExample {
    * @throws IllegalArgumentException
    *           If no command-line arguments are provided.
    */
-  public static void main(String[] args) throws FacebookException {
+  public static void main(String[] args) throws Exception {
     if (args.length == 0)
       throw new IllegalArgumentException("You must provide an OAuth access token parameter. "
           + "See README for more information.");
@@ -76,10 +81,10 @@ public class GraphReaderExample {
     facebookClient = new DefaultFacebookClient(accessToken);
   }
 
-  void runEverything() throws FacebookException {
+  void runEverything() throws Exception {
     fetchObject();
     fetchObjects();
-    fetchObjectsAsMap();
+    fetchObjectsAsJsonObject();
     fetchConnections();
     query();
     multiquery();
@@ -101,16 +106,23 @@ public class GraphReaderExample {
     out.println("Page fan count: " + page.getFanCount());
   }
 
-  void fetchObjectsAsMap() throws FacebookException {
-    out.println("* Fetching multiple objects at once as a Map *");
+  void fetchObjectsAsJsonObject() throws FacebookException, JsonException {
+    out.println("* Fetching multiple objects at once as a JsonObject *");
 
     List<String> ids = new ArrayList<String>();
-    ids.add("http://restfb.com");
+    ids.add("btaylor");
     ids.add("http://www.imdb.com/title/tt0117500/");
 
-    // TODO: fix this
-    // JsonObject results = facebookClient.fetchObjects(ids);
-    // out.println("Results are " + results);
+    // Make the API call
+    JsonObject results = facebookClient.fetchObjects(ids, JsonObject.class);
+
+    // Pull out JSON data by key and map each type by hand.
+    JsonMapper jsonMapper = new DefaultJsonMapper();
+    User user = jsonMapper.toJavaObject(results.getString("btaylor"), User.class);
+    Url url = jsonMapper.toJavaObject(results.getString("http://www.imdb.com/title/tt0117500/"), Url.class);
+
+    out.println("User is " + user);
+    out.println("URL is " + url);
   }
 
   void fetchObjects() throws FacebookException {
@@ -236,13 +248,16 @@ public class GraphReaderExample {
   void paging() throws FacebookException {
     out.println("* Paging support *");
 
-    Connection<Post> feedPage1 = facebookClient.fetchConnection("me/feed", Post.class);
-    Connection<Post> feedPage2 =
-        feedPage1.hasNext() ? facebookClient.fetchConnection("me/feed", Post.class,
-          Parameter.with("offset", feedPage1.getData().size())) : null;
+    Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
+    Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
 
-    out.println("Posts on page 1: " + feedPage1.getData().size());
-    out.println("Posts on page 2: " + (feedPage2 == null ? 0 : feedPage2.getData().size()));
+    out.println("Count of my friends: " + myFriends.getData().size());
+    out.println("First item in my feed: " + myFeed.getData().get(0));
+
+    if (myFeed.hasNext()) {
+      Connection<Post> myFeedPage2 = facebookClient.fetchConnectionPage(myFeed.getNextPageUrl(), Post.class);
+      out.println("First item in page 2 of my feed: " + myFeedPage2.getData().get(0));
+    }
   }
 
   void selection() throws FacebookException {
