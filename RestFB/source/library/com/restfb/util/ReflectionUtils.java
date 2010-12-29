@@ -129,10 +129,12 @@ public final class ReflectionUtils {
   }
 
   /**
-   * For a given {@code field}, get its first parameterized type argument (e.g.
-   * a field of type {@code List<Long>} would have a first type argument of
-   * {@code Long.class}. If the field has no type arguments, {@code null} is
-   * returned.
+   * For a given {@code field}, get its first parameterized type argument.
+   * <p>
+   * For example, a field of type {@code List<Long>} would have a first type
+   * argument of {@code Long.class}.
+   * <p>
+   * If the field has no type arguments, {@code null} is returned.
    * 
    * @param field
    *          The field to check.

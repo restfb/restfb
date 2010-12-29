@@ -101,7 +101,7 @@ public class Post extends NamedFacebookType {
   private List<Action> actions = new ArrayList<Action>();
 
   /**
-   * Represents a collection of {@link Likes}s.
+   * Represents a collection of Likes.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
