@@ -32,6 +32,7 @@ import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.FINER;
+import static java.util.logging.Level.FINEST;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -189,6 +190,8 @@ public class DefaultJsonMapper implements JsonMapper {
           continue;
         }
 
+        fieldWithAnnotation.getField().setAccessible(true);
+
         // Set the Java field's value.
         //
         // If we notice that this Facebook field name is mapped more than once,
@@ -196,18 +199,14 @@ public class DefaultJsonMapper implements JsonMapper {
         // when mapping to the Java field. This is because Facebook will
         // sometimes return data in different formats for the same field name.
         // See issues 56 and 90 for examples of this behavior and discussion.
-        fieldWithAnnotation.getField().setAccessible(true);
-
         if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
           try {
             fieldWithAnnotation.getField()
               .set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
           } catch (FacebookJsonMappingException e) {
-            logger.info("Could not map '" + facebookFieldName + "' to " + fieldAsString(fieldWithAnnotation.getField())
-                + ". JSON is " + json);
+            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
           } catch (JsonException e) {
-            logger.info("Could not map '" + facebookFieldName + "' to " + fieldAsString(fieldWithAnnotation.getField())
-                + ". JSON is " + json);
+            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
           }
         } else {
           fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
@@ -222,10 +221,39 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
-  protected String fieldAsString(Field field) {
-    return field.getDeclaringClass().getSimpleName() + "." + field.getName();
+  /**
+   * Dumps out a log message when one of a multiple-mapped Facebook field name
+   * JSON-to-Java mapping operation fails.
+   * 
+   * @param facebookFieldName
+   *          The Facebook field name.
+   * @param fieldWithAnnotation
+   *          The Java field to map to and its annotation.
+   * @param json
+   *          The JSON that failed to map to the Java field.
+   */
+  protected void logMultipleMappingFailedForField(String facebookFieldName,
+      FieldWithAnnotation<Facebook> fieldWithAnnotation, String json) {
+    if (!logger.isLoggable(FINER))
+      return;
+
+    Field field = fieldWithAnnotation.getField();
+
+    if (logger.isLoggable(FINER))
+      logger.finer("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName() + "."
+          + field.getName() + ", but continuing on because '" + facebookFieldName
+          + "' is mapped to multiple fields in " + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);
   }
 
+  /**
+   * For a Java field annotated with the {@code Facebook} annotation, figure out
+   * what the corresponding Facebook JSON field name to map to it is.
+   * 
+   * @param fieldWithAnnotation
+   *          A Java field annotated with the {@code Facebook} annotation.
+   * @return The Facebook JSON field name that should be mapped to this Java
+   *         field.
+   */
   protected String getFacebookFieldName(FieldWithAnnotation<Facebook> fieldWithAnnotation) {
     String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
     Field field = fieldWithAnnotation.getField();
@@ -233,8 +261,8 @@ public class DefaultJsonMapper implements JsonMapper {
     // If no Facebook field name was specified in the annotation, assume
     // it's the same name as the Java field
     if (isBlank(facebookFieldName)) {
-      if (logger.isLoggable(FINER))
-        logger.finer("No explicit Facebook field name found for " + field
+      if (logger.isLoggable(FINEST))
+        logger.finest("No explicit Facebook field name found for " + field
             + ", so defaulting to the field name itself (" + field.getName() + ")");
 
       facebookFieldName = field.getName();
@@ -243,6 +271,13 @@ public class DefaultJsonMapper implements JsonMapper {
     return facebookFieldName;
   }
 
+  /**
+   * Finds any Facebook JSON fields that are mapped to more than 1 Java field.
+   * 
+   * @param fieldsWithAnnotation
+   *          Java fields annotated with the {@code Facebook} annotation.
+   * @return Any Facebook JSON fields that are mapped to more than 1 Java field.
+   */
   protected Set<String> facebookFieldNamesWithMultipleMappings(List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
     Map<String, Integer> facebookFieldsNamesWithOccurrenceCount = new HashMap<String, Integer>();
     Set<String> facebookFieldNamesWithMultipleMappings = new HashSet<String>();
