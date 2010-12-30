@@ -453,8 +453,8 @@ out.println("Deleted object? " + deleted);</pre>
 			
 <pre class="prettyprint">
 List&lt;AccessToken&gt; accessTokens =
-  facebookClient.convertSessionKeysToAccessTokens(MY_APP_ID, MY_APP_SECRET_KEY,
-    "sessionKey1", "sessionKey2");
+  new DefaultFacebookClient().convertSessionKeysToAccessTokens(MY_APP_ID,
+    MY_APP_SECRET_KEY, "sessionKey1", "sessionKey2");
 
 out.println("OAuth token for sessionKey1: " + accessTokens.get(0).getAccessToken());</pre>								
 				
@@ -591,7 +591,8 @@ public class MyClass {
 		<h2>Error Handling</h2>
 
 		<p>					
-			All <code><a target="_blank" href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods throw the abstract <code><a target="_blank" href="javadoc/com/restfb/FacebookException.html">FacebookException</a></code>.																	
+			All <code><a target="_blank" href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods may throw <code><a target="_blank" href="javadoc/com/restfb/FacebookException.html">FacebookException</a></code>,
+			which is an unchecked exception as of RestFB 1.6.																	
 		</p>
 		
 		<p>
@@ -633,7 +634,28 @@ public class MyClass {
 				<span class="footnote">
 					Thrown when the Graph API returns an error, as shown in the example JSON snippet below.
 					Exposes the <code>type</code> and <code>message</code> so you can
-					handle them in your code and take custom action as needed.
+					handle them in your code and take custom action as needed.															
+				</span>			
+					
+<pre style="margin-top: 6px;">{
+  "error": {
+    "type": "SomeBizarreTypeOfException",
+    "message": "Everything went wrong."
+  }
+}</pre>								
+				<span class="footnote">
+					Note that <code>FacebookGraphException</code> is a catchall Graph API exception.					
+					For your convenience, RestFB will throw more-specific
+					subclasses <code>FacebookOAuthException</code> and <code>FacebookQueryParseException</code> if it detects
+					either of these Graph API error types.  These are described below.									
+				</span>						
+			</li>
+			<li>
+				<code><a target="_blank" href="javadoc/com/restfb/FacebookOAuthException.html">FacebookOAuthException</a></code>
+				<br/>
+				<span class="footnote">
+					Thrown when the Graph API returns an OAuth-related error (type <code>OAuthException</code> or <code>OAuthAccessTokenException</code>),
+					as shown in the example JSON snippet below.													
 				</span>			
 					
 <pre style="margin-top: 6px;">{
@@ -641,14 +663,29 @@ public class MyClass {
     "type": "OAuthException",
     "message": "Invalid access token signature."
   }
-}</pre>				
-			</li>			
+}</pre>												
+			</li>	
+			<li>
+				<code><a target="_blank" href="javadoc/com/restfb/FacebookQueryParseException.html">FacebookQueryParseException</a></code>
+				<br/>
+				<span class="footnote">
+					Thrown when the Graph API returns an FQL query parsing error (type <code>QueryParseException</code>),
+					as shown in the example JSON snippet below.													
+				</span>			
+					
+<pre style="margin-top: 6px;">{
+  "error": {
+    "type": "QueryParseException",
+    "message": "Unknown path components: /fizzle"
+  }
+}</pre>												
+			</li>	
 			<li>
 				<code><a target="_blank" href="javadoc/com/restfb/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
 				<br/>
 				<span class="footnote">
-					This is thrown by RestFB when an FQL call fails.  <code>FacebookGraphException</code> is not applicable in that case because
-					Facebook returns this "legacy" exception instead because FQL is not yet a full-fledged member of the Graph API. 
+					This is thrown by RestFB when an FQL call fails.  <code>FacebookGraphException</code> and its subclasses are not applicable in that case because
+					Facebook returns this "legacy" exception instead due to FQL not yet being a full-fledged member of the Graph API. 
 					
 					<code>FacebookResponseStatusException</code> will include both the error code and error message returned by the Facebook API
 					so you may take custom actions depending on the type of error that occurred.
@@ -669,10 +706,12 @@ try {
 } catch (FacebookJsonMappingException e) {
   // Looks like this API method didn't really return a list of users
 } catch (FacebookNetworkException e) {
-  // Looks like an error occurred at the network level
+  // An error occurred at the network level
   out.println("API returned HTTP status code " + e.getHttpStatusCode());
+} catch (FacebookOAuthException e) {
+  // Authentication failed - bad access token?  
 } catch (FacebookGraphException e) {
-  // Facebook API returned a specific error
+  // The Graph API returned a specific error
   out.println("Call failed. API says: " + e.getErrorMessage());
 } catch (FacebookResponseStatusException e) {
   // Old-style Facebook error response.
