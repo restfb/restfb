@@ -20,8 +20,10 @@
 			RestFB is a simple and flexible
 			<a target="_blank" href="http://developers.facebook.com/docs/api">Facebook Graph API</a> and 
 			<a target="_blank" href="http://developers.facebook.com/docs/reference/rest/">Old REST API</a> client written in Java.
+			<br/>
+			It is open source software released under the terms of the <a href="#licensing">MIT License</a>.
 		</p>			
-		
+					
 		<div class="spacer"></div>
 		
 		<h2>Download</h2>
@@ -56,7 +58,7 @@
 			Non-goals:		
 			<ul>
 				<li>Support for non-Graph/non-REST API parts of the Facebook Platform</li>
-				<li>Providing a mechanism for obtaining session keys (if using the Old REST API)
+				<li>Providing a mechanism for obtaining session keys or OAuth access tokens</li>
 				<li>Using XML as a data transfer format in addition to JSON</li>
 				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
 			</ul>
@@ -782,8 +784,7 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 			anything software-related.  We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.			
 		</p>		
 		
-		<!-- Facebook Like Badge START --><div id="facebook" style="float: right; width: 20%;"><div style="background: #3B5998;padding: 5px;"><img src="http://www.facebook.com/images/fb_logo_small.png" alt="Facebook"/><img src="http://badge.facebook.com/badge/121285737883612.24403847.361498001.png" alt="" width="0" height="0"/></div><div style="background: #EDEFF4;display: block;border-right: 1px solid #D8DFEA;border-bottom: 1px solid #D8DFEA;border-left: 1px solid #D8DFEA;margin: 0px;padding: 0px 0px 5px 0px;"><div style="background: #EDEFF4;display: block;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="top"><img src="http://www.facebook.com/images/icons/fbpage.gif" alt=""/></td><td valign="top"><p style="color: #808080;font-family: verdana;font-size: 11px;margin: 0px 0px 0px 0px;padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/revetkn" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: normal;margin: 0px;padding: 0px 0px 0px 0px;text-decoration: none;" title="Mark Allen">Mark Allen</a> likes</p></td></tr></table></div><div style="background: #FFFFFF;clear: both;display: block;margin: 0px;overflow: hidden;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="middle"><a href="http://www.facebook.com/pages/Conshohocken-PA/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none;" title="Transmogrify"><img src="http://www.facebook.com/profile/pic.php?oid=AAAAAwAgACAAAAAPOvPy4ogfG375u9_v9yR48VzCcQPLtwAzPzinLSAOhR6gQivgRo8lfs8wvF9y3ASEpNNjhJqXyRGkZ8cBJFyfefjDRLQYapa0rYDRj6jTqO3dW8_dEx64jVbgYRCON_u6&size=square" style="border: 0px;margin: 0px;padding: 0px;" alt="Transmogrify"/></a></td><td valign="middle" style="padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/pages/Conshohocken-PA/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none;" title="Transmogrify">Transmogrify</a></td></tr></table></div></div><div style="display: block;float: right;margin: 0px;padding: 4px 0px 0px 0px;"><a href="http://www.facebook.com/facebook-widgets/likebadges.php" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: none;margin: 0px;padding: 0px;text-decoration: none;" title="Create your Like Badge">Create your Like Badge</a></div></div><!-- Facebook Like Badge END -->		
-		
+		<!-- Facebook Like Badge START --><div style="float: right; width: 20%;"><div style="background: #3B5998;padding: 5px;"><img src="http://www.facebook.com/images/fb_logo_small.png" alt="Facebook"/><img src="http://badge.facebook.com/badge/121285737883612.24403847.1304802001.png" alt="" width="0" height="0"/></div><div style="background: #EDEFF4;display: block;border-right: 1px solid #D8DFEA;border-bottom: 1px solid #D8DFEA;border-left: 1px solid #D8DFEA;margin: 0px;padding: 0px 0px 5px 0px;"><div style="background: #EDEFF4;display: block;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="top"><img src="http://www.facebook.com/images/icons/fbpage.gif" alt=""/></td><td valign="top"><p style="color: #808080;font-family: verdana;font-size: 11px;margin: 0px 0px 0px 0px;padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/revetkn" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: normal;margin: 0px;padding: 0px 0px 0px 0px;text-decoration: none;" title="Mark Allen">Mark Allen</a> likes</p></td></tr></table></div><div style="background: #FFFFFF;clear: both;display: block;margin: 0px;overflow: hidden;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="middle"><a href="http://www.facebook.com/pages/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none;" title="Transmogrify"><img src="http://www.facebook.com/profile/pic.php?oid=AQArM8kc_2XPzr8mg4XRN3N-X2h_CpBNZyEtLrz2r4mS48MQnAvFCOqTMIlMbjaLBsM&size=square" style="border: 0px;margin: 0px;padding: 0px;" alt="Transmogrify"/></a></td><td valign="middle" style="padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/pages/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none;" title="Transmogrify">Transmogrify</a></td></tr></table></div></div><div style="display: block;float: right;margin: 0px;padding: 4px 0px 0px 0px;"><a href="http://www.facebook.com/badges/like.php" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: none;margin: 0px;padding: 0px;text-decoration: none;" title="Create your Like Badge">Create your Like Badge</a></div></div><!-- Facebook Like Badge END -->								
 		
 		<p style="clear: both;">
 			Development of RestFB was aided by
@@ -796,6 +797,8 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		</p>
 		
 		<div class="spacer"></div>
+		
+		<a name="licensing"></a>
 		
 		<h2>Licensing</h2>
 		
