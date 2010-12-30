@@ -1,4 +1,4 @@
-1.6 (December 29, 2010)
+1.6 (December 30, 2010)
 
 * Now use java.util.logging instead of Log4j - RestFB now has 0 dependencies.
 * FacebookException now extends RuntimeException - you no longer have to catch it if you don't want to.
