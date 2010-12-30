@@ -174,7 +174,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#deleteObject(java.lang.String)
    */
   @Override
-  public boolean deleteObject(String object) throws FacebookException {
+  public boolean deleteObject(String object) {
     verifyParameterPresence("object", object);
     return "true".equals(makeRequest(object, false, true, true, null));
   }
@@ -184,8 +184,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters)
-      throws FacebookException {
+  public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
     return mapToConnection(makeRequest(connection, parameters), connectionType);
@@ -196,8 +195,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.Class)
    */
   @Override
-  public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType)
-      throws FacebookException {
+  public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson = makeRequestAndProcessResponse(new Requestor() {
       /**
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
@@ -244,7 +242,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) throws FacebookException {
+  public <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("object", object);
     verifyParameterPresence("objectType", objectType);
     return jsonMapper.toJavaObject(makeRequest(object, parameters), objectType);
@@ -256,7 +254,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) throws FacebookException {
+  public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("ids", ids);
     verifyParameterPresence("connectionType", objectType);
 
@@ -293,8 +291,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.io.InputStream, com.restfb.Parameter[])
    */
   @Override
-  public <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters)
-      throws FacebookException {
+  public <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     return jsonMapper.toJavaObject(makeRequest(connection, false, true, false, binaryAttachment, parameters),
       objectType);
@@ -305,7 +302,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      com.restfb.Parameter[])
    */
   @Override
-  public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) throws FacebookException {
+  public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
     return publish(connection, objectType, null, parameters);
   }
 
@@ -315,8 +312,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters)
-      throws FacebookException {
+  public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("objectType", objectType);
 
     for (Parameter parameter : parameters)
@@ -356,7 +352,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) throws FacebookException {
+  public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("query", query);
     verifyParameterPresence("objectType", objectType);
 
@@ -376,8 +372,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      java.lang.String, java.lang.String[])
    */
   @Override
-  public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys)
-      throws FacebookException {
+  public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys) {
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("secretKey", secretKey);
 
@@ -405,7 +400,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs while making the Facebook API POST or
    *           processing the response.
    */
-  protected String makeRequest(String endpoint, Parameter... parameters) throws FacebookException {
+  protected String makeRequest(String endpoint, Parameter... parameters) {
     return makeRequest(endpoint, false, false, false, null, parameters);
   }
 
@@ -436,7 +431,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           processing the response.
    */
   protected String makeRequest(String endpoint, boolean useLegacyEndpoint, final boolean executeAsPost,
-      boolean executeAsDelete, final InputStream binaryAttachment, Parameter... parameters) throws FacebookException {
+      boolean executeAsDelete, final InputStream binaryAttachment, Parameter... parameters) {
     verifyParameterLegality(parameters);
 
     if (executeAsDelete)
@@ -467,7 +462,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     Response makeRequest() throws IOException;
   }
 
-  protected String makeRequestAndProcessResponse(Requestor requestor) throws FacebookException {
+  protected String makeRequestAndProcessResponse(Requestor requestor) {
     Response response = null;
 
     // Perform a GET or POST to the API endpoint

@@ -204,7 +204,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *      com.restfb.Parameter[])
    */
   @Override
-  public void execute(String method, Parameter... parameters) throws FacebookException {
+  public void execute(String method, Parameter... parameters) {
     execute(method, (String) null, parameters);
   }
 
@@ -213,7 +213,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *      java.lang.String, com.restfb.Parameter[])
    */
   @Override
-  public void execute(String method, String sessionKey, Parameter... parameters) throws FacebookException {
+  public void execute(String method, String sessionKey, Parameter... parameters) {
     makeRequest(method, sessionKey, parameters);
   }
 
@@ -222,7 +222,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T execute(String method, Class<T> resultType, Parameter... parameters) throws FacebookException {
+  public <T> T execute(String method, Class<T> resultType, Parameter... parameters) {
     return execute(method, null, resultType, parameters);
   }
 
@@ -231,8 +231,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T execute(String method, String sessionKey, Class<T> resultType, Parameter... parameters)
-      throws FacebookException {
+  public <T> T execute(String method, String sessionKey, Class<T> resultType, Parameter... parameters) {
     return jsonMapper.toJavaObject(makeRequest(method, sessionKey, parameters), resultType);
   }
 
@@ -241,8 +240,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> List<T> executeForList(String method, Class<T> resultType, Parameter... parameters)
-      throws FacebookException {
+  public <T> List<T> executeForList(String method, Class<T> resultType, Parameter... parameters) {
     return executeForList(method, null, resultType, parameters);
   }
 
@@ -251,8 +249,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> List<T> executeForList(String method, String sessionKey, Class<T> resultType, Parameter... parameters)
-      throws FacebookException {
+  public <T> List<T> executeForList(String method, String sessionKey, Class<T> resultType, Parameter... parameters) {
     return jsonMapper.toJavaList(makeRequest(method, sessionKey, parameters), resultType);
   }
 
@@ -261,8 +258,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *      java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  public <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType, Parameter... additionalParameters)
-      throws FacebookException {
+  public <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType, Parameter... additionalParameters) {
     return executeMultiquery(queries, resultType, additionalParameters);
   }
 
@@ -272,7 +268,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    */
   @Override
   public <T> T executeMultiquery(Map<String, String> queries, String sessionKey, Class<T> resultType,
-      Parameter... additionalParameters) throws FacebookException {
+      Parameter... additionalParameters) {
     List<Parameter> parameters = new ArrayList<Parameter>();
     parameters.add(Parameter.with("queries", queriesToJson(queries)));
 
@@ -326,7 +322,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *           If an error occurs while making the Facebook API POST or
    *           processing the response.
    */
-  protected String makeRequest(String method, String sessionKey, Parameter... parameters) throws FacebookException {
+  protected String makeRequest(String method, String sessionKey, Parameter... parameters) {
     // Make sure we're not provided with any params that conflict with what
     // we're passing to FB internally
     verifyParameterLegality(parameters);

@@ -3,7 +3,6 @@ import java.util.List;
 import com.restfb.DefaultLegacyFacebookClient;
 import com.restfb.Facebook;
 import com.restfb.LegacyFacebookClient;
-import com.restfb.exception.FacebookException;
 import com.restfb.Parameter;
 
 public class LegacyExample {
@@ -11,7 +10,7 @@ public class LegacyExample {
   // Instructions are available on http://restfb.com.
   private static final String MY_ACCESS_TOKEN = "";
 
-  public static void main(String[] args) throws FacebookException {
+  public static void main(String[] args) {
     LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_TOKEN);
 
     // Last parameter specifies that this API call's result should be returned

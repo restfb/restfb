@@ -32,7 +32,6 @@ import com.restfb.DefaultLegacyFacebookClient;
 import com.restfb.Facebook;
 import com.restfb.LegacyFacebookClient;
 import com.restfb.Parameter;
-import com.restfb.exception.FacebookException;
 
 /**
  * Examples of RestFB's Legacy REST API functionality.
@@ -51,12 +50,10 @@ public class LegacyExample {
    * 
    * @param args
    *          Command-line arguments.
-   * @throws FacebookException
-   *           If an error occurs while talking to the Facebook Legacy API.
    * @throws IllegalArgumentException
    *           If no command-line arguments are provided.
    */
-  public static void main(String[] args) throws FacebookException {
+  public static void main(String[] args) {
     if (args.length == 0)
       throw new IllegalArgumentException("You must provide an OAuth access token parameter. "
           + "See README for more information.");
@@ -68,19 +65,19 @@ public class LegacyExample {
     facebookClient = new DefaultLegacyFacebookClient(accessToken);
   }
 
-  void runEverything() throws FacebookException {
+  void runEverything() {
     object();
     list();
     fql();
     publish();
   }
 
-  void object() throws FacebookException {
+  void object() {
     Long uid = facebookClient.execute("users.getLoggedInUser", Long.class);
     System.out.println("My UID is " + uid);
   }
 
-  void list() throws FacebookException {
+  void list() {
     out.println("* Call that returns a list *");
 
     List<LegacyUser> users =
@@ -109,7 +106,7 @@ public class LegacyExample {
     }
   }
 
-  void fql() throws FacebookException {
+  void fql() {
     Long uid = facebookClient.execute("users.getLoggedInUser", Long.class);
 
     // FQL query which asks Facebook for your friends' names, profile picture
@@ -165,7 +162,7 @@ public class LegacyExample {
     }
   }
 
-  void publish() throws FacebookException {
+  void publish() {
     out.println("* Publishes to your feed *");
 
     ActionLink category = new ActionLink();

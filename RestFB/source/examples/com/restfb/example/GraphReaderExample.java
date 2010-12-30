@@ -40,7 +40,6 @@ import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.JsonMapper;
 import com.restfb.Parameter;
-import com.restfb.exception.FacebookException;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Page;
@@ -65,10 +64,8 @@ public class GraphReaderExample {
    * 
    * @param args
    *          Command-line arguments.
-   * @throws FacebookException
-   *           If an error occurs while talking to the Facebook Graph API.
-   * @throws IllegalArgumentException
-   *           If no command-line arguments are provided.
+   * @throws Exception
+   *           If an error occurs while running the examples.
    */
   public static void main(String[] args) throws Exception {
     if (args.length == 0)
@@ -97,7 +94,7 @@ public class GraphReaderExample {
     rawJsonResponse();
   }
 
-  void fetchObject() throws FacebookException {
+  void fetchObject() {
     out.println("* Fetching single objects *");
 
     User user = facebookClient.fetchObject("me", User.class);
@@ -107,7 +104,7 @@ public class GraphReaderExample {
     out.println("Page fan count: " + page.getFanCount());
   }
 
-  void fetchObjectsAsJsonObject() throws FacebookException, JsonException {
+  void fetchObjectsAsJsonObject() throws JsonException {
     out.println("* Fetching multiple objects at once as a JsonObject *");
 
     List<String> ids = new ArrayList<String>();
@@ -126,7 +123,7 @@ public class GraphReaderExample {
     out.println("URL is " + url);
   }
 
-  void fetchObjects() throws FacebookException {
+  void fetchObjects() {
     out.println("* Fetching multiple objects at once *");
 
     FetchObjectsResults fetchObjectsResults =
@@ -147,7 +144,7 @@ public class GraphReaderExample {
     Page page;
   }
 
-  void fetchConnections() throws FacebookException {
+  void fetchConnections() {
     out.println("* Fetching connections *");
 
     Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
@@ -157,7 +154,7 @@ public class GraphReaderExample {
     out.println("First item in my feed: " + myFeed.getData().get(0).getMessage());
   }
 
-  void query() throws FacebookException {
+  void query() {
     out.println("* FQL Query *");
 
     List<FqlUser> users =
@@ -166,7 +163,7 @@ public class GraphReaderExample {
     out.println("User: " + users);
   }
 
-  void multiquery() throws FacebookException {
+  void multiquery() {
     out.println("* FQL Multiquery *");
 
     Map<String, String> queries = new HashMap<String, String>();
@@ -223,7 +220,7 @@ public class GraphReaderExample {
     List<FqlLiker> likers;
   }
 
-  void search() throws FacebookException {
+  void search() {
     out.println("* Searching connections *");
 
     Connection<Post> publicSearch =
@@ -238,7 +235,7 @@ public class GraphReaderExample {
     out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());
   }
 
-  void metadata() throws FacebookException {
+  void metadata() {
     out.println("* Metadata *");
 
     User userWithMetadata = facebookClient.fetchObject("me", User.class, Parameter.with("metadata", 1));
@@ -246,7 +243,7 @@ public class GraphReaderExample {
     out.println("User metadata: has albums? " + userWithMetadata.getMetadata().getConnections().hasAlbums());
   }
 
-  void paging() throws FacebookException {
+  void paging() {
     out.println("* Paging support *");
 
     Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
@@ -261,7 +258,7 @@ public class GraphReaderExample {
     }
   }
 
-  void selection() throws FacebookException {
+  void selection() {
     out.println("* Selecting specific fields *");
 
     User user = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id,name"));
@@ -269,7 +266,7 @@ public class GraphReaderExample {
     out.println("User name: " + user.getName());
   }
 
-  void parameters() throws FacebookException {
+  void parameters() {
     out.println("* Parameter support *");
 
     Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
@@ -281,7 +278,7 @@ public class GraphReaderExample {
     out.println("Filtered feed count: " + filteredFeed.getData().size());
   }
 
-  void rawJsonResponse() throws FacebookException {
+  void rawJsonResponse() {
     out.println("* Raw JSON *");
     out.println("User object JSON: " + facebookClient.fetchObject("me", String.class));
   }

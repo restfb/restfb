@@ -68,7 +68,7 @@ public interface LegacyFacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  void execute(String method, Parameter... parameters) throws FacebookException;
+  void execute(String method, Parameter... parameters);
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, ignoring
@@ -92,7 +92,7 @@ public interface LegacyFacebookClient {
    *             authentication scheme soon.
    */
   @Deprecated
-  void execute(String method, String sessionKey, Parameter... parameters) throws FacebookException;
+  void execute(String method, String sessionKey, Parameter... parameters);
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -111,7 +111,7 @@ public interface LegacyFacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T execute(String method, Class<T> resultType, Parameter... parameters) throws FacebookException;
+  <T> T execute(String method, Class<T> resultType, Parameter... parameters);
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -141,8 +141,7 @@ public interface LegacyFacebookClient {
    *             session key authentication scheme soon.
    */
   @Deprecated
-  <T> T execute(String method, String sessionKey, Class<T> resultType, Parameter... parameters)
-      throws FacebookException;
+  <T> T execute(String method, String sessionKey, Class<T> resultType, Parameter... parameters);
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -161,7 +160,7 @@ public interface LegacyFacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> List<T> executeForList(String method, Class<T> resultType, Parameter... parameters) throws FacebookException;
+  <T> List<T> executeForList(String method, Class<T> resultType, Parameter... parameters);
 
   /**
    * Executes a Facebook API method with the given {@code parameters}, mapping
@@ -191,8 +190,7 @@ public interface LegacyFacebookClient {
    *             the old session key authentication scheme soon.
    */
   @Deprecated
-  <T> List<T> executeForList(String method, String sessionKey, Class<T> resultType, Parameter... parameters)
-      throws FacebookException;
+  <T> List<T> executeForList(String method, String sessionKey, Class<T> resultType, Parameter... parameters);
 
   /**
    * Executes the <a
@@ -223,8 +221,7 @@ public interface LegacyFacebookClient {
    *           If an error occurs while performing the API call.
    * @since 1.1
    */
-  <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType, Parameter... additionalParameters)
-      throws FacebookException;
+  <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType, Parameter... additionalParameters);
 
   /**
    * Executes the <a
@@ -266,5 +263,5 @@ public interface LegacyFacebookClient {
    */
   @Deprecated
   <T> T executeMultiquery(Map<String, String> queries, String sessionKey, Class<T> resultType,
-      Parameter... additionalParameters) throws FacebookException;
+      Parameter... additionalParameters);
 }

@@ -31,7 +31,6 @@ import java.util.Date;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
-import com.restfb.exception.FacebookException;
 import com.restfb.types.FacebookType;
 
 /**
@@ -53,12 +52,10 @@ public class GraphPublisherExample {
    * 
    * @param args
    *          Command-line arguments.
-   * @throws FacebookException
-   *           If an error occurs while talking to the Facebook Graph API.
    * @throws IllegalArgumentException
    *           If no command-line arguments are provided.
    */
-  public static void main(String[] args) throws FacebookException {
+  public static void main(String[] args) {
     if (args.length == 0)
       throw new IllegalArgumentException("You must provide an OAuth access token parameter. "
           + "See README for more information.");
@@ -70,7 +67,7 @@ public class GraphPublisherExample {
     facebookClient = new DefaultFacebookClient(accessToken);
   }
 
-  void runEverything() throws FacebookException {
+  void runEverything() {
     String messageId = publishMessage();
     delete(messageId);
     String eventId = publishEvent();
@@ -79,7 +76,7 @@ public class GraphPublisherExample {
     delete(photoId);
   }
 
-  String publishMessage() throws FacebookException {
+  String publishMessage() {
     out.println("* Feed publishing *");
 
     FacebookType publishMessageResponse =
@@ -89,7 +86,7 @@ public class GraphPublisherExample {
     return publishMessageResponse.getId();
   }
 
-  String publishEvent() throws FacebookException {
+  String publishEvent() {
     out.println("* Event publishing *");
 
     Date tomorrow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 24L);
@@ -103,7 +100,7 @@ public class GraphPublisherExample {
     return publishEventResponse.getId();
   }
 
-  String publishPhoto() throws FacebookException {
+  String publishPhoto() {
     out.println("* Binary file publishing *");
 
     FacebookType publishPhotoResponse =
@@ -114,7 +111,7 @@ public class GraphPublisherExample {
     return publishPhotoResponse.getId();
   }
 
-  void delete(String objectId) throws FacebookException {
+  void delete(String objectId) {
     out.println("* Object deletion *");
     out.println(format("Deleted %s: %s", objectId, facebookClient.deleteObject(objectId)));
   }

@@ -78,7 +78,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) throws FacebookException;
+  <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters);
 
   /**
    * Fetches multiple <a
@@ -103,7 +103,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) throws FacebookException;
+  <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters);
 
   /**
    * Fetches a Graph API {@code Connection} type, mapping the result to an
@@ -122,8 +122,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters)
-      throws FacebookException;
+  <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters);
 
   /**
    * Fetches a previous/next page of a Graph API {@code Connection} type,
@@ -142,7 +141,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> Connection<T> fetchConnectionPage(String connectionPageUrl, Class<T> connectionType) throws FacebookException;
+  <T> Connection<T> fetchConnectionPage(String connectionPageUrl, Class<T> connectionType);
 
   /**
    * Executes an <a
@@ -163,7 +162,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) throws FacebookException;
+  <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters);
 
   /**
    * Executes an <a
@@ -190,8 +189,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters)
-      throws FacebookException;
+  <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
 
   /**
    * Performs a <a
@@ -212,7 +210,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType, Parameter... parameters) throws FacebookException;
+  <T> T publish(String connection, Class<T> objectType, Parameter... parameters);
 
   /**
    * Performs a <a
@@ -236,8 +234,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters)
-      throws FacebookException;
+  <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters);
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph
@@ -250,7 +247,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurred while attempting to delete the object.
    */
-  boolean deleteObject(String object) throws FacebookException;
+  boolean deleteObject(String object);
 
   /**
    * Converts an arbitrary number of {@code sessionKeys} to OAuth access tokens.
@@ -274,8 +271,7 @@ public interface FacebookClient {
    *           to API keys.
    * @since 1.6
    */
-  List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys)
-      throws FacebookException;
+  List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys);
 
   /**
    * Represents an access token/expiration date pair.
