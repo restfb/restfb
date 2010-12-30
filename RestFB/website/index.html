@@ -414,7 +414,7 @@ out.println("Published event ID: " + publishEventResponse.getId());</pre>
 				
 		<div class="spacer"></div>
 		
-		<h3>Publishing a Photo (see <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>)</h3>
+		<h3>Publishing a Photo (see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/">Graph API documentation</a>)</h3>
 			
 <pre class="prettyprint">// Publishing an image to a photo album is easy!
 // Just specify the image you'd like to upload and RestFB will handle it from there.
@@ -426,11 +426,11 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());</pre>
 				
 		<div class="spacer"></div>	
 		
-		<h3>Publishing a Checkin (see <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>)</h3>
+		<h3>Publishing a Checkin (see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/checkin">Graph API documentation</a>)</h3>
 			
-<pre class="prettyprint">Map&lt;String, Float&gt; coordinates = new HashMap&lt;String, Float&gt;();
-coordinates.put("longitude", 37.06f);
-coordinates.put("latitude", -95.67f);
+<pre class="prettyprint">Map&lt;String, String&gt; coordinates = new HashMap&lt;String, String&gt;();
+coordinates.put("longitude", "37.06");
+coordinates.put("latitude", "-95.67");
 			
 FacebookType publishCheckinResponse = facebookClient.publish("me/checkins",
   FacebookType.class, Parameter.with("message", "I'm here!"),
