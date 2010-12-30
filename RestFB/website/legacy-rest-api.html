@@ -111,6 +111,32 @@ LegacyFacebookClient facebookClient = new DefaultLegacyFacebookClient(MY_ACCESS_
 Long uid = facebookClient.<a href="javadoc/com/restfb/LegacyFacebookClient.html#execute(java.lang.String,%20java.lang.Class,%20com.restfb.Parameter...)">execute</a>("users.getLoggedInUser", Long.class);</pre>
 
 		<div class="spacer"></div>
+		
+		<div class="warning-bubble">
+			<h3>Before we go further, a few words about logging...</h3>
+						
+			<div>
+				RestFB uses java.util.logging to emit information about the data that's sent over the wire to and from Facebook.
+				It's often very helpful to look at the logs so you can make sure that RestFB is sending the data as you expect it to
+				and that Facebook is returning the correct JSON.
+			</div>	
+			
+			<div class="spacer"></div>
+			
+			<div>
+				Want to use <a target="_blank" href="http://logging.apache.org/log4j/1.2/">Log4j</a> instead of java.util.logging?  
+				No problem!  Just download the latest release of <a target="_blank" href="http://www.slf4j.org/">slf4j</a> and drop these two JARs onto your classpath and everything should just work:
+				
+				<div class="spacer"></div>
+								
+				<ul>
+					<li>slf4j-api-x.y.jar</li>
+					<li>slf4j-log4j12-x.y.jar</li>
+				</ul>							
+			</div>			
+		</div>			
+		
+		<div class="spacer"></div>		
 			
 		<h3>Making a More Complex Call</h3>
 		
