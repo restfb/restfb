@@ -156,8 +156,8 @@ out.println("Page fan count: " + page.getFanCount());</pre>
 			<h3>Before we go further, a few words about logging...</h3>
 						
 			<div>
-				RestFB uses java.util.logging to emit information about the data that's sent over the wire to and from Facebook.
-				It's often very helpful to look at the logs so you can make sure that RestFB is sending the data as you expect it to
+				RestFB uses java.util.logging to log the data that's sent over the wire to and from Facebook.
+				It's often helpful to look at the log output so you can make sure that RestFB is sending the data as you expect it to
 				and that Facebook is returning the correct JSON.
 			</div>	
 			
@@ -165,14 +165,18 @@ out.println("Page fan count: " + page.getFanCount());</pre>
 			
 			<div>
 				Want to use <a target="_blank" href="http://logging.apache.org/log4j/1.2/">Log4j</a> instead of java.util.logging?  
-				No problem!  Just download the latest release of <a target="_blank" href="http://www.slf4j.org/">slf4j</a> and drop these two JARs onto your classpath and everything should just work:
+				No problem!  Just download the latest release of <a target="_blank" href="http://www.slf4j.org/">SLF4J</a> and drop these two JARs onto your classpath and everything should just work:
 				
 				<div class="spacer"></div>
 								
 				<ul>
 					<li>slf4j-api-x.y.jar</li>
 					<li>slf4j-log4j12-x.y.jar</li>
-				</ul>							
+				</ul>						
+				
+				<div class="spacer"></div>
+				
+				If you're curious about how this works, <a href="http://http://slf4j.org/legacy.html">here's more information about SLF4J bridging.</a>	
 			</div>			
 		</div>			
 		
