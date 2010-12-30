@@ -378,6 +378,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys)
       throws FacebookException {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("secretKey", secretKey);
+
     if (sessionKeys == null || sessionKeys.length == 0)
       return emptyList();
 
