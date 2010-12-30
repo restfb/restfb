@@ -61,7 +61,7 @@ public final class Parameter {
    *           If {@code name} is {@code null} or a blank string or either
    *           {@code value} or {@code jsonMapper} is {@code null}.
    */
-  private Parameter(String name, Object value, JsonMapper jsonMapper) throws FacebookJsonMappingException {
+  private Parameter(String name, Object value, JsonMapper jsonMapper) {
     if (isBlank(name) || value == null)
       throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value.");
 
@@ -102,7 +102,7 @@ public final class Parameter {
    * @throws FacebookJsonMappingException
    *           If an error occurs when converting {@code value} to JSON.
    */
-  public static Parameter with(String name, Object value) throws FacebookJsonMappingException {
+  public static Parameter with(String name, Object value) {
     return Parameter.with(name, value, new DefaultJsonMapper());
   }
 
@@ -132,7 +132,7 @@ public final class Parameter {
    * @throws FacebookJsonMappingException
    *           If an error occurs when converting {@code value} to JSON.
    */
-  public static Parameter with(String name, Object value, JsonMapper jsonMapper) throws FacebookJsonMappingException {
+  public static Parameter with(String name, Object value, JsonMapper jsonMapper) {
     return new Parameter(name, value, jsonMapper);
   }
 

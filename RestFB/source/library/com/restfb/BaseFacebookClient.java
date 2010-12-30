@@ -93,8 +93,7 @@ abstract class BaseFacebookClient {
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    */
-  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json)
-      throws FacebookResponseStatusException, FacebookJsonMappingException {
+  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json) {
     try {
       // If this is not an object, it's not an error response.
       if (!json.startsWith("{"))

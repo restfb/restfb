@@ -55,7 +55,7 @@ public interface JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
    */
-  <T> T toJavaObject(String json, Class<T> type) throws FacebookJsonMappingException;
+  <T> T toJavaObject(String json, Class<T> type);
 
   /**
    * Given a JSON string, create and return a new instance of a corresponding
@@ -74,7 +74,7 @@ public interface JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
    */
-  <T> List<T> toJavaList(String json, Class<T> type) throws FacebookJsonMappingException;
+  <T> List<T> toJavaList(String json, Class<T> type);
 
   /**
    * Given a Java {@code object}, create and return a JSON string that
@@ -91,5 +91,5 @@ public interface JsonMapper {
    *           If an error occurs while mapping Java to JSON.
    * @since 1.4
    */
-  String toJson(Object object) throws FacebookJsonMappingException;
+  String toJson(Object object);
 }

@@ -33,8 +33,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.restfb.exception.FacebookJsonMappingException;
-
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the
  * "convert Java to JSON" functionality.
@@ -46,7 +44,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle null?
    */
   @Test
-  public void nullObject() throws FacebookJsonMappingException {
+  public void nullObject() {
     String json = createJsonMapper().toJson(null);
     Assert.assertTrue("null".equals(json));
   }
@@ -55,7 +53,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle the empty list?
    */
   @Test
-  public void emptyList() throws FacebookJsonMappingException {
+  public void emptyList() {
     String json = createJsonMapper().toJson(new ArrayList<Object>());
     Assert.assertTrue("[]".equals(json));
   }
@@ -64,7 +62,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle the empty object?
    */
   @Test
-  public void emptyObject() throws FacebookJsonMappingException {
+  public void emptyObject() {
     String json = createJsonMapper().toJson(new Object());
     Assert.assertTrue("{}".equals(json));
   }
@@ -73,7 +71,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle primitives?
    */
   @Test
-  public void primitives() throws FacebookJsonMappingException {
+  public void primitives() {
     // Close your eyes and pretend that string is a primitive here
     Assert.assertTrue("Testing".equals(createJsonMapper().toJson("Testing")));
     Assert.assertTrue("true".equals(createJsonMapper().toJson(true)));
@@ -89,7 +87,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle a basic Javabean?
    */
   @Test
-  public void basicJavabean() throws FacebookJsonMappingException {
+  public void basicJavabean() {
     BasicUser basicUser = new BasicUser();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
@@ -101,7 +99,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle a more complex Javabean?
    */
   @Test
-  public void complexJavabean() throws FacebookJsonMappingException {
+  public void complexJavabean() {
     UserWithPhotos userWithPhotos = new UserWithPhotos();
     userWithPhotos.uid = 12345L;
     userWithPhotos.name = null;
@@ -125,7 +123,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * See http://wiki.developers.facebook.com/index.php/Attachment_(Streams).
    */
   @Test
-  public void streamPublish() throws FacebookJsonMappingException {
+  public void streamPublish() {
     ActionLink category = new ActionLink();
     category.href = "http://bit.ly/KYbaN";
     category.text = "humor";
@@ -161,7 +159,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle an empty Map?
    */
   @Test
-  public void emptyMap() throws FacebookJsonMappingException {
+  public void emptyMap() {
     Assert.assertTrue("{}".equals(createJsonMapper().toJson(new HashMap<String, Object>())));
   }
 
@@ -169,7 +167,7 @@ public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
    * Can we handle a Map?
    */
   @Test
-  public void map() throws FacebookJsonMappingException {
+  public void map() {
     UserWithPhotos basicUser = new UserWithPhotos();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";

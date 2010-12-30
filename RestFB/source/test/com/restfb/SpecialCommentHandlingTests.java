@@ -26,7 +26,6 @@ import static junit.framework.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.types.Post;
 
 /**
@@ -42,7 +41,7 @@ public class SpecialCommentHandlingTests extends AbstractJsonMapperTests {
    * Can we handle comments that are empty arrays?
    */
   @Test
-  public void emptyArrayTest() throws FacebookJsonMappingException {
+  public void emptyArrayTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-empty-comments"), Post.class);
     assertTrue(post.getComments().getCount() == 0);
     assertTrue(post.getComments().getData().size() == 0);
@@ -52,7 +51,7 @@ public class SpecialCommentHandlingTests extends AbstractJsonMapperTests {
    * Can we handle comments that are objects with only a count and no data?
    */
   @Test
-  public void onlyCountTest() throws FacebookJsonMappingException {
+  public void onlyCountTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-comment-count-only"), Post.class);
     assertTrue(post.getComments().getCount() == 3);
   }
@@ -61,7 +60,7 @@ public class SpecialCommentHandlingTests extends AbstractJsonMapperTests {
    * Can we handle comments that are objects with only a count and no data?
    */
   @Test
-  public void normalTest() throws FacebookJsonMappingException {
+  public void normalTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-normal-comments"), Post.class);
     assertTrue(post.getComments().getData().size() == 1);
   }

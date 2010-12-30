@@ -522,8 +522,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    */
-  protected void throwFacebookResponseStatusExceptionIfNecessary(String json) throws FacebookResponseStatusException,
-      FacebookGraphException, FacebookJsonMappingException {
+  protected void throwFacebookResponseStatusExceptionIfNecessary(String json) {
     // If we have a legacy exception, throw it.
     throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
 
@@ -585,7 +584,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws FacebookJsonMappingException
    *           If an error occurs when building the parameter string.
    */
-  protected String toParameterString(Parameter... parameters) throws FacebookJsonMappingException {
+  protected String toParameterString(Parameter... parameters) {
     if (!isBlank(accessToken))
       parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
 

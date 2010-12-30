@@ -68,7 +68,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
    */
   @Override
-  public <T> List<T> toJavaList(String json, Class<T> type) throws FacebookJsonMappingException {
+  public <T> List<T> toJavaList(String json, Class<T> type) {
     json = trimToEmpty(json);
 
     if (isBlank(json))
@@ -138,7 +138,7 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T> T toJavaObject(String json, Class<T> type) throws FacebookJsonMappingException {
+  public <T> T toJavaObject(String json, Class<T> type) {
     verifyThatJsonIsOfObjectType(json);
 
     try {
@@ -304,7 +304,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @see com.restfb.JsonMapper#toJson(java.lang.Object)
    */
   @Override
-  public String toJson(Object object) throws FacebookJsonMappingException {
+  public String toJson(Object object) {
     // Delegate to recursive method
     return toJsonInternal(object).toString();
   }
@@ -317,7 +317,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @throws FacebookJsonMappingException
    *           If {@code json} is not a valid JSON object.
    */
-  protected void verifyThatJsonIsOfObjectType(String json) throws FacebookJsonMappingException {
+  protected void verifyThatJsonIsOfObjectType(String json) {
     if (isBlank(json))
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
 
@@ -337,7 +337,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while marshaling to JSON.
    */
-  protected Object toJsonInternal(Object object) throws FacebookJsonMappingException {
+  protected Object toJsonInternal(Object object) {
     if (object == null)
       return NULL;
 
@@ -423,7 +423,7 @@ public class DefaultJsonMapper implements JsonMapper {
    *           If an error occurs while mapping JSON to Java.
    */
   @SuppressWarnings("unchecked")
-  protected <T> T toPrimitiveJavaType(String json, Class<T> type) throws FacebookJsonMappingException {
+  protected <T> T toPrimitiveJavaType(String json, Class<T> type) {
 
     if (String.class.equals(type)) {
       // If the string starts and ends with quotes, remove them, since Facebook
@@ -558,7 +558,7 @@ public class DefaultJsonMapper implements JsonMapper {
    *           If an error occurs when creating a new instance ({@code type} is
    *           inaccessible, doesn't have a public no-arg constructor, etc.)
    */
-  protected <T> T createInstance(Class<T> type) throws FacebookJsonMappingException {
+  protected <T> T createInstance(Class<T> type) {
     String errorMessage =
         "Unable to create an instance of " + type + ". Please make sure that it's marked 'public' "
             + "and, if it's a nested class, is marked 'static'. " + "It should have a public, no-argument constructor.";
