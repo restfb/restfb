@@ -84,6 +84,7 @@ public class GraphReaderExample {
     fetchObjects();
     fetchObjectsAsJsonObject();
     fetchConnections();
+    fetchDifferentDataTypesAsJsonObject();
     query();
     multiquery();
     search();
@@ -131,6 +132,21 @@ public class GraphReaderExample {
 
     out.println("User name: " + fetchObjectsResults.me.getName());
     out.println("Page fan count: " + fetchObjectsResults.page.getFanCount());
+  }
+
+  void fetchDifferentDataTypesAsJsonObject() throws JsonException {
+    out.println("* Fetching different types of data as JsonObject *");
+
+    JsonObject btaylor = facebookClient.fetchObject("btaylor", JsonObject.class);
+    out.println(btaylor.getString("name"));
+
+    JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject.class);
+    String firstPhotoUrl = photosConnection.getJsonArray("data").getJsonObject(0).getString("source");
+    out.println(firstPhotoUrl);
+
+    String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
+    List<JsonObject> queryResults = facebookClient.executeQuery(query, JsonObject.class);
+    out.println(queryResults.get(0).getString("name"));
   }
 
   /**
