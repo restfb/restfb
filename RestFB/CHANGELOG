@@ -1,18 +1,23 @@
-1.6
+1.6 (December 29, 2010)
 
 * Now use java.util.logging instead of Log4j - RestFB now has 0 dependencies.
 * FacebookException now extends RuntimeException - you no longer have to catch it if you don't want to.
+  Thanks to Jeff Schnitzer.
+* Removed "contains" attribute on @Facebook annotation since it is no longer necessary.
+  Thanks to Igor Kabiljo for the initial patch.
 * Exposed and cleaned up previously-internal RestFB's repackaged JSON.org code in the new com.restfb.json package.
 * You may now tell JsonMapper to map to JsonObject, which permits you to have total control over result mapping at run time
   (as opposed to the compile-time-only @Facebook annotation).
 * JsonMapper now supports having a Facebook JSON field mapped to multiple @Facebook-annotated Java fields.
   This addresses the issue of Facebook returning the same field name but differently-structured data in certain situations.
   See issues 56 and 90 for details.
-  Thanks to Daniel Winterstein, Igor Kabiljo, Marcel Stör, Pramod Biligiri, and Tom Schindl for their input.
+  Thanks to Daniel Winterstein, Igor Kabiljo, Marcel Stoer, Pramod Biligiri, and Tom Schindl for their input.
 * Exposed and cleaned up previously-internal RestFB utilities in the new com.restfb.util package. 
 * Added new exception package com.restfb.exception and exception types
   (FacebookOAuthException, FacebookQueryParseException) for simple handling of common Graph API exception types.
-* Added formal support for Connection paging by URL via FacebookClient.fetchConnectionPage() and the new Connection.getPreviousPageUrl()/getNextPageUrl().  No more manual offset calculation required.  Example:
+  Thanks to Jeff Schnitzer.
+* Added formal support for Connection paging by URL via FacebookClient.fetchConnectionPage() and the new Connection.getPreviousPageUrl()/getNextPageUrl().
+  No more manual offset calculation required.  Example:
   
   Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
 
@@ -22,11 +27,26 @@
   }
   
   Thanks to Jakub Danilewicz.
-
+* Added FacebookClient.convertSessionKeysToAccessTokens() method.
+  Thanks to Scott Hernandez and raibaz. 
 * Fixed issue where User.birthday causes mapping to fail if "show only month & date" is set on FB.
   Thanks to Kalle Korhonen.
 * Old REST API now always uses the HTTPS endpoint.
-  Thanks to Christopher Östlund.
+  Thanks to Christopher Oestlund.
+* Added embed_html, picture, icon, comments to Video type.
+  Thanks to Fahd Akbar and Chris Pruett.
+* Added Account type to support impersonation feature.
+  Thanks to jovanovich.
+* Fixed error-handling issues: 1) where HTTP 400 error code would throw an incorrect exception and 2) where error response JSON would not get
+  correctly read in this and other error situations.
+	Thanks to Igor Kabiljo, ovonick, and everyone else who reported this.
+* Performance enhancement: ReflectionUtils now caches @Facebook field information so we never have to reflect more than once.
+  Thanks to Igor Kabiljo for the patch.
+* Added Checkin type.
+  Thanks to everyone else who requested this and Colin Britton for the checkin code snippet.
+* Added StatusMessage type.
+* Added middle_name field to User type.
+  Thanks to Fehmican Saglam.
 
 1.5.4 (September 16, 2010)
 * Post comment type now handles case where FB returns an empty array instead of an object type.
