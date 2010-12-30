@@ -425,8 +425,8 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());</pre>
 		<h3>Publishing a Checkin (see <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>)</h3>
 			
 <pre class="prettyprint">Map&lt;String, Float&gt; coordinates = new HashMap&lt;String, Float&gt;();
-coordinates.put("longitude", 12.34f);
-coordinates.put("latitude", 56.78f);
+coordinates.put("longitude", 37.06f);
+coordinates.put("latitude", -95.67f);
 			
 FacebookType publishCheckinResponse = facebookClient.publish("me/checkins",
   FacebookType.class, Parameter.with("message", "I'm here!"),
