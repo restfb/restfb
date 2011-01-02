@@ -3,10 +3,10 @@
 	<groupId>com.restfb</groupId>
 	<artifactId>restfb-project</artifactId>
 	<version>1.6.1-SNAPSHOT</version>
-	<name>Rest Facebook Project (RestFB) for Java</name>
+	<name>RestFB</name>
 	<packaging>pom</packaging>
 	<url>http://restfb.com</url>
-	<inceptionYear>2009</inceptionYear>
+	<inceptionYear>2010</inceptionYear>
 	
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -48,18 +48,16 @@
 		<url>http://code.google.com/p/restfb/issues</url>
 	</issueManagement>
 	
-	
 	<developers>
 		<developer>
 			<id>mark.a.allen</id>
 			<name>Mark Allen</name>
-			<!--<email>N/A</email>-->
-			<!--<url>N/A</url>-->
-			<!--<organization>N/A</organization>-->
-			<!--organizationUrl/-->
-			<!--roles/-->
-			<!--<timezone>-5</timezone>-->
-			<!--properties/-->
+			<email>mark.a.allen@gmail.com</email>
+			<url>http://restfb.com</url>
+			<roles>
+				<role>Project Lead</role>
+			</roles>
+			<timezone>-5</timezone>
 		</developer>
 
 		<developer>

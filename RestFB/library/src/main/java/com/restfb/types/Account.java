@@ -32,7 +32,7 @@ import com.restfb.Facebook;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Account extends CategorizedFacebookType {
-  @Facebook
+  @Facebook("access_token")
   private String accessToken;
 
   /**

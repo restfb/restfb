@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.restfb</groupId>
 	<artifactId>restfb</artifactId>
-	<name>RestFB API</name>
+	<name>RestFB library</name>
 	<parent>
 		<groupId>com.restfb</groupId>
 		<artifactId>restfb-project</artifactId>

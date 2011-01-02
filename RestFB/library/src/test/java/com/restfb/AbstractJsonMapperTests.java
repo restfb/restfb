@@ -36,7 +36,7 @@ public abstract class AbstractJsonMapperTests {
 
   protected String jsonFromClasspath(String pathToJson) {
     try {
-      return fromInputStream(ClasspathWebRequestor.class.getResourceAsStream("/json/" + pathToJson + ".json"));
+      return fromInputStream(getClass().getResourceAsStream("/json/" + pathToJson + ".json"));
     } catch (IOException e) {
       throw new IllegalStateException("Unable to load JSON from the classpath", e);
     }
