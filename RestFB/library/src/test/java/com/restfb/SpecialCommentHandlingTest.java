@@ -36,7 +36,7 @@ import com.restfb.types.Post;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5.4
  */
-public class SpecialCommentHandlingTests extends AbstractJsonMapperTests {
+public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   /**
    * Can we handle comments that are empty arrays?
    */

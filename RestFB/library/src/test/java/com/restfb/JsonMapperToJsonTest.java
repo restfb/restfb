@@ -39,7 +39,7 @@ import org.junit.Test;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class JsonMapperToJsonTests extends AbstractJsonMapperTests {
+public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   /**
    * Can we handle null?
    */

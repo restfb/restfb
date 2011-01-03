@@ -40,7 +40,7 @@ import com.restfb.types.User;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class JsonMapperToJavaTests extends AbstractJsonMapperTests {
+public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   /**
    * Can we handle the empty list?
    */
