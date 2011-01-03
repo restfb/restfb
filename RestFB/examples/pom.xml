@@ -3,12 +3,8 @@
 	<groupId>com.restfb</groupId>
 	<artifactId>restfb-examples</artifactId>
 	<name>RestFB examples</name>
-	<parent>
-		<groupId>com.restfb</groupId>
-		<artifactId>restfb-project</artifactId>
-		<version>1.6.1-SNAPSHOT</version>
-	</parent>
-	
+	<version>1.6.1-SNAPSHOT</version>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -26,10 +22,11 @@
 		<dependency>
 			<groupId>com.restfb</groupId>
 			<artifactId>restfb</artifactId>
+			<version>1.6.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-	
-	<!-- run as "mvn -P reader-examples -D<access_token> test" or "mvn -P publisher-examples -D<access_token> test -->
+
+	<!-- run as "mvn -P reader-examples -Daccess_token=test" or "mvn -P publisher-examples -Daccess_token=test -->
 	<profiles>
 		<profile>
 			<id>reader-examples</id>
@@ -83,5 +80,31 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>legacy-examples</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2</version>
+						<executions>
+							<execution>
+								<phase>test</phase>
+								<goals>
+									<goal>java</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<mainClass>com.restfb.example.LegacyExample</mainClass>
+							<arguments>
+								<argument>${access_token}</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>		
 	</profiles>
 </project>

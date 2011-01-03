@@ -29,7 +29,7 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6 (released December 30, 2010) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
+			Version 1.6.1 (released January X, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
 			<br/>
 			<a target="_blank" href="http://restfb.googlecode.com/svn/branches/RB-1.6/RestFB/CHANGELOG">View the changelog</a>, 
 			or <a target="_blank" href="http://code.google.com/p/restfb/downloads/detail?name=restfb-1.6.zip">download it here</a>.
@@ -515,12 +515,13 @@ out.println("OAuth token for sessionKey1: " + accessTokens.get(0).getAccessToken
 		<h2>Running The Examples</h2>
 		
 		<p>
-			RestFB comes with a few example Java source files that you can run and tweak yourself.  Don't forget to put<br/><code>-Daccess_token=MY_ACCESS_TOKEN</code> in quotes!</code>
+			RestFB comes with a few example Java source files that you can run and tweak yourself.  Don't forget to put your access token in quotes!
 		</p>
 		
-<pre>$ cd source/examples
-$ ant run-reader-examples "-Daccess_token=MY_ACCESS_TOKEN"
-$ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>		
+<pre>$ cd examples
+$ mvn -P reader-examples -Daccess_token="MY_ACCESS_TOKEN" test
+$ mvn -P publisher-examples -Daccess_token="MY_ACCESS_TOKEN" test
+$ mvn -P legacy-examples -Daccess_token="MY_ACCESS_TOKEN" test</pre>		
 		
 		<div class="spacer"></div>				
 		

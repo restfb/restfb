@@ -1,8 +1,8 @@
-You can run the examples like this:
+You can run the examples like this (remember to put your access token in quotes!):
 
-$ ant run-reader-examples "-Daccess_token=MY_ACCESS_TOKEN"
-$ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"
-$ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"
+$ mvn -P reader-examples -Daccess_token="MY_ACCESS_TOKEN" test
+$ mvn -P publisher-examples -Daccess_token="MY_ACCESS_TOKEN" test
+$ mvn -P legacy-examples -Daccess_token="MY_ACCESS_TOKEN" test
 
 Instructions for getting an OAuth access token are available on http://restfb.com.
-Apache Ant (http://ant.apache.org) must be installed to run the examples.
+Apache Maven (http://maven.apache.org) must be installed to run the examples.

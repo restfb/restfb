@@ -1,7 +1,7 @@
 RestFB is a pure Java Facebook Graph API and Old REST API client.
 
 See http://restfb.com for complete documentation.
-Example code is available in the "source/examples" directory.
+Example code is available in the "examples" directory.
 
 RestFB uses other open-source software - see the "licensing" directory. 
 RestFB itself is open source software released under the terms of the MIT License:
