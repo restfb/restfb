@@ -58,10 +58,6 @@
   </moduleSets>
 	<fileSets>
     <fileSet>
-      <directory>src/main/resources/misc</directory>
-      <outputDirectory>misc</outputDirectory>
-    </fileSet>
-    <fileSet>
       <directory>src/main/resources/licensing</directory>
       <outputDirectory>licensing</outputDirectory>
     </fileSet>
