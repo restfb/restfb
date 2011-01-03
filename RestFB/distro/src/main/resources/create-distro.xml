@@ -45,12 +45,16 @@
         <include>*:restfb-examples</include>
       </includes>
 			<sources>
-				<!--
 				<includeModuleDirectory>false</includeModuleDirectory>
-				-->
+				<!-- configuration matches with descriptor-ref "project" -->
         <fileSets>
           <fileSet>
-            <directory>src/main/java</directory>
+						<outputDirectory>examples</outputDirectory>
+						<useDefaultExcludes>true</useDefaultExcludes>
+						<excludes>
+							<exclude>**/*.log</exclude>
+							<exclude>**/${project.build.directory}/**</exclude>
+						</excludes>
           </fileSet>
         </fileSets>
 			</sources>
