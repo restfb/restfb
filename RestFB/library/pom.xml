@@ -18,4 +18,31 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+<!-- Unfortunately, you cannot override the stylesheet just by providing a custom stylesheet file with the default name,
+so need to configure the javadoc plugin. The default configuration is in oss-parent -->
+	<profiles>
+		<profile>
+			<id>sonatype-oss-release</id>
+			<build>
+				<plugins>
+					<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<stylesheetfile>src/main/javadoc/resources/javadoc.css</stylesheetfile>
+					</configuration>
+					<executions>
+						<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						</execution>
+					</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
