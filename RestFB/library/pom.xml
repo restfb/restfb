@@ -30,7 +30,7 @@ so need to configure the javadoc plugin. The default configuration is in oss-par
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<configuration>
-						<stylesheetfile>src/main/javadoc/resources/javadoc.css</stylesheetfile>
+						<stylesheetfile>javadoc.css</stylesheetfile>
 					</configuration>
 					<executions>
 						<execution>
