@@ -18,28 +18,71 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Unfortunately, you cannot override the stylesheet just by providing a custom stylesheet file with the default name,
+				so need to configure the javadoc plugin. The default configuration is in oss-parent -->
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<stylesheetfile>javadoc.css</stylesheetfile>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>	
 
-<!-- Unfortunately, you cannot override the stylesheet just by providing a custom stylesheet file with the default name,
-so need to configure the javadoc plugin. The default configuration is in oss-parent -->
 	<profiles>
 		<profile>
 			<id>sonatype-oss-release</id>
 			<build>
 				<plugins>
 					<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<configuration>
-						<stylesheetfile>javadoc.css</stylesheetfile>
-					</configuration>
-					<executions>
-						<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-						</execution>
-					</executions>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+							<id>javadoc</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- Same as sonatype-oss-release, but doesn't force you to sign -->
+			<id>distro</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.1.2</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
