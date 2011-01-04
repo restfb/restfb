@@ -3,7 +3,7 @@
 	<formats>
 		<format>zip</format>
 	</formats>
-	<includeBaseDirectory>false</includeBaseDirectory>
+	<includeBaseDirectory>true</includeBaseDirectory>
 	<moduleSets>
     <moduleSet>
 			<useAllReactorProjects>true</useAllReactorProjects>
