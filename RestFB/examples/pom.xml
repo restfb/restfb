@@ -4,6 +4,12 @@
 	<artifactId>restfb-examples</artifactId>
 	<name>RestFB examples</name>
 	<version>1.6.1-SNAPSHOT</version>
+	<!-- Don't use the resfb-project as parent since this module is packaged to the distro and should separately runnable -->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>5</version>
+	</parent>
 
 	<build>
 		<plugins>
