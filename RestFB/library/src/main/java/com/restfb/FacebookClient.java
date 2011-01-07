@@ -57,7 +57,7 @@ import com.restfb.util.ReflectionUtils;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Scott Hernandez
- * @author raibaz
+ * @author Mattia Tommasone
  */
 public interface FacebookClient {
   /**

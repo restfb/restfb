@@ -1,3 +1,15 @@
+1.6.1 (January X, 2011)
+
+* We're now fully Mavenized.
+  Many thanks to Kalle Korhonen.
+* JsonException is now unchecked.
+* Fix for start and end date handling on the Event type.
+  Thanks to Jason Peltzer.
+* @Facebook annotation on accessToken on Account type is now correctly mapped to "access_token".
+  Thanks to Scott Aaron.
+* Added the "category" field to the Place type.
+  Thanks to Mattia Tommasone.
+
 1.6 (December 30, 2010)
 
 * Now use java.util.logging instead of Log4j - RestFB now has 0 dependencies.
@@ -28,7 +40,7 @@
   
   Thanks to Jakub Danilewicz.
 * Added FacebookClient.convertSessionKeysToAccessTokens() method.
-  Thanks to Scott Hernandez and raibaz. 
+  Thanks to Scott Hernandez and Mattia Tommasone. 
 * Fixed issue where User.birthday causes mapping to fail if "show only month & date" is set on FB.
   Thanks to Kalle Korhonen.
 * Old REST API now always uses the HTTPS endpoint.
