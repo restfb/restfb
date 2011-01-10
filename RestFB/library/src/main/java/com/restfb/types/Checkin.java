@@ -67,7 +67,7 @@ public class Checkin extends FacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
    */
-  public static class Place extends NamedFacebookType {
+  public static class Place extends CategorizedFacebookType {
     @Facebook
     private Location location;
 
@@ -81,10 +81,10 @@ public class Checkin extends FacebookType {
      */
     public static class Location {
       @Facebook
-      private Float latitude;
+      private Double latitude;
 
       @Facebook
-      private Float longitude;
+      private Double longitude;
 
       /**
        * @see java.lang.Object#hashCode()
@@ -115,7 +115,7 @@ public class Checkin extends FacebookType {
        * 
        * @return The latitude of the check-in.
        */
-      public Float getLatitude() {
+      public Double getLatitude() {
         return latitude;
       }
 
@@ -124,7 +124,7 @@ public class Checkin extends FacebookType {
        * 
        * @return The longitude of the check-in.
        */
-      public Float getLongitude() {
+      public Double getLongitude() {
         return longitude;
       }
     }
