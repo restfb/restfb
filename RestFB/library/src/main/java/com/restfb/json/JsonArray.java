@@ -101,7 +101,7 @@ public class JsonArray {
    * @throws JsonException
    *           If there is a syntax error.
    */
-  public JsonArray(JsonTokener x) throws JsonException {
+  public JsonArray(JsonTokener x) {
     this();
     char c = x.nextClean();
     char q;
@@ -155,7 +155,7 @@ public class JsonArray {
    * @throws JsonException
    *           If there is a syntax error.
    */
-  public JsonArray(String source) throws JsonException {
+  public JsonArray(String source) {
     this(new JsonTokener(source));
   }
 
@@ -201,7 +201,7 @@ public class JsonArray {
    * @throws JsonException
    *           If not an array.
    */
-  public JsonArray(Object array) throws JsonException {
+  public JsonArray(Object array) {
     this();
     if (array.getClass().isArray()) {
       int length = Array.getLength(array);
@@ -220,7 +220,7 @@ public class JsonArray {
    * @throws JsonException
    *           If not an array.
    */
-  public JsonArray(Object array, boolean includeSuperClass) throws JsonException {
+  public JsonArray(Object array, boolean includeSuperClass) {
     this();
     if (array.getClass().isArray()) {
       int length = Array.getLength(array);
@@ -246,7 +246,7 @@ public class JsonArray {
    * @throws JsonException
    *           If there is no value for the index.
    */
-  public Object get(int index) throws JsonException {
+  public Object get(int index) {
     Object o = opt(index);
     if (o == null) {
       throw new JsonException("JsonArray[" + index + "] not found.");
@@ -265,7 +265,7 @@ public class JsonArray {
    *           If there is no value for the index or if the value is not
    *           convertable to boolean.
    */
-  public boolean getBoolean(int index) throws JsonException {
+  public boolean getBoolean(int index) {
     Object o = get(index);
     if (o.equals(Boolean.FALSE) || (o instanceof String && ((String) o).equalsIgnoreCase("false"))) {
       return false;
@@ -285,7 +285,7 @@ public class JsonArray {
    *           If the key is not found or if the value cannot be converted to a
    *           number.
    */
-  public double getDouble(int index) throws JsonException {
+  public double getDouble(int index) {
     Object o = get(index);
     try {
       return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();
@@ -304,7 +304,7 @@ public class JsonArray {
    *           If the key is not found or if the value cannot be converted to a
    *           number. if the value cannot be converted to a number.
    */
-  public int getInt(int index) throws JsonException {
+  public int getInt(int index) {
     Object o = get(index);
     return o instanceof Number ? ((Number) o).intValue() : (int) getDouble(index);
   }
@@ -319,7 +319,7 @@ public class JsonArray {
    *           If there is no value for the index. or if the value is not a
    *           JsonArray
    */
-  public JsonArray getJsonArray(int index) throws JsonException {
+  public JsonArray getJsonArray(int index) {
     Object o = get(index);
     if (o instanceof JsonArray) {
       return (JsonArray) o;
@@ -337,7 +337,7 @@ public class JsonArray {
    *           If there is no value for the index or if the value is not a
    *           JsonObject
    */
-  public JsonObject getJsonObject(int index) throws JsonException {
+  public JsonObject getJsonObject(int index) {
     Object o = get(index);
     if (o instanceof JsonObject) {
       return (JsonObject) o;
@@ -355,7 +355,7 @@ public class JsonArray {
    *           If the key is not found or if the value cannot be converted to a
    *           number.
    */
-  public long getLong(int index) throws JsonException {
+  public long getLong(int index) {
     Object o = get(index);
     return o instanceof Number ? ((Number) o).longValue() : (long) getDouble(index);
   }
@@ -369,7 +369,7 @@ public class JsonArray {
    * @throws JsonException
    *           If there is no value for the index.
    */
-  public String getString(int index) throws JsonException {
+  public String getString(int index) {
     return get(index).toString();
   }
 
@@ -395,7 +395,7 @@ public class JsonArray {
    * @throws JsonException
    *           If the array contains an invalid number.
    */
-  public String join(String separator) throws JsonException {
+  public String join(String separator) {
     int len = length();
     StringBuilder sb = new StringBuilder();
 
@@ -645,7 +645,7 @@ public class JsonArray {
    *           if the value is not finite.
    * @return this.
    */
-  public JsonArray put(double value) throws JsonException {
+  public JsonArray put(double value) {
     Double d = new Double(value);
     JsonObject.testValidity(d);
     put(d);
@@ -716,7 +716,7 @@ public class JsonArray {
    * @throws JsonException
    *           If the index is negative.
    */
-  public JsonArray put(int index, boolean value) throws JsonException {
+  public JsonArray put(int index, boolean value) {
     put(index, value ? Boolean.TRUE : Boolean.FALSE);
     return this;
   }
@@ -733,7 +733,7 @@ public class JsonArray {
    * @throws JsonException
    *           If the index is negative or if the value is not finite.
    */
-  public JsonArray put(int index, Collection<?> value) throws JsonException {
+  public JsonArray put(int index, Collection<?> value) {
     put(index, new JsonArray(value));
     return this;
   }
@@ -750,7 +750,7 @@ public class JsonArray {
    * @throws JsonException
    *           If the index is negative or if the value is not finite.
    */
-  public JsonArray put(int index, double value) throws JsonException {
+  public JsonArray put(int index, double value) {
     put(index, new Double(value));
     return this;
   }
@@ -767,7 +767,7 @@ public class JsonArray {
    * @throws JsonException
    *           If the index is negative.
    */
-  public JsonArray put(int index, int value) throws JsonException {
+  public JsonArray put(int index, int value) {
     put(index, new Integer(value));
     return this;
   }
@@ -784,7 +784,7 @@ public class JsonArray {
    * @throws JsonException
    *           If the index is negative.
    */
-  public JsonArray put(int index, long value) throws JsonException {
+  public JsonArray put(int index, long value) {
     put(index, new Long(value));
     return this;
   }
@@ -802,7 +802,7 @@ public class JsonArray {
    *           If the index is negative or if the the value is an invalid
    *           number.
    */
-  public JsonArray put(int index, Map<?, ?> value) throws JsonException {
+  public JsonArray put(int index, Map<?, ?> value) {
     put(index, new JsonObject(value));
     return this;
   }
@@ -823,7 +823,7 @@ public class JsonArray {
    *           If the index is negative or if the the value is an invalid
    *           number.
    */
-  public JsonArray put(int index, Object value) throws JsonException {
+  public JsonArray put(int index, Object value) {
     JsonObject.testValidity(value);
     if (index < 0) {
       throw new JsonException("JsonArray[" + index + "] not found.");
@@ -865,7 +865,7 @@ public class JsonArray {
    * @throws JsonException
    *           If any of the names are null.
    */
-  public JsonObject toJsonObject(JsonArray names) throws JsonException {
+  public JsonObject toJsonObject(JsonArray names) {
     if (names == null || names.length() == 0 || length() == 0) {
       return null;
     }
@@ -907,7 +907,7 @@ public class JsonArray {
    *         bracket)</small>.
    * @throws JsonException
    */
-  public String toString(int indentFactor) throws JsonException {
+  public String toString(int indentFactor) {
     return toString(indentFactor, 0);
   }
 
@@ -923,7 +923,7 @@ public class JsonArray {
    *         array.
    * @throws JsonException
    */
-  String toString(int indentFactor, int indent) throws JsonException {
+  String toString(int indentFactor, int indent) {
     int len = length();
     if (len == 0) {
       return "[]";
@@ -962,7 +962,7 @@ public class JsonArray {
    * @return The writer.
    * @throws JsonException
    */
-  public Writer write(Writer writer) throws JsonException {
+  public Writer write(Writer writer) {
     try {
       boolean b = false;
       int len = length();

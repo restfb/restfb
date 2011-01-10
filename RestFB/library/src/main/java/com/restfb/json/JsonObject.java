@@ -163,7 +163,7 @@ public class JsonObject {
    * @exception JsonException
    *              If a value is a non-finite number or if a name is duplicated.
    */
-  public JsonObject(JsonObject jo, String[] names) throws JsonException {
+  public JsonObject(JsonObject jo, String[] names) {
     this();
     for (int i = 0; i < names.length; i += 1) {
       putOnce(names[i], jo.opt(names[i]));
@@ -179,7 +179,7 @@ public class JsonObject {
    *           If there is a syntax error in the source string or a duplicated
    *           key.
    */
-  public JsonObject(JsonTokener x) throws JsonException {
+  public JsonObject(JsonTokener x) {
     this();
     char c;
     String key;
@@ -423,7 +423,7 @@ public class JsonObject {
    *              If there is a syntax error in the source string or a
    *              duplicated key.
    */
-  public JsonObject(String source) throws JsonException {
+  public JsonObject(String source) {
     this(new JsonTokener(source));
   }
 
@@ -442,7 +442,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the value is an invalid number or if the key is null.
    */
-  public JsonObject accumulate(String key, Object value) throws JsonException {
+  public JsonObject accumulate(String key, Object value) {
     testValidity(value);
     Object o = opt(key);
     if (o == null) {
@@ -470,7 +470,7 @@ public class JsonObject {
    *           If the key is null or if the current value associated with the
    *           key is not a JsonArray.
    */
-  public JsonObject append(String key, Object value) throws JsonException {
+  public JsonObject append(String key, Object value) {
     testValidity(value);
     Object o = opt(key);
     if (o == null) {
@@ -519,7 +519,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the key is not found.
    */
-  public Object get(String key) throws JsonException {
+  public Object get(String key) {
     Object o = opt(key);
     if (o == null) {
       throw new JsonException("JsonObject[" + quote(key) + "] not found.");
@@ -536,7 +536,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the value is not a Boolean or the String "true" or "false".
    */
-  public boolean getBoolean(String key) throws JsonException {
+  public boolean getBoolean(String key) {
     Object o = get(key);
     if (o.equals(Boolean.FALSE) || (o instanceof String && ((String) o).equalsIgnoreCase("false"))) {
       return false;
@@ -556,7 +556,7 @@ public class JsonObject {
    *           if the key is not found or if the value is not a Number object
    *           and cannot be converted to a number.
    */
-  public double getDouble(String key) throws JsonException {
+  public double getDouble(String key) {
     Object o = get(key);
     try {
       return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();
@@ -576,7 +576,7 @@ public class JsonObject {
    *           if the key is not found or if the value cannot be converted to an
    *           integer.
    */
-  public int getInt(String key) throws JsonException {
+  public int getInt(String key) {
     Object o = get(key);
     return o instanceof Number ? ((Number) o).intValue() : (int) getDouble(key);
   }
@@ -590,7 +590,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the key is not found or if the value is not a JsonArray.
    */
-  public JsonArray getJsonArray(String key) throws JsonException {
+  public JsonArray getJsonArray(String key) {
     Object o = get(key);
     if (o instanceof JsonArray) {
       return (JsonArray) o;
@@ -607,7 +607,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the key is not found or if the value is not a JsonObject.
    */
-  public JsonObject getJsonObject(String key) throws JsonException {
+  public JsonObject getJsonObject(String key) {
     Object o = get(key);
     if (o instanceof JsonObject) {
       return (JsonObject) o;
@@ -626,7 +626,7 @@ public class JsonObject {
    *           if the key is not found or if the value cannot be converted to a
    *           long.
    */
-  public long getLong(String key) throws JsonException {
+  public long getLong(String key) {
     Object o = get(key);
     return o instanceof Number ? ((Number) o).longValue() : (long) getDouble(key);
   }
@@ -682,7 +682,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the key is not found.
    */
-  public String getString(String key) throws JsonException {
+  public String getString(String key) {
     return get(key).toString();
   }
 
@@ -753,7 +753,7 @@ public class JsonObject {
    * @throws JsonException
    *           If n is a non-finite number.
    */
-  static public String numberToString(Number n) throws JsonException {
+  static public String numberToString(Number n) {
     if (n == null) {
       throw new JsonException("Null pointer");
     }
@@ -826,7 +826,7 @@ public class JsonObject {
    * @return this.
    * @throws JsonException
    */
-  public JsonObject put(String key, Collection<?> value) throws JsonException {
+  public JsonObject put(String key, Collection<?> value) {
     put(key, new JsonArray(value));
     return this;
   }
@@ -993,7 +993,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the key is null.
    */
-  public JsonObject put(String key, boolean value) throws JsonException {
+  public JsonObject put(String key, boolean value) {
     put(key, value ? Boolean.TRUE : Boolean.FALSE);
     return this;
   }
@@ -1009,7 +1009,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the key is null or if the number is invalid.
    */
-  public JsonObject put(String key, double value) throws JsonException {
+  public JsonObject put(String key, double value) {
     put(key, new Double(value));
     return this;
   }
@@ -1025,7 +1025,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the key is null.
    */
-  public JsonObject put(String key, int value) throws JsonException {
+  public JsonObject put(String key, int value) {
     put(key, new Integer(value));
     return this;
   }
@@ -1041,7 +1041,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the key is null.
    */
-  public JsonObject put(String key, long value) throws JsonException {
+  public JsonObject put(String key, long value) {
     put(key, new Long(value));
     return this;
   }
@@ -1057,7 +1057,7 @@ public class JsonObject {
    * @return this.
    * @throws JsonException
    */
-  public JsonObject put(String key, Map<?, ?> value) throws JsonException {
+  public JsonObject put(String key, Map<?, ?> value) {
     put(key, new JsonObject(value));
     return this;
   }
@@ -1076,7 +1076,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the value is non-finite number or if the key is null.
    */
-  public JsonObject put(String key, Object value) throws JsonException {
+  public JsonObject put(String key, Object value) {
     if (key == null) {
       throw new JsonException("Null key.");
     }
@@ -1100,7 +1100,7 @@ public class JsonObject {
    * @throws JsonException
    *           if the key is a duplicate
    */
-  public JsonObject putOnce(String key, Object value) throws JsonException {
+  public JsonObject putOnce(String key, Object value) {
     if (key != null && value != null) {
       if (opt(key) != null) {
         throw new JsonException("Duplicate key \"" + key + "\"");
@@ -1124,7 +1124,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the value is a non-finite number.
    */
-  public JsonObject putOpt(String key, Object value) throws JsonException {
+  public JsonObject putOpt(String key, Object value) {
     if (key != null && value != null) {
       put(key, value);
     }
@@ -1292,7 +1292,7 @@ public class JsonObject {
    * @throws JsonException
    *           If o is a non-finite number.
    */
-  static void testValidity(Object o) throws JsonException {
+  static void testValidity(Object o) {
     if (o != null) {
       if (o instanceof Double) {
         if (((Double) o).isInfinite() || ((Double) o).isNaN()) {
@@ -1317,7 +1317,7 @@ public class JsonObject {
    * @throws JsonException
    *           If any of the values are non-finite numbers.
    */
-  public JsonArray toJsonArray(JsonArray names) throws JsonException {
+  public JsonArray toJsonArray(JsonArray names) {
     if (names == null || names.length() == 0) {
       return null;
     }
@@ -1375,7 +1375,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the object contains an invalid number.
    */
-  public String toString(int indentFactor) throws JsonException {
+  public String toString(int indentFactor) {
     return toString(indentFactor, 0);
   }
 
@@ -1395,7 +1395,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the object contains an invalid number.
    */
-  String toString(int indentFactor, int indent) throws JsonException {
+  String toString(int indentFactor, int indent) {
     int j;
     int n = length();
     if (n == 0) {
@@ -1460,7 +1460,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the value is or contains an invalid number.
    */
-  static String valueToString(Object value) throws JsonException {
+  static String valueToString(Object value) {
     if (value == null || value.equals(null)) {
       return "null";
     }
@@ -1512,7 +1512,7 @@ public class JsonObject {
    * @throws JsonException
    *           If the object contains an invalid number.
    */
-  static String valueToString(Object value, int indentFactor, int indent) throws JsonException {
+  static String valueToString(Object value, int indentFactor, int indent) {
     if (value == null || value.equals(null)) {
       return "null";
     }
@@ -1559,7 +1559,7 @@ public class JsonObject {
    * @return The writer.
    * @throws JsonException
    */
-  public Writer write(Writer writer) throws JsonException {
+  public Writer write(Writer writer) {
     try {
       boolean b = false;
       Iterator<?> keys = keys();

@@ -7,8 +7,10 @@
   Thanks to Jason Peltzer.
 * @Facebook annotation on accessToken on Account type is now correctly mapped to "access_token".
   Thanks to Scott Aaron.
-* Added the "category" field to the Place type.
+* Added the "category" field to the Checkin.Place type.
   Thanks to Mattia Tommasone.
+* Latitude and Longitude fields on Checkin.Place are now of type Double instead of Float,
+  thereby supporting the full precision of the data returned by FB instead of truncating to fit correctly in a Float.
 
 1.6 (December 30, 2010)
 

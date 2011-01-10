@@ -473,7 +473,7 @@ public class DefaultJsonMapper implements JsonMapper {
    *           If an error occurs while mapping JSON to Java.
    */
   protected Object toJavaType(FieldWithAnnotation<Facebook> fieldWithAnnotation, JsonObject jsonObject,
-      String facebookFieldName) throws JsonException, FacebookJsonMappingException {
+      String facebookFieldName) {
     Class<?> type = fieldWithAnnotation.getField().getType();
     Object rawValue = jsonObject.get(facebookFieldName);
 

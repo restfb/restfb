@@ -78,7 +78,7 @@ public final class DateUtils {
    * @return Java date representation of the given Facebook "long" {@code date}
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
-  public static Date toDateFromLongFormat(String date) throws IllegalArgumentException {
+  public static Date toDateFromLongFormat(String date) {
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
 
     if (parsedDate == null)
@@ -95,7 +95,7 @@ public final class DateUtils {
    * @return Java date representation of the given Facebook "short" {@code date}
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
-  public static Date toDateFromShortFormat(String date) throws IllegalArgumentException {
+  public static Date toDateFromShortFormat(String date) {
     return toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
   }
 
@@ -109,7 +109,7 @@ public final class DateUtils {
    *         {@code date} string or {@code null} if {@code date} is {@code null}
    *         or invalid.
    */
-  public static Date toDateFromMonthYearFormat(String date) throws IllegalArgumentException {
+  public static Date toDateFromMonthYearFormat(String date) {
     return toDateWithFormatString(date, FACEBOOK_MONTH_YEAR_DATE_FORMAT);
   }
 

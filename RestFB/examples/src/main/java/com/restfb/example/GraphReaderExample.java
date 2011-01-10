@@ -40,7 +40,6 @@ import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.JsonMapper;
 import com.restfb.Parameter;
-import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
@@ -64,10 +63,10 @@ public class GraphReaderExample {
    * 
    * @param args
    *          Command-line arguments.
-   * @throws Exception
-   *           If an error occurs while running the examples.
+   * @throws IllegalArgumentException
+   *           If no command-line arguments are provided.
    */
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     if (args.length == 0)
       throw new IllegalArgumentException("You must provide an OAuth access token parameter. "
           + "See README for more information.");
@@ -79,7 +78,7 @@ public class GraphReaderExample {
     facebookClient = new DefaultFacebookClient(accessToken);
   }
 
-  void runEverything() throws Exception {
+  void runEverything() {
     fetchObject();
     fetchObjects();
     fetchObjectsAsJsonObject();
@@ -105,7 +104,7 @@ public class GraphReaderExample {
     out.println("Page fan count: " + page.getFanCount());
   }
 
-  void fetchObjectsAsJsonObject() throws JsonException {
+  void fetchObjectsAsJsonObject() {
     out.println("* Fetching multiple objects at once as a JsonObject *");
 
     List<String> ids = new ArrayList<String>();
@@ -134,7 +133,7 @@ public class GraphReaderExample {
     out.println("Page fan count: " + fetchObjectsResults.page.getFanCount());
   }
 
-  void fetchDifferentDataTypesAsJsonObject() throws JsonException {
+  void fetchDifferentDataTypesAsJsonObject() {
     out.println("* Fetching different types of data as JsonObject *");
 
     JsonObject btaylor = facebookClient.fetchObject("btaylor", JsonObject.class);
