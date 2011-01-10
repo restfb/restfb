@@ -22,7 +22,7 @@
 
 package com.restfb.util;
 
-import static java.util.logging.Level.WARNING;
+import static java.util.logging.Level.FINE;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,6 +41,12 @@ public final class DateUtils {
    * {@code 2010-02-28T16:11:08+0000}
    */
   public static final String FACEBOOK_LONG_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
+
+  /**
+   * Facebook "long" date format (ISO 8601) without a timezone component.
+   * Example: {@code 2010-02-28T16:11:08}
+   */
+  public static final String FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss";
 
   /**
    * Facebook short date format. Example: {@code 04/15/1984}
@@ -64,6 +70,8 @@ public final class DateUtils {
 
   /**
    * Returns a Java representation of a Facebook "long" {@code date} string.
+   * <p>
+   * Supports dates with or without timezone information.
    * 
    * @param date
    *          Facebook {@code date} string.
@@ -71,7 +79,12 @@ public final class DateUtils {
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
   public static Date toDateFromLongFormat(String date) throws IllegalArgumentException {
-    return toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
+    Date parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
+
+    if (parsedDate == null)
+      parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE);
+
+    return parsedDate;
   }
 
   /**
@@ -115,8 +128,8 @@ public final class DateUtils {
     try {
       return new SimpleDateFormat(format).parse(date);
     } catch (ParseException e) {
-      if (logger.isLoggable(WARNING))
-        logger.warning("Unable to parse date '" + date + "' using format string '" + format + "': " + e);
+      if (logger.isLoggable(FINE))
+        logger.fine("Unable to parse date '" + date + "' using format string '" + format + "': " + e);
 
       return null;
     }
