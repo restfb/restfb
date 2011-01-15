@@ -3,7 +3,7 @@
 	<groupId>com.restfb</groupId>
 	<artifactId>restfb-examples</artifactId>
 	<name>RestFB examples</name>
-	<version>1.6.1</version>
+	<version>1.6.1-SNAPSHOT</version>
 	<!-- Don't use the resfb-project as parent since this module is packaged to the distro and should separately runnable -->
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>com.restfb</groupId>
 			<artifactId>restfb</artifactId>
-			<version>1.6.1</version>
+			<version>1.6.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -113,10 +113,4 @@
 			</build>
 		</profile>		
 	</profiles>
-
-  <scm>
-    <connection>scm:svn:http://svn.sonatype.org/spice/tags/restfb-project-1.6.1/restfb-examples</connection>
-    <developerConnection>scm:svn:https://svn.sonatype.org/spice/tags/restfb-project-1.6.1/restfb-examples</developerConnection>
-    <url>http://svn.sonatype.org/spice/tags/restfb-project-1.6.1/restfb-examples</url>
-  </scm>
 </project>
