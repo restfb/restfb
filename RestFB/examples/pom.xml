@@ -11,6 +11,26 @@
 		<version>5</version>
 	</parent>
 
+	<!-- Since we don't user the project parent, need to declare the same elmeent here -->	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+		
+	<scm>
+		<developerConnection>scm:svn:https://restfb.googlecode.com/svn/trunk/RestFB/examples</developerConnection>
+		<connection>scm:svn:http://restfb.googlecode.com/svn/trunk/RestFB/examples</connection>
+		<url>http://code.google.com/p/restfb/source/browse/</url>
+	</scm>
+	
+
 	<build>
 		<plugins>
 			<plugin>
