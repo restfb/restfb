@@ -640,7 +640,7 @@ public class MyClass {
 		<h2>Error Handling</h2>
 
 		<p>					
-			All <code><a target="_blank" href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods may throw <code><a target="_blank" href="javadoc/com/restfb/FacebookException.html">FacebookException</a></code>,
+			All <code><a target="_blank" href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods may throw <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookException.html">FacebookException</a></code>,
 			which is an unchecked exception as of RestFB 1.6.																	
 		</p>
 		
@@ -650,7 +650,7 @@ public class MyClass {
 		
 		<ul id="exceptions-list">
 			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
+				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
 				<br/>
 				<span class="footnote">					
 					Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
@@ -668,7 +668,7 @@ public class MyClass {
 				</span>
 			</li>
 			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/FacebookNetworkException.html">FacebookNetworkException</a></code>
+				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookNetworkException.html">FacebookNetworkException</a></code>
 				<br/>
 				<span class="footnote">
 					Thrown when a failure occurs at the network level.  This can happen if your machine
@@ -678,7 +678,7 @@ public class MyClass {
 				</span>				
 			</li>
 			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/FacebookGraphException.html">FacebookGraphException</a></code>
+				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookGraphException.html">FacebookGraphException</a></code>
 				<br/>
 				<span class="footnote">
 					Thrown when the Graph API returns an error, as shown in the example JSON snippet below.
@@ -700,7 +700,7 @@ public class MyClass {
 				</span>						
 			</li>
 			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/FacebookOAuthException.html">FacebookOAuthException</a></code>
+				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookOAuthException.html">FacebookOAuthException</a></code>
 				<br/>
 				<span class="footnote">
 					Thrown when the Graph API returns an OAuth-related error (type <code>OAuthException</code> or <code>OAuthAccessTokenException</code>),
@@ -715,7 +715,7 @@ public class MyClass {
 }</pre>												
 			</li>	
 			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/FacebookQueryParseException.html">FacebookQueryParseException</a></code>
+				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookQueryParseException.html">FacebookQueryParseException</a></code>
 				<br/>
 				<span class="footnote">
 					Thrown when the Graph API returns an FQL query parsing error (type <code>QueryParseException</code>),
@@ -730,7 +730,7 @@ public class MyClass {
 }</pre>												
 			</li>	
 			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
+				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
 				<br/>
 				<span class="footnote">
 					This is thrown by RestFB when an FQL call fails.  <code>FacebookGraphException</code> and its subclasses are not applicable in that case because
