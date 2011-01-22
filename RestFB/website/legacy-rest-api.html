@@ -281,7 +281,7 @@ Affiliations: []</pre>
 		
 		<div class="spacer"></div>				
 		
-		<h2>Making an fql.multiquery Call (Since 1.1)</h2>
+		<h2>Making an fql.multiquery Call</h2>
 
 		<p>
 			Given the unique nature of the <a href="http://wiki.developers.facebook.com/index.php/Fql.multiquery">fql.multiquery</a> API call,
@@ -351,7 +351,7 @@ class User {
 		
 		<div class="spacer"></div>		
 		
-		<h2>Making a stream.publish Call with Complex Attachments (Since 1.4)</h2>
+		<h2>Making a stream.publish Call with Complex Attachments</h2>
 
 		<p>
 			The <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">stream.publish</a> API call can accept
@@ -519,7 +519,7 @@ public class MyClass {
 		<h2>Error Handling</h2>
 
 		<p>					
-			All <code><a href="javadoc/com/restfb/LegacyFacebookClient.html">LegacyFacebookClient</a></code> methods throw the abstract <code><a href="javadoc/com/restfb/FacebookException.html">FacebookException</a></code>.																	
+			All <code><a href="javadoc/com/restfb/LegacyFacebookClient.html">LegacyFacebookClient</a></code> methods throw the abstract <code><a href="javadoc/com/restfb/exception/FacebookException.html">FacebookException</a></code>.																	
 		</p>
 		
 		<p>
@@ -528,7 +528,7 @@ public class MyClass {
 		
 		<ul id="exceptions-list">
 			<li>
-				<code><a href="javadoc/com/restfb/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
+				<code><a href="javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
 				<br/>
 				<span class="footnote">					
 					Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
@@ -546,7 +546,7 @@ public class MyClass {
 				</span>
 			</li>
 			<li>
-				<code><a href="javadoc/com/restfb/FacebookNetworkException.html">FacebookNetworkException</a></code>
+				<code><a href="javadoc/com/restfb/exception/FacebookNetworkException.html">FacebookNetworkException</a></code>
 				<br/>
 				<span class="footnote">
 					Thrown when a failure occurs at the network level.  This can happen if your machine
@@ -556,7 +556,7 @@ public class MyClass {
 				</span>				
 			</li>
 			<li>
-				<code><a href="javadoc/com/restfb/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
+				<code><a href="javadoc/com/restfb/exception/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
 				<br/>
 				<span class="footnote">
 					Thrown when a request is made to Facebook and an HTTP <code>OK</code> (200) response is received, but

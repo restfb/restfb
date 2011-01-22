@@ -60,9 +60,51 @@ import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
  */
 public class DefaultJsonMapper implements JsonMapper {
   /**
+   * We call this instance's
+   * {@link JsonMappingErrorHandler#handleMappingError(String)} method on
+   * mapping failure so client code can decide how to handle the problem.
+   */
+  private JsonMappingErrorHandler jsonMappingErrorHandler;
+
+  /**
    * Logger.
    */
   private static final Logger logger = Logger.getLogger(DefaultJsonMapper.class.getName());
+
+  /**
+   * Creates a JSON mapper which will throw
+   * {@link com.restfb.exception.FacebookJsonMappingException} whenever an error
+   * occurs when mapping JSON data to Java objects.
+   */
+  public DefaultJsonMapper() {
+    this(new JsonMappingErrorHandler() {
+      /**
+       * @see com.restfb.DefaultJsonMapper.JsonMappingErrorHandler#handleMappingError(java.lang.String,
+       *      java.lang.Class, java.lang.Exception)
+       */
+      @Override
+      public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {
+        return false;
+      }
+    });
+  }
+
+  /**
+   * Creates a JSON mapper which delegates to the provided
+   * {@code jsonMappingErrorHandler} for handling mapping errors.
+   * 
+   * @param jsonMappingErrorHandler
+   *          The JSON mapping error handler to use.
+   * @throws IllegalArgumentException
+   *           If {@code jsonMappingErrorHandler} is {@code null}.
+   * @since 1.6.2
+   */
+  public DefaultJsonMapper(JsonMappingErrorHandler jsonMappingErrorHandler) {
+    if (jsonMappingErrorHandler == null)
+      throw new IllegalArgumentException("The jsonMappingErrorHandler parameter cannot be null.");
+
+    this.jsonMappingErrorHandler = jsonMappingErrorHandler;
+  }
 
   /**
    * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
@@ -582,5 +624,39 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   protected boolean isEmptyObject(String json) {
     return "{}".equals(json);
+  }
+
+  /**
+   * Callback interface which allows client code to specify how JSON mapping
+   * errors should be handled.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.2
+   */
+  public static interface JsonMappingErrorHandler {
+    /**
+     * This method will be called by {@code DefaultJsonMapper} if it encounters
+     * an error while attempting to map JSON to a Java object.
+     * <p>
+     * You may perform any behavior you'd like here in response to an error,
+     * e.g. logging it.
+     * <p>
+     * If the mapper should continue processing, return {@code true} and
+     * {@code null} will be mapped to the target type. If you would like the
+     * mapper to stop processing and throw
+     * {@link com.restfb.exception.FacebookJsonMappingException}, return
+     * {@code false}.
+     * 
+     * @param unmappableJson
+     *          The JSON that couldn't be mapped to a Java type.
+     * @param targetType
+     *          The Java type we were attempting to map to.
+     * @param e
+     *          The exception that occurred while performing the mapping
+     *          operation.
+     * @return {@code true} to continue processing, {@code false} to throw a
+     *         {@link com.restfb.exception.FacebookJsonMappingException}.
+     */
+    boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e);
   }
 }

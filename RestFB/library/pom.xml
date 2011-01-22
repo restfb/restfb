@@ -28,6 +28,7 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<configuration>
 						<stylesheetfile>javadoc.css</stylesheetfile>
+						<show>public</show>
 					</configuration>
 				</plugin>
 			</plugins>
