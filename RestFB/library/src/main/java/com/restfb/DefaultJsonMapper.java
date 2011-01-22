@@ -64,7 +64,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * {@link JsonMappingErrorHandler#handleMappingError(String)} method on
    * mapping failure so client code can decide how to handle the problem.
    */
-  private JsonMappingErrorHandler jsonMappingErrorHandler;
+  protected JsonMappingErrorHandler jsonMappingErrorHandler;
 
   /**
    * Logger.
@@ -111,13 +111,16 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
-    json = trimToEmpty(json);
-
-    if (isBlank(json))
-      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
-
     if (type == null)
       throw new FacebookJsonMappingException("You must specify the Java type to map to.");
+
+    json = trimToEmpty(json);
+
+    if (isBlank(json)) {
+      if (jsonMappingErrorHandler.handleMappingError(json, type, null))
+        return null;
+      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
+    }
 
     if (json.startsWith("{")) {
       // Sometimes Facebook returns the empty object {} when it really should be
@@ -147,15 +150,21 @@ public class DefaultJsonMapper implements JsonMapper {
           Object jsonDataObject = jsonObject.get("data");
 
           if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray))
-            throw new FacebookJsonMappingException("JSON is an object but is being mapped as a list "
-                + "instead. Offending JSON is '" + json + "'.");
+            if (jsonMappingErrorHandler.handleMappingError(json, type, null))
+              return null;
+            else
+              throw new FacebookJsonMappingException("JSON is an object but is being mapped as a list "
+                  + "instead. Offending JSON is '" + json + "'.");
 
           json = jsonDataObject.toString();
         }
       } catch (JsonException e) {
         // Should never get here, but just in case...
-        throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
-            + type.getName() + " instances.  Offending JSON is " + json, e);
+        if (jsonMappingErrorHandler.handleMappingError(json, type, e))
+          return null;
+        else
+          throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
+              + type.getName() + " instances.  Offending JSON is " + json, e);
       }
     }
 
@@ -170,8 +179,11 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
-          + type.getName() + " instances", e);
+      if (jsonMappingErrorHandler.handleMappingError(json, type, e))
+        return null;
+      else
+        throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
+            + type.getName() + " instances", e);
     }
   }
 
@@ -181,7 +193,18 @@ public class DefaultJsonMapper implements JsonMapper {
   @Override
   @SuppressWarnings("unchecked")
   public <T> T toJavaObject(String json, Class<T> type) {
-    verifyThatJsonIsOfObjectType(json);
+    if (isBlank(json))
+      if (jsonMappingErrorHandler.handleMappingError(json, type, null))
+        return null;
+      else
+        throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
+
+    if (json.startsWith("["))
+      if (jsonMappingErrorHandler.handleMappingError(json, type, null))
+        return null;
+      else
+        throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
+            + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
 
     try {
       // Are we asked to map to JsonObject? If so, short-circuit right away.
@@ -259,7 +282,10 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
+      if (jsonMappingErrorHandler.handleMappingError(json, type, e))
+        return null;
+      else
+        throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
     }
   }
 
@@ -349,23 +375,6 @@ public class DefaultJsonMapper implements JsonMapper {
   public String toJson(Object object) {
     // Delegate to recursive method
     return toJsonInternal(object).toString();
-  }
-
-  /**
-   * Is the given {@code json} a valid JSON object?
-   * 
-   * @param json
-   *          The JSON to check.
-   * @throws FacebookJsonMappingException
-   *           If {@code json} is not a valid JSON object.
-   */
-  protected void verifyThatJsonIsOfObjectType(String json) {
-    if (isBlank(json))
-      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
-
-    if (json.startsWith("["))
-      throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
-          + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
   }
 
   /**
@@ -492,6 +501,9 @@ public class DefaultJsonMapper implements JsonMapper {
       return (T) new BigInteger(json);
     if (BigDecimal.class.equals(type))
       return (T) new BigDecimal(json);
+
+    if (jsonMappingErrorHandler.handleMappingError(json, type, null))
+      return null;
 
     throw new FacebookJsonMappingException("Don't know how to map JSON to " + type
         + ". Are you sure you're mapping to the right class? " + "Offending JSON is '" + json + "'.");
@@ -653,7 +665,7 @@ public class DefaultJsonMapper implements JsonMapper {
      *          The Java type we were attempting to map to.
      * @param e
      *          The exception that occurred while performing the mapping
-     *          operation.
+     *          operation, or {@code null} if there was no exception.
      * @return {@code true} to continue processing, {@code false} to throw a
      *         {@link com.restfb.exception.FacebookJsonMappingException}.
      */
