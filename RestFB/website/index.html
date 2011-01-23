@@ -442,7 +442,7 @@ out.println("URL is " + url);
 					code=MY_VERIFICATION_CODE</code></li>
 					<li>Request <code>https://graph.facebook.com/oauth/access_token?client_id=MY_API_KEY&amp;
 						redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
-						client_secret=MY_API_SECRET&amp;code=MY_VERIFICATION_CODE</code></li>
+						client_secret=MY_APP_SECRET&amp;code=MY_VERIFICATION_CODE</code></li>
 					<li>Facebook will respond with <code>access_token=MY_ACCESS_TOKEN</code></li>
 				</ul>
 			</div>
@@ -512,7 +512,7 @@ out.println("Deleted object? " + deleted);</pre>
 <pre class="prettyprint">
 List&lt;AccessToken&gt; accessTokens =
   new DefaultFacebookClient().convertSessionKeysToAccessTokens(MY_APP_ID,
-    MY_APP_SECRET_KEY, "sessionKey1", "sessionKey2");
+    MY_APP_SECRET, "sessionKey1", "sessionKey2");
 
 out.println("OAuth token for sessionKey1: " + accessTokens.get(0).getAccessToken());</pre>								
 				
@@ -629,6 +629,29 @@ public class MyClass {
 			Java to JSON mapping is supported by default via <code><a target="_blank" href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>.
 			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
 			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
+		</p>
+		
+		<p>
+			The default behavior of <code>DefaultJsonMapper</code> is to throw a <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
+			if it cannot map JSON to Java correctly.
+			However, given the frequency with which the Facebook API changes, you might want to guard yourself from "surprise" errors in production by
+			exerting more fine-grained control over how the mapper handles mapping exceptions.  You can do so like this:
+			
+<pre class="prettyprint">FacebookClient facebookClient = new DefaultFacebookClient("MY_ACCESS_TOKEN",
+  new DefaultWebRequestor(), new DefaultJsonMapper(new JsonMappingErrorHandler() {
+    public boolean handleMappingError(String unmappableJson, Class&lt;?&gt; targetType, Exception e) {
+      
+      // Here you might log the fact that JSON mapping failed.
+      
+      err.println(format("Uh oh, mapping %s to %s failed...", unmappableJson, targetType));
+
+      // Returning true tells the mapper to map this JSON as null and keep going.
+      // Returning false tells the mapper to throw an exception.
+      
+      return true;
+    }
+  }));</pre>
+		
 		</p>
 		
 		<div class="warning-bubble">
