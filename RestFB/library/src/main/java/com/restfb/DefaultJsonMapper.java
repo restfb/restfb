@@ -274,7 +274,13 @@ public class DefaultJsonMapper implements JsonMapper {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
           }
         } else {
-          fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+          try {
+            fieldWithAnnotation.getField()
+              .set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+          } catch (Exception e) {
+            if (!jsonMappingErrorHandler.handleMappingError(json, type, e))
+              throw e;
+          }
         }
       }
 

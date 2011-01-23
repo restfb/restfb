@@ -41,8 +41,8 @@ public abstract class AbstractJsonMapperTests {
   protected JsonMapper createErrorSwallowingJsonMapper() {
     return new DefaultJsonMapper(new JsonMappingErrorHandler() {
       public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {
-        getLogger("ErrorSwallowingJsonMapper").info(
-          format("Ignored failed mapping to %s. " + "Bad JSON was '%s' and exception was %s.", targetType,
+        getLogger("ErrorSwallowingJsonMapper").finer(
+          format("Ignored failed mapping to %s. " + "Bad JSON was '%s' and exception was %s", targetType,
             unmappableJson, e));
         return true;
       }

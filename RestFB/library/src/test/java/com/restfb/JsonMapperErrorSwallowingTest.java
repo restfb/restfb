@@ -24,7 +24,11 @@ package com.restfb;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
+
+import com.restfb.types.FacebookType;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -34,5 +38,30 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
   public void emptyStrings() {
     assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", Integer.class));
     assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", String.class));
+  }
+
+  @Test
+  public void simpleObjects() {
+    MostlyIncorrectUser mostlyIncorrectUser =
+        createErrorSwallowingJsonMapper()
+          .toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
+
+    assertTrue(null == mostlyIncorrectUser.uid);
+    assertTrue(null == mostlyIncorrectUser.name);
+    assertTrue("1".equals(mostlyIncorrectUser.photos.get(0).getId()));
+  }
+
+  static class MostlyIncorrectUser {
+    // Incorrect mapping
+    @Facebook
+    Boolean uid;
+
+    // Incorrect mapping
+    @Facebook
+    Double name;
+
+    // Correct mapping
+    @Facebook
+    List<FacebookType> photos;
   }
 }
