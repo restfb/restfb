@@ -1,7 +1,40 @@
-1.6.1 (January X, 2011)
+1.6.2 (January 23, 2011)
+* You can now instruct DefaultJsonMapper how to handle mapping exceptions, e.g.
+  ignoring them and mapping as null instead of throwing an exception. 
 
-* We're now fully Mavenized.
-  Many thanks to Kalle Korhonen.
+	FacebookClient facebookClient = new DefaultFacebookClient("MY_ACCESS_TOKEN",
+	  new DefaultWebRequestor(), new DefaultJsonMapper(new JsonMappingErrorHandler() {
+	    public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {      
+	      // Here you might log the fact that JSON mapping failed.      
+	      err.println(format("Uh oh, mapping %s to %s failed...", unmappableJson, targetType));
+	
+	      // Returning true tells the mapper to map this JSON as null and keep going.
+	      // Returning false tells the mapper to throw an exception.      
+	      return true;
+	    }
+	  }));
+  
+  The default behavior is still to throw an exception immediately on mapping errors,
+  this callback interface is your way of saying "I know what I'm doing and want to
+  handle errors myself".  Very useful for keeping your app running in production
+  when Facebook changes the API unexpectedly.
+  Thanks to Igor Kabiljo for the suggestion.   
+* Added new "quotes" and "address" and "mobile_phone" fields to the User type.
+  Thanks to ne52 for the heads-up about the addition of the quotes field.
+* DateUtils.toDateFromMonthYearFormat now returns null for "0000-00" instead of 0 AD.
+  Not sure why FB gives us 0000-00 instead of null in some situations, e.g. work start date.
+
+1.6.1 (unofficial release)
+
+* We're now fully Mavenized - you can add RestFB to your Maven project like this:
+
+	<dependency>
+	  <groupId>com.restfb</groupId>
+	  <artifactId>restfb</artifactId>
+	  <version>1.6.2</version>
+	</dependency>
+
+  Many thanks to Kalle Korhonen, and congratulations to him for being the first additional RestFB committer!
 * JsonException is now unchecked.
 * Fix for start and end date handling on the Event type.
   Thanks to Jason Peltzer.

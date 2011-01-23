@@ -29,19 +29,26 @@ import java.util.List;
 import org.junit.Test;
 
 import com.restfb.types.FacebookType;
+import com.restfb.types.User;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
+  /**
+   * Does the mapper return null for empty strings?
+   */
   @Test
   public void emptyStrings() {
     assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", Integer.class));
     assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", String.class));
   }
 
+  /**
+   * Does the mapper return null for only those fields that are mis-mapped?
+   */
   @Test
-  public void simpleObjects() {
+  public void objectWithIncorrectFields() {
     MostlyIncorrectUser mostlyIncorrectUser =
         createErrorSwallowingJsonMapper()
           .toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
@@ -49,6 +56,21 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
     assertTrue(null == mostlyIncorrectUser.uid);
     assertTrue(null == mostlyIncorrectUser.name);
     assertTrue("1".equals(mostlyIncorrectUser.photos.get(0).getId()));
+  }
+
+  /**
+   * Does the mapper return null for only those list elements that are
+   * mis-mapped?
+   */
+  @Test
+  public void listWithIncorrectObject() {
+    List<User> users =
+        createErrorSwallowingJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
+
+    assertTrue("123".equals(users.get(0).getId()));
+    assertTrue(null == users.get(1));
+    assertTrue("456".equals(users.get(2).getId()));
+    assertTrue(users.size() == 3);
   }
 
   static class MostlyIncorrectUser {

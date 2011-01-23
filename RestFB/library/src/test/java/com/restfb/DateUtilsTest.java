@@ -63,6 +63,7 @@ public class DateUtilsTest {
   public void monthYearDates() {
     assertTrue(toDateFromMonthYearFormat("2007-03") != null);
     assertTrue(toDateFromMonthYearFormat("2011-12") != null);
+    assertTrue(toDateFromMonthYearFormat("0000-00") == null);
     assertTrue(toDateFromMonthYearFormat("junk") == null);
   }
 }

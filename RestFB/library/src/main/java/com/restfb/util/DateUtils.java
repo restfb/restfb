@@ -110,6 +110,9 @@ public final class DateUtils {
    *         or invalid.
    */
   public static Date toDateFromMonthYearFormat(String date) {
+    if ("0000-00".equals(date))
+      return null;
+
     return toDateWithFormatString(date, FACEBOOK_MONTH_YEAR_DATE_FORMAT);
   }
 
