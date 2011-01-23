@@ -1,4 +1,5 @@
 1.6.2 (January 23, 2011)
+
 * You can now instruct DefaultJsonMapper how to handle mapping exceptions, e.g.
   ignoring them and mapping as null instead of throwing an exception. 
 
