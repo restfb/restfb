@@ -60,6 +60,9 @@ public class User extends NamedFacebookType {
   private String bio;
 
   @Facebook
+  private String quotes;
+
+  @Facebook
   private String about;
 
   @Facebook("relationship_status")
@@ -503,6 +506,15 @@ public class User extends NamedFacebookType {
    */
   public String getEmail() {
     return email;
+  }
+
+  /**
+   * The user's favorite quotes.
+   * 
+   * @return The user's favorite quotes.
+   */
+  public String getQuotes() {
+    return quotes;
   }
 
   /**
