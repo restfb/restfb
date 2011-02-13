@@ -25,6 +25,7 @@ package com.restfb;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.urlEncode;
+import static java.util.Arrays.asList;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -62,6 +63,12 @@ abstract class BaseFacebookClient {
   protected final Set<String> illegalParamNames = new HashSet<String>();
 
   /**
+   * Set of API calls that can use the read-only endpoint for a performance
+   * boost.
+   */
+  protected final Set<String> readOnlyApiCalls = new HashSet<String>();
+
+  /**
    * Legacy API error response 'error_code' attribute name.
    */
   protected static final String LEGACY_ERROR_CODE_ATTRIBUTE_NAME = "error_code";
@@ -80,6 +87,39 @@ abstract class BaseFacebookClient {
    * Logger.
    */
   protected final Logger logger = Logger.getLogger(getClass().getName());
+
+  /**
+   * Initializes this Facebook client.
+   */
+  public BaseFacebookClient() {
+    initializeReadOnlyApiCalls();
+  }
+
+  /**
+   * Stores off the set of API calls that support the read-only endpoint.
+   * <p>
+   * This list was cribbed from the <a
+   * href="https://github.com/facebook/php-sdk/blob/master/src/facebook.php"
+   * target="_blank">Official PHP Facebook API client</a>.
+   * 
+   * @since 1.6.3
+   */
+  protected void initializeReadOnlyApiCalls() {
+    readOnlyApiCalls.addAll(asList(new String[] { "admin.getallocation", "admin.getappproperties",
+        "admin.getbannedusers", "admin.getlivestreamvialink", "admin.getmetrics", "admin.getrestrictioninfo",
+        "application.getpublicinfo", "auth.getapppublickey", "auth.getsession", "auth.getsignedpublicsessiondata",
+        "comments.get", "connect.getunconnectedfriendscount", "dashboard.getactivity", "dashboard.getcount",
+        "dashboard.getglobalnews", "dashboard.getnews", "dashboard.multigetcount", "dashboard.multigetnews",
+        "data.getcookies", "events.get", "events.getmembers", "fbml.getcustomtags", "feed.getappfriendstories",
+        "feed.getregisteredtemplatebundlebyid", "feed.getregisteredtemplatebundles", "fql.multiquery", "fql.query",
+        "friends.arefriends", "friends.get", "friends.getappusers", "friends.getlists", "friends.getmutualfriends",
+        "gifts.get", "groups.get", "groups.getmembers", "intl.gettranslations", "links.get", "notes.get",
+        "notifications.get", "pages.getinfo", "pages.isadmin", "pages.isappadded", "pages.isfan",
+        "permissions.checkavailableapiaccess", "permissions.checkgrantedapiaccess", "photos.get", "photos.getalbums",
+        "photos.gettags", "profile.getinfo", "profile.getinfooptions", "stream.get", "stream.getcomments",
+        "stream.getfilters", "users.getinfo", "users.getloggedinuser", "users.getstandardinfo",
+        "users.hasapppermission", "users.isappuser", "users.isverified", "video.getuploadlimits" }));
+  }
 
   /**
    * If the {@code error_code} JSON field is present, we've got a response
@@ -193,6 +233,28 @@ abstract class BaseFacebookClient {
     // URL-encode. Otherwise, URL-encode as normal.
     return ACCESS_TOKEN_PARAM_NAME.equals(name) && value.contains("%7C") ? value : urlEncode(value);
   }
+
+  /**
+   * Given an api call (e.g. "me" or "fql.query"), returns the correct FB API
+   * endpoint to use.
+   * <p>
+   * Useful for returning the read-only API endpoint where possible.
+   * 
+   * @param apiCall
+   *          The FB API call (Graph or Old REST API) for which we'd like an
+   *          endpoint.
+   * @return An absolute endpoint URL to communicate with.
+   * @since 1.6.3
+   */
+  protected abstract String createEndpointForApiCall(String apiCall);
+
+  /**
+   * Returns the base read-only endpoint URL.
+   * 
+   * @return The base read-only endpoint URL.
+   * @since 1.6.3
+   */
+  protected abstract String getFacebookReadOnlyEndpointUrl();
 
   /**
    * Verifies that the provided parameter names don't collide with the ones we

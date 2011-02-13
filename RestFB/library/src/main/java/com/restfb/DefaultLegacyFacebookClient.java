@@ -24,6 +24,7 @@ package com.restfb;
 
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.toBytes;
+import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.urlEncode;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.INFO;
@@ -74,9 +75,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   protected static final String FACEBOOK_REST_ENDPOINT_URL = "https://api.facebook.com/restserver.php";
 
   /**
-   * OAuth API endpoint URL.
+   * Read-only API endpoint URL.
    */
-  protected static final String FACEBOOK_REST_OAUTH_ENDPOINT_URL = "https://api.facebook.com/restserver.php";
+  protected static final String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/restserver.php";
 
   // Common parameter names/values that must be included in all API requests
   protected static final String METHOD_PARAM_NAME = "method";
@@ -155,6 +156,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    */
   @Deprecated
   public DefaultLegacyFacebookClient(String apiKey, String secretKey, WebRequestor webRequestor, JsonMapper jsonMapper) {
+    super();
+
     verifyParameterPresence("apiKey", apiKey);
     verifyParameterPresence("secretKey", secretKey);
     verifyParameterPresence("webRequestor", webRequestor);
@@ -188,6 +191,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * @since 1.5
    */
   public DefaultLegacyFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
+    super();
+
     verifyParameterPresence("accessToken", accessToken);
     verifyParameterPresence("webRequestor", webRequestor);
     verifyParameterPresence("jsonMapper", jsonMapper);
@@ -334,9 +339,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
 
     // Perform a POST to the API endpoint
     try {
-      response =
-          webRequestor.executePost(usesAccessTokenAuthentication() ? getFacebookRestOauthEndpointUrl()
-              : getFacebookRestEndpointUrl(), parametersAsString);
+      response = webRequestor.executePost(createEndpointForApiCall(method), parametersAsString);
     } catch (Throwable t) {
       throw new FacebookNetworkException("Facebook POST failed", t);
     }
@@ -477,6 +480,15 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
+   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String)
+   */
+  @Override
+  protected String createEndpointForApiCall(String apiCall) {
+    apiCall = trimToEmpty(apiCall).toLowerCase();
+    return readOnlyApiCalls.contains(apiCall) ? getFacebookReadOnlyEndpointUrl() : getFacebookRestEndpointUrl();
+  }
+
+  /**
    * Initializes the set of illegal URL parameter names.
    */
   protected void initializeIllegalParamNames() {
@@ -494,11 +506,10 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * Returns the base endpoint URL for the Old REST OAuth API.
-   * 
-   * @return The base endpoint URL for the Old REST OAuth API.
+   * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
    */
-  protected String getFacebookRestOauthEndpointUrl() {
-    return FACEBOOK_REST_OAUTH_ENDPOINT_URL;
+  @Override
+  protected String getFacebookReadOnlyEndpointUrl() {
+    return FACEBOOK_READ_ONLY_ENDPOINT_URL;
   }
 }

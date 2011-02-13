@@ -78,9 +78,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
 
   /**
-   * Legacy API endpoint URL, used to support FQL queries.
+   * Read-only API endpoint URL.
    */
-  protected static final String FACEBOOK_LEGACY_ENDPOINT_URL = "https://api.facebook.com/method";
+  protected static final String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
 
   /**
    * Reserved method override parameter name.
@@ -158,6 +158,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
+    super();
+
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);
 
@@ -176,7 +178,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public boolean deleteObject(String object) {
     verifyParameterPresence("object", object);
-    return "true".equals(makeRequest(object, false, true, true, null));
+    return "true".equals(makeRequest(object, true, true, null));
   }
 
   /**
@@ -293,8 +295,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
-    return jsonMapper.toJavaObject(makeRequest(connection, false, true, false, binaryAttachment, parameters),
-      objectType);
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachment, parameters), objectType);
   }
 
   /**
@@ -323,7 +324,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     try {
       JsonArray jsonArray =
-          new JsonArray(makeRequest("fql.multiquery", true, false, false, null,
+          new JsonArray(makeRequest("fql.multiquery", false, false, null,
             parametersWithAdditionalParameter(Parameter.with(QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
 
       JsonObject normalizedJson = new JsonObject();
@@ -363,7 +364,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
             + "the query you passed to this method.");
 
     return jsonMapper.toJavaList(
-      makeRequest("fql.query", true, false, false, null,
+      makeRequest("fql.query", false, false, null,
         parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
   }
 
@@ -380,7 +381,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       return emptyList();
 
     String json =
-        makeRequest("/oauth/exchange_sessions", false, true, false, null, Parameter.with("client_id", appId),
+        makeRequest("/oauth/exchange_sessions", true, false, null, Parameter.with("client_id", appId),
           Parameter.with("client_secret", secretKey), Parameter.with("sessions", join(sessionKeys)));
 
     return jsonMapper.toJavaList(json, AccessToken.class);
@@ -401,7 +402,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           processing the response.
    */
   protected String makeRequest(String endpoint, Parameter... parameters) {
-    return makeRequest(endpoint, false, false, false, null, parameters);
+    return makeRequest(endpoint, false, false, null, parameters);
   }
 
   /**
@@ -410,9 +411,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * 
    * @param endpoint
    *          Facebook Graph API endpoint.
-   * @param useLegacyEndpoint
-   *          Should we hit the legacy endpoint ({@code true}) or the new Graph
-   *          endpoint ({@code false})?
    * @param executeAsPost
    *          {@code true} to execute the web request as a {@code POST},
    *          {@code false} to execute as a {@code GET}.
@@ -430,8 +428,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs while making the Facebook API POST or
    *           processing the response.
    */
-  protected String makeRequest(String endpoint, boolean useLegacyEndpoint, final boolean executeAsPost,
-      boolean executeAsDelete, final InputStream binaryAttachment, Parameter... parameters) {
+  protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete,
+      final InputStream binaryAttachment, Parameter... parameters) {
     verifyParameterLegality(parameters);
 
     if (executeAsDelete)
@@ -441,9 +439,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
-    final String fullEndpoint =
-        (useLegacyEndpoint ? getFacebookLegacyEndpointUrl() : getFacebookGraphEndpointUrl()) + endpoint;
-
+    final String fullEndpoint = createEndpointForApiCall(endpoint);
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(new Requestor() {
@@ -608,6 +604,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String)
+   */
+  @Override
+  protected String createEndpointForApiCall(String apiCall) {
+    trimToEmpty(apiCall).toLowerCase();
+    while (apiCall.startsWith("/"))
+      apiCall = apiCall.substring(1);
+
+    return String.format("%s/%s", readOnlyApiCalls.contains(apiCall) ? getFacebookReadOnlyEndpointUrl()
+        : getFacebookGraphEndpointUrl(), apiCall);
+  }
+
+  /**
    * Returns the base endpoint URL for the Graph API.
    * 
    * @return The base endpoint URL for the Graph API.
@@ -617,11 +626,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Returns the base endpoint URL for the Old REST API.
-   * 
-   * @return The base endpoint URL for the Old REST API.
+   * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
    */
-  protected String getFacebookLegacyEndpointUrl() {
-    return FACEBOOK_LEGACY_ENDPOINT_URL;
+  @Override
+  protected String getFacebookReadOnlyEndpointUrl() {   
+    return FACEBOOK_READ_ONLY_ENDPOINT_URL;
   }
 }
