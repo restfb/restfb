@@ -29,10 +29,10 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6.2 (released January 23, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
+			Version 1.6.3 (released February X, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
 			<br/>
-			<a target="_blank" href="http://restfb.googlecode.com/svn/tags/restfb-project-1.6.2/CHANGELOG">View the changelog</a>, 
-			or <a target="_blank" href="http://code.google.com/p/restfb/downloads/detail?name=restfb-distro-1.6.2.zip">download it here</a>.
+			<a target="_blank" href="http://restfb.googlecode.com/svn/tags/restfb-project-1.6.3/CHANGELOG">View the changelog</a>, 
+			or <a target="_blank" href="http://code.google.com/p/restfb/downloads/detail?name=restfb-distro-1.6.3.zip">download it here</a>.
 		</p>
 		
 			<p>
@@ -45,7 +45,7 @@
 <pre class="prettyprint">&lt;dependency&gt;
   &lt;groupId&gt;com.restfb&lt;/groupId&gt;
   &lt;artifactId&gt;restfb&lt;/artifactId&gt;
-  &lt;version&gt;1.6.2&lt;/version&gt;
+  &lt;version&gt;1.6.3&lt;/version&gt;
 &lt;/dependency&gt;</pre>
 		</p>		
 		
@@ -188,7 +188,13 @@ out.println("Page fan count: " + page.getFanCount());</pre>
 				
 				<div class="spacer"></div>
 				
-				If you're curious about how this works, <a target="_blank" href="http://slf4j.org/legacy.html">here's more information about SLF4J bridging.</a>	
+				If you're curious about how this works, <a target="_blank" href="http://slf4j.org/legacy.html">here's more information about SLF4J bridging.</a>
+				
+				<div class="spacer"></div>
+				
+				If you're concerned about SLF4J bridging performance, check out <a href="http://logback.qos.ch/manual/configuration.html#LevelChangePropagator" target="_blank">this section of the SLF4J manual</a>.
+				<br/>
+				Thanks to Chris Pruett for the heads-up about that.	
 			</div>			
 		</div>			
 		
@@ -212,6 +218,19 @@ if(myFeed.hasNext()) {
 }</pre>							
 		
 	<div class="spacer"></div>
+	
+		<h3>Fetching Insights</h3>
+			
+<pre class="prettyprint">
+// Fetching Insights data is as simple as fetching a Connection
+
+Connection&lt;Insight&gt; insights = facebookClient.fetchConnection("PAGE_ID/insights", Insight.class);
+
+for (Insight insight : insights.getData())
+  out.println(insight.getName());
+</pre>							
+		
+	<div class="spacer"></div>	
 							
 	<h3>Selecting Specific Fields (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
 			
