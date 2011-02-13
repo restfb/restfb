@@ -124,6 +124,9 @@ public class User extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  @Facebook("third_party_id")
+  private String thirdPartyId;
+
   @Facebook("interested_in")
   private List<String> interestedIn = new ArrayList<String>();
 
@@ -638,6 +641,15 @@ public class User extends NamedFacebookType {
    */
   public Address getAddress() {
     return address;
+  }
+
+  /**
+   * An anonymous, but unique identifier for the user.
+   * 
+   * @return An anonymous, but unique identifier for the user.
+   */
+  public String getThirdPartyId() {
+    return thirdPartyId;
   }
 
   /**

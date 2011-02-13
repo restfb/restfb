@@ -57,6 +57,12 @@ public class Page extends CategorizedFacebookType {
   @Facebook("fan_count")
   private Long fanCount;
 
+  @Facebook("is_community_page")
+  private Boolean isCommunityPage;
+
+  @Facebook
+  private String description;
+
   /**
    * The page's picture.
    * 
@@ -127,5 +133,23 @@ public class Page extends CategorizedFacebookType {
    */
   public Long getFanCount() {
     return fanCount;
+  }
+
+  /**
+   * Is this a community page?
+   * 
+   * @return Is this a community page?
+   */
+  public Boolean getIsCommunityPage() {
+    return isCommunityPage;
+  }
+
+  /**
+   * A description of this page.
+   * 
+   * @return A description of this page.
+   */
+  public String getDescription() {
+    return description;
   }
 }
