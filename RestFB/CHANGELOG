@@ -1,9 +1,27 @@
 1.6.3 (February 19, 2011)
 
-
-* Can now customize HttpURLConnection creation in DefaultWebRequestor to support custom proxying etc.
+* RestFB now automatically uses the faster read-only endpoints for Graph and Old REST API calls when possible.
+  Thanks to Dmitry Naumenko for the suggestion.
+* POTENTIALLY BREAKING CHANGE: Old REST API calls (including FQL with the Graph API) will now throw
+  FacebookOAuthException instead of FacebookResponseStatusException when error code 190 is encountered.
+  Thanks to Ofer Fort for the suggestion.
+* It is now simple to customize how RestFB maps Facebook error responses to FacebookException instances
+  for both Graph and Old REST API errors by overriding DefaultFacebookClient.createGraphFacebookExceptionMapper() and
+  BaseFacebookClient.createLegacyFacebookExceptionMapper(), respectively.  The default instances returned
+  by both of these methods are now marked protected instead of anonymous classes so you can leverage them if you wish.
+  Thanks to Alexis Dufrenoy for the suggestion.
+* Added lots of new fields to User, e.g "sports" and "languages".
+  Thanks to Patrick Alberts for the patch.
+* Added new PageConnection type, useful for mapping partial page types returned by some connections, e.g. "me/music".
+  Thanks to Patrick Alberts for the patch.
+* Added undocumented "is_community_page" and "description" fields to the Page type.
+  Thanks to Ivan Viragine.
+* Can now customize HttpURLConnection creation in DefaultWebRequestor by overriding openConnection(URL url)
+  to support custom proxying etc.
   Thanks to Matti Haro for the suggestion.
-  
+* Added new Insight type which can be used like this:
+  Connection<Insight> insights = facebookClient.fetchConnection("PAGE_ID/insights", Insight.class);
+    
 1.6.2 (January 23, 2011)
 
 * You can now instruct DefaultJsonMapper how to handle mapping exceptions, e.g.
