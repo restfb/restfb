@@ -22,19 +22,28 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
+import java.util.Date;
+
 import com.restfb.Facebook;
 
 /**
  * Superclass for <a
  * href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>
- * that include a {@code name} field.
+ * that include a {@code name} field and (optionally) a {@code created_time}
+ * field.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @author Patrick Alberts
  * @since 1.5
  */
 public class NamedFacebookType extends FacebookType {
   @Facebook
   private String name;
+
+  @Facebook("created_time")
+  private String createdTime;
 
   /**
    * The name field for this type.
@@ -43,5 +52,15 @@ public class NamedFacebookType extends FacebookType {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * The time at which this object was created, if available.
+   * 
+   * @return The time at which this object was created.
+   * @since 1.6.3
+   */
+  public Date getCreatedTime() {
+    return toDateFromLongFormat(createdTime);
   }
 }
