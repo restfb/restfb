@@ -44,8 +44,8 @@ import java.util.Map;
 
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookException;
+import com.restfb.exception.FacebookExceptionMapper;
 import com.restfb.exception.FacebookGraphException;
-import com.restfb.exception.FacebookGraphExceptionMapper;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookNetworkException;
 import com.restfb.exception.FacebookOAuthException;
@@ -70,7 +70,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * Knows how to map Graph API exceptions to formal Java exception types.
    */
-  protected FacebookGraphExceptionMapper facebookGraphExceptionMapper;
+  protected FacebookExceptionMapper graphFacebookExceptionMapper;
 
   /**
    * API endpoint URL.
@@ -166,7 +166,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.accessToken = trimToNull(accessToken);
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
-    this.facebookGraphExceptionMapper = createFacebookGraphExceptionMapper();
+    graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
 
     illegalParamNames.addAll(Arrays
       .asList(new String[] { ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME }));
@@ -534,8 +534,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
 
-      throw facebookGraphExceptionMapper
-        .exceptionForTypeAndMessage(innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+      throw graphFacebookExceptionMapper
+        .exceptionForTypeAndMessage(null, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
           innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
@@ -546,29 +546,42 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Specifies how we map Graph API exception types/messages to real Java
    * exceptions.
    * <p>
+   * Uses an instance of {@link DefaultGraphFacebookExceptionMapper} by default.
+   * 
+   * @return An instance of the exception mapper we should use.
+   * @since 1.6
+   */
+  protected FacebookExceptionMapper createGraphFacebookExceptionMapper() {
+    return new DefaultGraphFacebookExceptionMapper();
+  }
+
+  /**
+   * A canned implementation of {@code FacebookExceptionMapper} that maps Graph
+   * API exceptions.
+   * <p>
    * Thanks to BatchFB's Jeff Schnitzer for doing some of the legwork to find
    * these exception type names.
    * 
-   * @return An instance of the exception mapper we should use.
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.3
    */
-  protected FacebookGraphExceptionMapper createFacebookGraphExceptionMapper() {
-    return new FacebookGraphExceptionMapper() {
-      /**
-       * @see com.restfb.exception.FacebookGraphExceptionMapper#exceptionForTypeAndMessage(java.lang.String,
-       *      java.lang.String)
-       */
-      public FacebookGraphException exceptionForTypeAndMessage(String type, String message) {
-        if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
-          return new FacebookOAuthException(type, message);
+  protected static class DefaultGraphFacebookExceptionMapper implements FacebookExceptionMapper {
+    /**
+     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
+     *      java.lang.String, java.lang.String)
+     */
+    @Override
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
+      if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
+        return new FacebookOAuthException(type, message);
 
-        if ("QueryParseException".equals(type))
-          return new FacebookQueryParseException(type, message);
+      if ("QueryParseException".equals(type))
+        return new FacebookQueryParseException(type, message);
 
-        // Don't recognize this exception type? Just go with the standard
-        // FacebookGraphException.
-        return new FacebookGraphException(type, message);
-      }
-    };
+      // Don't recognize this exception type? Just go with the standard
+      // FacebookGraphException.
+      return new FacebookGraphException(type, message);
+    }
   }
 
   /**
@@ -629,7 +642,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
    */
   @Override
-  protected String getFacebookReadOnlyEndpointUrl() {   
+  protected String getFacebookReadOnlyEndpointUrl() {
     return FACEBOOK_READ_ONLY_ENDPOINT_URL;
   }
 }

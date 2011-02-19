@@ -33,7 +33,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.restfb.exception.FacebookException;
+import com.restfb.exception.FacebookExceptionMapper;
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
@@ -55,6 +58,11 @@ abstract class BaseFacebookClient {
    * Handles mapping Facebook response JSON to Java objects.
    */
   protected JsonMapper jsonMapper;
+
+  /**
+   * Knows how to map Old REST API exceptions to formal Java exception types.
+   */
+  protected FacebookExceptionMapper legacyFacebookExceptionMapper;
 
   /**
    * Set of parameter names that user must not specify themselves, since we use
@@ -93,6 +101,51 @@ abstract class BaseFacebookClient {
    */
   public BaseFacebookClient() {
     initializeReadOnlyApiCalls();
+    legacyFacebookExceptionMapper = createLegacyFacebookExceptionMapper();
+  }
+
+  /**
+   * Specifies how we map Old REST API exception types/messages to real Java
+   * exceptions.
+   * <p>
+   * Uses an instance of {@link DefaultLegacyFacebookExceptionMapper} by
+   * default.
+   * 
+   * @return An instance of the exception mapper we should use.
+   * @since 1.6.3
+   */
+  protected FacebookExceptionMapper createLegacyFacebookExceptionMapper() {
+    return new DefaultLegacyFacebookExceptionMapper();
+  }
+
+  /**
+   * A canned implementation of {@code FacebookExceptionMapper} that maps Old
+   * REST API exceptions.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.3
+   */
+  protected static class DefaultLegacyFacebookExceptionMapper implements FacebookExceptionMapper {
+    /**
+     * Invalid OAuth 2.0 Access Token error code.
+     * <p>
+     * See http://www.takwing.idv.hk/tech/fb_dev/faq/general/gen_10.html
+     */
+    protected static final int API_EC_PARAM_ACCESS_TOKEN = 190;
+
+    /**
+     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
+     *      java.lang.String, java.lang.String)
+     */
+    @Override
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
+      if (errorCode == API_EC_PARAM_ACCESS_TOKEN)
+        return new FacebookOAuthException(String.valueOf(errorCode), message);
+
+      // Don't recognize this exception type? Just go with the standard
+      // FacebookResponseStatusException.
+      return new FacebookResponseStatusException(errorCode, message);
+    }
   }
 
   /**
@@ -152,7 +205,8 @@ abstract class BaseFacebookClient {
       if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME))
         return;
 
-      throw new FacebookResponseStatusException(errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME),
+      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
+        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null,
         errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
