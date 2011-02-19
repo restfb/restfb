@@ -52,6 +52,9 @@ public class Event extends NamedFacebookType {
   @Facebook
   private String location;
 
+  @Facebook("rsvp_status")
+  private String rsvpStatus;
+
   @Facebook
   private Venue venue;
 
@@ -114,6 +117,15 @@ public class Event extends NamedFacebookType {
    */
   public Venue getVenue() {
     return venue;
+  }
+
+  /**
+   * The RSVP status of this event.
+   * 
+   * @return The RSVP status of this event.
+   */
+  public String getRsvpStatus() {
+    return rsvpStatus;
   }
 
   /**
