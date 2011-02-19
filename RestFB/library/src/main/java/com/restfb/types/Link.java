@@ -22,6 +22,10 @@
 
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
+import java.util.Date;
+
 import com.restfb.Facebook;
 
 /**
@@ -30,6 +34,7 @@ import com.restfb.Facebook;
  * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @author Patrick Alberts
  * @since 1.5
  */
 public class Link extends NamedFacebookType {
@@ -50,6 +55,9 @@ public class Link extends NamedFacebookType {
 
   @Facebook
   private String icon;
+
+  @Facebook("created_time")
+  private String createdTime;
 
   /**
    * An object containing the name and ID of the user who posted the link.
@@ -104,5 +112,15 @@ public class Link extends NamedFacebookType {
    */
   public String getIcon() {
     return icon;
+  }
+
+  /**
+   * The time at which this object was created, if available.
+   * 
+   * @return The time at which this object was created.
+   * @since 1.6.3
+   */
+  public Date getCreatedTime() {
+    return toDateFromLongFormat(createdTime);
   }
 }

@@ -41,6 +41,7 @@ import com.restfb.util.ReflectionUtils;
  * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @author Patrick Alberts
  * @since 1.5
  */
 public class User extends NamedFacebookType {
@@ -139,6 +140,18 @@ public class User extends NamedFacebookType {
   @Facebook
   private List<Education> education = new ArrayList<Education>();
 
+  @Facebook
+  private List<Sport> sports = new ArrayList<Sport>();
+
+  @Facebook("favorite_teams")
+  private List<NamedFacebookType> favoriteTeams = new ArrayList<NamedFacebookType>();
+
+  @Facebook("favorite_athletes")
+  private List<NamedFacebookType> favoriteAthletes = new ArrayList<NamedFacebookType>();
+
+  @Facebook
+  private List<NamedFacebookType> languages = new ArrayList<NamedFacebookType>();
+
   /**
    * Represents a User's address.
    * 
@@ -236,6 +249,7 @@ public class User extends NamedFacebookType {
    * API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
+   * @author Patrick Alberts
    */
   public static class Work {
     @Facebook
@@ -247,11 +261,17 @@ public class User extends NamedFacebookType {
     @Facebook
     private NamedFacebookType position;
 
+    @Facebook
+    private String description;
+
     @Facebook("start_date")
     private String startDate;
 
     @Facebook("end_date")
     private String endDate;
+
+    @Facebook
+    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
 
     /**
      * @see java.lang.Object#hashCode()
@@ -305,6 +325,16 @@ public class User extends NamedFacebookType {
     }
 
     /**
+     * Description of this job.
+     * 
+     * @return Description of this job.
+     * @since 1.6.3
+     */
+    public String getDescription() {
+      return description;
+    }
+
+    /**
      * Date this job was started.
      * 
      * @return Date this job was started.
@@ -321,6 +351,16 @@ public class User extends NamedFacebookType {
     public Date getEndDate() {
       return toDateFromMonthYearFormat(endDate);
     }
+
+    /**
+     * Friends associated with this job.
+     * 
+     * @return Friends associated with this job.
+     * @since 1.6.3
+     */
+    public List<NamedFacebookType> getWith() {
+      return unmodifiableList(with);
+    }
   }
 
   /**
@@ -329,6 +369,7 @@ public class User extends NamedFacebookType {
    * Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
+   * @author Patrick Alberts
    */
   public static class Education {
     @Facebook
@@ -342,6 +383,9 @@ public class User extends NamedFacebookType {
 
     @Facebook
     private List<NamedFacebookType> concentration = new ArrayList<NamedFacebookType>();
+
+    @Facebook
+    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
 
     /**
      * @see java.lang.Object#hashCode()
@@ -401,6 +445,38 @@ public class User extends NamedFacebookType {
      */
     public List<NamedFacebookType> getConcentration() {
       return unmodifiableList(concentration);
+    }
+
+    /**
+     * Friends associated with this school.
+     * 
+     * @return Friends associated with this school.
+     * @since 1.6.3
+     */
+    public List<NamedFacebookType> getWith() {
+      return unmodifiableList(with);
+    }
+  }
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/user">Sport Graph
+   * API type</a>.
+   * 
+   * @author Patrick Alberts
+   * @since 1.6.3
+   */
+  public static class Sport extends NamedFacebookType {
+    @Facebook
+    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+
+    /**
+     * Friends associated with this sport.
+     * 
+     * @return Friends associated with this sport.
+     */
+    public List<NamedFacebookType> getWith() {
+      return unmodifiableList(with);
     }
   }
 
@@ -671,20 +747,56 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * A list of the work history from the user's profile
+   * A list of the work history from the user's profile.
    * 
-   * @return A list of the work history from the user's profile
+   * @return A list of the work history from the user's profile.
    */
   public List<Work> getWork() {
     return unmodifiableList(work);
   }
 
   /**
-   * A list of the education history from the user's profile
+   * A list of the education history from the user's profile.
    * 
-   * @return A list of the education history from the user's profile
+   * @return A list of the education history from the user's profile.
    */
   public List<Education> getEducation() {
     return unmodifiableList(education);
+  }
+
+  /**
+   * A list of the sports from the user's profile.
+   * 
+   * @return A list of the sports from ths user's profile.
+   */
+  public List<Sport> getSports() {
+    return unmodifiableList(sports);
+  }
+
+  /**
+   * A list of the favorite sports teams from the user's profile.
+   * 
+   * @return A list of the favorite sports teams from the user's profile.
+   */
+  public List<NamedFacebookType> getFavoriteTeams() {
+    return unmodifiableList(favoriteTeams);
+  }
+
+  /**
+   * A list of the favorite athletes from the user's profile.
+   * 
+   * @return A list of the favorite athletes from the user's profile.
+   */
+  public List<NamedFacebookType> getFavoriteAthletes() {
+    return unmodifiableList(favoriteAthletes);
+  }
+
+  /**
+   * A list of the languages from the user's profile.
+   * 
+   * @return A list of the languages from the user's profile.
+   */
+  public List<NamedFacebookType> getLanguages() {
+    return unmodifiableList(languages);
   }
 }

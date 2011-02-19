@@ -37,13 +37,13 @@ import java.util.logging.Logger;
  */
 public final class DateUtils {
   /**
-   * Facebook "long" date format (ISO 8601). Example:
+   * Facebook "long" date format (IETF RFC 3339). Example:
    * {@code 2010-02-28T16:11:08+0000}
    */
   public static final String FACEBOOK_LONG_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
   /**
-   * Facebook "long" date format (ISO 8601) without a timezone component.
+   * Facebook "long" date format (IETF RFC 3339) without a timezone component.
    * Example: {@code 2010-02-28T16:11:08}
    */
   public static final String FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss";
