@@ -86,7 +86,7 @@ public class DefaultWebRequestor implements WebRequestor {
     InputStream inputStream = null;
 
     try {
-      httpUrlConnection = (HttpURLConnection) new URL(url).openConnection();
+      httpUrlConnection = openConnection(new URL(url));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
       httpUrlConnection.setUseCaches(false);
 
@@ -142,8 +142,7 @@ public class DefaultWebRequestor implements WebRequestor {
     InputStream inputStream = null;
 
     try {
-      httpUrlConnection =
-          (HttpURLConnection) new URL(url + (hasBinaryAttachment ? "?" + parameters : "")).openConnection();
+      httpUrlConnection = openConnection(new URL(url + (hasBinaryAttachment ? "?" + parameters : "")));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
 
       // Allow subclasses to customize the connection if they'd like to - set
@@ -200,11 +199,28 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
+   * Given a {@code url}, opens and returns a connection to it.
+   * <p>
+   * If you'd like to pipe your connection through a proxy, this is the place to
+   * do so.
+   * 
+   * @param url
+   *          The URL to connect to.
+   * @return A connection to the URL.
+   * @throws IOException
+   *           If an error occurs while establishing the connection.
+   * @since 1.6.3
+   */
+  protected HttpURLConnection openConnection(URL url) throws IOException {
+    return (HttpURLConnection) url.openConnection();
+  }
+
+  /**
    * Hook method which allows subclasses to easily customize the
    * {@code connection}s created by {@link #executeGet(String)} and
    * {@link #executePost(String, String)} - for example, setting a custom read
    * timeout or request header.
-   * 
+   * <p>
    * This implementation is a no-op.
    * 
    * @param connection
