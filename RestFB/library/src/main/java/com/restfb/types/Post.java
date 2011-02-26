@@ -63,6 +63,12 @@ public class Post extends NamedFacebookType {
   private String source;
 
   @Facebook
+  private String type;
+
+  @Facebook
+  private NamedFacebookType application;
+
+  @Facebook
   private String icon;
 
   @Facebook
@@ -455,6 +461,24 @@ public class Post extends NamedFacebookType {
    */
   public Privacy getPrivacy() {
     return privacy;
+  }
+
+  /**
+   * The type of post this is, e.g. "link".
+   * 
+   * @return The type of post this is, e.g. "link".
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * The application used to create this post.
+   * 
+   * @return The application used to create this post.
+   */
+  public NamedFacebookType getApplication() {
+    return application;
   }
 
   /**
