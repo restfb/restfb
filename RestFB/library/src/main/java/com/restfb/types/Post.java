@@ -106,6 +106,77 @@ public class Post extends NamedFacebookType {
   @Facebook
   private List<Action> actions = new ArrayList<Action>();
 
+  @Facebook
+  private List<Property> properties = new ArrayList<Property>();
+
+  /**
+   * Represents the undocumented {@code Property} type.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.4
+   */
+  public static class Property {
+    @Facebook
+    private String name;
+
+    @Facebook
+    private String text;
+
+    @Facebook
+    private String href;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The name of the property.
+     * 
+     * @return The name of the property.
+     */
+    public String getName() {
+      return name;
+    }
+
+    /**
+     * The text of the property.
+     * 
+     * @return The text of the property.
+     */
+    public String getText() {
+      return text;
+    }
+
+    /**
+     * The URL of the property.
+     * 
+     * @return The URL of the property.
+     */
+    public String getHref() {
+      return href;
+    }
+  }
+
   /**
    * Represents a collection of Likes.
    * 
@@ -550,5 +621,16 @@ public class Post extends NamedFacebookType {
    */
   public List<Action> getActions() {
     return unmodifiableList(actions);
+  }
+
+  /**
+   * A list of properties for this post.
+   * <p>
+   * This field is undocumented.
+   * 
+   * @return A list of properties for this post.
+   */
+  public List<Property> getProperties() {
+    return unmodifiableList(properties);
   }
 }
