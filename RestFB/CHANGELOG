@@ -1,3 +1,11 @@
+1.6.4 (March 5, 2011)
+
+* Added "application" and "type" fields to Post
+  Thanks to nelrib.
+* Removed "mobilePhone" and "address" fields from User.
+  Thanks to Marcel Stoer   
+* Add undocumented "properties" field to Post type
+  
 1.6.3 (February 19, 2011)
 
 * RestFB now automatically uses the faster read-only endpoints for Graph and Old REST API calls when possible.
