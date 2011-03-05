@@ -96,12 +96,6 @@ public class User extends NamedFacebookType {
   @Facebook
   private String locale;
 
-  @Facebook("mobile_phone")
-  private String mobilePhone;
-
-  @Facebook
-  private Address address;
-
   /**
    * Duplicate mapping for "hometown" since FB can return it differently in
    * different situations.
@@ -151,97 +145,6 @@ public class User extends NamedFacebookType {
 
   @Facebook
   private List<NamedFacebookType> languages = new ArrayList<NamedFacebookType>();
-
-  /**
-   * Represents a User's address.
-   * 
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   */
-  public static class Address {
-    @Facebook
-    private String street;
-
-    @Facebook
-    private String city;
-
-    @Facebook
-    private String state;
-
-    @Facebook
-    private String country;
-
-    @Facebook
-    private String zip;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
-    /**
-     * This address's street.
-     * 
-     * @return This address's street.
-     */
-    public String getStreet() {
-      return street;
-    }
-
-    /**
-     * This address's city.
-     * 
-     * @return This address's city.
-     */
-    public String getCity() {
-      return city;
-    }
-
-    /**
-     * This address's state.
-     * 
-     * @return This address's state.
-     */
-    public String getState() {
-      return state;
-    }
-
-    /**
-     * This address's country.
-     * 
-     * @return This address's country.
-     */
-    public String getCountry() {
-      return country;
-    }
-
-    /**
-     * This address's zip code.
-     * 
-     * @return This address's zip code.
-     */
-    public String getZip() {
-      return zip;
-    }
-  }
 
   /**
    * Represents the <a
@@ -699,24 +602,6 @@ public class User extends NamedFacebookType {
    */
   public NamedFacebookType getSignificantOther() {
     return significantOther;
-  }
-
-  /**
-   * The user's mobile phone number.
-   * 
-   * @return The user's mobile phone number.
-   */
-  public String getMobilePhone() {
-    return mobilePhone;
-  }
-
-  /**
-   * The user's mobile phone number.
-   * 
-   * @return The user's mobile phone number.
-   */
-  public Address getAddress() {
-    return address;
   }
 
   /**
