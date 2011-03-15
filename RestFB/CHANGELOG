@@ -80,6 +80,8 @@
 
 1.6 (December 30, 2010)
 
+* POTENTIALLY BREAKING CHANGE: User.getPicture() has been removed.
+  To get the user's picture, simply construct a URL by hand, e.g. http://graph.facebook.com/USER_ID/picture
 * Now use java.util.logging instead of Log4j - RestFB now has 0 dependencies.
 * FacebookException now extends RuntimeException - you no longer have to catch it if you don't want to.
   Thanks to Jeff Schnitzer.
