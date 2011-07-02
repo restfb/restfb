@@ -6,8 +6,8 @@
   Thanks to Andre Oosthuizen and Grace Win.
 * Added "name", "tags", and "source" fields to Video and marked "message" as deprecated.
   Thanks to Andre Oosthuizen and Marcel Stoer.
-* Added "likes" field to Page and deprecated "fan_count".  
-  Thanks to Shashank Agarwal.
+* Added "likes" and "access_token" fields to Page and deprecated "fan_count".  
+  Thanks to Shashank Agarwal and jspyeatt.
 * Added "object_id" field to Post.
   Thanks to Grace Win.
 

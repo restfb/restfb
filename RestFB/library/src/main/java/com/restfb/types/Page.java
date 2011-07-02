@@ -66,7 +66,10 @@ public class Page extends CategorizedFacebookType {
 
   @Facebook
   private String description;
-  
+
+  @Facebook("access_token")
+  private String accessToken;
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -168,5 +171,17 @@ public class Page extends CategorizedFacebookType {
    */
   public String getDescription() {
     return description;
+  }
+
+  /**
+   * The access token specific to this page.
+   * <p>
+   * This value will only be available for pages if the application accessing
+   * this page has been given {@code manage_page} permissions.
+   * 
+   * @return The access token specific to this page.
+   */
+  public String getAccessToken() {
+    return accessToken;
   }
 }
