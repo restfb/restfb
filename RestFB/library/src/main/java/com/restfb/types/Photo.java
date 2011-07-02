@@ -70,6 +70,12 @@ public class Photo extends NamedFacebookType {
   @Facebook
   private List<Tag> tags = new ArrayList<Tag>();
 
+  @Facebook
+  private List<Comment> comments = new ArrayList<Comment>();
+
+  @Facebook
+  private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
+
   /**
    * Represents the <a
    * href="http://developers.facebook.com/docs/reference/api/photo">Tag Graph
@@ -209,5 +215,25 @@ public class Photo extends NamedFacebookType {
    */
   public List<Tag> getTags() {
     return unmodifiableList(tags);
+  }
+
+  /**
+   * All of the comments on this photo.
+   * 
+   * @return All of the comments on this photo.
+   * @since 1.6.5
+   */
+  public List<Comment> getComments() {
+    return unmodifiableList(comments);
+  }
+
+  /**
+   * Users who like the photo.
+   * 
+   * @return Users who like the photo.
+   * @since 1.6.5
+   */
+  public List<NamedFacebookType> getLikes() {
+    return unmodifiableList(likes);
   }
 }
