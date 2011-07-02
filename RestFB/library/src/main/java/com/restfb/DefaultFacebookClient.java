@@ -126,6 +126,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
 
   /**
+   * Batch API error response 'error' attribute name.
+   */
+  protected static final String BATCH_ERROR_ATTRIBUTE_NAME = "error";
+
+  /**
+   * Batch API error response 'error_description' attribute name.
+   */
+  protected static final String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
+
+  /**
    * Creates a Facebook Graph API client with no access token.
    * <p>
    * Without an access token, you can view and search public graph data but
@@ -538,6 +548,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // If we have a legacy exception, throw it.
     throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
 
+    // If we have a batch API exception, throw it.
+    throwBatchFacebookResponseStatusExceptionIfNecessary(json);
+
     try {
       // If the result is not an object, bail immediately.
       if (!json.startsWith("{"))
@@ -553,6 +566,47 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw graphFacebookExceptionMapper
         .exceptionForTypeAndMessage(null, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
           innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
+    } catch (JsonException e) {
+      throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
+    }
+  }
+
+  /**
+   * If the {@code error} and {@code error_description} JSON fields are present,
+   * we've got a response status error for this batch API call. Extracts
+   * relevant information from the JSON and throws an exception which
+   * encapsulates it for end-user consumption.
+   * 
+   * @param json
+   *          The JSON returned by Facebook in response to a batch API call.
+   * @throws FacebookResponseStatusException
+   *           If the JSON contains an error code.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while processing the JSON.
+   * @since 1.6.5
+   */
+  protected void throwBatchFacebookResponseStatusExceptionIfNecessary(String json) {
+    try {
+      // If this is not an object, it's not an error response.
+      if (!json.startsWith("{"))
+        return;
+
+      JsonObject errorObject = null;
+
+      // We need to swallow exceptions here because it's possible to get a legit
+      // Facebook response that contains illegal JSON (e.g.
+      // users.getLoggedInUser returning 1240077) - we're only interested in
+      // whether or not there's an error_code field present.
+      try {
+        errorObject = new JsonObject(json);
+      } catch (JsonException e) {}
+
+      if (errorObject == null || !errorObject.has(BATCH_ERROR_ATTRIBUTE_NAME)
+          || !errorObject.has(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME))
+        return;
+
+      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
+        null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
