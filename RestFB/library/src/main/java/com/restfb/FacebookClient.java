@@ -27,6 +27,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.restfb.batch.BatchRequest;
+import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
 import com.restfb.util.ReflectionUtils;
 
@@ -190,6 +192,15 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    */
   <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
+
+  /**
+   * TODO: document
+   * 
+   * @param batchRequests
+   * @return
+   * @since 1.6.5
+   */
+  List<BatchResponse> executeBatch(BatchRequest... batchRequests);
 
   /**
    * Performs a <a

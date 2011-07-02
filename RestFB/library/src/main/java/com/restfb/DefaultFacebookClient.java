@@ -32,6 +32,7 @@ import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.logging.Level.INFO;
 
@@ -43,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.batch.BatchRequest;
+import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
 import com.restfb.exception.FacebookExceptionMapper;
 import com.restfb.exception.FacebookGraphException;
@@ -366,6 +369,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return jsonMapper.toJavaList(
       makeRequest("fql.query", false, false, null,
         parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#executeBatch(com.restfb.batch.BatchRequest[])
+   */
+  @Override
+  public List<BatchResponse> executeBatch(BatchRequest... batchRequests) {
+    if (batchRequests == null || batchRequests.length == 0)
+      throw new IllegalArgumentException("You must specify at least one batch request.");
+
+    return jsonMapper.toJavaList(
+      makeRequest("", true, false, null, Parameter.with("batch", jsonMapper.toJson(asList(batchRequests)))),
+      BatchResponse.class);
   }
 
   /**
