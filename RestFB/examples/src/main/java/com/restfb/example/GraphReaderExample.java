@@ -101,7 +101,7 @@ public class GraphReaderExample {
     Page page = facebookClient.fetchObject("cocacola", Page.class);
 
     out.println("User name: " + user.getName());
-    out.println("Page fan count: " + page.getFanCount());
+    out.println("Page likes: " + page.getLikes());
   }
 
   void fetchObjectsAsJsonObject() {
@@ -130,7 +130,7 @@ public class GraphReaderExample {
         facebookClient.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
 
     out.println("User name: " + fetchObjectsResults.me.getName());
-    out.println("Page fan count: " + fetchObjectsResults.page.getFanCount());
+    out.println("Page likes: " + fetchObjectsResults.page.getLikes());
   }
 
   void fetchDifferentDataTypesAsJsonObject() {

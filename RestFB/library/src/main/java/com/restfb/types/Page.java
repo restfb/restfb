@@ -54,8 +54,12 @@ public class Page extends CategorizedFacebookType {
   @Facebook
   private String products;
 
+  @Deprecated
   @Facebook("fan_count")
   private Long fanCount;
+
+  @Facebook
+  private Long likes;
 
   @Facebook("is_community_page")
   private Boolean isCommunityPage;
@@ -129,10 +133,21 @@ public class Page extends CategorizedFacebookType {
   /**
    * The number of fans the page has.
    * 
+   * @deprecated In favor of {@link #getLikes()}.
    * @return The number of fans the page has.
    */
   public Long getFanCount() {
     return fanCount;
+  }
+
+  /**
+   * The number of likes the page has.
+   * 
+   * @return The number of likes the page has.
+   * @since 1.6.5
+   */
+  public Long getLikes() {
+    return likes;
   }
 
   /**

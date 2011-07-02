@@ -1,10 +1,16 @@
+1.6.5 (July X, 2011)
+
+* Added "likes" field to Page and deprecated "fan_count".  
+  Thanks to Shashank Agarwal.
+
+
 1.6.4 (March 5, 2011)
 
-* Added "application" and "type" fields to Post
+* Added "application" and "type" fields to Post.
   Thanks to nelrib.
 * Removed "mobilePhone" and "address" fields from User.
-  Thanks to Marcel Stoer   
-* Add undocumented "properties" field to Post type
+  Thanks to Marcel Stoer.
+* Added undocumented "properties" field to Post type.
   
 1.6.3 (February 19, 2011)
 
