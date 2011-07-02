@@ -614,6 +614,7 @@ public class Post extends NamedFacebookType {
    * The Facebook object id for an uploaded photo or video.
    * 
    * @return The Facebook object id for an uploaded photo or video.
+   * @since 1.6.5
    */
   public String getObjectId() {
     return objectId;

@@ -25,6 +25,7 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +62,9 @@ public class Photo extends NamedFacebookType {
   @Facebook
   private String icon;
 
+  @Facebook
+  private Integer position;
+
   @Facebook("created_time")
   private String createdTime;
 
@@ -76,8 +80,11 @@ public class Photo extends NamedFacebookType {
   @Facebook
   private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
 
+  @Facebook
+  private List<Image> images = new ArrayList<Image>();
+
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * Represents the <a
    * href="http://developers.facebook.com/docs/reference/api/photo">Tag Graph
@@ -95,7 +102,7 @@ public class Photo extends NamedFacebookType {
 
     @Facebook("created_time")
     private String createdTime;
-    
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -123,6 +130,54 @@ public class Photo extends NamedFacebookType {
      */
     public Date getCreatedTime() {
       return toDateFromLongFormat(createdTime);
+    }
+  }
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/photo">Image Graph
+   * API type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.5
+   */
+  public static class Image implements Serializable {
+    @Facebook
+    private Integer height;
+
+    @Facebook
+    private Integer width;
+
+    @Facebook
+    private String source;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The height of the image in pixels.
+     * 
+     * @return The height of the image in pixels.
+     */
+    public Integer getHeight() {
+      return height;
+    }
+
+    /**
+     * The width of the image in pixels.
+     * 
+     * @return The width of the image in pixels.
+     */
+    public Integer getWidth() {
+      return width;
+    }
+
+    /**
+     * The source URL of the image.
+     * 
+     * @return The source URL of the image.
+     */
+    public String getSource() {
+      return source;
     }
   }
 
@@ -191,6 +246,16 @@ public class Photo extends NamedFacebookType {
   }
 
   /**
+   * The position of this photo in the album.
+   * 
+   * @return The position of this photo in the album.
+   * @since 1.6.5
+   */
+  public Integer getPosition() {
+    return position;
+  }
+
+  /**
    * The time the photo was initially published.
    * 
    * @return The time the photo was initially published.
@@ -239,5 +304,15 @@ public class Photo extends NamedFacebookType {
    */
   public List<NamedFacebookType> getLikes() {
     return unmodifiableList(likes);
+  }
+
+  /**
+   * The 4 different stored representations of the photo.
+   * 
+   * @return The 4 different stored representations of the photo.
+   * @since 1.6.5
+   */
+  public List<Image> getImages() {
+    return unmodifiableList(images);
   }
 }

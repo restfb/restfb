@@ -2,8 +2,8 @@
 
 * All types under com.restfb.types now implement Serializable.
   Thanks to everyone who asked for this!
-* Added "comments" and "likes" fields to Photo.
-  Thanks to Andre Oosthuizen.
+* Added "comments", "likes", "position", and "images" fields to Photo.
+  Thanks to Andre Oosthuizen and Grace Win.
 * Added "name", "tags", and "source" fields to Video and marked "message" as deprecated.
   Thanks to Andre Oosthuizen and Marcel Stoer.
 * Added "likes" field to Page and deprecated "fan_count".  
