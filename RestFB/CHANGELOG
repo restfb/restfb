@@ -8,6 +8,8 @@
   Thanks to Andre Oosthuizen and Marcel Stoer.
 * Added "likes" field to Page and deprecated "fan_count".  
   Thanks to Shashank Agarwal.
+* Added "object_id" field to Post.
+  Thanks to Grace Win.
 
 1.6.4 (March 5, 2011)
 

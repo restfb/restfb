@@ -98,6 +98,9 @@ public class Post extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
+  @Facebook("object_id")
+  private String objectId;
+
   @Facebook
   private Comments comments;
 
@@ -605,6 +608,15 @@ public class Post extends NamedFacebookType {
    */
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
+  }
+
+  /**
+   * The Facebook object id for an uploaded photo or video.
+   * 
+   * @return The Facebook object id for an uploaded photo or video.
+   */
+  public String getObjectId() {
+    return objectId;
   }
 
   /**
