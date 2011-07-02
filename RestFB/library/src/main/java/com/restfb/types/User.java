@@ -97,6 +97,9 @@ public class User extends NamedFacebookType {
   @Facebook
   private String locale;
 
+  @Facebook
+  private String username;
+
   /**
    * Duplicate mapping for "hometown" since FB can return it differently in
    * different situations.
@@ -569,6 +572,16 @@ public class User extends NamedFacebookType {
    */
   public String getLocale() {
     return locale;
+  }
+
+  /**
+   * The user's Facebook username.
+   * 
+   * @return The user's Facebook username.
+   * @since 1.6.5
+   */
+  public String getUsername() {
+    return username;
   }
 
   /**

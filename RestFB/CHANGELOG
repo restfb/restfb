@@ -10,6 +10,8 @@
   Thanks to Shashank Agarwal and jspyeatt.
 * Added "object_id" field to Post.
   Thanks to Grace Win.
+* Added "username" field to User.
+  Thanks to Iwan Gulenko.
 
 1.6.4 (March 5, 2011)
 
