@@ -63,6 +63,8 @@ public class Event extends NamedFacebookType {
 
   @Facebook("updated_time")
   private String updatedTime;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the name and ID of the user who owns the event

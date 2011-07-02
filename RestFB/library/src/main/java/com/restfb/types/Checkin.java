@@ -58,6 +58,8 @@ public class Checkin extends FacebookType {
 
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * Represents the <a
@@ -70,6 +72,8 @@ public class Checkin extends FacebookType {
   public static class Place extends CategorizedFacebookType {
     @Facebook
     private Location location;
+    
+    private static final long serialVersionUID = 1L;
 
     /**
      * Represents the <a
@@ -85,6 +89,8 @@ public class Checkin extends FacebookType {
 
       @Facebook
       private Double longitude;
+      
+      private static final long serialVersionUID = 1L;
 
       /**
        * @see java.lang.Object#hashCode()

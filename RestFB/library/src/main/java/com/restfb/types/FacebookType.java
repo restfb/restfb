@@ -24,6 +24,8 @@ package com.restfb.types;
 
 import static com.restfb.util.StringUtils.isBlank;
 
+import java.io.Serializable;
+
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
@@ -35,7 +37,7 @@ import com.restfb.util.ReflectionUtils;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class FacebookType {
+public class FacebookType implements Serializable {
   @Facebook
   private String id;
 
@@ -44,6 +46,8 @@ public class FacebookType {
 
   @Facebook
   private String type;
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * @see java.lang.Object#hashCode()
@@ -109,9 +113,11 @@ public class FacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Metadata {
+  public static class Metadata implements Serializable {
     @Facebook
     private Connections connections;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -146,7 +152,7 @@ public class FacebookType {
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.5
      */
-    public static class Connections {
+    public static class Connections implements Serializable {
       @Facebook
       private String home;
 
@@ -221,6 +227,8 @@ public class FacebookType {
 
       @Facebook
       private String updates;
+
+      private static final long serialVersionUID = 1L;
 
       /**
        * @see java.lang.Object#hashCode()

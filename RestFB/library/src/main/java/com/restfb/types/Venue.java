@@ -22,6 +22,8 @@
 
 package com.restfb.types;
 
+import java.io.Serializable;
+
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
@@ -33,7 +35,7 @@ import com.restfb.util.ReflectionUtils;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Venue {
+public class Venue implements Serializable {
   @Facebook
   private String street;
 
@@ -51,6 +53,8 @@ public class Venue {
 
   @Facebook
   private Double longitude;
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * @see java.lang.Object#hashCode()

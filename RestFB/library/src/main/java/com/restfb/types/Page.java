@@ -66,6 +66,8 @@ public class Page extends CategorizedFacebookType {
 
   @Facebook
   private String description;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * The page's picture.

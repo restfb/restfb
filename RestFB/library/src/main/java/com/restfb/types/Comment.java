@@ -49,6 +49,8 @@ public class Comment extends FacebookType {
   @Facebook
   private Long likes;
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * User who posted the comment.
    * 

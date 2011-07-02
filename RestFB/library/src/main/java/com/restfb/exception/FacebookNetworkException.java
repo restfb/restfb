@@ -38,6 +38,8 @@ public class FacebookNetworkException extends FacebookException {
    */
   private Integer httpStatusCode;
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * Creates an exception with the given message and cause.
    * 

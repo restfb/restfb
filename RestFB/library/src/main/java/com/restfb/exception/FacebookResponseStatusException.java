@@ -29,7 +29,7 @@ import static java.lang.String.format;
  * indicates an error condition.
  * <p>
  * This exception may also be thrown when executing certain operations against
- * the Graph API, e.g. FQL queries.
+ * the Graph API, e.g. FQL queries or Batch API calls.
  * <p>
  * Example:
  * <code>{"error_code": 2, "error_msg": "The service is not available at this time.", ...}</code>.
@@ -46,6 +46,8 @@ public class FacebookResponseStatusException extends FacebookException {
    * The Facebook API error message.
    */
   private String errorMessage;
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Creates an exception with the given message and error code.

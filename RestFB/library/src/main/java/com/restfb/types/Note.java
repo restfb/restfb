@@ -54,6 +54,8 @@ public class Note extends FacebookType {
 
   @Facebook("updated_time")
   private String updatedTime;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * The ID of the user who posted the note.

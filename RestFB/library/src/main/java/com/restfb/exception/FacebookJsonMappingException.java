@@ -28,6 +28,8 @@ package com.restfb.exception;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class FacebookJsonMappingException extends FacebookException {
+  private static final long serialVersionUID = 1L;
+
   /**
    * Creates an exception with the given message.
    * 

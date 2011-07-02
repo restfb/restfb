@@ -40,6 +40,8 @@ public class PageConnection extends CategorizedFacebookType {
   @Facebook("created_time")
   private String createdTime;
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * The time the connection was initially created.
    * 

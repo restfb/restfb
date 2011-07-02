@@ -38,6 +38,8 @@ package com.restfb.exception;
  * @since 1.6
  */
 public class FacebookQueryParseException extends FacebookGraphException {
+  private static final long serialVersionUID = 1L;
+
   /**
    * Creates an exception with the given error type and message.
    * 

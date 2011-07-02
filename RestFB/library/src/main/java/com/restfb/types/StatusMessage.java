@@ -55,6 +55,8 @@ public class StatusMessage extends NamedFacebookType {
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * The user who posted the message.
    * 

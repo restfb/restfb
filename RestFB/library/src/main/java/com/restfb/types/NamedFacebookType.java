@@ -36,6 +36,8 @@ import com.restfb.Facebook;
 public class NamedFacebookType extends FacebookType {
   @Facebook
   private String name;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * The name field for this type.

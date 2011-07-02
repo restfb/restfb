@@ -31,9 +31,11 @@ import com.restfb.Facebook;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Account extends CategorizedFacebookType {
+public class Account extends CategorizedFacebookType {    
   @Facebook("access_token")
   private String accessToken;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * An OAuth access token for this account.

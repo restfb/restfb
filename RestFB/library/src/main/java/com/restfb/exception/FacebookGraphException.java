@@ -50,6 +50,8 @@ public class FacebookGraphException extends FacebookException {
    */
   private String errorMessage;
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * Creates an exception with the given error type and message.
    * 

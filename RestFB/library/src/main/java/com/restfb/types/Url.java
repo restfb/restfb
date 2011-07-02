@@ -43,6 +43,8 @@ public class Url extends NamedFacebookType {
   @Facebook("fan_count")
   private Long fanCount;
 
+  private static final long serialVersionUID = 1L;
+
   public Long getShares() {
     return shares;
   }

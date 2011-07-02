@@ -25,6 +25,7 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,13 +110,15 @@ public class Post extends NamedFacebookType {
   @Facebook
   private List<Property> properties = new ArrayList<Property>();
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * Represents the undocumented {@code Property} type.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.4
    */
-  public static class Property {
+  public static class Property implements Serializable {
     @Facebook
     private String name;
 
@@ -124,6 +127,8 @@ public class Post extends NamedFacebookType {
 
     @Facebook
     private String href;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -183,12 +188,14 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
    */
-  public static class Likes {
+  public static class Likes implements Serializable {
     @Facebook
     private Long count;
 
     @Facebook
     private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -239,12 +246,14 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5.3
    */
-  public static class Comments {
+  public static class Comments implements Serializable {
     @Facebook
     private Long count;
 
     @Facebook
     private List<Comment> data = new ArrayList<Comment>();
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -297,7 +306,7 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Privacy {
+  public static class Privacy implements Serializable {
     @Facebook
     private String value;
 
@@ -312,6 +321,8 @@ public class Post extends NamedFacebookType {
 
     @Facebook
     private String deny;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -391,12 +402,14 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Action {
+  public static class Action implements Serializable {
     @Facebook
     private String name;
 
     @Facebook
     private String link;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()

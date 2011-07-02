@@ -38,6 +38,8 @@ public class Application extends CategorizedFacebookType {
 
   @Facebook
   private String link;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * The description of the application written by the 3rd party developers.

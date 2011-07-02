@@ -46,6 +46,8 @@ public class Insight extends NamedFacebookType {
   @Facebook
   private List<JsonObject> values = new ArrayList<JsonObject>();
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * Length of the period during which the insights were collected, e.g. 'day',
    * 'week' or 'month'.

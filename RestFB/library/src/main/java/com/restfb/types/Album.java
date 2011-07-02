@@ -57,6 +57,8 @@ public class Album extends NamedFacebookType {
 
   @Facebook("updated_time")
   private String updatedTime;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the ID and name of the profile who posted this album.

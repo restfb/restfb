@@ -28,6 +28,7 @@ import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -146,6 +147,8 @@ public class User extends NamedFacebookType {
   @Facebook
   private List<NamedFacebookType> languages = new ArrayList<NamedFacebookType>();
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * Represents the <a
    * href="http://developers.facebook.com/docs/reference/api/user">Work Graph
@@ -154,7 +157,7 @@ public class User extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
    */
-  public static class Work {
+  public static class Work implements Serializable {
     @Facebook
     private NamedFacebookType employer;
 
@@ -175,6 +178,8 @@ public class User extends NamedFacebookType {
 
     @Facebook
     private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -274,7 +279,7 @@ public class User extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
    */
-  public static class Education {
+  public static class Education implements Serializable {
     @Facebook
     private NamedFacebookType school;
 
@@ -289,6 +294,8 @@ public class User extends NamedFacebookType {
 
     @Facebook
     private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -372,6 +379,8 @@ public class User extends NamedFacebookType {
   public static class Sport extends NamedFacebookType {
     @Facebook
     private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Friends associated with this sport.

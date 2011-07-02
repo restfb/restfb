@@ -58,6 +58,8 @@ public class Link extends NamedFacebookType {
 
   @Facebook("created_time")
   private String createdTime;
+  
+  private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the name and ID of the user who posted the link.

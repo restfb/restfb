@@ -77,6 +77,8 @@ public class Video extends NamedFacebookType {
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * An object containing the name and ID of the user who posted the video.
    * 

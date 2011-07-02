@@ -76,6 +76,8 @@ public class Photo extends NamedFacebookType {
   @Facebook
   private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * Represents the <a
    * href="http://developers.facebook.com/docs/reference/api/photo">Tag Graph
@@ -93,6 +95,8 @@ public class Photo extends NamedFacebookType {
 
     @Facebook("created_time")
     private String createdTime;
+    
+    private static final long serialVersionUID = 1L;
 
     /**
      * X coordinate (as a percentage of distance from left vs. width).
