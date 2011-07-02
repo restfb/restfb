@@ -180,6 +180,7 @@ public class Page extends CategorizedFacebookType {
    * this page has been given {@code manage_page} permissions.
    * 
    * @return The access token specific to this page.
+   * @since 1.6.5
    */
   public String getAccessToken() {
     return accessToken;
