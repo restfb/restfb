@@ -1,8 +1,9 @@
 1.6.5 (July X, 2011)
 
+* Added "name", "tags", and "source" fields to Video and marked "message" as deprecated.
+  Thanks to Andre Oosthuizen and Marcel Stoer.
 * Added "likes" field to Page and deprecated "fan_count".  
   Thanks to Shashank Agarwal.
-
 
 1.6.4 (March 5, 2011)
 
