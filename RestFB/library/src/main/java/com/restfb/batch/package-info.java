@@ -21,7 +21,7 @@
  */
 
 /**
- * Support classes for RestFB's implementation of the <a href="https://developers.facebook.com/docs/reference/api/batch/">Facebook Batch API</a>.
+ * Support classes for RestFB's implementation of the <a href="https://developers.facebook.com/docs/reference/api/batch/" target="_blank">Facebook Batch API</a>.
  * <p>
  * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
  */

@@ -40,7 +40,7 @@ public class BatchHeader {
   private String value;
 
   public BatchHeader() {}
-  
+
   public BatchHeader(String name, String value) {
     this.name = name;
     this.value = value;

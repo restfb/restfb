@@ -21,7 +21,7 @@
  */
 
 /**
- * Contains utility classes which provide common {@link java.lang.String}, {@link java.util.Date}, and <a href="http://java.sun.com/javase/6/docs/technotes/guides/reflection/index.html">Reflection</a> operations.
+ * Contains utility classes which provide common {@link java.lang.String}, {@link java.util.Date}, and <a href="http://java.sun.com/javase/6/docs/technotes/guides/reflection/index.html" target="_blank">Reflection</a> operations.
  * <p>
  * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
  * @since 1.6

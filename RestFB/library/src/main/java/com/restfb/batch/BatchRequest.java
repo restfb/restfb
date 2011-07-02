@@ -58,7 +58,8 @@ public class BatchRequest {
   private List<BatchHeader> headers = new ArrayList<BatchHeader>();
 
   /**
-   * Designed to be invoked by instances of <tt>BatchRequestBuilder</tt>.
+   * Designed to be invoked by instances of <tt>{@link BatchRequestBuilder}</tt>
+   * .
    * 
    * @param relativeUrl
    * @param method
@@ -77,6 +78,12 @@ public class BatchRequest {
     this.omitResponseOnSuccess = omitResponseOnSuccess;
   }
 
+  /**
+   * TODO: document
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.5
+   */
   public static class BatchRequestBuilder {
     private String method = "GET";
     private List<BatchHeader> headers = new ArrayList<BatchHeader>();

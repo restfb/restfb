@@ -21,7 +21,7 @@
  */
 
 /**
- * Repackaging of the <a href="http://json.org/">json.org</a> reference implementation.
+ * Repackaging of the <a href="http://json.org/" target="_blank">json.org</a> reference implementation.
  * <p>
  * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
  */

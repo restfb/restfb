@@ -21,7 +21,7 @@
  */
 
 /**
- * Default implementations of <a href="http://developers.facebook.com/docs/reference/api/">Facebook Graph API Objects</a>.
+ * Default implementations of <a href="http://developers.facebook.com/docs/reference/api/" target="_blank">Facebook Graph API Objects</a>.
  * <p>
  * These are provided for your convenience.  You are free to write your own classes with {@link com.restfb.Facebook}-annotated fields
  * and use them instead.
