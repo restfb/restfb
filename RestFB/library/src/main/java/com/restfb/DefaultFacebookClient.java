@@ -27,6 +27,7 @@ import static com.restfb.util.StringUtils.join;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.trimToNull;
 import static com.restfb.util.StringUtils.urlEncode;
+import static java.lang.String.format;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
@@ -84,6 +85,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Read-only API endpoint URL.
    */
   protected static final String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
+
+  /**
+   * Video Upload API endpoint URL.
+   * 
+   * @since 1.6.5
+   */
+  protected static final String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
 
   /**
    * Reserved method override parameter name.
@@ -465,7 +473,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
-    final String fullEndpoint = createEndpointForApiCall(endpoint);
+    final String fullEndpoint = createEndpointForApiCall(endpoint, binaryAttachment != null);
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(new Requestor() {
@@ -687,16 +695,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String)
+   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean)
    */
   @Override
-  protected String createEndpointForApiCall(String apiCall) {
+  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {
     trimToEmpty(apiCall).toLowerCase();
     while (apiCall.startsWith("/"))
       apiCall = apiCall.substring(1);
 
-    return String.format("%s/%s", readOnlyApiCalls.contains(apiCall) ? getFacebookReadOnlyEndpointUrl()
-        : getFacebookGraphEndpointUrl(), apiCall);
+    String baseUrl = getFacebookGraphEndpointUrl();
+
+    if (readOnlyApiCalls.contains(apiCall))
+      baseUrl = getFacebookReadOnlyEndpointUrl();
+    else if (hasAttachment && apiCall.endsWith("/videos"))
+      baseUrl = getFacebookGraphVideoEndpointUrl();
+
+    return format("%s/%s", baseUrl, apiCall);
   }
 
   /**
@@ -706,6 +720,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected String getFacebookGraphEndpointUrl() {
     return FACEBOOK_GRAPH_ENDPOINT_URL;
+  }
+
+  /**
+   * Returns the base endpoint URL for the Graph API's video upload
+   * functionality.
+   * 
+   * @return The base endpoint URL for the Graph API's video upload
+   *         functionality.
+   * @since 1.6.5
+   */
+  protected String getFacebookGraphVideoEndpointUrl() {
+    return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
   }
 
   /**

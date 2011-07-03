@@ -1,5 +1,10 @@
 1.6.5 (July X, 2011)
 
+* Added support for the new Batch API via FacebookClient.executeBatch(BatchRequest... batchRequest).
+  Thanks to everyone who asked for this!
+* Added support for the new video upload API endpoint via https://graph-video.facebook.com and fixed a multipart
+  filename bug that broke video uploads.
+  Thanks to yylaob@gmail.com for the filename bugfix and saylxxx@gmail.com and everyone else who asked for this!
 * Fixed a numeric precision bug in JsonObject.getLong() which caused large numbers to be rounded incorrectly.
   Thanks very much to ps@king.com for finding this and providing a patch.
 * All types under com.restfb.types now implement Serializable.

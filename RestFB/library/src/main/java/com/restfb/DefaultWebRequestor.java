@@ -164,10 +164,16 @@ public class DefaultWebRequestor implements WebRequestor {
       // If we have a binary attachment, the body is just the attachment and the
       // other parameters are passed in via the URL.
       // Otherwise the body is the URL parameter string.
+      
+      // Hack: FB only cares about the file extension if you're uploading a video.
+      // The extension doesn't have to match the real content type - it just has to be one that FB
+      // associates with a video - so we pick 'XXX.flv' as our arbitrary filename.
+      // Uploading pictures will still work even with this extension.
+      
       if (hasBinaryAttachment) {
         outputStream
           .write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
-              + "Content-Disposition: form-data; filename=\"test.jpg\"" + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
+              + "Content-Disposition: form-data; filename=\"XXX.flv\"" + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
             .getBytes(ENCODING_CHARSET));
 
         write(binaryAttachment, outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);

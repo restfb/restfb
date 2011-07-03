@@ -339,7 +339,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
 
     // Perform a POST to the API endpoint
     try {
-      response = webRequestor.executePost(createEndpointForApiCall(method), parametersAsString);
+      response = webRequestor.executePost(createEndpointForApiCall(method, false), parametersAsString);
     } catch (Throwable t) {
       throw new FacebookNetworkException("Facebook POST failed", t);
     }
@@ -480,10 +480,10 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String)
+   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean)
    */
   @Override
-  protected String createEndpointForApiCall(String apiCall) {
+  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {
     apiCall = trimToEmpty(apiCall).toLowerCase();
     return readOnlyApiCalls.contains(apiCall) ? getFacebookReadOnlyEndpointUrl() : getFacebookRestEndpointUrl();
   }
