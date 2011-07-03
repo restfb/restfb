@@ -14,7 +14,7 @@
 	<div id="content">
 		<div class="spacer"></div>
 	
-		<h1>RestFB</h1>
+		<h1><img class="logoImage" src="logo.png" alt="RestFB logo"/></h1>
 		
 		<p>
 			RestFB is a simple and flexible
@@ -29,10 +29,10 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6.4 (released March 5, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
+			Version 1.6.5 (released July 3, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
 			<br/>
-			<a target="_blank" href="http://restfb.googlecode.com/svn/tags/restfb-project-1.6.4/CHANGELOG">View the changelog</a>, 
-			or <a target="_blank" href="http://code.google.com/p/restfb/downloads/detail?name=restfb-distro-1.6.4.zip">download it here</a>.
+			<a target="_blank" href="http://restfb.googlecode.com/svn/tags/restfb-project-1.6.5/CHANGELOG">View the changelog</a>, 
+			or <a target="_blank" href="http://code.google.com/p/restfb/downloads/detail?name=restfb-distro-1.6.5.zip">download it here</a>.
 		</p>
 		
 			<p>
@@ -45,7 +45,7 @@
 <pre class="prettyprint">&lt;dependency&gt;
   &lt;groupId&gt;com.restfb&lt;/groupId&gt;
   &lt;artifactId&gt;restfb&lt;/artifactId&gt;
-  &lt;version&gt;1.6.4&lt;/version&gt;
+  &lt;version&gt;1.6.5&lt;/version&gt;
 &lt;/dependency&gt;</pre>
 		</p>		
 		
@@ -177,14 +177,19 @@ out.println("Page likes: " + page.getLikes());</pre>
 			
 			<div>
 				Want to use <a target="_blank" href="http://logging.apache.org/log4j/1.2/">Log4j</a> instead of java.util.logging?  
-				No problem!  Just download the latest release of <a target="_blank" href="http://www.slf4j.org/">SLF4J</a> and drop these two JARs onto your classpath and everything should just work:
+				No problem!  Just download the latest release of <a target="_blank" href="http://www.slf4j.org/">SLF4J</a> and drop these JARs onto your classpath:
 				
 				<div class="spacer"></div>
 								
 				<ul>
 					<li>slf4j-api-x.y.jar</li>
 					<li>slf4j-log4j12-x.y.jar</li>
+					<li>jul-to-slf4j-x.y.jar</li>
 				</ul>						
+				
+				<div class="spacer"></div>
+				
+				Then execute this code during app startup: <code>SLF4JBridgeHandler.install();</code>		
 				
 				<div class="spacer"></div>
 				

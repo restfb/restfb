@@ -203,6 +203,10 @@ div.spacer {
 	vertical-align: middle;	
 }
 
+.logoImage {
+	margin-left: -22px; 
+}
+
 /* end main */
 
 /* highlight */
