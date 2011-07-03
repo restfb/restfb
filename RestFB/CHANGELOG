@@ -12,6 +12,8 @@
   Thanks to Grace Win.
 * Added "username" field to User.
   Thanks to Iwan Gulenko.
+* Added "city", "state", and "country" fields to Checkin.Place.Location.
+  Thanks to Thom Nichols.
 
 1.6.4 (March 5, 2011)
 
