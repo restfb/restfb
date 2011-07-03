@@ -26,7 +26,8 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * TODO: document
+ * Represents an HTTP header name/value pair used by {@link BatchRequest} and
+ * {@link BatchResponse}.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.5
@@ -38,8 +39,20 @@ public class BatchHeader {
   @Facebook
   private String value;
 
-  public BatchHeader() {}
+  /**
+   * "Magic" no-argument constructor so we can reflectively make instances of
+   * this class with DefaultJsonMapper, but normal client code cannot.
+   */
+  protected BatchHeader() {}
 
+  /**
+   * Creates a {@code BatchHeader} with the given name/value pair.
+   * 
+   * @param name
+   *          The name of the header.
+   * @param value
+   *          The value of the header.
+   */
   public BatchHeader(String name, String value) {
     this.name = name;
     this.value = value;

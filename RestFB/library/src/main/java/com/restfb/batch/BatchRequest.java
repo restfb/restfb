@@ -22,6 +22,7 @@
 
 package com.restfb.batch;
 
+import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
@@ -31,7 +32,9 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * TODO: document
+ * Encapsulates a discrete part of an entire <a
+ * href="https://developers.facebook.com/docs/reference/api/batch/"
+ * target="_blank">Facebook Batch API</a> request.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.5
@@ -63,14 +66,27 @@ public class BatchRequest {
    * .
    * 
    * @param relativeUrl
+   *          The endpoint to hit, e.g. {@code "me/friends?limit=50"}.
    * @param method
+   *          The HTTP method to use, e.g. {@code "GET"}.
    * @param body
+   *          The request body, e.g. {@code "message=Test status update"}.
    * @param attachedFiles
+   *          Names of any attached files for this call, e.g.
+   *          {@code "cat1, cat2"}.
    * @param dependsOn
+   *          If this call depends on the completion of another call in the
+   *          current batch, e.g. {@code "first"}.
    * @param omitResponseOnSuccess
+   *          To make sure FB returns JSON in the event that this request
+   *          completes successfully, set this to {@code false}.
+   * 
    */
   protected BatchRequest(String relativeUrl, String method, String body, String attachedFiles, String dependsOn,
       boolean omitResponseOnSuccess) {
+    if (isBlank(relativeUrl))
+      throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");
+
     this.relativeUrl = relativeUrl;
     this.method = method;
     this.body = body;
@@ -80,7 +96,8 @@ public class BatchRequest {
   }
 
   /**
-   * TODO: document
+   * Builder pattern implementation to easily construct instances of
+   * <tt>{@link BatchRequest}</tt>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.5
@@ -94,6 +111,13 @@ public class BatchRequest {
     private String dependsOn;
     private boolean omitResponseOnSuccess;
 
+    /**
+     * Creates a batch request builder using the provided FB endpoint and
+     * parameters.
+     * 
+     * @param relativeUrl
+     *          The endpoint to hit, e.g. {@code "me/friends?limit=50"}.
+     */
     public BatchRequestBuilder(String relativeUrl) {
       this.relativeUrl = relativeUrl;
     }

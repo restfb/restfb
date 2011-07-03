@@ -47,6 +47,16 @@ public class BatchResponse {
   List<BatchHeader> headers = new ArrayList<BatchHeader>();
 
   /**
+   * "Magic" no-argument constructor so we can reflectively make instances of
+   * this class with DefaultJsonMapper, but normal client code cannot.
+   */
+  protected BatchResponse() {}
+
+  public BatchResponse(Integer code, String body, List<BatchHeader> headers) {
+
+  }
+
+  /**
    * @see java.lang.Object#hashCode()
    */
   @Override
