@@ -51,6 +51,8 @@ import com.restfb.util.ReflectionUtils;
  * <li>Execute an FQL query: use
  * {@link #executeQuery(String, Class, Parameter...)} or
  * {@link #executeMultiquery(Map, Class, Parameter...)}</li>
+ * <li>Execute operations in batch: use {@link #executeBatch(BatchRequest...)}
+ * or {@link #executeBatch(List, List)}</li>
  * <li>Publish data: use {@link #publish(String, Class, Parameter...)} or
  * {@link #publish(String, Class, BinaryAttachment, Parameter...)}</li>
  * <li>Delete an object: use {@link #deleteObject(String)}</li>
@@ -193,14 +195,30 @@ public interface FacebookClient {
   <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
 
   /**
-   * TODO: document
+   * Executes operations as a batch using the <a
+   * href="https://developers.facebook.com/docs/reference/api/batch/">Batch
+   * API</a>.
    * 
    * @param batchRequests
-   * @return
-   * @since 1.6.5
+   *          The operations to execute.
+   * @return The execution results in the order in which the requests were
+   *         specified.
    */
   List<BatchResponse> executeBatch(BatchRequest... batchRequests);
 
+  /**
+   * Executes operations as a batch with binary attachments using the <a
+   * href="https://developers.facebook.com/docs/reference/api/batch/">Batch
+   * API</a>.
+   * 
+   * @param batchRequests
+   *          The operations to execute.
+   * @param binaryAttachments
+   *          Binary attachments referenced by the batch requests.
+   * @return The execution results in the order in which the requests were
+   *         specified.
+   * @since 1.6.5
+   */
   List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments);
 
   /**
@@ -238,7 +256,7 @@ public interface FacebookClient {
    * @param objectType
    *          Object type token.
    * @param binaryAttachment
-   *          The file to include in the publish request - a photo, for example.
+   *          The file to include in the publish request.
    * @param parameters
    *          URL parameters to include in the API call.
    * @return An instance of type {@code objectType} which contains the Facebook

@@ -1,6 +1,17 @@
-1.6.5 (July X, 2011)
+1.6.5 (July 3, 2011)
 
-* Added support for the new Batch API via FacebookClient.executeBatch(BatchRequest... batchRequest).
+* BREAKING CHANGE:
+  We are no longer passing around InputStream objects to represent binary files when publishing -
+  they have been replaced by instances of the new com.restfb.BinaryAttachment type.
+  So this method:
+	<T> T FacebookClient.publish(String connection, Class<T> objectType, InputStream inputStream, Parameter... parameters)
+	is now:
+  <T> T FacebookClient.publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters)
+  This change was necessary to support correct video uploads and the new Batch API.
+  Documentation and usage examples for com.restfb.BinaryAttachment are available on http://restfb.com.  
+* Added support for the new Batch API. The two new methods are:
+  List<BatchResponse> FacebookClient.executeBatch(BatchRequest... batchRequests)
+  List<BatchResponse> FacebookClient.executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments)
   Thanks to everyone who asked for this!
 * Added support for the new video upload API endpoint via https://graph-video.facebook.com and fixed a multipart
   filename bug that broke video uploads.

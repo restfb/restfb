@@ -22,13 +22,13 @@
 
 package com.restfb.batch;
 
-import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * TODO: document
@@ -46,6 +46,30 @@ public class BatchResponse {
   @Facebook
   List<BatchHeader> headers = new ArrayList<BatchHeader>();
 
+  /**
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    return ReflectionUtils.hashCode(this);
+  }
+
+  /**
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object that) {
+    return ReflectionUtils.equals(this, that);
+  }
+
+  /**
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return ReflectionUtils.toString(this);
+  }
+
   public Integer getCode() {
     return code;
   }
@@ -56,14 +80,5 @@ public class BatchResponse {
 
   public List<BatchHeader> getHeaders() {
     return unmodifiableList(headers);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return format("%s[\n  Code=%d\n  Headers=%s\n  Body=%s\n]", BatchResponse.class.getSimpleName(), getCode(),
-      getHeaders(), getBody());
   }
 }
