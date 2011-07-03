@@ -23,11 +23,8 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import com.restfb.Facebook;
 
@@ -46,14 +43,11 @@ public class StatusMessage extends NamedFacebookType {
   @Facebook
   private String message;
 
+  @Facebook
+  private String type;
+
   @Facebook("updated_time")
   private String updatedTime;
-
-  @Facebook
-  private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
-
-  @Facebook
-  private List<Comment> comments = new ArrayList<Comment>();
 
   private static final long serialVersionUID = 1L;
 
@@ -76,29 +70,20 @@ public class StatusMessage extends NamedFacebookType {
   }
 
   /**
+   * The object type which is set to status.
+   * 
+   * @return The object type which is set to status.
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
    * The time the message was published.
    * 
    * @return The time the message was published.
    */
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
-  }
-
-  /**
-   * The users that have liked this message.
-   * 
-   * @return The users that have liked this message.
-   */
-  public List<NamedFacebookType> getLikes() {
-    return unmodifiableList(likes);
-  }
-
-  /**
-   * All of the comments on this message.
-   * 
-   * @return All of the comments on this message.
-   */
-  public List<Comment> getComments() {
-    return unmodifiableList(comments);
   }
 }

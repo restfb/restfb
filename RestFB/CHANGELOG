@@ -16,6 +16,9 @@
   Thanks to Iwan Gulenko.
 * Added "city", "state", and "country" fields to Checkin.Place.Location.
   Thanks to Thom Nichols.
+* Removed "messages" and "likes" fields from StatusMessage because they're now connections.
+  Added the "type" field to StatusMessage.
+  Thanks to volkenborn@yahoo.com.
 
 1.6.4 (March 5, 2011)
 
