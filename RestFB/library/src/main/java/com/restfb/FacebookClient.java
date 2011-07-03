@@ -201,6 +201,8 @@ public interface FacebookClient {
    */
   List<BatchResponse> executeBatch(BatchRequest... batchRequests);
 
+  List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments);
+
   /**
    * Performs a <a
    * href="http://developers.facebook.com/docs/api#publishing">Graph API

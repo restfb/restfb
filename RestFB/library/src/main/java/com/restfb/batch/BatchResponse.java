@@ -22,6 +22,7 @@
 
 package com.restfb.batch;
 
+import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import com.restfb.Facebook;
  */
 public class BatchResponse {
   @Facebook
-  private String code;
+  private Integer code;
 
   @Facebook
   private String body;
@@ -45,7 +46,7 @@ public class BatchResponse {
   @Facebook
   List<BatchHeader> headers = new ArrayList<BatchHeader>();
 
-  public String getCode() {
+  public Integer getCode() {
     return code;
   }
 
@@ -55,5 +56,13 @@ public class BatchResponse {
 
   public List<BatchHeader> getHeaders() {
     return unmodifiableList(headers);
+  }
+
+  /**
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return format("Code=%d, Headers=%s, Body=%s", getCode(), getHeaders(), getBody());
   }
 }

@@ -130,19 +130,17 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   @Override
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
-    int binaryAttachmentsCount = binaryAttachments == null ? 0 : binaryAttachments.length;
-
     if (logger.isLoggable(INFO))
       logger.info("Executing a POST to " + url + " with parameters "
-          + (binaryAttachmentsCount > 0 ? "" : "(sent in request body): ") + parameters
-          + (binaryAttachmentsCount > 0 ? " and " + binaryAttachmentsCount + " binary attachment[s]." : ""));
+          + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + parameters
+          + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
 
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
     InputStream inputStream = null;
 
     try {
-      httpUrlConnection = openConnection(new URL(url + (binaryAttachmentsCount > 0 ? "?" + parameters : "")));
+      httpUrlConnection = openConnection(new URL(url + (binaryAttachments.length > 0 ? "?" + parameters : "")));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
 
       // Allow subclasses to customize the connection if they'd like to - set
@@ -153,7 +151,7 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
 
-      if (binaryAttachmentsCount > 0) {
+      if (binaryAttachments.length > 0) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
         httpUrlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + MULTIPART_BOUNDARY);
       }
@@ -164,7 +162,7 @@ public class DefaultWebRequestor implements WebRequestor {
       // If we have binary attachments, the body is just the attachments and the
       // other parameters are passed in via the URL.
       // Otherwise the body is the URL parameter string.
-      if (binaryAttachmentsCount > 0) {
+      if (binaryAttachments.length > 0) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
           outputStream.write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
               + "Content-Disposition: form-data; filename=\"" + binaryAttachment.getFilename() + "\""
@@ -194,7 +192,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
       return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
     } finally {
-      if (binaryAttachmentsCount > 0)
+      if (binaryAttachments.length > 0)
         for (BinaryAttachment binaryAttachment : binaryAttachments)
           closeQuietly(binaryAttachment.getData());
 

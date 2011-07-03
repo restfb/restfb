@@ -40,6 +40,7 @@ import static java.util.logging.Level.INFO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -399,11 +400,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public List<BatchResponse> executeBatch(BatchRequest... batchRequests) {
-    if (batchRequests == null || batchRequests.length == 0)
+    return executeBatch(asList(batchRequests), Collections.<BinaryAttachment> emptyList());
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#executeBatch(java.util.List, java.util.List)
+   */
+  @Override
+  public List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments) {
+    verifyParameterPresence("binaryAttachments", binaryAttachments);
+
+    if (batchRequests == null || batchRequests.size() == 0)
       throw new IllegalArgumentException("You must specify at least one batch request.");
 
     return jsonMapper.toJavaList(
-      makeRequest("", true, false, null, Parameter.with("batch", jsonMapper.toJson(asList(batchRequests)))),
+      makeRequest("", true, false, binaryAttachments, Parameter.with("batch", jsonMapper.toJson(batchRequests))),
       BatchResponse.class);
   }
 
