@@ -22,7 +22,6 @@
 
 package com.restfb;
 
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +52,7 @@ import com.restfb.util.ReflectionUtils;
  * {@link #executeQuery(String, Class, Parameter...)} or
  * {@link #executeMultiquery(Map, Class, Parameter...)}</li>
  * <li>Publish data: use {@link #publish(String, Class, Parameter...)} or
- * {@link #publish(String, Class, InputStream, Parameter...)}</li>
+ * {@link #publish(String, Class, BinaryAttachment, Parameter...)}</li>
  * <li>Delete an object: use {@link #deleteObject(String)}</li>
  * </ul>
  * 
@@ -245,7 +244,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters);
+  <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters);
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph

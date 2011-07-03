@@ -38,7 +38,6 @@ import static java.util.Collections.emptyList;
 import static java.util.logging.Level.INFO;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -311,12 +310,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
-   *      java.io.InputStream, com.restfb.Parameter[])
+   *      com.restfb.BinaryAttachment, com.restfb.Parameter[])
    */
   @Override
-  public <T> T publish(String connection, Class<T> objectType, InputStream binaryAttachment, Parameter... parameters) {
+  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
+      Parameter... parameters) {
     verifyParameterPresence("connection", connection);
-    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachment, parameters), objectType);
+
+    List<BinaryAttachment> binaryAttachments = new ArrayList<BinaryAttachment>();
+    if (binaryAttachment != null)
+      binaryAttachments.add(binaryAttachment);
+
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachments, parameters), objectType);
   }
 
   /**
@@ -463,7 +468,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           processing the response.
    */
   protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete,
-      final InputStream binaryAttachment, Parameter... parameters) {
+      final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
     verifyParameterLegality(parameters);
 
     if (executeAsDelete)
@@ -473,7 +478,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
-    final String fullEndpoint = createEndpointForApiCall(endpoint, binaryAttachment != null);
+    final String fullEndpoint =
+        createEndpointForApiCall(endpoint, binaryAttachments != null && binaryAttachments.size() > 0);
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(new Requestor() {
@@ -482,8 +488,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
        */
       @Override
       public Response makeRequest() throws IOException {
-        return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachment) : webRequestor
-          .executeGet(fullEndpoint + "?" + parameterString);
+        return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments == null ? null
+            : binaryAttachments.toArray(new BinaryAttachment[] {})) : webRequestor.executeGet(fullEndpoint + "?"
+            + parameterString);
       }
     });
   }

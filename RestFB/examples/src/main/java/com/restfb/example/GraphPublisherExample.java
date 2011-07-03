@@ -28,6 +28,7 @@ import static java.lang.System.out;
 
 import java.util.Date;
 
+import com.restfb.BinaryAttachment;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
@@ -104,7 +105,8 @@ public class GraphPublisherExample {
     out.println("* Binary file publishing *");
 
     FacebookType publishPhotoResponse =
-        facebookClient.publish("me/photos", FacebookType.class, getClass().getResourceAsStream("/cat.png"),
+        facebookClient.publish("me/photos", FacebookType.class,
+          BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/cat.png")),
           Parameter.with("message", "Test cat"));
 
     out.println("Published photo ID: " + publishPhotoResponse.getId());

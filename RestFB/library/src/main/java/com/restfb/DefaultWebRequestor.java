@@ -121,28 +121,28 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
-    return executePost(url, parameters, null);
+    return executePost(url, parameters, (BinaryAttachment[]) null);
   }
 
   /**
    * @see com.restfb.WebRequestor#executePost(java.lang.String,
-   *      java.lang.String, java.io.InputStream)
+   *      java.lang.String, com.restfb.BinaryAttachment[]))
    */
   @Override
-  public Response executePost(String url, String parameters, InputStream binaryAttachment) throws IOException {
-    boolean hasBinaryAttachment = binaryAttachment != null;
+  public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+    int binaryAttachmentsCount = binaryAttachments == null ? 0 : binaryAttachments.length;
 
     if (logger.isLoggable(INFO))
       logger.info("Executing a POST to " + url + " with parameters "
-          + (hasBinaryAttachment ? "" : "(sent in request body): ") + parameters
-          + (hasBinaryAttachment ? " and a binary attachment." : ""));
+          + (binaryAttachmentsCount > 0 ? "" : "(sent in request body): ") + parameters
+          + (binaryAttachmentsCount > 0 ? " and " + binaryAttachmentsCount + " binary attachment[s]." : ""));
 
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
     InputStream inputStream = null;
 
     try {
-      httpUrlConnection = openConnection(new URL(url + (hasBinaryAttachment ? "?" + parameters : "")));
+      httpUrlConnection = openConnection(new URL(url + (binaryAttachmentsCount > 0 ? "?" + parameters : "")));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
 
       // Allow subclasses to customize the connection if they'd like to - set
@@ -153,7 +153,7 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
 
-      if (hasBinaryAttachment) {
+      if (binaryAttachmentsCount > 0) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
         httpUrlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + MULTIPART_BOUNDARY);
       }
@@ -161,25 +161,21 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.connect();
       outputStream = httpUrlConnection.getOutputStream();
 
-      // If we have a binary attachment, the body is just the attachment and the
+      // If we have binary attachments, the body is just the attachments and the
       // other parameters are passed in via the URL.
       // Otherwise the body is the URL parameter string.
-      
-      // Hack: FB only cares about the file extension if you're uploading a video.
-      // The extension doesn't have to match the real content type - it just has to be one that FB
-      // associates with a video - so we pick 'XXX.flv' as our arbitrary filename.
-      // Uploading pictures will still work even with this extension.
-      
-      if (hasBinaryAttachment) {
-        outputStream
-          .write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
-              + "Content-Disposition: form-data; filename=\"XXX.flv\"" + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
+      if (binaryAttachmentsCount > 0) {
+        for (BinaryAttachment binaryAttachment : binaryAttachments) {
+          outputStream.write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
+              + "Content-Disposition: form-data; filename=\"" + binaryAttachment.getFilename() + "\""
+              + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
             .getBytes(ENCODING_CHARSET));
 
-        write(binaryAttachment, outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
+          write(binaryAttachment.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
 
-        outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
-            + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(ENCODING_CHARSET));
+          outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
+              + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(ENCODING_CHARSET));
+        }
       } else {
         outputStream.write(parameters.getBytes(ENCODING_CHARSET));
       }
@@ -198,7 +194,10 @@ public class DefaultWebRequestor implements WebRequestor {
 
       return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
     } finally {
-      closeQuietly(binaryAttachment);
+      if (binaryAttachmentsCount > 0)
+        for (BinaryAttachment binaryAttachment : binaryAttachments)
+          closeQuietly(binaryAttachment.getData());
+
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
     }
