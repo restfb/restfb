@@ -164,10 +164,11 @@ public class DefaultWebRequestor implements WebRequestor {
       // Otherwise the body is the URL parameter string.
       if (binaryAttachments.length > 0) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
-          outputStream.write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
-              + "Content-Disposition: form-data; filename=\"" + binaryAttachment.getFilename() + "\""
-              + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
-            .getBytes(ENCODING_CHARSET));
+          outputStream
+            .write((MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE
+                + "Content-Disposition: form-data; name=\"" + createFormFieldName(binaryAttachment) + "\"; filename=\""
+                + binaryAttachment.getFilename() + "\"" + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
+              .getBytes(ENCODING_CHARSET));
 
           write(binaryAttachment.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
 
@@ -295,5 +296,20 @@ public class DefaultWebRequestor implements WebRequestor {
     byte[] chunk = new byte[bufferSize];
     while ((read = source.read(chunk)) > 0)
       destination.write(chunk, 0, read);
+  }
+
+  /**
+   * Creates the form field name for the binary attachment filename by stripping
+   * off the file extension - for example, the filename "test.png" would return
+   * "test".
+   * 
+   * @param binaryAttachment
+   *          The binary attachment for which to create the form field name.
+   * @return The form field name for the given binary attachment.
+   */
+  protected String createFormFieldName(BinaryAttachment binaryAttachment) {
+    String name = binaryAttachment.getFilename();
+    int fileExtensionIndex = name.lastIndexOf(".");
+    return fileExtensionIndex > 0 ? name.substring(0, fileExtensionIndex) : name;
   }
 }

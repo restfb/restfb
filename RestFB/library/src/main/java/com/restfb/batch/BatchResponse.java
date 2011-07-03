@@ -63,6 +63,7 @@ public class BatchResponse {
    */
   @Override
   public String toString() {
-    return format("Code=%d, Headers=%s, Body=%s", getCode(), getHeaders(), getBody());
+    return format("%s[\n  Code=%d\n  Headers=%s\n  Body=%s\n]", BatchResponse.class.getSimpleName(), getCode(),
+      getHeaders(), getBody());
   }
 }
