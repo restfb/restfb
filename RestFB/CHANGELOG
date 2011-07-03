@@ -1,5 +1,7 @@
 1.6.5 (July X, 2011)
 
+* Fixed a numeric precision bug in JsonObject.getLong() which caused large numbers to be rounded incorrectly.
+  Thanks very much to ps@king.com for finding this and providing a patch.
 * All types under com.restfb.types now implement Serializable.
   Thanks to everyone who asked for this!
 * Added "comments", "likes", "position", and "images" fields to Photo.

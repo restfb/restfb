@@ -627,8 +627,12 @@ public class JsonObject {
    *           long.
    */
   public long getLong(String key) {
-    Object o = get(key);
-    return o instanceof Number ? ((Number) o).longValue() : (long) getDouble(key);
+    Object object = get(key);
+    try {
+      return object instanceof Number ? ((Number) object).longValue() : Long.parseLong((String) object);
+    } catch (Exception e) {
+      throw new JsonException("JSONObject[" + quote(key) + "] is not a long.");
+    }
   }
 
   /**
