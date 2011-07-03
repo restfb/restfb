@@ -381,7 +381,15 @@ public class DefaultJsonMapper implements JsonMapper {
   @Override
   public String toJson(Object object) {
     // Delegate to recursive method
-    return toJsonInternal(object).toString();
+    return toJsonInternal(object, false).toString();
+  }
+
+  /**
+   * @see com.restfb.JsonMapper#toJson(java.lang.Object, boolean)
+   */
+  @Override
+  public String toJson(Object object, boolean ignoreNullValuedProperties) {
+    return toJsonInternal(object, ignoreNullValuedProperties).toString();
   }
 
   /**
@@ -391,18 +399,21 @@ public class DefaultJsonMapper implements JsonMapper {
    * 
    * @param object
    *          The object to marshal.
+   * @param ignoreNullValuedProperties
+   *          If this is {@code true}, no Javabean properties with {@code null}
+   *          values will be included in the generated JSON.
    * @return JSON representation of the given {@code object}.
    * @throws FacebookJsonMappingException
    *           If an error occurs while marshaling to JSON.
    */
-  protected Object toJsonInternal(Object object) {
+  protected Object toJsonInternal(Object object, boolean ignoreNullValuedProperties) {
     if (object == null)
       return NULL;
 
     if (object instanceof List<?>) {
       JsonArray jsonArray = new JsonArray();
       for (Object o : (List<?>) object)
-        jsonArray.put(toJsonInternal(o));
+        jsonArray.put(toJsonInternal(o, ignoreNullValuedProperties));
 
       return jsonArray;
     }
@@ -415,7 +426,7 @@ public class DefaultJsonMapper implements JsonMapper {
               + " in order to be converted to JSON.  Offending map is " + object);
 
         try {
-          jsonObject.put((String) entry.getKey(), toJsonInternal(entry.getValue()));
+          jsonObject.put((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
         } catch (JsonException e) {
           throw new FacebookJsonMappingException("Unable to process value '" + entry.getValue() + "' for key '"
               + entry.getKey() + "' in Map " + object, e);
@@ -453,7 +464,10 @@ public class DefaultJsonMapper implements JsonMapper {
       fieldWithAnnotation.getField().setAccessible(true);
 
       try {
-        jsonObject.put(facebookFieldName, toJsonInternal(fieldWithAnnotation.getField().get(object)));
+        Object fieldValue = fieldWithAnnotation.getField().get(object);
+
+        if (!(ignoreNullValuedProperties && fieldValue == null))
+          jsonObject.put(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
       } catch (Exception e) {
         throw new FacebookJsonMappingException("Unable to process field '" + facebookFieldName + "' for "
             + object.getClass(), e);

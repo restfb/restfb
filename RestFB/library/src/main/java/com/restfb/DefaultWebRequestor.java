@@ -24,6 +24,7 @@ package com.restfb;
 
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
 import static com.restfb.util.StringUtils.fromInputStream;
+import static com.restfb.util.StringUtils.urlDecode;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.FINER;
 import static java.util.logging.Level.INFO;
@@ -132,7 +133,7 @@ public class DefaultWebRequestor implements WebRequestor {
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
     if (logger.isLoggable(INFO))
       logger.info("Executing a POST to " + url + " with parameters "
-          + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + parameters
+          + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + urlDecode(parameters)
           + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
 
     HttpURLConnection httpUrlConnection = null;

@@ -414,7 +414,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw new IllegalArgumentException("You must specify at least one batch request.");
 
     return jsonMapper.toJavaList(
-      makeRequest("", true, false, binaryAttachments, Parameter.with("batch", jsonMapper.toJson(batchRequests))),
+      makeRequest("", true, false, binaryAttachments, Parameter.with("batch", jsonMapper.toJson(batchRequests, true))),
       BatchResponse.class);
   }
 

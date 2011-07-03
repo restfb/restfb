@@ -92,4 +92,24 @@ public interface JsonMapper {
    * @since 1.4
    */
   String toJson(Object object);
+
+  /**
+   * Given a Java {@code object}, create and return a JSON string that
+   * represents it.
+   * <p>
+   * The {@code object}'s properties will be traversed recursively, allowing for
+   * arbitrarily complex JSON generation.
+   * 
+   * @param object
+   *          The Java object to map to JSON. Can be a Javabean,
+   *          {@link java.util.List}, or {@link java.util.Map}.
+   * @param ignoreNullValuedProperties
+   *          If this is {@code true}, no Javabean properties with {@code null}
+   *          values will be included in the generated JSON.
+   * @return A JSON string.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while mapping Java to JSON.
+   * @since 1.6.5
+   */
+  String toJson(Object object, boolean ignoreNullValuedProperties);
 }
