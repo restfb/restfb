@@ -82,10 +82,20 @@ public class BatchHeader {
     return ReflectionUtils.toString(this);
   }
 
+  /**
+   * The name of the HTTP header.
+   * 
+   * @return The name of the HTTP header.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The value of the HTTP header.
+   * 
+   * @return The value of the HTTP header.
+   */
   public String getValue() {
     return value;
   }
