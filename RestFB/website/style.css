@@ -66,6 +66,13 @@ body {
  	line-height: 1.25;
 }
 
+#navigation { position: fixed; top: 20px; left: 20px; width: 200px; border: 1px solid #eee; text-align: left; padding: 8px; -moz-border-radius: 5px;
+border-radius: 5px; -webkit-border-radius: 5px; }
+#navigation ul { list-style-type: none; margin-bottom: 0px; }
+#navigation ul li { margin-left: 2px; }
+#navigation ul li a { font-size: 10pt; font-weight: normal; }
+#navigation li.separator { border-bottom: 1px solid #eee; margin-top: 5px; margin-bottom: 4px; }
+
 #content {
 	width: 900px;
 	text-align: left;
@@ -76,6 +83,7 @@ h1 {
 	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-size: 16pt;
 	margin-bottom: 10px;
+	margin-top: 5px;
 	font-weight: bold;	
 }
 

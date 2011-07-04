@@ -11,9 +11,52 @@
 	<link type="text/css" rel="stylesheet" href="style.css" />			
 </head>
 <body>
-	<div id="content">
-		<div class="spacer"></div>
-	
+  <div id="navigation">
+  	<h2>Quick Navigation</h2>
+  	<ul>
+  		<li><a href="#home">Home</a></li>
+			<li><a href="#download">Download</a></li>  		
+			<li><a href="javadoc/index.html" target="_blank">Javadoc <img src="external-link.png"/></a></li>
+			<li><a href="http://code.google.com/p/restfb/issues/list" target="_blank">Issue Tracker <img src="external-link.png"/></a></li>
+			<li><a href="http://groups.google.com/group/restfb" target="_blank">Google Group <img src="external-link.png"/></a></li>
+			<li class="separator"></li>  	
+			<!-- 
+			<li class="subheading" style="font-weight: bold; font-size: 11pt; margin-bottom: 6px; margin-top: 8px;">Reading Data</li>
+			 -->
+  		<li><a href="#initialization">Initialization</a></li>  		
+  		<li><a href="#fetching-single-objects">Fetching Single Objects</a></li>
+  		<li><a href="#fetching-connections">Fetching Connections</a></li>
+  		<li><a href="#fetching-insights">Fetching Insights</a></li>
+			<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>
+			<li><a href="#fetching-multiple-objects">Fetching Multiple Objects</a></li>
+			<li><a href="#executing-fql-queries">Executing FQL Queries</a></li>
+			<li><a href="#executing-multiple-fql-queries">Executing Multiple FQL Queries</a></li>
+			<li><a href="#searching">Searching</a></li>
+			<li><a href="#metadata-introspection">Metadata &amp; Introspection</a></li>
+			<li><a href="#passing-parameters">Passing Parameters</a></li>
+			<li><a href="#creating-json-objects">Creating JSON Objects</a></li>
+			<li><a href="#batch-api">Batch API</a></li>
+			<li class="separator"></li>
+			<li><a href="#publishing">Publishing</a></li>
+			<li><a href="#deleting">Deleting</a></li>
+			<li class="separator"></li>
+			<li><a href="#converting-session-keys-to-access-tokens">Converting Session Keys to Access Tokens</a></li>
+			<li class="separator"></li>
+			<li><a href="#running-examples">Running The Examples</a></li>
+			<li><a href="#supported-graph-object-types">Supported Graph Object Types</a></li>
+			<li><a href="#json-mapping-rules">JSON Mapping Rules</a></li>
+			<li><a href="#error-handling">Error Handling</a></li>
+			<li><a href="#extensibility-and-unit-testing">Extensibility and Unit Testing</a></li>
+			<li class="separator"></li>
+			<li><a href="#links">Links</a></li>
+			<li><a href="#restfb-users">RestFB Users</a></li>
+			<li><a href="#about">About</a></li>
+			<li><a href="#licensing">Licensing</a></li>
+  	</ul>
+  </div>
+		
+	<a name="home"></a>
+	<div id="content">	
 		<h1><img class="logoImage" src="logo.png" alt="RestFB logo"/></h1>
 		
 		<p>
@@ -24,6 +67,7 @@
 			It is open source software released under the terms of the <a href="#licensing">MIT License</a>.
 		</p>			
 					
+		<a name="download"></a>
 		<div class="spacer"></div>
 		
 		<h2>Download</h2>
@@ -105,8 +149,9 @@
 			</div>	
 		</div>
 		
+		<a name="initialization"></a>
 		<div class="spacer"></div>
-		
+				
 		<h3>Initialization</h3>
 		
 <pre class="prettyprint">
@@ -146,6 +191,7 @@ FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();</pre>
 			</div>
 		</div>			
 		
+		<a name="fetching-single-objects"></a>		
 		<div class="spacer"></div>
 							
 		<h3>Fetching Single Objects</h3>
@@ -203,6 +249,7 @@ out.println("Page likes: " + page.getLikes());</pre>
 			</div>			
 		</div>			
 		
+		<a name="fetching-connections"></a>
 		<div class="spacer"></div>
 							
 		<h3>Fetching Connections</h3>
@@ -221,7 +268,8 @@ if(myFeed.hasNext()) {
     facebookClient.fetchConnectionPage(myFeed.getNextPageUrl(), Post.class);
   ...
 }</pre>							
-		
+	
+	<a name="fetching-insights"></a>	
 	<div class="spacer"></div>
 	
 		<h3>Fetching Insights</h3>
@@ -235,6 +283,7 @@ for (Insight insight : insights.getData())
   out.println(insight.getName());
 </pre>							
 		
+	<a name="selecting-specific-fields"></a>
 	<div class="spacer"></div>	
 							
 	<h3>Selecting Specific Fields (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
@@ -245,6 +294,7 @@ User user = facebookClient.fetchObject("me", User.class,
 
 out.println("User name: " + user.getName());</pre>							
 		
+		<a name="fetching-multiple-objects"></a>		
 		<div class="spacer"></div>
 							
 		<h3>Fetching Multiple Objects in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
@@ -272,6 +322,7 @@ public class FetchObjectsResults {
   Page page;
 }</pre>			
 
+		<a name="executing-fql-queries"></a>
 		<div class="spacer"></div>
 							
 		<h3>Executing FQL Queries (see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>)</h3>
@@ -299,8 +350,9 @@ public class FqlUser {
   public String toString() {
     return String.format("%s (%s)", name, uid);
   }
-}</pre>		
+}</pre>						
 				
+		<a name="executing-multiple-fql-queries"></a>
 		<div class="spacer"></div>
 							
 		<h3>Executing Multiple FQL Queries in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>)</h3>
@@ -339,6 +391,7 @@ public class MultiqueryResults {
   List&lt;FqlLiker&gt; likers;
 }</pre>		
 
+		<a name="searching"></a>
 		<div class="spacer"></div>	
 
 		<h3>Searching (see <a target="_blank" href="http://developers.facebook.com/docs/api">Graph API documentation</a>)</h3>
@@ -358,6 +411,7 @@ Connection&lt;User&gt; targetedSearch =
 out.println("Public search: " + publicSearch.getData().get(0).getMessage());
 out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());</pre>								
 		
+		<a name="metadata-introspection"></a>
 		<div class="spacer"></div>
 		
 		<h3>Metadata/Introspection (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
@@ -371,6 +425,7 @@ User userWithMetadata =
 out.println("User metadata: has albums? "
   + userWithMetadata.getMetadata().getConnections().hasAlbums());</pre>								
 		
+		<a name="passing-parameters"></a>
 		<div class="spacer"></div>	
 		
 		<h3>Passing Parameters (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
@@ -385,6 +440,7 @@ Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", 
 
 out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>								
 		
+		<a name="creating-json-objects"></a>
 		<div class="spacer"></div>			
 		
 		<h3>Getting Any Kind of Data as a JSON Object</h3>
@@ -435,6 +491,7 @@ out.println("URL is " + url);
 
 </pre>		
 
+		<a name="batch-api"></a>
 		<div class="spacer"></div>	
 		
 		<h3>Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
@@ -488,6 +545,7 @@ out.println("M83's Feed: " + m83music);
 
 out.println(postResponse.getBody());</pre>								
 		
+		<a name="publishing"></a>
 		<div class="spacer"></div>					
 				
 		<div class="warning-bubble">
@@ -575,6 +633,7 @@ FacebookType publishCheckinResponse = facebookClient.publish("me/checkins",
 
 out.println("Published checkin ID: " + publishCheckinResponse.getId());</pre>								
 				
+		<a name="deleting"></a>
 		<div class="spacer"></div>			
 		
 		<h3>Deleting (see <a target="_blank" href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>)</h3>
@@ -582,6 +641,7 @@ out.println("Published checkin ID: " + publishCheckinResponse.getId());</pre>
 <pre class="prettyprint">Boolean deleted = facebookClient.deleteObject("some object ID");
 out.println("Deleted object? " + deleted);</pre>								
 		
+		<a name="converting-session-keys-to-access-tokens"></a>
 		<div class="spacer"></div>		
 		
 		<h3>Converting Old REST API Session Keys to OAuth Tokens (see <a target="_blank" href="http://developers.facebook.com/docs/authentication#exchange-session-key-for-an-access-token">Graph API documentation</a>)</h3>
@@ -595,8 +655,7 @@ out.println("OAuth token for sessionKey1: " + accessTokens.get(0).getAccessToken
 				
 		<div class="spacer"></div>				
 		
-		<a name="running-examples"></a>
-		
+		<a name="running-examples"></a>						
 		<div class="spacer"></div>				
 		
 		<h2>Running The Examples</h2>
@@ -610,6 +669,7 @@ $ mvn -P reader-examples -Daccess_token="MY_ACCESS_TOKEN" test
 $ mvn -P publisher-examples -Daccess_token="MY_ACCESS_TOKEN" test
 $ mvn -P legacy-examples -Daccess_token="MY_ACCESS_TOKEN" test</pre>		
 		
+		<a name="supported-graph-object-types"></a>
 		<div class="spacer"></div>				
 		
 		<h2>Facebook Graph Object Types Supported Out-of-the-Box</h2>		
@@ -653,8 +713,7 @@ $ mvn -P legacy-examples -Daccess_token="MY_ACCESS_TOKEN" test</pre>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Video.html">Video</a></li>
 		</ul>
 		
-		<a name="json-mapping-rules"></a>
-		
+		<a name="json-mapping-rules"></a>		
 		<div class="spacer"></div>				
 		
 		<h2>JSON Mapping Rules</h2>
@@ -745,6 +804,7 @@ public class MyClass {
 			If it doesn't support a feature you need, you can easily subclass it or write your own implementation of <code><a target="_blank" href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a></code> instead.
 		</p>
 			
+		<a name="error-handling"></a>
 		<div class="spacer"></div>		
 		
 		<h2>Error Handling</h2>
@@ -890,6 +950,9 @@ try {
 			need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
 		</p>		
 		
+		<a name="extensibility-and-unit-testing"></a>
+		<div class="spacer"></div>
+				
 		<h2>Extensibility and Unit Testing</h2>
 
 		<p>
@@ -937,6 +1000,7 @@ User user = facebookClient.<a target="_blank" href="javadoc/com/restfb/FacebookC
 assert "123456".equals(user.getId());
 assert "Test Person".equals(user.getName());</pre>
 			
+		<a name="links"></a>
 		<div class="spacer"></div>
 		
 		<h2>Links</h2>
@@ -959,6 +1023,7 @@ assert "Test Person".equals(user.getName());</pre>
 svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		</p>
 		
+		<a name="restfb-users"></a>
 		<div class="spacer"></div>
 		
 		<h2>RestFB Users</h2>
@@ -974,6 +1039,7 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 			If you're a happy RestFB user and would like to add a link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
 		</p>		
 		
+		<a name="about"></a>
 		<div class="spacer"></div>
 		
 		<h2>About</h2>
@@ -1001,10 +1067,11 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 			</ul>			
 		</p>
 		
+		<p>Website icons provided by <a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>.</p>
+		
 		<div class="spacer"></div>
 		
-		<a name="licensing"></a>
-		
+		<a name="licensing"></a>					
 		<h2>Licensing</h2>
 		
 		<p>
