@@ -1,4 +1,4 @@
-1.6.5 (July 3, 2011)
+1.6.5 (July 4, 2011)
 
 * BREAKING CHANGE:
   We are no longer passing around InputStream objects to represent binary files when publishing -
@@ -7,7 +7,7 @@
 	<T> T FacebookClient.publish(String connection, Class<T> objectType, InputStream inputStream, Parameter... parameters)
 	is now:
   <T> T FacebookClient.publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters)
-  This change was necessary to support correct video uploads and the new Batch API.
+  This change was necessary to support correct video uploads (FB now requires a filename with a video extension, e.g. .mov) and the new Batch API.
   Documentation and usage examples for com.restfb.BinaryAttachment are available on http://restfb.com.  
 * Added support for the new Batch API. The two new methods are:
   List<BatchResponse> FacebookClient.executeBatch(BatchRequest... batchRequests)
@@ -16,12 +16,14 @@
 * Added support for the new video upload API endpoint via https://graph-video.facebook.com and fixed a multipart
   filename bug that broke video uploads.
   Thanks to yylaob@gmail.com for the filename bugfix and saylxxx@gmail.com and everyone else who asked for this!
+* All types under com.restfb.types now implement Serializable.
+  Thanks to everyone who asked for this!  
 * Fixed a numeric precision bug in JsonObject.getLong() which caused large numbers to be rounded incorrectly.
   Thanks very much to ps@king.com for finding this and providing a patch.
 * DefaultJsonMapper can now instantiate types with no-argument constructors that are private, protected, or package-private -
   you no longer have to expose your constructors if you don't want to.
-* All types under com.restfb.types now implement Serializable.
-  Thanks to everyone who asked for this!
+* JsonMapper.toJson(Object object, boolean ignoreNullValuedProperties) was added, which enables you to turn a Java object into
+  JSON without including any properties with null values. 
 * Added "comments", "likes", "position", and "images" fields to Photo.
   Thanks to Andre Oosthuizen and Grace Win.
 * Added "name", "tags", and "source" fields to Video and marked "message" as deprecated.

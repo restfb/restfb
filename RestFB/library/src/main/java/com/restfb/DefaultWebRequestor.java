@@ -127,7 +127,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
   /**
    * @see com.restfb.WebRequestor#executePost(java.lang.String,
-   *      java.lang.String, com.restfb.BinaryAttachment[]))
+   *      java.lang.String, com.restfb.BinaryAttachment[])
    */
   @Override
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {

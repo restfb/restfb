@@ -186,7 +186,9 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents a collection of Likes.
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/post">Likes Graph
+   * API type</a>
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
@@ -244,7 +246,9 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents a collection of {@link Comment}s.
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/post">Comments
+   * Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5.3
