@@ -88,6 +88,10 @@ h1 {
 	font-weight: bold;	
 }
 
+h1 a:hover { background-color: #fff; }
+
+h1 img { margin-top: 10px; }
+
 h2, h3 {
 	font-family: "Lucida Grande", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	margin-bottom: 10px;

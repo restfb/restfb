@@ -29,20 +29,23 @@
 			<li><a href="#fetching-multiple-objects">Fetching Multiple Objects</a></li>
 			-->  		
   		<li><a href="#fetching-connections">Fetching Connections</a></li>
+			<li><a href="#searching">Searching</a></li>  		
   		<li><a href="#fetching-insights">Fetching Insights</a></li>
-			<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>			
+			<!-- 
+			<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>
+			-->			
 			<li><a href="#executing-fql-queries">Executing FQL Queries</a></li>
 			<!-- 
 			<li><a href="#executing-multiple-fql-queries">Executing Multiple FQL Queries</a></li>
-			 -->
-			<li><a href="#searching">Searching</a></li>
+			 -->			
 			<li><a href="#metadata-introspection">Metadata &amp; Introspection</a></li>
 			<li><a href="#passing-parameters">Passing Parameters</a></li>
-			<li><a href="#creating-json-objects">Creating JSON Objects</a></li>
-			<li><a href="#batch-api">Batch API</a></li>
+			<li><a href="#creating-json-objects">Creating JSON Objects</a></li>			
 			<li class="separator"></li>
 			<li><a href="#publishing">Publishing</a></li>
 			<li><a href="#deleting">Deleting</a></li>
+			<li class="separator"></li>
+			<li><a href="#batch-api">Batch API</a></li>
 			<li class="separator"></li>
 			<li><a href="#converting-session-keys-to-access-tokens">Converting Session Keys to Access Tokens</a></li>
 			<li class="separator"></li>
@@ -60,7 +63,7 @@
   </div>
 			
 	<div id="content">	
-		<h1><img class="logoImage" src="logo.png" alt="RestFB logo"/></h1>
+		<h1><a href="#"><img class="logoImage" src="logo.png" alt="RestFB logo"/></a></h1>
 		
 		<p>
 			RestFB is a simple and flexible
@@ -76,7 +79,7 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6.5 (released July 3, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
+			Version 1.6.5 (released July 4, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
 			<br/>
 			<a target="_blank" href="http://restfb.googlecode.com/svn/tags/restfb-project-1.6.5/CHANGELOG">View the changelog</a>, 
 			or <a target="_blank" href="http://code.google.com/p/restfb/downloads/detail?name=restfb-distro-1.6.5.zip">download it here</a>.
@@ -192,6 +195,13 @@ FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();</pre>
 			<div>
 				Example: <code>http://graph.facebook.com/btaylor?access_token=XXXXXXX</code>
 			</div>
+			
+			<div class="spacer"></div>
+			
+			<div>
+				Keep in mind that this is only useful for quick testing. For production use, you'll need to create a Facebook Application
+				and use it to obtain OAuth tokens for your users. Take a look at the <a href="https://developers.facebook.com/docs/authentication/" target="_blank">FB Authentication documentation</a> for more details. 
+			</div>			
 		</div>			
 		
 		<a name="fetching-single-objects"></a>		
@@ -300,6 +310,26 @@ if(myFeed.hasNext()) {
   ...
 }</pre>							
 	
+	<a name="searching"></a>
+	<div class="spacer"></div>	
+
+	<h3>Searching (see <a target="_blank" href="http://developers.facebook.com/docs/api">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">
+// Searching is just a special case of fetching Connections -
+// all you have to do is pass along a few extra parameters.
+
+Connection&lt;Post&gt; publicSearch =
+  facebookClient.fetchConnection("search", Post.class,
+    Parameter.with("q", "watermelon"), Parameter.with("type", "post"));
+
+Connection&lt;User&gt; targetedSearch =
+  facebookClient.fetchConnection("me/home", User.class,
+    Parameter.with("q", "Mark"), Parameter.with("type", "user"));
+
+out.println("Public search: " + publicSearch.getData().get(0).getMessage());
+out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());</pre>			
+	
 	<a name="fetching-insights"></a>	
 	<div class="spacer"></div>
 	
@@ -312,18 +342,7 @@ Connection&lt;Insight&gt; insights = facebookClient.fetchConnection("PAGE_ID/ins
 
 for (Insight insight : insights.getData())
   out.println(insight.getName());
-</pre>							
-		
-	<a name="selecting-specific-fields"></a>
-	<div class="spacer"></div>	
-							
-	<h3>Selecting Specific Fields (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">
-User user = facebookClient.fetchObject("me", User.class,
-  Parameter.with("fields", "id, name"));
-
-out.println("User name: " + user.getName());</pre>							
+</pre>												
 
 		<a name="executing-fql-queries"></a>
 		<div class="spacer"></div>
@@ -392,27 +411,7 @@ public class MultiqueryResults {
 
   @Facebook
   List&lt;FqlLiker&gt; likers;
-}</pre>		
-
-		<a name="searching"></a>
-		<div class="spacer"></div>	
-
-		<h3>Searching (see <a target="_blank" href="http://developers.facebook.com/docs/api">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">
-// Searching is just a special case of fetching Connections -
-// all you have to do is pass along a few extra parameters.
-
-Connection&lt;Post&gt; publicSearch =
-  facebookClient.fetchConnection("search", Post.class,
-    Parameter.with("q", "watermelon"), Parameter.with("type", "post"));
-
-Connection&lt;User&gt; targetedSearch =
-  facebookClient.fetchConnection("me/home", User.class,
-    Parameter.with("q", "Mark"), Parameter.with("type", "user"));
-
-out.println("Public search: " + publicSearch.getData().get(0).getMessage());
-out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());</pre>								
+}</pre>								
 		
 		<a name="metadata-introspection"></a>
 		<div class="spacer"></div>
@@ -442,6 +441,17 @@ Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", 
     Parameter.with("since", oneWeekAgo));
 
 out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>								
+		
+	<a name="selecting-specific-fields"></a>
+	<div class="spacer"></div>	
+							
+	<h3>Selecting Specific Fields (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">
+User user = facebookClient.fetchObject("me", User.class,
+  Parameter.with("fields", "id, name"));
+
+out.println("User name: " + user.getName());</pre>				
 		
 		<a name="creating-json-objects"></a>
 		<div class="spacer"></div>			
@@ -491,90 +501,6 @@ Url url = jsonMapper.toJavaObject(results.getString("http://restfb.com"), Url.cl
 
 out.println("User is " + user);
 out.println("URL is " + url);
-
-</pre>		
-
-		<a name="batch-api"></a>
-		<div class="spacer"></div>	
-		
-		<h3>Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// The Batch API is great if you have multiple operations you'd like to
-// perform in one server trip. Let's build a batch with three GET requests and
-// one POST request here:
-
-BatchRequest meRequest = new BatchRequestBuilder("me").build();
-BatchRequest badRequest = new BatchRequestBuilder("this-is-a-bad-request/xxx").build();
-BatchRequest m83musicRequest = new BatchRequestBuilder("m83music/feed")
-  .parameters(Parameter.with("limit", 5)).build();
-BatchRequest postRequest = new BatchRequestBuilder("me/feed")
-  .method("POST")
-  .body(Parameter.with("message", "Testing!")).build();
-
-// ...and execute the batch.
-
-List&lt;BatchResponse&gt; batchResponses =
-  facebookClient.executeBatch(meRequest, badRequest, m83musicRequest, postRequest);
-
-// Responses are ordered to match up with their corresponding requests.
-
-BatchResponse meResponse = batchResponses.get(0);
-BatchResponse badResponse = batchResponses.get(1);
-BatchResponse m83musicResponse = batchResponses.get(2);
-BatchResponse postResponse = batchResponses.get(3);
-
-// Since batches can have heterogenous response types, it's up to you
-// to parse the JSON into Java objects yourself. Luckily RestFB has some built-in
-// support to help you with this.
-
-JsonMapper jsonMapper = new DefaultJsonMapper();
-
-// Here we marshal to the built-in User type.
-
-User me = jsonMapper.toJavaObject(meResponse.getBody(), User.class);
-out.println(me);
-
-// To detect errors, check the HTTP response code.
-
-if(badResponse.getCode() != 200)
-  out.println("Batch request failed: " + badResponse);
-
-// You can pull out connection data...
-
-List<Post> m83music = jsonMapper.toJavaList(m83musicResponse.getBody(), Post.class);
-out.println("M83's Feed: " + m83music);
-
-// ...or do whatever you'd like with the raw JSON.
-
-out.println(postResponse.getBody());</pre>								
-		
-		<div class="spacer"></div>	
-		
-		<h3>Including Binary Attachments Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// Per the FB Batch API documentation, attached_files is a comma-separated list
-// of attachment names to include in the API call.
-// RestFB will use the filename provided to your BinaryAttachment minus the file
-// extension as the name of the attachment.
-// For example, "cat-pic.png" must be referenced here as "cat-pic". 
-
-List&lt;BatchRequest&gt; batchRequests = Arrays.asList(
-  new BatchRequestBuilder("me/photos").attachedFiles("cat-pic").build(),
-  new BatchRequestBuilder("me/videos")
-    .attachedFiles("cat-vid, cat-vid-2")
-    .body(Parameter.with("message", "This cat is hilarious"))
-    .build());
-
-// Define the list of attachments to include in the batch.
-
-List&lt;BinaryAttachment&gt; binaryAttachments = Arrays.asList(
-  BinaryAttachment.with("cat-pic.png", getClass().getResourceAsStream("/cat-pic.png")),
-  BinaryAttachment.with("cat-vid.mov", getClass().getResourceAsStream("/cat-vid.mov")),
-  BinaryAttachment.with("cat-vid-2.mov", getClass().getResourceAsStream("/cat-vid-2.mov")));
-
-// Finally, execute the batch.
-
-facebookClient.executeBatch(batchRequests, binaryAttachments);
 
 </pre>		
 		
@@ -680,6 +606,88 @@ out.println("Published checkin ID: " + publishCheckinResponse.getId());</pre>
 			
 <pre class="prettyprint">Boolean deleted = facebookClient.deleteObject("some object ID");
 out.println("Deleted object? " + deleted);</pre>								
+		
+		<a name="batch-api"></a>
+		<div class="spacer"></div>	
+		
+		<h3>Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">// The Batch API is great if you have multiple operations you'd like to
+// perform in one server trip. Let's build a batch with three GET requests and
+// one POST request here:
+
+BatchRequest meRequest = new BatchRequestBuilder("me").build();
+BatchRequest badRequest = new BatchRequestBuilder("this-is-a-bad-request/xxx").build();
+BatchRequest m83musicRequest = new BatchRequestBuilder("m83music/feed")
+  .parameters(Parameter.with("limit", 5)).build();
+BatchRequest postRequest = new BatchRequestBuilder("me/feed")
+  .method("POST")
+  .body(Parameter.with("message", "Testing!")).build();
+
+// ...and execute the batch.
+
+List&lt;BatchResponse&gt; batchResponses =
+  facebookClient.executeBatch(meRequest, badRequest, m83musicRequest, postRequest);
+
+// Responses are ordered to match up with their corresponding requests.
+
+BatchResponse meResponse = batchResponses.get(0);
+BatchResponse badResponse = batchResponses.get(1);
+BatchResponse m83musicResponse = batchResponses.get(2);
+BatchResponse postResponse = batchResponses.get(3);
+
+// Since batches can have heterogenous response types, it's up to you
+// to parse the JSON into Java objects yourself. Luckily RestFB has some built-in
+// support to help you with this.
+
+JsonMapper jsonMapper = new DefaultJsonMapper();
+
+// Here we marshal to the built-in User type.
+
+User me = jsonMapper.toJavaObject(meResponse.getBody(), User.class);
+out.println(me);
+
+// To detect errors, check the HTTP response code.
+
+if(badResponse.getCode() != 200)
+  out.println("Batch request failed: " + badResponse);
+
+// You can pull out connection data...
+
+List<Post> m83music = jsonMapper.toJavaList(m83musicResponse.getBody(), Post.class);
+out.println("M83's Feed: " + m83music);
+
+// ...or do whatever you'd like with the raw JSON.
+
+out.println(postResponse.getBody());</pre>								
+		
+		<div class="spacer"></div>	
+		
+		<h3>Including Binary Attachments Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">// Per the FB Batch API documentation, attached_files is a comma-separated list
+// of attachment names to include in the API call.
+// RestFB will use the filename provided to your BinaryAttachment minus the file
+// extension as the name of the attachment.
+// For example, "cat-pic.png" must be referenced here as "cat-pic". 
+
+List&lt;BatchRequest&gt; batchRequests = Arrays.asList(
+  new BatchRequestBuilder("me/photos").attachedFiles("cat-pic").build(),
+  new BatchRequestBuilder("me/videos")
+    .attachedFiles("cat-vid, cat-vid-2")
+    .body(Parameter.with("message", "This cat is hilarious"))
+    .build());
+
+// Define the list of attachments to include in the batch.
+
+List&lt;BinaryAttachment&gt; binaryAttachments = Arrays.asList(
+  BinaryAttachment.with("cat-pic.png", getClass().getResourceAsStream("/cat-pic.png")),
+  BinaryAttachment.with("cat-vid.mov", getClass().getResourceAsStream("/cat-vid.mov")),
+  BinaryAttachment.with("cat-vid-2.mov", getClass().getResourceAsStream("/cat-vid-2.mov")));
+
+// Finally, execute the batch.
+
+facebookClient.executeBatch(batchRequests, binaryAttachments);</pre>				
 		
 		<a name="converting-session-keys-to-access-tokens"></a>
 		<div class="spacer"></div>		
