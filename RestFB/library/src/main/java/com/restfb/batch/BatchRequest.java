@@ -114,7 +114,7 @@ public class BatchRequest {
   }
 
   /**
-   * Builder pattern implementation to easily construct instances of
+   * Builder pattern implementation used to construct instances of
    * <tt>{@link BatchRequest}</tt>.
    * <p>
    * See the <a href="https://developers.facebook.com/docs/reference/api/batch/"
