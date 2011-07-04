@@ -14,7 +14,7 @@
   <div id="navigation">
   	<h2>Quick Navigation</h2>
   	<ul>
-  		<li><a href="#home">Home</a></li>
+  		<li><a href="#">Home</a></li>
 			<li><a href="#download">Download</a></li>  		
 			<li><a href="javadoc/index.html" target="_blank">Javadoc <img src="external-link.png"/></a></li>
 			<li><a href="http://code.google.com/p/restfb/issues/list" target="_blank">Issue Tracker <img src="external-link.png"/></a></li>
@@ -24,13 +24,17 @@
 			<li class="subheading" style="font-weight: bold; font-size: 11pt; margin-bottom: 6px; margin-top: 8px;">Reading Data</li>
 			 -->
   		<li><a href="#initialization">Initialization</a></li>  		
-  		<li><a href="#fetching-single-objects">Fetching Single Objects</a></li>
+  		<li><a href="#fetching-single-objects">Fetching Objects</a></li>
+			<!-- 
+			<li><a href="#fetching-multiple-objects">Fetching Multiple Objects</a></li>
+			-->  		
   		<li><a href="#fetching-connections">Fetching Connections</a></li>
   		<li><a href="#fetching-insights">Fetching Insights</a></li>
-			<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>
-			<li><a href="#fetching-multiple-objects">Fetching Multiple Objects</a></li>
+			<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>			
 			<li><a href="#executing-fql-queries">Executing FQL Queries</a></li>
+			<!-- 
 			<li><a href="#executing-multiple-fql-queries">Executing Multiple FQL Queries</a></li>
+			 -->
 			<li><a href="#searching">Searching</a></li>
 			<li><a href="#metadata-introspection">Metadata &amp; Introspection</a></li>
 			<li><a href="#passing-parameters">Passing Parameters</a></li>
@@ -54,8 +58,7 @@
 			<li><a href="#licensing">Licensing</a></li>
   	</ul>
   </div>
-		
-	<a name="home"></a>
+			
 	<div id="content">	
 		<h1><img class="logoImage" src="logo.png" alt="RestFB logo"/></h1>
 		
@@ -206,7 +209,35 @@ User user = facebookClient.fetchObject("me", User.class);
 Page page = facebookClient.fetchObject("cocacola", Page.class);
 
 out.println("User name: " + user.getName());
-out.println("Page likes: " + page.getLikes());</pre>		
+out.println("Page likes: " + page.getLikes());</pre>
+
+		<a name="fetching-multiple-objects"></a>		
+		<div class="spacer"></div>
+							
+		<h3>Fetching Multiple Objects in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">
+FetchObjectsResults fetchObjectsResults =
+  facebookClient.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
+
+out.println("User name: " + fetchObjectsResults.me.getName());
+out.println("Page likes: " + fetchObjectsResults.page.getLikes());
+
+...
+
+// Holds results from a "fetchObjects" call.
+// You need to write this class yourself!
+
+public class FetchObjectsResults {
+  @Facebook
+  User me;
+
+  // If the Facebook property name doesn't match
+  // the Java field name, specify the Facebook field name in the annotation.
+
+  @Facebook("cocacola")
+  Page page;
+}</pre>			
 		
 		<div class="spacer"></div>
 		
@@ -293,34 +324,6 @@ User user = facebookClient.fetchObject("me", User.class,
   Parameter.with("fields", "id, name"));
 
 out.println("User name: " + user.getName());</pre>							
-		
-		<a name="fetching-multiple-objects"></a>		
-		<div class="spacer"></div>
-							
-		<h3>Fetching Multiple Objects in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">
-FetchObjectsResults fetchObjectsResults =
-  facebookClient.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
-
-out.println("User name: " + fetchObjectsResults.me.getName());
-out.println("Page likes: " + fetchObjectsResults.page.getLikes());
-
-...
-
-// Holds results from a "fetchObjects" call.
-// You need to write this class yourself!
-
-public class FetchObjectsResults {
-  @Facebook
-  User me;
-
-  // If the Facebook property name doesn't match
-  // the Java field name, specify the Facebook field name in the annotation.
-
-  @Facebook("cocacola")
-  Page page;
-}</pre>			
 
 		<a name="executing-fql-queries"></a>
 		<div class="spacer"></div>
@@ -545,6 +548,36 @@ out.println("M83's Feed: " + m83music);
 
 out.println(postResponse.getBody());</pre>								
 		
+		<div class="spacer"></div>	
+		
+		<h3>Including Binary Attachments Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
+			
+<pre class="prettyprint">// Per the FB Batch API documentation, attached_files is a comma-separated list
+// of attachment names to include in the API call.
+// RestFB will use the filename provided to your BinaryAttachment minus the file
+// extension as the name of the attachment.
+// For example, "cat-pic.png" must be referenced here as "cat-pic". 
+
+List&lt;BatchRequest&gt; batchRequests = Arrays.asList(
+  new BatchRequestBuilder("me/photos").attachedFiles("cat-pic").build(),
+  new BatchRequestBuilder("me/videos")
+    .attachedFiles("cat-vid, cat-vid-2")
+    .body(Parameter.with("message", "This cat is hilarious"))
+    .build());
+
+// Define the list of attachments to include in the batch.
+
+List&lt;BinaryAttachment&gt; binaryAttachments = Arrays.asList(
+  BinaryAttachment.with("cat-pic.png", getClass().getResourceAsStream("/cat-pic.png")),
+  BinaryAttachment.with("cat-vid.mov", getClass().getResourceAsStream("/cat-vid.mov")),
+  BinaryAttachment.with("cat-vid-2.mov", getClass().getResourceAsStream("/cat-vid-2.mov")));
+
+// Finally, execute the batch.
+
+facebookClient.executeBatch(batchRequests, binaryAttachments);
+
+</pre>		
+		
 		<a name="publishing"></a>
 		<div class="spacer"></div>					
 				
@@ -615,9 +648,16 @@ out.println("Published event ID: " + publishEventResponse.getId());</pre>
 // Just specify the image you'd like to upload and RestFB will handle it from there.
 
 FacebookType publishPhotoResponse = facebookClient.publish("me/photos", FacebookType.class,
-  getClass().getResourceAsStream("/cat.png"), Parameter.with("message", "Test cat"));
+  BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/cat.png")),
+  Parameter.with("message", "Test cat"));
 
-out.println("Published photo ID: " + publishPhotoResponse.getId());</pre>								
+out.println("Published photo ID: " + publishPhotoResponse.getId());
+
+// Publishing a video works the same way.
+
+facebookClient.publish("me/videos", FacebookType.class,
+  BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
+  Parameter.with("message", "Test cat"));</pre>								
 				
 		<div class="spacer"></div>	
 		

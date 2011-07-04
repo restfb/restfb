@@ -68,10 +68,11 @@ body {
 
 #navigation { position: fixed; top: 20px; left: 20px; width: 200px; border: 1px solid #eee; text-align: left; padding: 8px; -moz-border-radius: 5px;
 border-radius: 5px; -webkit-border-radius: 5px; }
+#navigation h2 { margin-bottom: 4px; }
 #navigation ul { list-style-type: none; margin-bottom: 0px; }
 #navigation ul li { margin-left: 2px; }
 #navigation ul li a { font-size: 10pt; font-weight: normal; }
-#navigation li.separator { border-bottom: 1px solid #eee; margin-top: 5px; margin-bottom: 4px; }
+#navigation li.separator { border-bottom: 1px solid #eee; margin-top: 6px; margin-bottom: 4px; }
 
 #content {
 	width: 900px;
