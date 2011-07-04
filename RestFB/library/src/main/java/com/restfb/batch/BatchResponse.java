@@ -31,7 +31,9 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * TODO: document
+ * Encapsulates a discrete part of an entire <a
+ * href="https://developers.facebook.com/docs/reference/api/batch/"
+ * target="_blank">Facebook Batch API</a> response.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.5
@@ -44,7 +46,7 @@ public class BatchResponse {
   private String body;
 
   @Facebook
-  List<BatchHeader> headers = new ArrayList<BatchHeader>();
+  private List<BatchHeader> headers = new ArrayList<BatchHeader>();
 
   /**
    * "Magic" no-argument constructor so we can reflectively make instances of
@@ -52,8 +54,23 @@ public class BatchResponse {
    */
   protected BatchResponse() {}
 
-  public BatchResponse(Integer code, String body, List<BatchHeader> headers) {
+  /**
+   * Creates a batch response with the given HTTP response status code, headers,
+   * and JSON body.
+   * 
+   * @param code
+   *          HTTP status code.
+   * @param headers
+   *          HTTP headers.
+   * @param body
+   *          JSON body.
+   */
+  public BatchResponse(Integer code, List<BatchHeader> headers, String body) {
+    this.code = code;
+    this.body = body;
 
+    if (headers != null)
+      this.headers.addAll(headers);
   }
 
   /**
@@ -80,14 +97,29 @@ public class BatchResponse {
     return ReflectionUtils.toString(this);
   }
 
+  /**
+   * The HTTP status code for this response.
+   * 
+   * @return The HTTP status code for this response.
+   */
   public Integer getCode() {
     return code;
   }
 
+  /**
+   * The HTTP response body JSON.
+   * 
+   * @return The HTTP response body JSON.
+   */
   public String getBody() {
     return body;
   }
 
+  /**
+   * The HTTP response headers.
+   * 
+   * @return The HTTP response headers.
+   */
   public List<BatchHeader> getHeaders() {
     return unmodifiableList(headers);
   }

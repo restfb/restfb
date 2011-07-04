@@ -68,7 +68,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * By default, how long should we wait for a response (in ms)?
    */
-  private static final int DEFAULT_READ_TIMEOUT_IN_MS = 60000;
+  private static final int DEFAULT_READ_TIMEOUT_IN_MS = 180000;
 
   /**
    * Logger.
