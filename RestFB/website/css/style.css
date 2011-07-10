@@ -74,10 +74,14 @@ border-radius: 5px; -webkit-border-radius: 5px; }
 #navigation ul li a { font-size: 10pt; font-weight: normal; }
 #navigation li.separator { border-bottom: 1px solid #eee; margin-top: 6px; margin-bottom: 4px; }
 
-#content {
+#content, #legacy-content {
 	width: 900px;
 	text-align: left;
 	margin-left: 248px;	
+}
+
+#legacy-content {
+	margin: 0 auto;
 }
 
 h1 {
@@ -216,9 +220,16 @@ div.spacer {
 	vertical-align: middle;	
 }
 
-.logoImage {
-	margin-left: -22px; 
-}
+.logoImage { margin-left: -22px; }
+
+.user-link-container { float: left; padding-right: 20px; }
+.user-link-container a:hover { background-color: #fff; }
+.friend2friend { margin-left: -12px; }
+.ibm { padding-top: 56px; }
+.tynamo { padding-top: 51px; }
+.ou { padding-top: 37px; }
+
+.clearer { clear: left;	 }
 
 /* end main */
 

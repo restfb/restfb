@@ -8,9 +8,9 @@
 	<meta name="description" content="RestFB is a simple but powerful Facebook REST API client written in Java" />
 	<link rel="canonical" href="http://restfb.com" /> 
 	<title>RestFB - A Lightweight Java Facebook REST API Client</title> 	
-	<link type="text/css" rel="stylesheet" href="style.css" />	
-	<script type="text/javascript" src="jquery.js"></script>	
-	<script type="text/javascript" src="prettify.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/style.css" />	
+	<script type="text/javascript" src="js/jquery.js"></script>	
+	<script type="text/javascript" src="js/prettify.js"></script>
 	<script type="text/javascript">
 	$(function() {
 		prettyPrint();
@@ -27,7 +27,7 @@
 	</script>		
 </head>
 <body>
-	<div id="content">
+	<div id="legacy-content">
 		<div class="spacer"></div>
 	
 		<h1>Using RestFB with Facebook's Old REST API</h1>
@@ -393,7 +393,7 @@ String postId = facebookClient.execute("stream.publish", String.class,
   Parameter.with("attachment", attachment));</pre>
 		
 		<p>
-			Here are the supporting classes.  You may <a href="LegacyStreamPublishExample.java">download the full example</a> and run it locally.
+			Here are the supporting classes.  You may <a href="examples/LegacyStreamPublishExample.java">download the full example</a> and run it locally.
 			Note that you don't have to write your own classes - you can just as easily populate <code>Map</code>s instead
 			for a less strongly-typed solution.
 		</p>			
