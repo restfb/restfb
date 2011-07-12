@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.restfb</groupId>
 		<artifactId>restfb-project</artifactId>
-		<version>1.6.6</version>
+		<version>1.6.7-SNAPSHOT</version>
 	</parent>
 
 	<build>	

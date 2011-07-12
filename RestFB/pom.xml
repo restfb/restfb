@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.restfb</groupId>
 	<artifactId>restfb-project</artifactId>
-	<version>1.6.6</version>
+	<version>1.6.7-SNAPSHOT</version>
 	<name>RestFB</name>
 	<packaging>pom</packaging>
 	<url>http://restfb.com</url>
@@ -27,9 +27,9 @@
 	</licenses>
 		
 	<scm>
-		<developerConnection>scm:svn:https://restfb.googlecode.com/svn/tags/restfb-project-1.6.6</developerConnection>
-		<connection>scm:svn:http://restfb.googlecode.com/svn/tags/restfb-project-1.6.6</connection>
-		<url>http://code.google.com/p/restfb/source/browse/tags/restfb-project-1.6.6</url>
+		<developerConnection>scm:svn:https://restfb.googlecode.com/svn/trunk/RestFB</developerConnection>
+		<connection>scm:svn:http://restfb.googlecode.com/svn/trunk/RestFB</connection>
+		<url>http://code.google.com/p/restfb/source/browse/</url>
 	</scm>
 
 	<mailingLists>
@@ -84,7 +84,7 @@
 			<dependency>
 				<groupId>com.restfb</groupId>
 				<artifactId>restfb</artifactId>
-				<version>1.6.6</version>
+				<version>1.6.7-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
