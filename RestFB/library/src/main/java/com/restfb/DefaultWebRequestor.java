@@ -131,6 +131,9 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   @Override
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+    if (binaryAttachments == null)
+      binaryAttachments = new BinaryAttachment[] {};
+
     if (logger.isLoggable(INFO))
       logger.info("Executing a POST to " + url + " with parameters "
           + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + urlDecode(parameters)
