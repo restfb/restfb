@@ -67,6 +67,12 @@ public class Page extends CategorizedFacebookType {
   @Facebook
   private String description;
 
+  @Facebook
+  private Integer checkins;
+
+  @Facebook
+  private String phone;
+
   @Facebook("access_token")
   private String accessToken;
 
@@ -171,6 +177,25 @@ public class Page extends CategorizedFacebookType {
    */
   public String getDescription() {
     return description;
+  }
+
+  /**
+   * The total number of users who have checked in to the Page.
+   * 
+   * @return The total number of users who have checked in to the Page.
+   */
+  public Integer getCheckins() {
+    return checkins;
+  }
+
+  /**
+   * The phone number (not always normalized for country code) for the Page.
+   * 
+   * @return The phone number (not always normalized for country code) for the
+   *         Page.
+   */
+  public String getPhone() {
+    return phone;
   }
 
   /**

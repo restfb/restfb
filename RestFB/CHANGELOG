@@ -2,7 +2,10 @@
 
 * Added "cover_photo" and "privacy" fields to Album.
   Thanks to serg472 for the heads-up.
+* Added "checkins" and "phone" fields to Page.
+  Thanks to jaiswal.rahul for the heads-up about the "checkins" field.
 * Added an example project which shows how to route java.util.logging calls to Log4j.
+  It's available at http://restfb.com/examples/RestFB%20Log4j%20Example.zip
   Thanks to Daniel Longosz for asking about this.
 
 1.6.6 (July 12, 2011)
