@@ -1,6 +1,7 @@
 1.6.7 (August X, 2011)
 
-
+* Added "cover_photo" and "privacy" fields to Album.
+  Thanks to serg472 for the heads-up.
 * Added an example project which shows how to route java.util.logging calls to Log4j.
   Thanks to Daniel Longosz for asking about this.
 

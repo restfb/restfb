@@ -52,12 +52,18 @@ public class Album extends NamedFacebookType {
   @Facebook
   private Long count;
 
+  @Facebook("cover_photo")
+  private String coverPhoto;
+
+  @Facebook
+  private String privacy;
+
   @Facebook("created_time")
   private String createdTime;
 
   @Facebook("updated_time")
   private String updatedTime;
-  
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -104,6 +110,24 @@ public class Album extends NamedFacebookType {
    */
   public Long getCount() {
     return count;
+  }
+
+  /**
+   * The album cover photo ID.
+   * 
+   * @return The album cover photo ID
+   */
+  public String getCoverPhoto() {
+    return coverPhoto;
+  }
+
+  /**
+   * The privacy settings for the album.
+   * 
+   * @return The privacy settings for the album.
+   */
+  public String getPrivacy() {
+    return privacy;
   }
 
   /**
