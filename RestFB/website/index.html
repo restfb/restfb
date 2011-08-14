@@ -180,21 +180,9 @@ FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();</pre>
 			<h3>Not sure how to get an OAuth access token?</h3>
 						
 			<div>
-				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a target="_blank" href="http://developers.facebook.com/docs/reference/api/user/">navigate to the Graph API documentation</a>.
-				Click on the "Example" link that shows Graph API JSON data.
+				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a target="_blank" href="https://developers.facebook.com/tools/explorer">navigate to the Graph API Explorer app</a>.
+				Click the "Get Access Token" button.  That's it!
 			</div>	
-			
-			<div class="spacer"></div>
-			
-			<div>
-				You should see an <code>access_token</code> parameter in your URL bar.  That's it!  Just copy and paste it into your code.								
-			</div>
-			
-			<div class="spacer"></div>
-			
-			<div>
-				Example: <code>http://graph.facebook.com/btaylor?access_token=XXXXXXX</code>
-			</div>
 			
 			<div class="spacer"></div>
 			
@@ -264,19 +252,8 @@ public class FetchObjectsResults {
 			
 			<div>
 				Want to use <a target="_blank" href="http://logging.apache.org/log4j/1.2/">Log4j</a> instead of java.util.logging?  
-				No problem!  Just download the latest release of <a target="_blank" href="http://www.slf4j.org/">SLF4J</a> and drop these JARs onto your classpath:
-				
-				<div class="spacer"></div>
-								
-				<ul>
-					<li>slf4j-api-x.y.jar</li>
-					<li>slf4j-log4j12-x.y.jar</li>
-					<li>jul-to-slf4j-x.y.jar</li>
-				</ul>						
-				
-				<div class="spacer"></div>
-				
-				Then execute this code during app startup: <code>SLF4JBridgeHandler.install();</code>		
+				No problem!  You can disable java.util.logging for RestFB and use <a target="_blank" href="http://www.slf4j.org/">SLF4J</a> to re-route (bridge) all logging calls to
+				Log4j. You may <a href="examples/RestFB%20Log4j%20Example.zip">download an example project which demonstrates this process</a>.
 				
 				<div class="spacer"></div>
 				
@@ -654,7 +631,7 @@ if(badResponse.getCode() != 200)
 
 // You can pull out connection data...
 
-List<Post> m83music = jsonMapper.toJavaList(m83musicResponse.getBody(), Post.class);
+List&lt;Post&gt; m83music = jsonMapper.toJavaList(m83musicResponse.getBody(), Post.class);
 out.println("M83's Feed: " + m83music);
 
 // ...or do whatever you'd like with the raw JSON.
