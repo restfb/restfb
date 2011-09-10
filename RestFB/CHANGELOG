@@ -1,5 +1,7 @@
 1.6.7 (August X, 2011)
 
+* Fixed regression: re-added "comments" and "likes" fields to StatusMessage (FB docs are incorrect).
+  Thanks to nstratos and volkenborn for letting me know.
 * Added "cover_photo" and "privacy" fields to Album.
   Thanks to serg472 for the heads-up.
 * Added "checkins" and "phone" fields to Page.
