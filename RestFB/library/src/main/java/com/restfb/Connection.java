@@ -26,7 +26,9 @@ import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
@@ -40,27 +42,93 @@ import com.restfb.util.ReflectionUtils;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Connection<T> {
-  private final List<T> data;
-  private final String previousPageUrl;
-  private final String nextPageUrl;
+public class Connection<T> implements Iterable<List<T>> {
+  private FacebookClient facebookClient;
+  private Class<T> connectionType;
+  private List<T> data;
+  private String previousPageUrl;
+  private String nextPageUrl;
+
+  /**
+   * @see java.lang.Iterable#iterator()
+   * @since 1.6.7
+   */
+  public Iterator<List<T>> iterator() {
+    return new ConnectionIterator<T>(this);
+  }
+
+  /**
+   * Iterator over connection pages.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.7
+   */
+  protected static class ConnectionIterator<T> implements Iterator<List<T>> {
+    private Connection<T> connection;
+    private boolean initialPage = true;
+
+    /**
+     * Creates a new iterator over the given {@code connection}.
+     * 
+     * @param connection
+     *          The connection over which to iterate.
+     */
+    protected ConnectionIterator(Connection<T> connection) {
+      this.connection = connection;
+    }
+
+    /**
+     * @see java.util.Iterator#hasNext()
+     */
+    public boolean hasNext() {
+      return connection.hasNext();
+    }
+
+    /**
+     * @see java.util.Iterator#next()
+     */
+    public List<T> next() {
+      // Special case: initial page will always have data, return it
+      // immediately.
+      if (initialPage) {
+        initialPage = false;
+        return connection.getData();
+      }
+
+      if (!connection.hasNext())
+        throw new NoSuchElementException("There are no more pages in the connection.");
+
+      connection = connection.fetchNextPage();
+      return connection.getData();
+    }
+
+    /**
+     * @see java.util.Iterator#remove()
+     */
+    public void remove() {
+      throw new UnsupportedOperationException(ConnectionIterator.class.getSimpleName()
+          + " doesn't support the remove() operation.");
+    }
+  }
 
   /**
    * Creates a connection with the given {@code jsonObject}.
    * 
+   * @param facebookClient
+   *          The {@code FacebookClient} used to fetch additional pages and map
+   *          data to JSON objects.
    * @param json
    *          Raw JSON which must include a {@code data} field that holds a JSON
    *          array and optionally a {@code paging} field that holds a JSON
    *          object with next/previous page URLs.
-   * @param jsonMapper
-   *          The {@code JsonMapper} used to convert JSON into Java objects.
    * @param connectionType
    *          Connection type token.
    * @throws FacebookJsonMappingException
    *           If the provided {@code json} is invalid.
+   * @since 1.6.7
    */
   @SuppressWarnings("unchecked")
-  public Connection(String json, JsonMapper jsonMapper, Class<T> connectionType) {
+  public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
     List<T> data = new ArrayList<T>();
 
     if (json == null)
@@ -77,8 +145,8 @@ public class Connection<T> {
     // Pull out data
     JsonArray jsonData = jsonObject.getJsonArray("data");
     for (int i = 0; i < jsonData.length(); i++)
-      data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : jsonMapper.toJavaObject(jsonData.get(i)
-        .toString(), connectionType));
+      data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : facebookClient.getJsonMapper()
+        .toJavaObject(jsonData.get(i).toString(), connectionType));
 
     // Pull out paging info, if present
     if (jsonObject.has("paging")) {
@@ -91,24 +159,19 @@ public class Connection<T> {
     }
 
     this.data = unmodifiableList(data);
+    this.facebookClient = facebookClient;
+    this.connectionType = connectionType;
   }
 
   /**
-   * Creates a connection with the given data and previous/next URLs.
+   * Fetches the next page of the connection. Designed to be used by
+   * {@link ConnectionIterator}.
    * 
-   * @param data
-   *          The connection's data.
-   * @param previousPageUrl
-   *          The URL for the previous page of data, or {@code null} if there is
-   *          none.
-   * @param nextPageUrl
-   *          The URL for the next page of data, or {@code null} if there is
-   *          none.
+   * @return The next page of the connection.
+   * @since 1.6.7
    */
-  public Connection(List<T> data, String previousPageUrl, String nextPageUrl) {
-    this.data = unmodifiableList(data == null ? new ArrayList<T>() : data);
-    this.previousPageUrl = previousPageUrl;
-    this.nextPageUrl = nextPageUrl;
+  protected Connection<T> fetchNextPage() {
+    return facebookClient.fetchConnectionPage(getNextPageUrl(), connectionType);
   }
 
   /**

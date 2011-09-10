@@ -1,9 +1,9 @@
 1.6.7 (September 10, 2011)
 
+* The Connection<T> constructor is public and now supports Iterable<T>. 
+  Thanks to kongo09, Andrew Liles, and everyone else who requested this.
 * Fixed regression: re-added "comments" and "likes" fields to StatusMessage (FB docs are incorrect).
-  Thanks to nstratos and volkenborn for letting me know.
-* Make Connection<T> constructor public and added Connection(JsonObject jsonObject, Class<T> connectionType, JsonMapper jsonMapper).
-  Thanks to kongo09, Andrew Liles, and everyone else who requested this. 
+  Thanks to nstratos and volkenborn for letting me know. 
 * Added "cover_photo" and "privacy" fields to Album.
   Thanks to serg472 for the heads-up.
 * Added "checkins" and "phone" fields to Page.

@@ -279,13 +279,11 @@ Connection&lt;Post&gt; myFeed = facebookClient.fetchConnection("me/feed", Post.c
 out.println("Count of my friends: " + myFriends.getData().size());
 out.println("First item in my feed: " + myFeed.getData().get(0));
 
-// Connections support paging
+// Connections support paging and are iterable
 
-if(myFeed.hasNext()) {
-  Connection&lt;Post&gt; myFeedPage2 =
-    facebookClient.fetchConnectionPage(myFeed.getNextPageUrl(), Post.class);
-  ...
-}</pre>							
+for (List&lt;Post&gt; myFeedConnectionPage : myFeed)
+  for (Post post : myFeedConnectionPage)
+    out.println("Post: " + post);</pre>							
 	
 	<a name="searching"></a>
 	<div class="spacer"></div>	
@@ -631,8 +629,14 @@ if(badResponse.getCode() != 200)
 
 // You can pull out connection data...
 
-List&lt;Post&gt; m83music = jsonMapper.toJavaList(m83musicResponse.getBody(), Post.class);
-out.println("M83's Feed: " + m83music);
+out.println("M83's feed follows");
+
+Connection&lt;Post&gt; m83musicPosts =
+  new Connection&lt;Post&gt;(facebookClient, m83musicResponse.getBody(), Post.class);
+
+for (List&lt;Post&gt; m83musicPostsConnectionPage : m83musicPosts)
+  for (Post post : m83musicPostsConnectionPage)
+    out.println(post);
 
 // ...or do whatever you'd like with the raw JSON.
 

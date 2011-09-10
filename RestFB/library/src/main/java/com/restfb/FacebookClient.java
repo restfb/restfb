@@ -304,6 +304,24 @@ public interface FacebookClient {
   List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys);
 
   /**
+   * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.
+   * 
+   * @return The {@code JsonMapper} used to convert Facebook JSON to Java
+   *         objects.
+   * @since 1.6.7
+   */
+  JsonMapper getJsonMapper();
+
+  /**
+   * Gets the {@code WebRequestor} used to talk to the Facebook API endpoints.
+   * 
+   * @return The {@code WebRequestor} used to talk to the Facebook API
+   *         endpoints.
+   * @since 1.6.7
+   */
+  WebRequestor getWebRequestor();
+
+  /**
    * Represents an access token/expiration date pair.
    * <p>
    * Facebook returns these types when converting from legacy session keys to
