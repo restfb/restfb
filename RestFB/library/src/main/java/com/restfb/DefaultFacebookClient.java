@@ -210,7 +210,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
-    return mapToConnection(makeRequest(connection, parameters), connectionType);
+    return new Connection<T>(makeRequest(connection, parameters), jsonMapper, connectionType);
   }
 
   /**
@@ -229,35 +229,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       }
     });
 
-    return mapToConnection(connectionJson, connectionType);
-  }
-
-  @SuppressWarnings("unchecked")
-  protected <T> Connection<T> mapToConnection(String connectionJson, Class<T> connectionType) {
-    List<T> data = new ArrayList<T>();
-    String previous = null;
-    String next = null;
-
-    try {
-      JsonObject jsonObject = new JsonObject(connectionJson);
-
-      // Pull out data
-      JsonArray jsonData = jsonObject.getJsonArray("data");
-      for (int i = 0; i < jsonData.length(); i++)
-        data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : jsonMapper.toJavaObject(jsonData
-          .get(i).toString(), connectionType));
-
-      // Pull out paging info, if present
-      if (jsonObject.has("paging")) {
-        JsonObject jsonPaging = jsonObject.getJsonObject("paging");
-        previous = jsonPaging.has("previous") ? jsonPaging.getString("previous") : null;
-        next = jsonPaging.has("next") ? jsonPaging.getString("next") : null;
-      }
-    } catch (JsonException e) {
-      throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
-    }
-
-    return new Connection<T>(data, previous, next);
+    return new Connection<T>(connectionJson, jsonMapper, connectionType);
   }
 
   /**

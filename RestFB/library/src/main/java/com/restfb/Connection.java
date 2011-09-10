@@ -28,6 +28,10 @@ import static java.util.Collections.unmodifiableList;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -42,6 +46,54 @@ public class Connection<T> {
   private final String nextPageUrl;
 
   /**
+   * Creates a connection with the given {@code jsonObject}.
+   * 
+   * @param json
+   *          Raw JSON which must include a {@code data} field that holds a JSON
+   *          array and optionally a {@code paging} field that holds a JSON
+   *          object with next/previous page URLs.
+   * @param jsonMapper
+   *          The {@code JsonMapper} used to convert JSON into Java objects.
+   * @param connectionType
+   *          Connection type token.
+   * @throws FacebookJsonMappingException
+   *           If the provided {@code json} is invalid.
+   */
+  @SuppressWarnings("unchecked")
+  public Connection(String json, JsonMapper jsonMapper, Class<T> connectionType) {
+    List<T> data = new ArrayList<T>();
+
+    if (json == null)
+      throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
+
+    JsonObject jsonObject = null;
+
+    try {
+      jsonObject = new JsonObject(json);
+    } catch (JsonException e) {
+      throw new FacebookJsonMappingException("The connection JSON you provided was invalid: " + json, e);
+    }
+
+    // Pull out data
+    JsonArray jsonData = jsonObject.getJsonArray("data");
+    for (int i = 0; i < jsonData.length(); i++)
+      data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : jsonMapper.toJavaObject(jsonData.get(i)
+        .toString(), connectionType));
+
+    // Pull out paging info, if present
+    if (jsonObject.has("paging")) {
+      JsonObject jsonPaging = jsonObject.getJsonObject("paging");
+      previousPageUrl = jsonPaging.has("previous") ? jsonPaging.getString("previous") : null;
+      nextPageUrl = jsonPaging.has("next") ? jsonPaging.getString("next") : null;
+    } else {
+      previousPageUrl = null;
+      nextPageUrl = null;
+    }
+
+    this.data = unmodifiableList(data);
+  }
+
+  /**
    * Creates a connection with the given data and previous/next URLs.
    * 
    * @param data
@@ -53,7 +105,7 @@ public class Connection<T> {
    *          The URL for the next page of data, or {@code null} if there is
    *          none.
    */
-  Connection(List<T> data, String previousPageUrl, String nextPageUrl) {
+  public Connection(List<T> data, String previousPageUrl, String nextPageUrl) {
     this.data = unmodifiableList(data == null ? new ArrayList<T>() : data);
     this.previousPageUrl = previousPageUrl;
     this.nextPageUrl = nextPageUrl;
