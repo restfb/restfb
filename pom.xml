@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.restfb</groupId>
 	<artifactId>restfb-project</artifactId>
@@ -7,17 +8,17 @@
 	<packaging>pom</packaging>
 	<url>http://restfb.com</url>
 	<inceptionYear>2010</inceptionYear>
-	
+
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
 		<version>5</version>
 	</parent>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -25,7 +26,7 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-		
+
 	<scm>
 		<developerConnection>scm:svn:https://restfb.googlecode.com/svn/trunk/RestFB</developerConnection>
 		<connection>scm:svn:http://restfb.googlecode.com/svn/trunk/RestFB</connection>
@@ -38,16 +39,16 @@
 			<subscribe>http://groups.google.com/group/restfb</subscribe>
 			<unsubscribe>http://groups.google.com/group/restfb</unsubscribe>
 			<post>restfb@googlegroups.com</post>
-			<!--archive/-->
-			<!--otherArchives-->
+			<!--archive/ -->
+			<!--otherArchives -->
 		</mailingList>
 	</mailingLists>
-	
+
 	<issueManagement>
 		<system>Google Code</system>
 		<url>http://code.google.com/p/restfb/issues</url>
 	</issueManagement>
-	
+
 	<developers>
 		<developer>
 			<id>mark.a.allen</id>
@@ -71,14 +72,13 @@
 			<timezone>-8</timezone>
 		</developer>
 	</developers>
-	
-	
+
 	<modules>
 		<module>library</module>
 		<module>examples</module>
 		<module>distro</module>
 	</modules>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
