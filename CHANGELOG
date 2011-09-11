@@ -1,6 +1,11 @@
+1.6.8 (September X, 2011)
+
+* Moved to Github (https://github.com/revetkn/restfb) and back to an Ant-based build system for simplicity.
+  RestFB releases will still be pushed to Maven central, but RestFB itself will no longer use Maven. 
+
 1.6.7 (September 10, 2011)
 
-* The Connection<T> constructor is public and now supports Iterable<T>. 
+* The Connection<T> constructor is now public and the class implements Iterable<List<T>>. 
   Thanks to kongo09, Andrew Liles, and everyone else who requested this.
 * Fixed regression: re-added "comments" and "likes" fields to StatusMessage (FB docs are incorrect).
   Thanks to nstratos and volkenborn for letting me know. 

@@ -262,15 +262,14 @@ public class GraphReaderExample {
     out.println("* Paging support *");
 
     Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
-    Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
+    Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class, Parameter.with("limit", 100));
 
     out.println("Count of my friends: " + myFriends.getData().size());
     out.println("First item in my feed: " + myFeed.getData().get(0));
 
-    if (myFeed.hasNext()) {
-      Connection<Post> myFeedPage2 = facebookClient.fetchConnectionPage(myFeed.getNextPageUrl(), Post.class);
-      out.println("First item in page 2 of my feed: " + myFeedPage2.getData().get(0));
-    }
+    for (List<Post> myFeedConnectionPage : myFeed)
+      for (Post post : myFeedConnectionPage)
+        out.println("Post from my feed: " + post);
   }
 
   void selection() {
