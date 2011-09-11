@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- @author Mark Allen @author Scott Hernandez -->
-<project name="RestFB" default="dist">
+<project name="RestFB" default="dist" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	<property name="libraryVersion" value="1.6.8" />
+
 	<!-- Directories -->
 	<property name="sourceDir" value="source" />
 	<property name="librarySourceDir" value="${sourceDir}/library" />
@@ -8,6 +10,7 @@
 	<property name="buildDir" value="build" />
 	<property name="classesDir" value="${buildDir}/classes" />
 	<property name="javadocDir" value="${buildDir}/javadoc" />
+	<property name="mavenDir" value="${buildDir}/maven" />
 	<property name="licensingDir" value="licensing" />
 	<property name="miscDir" value="misc" />
 	<property name="websiteDir" value="website" />
@@ -17,8 +20,16 @@
 	<property name="javaDebug" value="true" />
 	<property name="javaDebugLevel" value="lines,source" />
 
-	<!-- Other -->
-	<property name="libraryVersion" value="1.6.8" />
+	<!-- Maven settings - see https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide -->
+	<property name="mavenGroupId" value="com.restfb" />
+	<property name="mavenArtifactId" value="restfb" />
+	<property name="mavenJar" value="${mavenDir}/${mavenArtifactId}-${libraryVersion}.jar" />
+	<property name="mavenJavadocJar" value="${mavenDir}/${mavenArtifactId}-${libraryVersion}-javadoc.jar" />
+	<property name="mavenSourcesJar" value="${mavenDir}/${mavenArtifactId}-${libraryVersion}-sources.jar" />
+	<property name="mavenSnapshotsRepositoryId" value="sonatype-nexus-snapshots" />
+	<property name="mavenSnapshotsRepositoryUrl" value="https://oss.sonatype.org/content/repositories/snapshots" />
+	<property name="mavenStagingRepositoryId" value="sonatype-nexus-staging" />
+	<property name="mavenStagingRepositoryUrl" value="https://oss.sonatype.org/service/local/staging/deploy/maven2" />
 
 	<target name="compile" description="Compiles library code">
 		<mkdir dir="${classesDir}" />
@@ -52,14 +63,12 @@
 
 	<target name="doc" description="Builds Javadoc">
 		<echo message="Building Javadoc..." />
-
 		<mkdir dir="${javadocDir}" />
-
 		<javadoc destdir="${javadocDir}" author="true" version="true" use="true" windowtitle="RestFB" access="public"
 			stylesheetfile="${miscDir}/javadoc/javadoc.css" overview="${miscDir}/javadoc/javadoc-overview.html">
 			<packageset dir="${librarySourceDir}" defaultexcludes="yes" />
-			<doctitle><![CDATA[<h1>RestFB</h1>]]></doctitle>
-			<bottom><![CDATA[<i>RestFB version ${libraryVersion}. Copyright &#169; 2010-2011 Mark Allen. All Rights Reserved.</i>]]></bottom>
+			<doctitle><![CDATA[<h1>RestFB ${libraryVersion}</h1>]]></doctitle>
+			<bottom><![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2011 Mark Allen. All Rights Reserved.</i>]]></bottom>
 			<link href="http://download.oracle.com/javase/6/docs/api/" />
 		</javadoc>
 	</target>
@@ -77,6 +86,68 @@
 		<delete includeEmptyDirs="true">
 			<fileset dir="${buildDir}" includes="**/*" />
 		</delete>
+	</target>
+	
+	<target name="mavenBuild" depends="clean, compile, doc" description="Builds the RestFB distribution for Maven central deployment">
+		<echo message="Building Maven distribution..." />
+		<mkdir dir="${mavenDir}" />
+
+		<jar destfile="${mavenJar}">			
+			<fileset dir="${classesDir}" />
+		</jar>
+		
+		<jar destfile="${mavenSourcesJar}">
+			<fileset dir="${librarySourceDir}" />			
+		</jar>		
+
+		<jar destfile="${mavenJavadocJar}">
+			<fileset dir="${javadocDir}" />			
+		</jar>		
+	</target>
+
+	<target name="mavenDeploySnapshot" depends="mavenBuild" description="Deploy a snapshot version to Maven snapshot repository">
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-deploy-plugin:2.6:deploy-file" />
+			<arg value="-Durl=${mavenSnapshotsRepositoryUrl}" />
+			<arg value="-DrepositoryId=${mavenSnapshotsRepositoryId}" />
+			<arg value="-DpomFile=pom.xml" />
+			<arg value="-Dfile=${mavenJar}" />
+		</artifact:mvn>
+	</target>
+
+	<!-- Before this, remove SNAPSHOT from project version in both build.xml and pom.xml -->
+	<target name="mavenDeployRelease" depends="mavenBuild" description="Deploy a release version to Maven staging repository">
+		<!-- Sign and deploy the main artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${mavenStagingRepositoryUrl}" />
+			<arg value="-DrepositoryId=${mavenStagingRepositoryId}" />
+			<arg value="-DpomFile=pom.xml" />
+			<arg value="-Dfile=${mavenJar}" />
+			<arg value="-Pgpg" />
+		</artifact:mvn>
+
+		<!-- Sign and deploy the sources artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${mavenStagingRepositoryUrl}" />
+			<arg value="-DrepositoryId=${mavenStagingRepositoryId}" />
+			<arg value="-DpomFile=pom.xml" />
+			<arg value="-Dfile=${mavenSourcesJar}" />
+			<arg value="-Dclassifier=sources" />
+			<arg value="-Pgpg" />
+		</artifact:mvn>
+
+		<!-- Sign and deploy the javadoc artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${mavenStagingRepositoryUrl}" />
+			<arg value="-DrepositoryId=${mavenStagingRepositoryId}" />
+			<arg value="-DpomFile=pom.xml" />
+			<arg value="-Dfile=${mavenJavadocJar}" />
+			<arg value="-Dclassifier=javadoc" />
+			<arg value="-Pgpg" />
+		</artifact:mvn>
 	</target>
 
 </project>
