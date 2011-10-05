@@ -1,5 +1,8 @@
-1.6.8 (September X, 2011)
+1.6.8 (October X, 2011)
 
+* Now allow batch requests to specify "name" parameter and fixed a bug where request headers were not
+  being included in requests.
+  Thanks to jyorke.
 * Moved to Github (https://github.com/revetkn/restfb) and back to an Ant-based build system for simplicity.
   RestFB releases will still be pushed to Maven central, but RestFB itself will no longer use Maven. 
 

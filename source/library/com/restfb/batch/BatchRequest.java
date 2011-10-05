@@ -36,8 +36,7 @@ import com.restfb.Parameter;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Encapsulates a discrete part of an entire <a
- * href="https://developers.facebook.com/docs/reference/api/batch/"
+ * Encapsulates a discrete part of an entire <a href="https://developers.facebook.com/docs/reference/api/batch/"
  * target="_blank">Facebook Batch API</a> request.
  * <p>
  * Must be constructed by {@link BatchRequestBuilder}.
@@ -62,6 +61,9 @@ public class BatchRequest {
   @Facebook("depends_on")
   private String dependsOn;
 
+  @Facebook
+  private String name;
+
   @Facebook("omit_response_on_success")
   private boolean omitResponseOnSuccess;
 
@@ -69,40 +71,42 @@ public class BatchRequest {
   private List<BatchHeader> headers = new ArrayList<BatchHeader>();
 
   /**
-   * Designed to be invoked by instances of <tt>{@link BatchRequestBuilder}</tt>
-   * .
+   * Designed to be invoked by instances of <tt>{@link BatchRequestBuilder}</tt> .
    * 
    * @param relativeUrl
    *          The endpoint to hit, for example {@code "me/friends"}.
    * @param parameters
-   *          Optional list of URL parameters to be added to the value specified
-   *          in {@code relativeUrl}.
+   *          Optional list of URL parameters to be added to the value specified in {@code relativeUrl}.
    * @param method
    *          The HTTP method to use, for example {@code "GET"}.
-   * @param body
-   *          The request body, for example {@code "message=Test status update"}
-   *          .
+   * @param headers
+   *          The list of HTTP headers for the request.
+   * @param bodyParameters
+   *          The parameters that comprise the request body, for example {@code "message=Test status update"} .
    * @param attachedFiles
-   *          Names of any attached files for this call, for example
-   *          {@code "cat1, cat2"}.
+   *          Names of any attached files for this call, for example {@code "cat1, cat2"}.
+   * @param name
+   *          The logical name of this request, for example {@code "get-friends"}.
    * @param dependsOn
-   *          If this call depends on the completion of another call in the
-   *          current batch, for example {@code "first"}.
+   *          If this call depends on the completion of another call in the current batch, for example
+   *          {@code "get-friends"}.
    * @param omitResponseOnSuccess
-   *          To make sure FB returns JSON in the event that this request
-   *          completes successfully, set this to {@code false}.
+   *          To make sure FB returns JSON in the event that this request completes successfully, set this to
+   *          {@code false}.
    * @throws IllegalArgumentException
    *           If {@code relativeUrl} is {@code null} or blank.
    */
-  protected BatchRequest(String relativeUrl, List<Parameter> parameters, String method, List<Parameter> bodyParameters,
-      String attachedFiles, String dependsOn, boolean omitResponseOnSuccess) {
+  protected BatchRequest(String relativeUrl, List<Parameter> parameters, String method, List<BatchHeader> headers,
+      List<Parameter> bodyParameters, String attachedFiles, String dependsOn, String name, boolean omitResponseOnSuccess) {
     if (isBlank(relativeUrl))
       throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");
 
     this.relativeUrl = relativeUrl;
     this.method = method;
+    this.headers = headers;
     this.attachedFiles = attachedFiles;
     this.dependsOn = dependsOn;
+    this.name = name;
     this.omitResponseOnSuccess = omitResponseOnSuccess;
 
     if (parameters.size() > 0)
@@ -114,12 +118,10 @@ public class BatchRequest {
   }
 
   /**
-   * Builder pattern implementation used to construct instances of
-   * <tt>{@link BatchRequest}</tt>.
+   * Builder pattern implementation used to construct instances of <tt>{@link BatchRequest}</tt>.
    * <p>
-   * See the <a href="https://developers.facebook.com/docs/reference/api/batch/"
-   * target="_blank">Facebook Batch API documentation</a> for more details on
-   * what a batch request looks like.
+   * See the <a href="https://developers.facebook.com/docs/reference/api/batch/" target="_blank">Facebook Batch API
+   * documentation</a> for more details on what a batch request looks like.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.5
@@ -132,14 +134,14 @@ public class BatchRequest {
     private List<Parameter> bodyParameters = new ArrayList<Parameter>();
     private String attachedFiles;
     private String dependsOn;
+    private String name;
     private boolean omitResponseOnSuccess;
 
     /**
      * Creates a batch request builder using the provided FB endpoint.
      * <p>
-     * You can explicitly specify URL parameters here, or use
-     * {@link #parameters(Parameter...)} instead if you prefer to have the query
-     * string constructed programmatically.
+     * You can explicitly specify URL parameters here, or use {@link #parameters(Parameter...)} instead if you prefer to
+     * have the query string constructed programmatically.
      * 
      * @param relativeUrl
      *          The endpoint to hit, for example {@code "me/friends"}.
@@ -149,9 +151,8 @@ public class BatchRequest {
     }
 
     /**
-     * Sets The HTTP method for the request generated by this builder, for
-     * example {@code "POST"} ({@code GET} is the default value for this
-     * builder).
+     * Sets the HTTP method for the request generated by this builder, for example {@code "POST"} ({@code GET} is the
+     * default value for this builder).
      * 
      * @param method
      *          The HTTP method.
@@ -159,6 +160,19 @@ public class BatchRequest {
      */
     public BatchRequestBuilder method(String method) {
       this.method = method;
+      return this;
+    }
+
+    /**
+     * Sets the logical name for the request generated by this builder. Useful for specifying dependencies between
+     * operations - the generated request can be referenced by name.
+     * 
+     * @param name
+     *          The logical name of the request generated by this builder.
+     * @return This builder.
+     */
+    public BatchRequestBuilder name(String name) {
+      this.name = name;
       return this;
     }
 
@@ -176,8 +190,7 @@ public class BatchRequest {
     }
 
     /**
-     * Sets the request body parameters for the request generated by this
-     * builder, for example
+     * Sets the request body parameters for the request generated by this builder, for example
      * {@code Parameter.with("message", "Test status update")}.
      * 
      * @param parameters
@@ -191,8 +204,7 @@ public class BatchRequest {
     }
 
     /**
-     * Sets the comma-delimited names of any attached files for this builder,
-     * for example {@code "cat1, cat2"}.
+     * Sets the comma-delimited names of any attached files for this builder, for example {@code "cat1, cat2"}.
      * 
      * @param attachedFiles
      *          The names of any attached files for this builder.
@@ -204,13 +216,11 @@ public class BatchRequest {
     }
 
     /**
-     * Specifies if the request generated by this builder depends on the
-     * completion of another call in the current batch, for example
-     * {@code "first"}.
+     * Specifies if the request generated by this builder depends on the completion of another call in the current
+     * batch, for example {@code "first"}.
      * 
      * @param dependsOn
-     *          A reference to another request in the batch that this builder's
-     *          request depends on.
+     *          A reference to another request in the batch that this builder's request depends on.
      * @return This builder.
      */
     public BatchRequestBuilder dependsOn(String dependsOn) {
@@ -219,12 +229,12 @@ public class BatchRequest {
     }
 
     /**
-     * To make sure FB returns JSON in the event that this builder's request
-     * completes successfully, set this to {@code false}.
+     * To make sure FB returns JSON in the event that this builder's request completes successfully, set this to
+     * {@code false}.
      * 
      * @param omitResponseOnSuccess
-     *          Set this to {@code false} to make sure FB returns JSON in the
-     *          event that this builder's request completes successfully,
+     *          Set this to {@code false} to make sure FB returns JSON in the event that this builder's request
+     *          completes successfully,
      * @return This builder.
      */
     public BatchRequestBuilder omitResponseOnSuccess(boolean omitResponseOnSuccess) {
@@ -251,7 +261,7 @@ public class BatchRequest {
      * @return An instance of {@link BatchRequest}.
      */
     public BatchRequest build() {
-      return new BatchRequest(relativeUrl, parameters, method, bodyParameters, attachedFiles, dependsOn,
+      return new BatchRequest(relativeUrl, parameters, method, headers, bodyParameters, attachedFiles, dependsOn, name,
         omitResponseOnSuccess);
     }
   }
@@ -338,8 +348,7 @@ public class BatchRequest {
   }
 
   /**
-   * Names of any attached files for this call, for example {@code "cat1, cat2"}
-   * .
+   * Names of any attached files for this call, for example {@code "cat1, cat2"} .
    * 
    * @return Names of any attached files for this call.
    */
@@ -348,8 +357,16 @@ public class BatchRequest {
   }
 
   /**
-   * Another call in the current batch upon which this call depends, for example
-   * {@code "first"}.
+   * The logical name for this request, for example {@code "get-friends"}.
+   * 
+   * @return The logical name for this request.
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Another call in the current batch upon which this call depends, for example {@code "get-friends"}.
    * 
    * @return Another call in the current batch upon which this call depends.
    */
@@ -360,8 +377,7 @@ public class BatchRequest {
   /**
    * Will the batch response for this request be {@code null}?
    * 
-   * @return {@code true} if the batch response for this request will be
-   *         {@code null}, {@code false} otherwise.
+   * @return {@code true} if the batch response for this request will be {@code null}, {@code false} otherwise.
    */
   public boolean isOmitResponseOnSuccess() {
     return omitResponseOnSuccess;
