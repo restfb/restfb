@@ -40,6 +40,7 @@ import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.JsonMapper;
 import com.restfb.Parameter;
+import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
@@ -140,12 +141,18 @@ public class GraphReaderExample {
     out.println(btaylor.getString("name"));
 
     JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject.class);
-    String firstPhotoUrl = photosConnection.getJsonArray("data").getJsonObject(0).getString("source");
-    out.println(firstPhotoUrl);
+    JsonArray photosConnectionData = photosConnection.getJsonArray("data");
+
+    if (photosConnectionData.length() > 0) {
+      String firstPhotoUrl = photosConnectionData.getJsonObject(0).getString("source");
+      out.println(firstPhotoUrl);
+    }
 
     String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
     List<JsonObject> queryResults = facebookClient.executeQuery(query, JsonObject.class);
-    out.println(queryResults.get(0).getString("name"));
+
+    if (queryResults.size() > 0)
+      out.println(queryResults.get(0).getString("name"));
   }
 
   /**
