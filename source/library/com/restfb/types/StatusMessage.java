@@ -25,6 +25,7 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,10 +56,58 @@ public class StatusMessage extends NamedFacebookType {
   @Facebook
   private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
 
+  /**
+   * Hack so JSON mapping won't fail when FB returns inconsistent JSON when
+   * there are 0 likes.
+   */
+  @Facebook("likes")
+  @SuppressWarnings("unused")
+  private EmptyLikes emptyLikes;
+
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
-  private static final long serialVersionUID = 1L;
+  /**
+   * Hack so JSON mapping won't fail when FB returns inconsistent JSON when
+   * there are 0 comments.
+   */
+  @Facebook("comments")
+  @SuppressWarnings("unused")
+  private EmptyComments emptyComments;
+
+  private static final long serialVersionUID = 2L;
+
+  /**
+   * Sometimes Facebook will return <tt>"likes":{"count":0}</tt> instead of the
+   * connection-formatted likes object that's documented - this class handles
+   * that so JSON mapping won't fail.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.8
+   */
+  private static class EmptyLikes implements Serializable {
+    @Facebook
+    @SuppressWarnings("unused")
+    private Long count;
+
+    private static final long serialVersionUID = 1L;
+  }
+
+  /**
+   * Sometimes Facebook will return <tt>"comments":{"count":0}</tt> instead of
+   * the connection-formatted comments object that's documented - this class
+   * handles that so JSON mapping won't fail.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.8
+   */
+  private static class EmptyComments implements Serializable {
+    @Facebook
+    @SuppressWarnings("unused")
+    private Long count;
+
+    private static final long serialVersionUID = 1L;
+  }
 
   /**
    * The user who posted the message.

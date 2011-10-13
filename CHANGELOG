@@ -1,8 +1,10 @@
-1.6.8 (October X, 2011)
+1.6.8 (October 12, 2011)
 
 * Now allow batch requests to specify "name" parameter and fixed a bug where request headers were not
   being included in requests.
   Thanks to jyorke.
+* Fix for FB's inconsistent and undocumented behavior for returning "likes" and "comments" fields in StatusMessage.
+  Thanks to volkenborn.
 * Moved to Github (https://github.com/revetkn/restfb) and back to an Ant-based build system for simplicity.
   RestFB releases will still be pushed to Maven central, but RestFB itself will no longer use Maven. 
 
