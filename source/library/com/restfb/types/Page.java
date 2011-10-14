@@ -22,7 +22,10 @@
 
 package com.restfb.types;
 
+import java.io.Serializable;
+
 import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a
@@ -76,7 +79,130 @@ public class Page extends CategorizedFacebookType {
   @Facebook("access_token")
   private String accessToken;
 
-  private static final long serialVersionUID = 1L;
+  @Facebook
+  private Location location;
+
+  private static final long serialVersionUID = 2L;
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/page">Location API
+   * type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.8
+   */
+  public static class Location implements Serializable {
+    @Facebook
+    private String street;
+
+    @Facebook
+    private String city;
+
+    @Facebook
+    private String state;
+
+    @Facebook
+    private String country;
+
+    @Facebook
+    private String zip;
+
+    @Facebook
+    private Double latitude;
+
+    @Facebook
+    private Double longitude;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The street address of the place this page represents.
+     * 
+     * @return The street address of the place this page represents.
+     */
+    public String getStreet() {
+      return street;
+    }
+
+    /**
+     * The city name of the place this page represents.
+     * 
+     * @return The city name of the place this page represents.
+     */
+    public String getCity() {
+      return city;
+    }
+
+    /**
+     * The state name of the place this page represents.
+     * 
+     * @return The state name of the place this page represents.
+     */
+    public String getState() {
+      return state;
+    }
+
+    /**
+     * The country name of the place this page represents.
+     * 
+     * @return The country name of the place this page represents.
+     */
+    public String getCountry() {
+      return country;
+    }
+
+    /**
+     * The postal code of the place this page represents.
+     * 
+     * @return The postal code of the place this page represents.
+     */
+    public String getZip() {
+      return zip;
+    }
+
+    /**
+     * The latitude of the place this page represents.
+     * 
+     * @return The latitude of the place this page represents.
+     */
+    public Double getLatitude() {
+      return latitude;
+    }
+
+    /**
+     * The longitude of the place this page represents.
+     * 
+     * @return The longitude of the place this page represents.
+     */
+    public Double getLongitude() {
+      return longitude;
+    }
+  }
 
   /**
    * The page's picture.
@@ -209,5 +335,14 @@ public class Page extends CategorizedFacebookType {
    */
   public String getAccessToken() {
     return accessToken;
+  }
+
+  /**
+   * The location of the place this page represents.
+   * 
+   * @return The location of the place this page represents.
+   */
+  public Location getLocation() {
+    return location;
   }
 }
