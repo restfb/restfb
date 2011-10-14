@@ -3,6 +3,8 @@
 * Now allow batch requests to specify "name" parameter and fixed a bug where request headers were not
   being included in requests.
   Thanks to jyorke.
+* Added new "place" field to Post type.
+  Thanks to Chris Schilling.
 * Added new "location" field to Page type.
   Thanks to Fernando Padilla.  
 * Fix for FB's inconsistent and undocumented behavior for returning "likes" and "comments" fields in StatusMessage.

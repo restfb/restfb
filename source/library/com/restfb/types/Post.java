@@ -105,6 +105,9 @@ public class Post extends NamedFacebookType {
   private Comments comments;
 
   @Facebook
+  private Place place;
+
+  @Facebook
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
   @Facebook
@@ -113,7 +116,29 @@ public class Post extends NamedFacebookType {
   @Facebook
   private List<Property> properties = new ArrayList<Property>();
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
+
+  /**
+   * Represents the place where this post occurred.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.8
+   */
+  public static class Place extends NamedFacebookType {
+    @Facebook
+    private Location location;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The location of this place.
+     * 
+     * @return The location of this place.
+     */
+    public Location getLocation() {
+      return location;
+    }
+  }
 
   /**
    * Represents the undocumented {@code Property} type.
@@ -631,6 +656,16 @@ public class Post extends NamedFacebookType {
    */
   public Comments getComments() {
     return comments;
+  }
+
+  /**
+   * The place where this post occurred.
+   * 
+   * @return The place where this post occurred.
+   * @since 1.6.8
+   */
+  public Place getPlace() {
+    return place;
   }
 
   /**
