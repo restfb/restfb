@@ -582,9 +582,9 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * The type of post this is, e.g. "link".
+   * The type of post this is, for example {@code "link"}.
    * 
-   * @return The type of post this is, e.g. "link".
+   * @return The type of post this is, for example {@code "link"}.
    */
   public String getType() {
     return type;
