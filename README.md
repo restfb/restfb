@@ -21,9 +21,17 @@ Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to you
 </dependency>
 ```
 
+## Building it Yourself
+
+Just type
+
+    ant dist
+    
+...and you're done.
+
 ## Usage examples
 
-**Please see http://restfb.com for complete documentation.**
+Please see http://restfb.com for complete documentation.
 
 #### Initialization 
 
@@ -396,7 +404,7 @@ facebookClient.executeBatch(batchRequests, binaryAttachments);
 FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN,  
 
   // A one-off DefaultWebRequestor for testing that returns a hardcoded JSON
-  // list of numbers instead of hitting the Facebook API endpoint URL
+  // object instead of hitting the Facebook API endpoint URL
 
   new DefaultWebRequestor() {
     @Override
