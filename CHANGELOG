@@ -7,6 +7,8 @@
   Thanks to Chris Schilling.
 * Added new "location" field to Page type.
   Thanks to Fernando Padilla.  
+* Made several updates to the "education" field on the User type.
+  Thanks to Marcel Stoer and Silent Film.
 * Fix for FB's inconsistent and undocumented behavior for returning "likes" and "comments" fields in StatusMessage.
   Thanks to volkenborn.
 * Moved to Github (https://github.com/revetkn/restfb) and back to an Ant-based build system for simplicity.

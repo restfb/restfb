@@ -293,12 +293,18 @@ public class User extends NamedFacebookType {
     private NamedFacebookType degree;
 
     @Facebook
+    private String type;
+
+    @Facebook
     private List<NamedFacebookType> concentration = new ArrayList<NamedFacebookType>();
 
     @Facebook
     private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
 
-    private static final long serialVersionUID = 1L;
+    @Facebook
+    private List<EducationClass> classes = new ArrayList<EducationClass>();
+
+    private static final long serialVersionUID = 2L;
 
     /**
      * @see java.lang.Object#hashCode()
@@ -352,6 +358,15 @@ public class User extends NamedFacebookType {
     }
 
     /**
+     * Type of school, e.g. {@code College}.
+     * 
+     * @return Type of school.
+     */
+    public String getType() {
+      return type;
+    }
+
+    /**
      * Concentrations/minors.
      * 
      * @return Concentrations/minors.
@@ -368,6 +383,52 @@ public class User extends NamedFacebookType {
      */
     public List<NamedFacebookType> getWith() {
       return unmodifiableList(with);
+    }
+
+    /**
+     * Classes taken at this school.
+     * 
+     * @return Classes taken at this school.
+     * @since 1.6.8
+     */
+    public List<EducationClass> getClasses() {
+      return unmodifiableList(classes);
+    }
+  }
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/user">Class Graph
+   * API type</a>.
+   * 
+   * @author Mark Allen
+   * @since 1.6.8
+   */
+  public static class EducationClass extends NamedFacebookType {
+    @Facebook
+    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+
+    @Facebook
+    private String description;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Friends associated with this class.
+     * 
+     * @return Friends associated with this class.
+     */
+    public List<NamedFacebookType> getWith() {
+      return unmodifiableList(with);
+    }
+
+    /**
+     * The description of this class.
+     * 
+     * @return The description of this class.
+     */
+    public String getDescription() {
+      return description;
     }
   }
 
