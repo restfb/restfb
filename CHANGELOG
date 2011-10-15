@@ -1,4 +1,4 @@
-1.6.8 (October 12, 2011)
+1.6.8 (October 15, 2011)
 
 * Now allow batch requests to specify "name" parameter and fixed a bug where request headers were not
   being included in requests.
