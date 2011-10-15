@@ -119,7 +119,9 @@ public class Post extends NamedFacebookType {
   private static final long serialVersionUID = 2L;
 
   /**
-   * Represents the place where this post occurred.
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/post">Place Graph
+   * API type</a>
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
