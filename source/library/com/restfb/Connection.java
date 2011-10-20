@@ -81,6 +81,9 @@ public class Connection<T> implements Iterable<List<T>> {
      * @see java.util.Iterator#hasNext()
      */
     public boolean hasNext() {
+      if (initialPage) {
+        return true;
+      }
       return connection.hasNext();
     }
 
