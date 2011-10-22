@@ -1,3 +1,8 @@
+1.6.9 (October 21, 2011)
+
+* Bugfix for Connection page iteration.
+  Thanks to Takashi Kawachi for the patch.
+
 1.6.8 (October 15, 2011)
 
 * Now allow batch requests to specify "name" parameter and fixed a bug where request headers were not
