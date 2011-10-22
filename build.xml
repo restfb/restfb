@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- @author Mark Allen @author Scott Hernandez -->
 <project name="RestFB" default="dist" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
-	<property name="libraryVersion" value="1.6.8" />
+	<property name="libraryVersion" value="1.6.9" />
 
 	<!-- Directories -->
 	<property name="sourceDir" value="source" />
