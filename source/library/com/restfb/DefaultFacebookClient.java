@@ -35,7 +35,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.FINE;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -492,8 +492,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw new FacebookNetworkException("Facebook request failed", t);
     }
 
-    if (logger.isLoggable(INFO))
-      logger.info("Facebook responded with " + response);
+    if (logger.isLoggable(FINE))
+      logger.fine("Facebook responded with " + response);
 
     // If we get any HTTP response code other than a 200 OK or 400 Bad Request
     // or 401 Not Authorized or 403 Forbidden or 500 Internal Server Error,
