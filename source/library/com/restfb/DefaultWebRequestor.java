@@ -25,9 +25,10 @@ package com.restfb;
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
 import static com.restfb.util.StringUtils.fromInputStream;
 import static com.restfb.util.StringUtils.urlDecode;
+import static java.lang.String.format;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.FINER;
-import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
 
 import java.io.Closeable;
@@ -73,15 +74,15 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger(DefaultWebRequestor.class.getName());
+  private static final Logger logger = Logger.getLogger("com.restfb.HTTP");
 
   /**
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
   @Override
   public Response executeGet(String url) throws IOException {
-    if (logger.isLoggable(INFO))
-      logger.info("Making a GET request to " + url);
+    if (logger.isLoggable(FINE))
+      logger.fine("Making a GET request to " + url);
 
     HttpURLConnection httpUrlConnection = null;
     InputStream inputStream = null;
@@ -107,10 +108,15 @@ public class DefaultWebRequestor implements WebRequestor {
               .getInputStream();
       } catch (IOException e) {
         if (logger.isLoggable(WARNING))
-          logger.warning("An error occurred while making a GET request to " + url + ": " + e);
+          logger.warning(format("An error occurred while making a GET request to %s: %s", url, e));
       }
 
-      return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
+      Response response = new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
+
+      if (logger.isLoggable(FINE))
+        logger.fine("Facebook responded with " + response);
+
+      return response;
     } finally {
       closeQuietly(httpUrlConnection);
     }
@@ -134,8 +140,8 @@ public class DefaultWebRequestor implements WebRequestor {
     if (binaryAttachments == null)
       binaryAttachments = new BinaryAttachment[] {};
 
-    if (logger.isLoggable(INFO))
-      logger.info("Executing a POST to " + url + " with parameters "
+    if (logger.isLoggable(FINE))
+      logger.fine("Executing a POST to " + url + " with parameters "
           + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + urlDecode(parameters)
           + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
 

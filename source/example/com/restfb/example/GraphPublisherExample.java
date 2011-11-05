@@ -39,7 +39,7 @@ import com.restfb.types.FacebookType;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class GraphPublisherExample {
+public class GraphPublisherExample extends Example {
   /**
    * RestFB Graph API client.
    */

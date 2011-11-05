@@ -38,7 +38,7 @@ import com.restfb.Parameter;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class LegacyExample {
+public class LegacyExample extends Example {
   /**
    * RestFB Legacy REST API client.
    */
