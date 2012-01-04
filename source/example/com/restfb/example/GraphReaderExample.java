@@ -52,7 +52,7 @@ import com.restfb.types.User;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class GraphReaderExample {
+public class GraphReaderExample extends Example {
   /**
    * RestFB Graph API client.
    */

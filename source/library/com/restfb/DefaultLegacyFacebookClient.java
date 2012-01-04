@@ -27,7 +27,6 @@ import static com.restfb.util.StringUtils.toBytes;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.urlEncode;
 import static java.net.HttpURLConnection.HTTP_OK;
-import static java.util.logging.Level.INFO;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -343,9 +342,6 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     } catch (Throwable t) {
       throw new FacebookNetworkException("Facebook POST failed", t);
     }
-
-    if (logger.isLoggable(INFO))
-      logger.info("Facebook responded with " + response);
 
     // If we get any HTTP response code other than a 200 OK, throw an exception
     if (HTTP_OK != response.getStatusCode())

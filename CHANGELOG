@@ -1,3 +1,9 @@
+1.6.10 (November X, 2011)
+
+* Changed all network logging to use the new com.restfb.HTTP logger and now default to FINE instead of INFO
+  for normal requests/responses. This means you must explicitly enable logging to see what goes over the wire.   
+  Thanks to Johno Crawford and Marcel Stoer.
+
 1.6.9 (October 21, 2011)
 
 * Bugfix for Connection page iteration.
