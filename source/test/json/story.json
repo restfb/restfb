@@ -1,0 +1,21 @@
+{
+   "story":"Test Person and Someone Else are now friends.",
+   "story_tags":{
+      "17":[
+         {
+            "id":"123",
+            "name":"Person",
+            "offset":17,
+            "length":18
+         }
+      ],
+      "0":[
+         {
+            "id":"456",
+            "name":"Person 2",
+            "offset":0,
+            "length":12
+         }
+      ]
+   }
+}
