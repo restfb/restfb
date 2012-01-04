@@ -22,14 +22,20 @@
 
 package com.restfb;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
+import com.restfb.json.JsonObject;
 import com.restfb.types.NamedFacebookType;
 import com.restfb.types.Post;
 import com.restfb.types.User;
@@ -258,6 +264,55 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     List<NamedFacebookType> types =
         createJsonMapper().toJavaList(jsonFromClasspath("nulls-in-list"), NamedFacebookType.class);
     assertTrue(types.size() == 3);
+  }
+
+  /**
+   * Can we handle the JsonObject types?
+   */
+  @Test
+  public void story() {
+    Set<String> actualStoryTagIds = new HashSet<String>();
+    Set<String> expectedStoryTagIds = new HashSet<String>() {
+      {
+        add("123");
+        add("456");
+      }
+    };
+
+    JsonMapper jsonMapper = createJsonMapper();
+    Story story = jsonMapper.toJavaObject(jsonFromClasspath("story"), Story.class);
+
+    for (Iterator<?> i = story.storyTags.keys(); i.hasNext();) {
+      String fieldName = (String) i.next();
+      List<StoryTag> storyTags = jsonMapper.toJavaList(story.storyTags.getString(fieldName), StoryTag.class);
+
+      for (StoryTag storyTag : storyTags)
+        actualStoryTagIds.add(storyTag.id);
+    }
+
+    assertEquals(expectedStoryTagIds, actualStoryTagIds);
+  }
+
+  static class Story {
+    @Facebook
+    String story;
+
+    @Facebook("story_tags")
+    JsonObject storyTags;
+
+    static class StoryTag {
+      @Facebook
+      String id;
+
+      @Facebook
+      String name;
+
+      @Facebook
+      Integer offset;
+
+      @Facebook
+      Integer length;
+    }
   }
 
   static class BasicUser {
