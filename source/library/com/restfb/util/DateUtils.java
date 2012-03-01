@@ -62,7 +62,15 @@ public final class DateUtils {
    * Logger.
    */
   private static final Logger logger = Logger.getLogger(DateUtils.class.getName());
-
+    
+  /**
+   * Simple date formatters
+   */
+  private static final SimpleDateFormat simpleDateFormat_longDate = new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT);
+  private static final SimpleDateFormat simpleDateFormat_longDateWithoutTimeZone = new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE);
+  private static final SimpleDateFormat simpleDateFormat_shortDate = new SimpleDateFormat(FACEBOOK_SHORT_DATE_FORMAT);
+  private static final SimpleDateFormat simpleDateFormat_monthYearDate = new SimpleDateFormat(FACEBOOK_MONTH_YEAR_DATE_FORMAT);
+    
   /**
    * Prevents instantiation.
    */
@@ -125,16 +133,28 @@ public final class DateUtils {
    *         {@code null} if {@code date} is {@code null} or invalid.
    */
   private static Date toDateWithFormatString(String date, String format) {
-    if (date == null)
+      if (date == null)
+          return null;
+      
+      try{
+          if (format.equals(FACEBOOK_LONG_DATE_FORMAT)){
+              return simpleDateFormat_longDate.parse(date);
+          }
+          else if (format.equals(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE)){
+              return simpleDateFormat_longDateWithoutTimeZone.parse(date);
+          }
+          else if (format.equals(FACEBOOK_MONTH_YEAR_DATE_FORMAT)){
+              return simpleDateFormat_monthYearDate.parse(date);
+          }
+          else if (format.equals(FACEBOOK_SHORT_DATE_FORMAT)){
+              return simpleDateFormat_shortDate.parse(date);
+          }
+      }
+      catch (ParseException e){
+          if (logger.isLoggable(FINE))
+              logger.fine("Unable to parse date '" + date + "' using format string '" + format + "': " + e);
+      }
+      
       return null;
-
-    try {
-      return new SimpleDateFormat(format).parse(date);
-    } catch (ParseException e) {
-      if (logger.isLoggable(FINE))
-        logger.fine("Unable to parse date '" + date + "' using format string '" + format + "': " + e);
-
-      return null;
-    }
   }
 }
