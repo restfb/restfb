@@ -1,0 +1,4 @@
+[{"name":0,"fql_result_set":[{"metric":"page_active_users","value":761},{"metric":"page_tab_views_login_top_unique","value":{"wall":30,"app_4949752878":3,"photos":2}}]},
+{"name":1,"fql_result_set":[{"metric":"page_active_users","value":705},{"metric":"page_tab_views_login_top_unique","value":{"wall":23,"app_2373072738":2,"photos":1,"app_4949752878":1}}]},
+{"name":2,"fql_result_set":[{"metric":"page_active_users","value":582},{"metric":"page_tab_views_login_top_unique","value":{"wall":12,"app_4949752878":1}}]},
+{"name":3,"fql_result_set":[{"metric":"page_active_users","value":125},{"metric":"page_tab_views_login_top_unique","value":{"wall":11,"photos":1}}]}]
