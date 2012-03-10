@@ -1,8 +1,10 @@
-1.6.10 (November X, 2011)
+1.6.10 (March X, 2011 - Unreleased)
 
 * Changed all network logging to use the new com.restfb.HTTP logger and now default to FINE instead of INFO
   for normal requests/responses. This means you must explicitly enable logging to see what goes over the wire.   
   Thanks to Johno Crawford and Marcel Stoer.
+* Added Andrew Liles' InsightUtils class, which provides a nice wrapper around querying for Insights data.
+  Thanks to Andrew Liles.
 
 1.6.9 (October 21, 2011)
 
