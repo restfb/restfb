@@ -68,7 +68,7 @@
 			stylesheetfile="${miscDir}/javadoc/javadoc.css" overview="${miscDir}/javadoc/overview.html">
 			<packageset dir="${librarySourceDir}" defaultexcludes="yes" />
 			<doctitle><![CDATA[<h1>RestFB ${libraryVersion}</h1>]]></doctitle>
-			<bottom><![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2011 Mark Allen. All Rights Reserved.</i>]]></bottom>
+			<bottom><![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2012 Mark Allen. All Rights Reserved.</i>]]></bottom>
 			<link href="http://download.oracle.com/javase/6/docs/api/" />
 		</javadoc>
 	</target>
