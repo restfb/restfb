@@ -183,7 +183,7 @@ out.println("User metadata: has albums? "
 ```java
 // You can pass along any parameters you'd like to the Facebook endpoint.
 
-Date oneWeekAgo = new Date(System.currentTimeMillis() / 1000L - 60L * 60L * 24L * 7L);
+Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
 
 Connection<Post> filteredFeed = facebookClient.fetchConnection("me/feed", Post.class,
   Parameter.with("limit", 3), Parameter.with("until", "yesterday"),
@@ -262,8 +262,8 @@ out.println("Published message ID: " + publishMessageResponse.getId());
 
 // Publishing an event
 
-Long tomorrow = System.currentTimeMillis() / 1000L + 60L * 60L * 24L;
-Long twoDaysFromNow = System.currentTimeMillis() / 1000L + 60L * 60L * 48L;
+Date tomorrow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 24L);
+Date twoDaysFromNow = new Date(currentTimeMillis() + 1000L * 60L * 60L * 48L);
 
 FacebookType publishEventResponse = facebookClient.publish("me/events", FacebookType.class,
   Parameter.with("name", "Party"), Parameter.with("start_time", tomorrow),
