@@ -272,12 +272,14 @@ public interface FacebookClient {
    * 
    * @param object
    *          The ID of the object to delete.
+   * @param parameters
+   *          URL parameters to include in the API call.
    * @return {@code true} if Facebook indicated that the object was successfully
    *         deleted, {@code false} otherwise.
    * @throws FacebookException
    *           If an error occurred while attempting to delete the object.
    */
-  boolean deleteObject(String object);
+  boolean deleteObject(String object, Parameter... parameters);
 
   /**
    * Converts an arbitrary number of {@code sessionKeys} to OAuth access tokens.

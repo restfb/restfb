@@ -193,11 +193,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#deleteObject(java.lang.String)
+   * @see com.restfb.FacebookClient#deleteObject(java.lang.String,
+   *      com.restfb.Parameter[])
    */
-  public boolean deleteObject(String object) {
+  @Override
+  public boolean deleteObject(String object, Parameter... parameters) {
     verifyParameterPresence("object", object);
-    return "true".equals(makeRequest(object, true, true, null));
+    return "true".equals(makeRequest(object, true, true, null, parameters));
   }
 
   /**

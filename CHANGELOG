@@ -5,6 +5,9 @@
   Thanks to Johno Crawford and Marcel Stoer.
 * Added Andrew Liles' InsightUtils class, which provides a nice wrapper around querying for Insights data.
   Thanks to Andrew Liles.
+* Changed the signature of FacebookClient.deleteObject(String object) to FacebookClient.deleteObject(String object, Parameter... parameters)
+  to support parameterized deletion. This is a breaking change if you have a custom implementation of FacebookClient (should not be many of you).
+  Thanks to Nick Fenwick for the patch.
 
 1.6.9 (October 21, 2011)
 
