@@ -24,6 +24,7 @@ package com.restfb;
 
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.join;
+import static com.restfb.util.StringUtils.toInteger;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.trimToNull;
 import static com.restfb.util.StringUtils.urlEncode;
@@ -131,6 +132,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * API error response 'message' attribute name.
    */
   protected static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
+
+  /**
+   * API error response 'code' attribute name.
+   */
+  protected static final String ERROR_CODE_ATTRIBUTE_NAME = "code";
 
   /**
    * Batch API error response 'error' attribute name.
@@ -559,8 +565,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
 
+      // If there's an Integer error code, pluck it out.
+      Integer errorCode =
+          innerErrorObject.has(ERROR_CODE_ATTRIBUTE_NAME) ? toInteger(innerErrorObject
+            .getString(ERROR_CODE_ATTRIBUTE_NAME)) : null;
+
       throw graphFacebookExceptionMapper
-        .exceptionForTypeAndMessage(null, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+        .exceptionForTypeAndMessage(errorCode, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
           innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
@@ -638,7 +649,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      */
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
-        return new FacebookOAuthException(type, message);
+        return new FacebookOAuthException(type, message, errorCode);
 
       if ("QueryParseException".equals(type))
         return new FacebookQueryParseException(type, message);

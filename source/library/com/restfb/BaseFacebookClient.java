@@ -140,7 +140,7 @@ abstract class BaseFacebookClient {
     @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
       if (errorCode == API_EC_PARAM_ACCESS_TOKEN)
-        return new FacebookOAuthException(String.valueOf(errorCode), message);
+        return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode);
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookResponseStatusException.

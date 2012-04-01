@@ -22,6 +22,7 @@
 
 package com.restfb.util;
 
+import static java.lang.Integer.parseInt;
 import static java.net.URLDecoder.decode;
 import static java.net.URLEncoder.encode;
 import static java.util.Arrays.asList;
@@ -245,5 +246,26 @@ public final class StringUtils {
     }
 
     return joined.toString();
+  }
+
+  /**
+   * Returns an {@code Integer} representation of the given {@code string}, or
+   * {@code null} if it's not a valid {@code Integer}.
+   * 
+   * @param string
+   *          The string to process.
+   * @return The {@code Integer} representation of {@code string}, or
+   *         {@code null} if {@code string} is {@code null} or not a valid
+   *         {@code Integer}.
+   */
+  public static Integer toInteger(String string) {
+    if (string == null)
+      return null;
+
+    try {
+      return parseInt(string);
+    } catch (Exception e) {
+      return null;
+    }
   }
 }

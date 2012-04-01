@@ -30,7 +30,8 @@ package com.restfb.exception;
   {
       "error": {
         "type": "OAuthException",
-        "message": "Invalid access token signature."
+        "message": "(#210) User not visible",
+        "code": 210
       }
   } </code>
  * 
@@ -38,6 +39,11 @@ package com.restfb.exception;
  * @since 1.6
  */
 public class FacebookOAuthException extends FacebookGraphException {
+  /**
+   * The Facebook API error code.
+   */
+  private Integer errorCode;
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -47,8 +53,20 @@ public class FacebookOAuthException extends FacebookGraphException {
    *          Value of the Facebook response attribute {@code error.type}.
    * @param errorMessage
    *          Value of the Facebook response attribute {@code error.message}.
+   * @param errorCode
+   *          Value of the Facebook response attribute {@code error.code}.
    */
-  public FacebookOAuthException(String errorType, String errorMessage) {
+  public FacebookOAuthException(String errorType, String errorMessage, Integer errorCode) {
     super(errorType, errorMessage);
+    this.errorCode = errorCode;
+  }
+
+  /**
+   * Gets the Facebook API error code.
+   * 
+   * @return The Facebook API error code.
+   */
+  public Integer getErrorCode() {
+    return errorCode;
   }
 }
