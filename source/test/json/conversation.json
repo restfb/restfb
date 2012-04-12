@@ -1,0 +1,142 @@
+{
+    "id": "t_id.378684585488220",
+    "snippet": "This is a test conversation.",
+    "updated_time": "2012-04-10T17:41:10+0000",
+    "message_count": 2,
+    "unread_count": 2,
+    "tags": {
+        "data": [
+            {
+                "name": "inbox"
+            },
+            {
+                "name": "read"
+            },
+            {
+                "name": "seen"
+            },
+            {
+                "name": "sent"
+            },
+            {
+                "name": "source:web"
+            }
+        ]
+    },
+    "participants": {
+        "data": [
+            {
+                "name": "Participant One",
+                "email": "261743132120084@facebook.com",
+                "id": "261743132120084"
+            },
+            {
+                "name": "Participant Two",
+                "email": "120042743874449@facebook.com",
+                "id": "120042743874449"
+            }
+        ]
+    },
+    "senders": {
+        "data": [
+            {
+                "name": "Participant One",
+                "email": "261743132120084@facebook.com",
+                "id": "261743132120084"
+            },
+            {
+                "name": "Participant Two",
+                "email": "120042743874449@facebook.com",
+                "id": "120042743874449"
+            }
+        ]
+    },
+    "can_reply": true,
+    "is_subscribed": true,
+    "link": "http://www.facebook.com/messages/?action=read&tid=id.378684585434124",
+    "messages": {
+        "data": [
+            {
+                "id": "m_id.291856400815314",
+                "created_time": "2012-04-10T17:41:10+0000",
+                "tags": {
+                    "data": [
+                        {
+                            "name": "inbox"
+                        },
+                        {
+                            "name": "read"
+                        },
+                        {
+                            "name": "sent"
+                        },
+                        {
+                            "name": "source:web"
+                        }
+                    ]
+                },
+                "from": {
+                    "name": "Participant One",
+                    "email": "261743132120084@facebook.com",
+                    "id": "261743132120084"
+                },
+                "to": {
+                    "data": [
+                        {
+                            "name": "Participant Two",
+                            "email": "120042743874449@facebook.com",
+                            "id": "120042743874449"
+                        },
+                        {
+                            "name": "Participant One",
+                            "email": "261743132120084@facebook.com",
+                            "id": "261743132120084"
+                        }
+                    ]
+                },
+                "message": "Essa é uma resposta de teste."
+            },
+            {
+                "id": "m_id.378684585454124",
+                "created_time": "2012-04-10T17:38:58+0000",
+                "tags": {
+                    "data": [
+                        {
+                            "name": "inbox"
+                        },
+                        {
+                            "name": "read"
+                        },
+                        {
+                            "name": "source:web"
+                        }
+                    ]
+                },
+                "from": {
+                    "name": "Participant Two",
+                    "email": "120042743874449@facebook.com",
+                    "id": "120042743874449"
+                },
+                "to": {
+                    "data": [
+                        {
+                            "name": "Participant One",
+                            "email": "261743132120084@facebook.com",
+                            "id": "261743132120084"
+                        },
+                        {
+                            "name": "Participant Two",
+                            "email": "120042743874449@facebook.com",
+                            "id": "120042743874449"
+                        }
+                    ]
+                },
+                "message": "Essa é uma mensagem de teste."
+            }
+        ],
+        "paging": {
+            "previous": "https://graph.facebook.com/t_id.378684585412435/messages?method=GET&metadata=true&format=json&callback=___GraphExplorerAsyncCallback___&access_token=AAACEdEose0cBADXFREenZCwdDfGAUoZADCJwVGxbnWuSyri71KFgB3i0Plz17gRFNhoVxttPVg341WWiQil0cSHflEeiVRaRlphPsnZCgluHPNCFJ352xqTLxc3arAZD&limit=25&since=1334079670&__paging_token=m_id.291856400889348&__previous=1",
+            "next": "https://graph.facebook.com/t_id.378684585412435/messages?method=GET&metadata=true&format=json&callback=___GraphExplorerAsyncCallback___&access_token=AAACEdEose0cBADXFREenZCwdDfGAUoZADCJwVGxbnWuSyri71KFgB3i0Plz17gRFNhoVxttPVg341WWiQil0cSHflEeiVRaRlphPsnZCgluHPNCFJ352xqTLxc3arAZD&limit=25&until=1334079538&__paging_token=m_id.378684585488220"
+        }
+    }
+}
