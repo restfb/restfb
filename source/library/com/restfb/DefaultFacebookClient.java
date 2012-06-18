@@ -739,4 +739,92 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected String getFacebookReadOnlyEndpointUrl() {
     return FACEBOOK_READ_ONLY_ENDPOINT_URL;
   }
+
+  /**
+   * Return an Application Access Token
+   *
+   * @see <a href="https://developers.facebook.com/docs/authentication/applications/">application auth docs</a>
+   * @param clientId
+   * @param clientSecret
+   * @return Application Access Token
+   */
+  public String getAppAccessToken(String clientId, String clientSecret) {
+    verifyParameterPresence("clientId", clientId);
+    verifyParameterPresence("clientSecret", clientSecret);
+
+    String response = makeRequest("oauth/access_token",
+      Parameter.with("grant_type", "client_credentials"),
+      Parameter.with("client_id", clientId),
+      Parameter.with("client_secret", clientSecret)
+      );
+
+    if (isBlank(response) || !response.contains("="))
+      return null;
+    return response.split("=", 2)[1];
+  }
+
+  /**
+   * Call getExtendedAccessToken() with the current accessToken.
+   * 
+   * @param clientId
+   * @param clientSecret
+   * @return User Access Token
+   */
+  public String getExtendedAccessToken(String clientId, String clientSecret) {
+    return getExtendedAccessToken(clientId, clientSecret, accessToken);
+  }
+
+  /**
+   * Get a new extended user access token
+   * 
+   * @param clientId
+   * @param clientSecret
+   * @param userToken
+   * @return User Access Token
+   */
+  public String getExtendedAccessToken(String clientId, String clientSecret, String userToken) {
+    String[] tokenDetails = getExtendedAccessTokenDetails(clientId, clientSecret, userToken);
+    if (tokenDetails == null) {
+      return null;
+    }
+    return tokenDetails[0];
+  }
+
+  /**
+   * Get a new extended user access token, along with its expiration in seconds
+   * 
+   * @see <a href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">extend token docs</a>
+   * @param clientId
+   * @param clientSecret
+   * @param userToken
+   * @return
+   */
+  public String[] getExtendedAccessTokenDetails(String clientId, String clientSecret, String userToken) {
+    verifyParameterPresence("appId", clientId);
+    verifyParameterPresence("secretKey", clientSecret);
+    verifyParameterPresence("accessToken", userToken);
+
+    String response =
+        makeRequest("/oauth/access_token", true, false, null,
+            Parameter.with("client_id", clientId),
+            Parameter.with("client_secret", clientSecret),
+            Parameter.with("grant_type","fb_exchange_token"),
+            Parameter.with("fb_exchange_token", userToken)
+            );
+    if (isBlank(response) || !response.contains("="))
+      return null;
+    String newToken = null;
+    String expires = null;
+    for (String param : response.split("&")) {
+      String[] pair = param.split("=", 2);
+      if ("access_token".equals(pair[0])) {
+        newToken = pair[1];
+      }
+      else if ("expires".equals(pair[0])) {
+        expires = pair[1];
+      }
+    }
+    return new String[] { newToken, expires };
+  }
+
 }

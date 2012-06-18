@@ -147,4 +147,5 @@ public class Event extends NamedFacebookType {
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
   }
+
 }

@@ -46,6 +46,9 @@ public class Venue implements Serializable {
   private String state;
 
   @Facebook
+  private String zip;
+
+  @Facebook
   private String country;
 
   @Facebook
@@ -105,6 +108,15 @@ public class Venue implements Serializable {
    */
   public String getState() {
     return state;
+  }
+
+  /**
+   * The venue's zip code.
+   * 
+   * @return The venue's zip code.
+   */
+  public String getZip() {
+    return zip;
   }
 
   /**

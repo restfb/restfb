@@ -105,7 +105,7 @@ public class Post extends NamedFacebookType {
   private Comments comments;
 
   @Facebook
-  private Place place;
+  private com.restfb.types.Place place;
 
   @Facebook
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
@@ -126,6 +126,7 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
    */
+  @Deprecated
   public static class Place extends NamedFacebookType {
     @Facebook
     private Location location;
@@ -666,7 +667,7 @@ public class Post extends NamedFacebookType {
    * @return The place where this post occurred.
    * @since 1.6.8
    */
-  public Place getPlace() {
+  public com.restfb.types.Place getPlace() {
     return place;
   }
 
