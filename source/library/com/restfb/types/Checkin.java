@@ -52,13 +52,16 @@ public class Checkin extends FacebookType {
   private NamedFacebookType application;
 
   @Facebook
-  private Place place;
+  private com.restfb.types.Place place;
 
   @Facebook("created_time")
   private String createdTime;
 
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
+
+  @Facebook
+  private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
 
   private static final long serialVersionUID = 1L;
 
@@ -70,9 +73,10 @@ public class Checkin extends FacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
    */
+  @Deprecated
   public static class Place extends CategorizedFacebookType {
     @Facebook
-    private Location location;
+    private com.restfb.types.Location location;
 
     private static final long serialVersionUID = 1L;
 
@@ -84,6 +88,7 @@ public class Checkin extends FacebookType {
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.6
      */
+    @Deprecated
     public static class Location implements Serializable {
       @Facebook
       private Double latitude;
@@ -204,7 +209,7 @@ public class Checkin extends FacebookType {
      * 
      * @return The latitude/longitude of the check-in.
      */
-    public Location getLocation() {
+    public com.restfb.types.Location getLocation() {
       return location;
     }
   }
@@ -216,7 +221,7 @@ public class Checkin extends FacebookType {
    * @return The ID, name, and location of the Facebook Page that represents the
    *         location of the check-in.
    */
-  public Place getPlace() {
+  public com.restfb.types.Place getPlace() {
     return place;
   }
 
@@ -263,5 +268,14 @@ public class Checkin extends FacebookType {
    */
   public List<Comment> getComments() {
     return unmodifiableList(comments);
+  }
+
+  /**
+   * Tags for the check-in.  I.e. Users tagged in the check-in
+   *
+   * @return Tags for the check-in.
+   */
+  public List<NamedFacebookType> getTags() {
+    return unmodifiableList(tags);
   }
 }

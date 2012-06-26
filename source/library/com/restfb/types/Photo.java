@@ -83,6 +83,9 @@ public class Photo extends NamedFacebookType {
 
   @Facebook
   private List<Image> images = new ArrayList<Image>();
+  
+  @Facebook
+  private Place place;
 
   private static final long serialVersionUID = 1L;
 
@@ -340,4 +343,14 @@ public class Photo extends NamedFacebookType {
   public List<Image> getImages() {
     return unmodifiableList(images);
   }
+
+  /**
+   * The location associated with this photo, if any
+   * 
+   * @return The place this photo was taken
+   */
+  public Place getPlace() {
+    return place;
+  }
+
 }
