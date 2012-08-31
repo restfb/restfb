@@ -72,6 +72,7 @@ public class Checkin extends FacebookType {
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
+   * @deprecated As of release 1.6.10, replaced by {@link Place}.
    */
   @Deprecated
   public static class Place extends CategorizedFacebookType {

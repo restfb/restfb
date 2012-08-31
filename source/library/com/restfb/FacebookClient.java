@@ -55,7 +55,7 @@ import com.restfb.util.ReflectionUtils;
  * or {@link #executeBatch(List, List)}</li>
  * <li>Publish data: use {@link #publish(String, Class, Parameter...)} or
  * {@link #publish(String, Class, BinaryAttachment, Parameter...)}</li>
- * <li>Delete an object: use {@link #deleteObject(String)}</li>
+ * <li>Delete an object: use {@link #deleteObject(String, Parameter...)}</li>
  * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>

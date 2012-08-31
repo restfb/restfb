@@ -31,7 +31,7 @@ import com.restfb.Facebook;
 /**
  * Represents a Connection to a <a
  * href="http://developers.facebook.com/docs/reference/api/page">Page Graph API
- * type</a>, e.g. the Pages returned from {@code me/music}.
+ * type</a>, for example the Pages returned from {@code me/music}.
  * 
  * @author Patrick Alberts
  * @since 1.6.3
@@ -41,7 +41,7 @@ public class PageConnection extends CategorizedFacebookType {
   private String createdTime;
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * The time the connection was initially created.
    * 

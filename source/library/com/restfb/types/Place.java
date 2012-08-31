@@ -25,8 +25,8 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Represents information about the place where an event occurred, e.g. a
- * checkin or photo.
+ * Represents information about the place where an event occurred, for example a
+ * {@link Checkin} or {@link Photo}.
  * 
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author <a href="http://restfb.com">Mark Allen</a>
