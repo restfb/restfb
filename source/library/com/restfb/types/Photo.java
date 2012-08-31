@@ -83,7 +83,7 @@ public class Photo extends NamedFacebookType {
 
   @Facebook
   private List<Image> images = new ArrayList<Image>();
-  
+
   @Facebook
   private Place place;
 
@@ -156,7 +156,7 @@ public class Photo extends NamedFacebookType {
     private String source;
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * @see java.lang.Object#hashCode()
      */
@@ -284,6 +284,16 @@ public class Photo extends NamedFacebookType {
   }
 
   /**
+   * The location associated with this photo, if any.
+   * 
+   * @return The place this photo was taken.
+   * @since 1.6.10
+   */
+  public Place getPlace() {
+    return place;
+  }
+
+  /**
    * The time the photo was initially published.
    * 
    * @return The time the photo was initially published.
@@ -343,14 +353,4 @@ public class Photo extends NamedFacebookType {
   public List<Image> getImages() {
     return unmodifiableList(images);
   }
-
-  /**
-   * The location associated with this photo, if any
-   * 
-   * @return The place this photo was taken
-   */
-  public Place getPlace() {
-    return place;
-  }
-
 }

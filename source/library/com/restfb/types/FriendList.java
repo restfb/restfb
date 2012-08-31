@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Chris Petersen.
+ * Copyright (c) 2010-2012 Mark Allen.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,13 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/reference/api/FriendList/">FriendList Graph API type</a>.
- *
+ * Represents the <a
+ * href="https://developers.facebook.com/docs/reference/api/FriendList"
+ * >FriendList Graph API type</a>.
+ * 
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
+ * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.6.10
  */
 public class FriendList extends NamedFacebookType {
   @Facebook("list_type")
@@ -35,8 +39,14 @@ public class FriendList extends NamedFacebookType {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * The type of the friends list; Possible values are: {@code close_friends},
+   * {@code acquaintances}, {@code restricted}, {@code user_created},
+   * {@code education}, {@code work}, {@code current_city} or {@code family}.
+   * 
+   * @return The type of the friends list.
+   */
   public String getListType() {
     return listType;
   }
-
 }

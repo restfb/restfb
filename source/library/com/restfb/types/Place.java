@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Chris Petersen.
+ * Copyright (c) 2010-2012 Mark Allen.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,12 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Represents a "place" entry in a Photo.
+ * Represents information about the place where an event occurred, e.g. a
+ * checkin or photo.
  * 
- * @see <a href="https://developers.facebook.com/docs/reference/api/photo/">Photo Graph API type</a>.
- *
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
+ * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.6.10
  */
 public class Place extends NamedFacebookType {
   @Facebook
@@ -37,8 +38,15 @@ public class Place extends NamedFacebookType {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Location containing geographic information such as latitude, longitude,
+   * country, and other fields (fields will vary based on geography and
+   * availability of information).
+   * 
+   * @return Location containing geographic information such as latitude,
+   *         longitude, country, and other fields.
+   */
   public Location getLocation() {
     return location;
   }
-
 }

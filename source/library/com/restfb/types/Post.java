@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -41,6 +42,7 @@ import com.restfb.util.ReflectionUtils;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
+@SuppressWarnings("deprecation")
 public class Post extends NamedFacebookType {
   @Facebook
   private CategorizedFacebookType from;
@@ -125,6 +127,7 @@ public class Post extends NamedFacebookType {
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
+   * @deprecated As of release 1.6.10, replaced by {@link Location}.
    */
   @Deprecated
   public static class Place extends NamedFacebookType {

@@ -87,6 +87,7 @@ public class Checkin extends FacebookType {
      * 
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.6
+     * @deprecated As of release 1.6.10, replaced by {@link Location}.
      */
     @Deprecated
     public static class Location implements Serializable {
@@ -271,8 +272,8 @@ public class Checkin extends FacebookType {
   }
 
   /**
-   * Tags for the check-in.  I.e. Users tagged in the check-in
-   *
+   * Tags for the check-in. I.e. Users tagged in the check-in
+   * 
    * @return Tags for the check-in.
    */
   public List<NamedFacebookType> getTags() {
