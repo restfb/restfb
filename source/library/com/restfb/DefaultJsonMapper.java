@@ -28,6 +28,7 @@ import static com.restfb.util.ReflectionUtils.getFirstParameterizedTypeArgument;
 import static com.restfb.util.ReflectionUtils.isPrimitive;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
+import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.logging.Level.FINE;
@@ -453,11 +454,16 @@ public class DefaultJsonMapper implements JsonMapper {
 
     JsonObject jsonObject = new JsonObject();
 
+    // No longer throw an exception in this case. If there are multiple fields
+    // with the same @Facebook value, it's luck of the draw which is picked for
+    // JSON marshaling.
+    // TODO: A better implementation would query each duplicate-mapped field. If
+    // it has is a non-null value and the other duplicate values are null, use
+    // the non-null field.
     Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
-    if (facebookFieldNamesWithMultipleMappings.size() > 0)
-      throw new FacebookJsonMappingException("Unable to convert to JSON because multiple @"
-          + Facebook.class.getSimpleName() + " annotations for the same name are present: "
-          + facebookFieldNamesWithMultipleMappings);
+    if (facebookFieldNamesWithMultipleMappings.size() > 0 && logger.isLoggable(FINE))
+      logger.fine(format("Unable to convert to JSON because multiple @" + Facebook.class.getSimpleName()
+          + " annotations for the same name are present: " + facebookFieldNamesWithMultipleMappings));
 
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
       String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);

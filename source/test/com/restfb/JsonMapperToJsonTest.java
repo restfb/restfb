@@ -22,6 +22,8 @@
 
 package com.restfb;
 
+import static junit.framework.Assert.assertTrue;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -183,6 +185,25 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
         .equals(json));
   }
 
+  @Test
+  public void duplicateAnnotations() {
+    DuplicateAnnotationsUser user = new DuplicateAnnotationsUser();
+    user.hometown = "Philadelphia, PA";
+    user.hometownObject = new HashMap<String, Object>() {
+      {
+        put("id", "123");
+        put("name", "Philly");
+      }
+    };
+
+    String json = createJsonMapper().toJson(user);
+
+    // The current behavior is that it's luck of the draw which field is
+    // selected to marshal to JSON if there are multiple fields with the same
+    // mapping
+    assertTrue(json.contains("Philly") || json.contains("Philadelphia"));
+  }
+
   static class BasicUser {
     @Facebook
     Long uid;
@@ -199,6 +220,14 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
     @Facebook
     String location;
+  }
+
+  static class DuplicateAnnotationsUser {
+    @Facebook
+    String hometown;
+
+    @Facebook("hometown")
+    Map<String, Object> hometownObject;
   }
 
   static class UserWithPhotos extends BasicUser {
