@@ -63,7 +63,7 @@ public class Checkin extends FacebookType {
   @Facebook
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   /**
    * Represents the <a

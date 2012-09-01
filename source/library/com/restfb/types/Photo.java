@@ -278,7 +278,10 @@ public class Photo extends NamedFacebookType {
    * 
    * @return The position of this photo in the album.
    * @since 1.6.5
+   * @deprecated Facebook will start returning 0 for this field starting on
+   *             October 3, 2012.
    */
+  @Deprecated
   public Integer getPosition() {
     return position;
   }

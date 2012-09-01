@@ -38,7 +38,7 @@ import com.restfb.Facebook;
  */
 public class Comment extends FacebookType {
   @Facebook
-  private NamedFacebookType from;
+  private CategorizedFacebookType from;
 
   @Facebook
   private String message;
@@ -49,14 +49,17 @@ public class Comment extends FacebookType {
   @Facebook
   private Long likes;
 
-  private static final long serialVersionUID = 1L;
-  
+  @Facebook("like_count")
+  private Long likeCount;
+
+  private static final long serialVersionUID = 2L;
+
   /**
    * User who posted the comment.
    * 
    * @return User who posted the comment.
    */
-  public NamedFacebookType getFrom() {
+  public CategorizedFacebookType getFrom() {
     return from;
   }
 
@@ -82,8 +85,22 @@ public class Comment extends FacebookType {
    * The number of likes on this comment.
    * 
    * @return The number of likes on this comment.
+   * @deprecated As of September 5, 2012, Facebook is changing over to
+   *             {@code like_count}, so this method will be replaced by
+   *             {@link #likeCount}.
    */
+  @Deprecated
   public Long getLikes() {
     return likes;
+  }
+
+  /**
+   * The number of likes on this comment.
+   * 
+   * @return The number of likes on this comment.
+   * @since 1.6.10
+   */
+  public Long getLikeCount() {
+    return likeCount;
   }
 }

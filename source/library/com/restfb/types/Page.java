@@ -22,7 +22,10 @@
 
 package com.restfb.types;
 
+import java.io.Serializable;
+
 import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a
@@ -54,10 +57,6 @@ public class Page extends CategorizedFacebookType {
   @Facebook
   private String products;
 
-  @Deprecated
-  @Facebook("fan_count")
-  private Long fanCount;
-
   @Facebook
   private Long likes;
 
@@ -77,9 +76,96 @@ public class Page extends CategorizedFacebookType {
   private String accessToken;
 
   @Facebook
+  private String about;
+
+  @Facebook("talking_about_count")
+  private Long talkingAboutCount;
+
+  @Facebook("can_post")
+  private Boolean canPost;
+
+  @Facebook("is_published")
+  private Boolean isPublished;
+
+  @Facebook
   private Location location;
 
+  @Facebook
+  private Cover cover;
+
   private static final long serialVersionUID = 2L;
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/page">Cover Graph
+   * API type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.10
+   */
+  public static class Cover implements Serializable {
+    @Facebook("cover_id")
+    private String coverId;
+
+    @Facebook
+    private String source;
+
+    @Facebook("offset_y")
+    private Integer offsetY;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The ID of the photo.
+     * 
+     * @return The ID of the photo.
+     */
+    public String getCoverId() {
+      return coverId;
+    }
+
+    /**
+     * The URL for the cover photo.
+     * 
+     * @return The URL for the cover photo.
+     */
+    public String getSource() {
+      return source;
+    }
+
+    /**
+     * The percentage offset from top [0-100].
+     * 
+     * @return The percentage offset from top [0-100].
+     */
+    public Integer getOffsetY() {
+      return offsetY;
+    }
+  }
 
   /**
    * The page's picture.
@@ -145,16 +231,6 @@ public class Page extends CategorizedFacebookType {
   }
 
   /**
-   * The number of fans the page has.
-   * 
-   * @deprecated In favor of {@link #getLikes()}.
-   * @return The number of fans the page has.
-   */
-  public Long getFanCount() {
-    return fanCount;
-  }
-
-  /**
    * The number of likes the page has.
    * 
    * @return The number of likes the page has.
@@ -215,11 +291,62 @@ public class Page extends CategorizedFacebookType {
   }
 
   /**
+   * General information about this page.
+   * 
+   * @return General information about this page.
+   * @since 1.6.10
+   */
+  public String getAbout() {
+    return about;
+  }
+
+  /**
+   * The number of people that are talking about this page (last seven days).
+   * 
+   * @return The number of people that are talking about this page (last seven
+   *         days).
+   * @since 1.6.10
+   */
+  public Long getTalkingAboutCount() {
+    return talkingAboutCount;
+  }
+
+  /**
    * The location of the place this page represents.
    * 
    * @return The location of the place this page represents.
    */
   public Location getLocation() {
     return location;
+  }
+
+  /**
+   * Indicates whether the current session user can post on this page.
+   * 
+   * @return Whether the current session user can post on this page.
+   * @since 1.6.10
+   */
+  public Boolean getCanPost() {
+    return canPost;
+  }
+
+  /**
+   * Indicates whether the page is published and visible to non-admins.
+   * 
+   * @return Whether the page is published and visible to non-admins.
+   * @since 1.6.10
+   */
+  public Boolean getIsPublished() {
+    return isPublished;
+  }
+
+  /**
+   * The cover photo.
+   * 
+   * @return The cover photo.
+   * @since 1.6.10
+   */
+  public Cover getCover() {
+    return cover;
   }
 }

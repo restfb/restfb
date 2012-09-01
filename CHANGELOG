@@ -1,4 +1,4 @@
-1.6.10 (April X, 2011 - Unreleased)
+1.6.10 (September X, 2012 - Unreleased)
 
 * Changed all network logging to use the new com.restfb.HTTP logger and now default to FINE instead of INFO
   for normal requests/responses. This means you must explicitly enable logging to see what goes over the wire.   
@@ -10,6 +10,8 @@
   Thanks to Nick Fenwick for the patch.
 * FacebookOAuthException now includes an "errorCode" field since FB now returns one.
   Thanks to connectvg for the bug report.
+* Various changes to com.restfb.types to reflect latest Facebook updates.
+  Thanks to Chris Petersen, Marcel Stoer, Mike Hazelwood, Marco Scavuzzo, Stefan Hauk, nitinik, and others.
 
 1.6.9 (October 21, 2011)
 

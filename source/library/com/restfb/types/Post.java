@@ -118,12 +118,18 @@ public class Post extends NamedFacebookType {
   @Facebook
   private List<Property> properties = new ArrayList<Property>();
 
+  @Facebook("with_tags")
+  private List<NamedFacebookType> withTags = new ArrayList<NamedFacebookType>();
+
+  @Facebook("message_tags")
+  private List<MessageTag> messageTags = new ArrayList<MessageTag>();
+
   private static final long serialVersionUID = 2L;
 
   /**
    * Represents the <a
    * href="http://developers.facebook.com/docs/reference/api/post">Place Graph
-   * API type</a>
+   * API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
@@ -143,6 +149,42 @@ public class Post extends NamedFacebookType {
      */
     public Location getLocation() {
       return location;
+    }
+  }
+
+  /**
+   * Represents the <a
+   * href="http://developers.facebook.com/docs/reference/api/post">Message Tag
+   * Graph API type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.10
+   */
+  public static class MessageTag extends NamedFacebookType {
+    @Facebook
+    private Integer offset;
+
+    @Facebook
+    private Integer length;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The offset, within the message field, of the object mentioned.
+     * 
+     * @return The offset, within the message field, of the object mentioned.
+     */
+    public Integer getOffset() {
+      return offset;
+    }
+
+    /**
+     * The length, within the message field, of the object mentioned.
+     * 
+     * @return The length, within the message field, of the object mentioned.
+     */
+    public Integer getLength() {
+      return length;
     }
   }
 
@@ -703,5 +745,27 @@ public class Post extends NamedFacebookType {
    */
   public List<Property> getProperties() {
     return unmodifiableList(properties);
+  }
+
+  /**
+   * Objects (Users, Pages, etc) tagged as being with the publisher of the post
+   * ("Who are you with?" on Facebook).
+   * 
+   * @return Objects (Users, Pages, etc) tagged as being with the publisher of
+   *         the post ("Who are you with?" on Facebook).
+   * @since 1.6.10
+   */
+  public List<NamedFacebookType> getWithTags() {
+    return unmodifiableList(withTags);
+  }
+
+  /**
+   * Objects tagged in the message (Users, Pages, etc).
+   * 
+   * @return Objects tagged in the message (Users, Pages, etc).
+   * @since 1.6.10
+   */
+  public List<MessageTag> getMessageTags() {
+    return unmodifiableList(messageTags);
   }
 }
