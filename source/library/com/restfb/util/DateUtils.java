@@ -22,7 +22,8 @@
 
 package com.restfb.util;
 
-import static java.util.logging.Level.FINE;
+import static java.lang.String.format;
+import static java.util.logging.Level.FINER;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -158,8 +159,8 @@ public final class DateUtils {
     try {
       return new SimpleDateFormat(format).parse(date);
     } catch (ParseException e) {
-      if (logger.isLoggable(FINE))
-        logger.fine("Unable to parse date '" + date + "' using format string '" + format + "': " + e);
+      if (logger.isLoggable(FINER))
+        logger.fine(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
 
       return null;
     }
