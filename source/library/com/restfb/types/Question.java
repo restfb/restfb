@@ -25,7 +25,6 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,10 +39,7 @@ import com.restfb.Facebook;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
  */
-public class Question implements Serializable {
-  @Facebook
-  private String id;
-
+public class Question extends FacebookType {
   @Facebook
   private NamedFacebookType from;
 
@@ -60,15 +56,6 @@ public class Question implements Serializable {
   private List<QuestionOption> options = new ArrayList<QuestionOption>();
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * Question ID.
-   * 
-   * @return Question ID.
-   */
-  public String getId() {
-    return id;
-  }
 
   /**
    * User who asked the question.
