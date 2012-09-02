@@ -742,8 +742,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Return an Application Access Token
-   *
-   * @see <a href="https://developers.facebook.com/docs/authentication/applications/">application auth docs</a>
+   * 
+   * @see <a
+   *      href="https://developers.facebook.com/docs/authentication/applications/">application
+   *      auth docs</a>
    * @param clientId
    * @param clientSecret
    * @return Application Access Token
@@ -752,11 +754,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("clientId", clientId);
     verifyParameterPresence("clientSecret", clientSecret);
 
-    String response = makeRequest("oauth/access_token",
-      Parameter.with("grant_type", "client_credentials"),
-      Parameter.with("client_id", clientId),
-      Parameter.with("client_secret", clientSecret)
-      );
+    String response =
+        makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
+          Parameter.with("client_id", clientId), Parameter.with("client_secret", clientSecret));
 
     if (isBlank(response) || !response.contains("="))
       return null;
@@ -793,7 +793,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * Get a new extended user access token, along with its expiration in seconds
    * 
-   * @see <a href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">extend token docs</a>
+   * @see <a
+   *      href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">extend
+   *      token docs</a>
    * @param clientId
    * @param clientSecret
    * @param userToken
@@ -805,12 +807,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("accessToken", userToken);
 
     String response =
-        makeRequest("/oauth/access_token", true, false, null,
-            Parameter.with("client_id", clientId),
-            Parameter.with("client_secret", clientSecret),
-            Parameter.with("grant_type","fb_exchange_token"),
-            Parameter.with("fb_exchange_token", userToken)
-            );
+        makeRequest("/oauth/access_token", true, false, null, Parameter.with("client_id", clientId),
+          Parameter.with("client_secret", clientSecret), Parameter.with("grant_type", "fb_exchange_token"),
+          Parameter.with("fb_exchange_token", userToken));
     if (isBlank(response) || !response.contains("="))
       return null;
     String newToken = null;
@@ -819,8 +818,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       String[] pair = param.split("=", 2);
       if ("access_token".equals(pair[0])) {
         newToken = pair[1];
-      }
-      else if ("expires".equals(pair[0])) {
+      } else if ("expires".equals(pair[0])) {
         expires = pair[1];
       }
     }
