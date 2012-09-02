@@ -174,7 +174,9 @@ public class GraphReaderExample extends Example {
     Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
 
     out.println("Count of my friends: " + myFriends.getData().size());
-    out.println("First item in my feed: " + myFeed.getData().get(0).getMessage());
+
+    if (myFeed.getData().size() > 0)
+      out.println("First item in my feed: " + myFeed.getData().get(0).getMessage());
   }
 
   void query() {
@@ -254,7 +256,9 @@ public class GraphReaderExample extends Example {
         facebookClient.fetchConnection("me/home", User.class, Parameter.with("q", "Mark"),
           Parameter.with("type", "user"));
 
-    out.println("Public search: " + publicSearch.getData().get(0).getMessage());
+    if (publicSearch.getData().size() > 0)
+      out.println("Public search: " + publicSearch.getData().get(0).getMessage());
+
     out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());
   }
 
@@ -273,7 +277,9 @@ public class GraphReaderExample extends Example {
     Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class, Parameter.with("limit", 100));
 
     out.println("Count of my friends: " + myFriends.getData().size());
-    out.println("First item in my feed: " + myFeed.getData().get(0));
+
+    if (myFeed.getData().size() > 0)
+      out.println("First item in my feed: " + myFeed.getData().get(0));
 
     for (List<Post> myFeedConnectionPage : myFeed)
       for (Post post : myFeedConnectionPage)
