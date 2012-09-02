@@ -18,7 +18,7 @@
   This behavior may change later, this is a quick workaround to address the issue short-term.
   Thanks to petermein for the bug report.
 * Various changes to com.restfb.types to reflect latest Facebook updates.
-  Thanks to Chris Petersen, Marcel Stoer, Mike Hazelwood, Marco Scavuzzo, Stefan Hauk, nitinik, and others.
+  Thanks to Chris Petersen, Marcel Stoer, Mike Hazelwood, Marco Scavuzzo, Stefan Hauk, nitinik, egor@technoparkcorp.com, and others.
 
 1.6.9 (October 21, 2011)
 
