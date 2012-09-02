@@ -54,6 +54,11 @@ public final class DateUtils {
   public static final String FACEBOOK_SHORT_DATE_FORMAT = "MM/dd/yyyy";
 
   /**
+   * Facebook alternate short date format. Example: {@code 2012-09-15}
+   */
+  public static final String FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT = "yyyy-MM-dd";
+
+  /**
    * Facebook month-year only date format. Example: {@code Example: 2007-03}
    */
   public static final String FACEBOOK_MONTH_YEAR_DATE_FORMAT = "yyyy-MM";
@@ -80,9 +85,12 @@ public final class DateUtils {
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
   public static Date toDateFromLongFormat(String date) {
+    if (date == null)
+      return null;
+
     // Is this an all-digit date? Then assume it's the "seconds since epoch"
     // variant
-    if (date != null && date.trim().matches("\\d+"))
+    if (date.trim().matches("\\d+"))
       return new Date(Long.valueOf(date) * 1000L);
 
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
@@ -103,7 +111,16 @@ public final class DateUtils {
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
   public static Date toDateFromShortFormat(String date) {
-    return toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
+    if (date == null)
+      return null;
+
+    Date parsedDate = toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
+
+    // Fall back to variant if initial parse fails
+    if (parsedDate == null)
+      parsedDate = toDateWithFormatString(date, FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT);
+
+    return parsedDate;
   }
 
   /**
@@ -117,6 +134,9 @@ public final class DateUtils {
    *         or invalid.
    */
   public static Date toDateFromMonthYearFormat(String date) {
+    if (date == null)
+      return null;
+
     if ("0000-00".equals(date))
       return null;
 

@@ -42,6 +42,7 @@ public class DateUtilsTest {
   public void shortDates() {
     assertTrue(toDateFromShortFormat("04/15/1984") != null);
     assertTrue(toDateFromShortFormat("01/01/1970") != null);
+    assertTrue(toDateFromShortFormat("1970-09-15") != null);
     assertTrue(toDateFromShortFormat("junk") == null);
   }
 

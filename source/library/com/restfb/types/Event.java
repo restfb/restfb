@@ -23,6 +23,7 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static com.restfb.util.DateUtils.toDateFromShortFormat;
 
 import java.util.Date;
 
@@ -63,7 +64,7 @@ public class Event extends NamedFacebookType {
 
   @Facebook("updated_time")
   private String updatedTime;
-  
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -91,7 +92,11 @@ public class Event extends NamedFacebookType {
    * @return The start time of the event.
    */
   public Date getStartTime() {
-    return toDateFromLongFormat(startTime);
+    Date date = toDateFromLongFormat(startTime);
+
+    // Sometimes the date comes back in short form - if long form parsing
+    // failed, try short instead
+    return date == null ? toDateFromShortFormat(startTime) : date;
   }
 
   /**
@@ -100,7 +105,11 @@ public class Event extends NamedFacebookType {
    * @return The end time of the event.
    */
   public Date getEndTime() {
-    return toDateFromLongFormat(endTime);
+    Date date = toDateFromLongFormat(endTime);
+
+    // Sometimes the date comes back in short form - if long form parsing
+    // failed, try short instead
+    return date == null ? toDateFromShortFormat(endTime) : date;
   }
 
   /**
