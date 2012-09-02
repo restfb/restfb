@@ -306,6 +306,27 @@ public interface FacebookClient {
   List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys);
 
   /**
+   * Queries Facebook for an access token which can be used to perform Graph API
+   * operations on behalf of an application instead of a user.
+   * <p>
+   * See <a
+   * href="https://developers.facebook.com/docs/authentication/applications/"
+   * >Facebook's Authenticating as an App documentation</a>.
+   * 
+   * @param appId
+   *          The ID of the app for which you'd like to obtain an access token.
+   * @param appSecret
+   *          The secret for the app for which you'd like to obtain an access
+   *          token.
+   * @return The access token for the application identified by {@code appId}
+   *         and {@code appSecret}.
+   * @throws FacebookException
+   *           If an error occurs while attempting to obtain an access token.
+   * @since 1.6.10
+   */
+  String obtainAppAccessToken(String appId, String appSecret);
+
+  /**
    * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.
    * 
    * @return The {@code JsonMapper} used to convert Facebook JSON to Java

@@ -54,6 +54,7 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookNetworkException;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.FacebookQueryParseException;
+import com.restfb.exception.FacebookResponseContentException;
 import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
@@ -712,54 +713,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Returns the base endpoint URL for the Graph API.
-   * 
-   * @return The base endpoint URL for the Graph API.
+   * @see com.restfb.FacebookClient#obtainAppAccessToken(java.lang.String,
+   *      java.lang.String)
    */
-  protected String getFacebookGraphEndpointUrl() {
-    return FACEBOOK_GRAPH_ENDPOINT_URL;
-  }
-
-  /**
-   * Returns the base endpoint URL for the Graph API's video upload
-   * functionality.
-   * 
-   * @return The base endpoint URL for the Graph API's video upload
-   *         functionality.
-   * @since 1.6.5
-   */
-  protected String getFacebookGraphVideoEndpointUrl() {
-    return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
-  }
-
-  /**
-   * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
-   */
-  @Override
-  protected String getFacebookReadOnlyEndpointUrl() {
-    return FACEBOOK_READ_ONLY_ENDPOINT_URL;
-  }
-
-  /**
-   * Return an Application Access Token
-   * 
-   * @see <a
-   *      href="https://developers.facebook.com/docs/authentication/applications/">application
-   *      auth docs</a>
-   * @param clientId
-   * @param clientSecret
-   * @return Application Access Token
-   */
-  public String getAppAccessToken(String clientId, String clientSecret) {
-    verifyParameterPresence("clientId", clientId);
-    verifyParameterPresence("clientSecret", clientSecret);
+  public String obtainAppAccessToken(String appId, String appSecret) {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("appSecret", appSecret);
 
     String response =
         makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
-          Parameter.with("client_id", clientId), Parameter.with("client_secret", clientSecret));
+          Parameter.with("client_id", appId), Parameter.with("client_secret", appSecret));
 
+    // Will hopefully never occur, but just in case...
     if (isBlank(response) || !response.contains("="))
-      return null;
+      throw new FacebookResponseContentException(format(
+        "Was expecting a response of the form 'access_token=XXX'. Instead received this response:'%s'", response));
+
     return response.split("=", 2)[1];
   }
 
@@ -825,4 +794,32 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return new String[] { newToken, expires };
   }
 
+  /**
+   * Returns the base endpoint URL for the Graph API.
+   * 
+   * @return The base endpoint URL for the Graph API.
+   */
+  protected String getFacebookGraphEndpointUrl() {
+    return FACEBOOK_GRAPH_ENDPOINT_URL;
+  }
+
+  /**
+   * Returns the base endpoint URL for the Graph API's video upload
+   * functionality.
+   * 
+   * @return The base endpoint URL for the Graph API's video upload
+   *         functionality.
+   * @since 1.6.5
+   */
+  protected String getFacebookGraphVideoEndpointUrl() {
+    return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+  }
+
+  /**
+   * @see com.restfb.BaseFacebookClient#getFacebookReadOnlyEndpointUrl()
+   */
+  @Override
+  protected String getFacebookReadOnlyEndpointUrl() {
+    return FACEBOOK_READ_ONLY_ENDPOINT_URL;
+  }
 }

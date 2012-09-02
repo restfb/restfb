@@ -8,6 +8,9 @@
 * Changed the signature of FacebookClient.deleteObject(String object) to FacebookClient.deleteObject(String object, Parameter... parameters)
   to support parameterized deletion. This is a breaking change if you have a custom implementation of FacebookClient (should not be many of you).
   Thanks to Nick Fenwick for the patch.
+* Added a new method to acquire an Application Access Token: FacebookClient.obtainAppAccessToken(String appId, String appSecret).
+  See https://developers.facebook.com/docs/authentication/applications for details.
+  Thanks to Chris Petersen for the patch.
 * FacebookOAuthException now includes an "errorCode" field since FB now returns one.
   Thanks to connectvg for the bug report.
 * DateUtils.toDateFromLongFormat(String date) now handles the case where FB occasionally returns the number of
