@@ -23,8 +23,6 @@
 package com.restfb.util;
 
 import static java.lang.Integer.parseInt;
-import static java.net.URLDecoder.decode;
-import static java.net.URLEncoder.encode;
 import static java.util.Arrays.asList;
 import static java.util.logging.Level.WARNING;
 
@@ -99,53 +97,6 @@ public final class StringUtils {
     if (isBlank(string))
       return "";
     return string.trim();
-  }
-
-  /**
-   * URL-encodes a string.
-   * <p>
-   * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
-   * 
-   * @param string
-   *          The string to URL-encode.
-   * @return The URL-encoded version of the input string, or {@code null} if
-   *         {@code string} is {@code null}.
-   * @throws IllegalStateException
-   *           If unable to URL-encode because the JVM doesn't support
-   *           {@value #ENCODING_CHARSET}.
-   */
-  public static String urlEncode(String string) {
-    if (string == null)
-      return null;
-    try {
-      return encode(string, ENCODING_CHARSET);
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
-    }
-  }
-
-  /**
-   * URL-decodes a string.
-   * <p>
-   * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
-   * 
-   * @param string
-   *          The string to URL-decode.
-   * @return The URL-decoded version of the input string, or {@code null} if
-   *         {@code string} is {@code null}.
-   * @throws IllegalStateException
-   *           If unable to URL-decode because the JVM doesn't support
-   *           {@value #ENCODING_CHARSET}.
-   * @since 1.6.5
-   */
-  public static String urlDecode(String string) {
-    if (string == null)
-      return null;
-    try {
-      return decode(string, ENCODING_CHARSET);
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
-    }
   }
 
   /**

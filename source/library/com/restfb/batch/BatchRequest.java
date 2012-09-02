@@ -23,7 +23,7 @@
 package com.restfb.batch;
 
 import static com.restfb.util.StringUtils.isBlank;
-import static com.restfb.util.StringUtils.urlEncode;
+import static com.restfb.util.UrlUtils.urlEncode;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;

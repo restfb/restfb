@@ -25,7 +25,7 @@ package com.restfb;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.toBytes;
 import static com.restfb.util.StringUtils.trimToEmpty;
-import static com.restfb.util.StringUtils.urlEncode;
+import static com.restfb.util.UrlUtils.urlEncode;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.security.MessageDigest;

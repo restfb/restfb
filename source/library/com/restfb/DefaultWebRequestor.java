@@ -24,7 +24,7 @@ package com.restfb;
 
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
 import static com.restfb.util.StringUtils.fromInputStream;
-import static com.restfb.util.StringUtils.urlDecode;
+import static com.restfb.util.UrlUtils.urlDecode;
 import static java.lang.String.format;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.FINE;

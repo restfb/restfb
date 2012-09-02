@@ -311,7 +311,7 @@ public interface FacebookClient {
    * <p>
    * See <a
    * href="https://developers.facebook.com/docs/authentication/applications/"
-   * >Facebook's Authenticating as an App documentation</a>.
+   * >Facebook's authenticating as an app documentation</a>.
    * 
    * @param appId
    *          The ID of the app for which you'd like to obtain an access token.
@@ -325,6 +325,30 @@ public interface FacebookClient {
    * @since 1.6.10
    */
   String obtainAppAccessToken(String appId, String appSecret);
+
+  /**
+   * Obtains an extended access token for the given existing, non-expired,
+   * short-lived access_token.
+   * <p>
+   * See <a href=
+   * "https://developers.facebook.com/roadmap/offline-access-removal/#extend_token"
+   * >Facebook's extend access token documentation</a>.
+   * 
+   * @param appId
+   *          The ID of the app for which you'd like to obtain an extended
+   *          access token.
+   * @param appSecret
+   *          The secret for the app for which you'd like to obtain an extended
+   *          access token.
+   * @param accessToken
+   *          The non-expired, short-lived access token to extend.
+   * @return An extended access token for the given {@code accessToken}.
+   * @throws FacebookException
+   *           If an error occurs while attempting to obtain an extended access
+   *           token.
+   * @since 1.6.10
+   */
+  AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken);
 
   /**
    * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.
@@ -360,6 +384,13 @@ public interface FacebookClient {
 
     @Facebook
     private Long expires;
+
+    AccessToken() {}
+
+    AccessToken(String accessToken, Long expires) {
+      this.accessToken = accessToken;
+      this.expires = expires;
+    }
 
     /**
      * @see java.lang.Object#hashCode()
