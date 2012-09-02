@@ -61,9 +61,22 @@ import com.restfb.util.ReflectionUtils;
  * <li>Delete an object: use {@link #deleteObject(String, Parameter...)}</li>
  * </ul>
  * 
+ * <p>
+ * You may also perform some common access token operations. If you'd like to...
+ * 
+ * <ul>
+ * <li>Extend the life of an access token: use
+ * {@link #obtainExtendedAccessToken(String, String, String)}</li>
+ * <li>Obtain an access token for use on behalf of an application instead of a
+ * user, use {@link #obtainAppAccessToken(String, String)}.</li>
+ * <li>Convert old-style session keys to OAuth access tokens: use
+ * {@link #convertSessionKeysToAccessTokens(String, String, String...)}</li>
+ * </ul>
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Scott Hernandez
  * @author Mattia Tommasone
+ * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  */
 public interface FacebookClient {
   /**
@@ -309,8 +322,8 @@ public interface FacebookClient {
   List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys);
 
   /**
-   * Queries Facebook for an access token which can be used to perform Graph API
-   * operations on behalf of an application instead of a user.
+   * Obtains an access token which can be used to perform Graph API operations
+   * on behalf of an application instead of a user.
    * <p>
    * See <a
    * href="https://developers.facebook.com/docs/authentication/applications/"
@@ -374,9 +387,11 @@ public interface FacebookClient {
   /**
    * Represents an access token/expiration date pair.
    * <p>
-   * Facebook returns these types when converting from legacy session keys to
-   * OAuth access tokens - see
-   * {@link com.restfb.FacebookClient#convertSessionKeysToAccessTokens(String, String, String...)}
+   * Facebook returns these types when performing access token-related
+   * operations - see
+   * {@link com.restfb.FacebookClient#convertSessionKeysToAccessTokens(String, String, String...)}, {@link com.restfb.FacebookClient#obtainAppAccessToken(String, String)},
+   * and
+   * {@link com.restfb.FacebookClient#obtainExtendedAccessToken(String, String, String)}
    * for details.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
@@ -392,6 +407,12 @@ public interface FacebookClient {
      * Given a query string of the form {@code access_token=XXX} or
      * {@code access_token=XXX&expires=YYY}, return an {@code AccessToken}
      * instance.
+     * <p>
+     * The {@code queryString} is required to contain an {@code access_token}
+     * parameter with a non-{@code null} value. The {@code expires} value is
+     * optional and should be the number of seconds since the epoch. If the
+     * {@code expires} value cannot be parsed, the returned {@code AccessToken}
+     * will have a {@code null} {@code expires} value.
      * 
      * @param queryString
      *          The Facebook query string out of which to parse an
