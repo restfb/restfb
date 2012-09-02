@@ -406,6 +406,102 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * @see com.restfb.FacebookClient#obtainAppAccessToken(java.lang.String,
+   *      java.lang.String)
+   */
+  public String obtainAppAccessToken(String appId, String appSecret) {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("appSecret", appSecret);
+
+    String response =
+        makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
+          Parameter.with("client_id", appId), Parameter.with("client_secret", appSecret));
+
+    // Response should be 'access_token=XXX'
+    Map<String, List<String>> urlParameters = extractParametersFromQueryString(response);
+
+    String accessToken = null;
+
+    if (urlParameters.containsKey("access_token"))
+      accessToken = urlParameters.get("access_token").get(0);
+
+    if (accessToken == null)
+      throw new FacebookResponseContentException(format(
+        "Was expecting a response of the form 'access_token=XXX'. Instead received this response:'%s'", response));
+
+    return accessToken;
+  }
+
+  /**
+   * Convenience method which invokes
+   * {@link #obtainExtendedAccessToken(String, String, String)} with the current
+   * access token.
+   * 
+   * @param appId
+   *          The ID of the app for which you'd like to obtain an extended
+   *          access token.
+   * @param appSecret
+   *          The secret for the app for which you'd like to obtain an extended
+   *          access token.
+   * @return An extended access token for the given {@code accessToken}.
+   * @throws FacebookException
+   *           If an error occurs while attempting to obtain an extended access
+   *           token.
+   * @throws IllegalStateException
+   *           If this instance was not constructed with an access token.
+   * @since 1.6.10
+   */
+  public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {
+    if (accessToken == null)
+      throw new IllegalStateException(format(
+        "You cannot call this method because you did not construct this instance of %s with an access token.",
+        getClass().getSimpleName()));
+
+    return obtainExtendedAccessToken(appId, appSecret, accessToken);
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String,
+   *      java.lang.String, java.lang.String)
+   */
+  @Override
+  public AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken) {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence("accessToken", accessToken);
+
+    String response =
+        makeRequest("/oauth/access_token", true, false, null, Parameter.with("client_id", appId),
+          Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),
+          Parameter.with("fb_exchange_token", accessToken));
+
+    // Response can be either 'access_token=XXX' or
+    // 'access_token=XXX&expires=YYY'
+    Map<String, List<String>> urlParameters = extractParametersFromQueryString(response);
+
+    String extendedAccessToken = null;
+
+    if (urlParameters.containsKey("access_token"))
+      extendedAccessToken = urlParameters.get("access_token").get(0);
+
+    if (extendedAccessToken == null)
+      throw new FacebookResponseContentException(format(
+        "Was expecting a response of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. "
+            + "Instead received this response:'%s'", response));
+
+    Long expires = null;
+
+    // If an expires value was provided and it's a valid long, great - use it.
+    // Otherwise ignore it.
+    if (urlParameters.containsKey("expires"))
+      try {
+        expires = Long.valueOf(urlParameters.get("expires").get(0));
+      } catch (NumberFormatException e) {}
+
+    return new AccessToken(extendedAccessToken, expires);
+  }
+
+  /**
    * @see com.restfb.FacebookClient#getJsonMapper()
    */
   public JsonMapper getJsonMapper() {
@@ -711,104 +807,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       baseUrl = getFacebookGraphVideoEndpointUrl();
 
     return format("%s/%s", baseUrl, apiCall);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#obtainAppAccessToken(java.lang.String,
-   *      java.lang.String)
-   */
-  public String obtainAppAccessToken(String appId, String appSecret) {
-    verifyParameterPresence("appId", appId);
-    verifyParameterPresence("appSecret", appSecret);
-
-    String response =
-        makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
-          Parameter.with("client_id", appId), Parameter.with("client_secret", appSecret));
-
-    // Response should be 'access_token=XXX'
-    Map<String, List<String>> urlParameters = extractParametersFromQueryString(response);
-
-    String accessToken = null;
-
-    if (urlParameters.containsKey("access_token"))
-      accessToken = urlParameters.get("access_token").get(0);
-
-    if (accessToken == null)
-      throw new FacebookResponseContentException(format(
-        "Was expecting a response of the form 'access_token=XXX'. Instead received this response:'%s'", response));
-
-    return accessToken;
-  }
-
-  /**
-   * Convenience method which invokes
-   * {@link #obtainExtendedAccessToken(String, String, String)} with the current
-   * access token.
-   * 
-   * @param appId
-   *          The ID of the app for which you'd like to obtain an extended
-   *          access token.
-   * @param appSecret
-   *          The secret for the app for which you'd like to obtain an extended
-   *          access token.
-   * @param accessToken
-   *          The non-expired, short-lived access token to extend.
-   * @return An extended access token for the given {@code accessToken}.
-   * @throws FacebookException
-   *           If an error occurs while attempting to obtain an extended access
-   *           token.
-   * @throws IllegalStateException
-   *           If this instance was not constructed with an access token.
-   * @since 1.6.10
-   */
-  public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {
-    if (accessToken == null)
-      throw new IllegalStateException(format(
-        "You cannot call this method because you did not construct this instance of %s with an access token.",
-        getClass().getSimpleName()));
-
-    return obtainExtendedAccessToken(appId, appSecret, accessToken);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String,
-   *      java.lang.String, java.lang.String)
-   */
-  @Override
-  public AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken) {
-    verifyParameterPresence("appId", appId);
-    verifyParameterPresence("appSecret", appSecret);
-    verifyParameterPresence("accessToken", accessToken);
-
-    String response =
-        makeRequest("/oauth/access_token", true, false, null, Parameter.with("client_id", appId),
-          Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),
-          Parameter.with("fb_exchange_token", accessToken));
-
-    // Response can be either 'access_token=XXX' or
-    // 'access_token=XXX&expires=YYY'
-    Map<String, List<String>> urlParameters = extractParametersFromQueryString(response);
-
-    String extendedAccessToken = null;
-
-    if (urlParameters.containsKey("access_token"))
-      extendedAccessToken = urlParameters.get("access_token").get(0);
-
-    if (extendedAccessToken == null)
-      throw new FacebookResponseContentException(format(
-        "Was expecting a response of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. "
-            + "Instead received this response:'%s'", response));
-
-    Long expires = null;
-
-    // If an expires value was provided and it's a valid long, great - use it.
-    // Otherwise ignore it.
-    if (urlParameters.containsKey("expires"))
-      try {
-        expires = Long.valueOf(urlParameters.get("expires").get(0));
-      } catch (NumberFormatException e) {}
-
-    return new AccessToken(extendedAccessToken, expires);
   }
 
   /**
