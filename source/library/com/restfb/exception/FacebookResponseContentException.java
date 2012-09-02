@@ -33,12 +33,14 @@ public class FacebookResponseContentException extends FacebookException {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Creates an exception with the given message.
+   * Creates an exception with the given message and cause.
    * 
    * @param message
    *          A message describing this exception.
+   * @param cause
+   *          The exception that caused this exception to be thrown.
    */
-  public FacebookResponseContentException(String message) {
-    super(message);
+  public FacebookResponseContentException(String message, Throwable cause) {
+    super(message, cause);
   }
 }

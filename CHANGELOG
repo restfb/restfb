@@ -19,6 +19,9 @@
 * DateUtils.toDateFromLongFormat(String date) now handles the case where FB occasionally returns the number of
   seconds since the epoch instead of a yyyy-MM-dd'T'HH:mm:ssZ string.
   Thanks to raphael.lisboa@gauge.com.br for the bug report.
+* Added the static method AccessToken.fromQueryString(String queryString), which encapsulates logic for parsing out
+  Facebook's "standard" access token query strings, e.g. 'access_token=XXX' or 'access_token=XXX&expires=YYY'.
+  Thanks to egor@technoparkcorp.com for the suggestion.
 * Can now map Java types to JSON if they have multiple @Facebook annotations for the same value (e.g. User's hometown fields).
   Previously the mapper would throw an exception, now it picks one of the fields - it's luck of the draw which one is used.
   This behavior may change later, this is a quick workaround to address the issue short-term.

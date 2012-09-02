@@ -27,7 +27,6 @@ import static com.restfb.util.StringUtils.join;
 import static com.restfb.util.StringUtils.toInteger;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.trimToNull;
-import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.lang.String.format;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
@@ -409,7 +408,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#obtainAppAccessToken(java.lang.String,
    *      java.lang.String)
    */
-  public String obtainAppAccessToken(String appId, String appSecret) {
+  public AccessToken obtainAppAccessToken(String appId, String appSecret) {
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("appSecret", appSecret);
 
@@ -417,19 +416,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
           Parameter.with("client_id", appId), Parameter.with("client_secret", appSecret));
 
-    // Response should be 'access_token=XXX'
-    Map<String, List<String>> urlParameters = extractParametersFromQueryString(response);
-
-    String accessToken = null;
-
-    if (urlParameters.containsKey("access_token"))
-      accessToken = urlParameters.get("access_token").get(0);
-
-    if (accessToken == null)
-      throw new FacebookResponseContentException(format(
-        "Was expecting a response of the form 'access_token=XXX'. Instead received this response:'%s'", response));
-
-    return accessToken;
+    try {
+      return AccessToken.fromQueryString(response);
+    } catch (Throwable t) {
+      throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+    }
   }
 
   /**
@@ -475,30 +466,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),
           Parameter.with("fb_exchange_token", accessToken));
 
-    // Response can be either 'access_token=XXX' or
-    // 'access_token=XXX&expires=YYY'
-    Map<String, List<String>> urlParameters = extractParametersFromQueryString(response);
-
-    String extendedAccessToken = null;
-
-    if (urlParameters.containsKey("access_token"))
-      extendedAccessToken = urlParameters.get("access_token").get(0);
-
-    if (extendedAccessToken == null)
-      throw new FacebookResponseContentException(format(
-        "Was expecting a response of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. "
-            + "Instead received this response:'%s'", response));
-
-    Long expires = null;
-
-    // If an expires value was provided and it's a valid long, great - use it.
-    // Otherwise ignore it.
-    if (urlParameters.containsKey("expires"))
-      try {
-        expires = Long.valueOf(urlParameters.get("expires").get(0));
-      } catch (NumberFormatException e) {}
-
-    return new AccessToken(extendedAccessToken, expires);
+    try {
+      return AccessToken.fromQueryString(response);
+    } catch (Throwable t) {
+      throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+    }
   }
 
   /**
