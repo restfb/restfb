@@ -10,10 +10,13 @@
   Thanks to Nick Fenwick for the patch.
 * FacebookOAuthException now includes an "errorCode" field since FB now returns one.
   Thanks to connectvg for the bug report.
+* DateUtils.toDateFromLongFormat(String date) now handles the case where FB occasionally returns the number of
+  seconds since the epoch instead of a yyyy-MM-dd'T'HH:mm:ssZ string.
+  Thanks to raphael.lisboa@gauge.com.br for the bug report.
 * Can now map Java types to JSON if they have multiple @Facebook annotations for the same value (e.g. User's hometown fields).
   Previously the mapper would throw an exception, now it picks one of the fields - it's luck of the draw which one is used.
   This behavior may change later, this is a quick workaround to address the issue short-term.
-  Thanks to petermein for the bug report. 
+  Thanks to petermein for the bug report.
 * Various changes to com.restfb.types to reflect latest Facebook updates.
   Thanks to Chris Petersen, Marcel Stoer, Mike Hazelwood, Marco Scavuzzo, Stefan Hauk, nitinik, and others.
 

@@ -69,7 +69,8 @@ public final class DateUtils {
   private DateUtils() {}
 
   /**
-   * Returns a Java representation of a Facebook "long" {@code date} string.
+   * Returns a Java representation of a Facebook "long" {@code date} string, or
+   * the number of seconds since the epoch.
    * <p>
    * Supports dates with or without timezone information.
    * 
@@ -79,8 +80,14 @@ public final class DateUtils {
    *         string or {@code null} if {@code date} is {@code null} or invalid.
    */
   public static Date toDateFromLongFormat(String date) {
+    // Is this an all-digit date? Then assume it's the "seconds since epoch"
+    // variant
+    if (date != null && date.trim().matches("\\d+"))
+      return new Date(Long.valueOf(date) * 1000L);
+
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
 
+    // Fall back to variant without timezone if the initial parse fails
     if (parsedDate == null)
       parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE);
 

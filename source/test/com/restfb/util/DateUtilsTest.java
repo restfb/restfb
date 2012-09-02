@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.restfb;
+package com.restfb.util;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
@@ -53,6 +53,7 @@ public class DateUtilsTest {
   public void longDates() {
     assertTrue(toDateFromLongFormat("2011-12-22T21:00:00+0000") != null);
     assertTrue(toDateFromLongFormat("2011-12-22T21:00:00") != null);
+    assertTrue(toDateFromLongFormat("1331784257") != null);
     assertTrue(toDateFromLongFormat("junk") == null);
   }
 
