@@ -1,4 +1,4 @@
-1.6.10 (September X, 2012 - Unreleased)
+1.6.10 (September 3, 2012)
 
 * Potentially-breaking change: in the event of a Graph API 404 (like fetching an object with an id that doesn't exist, e.g. /XXX)
   we now throw the correct FacebookOAuthException instead of FacebookNetworkException.
@@ -31,7 +31,7 @@
   Previously the mapper would throw an exception, now it picks one of the fields - it's luck of the draw which one is used.
   This behavior may change later, this is a quick workaround to address the issue short-term.
   Thanks to petermein for the bug report.
-* Various changes to com.restfb.types to reflect latest Facebook updates.
+* Various changes to classes in com.restfb.types to reflect latest Facebook updates.
   Thanks to Chris Petersen, Marcel Stoer, Mike Hazelwood, Marco Scavuzzo, Stefan Hauk, Mike Champion, nitinik, egor@technoparkcorp.com, and others.
 
 1.6.9 (October 21, 2011)
