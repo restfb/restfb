@@ -1,5 +1,8 @@
 1.6.10 (September X, 2012 - Unreleased)
 
+* Potentially-breaking change: in the event of a Graph API 404 (like fetching an object with an id that doesn't exist, e.g. /XXX)
+  we now throw the correct FacebookOAuthException instead of FacebookNetworkException.
+  Thanks to oferiko for the bug report.
 * Changed all network logging to use the new com.restfb.HTTP logger and now default to FINE instead of INFO
   for normal requests/responses. This means you must explicitly enable logging to see what goes over the wire.   
   Thanks to Johno Crawford and Marcel Stoer.

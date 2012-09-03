@@ -32,6 +32,7 @@ import static java.lang.String.format;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static java.util.Arrays.asList;
@@ -545,11 +546,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     // If we get any HTTP response code other than a 200 OK or 400 Bad Request
-    // or 401 Not Authorized or 403 Forbidden or 500 Internal Server Error,
+    // or 401 Not Authorized or 403 Forbidden or 404 Not Found or 500 Internal Server Error,
     // throw an exception.
     if (HTTP_OK != response.getStatusCode() && HTTP_BAD_REQUEST != response.getStatusCode()
-        && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_INTERNAL_ERROR != response.getStatusCode()
-        && HTTP_FORBIDDEN != response.getStatusCode())
+        && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_NOT_FOUND != response.getStatusCode()
+        && HTTP_INTERNAL_ERROR != response.getStatusCode() && HTTP_FORBIDDEN != response.getStatusCode())
       throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
 
     String json = response.getBody();
