@@ -50,6 +50,11 @@ public class FacebookGraphException extends FacebookException {
    */
   private String errorMessage;
 
+  /**
+   * The HTTP status code returned by the server.
+   */
+  private Integer httpStatusCode;
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -59,11 +64,14 @@ public class FacebookGraphException extends FacebookException {
    *          Value of the Facebook response attribute {@code error.type}.
    * @param errorMessage
    *          Value of the Facebook response attribute {@code error.message}.
+   * @param httpStatusCode
+   *          The HTTP status code returned by the server, e.g. 500.
    */
-  public FacebookGraphException(String errorType, String errorMessage) {
+  public FacebookGraphException(String errorType, String errorMessage, Integer httpStatusCode) {
     super(format("Received Facebook error response of type %s: %s", errorType, errorMessage));
     this.errorType = errorType;
     this.errorMessage = errorMessage;
+    this.httpStatusCode = httpStatusCode;
   }
 
   /**
@@ -82,5 +90,15 @@ public class FacebookGraphException extends FacebookException {
    */
   public String getErrorMessage() {
     return errorMessage;
+  }
+  
+  /**
+   * Gets the HTTP status code returned by the server.
+   * 
+   * @return The HTTP status code returned by the server.
+   * @since 1.6.10
+   */
+  public Integer getHttpStatusCode() {
+    return httpStatusCode;
   }
 }

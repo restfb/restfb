@@ -55,9 +55,11 @@ public class FacebookOAuthException extends FacebookGraphException {
    *          Value of the Facebook response attribute {@code error.message}.
    * @param errorCode
    *          Value of the Facebook response attribute {@code error.code}.
+   * @param httpStatusCode
+   *          The HTTP status code returned by the server, e.g. 500.
    */
-  public FacebookOAuthException(String errorType, String errorMessage, Integer errorCode) {
-    super(errorType, errorMessage);
+  public FacebookOAuthException(String errorType, String errorMessage, Integer errorCode, Integer httpStatusCode) {
+    super(errorType, errorMessage, httpStatusCode);
     this.errorCode = errorCode;
   }
 

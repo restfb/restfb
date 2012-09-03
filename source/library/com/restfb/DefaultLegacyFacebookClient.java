@@ -46,9 +46,8 @@ import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 
 /**
- * Default implementation of a <a
- * href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook
- * API</a> client.
+ * Default implementation of a <a href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook API</a>
+ * client.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -94,8 +93,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
 
   /**
    * Creates a Facebook API client with the given <a
-   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth
-   * access token</a>.
+   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth access token</a>.
    * 
    * @param accessToken
    *          An OAuth access token.
@@ -110,8 +108,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * Creates a Facebook API client with the given API key and secret key (Legacy
-   * authentication).
+   * Creates a Facebook API client with the given API key and secret key (Legacy authentication).
    * 
    * @param apiKey
    *          A Facebook API key.
@@ -121,9 +118,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *           If either parameter is {@code null}.
    * @throws IllegalArgumentException
    *           If either parameter is a blank string.
-   * @deprecated You should use {@link #DefaultLegacyFacebookClient(String)}
-   *             instead. Facebook is moving to OAuth and will stop supporting
-   *             the old authentication scheme soon.
+   * @deprecated You should use {@link #DefaultLegacyFacebookClient(String)} instead. Facebook is moving to OAuth and
+   *             will stop supporting the old authentication scheme soon.
    */
   @Deprecated
   public DefaultLegacyFacebookClient(String apiKey, String secretKey) {
@@ -131,27 +127,23 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * Creates a Facebook API client with the given API key, secret key,
-   * {@code webRequestor}, and {@code jsonMapper} (Legacy authentication).
+   * Creates a Facebook API client with the given API key, secret key, {@code webRequestor}, and {@code jsonMapper}
+   * (Legacy authentication).
    * 
    * @param apiKey
    *          A Facebook API key.
    * @param secretKey
    *          A Facebook application secret key.
    * @param webRequestor
-   *          The {@link WebRequestor} implementation to use for {@code POST}ing
-   *          to the API endpoint.
+   *          The {@link WebRequestor} implementation to use for {@code POST}ing to the API endpoint.
    * @param jsonMapper
-   *          The {@link JsonMapper} implementation to use for mapping API
-   *          response JSON to Java objects.
+   *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
    * @throws NullPointerException
    *           If any parameter is {@code null}.
    * @throws IllegalArgumentException
    *           If either {@code apiKey} or {@code secretKey} is a blank string.
-   * @deprecated You should use
-   *             {@link #DefaultLegacyFacebookClient(String, WebRequestor, JsonMapper)}
-   *             instead. Facebook is moving to OAuth and will stop supporting
-   *             the old authentication scheme soon.
+   * @deprecated You should use {@link #DefaultLegacyFacebookClient(String, WebRequestor, JsonMapper)} instead. Facebook
+   *             is moving to OAuth and will stop supporting the old authentication scheme soon.
    */
   @Deprecated
   public DefaultLegacyFacebookClient(String apiKey, String secretKey, WebRequestor webRequestor, JsonMapper jsonMapper) {
@@ -172,17 +164,14 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
 
   /**
    * Creates a Facebook API client with the given <a
-   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth
-   * access token</a>.
+   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth access token</a>.
    * 
    * @param accessToken
    *          An OAuth access token.
    * @param webRequestor
-   *          The {@link WebRequestor} implementation to use for {@code POST}ing
-   *          to the API endpoint.
+   *          The {@link WebRequestor} implementation to use for {@code POST}ing to the API endpoint.
    * @param jsonMapper
-   *          The {@link JsonMapper} implementation to use for mapping API
-   *          response JSON to Java objects.
+   *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
    * @throws NullPointerException
    *           If any parameter is {@code null}.
    * @throws IllegalArgumentException
@@ -204,8 +193,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
-   *      com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, com.restfb.Parameter[])
    */
   @Override
   public void execute(String method, Parameter... parameters) {
@@ -213,8 +201,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
-   *      java.lang.String, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.String, com.restfb.Parameter[])
    */
   @Override
   public void execute(String method, String sessionKey, Parameter... parameters) {
@@ -222,8 +209,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
   public <T> T execute(String method, Class<T> resultType, Parameter... parameters) {
@@ -231,8 +217,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String,
-   *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#execute(java.lang.String, java.lang.String, java.lang.Class,
+   *      com.restfb.Parameter[])
    */
   @Override
   public <T> T execute(String method, String sessionKey, Class<T> resultType, Parameter... parameters) {
@@ -240,8 +226,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
   public <T> List<T> executeForList(String method, Class<T> resultType, Parameter... parameters) {
@@ -249,8 +234,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String,
-   *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#executeForList(java.lang.String, java.lang.String, java.lang.Class,
+   *      com.restfb.Parameter[])
    */
   @Override
   public <T> List<T> executeForList(String method, String sessionKey, Class<T> resultType, Parameter... parameters) {
@@ -258,8 +243,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
   public <T> T executeMultiquery(Map<String, String> queries, Class<T> resultType, Parameter... additionalParameters) {
@@ -267,8 +251,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map,
-   *      java.lang.String, java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.LegacyFacebookClient#executeMultiquery(java.util.Map, java.lang.String, java.lang.Class,
+   *      com.restfb.Parameter[])
    */
   @Override
   public <T> T executeMultiquery(Map<String, String> queries, String sessionKey, Class<T> resultType,
@@ -310,21 +294,18 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * Coordinates the process of verifying and transforming API parameters,
-   * executing the API POST, and processing the response we receive from the
-   * endpoint.
+   * Coordinates the process of verifying and transforming API parameters, executing the API POST, and processing the
+   * response we receive from the endpoint.
    * 
    * @param method
    *          Facebook API method name.
    * @param sessionKey
    *          Facebook API session key (can be {@code null} or a blank string).
    * @param parameters
-   *          Arbitrary number of parameters to send along to Facebook as part
-   *          of the API call.
+   *          Arbitrary number of parameters to send along to Facebook as part of the API call.
    * @return The JSON returned by Facebook for the API call.
    * @throws FacebookException
-   *           If an error occurs while making the Facebook API POST or
-   *           processing the response.
+   *           If an error occurs while making the Facebook API POST or processing the response.
    */
   protected String makeRequest(String method, String sessionKey, Parameter... parameters) {
     // Make sure we're not provided with any params that conflict with what
@@ -350,14 +331,13 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     String json = response.getBody();
 
     // If the response contained an error code, throw an exception
-    throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
+    throwLegacyFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
 
     return json;
   }
 
   /**
-   * Given basic request information, generate the parameter string to be
-   * included in the Facebook API POST.
+   * Given basic request information, generate the parameter string to be included in the Facebook API POST.
    * 
    * @param method
    *          Facebook API method name.
@@ -367,8 +347,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *          Arbitrary number of extra parameters to include in the request.
    * @return The parameter string to include in the Facebook API POST.
    * @throws IllegalArgumentException
-   *           If a session key is provided but we're using OAuth authentication
-   *           instead.
+   *           If a session key is provided but we're using OAuth authentication instead.
    */
   protected String toParameterString(String method, String sessionKey, Parameter... parameters) {
     Map<String, String> sortedParameters = new TreeMap<String, String>();
@@ -417,8 +396,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * Given a sorted map of parameter names to values, calculate and return the
-   * Facebook API signature as defined by
+   * Given a sorted map of parameter names to values, calculate and return the Facebook API signature as defined by
    * http://wiki.developers.facebook.com/index.php/Verifying_The_Signature.
    * 
    * @param sortedParameters
@@ -445,8 +423,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *          The string for which an MD5 hash is calculated.
    * @return The MD5 hash of the given {@code string}.
    * @throws IllegalStateException
-   *           If MD5 hashing isn't supported on this platform (should never
-   *           occur).
+   *           If MD5 hashing isn't supported on this platform (should never occur).
    */
   protected String generateMd5(String string) {
     try {
@@ -468,8 +445,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   /**
    * Are we using OAuth access token authentication?
    * 
-   * @return {@code true} if we are, {@code false} if we're using the legacy
-   *         authentication scheme.
+   * @return {@code true} if we are, {@code false} if we're using the legacy authentication scheme.
    */
   protected boolean usesAccessTokenAuthentication() {
     return !isBlank(accessToken);

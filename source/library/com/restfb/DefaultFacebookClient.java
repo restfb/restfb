@@ -61,8 +61,7 @@ import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 
 /**
- * Default implementation of a <a
- * href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client.
+ * Default implementation of a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -152,8 +151,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * Creates a Facebook Graph API client with no access token.
    * <p>
-   * Without an access token, you can view and search public graph data but
-   * can't do much else.
+   * Without an access token, you can view and search public graph data but can't do much else.
    */
   public DefaultFacebookClient() {
     this(null);
@@ -170,17 +168,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Creates a Facebook Graph API client with the given {@code accessToken},
-   * {@code webRequestor}, and {@code jsonMapper}.
+   * Creates a Facebook Graph API client with the given {@code accessToken}, {@code webRequestor}, and
+   * {@code jsonMapper}.
    * 
    * @param accessToken
    *          A Facebook OAuth access token.
    * @param webRequestor
-   *          The {@link WebRequestor} implementation to use for sending
-   *          requests to the API endpoint.
+   *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
    * @param jsonMapper
-   *          The {@link JsonMapper} implementation to use for mapping API
-   *          response JSON to Java objects.
+   *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
@@ -200,8 +196,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#deleteObject(java.lang.String,
-   *      com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#deleteObject(java.lang.String, com.restfb.Parameter[])
    */
   @Override
   public boolean deleteObject(String object, Parameter... parameters) {
@@ -210,8 +205,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#fetchConnection(java.lang.String,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#fetchConnection(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
@@ -220,8 +214,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String,
-   *      java.lang.Class)
+   * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String, java.lang.Class)
    */
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson = makeRequestAndProcessResponse(new Requestor() {
@@ -237,8 +230,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#fetchObject(java.lang.String,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#fetchObject(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   public <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("object", object);
@@ -247,8 +239,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#fetchObjects(java.util.List,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#fetchObjects(java.util.List, java.lang.Class, com.restfb.Parameter[])
    */
   @SuppressWarnings("unchecked")
   public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) {
@@ -284,8 +275,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
-   *      com.restfb.BinaryAttachment, com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
+   *      com.restfb.Parameter[])
    */
   public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
       Parameter... parameters) {
@@ -299,16 +290,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class,
-   *      com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
     return publish(connection, objectType, null, parameters);
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map, java.lang.Class, com.restfb.Parameter[])
    */
   @SuppressWarnings("unchecked")
   public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
@@ -347,8 +336,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#executeQuery(java.lang.String,
-   *      java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#executeQuery(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("query", query);
@@ -387,8 +375,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#convertSessionKeysToAccessTokens(java.lang.String,
-   *      java.lang.String, java.lang.String[])
+   * @see com.restfb.FacebookClient#convertSessionKeysToAccessTokens(java.lang.String, java.lang.String,
+   *      java.lang.String[])
    */
   public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys) {
     verifyParameterPresence("appId", appId);
@@ -405,8 +393,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#obtainAppAccessToken(java.lang.String,
-   *      java.lang.String)
+   * @see com.restfb.FacebookClient#obtainAppAccessToken(java.lang.String, java.lang.String)
    */
   public AccessToken obtainAppAccessToken(String appId, String appSecret) {
     verifyParameterPresence("appId", appId);
@@ -424,20 +411,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Convenience method which invokes
-   * {@link #obtainExtendedAccessToken(String, String, String)} with the current
-   * access token.
+   * Convenience method which invokes {@link #obtainExtendedAccessToken(String, String, String)} with the current access
+   * token.
    * 
    * @param appId
-   *          The ID of the app for which you'd like to obtain an extended
-   *          access token.
+   *          The ID of the app for which you'd like to obtain an extended access token.
    * @param appSecret
-   *          The secret for the app for which you'd like to obtain an extended
-   *          access token.
+   *          The secret for the app for which you'd like to obtain an extended access token.
    * @return An extended access token for the given {@code accessToken}.
    * @throws FacebookException
-   *           If an error occurs while attempting to obtain an extended access
-   *           token.
+   *           If an error occurs while attempting to obtain an extended access token.
    * @throws IllegalStateException
    *           If this instance was not constructed with an access token.
    * @since 1.6.10
@@ -452,8 +435,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String,
-   *      java.lang.String, java.lang.String)
+   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
   public AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken) {
@@ -488,45 +470,38 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Coordinates the process of executing the API request GET/POST and
-   * processing the response we receive from the endpoint.
+   * Coordinates the process of executing the API request GET/POST and processing the response we receive from the
+   * endpoint.
    * 
    * @param endpoint
    *          Facebook Graph API endpoint.
    * @param parameters
-   *          Arbitrary number of parameters to send along to Facebook as part
-   *          of the API call.
+   *          Arbitrary number of parameters to send along to Facebook as part of the API call.
    * @return The JSON returned by Facebook for the API call.
    * @throws FacebookException
-   *           If an error occurs while making the Facebook API POST or
-   *           processing the response.
+   *           If an error occurs while making the Facebook API POST or processing the response.
    */
   protected String makeRequest(String endpoint, Parameter... parameters) {
     return makeRequest(endpoint, false, false, null, parameters);
   }
 
   /**
-   * Coordinates the process of executing the API request GET/POST and
-   * processing the response we receive from the endpoint.
+   * Coordinates the process of executing the API request GET/POST and processing the response we receive from the
+   * endpoint.
    * 
    * @param endpoint
    *          Facebook Graph API endpoint.
    * @param executeAsPost
-   *          {@code true} to execute the web request as a {@code POST},
-   *          {@code false} to execute as a {@code GET}.
+   *          {@code true} to execute the web request as a {@code POST}, {@code false} to execute as a {@code GET}.
    * @param executeAsDelete
-   *          {@code true} to add a special 'treat this request as a
-   *          {@code DELETE}' parameter.
+   *          {@code true} to add a special 'treat this request as a {@code DELETE}' parameter.
    * @param binaryAttachment
-   *          A binary file to include in a {@code POST} request. Pass
-   *          {@code null} if no attachment should be sent.
+   *          A binary file to include in a {@code POST} request. Pass {@code null} if no attachment should be sent.
    * @param parameters
-   *          Arbitrary number of parameters to send along to Facebook as part
-   *          of the API call.
+   *          Arbitrary number of parameters to send along to Facebook as part of the API call.
    * @return The JSON returned by Facebook for the API call.
    * @throws FacebookException
-   *           If an error occurs while making the Facebook API POST or
-   *           processing the response.
+   *           If an error occurs while making the Facebook API POST or processing the response.
    */
   protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete,
       final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
@@ -580,7 +555,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     String json = response.getBody();
 
     // If the response contained an error code, throw an exception.
-    throwFacebookResponseStatusExceptionIfNecessary(json);
+    throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
 
     // If there was no response error information and this was a 500 or 401
     // error, something weird happened on Facebook's end. Bail.
@@ -591,24 +566,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Throws an exception if Facebook returned an error response. Using the Graph
-   * API, it's possible to see both the new Graph API-style errors as well as
-   * Legacy API-style errors, so we have to handle both here. This method
-   * extracts relevant information from the error JSON and throws an exception
-   * which encapsulates it for end-user consumption.
+   * Throws an exception if Facebook returned an error response. Using the Graph API, it's possible to see both the new
+   * Graph API-style errors as well as Legacy API-style errors, so we have to handle both here. This method extracts
+   * relevant information from the error JSON and throws an exception which encapsulates it for end-user consumption.
    * <p>
    * For Graph API errors:
    * <p>
-   * If the {@code error} JSON field is present, we've got a response status
-   * error for this API call.
+   * If the {@code error} JSON field is present, we've got a response status error for this API call.
    * <p>
    * For Legacy errors (e.g. FQL):
    * <p>
-   * If the {@code error_code} JSON field is present, we've got a response
-   * status error for this API call.
+   * If the {@code error_code} JSON field is present, we've got a response status error for this API call.
    * 
    * @param json
    *          The JSON returned by Facebook in response to an API call.
+   * @param httpStatusCode
+   *          The HTTP status code returned by the server, e.g. 500.
    * @throws FacebookGraphException
    *           If the JSON contains a Graph API error response.
    * @throws FacebookResponseStatusException
@@ -616,12 +589,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    */
-  protected void throwFacebookResponseStatusExceptionIfNecessary(String json) {
+  protected void throwFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     // If we have a legacy exception, throw it.
-    throwLegacyFacebookResponseStatusExceptionIfNecessary(json);
+    throwLegacyFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
 
     // If we have a batch API exception, throw it.
-    throwBatchFacebookResponseStatusExceptionIfNecessary(json);
+    throwBatchFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
 
     try {
       // If the result is not an object, bail immediately.
@@ -641,7 +614,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
             .getString(ERROR_CODE_ATTRIBUTE_NAME)) : null;
 
       throw graphFacebookExceptionMapper
-        .exceptionForTypeAndMessage(errorCode, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+        .exceptionForTypeAndMessage(errorCode, httpStatusCode, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
           innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
@@ -649,20 +622,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * If the {@code error} and {@code error_description} JSON fields are present,
-   * we've got a response status error for this batch API call. Extracts
-   * relevant information from the JSON and throws an exception which
-   * encapsulates it for end-user consumption.
+   * If the {@code error} and {@code error_description} JSON fields are present, we've got a response status error for
+   * this batch API call. Extracts relevant information from the JSON and throws an exception which encapsulates it for
+   * end-user consumption.
    * 
    * @param json
    *          The JSON returned by Facebook in response to a batch API call.
+   * @param httpStatusCode
+   *          The HTTP status code returned by the server, e.g. 500.
    * @throws FacebookResponseStatusException
    *           If the JSON contains an error code.
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    * @since 1.6.5
    */
-  protected void throwBatchFacebookResponseStatusExceptionIfNecessary(String json) {
+  protected void throwBatchFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     try {
       // If this is not an object, it's not an error response.
       if (!json.startsWith("{"))
@@ -683,15 +657,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         return;
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
-        null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME));
+        httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
   }
 
   /**
-   * Specifies how we map Graph API exception types/messages to real Java
-   * exceptions.
+   * Specifies how we map Graph API exception types/messages to real Java exceptions.
    * <p>
    * Uses an instance of {@link DefaultGraphFacebookExceptionMapper} by default.
    * 
@@ -703,11 +676,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * A canned implementation of {@code FacebookExceptionMapper} that maps Graph
-   * API exceptions.
+   * A canned implementation of {@code FacebookExceptionMapper} that maps Graph API exceptions.
    * <p>
-   * Thanks to BatchFB's Jeff Schnitzer for doing some of the legwork to find
-   * these exception type names.
+   * Thanks to BatchFB's Jeff Schnitzer for doing some of the legwork to find these exception type names.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.3
@@ -715,18 +686,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static class DefaultGraphFacebookExceptionMapper implements FacebookExceptionMapper {
     /**
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     *      java.lang.Integer, java.lang.String, java.lang.String)
      */
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer httpStatusCode, String type,
+        String message) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
-        return new FacebookOAuthException(type, message, errorCode);
+        return new FacebookOAuthException(type, message, errorCode, httpStatusCode);
 
       if ("QueryParseException".equals(type))
-        return new FacebookQueryParseException(type, message);
+        return new FacebookQueryParseException(type, message, httpStatusCode);
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
-      return new FacebookGraphException(type, message);
+      return new FacebookGraphException(type, message, httpStatusCode);
     }
   }
 
@@ -791,11 +763,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Returns the base endpoint URL for the Graph API's video upload
-   * functionality.
+   * Returns the base endpoint URL for the Graph API's video upload functionality.
    * 
-   * @return The base endpoint URL for the Graph API's video upload
-   *         functionality.
+   * @return The base endpoint URL for the Graph API's video upload functionality.
    * @since 1.6.5
    */
   protected String getFacebookGraphVideoEndpointUrl() {

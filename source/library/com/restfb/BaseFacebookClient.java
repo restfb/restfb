@@ -42,8 +42,8 @@ import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 
 /**
- * Base class that contains data and functionality common to
- * {@link DefaultFacebookClient} and {@link DefaultLegacyFacebookClient}.
+ * Base class that contains data and functionality common to {@link DefaultFacebookClient} and
+ * {@link DefaultLegacyFacebookClient}.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -65,14 +65,12 @@ abstract class BaseFacebookClient {
   protected FacebookExceptionMapper legacyFacebookExceptionMapper;
 
   /**
-   * Set of parameter names that user must not specify themselves, since we use
-   * these parameters internally.
+   * Set of parameter names that user must not specify themselves, since we use these parameters internally.
    */
   protected final Set<String> illegalParamNames = new HashSet<String>();
 
   /**
-   * Set of API calls that can use the read-only endpoint for a performance
-   * boost.
+   * Set of API calls that can use the read-only endpoint for a performance boost.
    */
   protected final Set<String> readOnlyApiCalls = new HashSet<String>();
 
@@ -105,11 +103,9 @@ abstract class BaseFacebookClient {
   }
 
   /**
-   * Specifies how we map Old REST API exception types/messages to real Java
-   * exceptions.
+   * Specifies how we map Old REST API exception types/messages to real Java exceptions.
    * <p>
-   * Uses an instance of {@link DefaultLegacyFacebookExceptionMapper} by
-   * default.
+   * Uses an instance of {@link DefaultLegacyFacebookExceptionMapper} by default.
    * 
    * @return An instance of the exception mapper we should use.
    * @since 1.6.3
@@ -119,8 +115,7 @@ abstract class BaseFacebookClient {
   }
 
   /**
-   * A canned implementation of {@code FacebookExceptionMapper} that maps Old
-   * REST API exceptions.
+   * A canned implementation of {@code FacebookExceptionMapper} that maps Old REST API exceptions.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.3
@@ -135,12 +130,13 @@ abstract class BaseFacebookClient {
 
     /**
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
-     *      java.lang.String, java.lang.String)
+     *      java.lang.Integer, java.lang.String, java.lang.String)
      */
     @Override
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, String type, String message) {
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer httpStatusCode, String type,
+        String message) {
       if (errorCode == API_EC_PARAM_ACCESS_TOKEN)
-        return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode);
+        return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, httpStatusCode);
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookResponseStatusException.
@@ -151,8 +147,7 @@ abstract class BaseFacebookClient {
   /**
    * Stores off the set of API calls that support the read-only endpoint.
    * <p>
-   * This list was cribbed from the <a
-   * href="https://github.com/facebook/php-sdk/blob/master/src/facebook.php"
+   * This list was cribbed from the <a href="https://github.com/facebook/php-sdk/blob/master/src/facebook.php"
    * target="_blank">Official PHP Facebook API client</a>.
    * 
    * @since 1.6.3
@@ -175,18 +170,19 @@ abstract class BaseFacebookClient {
   }
 
   /**
-   * If the {@code error_code} JSON field is present, we've got a response
-   * status error for this API call. Extracts relevant information from the JSON
-   * and throws an exception which encapsulates it for end-user consumption.
+   * If the {@code error_code} JSON field is present, we've got a response status error for this API call. Extracts
+   * relevant information from the JSON and throws an exception which encapsulates it for end-user consumption.
    * 
    * @param json
    *          The JSON returned by Facebook in response to an API call.
+   * @param httpStatusCode
+   *          The HTTP status code returned by the server, e.g. 500.
    * @throws FacebookResponseStatusException
    *           If the JSON contains an error code.
    * @throws FacebookJsonMappingException
    *           If an error occurs while processing the JSON.
    */
-  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json) {
+  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     try {
       // If this is not an object, it's not an error response.
       if (!json.startsWith("{"))
@@ -206,7 +202,7 @@ abstract class BaseFacebookClient {
         return;
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
-        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null,
+        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), httpStatusCode, null,
         errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
@@ -220,8 +216,7 @@ abstract class BaseFacebookClient {
    *          The parameter value to append.
    * @param parameters
    *          The parameters to which the given {@code parameter} is appended.
-   * @return A new array which contains both {@code parameter} and
-   *         {@code parameters}.
+   * @return A new array which contains both {@code parameter} and {@code parameters}.
    */
   protected Parameter[] parametersWithAdditionalParameter(Parameter parameter, Parameter... parameters) {
     Parameter[] updatedParameters = new Parameter[parameters.length + 1];
@@ -231,8 +226,7 @@ abstract class BaseFacebookClient {
   }
 
   /**
-   * Given a map of query names to queries, verify that it contains valid data
-   * and convert it to a JSON object string.
+   * Given a map of query names to queries, verify that it contains valid data and convert it to a JSON object string.
    * 
    * @param queries
    *          The query map to convert.
@@ -265,19 +259,15 @@ abstract class BaseFacebookClient {
   }
 
   /**
-   * Gets the URL-encoded version of the given {@code value} for the parameter
-   * named {@code name}.
+   * Gets the URL-encoded version of the given {@code value} for the parameter named {@code name}.
    * <p>
-   * Includes special-case handling for access token parameters where we check
-   * if the token is already URL-encoded - if so, we don't encode again. All
-   * other parameter types are always URL-encoded.
+   * Includes special-case handling for access token parameters where we check if the token is already URL-encoded - if
+   * so, we don't encode again. All other parameter types are always URL-encoded.
    * 
    * @param name
-   *          The name of the parameter whose value should be URL-encoded and
-   *          returned.
+   *          The name of the parameter whose value should be URL-encoded and returned.
    * @param value
-   *          The value of the parameter which should be URL-encoded and
-   *          returned.
+   *          The value of the parameter which should be URL-encoded and returned.
    * @return The URL-encoded version of the given {@code value}.
    */
   protected String urlEncodedValueForParameterName(String name, String value) {
@@ -289,14 +279,12 @@ abstract class BaseFacebookClient {
   }
 
   /**
-   * Given an api call (e.g. "me" or "fql.query"), returns the correct FB API
-   * endpoint to use.
+   * Given an api call (e.g. "me" or "fql.query"), returns the correct FB API endpoint to use.
    * <p>
    * Useful for returning the read-only API endpoint where possible.
    * 
    * @param apiCall
-   *          The FB API call (Graph or Old REST API) for which we'd like an
-   *          endpoint.
+   *          The FB API call (Graph or Old REST API) for which we'd like an endpoint.
    * @param hasAttachment
    *          Are we including a multipart file when making this API call?
    * @return An absolute endpoint URL to communicate with.
@@ -313,8 +301,7 @@ abstract class BaseFacebookClient {
   protected abstract String getFacebookReadOnlyEndpointUrl();
 
   /**
-   * Verifies that the provided parameter names don't collide with the ones we
-   * internally pass along to Facebook.
+   * Verifies that the provided parameter names don't collide with the ones we internally pass along to Facebook.
    * 
    * @param parameters
    *          The parameters to check.
