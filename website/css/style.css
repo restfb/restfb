@@ -222,12 +222,13 @@ div.spacer {
 
 .logoImage { margin-left: -22px; }
 
-.user-link-container { float: left; padding-right: 20px; }
+.user-link-container { float: left; padding-right: 40px; }
 .user-link-container a:hover { background-color: #fff; }
 .friend2friend { margin-left: -12px; }
 .ibm { padding-top: 56px; }
 .tynamo { padding-top: 51px; }
 .ou { padding-top: 37px; }
+.angrybirds { margin-top: 56px; }
 
 .clearer { clear: left;	 }
 

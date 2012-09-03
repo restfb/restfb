@@ -399,6 +399,29 @@ List<BinaryAttachment> binaryAttachments = Arrays.asList(
 facebookClient.executeBatch(batchRequests, binaryAttachments);
 ```
 
+#### Access Token Operations
+
+```java
+// Tell Facebook to extend the lifetime of MY_ACCESS_TOKEN.
+// Facebook may return the same token or a new one.
+
+AccessToken accessToken =
+  new DefaultFacebookClient().obtainExtendedAccessToken(MY_APP_ID,
+    MY_APP_SECRET, MY_ACCESS_TOKEN);
+
+out.println("My extended access token: " + accessToken);
+```
+
+```java
+// Obtains an access token which can be used to perform Graph API operations
+// on behalf of an application instead of a user.
+
+AccessToken accessToken =
+  new DefaultFacebookClient().obtainAppAccessToken(MY_APP_ID, MY_APP_SECRET);
+
+out.println("My application access token: " + accessToken);
+```
+
 #### Unit Testing
 
 ```java

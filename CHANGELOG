@@ -3,17 +3,17 @@
 * Changed all network logging to use the new com.restfb.HTTP logger and now default to FINE instead of INFO
   for normal requests/responses. This means you must explicitly enable logging to see what goes over the wire.   
   Thanks to Johno Crawford and Marcel Stoer.
-* Added Andrew Liles' InsightUtils class, which provides a nice wrapper around querying for Insights data.
-  Thanks to Andrew Liles.
-* Changed the signature of FacebookClient.deleteObject(String object) to FacebookClient.deleteObject(String object, Parameter... parameters)
-  to support parameterized deletion. This is a breaking change if you have a custom implementation of FacebookClient (should not be many of you).
-  Thanks to Nick Fenwick for the patch.
 * Added a new method to extend an existing Access Token: FacebookClient.obtainExtendedAccessToken(String appId, String appSecret, String accessToken).
   See https://developers.facebook.com/roadmap/offline-access-removal/#extend_token for details.
   Thanks to Chris Petersen for the initial patch.  
 * Added a new method to acquire an Application Access Token: FacebookClient.obtainAppAccessToken(String appId, String appSecret).
   See https://developers.facebook.com/docs/authentication/applications for details.
   Thanks to Chris Petersen for the initial patch.
+* Added Andrew Liles' InsightUtils class, which provides a nice wrapper around querying for Insights data.
+  Thanks to Andrew Liles.
+* Changed the signature of FacebookClient.deleteObject(String object) to FacebookClient.deleteObject(String object, Parameter... parameters)
+  to support parameterized deletion. This is a breaking change if you have a custom implementation of FacebookClient (should not be many of you).
+  Thanks to Nick Fenwick for the patch.  
 * FacebookOAuthException now includes an "errorCode" field since FB now returns one.
   Thanks to connectvg for the bug report.
 * DateUtils.toDateFromLongFormat(String date) now handles the case where FB occasionally returns the number of

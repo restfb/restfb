@@ -17,7 +17,7 @@
   		<li><a href="#">Home</a></li>
 			<li><a href="#download">Download</a></li>  		
 			<li><a href="javadoc/index.html" target="_blank">Javadoc <img src="images/external-link.png"/></a></li>
-			<li><a href="http://code.google.com/p/restfb/issues/list" target="_blank">Issue Tracker <img src="images/external-link.png"/></a></li>
+			<li><a href="https://github.com/revetkn/restfb/issues" target="_blank">Issue Tracker <img src="images/external-link.png"/></a></li>
 			<li><a href="http://groups.google.com/group/restfb" target="_blank">Google Group <img src="images/external-link.png"/></a></li>
 			<li class="separator"></li>  	
 			<!-- 
@@ -47,7 +47,7 @@
 			<li class="separator"></li>
 			<li><a href="#batch-api">Batch API</a></li>
 			<li class="separator"></li>
-			<li><a href="#converting-session-keys-to-access-tokens">Converting Session Keys to Access Tokens</a></li>
+			<li><a href="#access-token-operations">Access Token Operations</a></li>
 			<li class="separator"></li>
 			<li><a href="#running-examples">Running The Examples</a></li>
 			<li><a href="#supported-graph-object-types">Supported Graph Object Types</a></li>
@@ -79,14 +79,14 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6.10 (released November X, 2011) of the library is available via <a target="_blank"href="http://restfb.googlecode.com">Google Code</a>.
+			Version 1.6.10 (released September 3, 2012) of the library is available via RestFB's home on <a target="_blank"href="https://github.com/revetkn/restfb">Github</a>.
 			<br/>
 			<a target="_blank" href="https://raw.github.com/revetkn/restfb/c3022041c504ebd9e114a2302a38ec44d622e781/CHANGELOG">View the changelog</a>, 
 			or <a target="_blank" href="http://code.google.com/p/restfb/downloads/detail?name=restfb-1.6.10.zip">download it here</a>.
 		</p>
 		
 			<p>
-			The project zip contains sample code in the <code>source/examples</code> directory which can help you get up and running quickly.
+			The project zip contains sample code in the <code>source/example</code> directory which can help you get up and running quickly.
 			</p>				
 		
 		<p>
@@ -487,7 +487,7 @@ out.println("URL is " + url);
 						
 			<div>
 				In order to use these, you'll need to create a Facebook Application and then request an OAuth
-				access token with the proper permissions,	e.g. <code>publish_stream,offline_access,create_event</code>.
+				access token with the proper permissions,	e.g. <code>publish_stream,create_event</code>.
 			</div>	
 			
 			<div class="spacer"></div>	
@@ -506,7 +506,7 @@ out.println("URL is " + url);
 					<li>Create a Facebook Application</li>
 					<li>Request <code>https://graph.facebook.com/oauth/authorize?client_id=MY_API_KEY&amp;
 						redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
-						scope=publish_stream,offline_access,create_event</code></li>
+						scope=publish_stream,create_event</code></li>
 					<li>Facebook will redirect you to <code>http://www.facebook.com/connect/login_success.html?
 					code=MY_VERIFICATION_CODE</code></li>
 					<li>Request <code>https://graph.facebook.com/oauth/access_token?client_id=MY_API_KEY&amp;
@@ -670,12 +670,41 @@ List&lt;BinaryAttachment&gt; binaryAttachments = Arrays.asList(
 
 facebookClient.executeBatch(batchRequests, binaryAttachments);</pre>				
 		
-		<a name="converting-session-keys-to-access-tokens"></a>
+		<a name="access-token-operations"></a>
 		<div class="spacer"></div>		
 		
+		<h3>Extending an Access Token (see <a target="_blank" href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Graph API documentation</a>)</h3>
+		
+<pre class="prettyprint">
+// Tells Facebook to extend the lifetime of MY_ACCESS_TOKEN.
+// Facebook may return the same token or a new one.
+
+AccessToken accessToken =
+  new DefaultFacebookClient().obtainExtendedAccessToken(MY_APP_ID,
+    MY_APP_SECRET, MY_ACCESS_TOKEN);
+
+out.println("My extended access token: " + accessToken);
+</pre>		
+		
+		<div class="spacer"></div>
+		<h3>Getting an Application Access Token (see <a target="_blank" href="https://developers.facebook.com/docs/authentication/applications/">Graph API documentation</a>)</h3>
+		
+<pre class="prettyprint">
+// Obtains an access token which can be used to perform Graph API operations
+// on behalf of an application instead of a user.
+
+AccessToken accessToken =
+  new DefaultFacebookClient().obtainAppAccessToken(MY_APP_ID, MY_APP_SECRET);
+
+out.println("My application access token: " + accessToken);
+</pre>				
+		
+		<div class="spacer"></div>
 		<h3>Converting Old REST API Session Keys to OAuth Tokens (see <a target="_blank" href="http://developers.facebook.com/docs/authentication#exchange-session-key-for-an-access-token">Graph API documentation</a>)</h3>
 			
 <pre class="prettyprint">
+// It's 2012, hopefully no one has to do this anymore!
+
 List&lt;AccessToken&gt; accessTokens =
   new DefaultFacebookClient().convertSessionKeysToAccessTokens(MY_APP_ID,
     MY_APP_SECRET, "sessionKey1", "sessionKey2");
@@ -690,13 +719,13 @@ out.println("OAuth token for sessionKey1: " + accessTokens.get(0).getAccessToken
 		<h2>Running The Examples</h2>
 		
 		<p>
-			RestFB comes with a few example Java source files that you can run and tweak yourself.  Don't forget to put your access token in quotes!
+			RestFB comes with a few example Java source files that you can run and tweak yourself.  Don't forget to put your access token inside the quotes!
 		</p>
 		
-<pre>$ cd examples
-$ mvn -P reader-examples -Daccess_token="MY_ACCESS_TOKEN" test
-$ mvn -P publisher-examples -Daccess_token="MY_ACCESS_TOKEN" test
-$ mvn -P legacy-examples -Daccess_token="MY_ACCESS_TOKEN" test</pre>		
+<pre>$ cd source/example
+$ ant run-reader-examples "-Daccess_token=MY_ACCESS_TOKEN"
+$ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"
+$ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>		
 		
 		<a name="supported-graph-object-types"></a>
 		<div class="spacer"></div>				
@@ -727,15 +756,21 @@ $ mvn -P legacy-examples -Daccess_token="MY_ACCESS_TOKEN" test</pre>
 		<ul>			
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Album.html">Album</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Application.html">Application</a></li>
+			<li><a target="_blank" href="/javadoc/com/restfb/types/AppRequest.html">AppRequest</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Checkin.html">Checkin</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Comment.html">Comment</a></li>
+			<li><a target="_blank" href="/javadoc/com/restfb/types/Conversation.html">Conversation</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Event.html">Event</a></li>
+			<li><a target="_blank" href="/javadoc/com/restfb/types/FriendList.html">FriendList</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Group.html">Group</a></li>
+			<li><a target="_blank" href="/javadoc/com/restfb/types/Insight.html">Insight</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Link.html">Link</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Note.html">Note</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Page.html">Page</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>
+			<li><a target="_blank" href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>			
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Post.html">Post</a></li>
+			<li><a target="_blank" href="/javadoc/com/restfb/types/Question.html">Question</a></li>
+			<li><a target="_blank" href="/javadoc/com/restfb/types/QuestionOption.html">QuestionOption</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/StatusMessage.html">Status Message</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/User.html">User</a></li>
 			<li><a target="_blank" href="/javadoc/com/restfb/types/Venue.html">Venue</a></li>
@@ -855,10 +890,10 @@ public class MyClass {
 					Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
 					It usually indicates that you've used the <code>@Facebook</code> annotation on a field with an unsupported type or
 					the Facebook API JSON doesn't map correctly to the fields you've annotated (e.g. attempting to map a JSON string to a Java <code>BigDecimal</code>
-					or a JSON object to a Java <code>List</code>).
-					
-					<div class="spacer"></div>
-					
+					or a JSON object to a Java <code>List</code>).					
+				</span>
+				<div class="spacer"></div>
+				<span class="footnote">
 					You generally should not explicitly catch this exception in your code, as it usually signifies programmer
 					error in setting up <code>@Facebook</code> annotations.  One valid use for catching this exception,
 					however, is to detect when Facebook changes what an API call returns on their end, which would break your live code.
@@ -939,6 +974,19 @@ public class MyClass {
 					so you may take custom actions depending on the type of error that occurred.
 				</span>				
 			</li>
+			<li>
+				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookResponseContentException.html">FacebookResponseContentException</a></code>
+				<br/>
+				<span class="footnote">
+					This is thrown by RestFB when Facebook responds with unexpected data. For example, when extending an access token,
+					Facebook should return an HTTP response body of the form <code>access_token=123&expires=456</code>. But if Facebook
+					does not respond as expected - perhaps they modify the response format in some future API release - <code>FacebookResponseContentException</code> will be thrown.					
+				</span>
+				<div class="spacer"></div>
+				<span class="footnote">
+					It is unlikely that you will ever see this exception.
+				</span>				
+			</li>			
 		</ul>
 		
 		<p>
@@ -1035,7 +1083,7 @@ assert "Test Person".equals(user.getName());</pre>
 		<h2>Links</h2>
 		
 		<p>
-			Visit <a target="_blank" href="http://code.google.com/p/restfb">RestFB's home on Google Code</a>.		
+			Visit <a target="_blank" href="https://github.com/revetkn/restfb">RestFB's home on Github</a>.		
 		</p>
 		
 		<p>
@@ -1043,20 +1091,23 @@ assert "Test Person".equals(user.getName());</pre>
 		</p>		
 		
 		<p>
-			Found a bug or have an enhancement request? <a target="_blank" href="http://code.google.com/p/restfb/issues/list">Create a ticket in the issue tracker</a>.		
+			Found a bug or have an enhancement request? <a target="_blank" href="https://github.com/revetkn/restfb/issues">Create a ticket in the issue tracker</a>.		
 		</p>		
 		
 		<p>
-			Download a read-only copy of the current source code using Subversion:		
+			Download a read-only copy of the current source code using Git:		
 			<pre>
-svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
+git clone git://github.com/revetkn/restfb.git</pre>
 		</p>
 		
 		<a name="restfb-users"></a>
 		<div class="spacer"></div>
 		
 		<h2>Some RestFB Users</h2>
-		
+
+		<div class="user-link-container angrybirds">
+			<a target="_blank" href="https://apps.facebook.com/angrybirds/"><img src="images/angry-birds-friends.gif"/></a>
+		</div>		
 		<div class="user-link-container friend2friend">
 			<a target="_blank" href="http://friend2friend.com"><img src="images/friend2friend.jpg"/></a>
 		</div>
@@ -1065,10 +1116,7 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 		</div>
 		<div class="user-link-container tynamo">
 			<a target="_blank" href="http://tynamo.org/"><img src="images/tynamo.png"/></a>	
-		</div>
-		<div class="user-link-container ou">
-			<a target="_blank" href="http://ou-android.appspot.com"><img src="images/ou.png"/></a>	
-		</div>						
+		</div>			
 				
 		<p class="clearer">
 			If you're a happy RestFB user and would like to add a link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
@@ -1083,22 +1131,22 @@ svn checkout http://restfb.googlecode.com/svn/trunk/ restfb</pre>
 			RestFB is written by <a href="mailto:maa@xmog.com">Mark Allen</a> and sponsored by <a target="_blank" href="http://xmog.com">Transmogrify, LLC</a>. 
 		</p>
 		
-		<p style="float: left; width: 75%;">
-			Transmogrify is a Philadelphia-area software shop specializing in product design and Java, .NET, iPhone, and iPad software development.
-			Our experience runs the gamut from embedded systems to Oracle DBA work to the latest in web and mobile technologies.
+		<p>
+			Transmogrify is a Philadelphia-area software shop specializing in product design and web/mobile software development.
+			Our experience runs the gamut from embedded systems to Oracle DBA work to the cutting-edge web framework and iOS/Android technologies.
 			Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com">product@xmog.com</a> if you need a hand with
 			anything software-related.  We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.			
-		</p>		
+		</p>														
 		
-		<!-- Facebook Like Badge START --><div style="float: right; width: 20%;"><div style="background: #3B5998;padding: 5px;"><img src="http://www.facebook.com/images/fb_logo_small.png" alt="Facebook"/><img src="http://badge.facebook.com/badge/121285737883612.24403847.1304802001.png" alt="" width="0" height="0"/></div><div style="background: #EDEFF4;display: block;border-right: 1px solid #D8DFEA;border-bottom: 1px solid #D8DFEA;border-left: 1px solid #D8DFEA;margin: 0px;padding: 0px 0px 5px 0px;"><div style="background: #EDEFF4;display: block;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="top"><img src="http://www.facebook.com/images/icons/fbpage.gif" alt=""/></td><td valign="top"><p style="color: #808080;font-family: verdana;font-size: 11px;margin: 0px 0px 0px 0px;padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/revetkn" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: normal;margin: 0px;padding: 0px 0px 0px 0px;text-decoration: none;" title="Mark Allen">Mark Allen</a> likes</p></td></tr></table></div><div style="background: #FFFFFF;clear: both;display: block;margin: 0px;overflow: hidden;padding: 5px;"><table cellspacing="0" cellpadding="0" border="0"><tr><td valign="middle"><a href="http://www.facebook.com/pages/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none;" title="Transmogrify"><img src="http://www.facebook.com/profile/pic.php?oid=AQArM8kc_2XPzr8mg4XRN3N-X2h_CpBNZyEtLrz2r4mS48MQnAvFCOqTMIlMbjaLBsM&size=square" style="border: 0px;margin: 0px;padding: 0px;" alt="Transmogrify"/></a></td><td valign="middle" style="padding: 0px 8px 0px 8px;"><a href="http://www.facebook.com/pages/Transmogrify/121285737883612" target="_TOP" style="border: 0px;color: #3B5998;font-family: verdana;font-size: 12px;font-weight: bold;margin: 0px;padding: 0px;text-decoration: none; float: left; margin-bottom: 13px;" title="Transmogrify">Transmogrify</a></td></tr></table></div></div><div style="display: block;float: right;margin: 0px;padding: 4px 0px 0px 0px;"><a href="http://www.facebook.com/badges/like.php" target="_TOP" style="color: #3B5998;font-family: verdana;font-size: 11px;font-weight: none;margin: 0px;padding: 0px;text-decoration: none;" title="Create your Like Badge">Create your Like Badge</a></div></div><!-- Facebook Like Badge END -->								
-		
-		<p style="clear: both;">
+		<p>
 			Development of RestFB was aided by
 			<ul>
+				<li><a target="_blank" href="http://somafm.com/">SomaFM</a></li>
 				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Dead_Cities,_Red_Seas_%26_Lost_Ghosts"><i>Dead Cities, Red Seas, &amp; Lost Ghosts</i> (M83)</a></li>
 				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Orbital_2"><i>Orbital 2</i> (Orbital)</a></li>
 				<li><a target="_blank" href="http://en.wikipedia.org/wiki/The_Crew_(7_Seconds_album)"><i>The Crew</i> (7 Seconds)</a></li>
 				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Treatment_5"><i>Treatment 5</i> (Osker)</a></li>
+				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Kid_Dynamite_(album)"><i>Kid Dynamite</i> (Kid Dynamite)</a></li>				
 			</ul>			
 		</p>
 		
