@@ -52,6 +52,12 @@ public class Comment extends FacebookType {
   @Facebook("like_count")
   private Long likeCount;
 
+  @Facebook("can_remove")
+  private Boolean canRemove;
+
+  @Facebook("user_likes")
+  private Boolean userLikes;
+
   private static final long serialVersionUID = 2L;
 
   /**
@@ -102,5 +108,28 @@ public class Comment extends FacebookType {
    */
   public Long getLikeCount() {
     return likeCount;
+  }
+
+  /**
+   * This field is returned only if the authenticated user can remove this
+   * comment.
+   * 
+   * @return This field is returned only if the authenticated user can remove
+   *         this comment.
+   * @since 1.6.10
+   */
+  public Boolean getCanRemove() {
+    return canRemove;
+  }
+
+  /**
+   * This field is returned only if the authenticated user likes this comment
+   * 
+   * @return This field is returned only if the authenticated user likes this
+   *         comment.
+   * @since 1.6.10
+   */
+  public Boolean getUserLikes() {
+    return userLikes;
   }
 }

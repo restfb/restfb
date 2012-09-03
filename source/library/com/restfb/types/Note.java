@@ -23,8 +23,11 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 
@@ -54,7 +57,10 @@ public class Note extends FacebookType {
 
   @Facebook("updated_time")
   private String updatedTime;
-  
+
+  @Facebook("comments")
+  private List<Comment> comments = new ArrayList<Comment>();
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -109,5 +115,15 @@ public class Note extends FacebookType {
    */
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
+  }
+
+  /**
+   * Comments made on the note.
+   * 
+   * @return Comments made on the note.
+   * @since 1.6.10
+   */
+  public List<Comment> getComments() {
+    return unmodifiableList(comments);
   }
 }
