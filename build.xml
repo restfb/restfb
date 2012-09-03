@@ -48,16 +48,16 @@
 		</jar>
 
 		<zip destfile="${buildDir}/restfb-${libraryVersion}.zip">
-			<fileset dir=".">
+			<zipfileset dir="." prefix="restfb-${libraryVersion}">
 				<include name="${sourceDir}/**" />
 				<include name="${licensingDir}/**" />
 				<include name="${miscDir}/**" />
 				<include name="build.xml" />
-			</fileset>
-			<fileset dir="${buildDir}">
+			</zipfileset>
+			<zipfileset dir="${buildDir}" prefix="restfb-${libraryVersion}">
 				<include name="restfb-*.jar" />
 				<include name="javadoc/**" />
-			</fileset>
+			</zipfileset>
 		</zip>
 	</target>
 
