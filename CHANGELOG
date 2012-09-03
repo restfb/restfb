@@ -16,6 +16,8 @@
   Thanks to Nick Fenwick for the patch.  
 * FacebookOAuthException now includes an "errorCode" field since FB now returns one.
   Thanks to connectvg for the bug report.
+* FacebookOAuthException now includes an "httpStatusCode" field since it's helpful for client application error messaging.
+  Thanks to mtsahakis for the suggestion.  
 * DateUtils.toDateFromLongFormat(String date) now handles the case where FB occasionally returns the number of
   seconds since the epoch instead of a yyyy-MM-dd'T'HH:mm:ssZ string.
   Thanks to raphael.lisboa@gauge.com.br for the bug report.
