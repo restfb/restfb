@@ -57,6 +57,13 @@ public final class ReflectionUtils {
       synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
 
   /**
+   * In-memory shared cache of reflection data for
+   * {@link #findMethodsWithAnnotation(Class, Class)}.
+   */
+  private static final Map<ClassAnnotationCacheKey, List<Method>> METHODS_WITH_ANNOTATION_CACHE =
+      synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<Method>>());
+
+  /**
    * Prevents instantiation.
    */
   private ReflectionUtils() {}
@@ -109,8 +116,7 @@ public final class ReflectionUtils {
 
     List<FieldWithAnnotation<T>> fieldsWithAnnotation = new ArrayList<FieldWithAnnotation<T>>();
 
-    // Walk all superclasses looking for annotated fields until we hit
-    // Object
+    // Walk all superclasses looking for annotated fields until we hit Object
     while (!Object.class.equals(type)) {
       for (Field field : type.getDeclaredFields()) {
         T annotation = field.getAnnotation(annotationType);
@@ -125,6 +131,47 @@ public final class ReflectionUtils {
     fieldsWithAnnotation = unmodifiableList(fieldsWithAnnotation);
     FIELDS_WITH_ANNOTATION_CACHE.put(cacheKey, fieldsWithAnnotation);
     return fieldsWithAnnotation;
+  }
+
+  /**
+   * Finds methods on the given {@code type} and all of its superclasses
+   * annotated with annotations of type {@code annotationType}.
+   * <p>
+   * These results are cached to mitigate performance overhead.
+   * 
+   * @param <T>
+   *          The annotation type.
+   * @param type
+   *          The target type token.
+   * @param annotationType
+   *          The annotation type token.
+   * @return A list of methods with the given annotation.
+   * @since 1.6.11
+   */
+  public static <T extends Annotation> List<Method> findMethodsWithAnnotation(Class<?> type, Class<T> annotationType) {
+    ClassAnnotationCacheKey cacheKey = new ClassAnnotationCacheKey(type, annotationType);
+    List<Method> cachedResults = (List<Method>) METHODS_WITH_ANNOTATION_CACHE.get(cacheKey);
+
+    if (cachedResults != null)
+      return cachedResults;
+
+    List<Method> methodsWithAnnotation = new ArrayList<Method>();
+
+    // Walk all superclasses looking for annotated methods until we hit Object
+    while (!Object.class.equals(type)) {
+      for (Method method : type.getDeclaredMethods()) {
+        T annotation = method.getAnnotation(annotationType);
+
+        if (annotation != null)
+          methodsWithAnnotation.add(method);
+      }
+
+      type = type.getSuperclass();
+    }
+
+    methodsWithAnnotation = unmodifiableList(methodsWithAnnotation);
+    METHODS_WITH_ANNOTATION_CACHE.put(cacheKey, methodsWithAnnotation);
+    return methodsWithAnnotation;
   }
 
   /**

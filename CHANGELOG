@@ -1,3 +1,12 @@
+1.6.11 (September 7, 2012)
+
+* New feature: you may annotate a method in a class mapped by JsonMapper with @JsonMappingCompleted.
+  Your method may be private and must take 0 parameters or 1 JsonMapper parameter.
+  This is useful for performing one-time actions after the JsonMapper has completed its work, e.g. massaging
+  JSON data into other formats.
+* Bugfix: The message_tags field in Post could throw an exception when JsonMapper attempted to map it.
+  Thanks to Shaya Potter for reporting this.
+
 1.6.10 (September 3, 2012)
 
 * Potentially-breaking change: in the event of a Graph API 404 (like fetching an object with an id that doesn't exist, e.g. /XXX)

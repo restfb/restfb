@@ -79,10 +79,10 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6.10 (released September 3, 2012) of the library is available via RestFB's home on <a target="_blank"href="https://github.com/revetkn/restfb">Github</a>.
+			Version 1.6.11 (released September 7, 2012) of the library is available via RestFB's home on <a target="_blank"href="https://github.com/revetkn/restfb">Github</a>.
 			<br/>
 			<a target="_blank" href="https://raw.github.com/revetkn/restfb/6c3d2b440d5d26b07fffa1e2244c155e9e846154/CHANGELOG">View the changelog</a>, 
-			or <a target="_blank" href="https://github.com/downloads/revetkn/restfb/restfb-1.6.10.zip">download it here</a>.
+			or <a target="_blank" href="https://github.com/downloads/revetkn/restfb/restfb-1.6.11.zip">download it here</a>.
 		</p>
 		
 			<p>
@@ -95,7 +95,7 @@
 <pre class="prettyprint">&lt;dependency&gt;
   &lt;groupId&gt;com.restfb&lt;/groupId&gt;
   &lt;artifactId&gt;restfb&lt;/artifactId&gt;
-  &lt;version&gt;1.6.10&lt;/version&gt;
+  &lt;version&gt;1.6.11&lt;/version&gt;
 &lt;/dependency&gt;</pre>
 		</p>		
 		
@@ -820,9 +820,22 @@ public class MyClass {
 
   @Facebook
   BigDecimal value;
+  
+  // If a Facebook field doesn't match your field's name, specify it explicitly
 
-  @Facebook
-  List&lt;Integer&gt; numbers;
+  @Facebook("lots_of_numbers")
+  List&lt;Integer&gt; lotsOfNumbers;
+  
+  // You can annotate methods with @JsonMappingCompleted to perform
+  // post-mapping operations.
+  //
+  // This is useful if you want to massage the data FB returns.
+  
+  @JsonMappingCompleted
+  void allDone(JsonMapper jsonMapper) {  	
+    if(lotsOfNumbers.size() == 0)
+      throw new IllegalStateException("I was expecting more numbers!");
+  }
 }</pre>			
 		
 		<p>

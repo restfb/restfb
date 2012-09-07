@@ -24,6 +24,7 @@ package com.restfb;
 
 import static com.restfb.json.JsonObject.NULL;
 import static com.restfb.util.ReflectionUtils.findFieldsWithAnnotation;
+import static com.restfb.util.ReflectionUtils.findMethodsWithAnnotation;
 import static com.restfb.util.ReflectionUtils.getFirstParameterizedTypeArgument;
 import static com.restfb.util.ReflectionUtils.isPrimitive;
 import static com.restfb.util.StringUtils.isBlank;
@@ -37,6 +38,8 @@ import static java.util.logging.Level.FINEST;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -220,10 +223,17 @@ public class DefaultJsonMapper implements JsonMapper {
       // type. If this is actually the empty object, just return a new instance
       // of the corresponding Java type.
       if (fieldsWithAnnotation.size() == 0)
-        if (isEmptyObject(json))
-          return createInstance(type);
-        else
+        if (isEmptyObject(json)) {
+          T instance = createInstance(type);
+
+          // If there are any methods annotated with @JsonMappingCompleted,
+          // invoke them.
+          invokeJsonMappingCompletedMethods(instance);
+
+          return instance;
+        } else {
           return toPrimitiveJavaType(json, type);
+        }
 
       // Facebook will sometimes return the string "null".
       // Check for that and bail early if we find it.
@@ -286,6 +296,10 @@ public class DefaultJsonMapper implements JsonMapper {
         }
       }
 
+      // If there are any methods annotated with @JsonMappingCompleted,
+      // invoke them.
+      invokeJsonMappingCompletedMethods(instance);
+
       return instance;
     } catch (FacebookJsonMappingException e) {
       throw e;
@@ -294,6 +308,37 @@ public class DefaultJsonMapper implements JsonMapper {
         return null;
       else
         throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
+    }
+  }
+
+  /**
+   * Finds and invokes methods on {@code object} that are annotated with the
+   * {@code @JsonMappingCompleted} annotation.
+   * <p>
+   * This will even work on {@code private} methods.
+   * 
+   * @param object
+   *          The object on which to invoke the method.
+   * @throws IllegalArgumentException
+   *           If unable to invoke the method.
+   * @throws IllegalAccessException
+   *           If unable to invoke the method.
+   * @throws InvocationTargetException
+   *           If unable to invoke the method.
+   */
+  protected void invokeJsonMappingCompletedMethods(Object object) throws IllegalArgumentException,
+      IllegalAccessException, InvocationTargetException {
+    for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {
+      method.setAccessible(true);
+
+      if (method.getParameterTypes().length == 0)
+        method.invoke(object);
+      else if (method.getParameterTypes().length == 1 && JsonMapper.class.equals(method.getParameterTypes()[0]))
+        method.invoke(object, this);
+      else
+        throw new FacebookJsonMappingException(format(
+          "Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",
+          JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));
     }
   }
 

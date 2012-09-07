@@ -22,15 +22,22 @@
 
 package com.restfb.types;
 
+import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 
@@ -122,9 +129,36 @@ public class Post extends NamedFacebookType {
   private List<NamedFacebookType> withTags = new ArrayList<NamedFacebookType>();
 
   @Facebook("message_tags")
-  private List<MessageTag> messageTags = new ArrayList<MessageTag>();
+  private JsonObject rawMessageTags;
 
-  private static final long serialVersionUID = 2L;
+  private Map<String, List<MessageTag>> messageTags = new HashMap<String, List<MessageTag>>();
+
+  private static final long serialVersionUID = 3L;
+
+  /**
+   * Post-JSON-mapping operation that populates the {@code messageTags} field
+   * "by hand".
+   * <p>
+   * This is a temporary hack until we have formal public support for
+   * it/improved {@code JsonMapper} capabilities so it can handle arbitrary Map
+   * types.
+   * 
+   * @param jsonMapper
+   *          The {@code JsonMapper} that was used to map to this type.
+   * @since 1.6.11
+   */
+  @JsonMappingCompleted
+  protected void jsonMappingCompleted(JsonMapper jsonMapper) {
+    messageTags = new HashMap<String, List<MessageTag>>();
+
+    if (rawMessageTags == null)
+      return;
+
+    for (String key : getNames(rawMessageTags)) {
+      String messageTagJson = rawMessageTags.getString(key).toString();
+      messageTags.put(key, jsonMapper.toJavaList(messageTagJson, MessageTag.class));
+    }
+  }
 
   /**
    * Represents the <a
@@ -765,7 +799,7 @@ public class Post extends NamedFacebookType {
    * @return Objects tagged in the message (Users, Pages, etc).
    * @since 1.6.10
    */
-  public List<MessageTag> getMessageTags() {
-    return unmodifiableList(messageTags);
+  public Map<String, List<MessageTag>> getMessageTags() {
+    return unmodifiableMap(messageTags);
   }
 }

@@ -10,7 +10,7 @@ RestFB itself is open source software released under the terms of the MIT Licens
 
 ## Installation
 
-RestFB is a single JAR - just drop `restfb-1.6.10.jar` into your app and you're ready to go.
+RestFB is a single JAR - just drop `restfb-1.6.11.jar` into your app and you're ready to go.
 
 Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to your project like this:
 
@@ -18,7 +18,7 @@ Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to you
 <dependency>
   <groupId>com.restfb</groupId>
   <artifactId>restfb</artifactId>
-  <version>1.6.10</version>
+  <version>1.6.11</version>
 </dependency>
 ```
 
@@ -422,6 +422,34 @@ AccessToken accessToken =
   new DefaultFacebookClient().obtainAppAccessToken(MY_APP_ID, MY_APP_SECRET);
 
 out.println("My application access token: " + accessToken);
+```
+
+#### Map Your Own Types
+
+```java
+public class MyClass {
+  @Facebook
+  String name;
+
+  @Facebook
+  BigDecimal value;
+
+  // If a Facebook field doesn't match your field's name, specify it explicitly
+
+  @Facebook("lots_of_numbers")
+  List&lt;Integer&gt; lotsOfNumbers;
+  
+  // You can annotate methods with @JsonMappingCompleted to perform
+  // post-mapping operations.
+  //
+  // This is useful if you want to massage the data FB returns.
+  
+  @JsonMappingCompleted
+  void allDone(JsonMapper jsonMapper) {   
+    if(lotsOfNumbers.size() == 0)
+      throw new IllegalStateException("I was expecting more numbers!");
+  }
+}
 ```
 
 #### Unit Testing

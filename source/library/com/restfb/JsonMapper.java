@@ -22,6 +22,11 @@
 
 package com.restfb;
 
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.util.List;
 
 import com.restfb.exception.FacebookJsonMappingException;
@@ -112,4 +117,24 @@ public interface JsonMapper {
    * @since 1.6.5
    */
   String toJson(Object object, boolean ignoreNullValuedProperties);
+
+  /**
+   * If you apply this annotation to a method of a type mapped by
+   * {@code JsonMapper}, it will be called after the mapping operation has been
+   * completed.
+   * <p>
+   * The method you specify must take 0 parameters or a single
+   * {@code JsonMapper} parameter. Any other signature will cause a
+   * {@code FacebookJsonMappingException} to be thrown.
+   * <p>
+   * This is useful if you'd like to perform a custom post-mapping task, like
+   * massaging the data Facebook returns or custom mapping of fields
+   * {@code JsonMapper} isn't equipped to handle yet.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.11
+   */
+  @Target({ METHOD })
+  @Retention(RUNTIME)
+  public @interface JsonMappingCompleted {}
 }

@@ -24,6 +24,7 @@ package com.restfb;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -34,7 +35,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.NamedFacebookType;
 import com.restfb.types.Post;
@@ -293,6 +296,29 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertEquals(expectedStoryTagIds, actualStoryTagIds);
   }
 
+  @Test
+  public void jsonMappingCompleted() {
+    JsonMapper jsonMapper = createJsonMapper();
+
+    BasicJsonMappingCompletedClass basicJsonMappingCompletedClass =
+        jsonMapper.toJavaObject("{}", BasicJsonMappingCompletedClass.class);
+    assertEquals(basicJsonMappingCompletedClass.hasMapper, true);
+    assertEquals(basicJsonMappingCompletedClass.blankSignatureWorks, true);
+
+    ExtendedJsonMappingCompletedClass extendedJsonMappingCompletedClass =
+        jsonMapper.toJavaObject("{}", ExtendedJsonMappingCompletedClass.class);
+    assertEquals(extendedJsonMappingCompletedClass.hasMapper, true);
+    assertEquals(extendedJsonMappingCompletedClass.blankSignatureWorks, true);
+    assertEquals(extendedJsonMappingCompletedClass.subclassWorksToo, true);
+
+    try {
+      jsonMapper.toJavaObject("{}", IllegalJsonMappingCompletedClass.class);
+      fail("Should have thrown " + FacebookJsonMappingException.class.getSimpleName());
+    } catch (FacebookJsonMappingException e) {
+      // Expected
+    }
+  }
+
   static class Story {
     @Facebook
     String story;
@@ -347,5 +373,37 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
     @Facebook
     List<Affiliation> affiliations;
+  }
+
+  static class BasicJsonMappingCompletedClass {
+    boolean hasMapper = false;
+    boolean blankSignatureWorks = false;
+
+    @JsonMappingCompleted
+    protected void jsonMappingCompleted(JsonMapper jsonMapper) {
+      hasMapper = jsonMapper != null;
+    }
+
+    @JsonMappingCompleted
+    protected void jsonMappingCompleted() {
+      blankSignatureWorks = true;
+    }
+  }
+
+  static class ExtendedJsonMappingCompletedClass extends BasicJsonMappingCompletedClass {
+    boolean subclassWorksToo = false;
+
+    @JsonMappingCompleted
+    @SuppressWarnings("unused")
+    private void subclass() {
+      subclassWorksToo = true;
+    }
+  }
+
+  static class IllegalJsonMappingCompletedClass {
+    @JsonMappingCompleted
+    protected void jsonMappingCompleted(JsonMapper jsonMapper, String someOtherParameter) {
+      // Should never get here, illegal signature
+    }
   }
 }
