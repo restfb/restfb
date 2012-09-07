@@ -437,7 +437,7 @@ public class MyClass {
   // If a Facebook field doesn't match your field's name, specify it explicitly
 
   @Facebook("lots_of_numbers")
-  List&lt;Integer&gt; lotsOfNumbers;
+  List<Integer> lotsOfNumbers;
   
   // You can annotate methods with @JsonMappingCompleted to perform
   // post-mapping operations.
