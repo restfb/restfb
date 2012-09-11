@@ -443,10 +443,13 @@ public interface FacebookClient {
 
       // If an expires value was provided and it's a valid long, great - use it.
       // Otherwise ignore it.
-      if (urlParameters.containsKey("expires"))
+      if (urlParameters.containsKey("expires")) {
         try {
           expires = Long.valueOf(urlParameters.get("expires").get(0));
         } catch (NumberFormatException e) {}
+        if (expires != null)
+          expires = new Date().getTime() + 1000L * expires;
+      }
 
       AccessToken accessToken = new AccessToken();
       accessToken.accessToken = extendedAccessToken;
@@ -493,7 +496,7 @@ public interface FacebookClient {
      * @return The date on which the access token expires.
      */
     public Date getExpires() {
-      return expires == null ? null : new Date(1000L * expires);
+      return expires == null ? null : new Date(expires);
     }
   }
 }
