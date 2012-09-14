@@ -1,3 +1,8 @@
+1.6.12 (Unreleased)
+
+* Added "status_type" field to Post.
+  Thanks to Shaya Potter.
+
 1.6.11 (September 7, 2012)
 
 * New feature: you may annotate a method in a class mapped by JsonMapper with @JsonMappingCompleted.

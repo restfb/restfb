@@ -110,6 +110,9 @@ public class Post extends NamedFacebookType {
   @Facebook("object_id")
   private String objectId;
 
+  @Facebook("status_type")
+  private String statusType;
+
   @Facebook
   private Comments comments;
 
@@ -729,6 +732,18 @@ public class Post extends NamedFacebookType {
    */
   public String getObjectId() {
     return objectId;
+  }
+
+  /**
+   * The {@code status_type} of post this is, for example
+   * {@code "approved_friend"}.
+   * 
+   * @return The {@code status_type} of post this is, for example
+   *         {@code "approved_friend"}.
+   * @since 1.6.12
+   */
+  public String getStatusType() {
+    return statusType;
   }
 
   /**
