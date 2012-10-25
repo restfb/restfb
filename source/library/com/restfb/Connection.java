@@ -157,6 +157,12 @@ public class Connection<T> implements Iterable<List<T>> {
       JsonObject jsonPaging = jsonObject.getJsonObject("paging");
       previousPageUrl = jsonPaging.has("previous") ? jsonPaging.getString("previous") : null;
       nextPageUrl = jsonPaging.has("next") ? jsonPaging.getString("next") : null;
+      if (null != previousPageUrl && previousPageUrl.startsWith("http://")) {
+        previousPageUrl = previousPageUrl.replaceFirst("http://", "https://");
+      }
+      if (null != nextPageUrl && nextPageUrl.startsWith("http://")) {
+        nextPageUrl = nextPageUrl.replaceFirst("http://", "https://");
+      }
     } else {
       previousPageUrl = null;
       nextPageUrl = null;
