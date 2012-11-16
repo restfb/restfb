@@ -697,9 +697,9 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * The user's interests.
+   * The genders the user is interested in.
    * 
-   * @return The user's interests.
+   * @return The genders the user is interested in.
    */
   public List<String> getInterestedIn() {
     return unmodifiableList(interestedIn);
