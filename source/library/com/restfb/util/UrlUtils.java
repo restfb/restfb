@@ -55,11 +55,9 @@ public final class UrlUtils {
    * 
    * @param string
    *          The string to URL-encode.
-   * @return The URL-encoded version of the input string, or {@code null} if
-   *         {@code string} is {@code null}.
+   * @return The URL-encoded version of the input string, or {@code null} if {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to URL-encode because the JVM doesn't support
-   *           {@value #ENCODING_CHARSET}.
+   *           If unable to URL-encode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static String urlEncode(String string) {
     if (string == null)
@@ -78,11 +76,9 @@ public final class UrlUtils {
    * 
    * @param string
    *          The string to URL-decode.
-   * @return The URL-decoded version of the input string, or {@code null} if
-   *         {@code string} is {@code null}.
+   * @return The URL-decoded version of the input string, or {@code null} if {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to URL-decode because the JVM doesn't support
-   *           {@value #ENCODING_CHARSET}.
+   *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    * @since 1.6.5
    */
   public static String urlDecode(String string) {
@@ -96,19 +92,16 @@ public final class UrlUtils {
   }
 
   /**
-   * For the given {@code queryString}, extract a mapping of query string
-   * parameter names to values.
+   * For the given {@code queryString}, extract a mapping of query string parameter names to values.
    * <p>
    * Example of a {@code queryString} is {@code accessToken=123&expires=345}.
    * 
    * @param queryString
    *          The URL query string from which parameters are extracted.
-   * @return A mapping of query string parameter names to values. If
-   *         {@code queryString} is {@code null}, an empty {@code Map} is
-   *         returned.
+   * @return A mapping of query string parameter names to values. If {@code queryString} is {@code null}, an empty
+   *         {@code Map} is returned.
    * @throws IllegalStateException
-   *           If unable to URL-decode because the JVM doesn't support
-   *           {@value #ENCODING_CHARSET}.
+   *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static Map<String, List<String>> extractParametersFromQueryString(String queryString) {
     if (queryString == null)
@@ -120,19 +113,17 @@ public final class UrlUtils {
   }
 
   /**
-   * For the given {@code url}, extract a mapping of query string parameter
-   * names to values.
+   * For the given {@code url}, extract a mapping of query string parameter names to values.
    * <p>
    * Adapted from an implementation by BalusC and dfrankow, available at
    * http://stackoverflow.com/questions/1667278/parsing-query-strings-in-java.
    * 
    * @param url
    *          The URL from which parameters are extracted.
-   * @return A mapping of query string parameter names to values. If {@code url}
-   *         is {@code null}, an empty {@code Map} is returned.
+   * @return A mapping of query string parameter names to values. If {@code url} is {@code null}, an empty {@code Map}
+   *         is returned.
    * @throws IllegalStateException
-   *           If unable to URL-decode because the JVM doesn't support
-   *           {@value #ENCODING_CHARSET}.
+   *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static Map<String, List<String>> extractParametersFromUrl(String url) {
     if (url == null)

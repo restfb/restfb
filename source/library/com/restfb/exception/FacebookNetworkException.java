@@ -25,8 +25,7 @@ package com.restfb.exception;
 import static java.lang.String.format;
 
 /**
- * Indicates that a network error occurred while trying to connect to the
- * Facebook API endpoint.
+ * Indicates that a network error occurred while trying to connect to the Facebook API endpoint.
  * <p>
  * Examples: No network adapter available, API endpoint is down.
  * 

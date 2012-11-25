@@ -25,8 +25,7 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/test_users">Test
- * User type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/test_users">Test User type</a>.
  * 
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -48,8 +47,8 @@ public class TestUser extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * You can use this access token to make API calls on behalf of the test user.
-   * This is available only if your app has been installed by the test user.
+   * You can use this access token to make API calls on behalf of the test user. This is available only if your app has
+   * been installed by the test user.
    * 
    * @return The test user's access token.
    */
@@ -67,8 +66,7 @@ public class TestUser extends FacebookType {
   }
 
   /**
-   * If logging in manually (that is, not using the login_url), you can use this
-   * as the user's email address.
+   * If logging in manually (that is, not using the login_url), you can use this as the user's email address.
    * 
    * @return The test user's email address.
    */
@@ -77,8 +75,7 @@ public class TestUser extends FacebookType {
   }
 
   /**
-   * If logging in manually (that is, not using the login_url), you can use this
-   * as the user's password.
+   * If logging in manually (that is, not using the login_url), you can use this as the user's password.
    * 
    * @return The test user's password.
    */

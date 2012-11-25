@@ -27,18 +27,14 @@ package com.restfb.json;
 import java.io.StringWriter;
 
 /**
- * JsonStringer provides a quick and convenient way of producing JSON text. The
- * texts produced strictly conform to JSON syntax rules. No whitespace is added,
- * so the results are ready for transmission or storage. Each instance of
+ * JsonStringer provides a quick and convenient way of producing JSON text. The texts produced strictly conform to JSON
+ * syntax rules. No whitespace is added, so the results are ready for transmission or storage. Each instance of
  * JsonStringer can produce one JSON text.
  * <p>
- * A JsonStringer instance provides a <code>value</code> method for appending
- * values to the text, and a <code>key</code> method for adding keys before
- * values in objects. There are <code>array</code> and <code>endArray</code>
- * methods that make and bound array values, and <code>object</code> and
- * <code>endObject</code> methods which make and bound object values. All of
- * these methods return the JsonWriter instance, permitting cascade style. For
- * example,
+ * A JsonStringer instance provides a <code>value</code> method for appending values to the text, and a <code>key</code>
+ * method for adding keys before values in objects. There are <code>array</code> and <code>endArray</code> methods that
+ * make and bound array values, and <code>object</code> and <code>endObject</code> methods which make and bound object
+ * values. All of these methods return the JsonWriter instance, permitting cascade style. For example,
  * 
  * <pre>
  * myString = new JsonStringer().object().key(&quot;JSON&quot;).value(&quot;Hello, World!&quot;).endObject().toString();
@@ -50,9 +46,8 @@ import java.io.StringWriter;
  * {&quot;JSON&quot;:&quot;Hello, World!&quot;}
  * </pre>
  * <p>
- * The first method called must be <code>array</code> or <code>object</code>.
- * There are no methods for adding commas or colons. JsonStringer adds them for
- * you. Objects and arrays can be nested up to 20 levels deep.
+ * The first method called must be <code>array</code> or <code>object</code>. There are no methods for adding commas or
+ * colons. JsonStringer adds them for you. Objects and arrays can be nested up to 20 levels deep.
  * <p>
  * This can sometimes be easier than using a JsonObject to build a string.
  * 
@@ -68,11 +63,9 @@ public class JsonStringer extends JsonWriter {
   }
 
   /**
-   * Return the JSON text. This method is used to obtain the product of the
-   * JsonStringer instance. It will return <code>null</code> if there was a
-   * problem in the construction of the JSON text (such as the calls to
-   * <code>array</code> were not properly balanced with calls to
-   * <code>endArray</code>).
+   * Return the JSON text. This method is used to obtain the product of the JsonStringer instance. It will return
+   * <code>null</code> if there was a problem in the construction of the JSON text (such as the calls to
+   * <code>array</code> were not properly balanced with calls to <code>endArray</code>).
    * 
    * @return The JSON text.
    */

@@ -34,9 +34,7 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/checkin">Checkin
- * Graph API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/checkin">Checkin Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
@@ -66,9 +64,7 @@ public class Checkin extends FacebookType {
   private static final long serialVersionUID = 2L;
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/checkin">Place
-   * Graph API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/checkin">Place Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
@@ -82,9 +78,7 @@ public class Checkin extends FacebookType {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Represents the <a
-     * href="http://developers.facebook.com/docs/reference/api/checkin">Location
-     * Graph API type</a>.
+     * Represents the <a href="http://developers.facebook.com/docs/reference/api/checkin">Location Graph API type</a>.
      * 
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.6
@@ -217,11 +211,9 @@ public class Checkin extends FacebookType {
   }
 
   /**
-   * The ID, name, and location of the Facebook Page that represents the
-   * location of the check-in.
+   * The ID, name, and location of the Facebook Page that represents the location of the check-in.
    * 
-   * @return The ID, name, and location of the Facebook Page that represents the
-   *         location of the check-in.
+   * @return The ID, name, and location of the Facebook Page that represents the location of the check-in.
    */
   public com.restfb.types.Place getPlace() {
     return place;

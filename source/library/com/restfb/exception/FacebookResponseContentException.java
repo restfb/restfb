@@ -23,8 +23,7 @@
 package com.restfb.exception;
 
 /**
- * Indicates that the Facebook Graph API endpoint returned an unexpected
- * response body.
+ * Indicates that the Facebook Graph API endpoint returned an unexpected response body.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10

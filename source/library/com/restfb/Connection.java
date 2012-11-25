@@ -37,8 +37,7 @@ import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Represents a <a href="http://developers.facebook.com/docs/api">Graph API
- * Connection type</a>.
+ * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -119,12 +118,10 @@ public class Connection<T> implements Iterable<List<T>> {
    * Creates a connection with the given {@code jsonObject}.
    * 
    * @param facebookClient
-   *          The {@code FacebookClient} used to fetch additional pages and map
-   *          data to JSON objects.
+   *          The {@code FacebookClient} used to fetch additional pages and map data to JSON objects.
    * @param json
-   *          Raw JSON which must include a {@code data} field that holds a JSON
-   *          array and optionally a {@code paging} field that holds a JSON
-   *          object with next/previous page URLs.
+   *          Raw JSON which must include a {@code data} field that holds a JSON array and optionally a {@code paging}
+   *          field that holds a JSON object with next/previous page URLs.
    * @param connectionType
    *          Connection type token.
    * @throws FacebookJsonMappingException
@@ -174,8 +171,7 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   /**
-   * Fetches the next page of the connection. Designed to be used by
-   * {@link ConnectionIterator}.
+   * Fetches the next page of the connection. Designed to be used by {@link ConnectionIterator}.
    * 
    * @return The next page of the connection.
    * @since 1.6.7
@@ -220,8 +216,7 @@ public class Connection<T> implements Iterable<List<T>> {
   /**
    * This connection's "previous page of data" URL.
    * 
-   * @return This connection's "previous page of data" URL, or {@code null} if
-   *         there is no previous page.
+   * @return This connection's "previous page of data" URL, or {@code null} if there is no previous page.
    * @since 1.5.3
    */
   public String getPreviousPageUrl() {
@@ -231,8 +226,7 @@ public class Connection<T> implements Iterable<List<T>> {
   /**
    * This connection's "next page of data" URL.
    * 
-   * @return This connection's "next page of data" URL, or {@code null} if there
-   *         is no next page.
+   * @return This connection's "next page of data" URL, or {@code null} if there is no next page.
    * @since 1.5.3
    */
   public String getNextPageUrl() {
@@ -242,8 +236,7 @@ public class Connection<T> implements Iterable<List<T>> {
   /**
    * Does this connection have a previous page of data?
    * 
-   * @return {@code true} if there is a previous page of data for this
-   *         connection, {@code false} otherwise.
+   * @return {@code true} if there is a previous page of data for this connection, {@code false} otherwise.
    */
   public boolean hasPrevious() {
     return !isBlank(getPreviousPageUrl());
@@ -252,8 +245,7 @@ public class Connection<T> implements Iterable<List<T>> {
   /**
    * Does this connection have a next page of data?
    * 
-   * @return {@code true} if there is a next page of data for this connection,
-   *         {@code false} otherwise.
+   * @return {@code true} if there is a next page of data for this connection, {@code false} otherwise.
    */
   public boolean hasNext() {
     return !isBlank(getNextPageUrl());

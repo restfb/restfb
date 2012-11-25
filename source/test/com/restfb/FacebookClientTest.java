@@ -37,8 +37,7 @@ import com.restfb.types.User;
  */
 public class FacebookClientTest {
   /**
-   * Do we correctly handle the case where FB returns an OAuthException with an
-   * error code?
+   * Do we correctly handle the case where FB returns an OAuthException with an error code?
    */
   @Test
   public void oauthExceptionWithErrorCode() {
@@ -56,8 +55,7 @@ public class FacebookClientTest {
   }
 
   /**
-   * Do we correctly handle the case where FB returns an OAuthException without
-   * an error code?
+   * Do we correctly handle the case where FB returns an OAuthException without an error code?
    */
   @Test
   public void oauthExceptionWithoutErrorCode() {
@@ -75,8 +73,8 @@ public class FacebookClientTest {
   }
 
   /**
-   * Simple way to create a {@code FacebookClient} whose web requests always
-   * return the provided synthetic {@code response}.
+   * Simple way to create a {@code FacebookClient} whose web requests always return the provided synthetic
+   * {@code response}.
    * 
    * @param response
    *          The synthetic response to return.

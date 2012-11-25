@@ -40,8 +40,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 /**
- * Default implementation of a service that sends HTTP requests to the Facebook
- * API endpoint.
+ * Default implementation of a service that sends HTTP requests to the Facebook API endpoint.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -123,8 +122,7 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String,
-   *      java.lang.String)
+   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String)
    */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
@@ -132,8 +130,7 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String,
-   *      java.lang.String, com.restfb.BinaryAttachment[])
+   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, com.restfb.BinaryAttachment[])
    */
   @Override
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
@@ -215,8 +212,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * Given a {@code url}, opens and returns a connection to it.
    * <p>
-   * If you'd like to pipe your connection through a proxy, this is the place to
-   * do so.
+   * If you'd like to pipe your connection through a proxy, this is the place to do so.
    * 
    * @param url
    *          The URL to connect to.
@@ -230,10 +226,9 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
-   * Hook method which allows subclasses to easily customize the
-   * {@code connection}s created by {@link #executeGet(String)} and
-   * {@link #executePost(String, String)} - for example, setting a custom read
-   * timeout or request header.
+   * Hook method which allows subclasses to easily customize the {@code connection}s created by
+   * {@link #executeGet(String)} and {@link #executePost(String, String)} - for example, setting a custom read timeout
+   * or request header.
    * <p>
    * This implementation is a no-op.
    * 
@@ -243,8 +238,8 @@ public class DefaultWebRequestor implements WebRequestor {
   protected void customizeConnection(HttpURLConnection connection) {}
 
   /**
-   * Attempts to cleanly close a resource, swallowing any exceptions that might
-   * occur since there's no way to recover anyway.
+   * Attempts to cleanly close a resource, swallowing any exceptions that might occur since there's no way to recover
+   * anyway.
    * <p>
    * It's OK to pass {@code null} in, this method will no-op in that case.
    * 
@@ -263,8 +258,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
-   * Attempts to cleanly close an {@code HttpURLConnection}, swallowing any
-   * exceptions that might occur since there's no way to recover anyway.
+   * Attempts to cleanly close an {@code HttpURLConnection}, swallowing any exceptions that might occur since there's no
+   * way to recover anyway.
    * <p>
    * It's OK to pass {@code null} in, this method will no-op in that case.
    * 
@@ -283,8 +278,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
-   * Writes the contents of the {@code source} stream to the {@code destination}
-   * stream using the given {@code bufferSize}.
+   * Writes the contents of the {@code source} stream to the {@code destination} stream using the given
+   * {@code bufferSize}.
    * 
    * @param source
    *          The source stream to copy from.
@@ -293,8 +288,7 @@ public class DefaultWebRequestor implements WebRequestor {
    * @param bufferSize
    *          The size of the buffer to use during the copy operation.
    * @throws IOException
-   *           If an error occurs when reading from {@code source} or writing to
-   *           {@code destination}.
+   *           If an error occurs when reading from {@code source} or writing to {@code destination}.
    * @throws NullPointerException
    *           If either {@code source} or @{code destination} is {@code null}.
    */
@@ -309,9 +303,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
-   * Creates the form field name for the binary attachment filename by stripping
-   * off the file extension - for example, the filename "test.png" would return
-   * "test".
+   * Creates the form field name for the binary attachment filename by stripping off the file extension - for example,
+   * the filename "test.png" would return "test".
    * 
    * @param binaryAttachment
    *          The binary attachment for which to create the form field name.

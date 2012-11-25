@@ -29,9 +29,8 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/question_option"
- * >QuestionOption Graph API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/question_option" >QuestionOption Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10

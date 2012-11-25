@@ -25,9 +25,8 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/application"
- * >Application Graph API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/application" >Application Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
@@ -38,14 +37,13 @@ public class Application extends CategorizedFacebookType {
 
   @Facebook
   private String link;
-  
+
   private static final long serialVersionUID = 1L;
 
   /**
    * The description of the application written by the 3rd party developers.
    * 
-   * @return The description of the application written by the 3rd party
-   *         developers.
+   * @return The description of the application written by the 3rd party developers.
    */
   public String getDescription() {
     return description;

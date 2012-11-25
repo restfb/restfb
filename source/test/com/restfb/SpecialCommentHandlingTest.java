@@ -29,9 +29,8 @@ import org.junit.Test;
 import com.restfb.types.Post;
 
 /**
- * Facebook can return Post comment fields as an empty array instead of an empty
- * object. These tests ensure our JSON mapper correctly handles the different
- * forms of comments FB supports.
+ * Facebook can return Post comment fields as an empty array instead of an empty object. These tests ensure our JSON
+ * mapper correctly handles the different forms of comments FB supports.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5.4

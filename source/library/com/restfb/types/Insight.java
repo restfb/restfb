@@ -29,9 +29,7 @@ import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/insights" >Insight
- * Graph API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/insights" >Insight Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.3
@@ -47,10 +45,9 @@ public class Insight extends NamedFacebookType {
   private List<JsonObject> values = new ArrayList<JsonObject>();
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
-   * Length of the period during which the insights were collected, e.g. 'day',
-   * 'week' or 'month'.
+   * Length of the period during which the insights were collected, e.g. 'day', 'week' or 'month'.
    * 
    * @return Length of the period during which the insights were collected.
    */
@@ -68,8 +65,7 @@ public class Insight extends NamedFacebookType {
   }
 
   /**
-   * Data for this Insight as a list of
-   * <tt>{@link com.restfb.json.JsonObject}</tt> because its structure can vary
+   * Data for this Insight as a list of <tt>{@link com.restfb.json.JsonObject}</tt> because its structure can vary
    * depending on which type of Insight you're looking at.
    * 
    * @return Data for this Insight.

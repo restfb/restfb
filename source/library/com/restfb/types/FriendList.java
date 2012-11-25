@@ -25,9 +25,8 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="https://developers.facebook.com/docs/reference/api/FriendList"
- * >FriendList Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/reference/api/FriendList" >FriendList Graph API
+ * type</a>.
  * 
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -40,9 +39,8 @@ public class FriendList extends NamedFacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The type of the friends list; Possible values are: {@code close_friends},
-   * {@code acquaintances}, {@code restricted}, {@code user_created},
-   * {@code education}, {@code work}, {@code current_city} or {@code family}.
+   * The type of the friends list; Possible values are: {@code close_friends}, {@code acquaintances}, {@code restricted}
+   * , {@code user_created}, {@code education}, {@code work}, {@code current_city} or {@code family}.
    * 
    * @return The type of the friends list.
    */

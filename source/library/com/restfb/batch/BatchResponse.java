@@ -31,8 +31,7 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Encapsulates a discrete part of an entire <a
- * href="https://developers.facebook.com/docs/reference/api/batch/"
+ * Encapsulates a discrete part of an entire <a href="https://developers.facebook.com/docs/reference/api/batch/"
  * target="_blank">Facebook Batch API</a> response.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -49,14 +48,13 @@ public class BatchResponse {
   private List<BatchHeader> headers = new ArrayList<BatchHeader>();
 
   /**
-   * "Magic" no-argument constructor so we can reflectively make instances of
-   * this class with DefaultJsonMapper, but normal client code cannot.
+   * "Magic" no-argument constructor so we can reflectively make instances of this class with DefaultJsonMapper, but
+   * normal client code cannot.
    */
   protected BatchResponse() {}
 
   /**
-   * Creates a batch response with the given HTTP response status code, headers,
-   * and JSON body.
+   * Creates a batch response with the given HTTP response status code, headers, and JSON body.
    * 
    * @param code
    *          HTTP status code.

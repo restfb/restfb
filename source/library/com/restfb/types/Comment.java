@@ -29,9 +29,7 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/event">Comment Graph
- * API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Comment Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -91,9 +89,8 @@ public class Comment extends FacebookType {
    * The number of likes on this comment.
    * 
    * @return The number of likes on this comment.
-   * @deprecated As of September 5, 2012, Facebook is changing over to
-   *             {@code like_count}, so this method will be replaced by
-   *             {@link #likeCount}.
+   * @deprecated As of September 5, 2012, Facebook is changing over to {@code like_count}, so this method will be
+   *             replaced by {@link #likeCount}.
    */
   @Deprecated
   public Long getLikes() {
@@ -111,11 +108,9 @@ public class Comment extends FacebookType {
   }
 
   /**
-   * This field is returned only if the authenticated user can remove this
-   * comment.
+   * This field is returned only if the authenticated user can remove this comment.
    * 
-   * @return This field is returned only if the authenticated user can remove
-   *         this comment.
+   * @return This field is returned only if the authenticated user can remove this comment.
    * @since 1.6.10
    */
   public Boolean getCanRemove() {
@@ -125,8 +120,7 @@ public class Comment extends FacebookType {
   /**
    * This field is returned only if the authenticated user likes this comment
    * 
-   * @return This field is returned only if the authenticated user likes this
-   *         comment.
+   * @return This field is returned only if the authenticated user likes this comment.
    * @since 1.6.10
    */
   public Boolean getUserLikes() {

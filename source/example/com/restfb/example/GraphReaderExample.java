@@ -60,8 +60,7 @@ public class GraphReaderExample extends Example {
   private final FacebookClient facebookClient;
 
   /**
-   * Entry point. You must provide a single argument on the command line: a
-   * valid Graph API access token.
+   * Entry point. You must provide a single argument on the command line: a valid Graph API access token.
    * 
    * @param args
    *          Command-line arguments.

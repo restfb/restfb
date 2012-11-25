@@ -25,10 +25,8 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Superclass for <a
- * href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>
- * that include a {@code name} field and (optionally) a {@code created_time}
- * field.
+ * Superclass for <a href="http://developers.facebook.com/docs/reference/api/">Graph API types</a> that include a
+ * {@code name} field and (optionally) a {@code created_time} field.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -36,7 +34,7 @@ import com.restfb.Facebook;
 public class NamedFacebookType extends FacebookType {
   @Facebook
   private String name;
-  
+
   private static final long serialVersionUID = 1L;
 
   /**

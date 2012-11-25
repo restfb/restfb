@@ -49,8 +49,7 @@ public class BinaryAttachment {
    * @param data
    *          The attachment's data.
    * @throws IllegalArgumentException
-   *           If {@code data} is {@code null} or {@code filename} is
-   *           {@code null} or blank.
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
    */
   protected BinaryAttachment(String filename, InputStream data) {
     if (isBlank(filename))
@@ -71,8 +70,7 @@ public class BinaryAttachment {
    *          The attachment's data.
    * @return A binary attachment.
    * @throws IllegalArgumentException
-   *           If {@code data} is {@code null} or {@code filename} is
-   *           {@code null} or blank.
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
    */
   public static BinaryAttachment with(String filename, InputStream data) {
     return new BinaryAttachment(filename, data);

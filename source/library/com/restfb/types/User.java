@@ -37,9 +37,7 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/user">User Graph API
- * type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">User Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Patrick Alberts
@@ -101,15 +99,13 @@ public class User extends NamedFacebookType {
   private String username;
 
   /**
-   * Duplicate mapping for "hometown" since FB can return it differently in
-   * different situations.
+   * Duplicate mapping for "hometown" since FB can return it differently in different situations.
    */
   @Facebook
   private NamedFacebookType hometown;
 
   /**
-   * Duplicate mapping for "hometown" since FB can return it differently in
-   * different situations.
+   * Duplicate mapping for "hometown" since FB can return it differently in different situations.
    */
   @Facebook("hometown")
   private String hometownAsString;
@@ -153,9 +149,7 @@ public class User extends NamedFacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/user">Work Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Work Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
@@ -275,9 +269,7 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/user">Education
-   * Graph API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Education Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
@@ -397,9 +389,7 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/user">Class Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Class Graph API type</a>.
    * 
    * @author Mark Allen
    * @since 1.6.8
@@ -433,9 +423,7 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/user">Sport Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Sport Graph API type</a>.
    * 
    * @author Patrick Alberts
    * @since 1.6.3
@@ -513,9 +501,8 @@ public class User extends NamedFacebookType {
   /**
    * The user's birthday as a {@code String}.
    * <p>
-   * Will always succeed, even if the user has specified month/year format only.
-   * If you'd like to use a typed version of this accessor, call
-   * {@link #getBirthdayAsDate()} instead.
+   * Will always succeed, even if the user has specified month/year format only. If you'd like to use a typed version of
+   * this accessor, call {@link #getBirthdayAsDate()} instead.
    * 
    * @return The user's birthday as a {@code String}.
    */
@@ -526,8 +513,7 @@ public class User extends NamedFacebookType {
   /**
    * The user's birthday, typed to {@code java.util.Date} if possible.
    * 
-   * @return The user's birthday, or {@code null} if unavailable or only
-   *         available in month/year format.
+   * @return The user's birthday, or {@code null} if unavailable or only available in month/year format.
    */
   public Date getBirthdayAsDate() {
     if (isBlank(getBirthday()) || getBirthday().split("/").length < 2)
@@ -648,8 +634,7 @@ public class User extends NamedFacebookType {
   /**
    * The user's hometown.
    * <p>
-   * Sometimes this can be {@code null} - check {@link #getHometownName()}
-   * instead in that case.
+   * Sometimes this can be {@code null} - check {@link #getHometownName()} instead in that case.
    * 
    * @return The user's hometown.
    */

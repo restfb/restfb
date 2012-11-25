@@ -33,10 +33,9 @@ import java.util.List;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/page/#conversations">
- * Conversation Graph API type</a>.
- *
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/page/#conversations"> Conversation Graph
+ * API type</a>.
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Felipe Kurkowski
  */
@@ -51,9 +50,8 @@ public class Conversation extends FacebookType {
   private Long messageCount;
 
   /**
-   * Facebook does not send the unread count if there aren't any new messages.
-   * In order to keep data consistency, we set the default value to zero. If
-   * this value is sent, the {@link com.restfb.JsonMapper} will override it.
+   * Facebook does not send the unread count if there aren't any new messages. In order to keep data consistency, we set
+   * the default value to zero. If this value is sent, the {@link com.restfb.JsonMapper} will override it.
    */
   @Facebook("unread_count")
   private Long unreadCount = 0L;
@@ -79,10 +77,9 @@ public class Conversation extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/page/#conversations">
-   * Tag Graph API type</a>.
-   *
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/page/#conversations"> Tag Graph API
+   * type</a>.
+   * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Felipe Kurkowski
    */
@@ -119,7 +116,7 @@ public class Conversation extends FacebookType {
 
     /**
      * The name field for this type.
-     *
+     * 
      * @return The name field for this type.
      */
     public String getName() {
@@ -129,7 +126,7 @@ public class Conversation extends FacebookType {
 
   /**
    * The title of a message in the conversation
-   *
+   * 
    * @return The title of a message in the conversation
    */
   public String getSnippet() {
@@ -138,7 +135,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Last update time of the conversation
-   *
+   * 
    * @return Last update time of the conversation
    */
   public Date getUpdatedTime() {
@@ -147,7 +144,7 @@ public class Conversation extends FacebookType {
 
   /**
    * The number of messages in the conversation
-   *
+   * 
    * @return The number of messages in the conversation
    */
   public Long getMessageCount() {
@@ -156,7 +153,7 @@ public class Conversation extends FacebookType {
 
   /**
    * The number of unread messages in the conversation
-   *
+   * 
    * @return The number of unread messages in the conversation
    */
   public Long getUnreadCount() {
@@ -164,11 +161,9 @@ public class Conversation extends FacebookType {
   }
 
   /**
-   * A list of tags indicating the message folder, and whether the conversation
-   * is read and seen.
-   *
-   * @return A list of tags indicating the message folder, and whether the
-   *         conversation is read and seen.
+   * A list of tags indicating the message folder, and whether the conversation is read and seen.
+   * 
+   * @return A list of tags indicating the message folder, and whether the conversation is read and seen.
    */
   public List<Tag> getTags() {
     return tags;
@@ -176,7 +171,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Users who are on this message conversation
-   *
+   * 
    * @return Users who are on this message conversation
    */
   public List<NamedFacebookType> getParticipants() {
@@ -185,7 +180,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Users who send a message on the conversation
-   *
+   * 
    * @return Users who send a message on the conversation
    */
   public List<NamedFacebookType> getSenders() {
@@ -194,7 +189,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Whether The Page can reply to the conversation
-   *
+   * 
    * @return Whether The Page can reply to the conversation
    */
   public Boolean getCanReply() {
@@ -203,7 +198,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Whether you are subscribed to the conversation
-   *
+   * 
    * @return Whether you are subscribed to the conversation
    */
   public Boolean getSubscribed() {
@@ -212,7 +207,7 @@ public class Conversation extends FacebookType {
 
   /**
    * List of all messages in the conversation
-   *
+   * 
    * @return List of all messages in the conversation
    */
   public List<Message> getMessages() {

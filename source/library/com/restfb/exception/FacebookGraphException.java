@@ -25,8 +25,7 @@ package com.restfb.exception;
 import static java.lang.String.format;
 
 /**
- * Indicates that the Facebook Graph API endpoint returned JSON which indicates
- * an error condition.
+ * Indicates that the Facebook Graph API endpoint returned JSON which indicates an error condition.
  * <p>
  * Example:<code>
   {
@@ -91,7 +90,7 @@ public class FacebookGraphException extends FacebookException {
   public String getErrorMessage() {
     return errorMessage;
   }
-  
+
   /**
    * Gets the HTTP status code returned by the server.
    * 

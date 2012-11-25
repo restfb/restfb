@@ -29,8 +29,7 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * Represents a Connection to a <a
- * href="http://developers.facebook.com/docs/reference/api/page">Page Graph API
+ * Represents a Connection to a <a href="http://developers.facebook.com/docs/reference/api/page">Page Graph API
  * type</a>, for example the Pages returned from {@code me/music}.
  * 
  * @author Patrick Alberts

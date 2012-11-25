@@ -31,8 +31,7 @@ import com.restfb.util.ReflectionUtils;
 
 /**
  * Base class which encapsulates behavior and properties common to most <a
- * href="http://developers.facebook.com/docs/reference/api/">Graph API
- * types</a>.
+ * href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -83,32 +82,26 @@ public class FacebookType implements Serializable {
   }
 
   /**
-   * This object's metadata, available by including the {@code metadata=1} URL
-   * parameter in an API request.
+   * This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
    * 
-   * @return This object's metadata, available by including the
-   *         {@code metadata=1} URL parameter in an API request.
+   * @return This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
    */
   public Metadata getMetadata() {
     return metadata;
   }
 
   /**
-   * This object's type metadata, available by including the {@code metadata=1}
-   * URL parameter in an API request.
+   * This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
    * 
-   * @return This object's type metadata, available by including the
-   *         {@code metadata=1} URL parameter in an API request.
+   * @return This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
    */
   public String getType() {
     return type;
   }
 
   /**
-   * Represents <a
-   * href="http://developers.facebook.com/docs/api#introspection">Facebook
-   * Object metadata</a>, available by including the {@code metadata=1} URL
-   * parameter in an API request.
+   * Represents <a href="http://developers.facebook.com/docs/api#introspection">Facebook Object metadata</a>, available
+   * by including the {@code metadata=1} URL parameter in an API request.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
@@ -144,10 +137,8 @@ public class FacebookType implements Serializable {
     }
 
     /**
-     * Represents <a
-     * href="http://developers.facebook.com/docs/api#introspection">Facebook
-     * Object connections metadata</a>, available by including the
-     * {@code metadata=1} URL parameter in an API request.
+     * Represents <a href="http://developers.facebook.com/docs/api#introspection">Facebook Object connections
+     * metadata</a>, available by including the {@code metadata=1} URL parameter in an API request.
      * 
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.5
@@ -257,8 +248,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'home' connection?
        * 
-       * @return {@code true} if this object has a 'home' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'home' connection, {@code false} otherwise.
        */
       public Boolean hasHome() {
         return !isBlank(home);
@@ -267,8 +257,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'feed' connection?
        * 
-       * @return {@code true} if this object has a 'feed' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'feed' connection, {@code false} otherwise.
        */
       public Boolean hasFeed() {
         return !isBlank(feed);
@@ -277,8 +266,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'friends' connection?
        * 
-       * @return {@code true} if this object has a 'friends' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'friends' connection, {@code false} otherwise.
        */
       public Boolean hasFriends() {
         return !isBlank(friends);
@@ -287,8 +275,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'family' connection?
        * 
-       * @return {@code true} if this object has a 'family' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'family' connection, {@code false} otherwise.
        */
       public Boolean hasFamily() {
         return !isBlank(family);
@@ -297,8 +284,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have an 'activities' connection?
        * 
-       * @return {@code true} if this object has an 'activities' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has an 'activities' connection, {@code false} otherwise.
        */
       public Boolean hasActivities() {
         return !isBlank(activities);
@@ -307,8 +293,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have an 'interests' connection?
        * 
-       * @return {@code true} if this object has an 'interests' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has an 'interests' connection, {@code false} otherwise.
        */
       public Boolean hasInterests() {
         return !isBlank(interests);
@@ -317,8 +302,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'music' connection?
        * 
-       * @return {@code true} if this object has a 'music' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'music' connection, {@code false} otherwise.
        */
       public Boolean hasMusic() {
         return !isBlank(music);
@@ -327,8 +311,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'books' connection?
        * 
-       * @return {@code true} if this object has a 'books' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'books' connection, {@code false} otherwise.
        */
       public Boolean hasBooks() {
         return !isBlank(books);
@@ -337,8 +320,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'movies' connection?
        * 
-       * @return {@code true} if this object has a 'movies' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'movies' connection, {@code false} otherwise.
        */
       public Boolean hasMovies() {
         return !isBlank(movies);
@@ -347,8 +329,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'television' connection?
        * 
-       * @return {@code true} if this object has a 'television' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'television' connection, {@code false} otherwise.
        */
       public Boolean hasTelevision() {
         return !isBlank(television);
@@ -357,8 +338,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'likes' connection?
        * 
-       * @return {@code true} if this object has a 'likes' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'likes' connection, {@code false} otherwise.
        */
       public Boolean hasLikes() {
         return !isBlank(likes);
@@ -367,8 +347,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'posts' connection?
        * 
-       * @return {@code true} if this object has a 'posts' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'posts' connection, {@code false} otherwise.
        */
       public Boolean hasPosts() {
         return !isBlank(posts);
@@ -377,8 +356,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'tagged' connection?
        * 
-       * @return {@code true} if this object has a 'tagged' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'tagged' connection, {@code false} otherwise.
        */
       public Boolean hasTagged() {
         return !isBlank(tagged);
@@ -387,8 +365,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'statuses' connection?
        * 
-       * @return {@code true} if this object has a 'statuses' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'statuses' connection, {@code false} otherwise.
        */
       public Boolean hasStatuses() {
         return !isBlank(statuses);
@@ -397,8 +374,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'links' connection?
        * 
-       * @return {@code true} if this object has a 'links' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'links' connection, {@code false} otherwise.
        */
       public Boolean hasLinks() {
         return !isBlank(links);
@@ -407,8 +383,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'notes' connection?
        * 
-       * @return {@code true} if this object has a 'notes' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'notes' connection, {@code false} otherwise.
        */
       public Boolean hasNotes() {
         return !isBlank(notes);
@@ -417,8 +392,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'photos' connection?
        * 
-       * @return {@code true} if this object has a 'photos' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'photos' connection, {@code false} otherwise.
        */
       public Boolean hasPhotos() {
         return !isBlank(photos);
@@ -427,8 +401,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have an 'albums' connection?
        * 
-       * @return {@code true} if this object has an 'albums' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has an 'albums' connection, {@code false} otherwise.
        */
       public Boolean hasAlbums() {
         return !isBlank(albums);
@@ -437,8 +410,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have an 'events' connection?
        * 
-       * @return {@code true} if this object has an 'events' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has an 'events' connection, {@code false} otherwise.
        */
       public Boolean hasEvents() {
         return !isBlank(events);
@@ -447,8 +419,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'groups' connection?
        * 
-       * @return {@code true} if this object has a 'groups' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'groups' connection, {@code false} otherwise.
        */
       public Boolean hasGroups() {
         return !isBlank(groups);
@@ -457,8 +428,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'videos' connection?
        * 
-       * @return {@code true} if this object has a 'videos' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'videos' connection, {@code false} otherwise.
        */
       public Boolean hasVideos() {
         return !isBlank(videos);
@@ -467,8 +437,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have a 'picture' connection?
        * 
-       * @return {@code true} if this object has a 'picture' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has a 'picture' connection, {@code false} otherwise.
        */
       public Boolean hasPicture() {
         return !isBlank(picture);
@@ -477,8 +446,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have an 'inbox' connection?
        * 
-       * @return {@code true} if this object has an 'inbox' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has an 'inbox' connection, {@code false} otherwise.
        */
       public Boolean hasInbox() {
         return !isBlank(inbox);
@@ -487,8 +455,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have an 'outbox' connection?
        * 
-       * @return {@code true} if this object has an 'outbox' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has an 'outbox' connection, {@code false} otherwise.
        */
       public Boolean hasOutbox() {
         return !isBlank(outbox);
@@ -497,8 +464,7 @@ public class FacebookType implements Serializable {
       /**
        * Does this object have an 'updates' connection?
        * 
-       * @return {@code true} if this object has an 'updates' connection,
-       *         {@code false} otherwise.
+       * @return {@code true} if this object has an 'updates' connection, {@code false} otherwise.
        */
       public Boolean hasUpdates() {
         return !isBlank(updates);
@@ -507,8 +473,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'home' connection URL.
        * 
-       * @return This object's 'home' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'home' connection URL, or {@code null} if it doesn't have one.
        */
       public String getHome() {
         return home;
@@ -517,8 +482,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'feed' connection URL.
        * 
-       * @return This object's 'feed' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'feed' connection URL, or {@code null} if it doesn't have one.
        */
       public String getFeed() {
         return feed;
@@ -527,8 +491,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'friends' connection URL.
        * 
-       * @return This object's 'friends' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'friends' connection URL, or {@code null} if it doesn't have one.
        */
       public String getFriends() {
         return friends;
@@ -537,8 +500,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'family' connection URL.
        * 
-       * @return This object's 'family' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'family' connection URL, or {@code null} if it doesn't have one.
        */
       public String getFamily() {
         return family;
@@ -547,8 +509,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'activities' connection URL.
        * 
-       * @return This object's 'activities' connection URL, or {@code null} if
-       *         it doesn't have one.
+       * @return This object's 'activities' connection URL, or {@code null} if it doesn't have one.
        */
       public String getActivities() {
         return activities;
@@ -557,8 +518,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'interests' connection URL.
        * 
-       * @return This object's 'interests' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'interests' connection URL, or {@code null} if it doesn't have one.
        */
       public String getInterests() {
         return interests;
@@ -567,8 +527,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'music' connection URL.
        * 
-       * @return This object's 'music' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'music' connection URL, or {@code null} if it doesn't have one.
        */
       public String getMusic() {
         return music;
@@ -577,8 +536,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'books' connection URL.
        * 
-       * @return This object's 'books' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'books' connection URL, or {@code null} if it doesn't have one.
        */
       public String getBooks() {
         return books;
@@ -587,8 +545,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'movies' connection URL.
        * 
-       * @return This object's 'movies' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'movies' connection URL, or {@code null} if it doesn't have one.
        */
       public String getMovies() {
         return movies;
@@ -597,8 +554,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'television' connection URL.
        * 
-       * @return This object's 'television' connection URL, or {@code null} if
-       *         it doesn't have one.
+       * @return This object's 'television' connection URL, or {@code null} if it doesn't have one.
        */
       public String getTelevision() {
         return television;
@@ -607,8 +563,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'likes' connection URL.
        * 
-       * @return This object's 'likes' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'likes' connection URL, or {@code null} if it doesn't have one.
        */
       public String getLikes() {
         return likes;
@@ -617,8 +572,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'posts' connection URL.
        * 
-       * @return This object's 'posts' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'posts' connection URL, or {@code null} if it doesn't have one.
        */
       public String getPosts() {
         return posts;
@@ -627,8 +581,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'tagged' connection URL.
        * 
-       * @return This object's 'tagged' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'tagged' connection URL, or {@code null} if it doesn't have one.
        */
       public String getTagged() {
         return tagged;
@@ -637,8 +590,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'statuses' connection URL.
        * 
-       * @return This object's 'statuses' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'statuses' connection URL, or {@code null} if it doesn't have one.
        */
       public String getStatuses() {
         return statuses;
@@ -647,8 +599,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'links' connection URL.
        * 
-       * @return This object's 'links' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'links' connection URL, or {@code null} if it doesn't have one.
        */
       public String getLinks() {
         return links;
@@ -657,8 +608,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'notes' connection URL.
        * 
-       * @return This object's 'notes' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'notes' connection URL, or {@code null} if it doesn't have one.
        */
       public String getNotes() {
         return notes;
@@ -667,8 +617,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'photos' connection URL.
        * 
-       * @return This object's 'photos' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'photos' connection URL, or {@code null} if it doesn't have one.
        */
       public String getPhotos() {
         return photos;
@@ -677,8 +626,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'albums' connection URL.
        * 
-       * @return This object's 'albums' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'albums' connection URL, or {@code null} if it doesn't have one.
        */
       public String getAlbums() {
         return albums;
@@ -687,8 +635,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'events' connection URL.
        * 
-       * @return This object's 'events' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'events' connection URL, or {@code null} if it doesn't have one.
        */
       public String getEvents() {
         return events;
@@ -697,8 +644,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'groups' connection URL.
        * 
-       * @return This object's 'groups' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'groups' connection URL, or {@code null} if it doesn't have one.
        */
       public String getGroups() {
         return groups;
@@ -707,8 +653,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'videos' connection URL.
        * 
-       * @return This object's 'videos' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'videos' connection URL, or {@code null} if it doesn't have one.
        */
       public String getVideos() {
         return videos;
@@ -717,8 +662,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'picture' connection URL.
        * 
-       * @return This object's 'picture' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'picture' connection URL, or {@code null} if it doesn't have one.
        */
       public String getPicture() {
         return picture;
@@ -727,8 +671,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'inbox' connection URL.
        * 
-       * @return This object's 'inbox' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'inbox' connection URL, or {@code null} if it doesn't have one.
        */
       public String getInbox() {
         return inbox;
@@ -737,8 +680,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'outbox' connection URL.
        * 
-       * @return This object's 'outbox' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'outbox' connection URL, or {@code null} if it doesn't have one.
        */
       public String getOutbox() {
         return outbox;
@@ -747,8 +689,7 @@ public class FacebookType implements Serializable {
       /**
        * This object's 'updates' connection URL.
        * 
-       * @return This object's 'updates' connection URL, or {@code null} if it
-       *         doesn't have one.
+       * @return This object's 'updates' connection URL, or {@code null} if it doesn't have one.
        */
       public String getUpdates() {
         return updates;

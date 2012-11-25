@@ -47,8 +47,7 @@ public class DateUtilsTest {
   }
 
   /**
-   * FB uses "long" date formats with and without timezones. Make sure we handle
-   * both gracefully.
+   * FB uses "long" date formats with and without timezones. Make sure we handle both gracefully.
    */
   @Test
   public void longDates() {

@@ -28,9 +28,7 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/page">Page Graph API
- * type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Page Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -96,9 +94,7 @@ public class Page extends CategorizedFacebookType {
   private static final long serialVersionUID = 2L;
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/page">Cover Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Cover Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
@@ -270,8 +266,7 @@ public class Page extends CategorizedFacebookType {
   /**
    * The phone number (not always normalized for country code) for the Page.
    * 
-   * @return The phone number (not always normalized for country code) for the
-   *         Page.
+   * @return The phone number (not always normalized for country code) for the Page.
    */
   public String getPhone() {
     return phone;
@@ -280,8 +275,8 @@ public class Page extends CategorizedFacebookType {
   /**
    * The access token specific to this page.
    * <p>
-   * This value will only be available for pages if the application accessing
-   * this page has been given {@code manage_page} permissions.
+   * This value will only be available for pages if the application accessing this page has been given
+   * {@code manage_page} permissions.
    * 
    * @return The access token specific to this page.
    * @since 1.6.5
@@ -303,8 +298,7 @@ public class Page extends CategorizedFacebookType {
   /**
    * The number of people that are talking about this page (last seven days).
    * 
-   * @return The number of people that are talking about this page (last seven
-   *         days).
+   * @return The number of people that are talking about this page (last seven days).
    * @since 1.6.10
    */
   public Long getTalkingAboutCount() {

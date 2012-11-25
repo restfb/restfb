@@ -25,14 +25,12 @@ package com.restfb.exception;
 import static java.lang.String.format;
 
 /**
- * Indicates that the Legacy REST Facebook endpoint returned JSON which
- * indicates an error condition.
+ * Indicates that the Legacy REST Facebook endpoint returned JSON which indicates an error condition.
  * <p>
- * This exception may also be thrown when executing certain operations against
- * the Graph API, e.g. FQL queries or Batch API calls.
+ * This exception may also be thrown when executing certain operations against the Graph API, e.g. FQL queries or Batch
+ * API calls.
  * <p>
- * Example:
- * <code>{"error_code": 2, "error_msg": "The service is not available at this time.", ...}</code>.
+ * Example: <code>{"error_code": 2, "error_msg": "The service is not available at this time.", ...}</code>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */

@@ -38,14 +38,12 @@ import java.util.logging.Logger;
  */
 public final class DateUtils {
   /**
-   * Facebook "long" date format (IETF RFC 3339). Example:
-   * {@code 2010-02-28T16:11:08+0000}
+   * Facebook "long" date format (IETF RFC 3339). Example: {@code 2010-02-28T16:11:08+0000}
    */
   public static final String FACEBOOK_LONG_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
   /**
-   * Facebook "long" date format (IETF RFC 3339) without a timezone component.
-   * Example: {@code 2010-02-28T16:11:08}
+   * Facebook "long" date format (IETF RFC 3339) without a timezone component. Example: {@code 2010-02-28T16:11:08}
    */
   public static final String FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss";
 
@@ -75,15 +73,14 @@ public final class DateUtils {
   private DateUtils() {}
 
   /**
-   * Returns a Java representation of a Facebook "long" {@code date} string, or
-   * the number of seconds since the epoch.
+   * Returns a Java representation of a Facebook "long" {@code date} string, or the number of seconds since the epoch.
    * <p>
    * Supports dates with or without timezone information.
    * 
    * @param date
    *          Facebook {@code date} string.
-   * @return Java date representation of the given Facebook "long" {@code date}
-   *         string or {@code null} if {@code date} is {@code null} or invalid.
+   * @return Java date representation of the given Facebook "long" {@code date} string or {@code null} if {@code date}
+   *         is {@code null} or invalid.
    */
   public static Date toDateFromLongFormat(String date) {
     if (date == null)
@@ -108,8 +105,8 @@ public final class DateUtils {
    * 
    * @param date
    *          Facebook {@code date} string.
-   * @return Java date representation of the given Facebook "short" {@code date}
-   *         string or {@code null} if {@code date} is {@code null} or invalid.
+   * @return Java date representation of the given Facebook "short" {@code date} string or {@code null} if {@code date}
+   *         is {@code null} or invalid.
    */
   public static Date toDateFromShortFormat(String date) {
     if (date == null)
@@ -125,14 +122,12 @@ public final class DateUtils {
   }
 
   /**
-   * Returns a Java representation of a Facebook "month-year" {@code date}
-   * string.
+   * Returns a Java representation of a Facebook "month-year" {@code date} string.
    * 
    * @param date
    *          Facebook {@code date} string.
-   * @return Java date representation of the given Facebook "month-year"
-   *         {@code date} string or {@code null} if {@code date} is {@code null}
-   *         or invalid.
+   * @return Java date representation of the given Facebook "month-year" {@code date} string or {@code null} if
+   *         {@code date} is {@code null} or invalid.
    */
   public static Date toDateFromMonthYearFormat(String date) {
     if (date == null)
@@ -149,8 +144,8 @@ public final class DateUtils {
    * 
    * @param date
    *          Date in string format.
-   * @return Java date representation of the given {@code date} string or
-   *         {@code null} if {@code date} is {@code null} or invalid.
+   * @return Java date representation of the given {@code date} string or {@code null} if {@code date} is {@code null}
+   *         or invalid.
    */
   private static Date toDateWithFormatString(String date, String format) {
     if (date == null)

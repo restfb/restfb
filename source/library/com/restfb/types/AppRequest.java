@@ -29,9 +29,8 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="https://developers.facebook.com/docs/reference/api/user/#apprequests"
- * >App Request Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/reference/api/user/#apprequests" >App Request Graph API
+ * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
@@ -55,9 +54,7 @@ public class AppRequest extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/page">Cover Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Cover Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10

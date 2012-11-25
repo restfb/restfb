@@ -37,8 +37,7 @@ import java.lang.annotation.Target;
 @Target(FIELD)
 public @interface Facebook {
   /**
-   * Name of the Facebook API result attribute to map to - {@code affiliation},
-   * for example.
+   * Name of the Facebook API result attribute to map to - {@code affiliation}, for example.
    * 
    * @return Name of the Facebook API result attribute to map to.
    */

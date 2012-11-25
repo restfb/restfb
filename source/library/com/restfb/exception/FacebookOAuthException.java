@@ -23,8 +23,8 @@
 package com.restfb.exception;
 
 /**
- * Indicates that the Facebook Graph API endpoint returned JSON which indicates
- * an error condition related to the OAuth token included in the request.
+ * Indicates that the Facebook Graph API endpoint returned JSON which indicates an error condition related to the OAuth
+ * token included in the request.
  * <p>
  * Example:<code>
   {

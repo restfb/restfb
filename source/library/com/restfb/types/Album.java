@@ -29,9 +29,7 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/album">Album Graph
- * API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/album">Album Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -72,8 +70,7 @@ public class Album extends NamedFacebookType {
   /**
    * An object containing the ID and name of the profile who posted this album.
    * 
-   * @return An object containing the ID and name of the profile who posted this
-   *         album.
+   * @return An object containing the ID and name of the profile who posted this album.
    */
   public CategorizedFacebookType getFrom() {
     return from;

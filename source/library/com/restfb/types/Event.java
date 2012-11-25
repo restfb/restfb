@@ -30,9 +30,7 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/event">Event Graph
- * API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -70,8 +68,7 @@ public class Event extends NamedFacebookType {
   /**
    * An object containing the name and ID of the user who owns the event
    * 
-   * @return An object containing the name and ID of the user who owns the
-   *         event.
+   * @return An object containing the name and ID of the user who owns the event.
    */
   public NamedFacebookType getOwner() {
     return owner;

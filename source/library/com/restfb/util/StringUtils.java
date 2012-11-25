@@ -68,14 +68,13 @@ public final class StringUtils {
   }
 
   /**
-   * Returns a trimmed version of {@code string}, or {@code null} if
-   * {@code string} is {@code null} or the trimmed version is a blank string.
+   * Returns a trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
+   * version is a blank string.
    * 
    * @param string
    *          The string to trim.
-   * @return A trimmed version of {@code string}, or {@code null} if
-   *         {@code string} is {@code null} or the trimmed version is a blank
-   *         string.
+   * @return A trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
+   *         version is a blank string.
    */
   public static String trimToNull(String string) {
     if (isBlank(string))
@@ -84,14 +83,13 @@ public final class StringUtils {
   }
 
   /**
-   * Returns a trimmed version of {@code string}, or an empty string if
-   * {@code string} is {@code null} or the trimmed version is a blank string.
+   * Returns a trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
+   * version is a blank string.
    * 
    * @param string
    *          The string to trim.
-   * @return A trimmed version of {@code string}, or an empty string if
-   *         {@code string} is {@code null} or the trimmed version is a blank
-   *         string.
+   * @return A trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
+   *         version is a blank string.
    */
   public static String trimToEmpty(String string) {
     if (isBlank(string))
@@ -111,8 +109,7 @@ public final class StringUtils {
    * @throws NullPointerException
    *           If {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to URL-encode because the JVM doesn't support
-   *           {@value #ENCODING_CHARSET}.
+   *           If unable to URL-encode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
     if (string == null)
@@ -126,8 +123,7 @@ public final class StringUtils {
   }
 
   /**
-   * Builds and returns a string representation of the given {@code inputStream}
-   * .
+   * Builds and returns a string representation of the given {@code inputStream} .
    * 
    * @param inputStream
    *          The stream from which a string representation is built.
@@ -200,14 +196,13 @@ public final class StringUtils {
   }
 
   /**
-   * Returns an {@code Integer} representation of the given {@code string}, or
-   * {@code null} if it's not a valid {@code Integer}.
+   * Returns an {@code Integer} representation of the given {@code string}, or {@code null} if it's not a valid
+   * {@code Integer}.
    * 
    * @param string
    *          The string to process.
-   * @return The {@code Integer} representation of {@code string}, or
-   *         {@code null} if {@code string} is {@code null} or not a valid
-   *         {@code Integer}.
+   * @return The {@code Integer} representation of {@code string}, or {@code null} if {@code string} is {@code null} or
+   *         not a valid {@code Integer}.
    */
   public static Integer toInteger(String string) {
     if (string == null)

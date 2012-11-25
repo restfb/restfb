@@ -44,8 +44,7 @@ import com.restfb.types.Post;
 import com.restfb.types.User;
 
 /**
- * Unit tests that exercise {@link JsonMapper} implementations, specifically the
- * "convert JSON to Java" functionality.
+ * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -154,8 +153,8 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   /**
-   * Can we handle slightly-more-complex mapping, including the workaround for
-   * Facebook's "we gave you an empty object instead of an empty list" bug?
+   * Can we handle slightly-more-complex mapping, including the workaround for Facebook's
+   * "we gave you an empty object instead of an empty list" bug?
    */
   @Test
   public void usersWithAffiliations() {
@@ -219,8 +218,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   /**
-   * Can we successfully map the case where Facebook sends us an empty array
-   * instead of an empty string?
+   * Can we successfully map the case where Facebook sends us an empty array instead of an empty string?
    */
   @Test
   public void emptyArray() {
@@ -229,8 +227,8 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   /**
-   * Workaround where Facebook can return the illegal JSON "false" instead of an
-   * object - just map as null instead of throwing an exception.
+   * Workaround where Facebook can return the illegal JSON "false" instead of an object - just map as null instead of
+   * throwing an exception.
    */
   @Test
   public void testFalseInsteadOfObject() {
@@ -260,8 +258,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   /**
-   * Makes sure we handle "null" when inside of a list instead of throwing a
-   * mapping exception.
+   * Makes sure we handle "null" when inside of a list instead of throwing a mapping exception.
    */
   public void testNulls() {
     List<NamedFacebookType> types =

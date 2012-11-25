@@ -33,9 +33,7 @@ import java.util.List;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/status">Status
- * Message Graph API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/status">Status Message Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
@@ -57,8 +55,7 @@ public class StatusMessage extends NamedFacebookType {
   private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
 
   /**
-   * Hack so JSON mapping won't fail when FB returns inconsistent JSON when
-   * there are 0 likes.
+   * Hack so JSON mapping won't fail when FB returns inconsistent JSON when there are 0 likes.
    */
   @Facebook("likes")
   @SuppressWarnings("unused")
@@ -68,8 +65,7 @@ public class StatusMessage extends NamedFacebookType {
   private List<Comment> comments = new ArrayList<Comment>();
 
   /**
-   * Hack so JSON mapping won't fail when FB returns inconsistent JSON when
-   * there are 0 comments.
+   * Hack so JSON mapping won't fail when FB returns inconsistent JSON when there are 0 comments.
    */
   @Facebook("comments")
   @SuppressWarnings("unused")
@@ -78,9 +74,8 @@ public class StatusMessage extends NamedFacebookType {
   private static final long serialVersionUID = 2L;
 
   /**
-   * Sometimes Facebook will return <tt>"likes":{"count":0}</tt> instead of the
-   * connection-formatted likes object that's documented - this class handles
-   * that so JSON mapping won't fail.
+   * Sometimes Facebook will return <tt>"likes":{"count":0}</tt> instead of the connection-formatted likes object that's
+   * documented - this class handles that so JSON mapping won't fail.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
@@ -94,9 +89,8 @@ public class StatusMessage extends NamedFacebookType {
   }
 
   /**
-   * Sometimes Facebook will return <tt>"comments":{"count":0}</tt> instead of
-   * the connection-formatted comments object that's documented - this class
-   * handles that so JSON mapping won't fail.
+   * Sometimes Facebook will return <tt>"comments":{"count":0}</tt> instead of the connection-formatted comments object
+   * that's documented - this class handles that so JSON mapping won't fail.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8

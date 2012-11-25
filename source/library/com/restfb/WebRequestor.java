@@ -29,8 +29,7 @@ import static java.lang.String.format;
 import java.io.IOException;
 
 /**
- * Specifies how a class that sends {@code HTTP} requests to the Facebook API
- * endpoint must operate.
+ * Specifies how a class that sends {@code HTTP} requests to the Facebook API endpoint must operate.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -52,8 +51,7 @@ public interface WebRequestor {
     private String body;
 
     /**
-     * Creates a response with the given HTTP status code and response body as
-     * text.
+     * Creates a response with the given HTTP status code and response body as text.
      * 
      * @param statusCode
      *          The HTTP status code of the response.
@@ -98,8 +96,7 @@ public interface WebRequestor {
    * Given a Facebook API endpoint URL, execute a {@code GET} against it.
    * 
    * @param url
-   *          The URL to make a {@code GET} request for, including URL
-   *          parameters.
+   *          The URL to make a {@code GET} request for, including URL parameters.
    * @return HTTP response data.
    * @throws IOException
    *           If an error occurs while performing the {@code GET} operation.
@@ -108,8 +105,7 @@ public interface WebRequestor {
   Response executeGet(String url) throws IOException;
 
   /**
-   * Given a Facebook API endpoint URL and parameter string, execute a
-   * {@code POST} to the endpoint URL.
+   * Given a Facebook API endpoint URL and parameter string, execute a {@code POST} to the endpoint URL.
    * 
    * @param url
    *          The URL to {@code POST} to.
@@ -122,16 +118,14 @@ public interface WebRequestor {
   Response executePost(String url, String parameters) throws IOException;
 
   /**
-   * Given a Facebook API endpoint URL and parameter string, execute a
-   * {@code POST} to the endpoint URL.
+   * Given a Facebook API endpoint URL and parameter string, execute a {@code POST} to the endpoint URL.
    * 
    * @param url
    *          The URL to {@code POST} to.
    * @param parameters
    *          The parameters to be {@code POST}ed.
    * @param binaryAttachments
-   *          Optional binary attachments to be included in the {@code POST}
-   *          body (e.g. photos and videos).
+   *          Optional binary attachments to be included in the {@code POST} body (e.g. photos and videos).
    * @return HTTP response data.
    * @throws IOException
    *           If an error occurs while performing the {@code POST}.

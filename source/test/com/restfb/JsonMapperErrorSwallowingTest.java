@@ -59,8 +59,7 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
   }
 
   /**
-   * Does the mapper return null for only those list elements that are
-   * mis-mapped?
+   * Does the mapper return null for only those list elements that are mis-mapped?
    */
   @Test
   public void listWithIncorrectObject() {

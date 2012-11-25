@@ -28,9 +28,7 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/">Venue Graph API
- * type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/">Venue Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5

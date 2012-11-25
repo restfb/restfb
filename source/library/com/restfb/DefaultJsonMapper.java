@@ -65,9 +65,8 @@ import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
  */
 public class DefaultJsonMapper implements JsonMapper {
   /**
-   * We call this instance's
-   * {@link JsonMappingErrorHandler#handleMappingError(String)} method on
-   * mapping failure so client code can decide how to handle the problem.
+   * We call this instance's {@link JsonMappingErrorHandler#handleMappingError(String)} method on mapping failure so
+   * client code can decide how to handle the problem.
    */
   protected JsonMappingErrorHandler jsonMappingErrorHandler;
 
@@ -77,15 +76,14 @@ public class DefaultJsonMapper implements JsonMapper {
   private static final Logger logger = Logger.getLogger(DefaultJsonMapper.class.getName());
 
   /**
-   * Creates a JSON mapper which will throw
-   * {@link com.restfb.exception.FacebookJsonMappingException} whenever an error
+   * Creates a JSON mapper which will throw {@link com.restfb.exception.FacebookJsonMappingException} whenever an error
    * occurs when mapping JSON data to Java objects.
    */
   public DefaultJsonMapper() {
     this(new JsonMappingErrorHandler() {
       /**
-       * @see com.restfb.DefaultJsonMapper.JsonMappingErrorHandler#handleMappingError(java.lang.String,
-       *      java.lang.Class, java.lang.Exception)
+       * @see com.restfb.DefaultJsonMapper.JsonMappingErrorHandler#handleMappingError(java.lang.String, java.lang.Class,
+       *      java.lang.Exception)
        */
       @Override
       public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {
@@ -95,8 +93,7 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * Creates a JSON mapper which delegates to the provided
-   * {@code jsonMappingErrorHandler} for handling mapping errors.
+   * Creates a JSON mapper which delegates to the provided {@code jsonMappingErrorHandler} for handling mapping errors.
    * 
    * @param jsonMappingErrorHandler
    *          The JSON mapping error handler to use.
@@ -312,8 +309,7 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * Finds and invokes methods on {@code object} that are annotated with the
-   * {@code @JsonMappingCompleted} annotation.
+   * Finds and invokes methods on {@code object} that are annotated with the {@code @JsonMappingCompleted} annotation.
    * <p>
    * This will even work on {@code private} methods.
    * 
@@ -343,8 +339,7 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * Dumps out a log message when one of a multiple-mapped Facebook field name
-   * JSON-to-Java mapping operation fails.
+   * Dumps out a log message when one of a multiple-mapped Facebook field name JSON-to-Java mapping operation fails.
    * 
    * @param facebookFieldName
    *          The Facebook field name.
@@ -367,13 +362,12 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * For a Java field annotated with the {@code Facebook} annotation, figure out
-   * what the corresponding Facebook JSON field name to map to it is.
+   * For a Java field annotated with the {@code Facebook} annotation, figure out what the corresponding Facebook JSON
+   * field name to map to it is.
    * 
    * @param fieldWithAnnotation
    *          A Java field annotated with the {@code Facebook} annotation.
-   * @return The Facebook JSON field name that should be mapped to this Java
-   *         field.
+   * @return The Facebook JSON field name that should be mapped to this Java field.
    */
   protected String getFacebookFieldName(FieldWithAnnotation<Facebook> fieldWithAnnotation) {
     String facebookFieldName = fieldWithAnnotation.getAnnotation().value();
@@ -446,8 +440,8 @@ public class DefaultJsonMapper implements JsonMapper {
    * @param object
    *          The object to marshal.
    * @param ignoreNullValuedProperties
-   *          If this is {@code true}, no Javabean properties with {@code null}
-   *          values will be included in the generated JSON.
+   *          If this is {@code true}, no Javabean properties with {@code null} values will be included in the generated
+   *          JSON.
    * @return JSON representation of the given {@code object}.
    * @throws FacebookJsonMappingException
    *           If an error occurs while marshaling to JSON.
@@ -529,11 +523,11 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * Given a {@code json} value of something like {@code MyValue} or {@code 123}
-   * , return a representation of that value of type {@code type}.
+   * Given a {@code json} value of something like {@code MyValue} or {@code 123} , return a representation of that value
+   * of type {@code type}.
    * <p>
-   * This is to support non-legal JSON served up by Facebook for API calls like
-   * {@code Friends.get} (example result: {@code [222333,1240079]}).
+   * This is to support non-legal JSON served up by Facebook for API calls like {@code Friends.get} (example result:
+   * {@code [222333,1240079]}).
    * 
    * @param <T>
    *          The Java type to map to.
@@ -582,12 +576,11 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * Extracts JSON data for a field according to its {@code Facebook} annotation
-   * and returns it converted to the proper Java type.
+   * Extracts JSON data for a field according to its {@code Facebook} annotation and returns it converted to the proper
+   * Java type.
    * 
    * @param fieldWithAnnotation
-   *          The field/annotation pair which specifies what Java type to
-   *          convert to.
+   *          The field/annotation pair which specifies what Java type to convert to.
    * @param jsonObject
    *          "Raw" JSON object to pull data from.
    * @param facebookFieldName
@@ -683,8 +676,8 @@ public class DefaultJsonMapper implements JsonMapper {
    *          Type token.
    * @return A new instance of {@code type}.
    * @throws FacebookJsonMappingException
-   *           If an error occurs when creating a new instance ({@code type} is
-   *           inaccessible, doesn't have a no-arg constructor, etc.)
+   *           If an error occurs when creating a new instance ({@code type} is inaccessible, doesn't have a no-arg
+   *           constructor, etc.)
    */
   protected <T> T createInstance(Class<T> type) {
     String errorMessage =
@@ -712,41 +705,36 @@ public class DefaultJsonMapper implements JsonMapper {
    * 
    * @param json
    *          The JSON to check.
-   * @return {@code true} if the JSON is equivalent to the empty object,
-   *         {@code false} otherwise.
+   * @return {@code true} if the JSON is equivalent to the empty object, {@code false} otherwise.
    */
   protected boolean isEmptyObject(String json) {
     return "{}".equals(json);
   }
 
   /**
-   * Callback interface which allows client code to specify how JSON mapping
-   * errors should be handled.
+   * Callback interface which allows client code to specify how JSON mapping errors should be handled.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.2
    */
   public static interface JsonMappingErrorHandler {
     /**
-     * This method will be called by {@code DefaultJsonMapper} if it encounters
-     * an error while attempting to map JSON to a Java object.
+     * This method will be called by {@code DefaultJsonMapper} if it encounters an error while attempting to map JSON to
+     * a Java object.
      * <p>
-     * You may perform any behavior you'd like here in response to an error,
-     * e.g. logging it.
+     * You may perform any behavior you'd like here in response to an error, e.g. logging it.
      * <p>
-     * If the mapper should continue processing, return {@code true} and
-     * {@code null} will be mapped to the target type. If you would like the
-     * mapper to stop processing and throw
-     * {@link com.restfb.exception.FacebookJsonMappingException}, return
-     * {@code false}.
+     * If the mapper should continue processing, return {@code true} and {@code null} will be mapped to the target type.
+     * If you would like the mapper to stop processing and throw
+     * {@link com.restfb.exception.FacebookJsonMappingException}, return {@code false}.
      * 
      * @param unmappableJson
      *          The JSON that couldn't be mapped to a Java type.
      * @param targetType
      *          The Java type we were attempting to map to.
      * @param e
-     *          The exception that occurred while performing the mapping
-     *          operation, or {@code null} if there was no exception.
+     *          The exception that occurred while performing the mapping operation, or {@code null} if there was no
+     *          exception.
      * @return {@code true} to continue processing, {@code false} to throw a
      *         {@link com.restfb.exception.FacebookJsonMappingException}.
      */

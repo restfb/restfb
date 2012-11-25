@@ -30,10 +30,8 @@ import java.util.List;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/message/">Message
- * Graph API type</a>.
- *
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/message/">Message Graph API type</a>.
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Felipe Kurkowski
  */
@@ -54,7 +52,7 @@ public class Message extends FacebookType {
 
   /**
    * The time the message was initially created.
-   *
+   * 
    * @return The time the message was initially created.
    */
   public Date getCreatedTime() {
@@ -63,7 +61,7 @@ public class Message extends FacebookType {
 
   /**
    * The sender of this message
-   *
+   * 
    * @return The sender of this message
    */
   public NamedFacebookType getFrom() {
@@ -72,7 +70,7 @@ public class Message extends FacebookType {
 
   /**
    * A list of the message recipients
-   *
+   * 
    * @return A list of the message recipients
    */
   public List<NamedFacebookType> getTo() {
@@ -81,7 +79,7 @@ public class Message extends FacebookType {
 
   /**
    * The text of the message
-   *
+   * 
    * @return The text of the message
    */
   public String getMessage() {

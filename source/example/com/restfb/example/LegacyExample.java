@@ -45,8 +45,7 @@ public class LegacyExample extends Example {
   private LegacyFacebookClient facebookClient;
 
   /**
-   * Entry point. You must provide a single argument on the command line: a
-   * valid OAuth access token.
+   * Entry point. You must provide a single argument on the command line: a valid OAuth access token.
    * 
    * @param args
    *          Command-line arguments.

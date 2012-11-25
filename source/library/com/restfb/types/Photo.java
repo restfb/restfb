@@ -34,9 +34,7 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/photo">Photo Graph
- * API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/photo">Photo Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -90,9 +88,7 @@ public class Photo extends NamedFacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/photo">Tag Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/photo">Tag Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
@@ -138,9 +134,7 @@ public class Photo extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/photo">Image Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/photo">Image Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.5
@@ -212,8 +206,7 @@ public class Photo extends NamedFacebookType {
   /**
    * An object containing the name and ID of the user who posted the photo.
    * 
-   * @return An object containing the name and ID of the user who posted the
-   *         photo.
+   * @return An object containing the name and ID of the user who posted the photo.
    */
   public CategorizedFacebookType getFrom() {
     return from;
@@ -278,8 +271,7 @@ public class Photo extends NamedFacebookType {
    * 
    * @return The position of this photo in the album.
    * @since 1.6.5
-   * @deprecated Facebook will start returning 0 for this field starting on
-   *             October 3, 2012.
+   * @deprecated Facebook will start returning 0 for this field starting on October 3, 2012.
    */
   @Deprecated
   public Integer getPosition() {
@@ -315,13 +307,11 @@ public class Photo extends NamedFacebookType {
   }
 
   /**
-   * An array containing the users and their positions in this photo. The x and
-   * y coordinates are percentages from the left and top edges of the photo,
-   * respectively.
+   * An array containing the users and their positions in this photo. The x and y coordinates are percentages from the
+   * left and top edges of the photo, respectively.
    * 
-   * @return An array containing the users and their positions in this photo.
-   *         The x and y coordinates are percentages from the left and top edges
-   *         of the photo, respectively.
+   * @return An array containing the users and their positions in this photo. The x and y coordinates are percentages
+   *         from the left and top edges of the photo, respectively.
    */
   public List<Tag> getTags() {
     return unmodifiableList(tags);

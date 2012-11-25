@@ -28,8 +28,7 @@ import com.restfb.Facebook;
  * Represents a Facebook URL.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
- * @deprecated As of 1.6.10, this type is deprecated and will be removed in a
- *             future release.
+ * @deprecated As of 1.6.10, this type is deprecated and will be removed in a future release.
  */
 @Deprecated
 public class Url extends NamedFacebookType {

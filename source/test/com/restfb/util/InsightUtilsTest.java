@@ -510,8 +510,8 @@ public class InsightUtilsTest {
   }
 
   /**
-   * As there is no easy constructor for making a SimpleDateFormat specifying
-   * both a Locale and Timezone a utility is provided here
+   * As there is no easy constructor for making a SimpleDateFormat specifying both a Locale and Timezone a utility is
+   * provided here
    * 
    * @param pattern
    * @param locale

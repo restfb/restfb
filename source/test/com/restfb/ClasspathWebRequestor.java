@@ -28,9 +28,8 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import java.io.IOException;
 
 /**
- * {@link WebRequestor} implementation that loads a file from the classpath
- * instead of hitting the web. Useful for running unit tests against local JSON
- * textfiles.
+ * {@link WebRequestor} implementation that loads a file from the classpath instead of hitting the web. Useful for
+ * running unit tests against local JSON textfiles.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
@@ -41,8 +40,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   private Response response;
 
   /**
-   * Creates a web requestor that loads a file from the classpath instead of
-   * hitting the web.
+   * Creates a web requestor that loads a file from the classpath instead of hitting the web.
    * 
    * @param pathToJson
    *          The classpath location of the JSON file to load.
@@ -56,8 +54,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String,
-   *      java.lang.String)
+   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String)
    */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
@@ -73,8 +70,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String,
-   *      java.lang.String, com.restfb.BinaryAttachment[])
+   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, com.restfb.BinaryAttachment[])
    */
   @Override
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {

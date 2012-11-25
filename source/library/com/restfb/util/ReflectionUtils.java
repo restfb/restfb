@@ -50,15 +50,13 @@ import java.util.Set;
  */
 public final class ReflectionUtils {
   /**
-   * In-memory shared cache of reflection data for
-   * {@link #findFieldsWithAnnotation(Class, Class)}.
+   * In-memory shared cache of reflection data for {@link #findFieldsWithAnnotation(Class, Class)}.
    */
   private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
       synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
 
   /**
-   * In-memory shared cache of reflection data for
-   * {@link #findMethodsWithAnnotation(Class, Class)}.
+   * In-memory shared cache of reflection data for {@link #findMethodsWithAnnotation(Class, Class)}.
    */
   private static final Map<ClassAnnotationCacheKey, List<Method>> METHODS_WITH_ANNOTATION_CACHE =
       synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<Method>>());
@@ -69,13 +67,12 @@ public final class ReflectionUtils {
   private ReflectionUtils() {}
 
   /**
-   * Is the given {@code object} a primitive type or wrapper for a primitive
-   * type?
+   * Is the given {@code object} a primitive type or wrapper for a primitive type?
    * 
    * @param object
    *          The object to check for primitive-ness.
-   * @return {@code true} if {@code object} is a primitive type or wrapper for a
-   *         primitive type, {@code false} otherwise.
+   * @return {@code true} if {@code object} is a primitive type or wrapper for a primitive type, {@code false}
+   *         otherwise.
    */
   public static boolean isPrimitive(Object object) {
     if (object == null)
@@ -92,8 +89,8 @@ public final class ReflectionUtils {
   }
 
   /**
-   * Finds fields on the given {@code type} and all of its superclasses
-   * annotated with annotations of type {@code annotationType}.
+   * Finds fields on the given {@code type} and all of its superclasses annotated with annotations of type
+   * {@code annotationType}.
    * 
    * @param <T>
    *          The annotation type.
@@ -134,8 +131,8 @@ public final class ReflectionUtils {
   }
 
   /**
-   * Finds methods on the given {@code type} and all of its superclasses
-   * annotated with annotations of type {@code annotationType}.
+   * Finds methods on the given {@code type} and all of its superclasses annotated with annotations of type
+   * {@code annotationType}.
    * <p>
    * These results are cached to mitigate performance overhead.
    * 
@@ -177,15 +174,13 @@ public final class ReflectionUtils {
   /**
    * For a given {@code field}, get its first parameterized type argument.
    * <p>
-   * For example, a field of type {@code List<Long>} would have a first type
-   * argument of {@code Long.class}.
+   * For example, a field of type {@code List<Long>} would have a first type argument of {@code Long.class}.
    * <p>
    * If the field has no type arguments, {@code null} is returned.
    * 
    * @param field
    *          The field to check.
-   * @return The field's first parameterized type argument, or {@code null} if
-   *         none exists.
+   * @return The field's first parameterized type argument, or {@code null} if none exists.
    */
   public static Class<?> getFirstParameterizedTypeArgument(Field field) {
     Type type = field.getGenericType();
@@ -406,8 +401,7 @@ public final class ReflectionUtils {
   }
 
   /**
-   * Cache key composed of a class and annotation pair. Used by
-   * {@link ReflectionUtils#FIELDS_WITH_ANNOTATION_CACHE}.
+   * Cache key composed of a class and annotation pair. Used by {@link ReflectionUtils#FIELDS_WITH_ANNOTATION_CACHE}.
    * 
    * @author Igor Kabiljo
    */

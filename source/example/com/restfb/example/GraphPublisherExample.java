@@ -46,10 +46,9 @@ public class GraphPublisherExample extends Example {
   private final FacebookClient facebookClient;
 
   /**
-   * Entry point. You must provide a single argument on the command line: a
-   * valid Graph API access token. In order for publishing to succeed, you must
-   * use an access token for an application that has been granted stream_publish
-   * and create_event rights.
+   * Entry point. You must provide a single argument on the command line: a valid Graph API access token. In order for
+   * publishing to succeed, you must use an access token for an application that has been granted stream_publish and
+   * create_event rights.
    * 
    * @param args
    *          Command-line arguments.

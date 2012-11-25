@@ -42,9 +42,7 @@ import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/post">Post Graph API
- * type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Post Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -88,15 +86,13 @@ public class Post extends NamedFacebookType {
   private Privacy privacy;
 
   /**
-   * Duplicate mapping for "likes" since FB can return it differently in
-   * different situations.
+   * Duplicate mapping for "likes" since FB can return it differently in different situations.
    */
   @Facebook("likes")
   private Long likesCount;
 
   /**
-   * Duplicate mapping for "likes" since FB can return it differently in
-   * different situations.
+   * Duplicate mapping for "likes" since FB can return it differently in different situations.
    */
   @Facebook
   private Likes likes;
@@ -139,12 +135,10 @@ public class Post extends NamedFacebookType {
   private static final long serialVersionUID = 3L;
 
   /**
-   * Post-JSON-mapping operation that populates the {@code messageTags} field
-   * "by hand".
+   * Post-JSON-mapping operation that populates the {@code messageTags} field "by hand".
    * <p>
-   * This is a temporary hack until we have formal public support for
-   * it/improved {@code JsonMapper} capabilities so it can handle arbitrary Map
-   * types.
+   * This is a temporary hack until we have formal public support for it/improved {@code JsonMapper} capabilities so it
+   * can handle arbitrary Map types.
    * 
    * @param jsonMapper
    *          The {@code JsonMapper} that was used to map to this type.
@@ -164,9 +158,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/post">Place Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Place Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
@@ -190,9 +182,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/post">Message Tag
-   * Graph API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Message Tag Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
@@ -296,9 +286,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/post">Likes Graph
-   * API type</a>
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Likes Graph API type</a>
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
@@ -356,9 +344,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/post">Comments
-   * Graph API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Comments Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5.3
@@ -416,9 +402,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/post">Privacy Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Privacy Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
@@ -512,9 +496,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a
-   * href="http://developers.facebook.com/docs/reference/api/post">Action Graph
-   * API type</a>.
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Action Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
@@ -574,8 +556,7 @@ public class Post extends NamedFacebookType {
   /**
    * An object containing the ID and name of the user who posted the message.
    * 
-   * @return An object containing the ID and name of the user who posted the
-   *         message.
+   * @return An object containing the ID and name of the user who posted the message.
    */
   public CategorizedFacebookType getFrom() {
     return from;
@@ -627,11 +608,9 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * If available, the source link attached to this post (for example, a flash
-   * or video file).
+   * If available, the source link attached to this post (for example, a flash or video file).
    * 
-   * @return If available, the source link attached to this post (for example, a
-   *         flash or video file).
+   * @return If available, the source link attached to this post (for example, a flash or video file).
    */
   public String getSource() {
     return source;
@@ -697,8 +676,7 @@ public class Post extends NamedFacebookType {
   /**
    * The likes on this post.
    * <p>
-   * Sometimes this can be {@code null} - check {@link #getLikesCount()} instead
-   * in that case.
+   * Sometimes this can be {@code null} - check {@link #getLikesCount()} instead in that case.
    * 
    * @return The likes on this post.
    */
@@ -735,11 +713,9 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * The {@code status_type} of post this is, for example
-   * {@code "approved_friend"}.
+   * The {@code status_type} of post this is, for example {@code "approved_friend"}.
    * 
-   * @return The {@code status_type} of post this is, for example
-   *         {@code "approved_friend"}.
+   * @return The {@code status_type} of post this is, for example {@code "approved_friend"}.
    * @since 1.6.12
    */
   public String getStatusType() {
@@ -775,11 +751,10 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * A list of available action names and links (including commenting, liking,
-   * and an optional app-specified action).
+   * A list of available action names and links (including commenting, liking, and an optional app-specified action).
    * 
-   * @return A list of available action names and links (including commenting,
-   *         liking, and an optional app-specified action).
+   * @return A list of available action names and links (including commenting, liking, and an optional app-specified
+   *         action).
    */
   public List<Action> getActions() {
     return unmodifiableList(actions);
@@ -797,11 +772,10 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Objects (Users, Pages, etc) tagged as being with the publisher of the post
-   * ("Who are you with?" on Facebook).
+   * Objects (Users, Pages, etc) tagged as being with the publisher of the post ("Who are you with?" on Facebook).
    * 
-   * @return Objects (Users, Pages, etc) tagged as being with the publisher of
-   *         the post ("Who are you with?" on Facebook).
+   * @return Objects (Users, Pages, etc) tagged as being with the publisher of the post ("Who are you with?" on
+   *         Facebook).
    * @since 1.6.10
    */
   public List<NamedFacebookType> getWithTags() {

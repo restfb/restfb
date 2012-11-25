@@ -58,8 +58,8 @@ public final class Parameter {
    * @param jsonMapper
    *          Mapper for converting the parameter value to JSON.
    * @throws IllegalArgumentException
-   *           If {@code name} is {@code null} or a blank string or either
-   *           {@code value} or {@code jsonMapper} is {@code null}.
+   *           If {@code name} is {@code null} or a blank string or either {@code value} or {@code jsonMapper} is
+   *           {@code null}.
    */
   private Parameter(String name, Object value, JsonMapper jsonMapper) {
     if (isBlank(name) || value == null)
@@ -78,27 +78,21 @@ public final class Parameter {
   }
 
   /**
-   * Factory method which provides an instance with the given {@code name} and
-   * {@code value}.
+   * Factory method which provides an instance with the given {@code name} and {@code value}.
    * <p>
-   * The {@code value} parameter is often a {@link String} or primitive type
-   * like {@link Integer}, but you may pass in a {@link java.util.List},
-   * {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean
-   * and it will be converted to JSON automatically. See the "attachment"
-   * section of <a
-   * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the
-   * stream.publish API documentation</a> for an example of where this is
-   * useful.
+   * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a
+   * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean and it will be
+   * converted to JSON automatically. See the "attachment" section of <a
+   * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for an
+   * example of where this is useful.
    * 
    * @param name
    *          The parameter name.
    * @param value
    *          The parameter value.
-   * @return A {@code Parameter} instance with the given {@code name} and
-   *         {@code value}.
+   * @return A {@code Parameter} instance with the given {@code name} and {@code value}.
    * @throws IllegalArgumentException
-   *           If {@code name} or {@code value} is {@code null} or a blank
-   *           string.
+   *           If {@code name} or {@code value} is {@code null} or a blank string.
    * @throws FacebookJsonMappingException
    *           If an error occurs when converting {@code value} to JSON.
    */
@@ -107,28 +101,22 @@ public final class Parameter {
   }
 
   /**
-   * Factory method which provides an instance with the given {@code name} and
-   * {@code value}, using the provided {@code jsonMapper} to turn {@code value}
-   * into a JSON string.
+   * Factory method which provides an instance with the given {@code name} and {@code value}, using the provided
+   * {@code jsonMapper} to turn {@code value} into a JSON string.
    * <p>
-   * The {@code value} parameter is often a {@link String} or primitive type
-   * like {@link Integer}, but you may pass in a {@link java.util.List},
-   * {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean
-   * and it will be converted to JSON automatically. See the "attachment"
-   * section of <a
-   * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the
-   * stream.publish API documentation</a> for an example of where this is
-   * useful.
+   * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a
+   * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean and it will be
+   * converted to JSON automatically. See the "attachment" section of <a
+   * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for an
+   * example of where this is useful.
    * 
    * @param name
    *          The parameter name.
    * @param value
    *          The parameter value.
-   * @return A {@code Parameter} instance with the given {@code name} and
-   *         {@code value}.
+   * @return A {@code Parameter} instance with the given {@code name} and {@code value}.
    * @throws IllegalArgumentException
-   *           If {@code name} or {@code value} is {@code null} or a blank
-   *           string.
+   *           If {@code name} or {@code value} is {@code null} or a blank string.
    * @throws FacebookJsonMappingException
    *           If an error occurs when converting {@code value} to JSON.
    */

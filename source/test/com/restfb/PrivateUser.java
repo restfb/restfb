@@ -23,8 +23,7 @@
 package com.restfb;
 
 /**
- * Used for unit testing to ensure that the JSON mapper can reach out and touch
- * private fields.
+ * Used for unit testing to ensure that the JSON mapper can reach out and touch private fields.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */

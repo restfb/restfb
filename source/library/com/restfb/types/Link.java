@@ -29,9 +29,7 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/link">Link Graph API
- * type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/link">Link Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Patrick Alberts
@@ -58,14 +56,13 @@ public class Link extends NamedFacebookType {
 
   @Facebook("created_time")
   private String createdTime;
-  
+
   private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the name and ID of the user who posted the link.
    * 
-   * @return An object containing the name and ID of the user who posted the
-   *         link.
+   * @return An object containing the name and ID of the user who posted the link.
    */
   public NamedFacebookType getFrom() {
     return from;

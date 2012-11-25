@@ -50,8 +50,7 @@ import com.restfb.json.JsonObject;
 
 /**
  * Utility methods to ease querying <a target="_blank"
- * href="http://developers.facebook.com/docs/reference/fql/insights/">Insight
- * Metrics</a> over a set of dates.
+ * href="http://developers.facebook.com/docs/reference/fql/insights/">Insight Metrics</a> over a set of dates.
  * 
  * @author Andrew Liles
  * @since 1.6.10
@@ -80,12 +79,10 @@ public class InsightUtils {
   /**
    * Queries Facebook via FQL for several Insights at different date points.
    * <p>
-   * The output groups the result by metric and then by date, matching the input
-   * arguments. Map entries may be {@code null} if Facebook does not return
-   * corresponding data, e.g. when you query a metric which is not available at
-   * the chosen period. The inner {@code Map}'s {@code Object} value may be a
-   * strongly typed value for some metrics, but in other cases Facebook returns
-   * a {@code JsonObject}.
+   * The output groups the result by metric and then by date, matching the input arguments. Map entries may be
+   * {@code null} if Facebook does not return corresponding data, e.g. when you query a metric which is not available at
+   * the chosen period. The inner {@code Map}'s {@code Object} value may be a strongly typed value for some metrics, but
+   * in other cases Facebook returns a {@code JsonObject}.
    * <p>
    * Sample output, assuming 2 metrics were queried for 5 dates:
    * 
@@ -101,26 +98,22 @@ public class InsightUtils {
    * &nbsp;&nbsp;&nbsp; 2011-jan-02 = {"app_4949752878":1,"photos":1,"app_2373072738":2,"wall":23},
    * &nbsp;&nbsp;&nbsp; 2011-jan-03 = {"app_4949752878":1,"wall":12},
    * &nbsp;&nbsp;&nbsp; 2011-jan-04 = {"photos":1,"wall":11},
-   * &nbsp;&nbsp;&nbsp; 2011-jan-05 = {"app_494975287":2,"app_237307273":2,"photos":6,"wall":35,"info":6}}</pre>
+   * &nbsp;&nbsp;&nbsp; 2011-jan-05 = {"app_494975287":2,"app_237307273":2,"photos":6,"wall":35,"info":6}}
+   * </pre>
    * 
    * @param facebookClient
-   *          The {@code FacebookClient} used to communicate with the Insights
-   *          API.
+   *          The {@code FacebookClient} used to communicate with the Insights API.
    * @param pageObjectId
    *          The required object_id to query.
    * @param metrics
-   *          A not null/empty set of metrics that will be queried for the given
-   *          {@code period}.
+   *          A not null/empty set of metrics that will be queried for the given {@code period}.
    * @param period
    *          The required time period over which to query.
    * @param periodEndDates
-   *          A non-null, non-empty {@code Set} in which each date should be
-   *          normalized to be midnight in the PST timezone; see
-   *          {@link #convertToMidnightInPacificTimeZone(Set)}.
-   * @return A {@code Map} of {@code Maps}: the outer keys will be all the
-   *         metrics requested that were available at the period/times
-   *         requested. The inner keys will be the {@code Set} of
-   *         periodEndDates.
+   *          A non-null, non-empty {@code Set} in which each date should be normalized to be midnight in the PST
+   *          timezone; see {@link #convertToMidnightInPacificTimeZone(Set)}.
+   * @return A {@code Map} of {@code Maps}: the outer keys will be all the metrics requested that were available at the
+   *         period/times requested. The inner keys will be the {@code Set} of periodEndDates.
    * @see #convertToMidnightInPacificTimeZone(Set)
    * @see #executeInsightQueriesByDate(FacebookClient, String, Set, Period, Set)
    */
@@ -165,14 +158,11 @@ public class InsightUtils {
   }
 
   /**
-   * Queries Facebook via FQL for several Insights at different date points and
-   * returns "raw" results.
+   * Queries Facebook via FQL for several Insights at different date points and returns "raw" results.
    * <p>
-   * A variation on
-   * {@link #executeInsightQueriesByMetricByDate(FacebookClient, String, Set, Period, Set)}
-   * , this method returns the raw output from the Facebook, keying the output
-   * by date alone. The {@code JsonArray} value will contain the metrics that
-   * were requested and available at the date.
+   * A variation on {@link #executeInsightQueriesByMetricByDate(FacebookClient, String, Set, Period, Set)} , this method
+   * returns the raw output from the Facebook, keying the output by date alone. The {@code JsonArray} value will contain
+   * the metrics that were requested and available at the date.
    * <p>
    * Sample output, assuming 2 metrics were queried for 5 dates:
    * 
@@ -192,26 +182,23 @@ public class InsightUtils {
    * 2011-jan-05 = [
    * &nbsp;&nbsp;&nbsp; {"metric":"page_active_users","value":687},
    * &nbsp;&nbsp;&nbsp; {"metric":"page_tab_views_login_top_unique","value":{"app_494975287":2,"app_237307273":2,"photos":6,"wall":35,"info":6}}]
-   * }</pre>
+   * }
+   * </pre>
    * 
    * @param facebookClient
-   *          The {@code FacebookClient} used to communicate with the Insights
-   *          API.
+   *          The {@code FacebookClient} used to communicate with the Insights API.
    * @param pageObjectId
    *          The required object_id to query.
    * @param metrics
-   *          A not null/empty set of metrics that will be queried for the given
-   *          {@code period}.
+   *          A not null/empty set of metrics that will be queried for the given {@code period}.
    * @param period
    *          The required time period over which to query.
    * @param periodEndDates
-   *          A non-null, non-empty {@code Set} in which each date should be
-   *          normalized to be midnight in the PST timezone; see
-   *          {@link #convertToMidnightInPacificTimeZone(Set)}.
+   *          A non-null, non-empty {@code Set} in which each date should be normalized to be midnight in the PST
+   *          timezone; see {@link #convertToMidnightInPacificTimeZone(Set)}.
    * @return Insights query results, grouped by date.
    * @see #convertToMidnightInPacificTimeZone(Set)
-   * @see #executeInsightQueriesByMetricByDate(FacebookClient, String, Set,
-   *      Period, Set)
+   * @see #executeInsightQueriesByMetricByDate(FacebookClient, String, Set, Period, Set)
    */
   public static SortedMap<Date, JsonArray> executeInsightQueriesByDate(FacebookClient facebookClient,
       String pageObjectId, Set<String> metrics, Period period, Set<Date> periodEndDates) {
@@ -322,11 +309,9 @@ public class InsightUtils {
   }
 
   /**
-   * Slides this date back to midnight in the PST timezone fit for the Facebook
-   * Query Language.
+   * Slides this date back to midnight in the PST timezone fit for the Facebook Query Language.
    * <p>
-   * More details are available at <a target="_blank"
-   * href="http://developers.facebook.com/docs/reference/fql/insights"
+   * More details are available at <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights"
    * >http://developers.facebook.com/docs/reference/fql/insights</a>.
    * 
    * @param date
@@ -347,11 +332,9 @@ public class InsightUtils {
   }
 
   /**
-   * Slides these dates back to midnight in the PST timezone fit for the
-   * Facebook Query Language.
+   * Slides these dates back to midnight in the PST timezone fit for the Facebook Query Language.
    * <p>
-   * More details are available at <a target="_blank"
-   * href="http://developers.facebook.com/docs/reference/fql/insights"
+   * More details are available at <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights"
    * >http://developers.facebook.com/docs/reference/fql/insights</a>.
    * 
    * @param dates
@@ -374,16 +357,13 @@ public class InsightUtils {
   }
 
   /**
-   * Converts into a "unix time", which means convert into the number of seconds
-   * (NOT milliseconds) from the Epoch fit for the Facebook Query Language.
-   * Notice that if you want data for September 15th then you need to present to
-   * Facebook the NEXT DAY, ie. the upper exclusive limit of your date range. So
-   * beyond all the sliding to midnight code you see in
-   * {@link #convertToMidnightInPacificTimeZone(Date)}, we need to go further
-   * and slide this input date forward one day.
+   * Converts into a "unix time", which means convert into the number of seconds (NOT milliseconds) from the Epoch fit
+   * for the Facebook Query Language. Notice that if you want data for September 15th then you need to present to
+   * Facebook the NEXT DAY, ie. the upper exclusive limit of your date range. So beyond all the sliding to midnight code
+   * you see in {@link #convertToMidnightInPacificTimeZone(Date)}, we need to go further and slide this input date
+   * forward one day.
    * 
-   * In retrospect, this should have been implemented via the Facebook
-   * end_time_date() function.
+   * In retrospect, this should have been implemented via the Facebook end_time_date() function.
    * 
    * @param date
    *          The date to convert.
@@ -398,13 +378,11 @@ public class InsightUtils {
   }
 
   /**
-   * Slides this time back to midnight in the PST timezone and converts into a
-   * "unix time", which means convert into the number of seconds (NOT
-   * milliseconds) from the Epoch fit for the Facebook Query Language. Notice
-   * that if you want data for September 15th then you need to present to
-   * Facebook the NEXT DAY, ie. the upper exclusive limit of your date range. So
-   * beyond all the sliding to midnight issue, we need to go further and slide
-   * this input date forward one day.
+   * Slides this time back to midnight in the PST timezone and converts into a "unix time", which means convert into the
+   * number of seconds (NOT milliseconds) from the Epoch fit for the Facebook Query Language. Notice that if you want
+   * data for September 15th then you need to present to Facebook the NEXT DAY, ie. the upper exclusive limit of your
+   * date range. So beyond all the sliding to midnight issue, we need to go further and slide this input date forward
+   * one day.
    * 
    * @param date
    *          The date to convert.
@@ -421,8 +399,7 @@ public class InsightUtils {
    * 
    * @param collection
    *          The collection to check.
-   * @return {@code true} if {@code collection} is {@code null} or empty,
-   *         {@code false} otherwise.
+   * @return {@code true} if {@code collection} is {@code null} or empty, {@code false} otherwise.
    */
   static <T extends Object> boolean isEmpty(Collection<T> collection) {
     return collection == null || collection.isEmpty();

@@ -36,8 +36,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests that exercise {@link JsonMapper} implementations, specifically the
- * "convert Java to JSON" functionality.
+ * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */

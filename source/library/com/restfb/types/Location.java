@@ -30,8 +30,7 @@ import com.restfb.util.ReflectionUtils;
 /**
  * Represents a location (address and latitude/longitude).
  * <p>
- * This is used by several Graph API types, e.g. <tt>{@link Post}</tt> and
- * <tt>{@link Page}</tt>.
+ * This is used by several Graph API types, e.g. <tt>{@link Post}</tt> and <tt>{@link Page}</tt>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.8

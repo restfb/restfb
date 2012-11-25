@@ -32,9 +32,7 @@ import java.util.List;
 import com.restfb.Facebook;
 
 /**
- * Represents the <a
- * href="http://developers.facebook.com/docs/reference/api/video">Video Graph
- * API type</a>.
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/video">Video Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -82,8 +80,7 @@ public class Video extends NamedFacebookType {
   /**
    * An object containing the name and ID of the user who posted the video.
    * 
-   * @return An object containing the name and ID of the user who posted the
-   *         video.
+   * @return An object containing the name and ID of the user who posted the video.
    */
   public CategorizedFacebookType getFrom() {
     return from;
