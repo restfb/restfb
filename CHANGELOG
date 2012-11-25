@@ -9,6 +9,8 @@
   Thanks to Chris Petersen.
 * Added "status_type" field to Post.
   Thanks to Shaya Potter.
+* It is possible for Facebook to return a Place's Location object as a String instead - added Place.getLocationAsString().
+  Thanks to Ido for finding this.
 
 1.6.11 (September 7, 2012)
 

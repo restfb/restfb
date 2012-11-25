@@ -25,8 +25,7 @@ package com.restfb.types;
 import com.restfb.Facebook;
 
 /**
- * Represents information about the place where an event occurred, for example a
- * {@link Checkin} or {@link Photo}.
+ * Represents information about the place where an event occurred, for example a {@link Checkin} or {@link Photo}.
  * 
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -36,17 +35,33 @@ public class Place extends NamedFacebookType {
   @Facebook
   private Location location;
 
+  @Facebook("location")
+  private String locationAsString;
+
   private static final long serialVersionUID = 1L;
 
   /**
-   * Location containing geographic information such as latitude, longitude,
-   * country, and other fields (fields will vary based on geography and
-   * availability of information).
+   * Location containing geographic information such as latitude, longitude, country, and other fields (fields will vary
+   * based on geography and availability of information).
+   * <p>
+   * It is possible for Facebook to return either this value or {@link #getLocationAsString()}.
    * 
-   * @return Location containing geographic information such as latitude,
-   *         longitude, country, and other fields.
+   * @return Location containing geographic information such as latitude, longitude, country, and other fields.
    */
   public Location getLocation() {
     return location;
+  }
+
+  /**
+   * Description for this location.
+   * <p>
+   * It is possible for Facebook to return either this value or {@link #getLocation()}. If {@link #getLocation()}
+   * returns {@code null}, then check this method to see if it has data, e.g. {@code "Philadelphia, PA"}.
+   * 
+   * @return Description for this location.
+   * @since 1.6.12
+   */
+  public String getLocationAsString() {
+    return locationAsString;
   }
 }
