@@ -11,6 +11,8 @@
   Thanks to Shaya Potter.
 * It is possible for Facebook to return a Place's Location object as a String instead - added Place.getLocationAsString().
   Thanks to Ido for finding this.
+* Added "currency" field to User.
+  Thanks to Timo Maaranen for reporting this.
 
 1.6.11 (September 7, 2012)
 

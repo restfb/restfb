@@ -29,6 +29,7 @@ import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -121,6 +122,9 @@ public class User extends NamedFacebookType {
 
   @Facebook("third_party_id")
   private String thirdPartyId;
+
+  @Facebook
+  private Currency currency;
 
   @Facebook("interested_in")
   private List<String> interestedIn = new ArrayList<String>();
@@ -445,6 +449,94 @@ public class User extends NamedFacebookType {
   }
 
   /**
+   * Represents the <a href="https://developers.facebook.com/docs/payments/user_currency">Currency Graph API type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.12
+   */
+  public static class Currency implements Serializable {
+    @Facebook("user_currency")
+    private String userCurrency;
+
+    @Facebook("currency_exchange")
+    private BigDecimal currencyExchange;
+
+    @Facebook("currency_exchange_inverse")
+    private BigDecimal currencyExchangeInverse;
+
+    @Facebook("currency_offset")
+    private BigDecimal currencyOffset;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The ISO-4217-3 code for the user's preferred currency (defaulting to USD if the user hasn't set one).
+     * 
+     * @return The ISO-4217-3 code for the user's preferred currency (defaulting to USD if the user hasn't set one).
+     */
+    public String getUserCurrency() {
+      return userCurrency;
+    }
+
+    /**
+     * The number of Facebook Credits that equate in value to one unit of {@code user_currency}.
+     * 
+     * @return The number of Facebook Credits that equate in value to one unit of {@code user_currency}.
+     */
+    public BigDecimal getCurrencyExchange() {
+      return currencyExchange;
+    }
+
+    /**
+     * The number of units of {@code user_currency} that equate in value to one Credit.
+     * <p>
+     * To calculate the local currency amount based on the credits price, compute
+     * {@code credits_price * currency_exchange_inverse}.
+     * 
+     * @return The number of units of {@code user_currency} that equate in value to one Credit.
+     */
+    public BigDecimal getCurrencyExchangeInverse() {
+      return currencyExchangeInverse;
+    }
+
+    /**
+     * The number by which a price should be divided for display in {@code user_currency} units.
+     * <p>
+     * For example, a price of $1.20 will be represented by the Facebook API as "120", which you should divide by the
+     * USD {@code currency_offset} of 100 to arrive back at 1.20.
+     * 
+     * @return The number by which a price should be divided for display in {@code user_currency} units.
+     */
+    public BigDecimal getCurrencyOffset() {
+      return currencyOffset;
+    }
+  }
+
+  /**
    * The user's first name.
    * 
    * @return The user's first name.
@@ -679,6 +771,19 @@ public class User extends NamedFacebookType {
    */
   public String getThirdPartyId() {
     return thirdPartyId;
+  }
+
+  /**
+   * The user's currency preferences.
+   * <p>
+   * Further documentation available on Facebook's <a
+   * href="https://developers.facebook.com/docs/payments/user_currency">Displaying prices in user's currency</a> page.
+   * 
+   * @return The user's currency preferences.
+   * @since 1.6.12
+   */
+  public Currency getCurrency() {
+    return currency;
   }
 
   /**
