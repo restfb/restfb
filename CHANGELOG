@@ -13,6 +13,8 @@
   Thanks to Ido for finding this.
 * Added "currency" field to User.
   Thanks to Timo Maaranen for reporting this.
+* Added "general_info" field to Page.
+  Thanks to Brendan Dahl for reporting this.
 
 1.6.11 (September 7, 2012)
 

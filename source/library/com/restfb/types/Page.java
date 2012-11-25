@@ -85,6 +85,9 @@ public class Page extends CategorizedFacebookType {
   @Facebook("is_published")
   private Boolean isPublished;
 
+  @Facebook("general_info")
+  private String generalInfo;
+
   @Facebook
   private Location location;
 
@@ -332,6 +335,16 @@ public class Page extends CategorizedFacebookType {
    */
   public Boolean getIsPublished() {
     return isPublished;
+  }
+
+  /**
+   * The general information for a page.
+   * 
+   * @return The general information for a page.
+   * @since 1.6.12
+   */
+  public String getGeneralInfo() {
+    return generalInfo;
   }
 
   /**
