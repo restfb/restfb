@@ -182,7 +182,8 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    * @deprecated As of 1.6.12, prefer
    *             {@link #executeFqlQuery(String, Class, Parameter...)} because
-   *             it connects to the Graph API FQL endpoint.
+   *             it connects to the Graph API FQL endpoint instead of the legacy
+   *             FQL endpoint.
    */
   <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters);
 
@@ -211,8 +212,9 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    * @deprecated As of 1.6.12, prefer
-   *             {@link #executeFqlMultiquery(String, Class, Parameter...)}
-   *             because it connects to the Graph API FQL endpoint.
+   *             {@link #executeFqlMultiquery(Map, Class, Parameter...)} because
+   *             it connects to the Graph API FQL endpoint instead of the legacy
+   *             FQL endpoint.
    */
   <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
 
@@ -252,8 +254,8 @@ public interface FacebookClient {
    *          Java type to map to.
    * @param queries
    *          A mapping of query names to queries. This is marshaled to JSON and
-   *          sent over the wire to the Facebook API endpoint as the
-   *          {@code queries} parameter.
+   *          sent over the wire to the Facebook API endpoint as the {@code q}
+   *          parameter.
    * @param objectType
    *          Object type token.
    * @param parameters
