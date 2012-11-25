@@ -248,7 +248,7 @@ public class InsightUtils {
     if (!fqlByQueryIndex.isEmpty()) {
       // request the client sends all the queries in fqlByQueryIndex to Facebook
       // in one go and have the raw JsonObject be returned
-      JsonObject response = facebookClient.executeMultiquery(fqlByQueryIndex, JsonObject.class);
+      JsonObject response = facebookClient.executeFqlMultiquery(fqlByQueryIndex, JsonObject.class);
 
       // transform the response into a Map
       for (Iterator<?> it = response.keys(); it.hasNext();) {

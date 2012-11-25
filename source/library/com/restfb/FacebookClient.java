@@ -52,8 +52,8 @@ import com.restfb.util.ReflectionUtils;
  * <li>Fetch a connection: use
  * {@link #fetchConnection(String, Class, Parameter...)}</li>
  * <li>Execute an FQL query: use
- * {@link #executeQuery(String, Class, Parameter...)} or
- * {@link #executeMultiquery(Map, Class, Parameter...)}</li>
+ * {@link #executeFqlQuery(String, Class, Parameter...)} or
+ * {@link #executeFqlMultiquery(Map, Class, Parameter...)}</li>
  * <li>Execute operations in batch: use {@link #executeBatch(BatchRequest...)}
  * or {@link #executeBatch(List, List)}</li>
  * <li>Publish data: use {@link #publish(String, Class, Parameter...)} or
@@ -180,6 +180,9 @@ public interface FacebookClient {
    *         results.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @deprecated As of 1.6.12, prefer
+   *             {@link #executeFqlQuery(String, Class, Parameter...)} because
+   *             it connects to the Graph API FQL endpoint.
    */
   <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters);
 
@@ -207,8 +210,60 @@ public interface FacebookClient {
    *         objects' data.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @deprecated As of 1.6.12, prefer
+   *             {@link #executeFqlMultiquery(String, Class, Parameter...)}
+   *             because it connects to the Graph API FQL endpoint.
    */
   <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
+
+  /**
+   * Executes an <a
+   * href="http://developers.facebook.com/docs/reference/fql/">FQL query</a>,
+   * mapping the resultset to a {@code List} of instances of {@code objectType}.
+   * 
+   * @param <T>
+   *          Java type to map to.
+   * @param query
+   *          The FQL query to execute, e.g.
+   *          {@code "SELECT name FROM user WHERE uid=220439 or uid=7901103"}.
+   * @param objectType
+   *          Resultset object type token.
+   * @param parameters
+   *          URL parameters to include in the API call (optional).
+   * @return A list of instances of {@code objectType} which map to the query
+   *         results.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   * @since 1.6.12
+   */
+  <T> List<T> executeFqlQuery(String query, Class<T> objectType, Parameter... parameters);
+
+  /**
+   * Executes an <a
+   * href="http://developers.facebook.com/docs/reference/fql/">FQL
+   * multiquery</a>, which allows you to batch multiple queries into a single
+   * request.
+   * <p>
+   * You'll need to write your own container type ({@code objectType}) to hold
+   * the results. See <a href="http://restfb.com">http://restfb.com</a> for an
+   * example of how to do this.
+   * 
+   * @param <T>
+   *          Java type to map to.
+   * @param queries
+   *          A mapping of query names to queries. This is marshaled to JSON and
+   *          sent over the wire to the Facebook API endpoint as the
+   *          {@code queries} parameter.
+   * @param objectType
+   *          Object type token.
+   * @param parameters
+   *          URL parameters to include in the API call (optional).
+   * @return An instance of type {@code objectType} which contains the requested
+   *         objects' data.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   */
+  <T> T executeFqlMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
 
   /**
    * Executes operations as a batch using the <a

@@ -1,5 +1,8 @@
 1.6.12 (Unreleased)
 
+* Now support Graph API fql endpoint with new FacebookClient.executeFqlQuery() and FacebookClient.executeFqlMultiquery().
+  FacebookClient.executeQuery() and FacebookClient.executeMultiquery() have been deprecated.
+  Thanks to Ofer Fort for the patch. 
 * Fixed "expires" parsing in AccessToken.fromQueryString().
   Thanks to Chris Petersen.
 * Added "can_upload" field to Album.
