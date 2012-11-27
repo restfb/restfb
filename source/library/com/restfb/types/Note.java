@@ -57,6 +57,13 @@ public class Note extends FacebookType {
   private String updatedTime;
 
   @Facebook("comments")
+  @SuppressWarnings("unused")
+  // It's possible for Facebook to return {"count":0} instead of a list of comments for whatever reason.
+  // So we have this throwaway field to hold that result. There is no need to expose this through the public API; it's
+  // here to let the JSON mapper work without erroring out.
+  private String commentsAsObject;
+
+  @Facebook("comments")
   private List<Comment> comments = new ArrayList<Comment>();
 
   private static final long serialVersionUID = 1L;
