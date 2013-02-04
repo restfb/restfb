@@ -276,10 +276,10 @@ public class Page extends CategorizedFacebookType {
   }
 
   /**
-   * The access token specific to this page.
+   * An admin {@code access_token} for this page.
    * <p>
-   * This value will only be available for pages if the application accessing this page has been given
-   * {@code manage_page} permissions.
+   * The current user must be an administrator of this page; only returned if specifically requested via the fields URL
+   * parameter, e.g. {@code facebookClient.fetchObject("123", Page.class, Parameter.with("fields","access_token"))}
    * 
    * @return The access token specific to this page.
    * @since 1.6.5
