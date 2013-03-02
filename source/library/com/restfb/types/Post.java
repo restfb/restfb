@@ -132,6 +132,9 @@ public class Post extends NamedFacebookType {
 
   private Map<String, List<MessageTag>> messageTags = new HashMap<String, List<MessageTag>>();
 
+  @Facebook
+  private Shares shares;
+
   private static final long serialVersionUID = 3L;
 
   /**
@@ -554,6 +557,51 @@ public class Post extends NamedFacebookType {
   }
 
   /**
+   * Represents the Shares included the <a href="http://developers.facebook.com/docs/reference/api/post">Post</a> response.
+   * Presently only supports count.
+   * @since 1.6.11
+   */
+  public static class Shares implements Serializable {
+    @Facebook
+    private Long count;
+
+    private static final long serialVersionUID = 1L;
+    
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The number of shares.
+     * 
+     * @return The number of shares.
+     */
+    public Long getCount() {
+      return count;
+    }
+  }
+  
+  /**
    * An object containing the ID and name of the user who posted the message.
    * 
    * @return An object containing the ID and name of the user who posted the message.
@@ -682,6 +730,18 @@ public class Post extends NamedFacebookType {
    */
   public Likes getLikes() {
     return likes;
+  }
+  
+  /**
+   * The number of shares of this post.
+   * 
+   * @return The number of shares of this post.
+   */
+  public Long getSharesCount() {
+    if (shares != null) {
+      return shares.getCount();
+    }
+    return 0L;
   }
 
   /**
