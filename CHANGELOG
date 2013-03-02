@@ -15,6 +15,12 @@
   Thanks to Timo Maaranen for reporting this.
 * Added "general_info" field to Page.
   Thanks to Brendan Dahl for reporting this.
+* Added "link", "subject", and "former_participants" fields to Conversation.
+  Thanks to spiffychick for reporting this.
+* Added "shares" to Post.
+  Thanks to Mike Champion for the pull request.
+* Added "attachments", "updated_time", "unread", and "unseen" fields to Message.
+  Thanks to S13_Alan for the patch.
 
 1.6.11 (September 7, 2012)
 
