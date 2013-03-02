@@ -25,6 +25,7 @@ package com.restfb.json;
  */
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -76,8 +77,9 @@ import java.util.TreeSet;
  * @author JSON.org
  * @version 2009-03-06
  */
-public class JsonObject {
-
+public class JsonObject implements Serializable {
+  private static final long serialVersionUID = 1L;
+  
   /**
    * JsonObject.NULL is equivalent to the value that JavaScript calls null, whilst Java's null is equivalent to the
    * value that JavaScript calls undefined.
