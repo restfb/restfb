@@ -41,6 +41,12 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
  */
 public class Conversation extends FacebookType {
   @Facebook
+  private String link;
+
+  @Facebook
+  private String subject;
+
+  @Facebook
   private String snippet;
 
   @Facebook("updated_time")
@@ -61,6 +67,9 @@ public class Conversation extends FacebookType {
 
   @Facebook
   private List<NamedFacebookType> participants = new ArrayList<NamedFacebookType>();
+
+  @Facebook("former_participants")
+  private List<NamedFacebookType> formerParticipants = new ArrayList<NamedFacebookType>();
 
   @Facebook
   private List<NamedFacebookType> senders = new ArrayList<NamedFacebookType>();
@@ -212,5 +221,32 @@ public class Conversation extends FacebookType {
    */
   public List<Message> getMessages() {
     return messages;
+  }
+
+  /**
+   * A URL for this conversation.
+   * 
+   * @return A URL for this conversation.
+   */
+  public String getLink() {
+    return link;
+  }
+
+  /**
+   * The subject of this conversation.
+   * 
+   * @return The subject of this conversation.
+   */
+  public String getSubject() {
+    return subject;
+  }
+
+  /**
+   * Users who used to be on this message conversation.
+   * 
+   * @return Users who used to be on this message conversation.
+   */
+  public List<NamedFacebookType> getFormerParticipants() {
+    return formerParticipants;
   }
 }
