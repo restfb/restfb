@@ -22,15 +22,16 @@
 
 package com.restfb.types;
 
-import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/page/#conversations"> Conversation Graph
@@ -175,7 +176,7 @@ public class Conversation extends FacebookType {
    * @return A list of tags indicating the message folder, and whether the conversation is read and seen.
    */
   public List<Tag> getTags() {
-    return tags;
+    return unmodifiableList(tags);
   }
 
   /**
@@ -184,7 +185,7 @@ public class Conversation extends FacebookType {
    * @return Users who are on this message conversation
    */
   public List<NamedFacebookType> getParticipants() {
-    return participants;
+    return unmodifiableList(participants);
   }
 
   /**
@@ -193,7 +194,7 @@ public class Conversation extends FacebookType {
    * @return Users who send a message on the conversation
    */
   public List<NamedFacebookType> getSenders() {
-    return senders;
+    return unmodifiableList(senders);
   }
 
   /**
@@ -220,7 +221,7 @@ public class Conversation extends FacebookType {
    * @return List of all messages in the conversation
    */
   public List<Message> getMessages() {
-    return messages;
+    return unmodifiableList(messages);
   }
 
   /**
@@ -247,6 +248,6 @@ public class Conversation extends FacebookType {
    * @return Users who used to be on this message conversation.
    */
   public List<NamedFacebookType> getFormerParticipants() {
-    return formerParticipants;
+    return unmodifiableList(formerParticipants);
   }
 }

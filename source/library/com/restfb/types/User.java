@@ -825,7 +825,7 @@ public class User extends NamedFacebookType {
   /**
    * A list of the sports from the user's profile.
    * 
-   * @return A list of the sports from ths user's profile.
+   * @return A list of the sports from this user's profile.
    */
   public List<Sport> getSports() {
     return unmodifiableList(sports);
