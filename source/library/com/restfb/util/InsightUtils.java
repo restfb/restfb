@@ -388,7 +388,6 @@ public class InsightUtils {
    *          The date to convert.
    * @return Midnight-PST Unix time representation of the given {@code date}.
    * @see #convertToMidnightInPacificTimeZone(Date)
-   * @see #convertToUnixTime(Date)
    */
   static long convertToUnixTimeAtPacificTimeZoneMidnightOneDayLater(Date date) {
     return convertToUnixTimeOneDayLater(convertToMidnightInPacificTimeZone(date));
