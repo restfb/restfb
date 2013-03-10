@@ -22,7 +22,7 @@
 * Added "attachments", "updated_time", "unread", and "unseen" fields to Message.
   Thanks to S13_Alan for the patch.
 * Fix for invalid Windows filename.
-  Thanks to Samuel GŽlineau for the patch. 
+  Thanks to Samuel GÃ©lineau for the patch. 
 
 1.6.11 (September 7, 2012)
 
