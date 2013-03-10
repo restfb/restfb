@@ -10,7 +10,7 @@ RestFB itself is open source software released under the terms of the MIT Licens
 
 ## Installation
 
-RestFB is a single JAR - just drop `restfb-1.6.11.jar` into your app and you're ready to go.
+RestFB is a single JAR - just drop `restfb-1.6.12.jar` into your app and you're ready to go.
 
 Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to your project like this:
 
@@ -18,7 +18,7 @@ Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to you
 <dependency>
   <groupId>com.restfb</groupId>
   <artifactId>restfb</artifactId>
-  <version>1.6.11</version>
+  <version>1.6.12</version>
 </dependency>
 ```
 
@@ -141,7 +141,7 @@ for (Insight insight : insights.getData())
 
 ```java
 String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
-List<FqlUser> users = facebookClient.executeQuery(query, FqlUser.class);
+List<FqlUser> users = facebookClient.executeFqlQuery(query, FqlUser.class);
 
 out.println("Users: " + users);
 
@@ -162,6 +162,46 @@ public class FqlUser {
   public String toString() {
     return String.format("%s (%s)", name, uid);
   }
+}
+```
+
+#### Executing FQL Multiqueries
+
+```java
+Map<String, String> queries = new HashMap<String, String>() {
+  {
+    put("users", "SELECT uid, name FROM user WHERE uid=220439 OR uid=7901103");
+    put("likers", "SELECT user_id FROM like WHERE object_id=122788341354")
+  }
+};
+
+MultiqueryResults multiqueryResults =
+  facebookClient.executeFqlMultiquery(queries, MultiqueryResults.class);
+
+out.println("Users: " + multiqueryResults.users);
+out.println("People who liked: " + multiqueryResults.likers);
+
+...
+
+// Holds results from an "executeFqlMultiquery" call.
+// You need to write these classes yourself (along with the FqlUser class above)!
+
+public class FqlLiker {
+  @Facebook("user_id")
+  String userId;
+  
+  @Override
+  public String toString() {
+    return userId;
+  }  
+}
+
+public class MultiqueryResults {
+  @Facebook
+  List<FqlUser> users;
+
+  @Facebook
+  List<FqlLiker> likers;
 }
 ```
 
@@ -223,7 +263,7 @@ out.println(firstPhotoUrl);
 // Here's how to handle an FQL query
 
 String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
-List<JsonObject> queryResults = facebookClient.executeQuery(query, JsonObject.class);
+List<JsonObject> queryResults = facebookClient.executeFqlQuery(query, JsonObject.class);
 out.println(queryResults.get(0).getString("name"));
 
 // Sometimes it's helpful to use JsonMapper directly if you're working with JsonObjects.

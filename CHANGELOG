@@ -1,4 +1,4 @@
-1.6.12 (Unreleased)
+1.6.12 (March 10, 2013)
 
 * Now support Graph API fql endpoint with new FacebookClient.executeFqlQuery() and FacebookClient.executeFqlMultiquery().
   FacebookClient.executeQuery() and FacebookClient.executeMultiquery() have been deprecated.
@@ -21,6 +21,8 @@
   Thanks to Mike Champion for the pull request.
 * Added "attachments", "updated_time", "unread", and "unseen" fields to Message.
   Thanks to S13_Alan for the patch.
+* Fix for invalid Windows filename.
+  Thanks to Samuel GŽlineau for the patch. 
 
 1.6.11 (September 7, 2012)
 
