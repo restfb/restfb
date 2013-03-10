@@ -12,6 +12,8 @@ RestFB itself is open source software released under the terms of the MIT Licens
 
 RestFB is a single JAR - just drop `restfb-1.6.12.jar` into your app and you're ready to go.
 
+Download it here: http://restfb.com/downloads/restfb-1.6.12.jar
+
 Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to your project like this:
 
 ```xml
