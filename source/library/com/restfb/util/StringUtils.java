@@ -105,7 +105,6 @@ public final class StringUtils {
    * @param string
    *          The string to convert to a byte array.
    * @return A byte array representation of {@code string}.
-   * 
    * @throws NullPointerException
    *           If {@code string} is {@code null}.
    * @throws IllegalStateException
@@ -123,7 +122,7 @@ public final class StringUtils {
   }
 
   /**
-   * Converts {@code data} to a string. in {@value #ENCODING_CHARSET} format.
+   * Converts {@code data} to a string in {@value #ENCODING_CHARSET} format.
    * 
    * @param data
    *          The data to convert to a string.
