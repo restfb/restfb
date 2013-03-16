@@ -22,8 +22,10 @@
 
 package com.restfb;
 
+import static com.restfb.util.EncodingUtils.decodeBase64;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.join;
+import static com.restfb.util.StringUtils.toBytes;
 import static com.restfb.util.StringUtils.toInteger;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.trimToNull;
@@ -45,6 +47,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 import com.restfb.WebRequestor.Response;
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
@@ -57,9 +62,12 @@ import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.FacebookQueryParseException;
 import com.restfb.exception.FacebookResponseContentException;
 import com.restfb.exception.FacebookResponseStatusException;
+import com.restfb.exception.FacebookSignedRequestParsingException;
+import com.restfb.exception.FacebookSignedRequestVerificationException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
+import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client.
@@ -523,6 +531,93 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       return AccessToken.fromQueryString(response);
     } catch (Throwable t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+    }
+  }
+
+  /**
+   * @see com.restfb.FacebookClient#parseSignedRequest(java.lang.String, java.lang.String, java.lang.Class)
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T> T parseSignedRequest(String signedRequest, String appSecret, Class<T> objectType) {
+    verifyParameterPresence("signedRequest", signedRequest);
+    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence("objectType", objectType);
+
+    String[] signedRequestTokens = signedRequest.split("[.]");
+
+    if (signedRequestTokens.length != 2)
+      throw new FacebookSignedRequestParsingException(format(
+        "Signed request '%s' is expected to be signature and payload strings separated by a '.'", signedRequest));
+
+    String encodedSignature = signedRequestTokens[0];
+    String urlDecodedSignature = urlDecodeSignedRequestToken(encodedSignature);
+    byte[] signature = decodeBase64(urlDecodedSignature);
+
+    String encodedPayload = signedRequestTokens[1];
+    String urlDecodedPayload = urlDecodeSignedRequestToken(encodedPayload);
+    String payload = StringUtils.toString(decodeBase64(urlDecodedPayload));
+
+    // Convert payload to a JsonObject so we can pull algorithm data out of it
+    JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);
+
+    if (!payloadObject.has("algorithm"))
+      throw new FacebookSignedRequestParsingException("Unable to detect algorithm used for signed request");
+
+    String algorithm = payloadObject.getString("algorithm");
+
+    if (!verifySignedRequest(appSecret, algorithm, encodedPayload, signature))
+      throw new FacebookSignedRequestVerificationException(
+        "Signed request verification failed. Are you sure the request was made for the app identified by the app secret you provided?");
+
+    // Marshal to the user's preferred type.
+    // If the user asked for a JsonObject, send back the one we already parsed.
+    return objectType.equals(JsonObject.class) ? (T) payloadObject : getJsonMapper().toJavaObject(payload, objectType);
+  }
+
+  /**
+   * Decodes a component of a signed request received from Facebook using FB's special URL-encoding strategy.
+   * 
+   * @param signedRequestToken
+   *          Token to decode.
+   * @return The decoded token.
+   */
+  protected String urlDecodeSignedRequestToken(String signedRequestToken) {
+    verifyParameterPresence("signedRequestToken", signedRequestToken);
+    return signedRequestToken.replace("-", "+").replace("_", "/").trim();
+  }
+
+  /**
+   * Verifies that the signed request is really from Facebook.
+   * 
+   * @param appSecret
+   *          The secret for the app that can verify this signed request.
+   * @param algorithm
+   *          Signature algorithm specified by FB in the decoded payload.
+   * @param encodedPayload
+   *          The encoded payload used to generate a signature for comparison against the provided {@code signature}.
+   * @param signature
+   *          The decoded signature extracted from the signed request. Compared against a signature generated from
+   *          {@code encodedPayload}.
+   * @return {@code true} if the signed request is verified, {@code false} if not.
+   */
+  protected boolean verifySignedRequest(String appSecret, String algorithm, String encodedPayload, byte[] signature) {
+    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence("algorithm", algorithm);
+    verifyParameterPresence("encodedPayload", encodedPayload);
+    verifyParameterPresence("signature", signature);
+
+    // Normalize algorithm name...FB calls it differently than Java does
+    if ("HMAC-SHA256".equalsIgnoreCase(algorithm))
+      algorithm = "HMACSHA256";
+
+    try {
+      Mac mac = Mac.getInstance(algorithm);
+      mac.init(new SecretKeySpec(toBytes(appSecret), algorithm));
+      byte[] payloadSignature = mac.doFinal(toBytes(encodedPayload));
+      return Arrays.equals(signature, payloadSignature);
+    } catch (Exception e) {
+      throw new FacebookSignedRequestVerificationException("Unable to perform signed request verification", e);
     }
   }
 

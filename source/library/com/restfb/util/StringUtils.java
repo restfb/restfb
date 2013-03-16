@@ -109,7 +109,7 @@ public final class StringUtils {
    * @throws NullPointerException
    *           If {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to URL-encode because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
     if (string == null)
@@ -117,6 +117,30 @@ public final class StringUtils {
 
     try {
       return string.getBytes(ENCODING_CHARSET);
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
+    }
+  }
+
+  /**
+   * Converts {@code data} to a string. in {@value #ENCODING_CHARSET} format.
+   * 
+   * @param data
+   *          The data to convert to a string.
+   * @return A string representation of {@code data}.
+   * 
+   * @throws NullPointerException
+   *           If {@code data} is {@code null}.
+   * @throws IllegalStateException
+   *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   * @since 1.6.13
+   */
+  public static String toString(byte[] data) {
+    if (data == null)
+      throw new NullPointerException("Parameter 'data' cannot be null.");
+
+    try {
+      return new String(data, ENCODING_CHARSET);
     } catch (UnsupportedEncodingException e) {
       throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
     }

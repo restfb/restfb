@@ -64,12 +64,14 @@ import com.restfb.util.ReflectionUtils;
  * {@link #obtainAppAccessToken(String, String)}.</li>
  * <li>Convert old-style session keys to OAuth access tokens: use
  * {@link #convertSessionKeysToAccessTokens(String, String, String...)}</li>
+ * <li>Verify and extract data from a signed request: use {@link #parseSignedRequest(String, String, Class)}</li>
  * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Scott Hernandez
  * @author Mattia Tommasone
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
+ * @author Josef Gierbl
  */
 public interface FacebookClient {
   /**
@@ -347,7 +349,7 @@ public interface FacebookClient {
   /**
    * Obtains an extended access token for the given existing, non-expired, short-lived access_token.
    * <p>
-   * See <a href= "https://developers.facebook.com/roadmap/offline-access-removal/#extend_token" >Facebook's extend
+   * See <a href= "https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Facebook's extend
    * access token documentation</a>.
    * 
    * @param appId
@@ -362,6 +364,28 @@ public interface FacebookClient {
    * @since 1.6.10
    */
   AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken);
+
+  /**
+   * Parses a signed request and verifies it against your App Secret.
+   * <p>
+   * See <a href="http://developers.facebook.com/docs/howtos/login/signed-request/">Facebook's signed request
+   * documentation</a>.
+   * 
+   * @param signedRequest
+   *          The signed request to parse.
+   * @param appSecret
+   *          The secret for the app that can read this signed request.
+   * @param objectType
+   *          Object type token.
+   * @return An instance of type {@code objectType} which contains the decoded object embedded within
+   *         {@code signedRequest}.
+   * @throws FacebookSignedRequestParsingException
+   *           If an error occurs while trying to process {@code signedRequest}.
+   * @throws FacebookSignedRequestVerificationException
+   *           If {@code signedRequest} fails verification against {@code appSecret}.
+   * @since 1.6.13
+   */
+  <T> T parseSignedRequest(String signedRequest, String appSecret, Class<T> objectType);
 
   /**
    * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.
