@@ -49,4 +49,8 @@ public class PageConnection extends CategorizedFacebookType {
   public Date getCreatedTime() {
     return toDateFromLongFormat(createdTime);
   }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
 }

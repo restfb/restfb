@@ -82,4 +82,20 @@ public class TestUser extends FacebookType {
   public String getPassword() {
     return password;
   }
+
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
+
+  public void setLoginUrl(String loginUrl) {
+    this.loginUrl = loginUrl;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

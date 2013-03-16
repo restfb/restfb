@@ -73,4 +73,16 @@ public class Insight extends NamedFacebookType {
   public List<JsonObject> getValues() {
     return values;
   }
+
+  public void setPeriod(String period) {
+    this.period = period;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setValues(List<JsonObject> values) {
+    this.values = values;
+  }
 }

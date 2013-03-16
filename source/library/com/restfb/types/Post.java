@@ -24,8 +24,6 @@ package com.restfb.types;
 
 import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,90 +48,90 @@ import com.restfb.util.ReflectionUtils;
 @SuppressWarnings("deprecation")
 public class Post extends NamedFacebookType {
   @Facebook
-  private CategorizedFacebookType from;
+  protected CategorizedFacebookType from;
 
   @Facebook
-  private String message;
+  protected String message;
 
   @Facebook
-  private String picture;
+  protected String picture;
 
   @Facebook
-  private String link;
+  protected String link;
 
   @Facebook
-  private String caption;
+  protected String caption;
 
   @Facebook
-  private String description;
+  protected String description;
 
   @Facebook
-  private String source;
+  protected String source;
 
   @Facebook
-  private String type;
+  protected String type;
 
   @Facebook
-  private NamedFacebookType application;
+  protected NamedFacebookType application;
 
   @Facebook
-  private String icon;
+  protected String icon;
 
   @Facebook
-  private String attribution;
+  protected String attribution;
 
   @Facebook
-  private Privacy privacy;
+  protected Privacy privacy;
 
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
    */
   @Facebook("likes")
-  private Long likesCount;
+  protected Long likesCount;
 
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
    */
   @Facebook
-  private Likes likes;
+  protected Likes likes;
 
   @Facebook("created_time")
-  private String createdTime;
+  protected String createdTime;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  protected String updatedTime;
 
   @Facebook("object_id")
-  private String objectId;
+  protected String objectId;
 
   @Facebook("status_type")
-  private String statusType;
+  protected String statusType;
 
   @Facebook
-  private Comments comments;
+  protected Comments comments;
 
   @Facebook
-  private com.restfb.types.Place place;
+  protected com.restfb.types.Place place;
 
   @Facebook
-  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
+  protected List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
   @Facebook
-  private List<Action> actions = new ArrayList<Action>();
+  protected List<Action> actions = new ArrayList<Action>();
 
   @Facebook
-  private List<Property> properties = new ArrayList<Property>();
+  protected List<Property> properties = new ArrayList<Property>();
 
   @Facebook("with_tags")
-  private List<NamedFacebookType> withTags = new ArrayList<NamedFacebookType>();
+  protected List<NamedFacebookType> withTags = new ArrayList<NamedFacebookType>();
 
   @Facebook("message_tags")
-  private JsonObject rawMessageTags;
+  protected JsonObject rawMessageTags;
 
-  private Map<String, List<MessageTag>> messageTags = new HashMap<String, List<MessageTag>>();
+  protected Map<String, List<MessageTag>> messageTags = new HashMap<String, List<MessageTag>>();
 
   @Facebook
-  private Shares shares;
+  protected Shares shares;
 
   private static final long serialVersionUID = 3L;
 
@@ -170,7 +168,7 @@ public class Post extends NamedFacebookType {
   @Deprecated
   public static class Place extends NamedFacebookType {
     @Facebook
-    private Location location;
+    protected Location location;
 
     private static final long serialVersionUID = 1L;
 
@@ -192,10 +190,10 @@ public class Post extends NamedFacebookType {
    */
   public static class MessageTag extends NamedFacebookType {
     @Facebook
-    private Integer offset;
+    protected Integer offset;
 
     @Facebook
-    private Integer length;
+    protected Integer length;
 
     private static final long serialVersionUID = 1L;
 
@@ -226,13 +224,13 @@ public class Post extends NamedFacebookType {
    */
   public static class Property implements Serializable {
     @Facebook
-    private String name;
+    protected String name;
 
     @Facebook
-    private String text;
+    protected String text;
 
     @Facebook
-    private String href;
+    protected String href;
 
     private static final long serialVersionUID = 1L;
 
@@ -286,6 +284,18 @@ public class Post extends NamedFacebookType {
     public String getHref() {
       return href;
     }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public void setText(String text) {
+      this.text = text;
+    }
+
+    public void setHref(String href) {
+      this.href = href;
+    }
   }
 
   /**
@@ -296,10 +306,10 @@ public class Post extends NamedFacebookType {
    */
   public static class Likes implements Serializable {
     @Facebook
-    private Long count;
+    protected Long count;
 
     @Facebook
-    private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
+    protected List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
 
     private static final long serialVersionUID = 1L;
 
@@ -342,7 +352,15 @@ public class Post extends NamedFacebookType {
      * @return The likes.
      */
     public List<NamedFacebookType> getData() {
-      return unmodifiableList(data);
+      return data;
+    }
+
+    public void setCount(Long count) {
+      this.count = count;
+    }
+
+    public void setData(List<NamedFacebookType> data) {
+      this.data = data;
     }
   }
 
@@ -354,10 +372,10 @@ public class Post extends NamedFacebookType {
    */
   public static class Comments implements Serializable {
     @Facebook
-    private Long count;
+    protected Long count;
 
     @Facebook
-    private List<Comment> data = new ArrayList<Comment>();
+    protected List<Comment> data = new ArrayList<Comment>();
 
     private static final long serialVersionUID = 1L;
 
@@ -400,7 +418,15 @@ public class Post extends NamedFacebookType {
      * @return The comments.
      */
     public List<Comment> getData() {
-      return unmodifiableList(data);
+      return data;
+    }
+
+    public void setCount(Long count) {
+      this.count = count;
+    }
+
+    public void setData(List<Comment> data) {
+      this.data = data;
     }
   }
 
@@ -412,19 +438,19 @@ public class Post extends NamedFacebookType {
    */
   public static class Privacy implements Serializable {
     @Facebook
-    private String value;
+    protected String value;
 
     @Facebook
-    private String description;
+    protected String description;
 
     @Facebook
-    private String friends;
+    protected String friends;
 
     @Facebook
-    private String networks;
+    protected String networks;
 
     @Facebook
-    private String deny;
+    protected String deny;
 
     private static final long serialVersionUID = 1L;
 
@@ -496,6 +522,26 @@ public class Post extends NamedFacebookType {
     public String getDeny() {
       return deny;
     }
+
+    public void setValue(String value) {
+      this.value = value;
+    }
+
+    public void setDescription(String description) {
+      this.description = description;
+    }
+
+    public void setFriends(String friends) {
+      this.friends = friends;
+    }
+
+    public void setNetworks(String networks) {
+      this.networks = networks;
+    }
+
+    public void setDeny(String deny) {
+      this.deny = deny;
+    }
   }
 
   /**
@@ -506,10 +552,10 @@ public class Post extends NamedFacebookType {
    */
   public static class Action implements Serializable {
     @Facebook
-    private String name;
+    protected String name;
 
     @Facebook
-    private String link;
+    protected String link;
 
     private static final long serialVersionUID = 1L;
 
@@ -554,6 +600,14 @@ public class Post extends NamedFacebookType {
     public String getLink() {
       return link;
     }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public void setLink(String link) {
+      this.link = link;
+    }
   }
 
   /**
@@ -563,7 +617,7 @@ public class Post extends NamedFacebookType {
    */
   public static class Shares implements Serializable {
     @Facebook
-    private Long count;
+    protected Long count;
 
     private static final long serialVersionUID = 1L;
     
@@ -598,6 +652,10 @@ public class Post extends NamedFacebookType {
      */
     public Long getCount() {
       return count;
+    }
+
+    public void setCount(Long count) {
+      this.count = count;
     }
   }
   
@@ -807,7 +865,7 @@ public class Post extends NamedFacebookType {
    * @return A list of the profiles mentioned or targeted in this post.
    */
   public List<NamedFacebookType> getTo() {
-    return unmodifiableList(to);
+    return to;
   }
 
   /**
@@ -817,7 +875,7 @@ public class Post extends NamedFacebookType {
    *         action).
    */
   public List<Action> getActions() {
-    return unmodifiableList(actions);
+    return actions;
   }
 
   /**
@@ -828,7 +886,7 @@ public class Post extends NamedFacebookType {
    * @return A list of properties for this post.
    */
   public List<Property> getProperties() {
-    return unmodifiableList(properties);
+    return properties;
   }
 
   /**
@@ -839,7 +897,7 @@ public class Post extends NamedFacebookType {
    * @since 1.6.10
    */
   public List<NamedFacebookType> getWithTags() {
-    return unmodifiableList(withTags);
+    return withTags;
   }
 
   /**
@@ -849,6 +907,114 @@ public class Post extends NamedFacebookType {
    * @since 1.6.10
    */
   public Map<String, List<MessageTag>> getMessageTags() {
-    return unmodifiableMap(messageTags);
+    return messageTags;
+  }
+
+  public void setFrom(CategorizedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setPicture(String picture) {
+    this.picture = picture;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setCaption(String caption) {
+    this.caption = caption;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public void setApplication(NamedFacebookType application) {
+    this.application = application;
+  }
+
+  public void setIcon(String icon) {
+    this.icon = icon;
+  }
+
+  public void setAttribution(String attribution) {
+    this.attribution = attribution;
+  }
+
+  public void setPrivacy(Privacy privacy) {
+    this.privacy = privacy;
+  }
+
+  public void setLikesCount(Long likesCount) {
+    this.likesCount = likesCount;
+  }
+
+  public void setLikes(Likes likes) {
+    this.likes = likes;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setObjectId(String objectId) {
+    this.objectId = objectId;
+  }
+
+  public void setStatusType(String statusType) {
+    this.statusType = statusType;
+  }
+
+  public void setComments(Comments comments) {
+    this.comments = comments;
+  }
+
+  public void setPlace(com.restfb.types.Place place) {
+    this.place = place;
+  }
+
+  public void setTo(List<NamedFacebookType> to) {
+    this.to = to;
+  }
+
+  public void setActions(List<Action> actions) {
+    this.actions = actions;
+  }
+
+  public void setProperties(List<Property> properties) {
+    this.properties = properties;
+  }
+
+  public void setWithTags(List<NamedFacebookType> withTags) {
+    this.withTags = withTags;
+  }
+
+  public void setRawMessageTags(JsonObject rawMessageTags) {
+    this.rawMessageTags = rawMessageTags;
+  }
+
+  public void setMessageTags(Map<String, List<MessageTag>> messageTags) {
+    this.messageTags = messageTags;
+  }
+
+  public void setShares(Shares shares) {
+    this.shares = shares;
   }
 }

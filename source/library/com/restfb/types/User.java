@@ -26,7 +26,6 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static com.restfb.util.StringUtils.isBlank;
-import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -268,7 +267,35 @@ public class User extends NamedFacebookType {
      * @since 1.6.3
      */
     public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
+      return with;
+    }
+
+    public void setEmployer(NamedFacebookType employer) {
+      this.employer = employer;
+    }
+
+    public void setLocation(NamedFacebookType location) {
+      this.location = location;
+    }
+
+    public void setPosition(NamedFacebookType position) {
+      this.position = position;
+    }
+
+    public void setDescription(String description) {
+      this.description = description;
+    }
+
+    public void setStartDate(String startDate) {
+      this.startDate = startDate;
+    }
+
+    public void setEndDate(String endDate) {
+      this.endDate = endDate;
+    }
+
+    public void setWith(List<NamedFacebookType> with) {
+      this.with = with;
     }
   }
 
@@ -368,7 +395,7 @@ public class User extends NamedFacebookType {
      * @return Concentrations/minors.
      */
     public List<NamedFacebookType> getConcentration() {
-      return unmodifiableList(concentration);
+      return concentration;
     }
 
     /**
@@ -378,7 +405,7 @@ public class User extends NamedFacebookType {
      * @since 1.6.3
      */
     public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
+      return with;
     }
 
     /**
@@ -388,7 +415,35 @@ public class User extends NamedFacebookType {
      * @since 1.6.8
      */
     public List<EducationClass> getClasses() {
-      return unmodifiableList(classes);
+      return classes;
+    }
+
+    public void setSchool(NamedFacebookType school) {
+      this.school = school;
+    }
+
+    public void setYear(NamedFacebookType year) {
+      this.year = year;
+    }
+
+    public void setDegree(NamedFacebookType degree) {
+      this.degree = degree;
+    }
+
+    public void setType(String type) {
+      this.type = type;
+    }
+
+    public void setConcentration(List<NamedFacebookType> concentration) {
+      this.concentration = concentration;
+    }
+
+    public void setWith(List<NamedFacebookType> with) {
+      this.with = with;
+    }
+
+    public void setClasses(List<EducationClass> classes) {
+      this.classes = classes;
     }
   }
 
@@ -413,7 +468,7 @@ public class User extends NamedFacebookType {
      * @return Friends associated with this class.
      */
     public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
+      return with;
     }
 
     /**
@@ -423,6 +478,14 @@ public class User extends NamedFacebookType {
      */
     public String getDescription() {
       return description;
+    }
+
+    public void setWith(List<NamedFacebookType> with) {
+      this.with = with;
+    }
+
+    public void setDescription(String description) {
+      this.description = description;
     }
   }
 
@@ -444,7 +507,11 @@ public class User extends NamedFacebookType {
      * @return Friends associated with this sport.
      */
     public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
+      return with;
+    }
+
+    public void setWith(List<NamedFacebookType> with) {
+      this.with = with;
     }
   }
 
@@ -533,6 +600,22 @@ public class User extends NamedFacebookType {
      */
     public BigDecimal getCurrencyOffset() {
       return currencyOffset;
+    }
+
+    public void setUserCurrency(String userCurrency) {
+      this.userCurrency = userCurrency;
+    }
+
+    public void setCurrencyExchange(BigDecimal currencyExchange) {
+      this.currencyExchange = currencyExchange;
+    }
+
+    public void setCurrencyExchangeInverse(BigDecimal currencyExchangeInverse) {
+      this.currencyExchangeInverse = currencyExchangeInverse;
+    }
+
+    public void setCurrencyOffset(BigDecimal currencyOffset) {
+      this.currencyOffset = currencyOffset;
     }
   }
 
@@ -792,7 +875,7 @@ public class User extends NamedFacebookType {
    * @return The genders the user is interested in.
    */
   public List<String> getInterestedIn() {
-    return unmodifiableList(interestedIn);
+    return interestedIn;
   }
 
   /**
@@ -801,7 +884,7 @@ public class User extends NamedFacebookType {
    * @return What genders the user is interested in meeting.
    */
   public List<String> getMeetingFor() {
-    return unmodifiableList(meetingFor);
+    return meetingFor;
   }
 
   /**
@@ -810,7 +893,7 @@ public class User extends NamedFacebookType {
    * @return A list of the work history from the user's profile.
    */
   public List<Work> getWork() {
-    return unmodifiableList(work);
+    return work;
   }
 
   /**
@@ -819,7 +902,7 @@ public class User extends NamedFacebookType {
    * @return A list of the education history from the user's profile.
    */
   public List<Education> getEducation() {
-    return unmodifiableList(education);
+    return education;
   }
 
   /**
@@ -828,7 +911,7 @@ public class User extends NamedFacebookType {
    * @return A list of the sports from this user's profile.
    */
   public List<Sport> getSports() {
-    return unmodifiableList(sports);
+    return sports;
   }
 
   /**
@@ -837,7 +920,7 @@ public class User extends NamedFacebookType {
    * @return A list of the favorite sports teams from the user's profile.
    */
   public List<NamedFacebookType> getFavoriteTeams() {
-    return unmodifiableList(favoriteTeams);
+    return favoriteTeams;
   }
 
   /**
@@ -846,7 +929,7 @@ public class User extends NamedFacebookType {
    * @return A list of the favorite athletes from the user's profile.
    */
   public List<NamedFacebookType> getFavoriteAthletes() {
-    return unmodifiableList(favoriteAthletes);
+    return favoriteAthletes;
   }
 
   /**
@@ -855,6 +938,138 @@ public class User extends NamedFacebookType {
    * @return A list of the languages from the user's profile.
    */
   public List<NamedFacebookType> getLanguages() {
-    return unmodifiableList(languages);
+    return languages;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public void setMiddleName(String middleName) {
+    this.middleName = middleName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setBio(String bio) {
+    this.bio = bio;
+  }
+
+  public void setQuotes(String quotes) {
+    this.quotes = quotes;
+  }
+
+  public void setAbout(String about) {
+    this.about = about;
+  }
+
+  public void setRelationshipStatus(String relationshipStatus) {
+    this.relationshipStatus = relationshipStatus;
+  }
+
+  public void setReligion(String religion) {
+    this.religion = religion;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
+  }
+
+  public void setBirthday(String birthday) {
+    this.birthday = birthday;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setTimezone(Double timezone) {
+    this.timezone = timezone;
+  }
+
+  public void setVerified(Boolean verified) {
+    this.verified = verified;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  public void setPolitical(String political) {
+    this.political = political;
+  }
+
+  public void setLocale(String locale) {
+    this.locale = locale;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setHometown(NamedFacebookType hometown) {
+    this.hometown = hometown;
+  }
+
+  public void setHometownAsString(String hometownAsString) {
+    this.hometownAsString = hometownAsString;
+  }
+
+  public void setLocation(NamedFacebookType location) {
+    this.location = location;
+  }
+
+  public void setSignificantOther(NamedFacebookType significantOther) {
+    this.significantOther = significantOther;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setThirdPartyId(String thirdPartyId) {
+    this.thirdPartyId = thirdPartyId;
+  }
+
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
+  }
+
+  public void setInterestedIn(List<String> interestedIn) {
+    this.interestedIn = interestedIn;
+  }
+
+  public void setMeetingFor(List<String> meetingFor) {
+    this.meetingFor = meetingFor;
+  }
+
+  public void setWork(List<Work> work) {
+    this.work = work;
+  }
+
+  public void setEducation(List<Education> education) {
+    this.education = education;
+  }
+
+  public void setSports(List<Sport> sports) {
+    this.sports = sports;
+  }
+
+  public void setFavoriteTeams(List<NamedFacebookType> favoriteTeams) {
+    this.favoriteTeams = favoriteTeams;
+  }
+
+  public void setFavoriteAthletes(List<NamedFacebookType> favoriteAthletes) {
+    this.favoriteAthletes = favoriteAthletes;
+  }
+
+  public void setLanguages(List<NamedFacebookType> languages) {
+    this.languages = languages;
   }
 }

@@ -26,21 +26,27 @@ import com.restfb.Facebook;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Account extends CategorizedFacebookType {
+  private static final long serialVersionUID = 1L;
   @Facebook("access_token")
   private String accessToken;
 
-  private static final long serialVersionUID = 1L;
-
   /**
    * An OAuth access token for this account.
-   * 
+   *
    * @return An OAuth access token for this account.
    */
   public String getAccessToken() {
     return accessToken;
+  }
+
+  /**
+   * An OAuth access token for this account.
+   */
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
   }
 }

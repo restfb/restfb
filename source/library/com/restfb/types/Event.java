@@ -154,4 +154,39 @@ public class Event extends NamedFacebookType {
     return toDateFromLongFormat(updatedTime);
   }
 
+  public void setOwner(NamedFacebookType owner) {
+    this.owner = owner;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setStartTime(String startTime) {
+    this.startTime = startTime;
+  }
+
+  public void setEndTime(String endTime) {
+    this.endTime = endTime;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public void setRsvpStatus(String rsvpStatus) {
+    this.rsvpStatus = rsvpStatus;
+  }
+
+  public void setVenue(Venue venue) {
+    this.venue = venue;
+  }
+
+  public void setPrivacy(String privacy) {
+    this.privacy = privacy;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
 }

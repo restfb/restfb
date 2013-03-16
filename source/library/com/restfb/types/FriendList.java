@@ -47,4 +47,8 @@ public class FriendList extends NamedFacebookType {
   public String getListType() {
     return listType;
   }
+
+  public void setListType(String listType) {
+    this.listType = listType;
+  }
 }

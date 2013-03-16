@@ -108,4 +108,28 @@ public class Group extends NamedFacebookType {
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
   }
+
+  public void setOwner(NamedFacebookType owner) {
+    this.owner = owner;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setVenue(Venue venue) {
+    this.venue = venue;
+  }
+
+  public void setPrivacy(String privacy) {
+    this.privacy = privacy;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
 }

@@ -694,6 +694,106 @@ public class FacebookType implements Serializable {
       public String getUpdates() {
         return updates;
       }
+
+      public void setHome(String home) {
+        this.home = home;
+      }
+
+      public void setFeed(String feed) {
+        this.feed = feed;
+      }
+
+      public void setFriends(String friends) {
+        this.friends = friends;
+      }
+
+      public void setFamily(String family) {
+        this.family = family;
+      }
+
+      public void setActivities(String activities) {
+        this.activities = activities;
+      }
+
+      public void setInterests(String interests) {
+        this.interests = interests;
+      }
+
+      public void setMusic(String music) {
+        this.music = music;
+      }
+
+      public void setBooks(String books) {
+        this.books = books;
+      }
+
+      public void setMovies(String movies) {
+        this.movies = movies;
+      }
+
+      public void setTelevision(String television) {
+        this.television = television;
+      }
+
+      public void setLikes(String likes) {
+        this.likes = likes;
+      }
+
+      public void setPosts(String posts) {
+        this.posts = posts;
+      }
+
+      public void setTagged(String tagged) {
+        this.tagged = tagged;
+      }
+
+      public void setStatuses(String statuses) {
+        this.statuses = statuses;
+      }
+
+      public void setLinks(String links) {
+        this.links = links;
+      }
+
+      public void setNotes(String notes) {
+        this.notes = notes;
+      }
+
+      public void setPhotos(String photos) {
+        this.photos = photos;
+      }
+
+      public void setAlbums(String albums) {
+        this.albums = albums;
+      }
+
+      public void setEvents(String events) {
+        this.events = events;
+      }
+
+      public void setGroups(String groups) {
+        this.groups = groups;
+      }
+
+      public void setVideos(String videos) {
+        this.videos = videos;
+      }
+
+      public void setPicture(String picture) {
+        this.picture = picture;
+      }
+
+      public void setInbox(String inbox) {
+        this.inbox = inbox;
+      }
+
+      public void setOutbox(String outbox) {
+        this.outbox = outbox;
+      }
+
+      public void setUpdates(String updates) {
+        this.updates = updates;
+      }
     }
 
     /**
@@ -704,5 +804,21 @@ public class FacebookType implements Serializable {
     public Connections getConnections() {
       return connections;
     }
+
+    public void setConnections(Connections connections) {
+      this.connections = connections;
+    }
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setMetadata(Metadata metadata) {
+    this.metadata = metadata;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

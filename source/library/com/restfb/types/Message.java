@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.util.Date;
 import java.util.List;
@@ -109,6 +108,19 @@ public class Message extends FacebookType {
      */
     public String getMimeType() {
       return mimeType;
+    }
+
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public void setMimeType(String mimeType) {
+      this.mimeType = mimeType;
+    }
+
+    public void setSize(Long size) {
+      this.size = size;
     }
 
     /**
@@ -205,6 +217,38 @@ public class Message extends FacebookType {
    * @return The attachments associated with the message.
    */
   public List<Attachment> getAttachments() {
-    return unmodifiableList(attachments);
+    return attachments;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setTo(List<NamedFacebookType> to) {
+    this.to = to;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setUnread(Integer unread) {
+    this.unread = unread;
+  }
+
+  public void setUnseen(Boolean unseen) {
+    this.unseen = unseen;
   }
 }

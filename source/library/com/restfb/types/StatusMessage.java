@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -145,7 +144,7 @@ public class StatusMessage extends NamedFacebookType {
    * @return The users that have liked this message.
    */
   public List<NamedFacebookType> getLikes() {
-    return unmodifiableList(likes);
+    return likes;
   }
 
   /**
@@ -154,6 +153,38 @@ public class StatusMessage extends NamedFacebookType {
    * @return All of the comments on this message.
    */
   public List<Comment> getComments() {
-    return unmodifiableList(comments);
+    return comments;
+  }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setLikes(List<NamedFacebookType> likes) {
+    this.likes = likes;
+  }
+
+  public void setEmptyLikes(EmptyLikes emptyLikes) {
+    this.emptyLikes = emptyLikes;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public void setEmptyComments(EmptyComments emptyComments) {
+    this.emptyComments = emptyComments;
   }
 }

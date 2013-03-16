@@ -31,7 +31,7 @@ import com.restfb.Facebook;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/user/#apprequests" >App Request Graph API
  * type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
  */
@@ -55,7 +55,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Cover Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
    */
@@ -70,7 +70,7 @@ public class AppRequest extends FacebookType {
 
     /**
      * The application's canvas name.
-     * 
+     *
      * @return The application's canvas name.
      */
     public String getCanvasName() {
@@ -79,17 +79,25 @@ public class AppRequest extends FacebookType {
 
     /**
      * The application's namespace.
-     * 
+     *
      * @return The application's namespace.
      */
     public String getNamespace() {
       return namespace;
     }
+
+    public void setCanvasName(String canvasName) {
+      this.canvasName = canvasName;
+    }
+
+    public void setNamespace(String namespace) {
+      this.namespace = namespace;
+    }
   }
 
   /**
    * App associated with the request.
-   * 
+   *
    * @return App associated with the request.
    */
   public Application getApplication() {
@@ -98,7 +106,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * The recipient user associated with the request.
-   * 
+   *
    * @return The recipient user associated with the request.
    */
   public NamedFacebookType getTo() {
@@ -107,7 +115,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * The sender user associated with the request.
-   * 
+   *
    * @return The sender user associated with the request.
    */
   public NamedFacebookType getFrom() {
@@ -116,7 +124,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * A string describing the request.
-   * 
+   *
    * @return A string describing the request.
    */
   public String getMessage() {
@@ -125,10 +133,30 @@ public class AppRequest extends FacebookType {
 
   /**
    * Timestamp when the request was created.
-   * 
+   *
    * @return Timestamp when the request was created.
    */
   public Date getCreatedTime() {
     return toDateFromLongFormat(createdTime);
+  }
+
+  public void setApplication(Application application) {
+    this.application = application;
+  }
+
+  public void setTo(NamedFacebookType to) {
+    this.to = to;
+  }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
   }
 }

@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -97,6 +96,26 @@ public class Question extends FacebookType {
    * @return The list of options available as answers to the question.
    */
   public List<QuestionOption> getOptions() {
-    return unmodifiableList(options);
+    return options;
+  }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setQuestion(String question) {
+    this.question = question;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setOptions(List<QuestionOption> options) {
+    this.options = options;
   }
 }
