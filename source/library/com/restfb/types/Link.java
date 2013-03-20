@@ -122,4 +122,32 @@ public class Link extends NamedFacebookType {
   public Date getCreatedTime() {
     return toDateFromLongFormat(createdTime);
   }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setPicture(String picture) {
+    this.picture = picture;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setIcon(String icon) {
+    this.icon = icon;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
 }

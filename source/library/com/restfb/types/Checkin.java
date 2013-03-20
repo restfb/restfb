@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -174,6 +173,26 @@ public class Checkin extends FacebookType {
       public String getCountry() {
         return country;
       }
+
+      public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+      }
+
+      public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+      }
+
+      public void setCity(String city) {
+        this.city = city;
+      }
+
+      public void setState(String state) {
+        this.state = state;
+      }
+
+      public void setCountry(String country) {
+        this.country = country;
+      }
     }
 
     /**
@@ -207,6 +226,10 @@ public class Checkin extends FacebookType {
      */
     public com.restfb.types.Location getLocation() {
       return location;
+    }
+
+    public void setLocation(com.restfb.types.Location location) {
+      this.location = location;
     }
   }
 
@@ -261,7 +284,7 @@ public class Checkin extends FacebookType {
    * @return The comments for the check-in.
    */
   public List<Comment> getComments() {
-    return unmodifiableList(comments);
+    return comments;
   }
 
   /**
@@ -270,6 +293,34 @@ public class Checkin extends FacebookType {
    * @return Tags for the check-in.
    */
   public List<NamedFacebookType> getTags() {
-    return unmodifiableList(tags);
+    return tags;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setApplication(NamedFacebookType application) {
+    this.application = application;
+  }
+
+  public void setPlace(com.restfb.types.Place place) {
+    this.place = place;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public void setTags(List<NamedFacebookType> tags) {
+    this.tags = tags;
   }
 }

@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -158,7 +157,7 @@ public class Video extends NamedFacebookType {
    * @since 1.6.5
    */
   public List<NamedFacebookType> getTags() {
-    return unmodifiableList(tags);
+    return tags;
   }
 
   /**
@@ -167,7 +166,7 @@ public class Video extends NamedFacebookType {
    * @return Comments for the video.
    */
   public List<Comment> getComments() {
-    return unmodifiableList(comments);
+    return comments;
   }
 
   /**
@@ -186,5 +185,53 @@ public class Video extends NamedFacebookType {
    */
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
+  }
+
+  public void setFrom(CategorizedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setPicture(String picture) {
+    this.picture = picture;
+  }
+
+  public void setIcon(String icon) {
+    this.icon = icon;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public void setEmbedHtml(String embedHtml) {
+    this.embedHtml = embedHtml;
+  }
+
+  public void setLength(Integer length) {
+    this.length = length;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setTags(List<NamedFacebookType> tags) {
+    this.tags = tags;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
 }

@@ -64,4 +64,12 @@ public class Place extends NamedFacebookType {
   public String getLocationAsString() {
     return locationAsString;
   }
+
+  public void setLocation(Location location) {
+    this.location = location;
+  }
+
+  public void setLocationAsString(String locationAsString) {
+    this.locationAsString = locationAsString;
+  }
 }

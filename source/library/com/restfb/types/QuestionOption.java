@@ -85,4 +85,20 @@ public class QuestionOption extends NamedFacebookType {
   public Date getCreatedTime() {
     return toDateFromLongFormat(createdTime);
   }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setVotes(Integer votes) {
+    this.votes = votes;
+  }
+
+  public void setObject(CategorizedFacebookType object) {
+    this.object = object;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
 }

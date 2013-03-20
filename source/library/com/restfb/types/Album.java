@@ -35,37 +35,27 @@ import com.restfb.Facebook;
  * @since 1.5
  */
 public class Album extends NamedFacebookType {
+  private static final long serialVersionUID = 1L;
   @Facebook
   private CategorizedFacebookType from;
-
   @Facebook
   private String description;
-
   @Facebook
   private String location;
-
   @Facebook
   private String link;
-
   @Facebook
   private Long count;
-
   @Facebook("cover_photo")
   private String coverPhoto;
-
   @Facebook
   private String privacy;
-
   @Facebook("can_upload")
   private Boolean canUpload;
-
   @Facebook("created_time")
   private String createdTime;
-
   @Facebook("updated_time")
   private String updatedTime;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the ID and name of the profile who posted this album.
@@ -155,5 +145,45 @@ public class Album extends NamedFacebookType {
    */
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
+  }
+
+  public void setFrom(CategorizedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setCount(Long count) {
+    this.count = count;
+  }
+
+  public void setCoverPhoto(String coverPhoto) {
+    this.coverPhoto = coverPhoto;
+  }
+
+  public void setPrivacy(String privacy) {
+    this.privacy = privacy;
+  }
+
+  public void setCanUpload(Boolean canUpload) {
+    this.canUpload = canUpload;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
   }
 }

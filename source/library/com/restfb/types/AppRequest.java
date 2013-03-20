@@ -85,6 +85,14 @@ public class AppRequest extends FacebookType {
     public String getNamespace() {
       return namespace;
     }
+
+    public void setCanvasName(String canvasName) {
+      this.canvasName = canvasName;
+    }
+
+    public void setNamespace(String namespace) {
+      this.namespace = namespace;
+    }
   }
 
   /**
@@ -130,5 +138,25 @@ public class AppRequest extends FacebookType {
    */
   public Date getCreatedTime() {
     return toDateFromLongFormat(createdTime);
+  }
+
+  public void setApplication(Application application) {
+    this.application = application;
+  }
+
+  public void setTo(NamedFacebookType to) {
+    this.to = to;
+  }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
   }
 }

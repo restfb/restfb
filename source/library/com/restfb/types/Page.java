@@ -164,6 +164,18 @@ public class Page extends CategorizedFacebookType {
     public Integer getOffsetY() {
       return offsetY;
     }
+
+    public void setCoverId(String coverId) {
+      this.coverId = coverId;
+    }
+
+    public void setSource(String source) {
+      this.source = source;
+    }
+
+    public void setOffsetY(Integer offsetY) {
+      this.offsetY = offsetY;
+    }
   }
 
   /**
@@ -355,5 +367,85 @@ public class Page extends CategorizedFacebookType {
    */
   public Cover getCover() {
     return cover;
+  }
+
+  public void setPicture(String picture) {
+    this.picture = picture;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setFounded(String founded) {
+    this.founded = founded;
+  }
+
+  public void setCompanyOverview(String companyOverview) {
+    this.companyOverview = companyOverview;
+  }
+
+  public void setMission(String mission) {
+    this.mission = mission;
+  }
+
+  public void setProducts(String products) {
+    this.products = products;
+  }
+
+  public void setLikes(Long likes) {
+    this.likes = likes;
+  }
+
+  public void setCommunityPage(Boolean communityPage) {
+    isCommunityPage = communityPage;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setCheckins(Integer checkins) {
+    this.checkins = checkins;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
+
+  public void setAbout(String about) {
+    this.about = about;
+  }
+
+  public void setTalkingAboutCount(Long talkingAboutCount) {
+    this.talkingAboutCount = talkingAboutCount;
+  }
+
+  public void setCanPost(Boolean canPost) {
+    this.canPost = canPost;
+  }
+
+  public void setPublished(Boolean published) {
+    isPublished = published;
+  }
+
+  public void setGeneralInfo(String generalInfo) {
+    this.generalInfo = generalInfo;
+  }
+
+  public void setLocation(Location location) {
+    this.location = location;
+  }
+
+  public void setCover(Cover cover) {
+    this.cover = cover;
   }
 }

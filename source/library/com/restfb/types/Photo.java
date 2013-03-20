@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -131,6 +130,18 @@ public class Photo extends NamedFacebookType {
     public Date getCreatedTime() {
       return toDateFromLongFormat(createdTime);
     }
+
+    public void setX(Integer x) {
+      this.x = x;
+    }
+
+    public void setY(Integer y) {
+      this.y = y;
+    }
+
+    public void setCreatedTime(String createdTime) {
+      this.createdTime = createdTime;
+    }
   }
 
   /**
@@ -200,6 +211,18 @@ public class Photo extends NamedFacebookType {
      */
     public String getSource() {
       return source;
+    }
+
+    public void setHeight(Integer height) {
+      this.height = height;
+    }
+
+    public void setWidth(Integer width) {
+      this.width = width;
+    }
+
+    public void setSource(String source) {
+      this.source = source;
     }
   }
 
@@ -314,7 +337,7 @@ public class Photo extends NamedFacebookType {
    *         from the left and top edges of the photo, respectively.
    */
   public List<Tag> getTags() {
-    return unmodifiableList(tags);
+    return tags;
   }
 
   /**
@@ -324,7 +347,7 @@ public class Photo extends NamedFacebookType {
    * @since 1.6.5
    */
   public List<Comment> getComments() {
-    return unmodifiableList(comments);
+    return comments;
   }
 
   /**
@@ -334,7 +357,7 @@ public class Photo extends NamedFacebookType {
    * @since 1.6.5
    */
   public List<NamedFacebookType> getLikes() {
-    return unmodifiableList(likes);
+    return likes;
   }
 
   /**
@@ -344,6 +367,66 @@ public class Photo extends NamedFacebookType {
    * @since 1.6.5
    */
   public List<Image> getImages() {
-    return unmodifiableList(images);
+    return images;
+  }
+
+  public void setFrom(CategorizedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setPicture(String picture) {
+    this.picture = picture;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public void setHeight(Integer height) {
+    this.height = height;
+  }
+
+  public void setWidth(Integer width) {
+    this.width = width;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setIcon(String icon) {
+    this.icon = icon;
+  }
+
+  public void setPosition(Integer position) {
+    this.position = position;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public void setLikes(List<NamedFacebookType> likes) {
+    this.likes = likes;
+  }
+
+  public void setImages(List<Image> images) {
+    this.images = images;
+  }
+
+  public void setPlace(Place place) {
+    this.place = place;
   }
 }

@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -132,6 +131,10 @@ public class Conversation extends FacebookType {
     public String getName() {
       return name;
     }
+
+    public void setName(String name) {
+      this.name = name;
+    }
   }
 
   /**
@@ -176,7 +179,7 @@ public class Conversation extends FacebookType {
    * @return A list of tags indicating the message folder, and whether the conversation is read and seen.
    */
   public List<Tag> getTags() {
-    return unmodifiableList(tags);
+    return tags;
   }
 
   /**
@@ -185,7 +188,7 @@ public class Conversation extends FacebookType {
    * @return Users who are on this message conversation
    */
   public List<NamedFacebookType> getParticipants() {
-    return unmodifiableList(participants);
+    return participants;
   }
 
   /**
@@ -194,7 +197,7 @@ public class Conversation extends FacebookType {
    * @return Users who send a message on the conversation
    */
   public List<NamedFacebookType> getSenders() {
-    return unmodifiableList(senders);
+    return senders;
   }
 
   /**
@@ -221,7 +224,7 @@ public class Conversation extends FacebookType {
    * @return List of all messages in the conversation
    */
   public List<Message> getMessages() {
-    return unmodifiableList(messages);
+    return messages;
   }
 
   /**
@@ -248,6 +251,58 @@ public class Conversation extends FacebookType {
    * @return Users who used to be on this message conversation.
    */
   public List<NamedFacebookType> getFormerParticipants() {
-    return unmodifiableList(formerParticipants);
+    return formerParticipants;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public void setSubject(String subject) {
+    this.subject = subject;
+  }
+
+  public void setSnippet(String snippet) {
+    this.snippet = snippet;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setMessageCount(Long messageCount) {
+    this.messageCount = messageCount;
+  }
+
+  public void setUnreadCount(Long unreadCount) {
+    this.unreadCount = unreadCount;
+  }
+
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
+
+  public void setParticipants(List<NamedFacebookType> participants) {
+    this.participants = participants;
+  }
+
+  public void setFormerParticipants(List<NamedFacebookType> formerParticipants) {
+    this.formerParticipants = formerParticipants;
+  }
+
+  public void setSenders(List<NamedFacebookType> senders) {
+    this.senders = senders;
+  }
+
+  public void setCanReply(Boolean canReply) {
+    this.canReply = canReply;
+  }
+
+  public void setSubscribed(Boolean subscribed) {
+    isSubscribed = subscribed;
+  }
+
+  public void setMessages(List<Message> messages) {
+    this.messages = messages;
   }
 }

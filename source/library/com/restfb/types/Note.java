@@ -23,7 +23,6 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -129,6 +128,38 @@ public class Note extends FacebookType {
    * @since 1.6.10
    */
   public List<Comment> getComments() {
-    return unmodifiableList(comments);
+    return comments;
+  }
+
+  public void setFrom(NamedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setSubject(String subject) {
+    this.subject = subject;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setIcon(String icon) {
+    this.icon = icon;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setUpdatedTime(String updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public void setCommentsAsObject(String commentsAsObject) {
+    this.commentsAsObject = commentsAsObject;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
 }

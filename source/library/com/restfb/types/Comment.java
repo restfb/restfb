@@ -126,4 +126,32 @@ public class Comment extends FacebookType {
   public Boolean getUserLikes() {
     return userLikes;
   }
+
+  public void setFrom(CategorizedFacebookType from) {
+    this.from = from;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public void setLikes(Long likes) {
+    this.likes = likes;
+  }
+
+  public void setLikeCount(Long likeCount) {
+    this.likeCount = likeCount;
+  }
+
+  public void setCanRemove(Boolean canRemove) {
+    this.canRemove = canRemove;
+  }
+
+  public void setUserLikes(Boolean userLikes) {
+    this.userLikes = userLikes;
+  }
 }
