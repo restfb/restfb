@@ -22,15 +22,15 @@
 
 package com.restfb.types;
 
-import com.restfb.Facebook;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import java.util.Date;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import com.restfb.Facebook;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/album">Album Graph API type</a>.
- *
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -59,7 +59,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * An object containing the ID and name of the profile who posted this album.
-   *
+   * 
    * @return An object containing the ID and name of the profile who posted this album.
    */
   public CategorizedFacebookType getFrom() {
@@ -68,7 +68,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * The description of the album.
-   *
+   * 
    * @return The description of the album.
    */
   public String getDescription() {
@@ -77,7 +77,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * The location of the album.
-   *
+   * 
    * @return The location of the album.
    */
   public String getLocation() {
@@ -86,7 +86,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * A link to this album on Facebook.
-   *
+   * 
    * @return A link to this album on Facebook.
    */
   public String getLink() {
@@ -95,7 +95,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * The number of photos in this album.
-   *
+   * 
    * @return The number of photos in this album.
    */
   public Long getCount() {
@@ -104,7 +104,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * The album cover photo ID.
-   *
+   * 
    * @return The album cover photo ID
    */
   public String getCoverPhoto() {
@@ -113,7 +113,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * The privacy settings for the album.
-   *
+   * 
    * @return The privacy settings for the album.
    */
   public String getPrivacy() {
@@ -122,7 +122,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * Whether or not the user has permission to upload to this album.
-   *
+   * 
    * @return The {@code can_upload} setting for this album.
    */
   public Boolean getCanUpload() {
@@ -131,7 +131,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * The time the photo album was initially created.
-   *
+   * 
    * @return The time the photo album was initially created.
    */
   public Date getCreatedTime() {
@@ -140,7 +140,7 @@ public class Album extends NamedFacebookType {
 
   /**
    * The last time the photo album was updated.
-   *
+   * 
    * @return The last time the photo album was updated.
    */
   public Date getUpdatedTime() {

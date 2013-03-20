@@ -110,7 +110,6 @@ public class Message extends FacebookType {
       return mimeType;
     }
 
-
     public void setName(String name) {
       this.name = name;
     }

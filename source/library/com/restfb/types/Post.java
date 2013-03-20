@@ -26,11 +26,7 @@ import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
@@ -611,8 +607,9 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the Shares included the <a href="http://developers.facebook.com/docs/reference/api/post">Post</a> response.
-   * Presently only supports count.
+   * Represents the Shares included the <a href="http://developers.facebook.com/docs/reference/api/post">Post</a>
+   * response. Presently only supports count.
+   * 
    * @since 1.6.11
    */
   public static class Shares implements Serializable {
@@ -620,7 +617,7 @@ public class Post extends NamedFacebookType {
     protected Long count;
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * @see java.lang.Object#hashCode()
      */
@@ -658,7 +655,7 @@ public class Post extends NamedFacebookType {
       this.count = count;
     }
   }
-  
+
   /**
    * An object containing the ID and name of the user who posted the message.
    * 
@@ -789,7 +786,7 @@ public class Post extends NamedFacebookType {
   public Likes getLikes() {
     return likes;
   }
-  
+
   /**
    * The number of shares of this post.
    * 

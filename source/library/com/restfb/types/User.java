@@ -22,9 +22,7 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
-import static com.restfb.util.DateUtils.toDateFromShortFormat;
+import static com.restfb.util.DateUtils.*;
 import static com.restfb.util.StringUtils.isBlank;
 
 import java.io.Serializable;

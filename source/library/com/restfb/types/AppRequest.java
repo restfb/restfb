@@ -31,7 +31,7 @@ import com.restfb.Facebook;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/user/#apprequests" >App Request Graph API
  * type</a>.
- *
+ * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
  */
@@ -55,7 +55,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Cover Graph API type</a>.
-   *
+   * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
    */
@@ -70,7 +70,7 @@ public class AppRequest extends FacebookType {
 
     /**
      * The application's canvas name.
-     *
+     * 
      * @return The application's canvas name.
      */
     public String getCanvasName() {
@@ -79,7 +79,7 @@ public class AppRequest extends FacebookType {
 
     /**
      * The application's namespace.
-     *
+     * 
      * @return The application's namespace.
      */
     public String getNamespace() {
@@ -97,7 +97,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * App associated with the request.
-   *
+   * 
    * @return App associated with the request.
    */
   public Application getApplication() {
@@ -106,7 +106,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * The recipient user associated with the request.
-   *
+   * 
    * @return The recipient user associated with the request.
    */
   public NamedFacebookType getTo() {
@@ -115,7 +115,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * The sender user associated with the request.
-   *
+   * 
    * @return The sender user associated with the request.
    */
   public NamedFacebookType getFrom() {
@@ -124,7 +124,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * A string describing the request.
-   *
+   * 
    * @return A string describing the request.
    */
   public String getMessage() {
@@ -133,7 +133,7 @@ public class AppRequest extends FacebookType {
 
   /**
    * Timestamp when the request was created.
-   *
+   * 
    * @return Timestamp when the request was created.
    */
   public Date getCreatedTime() {
