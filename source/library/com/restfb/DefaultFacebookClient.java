@@ -622,6 +622,23 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * @see com.restfb.FacebookClient#debugToken(java.lang.String)
+   */
+  public DebugTokenInfo debugToken(String inputToken) {
+    verifyParameterPresence("inputToken", inputToken);
+
+    String response = makeRequest("/debug_token", Parameter.with("input_token", inputToken));
+    JsonObject json = new JsonObject(response);
+    JsonObject data = json.getJsonObject("data");
+
+    try {
+      return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);
+    } catch (Throwable t) {
+      throw new FacebookResponseContentException("Unable to parse JSON from response.", t);
+    }    
+  }
+
+  /**
    * @see com.restfb.FacebookClient#getJsonMapper()
    */
   public JsonMapper getJsonMapper() {
