@@ -72,6 +72,7 @@ import com.restfb.util.ReflectionUtils;
  * @author Mattia Tommasone
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author Josef Gierbl
+ * @author Broc Seib
  */
 public interface FacebookClient {
   /**
@@ -388,6 +389,56 @@ public interface FacebookClient {
   <T> T parseSignedRequest(String signedRequest, String appSecret, Class<T> objectType);
 
   /**
+   * <p>When working with access tokens, you may need to check what information is associated with them, such
+   * as its user or expiry. To get this information you can use the debug tool in the developer site, or
+   * you can use this function.</p>
+   * 
+   * <p>You must instantiate your FacebookClient using your App Access Token, or a valid User Access Token
+   * from a developer of the app.</p>
+   * 
+   * <p>Note that if your app is set to Native/Desktop in the Advanced settings of your App Dashboard, the
+   * underlying GraphAPI endpoint will not work with your app token unless you change the "App Secret in Client"
+   * setting to NO. If you do not see this setting, make sure your "App Type" is set to Native/Desktop and
+   * then press the save button at the bottom of the page. This will not affect apps set to Web.</p>
+   * 
+   * <p>The response of the API call is a JSON array containing data and a map of fields. For example:</p>
+   * 
+   * <pre>
+   * {@code
+   * {
+   *     "data": {
+   *         "app_id": 138483919580948, 
+   *         "application": "Social Cafe", 
+   *         "expires_at": 1352419328, 
+   *         "is_valid": true, 
+   *         "issued_at": 1347235328, 
+   *         "metadata": {
+   *             "sso": "iphone-safari"
+   *         }, 
+   *         "scopes": [
+   *             "email", 
+   *             "publish_actions"
+   *         ], 
+   *         "user_id": 1207059
+   *     }
+   * }
+   * }
+   * </pre>
+   * 
+   * <p>Note that the {@code issued_at} field is not returned for short-lived access tokens.</p>
+   * 
+   * <p>See <a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/">
+   * Debugging an Access Token</a></p>
+   * 
+   * @param inputToken
+   *          The Access Token to debug.
+   *          
+   * @return A JsonObject containing the debug information for the accessToken.
+   * @since 1.6.13
+   */
+  DebugTokenInfo debugToken(String inputToken);
+
+  /**
    * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.
    * 
    * @return The {@code JsonMapper} used to convert Facebook JSON to Java objects.
@@ -510,4 +561,116 @@ public interface FacebookClient {
       return expires == null ? null : new Date(expires);
     }
   }
+  
+  /**
+   * <p>Represents the result of a {@link FacebookClient#debugToken(String)} inquiry.</p>
+   * 
+   * FIXME does this class belong here?
+   * 
+   * <p>See <a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/">
+   * @author Broc Seib
+   */
+  public static class DebugTokenInfo {
+    @Facebook("app_id")
+    private String appId;
+    
+    @Facebook("application")
+    private String application;
+
+    @Facebook("expires_at")
+    private Long expiresAt;
+
+    @Facebook("issued_at")
+    private Long issuedAt;
+
+    @Facebook("is_valid")
+    private Boolean isValid;
+    
+    @Facebook("user_id")
+    private String userId;
+    
+    // FIXME let's read 'scopes' and 'metadata' if they exist. They are a nested structure...
+
+    /**
+     * The application id.
+     * 
+     * @return The id of the application.
+     */
+    public String getAppId() {
+      return appId;
+    }
+
+    /**
+     * The application name.
+     * 
+     * @return The name of the application.
+     */
+    public String getApplication() {
+      return application;
+    }
+
+    /**
+     * The date on which the access token expires.
+     * 
+     * @return The date on which the access token expires.
+     */
+    public Date getExpiresAt() {
+      // note that the expire timestamp is in *seconds*, not milliseconds
+      return expiresAt == null ? null : new Date(expiresAt*1000L);
+    }
+
+    /**
+     * The date on which the access token was issued.
+     * 
+     * @return The date on which the access token was issued.
+     */
+    public Date getIssuedAt() {
+      // note that the issue timestamp is in *seconds*, not milliseconds
+      return issuedAt == null ? null : new Date(issuedAt*1000L);
+    }
+
+    /**
+     * Whether or not the token is valid.
+     * 
+     * @return Whether or not the token is valid.
+     */
+    public Boolean isValid() {
+      return isValid;
+    }
+
+    /**
+     * The user id.
+     * 
+     * @return The user id.
+     */
+    public String getUserId() {
+      return userId;
+    }
+    
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+  }
+
 }
