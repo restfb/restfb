@@ -5,7 +5,7 @@
 	<artifactId>restfb</artifactId>
 	<packaging>jar</packaging>
 	<name>RestFB</name>
-	<version>1.6.12</version>
+	<version>1.6.13-custom</version>
 	<description>RestFB is a simple and flexible Facebook Graph API and Old REST API client written in Java.</description>
 	<url>http://restfb.com</url>
 
@@ -45,5 +45,12 @@
 		</developer>
 	</developers>
 
-	<dependencies></dependencies>
+	<dependencies>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+        </dependency>
+    </dependencies>
 </project>
