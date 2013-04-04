@@ -569,6 +569,11 @@ public class User extends NamedFacebookType {
     @Facebook("is_silhouette")
     private Boolean silhouette;
 
+    @Facebook("width")
+    public Integer width;
+
+    @Facebook("height")
+    public Integer height;
 
     public String getUrl() {
       return url;
@@ -578,7 +583,15 @@ public class User extends NamedFacebookType {
       return silhouette;
     }
 
-    /**
+    public Integer getWidth() {
+      return width;
+    }
+
+    public Integer getHeight() {
+      return height;
+    }
+
+      /**
      * @see java.lang.Object#hashCode()
      */
     @Override
