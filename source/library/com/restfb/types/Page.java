@@ -34,7 +34,9 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class Page extends CategorizedFacebookType {
-
+  @Facebook
+  private String picture;
+  
   @Facebook
   private String pic;
 
@@ -177,6 +179,15 @@ public class Page extends CategorizedFacebookType {
     public Integer getOffsetY() {
       return offsetY;
     }
+  }
+
+  /**
+   * The page's picture.
+   * 
+   * @return The page's picture.
+   */
+  public String getPicture() {
+    return picture;
   }
 
   /**
