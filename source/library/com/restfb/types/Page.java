@@ -34,8 +34,21 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class Page extends CategorizedFacebookType {
+
   @Facebook
-  private String picture;
+  private String pic;
+
+  @Facebook("pic_big")
+  private String picBig;
+
+  @Facebook("pic_large")
+  private String picLarge;
+
+  @Facebook("pic_small")
+  private String picSmall;
+
+  @Facebook("pic_square")
+  private String picSquare;
 
   @Facebook
   private String link;
@@ -164,15 +177,6 @@ public class Page extends CategorizedFacebookType {
     public Integer getOffsetY() {
       return offsetY;
     }
-  }
-
-  /**
-   * The page's picture.
-   * 
-   * @return The page's picture.
-   */
-  public String getPicture() {
-    return picture;
   }
 
   /**
@@ -356,4 +360,60 @@ public class Page extends CategorizedFacebookType {
   public Cover getCover() {
     return cover;
   }
+
+  /**
+   * The URL to the medium-sized profile picture for the Page. The image can have a maximum width of 100px and a maximum
+   * height of 300px. This URL may be blank.
+   * 
+   * @return the pic
+   * @since 1.6.13
+   */
+  public String getPic() {
+    return pic;
+  }
+
+  /**
+   * The URL to the large-sized profile picture for the Page. The image can have a maximum width of 200px and a maximum
+   * height of 600px. This URL may be blank.
+   * 
+   * @return the picBig
+   * @since 1.6.13
+   */
+  public String getPicBig() {
+    return picBig;
+  }
+
+  /**
+   * The URL to the largest-sized profile picture for the Page. The image can have a maximum width of 396px and a
+   * maximum height of 1188px. This URL may be blank.
+   * 
+   * @return the picLarge
+   * @since 1.6.13
+   */
+  public String getPicLarge() {
+    return picLarge;
+  }
+
+  /**
+   * The URL to the small-sized picture for the Page. The image can have a maximum width of 50px and a maximum height of
+   * 150px. This URL may be blank.
+   * 
+   * @return the picSmall
+   * @since 1.6.13
+   */
+  public String getPicSmall() {
+    return picSmall;
+  }
+
+  /**
+   * The URL to the square profile picture for the Page. The image can have a maximum width and height of 50px. This URL
+   * may be blank.
+   * 
+   * @return the picSquare
+   * @since 1.6.13
+   */
+  public String getPicSquare() {
+    return picSquare;
+  }
+
 }
