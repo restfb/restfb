@@ -34,6 +34,10 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class Page extends CategorizedFacebookType {
+
+  @Facebook("page_id")
+  private String pageId;
+
   @Facebook
   private String picture;
   
@@ -425,6 +429,14 @@ public class Page extends CategorizedFacebookType {
    */
   public String getPicSquare() {
     return picSquare;
+  }
+
+  /**
+   * The ID of the Page.
+   * @return the pageId
+   */
+  public String getPageId() {
+    return pageId;
   }
 
 }
