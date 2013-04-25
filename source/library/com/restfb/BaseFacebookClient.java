@@ -133,8 +133,8 @@ abstract class BaseFacebookClient {
      *      java.lang.Integer, java.lang.String, java.lang.String)
      */
     @Override
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer httpStatusCode, String type,
-        String message) {
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
+        Integer httpStatusCode, String type, String message) {
       if (errorCode == API_EC_PARAM_ACCESS_TOKEN)
         return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, httpStatusCode);
 
@@ -202,7 +202,7 @@ abstract class BaseFacebookClient {
         return;
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
-        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), httpStatusCode, null,
+        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null, httpStatusCode, null,
         errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);

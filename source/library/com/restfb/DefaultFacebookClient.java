@@ -136,7 +136,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * API error response 'error' attribute name.
    */
   protected static final String ERROR_ATTRIBUTE_NAME = "error";
-
+  
   /**
    * API error response 'type' attribute name.
    */
@@ -151,6 +151,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * API error response 'code' attribute name.
    */
   protected static final String ERROR_CODE_ATTRIBUTE_NAME = "code";
+  
+  /**
+   * API error response 'error_subcode' attribute name.
+   */
+  protected static final String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";  
 
   /**
    * Batch API error response 'error' attribute name.
@@ -796,9 +801,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       Integer errorCode =
           innerErrorObject.has(ERROR_CODE_ATTRIBUTE_NAME) ? toInteger(innerErrorObject
             .getString(ERROR_CODE_ATTRIBUTE_NAME)) : null;
+      Integer errorSubcode =
+          innerErrorObject.has(ERROR_SUBCODE_ATTRIBUTE_NAME) ? toInteger(innerErrorObject
+            .getString(ERROR_SUBCODE_ATTRIBUTE_NAME)) : null;          
 
       throw graphFacebookExceptionMapper
-        .exceptionForTypeAndMessage(errorCode, httpStatusCode, innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+        .exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
+          innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
           innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
@@ -841,7 +850,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         return;
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
-        httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME));
+        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -872,10 +881,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
      *      java.lang.Integer, java.lang.String, java.lang.String)
      */
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer httpStatusCode, String type,
-        String message) {
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, 
+        Integer httpStatusCode, String type, String message) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
-        return new FacebookOAuthException(type, message, errorCode, httpStatusCode);
+        return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode);
 
       if ("QueryParseException".equals(type))
         return new FacebookQueryParseException(type, message, httpStatusCode);
