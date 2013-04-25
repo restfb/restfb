@@ -39,8 +39,10 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
+import com.restfb.types.CategorizedFacebookType;
 import com.restfb.types.NamedFacebookType;
 import com.restfb.types.Post;
+import com.restfb.types.SearchResults;
 import com.restfb.types.User;
 
 /**
@@ -314,6 +316,19 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     } catch (FacebookJsonMappingException e) {
       // Expected
     }
+  }
+
+  /**
+   * Can we handle simple primitive list mapping?
+   */
+  @Test
+  public void jsonMappingSearchResult() {
+    SearchResults results = createJsonMapper().toJavaObject(jsonFromClasspath("search-results"), SearchResults.class);
+    assertTrue(results.getData().size() == 25);
+    CategorizedFacebookType first = results.getData().get(0);
+    assertEquals("103758506330178", first.getId());
+    assertEquals("Coffee", first.getName());
+    assertEquals("Interest", first.getCategory());
   }
 
   static class Story {

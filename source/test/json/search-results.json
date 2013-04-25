@@ -1,0 +1,148 @@
+{
+   "data": [
+      {
+         "category": "Interest",
+         "name": "Coffee",
+         "id": "103758506330178"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Cafe Coffee Day - Official",
+         "id": "193926289498"
+      },
+      {
+         "category": "Interest",
+         "name": "Starbucks Coffee",
+         "id": "102173739824936"
+      },
+      {
+         "category": "Company",
+         "name": "Coffee Qu\u00e1n",
+         "id": "356689104449027"
+      },
+      {
+         "category": "Company",
+         "name": "Melitta Coffee Romania",
+         "id": "343724509037632"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Coffee-Mate M\u00e9xico",
+         "id": "270044503088834"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Costa Coffee",
+         "id": "124310790964800"
+      },
+      {
+         "category": "Personal blog",
+         "name": "Chocolate Coffee",
+         "id": "108047991999"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Gevalia Coffee",
+         "id": "115573111523"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Coffee-mate",
+         "id": "120251049238"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Coffee-mate Natural Bliss",
+         "id": "212537042098596"
+      },
+      {
+         "category": "Magazine",
+         "name": "\u06af\u0627\u0644\u0631\u06cc \u0639\u06a9\u0633 Coffe Pic",
+         "id": "460282980684212"
+      },
+      {
+         "category": "Restaurant/cafe",
+         "name": "Colombiano Coffee House",
+         "id": "211504885643757"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "COFFEE-MATE Philippines",
+         "id": "371072207281"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Coffee Mate Egypt",
+         "id": "291815397551910"
+      },
+      {
+         "category": "Food/beverages",
+         "category_list": [
+            {
+               "id": "128673187201735",
+               "name": "Coffee Shop"
+            }
+         ],
+         "name": "The Coffee Bean & Tea Leaf",
+         "id": "24329337724"
+      },
+      {
+         "category": "Pet",
+         "name": "Coffee.",
+         "id": "154110908045887"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Tully's Coffee",
+         "id": "443489970122"
+      },
+      {
+         "category": "App page",
+         "name": "Coffee Bar",
+         "id": "148357701947648"
+      },
+      {
+         "category": "Media/news/publishing",
+         "category_list": [
+            {
+               "id": "211155112228091",
+               "name": "Event Venue"
+            },
+            {
+               "id": "191684877517919",
+               "name": "Publisher"
+            }
+         ],
+         "name": "CoffeeTalk Media",
+         "id": "412029578833375"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Peet's Coffee & Tea",
+         "id": "13856871189"
+      },
+      {
+         "category": "Restaurant/cafe",
+         "name": "The Coffee Bean & Tea Leaf Mexico",
+         "id": "14156470985"
+      },
+      {
+         "category": "Community",
+         "name": "Suspended Coffees",
+         "id": "431946943566996"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Caribou Coffee",
+         "id": "133270255952"
+      },
+      {
+         "category": "Food/beverages",
+         "name": "Costa Coffee India",
+         "id": "206502032710356"
+      }
+   ],
+   "paging": {
+      "next": "https://graph.facebook.com/search?q=coffee&type=page&limit=25&offset=25&__after_id=206502032710356"
+   }
+}
