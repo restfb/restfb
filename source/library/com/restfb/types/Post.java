@@ -86,10 +86,10 @@ public class Post extends NamedFacebookType {
   private Privacy privacy;
 
   /**
-   * Duplicate mapping for "likes" since FB can return it differently in different situations.
+   * Duplicate mapping for "likes" since FB can return it differently in different situations. Initialize with 0.
    */
   @Facebook("likes")
-  private Long likesCount;
+  private Long likesCount = 0L;
 
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
@@ -295,8 +295,12 @@ public class Post extends NamedFacebookType {
    * @since 1.6
    */
   public static class Likes implements Serializable {
+    
+    /**
+     * Initialize count with 0.
+     */
     @Facebook
-    private Long count;
+    private Long count = 0L;
 
     @Facebook
     private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
@@ -353,8 +357,12 @@ public class Post extends NamedFacebookType {
    * @since 1.5.3
    */
   public static class Comments implements Serializable {
+    
+    /**
+     * Initialize count with 0.
+     */
     @Facebook
-    private Long count;
+    private Long count = 0L;
 
     @Facebook
     private List<Comment> data = new ArrayList<Comment>();
@@ -562,8 +570,12 @@ public class Post extends NamedFacebookType {
    * @since 1.6.11
    */
   public static class Shares implements Serializable {
+    
+    /**
+     * Initialize count with 0.
+     */
     @Facebook
-    private Long count;
+    private Long count = 0L;
 
     private static final long serialVersionUID = 1L;
     
