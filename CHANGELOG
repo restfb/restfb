@@ -2,6 +2,9 @@
 
 * Now support signed request parsing with new FacebookClient.parseSignedRequest().
   Thanks to Josef Gierbl for the patch.
+* Fix for Venue type (added new "id" field)
+  Thanks to sbisht and neXus1987
+* Added missing fields to Event type
 
 1.6.12 (March 10, 2013)
 

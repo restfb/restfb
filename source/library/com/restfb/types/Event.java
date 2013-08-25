@@ -25,9 +25,12 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Graph API type</a>.
@@ -37,7 +40,7 @@ import com.restfb.Facebook;
  */
 public class Event extends NamedFacebookType {
   @Facebook
-  private NamedFacebookType owner;
+  private Owner owner;
 
   @Facebook
   private String description;
@@ -63,14 +66,164 @@ public class Event extends NamedFacebookType {
   @Facebook("updated_time")
   private String updatedTime;
 
-  private static final long serialVersionUID = 1L;
+  @Facebook("ticket_uri")
+  private String ticketUri;
+
+  @Facebook
+  private String picture;
+
+  @Facebook("is_date_only")
+  private Boolean isDateOnly;
+
+  private static final long serialVersionUID = 2L;
 
   /**
-   * An object containing the name and ID of the user who owns the event
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Owner Graph API type</a>.
    * 
-   * @return An object containing the name and ID of the user who owns the event.
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.13
    */
-  public NamedFacebookType getOwner() {
+  public static class Owner implements Serializable {
+    @Facebook
+    private String id;
+
+    @Facebook
+    private String name;
+
+    @Facebook
+    private String category;
+
+    @Facebook("category_list")
+    private List<Category> categoryList;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The unique identifier for this owner.
+     * 
+     * @return The unique identifier for this owner.
+     */
+    public String getId() {
+      return id;
+    }
+
+    /**
+     * The name of this owner.
+     * 
+     * @return The name of this owner.
+     */
+    public String getName() {
+      return name;
+    }
+
+    /**
+     * The category for this owner.
+     * 
+     * @return The category for this owner.
+     */
+    public String getCategory() {
+      return category;
+    }
+
+    /**
+     * List of other categories for this owner.
+     * 
+     * @return List of other categories for this owner.
+     */
+    public List<Category> getCategoryList() {
+      return categoryList;
+    }
+  }
+
+  /**
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Owner Category Graph API
+   * type</a>.
+   * 
+   * @author <a href="http://restfb.com">Mark Allen</a>
+   * @since 1.6.13
+   */
+  public static class Category implements Serializable {
+    @Facebook
+    private String id;
+
+    @Facebook
+    private String name;
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The unique identifier for this category.
+     * 
+     * @return The unique identifier for this category.
+     */
+    public String getId() {
+      return id;
+    }
+
+    /**
+     * The name of this category.
+     * 
+     * @return The name of this category.
+     */
+    public String getName() {
+      return name;
+    }
+  }
+
+  /**
+   * The user who owns the event.
+   * 
+   * @return The user who owns the event.
+   */
+  public Owner getOwner() {
     return owner;
   }
 
@@ -154,4 +307,34 @@ public class Event extends NamedFacebookType {
     return toDateFromLongFormat(updatedTime);
   }
 
+  /**
+   * The URL to a location to buy tickets for this event (on Events for Pages only).
+   * 
+   * @return The URL to a location to buy tickets for this event (on Events for Pages only).
+   * @since 1.6.13
+   */
+  public String getTicketUri() {
+    return ticketUri;
+  }
+
+  /**
+   * The URL of the event's picture.
+   * 
+   * @return The URL of the event's picture (only returned if you explicitly include picture in the fields param;
+   *         example: ?fields=id,name,picture)
+   * @since 1.6.13
+   */
+  public String getPicture() {
+    return picture;
+  }
+
+  /**
+   * Should the time information be ignored in the dates for this event?
+   * 
+   * @return <tt>true</tt> if the time information be ignored in the dates for this event, <tt>false</tt> otherwise.
+   * @since 1.6.13
+   */
+  public Boolean getIsDateOnly() {
+    return isDateOnly;
+  }
 }
