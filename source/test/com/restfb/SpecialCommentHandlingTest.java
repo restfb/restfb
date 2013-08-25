@@ -42,7 +42,7 @@ public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   @Test
   public void emptyArrayTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-empty-comments"), Post.class);
-    assertTrue(post.getComments().getCount() == 0);
+    assertTrue(post.getComments().getTotalCount() == 0);
     assertTrue(post.getComments().getData().size() == 0);
   }
 
@@ -52,7 +52,7 @@ public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   @Test
   public void onlyCountTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-comment-count-only"), Post.class);
-    assertTrue(post.getComments().getCount() == 3);
+    assertTrue(post.getComments().getTotalCount() == 3);
   }
 
   /**

@@ -656,7 +656,7 @@ public class DefaultJsonMapper implements JsonMapper {
             + Comments.class.getSimpleName() + " instance...");
 
       JsonObject workaroundJsonObject = new JsonObject();
-      workaroundJsonObject.put("count", 0);
+      workaroundJsonObject.put("total_count", 0);
       workaroundJsonObject.put("data", new JsonArray());
       rawValueAsString = workaroundJsonObject.toString();
     }

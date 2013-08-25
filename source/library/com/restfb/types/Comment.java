@@ -48,13 +48,19 @@ public class Comment extends FacebookType {
   private Long likes;
 
   @Facebook("like_count")
-  private Long likeCount;
+  private Long likeCount;  
 
   @Facebook("can_remove")
   private Boolean canRemove;
 
   @Facebook("user_likes")
   private Boolean userLikes;
+   
+  @Facebook
+  private Comment parent;
+  
+  @Facebook("can_comment")
+  private boolean canComment;
 
   private static final long serialVersionUID = 2L;
 
@@ -125,5 +131,25 @@ public class Comment extends FacebookType {
    */
   public Boolean getUserLikes() {
     return userLikes;
+  }
+
+  /**
+   * If this comment is a reply, this field returns the parent comment, otherwise no value
+   * 
+   * @return the parent Comment
+   * @since 1.6.13
+   */
+  public Comment getParent() {
+    return parent;
+  }  
+  
+  /**
+   * Specifies whether you can reply to this comment
+   * 
+   * @return can_comment
+   * @since 1.6.13
+   */
+  public boolean getCanComment() {
+    return canComment;
   }
 }

@@ -349,12 +349,16 @@ public class Post extends NamedFacebookType {
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Comments Graph API type</a>.
    * 
+   * <p>Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains
+   * the count (now called 'total_count')</p>
+   * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5.3
    */
   public static class Comments implements Serializable {
-    @Facebook
-    private Long count;
+    
+    @Facebook("total_count")
+    private Long totalCount;
 
     @Facebook
     private List<Comment> data = new ArrayList<Comment>();
@@ -388,10 +392,12 @@ public class Post extends NamedFacebookType {
     /**
      * The number of comments.
      * 
+     * <p>Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the count (now called 'total_count')</p>
+     * 
      * @return The number of comments.
      */
-    public Long getCount() {
-      return count;
+    public Long getTotalCount() {
+      return totalCount;
     }
 
     /**
