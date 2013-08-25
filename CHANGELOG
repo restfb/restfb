@@ -2,6 +2,10 @@
 
 * Now support signed request parsing with new FacebookClient.parseSignedRequest().
   Thanks to Josef Gierbl for the patch.
+* Added "can_comment" and "parent" fields to Comment type.
+  BREAKING CHANGE: Post.getCount() is now Post.getTotalCount() per July FB API changes.
+  Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the total_count
+  Thanks to Jens Peters for the patch.
 * Fix for Venue type (added new "id" field)
   Thanks to sbisht and neXus1987
 * Added missing fields to Event type
