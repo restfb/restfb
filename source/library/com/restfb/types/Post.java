@@ -411,7 +411,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Privacy Graph API type</a>.
+   * Represents the <a href="https://developers.facebook.com/docs/reference/api/privacy-parameter/">Privacy Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
@@ -432,6 +432,9 @@ public class Post extends NamedFacebookType {
     @Facebook
     private String deny;
 
+    @Facebook
+    private String allow;
+    
     private static final long serialVersionUID = 1L;
 
     /**
@@ -495,12 +498,21 @@ public class Post extends NamedFacebookType {
     }
 
     /**
-     * The privacy "deny" restriction.
+     * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "cannot" see the post.
      * 
      * @return The privacy "deny" restriction.
      */
     public String getDeny() {
       return deny;
+    }
+
+    /**
+     * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "can" see the post. This can also be ALL_FRIENDS or FRIENDS_OF_FRIENDS to include all members of those sets.
+     * 
+     * @return The privacy "allow" restriction.
+     */
+    public String getAllow() {
+      return allow;
     }
   }
 
