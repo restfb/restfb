@@ -150,11 +150,14 @@ public class User extends NamedFacebookType {
   @Facebook
   private List<NamedFacebookType> languages = new ArrayList<NamedFacebookType>();
 
+  @Facebook
+  private PictureData picture;
+
   private static final long serialVersionUID = 1L;
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Work Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
    */
@@ -208,7 +211,7 @@ public class User extends NamedFacebookType {
 
     /**
      * The employer for this job.
-     * 
+     *
      * @return The employer for this job.
      */
     public NamedFacebookType getEmployer() {
@@ -217,7 +220,7 @@ public class User extends NamedFacebookType {
 
     /**
      * The location of this job.
-     * 
+     *
      * @return The location of this job.
      */
     public NamedFacebookType getLocation() {
@@ -226,7 +229,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Position held at this job.
-     * 
+     *
      * @return Position held at this job.
      */
     public NamedFacebookType getPosition() {
@@ -235,7 +238,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Description of this job.
-     * 
+     *
      * @return Description of this job.
      * @since 1.6.3
      */
@@ -245,7 +248,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Date this job was started.
-     * 
+     *
      * @return Date this job was started.
      */
     public Date getStartDate() {
@@ -254,7 +257,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Date this job ended.
-     * 
+     *
      * @return Date this job ended.
      */
     public Date getEndDate() {
@@ -263,7 +266,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Friends associated with this job.
-     * 
+     *
      * @return Friends associated with this job.
      * @since 1.6.3
      */
@@ -274,7 +277,7 @@ public class User extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Education Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
    */
@@ -328,7 +331,7 @@ public class User extends NamedFacebookType {
 
     /**
      * The school name and ID.
-     * 
+     *
      * @return The school name and ID.
      */
     public NamedFacebookType getSchool() {
@@ -337,7 +340,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Graduation year.
-     * 
+     *
      * @return Graduation year.
      */
     public NamedFacebookType getYear() {
@@ -346,7 +349,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Degree acquired.
-     * 
+     *
      * @return Degree acquired.
      */
     public NamedFacebookType getDegree() {
@@ -355,7 +358,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Type of school, e.g. {@code College}.
-     * 
+     *
      * @return Type of school.
      */
     public String getType() {
@@ -364,7 +367,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Concentrations/minors.
-     * 
+     *
      * @return Concentrations/minors.
      */
     public List<NamedFacebookType> getConcentration() {
@@ -373,7 +376,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Friends associated with this school.
-     * 
+     *
      * @return Friends associated with this school.
      * @since 1.6.3
      */
@@ -383,7 +386,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Classes taken at this school.
-     * 
+     *
      * @return Classes taken at this school.
      * @since 1.6.8
      */
@@ -394,7 +397,7 @@ public class User extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Class Graph API type</a>.
-   * 
+   *
    * @author Mark Allen
    * @since 1.6.8
    */
@@ -409,7 +412,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Friends associated with this class.
-     * 
+     *
      * @return Friends associated with this class.
      */
     public List<NamedFacebookType> getWith() {
@@ -418,7 +421,7 @@ public class User extends NamedFacebookType {
 
     /**
      * The description of this class.
-     * 
+     *
      * @return The description of this class.
      */
     public String getDescription() {
@@ -428,7 +431,7 @@ public class User extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Sport Graph API type</a>.
-   * 
+   *
    * @author Patrick Alberts
    * @since 1.6.3
    */
@@ -440,7 +443,7 @@ public class User extends NamedFacebookType {
 
     /**
      * Friends associated with this sport.
-     * 
+     *
      * @return Friends associated with this sport.
      */
     public List<NamedFacebookType> getWith() {
@@ -450,7 +453,7 @@ public class User extends NamedFacebookType {
 
   /**
    * Represents the <a href="https://developers.facebook.com/docs/payments/user_currency">Currency Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.12
    */
@@ -495,7 +498,7 @@ public class User extends NamedFacebookType {
 
     /**
      * The ISO-4217-3 code for the user's preferred currency (defaulting to USD if the user hasn't set one).
-     * 
+     *
      * @return The ISO-4217-3 code for the user's preferred currency (defaulting to USD if the user hasn't set one).
      */
     public String getUserCurrency() {
@@ -504,7 +507,7 @@ public class User extends NamedFacebookType {
 
     /**
      * The number of Facebook Credits that equate in value to one unit of {@code user_currency}.
-     * 
+     *
      * @return The number of Facebook Credits that equate in value to one unit of {@code user_currency}.
      */
     public BigDecimal getCurrencyExchange() {
@@ -516,7 +519,7 @@ public class User extends NamedFacebookType {
      * <p>
      * To calculate the local currency amount based on the credits price, compute
      * {@code credits_price * currency_exchange_inverse}.
-     * 
+     *
      * @return The number of units of {@code user_currency} that equate in value to one Credit.
      */
     public BigDecimal getCurrencyExchangeInverse() {
@@ -528,7 +531,7 @@ public class User extends NamedFacebookType {
      * <p>
      * For example, a price of $1.20 will be represented by the Facebook API as "120", which you should divide by the
      * USD {@code currency_offset} of 100 to arrive back at 1.20.
-     * 
+     *
      * @return The number by which a price should be divided for display in {@code user_currency} units.
      */
     public BigDecimal getCurrencyOffset() {
@@ -537,8 +540,85 @@ public class User extends NamedFacebookType {
   }
 
   /**
+   * Represents the <a href="https://developers.facebook.com/docs/reference/api/using-pictures/">Picture Graph API type</a>.
+   * Picture is encapsulated inside the data attribute.
+   * This is why this wrapper is needed.
+   *
+   * @author Gilberto Garcia JR
+   * @since 1.6.13-custom
+   */
+  public static class PictureData implements Serializable {
+    @Facebook("data")
+    private Picture data;
+
+    public Picture getData() {
+      return data;
+    }
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/reference/api/using-pictures/">Picture Graph API type</a>.
+   *
+   * @author Gilberto Garcia JR
+   * @since 1.6.13-custom
+   */
+  public static class Picture implements Serializable {
+    @Facebook("url")
+    private String url;
+
+    @Facebook("is_silhouette")
+    private Boolean silhouette;
+
+    @Facebook("width")
+    public Integer width;
+
+    @Facebook("height")
+    public Integer height;
+
+    public String getUrl() {
+      return url;
+    }
+
+    public Boolean isSilhouette() {
+      return silhouette;
+    }
+
+    public Integer getWidth() {
+      return width;
+    }
+
+    public Integer getHeight() {
+      return height;
+    }
+
+      /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
+  /**
    * The user's first name.
-   * 
+   *
    * @return The user's first name.
    */
   public String getFirstName() {
@@ -547,7 +627,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's middle name.
-   * 
+   *
    * @return The user's middle name.
    */
   public String getMiddleName() {
@@ -556,7 +636,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's last name.
-   * 
+   *
    * @return The user's last name.
    */
   public String getLastName() {
@@ -565,7 +645,7 @@ public class User extends NamedFacebookType {
 
   /**
    * A link to the user's profile.
-   * 
+   *
    * @return A link to the user's profile.
    */
   public String getLink() {
@@ -574,7 +654,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's blurb that appears under their profile picture.
-   * 
+   *
    * @return The user's blurb that appears under their profile picture.
    */
   public String getAbout() {
@@ -583,7 +663,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's relationship status.
-   * 
+   *
    * @return The user's relationship status.
    */
   public String getRelationshipStatus() {
@@ -595,7 +675,7 @@ public class User extends NamedFacebookType {
    * <p>
    * Will always succeed, even if the user has specified month/year format only. If you'd like to use a typed version of
    * this accessor, call {@link #getBirthdayAsDate()} instead.
-   * 
+   *
    * @return The user's birthday as a {@code String}.
    */
   public String getBirthday() {
@@ -604,7 +684,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's birthday, typed to {@code java.util.Date} if possible.
-   * 
+   *
    * @return The user's birthday, or {@code null} if unavailable or only available in month/year format.
    */
   public Date getBirthdayAsDate() {
@@ -616,7 +696,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's religion.
-   * 
+   *
    * @return The user's religion.
    */
   public String getReligion() {
@@ -625,7 +705,7 @@ public class User extends NamedFacebookType {
 
   /**
    * A link to the user's personal website.
-   * 
+   *
    * @return A link to the user's personal website.
    */
   public String getWebsite() {
@@ -634,7 +714,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The proxied or contact email address granted by the user.
-   * 
+   *
    * @return The proxied or contact email address granted by the user.
    */
   public String getEmail() {
@@ -643,7 +723,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's favorite quotes.
-   * 
+   *
    * @return The user's favorite quotes.
    */
   public String getQuotes() {
@@ -652,7 +732,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's timezone offset.
-   * 
+   *
    * @return The user's timezone offset.
    */
   public Double getTimezone() {
@@ -661,7 +741,7 @@ public class User extends NamedFacebookType {
 
   /**
    * Is the user verified?
-   * 
+   *
    * @return User verification status.
    */
   public Boolean getVerified() {
@@ -670,7 +750,7 @@ public class User extends NamedFacebookType {
 
   /**
    * Date the user's profile was updated.
-   * 
+   *
    * @return Date the user's profile was updated.
    */
   public Date getUpdatedTime() {
@@ -679,7 +759,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's gender.
-   * 
+   *
    * @return The user's gender.
    */
   public String getGender() {
@@ -688,7 +768,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's biographical snippet.
-   * 
+   *
    * @return The user's biographical snippet.
    */
   public String getBio() {
@@ -697,7 +777,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's political affiliation.
-   * 
+   *
    * @return The user's political affiliation.
    */
   public String getPolitical() {
@@ -706,7 +786,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's locale.
-   * 
+   *
    * @return The user's locale.
    */
   public String getLocale() {
@@ -715,7 +795,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's Facebook username.
-   * 
+   *
    * @return The user's Facebook username.
    * @since 1.6.5
    */
@@ -727,7 +807,7 @@ public class User extends NamedFacebookType {
    * The user's hometown.
    * <p>
    * Sometimes this can be {@code null} - check {@link #getHometownName()} instead in that case.
-   * 
+   *
    * @return The user's hometown.
    */
   public NamedFacebookType getHometown() {
@@ -736,7 +816,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's hometown name.
-   * 
+   *
    * @return The user's hometown name.
    */
   public String getHometownName() {
@@ -748,7 +828,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's current location.
-   * 
+   *
    * @return The user's current location.
    */
   public NamedFacebookType getLocation() {
@@ -757,7 +837,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's significant other.
-   * 
+   *
    * @return The user's significant other.
    */
   public NamedFacebookType getSignificantOther() {
@@ -766,7 +846,7 @@ public class User extends NamedFacebookType {
 
   /**
    * An anonymous, but unique identifier for the user.
-   * 
+   *
    * @return An anonymous, but unique identifier for the user.
    */
   public String getThirdPartyId() {
@@ -778,7 +858,7 @@ public class User extends NamedFacebookType {
    * <p>
    * Further documentation available on Facebook's <a
    * href="https://developers.facebook.com/docs/payments/user_currency">Displaying prices in user's currency</a> page.
-   * 
+   *
    * @return The user's currency preferences.
    * @since 1.6.12
    */
@@ -788,7 +868,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The genders the user is interested in.
-   * 
+   *
    * @return The genders the user is interested in.
    */
   public List<String> getInterestedIn() {
@@ -797,7 +877,7 @@ public class User extends NamedFacebookType {
 
   /**
    * What genders the user is interested in meeting.
-   * 
+   *
    * @return What genders the user is interested in meeting.
    */
   public List<String> getMeetingFor() {
@@ -806,7 +886,7 @@ public class User extends NamedFacebookType {
 
   /**
    * A list of the work history from the user's profile.
-   * 
+   *
    * @return A list of the work history from the user's profile.
    */
   public List<Work> getWork() {
@@ -815,7 +895,7 @@ public class User extends NamedFacebookType {
 
   /**
    * A list of the education history from the user's profile.
-   * 
+   *
    * @return A list of the education history from the user's profile.
    */
   public List<Education> getEducation() {
@@ -824,7 +904,7 @@ public class User extends NamedFacebookType {
 
   /**
    * A list of the sports from the user's profile.
-   * 
+   *
    * @return A list of the sports from this user's profile.
    */
   public List<Sport> getSports() {
@@ -833,7 +913,7 @@ public class User extends NamedFacebookType {
 
   /**
    * A list of the favorite sports teams from the user's profile.
-   * 
+   *
    * @return A list of the favorite sports teams from the user's profile.
    */
   public List<NamedFacebookType> getFavoriteTeams() {
@@ -842,7 +922,7 @@ public class User extends NamedFacebookType {
 
   /**
    * A list of the favorite athletes from the user's profile.
-   * 
+   *
    * @return A list of the favorite athletes from the user's profile.
    */
   public List<NamedFacebookType> getFavoriteAthletes() {
@@ -851,10 +931,19 @@ public class User extends NamedFacebookType {
 
   /**
    * A list of the languages from the user's profile.
-   * 
+   *
    * @return A list of the languages from the user's profile.
    */
   public List<NamedFacebookType> getLanguages() {
     return unmodifiableList(languages);
+  }
+
+  /**
+   * The user's picture.
+   *
+   * @return The user's picture.
+   */
+  public PictureData getPicture() {
+    return picture;
   }
 }
