@@ -30,6 +30,7 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -599,7 +600,7 @@ public class JsonObject implements Serializable {
   public static String[] getNames(JsonObject jo) {
     int length = jo.length();
     if (length == 0) {
-      return null;
+      return new String[0];
     }
     Iterator<?> i = jo.keys();
     String[] names = new String[length];

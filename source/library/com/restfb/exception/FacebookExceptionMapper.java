@@ -36,6 +36,8 @@ public interface FacebookExceptionMapper {
    * 
    * @param errorCode
    *          Old REST API exception error code field, e.g. 190.
+   * @param errorSubcode
+   *          Old REST API exception error subcode field, e.g. 459.
    * @param httpStatusCode
    *          The HTTP status code returned by the server, e.g. 500.
    * @param type
@@ -44,5 +46,5 @@ public interface FacebookExceptionMapper {
    *          Graph or Old REST API message field, e.g. "Invalid access token signature."
    * @return An appropriate {@code FacebookException} subclass.
    */
-  FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer httpStatusCode, String type, String message);
+  FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode, String type, String message);
 }

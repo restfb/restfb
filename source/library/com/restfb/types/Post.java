@@ -349,12 +349,16 @@ public class Post extends NamedFacebookType {
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Comments Graph API type</a>.
    * 
+   * <p>Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains
+   * the count (now called 'total_count')</p>
+   * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5.3
    */
   public static class Comments implements Serializable {
-    @Facebook
-    private Long count;
+    
+    @Facebook("total_count")
+    private Long totalCount;
 
     @Facebook
     private List<Comment> data = new ArrayList<Comment>();
@@ -388,10 +392,12 @@ public class Post extends NamedFacebookType {
     /**
      * The number of comments.
      * 
+     * <p>Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the count (now called 'total_count')</p>
+     * 
      * @return The number of comments.
      */
-    public Long getCount() {
-      return count;
+    public Long getTotalCount() {
+      return totalCount;
     }
 
     /**
@@ -405,7 +411,7 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Privacy Graph API type</a>.
+   * Represents the <a href="https://developers.facebook.com/docs/reference/api/privacy-parameter/">Privacy Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
@@ -426,6 +432,9 @@ public class Post extends NamedFacebookType {
     @Facebook
     private String deny;
 
+    @Facebook
+    private String allow;
+    
     private static final long serialVersionUID = 1L;
 
     /**
@@ -489,12 +498,21 @@ public class Post extends NamedFacebookType {
     }
 
     /**
-     * The privacy "deny" restriction.
+     * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "cannot" see the post.
      * 
      * @return The privacy "deny" restriction.
      */
     public String getDeny() {
       return deny;
+    }
+
+    /**
+     * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "can" see the post. This can also be ALL_FRIENDS or FRIENDS_OF_FRIENDS to include all members of those sets.
+     * 
+     * @return The privacy "allow" restriction.
+     */
+    public String getAllow() {
+      return allow;
     }
   }
 

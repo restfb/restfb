@@ -35,6 +35,9 @@ import com.restfb.util.ReflectionUtils;
  */
 public class Venue implements Serializable {
   @Facebook
+  private String id;
+
+  @Facebook
   private String street;
 
   @Facebook
@@ -79,6 +82,16 @@ public class Venue implements Serializable {
   @Override
   public String toString() {
     return ReflectionUtils.toString(this);
+  }
+
+  /**
+   * Unique identifier for the Venue.
+   * 
+   * @return Unique identifier for the Venue.
+   * @since 1.6.13
+   */
+  public String getId() {
+    return id;
   }
 
   /**

@@ -53,6 +53,25 @@ public class FacebookClientTest {
       assertEquals(Integer.valueOf(210), e.getErrorCode());
     }
   }
+  
+  /**
+   * Do we correctly handle the case where FB returns an OAuthException with an error code and subcode?
+   */
+  @Test
+  public void oauthExceptionWithErrorSubcode() {
+    FacebookClient facebookClient =
+        facebookClientWithResponse(new Response(403,
+          "{\"error\":{\"message\":\"App Not Installed\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":458}}"));
+
+    try {
+      facebookClient.fetchObject("me", User.class);
+    } catch (FacebookOAuthException e) {
+      assertEquals("App Not Installed", e.getErrorMessage());
+      assertEquals("OAuthException", e.getErrorType());
+      assertEquals(Integer.valueOf(190), e.getErrorCode());
+      assertEquals(Integer.valueOf(458), e.getErrorSubcode());
+    }
+  }  
 
   /**
    * Do we correctly handle the case where FB returns an OAuthException without an error code?
