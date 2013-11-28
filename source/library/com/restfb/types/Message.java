@@ -62,6 +62,9 @@ public class Message extends FacebookType {
 
   @Facebook
   private Boolean unseen;
+  
+  @Facebook
+  private Post.Comments comments;
 
   private static final long serialVersionUID = 1L;
 
@@ -206,5 +209,20 @@ public class Message extends FacebookType {
    */
   public List<Attachment> getAttachments() {
     return unmodifiableList(attachments);
+  }
+
+  /**
+   * Set the comments
+   * @param comments 
+   */
+  public void setComments(Post.Comments comments) {
+    this.comments = comments;
+  }
+
+  /**
+   * @return The comments associated with the message.
+   */
+  public Post.Comments getComments() {
+    return comments;
   }
 }
