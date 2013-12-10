@@ -22,26 +22,23 @@
 
 package com.restfb;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonObject;
+import com.restfb.types.Account;
+import com.restfb.types.NamedFacebookType;
+import com.restfb.types.Post;
+import com.restfb.types.User;
+import junit.framework.Assert;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
-
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonObject;
-import com.restfb.types.NamedFacebookType;
-import com.restfb.types.Post;
-import com.restfb.types.User;
+import static junit.framework.Assert.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
@@ -224,6 +221,26 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   public void emptyArray() {
     BasicUser user = createJsonMapper().toJavaObject(jsonFromClasspath("empty-array-as-string"), BasicUser.class);
     assertTrue("".equals(user.name));
+  }
+
+  /**
+   * test reading in the sample account from
+   * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">here</a>
+   */
+  @Test
+  public void accountTest() {
+    Account account = createJsonMapper().tojavaObject(jsonFromClasspath("account.json"), Account.class);
+    assertEquals("Product/service", equals(account.getCategory()));
+    assertEquals("{access-token}", equals(account.getAccessToken()));
+    assertEquals("1234567890", equals(account.getId()));
+    assertEquals("Sample Page".equals(account.getName()));
+    assertEquals(6, account.getPerms().size());
+    assertTrue(account.getPerms().contains("ADMINISTER"));
+    assertTrue(account.getPerms().contains("EDIT_PROFILE"));
+    assertTrue(account.getPerms().contains("CREATE_CONTENT"));
+    assertTrue(account.getPerms().contains("MODERATE_CONTENT"));
+    assertTrue(account.getPerms().contains("CREATE_ADS"));
+    assertTrue(account.getPerms().contains("BASIC_ADMIN"));
   }
 
   /**
