@@ -37,15 +37,6 @@ public class Account extends CategorizedFacebookType {
   @Facebook("access_token")
   private String accessToken;
 
-  @Facebook("category")
-  private String category;
-
-  @Facebook("name")
-  private String name;
-
-  @Facebook("id")
-  private String id;
-
   @Facebook("perms")
   private List<String> perms = new ArrayList<String>();
 
@@ -56,30 +47,6 @@ public class Account extends CategorizedFacebookType {
    */
   public String getAccessToken() {
     return accessToken;
-  }
-
-  /**
-   * The category for this account / page.
-   * @return
-   */
-  public String getCategory() {
-    return category;
-  }
-
-  /**
-   * The name of of this account / page.
-   * @return
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * The ID of this account / page.
-   * @return
-   */
-  public String getId() {
-    return id;
   }
 
   /**
