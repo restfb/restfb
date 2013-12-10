@@ -1,3 +1,6 @@
 /build
 /pom.xml.asc
 /.eclipse-build
+/target
+/.idea
+*.iml
