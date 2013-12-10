@@ -24,23 +24,37 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Account extends CategorizedFacebookType {
+  private static final long serialVersionUID = 1L;
   @Facebook("access_token")
   private String accessToken;
 
-  private static final long serialVersionUID = 1L;
+  @Facebook("perms")
+  private List<String> perms = new ArrayList<String>();
 
   /**
-   * An OAuth access token for this account.
-   * 
+   * An OAuth access token for this account / page.
+   *
    * @return An OAuth access token for this account.
    */
   public String getAccessToken() {
     return accessToken;
+  }
+
+  /**
+   * A list of permissions the user has for this page.
+   * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">see roles list here</a>
+   * @return
+   */
+  public List<String> getPerms() {
+    return perms;
   }
 }

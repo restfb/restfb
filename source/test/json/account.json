@@ -1,0 +1,14 @@
+{
+    "category": "Product/service",
+    "name": "Sample Page",
+    "access_token": "{access-token}",
+    "id": "1234567890",
+    "perms": [
+        "ADMINISTER",
+        "EDIT_PROFILE",
+        "CREATE_CONTENT",
+        "MODERATE_CONTENT",
+        "CREATE_ADS",
+        "BASIC_ADMIN"
+    ]
+}
