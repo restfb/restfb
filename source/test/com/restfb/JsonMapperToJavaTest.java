@@ -22,15 +22,12 @@
 
 package com.restfb;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.restfb.types.*;
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -39,10 +36,8 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-import com.restfb.types.Account;
-import com.restfb.types.NamedFacebookType;
-import com.restfb.types.Post;
-import com.restfb.types.User;
+
+import static junit.framework.Assert.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
@@ -216,6 +211,23 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertTrue(friendUids.size() == 2);
     assertTrue(friendUids.get(0).equals(222333L));
     assertTrue(friendUids.get(1).equals(1240079L));
+  }
+
+  /**
+   * test reading in a sample page conversation
+   */
+  @Test
+  public void conversation() {
+    Conversation conversation = createJsonMapper().toJavaObject(jsonFromClasspath("conversation"), Conversation.class);
+    assertEquals("t_id.378684585488220", conversation.getId());
+
+    List<Message> messages = conversation.getMessages();
+    assertEquals(2, messages.size());
+
+    List<Message.Attachment> attachments = messages.get(0).getAttachments();
+    assertEquals(2, attachments.size());
+    assertNull(attachments.get(0).getImageData());
+    assertNotNull(attachments.get(1).getImageData());
   }
 
   /**

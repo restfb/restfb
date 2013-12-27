@@ -94,7 +94,29 @@
                         }
                     ]
                 },
-                "message": "Essa é uma resposta de teste."
+                "message": "Well, well.",
+                "attachments": {
+                    "data": [
+                        {
+                            "id": "2a135413a38d2fc2bf48c238ecfa737f",
+                            "mime_type": "application/pdf",
+                            "name": "somepdf.pdf",
+                            "size": 28824
+                        },
+                        {
+                            "id": "10e99c38cfb6f37f19ab55ed395e590b",
+                            "mime_type": "image/jpeg",
+                            "name": "1481393_447672692900977_1019906640_n.jpg",
+                            "size": null,
+                            "image_data": {
+                                "width": 800,
+                                "height": 600,
+                                "url": "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn2/v/1481393_447672692900977_1019906640_n.jpg?oh=9a2f8e65f33ae200312956d699624ef6&oe=52B5519C&__gda__=1387678609_90e7f72c5b8b139d253edaf9e459fada",
+                                "preview_url": "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn2/v/p206x206/1481393_447672692900977_1019906640_n.jpg?oh=460a93fc79cfedd38ca90957cf347cf3&oe=52B5786D&__gda__=1389661339_916aae344f708c480cfebba1dd02d43d"
+                            }
+                        }
+                    ]
+                }
             },
             {
                 "id": "m_id.378684585454124",
@@ -131,7 +153,7 @@
                         }
                     ]
                 },
-                "message": "Essa é uma mensagem de teste."
+                "message": "Well, well."
             }
         ],
         "paging": {
