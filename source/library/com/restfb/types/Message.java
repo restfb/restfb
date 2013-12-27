@@ -302,6 +302,6 @@ public class Message extends FacebookType {
    * @return The attachments associated with the message.
    */
   public List<Attachment> getAttachments() {
-    return unmodifiableList(attachments);
+    return (attachments != null ? unmodifiableList(attachments) : null);
   }
 }
