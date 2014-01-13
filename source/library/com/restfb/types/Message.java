@@ -25,11 +25,13 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/message/">Message Graph API type</a>.
@@ -83,6 +85,9 @@ public class Message extends FacebookType {
 
     @Facebook
     private Long size;
+    
+    @Facebook("image_data")
+    private ImageData image;
 
     /**
      * The size of the attachment in bytes.
@@ -110,6 +115,15 @@ public class Message extends FacebookType {
     public String getMimeType() {
       return mimeType;
     }
+    
+    /**
+     * The attachment's image data
+     * 
+     * @return The attachments image data
+     */
+    public ImageData getImage() {
+      return image;
+    }
 
     /**
      * @see java.lang.Object#hashCode()
@@ -135,6 +149,60 @@ public class Message extends FacebookType {
       return ReflectionUtils.toString(this);
     }
   }
+  
+  /**
+   * Image data included in the attachment 
+   * @author <a href="http://ityx.de">Jan Schweizer</a>
+   */
+  public static class ImageData extends FacebookType {
+    
+    private static final long serialVersionUID = 1L;
+
+    @Facebook
+    private int width;   
+    
+    @Facebook
+    private int height;   
+    
+    @Facebook
+    private String url;   
+    
+    @Facebook
+    private String preview_url;
+
+    public int getWidth() {
+      return width;
+    }
+
+    public void setWidth(int width) {
+      this.width = width;
+    }
+
+    public int getHeight() {
+      return height;
+    }
+
+    public void setHeight(int height) {
+      this.height = height;
+    }
+
+    public String getUrl() {
+      return url;
+    }
+
+    public void setUrl(String url) {
+      this.url = url;
+    }
+
+    public String getPreview_url() {
+      return preview_url;
+    }
+
+    public void setPreview_url(String preview_url) {
+      this.preview_url = preview_url;
+    }   
+  }
+
 
   /**
    * The time the message was initially created.
@@ -205,6 +273,11 @@ public class Message extends FacebookType {
    * @return The attachments associated with the message.
    */
   public List<Attachment> getAttachments() {
-    return unmodifiableList(attachments);
+    //Might be null in which case unmodifiableList fails with NPE
+    if(attachments != null) {
+      return unmodifiableList(attachments);
+    } else {
+      return Collections.emptyList();
+    }
   }
 }
