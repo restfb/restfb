@@ -14,6 +14,8 @@
   Thanks to Jan Schweizer.
 * Added integer (0, 1) -> boolean JSON serialization.
   Thanks to Tom Zellman.
+* Convenience override of FacebookClient.executeBatch()
+  Thanks to loicAG.
 * Added missing fields to Event type
 
 1.6.12 (March 10, 2013)
