@@ -66,7 +66,7 @@ public class Message extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Represents an attached picture that you may find on a private message.
+   * Represents an attached file that you may find on a private message.
    * 
    * @author alockhart
    * @since 1.6.12
@@ -83,6 +83,9 @@ public class Message extends FacebookType {
 
     @Facebook
     private Long size;
+
+    @Facebook("image_data")
+    private ImageData imageData;
 
     /**
      * The size of the attachment in bytes.
@@ -112,6 +115,16 @@ public class Message extends FacebookType {
     }
 
     /**
+     * When the attached file is an image, Facebook will also send information
+     * about it's width, height and url.
+     *
+     * @return The attachment's image data.
+     */
+    public ImageData getImageData() {
+      return imageData;
+    }
+
+    /**
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -135,6 +148,90 @@ public class Message extends FacebookType {
       return ReflectionUtils.toString(this);
     }
   }
+
+  /**
+  * Additional attachment information, only present when an attached file is
+  * an image.
+  *
+  * @author Felipe Kurkowski
+  */
+  public static class ImageData {
+
+    private static final long serialVersionUID = 1L;
+
+    @Facebook
+    private int width;
+
+    @Facebook
+    private int height;
+
+    @Facebook
+    private String url;
+
+    @Facebook("preview_url")
+    private String previewUrl;
+
+    /**
+     * The image's width.
+     *
+     * @return The image's width.
+     */
+    public int getWidth() {
+      return width;
+    }
+
+    /**
+     * The image's height.
+     *
+     * @return The image's height.
+     */
+    public int getHeight() {
+      return height;
+    }
+
+    /**
+     * The image's url.
+     *
+     * @return The image's url.
+     */
+    public String getUrl() {
+      return url;
+    }
+
+    /**
+     * The image's preview url.
+     *
+     * @return The image's preview url.
+     */
+    public String getPreviewUrl() {
+      return previewUrl;
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
 
   /**
    * The time the message was initially created.
@@ -205,6 +302,6 @@ public class Message extends FacebookType {
    * @return The attachments associated with the message.
    */
   public List<Attachment> getAttachments() {
-    return unmodifiableList(attachments);
+    return (attachments != null ? unmodifiableList(attachments) : null);
   }
 }
