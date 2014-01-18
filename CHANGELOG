@@ -11,7 +11,9 @@
 * Added missing fields to Message type.
   Thanks to Felipe Kurkowski.
 * Added missing fields to Comment type.
-  Thanks to Jan Schweizer
+  Thanks to Jan Schweizer.
+* Added integer (0, 1) -> boolean JSON serialization.
+  Thanks to Tom Zellman.
 * Added missing fields to Event type
 
 1.6.12 (March 10, 2013)
