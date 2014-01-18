@@ -22,22 +22,30 @@
 
 package com.restfb;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.restfb.types.*;
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-
-import static junit.framework.Assert.*;
+import com.restfb.types.Account;
+import com.restfb.types.Conversation;
+import com.restfb.types.Message;
+import com.restfb.types.NamedFacebookType;
+import com.restfb.types.Post;
+import com.restfb.types.User;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
@@ -240,8 +248,8 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   /**
-   * test reading in the sample account from
-   * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">here</a>
+   * test reading in the sample account from <a
+   * href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">here</a>
    */
   @Test
   public void accountTest() {
@@ -424,7 +432,6 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     boolean subclassWorksToo = false;
 
     @JsonMappingCompleted
-    @SuppressWarnings("unused")
     private void subclass() {
       subclassWorksToo = true;
     }

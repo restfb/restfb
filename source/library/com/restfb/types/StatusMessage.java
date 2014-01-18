@@ -58,7 +58,6 @@ public class StatusMessage extends NamedFacebookType {
    * Hack so JSON mapping won't fail when FB returns inconsistent JSON when there are 0 likes.
    */
   @Facebook("likes")
-  @SuppressWarnings("unused")
   private EmptyLikes emptyLikes;
 
   @Facebook
@@ -68,7 +67,6 @@ public class StatusMessage extends NamedFacebookType {
    * Hack so JSON mapping won't fail when FB returns inconsistent JSON when there are 0 comments.
    */
   @Facebook("comments")
-  @SuppressWarnings("unused")
   private EmptyComments emptyComments;
 
   private static final long serialVersionUID = 2L;
@@ -82,7 +80,6 @@ public class StatusMessage extends NamedFacebookType {
    */
   private static class EmptyLikes implements Serializable {
     @Facebook
-    @SuppressWarnings("unused")
     private Long count;
 
     private static final long serialVersionUID = 1L;
@@ -97,7 +94,6 @@ public class StatusMessage extends NamedFacebookType {
    */
   private static class EmptyComments implements Serializable {
     @Facebook
-    @SuppressWarnings("unused")
     private Long count;
 
     private static final long serialVersionUID = 1L;

@@ -24,7 +24,7 @@ package com.restfb.util;
 
 import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static com.restfb.util.UrlUtils.extractParametersFromUrl;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

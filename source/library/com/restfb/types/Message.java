@@ -25,6 +25,7 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -155,8 +156,7 @@ public class Message extends FacebookType {
   *
   * @author Felipe Kurkowski
   */
-  public static class ImageData {
-
+  public static class ImageData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Facebook

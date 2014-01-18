@@ -25,7 +25,7 @@ package com.restfb.util;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
