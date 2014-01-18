@@ -244,6 +244,16 @@ public interface FacebookClient {
   List<BatchResponse> executeBatch(BatchRequest... batchRequests);
 
   /**
+   * Executes operations as a batch using the <a href="https://developers.facebook.com/docs/reference/api/batch/">Batch
+   * API</a>.
+   *
+   * @param batchRequests
+   *          The operations to execute.
+   * @return The execution results in the order in which the requests were specified.
+   */
+  List<BatchResponse> executeBatch(List<BatchRequest> batchRequests);
+
+  /**
    * Executes operations as a batch with binary attachments using the <a
    * href="https://developers.facebook.com/docs/reference/api/batch/">Batch API</a>.
    * 
