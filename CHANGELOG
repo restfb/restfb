@@ -8,6 +8,10 @@
   Thanks to Jens Peters for the patch.
 * Fix for Venue type (added new "id" field)
   Thanks to sbisht and neXus1987
+* Added missing fields to Message type.
+  Thanks to Felipe Kurkowski.
+* Added missing fields to Comment type.
+  Thanks to Jan Schweizer
 * Added missing fields to Event type
 
 1.6.12 (March 10, 2013)
