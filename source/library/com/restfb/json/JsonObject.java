@@ -499,9 +499,11 @@ public class JsonObject implements Serializable {
    */
   public boolean getBoolean(String key) {
     Object o = get(key);
-    if (o.equals(Boolean.FALSE) || (o instanceof String && ((String) o).equalsIgnoreCase("false"))) {
+    if (o.equals(Boolean.FALSE) || (o instanceof String && ((String) o).equalsIgnoreCase("false"))
+            || (o instanceof Integer && ((Integer) o) == 0)) {
       return false;
-    } else if (o.equals(Boolean.TRUE) || (o instanceof String && ((String) o).equalsIgnoreCase("true"))) {
+    } else if (o.equals(Boolean.TRUE) || (o instanceof String && ((String) o).equalsIgnoreCase("true"))
+            || (o instanceof Integer && ((Integer) o) == 1)) {
       return true;
     }
     throw new JsonException("JsonObject[" + quote(key) + "] is not a Boolean.");
