@@ -445,6 +445,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * @see com.restfb.FacebookClient#executeBatch(List<com.restfb.batch.BatchRequest>)
+   */
+  public List<BatchResponse> executeBatch(List<BatchRequest> batchRequests) {
+    return executeBatch(batchRequests, Collections.<BinaryAttachment> emptyList());
+  }
+
+  /**
    * @see com.restfb.FacebookClient#executeBatch(java.util.List, java.util.List)
    */
   public List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments) {
