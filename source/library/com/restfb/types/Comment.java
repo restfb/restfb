@@ -23,10 +23,15 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Comment Graph API type</a>.
@@ -48,19 +53,25 @@ public class Comment extends FacebookType {
   private Long likes;
 
   @Facebook("like_count")
-  private Long likeCount;  
+  private Long likeCount;
 
   @Facebook("can_remove")
   private Boolean canRemove;
 
   @Facebook("user_likes")
   private Boolean userLikes;
-   
+
   @Facebook
   private Comment parent;
-  
+
   @Facebook("can_comment")
   private boolean canComment;
+
+  @Facebook("comments")
+  private Comments comments;
+
+  @Facebook
+  private Attachment attachment;
 
   private static final long serialVersionUID = 2L;
 
@@ -71,6 +82,15 @@ public class Comment extends FacebookType {
    */
   public CategorizedFacebookType getFrom() {
     return from;
+  }
+
+  /**
+   * Attachment (image) added to a comment.
+   * 
+   * @return Attachment on the comment
+   */
+  public Attachment getAttachment() {
+    return attachment;
   }
 
   /**
@@ -141,8 +161,8 @@ public class Comment extends FacebookType {
    */
   public Comment getParent() {
     return parent;
-  }  
-  
+  }
+
   /**
    * Specifies whether you can reply to this comment
    * 
@@ -151,5 +171,181 @@ public class Comment extends FacebookType {
    */
   public boolean getCanComment() {
     return canComment;
+  }
+
+  /**
+   * The replies to this comment
+   * 
+   * @return replies
+   */
+  public Comments getComments() {
+    return comments;
+  }
+
+  /**
+   * Represents the Replies to a Comment</a>.
+   * 
+   * @author <a href="http://ityx.de">Jan Schweizer</a>
+   */
+  public static class Comments implements Serializable {
+    @Facebook
+    private Long count;
+
+    @Facebook
+    private List<Comment> data = new ArrayList<Comment>();
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The number of comments.
+     * 
+     * @return The number of comments.
+     */
+    public Long getCount() {
+      return count;
+    }
+
+    /**
+     * The comments.
+     * 
+     * @return The comments.
+     */
+    public List<Comment> getData() {
+      return unmodifiableList(data);
+    }
+  }
+
+  /**
+   * Media data as applicable for the attachment.
+   * 
+   * @author <a href="http://ityx.de">Jan Schweizer</a>
+   */
+  public static class Media extends FacebookType {
+    private static final long serialVersionUID = 1L;
+
+    @Facebook
+    private Image image;
+
+    public Image getImage() {
+      return image;
+    }
+
+    public void setImage(Image image) {
+      this.image = image;
+    }
+  }
+
+  /**
+   * Contains the attachment data for a specific comment (like an image or such)
+   * 
+   * @Author <a href="http://ityx.de">Jan Schweizer</a>
+   */
+  public static class Attachment extends FacebookType {
+    @Facebook
+    private String url;
+
+    @Facebook
+    private String type;
+
+    @Facebook("media")
+    private Media media;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    public String getUrl() {
+      return url;
+    }
+
+    public void setUrl(String url) {
+      this.url = url;
+    }
+
+    public String getType() {
+      return type;
+    }
+
+    public void setType(String type) {
+      this.type = type;
+    }
+
+    public Media getMedia() {
+      return media;
+    }
+  }
+
+  /**
+   * Image data as applicable for the attachment
+   * 
+   * @author <a href="http://ityx.de">Jan Schweizer</a>
+   */
+  public static class Image extends FacebookType {
+    private static final long serialVersionUID = 1L;
+
+    @Facebook
+    private Integer height;
+
+    @Facebook
+    private Integer width;
+
+    @Facebook
+    private String src;
+
+    public int getHeight() {
+      return height;
+    }
+
+    public int getWidth() {
+      return width;
+    }
+
+    public String getSrc() {
+      return src;
+    }
   }
 }
