@@ -136,7 +136,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * API error response 'error' attribute name.
    */
   protected static final String ERROR_ATTRIBUTE_NAME = "error";
-  
+
   /**
    * API error response 'type' attribute name.
    */
@@ -151,11 +151,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * API error response 'code' attribute name.
    */
   protected static final String ERROR_CODE_ATTRIBUTE_NAME = "code";
-  
+
   /**
    * API error response 'error_subcode' attribute name.
    */
-  protected static final String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";  
+  protected static final String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";
 
   /**
    * Batch API error response 'error' attribute name.
@@ -183,7 +183,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          A Facebook OAuth access token.
    */
   public DefaultFacebookClient(String accessToken) {
-    this(accessToken, new DefaultWebRequestor(), new DefaultJsonMapper());
+    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper());
+  }
+
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param appSecret
+   *          A Facebook application secret.
+   */
+  public DefaultFacebookClient(String accessToken, String appSecret) {
+    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper());
   }
 
   /**
@@ -192,6 +204,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * 
    * @param accessToken
    *          A Facebook OAuth access token.
+   * @param appSecret
+   *          A Facebook application secret.
    * @param webRequestor
    *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
    * @param jsonMapper
@@ -199,13 +213,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
-  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
+  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper) {
     super();
 
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);
 
     this.accessToken = trimToNull(accessToken);
+
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
@@ -647,7 +662,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);
     } catch (Throwable t) {
       throw new FacebookResponseContentException("Unable to parse JSON from response.", t);
-    }    
+    }
   }
 
   /**
@@ -810,7 +825,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
             .getString(ERROR_CODE_ATTRIBUTE_NAME)) : null;
       Integer errorSubcode =
           innerErrorObject.has(ERROR_SUBCODE_ATTRIBUTE_NAME) ? toInteger(innerErrorObject
-            .getString(ERROR_SUBCODE_ATTRIBUTE_NAME)) : null;          
+            .getString(ERROR_SUBCODE_ATTRIBUTE_NAME)) : null;
 
       throw graphFacebookExceptionMapper
         .exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
@@ -888,7 +903,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
      *      java.lang.Integer, java.lang.String, java.lang.String)
      */
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, 
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
         Integer httpStatusCode, String type, String message) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
         return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode);
