@@ -23,6 +23,7 @@
 package com.restfb;
 
 import static com.restfb.util.EncodingUtils.decodeBase64;
+import static com.restfb.util.EncodingUtils.encodeHex;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.join;
 import static com.restfb.util.StringUtils.toBytes;
@@ -41,6 +42,9 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -79,6 +83,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Graph API access token.
    */
   protected String accessToken;
+
+  /**
+   * Graph API app secret.
+   */
+  private String appSecret;
 
   /**
    * Knows how to map Graph API exceptions to formal Java exception types.
@@ -232,6 +241,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("webRequestor", webRequestor);
 
     this.accessToken = trimToNull(accessToken);
+    this.appSecret = trimToNull(appSecret);
 
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
@@ -732,6 +742,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (executeAsDelete)
       parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
 
+    if (!isBlank(appSecret))
+      parameters =
+          parametersWithAdditionalParameter(Parameter.with(APP_SECRET_PROOF_PARAM_NAME, makeAppSecretProof()),
+            parameters);
+
     trimToEmpty(endpoint).toLowerCase();
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
@@ -750,6 +765,33 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
             + parameterString);
       }
     });
+  }
+
+  /**
+   * Generates an appsecret_proof for facebook.
+   * 
+   * See https://developers.facebook.com/docs/graph-api/securing-requests for more info
+   * 
+   * @return A base64 encoded SHA256 Hash as a String
+   */
+  public String makeAppSecretProof() {
+    try {
+      byte[] key = this.appSecret.getBytes();
+      SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
+      Mac mac = Mac.getInstance("HmacSHA256");
+      mac.init(signingKey);
+      byte[] raw = mac.doFinal(this.accessToken.getBytes());
+      byte[] hex = encodeHex(raw);
+      String out = new String(hex, "UTF-8");
+      return out;
+    } catch (NoSuchAlgorithmException e) {
+      System.out.println(e);
+    } catch (InvalidKeyException e) {
+      System.out.println(e);
+    } catch (UnsupportedEncodingException e) {
+      System.out.println(e);
+    }
+    throw new NullPointerException("AppSecretProof creation has failed");
   }
 
   protected static interface Requestor {
