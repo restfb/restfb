@@ -199,6 +199,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param appSecret
+   *          A Facebook application secret.
+   */
+  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
+    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper());
+  }
+
+  /**
    * Creates a Facebook Graph API client with the given {@code accessToken}, {@code webRequestor}, and
    * {@code jsonMapper}.
    * 
