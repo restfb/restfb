@@ -777,7 +777,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * 
    * See https://developers.facebook.com/docs/graph-api/securing-requests for more info
    * 
-   * @return A base64 encoded SHA256 Hash as a String
+   * @return A Hex encoded SHA256 Hash as a String
    */
   public String makeAppSecretProof() {
     try {

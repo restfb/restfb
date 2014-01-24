@@ -22,7 +22,15 @@
 
 package com.restfb.util;
 
+import static com.restfb.util.EncodingUtils.encodeHex;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * A collection of data-encoding utility methods.
@@ -87,6 +95,32 @@ public final class EncodingUtils {
       out[j++] = toDigits[0x0F & data[i]];
     }
     return new String(out).getBytes();
+  }
+
+  /**
+   * Generates an appsecret_proof for facebook.
+   * 
+   * See https://developers.facebook.com/docs/graph-api/securing-requests for more info
+   * 
+   * @param appSecret
+   *          The facebook application secret
+   * @param accessToken
+   *          The facebook access token
+   * @return A Hex encoded SHA256 Hash as a String
+   * @throws NoSuchAlgorithmException
+   * @throws InvalidKeyException
+   * @throws UnsupportedEncodingException
+   */
+  public static String encodeAppSecretProof(String appSecret, String accessToken) throws NoSuchAlgorithmException,
+      InvalidKeyException, UnsupportedEncodingException {
+    byte[] key = appSecret.getBytes();
+    SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
+    Mac mac = Mac.getInstance("HmacSHA256");
+    mac.init(signingKey);
+    byte[] raw = mac.doFinal(accessToken.getBytes());
+    byte[] hex = encodeHex(raw);
+    String out = new String(hex, "UTF-8");
+    return out;
   }
 
   /**
