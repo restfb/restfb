@@ -70,6 +70,26 @@ public final class EncodingUtils {
   }
 
   /**
+   * Encodes a hex byte[] from given byte[]
+   * 
+   * This function is equivalent to apache commons codec binary new Hex().encode(byte[]);
+   * 
+   * @param data
+   * @return Hex encoded byte[]
+   * 
+   */
+  public static byte[] encodeHex(final byte[] data) {
+    final char[] toDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    final int l = data.length;
+    final char[] out = new char[l << 1];
+    for (int i = 0, j = 0; i < l; i++) {
+      out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
+      out[j++] = toDigits[0x0F & data[i]];
+    }
+    return new String(out).getBytes();
+  }
+
+  /**
    * A very fast and memory efficient class to encode and decode to and from BASE64 in full accordance with RFC 2045.<br>
    * <br>
    * On Windows XP sp1 with 1.4.2_04 and later ;), this encoder and decoder is about 10 times faster on small arrays (10
