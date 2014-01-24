@@ -90,6 +90,11 @@ abstract class BaseFacebookClient {
   protected static final String ACCESS_TOKEN_PARAM_NAME = "access_token";
 
   /**
+   * Reserved application secret proof parameter name.
+   */
+  protected static final String APP_SECRET_PROOF_PARAM_NAME = "appsecret_proof";
+
+  /**
    * Logger.
    */
   protected final Logger logger = Logger.getLogger(getClass().getName());

@@ -22,7 +22,15 @@
 
 package com.restfb.util;
 
+import static com.restfb.util.EncodingUtils.encodeHex;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * A collection of data-encoding utility methods.
@@ -67,6 +75,52 @@ public final class EncodingUtils {
       padding = "=";
 
     return base64 + padding;
+  }
+
+  /**
+   * Encodes a hex byte[] from given byte[]
+   * 
+   * This function is equivalent to apache commons codec binary new Hex().encode(byte[]);
+   * 
+   * @param data
+   * @return Hex encoded byte[]
+   * 
+   */
+  public static byte[] encodeHex(final byte[] data) {
+    final char[] toDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    final int l = data.length;
+    final char[] out = new char[l << 1];
+    for (int i = 0, j = 0; i < l; i++) {
+      out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
+      out[j++] = toDigits[0x0F & data[i]];
+    }
+    return new String(out).getBytes();
+  }
+
+  /**
+   * Generates an appsecret_proof for facebook.
+   * 
+   * See https://developers.facebook.com/docs/graph-api/securing-requests for more info
+   * 
+   * @param appSecret
+   *          The facebook application secret
+   * @param accessToken
+   *          The facebook access token
+   * @return A Hex encoded SHA256 Hash as a String
+   * @throws NoSuchAlgorithmException
+   * @throws InvalidKeyException
+   * @throws UnsupportedEncodingException
+   */
+  public static String encodeAppSecretProof(String appSecret, String accessToken) throws NoSuchAlgorithmException,
+      InvalidKeyException, UnsupportedEncodingException {
+    byte[] key = appSecret.getBytes();
+    SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
+    Mac mac = Mac.getInstance("HmacSHA256");
+    mac.init(signingKey);
+    byte[] raw = mac.doFinal(accessToken.getBytes());
+    byte[] hex = encodeHex(raw);
+    String out = new String(hex, "UTF-8");
+    return out;
   }
 
   /**

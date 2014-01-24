@@ -36,6 +36,25 @@ import com.restfb.types.User;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class FacebookClientTest {
+
+  /**
+   * Is the appsecret_proof hash function correct
+   */
+  @Test
+  public void testMakeAppSecretProof() {
+    System.out.println("Testing make App Secret Proof");
+    DefaultFacebookClient facebookClient = new DefaultFacebookClient("test", "test");
+    String test = facebookClient.makeAppSecretProof();
+    // obtained from running hash_hmac("sha256","test","test");
+    String php_result = "88cd2108b5347d973cf39cdf9053d7dd42704876d8c9a9bd8e2d168259d3ddf7";
+    assertEquals(php_result, test);
+    // obtained from running hash_hmac("sha256","helloWorld",'PRIE7$oG2uS-Yf17kEnUEpi5hvW/#AFo');
+    String php_result2 = "cb064987988fcd658470d6a24f1c68f6d7982c80ab9efb08cb8c84ef88fd03e1";
+    DefaultFacebookClient facebookClient2 = new DefaultFacebookClient("helloWorld", "PRIE7$oG2uS-Yf17kEnUEpi5hvW/#AFo");
+    String test2 = facebookClient2.makeAppSecretProof();
+    assertEquals(php_result2, test2);
+  }
+
   /**
    * Do we correctly handle the case where FB returns an OAuthException with an error code?
    */
@@ -53,7 +72,7 @@ public class FacebookClientTest {
       assertEquals(Integer.valueOf(210), e.getErrorCode());
     }
   }
-  
+
   /**
    * Do we correctly handle the case where FB returns an OAuthException with an error code and subcode?
    */
@@ -71,7 +90,7 @@ public class FacebookClientTest {
       assertEquals(Integer.valueOf(190), e.getErrorCode());
       assertEquals(Integer.valueOf(458), e.getErrorSubcode());
     }
-  }  
+  }
 
   /**
    * Do we correctly handle the case where FB returns an OAuthException without an error code?
