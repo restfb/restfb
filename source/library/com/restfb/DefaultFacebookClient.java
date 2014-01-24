@@ -273,14 +273,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchConnectionPage(java.lang.String, java.lang.Class)
    */
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
-    String connectionJson = makeRequestAndProcessResponse(new Requestor() {
-      /**
-       * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
-       */
-      public Response makeRequest() throws IOException {
-        return webRequestor.executeGet(connectionPageUrl);
-      }
-    });
+    String connectionJson = null;
+    if (!isBlank(appSecret)) {
+      connectionJson = makeRequestAndProcessResponse(new Requestor() {
+        public Response makeRequest() throws IOException {
+          return webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
+            urlEncode(APP_SECRET_PROOF_PARAM_NAME), makeAppSecretProof()));
+        }
+      });
+    } else {
+      connectionJson = makeRequestAndProcessResponse(new Requestor() {
+        /**
+         * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
+         */
+        public Response makeRequest() throws IOException {
+          return webRequestor.executeGet(connectionPageUrl);
+        }
+      });
+    }
 
     return new Connection<T>(this, connectionJson, connectionType);
   }
@@ -742,11 +752,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (executeAsDelete)
       parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
 
-    if (!isBlank(appSecret))
-      parameters =
-          parametersWithAdditionalParameter(Parameter.with(APP_SECRET_PROOF_PARAM_NAME, makeAppSecretProof()),
-            parameters);
-
     trimToEmpty(endpoint).toLowerCase();
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
@@ -983,6 +988,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected String toParameterString(Parameter... parameters) {
     if (!isBlank(accessToken))
       parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
+
+    if (!isBlank(appSecret))
+      parameters =
+          parametersWithAdditionalParameter(Parameter.with(APP_SECRET_PROOF_PARAM_NAME, makeAppSecretProof()),
+            parameters);
 
     parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
 
