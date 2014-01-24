@@ -790,11 +790,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       String out = new String(hex, "UTF-8");
       return out;
     } catch (NoSuchAlgorithmException e) {
-      System.out.println(e);
+      logger.info("Appsecret_proof creation fialed: " + e);
     } catch (InvalidKeyException e) {
-      System.out.println(e);
+      logger.warning("Appsecret_proof creation fialed: " + e);
     } catch (UnsupportedEncodingException e) {
-      System.out.println(e);
+      logger.info("Appsecret_proof creation fialed: " + e);
     }
     throw new NullPointerException("AppSecretProof creation has failed");
   }

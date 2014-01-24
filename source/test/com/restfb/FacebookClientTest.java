@@ -53,14 +53,6 @@ public class FacebookClientTest {
     DefaultFacebookClient facebookClient2 = new DefaultFacebookClient("helloWorld", "PRIE7$oG2uS-Yf17kEnUEpi5hvW/#AFo");
     String test2 = facebookClient2.makeAppSecretProof();
     assertEquals(php_result2, test2);
-    String php_result3 = "75d686df7a1e937b61b9d062c5fbad9a933fe70c15be0fec96dcb158fdada663";
-    DefaultFacebookClient facebookClient3 =
-        new DefaultFacebookClient(
-          "CAAAAMXGpQQgBACydRTLJiIG7qh0J9pWvzlZAXZCI4XZAzfuAdzadxVekKiO6dypZBoq8OdZA2pRgKXcAGnu1ht0vZCsswxsGscroRMIaZCtLMN5lRbyZAmxM59vdZB2oZBfggMP576SOJSCZAVo3Kd4FFerfYKl7X7mZCW0jMmquwM6wElZCEfcF2R0Yd",
-          "e17b62bbbf5e1c5f5a45e10efcc31fa6");
-    String test3 = facebookClient3.makeAppSecretProof();
-    System.out.println(test3);
-    assertEquals(php_result3, test3);
   }
 
   /**
