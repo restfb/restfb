@@ -964,11 +964,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode);
 
       if ("QueryParseException".equals(type))
-        return new FacebookQueryParseException(type, message, httpStatusCode);
+        return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode);
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
-      return new FacebookGraphException(type, message, httpStatusCode);
+      return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode);
     }
   }
 

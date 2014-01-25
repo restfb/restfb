@@ -31,7 +31,9 @@ import static java.lang.String.format;
   {
       "error": {
         "type": "Exception",
-        "message": "..."
+        "message": "...",
+        "code": 210,
+        "error_subcode": 123        
       }
   } </code>
  * 
@@ -39,6 +41,8 @@ import static java.lang.String.format;
  * @since 1.5
  */
 public class FacebookGraphException extends FacebookException {
+  private static final long serialVersionUID = 1L;
+
   /**
    * The Facebook Graph API error type.
    */
@@ -50,11 +54,19 @@ public class FacebookGraphException extends FacebookException {
   private String errorMessage;
 
   /**
+   * The Facebook API error code.
+   */
+  private Integer errorCode;
+
+  /**
+   * The Facebook API error subcode.
+   */
+  private Integer errorSubcode;
+
+  /**
    * The HTTP status code returned by the server.
    */
   private Integer httpStatusCode;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * Creates an exception with the given error type and message.
@@ -63,13 +75,21 @@ public class FacebookGraphException extends FacebookException {
    *          Value of the Facebook response attribute {@code error.type}.
    * @param errorMessage
    *          Value of the Facebook response attribute {@code error.message}.
+   * @param errorCode
+   *          Value of the Facebook response attribute {@code error.code}.
+   * @param errorSubcode
+   *          Value of the Facebook response attribute {@code error.error_subcode}.
    * @param httpStatusCode
    *          The HTTP status code returned by the server, e.g. 500.
    */
-  public FacebookGraphException(String errorType, String errorMessage, Integer httpStatusCode) {
-    super(format("Received Facebook error response of type %s: %s", errorType, errorMessage));
+  public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
+      Integer httpStatusCode) {
+    super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,
+      errorCode, errorSubcode));
     this.errorType = errorType;
     this.errorMessage = errorMessage;
+    this.errorCode = errorCode;
+    this.errorSubcode = errorSubcode;
     this.httpStatusCode = httpStatusCode;
   }
 
@@ -89,6 +109,24 @@ public class FacebookGraphException extends FacebookException {
    */
   public String getErrorMessage() {
     return errorMessage;
+  }
+
+  /**
+   * Gets the Facebook API error code.
+   * 
+   * @return The Facebook API error code.
+   */
+  public Integer getErrorCode() {
+    return errorCode;
+  }
+
+  /**
+   * Gets the Facebook API error subcode.
+   * 
+   * @return The Facebook API error subcode.
+   */
+  public Integer getErrorSubcode() {
+    return errorSubcode;
   }
 
   /**

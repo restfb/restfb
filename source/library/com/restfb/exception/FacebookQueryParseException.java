@@ -47,10 +47,15 @@ public class FacebookQueryParseException extends FacebookGraphException {
    *          Value of the Facebook response attribute {@code error.type}.
    * @param errorMessage
    *          Value of the Facebook response attribute {@code error.message}.
+   * @param errorCode
+   *          Value of the Facebook response attribute {@code error.code}.
+   * @param errorSubcode
+   *          Value of the Facebook response attribute {@code error.error_subcode}.
    * @param httpStatusCode
    *          The HTTP status code returned by the server, e.g. 500.
    */
-  public FacebookQueryParseException(String errorType, String errorMessage, Integer httpStatusCode) {
-    super(errorType, errorMessage, httpStatusCode);
+  public FacebookQueryParseException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
+      Integer httpStatusCode) {
+    super(errorType, errorMessage, errorCode, errorSubcode, httpStatusCode);
   }
 }
