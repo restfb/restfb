@@ -64,7 +64,7 @@ public class BinaryAttachment {
 
   /**
    * Creates a new binary attachment.
-   *
+   * 
    * @param filename
    *          The attachment's filename.
    * @param data
@@ -72,7 +72,9 @@ public class BinaryAttachment {
    * @param contentType
    *          The attachment's contentType.
    * @throws IllegalArgumentException
-   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   *           If {@code data} is {@code null}, {@code filename} is {@code null} or blank, or {@code contentType} is
+   *           {@code null} or blank.
+   * @since 1.6.13
    */
   protected BinaryAttachment(String filename, InputStream data, String contentType) {
     if (isBlank(filename))
@@ -105,7 +107,7 @@ public class BinaryAttachment {
 
   /**
    * Creates a binary attachment.
-   *
+   * 
    * @param filename
    *          The attachment's filename.
    * @param data
@@ -164,7 +166,7 @@ public class BinaryAttachment {
 
   /**
    * The attachment's content type.
-   *
+   * 
    * @return The attachment's contentType.
    */
   public String getContentType() {

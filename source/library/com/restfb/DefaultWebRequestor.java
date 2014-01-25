@@ -171,17 +171,20 @@ public class DefaultWebRequestor implements WebRequestor {
       // Otherwise the body is the URL parameter string.
       if (binaryAttachments.length > 0) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
-          StringBuilder sb = new StringBuilder();
+          StringBuilder stringBuilder = new StringBuilder();
 
-          sb.append(MULTIPART_TWO_HYPHENS).append(MULTIPART_BOUNDARY).append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).
-              append("Content-Disposition: form-data; name=\"").append(createFormFieldName(binaryAttachment)).
-              append("\"; filename=\"").append(binaryAttachment.getFilename()).append("\"");
-          if (binaryAttachment.getContentType() != null && binaryAttachment.getContentType().length() > 0) {
-            sb.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Type: ").append(binaryAttachment.getContentType());
-          }
-          sb.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE);
+          stringBuilder.append(MULTIPART_TWO_HYPHENS).append(MULTIPART_BOUNDARY)
+            .append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Disposition: form-data; name=\"")
+            .append(createFormFieldName(binaryAttachment)).append("\"; filename=\"")
+            .append(binaryAttachment.getFilename()).append("\"");
 
-          outputStream.write(sb.toString().getBytes(ENCODING_CHARSET));
+          if (binaryAttachment.getContentType() != null && binaryAttachment.getContentType().length() > 0)
+            stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Type: ")
+              .append(binaryAttachment.getContentType());
+
+          stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE);
+
+          outputStream.write(stringBuilder.toString().getBytes(ENCODING_CHARSET));
 
           write(binaryAttachment.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
 
