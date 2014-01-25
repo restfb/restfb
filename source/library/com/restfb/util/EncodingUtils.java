@@ -22,8 +22,6 @@
 
 package com.restfb.util;
 
-import static com.restfb.util.EncodingUtils.encodeHex;
-
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -78,15 +76,20 @@ public final class EncodingUtils {
   }
 
   /**
-   * Encodes a hex byte[] from given byte[]
+   * Encodes a hex {@code byte[]} from given {@code byte[]}.
    * 
-   * This function is equivalent to apache commons codec binary new Hex().encode(byte[]);
+   * This function is equivalent to Apache commons-codec binary {@code new Hex().encode(byte[])}
    * 
    * @param data
-   * @return Hex encoded byte[]
-   * 
+   *          The data to encode as hex.
+   * @return Hex-encoded {@code byte[]}
+   * @throws NullPointerException
+   *           If {@code data} is {@code null}.
    */
   public static byte[] encodeHex(final byte[] data) {
+    if (data == null)
+      throw new NullPointerException("Parameter 'data' cannot be null.");
+
     final char[] toDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
     final int l = data.length;
     final char[] out = new char[l << 1];
@@ -94,6 +97,7 @@ public final class EncodingUtils {
       out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
       out[j++] = toDigits[0x0F & data[i]];
     }
+
     return new String(out).getBytes();
   }
 
