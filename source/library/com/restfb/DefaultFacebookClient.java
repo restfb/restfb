@@ -42,9 +42,6 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -202,6 +199,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          A Facebook OAuth access token.
    * @param appSecret
    *          A Facebook application secret.
+   * @since 1.6.13
    */
   public DefaultFacebookClient(String accessToken, String appSecret) {
     this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper());
@@ -212,8 +210,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * 
    * @param accessToken
    *          A Facebook OAuth access token.
-   * @param appSecret
-   *          A Facebook application secret.
+   * @param webRequestor
+   *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
+   * @param jsonMapper
+   *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
+   * @throws NullPointerException
+   *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
     this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper());
@@ -773,30 +775,34 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Generates an appsecret_proof for facebook.
+   * Generates an {@code appsecret_proof} for Facebook.
+   * <p>
+   * See <a
+   * href="https://developers.facebook.com/docs/graph-api/securing-requests">https://developers.facebook.com/docs/
+   * graph-api/securing-requests</a> for more info.
    * 
-   * See https://developers.facebook.com/docs/graph-api/securing-requests for more info
-   * 
-   * @return A Hex encoded SHA256 Hash as a String
+   * @return A hex-encoded SHA256 hash as a {@code String}.
+   * @throws IllegalStateException
+   *           if no access token or app secret is available, or if creating the {@code appsecret_proof} fails.
+   * @since 1.6.13
    */
   public String makeAppSecretProof() {
+    if (isBlank(accessToken))
+      throw new IllegalStateException("Cannot call this method without a valid access token.");
+    if (isBlank(appSecret))
+      throw new IllegalStateException("Cannot call this method without a valid app secret.");
+
     try {
-      byte[] key = this.appSecret.getBytes();
+      byte[] key = appSecret.getBytes();
       SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
       Mac mac = Mac.getInstance("HmacSHA256");
       mac.init(signingKey);
-      byte[] raw = mac.doFinal(this.accessToken.getBytes());
+      byte[] raw = mac.doFinal(accessToken.getBytes());
       byte[] hex = encodeHex(raw);
-      String out = new String(hex, "UTF-8");
-      return out;
-    } catch (NoSuchAlgorithmException e) {
-      logger.info("Appsecret_proof creation fialed: " + e);
-    } catch (InvalidKeyException e) {
-      logger.warning("Appsecret_proof creation fialed: " + e);
-    } catch (UnsupportedEncodingException e) {
-      logger.info("Appsecret_proof creation fialed: " + e);
+      return new String(hex, "UTF-8");
+    } catch (Exception e) {
+      throw new IllegalStateException("Creation of appsecret_proof has failed", e);
     }
-    throw new NullPointerException("AppSecretProof creation has failed");
   }
 
   protected static interface Requestor {
