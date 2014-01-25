@@ -262,7 +262,7 @@ public class Comment extends FacebookType {
   /**
    * Contains the attachment data for a specific comment (like an image or such)
    * 
-   * @Author <a href="http://ityx.de">Jan Schweizer</a>
+   * @author <a href="http://ityx.de">Jan Schweizer</a>
    */
   public static class Attachment extends FacebookType {
     @Facebook
