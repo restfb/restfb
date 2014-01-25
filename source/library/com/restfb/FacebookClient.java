@@ -32,6 +32,8 @@ import java.util.Map;
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
+import com.restfb.exception.FacebookSignedRequestParsingException;
+import com.restfb.exception.FacebookSignedRequestVerificationException;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -360,8 +362,8 @@ public interface FacebookClient {
   /**
    * Obtains an extended access token for the given existing, non-expired, short-lived access_token.
    * <p>
-   * See <a href= "https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Facebook's extend
-   * access token documentation</a>.
+   * See <a href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Facebook's extend access
+   * token documentation</a>.
    * 
    * @param appId
    *          The ID of the app for which you'd like to obtain an extended access token.
@@ -375,6 +377,23 @@ public interface FacebookClient {
    * @since 1.6.10
    */
   AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken);
+
+  /**
+   * Generates an {@code appsecret_proof} value.
+   * <p>
+   * See <a href="https://developers.facebook.com/docs/graph-api/securing-requests">Facebook's 'securing requests'
+   * documentation</a> for more info.
+   * 
+   * @param accessToken
+   *          The access token required to generate the {@code appsecret_proof} value.
+   * @param appSecret
+   *          The secret for the app for which you'd like to generate the {@code appsecret_proof} value.
+   * @return A hex-encoded SHA256 hash as a {@code String}.
+   * @throws IllegalStateException
+   *           If creating the {@code appsecret_proof} fails.
+   * @since 1.6.13
+   */
+  String obtainAppSecretProof(String accessToken, String appSecret);
 
   /**
    * Parses a signed request and verifies it against your App Secret.

@@ -276,11 +276,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson = null;
-    if (!isBlank(appSecret)) {
+    if (!isBlank(accessToken) && !isBlank(appSecret)) {
       connectionJson = makeRequestAndProcessResponse(new Requestor() {
         public Response makeRequest() throws IOException {
           return webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
-            urlEncode(APP_SECRET_PROOF_PARAM_NAME), makeAppSecretProof()));
+            urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)));
         }
       });
     } else {
@@ -775,22 +775,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Generates an {@code appsecret_proof} for Facebook.
-   * <p>
-   * See <a
-   * href="https://developers.facebook.com/docs/graph-api/securing-requests">https://developers.facebook.com/docs/
-   * graph-api/securing-requests</a> for more info.
-   * 
-   * @return A hex-encoded SHA256 hash as a {@code String}.
-   * @throws IllegalStateException
-   *           if no access token or app secret is available, or if creating the {@code appsecret_proof} fails.
-   * @since 1.6.13
+   * @see com.restfb.FacebookClient#obtainAppSecretProof(java.lang.String, java.lang.String)
    */
-  public String makeAppSecretProof() {
-    if (isBlank(accessToken))
-      throw new IllegalStateException("Cannot call this method without a valid access token.");
-    if (isBlank(appSecret))
-      throw new IllegalStateException("Cannot call this method without a valid app secret.");
+  @Override
+  public String obtainAppSecretProof(String accessToken, String appSecret) {
+    verifyParameterPresence("accessToken", accessToken);
+    verifyParameterPresence("appSecret", appSecret);
 
     try {
       byte[] key = appSecret.getBytes();
@@ -995,10 +985,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (!isBlank(accessToken))
       parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
 
-    if (!isBlank(appSecret))
+    if (!isBlank(accessToken) && !isBlank(appSecret))
       parameters =
-          parametersWithAdditionalParameter(Parameter.with(APP_SECRET_PROOF_PARAM_NAME, makeAppSecretProof()),
-            parameters);
+          parametersWithAdditionalParameter(
+            Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);
 
     parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
 
