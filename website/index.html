@@ -48,6 +48,7 @@
 			<li><a href="#batch-api">Batch API</a></li>
 			<li class="separator"></li>
 			<li><a href="#access-token-operations">Access Token Operations</a></li>
+			<li><a href="#security-operations">Security Operations</a></li>
 			<li class="separator"></li>
 			<li><a href="#running-examples">Running The Examples</a></li>
 			<li><a href="#supported-graph-object-types">Supported Graph Object Types</a></li>
@@ -79,10 +80,10 @@
 		<h2>Download</h2>
 		
 		<p>
-			Version 1.6.12 (released March 10, 2013) of the library is available via RestFB's home on <a target="_blank"href="https://github.com/revetkn/restfb">Github</a>.
+			Version 1.6.13 (released January 25, 2014) of the library is available via RestFB's home on <a target="_blank"href="https://github.com/revetkn/restfb">Github</a>.
 			<br/>
 			<a target="_blank" href="https://github.com/revetkn/restfb/blob/master/CHANGELOG">View the changelog</a>, 
-			or <a target="_blank" href="/downloads/restfb-1.6.12.zip">download it here</a>.
+			or <a target="_blank" href="/downloads/restfb-1.6.13.zip">download it here</a>.
 		</p>
 		
 			<p>
@@ -95,7 +96,7 @@
 <pre class="prettyprint">&lt;dependency&gt;
   &lt;groupId&gt;com.restfb&lt;/groupId&gt;
   &lt;artifactId&gt;restfb&lt;/artifactId&gt;
-  &lt;version&gt;1.6.12&lt;/version&gt;
+  &lt;version&gt;1.6.13&lt;/version&gt;
 &lt;/dependency&gt;</pre>
 		</p>		
 		
@@ -172,7 +173,11 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);
 // publicly-visible data - no access token required. 
 // Note that many of the examples below <b>will not work</b> unless you supply an access token! 
 
-FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();</pre>	
+FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();
+
+// Get added security by using your app secret:
+
+FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_APP_SECRET);</pre>	
 		
 		<div class="spacer"></div>
 		
@@ -706,7 +711,7 @@ out.println("My application access token: " + accessToken);
 		<h3>Converting Old REST API Session Keys to OAuth Tokens (see <a target="_blank" href="http://developers.facebook.com/docs/authentication#exchange-session-key-for-an-access-token">Graph API documentation</a>)</h3>
 			
 <pre class="prettyprint">
-// It's 2012, hopefully no one has to do this anymore!
+// It's 2014, hopefully no one has to do this anymore!
 
 List&lt;AccessToken&gt; accessTokens =
   new DefaultFacebookClient().convertSessionKeysToAccessTokens(MY_APP_ID,
@@ -714,6 +719,72 @@ List&lt;AccessToken&gt; accessTokens =
 
 out.println("OAuth token for sessionKey1: " + accessTokens.get(0).getAccessToken());</pre>								
 				
+		<a name="security-operations"></a>				
+		<div class="spacer"></div>
+		<h3>Parsing Signed Requests</h3>
+
+<pre class="prettyprint">
+// Facebook can send you an encoded signed request, which is only decodable by you
+// with your App Secret. Pass the signed request, your app secret, and a class that
+// specifies how RestFB should map the decoded signed request JSON.
+
+String signedRequest = "xxx";
+String appSecret = "yyy";
+Payload payload = facebookClient.parseSignedRequest(signedRequest,
+  appSecret, Payload.class);
+
+out.println("Signed request user_id: " + payload.userId);
+
+// You must write your own class to hold signed request payload data
+// since RestFB can't know in advance what fields FB will be sending you.
+// Some are always present, like user_id, but the rest will be specific
+// to your app and situation.
+
+class Payload {
+  @Facebook("user_id")
+  String userId;
+
+  @Facebook("oauth_token")
+  String oauthToken;
+
+  @Facebook
+  Long expires;
+
+  @Facebook("issued_at")
+  Long issuedAt;
+
+  Date getExpires() {
+    return expires == null ? null : new Date(expires * 1000L);
+  }
+
+  Date getIssuedAt() {
+    return issuedAt == null ? null : new Date(issuedAt * 1000L);
+  }
+  
+  // Add whatever other fields you might have
+}</pre>
+
+	<div class="spacer"></div>
+	<h3>Generating appsecret_proof</h3>
+
+<pre class="prettyprint">
+// If you create a DefaultFacebookClient instance with your app secret, RestFB will
+// automatically include appsecret_proof with your requests,
+// no work needs to be done on your end.
+
+FacebookClient facebookClient =
+  new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_APP_SECRET);
+
+// Request will include appsecret_proof
+
+facebookClient.fetchObject("XXX", User.class);
+
+// You may also generate the appsecret_proof value directly (not normally needed).
+
+String proof = new DefaultFacebookClient().obtainAppSecretProof(
+  MY_ACCESS_TOKEN, MY_APP_SECRET);
+out.println("Here's my proof: " + proof);</pre>
+
 		<div class="spacer"></div>				
 		
 		<a name="running-examples"></a>						

@@ -10,9 +10,9 @@ RestFB itself is open source software released under the terms of the MIT Licens
 
 ## Installation
 
-RestFB is a single JAR - just drop `restfb-1.6.12.jar` into your app and you're ready to go.
+RestFB is a single JAR - just drop `restfb-1.6.13.jar` into your app and you're ready to go.
 
-Download it here: http://restfb.com/downloads/restfb-1.6.12.jar
+Download it here: http://restfb.com/downloads/restfb-1.6.13.jar
 
 Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to your project like this:
 
@@ -20,7 +20,7 @@ Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to you
 <dependency>
   <groupId>com.restfb</groupId>
   <artifactId>restfb</artifactId>
-  <version>1.6.12</version>
+  <version>1.6.13</version>
 </dependency>
 ```
 
@@ -51,6 +51,10 @@ FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN);
 // Note that many of the examples below will not work unless you supply an access token! 
 
 FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();
+
+// Get added security by using your app secret:
+
+FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_APP_SECRET);
 ```
 
 #### Fetching Single Objects
@@ -468,8 +472,6 @@ out.println("My application access token: " + accessToken);
 
 #### Parsing Signed Requests
 
-You must build the latest from github to get this until 1.6.13 is released.
-
 ```java
 // Facebook can send you an encoded signed request, which is only decodable by you
 // with your App Secret. Pass the signed request, your app secret, and a class that
@@ -509,7 +511,25 @@ class Payload {
   
   // Add whatever other fields you might have
 }
+```
 
+#### Generating appsecret_proof
+
+```java
+
+// If you create a DefaultFacebookClient instance with your app secret, RestFB will
+// automatically include appsecret_proof with your requests, no work needs to be done on your end.
+
+FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_APP_SECRET);
+
+// Request will include appsecret_proof
+
+facebookClient.fetchObject("XXX", User.class);
+
+// You may also generate the appsecret_proof value directly (not normally needed).
+
+String proof = new DefaultFacebookClient().obtainAppSecretProof(MY_ACCESS_TOKEN, MY_APP_SECRET);
+out.println("Here's my proof: " + proof);
 ```
 
 #### Map Your Own Types

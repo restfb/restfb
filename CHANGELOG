@@ -1,4 +1,4 @@
-1.6.13 (Unreleased)
+1.6.13 (January 25, 2014)
 
 * Support for appsecret_proof functionality.
   Thanks to Daniel Piet and Mike Champion.
@@ -10,6 +10,9 @@
   BREAKING CHANGE: Post.getCount() is now Post.getTotalCount() per July FB API changes.
   Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the total_count
   Thanks to Jens Peters for the patch.
+* FacebookGraphException now has getErrorCode() and getErrorSubcode() in the event that FB returns these.
+  Previously this was only available for FacebookOAuthException. 
+  Thanks to Peter Vahlstrup.
 * Fix for Venue type (added new "id" field)
   Thanks to sbisht and neXus1987
 * Added missing fields to Message type.
