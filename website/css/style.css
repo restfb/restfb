@@ -226,9 +226,10 @@ div.spacer {
 .user-link-container a:hover { background-color: #fff; }
 .friend2friend { margin-left: -12px; }
 .ibm { padding-top: 56px; }
-.tynamo { padding-top: 51px; }
+.tynamo { padding-bottom: 20px;}
 .ou { padding-top: 37px; }
 .angrybirds { margin-top: 56px; }
+.hubspot { padding-top: 70px; }
 
 .clearer { clear: left;	 }
 
