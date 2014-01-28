@@ -218,7 +218,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
-    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper());
+    this(accessToken, null, webRequestor, new DefaultJsonMapper());
   }
 
   /**
