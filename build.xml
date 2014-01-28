@@ -72,7 +72,7 @@
 			 overview="${miscDir}/javadoc/overview.html" linksource="yes">
 			<packageset dir="${librarySourceDir}" defaultexcludes="yes" />
 			<doctitle><![CDATA[<h1>RestFB ${libraryVersion}</h1>]]></doctitle>
-			<bottom><![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2013 Mark Allen. All Rights Reserved.</i>]]></bottom>
+			<bottom><![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2014 Mark Allen. All Rights Reserved.</i>]]></bottom>
 			<link href="http://docs.oracle.com/javase/7/docs/api/" />
 		</javadoc>
 	</target>
