@@ -114,6 +114,20 @@ public class Event extends NamedFacebookType {
   private String rsvpStatus;
 
   /**
+   * A list of locations of this event.
+   *
+   * This may happen in some strange case - see issue #XXX on GitHub
+   *
+   * Deprecated with API version 2.3, use <code>place</code> field instead
+   *
+   * @return A list of locations of the event.
+   */
+  @Getter
+  @Setter
+  @Facebook("venue")
+  private List<Location> venueList;
+
+  /**
    * The location of this event, a structured address object.
    * 
    * Deprecated with API version 2.3, use <code>place</code> field instead
@@ -431,4 +445,5 @@ public class Event extends NamedFacebookType {
       picture = jsonMapper.toJavaObject(picData.toString(), ProfilePictureSource.class);
     }
   }
+
 }

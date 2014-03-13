@@ -64,6 +64,14 @@ public class EventTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void exampleEventWithVenueList() {
+    Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/event-with-venuelist"), Event.class);
+    assertNotNull(event);
+    assertNotNull(event.getVenueList());
+    assertEquals(2, event.getVenueList().size());
+  }
+
+  @Test
   public void exampleEventWithLocation() {
     Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/event"), Event.class);
     assertNotNull(event);

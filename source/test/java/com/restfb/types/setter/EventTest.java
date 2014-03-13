@@ -35,6 +35,7 @@ public class EventTest extends SetterGetterTestBase {
     addIgnoredField("rawEndTime");
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawPicture");
+    addIgnoredField("venueList");
     testInstance(obj);
   }
 
