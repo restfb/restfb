@@ -344,4 +344,9 @@ public class Event extends NamedFacebookType {
   public Boolean getIsDateOnly() {
     return isDateOnly;
   }
+
+  public List<Venue> getVenueList() {
+    return venueList;
+  }
+
 }

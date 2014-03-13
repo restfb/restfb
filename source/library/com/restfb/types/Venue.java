@@ -58,6 +58,9 @@ public class Venue implements Serializable {
   @Facebook
   private Double longitude;
 
+  @Facebook
+  private String name;
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -156,4 +159,14 @@ public class Venue implements Serializable {
   public Double getLongitude() {
     return longitude;
   }
+
+  /**
+   * If a venue could not be resolved by facebook, the venue just gets the name of the location
+   * 
+   * @return
+   */
+  public String getName() {
+    return name;
+  }
+
 }
