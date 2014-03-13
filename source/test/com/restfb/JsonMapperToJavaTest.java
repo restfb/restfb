@@ -42,6 +42,7 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Account;
 import com.restfb.types.Conversation;
+import com.restfb.types.Event;
 import com.restfb.types.Message;
 import com.restfb.types.NamedFacebookType;
 import com.restfb.types.Post;
@@ -355,6 +356,25 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     } catch (FacebookJsonMappingException e) {
       // Expected
     }
+  }
+
+  @Test
+  public void testJsonToEventWithMultipleVenue() {
+    String theJson = "{\"venue\": [{\"name\": \"venue1\"}, {\"name\": \"venue2\"} ]} ";
+    JsonMapper jsonMapper = createJsonMapper();
+    Event theEvent = jsonMapper.toJavaObject(theJson, Event.class);
+    Assert.assertEquals(2, theEvent.getVenueList().size());
+    Assert.assertEquals("venue1", theEvent.getVenueList().get(0).getName());
+    Assert.assertEquals("venue2", theEvent.getVenueList().get(1).getName());
+  }
+
+  @Test
+  public void testJsonToEventWithSingleVenue() {
+    String theJson = "{\"venue\": {\"name\": \"home\"}}";
+
+    JsonMapper jsonMapper = createJsonMapper();
+    Event theEvent = jsonMapper.toJavaObject(theJson, Event.class);
+    Assert.assertEquals("home", theEvent.getVenue().getName());
   }
 
   static class Story {
