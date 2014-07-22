@@ -388,20 +388,19 @@ public class InsightUtilsTest {
           TEST_PAGE_OBJECT, toStringSet("page_active_users", "page_tab_views_login_top_unique"), Period.DAY,
           periodEndDates);
     Assert.assertNotNull(results);
-    // System.out.println(results);
     assertEquals(4, results.size());
     // not ideal that this test requires on a stable JsonArray.toString()
     assertEquals(
-      "[{\"metric\":\"page_active_users\",\"value\":761},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":2,\"app_4949752878\":3,\"wall\":30}}]",
+      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":761},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":2,\"app_4949752878\":3,\"wall\":30}}]").toString(),
       results.get(d20030629_0000pst).toString());
     assertEquals(
-      "[{\"metric\":\"page_active_users\",\"value\":705},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"photos\":1,\"app_2373072738\":2,\"wall\":23}}]",
+      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":705},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"photos\":1,\"app_2373072738\":2,\"wall\":23}}]").toString(),
       results.get(d20030630_0000pst).toString());
     assertEquals(
-      "[{\"metric\":\"page_active_users\",\"value\":582},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"wall\":12}}]",
+      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":582},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"wall\":12}}]").toString(),
       results.get(d20030701_0000pst).toString());
     assertEquals(
-      "[{\"metric\":\"page_active_users\",\"value\":125},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":1,\"wall\":11}}]",
+      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":125},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":1,\"wall\":11}}]").toString(),
       results.get(d20030702_0000pst).toString());
   }
 
