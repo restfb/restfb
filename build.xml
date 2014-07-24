@@ -6,7 +6,7 @@
 	<!-- Directories -->
 	<property name="sourceDir" value="source" />
 	<property name="librarySourceDir" value="${sourceDir}/library" />
-	<property name="testSourceDir" value="${sourceDir}/test" />
+	<property name="testSourceDir" value="${sourceDir}/test/java" />
 	<property name="buildDir" value="build" />
 	<property name="classesDir" value="${buildDir}/classes" />
 	<property name="javadocDir" value="${buildDir}/javadoc" />
