@@ -1,3 +1,5 @@
+![Build status](https://travis-ci.org/nbartels/restfb.svg?branch=master)
+
 # RestFB (http://restfb.com)
 ## What it is
 
