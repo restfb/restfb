@@ -346,7 +346,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
    *      com.restfb.Parameter[])
    */
-  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
+  public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers, BinaryAttachment binaryAttachment,
       Parameter... parameters) {
     verifyParameterPresence("connection", connection);
 
@@ -354,14 +354,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (binaryAttachment != null)
       binaryAttachments.add(binaryAttachment);
 
-    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachments, parameters), objectType);
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, headers, binaryAttachments, parameters), objectType);
   }
 
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
+  public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers, Parameter... parameters) {
+    return publish(connection, objectType, headers, null, parameters);
+  }
+  
+  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters) {
+    return publish(connection, objectType, null, binaryAttachment, parameters);
+  }
+  
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
-    return publish(connection, objectType, null, parameters);
+    return publish(connection, objectType, null, null, parameters);
   }
 
   /**
@@ -728,6 +736,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected String makeRequest(String endpoint, Parameter... parameters) {
     return makeRequest(endpoint, false, false, null, parameters);
   }
+  
+  protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete,
+      final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
+    return makeRequest(endpoint, executeAsPost, executeAsDelete, null, binaryAttachments, parameters);
+  }
 
   /**
    * Coordinates the process of executing the API request GET/POST and processing the response we receive from the
@@ -747,7 +760,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws FacebookException
    *           If an error occurs while making the Facebook API POST or processing the response.
    */
-  protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete,
+  protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete, final Map<String, String> headers,
       final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
     verifyParameterLegality(parameters);
 
@@ -767,7 +780,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
        */
       public Response makeRequest() throws IOException {
-        return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments == null ? null
+        return executeAsPost ? webRequestor.executePost(fullEndpoint, headers, parameterString, binaryAttachments == null ? null
             : binaryAttachments.toArray(new BinaryAttachment[] {})) : webRequestor.executeGet(fullEndpoint + "?"
             + parameterString);
       }
