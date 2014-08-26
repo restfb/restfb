@@ -174,6 +174,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
 
   /**
+   * Version of API endpoint.
+   */
+  protected Version apiVersion = Version.UNVERSIONED;
+  
+  /**
    * Creates a Facebook Graph API client with no access token.
    * <p>
    * Without an access token, you can view and search public graph data but can't do much else.
@@ -189,7 +194,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          A Facebook OAuth access token.
    */
   public DefaultFacebookClient(String accessToken) {
-    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper());
+    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
+  }
+  
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param apiVersion
+   *          Version of the api endpoint
+   * @since 1.6.14
+   */
+  public DefaultFacebookClient(String accessToken, Version apiVersion) {
+    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), apiVersion);
   }
 
   /**
@@ -202,7 +220,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @since 1.6.13
    */
   public DefaultFacebookClient(String accessToken, String appSecret) {
-    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper());
+    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
+  }
+  
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param appSecret
+   *          A Facebook application secret.
+   * @param apiVersion 
+   *          Version of the api endpoint
+   * @since 1.6.14
+   */
+  public DefaultFacebookClient(String accessToken, String appSecret, Version apiVersion) {
+    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), apiVersion);
   }
 
   /**
@@ -218,7 +251,26 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
-    this(accessToken, null, webRequestor, jsonMapper);
+    this(accessToken, null, webRequestor, jsonMapper, null);
+  }
+  
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param webRequestor
+   *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
+   * @param jsonMapper
+   *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
+   * @param apiVersion 
+   *          Version of the api endpoint
+   * @throws NullPointerException
+   *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
+   * @since 1.6.14
+   */
+  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper, Version apiVersion) {
+    this(accessToken, null, webRequestor, jsonMapper, apiVersion);
   }
 
   /**
@@ -236,7 +288,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
-  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper) {
+  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper, Version apiVersion) {
     super();
 
     verifyParameterPresence("jsonMapper", jsonMapper);
@@ -247,6 +299,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
+    this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
 
     illegalParamNames.addAll(Arrays
@@ -1034,7 +1087,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @return The base endpoint URL for the Graph API.
    */
   protected String getFacebookGraphEndpointUrl() {
-    return FACEBOOK_GRAPH_ENDPOINT_URL;
+      if (apiVersion.isUrlElementRequired()) {
+        return FACEBOOK_GRAPH_ENDPOINT_URL + '/' + apiVersion.getUrlElement();  
+      } else {
+        return FACEBOOK_GRAPH_ENDPOINT_URL;
+      }
   }
 
   /**
