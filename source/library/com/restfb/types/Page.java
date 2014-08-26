@@ -93,6 +93,9 @@ public class Page extends CategorizedFacebookType {
 
   @Facebook
   private Cover cover;
+  
+  @Facebook
+  private String website;
 
   private static final long serialVersionUID = 2L;
 
@@ -355,5 +358,15 @@ public class Page extends CategorizedFacebookType {
    */
   public Cover getCover() {
     return cover;
+  }
+  
+  /**
+   * The website URL
+   * 
+   * @return the website url
+   * @since 1.6.15
+   */
+  public String getWebsite() {
+    return website;
   }
 }
