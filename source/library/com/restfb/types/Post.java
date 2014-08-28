@@ -296,7 +296,7 @@ public class Post extends NamedFacebookType {
    */
   public static class Likes implements Serializable {
     @Facebook
-    private Long count;
+    private Long count = 0L;
 
     @Facebook
     private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
@@ -581,7 +581,7 @@ public class Post extends NamedFacebookType {
    */
   public static class Shares implements Serializable {
     @Facebook
-    private Long count;
+    private Long count = 0L;
 
     private static final long serialVersionUID = 1L;
     

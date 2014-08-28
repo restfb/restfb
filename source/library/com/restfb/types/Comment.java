@@ -189,7 +189,7 @@ public class Comment extends FacebookType {
    */
   public static class Comments implements Serializable {
     @Facebook
-    private Long count;
+    private Long count = 0L;
 
     @Facebook
     private List<Comment> data = new ArrayList<Comment>();
