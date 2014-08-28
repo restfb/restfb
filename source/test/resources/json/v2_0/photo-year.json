@@ -1,0 +1,30 @@
+{
+  "id": "670902809672213", 
+  "backdated_time": "2014-08-17T19:00:00+0000", 
+  "backdated_time_granularity": "year", 
+  "created_time": "2014-08-26T20:55:07+0000", 
+  "from": {
+    "category": "Community", 
+    "name": "Fake page", 
+    "id": "1234567890"
+  }, 
+  "height": 168, 
+  "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/test.gif", 
+  "images": [
+    {
+      "height": 168, 
+      "source": "https://fbcdn-sphotos-e-a.akamaihd.net/123456", 
+      "width": 168
+    }, 
+    {
+      "height": 130, 
+      "source": "https://fbcdn-sphotos-e-a.akamaihd.net/123456", 
+      "width": 130
+    }
+  ], 
+  "link": "https://www.facebook.com/1234567890/photos/a.496969833732179.1073741825.349489628480201/670902809672213/?type=1", 
+  "picture": "https://fbcdn-sphotos-e-a.akamaihd.net/123456", 
+  "source": "https://fbcdn-sphotos-e-a.akamaihd.net/123456", 
+  "updated_time": "2014-08-26T20:55:38+0000", 
+  "width": 168
+}

@@ -25,10 +25,6 @@ import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-/**
- *
- * @author viego2
- */
 public class PageTest extends AbstractJsonMapperTests {
     
     @Test

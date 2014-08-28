@@ -84,6 +84,12 @@ public class Photo extends NamedFacebookType {
 
   @Facebook
   private Place place;
+  
+  @Facebook("backdated_time")
+  private String backdatedTime;
+
+  @Facebook("backdated_time_granularity")
+  private String backdatedTimeGranularity;
 
   private static final long serialVersionUID = 1L;
 
@@ -345,5 +351,25 @@ public class Photo extends NamedFacebookType {
    */
   public List<Image> getImages() {
     return unmodifiableList(images);
+  }
+  
+  /**
+   * Back dated time
+   * 
+   * @return the back dated time
+   * @since 1.6.15
+   */
+  public Date getBackdatedTime() {
+    return toDateFromLongFormat(backdatedTime);
+  }
+
+  /**
+   * String that represents the back dated time granularity
+   * 
+   * @return the back dated time granularity
+   * @since 1.6.15
+   */
+  public String getBackdatedTimeGranularity() {
+    return backdatedTimeGranularity;
   }
 }
