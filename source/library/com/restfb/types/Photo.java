@@ -101,10 +101,10 @@ public class Photo extends NamedFacebookType {
    */
   public static class Tag extends NamedFacebookType {
     @Facebook
-    private Integer x;
+    private Double x;
 
     @Facebook
-    private Integer y;
+    private Double y;
 
     @Facebook("created_time")
     private String createdTime;
@@ -116,7 +116,7 @@ public class Photo extends NamedFacebookType {
      * 
      * @return X coordinate (as a percentage of distance from left vs. width).
      */
-    public Integer getX() {
+    public Double getX() {
       return x;
     }
 
@@ -125,7 +125,7 @@ public class Photo extends NamedFacebookType {
      * 
      * @return Y coordinate (as a percentage of distance from top vs. height).
      */
-    public Integer getY() {
+    public Double getY() {
       return y;
     }
 

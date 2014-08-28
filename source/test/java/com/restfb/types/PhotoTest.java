@@ -18,158 +18,155 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-
 package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
 import java.util.Date;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class PhotoTest extends AbstractJsonMapperTests {
-    
+
     @Test
     public void checkDayV1_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-day"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-day"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "day");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkYearV1_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-year"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-year"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "year");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkMonthV1_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-month"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-month"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "month");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkHourV1_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-hour"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-hour"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "hour");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkMinuteV1_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-min"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-min"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "min");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302720000L));
     }
-    
+
     @Test
     public void checkNoBackdateV1_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-nobackdate"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-nobackdate"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), null);
         assertEquals(examplePhoto.getBackdatedTime(), null);
     }
-    
+
     @Test
     public void checkDayV2_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-day"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-day"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "day");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkYearV2_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-year"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-year"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "year");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkMonthV2_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-month"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-month"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "month");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkHourV2_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-hour"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-hour"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "hour");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkMinuteV2_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-min"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-min"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "min");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302720000L));
     }
-    
+
     @Test
     public void checkNoBackdateV2_0() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-nobackdate"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-nobackdate"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), null);
         assertEquals(examplePhoto.getBackdatedTime(), null);
     }
-    
+
     @Test
     public void checkDayV2_1() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-day"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-day"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "day");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkYearV2_1() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-year"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-year"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "year");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkMonthV2_1() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-month"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-month"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "month");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkHourV2_1() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-hour"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-hour"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "hour");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302000000L));
     }
-    
+
     @Test
     public void checkMinuteV2_1() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-min"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-min"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), "min");
         assertEquals(examplePhoto.getBackdatedTime(), new Date(1408302720000L));
     }
-    
+
     @Test
     public void checkNoBackdateV2_1() {
-        Photo examplePhoto =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-nobackdate"), Photo.class);
+        Photo examplePhoto
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-nobackdate"), Photo.class);
         assertEquals(examplePhoto.getBackdatedTimeGranularity(), null);
         assertEquals(examplePhoto.getBackdatedTime(), null);
     }

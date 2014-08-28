@@ -24,5 +24,21 @@
   "picture": "https://fbcdn-sphotos-e-a.akamaihd.net/123456", 
   "source": "https://fbcdn-sphotos-e-a.akamaihd.net/123456", 
   "updated_time": "2014-08-26T20:55:38+0000", 
-  "width": 168
+  "width": 168,
+  "tags": {
+    "data": [
+      {
+        "name": "Tester", 
+        "created_time": "2014-08-28T19:35:39+0000", 
+        "x": 46.428571428571, 
+        "y": 53.571428571429
+      }
+    ], 
+    "paging": {
+      "cursors": {
+        "before": "NjcxNzAyNDIyOTI1NTg1", 
+        "after": "NjcxNzAyNDIyOTI1NTg1"
+      }
+    }
+  }
 }
