@@ -2,7 +2,13 @@
     "id": "40796308305",
     "about": "The Coca-Cola Facebook Page is a collection of your stories showing how people from around the world have helped make Coke into what it is today.",
     "can_post": true,
-    "category": "Food/beverages",
+    "category": "Company",
+    "category_list": [
+        {
+            "id": "2200",
+            "name": "Company"
+        }
+    ],
     "checkins": 13770,
     "cover": {
         "cover_id": "10153423198993306",

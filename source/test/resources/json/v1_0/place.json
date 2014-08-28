@@ -1,0 +1,29 @@
+{
+    "category_list": [
+        {
+            "name": "Region",
+            "id": "115725465228008"
+        },
+        {
+            "name": "River",
+            "id": "407338945943828"
+        },
+        {
+            "name": "Ocean",
+            "id": "215492291888288"
+        }
+    ],
+    "name": "San Francisco Bay, California",
+    "location": {
+        "zip": "94102",
+        "country": "United States",
+        "city": "San Francisco",
+        "street": "",
+        "latitude": 37.78291776,
+        "located_in": 1.0813158587386e+14,
+        "state": "CA",
+        "longitude": -122.422128368
+    },
+    "id": "248711105146015",
+    "category": "Local business"
+}

@@ -32,6 +32,10 @@ public class PageTest extends AbstractJsonMapperTests {
         Page examplePage =
         createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/page"), Page.class);
         assertEquals(examplePage.getWebsite(), "http://www.coca-cola.com");
+        assertEquals(1,examplePage.getCategoryList().size());
+        Category cat = examplePage.getCategoryList().get(0);
+        assertEquals("Company",cat.getName());
+        assertEquals("2200",cat.getId());
     }
     
     @Test
@@ -39,6 +43,10 @@ public class PageTest extends AbstractJsonMapperTests {
         Page examplePage =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/page"), Page.class);
         assertEquals(examplePage.getWebsite(), "http://www.coca-cola.com");
+        assertEquals(1,examplePage.getCategoryList().size());
+        Category cat = examplePage.getCategoryList().get(0);
+        assertEquals("Company",cat.getName());
+        assertEquals("2200",cat.getId());
     }
     
     @Test
@@ -46,6 +54,10 @@ public class PageTest extends AbstractJsonMapperTests {
         Page examplePage =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/page"), Page.class);
         assertEquals(examplePage.getWebsite(), "http://www.coca-cola.com");
+        assertEquals(1,examplePage.getCategoryList().size());
+        Category cat = examplePage.getCategoryList().get(0);
+        assertEquals("Company",cat.getName());
+        assertEquals("2200",cat.getId());
     }
     
 }

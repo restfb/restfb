@@ -23,6 +23,7 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import java.util.List;
 
 /**
  * Represents information about the place where an event occurred, for example a {@link Checkin} or {@link Photo}.
@@ -37,6 +38,9 @@ public class Place extends NamedFacebookType {
 
   @Facebook("location")
   private String locationAsString;
+  
+  @Facebook("category_list")
+  private List<Category> categoryList;
 
   private static final long serialVersionUID = 1L;
 
@@ -63,5 +67,15 @@ public class Place extends NamedFacebookType {
    */
   public String getLocationAsString() {
     return locationAsString;
+  }
+  
+  /**
+   * 
+   * 
+   * @return list of categories
+   * @since 1.6.15
+   */
+  public List<Category> getCategoryList() {
+    return categoryList;
   }
 }

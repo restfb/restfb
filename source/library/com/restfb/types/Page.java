@@ -22,10 +22,10 @@
 
 package com.restfb.types;
 
-import java.io.Serializable;
-
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Page Graph API type</a>.
@@ -96,6 +96,9 @@ public class Page extends CategorizedFacebookType {
   
   @Facebook
   private String website;
+  
+  @Facebook("category_list")
+  private List<Category> categoryList;
 
   private static final long serialVersionUID = 2L;
 
@@ -368,5 +371,15 @@ public class Page extends CategorizedFacebookType {
    */
   public String getWebsite() {
     return website;
+  }
+  
+  /**
+   * the sub category list
+   * 
+   * @return the sub category list
+   * @since 1.6.15
+   */
+  public List<Category> getCategoryList() {
+    return categoryList;
   }
 }
