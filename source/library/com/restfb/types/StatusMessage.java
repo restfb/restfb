@@ -44,6 +44,9 @@ public class StatusMessage extends NamedFacebookType {
 
   @Facebook
   private String message;
+  
+  @Facebook
+  private Place place;
 
   @Facebook
   private String type;
@@ -71,6 +74,16 @@ public class StatusMessage extends NamedFacebookType {
 
   private static final long serialVersionUID = 2L;
 
+  /**
+   * The place where status message is attached.
+   * 
+   * @return The place where the status message posted.
+   * @since 1.6.15
+   */
+   public Place getPlace() {
+     return place;
+   }
+	
   /**
    * Sometimes Facebook will return <tt>"likes":{"count":0}</tt> instead of the connection-formatted likes object that's
    * documented - this class handles that so JSON mapping won't fail.
