@@ -1,3 +1,17 @@
+1.6.15 (August 29, 2014)
+
+* basic support for Facebook API versioning added (unversioned, v1.0, v2.0, v2.1)
+* category_list for Place 
+  Thanks to Quentin Rousseau
+* Photo.Tag x and y changed to Double
+  Thanks to Peter Vahlstrup
+* Backdated time and granularity added to Photo
+  Thanks to Peter Vahlstrup
+* website added to Page
+  Thanks to Damian Pawlowski
+* unit test reorganized, mvn test is working now correctly
+* some unit test added to check some issues
+
 1.6.14 (January 27, 2014)
 
 * Fix for regression in 1.6.13 where one DefaultFacebookClient constructor override would ignore the supplied
