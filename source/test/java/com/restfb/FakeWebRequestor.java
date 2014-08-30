@@ -30,7 +30,8 @@ import static java.net.HttpURLConnection.HTTP_OK;
  * @author viego2
  */
 public class FakeWebRequestor implements WebRequestor {
-    
+  
+    @SuppressWarnings("unused")
     private String savedUrl;
 
     @Override
