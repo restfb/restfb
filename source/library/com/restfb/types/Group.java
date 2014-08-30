@@ -52,6 +52,9 @@ public class Group extends NamedFacebookType {
 
   @Facebook("updated_time")
   private String updatedTime;
+  
+  @Facebook
+  private String icon;
 
   private static final long serialVersionUID = 1L;
 
@@ -107,5 +110,15 @@ public class Group extends NamedFacebookType {
    */
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
+  }
+  
+  /**
+   * The URL of the group's icon
+   * 
+   * @return The group's icon url 
+   * @since 1.6.16
+   */
+  public String getIcon() {
+      return icon;
   }
 }

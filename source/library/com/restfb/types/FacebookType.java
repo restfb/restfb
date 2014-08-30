@@ -22,12 +22,11 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.StringUtils.isBlank;
-
-import java.io.Serializable;
-
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+import static com.restfb.util.StringUtils.isBlank;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Base class which encapsulates behavior and properties common to most <a
@@ -109,6 +108,12 @@ public class FacebookType implements Serializable {
   public static class Metadata implements Serializable {
     @Facebook
     private Connections connections;
+    
+    @Facebook
+    private String type;
+    
+    @Facebook
+    private List<NamedFacebookType> fields;
 
     private static final long serialVersionUID = 1L;
 
@@ -703,6 +708,26 @@ public class FacebookType implements Serializable {
      */
     public Connections getConnections() {
       return connections;
+    }
+    
+    /**
+     * The metadata type of the object
+     * 
+     * @return the metadata type
+     * @since 1.6.16
+     */
+    public String getType() {
+      return type;
+    }
+    
+    /**
+     * Existing fields in the current type
+     * 
+     * @return list of field of the current type
+     * @since 1.6.16
+     */
+    public List<NamedFacebookType> getFields() {
+      return fields;
     }
   }
 }
