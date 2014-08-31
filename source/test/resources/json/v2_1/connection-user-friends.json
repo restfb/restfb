@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "name": "Tester1", 
+      "id": "1234567891"
+    }, 
+    {
+      "name": "Tester2",
+      "id": "1234567892"
+    }, 
+    {
+      "name": "Tester3", 
+      "id": "1234567893"
+    }, 
+    {
+      "name": "Tester4", 
+      "id": "1234567894"
+    }, 
+    {
+      "name": "Tester5", 
+      "id": "1234567895"
+    }, 
+    {
+      "name": "Tester6", 
+      "id": "1234567896"
+    }
+  ], 
+  "paging": {
+    "next": "https://graph.facebook.com/v1.0/1234567890/friends?limit=5000&offset=5000&__after_id=gdehje"
+  },
+  "summary": {
+    "total_count": 99
+  }
+}

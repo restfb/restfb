@@ -47,6 +47,7 @@ public class Connection<T> implements Iterable<List<T>> {
   private List<T> data;
   private String previousPageUrl;
   private String nextPageUrl;
+  private Long totalCount;
 
   /**
    * @see java.lang.Iterable#iterator()
@@ -164,6 +165,13 @@ public class Connection<T> implements Iterable<List<T>> {
       previousPageUrl = null;
       nextPageUrl = null;
     }
+    
+    if (jsonObject.has("summary")) {
+        JsonObject jsonSummary = jsonObject.getJsonObject("summary");
+        totalCount = jsonSummary.has("total_count") ? jsonSummary.getLong("total_count") : null;
+    } else {
+        totalCount = null;
+    }
 
     this.data = unmodifiableList(data);
     this.facebookClient = facebookClient;
@@ -249,5 +257,15 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   public boolean hasNext() {
     return !isBlank(getNextPageUrl());
+  }
+  
+  /**
+   * provides the total count of elements, if FB provides them (API >= v2.0)
+   * 
+   * @return the total count of elements if present
+   * @since 1.6.16
+   */
+  public Long getTotalCount() {
+      return totalCount;
   }
 }
