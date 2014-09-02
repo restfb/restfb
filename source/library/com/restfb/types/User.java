@@ -22,20 +22,21 @@
 
 package com.restfb.types;
 
+import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
+import com.restfb.util.ReflectionUtils;
 import static com.restfb.util.StringUtils.isBlank;
-import static java.util.Collections.unmodifiableList;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import static java.util.Collections.unmodifiableList;
 import java.util.Date;
 import java.util.List;
-
-import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">User Graph API type</a>.
@@ -98,6 +99,11 @@ public class User extends NamedFacebookType {
 
   @Facebook
   private String username;
+  
+  @Facebook("picture")
+  private JsonObject rawPicture;
+  
+  private Picture picture;
 
   /**
    * Duplicate mapping for "hometown" since FB can return it differently in different situations.
@@ -425,6 +431,62 @@ public class User extends NamedFacebookType {
       return description;
     }
   }
+  
+  public static class Picture implements Serializable {
+    
+    @Facebook
+    private String url;
+    
+    @Facebook("is_silhouette")
+    private boolean isSilhouette;
+    
+    @Facebook
+    private Integer height;
+    
+    @Facebook
+    private Integer width;
+    
+    /**
+     * The URL of the profile photo
+     * 
+     * @return The URL of the profile photo
+     * @since 1.6.16
+     */
+    public String getUrl() {
+      return url;
+    }
+    
+    /**
+     * Indicates whether the profile photo is the default 'silhouette' 
+     * picture, or has been replaced
+     * 
+     * @return is the photo the default or has been replaced
+     * @since 1.6.16
+     */
+    public boolean getIsSilhouette() {
+      return isSilhouette;
+    }
+    
+    /**
+     * Picture width in pixels
+     * 
+     * @return Picture width in pixels
+     * @since 1.6.16
+     */
+    public Integer getWidth() {
+      return width;
+    }
+    
+    /**
+     * Picture height in pixels
+     * 
+     * @return Picture height in pixels
+     * @since 1.6.16
+     */
+    public Integer getHeight() {
+      return height;
+    }
+  }
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Sport Graph API type</a>.
@@ -693,6 +755,27 @@ public class User extends NamedFacebookType {
    */
   public String getBio() {
     return bio;
+  }
+  
+  /**
+   * The user's picture, if provided
+   * 
+   * @return the user's picture as picture object
+   * @since 1.6.16
+   */
+  public Picture getPicture() {
+    return picture;
+  }
+  
+  @JsonMappingCompleted
+  protected void jsonMappingCompleted(JsonMapper jsonMapper) {
+    picture = null;
+
+    if (rawPicture == null)
+      return;
+
+    String picJson = rawPicture.getJsonObject("data").toString();
+    picture = jsonMapper.toJavaObject(picJson, User.Picture.class);
   }
 
   /**
