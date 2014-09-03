@@ -312,7 +312,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public boolean deleteObject(String object, Parameter... parameters) {
     verifyParameterPresence("object", object);
-    return "true".equals(makeRequest(object, true, true, null, parameters));
+    
+    String responseString = makeRequest(object, true, true, null, parameters);
+    String cmpString;
+    
+    try {
+        JsonObject jObj = new JsonObject(responseString);
+        cmpString = jObj.getString("success");
+    }
+    catch(JsonException jex) {
+        cmpString = responseString;
+    }
+
+    return "true".equals(cmpString);
   }
 
   /**

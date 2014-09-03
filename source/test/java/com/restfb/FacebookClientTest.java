@@ -22,15 +22,15 @@
 
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-
-import org.junit.Test;
-
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.User;
+import java.io.IOException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -109,6 +109,18 @@ public class FacebookClientTest {
       assertEquals(null, e.getErrorCode());
     }
   }
+  
+  @Test
+  public void deleteObjectReturnsJson() {
+      FacebookClient facebookClient = facebookClientWithResponse(new Response(200,"{\"success\":true}"));
+      assertTrue(facebookClient.deleteObject("12345"));
+  }
+  
+  @Test
+  public void deleteObjectReturnsText() {
+      FacebookClient facebookClient = facebookClientWithResponse(new Response(200,"true"));
+      assertTrue(facebookClient.deleteObject("12345"));
+  }
 
   /**
    * Simple way to create a {@code FacebookClient} whose web requests always return the provided synthetic
@@ -125,6 +137,15 @@ public class FacebookClientTest {
         return response;
       }
 
+      @Override
+      public Response executePost(String url, String parameters) throws IOException {
+        return response;
+      }
+
+      @Override
+      public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+        return response;
+      }
     }, new DefaultJsonMapper());
   }
 }
