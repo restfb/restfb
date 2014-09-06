@@ -177,7 +177,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Version of API endpoint.
    */
   protected Version apiVersion = Version.UNVERSIONED;
-  
+
   /**
    * Creates a Facebook Graph API client with no access token.
    * <p>
@@ -196,7 +196,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public DefaultFacebookClient(String accessToken) {
     this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
   }
-  
+
   /**
    * Creates a Facebook Graph API client with the given {@code accessToken}.
    * 
@@ -222,7 +222,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public DefaultFacebookClient(String accessToken, String appSecret) {
     this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
   }
-  
+
   /**
    * Creates a Facebook Graph API client with the given {@code accessToken}.
    * 
@@ -230,7 +230,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          A Facebook OAuth access token.
    * @param appSecret
    *          A Facebook application secret.
-   * @param apiVersion 
+   * @param apiVersion
    *          Version of the api endpoint
    * @since 1.6.14
    */
@@ -253,7 +253,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
     this(accessToken, null, webRequestor, jsonMapper, null);
   }
-  
+
   /**
    * Creates a Facebook Graph API client with the given {@code accessToken}.
    * 
@@ -263,7 +263,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
    * @param jsonMapper
    *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
-   * @param apiVersion 
+   * @param apiVersion
    *          Version of the api endpoint
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
@@ -288,7 +288,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
-  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper, Version apiVersion) {
+  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
+      Version apiVersion) {
     super();
 
     verifyParameterPresence("jsonMapper", jsonMapper);
@@ -312,16 +313,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public boolean deleteObject(String object, Parameter... parameters) {
     verifyParameterPresence("object", object);
-    
+
     String responseString = makeRequest(object, true, true, null, parameters);
     String cmpString;
-    
+
     try {
-        JsonObject jObj = new JsonObject(responseString);
-        cmpString = jObj.getString("success");
-    }
-    catch(JsonException jex) {
-        cmpString = responseString;
+      JsonObject jObj = new JsonObject(responseString);
+      cmpString = jObj.getString("success");
+    } catch (JsonException jex) {
+      cmpString = responseString;
     }
 
     return "true".equals(cmpString);
@@ -396,12 +396,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     try {
-      JsonObject jsonObject =
-          new JsonObject(makeRequest("",
-            parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, join(ids)), parameters)));
+      String jsonString =
+          makeRequest("", parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, join(ids)), parameters));
 
-      return objectType.equals(JsonObject.class) ? (T) jsonObject : jsonMapper.toJavaObject(jsonObject.toString(),
-        objectType);
+      return jsonMapper.toJavaObject(jsonString, objectType);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
     }
@@ -1099,11 +1097,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @return The base endpoint URL for the Graph API.
    */
   protected String getFacebookGraphEndpointUrl() {
-      if (apiVersion.isUrlElementRequired()) {
-        return FACEBOOK_GRAPH_ENDPOINT_URL + '/' + apiVersion.getUrlElement();  
-      } else {
-        return FACEBOOK_GRAPH_ENDPOINT_URL;
-      }
+    if (apiVersion.isUrlElementRequired()) {
+      return FACEBOOK_GRAPH_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+    } else {
+      return FACEBOOK_GRAPH_ENDPOINT_URL;
+    }
   }
 
   /**

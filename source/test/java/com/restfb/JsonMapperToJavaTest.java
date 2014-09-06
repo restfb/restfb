@@ -356,6 +356,12 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
       // Expected
     }
   }
+  
+  @Test 
+  public void jsonEmptyArray() {
+      User u = createJsonMapper().toJavaObject("[]", User.class);
+      assertNull(u);
+  }
 
   static class Story {
     @Facebook
