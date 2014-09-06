@@ -1,8 +1,8 @@
 /build
 /pom.xml.asc
 /.eclipse-build
-<<<<<<< HEAD
 /target
 /.idea
 *.iml
 /target/
+/nb-configuration.xml
