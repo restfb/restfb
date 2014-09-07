@@ -196,7 +196,7 @@ public class DefaultJsonMapper implements JsonMapper {
   @SuppressWarnings("unchecked")
   public <T> T toJavaObject(String json, Class<T> type) {
     if ("[]".equals(json)) {
-      return null;
+        return toJavaObject("{}", type);
     }
 
     if (isBlank(json))

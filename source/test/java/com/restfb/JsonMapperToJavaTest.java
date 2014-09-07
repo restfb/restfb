@@ -360,7 +360,8 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test 
   public void jsonEmptyArray() {
       User u = createJsonMapper().toJavaObject("[]", User.class);
-      assertNull(u);
+      assertNotNull(u);
+      assertNull(u.getName());
   }
 
   static class Story {
