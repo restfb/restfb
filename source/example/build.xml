@@ -15,6 +15,9 @@
 
 	<!-- Classpaths -->
 	<path id="compilationClasspath">
+                <fileset dir="../../build">
+                    <include name="restfb-*.jar" />
+                </fileset>
 		<fileset dir="../../">
 			<include name="restfb-*.jar" />
 		</fileset>
