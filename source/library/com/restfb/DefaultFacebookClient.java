@@ -647,7 +647,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("accessToken", accessToken);
 
     String response =
-        makeRequest("/oauth/access_token", true, false, null, Parameter.with("client_id", appId),
+        makeRequest("/oauth/access_token", false, false, null, Parameter.with("client_id", appId),
           Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),
           Parameter.with("fb_exchange_token", accessToken));
 
