@@ -1,24 +1,24 @@
 {
-    "id": "100002241334695_684162311668474",
+    "id": "10000224132434695_6841623116674",
     "from": {
-        "id": "100002241334695",
-        "name": "Norbert Bartels"
+        "id": "3572537253",
+        "name": "Tester"
     },
-    "message": "Ich finde ja, dass man seine Gedanken besser trennen kann, wenn man Berufs- und Privatleben örtlich trennt.",
-    "picture": "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQCMcJA0eBrMNH0f&w=158&h=158&url=http%3A%2F%2Fcdn2.spiegel.de%2Fimages%2Fimage-120789-galleryV9-excn.jpg",
+    "message": "Ich finde ja, dass man seine Gedanken besser trennen kann...",
+    "picture": "https://fbexternal-a.akamaihd.net/ryV9-excn.jpg",
     "link": "http://www.spiegel.de/karriere/berufsleben/microsoft-home-office-und-flexible-arbeitszeit-fuer-alle-a-989526.html",
     "name": "Arbeiten von Überall: Gebt mir ein Büro! - SPIEGEL ONLINE",
     "caption": "www.spiegel.de",
     "description": "Bei Microsoft fallen alle räumlichen Hemmungen. Ob zu Hause, auf Reisen, bei Oma: Die Mitarbeiter dürfen nun arbeiten, wo sie wollen. Doof nur, wenn das ausgerechnet das Büro ist.",
-    "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y5/r/sXJx2UP7quc.png",
+    "icon": "https://fbstatic-a.akamaihd.net/rP7quc.png",
     "actions": [
         {
             "name": "Comment",
-            "link": "https://www.facebook.com/100002241334695/posts/684162311668474"
+            "link": "https://www.facebook.com/10000224132434695/posts/6841623116674"
         },
         {
             "name": "Like",
-            "link": "https://www.facebook.com/100002241334695/posts/684162311668474"
+            "link": "https://www.facebook.com/10000224132434695/posts/6841623116674"
         }
     ],
     "message_tags" : {},
@@ -37,8 +37,8 @@
     "likes": {
         "data": [
             {
-                "id": "701089299977049",
-                "name": "Michel Müller"
+                "id": "7299977049",
+                "name": "Liker"
             }
         ],
         "paging": {

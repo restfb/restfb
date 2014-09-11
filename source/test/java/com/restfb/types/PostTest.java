@@ -65,4 +65,10 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getTo());
     assertEquals(1, examplePost.getTo().size());
   }
+  
+  @Test
+  public void checkV2_1_Likes() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-messagetags"), Post.class);
+    assertEquals(1L, examplePost.getLikes().getData().size());
+  }
 }
