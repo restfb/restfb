@@ -30,34 +30,39 @@ import org.junit.Test;
 
 public class PostTest extends AbstractJsonMapperTests {
 
-    @Test
-    public void checkV2_1() {
-        Post examplePost
-                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-story"), Post.class);
-        assertEquals("Tester shared a link.", examplePost.getStory());
-        Post.Privacy priv = examplePost.getPrivacy();
-        assertEquals("ALL_FRIENDS", priv.getValue());
-    }
-    
-    @Test
-    public void checkV2_1_emptyArrayPost() {
-        Post examplePost
-                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-emptyarray"), Post.class);
-        assertNotNull(examplePost.getProperties().get(0));
-        assertNull(examplePost.getProperties().get(0).getName());
-        assertNull(examplePost.getProperties().get(0).getHref());
-        assertNull(examplePost.getProperties().get(0).getText());
-        
-        assertNotNull(examplePost.getProperties().get(1));
-        assertNotNull(examplePost.getProperties().get(1).getName());
-        assertNotNull(examplePost.getProperties().get(1).getHref());
-        assertNotNull(examplePost.getProperties().get(1).getText());
-    }
-    
-    @Test
-    public void checkV2_1_noMessageTags() {
-        Post examplePost
-                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-messagetags"), Post.class);
-        assertEquals(0,examplePost.getMessageTags().size());
-    }
+  @Test
+  public void checkV2_1() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-story"), Post.class);
+    assertEquals("Tester shared a link.", examplePost.getStory());
+    Post.Privacy priv = examplePost.getPrivacy();
+    assertEquals("ALL_FRIENDS", priv.getValue());
+  }
+
+  @Test
+  public void checkV2_1_emptyArrayPost() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-emptyarray"), Post.class);
+    assertNotNull(examplePost.getProperties().get(0));
+    assertNull(examplePost.getProperties().get(0).getName());
+    assertNull(examplePost.getProperties().get(0).getHref());
+    assertNull(examplePost.getProperties().get(0).getText());
+
+    assertNotNull(examplePost.getProperties().get(1));
+    assertNotNull(examplePost.getProperties().get(1).getName());
+    assertNotNull(examplePost.getProperties().get(1).getHref());
+    assertNotNull(examplePost.getProperties().get(1).getText());
+  }
+
+  @Test
+  public void checkV2_1_noMessageTags() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-messagetags"), Post.class);
+    assertEquals(0, examplePost.getMessageTags().size());
+  }
+
+  @Test
+  public void checkV2_1_groupPost() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-group"), Post.class);
+
+    assertNotNull(examplePost.getTo());
+    assertEquals(1, examplePost.getTo().size());
+  }
 }

@@ -1,0 +1,36 @@
+{
+    "id": "3436351614_1537137617",
+    "from": {
+        "id": "123456789",
+        "name": "Tester"
+    },
+    "to": {
+        "data": [
+            {
+                "name": "group_name",
+                "id": "123456798"
+            }
+        ]
+    },
+    "story": "Tester updated the group photo in group_name.",
+    "picture": "https://scontent-a.xx.fbcdn.net/9261481502240_n.jpg",
+    "link": "https://www.facebook.com/photo.php?fbid=6192614",
+    "icon": "https://fbstatic-a.akamaihd.net/RhPvjk.gif",
+    "actions": [
+        {
+            "name": "Comment",
+            "link": "https://www.facebook.com/3436351614/posts/1537137617"
+        },
+        {
+            "name": "Like",
+            "link": "https://www.facebook.com/3436351614/posts/1537137617"
+        }
+    ],
+    "privacy": {
+        "value": ""
+    },
+    "type": "photo",
+    "object_id": "378328351393",
+    "created_time": "2014-04-23T18:33:53+0000",
+    "updated_time": "2014-04-23T18:33:53+0000"
+}
