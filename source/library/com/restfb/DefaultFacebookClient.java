@@ -930,6 +930,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       if (!json.startsWith("{"))
         return;
 
+      int subStrEnd = Math.min(50, json.length());
+      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+        return; // no need to parse json
+      }
+
       JsonObject errorObject = new JsonObject(json);
 
       if (errorObject == null || !errorObject.has(ERROR_ATTRIBUTE_NAME))
@@ -974,6 +979,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       // If this is not an object, it's not an error response.
       if (!json.startsWith("{"))
         return;
+
+      int subStrEnd = Math.min(50, json.length());
+      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+        return; // no need to parse json
+      }
 
       JsonObject errorObject = null;
 
