@@ -1,0 +1,51 @@
+{
+    "id": "100002241334695_684162311668474",
+    "from": {
+        "id": "100002241334695",
+        "name": "Norbert Bartels"
+    },
+    "message": "Ich finde ja, dass man seine Gedanken besser trennen kann, wenn man Berufs- und Privatleben örtlich trennt.",
+    "picture": "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQCMcJA0eBrMNH0f&w=158&h=158&url=http%3A%2F%2Fcdn2.spiegel.de%2Fimages%2Fimage-120789-galleryV9-excn.jpg",
+    "link": "http://www.spiegel.de/karriere/berufsleben/microsoft-home-office-und-flexible-arbeitszeit-fuer-alle-a-989526.html",
+    "name": "Arbeiten von Überall: Gebt mir ein Büro! - SPIEGEL ONLINE",
+    "caption": "www.spiegel.de",
+    "description": "Bei Microsoft fallen alle räumlichen Hemmungen. Ob zu Hause, auf Reisen, bei Oma: Die Mitarbeiter dürfen nun arbeiten, wo sie wollen. Doof nur, wenn das ausgerechnet das Büro ist.",
+    "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y5/r/sXJx2UP7quc.png",
+    "actions": [
+        {
+            "name": "Comment",
+            "link": "https://www.facebook.com/100002241334695/posts/684162311668474"
+        },
+        {
+            "name": "Like",
+            "link": "https://www.facebook.com/100002241334695/posts/684162311668474"
+        }
+    ],
+    "message_tags" : {},
+    "privacy": {
+        "description": "Your friends",
+        "value": "ALL_FRIENDS",
+        "friends": "",
+        "networks": "",
+        "allow": "",
+        "deny": ""
+    },
+    "type": "link",
+    "status_type": "shared_story",
+    "created_time": "2014-09-03T13:13:48+0000",
+    "updated_time": "2014-09-03T13:13:48+0000",
+    "likes": {
+        "data": [
+            {
+                "id": "701089299977049",
+                "name": "Michel Müller"
+            }
+        ],
+        "paging": {
+            "cursors": {
+                "after": "NzAxMDg5Mjk5OTc3MDQ5",
+                "before": "NzAxMDg5Mjk5OTc3MDQ5"
+            }
+        }
+    }
+}

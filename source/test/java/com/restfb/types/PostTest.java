@@ -53,4 +53,11 @@ public class PostTest extends AbstractJsonMapperTests {
         assertNotNull(examplePost.getProperties().get(1).getHref());
         assertNotNull(examplePost.getProperties().get(1).getText());
     }
+    
+    @Test
+    public void checkV2_1_noMessageTags() {
+        Post examplePost
+                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-messagetags"), Post.class);
+        assertEquals(0,examplePost.getMessageTags().size());
+    }
 }
