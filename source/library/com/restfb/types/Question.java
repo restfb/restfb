@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/question">Question Graph API type</a>.
@@ -38,9 +39,22 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class Question extends FacebookType {
+
+  /**
+   * User who asked the question.
+   * 
+   * @return User who asked the question.
+   */
+  @Getter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * Text of the question.
+   * 
+   * @return Text of the question.
+   */
+  @Getter
   @Facebook
   private String question;
 
@@ -54,24 +68,6 @@ public class Question extends FacebookType {
   private List<QuestionOption> options = new ArrayList<QuestionOption>();
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * User who asked the question.
-   * 
-   * @return User who asked the question.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * Text of the question.
-   * 
-   * @return Text of the question.
-   */
-  public String getQuestion() {
-    return question;
-  }
 
   /**
    * Time when question was created.

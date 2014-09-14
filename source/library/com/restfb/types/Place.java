@@ -24,6 +24,7 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Represents information about the place where an event occurred, for example a {@link Checkin} or {@link Photo}.
@@ -33,16 +34,6 @@ import java.util.List;
  * @since 1.6.10
  */
 public class Place extends NamedFacebookType {
-  @Facebook
-  private Location location;
-
-  @Facebook("location")
-  private String locationAsString;
-  
-  @Facebook("category_list")
-  private List<Category> categoryList;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * Location containing geographic information such as latitude, longitude, country, and other fields (fields will vary
@@ -52,9 +43,9 @@ public class Place extends NamedFacebookType {
    * 
    * @return Location containing geographic information such as latitude, longitude, country, and other fields.
    */
-  public Location getLocation() {
-    return location;
-  }
+  @Getter
+  @Facebook
+  private Location location;
 
   /**
    * Description for this location.
@@ -65,17 +56,20 @@ public class Place extends NamedFacebookType {
    * @return Description for this location.
    * @since 1.6.12
    */
-  public String getLocationAsString() {
-    return locationAsString;
-  }
-  
+  @Getter
+  @Facebook("location")
+  private String locationAsString;
+
   /**
    * 
    * 
    * @return list of categories
    * @since 1.6.15
    */
-  public List<Category> getCategoryList() {
-    return categoryList;
-  }
+  @Getter
+  @Facebook("category_list")
+  private List<Category> categoryList;
+
+  private static final long serialVersionUID = 1L;
+
 }

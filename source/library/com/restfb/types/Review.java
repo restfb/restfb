@@ -25,6 +25,7 @@ package com.restfb.types;
 import com.restfb.Facebook;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
+import lombok.Getter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/review">Review Graph API Type</a>
@@ -37,15 +38,43 @@ public class Review extends FacebookType {
   @Facebook("created_time")
   private String createdTime;
 
+  /**
+   * The user that created the review.
+   * 
+   * @return The user that created the review
+   * @since 1.6.16
+   */
+  @Getter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * The review text, if any.
+   * 
+   * @return The review text, if any
+   * @since 1.6.16
+   */
+  @Getter
   @Facebook
   private String message;
 
+  /**
+   * The review rating.
+   * 
+   * @return The review rating
+   * @since 1.6.16
+   */
+  @Getter
   @Facebook
   private int rating;
 
+  /**
+   * The app to which this review applies.
+   * 
+   * @return The app to which this review applies
+   * @since 1.6.16
+   */
+  @Getter
   @Facebook
   private NamedFacebookType to;
 
@@ -57,46 +86,6 @@ public class Review extends FacebookType {
    */
   public Date getCreatedTime() {
     return toDateFromLongFormat(createdTime);
-  }
-
-  /**
-   * The user that created the review.
-   * 
-   * @return The user that created the review
-   * @since 1.6.16
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * The review text, if any.
-   * 
-   * @return The review text, if any
-   * @since 1.6.16
-   */
-  public String getMessage() {
-    return message;
-  }
-
-  /**
-   * The review rating.
-   * 
-   * @return The review rating
-   * @since 1.6.16
-   */
-  public int getRating() {
-    return rating;
-  }
-
-  /**
-   * The app to which this review applies.
-   * 
-   * @return The app to which this review applies
-   * @since 1.6.16
-   */
-  public NamedFacebookType getTo() {
-    return to;
   }
 
 }

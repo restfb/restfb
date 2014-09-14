@@ -27,6 +27,7 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/group">Group Graph API type</a>.
@@ -35,73 +36,66 @@ import com.restfb.Facebook;
  * @since 1.5
  */
 public class Group extends NamedFacebookType {
-  @Facebook
-  private NamedFacebookType owner;
-
-  @Facebook
-  private String description;
-
-  @Facebook
-  private String link;
-
-  @Facebook
-  private Venue venue;
-
-  @Facebook
-  private String privacy;
-
-  @Facebook("updated_time")
-  private String updatedTime;
-  
-  @Facebook
-  private String icon;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the name and ID of the user who owns the group.
    * 
    * @return An object containing the name and ID of the user who owns the group.
    */
-  public NamedFacebookType getOwner() {
-    return owner;
-  }
+  @Getter
+  @Facebook
+  private NamedFacebookType owner;
 
   /**
    * The group description.
    * 
    * @return The group description.
    */
-  public String getDescription() {
-    return description;
-  }
+  @Getter
+  @Facebook
+  private String description;
 
   /**
    * The URL for the group's website.
    * 
    * @return The URL for the group's website.
    */
-  public String getLink() {
-    return link;
-  }
+  @Getter
+  @Facebook
+  private String link;
 
   /**
    * The location of this group, a structured address object.
    * 
    * @return The location of this group, a structured address object.
    */
-  public Venue getVenue() {
-    return venue;
-  }
+  @Getter
+  @Facebook
+  private Venue venue;
 
   /**
    * The privacy setting of the group, either 'OPEN', 'CLOSED', or 'SECRET'.
    * 
    * @return The privacy setting of the group, either 'OPEN', 'CLOSED', or 'SECRET'.
    */
-  public String getPrivacy() {
-    return privacy;
-  }
+  @Getter
+  @Facebook
+  private String privacy;
+
+  @Facebook("updated_time")
+  private String updatedTime;
+
+  /**
+   * The URL of the group's icon
+   * 
+   * @return The group's icon url
+   * @since 1.6.16
+   */
+  @Getter
+  @Facebook
+  private String icon;
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * The last time the group was updated.
@@ -111,14 +105,5 @@ public class Group extends NamedFacebookType {
   public Date getUpdatedTime() {
     return toDateFromLongFormat(updatedTime);
   }
-  
-  /**
-   * The URL of the group's icon
-   * 
-   * @return The group's icon url 
-   * @since 1.6.16
-   */
-  public String getIcon() {
-      return icon;
-  }
+
 }

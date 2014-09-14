@@ -27,6 +27,7 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/question_option" >QuestionOption Graph API
@@ -36,12 +37,31 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class QuestionOption extends NamedFacebookType {
+
+  /**
+   * User who asked the question.
+   * 
+   * @return User who asked the question.
+   */
+  @Getter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * Number of votes this option has received.
+   * 
+   * @return Number of votes this option has received.
+   */
+  @Getter
   @Facebook
   private Integer votes;
 
+  /**
+   * Optional page associated with this option.
+   * 
+   * @return Optional page associated with this option.
+   */
+  @Getter
   @Facebook
   private CategorizedFacebookType object;
 
@@ -49,33 +69,6 @@ public class QuestionOption extends NamedFacebookType {
   private String createdTime;
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * User who asked the question.
-   * 
-   * @return User who asked the question.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * Number of votes this option has received.
-   * 
-   * @return Number of votes this option has received.
-   */
-  public Integer getVotes() {
-    return votes;
-  }
-
-  /**
-   * Optional page associated with this option.
-   * 
-   * @return Optional page associated with this option.
-   */
-  public CategorizedFacebookType getObject() {
-    return object;
-  }
 
   /**
    * Time when option was created.

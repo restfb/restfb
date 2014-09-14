@@ -32,6 +32,8 @@ import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Comment Graph API type</a>.
@@ -40,67 +42,108 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class Comment extends FacebookType {
-  @Facebook
-  private CategorizedFacebookType from;
-
-  @Facebook
-  private String message;
-
-  @Facebook("created_time")
-  private String createdTime;
-
-  @Facebook
-  private Long likes;
-
-  @Facebook("like_count")
-  private Long likeCount;
-
-  @Facebook("can_remove")
-  private Boolean canRemove;
-
-  @Facebook("user_likes")
-  private Boolean userLikes;
-
-  @Facebook
-  private Comment parent;
-
-  @Facebook("can_comment")
-  private boolean canComment;
-
-  @Facebook("comments")
-  private Comments comments;
-
-  @Facebook
-  private Attachment attachment;
-
-  private static final long serialVersionUID = 2L;
 
   /**
    * User who posted the comment.
    * 
    * @return User who posted the comment.
    */
-  public CategorizedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * Attachment (image) added to a comment.
-   * 
-   * @return Attachment on the comment
-   */
-  public Attachment getAttachment() {
-    return attachment;
-  }
+  @Getter
+  @Facebook
+  private CategorizedFacebookType from;
 
   /**
    * Text contents of the comment.
    * 
    * @return Text contents of the comment.
    */
-  public String getMessage() {
-    return message;
-  }
+  @Getter
+  @Facebook
+  private String message;
+
+  @Facebook("created_time")
+  private String createdTime;
+
+  /**
+   * The number of likes on this comment.
+   * 
+   * @return The number of likes on this comment.
+   * @deprecated As of September 5, 2012, Facebook is changing over to {@code like_count}, so this method will be
+   *             replaced by {@link #likeCount}.
+   */
+  @Getter
+  @Facebook
+  private Long likes;
+
+  /**
+   * The number of likes on this comment.
+   * 
+   * @return The number of likes on this comment.
+   * @since 1.6.10
+   */
+  @Getter
+  @Facebook("like_count")
+  private Long likeCount;
+
+  /**
+   * This field is returned only if the authenticated user can remove this comment.
+   * 
+   * @return This field is returned only if the authenticated user can remove this comment.
+   * @since 1.6.10
+   */
+  @Getter
+  @Facebook("can_remove")
+  private Boolean canRemove;
+
+  /**
+   * This field is returned only if the authenticated user likes this comment
+   * 
+   * @return This field is returned only if the authenticated user likes this comment.
+   * @since 1.6.10
+   */
+  @Getter
+  @Facebook("user_likes")
+  private Boolean userLikes;
+
+  /**
+   * If this comment is a reply, this field returns the parent comment, otherwise no value
+   * 
+   * @return the parent Comment
+   * @since 1.6.13
+   */
+  @Getter
+  @Facebook
+  private Comment parent;
+
+  /**
+   * Specifies whether you can reply to this comment
+   * 
+   * @return can_comment
+   * @since 1.6.13
+   */
+  @Getter
+  @Facebook("can_comment")
+  private boolean canComment;
+
+  /**
+   * The replies to this comment
+   * 
+   * @return replies
+   */
+  @Getter
+  @Facebook("comments")
+  private Comments comments;
+
+  /**
+   * Attachment (image) added to a comment.
+   * 
+   * @return Attachment on the comment
+   */
+  @Getter
+  @Facebook
+  private Attachment attachment;
+
+  private static final long serialVersionUID = 2L;
 
   /**
    * Date on which the comment was created.
@@ -112,82 +155,18 @@ public class Comment extends FacebookType {
   }
 
   /**
-   * The number of likes on this comment.
-   * 
-   * @return The number of likes on this comment.
-   * @deprecated As of September 5, 2012, Facebook is changing over to {@code like_count}, so this method will be
-   *             replaced by {@link #likeCount}.
-   */
-  @Deprecated
-  public Long getLikes() {
-    return likes;
-  }
-
-  /**
-   * The number of likes on this comment.
-   * 
-   * @return The number of likes on this comment.
-   * @since 1.6.10
-   */
-  public Long getLikeCount() {
-    return likeCount;
-  }
-
-  /**
-   * This field is returned only if the authenticated user can remove this comment.
-   * 
-   * @return This field is returned only if the authenticated user can remove this comment.
-   * @since 1.6.10
-   */
-  public Boolean getCanRemove() {
-    return canRemove;
-  }
-
-  /**
-   * This field is returned only if the authenticated user likes this comment
-   * 
-   * @return This field is returned only if the authenticated user likes this comment.
-   * @since 1.6.10
-   */
-  public Boolean getUserLikes() {
-    return userLikes;
-  }
-
-  /**
-   * If this comment is a reply, this field returns the parent comment, otherwise no value
-   * 
-   * @return the parent Comment
-   * @since 1.6.13
-   */
-  public Comment getParent() {
-    return parent;
-  }
-
-  /**
-   * Specifies whether you can reply to this comment
-   * 
-   * @return can_comment
-   * @since 1.6.13
-   */
-  public boolean getCanComment() {
-    return canComment;
-  }
-
-  /**
-   * The replies to this comment
-   * 
-   * @return replies
-   */
-  public Comments getComments() {
-    return comments;
-  }
-
-  /**
    * Represents the Replies to a Comment</a>.
    * 
    * @author <a href="http://ityx.de">Jan Schweizer</a>
    */
   public static class Comments implements Serializable {
+
+    /**
+     * The number of comments.
+     * 
+     * @return The number of comments.
+     */
+    @Getter
     @Facebook
     private Long count = 0L;
 
@@ -221,15 +200,6 @@ public class Comment extends FacebookType {
     }
 
     /**
-     * The number of comments.
-     * 
-     * @return The number of comments.
-     */
-    public Long getCount() {
-      return count;
-    }
-
-    /**
      * The comments.
      * 
      * @return The comments.
@@ -247,16 +217,10 @@ public class Comment extends FacebookType {
   public static class Media extends FacebookType {
     private static final long serialVersionUID = 1L;
 
+    @Getter
+    @Setter
     @Facebook
     private Image image;
-
-    public Image getImage() {
-      return image;
-    }
-
-    public void setImage(Image image) {
-      this.image = image;
-    }
   }
 
   /**
@@ -265,12 +229,18 @@ public class Comment extends FacebookType {
    * @author <a href="http://ityx.de">Jan Schweizer</a>
    */
   public static class Attachment extends FacebookType {
+
+    @Getter
+    @Setter
     @Facebook
     private String url;
 
+    @Getter
+    @Setter
     @Facebook
     private String type;
 
+    @Getter
     @Facebook("media")
     private Media media;
 
@@ -297,26 +267,6 @@ public class Comment extends FacebookType {
     public String toString() {
       return ReflectionUtils.toString(this);
     }
-
-    public String getUrl() {
-      return url;
-    }
-
-    public void setUrl(String url) {
-      this.url = url;
-    }
-
-    public String getType() {
-      return type;
-    }
-
-    public void setType(String type) {
-      this.type = type;
-    }
-
-    public Media getMedia() {
-      return media;
-    }
   }
 
   /**
@@ -327,25 +277,17 @@ public class Comment extends FacebookType {
   public static class Image extends FacebookType {
     private static final long serialVersionUID = 1L;
 
+    @Getter
     @Facebook
     private Integer height;
 
+    @Getter
     @Facebook
     private Integer width;
 
+    @Getter
     @Facebook
     private String src;
 
-    public int getHeight() {
-      return height;
-    }
-
-    public int getWidth() {
-      return width;
-    }
-
-    public String getSrc() {
-      return src;
-    }
   }
 }

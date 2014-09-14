@@ -27,6 +27,7 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/link">Link Graph API type</a>.
@@ -36,21 +37,58 @@ import com.restfb.Facebook;
  * @since 1.5
  */
 public class Link extends NamedFacebookType {
+
+  /**
+   * An object containing the name and ID of the user who posted the link.
+   * 
+   * @return An object containing the name and ID of the user who posted the link.
+   */
+  @Getter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * The link message content.
+   * 
+   * @return The link message content.
+   */
+  @Getter
   @Facebook
   private String message;
 
+  /**
+   * The picture associated with the link.
+   * 
+   * @return The picture associated with the link.
+   */
+  @Getter
   @Facebook
   private String picture;
 
+  /**
+   * The actual URL that was shared.
+   * 
+   * @return The actual URL that was shared.
+   */
+  @Getter
   @Facebook
   private String link;
 
+  /**
+   * The link description.
+   * 
+   * @return The link description.
+   */
+  @Getter
   @Facebook
   private String description;
 
+  /**
+   * The link icon.
+   * 
+   * @return The link icon.
+   */
+  @Getter
   @Facebook
   private String icon;
 
@@ -58,60 +96,6 @@ public class Link extends NamedFacebookType {
   private String createdTime;
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * An object containing the name and ID of the user who posted the link.
-   * 
-   * @return An object containing the name and ID of the user who posted the link.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * The link message content.
-   * 
-   * @return The link message content.
-   */
-  public String getMessage() {
-    return message;
-  }
-
-  /**
-   * The picture associated with the link.
-   * 
-   * @return The picture associated with the link.
-   */
-  public String getPicture() {
-    return picture;
-  }
-
-  /**
-   * The actual URL that was shared.
-   * 
-   * @return The actual URL that was shared.
-   */
-  public String getLink() {
-    return link;
-  }
-
-  /**
-   * The link description.
-   * 
-   * @return The link description.
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * The link icon.
-   * 
-   * @return The link icon.
-   */
-  public String getIcon() {
-    return icon;
-  }
 
   /**
    * The time at which this object was created, if available.

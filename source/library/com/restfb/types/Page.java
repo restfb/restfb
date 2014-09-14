@@ -26,6 +26,7 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 import java.io.Serializable;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Page Graph API type</a>.
@@ -34,69 +35,215 @@ import java.util.List;
  * @since 1.5
  */
 public class Page extends CategorizedFacebookType {
+
+  /**
+   * The page's picture.
+   * 
+   * @return The page's picture.
+   */
+  @Getter
   @Facebook
   private String picture;
 
+  /**
+   * The page's link.
+   * 
+   * @return The page's link.
+   */
+  @Getter
   @Facebook
   private String link;
 
+  /**
+   * The page's username.
+   * 
+   * @return The page's username.
+   */
+  @Getter
   @Facebook
   private String username;
 
+  /**
+   * When the page was founded.
+   * 
+   * @return When the page was founded.
+   */
+  @Getter
   @Facebook
   private String founded;
 
+  /**
+   * Overview of the page's company.
+   * 
+   * @return Overview of the page's company.
+   */
+  @Getter
   @Facebook("company_overview")
   private String companyOverview;
 
+  /**
+   * The page's mission.
+   * 
+   * @return The page's mission.
+   */
+  @Getter
   @Facebook
   private String mission;
 
+  /**
+   * The page's products.
+   * 
+   * @return The page's products.
+   */
+  @Getter
   @Facebook
   private String products;
 
+  /**
+   * The number of likes the page has.
+   * 
+   * @return The number of likes the page has.
+   * @since 1.6.5
+   */
+  @Getter
   @Facebook
   private Long likes;
 
+  /**
+   * Is this a community page?
+   * 
+   * @return Is this a community page?
+   */
+  @Getter
   @Facebook("is_community_page")
   private Boolean isCommunityPage;
 
+  /**
+   * A description of this page.
+   * 
+   * @return A description of this page.
+   */
+  @Getter
   @Facebook
   private String description;
 
+  /**
+   * The total number of users who have checked in to the Page.
+   * 
+   * @return The total number of users who have checked in to the Page.
+   */
+  @Getter
   @Facebook
   private Integer checkins;
 
+  /**
+   * The phone number (not always normalized for country code) for the Page.
+   * 
+   * @return The phone number (not always normalized for country code) for the Page.
+   */
+  @Getter
   @Facebook
   private String phone;
 
+  /**
+   * An admin {@code access_token} for this page.
+   * <p>
+   * The current user must be an administrator of this page; only returned if specifically requested via the fields URL
+   * parameter, e.g. {@code facebookClient.fetchObject("123", Page.class, Parameter.with("fields","access_token"))}
+   * 
+   * @return The access token specific to this page.
+   * @since 1.6.5
+   */
+  @Getter
   @Facebook("access_token")
   private String accessToken;
 
+  /**
+   * General information about this page.
+   * 
+   * @return General information about this page.
+   * @since 1.6.10
+   */
+  @Getter
   @Facebook
   private String about;
 
+  /**
+   * The number of people that are talking about this page (last seven days).
+   * 
+   * @return The number of people that are talking about this page (last seven days).
+   * @since 1.6.10
+   */
+  @Getter
   @Facebook("talking_about_count")
   private Long talkingAboutCount;
 
+  /**
+   * Indicates whether the current session user can post on this page.
+   * 
+   * @return Whether the current session user can post on this page.
+   * @since 1.6.10
+   */
+  @Getter
   @Facebook("can_post")
   private Boolean canPost;
 
+  /**
+   * Indicates whether the page is published and visible to non-admins.
+   * 
+   * @return Whether the page is published and visible to non-admins.
+   * @since 1.6.10
+   */
+  @Getter
   @Facebook("is_published")
   private Boolean isPublished;
 
+  /**
+   * The general information for a page.
+   * 
+   * @return The general information for a page.
+   * @since 1.6.12
+   */
+  @Getter
   @Facebook("general_info")
   private String generalInfo;
 
+  /**
+   * The location of the place this page represents.
+   * 
+   * @return The location of the place this page represents.
+   */
+  @Getter
   @Facebook
   private Location location;
 
+  /**
+   * The cover photo.
+   * 
+   * @return The cover photo.
+   * @since 1.6.10
+   */
+  @Getter
   @Facebook
   private Cover cover;
-  
+
+  /**
+   * The website URL
+   * 
+   * @return the website url
+   * @since 1.6.15
+   */
+  @Getter
   @Facebook
   private String website;
-  
+
+  /**
+   * the sub category list
+   * 
+   * @return the sub category list
+   * @since 1.6.15
+   */
+  @Getter
   @Facebook("category_list")
   private List<Category> categoryList;
 
@@ -109,12 +256,31 @@ public class Page extends CategorizedFacebookType {
    * @since 1.6.10
    */
   public static class Cover implements Serializable {
+
+    /**
+     * The ID of the photo.
+     * 
+     * @return The ID of the photo.
+     */
+    @Getter
     @Facebook("cover_id")
     private String coverId;
 
+    /**
+     * The URL for the cover photo.
+     * 
+     * @return The URL for the cover photo.
+     */
+    @Getter
     @Facebook
     private String source;
 
+    /**
+     * The percentage offset from top [0-100].
+     * 
+     * @return The percentage offset from top [0-100].
+     */
+    @Getter
     @Facebook("offset_y")
     private Integer offsetY;
 
@@ -144,242 +310,6 @@ public class Page extends CategorizedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
-    /**
-     * The ID of the photo.
-     * 
-     * @return The ID of the photo.
-     */
-    public String getCoverId() {
-      return coverId;
-    }
-
-    /**
-     * The URL for the cover photo.
-     * 
-     * @return The URL for the cover photo.
-     */
-    public String getSource() {
-      return source;
-    }
-
-    /**
-     * The percentage offset from top [0-100].
-     * 
-     * @return The percentage offset from top [0-100].
-     */
-    public Integer getOffsetY() {
-      return offsetY;
-    }
   }
 
-  /**
-   * The page's picture.
-   * 
-   * @return The page's picture.
-   */
-  public String getPicture() {
-    return picture;
-  }
-
-  /**
-   * The page's link.
-   * 
-   * @return The page's link.
-   */
-  public String getLink() {
-    return link;
-  }
-
-  /**
-   * The page's username.
-   * 
-   * @return The page's username.
-   */
-  public String getUsername() {
-    return username;
-  }
-
-  /**
-   * When the page was founded.
-   * 
-   * @return When the page was founded.
-   */
-  public String getFounded() {
-    return founded;
-  }
-
-  /**
-   * Overview of the page's company.
-   * 
-   * @return Overview of the page's company.
-   */
-  public String getCompanyOverview() {
-    return companyOverview;
-  }
-
-  /**
-   * The page's mission.
-   * 
-   * @return The page's mission.
-   */
-  public String getMission() {
-    return mission;
-  }
-
-  /**
-   * The page's products.
-   * 
-   * @return The page's products.
-   */
-  public String getProducts() {
-    return products;
-  }
-
-  /**
-   * The number of likes the page has.
-   * 
-   * @return The number of likes the page has.
-   * @since 1.6.5
-   */
-  public Long getLikes() {
-    return likes;
-  }
-
-  /**
-   * Is this a community page?
-   * 
-   * @return Is this a community page?
-   */
-  public Boolean getIsCommunityPage() {
-    return isCommunityPage;
-  }
-
-  /**
-   * A description of this page.
-   * 
-   * @return A description of this page.
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * The total number of users who have checked in to the Page.
-   * 
-   * @return The total number of users who have checked in to the Page.
-   */
-  public Integer getCheckins() {
-    return checkins;
-  }
-
-  /**
-   * The phone number (not always normalized for country code) for the Page.
-   * 
-   * @return The phone number (not always normalized for country code) for the Page.
-   */
-  public String getPhone() {
-    return phone;
-  }
-
-  /**
-   * An admin {@code access_token} for this page.
-   * <p>
-   * The current user must be an administrator of this page; only returned if specifically requested via the fields URL
-   * parameter, e.g. {@code facebookClient.fetchObject("123", Page.class, Parameter.with("fields","access_token"))}
-   * 
-   * @return The access token specific to this page.
-   * @since 1.6.5
-   */
-  public String getAccessToken() {
-    return accessToken;
-  }
-
-  /**
-   * General information about this page.
-   * 
-   * @return General information about this page.
-   * @since 1.6.10
-   */
-  public String getAbout() {
-    return about;
-  }
-
-  /**
-   * The number of people that are talking about this page (last seven days).
-   * 
-   * @return The number of people that are talking about this page (last seven days).
-   * @since 1.6.10
-   */
-  public Long getTalkingAboutCount() {
-    return talkingAboutCount;
-  }
-
-  /**
-   * The location of the place this page represents.
-   * 
-   * @return The location of the place this page represents.
-   */
-  public Location getLocation() {
-    return location;
-  }
-
-  /**
-   * Indicates whether the current session user can post on this page.
-   * 
-   * @return Whether the current session user can post on this page.
-   * @since 1.6.10
-   */
-  public Boolean getCanPost() {
-    return canPost;
-  }
-
-  /**
-   * Indicates whether the page is published and visible to non-admins.
-   * 
-   * @return Whether the page is published and visible to non-admins.
-   * @since 1.6.10
-   */
-  public Boolean getIsPublished() {
-    return isPublished;
-  }
-
-  /**
-   * The general information for a page.
-   * 
-   * @return The general information for a page.
-   * @since 1.6.12
-   */
-  public String getGeneralInfo() {
-    return generalInfo;
-  }
-
-  /**
-   * The cover photo.
-   * 
-   * @return The cover photo.
-   * @since 1.6.10
-   */
-  public Cover getCover() {
-    return cover;
-  }
-  
-  /**
-   * The website URL
-   * 
-   * @return the website url
-   * @since 1.6.15
-   */
-  public String getWebsite() {
-    return website;
-  }
-  
-  /**
-   * the sub category list
-   * 
-   * @return the sub category list
-   * @since 1.6.15
-   */
-  public List<Category> getCategoryList() {
-    return categoryList;
-  }
 }

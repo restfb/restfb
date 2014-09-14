@@ -26,6 +26,7 @@ import java.io.Serializable;
 
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/">Venue Graph API type</a>.
@@ -34,27 +35,77 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class Venue implements Serializable {
+
+  /**
+   * Unique identifier for the Venue.
+   * 
+   * @return Unique identifier for the Venue.
+   * @since 1.6.13
+   */
+  @Getter
   @Facebook
   private String id;
 
+  /**
+   * Street address of the venue.
+   * 
+   * @return Street address of the venue.
+   */
+  @Getter
   @Facebook
   private String street;
 
+  /**
+   * The venue's city.
+   * 
+   * @return The venue's city.
+   */
+  @Getter
   @Facebook
   private String city;
 
+  /**
+   * The venue's state.
+   * 
+   * @return The venue's state.
+   */
+  @Getter
   @Facebook
   private String state;
 
+  /**
+   * The venue's zip code.
+   * 
+   * @return The venue's zip code.
+   */
+  @Getter
   @Facebook
   private String zip;
 
+  /**
+   * The venue's country.
+   * 
+   * @return The venue's country.
+   */
+  @Getter
   @Facebook
   private String country;
 
+  /**
+   * The venue's latitude.
+   * 
+   * @return The venue's latitude.
+   */
+  @Getter
   @Facebook
   private Double latitude;
 
+  /**
+   * The venue's longitude.
+   * 
+   * @return The venue's longitude.
+   */
+  @Getter
   @Facebook
   private Double longitude;
 
@@ -82,78 +133,5 @@ public class Venue implements Serializable {
   @Override
   public String toString() {
     return ReflectionUtils.toString(this);
-  }
-
-  /**
-   * Unique identifier for the Venue.
-   * 
-   * @return Unique identifier for the Venue.
-   * @since 1.6.13
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Street address of the venue.
-   * 
-   * @return Street address of the venue.
-   */
-  public String getStreet() {
-    return street;
-  }
-
-  /**
-   * The venue's city.
-   * 
-   * @return The venue's city.
-   */
-  public String getCity() {
-    return city;
-  }
-
-  /**
-   * The venue's state.
-   * 
-   * @return The venue's state.
-   */
-  public String getState() {
-    return state;
-  }
-
-  /**
-   * The venue's zip code.
-   * 
-   * @return The venue's zip code.
-   */
-  public String getZip() {
-    return zip;
-  }
-
-  /**
-   * The venue's country.
-   * 
-   * @return The venue's country.
-   */
-  public String getCountry() {
-    return country;
-  }
-
-  /**
-   * The venue's latitude.
-   * 
-   * @return The venue's latitude.
-   */
-  public Double getLatitude() {
-    return latitude;
-  }
-
-  /**
-   * The venue's longitude.
-   * 
-   * @return The venue's longitude.
-   */
-  public Double getLongitude() {
-    return longitude;
   }
 }

@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/video">Video Graph API type</a>.
@@ -38,28 +39,79 @@ import com.restfb.Facebook;
  * @since 1.5
  */
 public class Video extends NamedFacebookType {
+
+  /**
+   * An object containing the name and ID of the user who posted the video.
+   * 
+   * @return An object containing the name and ID of the user who posted the video.
+   */
+  @Getter
   @Facebook
   private CategorizedFacebookType from;
 
+  /**
+   * The video title / caption.
+   * 
+   * @return The video title / caption.
+   * @deprecated FB seems to have removed this field.
+   */
+  @Getter
   @Facebook
   @Deprecated
   private String message;
 
+  /**
+   * The long-form HTML description of the video.
+   * 
+   * @return The long-form HTML description of the video.
+   */
+  @Getter
   @Facebook
   private String description;
 
+  /**
+   * A picture URL which represents the video.
+   * 
+   * @return A picture URL which represents the video.
+   */
+  @Getter
   @Facebook
   private String picture;
 
+  /**
+   * An icon URL which represents the video.
+   * 
+   * @return An icon URL which represents the video.
+   */
+  @Getter
   @Facebook
   private String icon;
 
+  /**
+   * A URL to the raw, playable video file.
+   * 
+   * @return A URL to the raw, playable video file.
+   * @since 1.6.5
+   */
+  @Getter
   @Facebook
   private String source;
 
+  /**
+   * HTML that may be used to embed the video on another website.
+   * 
+   * @return HTML that may be used to embed the video on another website.
+   */
+  @Getter
   @Facebook("embed_html")
   private String embedHtml;
 
+  /**
+   * The length of the video, in seconds.
+   * 
+   * @return The length of the video, in seconds.
+   */
+  @Getter
   @Facebook
   private Integer length;
 
@@ -76,80 +128,6 @@ public class Video extends NamedFacebookType {
   private List<Comment> comments = new ArrayList<Comment>();
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * An object containing the name and ID of the user who posted the video.
-   * 
-   * @return An object containing the name and ID of the user who posted the video.
-   */
-  public CategorizedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * The video title / caption.
-   * 
-   * @return The video title / caption.
-   * @deprecated FB seems to have removed this field.
-   */
-  public String getMessage() {
-    return message;
-  }
-
-  /**
-   * The long-form HTML description of the video.
-   * 
-   * @return The long-form HTML description of the video.
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * The length of the video, in seconds.
-   * 
-   * @return The length of the video, in seconds.
-   */
-  public Integer getLength() {
-    return length;
-  }
-
-  /**
-   * A picture URL which represents the video.
-   * 
-   * @return A picture URL which represents the video.
-   */
-  public String getPicture() {
-    return picture;
-  }
-
-  /**
-   * An icon URL which represents the video.
-   * 
-   * @return An icon URL which represents the video.
-   */
-  public String getIcon() {
-    return icon;
-  }
-
-  /**
-   * A URL to the raw, playable video file.
-   * 
-   * @return A URL to the raw, playable video file.
-   * @since 1.6.5
-   */
-  public String getSource() {
-    return source;
-  }
-
-  /**
-   * HTML that may be used to embed the video on another website.
-   * 
-   * @return HTML that may be used to embed the video on another website.
-   */
-  public String getEmbedHtml() {
-    return embedHtml;
-  }
 
   /**
    * Tags for the video.

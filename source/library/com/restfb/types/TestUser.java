@@ -23,6 +23,7 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/test_users">Test User type</a>.
@@ -32,19 +33,6 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class TestUser extends FacebookType {
-  @Facebook("access_token")
-  private String accessToken;
-
-  @Facebook("login_url")
-  private String loginUrl;
-
-  @Facebook
-  private String email;
-
-  @Facebook
-  private String password;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * You can use this access token to make API calls on behalf of the test user. This is available only if your app has
@@ -52,34 +40,37 @@ public class TestUser extends FacebookType {
    * 
    * @return The test user's access token.
    */
-  public String getAccessToken() {
-    return accessToken;
-  }
+  @Getter
+  @Facebook("access_token")
+  private String accessToken;
 
   /**
    * You can login as the test user by going to this url.
    * 
    * @return The test user's login url.
    */
-  public String getLoginUrl() {
-    return loginUrl;
-  }
+  @Getter
+  @Facebook("login_url")
+  private String loginUrl;
 
   /**
    * If logging in manually (that is, not using the login_url), you can use this as the user's email address.
    * 
    * @return The test user's email address.
    */
-  public String getEmail() {
-    return email;
-  }
+  @Getter
+  @Facebook
+  private String email;
 
   /**
    * If logging in manually (that is, not using the login_url), you can use this as the user's password.
    * 
    * @return The test user's password.
    */
-  public String getPassword() {
-    return password;
-  }
+  @Getter
+  @Facebook
+  private String password;
+
+  private static final long serialVersionUID = 1L;
+
 }

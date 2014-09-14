@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/note">Note Graph API type</a>.
@@ -38,15 +39,40 @@ import com.restfb.Facebook;
  * @since 1.5
  */
 public class Note extends FacebookType {
+
+  /**
+   * The ID of the user who posted the note.
+   * 
+   * @return The ID of the user who posted the note.
+   */
+  @Getter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * The title of the note.
+   * 
+   * @return The title of the note.
+   */
+  @Getter
   @Facebook
   private String subject;
 
+  /**
+   * The note content, an HTML string.
+   * 
+   * @return The note content, an HTML string.
+   */
+  @Getter
   @Facebook
   private String message;
 
+  /**
+   * The note icon.
+   * 
+   * @return The note icon.
+   */
+  @Getter
   @Facebook
   private String icon;
 
@@ -66,42 +92,6 @@ public class Note extends FacebookType {
   private List<Comment> comments = new ArrayList<Comment>();
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * The ID of the user who posted the note.
-   * 
-   * @return The ID of the user who posted the note.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * The title of the note.
-   * 
-   * @return The title of the note.
-   */
-  public String getSubject() {
-    return subject;
-  }
-
-  /**
-   * The note content, an HTML string.
-   * 
-   * @return The note content, an HTML string.
-   */
-  public String getMessage() {
-    return message;
-  }
-
-  /**
-   * The note icon.
-   * 
-   * @return The note icon.
-   */
-  public String getIcon() {
-    return icon;
-  }
 
   /**
    * The time the note was initially published.

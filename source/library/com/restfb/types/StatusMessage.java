@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/status">Status Message Graph API type</a>.
@@ -39,15 +40,41 @@ import com.restfb.Facebook;
  * @since 1.6
  */
 public class StatusMessage extends NamedFacebookType {
+
+  /**
+   * The user who posted the message.
+   * 
+   * @return The user who posted the message.
+   */
+  @Getter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * The status message content.
+   * 
+   * @return The status message content.
+   */
+  @Getter
   @Facebook
   private String message;
-  
+
+  /**
+   * The place where status message is attached.
+   * 
+   * @return The place where the status message posted.
+   * @since 1.6.15
+   */
+  @Getter
   @Facebook
   private Place place;
 
+  /**
+   * The object type which is set to status.
+   * 
+   * @return The object type which is set to status.
+   */
+  @Getter
   @Facebook
   private String type;
 
@@ -75,16 +102,6 @@ public class StatusMessage extends NamedFacebookType {
   private static final long serialVersionUID = 2L;
 
   /**
-   * The place where status message is attached.
-   * 
-   * @return The place where the status message posted.
-   * @since 1.6.15
-   */
-   public Place getPlace() {
-     return place;
-   }
-	
-  /**
    * Sometimes Facebook will return <tt>"likes":{"count":0}</tt> instead of the connection-formatted likes object that's
    * documented - this class handles that so JSON mapping won't fail.
    * 
@@ -110,33 +127,6 @@ public class StatusMessage extends NamedFacebookType {
     private Long count;
 
     private static final long serialVersionUID = 1L;
-  }
-
-  /**
-   * The user who posted the message.
-   * 
-   * @return The user who posted the message.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * The status message content.
-   * 
-   * @return The status message content.
-   */
-  public String getMessage() {
-    return message;
-  }
-
-  /**
-   * The object type which is set to status.
-   * 
-   * @return The object type which is set to status.
-   */
-  public String getType() {
-    return type;
   }
 
   /**

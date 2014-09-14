@@ -31,6 +31,7 @@ import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Graph API type</a>.
@@ -39,9 +40,22 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class Event extends NamedFacebookType {
+
+  /**
+   * The user who owns the event.
+   * 
+   * @return The user who owns the event.
+   */
+  @Getter
   @Facebook
   private Owner owner;
 
+  /**
+   * The long-form HTML description of the event.
+   * 
+   * @return The long-form HTML description of the event.
+   */
+  @Getter
   @Facebook
   private String description;
 
@@ -51,27 +65,73 @@ public class Event extends NamedFacebookType {
   @Facebook("end_time")
   private String endTime;
 
+  /**
+   * The location for this event, a string name.
+   * 
+   * @return The location for this event, a string name.
+   */
+  @Getter
   @Facebook
   private String location;
 
+  /**
+   * The RSVP status of this event.
+   * 
+   * @return The RSVP status of this event.
+   */
+  @Getter
   @Facebook("rsvp_status")
   private String rsvpStatus;
 
+  /**
+   * The location of this event, a structured address object.
+   * 
+   * @return The location of this event, a structured address object.
+   */
+  @Getter
   @Facebook
   private Venue venue;
 
+  /**
+   * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
+   * 
+   * @return The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
+   */
+  @Getter
   @Facebook
   private String privacy;
 
   @Facebook("updated_time")
   private String updatedTime;
 
+  /**
+   * The URL to a location to buy tickets for this event (on Events for Pages only).
+   * 
+   * @return The URL to a location to buy tickets for this event (on Events for Pages only).
+   * @since 1.6.13
+   */
+  @Getter
   @Facebook("ticket_uri")
   private String ticketUri;
 
+  /**
+   * The URL of the event's picture.
+   * 
+   * @return The URL of the event's picture (only returned if you explicitly include picture in the fields param;
+   *         example: ?fields=id,name,picture)
+   * @since 1.6.13
+   */
+  @Getter
   @Facebook
   private String picture;
 
+  /**
+   * Should the time information be ignored in the dates for this event?
+   * 
+   * @return <tt>true</tt> if the time information be ignored in the dates for this event, <tt>false</tt> otherwise.
+   * @since 1.6.13
+   */
+  @Getter
   @Facebook("is_date_only")
   private Boolean isDateOnly;
 
@@ -84,15 +144,40 @@ public class Event extends NamedFacebookType {
    * @since 1.6.13
    */
   public static class Owner implements Serializable {
+
+    /**
+     * The unique identifier for this owner.
+     * 
+     * @return The unique identifier for this owner.
+     */
+    @Getter
     @Facebook
     private String id;
 
+    /**
+     * The name of this owner.
+     * 
+     * @return The name of this owner.
+     */
+    @Getter
     @Facebook
     private String name;
 
+    /**
+     * The category for this owner.
+     * 
+     * @return The category for this owner.
+     */
+    @Getter
     @Facebook
     private String category;
 
+    /**
+     * List of other categories for this owner.
+     * 
+     * @return List of other categories for this owner.
+     */
+    @Getter
     @Facebook("category_list")
     private List<Category> categoryList;
 
@@ -122,41 +207,6 @@ public class Event extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
-    /**
-     * The unique identifier for this owner.
-     * 
-     * @return The unique identifier for this owner.
-     */
-    public String getId() {
-      return id;
-    }
-
-    /**
-     * The name of this owner.
-     * 
-     * @return The name of this owner.
-     */
-    public String getName() {
-      return name;
-    }
-
-    /**
-     * The category for this owner.
-     * 
-     * @return The category for this owner.
-     */
-    public String getCategory() {
-      return category;
-    }
-
-    /**
-     * List of other categories for this owner.
-     * 
-     * @return List of other categories for this owner.
-     */
-    public List<Category> getCategoryList() {
-      return categoryList;
-    }
   }
 
   /**
@@ -167,9 +217,22 @@ public class Event extends NamedFacebookType {
    * @since 1.6.13
    */
   public static class Category implements Serializable {
+
+    /**
+     * The unique identifier for this category.
+     * 
+     * @return The unique identifier for this category.
+     */
+    @Getter
     @Facebook
     private String id;
 
+    /**
+     * The name of this category.
+     * 
+     * @return The name of this category.
+     */
+    @Getter
     @Facebook
     private String name;
 
@@ -199,41 +262,6 @@ public class Event extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
-    /**
-     * The unique identifier for this category.
-     * 
-     * @return The unique identifier for this category.
-     */
-    public String getId() {
-      return id;
-    }
-
-    /**
-     * The name of this category.
-     * 
-     * @return The name of this category.
-     */
-    public String getName() {
-      return name;
-    }
-  }
-
-  /**
-   * The user who owns the event.
-   * 
-   * @return The user who owns the event.
-   */
-  public Owner getOwner() {
-    return owner;
-  }
-
-  /**
-   * The long-form HTML description of the event.
-   * 
-   * @return The long-form HTML description of the event.
-   */
-  public String getDescription() {
-    return description;
   }
 
   /**
@@ -263,42 +291,6 @@ public class Event extends NamedFacebookType {
   }
 
   /**
-   * The location for this event, a string name.
-   * 
-   * @return The location for this event, a string name.
-   */
-  public String getLocation() {
-    return location;
-  }
-
-  /**
-   * The location of this event, a structured address object.
-   * 
-   * @return The location of this event, a structured address object.
-   */
-  public Venue getVenue() {
-    return venue;
-  }
-
-  /**
-   * The RSVP status of this event.
-   * 
-   * @return The RSVP status of this event.
-   */
-  public String getRsvpStatus() {
-    return rsvpStatus;
-  }
-
-  /**
-   * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
-   * 
-   * @return The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
-   */
-  public String getPrivacy() {
-    return privacy;
-  }
-
-  /**
    * The last time the event was updated.
    * 
    * @return The last time the event was updated.
@@ -307,34 +299,4 @@ public class Event extends NamedFacebookType {
     return toDateFromLongFormat(updatedTime);
   }
 
-  /**
-   * The URL to a location to buy tickets for this event (on Events for Pages only).
-   * 
-   * @return The URL to a location to buy tickets for this event (on Events for Pages only).
-   * @since 1.6.13
-   */
-  public String getTicketUri() {
-    return ticketUri;
-  }
-
-  /**
-   * The URL of the event's picture.
-   * 
-   * @return The URL of the event's picture (only returned if you explicitly include picture in the fields param;
-   *         example: ?fields=id,name,picture)
-   * @since 1.6.13
-   */
-  public String getPicture() {
-    return picture;
-  }
-
-  /**
-   * Should the time information be ignored in the dates for this event?
-   * 
-   * @return <tt>true</tt> if the time information be ignored in the dates for this event, <tt>false</tt> otherwise.
-   * @since 1.6.13
-   */
-  public Boolean getIsDateOnly() {
-    return isDateOnly;
-  }
 }

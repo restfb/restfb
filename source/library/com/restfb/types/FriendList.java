@@ -23,6 +23,7 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/FriendList" >FriendList Graph API
@@ -33,10 +34,6 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class FriendList extends NamedFacebookType {
-  @Facebook("list_type")
-  private String listType;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * The type of the friends list; Possible values are: {@code close_friends}, {@code acquaintances}, {@code restricted}
@@ -44,7 +41,10 @@ public class FriendList extends NamedFacebookType {
    * 
    * @return The type of the friends list.
    */
-  public String getListType() {
-    return listType;
-  }
+  @Getter
+  @Facebook("list_type")
+  private String listType;
+
+  private static final long serialVersionUID = 1L;
+
 }

@@ -23,6 +23,7 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/application" >Application Graph API
@@ -32,29 +33,25 @@ import com.restfb.Facebook;
  * @since 1.6
  */
 public class Application extends CategorizedFacebookType {
-  @Facebook
-  private String description;
-
-  @Facebook
-  private String link;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * The description of the application written by the 3rd party developers.
    * 
    * @return The description of the application written by the 3rd party developers.
    */
-  public String getDescription() {
-    return description;
-  }
+  @Getter
+  @Facebook
+  private String description;
 
   /**
    * A link to application dashboard on Facebook Connections feed
    * 
    * @return A link to application dashboard on Facebook Connections feed.
    */
-  public String getLink() {
-    return link;
-  }
+  @Getter
+  @Facebook
+  private String link;
+
+  private static final long serialVersionUID = 1L;
+
 }

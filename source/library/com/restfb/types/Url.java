@@ -23,6 +23,7 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents a Facebook URL.
@@ -32,40 +33,26 @@ import com.restfb.Facebook;
  */
 @Deprecated
 public class Url extends NamedFacebookType {
+    
+  @Getter
   @Facebook
   private Long shares;
 
+  @Getter
   @Facebook
   private String picture;
 
+  @Getter
   @Facebook
   private String link;
 
+  @Getter
   @Facebook
   private String category;
 
+  @Getter
   @Facebook("fan_count")
   private Long fanCount;
 
   private static final long serialVersionUID = 1L;
-
-  public Long getShares() {
-    return shares;
-  }
-
-  public String getPicture() {
-    return picture;
-  }
-
-  public String getLink() {
-    return link;
-  }
-
-  public String getCategory() {
-    return category;
-  }
-
-  public Long getFanCount() {
-    return fanCount;
-  }
 }

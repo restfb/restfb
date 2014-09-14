@@ -27,6 +27,7 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/user/#apprequests" >App Request Graph API
@@ -36,15 +37,40 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class AppRequest extends FacebookType {
+
+  /**
+   * App associated with the request.
+   * 
+   * @return App associated with the request.
+   */
+  @Getter
   @Facebook
   private Application application;
 
+  /**
+   * The recipient user associated with the request.
+   * 
+   * @return The recipient user associated with the request.
+   */
+  @Getter
   @Facebook
   private NamedFacebookType to;
 
+  /**
+   * The sender user associated with the request.
+   * 
+   * @return The sender user associated with the request.
+   */
+  @Getter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * A string describing the request.
+   * 
+   * @return A string describing the request.
+   */
+  @Getter
   @Facebook
   private String message;
 
@@ -60,67 +86,26 @@ public class AppRequest extends FacebookType {
    * @since 1.6.10
    */
   public static class Application extends NamedFacebookType {
-    @Facebook("canvas_name")
-    private String canvasName;
-
-    @Facebook
-    private String namespace;
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * The application's canvas name.
      * 
      * @return The application's canvas name.
      */
-    public String getCanvasName() {
-      return canvasName;
-    }
+    @Getter
+    @Facebook("canvas_name")
+    private String canvasName;
 
     /**
      * The application's namespace.
      * 
      * @return The application's namespace.
      */
-    public String getNamespace() {
-      return namespace;
-    }
-  }
+    @Getter
+    @Facebook
+    private String namespace;
 
-  /**
-   * App associated with the request.
-   * 
-   * @return App associated with the request.
-   */
-  public Application getApplication() {
-    return application;
-  }
-
-  /**
-   * The recipient user associated with the request.
-   * 
-   * @return The recipient user associated with the request.
-   */
-  public NamedFacebookType getTo() {
-    return to;
-  }
-
-  /**
-   * The sender user associated with the request.
-   * 
-   * @return The sender user associated with the request.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * A string describing the request.
-   * 
-   * @return A string describing the request.
-   */
-  public String getMessage() {
-    return message;
+    private static final long serialVersionUID = 1L;
   }
 
   /**
