@@ -411,6 +411,9 @@ public class Post extends NamedFacebookType {
     @Getter
     @Facebook
     private Long count = 0L;
+    
+    @Facebook
+    private JsonObject summary;
 
     @Facebook
     private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
@@ -449,6 +452,16 @@ public class Post extends NamedFacebookType {
     public List<NamedFacebookType> getData() {
       return unmodifiableList(data);
     }
+    
+    /**
+     * add change count value, if summary is set and count is empty
+     */
+    @JsonMappingCompleted
+    private void fillTotalCount() {
+	if (count==0 && summary != null && summary.has("total_count")){
+	    count = summary.getLong("total_count");
+	}
+    }
   }
 
   /**
@@ -476,7 +489,10 @@ public class Post extends NamedFacebookType {
      */
     @Getter
     @Facebook("total_count")
-    private Long totalCount;
+    private Long totalCount = 0L;
+    
+    @Facebook
+    private JsonObject summary = null;
 
     @Facebook
     private List<Comment> data = new ArrayList<Comment>();
@@ -514,6 +530,16 @@ public class Post extends NamedFacebookType {
      */
     public List<Comment> getData() {
       return unmodifiableList(data);
+    }
+    
+    /**
+     * set total count if summary is present
+     */
+    @JsonMappingCompleted
+    private void fillTotalCount() {
+	if (totalCount == 0 && summary != null && summary.has("total_count")){
+	    totalCount = summary.getLong("total_count");
+	}
     }
   }
 
