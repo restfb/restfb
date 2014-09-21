@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
-<head> 
+    <head> 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
 	<meta http-equiv="Content-language" content="en" /> 
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
@@ -9,159 +9,159 @@
 	<link rel="canonical" href="http://restfb.com" /> 
 	<title>RestFB - A Lightweight Java Facebook Graph API and Old REST API Client</title>	
 	<link type="text/css" rel="stylesheet" href="css/style.css" />			
-</head>
-<body>
-  <div id="navigation">
-  	<h2>Quick Navigation</h2>
-  	<ul>
-  		<li><a href="#">Home</a></li>
-			<li><a href="#download">Download</a></li>  		
-			<li><a href="javadoc/index.html" target="_blank">Javadoc <img src="images/external-link.png"/></a></li>
-			<li><a href="https://github.com/revetkn/restfb/issues" target="_blank">Issue Tracker <img src="images/external-link.png"/></a></li>
-			<li><a href="http://groups.google.com/group/restfb" target="_blank">Google Group <img src="images/external-link.png"/></a></li>
-			<li class="separator"></li>  	
-			<!-- 
-			<li class="subheading" style="font-weight: bold; font-size: 11pt; margin-bottom: 6px; margin-top: 8px;">Reading Data</li>
-			 -->
-  		<li><a href="#initialization">Initialization</a></li>  		
-  		<li><a href="#fetching-single-objects">Fetching Objects</a></li>
-			<!-- 
-			<li><a href="#fetching-multiple-objects">Fetching Multiple Objects</a></li>
-			-->  		
-  		<li><a href="#fetching-connections">Fetching Connections</a></li>
-			<li><a href="#searching">Searching</a></li>  		
-  		<li><a href="#fetching-insights">Fetching Insights</a></li>
-			<!-- 
-			<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>
-			-->			
-			<li><a href="#executing-fql-queries">Executing FQL Queries</a></li>
-			<!-- 
-			<li><a href="#executing-multiple-fql-queries">Executing Multiple FQL Queries</a></li>
-			 -->			
-			<li><a href="#metadata-introspection">Metadata &amp; Introspection</a></li>
-			<li><a href="#passing-parameters">Passing Parameters</a></li>
-			<li><a href="#creating-json-objects">Creating JSON Objects</a></li>			
-			<li class="separator"></li>
-			<li><a href="#publishing">Publishing</a></li>
-			<li><a href="#deleting">Deleting</a></li>
-			<li class="separator"></li>
-			<li><a href="#batch-api">Batch API</a></li>
-			<li class="separator"></li>
-			<li><a href="#access-token-operations">Access Token Operations</a></li>
-			<li><a href="#security-operations">Security Operations</a></li>
-			<li class="separator"></li>
-			<li><a href="#running-examples">Running The Examples</a></li>
-			<li><a href="#supported-graph-object-types">Supported Graph Object Types</a></li>
-			<li><a href="#json-mapping-rules">JSON Mapping Rules</a></li>
-			<li><a href="#error-handling">Error Handling</a></li>
-			<li><a href="#extensibility-and-unit-testing">Extensibility and Unit Testing</a></li>
-			<li class="separator"></li>
-			<li><a href="#links">Links</a></li>
-			<li><a href="#restfb-users">RestFB Users</a></li>
-			<li><a href="#about">About</a></li>
-			<li><a href="#licensing">Licensing</a></li>
-  	</ul>
-  </div>
-			
+    </head>
+    <body>
+	<div id="navigation">
+	    <h2>Quick Navigation</h2>
+	    <ul>
+		<li><a href="#">Home</a></li>
+		<li><a href="#download">Download</a></li>  		
+		<li><a href="javadoc/index.html" target="_blank">Javadoc <img src="images/external-link.png"/></a></li>
+		<li><a href="https://github.com/revetkn/restfb/issues" target="_blank">Issue Tracker <img src="images/external-link.png"/></a></li>
+		<li><a href="http://groups.google.com/group/restfb" target="_blank">Google Group <img src="images/external-link.png"/></a></li>
+		<li class="separator"></li>  	
+		<!-- 
+		<li class="subheading" style="font-weight: bold; font-size: 11pt; margin-bottom: 6px; margin-top: 8px;">Reading Data</li>
+		-->
+		<li><a href="#initialization">Initialization</a></li>  		
+		<li><a href="#fetching-single-objects">Fetching Objects</a></li>
+		<!-- 
+		<li><a href="#fetching-multiple-objects">Fetching Multiple Objects</a></li>
+		-->  		
+		<li><a href="#fetching-connections">Fetching Connections</a></li>
+		<li><a href="#searching">Searching</a></li>  		
+		<li><a href="#fetching-insights">Fetching Insights</a></li>
+		<!-- 
+		<li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li>
+		-->			
+		<li><a href="#executing-fql-queries">Executing FQL Queries</a></li>
+		<!-- 
+		<li><a href="#executing-multiple-fql-queries">Executing Multiple FQL Queries</a></li>
+		-->			
+		<li><a href="#metadata-introspection">Metadata &amp; Introspection</a></li>
+		<li><a href="#passing-parameters">Passing Parameters</a></li>
+		<li><a href="#creating-json-objects">Creating JSON Objects</a></li>			
+		<li class="separator"></li>
+		<li><a href="#publishing">Publishing</a></li>
+		<li><a href="#deleting">Deleting</a></li>
+		<li class="separator"></li>
+		<li><a href="#batch-api">Batch API</a></li>
+		<li class="separator"></li>
+		<li><a href="#access-token-operations">Access Token Operations</a></li>
+		<li><a href="#security-operations">Security Operations</a></li>
+		<li class="separator"></li>
+		<li><a href="#running-examples">Running The Examples</a></li>
+		<li><a href="#supported-graph-object-types">Supported Graph Object Types</a></li>
+		<li><a href="#json-mapping-rules">JSON Mapping Rules</a></li>
+		<li><a href="#error-handling">Error Handling</a></li>
+		<li><a href="#extensibility-and-unit-testing">Extensibility and Unit Testing</a></li>
+		<li class="separator"></li>
+		<li><a href="#links">Links</a></li>
+		<li><a href="#restfb-users">RestFB Users</a></li>
+		<li><a href="#about">About</a></li>
+		<li><a href="#licensing">Licensing</a></li>
+	    </ul>
+	</div>
+
 	<div id="content">	
-		<h1><a href="#"><img class="logoImage" src="images/logo.png" alt="RestFB logo"/></a></h1>
-		
-		<p>
-			RestFB is a simple and flexible
-			<a target="_blank" href="http://developers.facebook.com/docs/api">Facebook Graph API</a> and 
-			<a target="_blank" href="http://developers.facebook.com/docs/reference/rest/">Old REST API</a> client written in Java.
-			<br/>
-			It is open source software released under the terms of the <a href="#licensing">MIT License</a>.
-		</p>			
-					
-		<a name="download"></a>
-		<div class="spacer"></div>
-		
-		<h2>Download</h2>
-		
-		<p>
-			Version 1.6.15 (released August 29, 2014) of the library is available via RestFB's home on <a target="_blank"href="https://github.com/revetkn/restfb">Github</a>.
-			<br/>
-			<a target="_blank" href="https://github.com/revetkn/restfb/blob/master/CHANGELOG">View the changelog</a>, 
-			or <a target="_blank" href="/downloads/restfb-1.6.15.zip">download it here</a>.
-		</p>
-		
-			<p>
-			The project zip contains sample code in the <code>source/example</code> directory which can help you get up and running quickly.
-			</p>				
-		
-		<p>
-			If you're using <a target="_blank" href="http://maven.apache.org/">Maven</a>, it's easy to integrate RestFB with your project: 
-		
-<pre class="prettyprint">&lt;dependency&gt;
+	    <h1><a href="#"><img class="logoImage" src="images/logo.png" alt="RestFB logo"/></a></h1>
+
+	    <p>
+		RestFB is a simple and flexible
+		<a target="_blank" href="http://developers.facebook.com/docs/api">Facebook Graph API</a> and 
+		<a target="_blank" href="http://developers.facebook.com/docs/reference/rest/">Old REST API</a> client written in Java.
+		<br/>
+		It is open source software released under the terms of the <a href="#licensing">MIT License</a>.
+	    </p>			
+
+	    <a name="download"></a>
+	    <div class="spacer"></div>
+
+	    <h2>Download</h2>
+
+	    <p>
+		Version 1.6.15 (released August 29, 2014) of the library is available via RestFB's home on <a target="_blank"href="https://github.com/revetkn/restfb">Github</a>.
+		<br/>
+		<a target="_blank" href="https://github.com/revetkn/restfb/blob/master/CHANGELOG">View the changelog</a>, 
+		or <a target="_blank" href="/downloads/restfb-1.6.15.zip">download it here</a>.
+	    </p>
+
+	    <p>
+		The project zip contains sample code in the <code>source/example</code> directory which can help you get up and running quickly.
+	    </p>				
+
+	    <p>
+		If you're using <a target="_blank" href="http://maven.apache.org/">Maven</a>, it's easy to integrate RestFB with your project: 
+
+		<pre class="prettyprint">&lt;dependency&gt;
   &lt;groupId&gt;com.restfb&lt;/groupId&gt;
   &lt;artifactId&gt;restfb&lt;/artifactId&gt;
   &lt;version&gt;1.6.15&lt;/version&gt;
 &lt;/dependency&gt;</pre>
-		</p>		
-		
-		<div class="spacer"></div>
-		
-		<h2>Motivations</h2>
-		
-		<p>
-			Design goals:		
-			<ul>
-				<li>Minimal public API</li>
-				<li>Maximal extensibility</li>
-				<li>Robustness in the face of frequent Facebook API changes</li>
-				<li>Simple metadata-driven configuration</li>
-				<li><b>Zero</b> dependencies</li>			
-			</ul> 
-		</p> 	
-		
-		<p>
-			Non-goals:		
-			<ul>
-				<li>Support for non-Graph/non-REST API parts of the Facebook Platform</li>
-				<li>Providing a mechanism for obtaining session keys or OAuth access tokens</li>
-				<li>Using XML as a data transfer format in addition to JSON</li>
-				<li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
-			</ul>
-		</p>
-		
-		<div class="spacer"></div>				
-		
-		<p>
-			If RestFB doesn't meet your needs, check out sister project <a target="_blank" href="http://batchfb.googlecode.com/">BatchFB</a>.  It's a good lower-level client, especially if you're concerned with batching and performance.
-		</p>
-		
-		<div class="spacer"></div>
-		
-		<h2>How To Use It</h2>
-		
-		<p>
-			You can <a href="#running-examples">run some sample code</a>,
-			jump straight to the <a target="_blank" href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
-		</p>
-		
-		<p>
-			If you're looking for help or additional examples, please check out the <a target="_blank" href="http://groups.google.com/group/restfb">RestFB Google Group</a>
-			or visit the <code>source/examples</code> directory in the RestFB distribution.
-		</p>		
-		
-		<div class="spacer"></div>
-		
-		<div class="warning-bubble">
-			<h3>The below documentation is for the Facebook Graph API component of RestFB.</h3>
-						
-			<div>
-				If you'd like to code against the Old REST Facebook API, though, RestFB has you covered.
-				<a href="legacy-rest-api.html">Just use LegacyFacebookClient, which is documented here</a>.  It even supports the new OAuth authentication scheme!
-			</div>	
-		</div>
-		
-		<a name="initialization"></a>
-		<div class="spacer"></div>
-				
-		<h3>Initialization</h3>
-		
-<pre class="prettyprint">
+	    </p>		
+
+	    <div class="spacer"></div>
+
+	    <h2>Motivations</h2>
+
+	    <p>
+		Design goals:		
+		<ul>
+		    <li>Minimal public API</li>
+		    <li>Maximal extensibility</li>
+		    <li>Robustness in the face of frequent Facebook API changes</li>
+		    <li>Simple metadata-driven configuration</li>
+		    <li><b>Zero</b> dependencies</li>			
+		</ul> 
+	    </p> 	
+
+	    <p>
+		Non-goals:		
+		<ul>
+		    <li>Support for non-Graph/non-REST API parts of the Facebook Platform</li>
+		    <li>Providing a mechanism for obtaining session keys or OAuth access tokens</li>
+		    <li>Using XML as a data transfer format in addition to JSON</li>
+		    <li>Formally-typed versions of all Facebook API methods, error codes, etc.</li>
+		</ul>
+	    </p>
+
+	    <div class="spacer"></div>				
+
+	    <p>
+		If RestFB doesn't meet your needs, check out sister project <a target="_blank" href="http://batchfb.googlecode.com/">BatchFB</a>.  It's a good lower-level client, especially if you're concerned with batching and performance.
+	    </p>
+
+	    <div class="spacer"></div>
+
+	    <h2>How To Use It</h2>
+
+	    <p>
+		You can <a href="#running-examples">run some sample code</a>,
+		jump straight to the <a target="_blank" href="javadoc/index.html">RestFB Javadoc</a>, or learn by example below.
+	    </p>
+
+	    <p>
+		If you're looking for help or additional examples, please check out the <a target="_blank" href="http://groups.google.com/group/restfb">RestFB Google Group</a>
+		or visit the <code>source/examples</code> directory in the RestFB distribution.
+	    </p>		
+
+	    <div class="spacer"></div>
+
+	    <div class="warning-bubble">
+		<h3>The below documentation is for the Facebook Graph API component of RestFB.</h3>
+
+		<div>
+		    If you'd like to code against the Old REST Facebook API, though, RestFB has you covered.
+		    <a href="legacy-rest-api.html">Just use LegacyFacebookClient, which is documented here</a>.  It even supports the new OAuth authentication scheme!
+		</div>	
+	    </div>
+
+	    <a name="initialization"></a>
+	    <div class="spacer"></div>
+
+	    <h3>Initialization</h3>
+
+	    <pre class="prettyprint">
 // <a target="_blank" href="javadoc/com/restfb/DefaultFacebookClient.html">DefaultFacebookClient</a> is the <a target="_blank" href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a> implementation
 // that ships with RestFB. You can customize it by passing in
 // custom <a target="_blank" href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a> and <a target="_blank" href="javadoc/com/restfb/WebRequestor.html">WebRequestor</a> implementations, or simply
@@ -178,31 +178,31 @@ FacebookClient publicOnlyFacebookClient = new DefaultFacebookClient();
 // Get added security by using your app secret:
 
 FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_APP_SECRET);</pre>	
-		
+
+	    <div class="spacer"></div>
+
+	    <div class="warning-bubble">
+		<h3>Not sure how to get an OAuth access token?</h3>
+
+		<div>
+		    It's really easy with the Facebook Graph API.  Sign in to Facebook and <a target="_blank" href="https://developers.facebook.com/tools/explorer">navigate to the Graph API Explorer app</a>.
+		    Click the "Get Access Token" button.  That's it!
+		</div>	
+
 		<div class="spacer"></div>
-		
-		<div class="warning-bubble">
-			<h3>Not sure how to get an OAuth access token?</h3>
-						
-			<div>
-				It's really easy with the Facebook Graph API.  Sign in to Facebook and <a target="_blank" href="https://developers.facebook.com/tools/explorer">navigate to the Graph API Explorer app</a>.
-				Click the "Get Access Token" button.  That's it!
-			</div>	
-			
-			<div class="spacer"></div>
-			
-			<div>
-				Keep in mind that this is only useful for quick testing. For production use, you'll need to create a Facebook Application
-				and use it to obtain OAuth tokens for your users. Take a look at the <a href="https://developers.facebook.com/docs/authentication/" target="_blank">FB Authentication documentation</a> for more details. 
-			</div>			
+
+		<div>
+		    Keep in mind that this is only useful for quick testing. For production use, you'll need to create a Facebook Application
+		    and use it to obtain OAuth tokens for your users. Take a look at the <a href="https://developers.facebook.com/docs/authentication/" target="_blank">FB Authentication documentation</a> for more details. 
 		</div>			
-		
-		<a name="fetching-single-objects"></a>		
-		<div class="spacer"></div>
-							
-		<h3>Fetching Single Objects</h3>
-			
-<pre class="prettyprint">
+	    </div>			
+
+	    <a name="fetching-single-objects"></a>		
+	    <div class="spacer"></div>
+
+	    <h3>Fetching Single Objects</h3>
+
+	    <pre class="prettyprint">
 // For all API calls, you need to tell RestFB how to turn the JSON
 // returned by Facebook into Java objects.  In this case, the data
 // we get back should be mapped to the <a target="_blank" href="/javadoc/com/restfb/types/User.html">User</a> and <a target="_blank" href="/javadoc/com/restfb/types/Page.html">Page</a> types, respectively.
@@ -214,12 +214,12 @@ Page page = facebookClient.fetchObject("cocacola", Page.class);
 out.println("User name: " + user.getName());
 out.println("Page likes: " + page.getLikes());</pre>
 
-		<a name="fetching-multiple-objects"></a>		
-		<div class="spacer"></div>
-							
-		<h3>Fetching Multiple Objects in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">
+	    <a name="fetching-multiple-objects"></a>		
+	    <div class="spacer"></div>
+
+	    <h3>Fetching Multiple Objects in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 FetchObjectsResults fetchObjectsResults =
   facebookClient.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
 
@@ -241,43 +241,43 @@ public class FetchObjectsResults {
   @Facebook("cocacola")
   Page page;
 }</pre>			
-		
+
+	    <div class="spacer"></div>
+
+	    <div class="warning-bubble">
+		<h3>Before we go further, a few words about logging...</h3>
+
+		<div>
+		    RestFB uses java.util.logging to log the data that's sent over the wire to and from Facebook.
+		    It's often helpful to look at the log output so you can make sure that RestFB is sending the data as you expect it to
+		    and that Facebook is returning the correct JSON.
+		</div>	
+
 		<div class="spacer"></div>
-		
-		<div class="warning-bubble">
-			<h3>Before we go further, a few words about logging...</h3>
-						
-			<div>
-				RestFB uses java.util.logging to log the data that's sent over the wire to and from Facebook.
-				It's often helpful to look at the log output so you can make sure that RestFB is sending the data as you expect it to
-				and that Facebook is returning the correct JSON.
-			</div>	
-			
-			<div class="spacer"></div>
-			
-			<div>
-				Want to use <a target="_blank" href="http://logging.apache.org/log4j/1.2/">Log4j</a> instead of java.util.logging?  
-				No problem!  You can disable java.util.logging for RestFB and use <a target="_blank" href="http://www.slf4j.org/">SLF4J</a> to re-route (bridge) all logging calls to
-				Log4j. You may <a href="examples/RestFB%20Log4j%20Example.zip">download an example project which demonstrates this process</a>.
-				
-				<div class="spacer"></div>
-				
-				If you're curious about how this works, <a target="_blank" href="http://slf4j.org/legacy.html">here's more information about SLF4J bridging.</a>
-				
-				<div class="spacer"></div>
-				
-				If you're concerned about SLF4J bridging performance, check out <a href="http://logback.qos.ch/manual/configuration.html#LevelChangePropagator" target="_blank">this section of the SLF4J manual</a>.
-				<br/>
-				Thanks to Chris Pruett for the heads-up about that.	
-			</div>			
+
+		<div>
+		    Want to use <a target="_blank" href="http://logging.apache.org/log4j/1.2/">Log4j</a> instead of java.util.logging?  
+		    No problem!  You can disable java.util.logging for RestFB and use <a target="_blank" href="http://www.slf4j.org/">SLF4J</a> to re-route (bridge) all logging calls to
+		    Log4j. You may <a href="examples/RestFB%20Log4j%20Example.zip">download an example project which demonstrates this process</a>.
+
+		    <div class="spacer"></div>
+
+		    If you're curious about how this works, <a target="_blank" href="http://slf4j.org/legacy.html">here's more information about SLF4J bridging.</a>
+
+		    <div class="spacer"></div>
+
+		    If you're concerned about SLF4J bridging performance, check out <a href="http://logback.qos.ch/manual/configuration.html#LevelChangePropagator" target="_blank">this section of the SLF4J manual</a>.
+		    <br/>
+		    Thanks to Chris Pruett for the heads-up about that.	
 		</div>			
-		
-		<a name="fetching-connections"></a>
-		<div class="spacer"></div>
-							
-		<h3>Fetching Connections</h3>
-			
-<pre class="prettyprint">
+	    </div>			
+
+	    <a name="fetching-connections"></a>
+	    <div class="spacer"></div>
+
+	    <h3>Fetching Connections</h3>
+
+	    <pre class="prettyprint">
 Connection&lt;User&gt; myFriends = facebookClient.fetchConnection("me/friends", User.class);
 Connection&lt;Post&gt; myFeed = facebookClient.fetchConnection("me/feed", Post.class);
 
@@ -289,13 +289,13 @@ out.println("First item in my feed: " + myFeed.getData().get(0));
 for (List&lt;Post&gt; myFeedConnectionPage : myFeed)
   for (Post post : myFeedConnectionPage)
     out.println("Post: " + post);</pre>							
-	
-	<a name="searching"></a>
-	<div class="spacer"></div>	
 
-	<h3>Searching (see <a target="_blank" href="http://developers.facebook.com/docs/api">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">
+	    <a name="searching"></a>
+	    <div class="spacer"></div>	
+
+	    <h3>Searching (see <a target="_blank" href="http://developers.facebook.com/docs/api">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 // Searching is just a special case of fetching Connections -
 // all you have to do is pass along a few extra parameters.
 
@@ -309,27 +309,27 @@ Connection&lt;User&gt; targetedSearch =
 
 out.println("Public search: " + publicSearch.getData().get(0).getMessage());
 out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());</pre>			
-	
-	<a name="fetching-insights"></a>	
-	<div class="spacer"></div>
-	
-		<h3>Fetching Insights</h3>
-			
-<pre class="prettyprint">
+
+	    <a name="fetching-insights"></a>	
+	    <div class="spacer"></div>
+
+	    <h3>Fetching Insights</h3>
+
+	    <pre class="prettyprint">
 // Fetching Insights data is as simple as fetching a Connection
 
 Connection&lt;Insight&gt; insights = facebookClient.fetchConnection("PAGE_ID/insights", Insight.class);
 
 for (Insight insight : insights.getData())
   out.println(insight.getName());
-</pre>												
+	    </pre>												
 
-		<a name="executing-fql-queries"></a>
-		<div class="spacer"></div>
-							
-		<h3>Executing FQL Queries (see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>)</h3>
-			
-<pre class="prettyprint">
+	    <a name="executing-fql-queries"></a>
+	    <div class="spacer"></div>
+
+	    <h3>Executing FQL Queries (see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
 List&lt;FqlUser&gt; users = facebookClient.executeFqlQuery(query, FqlUser.class);
 
@@ -353,13 +353,13 @@ public class FqlUser {
     return String.format("%s (%s)", name, uid);
   }
 }</pre>						
-				
-		<a name="executing-multiple-fql-queries"></a>
-		<div class="spacer"></div>
-							
-		<h3>Executing Multiple FQL Queries in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>)</h3>
-			
-<pre class="prettyprint">
+
+	    <a name="executing-multiple-fql-queries"></a>
+	    <div class="spacer"></div>
+
+	    <h3>Executing Multiple FQL Queries in One Call (see <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/">FQL documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 Map&lt;String, String&gt; queries = new HashMap&lt;String, String&gt;() {
   {
     put("users", "SELECT uid, name FROM user WHERE uid=220439 OR uid=7901103");
@@ -395,13 +395,13 @@ public class MultiqueryResults {
   @Facebook
   List&lt;FqlLiker&gt; likers;
 }</pre>								
-		
-		<a name="metadata-introspection"></a>
-		<div class="spacer"></div>
-		
-		<h3>Metadata/Introspection (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// You can specify metadata=1 for many calls, not just this one.
+
+	    <a name="metadata-introspection"></a>
+	    <div class="spacer"></div>
+
+	    <h3>Metadata/Introspection (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">// You can specify metadata=1 for many calls, not just this one.
 // See the Facebook Graph API documentation for more details. 
 
 User userWithMetadata =
@@ -409,13 +409,13 @@ User userWithMetadata =
 
 out.println("User metadata: has albums? "
   + userWithMetadata.getMetadata().getConnections().hasAlbums());</pre>								
-		
-		<a name="passing-parameters"></a>
-		<div class="spacer"></div>	
-		
-		<h3>Passing Parameters (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// You can pass along any parameters you'd like to the Facebook endpoint.
+
+	    <a name="passing-parameters"></a>
+	    <div class="spacer"></div>	
+
+	    <h3>Passing Parameters (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">// You can pass along any parameters you'd like to the Facebook endpoint.
 
 Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
 
@@ -424,22 +424,22 @@ Connection&lt;Post&gt; filteredFeed = facebookClient.fetchConnection("me/feed", 
     Parameter.with("since", oneWeekAgo));
 
 out.println("Filtered feed count: " + filteredFeed.getData().size());</pre>								
-		
-	<a name="selecting-specific-fields"></a>
-	<div class="spacer"></div>	
-							
-	<h3>Selecting Specific Fields (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">
+
+	    <a name="selecting-specific-fields"></a>
+	    <div class="spacer"></div>	
+
+	    <h3>Selecting Specific Fields (see <a target="_blank" href="http://developers.facebook.com/docs/api#reading">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 User user = facebookClient.fetchObject("me", User.class,
   Parameter.with("fields", "id, name"));
 
 out.println("User name: " + user.getName());</pre>	
-	
-	<a name="fetching-post-with-totalcount"></a>
-	<div class="spacer"></div>
-	<h3>Fetch Post with comments/likes total count (see <a target="_blank" href="https://developers.facebook.com/docs/apps/migrations/completed-changes#july_2013">July 2013 Breaking Changes</a>)</h3>
-<pre class="prettyprint">
+
+	    <a name="fetching-post-with-totalcount"></a>
+	    <div class="spacer"></div>
+	    <h3>Fetch Post with comments/likes total count (see <a target="_blank" href="https://developers.facebook.com/docs/apps/migrations/completed-changes#july_2013">July 2013 Breaking Changes</a>)</h3>
+	    <pre class="prettyprint">
 // Some Post from the GoT Fanpage with likes and comments total count
 Post post = client.fetchObject("74133697733_10152424266332734", 
   Post.class, 
@@ -448,13 +448,13 @@ Post post = client.fetchObject("74133697733_10152424266332734",
 out.println("Likes count: " + post.getLikesCount());
 out.println("Likes count (from Likes): " + post.getLikes().getCount());
 out.println("Comments count: " + post.getComments().getTotalCount());
-</pre>
-		<a name="creating-json-objects"></a>
-		<div class="spacer"></div>			
-		
-		<h3>Getting Any Kind of Data as a JSON Object</h3>
-			
-<pre class="prettyprint">
+	    </pre>
+	    <a name="creating-json-objects"></a>
+	    <div class="spacer"></div>			
+
+	    <h3>Getting Any Kind of Data as a JSON Object</h3>
+
+	    <pre class="prettyprint">
 // Sometimes you can't know field names at compile time
 // so the @Facebook annotation can't be used.
 // Or maybe you'd like full control over the data that gets returned.
@@ -498,51 +498,51 @@ Url url = jsonMapper.toJavaObject(results.getString("http://restfb.com"), Url.cl
 out.println("User is " + user);
 out.println("URL is " + url);
 
-</pre>		
-		
-		<a name="publishing"></a>
-		<div class="spacer"></div>					
-				
-		<div class="warning-bubble">
-			<h3>A note about the Publish and Delete examples below</h3>
-						
-			<div>
-				In order to use these, you'll need to create a Facebook Application and then request an OAuth
-				access token with the proper permissions,	e.g. <code>publish_stream,create_event</code>.
-			</div>	
-			
-			<div class="spacer"></div>	
-			
-			<div>	
-				The <a target="_blank" href="http://developers.facebook.com/docs/api#auth">Facebook Graph API authorization documentation</a>
-				explains how to do this in detail.
-				<br/>
-				If you're in a hurry, though, here's a quick example:
-			</div>
+	    </pre>		
 
-			<div class="spacer"></div>
-											
-			<div>
-				<ul style="list-style-type: decimal;">
-					<li>Create a Facebook Application</li>
-					<li>Request <code>https://graph.facebook.com/oauth/authorize?client_id=MY_API_KEY&amp;
-						redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
-						scope=publish_stream,create_event</code></li>
-					<li>Facebook will redirect you to <code>http://www.facebook.com/connect/login_success.html?
-					code=MY_VERIFICATION_CODE</code></li>
-					<li>Request <code>https://graph.facebook.com/oauth/access_token?client_id=MY_API_KEY&amp;
-						redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
-						client_secret=MY_APP_SECRET&amp;code=MY_VERIFICATION_CODE</code></li>
-					<li>Facebook will respond with <code>access_token=MY_ACCESS_TOKEN</code></li>
-				</ul>
-			</div>
-		</div>			
-		
-		<div class="spacer"></div>		
-		
-		<h3>Publishing a Message and Event (see <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// Publishing a simple message.
+	    <a name="publishing"></a>
+	    <div class="spacer"></div>					
+
+	    <div class="warning-bubble">
+		<h3>A note about the Publish and Delete examples below</h3>
+
+		<div>
+		    In order to use these, you'll need to create a Facebook Application and then request an OAuth
+		    access token with the proper permissions,	e.g. <code>publish_stream,create_event</code>.
+		</div>	
+
+		<div class="spacer"></div>	
+
+		<div>	
+		    The <a target="_blank" href="http://developers.facebook.com/docs/api#auth">Facebook Graph API authorization documentation</a>
+		    explains how to do this in detail.
+		    <br/>
+		    If you're in a hurry, though, here's a quick example:
+		</div>
+
+		<div class="spacer"></div>
+
+		<div>
+		    <ul style="list-style-type: decimal;">
+			<li>Create a Facebook Application</li>
+			<li>Request <code>https://graph.facebook.com/oauth/authorize?client_id=MY_API_KEY&amp;
+				redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
+				scope=publish_stream,create_event</code></li>
+			<li>Facebook will redirect you to <code>http://www.facebook.com/connect/login_success.html?
+				code=MY_VERIFICATION_CODE</code></li>
+			<li>Request <code>https://graph.facebook.com/oauth/access_token?client_id=MY_API_KEY&amp;
+				redirect_uri=http://www.facebook.com/connect/login_success.html&amp;
+				client_secret=MY_APP_SECRET&amp;code=MY_VERIFICATION_CODE</code></li>
+			<li>Facebook will respond with <code>access_token=MY_ACCESS_TOKEN</code></li>
+		    </ul>
+		</div>
+	    </div>			
+
+	    <div class="spacer"></div>		
+
+	    <h3>Publishing a Message and Event (see <a target="_blank" href="http://developers.facebook.com/docs/api#editing">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">// Publishing a simple message.
 // FacebookType represents any Facebook Graph Object that has an ID property.
 
 FacebookType publishMessageResponse =
@@ -561,12 +561,12 @@ FacebookType publishEventResponse = facebookClient.publish("me/events", Facebook
     Parameter.with("end_time", twoDaysFromNow));
 
 out.println("Published event ID: " + publishEventResponse.getId());</pre>								
-				
-		<div class="spacer"></div>
-		
-		<h3>Publishing a Photo (see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// Publishing an image to a photo album is easy!
+
+	    <div class="spacer"></div>
+
+	    <h3>Publishing a Photo (see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/photo/">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">// Publishing an image to a photo album is easy!
 // Just specify the image you'd like to upload and RestFB will handle it from there.
 
 FacebookType publishPhotoResponse = facebookClient.publish("me/photos", FacebookType.class,
@@ -580,12 +580,12 @@ out.println("Published photo ID: " + publishPhotoResponse.getId());
 facebookClient.publish("me/videos", FacebookType.class,
   BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
   Parameter.with("message", "Test cat"));</pre>								
-				
-		<div class="spacer"></div>	
-		
-		<h3>Publishing a Checkin (see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/checkin">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">Map&lt;String, String&gt; coordinates = new HashMap&lt;String, String&gt;();
+
+	    <div class="spacer"></div>	
+
+	    <h3>Publishing a Checkin (see <a target="_blank" href="http://developers.facebook.com/docs/reference/api/checkin">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">Map&lt;String, String&gt; coordinates = new HashMap&lt;String, String&gt;();
 coordinates.put("latitude", "37.06");
 coordinates.put("longitude", "-95.67");
 			
@@ -594,21 +594,21 @@ FacebookType publishCheckinResponse = facebookClient.publish("me/checkins",
     Parameter.with("coordinates", coordinates), Parameter.with("place", 1234)));
 
 out.println("Published checkin ID: " + publishCheckinResponse.getId());</pre>								
-				
-		<a name="deleting"></a>
-		<div class="spacer"></div>			
-		
-		<h3>Deleting (see <a target="_blank" href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">Boolean deleted = facebookClient.deleteObject("some object ID");
+
+	    <a name="deleting"></a>
+	    <div class="spacer"></div>			
+
+	    <h3>Deleting (see <a target="_blank" href="http://developers.facebook.com/docs/api#deleting">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">Boolean deleted = facebookClient.deleteObject("some object ID");
 out.println("Deleted object? " + deleted);</pre>								
-		
-		<a name="batch-api"></a>
-		<div class="spacer"></div>	
-		
-		<h3>Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// The Batch API is great if you have multiple operations you'd like to
+
+	    <a name="batch-api"></a>
+	    <div class="spacer"></div>	
+
+	    <h3>Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">// The Batch API is great if you have multiple operations you'd like to
 // perform in one server trip. Let's build a batch with three GET requests and
 // one POST request here:
 
@@ -662,12 +662,12 @@ for (List&lt;Post&gt; m83musicPostsConnectionPage : m83musicPosts)
 // ...or do whatever you'd like with the raw JSON.
 
 out.println(postResponse.getBody());</pre>								
-		
-		<div class="spacer"></div>	
-		
-		<h3>Including Binary Attachments Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">// Per the FB Batch API documentation, attached_files is a comma-separated list
+
+	    <div class="spacer"></div>	
+
+	    <h3>Including Binary Attachments Using the Batch Request API (see <a target="_blank" href="https://developers.facebook.com/docs/reference/api/batch/">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">// Per the FB Batch API documentation, attached_files is a comma-separated list
 // of attachment names to include in the API call.
 // RestFB will use the filename provided to your BinaryAttachment minus the file
 // extension as the name of the attachment.
@@ -690,13 +690,13 @@ List&lt;BinaryAttachment&gt; binaryAttachments = Arrays.asList(
 // Finally, execute the batch.
 
 facebookClient.executeBatch(batchRequests, binaryAttachments);</pre>				
-		
-		<a name="access-token-operations"></a>
-		<div class="spacer"></div>		
-		
-		<h3>Extending an Access Token (see <a target="_blank" href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Graph API documentation</a>)</h3>
-		
-<pre class="prettyprint">
+
+	    <a name="access-token-operations"></a>
+	    <div class="spacer"></div>		
+
+	    <h3>Extending an Access Token (see <a target="_blank" href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 // Tells Facebook to extend the lifetime of MY_ACCESS_TOKEN.
 // Facebook may return the same token or a new one.
 
@@ -705,12 +705,12 @@ AccessToken accessToken =
     MY_APP_SECRET, MY_ACCESS_TOKEN);
 
 out.println("My extended access token: " + accessToken);
-</pre>		
-		
-		<div class="spacer"></div>
-		<h3>Getting an Application Access Token (see <a target="_blank" href="https://developers.facebook.com/docs/authentication/applications/">Graph API documentation</a>)</h3>
-		
-<pre class="prettyprint">
+	    </pre>		
+
+	    <div class="spacer"></div>
+	    <h3>Getting an Application Access Token (see <a target="_blank" href="https://developers.facebook.com/docs/authentication/applications/">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 // Obtains an access token which can be used to perform Graph API operations
 // on behalf of an application instead of a user.
 
@@ -718,12 +718,12 @@ AccessToken accessToken =
   new DefaultFacebookClient().obtainAppAccessToken(MY_APP_ID, MY_APP_SECRET);
 
 out.println("My application access token: " + accessToken);
-</pre>				
-		
-		<div class="spacer"></div>
-		<h3>Converting Old REST API Session Keys to OAuth Tokens (see <a target="_blank" href="http://developers.facebook.com/docs/authentication#exchange-session-key-for-an-access-token">Graph API documentation</a>)</h3>
-			
-<pre class="prettyprint">
+	    </pre>				
+
+	    <div class="spacer"></div>
+	    <h3>Converting Old REST API Session Keys to OAuth Tokens (see <a target="_blank" href="http://developers.facebook.com/docs/authentication#exchange-session-key-for-an-access-token">Graph API documentation</a>)</h3>
+
+	    <pre class="prettyprint">
 // It's 2014, hopefully no one has to do this anymore!
 
 List&lt;AccessToken&gt; accessTokens =
@@ -731,12 +731,12 @@ List&lt;AccessToken&gt; accessTokens =
     MY_APP_SECRET, "sessionKey1", "sessionKey2");
 
 out.println("OAuth token for sessionKey1: " + accessTokens.get(0).getAccessToken());</pre>								
-				
-		<a name="security-operations"></a>				
-		<div class="spacer"></div>
-		<h3>Parsing Signed Requests</h3>
 
-<pre class="prettyprint">
+	    <a name="security-operations"></a>				
+	    <div class="spacer"></div>
+	    <h3>Parsing Signed Requests</h3>
+
+	    <pre class="prettyprint">
 // Facebook can send you an encoded signed request, which is only decodable by you
 // with your App Secret. Pass the signed request, your app secret, and a class that
 // specifies how RestFB should map the decoded signed request JSON.
@@ -776,9 +776,9 @@ class Payload {
   
   // Add whatever other fields you might have
 }</pre>
-	<div class="spacer"></div>
-	<h3>Parsing Deauthorization Callback request</h3>
-<pre class="prettyprint">
+	    <div class="spacer"></div>
+	    <h3>Parsing Deauthorization Callback request</h3>
+	    <pre class="prettyprint">
 // Facebook can send you an encoded signed request, as soon as someone deletes
 // your Facebook app. This only happens, if you have defined a deauthorization
 // callback url in your Facebook App (Settings -> Advanced).
@@ -790,12 +790,12 @@ DeAuth deauthObj = facebookClient.parseSignedRequest(signedRequest,
 
 out.println("This user just deleted your app: " + deauthObj.getUserId());
 out.println("Deauthorization at: " + deauthObj.getIssuedAt());
-</pre>
+	    </pre>
 
-	<div class="spacer"></div>
-	<h3>Generating appsecret_proof</h3>
+	    <div class="spacer"></div>
+	    <h3>Generating appsecret_proof</h3>
 
-<pre class="prettyprint">
+	    <pre class="prettyprint">
 // If you create a DefaultFacebookClient instance with your app secret, RestFB will
 // automatically include appsecret_proof with your requests,
 // no work needs to be done on your end.
@@ -813,109 +813,109 @@ String proof = new DefaultFacebookClient().obtainAppSecretProof(
   MY_ACCESS_TOKEN, MY_APP_SECRET);
 out.println("Here's my proof: " + proof);</pre>
 
-		<div class="spacer"></div>				
-		
-		<a name="running-examples"></a>						
-		<div class="spacer"></div>				
-		
-		<h2>Running The Examples</h2>
-		
-		<p>
-			RestFB comes with a few example Java source files that you can run and tweak yourself.  Don't forget to put your access token inside the quotes!
-		</p>
-		
-<pre>$ cd source/example
+	    <div class="spacer"></div>				
+
+	    <a name="running-examples"></a>						
+	    <div class="spacer"></div>				
+
+	    <h2>Running The Examples</h2>
+
+	    <p>
+		RestFB comes with a few example Java source files that you can run and tweak yourself.  Don't forget to put your access token inside the quotes!
+	    </p>
+
+	    <pre>$ cd source/example
 $ ant run-reader-examples "-Daccess_token=MY_ACCESS_TOKEN"
 $ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"
 $ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>		
-		
-		<a name="supported-graph-object-types"></a>
-		<div class="spacer"></div>				
-		
-		<h2>Facebook Graph Object Types Supported Out-of-the-Box</h2>		
-		
-		<p>
-			RestFB can map JSON to any class that has fields annotated with the <code>@Facebook</code> annotation, which is discussed in more detail in the
-			<a href="#json-mapping-rules">JSON Mapping Rules</a> section.
-		</p>
-		
-		<p>
-			However, for your convenience, all basic <a target="_blank" href="http://developers.facebook.com/docs/reference/api/">Graph API Object</a> types have
-			their own Java implementation in the <code><a target="_blank" href="javadoc/com/restfb/types/package-summary.html">com.restfb.types</a></code> package.
-		</p>
-		
-		<p>
-			You may use these builtin types if you wish, or you can subclass them to add additional fields or functionality, or just write your
-			own if you have special requirements.  The builtins come with reflective implementations of <code>toString()</code>, <code>hashCode()</code>,
-			and <code>equals(Object o)</code> to make your life simpler.  If you subclass any of the builtins and add additional fields with accessors,
-			those fields will be automatically taken into account by the above 3 methods.
-		</p>
-		
-		<p>
-			The builtin types are as follows:
-		</p>
-		
-		<ul>			
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Album.html">Album</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Application.html">Application</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/AppRequest.html">AppRequest</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Checkin.html">Checkin</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Comment.html">Comment</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Conversation.html">Conversation</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Event.html">Event</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/FriendList.html">FriendList</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Group.html">Group</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Insight.html">Insight</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Link.html">Link</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Note.html">Note</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Page.html">Page</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>			
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Post.html">Post</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Question.html">Question</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/QuestionOption.html">QuestionOption</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/StatusMessage.html">Status Message</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/User.html">User</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Venue.html">Venue</a></li>
-			<li><a target="_blank" href="/javadoc/com/restfb/types/Video.html">Video</a></li>
-		</ul>
-		
-		<a name="json-mapping-rules"></a>		
-		<div class="spacer"></div>				
-		
-		<h2>JSON Mapping Rules</h2>
 
-		<p>
-			Using <code><a target="_blank" href="javadoc/com/restfb/DefaultJsonMapper.html">DefaultJsonMapper</a></code>,
-			RestFB is able to recursively map JSON fields annotated with <code>@Facebook</code> to the following Java types out of the box:
-		</p>		
-		
-		<ul>
-			<li>The convenience classes provided by RestFB in <code>com.restfb.types</code></li>		
-			<li><code>String</code></li>
-			<li><code>Integer</code></li>
-			<li><code>Boolean</code></li>
-			<li><code>Long</code></li>
-			<li><code>Double</code></li>
-			<li><code>Float</code></li>
-			<li><code>BigInteger</code></li>
-			<li><code>BigDecimal</code></li>			
-			<li>
-				Your own JavaBean-compliant classes
-				<br/>
-				<span class="footnote">
-					Don't forget to provide a public default constructor!
-				</span>
-			</li>
-			<li>
-				<code>List</code>s of any of the above types
-			</li>
-		</ul>
-		
-		<p>
-			For example:	
-		</p>
-			
-		<pre class="prettyprint">
+	    <a name="supported-graph-object-types"></a>
+	    <div class="spacer"></div>				
+
+	    <h2>Facebook Graph Object Types Supported Out-of-the-Box</h2>		
+
+	    <p>
+		RestFB can map JSON to any class that has fields annotated with the <code>@Facebook</code> annotation, which is discussed in more detail in the
+		<a href="#json-mapping-rules">JSON Mapping Rules</a> section.
+	    </p>
+
+	    <p>
+		However, for your convenience, all basic <a target="_blank" href="http://developers.facebook.com/docs/reference/api/">Graph API Object</a> types have
+		their own Java implementation in the <code><a target="_blank" href="javadoc/com/restfb/types/package-summary.html">com.restfb.types</a></code> package.
+	    </p>
+
+	    <p>
+		You may use these builtin types if you wish, or you can subclass them to add additional fields or functionality, or just write your
+		own if you have special requirements.  The builtins come with reflective implementations of <code>toString()</code>, <code>hashCode()</code>,
+		and <code>equals(Object o)</code> to make your life simpler.  If you subclass any of the builtins and add additional fields with accessors,
+		those fields will be automatically taken into account by the above 3 methods.
+	    </p>
+
+	    <p>
+		The builtin types are as follows:
+	    </p>
+
+	    <ul>			
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Album.html">Album</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Application.html">Application</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/AppRequest.html">AppRequest</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Checkin.html">Checkin</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Comment.html">Comment</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Conversation.html">Conversation</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Event.html">Event</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/FriendList.html">FriendList</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Group.html">Group</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Insight.html">Insight</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Link.html">Link</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Note.html">Note</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Page.html">Page</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>			
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Post.html">Post</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Question.html">Question</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/QuestionOption.html">QuestionOption</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/StatusMessage.html">Status Message</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/User.html">User</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Venue.html">Venue</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Video.html">Video</a></li>
+	    </ul>
+
+	    <a name="json-mapping-rules"></a>		
+	    <div class="spacer"></div>				
+
+	    <h2>JSON Mapping Rules</h2>
+
+	    <p>
+		Using <code><a target="_blank" href="javadoc/com/restfb/DefaultJsonMapper.html">DefaultJsonMapper</a></code>,
+		RestFB is able to recursively map JSON fields annotated with <code>@Facebook</code> to the following Java types out of the box:
+	    </p>		
+
+	    <ul>
+		<li>The convenience classes provided by RestFB in <code>com.restfb.types</code></li>		
+		<li><code>String</code></li>
+		<li><code>Integer</code></li>
+		<li><code>Boolean</code></li>
+		<li><code>Long</code></li>
+		<li><code>Double</code></li>
+		<li><code>Float</code></li>
+		<li><code>BigInteger</code></li>
+		<li><code>BigDecimal</code></li>			
+		<li>
+		    Your own JavaBean-compliant classes
+		    <br/>
+		    <span class="footnote">
+			Don't forget to provide a public default constructor!
+		    </span>
+		</li>
+		<li>
+		    <code>List</code>s of any of the above types
+		</li>
+	    </ul>
+
+	    <p>
+		For example:	
+	    </p>
+
+	    <pre class="prettyprint">
 public class MyClass {
   @Facebook
   String name;
@@ -939,20 +939,20 @@ public class MyClass {
       throw new IllegalStateException("I was expecting more numbers!");
   }
 }</pre>			
-		
-		<p>
-			Java to JSON mapping is supported by default via <code><a target="_blank" href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>.
-			You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
-			by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
-		</p>
-		
-		<p>
-			The default behavior of <code>DefaultJsonMapper</code> is to throw a <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
-			if it cannot map JSON to Java correctly.
-			However, given the frequency with which the Facebook API changes, you might want to guard yourself from "surprise" errors in production by
-			exerting more fine-grained control over how the mapper handles mapping exceptions.  You can do so like this:
-			
-<pre class="prettyprint">FacebookClient facebookClient = new DefaultFacebookClient("MY_ACCESS_TOKEN",
+
+	    <p>
+		Java to JSON mapping is supported by default via <code><a target="_blank" href="javadoc/com/restfb/JsonMapper.html#toJson(java.lang.Object)">JsonMapper.toJson(Object object)</a></code>.
+		You may recursively convert primitive wrapper types as specified above, <code>List</code>s, <code>Map</code>s with <code>String</code> keys, and your own Javabean types
+		by applying the <code>@Facebook</code> annotation to any fields you'd like to include in the conversion.
+	    </p>
+
+	    <p>
+		The default behavior of <code>DefaultJsonMapper</code> is to throw a <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
+		if it cannot map JSON to Java correctly.
+		However, given the frequency with which the Facebook API changes, you might want to guard yourself from "surprise" errors in production by
+		exerting more fine-grained control over how the mapper handles mapping exceptions.  You can do so like this:
+
+		<pre class="prettyprint">FacebookClient facebookClient = new DefaultFacebookClient("MY_ACCESS_TOKEN",
   new DefaultWebRequestor(), new DefaultJsonMapper(new JsonMappingErrorHandler() {
     public boolean handleMappingError(String unmappableJson, Class&lt;?&gt; targetType, Exception e) {
       
@@ -966,150 +966,150 @@ public class MyClass {
       return true;
     }
   }));</pre>
-		
-		</p>
-		
-		<div class="warning-bubble">
-			<h3>A note about Java to JSON mapping with the Graph API</h3>
-						
-			<div>
-				 This feature is only really useful for Old REST API users who <a href="legacy-rest-api.html">connect to Facebook with LegacyFacebookClient</a>.
-				 The Graph API currently does not require you to send any parameters as JSON, but this may change in the future.				 
-			</div>	
-		</div>		
-		
-		<p>
-			As-is, <code>DefaultJsonMapper</code> should meet the needs of the vast majority of users.
-			If it doesn't support a feature you need, you can easily subclass it or write your own implementation of <code><a target="_blank" href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a></code> instead.
-		</p>
-			
-		<a name="error-handling"></a>
-		<div class="spacer"></div>		
-		
-		<h2>Error Handling</h2>
 
-		<p>					
-			All <code><a target="_blank" href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods may throw <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookException.html">FacebookException</a></code>,
-			which is an unchecked exception as of RestFB 1.6.																	
-		</p>
-		
-		<p>
-			These are the <code>FacebookException</code> subclasses that you may catch:
-		</p>
-		
-		<ul id="exceptions-list">
-			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
-				<br/>
-				<span class="footnote">					
-					Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
-					It usually indicates that you've used the <code>@Facebook</code> annotation on a field with an unsupported type or
-					the Facebook API JSON doesn't map correctly to the fields you've annotated (e.g. attempting to map a JSON string to a Java <code>BigDecimal</code>
-					or a JSON object to a Java <code>List</code>).					
-				</span>
-				<div class="spacer"></div>
-				<span class="footnote">
-					You generally should not explicitly catch this exception in your code, as it usually signifies programmer
-					error in setting up <code>@Facebook</code> annotations.  One valid use for catching this exception,
-					however, is to detect when Facebook changes what an API call returns on their end, which would break your live code.
-					It may be useful to catch this exception and then send a notification to you or your ops team to notify them
-					that your application needs to be updated.
-				</span>
-			</li>
-			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookNetworkException.html">FacebookNetworkException</a></code>
-				<br/>
-				<span class="footnote">
-					Thrown when a failure occurs at the network level.  This can happen if your machine
-					doesn't have a network connection or the Facebook API endpoint returns an unexpected HTTP status code.
-					If there's an HTTP status code available, it's included in the exception so you may take custom actions
-					depending on what type of error occurred.
-				</span>				
-			</li>
-			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookGraphException.html">FacebookGraphException</a></code>
-				<br/>
-				<span class="footnote">
-					Thrown when the Graph API returns an error, as shown in the example JSON snippet below.
-					Exposes the <code>type</code> and <code>message</code> so you can
-					handle them in your code and take custom action as needed.															
-				</span>			
-					
-<pre style="margin-top: 6px;">{
+	    </p>
+
+	    <div class="warning-bubble">
+		<h3>A note about Java to JSON mapping with the Graph API</h3>
+
+		<div>
+		    This feature is only really useful for Old REST API users who <a href="legacy-rest-api.html">connect to Facebook with LegacyFacebookClient</a>.
+		    The Graph API currently does not require you to send any parameters as JSON, but this may change in the future.				 
+		</div>	
+	    </div>		
+
+	    <p>
+		As-is, <code>DefaultJsonMapper</code> should meet the needs of the vast majority of users.
+		If it doesn't support a feature you need, you can easily subclass it or write your own implementation of <code><a target="_blank" href="javadoc/com/restfb/JsonMapper.html">JsonMapper</a></code> instead.
+	    </p>
+
+	    <a name="error-handling"></a>
+	    <div class="spacer"></div>		
+
+	    <h2>Error Handling</h2>
+
+	    <p>					
+		All <code><a target="_blank" href="javadoc/com/restfb/FacebookClient.html">FacebookClient</a></code> methods may throw <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookException.html">FacebookException</a></code>,
+		which is an unchecked exception as of RestFB 1.6.																	
+	    </p>
+
+	    <p>
+		These are the <code>FacebookException</code> subclasses that you may catch:
+	    </p>
+
+	    <ul id="exceptions-list">
+		<li>
+		    <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookJsonMappingException.html">FacebookJsonMappingException</a></code>
+		    <br/>
+		    <span class="footnote">					
+			Thrown when an error occurs when attempting to map Facebook API response JSON to a Java object.
+			It usually indicates that you've used the <code>@Facebook</code> annotation on a field with an unsupported type or
+			the Facebook API JSON doesn't map correctly to the fields you've annotated (e.g. attempting to map a JSON string to a Java <code>BigDecimal</code>
+			or a JSON object to a Java <code>List</code>).					
+		    </span>
+		    <div class="spacer"></div>
+		    <span class="footnote">
+			You generally should not explicitly catch this exception in your code, as it usually signifies programmer
+			error in setting up <code>@Facebook</code> annotations.  One valid use for catching this exception,
+			however, is to detect when Facebook changes what an API call returns on their end, which would break your live code.
+			It may be useful to catch this exception and then send a notification to you or your ops team to notify them
+			that your application needs to be updated.
+		    </span>
+		</li>
+		<li>
+		    <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookNetworkException.html">FacebookNetworkException</a></code>
+		    <br/>
+		    <span class="footnote">
+			Thrown when a failure occurs at the network level.  This can happen if your machine
+			doesn't have a network connection or the Facebook API endpoint returns an unexpected HTTP status code.
+			If there's an HTTP status code available, it's included in the exception so you may take custom actions
+			depending on what type of error occurred.
+		    </span>				
+		</li>
+		<li>
+		    <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookGraphException.html">FacebookGraphException</a></code>
+		    <br/>
+		    <span class="footnote">
+			Thrown when the Graph API returns an error, as shown in the example JSON snippet below.
+			Exposes the <code>type</code> and <code>message</code> so you can
+			handle them in your code and take custom action as needed.															
+		    </span>			
+
+		    <pre style="margin-top: 6px;">{
   "error": {
     "type": "SomeBizarreTypeOfException",
     "message": "Everything went wrong."
   }
 }</pre>								
-				<span class="footnote">
-					Note that <code>FacebookGraphException</code> is a catchall Graph API exception.					
-					For your convenience, RestFB will throw more-specific
-					subclasses <code>FacebookOAuthException</code> and <code>FacebookQueryParseException</code> if it detects
-					either of these Graph API error types.  These are described below.									
-				</span>						
-			</li>
-			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookOAuthException.html">FacebookOAuthException</a></code>
-				<br/>
-				<span class="footnote">
-					Thrown when the Graph API returns an OAuth-related error (type <code>OAuthException</code> or <code>OAuthAccessTokenException</code>),
-					as shown in the example JSON snippet below.													
-				</span>			
-					
-<pre style="margin-top: 6px;">{
+		    <span class="footnote">
+			Note that <code>FacebookGraphException</code> is a catchall Graph API exception.					
+			For your convenience, RestFB will throw more-specific
+			subclasses <code>FacebookOAuthException</code> and <code>FacebookQueryParseException</code> if it detects
+			either of these Graph API error types.  These are described below.									
+		    </span>						
+		</li>
+		<li>
+		    <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookOAuthException.html">FacebookOAuthException</a></code>
+		    <br/>
+		    <span class="footnote">
+			Thrown when the Graph API returns an OAuth-related error (type <code>OAuthException</code> or <code>OAuthAccessTokenException</code>),
+			as shown in the example JSON snippet below.													
+		    </span>			
+
+		    <pre style="margin-top: 6px;">{
   "error": {
     "type": "OAuthException",
     "message": "Invalid access token signature."
   }
 }</pre>												
-			</li>	
-			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookQueryParseException.html">FacebookQueryParseException</a></code>
-				<br/>
-				<span class="footnote">
-					Thrown when the Graph API returns an FQL query parsing error (type <code>QueryParseException</code>),
-					as shown in the example JSON snippet below.													
-				</span>			
-					
-<pre style="margin-top: 6px;">{
+		</li>	
+		<li>
+		    <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookQueryParseException.html">FacebookQueryParseException</a></code>
+		    <br/>
+		    <span class="footnote">
+			Thrown when the Graph API returns an FQL query parsing error (type <code>QueryParseException</code>),
+			as shown in the example JSON snippet below.													
+		    </span>			
+
+		    <pre style="margin-top: 6px;">{
   "error": {
     "type": "QueryParseException",
     "message": "Unknown path components: /fizzle"
   }
 }</pre>												
-			</li>	
-			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
-				<br/>
-				<span class="footnote">
-					This is thrown by RestFB when an FQL call fails.  <code>FacebookGraphException</code> and its subclasses are not applicable in that case because
-					Facebook returns this "legacy" exception instead due to FQL not yet being a full-fledged member of the Graph API. 
-					
-					<code>FacebookResponseStatusException</code> will include both the error code and error message returned by the Facebook API
-					so you may take custom actions depending on the type of error that occurred.
-				</span>				
-			</li>
-			<li>
-				<code><a target="_blank" href="javadoc/com/restfb/exception/FacebookResponseContentException.html">FacebookResponseContentException</a></code>
-				<br/>
-				<span class="footnote">
-					This is thrown by RestFB when Facebook responds with unexpected data. For example, when extending an access token,
-					Facebook should return an HTTP response body of the form <code>access_token=123&expires=456</code>. But if Facebook
-					does not respond as expected - perhaps they modify the response format in some future API release - <code>FacebookResponseContentException</code> will be thrown.					
-				</span>
-				<div class="spacer"></div>
-				<span class="footnote">
-					It is unlikely that you will ever see this exception.
-				</span>				
-			</li>			
-		</ul>
-		
-		<p>
-			Here's some example code to illustrate the above.  Keep in mind that your code doesn't
-			need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
-		</p>
-		
-		<pre class="prettyprint">
+		</li>	
+		<li>
+		    <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookResponseStatusException.html">FacebookResponseStatusException</a></code>
+		    <br/>
+		    <span class="footnote">
+			This is thrown by RestFB when an FQL call fails.  <code>FacebookGraphException</code> and its subclasses are not applicable in that case because
+			Facebook returns this "legacy" exception instead due to FQL not yet being a full-fledged member of the Graph API. 
+
+			<code>FacebookResponseStatusException</code> will include both the error code and error message returned by the Facebook API
+			so you may take custom actions depending on the type of error that occurred.
+		    </span>				
+		</li>
+		<li>
+		    <code><a target="_blank" href="javadoc/com/restfb/exception/FacebookResponseContentException.html">FacebookResponseContentException</a></code>
+		    <br/>
+		    <span class="footnote">
+			This is thrown by RestFB when Facebook responds with unexpected data. For example, when extending an access token,
+			Facebook should return an HTTP response body of the form <code>access_token=123&expires=456</code>. But if Facebook
+			does not respond as expected - perhaps they modify the response format in some future API release - <code>FacebookResponseContentException</code> will be thrown.					
+		    </span>
+		    <div class="spacer"></div>
+		    <span class="footnote">
+			It is unlikely that you will ever see this exception.
+		    </span>				
+		</li>			
+	    </ul>
+
+	    <p>
+		Here's some example code to illustrate the above.  Keep in mind that your code doesn't
+		need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
+	    </p>
+
+	    <pre class="prettyprint">
 String query = "SELECT name FROM user WHERE uid=220439 or uid=7901103";
 
 try {
@@ -1134,42 +1134,42 @@ try {
 } catch (FacebookException e) {
   // This is the catchall handler for any kind of Facebook exception
 }</pre>
-		
-		<div class="spacer"></div>
-		
-		<p>
-			Here's some example code to illustrate the above.  Keep in mind that your code doesn't
-			need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
-		</p>		
-		
-		<a name="extensibility-and-unit-testing"></a>
-		<div class="spacer"></div>
-				
-		<h2>Extensibility and Unit Testing</h2>
 
-		<p>
-			In addition to <code><a target="_blank" href="javadoc/com/restfb/DefaultFacebookClient.html">FacebookClient</a></code>, RestFB provides default implementations
-			for <code><a target="_blank" href="javadoc/com/restfb/DefaultWebRequestor.html">WebRequestor</a></code> and
-			<code><a target="_blank" href="javadoc/com/restfb/DefaultJsonMapper.html">JsonMapper</a></code>, two components that
-			<code>DefaultFacebookClient</code> depends on to do its work.						
-		</p>
-		
-		<p>
-			These dependencies are designed to allow for straightforward subclassing (if you only want to replace a little bit of functionality)
-			and simple custom implementations (if you require full control).
-		</p>
-		
-		<p>
-			This comes in handy when unit testing - for example, you can write your own <code>WebRequestor</code> implementation
-			that simulates a Facebook API endpoint response.  You can drop in custom data designed to exercise your application's
-			Facebook integration or simulate error conditions to make sure you're handling them properly.				
-		</p>
-		
-		<p>
-			Here's a trivial example which shows one way you might implement this:
-		</p>
+	    <div class="spacer"></div>
 
-		<pre class="prettyprint">
+	    <p>
+		Here's some example code to illustrate the above.  Keep in mind that your code doesn't
+		need to handle every single exception the way we're doing here - this is just to demonstrate what's possible.
+	    </p>		
+
+	    <a name="extensibility-and-unit-testing"></a>
+	    <div class="spacer"></div>
+
+	    <h2>Extensibility and Unit Testing</h2>
+
+	    <p>
+		In addition to <code><a target="_blank" href="javadoc/com/restfb/DefaultFacebookClient.html">FacebookClient</a></code>, RestFB provides default implementations
+		for <code><a target="_blank" href="javadoc/com/restfb/DefaultWebRequestor.html">WebRequestor</a></code> and
+		<code><a target="_blank" href="javadoc/com/restfb/DefaultJsonMapper.html">JsonMapper</a></code>, two components that
+		<code>DefaultFacebookClient</code> depends on to do its work.						
+	    </p>
+
+	    <p>
+		These dependencies are designed to allow for straightforward subclassing (if you only want to replace a little bit of functionality)
+		and simple custom implementations (if you require full control).
+	    </p>
+
+	    <p>
+		This comes in handy when unit testing - for example, you can write your own <code>WebRequestor</code> implementation
+		that simulates a Facebook API endpoint response.  You can drop in custom data designed to exercise your application's
+		Facebook integration or simulate error conditions to make sure you're handling them properly.				
+	    </p>
+
+	    <p>
+		Here's a trivial example which shows one way you might implement this:
+	    </p>
+
+	    <pre class="prettyprint">
 FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN,  
 
   // A one-off <a target="_blank" href="javadoc/com/restfb/DefaultWebRequestor.html">DefaultWebRequestor</a> for testing that returns a hardcoded JSON
@@ -1191,96 +1191,96 @@ User user = facebookClient.<a target="_blank" href="javadoc/com/restfb/FacebookC
 
 assert "123456".equals(user.getId());
 assert "Test Person".equals(user.getName());</pre>
-			
-		<a name="links"></a>
-		<div class="spacer"></div>
-		
-		<h2>Links</h2>
-		
-		<p>
-			Visit <a target="_blank" href="https://github.com/revetkn/restfb">RestFB's home on Github</a>.		
-		</p>
-		
-		<p>
-			Have a question not covered here?  Ask in the <a target="_blank" href="http://groups.google.com/group/restfb">RestFB Google Group</a>.		
-		</p>		
-		
-		<p>
-			Found a bug or have an enhancement request? <a target="_blank" href="https://github.com/revetkn/restfb/issues">Create a ticket in the issue tracker</a>.		
-		</p>		
-		
-		<p>
-			Download a read-only copy of the current source code using Git:		
-			<pre>
-git clone git://github.com/revetkn/restfb.git</pre>
-		</p>
-		
-		<a name="restfb-users"></a>
-		<div class="spacer"></div>
-		
-		<h2>Some RestFB Users</h2>
 
-		<div class="user-link-container angrybirds">
-			<a target="_blank" href="https://apps.facebook.com/angrybirds/"><img src="images/angry-birds-friends.gif"/></a>
-		</div>		
-		<div class="user-link-container friend2friend">
-			<a target="_blank" href="http://friend2friend.com"><img src="images/friend2friend.jpg"/></a>
-		</div>
-		<div class="user-link-container ibm">
-			<a target="_blank" href="http://www.ibm.com/cn/zh/"><img src="images/ibm.png"/></a>	
-		</div>
-		<div class="user-link-container hubspot">
-			<a target="_blank" href="http://hubspot.com"><img src="images/hubspot.png"/></a>	
-		</div>			
-		<div style="clear: both;"></div>
-		<div class="user-link-container tynamo">
-			<a target="_blank" href="http://tynamo.org"><img src="images/tynamo.png"/></a>	
-		</div>			
-				
-		<p class="clearer">
-			If you're a happy RestFB user and would like to add a link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
-		</p>		
-		
-		<a name="about"></a>
-		<div class="spacer"></div>
-		
-		<h2>About</h2>
-		
-		<p>
-			RestFB is written by <a href="mailto:maa@xmog.com">Mark Allen</a> and sponsored by <a target="_blank" href="http://xmog.com">Transmogrify, LLC</a>. 
-		</p>
-		
-		<p>
-			Transmogrify is a Philadelphia-area software shop specializing in product design and web/mobile software development.
-			Our experience runs the gamut from embedded systems to Oracle DBA work to the cutting-edge web framework and iOS/Android technologies.
-			Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com">product@xmog.com</a> if you need a hand with
-			anything software-related.  We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.			
-		</p>														
-		
-		<p>
-			Development of RestFB was aided by
-			<ul>
-				<li><a target="_blank" href="http://somafm.com/">SomaFM</a></li>
-				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Dead_Cities,_Red_Seas_%26_Lost_Ghosts"><i>Dead Cities, Red Seas, &amp; Lost Ghosts</i> (M83)</a></li>
-				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Orbital_2"><i>Orbital 2</i> (Orbital)</a></li>
-				<li><a target="_blank" href="http://en.wikipedia.org/wiki/The_Crew_(7_Seconds_album)"><i>The Crew</i> (7 Seconds)</a></li>
-				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Treatment_5"><i>Treatment 5</i> (Osker)</a></li>
-				<li><a target="_blank" href="http://en.wikipedia.org/wiki/Kid_Dynamite_(album)"><i>Kid Dynamite</i> (Kid Dynamite)</a></li>				
-			</ul>			
-		</p>
-		
-		<p>Website icons provided by <a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>.</p>
-		
-		<div class="spacer"></div>
-		
-		<a name="licensing"></a>					
-		<h2>Licensing</h2>
-		
-		<p>
-			RestFB is open source software released under the terms of the MIT License:
-		</p>
-		
+	    <a name="links"></a>
+	    <div class="spacer"></div>
+
+	    <h2>Links</h2>
+
+	    <p>
+		Visit <a target="_blank" href="https://github.com/revetkn/restfb">RestFB's home on Github</a>.		
+	    </p>
+
+	    <p>
+		Have a question not covered here?  Ask in the <a target="_blank" href="http://groups.google.com/group/restfb">RestFB Google Group</a>.		
+	    </p>		
+
+	    <p>
+		Found a bug or have an enhancement request? <a target="_blank" href="https://github.com/revetkn/restfb/issues">Create a ticket in the issue tracker</a>.		
+	    </p>		
+
+	    <p>
+		Download a read-only copy of the current source code using Git:		
 		<pre>
+git clone git://github.com/revetkn/restfb.git</pre>
+	    </p>
+
+	    <a name="restfb-users"></a>
+	    <div class="spacer"></div>
+
+	    <h2>Some RestFB Users</h2>
+
+	    <div class="user-link-container angrybirds">
+		<a target="_blank" href="https://apps.facebook.com/angrybirds/"><img src="images/angry-birds-friends.gif"/></a>
+	    </div>		
+	    <div class="user-link-container friend2friend">
+		<a target="_blank" href="http://friend2friend.com"><img src="images/friend2friend.jpg"/></a>
+	    </div>
+	    <div class="user-link-container ibm">
+		<a target="_blank" href="http://www.ibm.com/cn/zh/"><img src="images/ibm.png"/></a>	
+	    </div>
+	    <div class="user-link-container hubspot">
+		<a target="_blank" href="http://hubspot.com"><img src="images/hubspot.png"/></a>	
+	    </div>			
+	    <div style="clear: both;"></div>
+	    <div class="user-link-container tynamo">
+		<a target="_blank" href="http://tynamo.org"><img src="images/tynamo.png"/></a>	
+	    </div>			
+
+	    <p class="clearer">
+		If you're a happy RestFB user and would like to add a link to your site, please <a href="mailto:maa@xmog.com">send me an email</a>.
+	    </p>		
+
+	    <a name="about"></a>
+	    <div class="spacer"></div>
+
+	    <h2>About</h2>
+
+	    <p>
+		RestFB is written by <a href="mailto:maa@xmog.com">Mark Allen</a> and sponsored by <a target="_blank" href="http://xmog.com">Transmogrify, LLC</a>. 
+	    </p>
+
+	    <p>
+		Transmogrify is a Philadelphia-area software shop specializing in product design and web/mobile software development.
+		Our experience runs the gamut from embedded systems to Oracle DBA work to the cutting-edge web framework and iOS/Android technologies.
+		Give us a call at (215) 436-XMOG or send an email to <a href="mailto:product@xmog.com">product@xmog.com</a> if you need a hand with
+		anything software-related.  We can handle every part of the software lifecycle, from initial requirements and design to ongoing maintenance and support.			
+	    </p>														
+
+	    <p>
+		Development of RestFB was aided by
+		<ul>
+		    <li><a target="_blank" href="http://somafm.com/">SomaFM</a></li>
+		    <li><a target="_blank" href="http://en.wikipedia.org/wiki/Dead_Cities,_Red_Seas_%26_Lost_Ghosts"><i>Dead Cities, Red Seas, &amp; Lost Ghosts</i> (M83)</a></li>
+		    <li><a target="_blank" href="http://en.wikipedia.org/wiki/Orbital_2"><i>Orbital 2</i> (Orbital)</a></li>
+		    <li><a target="_blank" href="http://en.wikipedia.org/wiki/The_Crew_(7_Seconds_album)"><i>The Crew</i> (7 Seconds)</a></li>
+		    <li><a target="_blank" href="http://en.wikipedia.org/wiki/Treatment_5"><i>Treatment 5</i> (Osker)</a></li>
+		    <li><a target="_blank" href="http://en.wikipedia.org/wiki/Kid_Dynamite_(album)"><i>Kid Dynamite</i> (Kid Dynamite)</a></li>				
+		</ul>			
+	    </p>
+
+	    <p>Website icons provided by <a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Mark James</a>.</p>
+
+	    <div class="spacer"></div>
+
+	    <a name="licensing"></a>					
+	    <h2>Licensing</h2>
+
+	    <p>
+		RestFB is open source software released under the terms of the MIT License:
+	    </p>
+
+	    <pre>
 Copyright (c) 2010-2014 Mark Allen. 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1301,24 +1301,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.</pre>
 
-		<div class="spacer"></div>		
+	    <div class="spacer"></div>		
 
 	</div>
 
 	<script type="text/javascript">
-		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 	</script>
 	<script type="text/javascript">
-		try {
-			var pageTracker = _gat._getTracker("UA-12795899-1");
-			pageTracker._trackPageview();
-		} catch(err) {}
+	    try {
+		var pageTracker = _gat._getTracker("UA-12795899-1");
+		pageTracker._trackPageview();
+	    } catch (err) {
+	    }
 	</script>				
-				
+
 	<script type="text/javascript" src="js/prettify.js"></script>				
 	<script type="text/javascript">
-		prettyPrint();
+	    prettyPrint();
 	</script>
-</body>
+    </body>
 </html>
