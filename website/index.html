@@ -25,6 +25,7 @@
 		-->
 		<li><a href="#initialization">Initialization</a></li>  		
 		<li><a href="#fetching-single-objects">Fetching Objects</a></li>
+		<li><a href="#logging">Logging</a></li>
 		<!-- 
 		<li><a href="#fetching-multiple-objects">Fetching Multiple Objects</a></li>
 		-->  		
@@ -244,6 +245,8 @@ public class FetchObjectsResults {
 
 	    <div class="spacer"></div>
 
+	    <a name="logging"></a>
+	    <h3>Logging</h3>
 	    <div class="warning-bubble">
 		<h3>Before we go further, a few words about logging...</h3>
 
@@ -270,11 +273,29 @@ public class FetchObjectsResults {
 		    <br/>
 		    Thanks to Chris Pruett for the heads-up about that.	
 		</div>			
-	    </div>			
+	    </div>		
+	    <div class="spacer"></div>
+	    <pre class="prettyprint">
+// You'll want to initialize the bridge just once at app startup.
+// In a webapp, a good place to do this is ContextLoaderListener#contextInitialized()
+SLF4JBridgeHandler.install();
+
+try {
+  FacebookClient facebookClient = new DefaultFacebookClient();
+
+  // You'll notice that logging statements from this call are bridged from java.util.logging to Log4j
+  User user = facebookClient.fetchObject("btaylor", User.class);
+
+  // ...and of course this goes straight to Log4j
+  logger.debug(user);
+} finally {
+  // Make sure to tear down when you're done using the bridge
+  SLF4JBridgeHandler.uninstall();
+}		
+	    </pre>
 
 	    <a name="fetching-connections"></a>
 	    <div class="spacer"></div>
-
 	    <h3>Fetching Connections</h3>
 
 	    <pre class="prettyprint">
@@ -855,25 +876,33 @@ $ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"</pre>
 		The builtin types are as follows:
 	    </p>
 
-	    <ul>			
+	    <ul>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Account.html">Account</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Album.html">Album</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Application.html">Application</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/AppRequest.html">AppRequest</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Category.html">Category</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Checkin.html">Checkin</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Comment.html">Comment</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Conversation.html">Conversation</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/DeAuth.html">DeAuth</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Event.html">Event</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/FriendList.html">FriendList</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Group.html">Group</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Insight.html">Insight</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Link.html">Link</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Message.html">Message</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Note.html">Note</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Page.html">Page</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/PageRating.html">PageRating</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Photo.html">Photo</a></li>			
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Place.html">Place</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Post.html">Post</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Question.html">Question</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/QuestionOption.html">QuestionOption</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/Review.html">Review</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/StatusMessage.html">Status Message</a></li>
+		<li><a target="_blank" href="/javadoc/com/restfb/types/TestUser.html">TestUser</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/User.html">User</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Venue.html">Venue</a></li>
 		<li><a target="_blank" href="/javadoc/com/restfb/types/Video.html">Video</a></li>
