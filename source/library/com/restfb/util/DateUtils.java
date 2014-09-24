@@ -23,11 +23,14 @@
 package com.restfb.util;
 
 import static java.lang.String.format;
+import java.lang.ref.SoftReference;
 import static java.util.logging.Level.FINER;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -152,7 +155,7 @@ public final class DateUtils {
       return null;
 
     try {
-      return new SimpleDateFormat(format).parse(date);
+      return SimpleDateFormatHolder.formatFor(format).parse(date);
     } catch (ParseException e) {
       if (logger.isLoggable(FINER))
         logger.fine(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
@@ -160,4 +163,35 @@ public final class DateUtils {
       return null;
     }
   }
+
+  final static class SimpleDateFormatHolder {
+
+    private static final ThreadLocal<SoftReference> THREADLOCAL_FORMATTER_MAP = new ThreadLocal<SoftReference>() {
+
+      @Override
+      protected SoftReference<Map> initialValue() {
+        return new SoftReference<Map>(new HashMap<String, SimpleDateFormat>());
+      }
+
+    };
+
+    public static SimpleDateFormat formatFor(String pattern) {
+      SoftReference<Map> ref = THREADLOCAL_FORMATTER_MAP.get();
+      Map<String, SimpleDateFormat> formatterMap = ref.get();
+      if (formatterMap == null) {
+        formatterMap = new HashMap<String, SimpleDateFormat>();
+        THREADLOCAL_FORMATTER_MAP.set(new SoftReference<Map>(formatterMap));
+      }
+
+      SimpleDateFormat formatter = formatterMap.get(pattern);
+      if (formatter == null) {
+        formatter = new SimpleDateFormat(pattern);
+        formatterMap.put(pattern, formatter);
+      }
+
+      return formatter;
+    }
+
+  }
+
 }
