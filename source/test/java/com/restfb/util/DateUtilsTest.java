@@ -25,36 +25,57 @@ package com.restfb.util;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
+import java.util.Arrays;
+import java.util.Collection;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.DateUtils}.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
+@RunWith(Parameterized.class)
 public class DateUtilsTest {
+
+    private DateFormatStrategy expectedStrategy;
+    
+  @Parameterized.Parameters
+  public static Collection strategies() {
+    return Arrays.asList(new Object[][] { { new CachedDateFormatStrategy() }, { new SimpleDateFormatStrategy() } });
+  }
+
+  public DateUtilsTest(DateFormatStrategy strategy) {
+    DateUtils.setDateFormatStrategy(strategy);
+    expectedStrategy = strategy;
+  }
+
   /**
    * Tests the "short" date format.
    */
   @Test
-  public void shortDates() {
+  public void shortDatesSimple() {
     assertTrue(toDateFromShortFormat("04/15/1984") != null);
     assertTrue(toDateFromShortFormat("01/01/1970") != null);
     assertTrue(toDateFromShortFormat("1970-09-15") != null);
     assertTrue(toDateFromShortFormat("junk") == null);
+    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
   }
 
   /**
    * FB uses "long" date formats with and without timezones. Make sure we handle both gracefully.
    */
   @Test
-  public void longDates() {
+  public void longDatesSimple() {
     assertTrue(toDateFromLongFormat("2011-12-22T21:00:00+0000") != null);
     assertTrue(toDateFromLongFormat("2011-12-22T21:00:00") != null);
     assertTrue(toDateFromLongFormat("1331784257") != null);
     assertTrue(toDateFromLongFormat("junk") == null);
+    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
   }
 
   /**
@@ -66,5 +87,6 @@ public class DateUtilsTest {
     assertTrue(toDateFromMonthYearFormat("2011-12") != null);
     assertTrue(toDateFromMonthYearFormat("0000-00") == null);
     assertTrue(toDateFromMonthYearFormat("junk") == null);
+    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
   }
 }

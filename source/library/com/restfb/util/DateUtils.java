@@ -179,9 +179,10 @@ public final class DateUtils {
    * 
    * default value: {@link SimpleDateFormatStrategy}
    * 
-   * @param dateUtilsStrategy
+   * @param dateFormatStrategy
+   * 
    */
-  public static void setDateFormatStrategy(DateFormatStrategy dateUtilsStrategy) {
-    strategy = dateUtilsStrategy;
+  public static void setDateFormatStrategy(DateFormatStrategy dateFormatStrategy) {
+    strategy = dateFormatStrategy;
   }
 }
