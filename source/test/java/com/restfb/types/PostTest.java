@@ -77,4 +77,11 @@ public class PostTest extends AbstractJsonMapperTests {
       Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-with-likes-totalcount"), Post.class);
       assertEquals(33L, examplePost.getLikes().getTotalCount().longValue());
   }
+  
+  @Test
+  public void checkV2_1_PortogueseText() {
+      Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-portoguese"), Post.class);
+      String message = "Esse carro \u00e9 maravilhoso.Deus n\u00e3o nos desampara.Obrigada Senhor.";
+      assertEquals(message, examplePost.getMessage());
+  }
 }
