@@ -46,7 +46,7 @@ public class ConnectionGOTTest extends AbstractJsonMapperTests {
       }
       Likes ls = post.getLikes();
       if (null != ls && !ls.getData().isEmpty()) {
-        Assert.assertTrue(ls.getCount() > 0);
+        Assert.assertTrue(ls.getTotalCount() > 0);
       }
     }
     assertEquals(25, postPage.size());

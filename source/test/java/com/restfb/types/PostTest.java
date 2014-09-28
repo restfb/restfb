@@ -75,6 +75,6 @@ public class PostTest extends AbstractJsonMapperTests {
   @Test
   public void checkV2_1_LikesWithTotalCount() {
       Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-with-likes-totalcount"), Post.class);
-      assertEquals(33L, examplePost.getLikes().getCount().longValue());
+      assertEquals(33L, examplePost.getLikes().getTotalCount().longValue());
   }
 }

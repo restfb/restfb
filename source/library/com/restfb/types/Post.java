@@ -410,7 +410,7 @@ public class Post extends NamedFacebookType {
      */
     @Getter
     @Facebook
-    private Long count = 0L;
+    private Long totalCount = 0L;
     
     @Facebook
     private JsonObject summary;
@@ -458,8 +458,8 @@ public class Post extends NamedFacebookType {
      */
     @JsonMappingCompleted
     private void fillTotalCount() {
-	if (count==0 && summary != null && summary.has("total_count")){
-	    count = summary.getLong("total_count");
+	if (totalCount == 0 && summary != null && summary.has("total_count")){
+	    totalCount = summary.getLong("total_count");
 	}
     }
   }
@@ -741,7 +741,7 @@ public class Post extends NamedFacebookType {
    */
   public Long getLikesCount() {
     if (getLikes() != null)
-      return getLikes().getCount();
+      return getLikes().getTotalCount();
 
     return likesCount;
   }
@@ -754,6 +754,18 @@ public class Post extends NamedFacebookType {
   public Long getSharesCount() {
     if (shares != null) {
       return shares.getCount();
+    }
+    return 0L;
+  }
+  
+  /**
+   * The number of comments of this post.
+   * 
+   * @return The number of comments of this post.
+   */
+  public Long getCommentsCount() {
+    if (comments != null) {
+      return comments.getTotalCount();
     }
     return 0L;
   }

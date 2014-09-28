@@ -294,7 +294,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertTrue(post1.getLikes() == null);
 
     Post post2 = jsonMapper.toJavaObject(jsonFromClasspath("post-with-likes-v2"), Post.class);
-    assertTrue(post2.getLikes().getCount() == 49);
+    assertTrue(post2.getLikes().getTotalCount() == 49);
     assertTrue(post2.getLikesCount() == 49);
   }
 
