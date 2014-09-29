@@ -38,6 +38,7 @@ import static java.lang.String.format;
  * Normally this would be a photo or video.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ * @author Marcel Stoer
  * @since 1.6.5
  */
 public class BinaryAttachment {
