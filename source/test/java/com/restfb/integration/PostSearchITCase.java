@@ -21,6 +21,7 @@
 
 package com.restfb.integration;
 
+import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -35,7 +36,7 @@ public class PostSearchITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void tesPostSearchV1_0() {
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getAccessToken(), Version.VERSION_1_0);
+    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_1_0);
     Connection publicSearch =
         facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
           Parameter.with("type", "post"));
@@ -45,7 +46,7 @@ public class PostSearchITCase extends RestFbIntegrationTestBase {
 
   @Test(expected = FacebookOAuthException.class)
   public void tesPostSearchV2_0() {
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getAccessToken(), Version.VERSION_2_0);
+    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_0);
     Connection publicSearch =
         facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
           Parameter.with("type", "post"));

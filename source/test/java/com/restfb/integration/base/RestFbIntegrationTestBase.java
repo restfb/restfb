@@ -19,24 +19,38 @@
  * THE SOFTWARE.
  */
 
-package com.restfb.integration;
+package com.restfb.integration.base;
 
+import java.io.InputStream;
+import java.util.Properties;
 import org.junit.Assume;
 import org.junit.Before;
 
 abstract public class RestFbIntegrationTestBase {
 
-  private String accessToken = null;
+  private RestFbIntegrationTestSettings testSettings = null;
 
   @Before
   public void setup() {
-    String key = System.getProperty("accessToken");
-    Assume.assumeNotNull(key);
-    accessToken = key;
+   
+      InputStream propertyStream = getClass().getClassLoader().getResourceAsStream("integration-test.properties");
+      Assume.assumeNotNull(propertyStream);
+      Properties props = new Properties();
+      try {
+	props.load(propertyStream);
+	testSettings = new RestFbIntegrationTestSettings(props);
+	if (testSettings.writeAccessAllowed()) {
+	    Assume.assumeNotNull(getClass().getAnnotation(NeedFacebookWriteAccess.class));
+	}
+      }
+      catch (Throwable ioe) {
+	  Assume.assumeNoException(ioe);
+      }
+      
   }
 
-  protected String getAccessToken() {
-    return accessToken;
+  protected RestFbIntegrationTestSettings getTestSettings() {
+    return testSettings;
   }
 
 }

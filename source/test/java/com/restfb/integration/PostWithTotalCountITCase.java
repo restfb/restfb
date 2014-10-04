@@ -18,8 +18,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.restfb.integration;
 
+import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
@@ -33,7 +35,7 @@ public class PostWithTotalCountITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void checkPostWithCommentsAndLikes() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getAccessToken(), Version.VERSION_2_1);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
     Post gotPost =
         client.fetchObject("74133697733_10152424266332734", Post.class,
           Parameter.with("fields", "from,to,likes.summary(true),comments.summary(true)"));

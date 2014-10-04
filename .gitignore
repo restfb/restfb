@@ -6,3 +6,4 @@
 *.iml
 /target/
 /nb-configuration.xml
+/source/test/resources/integration-test.properties

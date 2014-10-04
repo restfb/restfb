@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Norbert Bartels.
- * 
+ * Copyright (c) 2010-2014 Norbert Bartels
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -20,28 +19,12 @@
  * THE SOFTWARE.
  */
 
-package com.restfb.integration;
+package com.restfb.integration.base;
 
-import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.DefaultFacebookClient;
-import com.restfb.Parameter;
-import com.restfb.Version;
-import com.restfb.types.Url;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-public class FetchOpenGraphUrlITCase extends RestFbIntegrationTestBase {
-
-  @Test
-  public void imdbUrlCheck() {
-
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
-    Url objectUrl = client.fetchObject("/", Url.class, Parameter.with("id", "http://www.imdb.com/title/tt2015381/"));
-    assertNotNull(objectUrl);
-    assertEquals("http://www.imdb.com/title/tt2015381/", objectUrl.getId());
-    assertNotNull(objectUrl.getOgObject());
-    assertEquals("10150298925420108", objectUrl.getOgObject().getId());
-    assertEquals("video.movie", objectUrl.getOgObject().getType());
-  }
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NeedFacebookWriteAccess {
+    
 }
