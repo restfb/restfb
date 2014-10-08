@@ -409,22 +409,35 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
    *      com.restfb.Parameter[])
    */
-  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
+  public <T> T publish(String connection, Class<T> objectType, List<BinaryAttachment> binaryAttachments,
       Parameter... parameters) {
     verifyParameterPresence("connection", connection);
 
-    List<BinaryAttachment> binaryAttachments = new ArrayList<BinaryAttachment>();
-    if (binaryAttachment != null)
-      binaryAttachments.add(binaryAttachment);
+    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
+    if (binaryAttachments != null)
+      attachments = binaryAttachments;
 
-    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachments, parameters), objectType);
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, attachments, parameters), objectType);
   }
 
+  /**
+   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
+   *      com.restfb.Parameter[])
+   */
+  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters) {
+    
+    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
+    if (binaryAttachment != null)
+      attachments.add(binaryAttachment);
+    
+    return publish(connection, objectType, attachments, parameters);
+  }
+  
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
-    return publish(connection, objectType, null, parameters);
+    return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
   }
 
   /**
@@ -1121,7 +1134,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @since 1.6.5
    */
   protected String getFacebookGraphVideoEndpointUrl() {
-    return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+    if (apiVersion.isUrlElementRequired()) {
+      return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+    } else {
+      return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+    }
   }
 
   /**
@@ -1129,6 +1146,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   protected String getFacebookReadOnlyEndpointUrl() {
-    return FACEBOOK_READ_ONLY_ENDPOINT_URL;
+    if (apiVersion.isUrlElementRequired()) {
+      return FACEBOOK_READ_ONLY_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+    } else {
+      return FACEBOOK_READ_ONLY_ENDPOINT_URL;
+    }
   }
 }
