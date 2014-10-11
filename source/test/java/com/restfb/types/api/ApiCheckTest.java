@@ -24,10 +24,11 @@ package com.restfb.types.api;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class ApiCheckTest extends BaseTestCheck {
@@ -36,7 +37,7 @@ public class ApiCheckTest extends BaseTestCheck {
   public void check() throws IOException, ClassNotFoundException {
     Properties props;
     props = new Properties();
-    props.load(getClass().getResourceAsStream("/api.properties"));
+    props.load(getClass().getResourceAsStream("/pre-1.7-api.properties"));
     for (Map.Entry<Object, Object> entrySet : props.entrySet()) {
       String key = (String) entrySet.getKey();
       String value = (String) entrySet.getValue();
@@ -50,7 +51,11 @@ public class ApiCheckTest extends BaseTestCheck {
         expectedMethods = new HashSet<String>(Arrays.asList(methods));
       }
       if (expectedMethods.size() > 0) {
-        assertEquals(key, expectedMethods, currentMethods);
+        Iterator<String> expIterator = expectedMethods.iterator();
+        while (expIterator.hasNext()) {
+          String expMethod = expIterator.next();
+          assertTrue(key, currentMethods.contains(expMethod));
+        }
       }
     }
   }

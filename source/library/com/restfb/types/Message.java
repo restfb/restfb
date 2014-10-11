@@ -30,8 +30,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
+import java.util.ArrayList;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/message/">Message Graph API type</a>.
@@ -41,8 +46,18 @@ import lombok.Getter;
  * @author alockhart
  */
 public class Message extends FacebookType {
+  
   @Facebook("created_time")
-  private String createdTime;
+  private String rawCreatedTime;
+
+  /**
+   * The time the message was initially created.
+   * 
+   * @return The time the message was initially created.
+   */
+  @Getter
+  @Setter
+  private Date createdTime;
 
   /**
    * The sender of this message
@@ -50,6 +65,7 @@ public class Message extends FacebookType {
    * @return The sender of this message
    */
   @Getter
+  @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -60,7 +76,7 @@ public class Message extends FacebookType {
    */
   @Getter
   @Facebook
-  private List<NamedFacebookType> to;
+  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
   /**
    * The text of the message
@@ -68,14 +84,24 @@ public class Message extends FacebookType {
    * @return The text of the message
    */
   @Getter
+  @Setter
   @Facebook
   private String message;
 
   @Facebook
-  private List<Attachment> attachments;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   @Facebook("updated_time")
-  private String updatedTime;
+  transient private String rawUpdatedTime;
+
+  /**
+   * The time of the last update to this message.
+   * 
+   * @return The time of the last update to this message.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   /**
    * The "unread" count for this message.
@@ -83,6 +109,7 @@ public class Message extends FacebookType {
    * @return The "unread" count for this message.
    */
   @Getter
+  @Setter
   @Facebook
   private Integer unread;
 
@@ -92,6 +119,7 @@ public class Message extends FacebookType {
    * @return Whether this message has been seen.
    */
   @Getter
+  @Setter
   @Facebook
   private Boolean unseen;
 
@@ -113,6 +141,7 @@ public class Message extends FacebookType {
      * @return The attachment's filename.
      */
     @Getter
+    @Setter
     @Facebook
     private String name;
 
@@ -122,6 +151,7 @@ public class Message extends FacebookType {
      * @return The attachment's mime type.
      */
     @Getter
+    @Setter
     @Facebook("mime_type")
     private String mimeType;
 
@@ -131,16 +161,17 @@ public class Message extends FacebookType {
      * @return The size of the attachment in bytes.
      */
     @Getter
+    @Setter
     @Facebook
     private Long size;
 
     /**
-     * When the attached file is an image, Facebook will also send information
-     * about it's width, height and url.
-     *
+     * When the attached file is an image, Facebook will also send information about it's width, height and url.
+     * 
      * @return The attachment's image data.
      */
     @Getter
+    @Setter
     @Facebook("image_data")
     private ImageData imageData;
 
@@ -170,47 +201,50 @@ public class Message extends FacebookType {
   }
 
   /**
-  * Additional attachment information, only present when an attached file is
-  * an image.
-  *
-  * @author Felipe Kurkowski
-  */
+   * Additional attachment information, only present when an attached file is an image.
+   * 
+   * @author Felipe Kurkowski
+   */
   public static class ImageData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * The image's width.
-     *
+     * 
      * @return The image's width.
      */
     @Getter
+    @Setter
     @Facebook
     private int width;
 
     /**
      * The image's height.
-     *
+     * 
      * @return The image's height.
      */
     @Getter
+    @Setter
     @Facebook
     private int height;
 
     /**
      * The image's url.
-     *
+     * 
      * @return The image's url.
      */
     @Getter
+    @Setter
     @Facebook
     private String url;
 
     /**
      * The image's preview url.
-     *
+     * 
      * @return The image's preview url.
      */
     @Getter
+    @Setter
     @Facebook("preview_url")
     private String previewUrl;
 
@@ -239,22 +273,10 @@ public class Message extends FacebookType {
     }
   }
 
-  /**
-   * The time the message was initially created.
-   * 
-   * @return The time the message was initially created.
-   */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
-  }
-
-  /**
-   * The time of the last update to this message.
-   * 
-   * @return The time of the last update to this message.
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   /**
@@ -264,5 +286,21 @@ public class Message extends FacebookType {
    */
   public List<Attachment> getAttachments() {
     return (attachments != null ? unmodifiableList(attachments) : null);
+  }
+
+  public boolean addAttachment(Attachment attachment) {
+    return attachments.add(attachment);
+  }
+
+  public boolean removeAttachment(Attachment attachment) {
+    return attachments.remove(attachment);
+  }
+  
+  public boolean addTo(NamedFacebookType receiver) {
+      return to.add(from);
+  }
+  
+  public boolean removeTo(NamedFacebookType receiver) {
+      return to.remove(from);
   }
 }

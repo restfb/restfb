@@ -24,6 +24,7 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/FriendList" >FriendList Graph API
@@ -42,6 +43,7 @@ public class FriendList extends NamedFacebookType {
    * @return The type of the friends list.
    */
   @Getter
+  @Setter
   @Facebook("list_type")
   private String listType;
 

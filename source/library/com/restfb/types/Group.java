@@ -22,12 +22,14 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/group">Group Graph API type</a>.
@@ -43,6 +45,7 @@ public class Group extends NamedFacebookType {
    * @return An object containing the name and ID of the user who owns the group.
    */
   @Getter
+  @Setter
   @Facebook
   private NamedFacebookType owner;
 
@@ -52,6 +55,7 @@ public class Group extends NamedFacebookType {
    * @return The group description.
    */
   @Getter
+  @Setter
   @Facebook
   private String description;
 
@@ -61,6 +65,7 @@ public class Group extends NamedFacebookType {
    * @return The URL for the group's website.
    */
   @Getter
+  @Setter
   @Facebook
   private String link;
 
@@ -70,6 +75,7 @@ public class Group extends NamedFacebookType {
    * @return The location of this group, a structured address object.
    */
   @Getter
+  @Setter
   @Facebook
   private Venue venue;
 
@@ -79,11 +85,21 @@ public class Group extends NamedFacebookType {
    * @return The privacy setting of the group, either 'OPEN', 'CLOSED', or 'SECRET'.
    */
   @Getter
+  @Setter
   @Facebook
   private String privacy;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
+
+  /**
+   * The last time the group was updated.
+   * 
+   * @return The last time the group was updated.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   /**
    * The URL of the group's icon
@@ -92,18 +108,15 @@ public class Group extends NamedFacebookType {
    * @since 1.6.16
    */
   @Getter
+  @Setter
   @Facebook
   private String icon;
 
   private static final long serialVersionUID = 1L;
 
-  /**
-   * The last time the group was updated.
-   * 
-   * @return The last time the group was updated.
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  @JsonMappingCompleted
+  void convertTime() {
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
 }

@@ -22,12 +22,13 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/user/#apprequests" >App Request Graph API
@@ -43,7 +44,7 @@ public class AppRequest extends FacebookType {
    * 
    * @return App associated with the request.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private Application application;
 
@@ -52,7 +53,7 @@ public class AppRequest extends FacebookType {
    * 
    * @return The recipient user associated with the request.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private NamedFacebookType to;
 
@@ -61,7 +62,7 @@ public class AppRequest extends FacebookType {
    * 
    * @return The sender user associated with the request.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -70,12 +71,20 @@ public class AppRequest extends FacebookType {
    * 
    * @return A string describing the request.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private String message;
 
   @Facebook("created_time")
-  private String createdTime;
+  transient private String rawCreatedTime;
+  
+  /**
+   * Timestamp when the request was created.
+   * 
+   * @return Timestamp when the request was created.
+   */
+  @Getter @Setter
+  private Date createdTime;
 
   private static final long serialVersionUID = 1L;
 
@@ -92,7 +101,7 @@ public class AppRequest extends FacebookType {
      * 
      * @return The application's canvas name.
      */
-    @Getter
+    @Getter @Setter
     @Facebook("canvas_name")
     private String canvasName;
 
@@ -101,19 +110,15 @@ public class AppRequest extends FacebookType {
      * 
      * @return The application's namespace.
      */
-    @Getter
+    @Getter @Setter
     @Facebook
     private String namespace;
 
     private static final long serialVersionUID = 1L;
   }
 
-  /**
-   * Timestamp when the request was created.
-   * 
-   * @return Timestamp when the request was created.
-   */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  @JsonMapper.JsonMappingCompleted
+  void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 }

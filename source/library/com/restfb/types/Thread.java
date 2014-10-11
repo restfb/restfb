@@ -23,11 +23,14 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.ArrayList;
 import static java.util.Collections.unmodifiableList;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/thread">Thread Graph API type</a>.
@@ -37,10 +40,10 @@ import lombok.Getter;
 public class Thread extends FacebookType {
 
   @Facebook
-  private List<NamedFacebookType> to;
+  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
   @Facebook
-  private List<Message> comments;
+  private List<Message> comments = new ArrayList<Message>();
 
   /**
    * The amount of messages that are unread by the session profile.
@@ -48,6 +51,7 @@ public class Thread extends FacebookType {
    * @return the amount of messages that are unread
    */
   @Getter
+  @Setter
   @Facebook
   private Integer unread;
 
@@ -57,20 +61,21 @@ public class Thread extends FacebookType {
    * @return the amount of messages that are unseen
    */
   @Getter
+  @Setter
   @Facebook
   private Integer unseen;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
 
   /**
    * The time of the last comment on this post.
    * 
    * @return The time of the last comment on this post.
    */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
-  }
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   /**
    * The messages in this thread.
@@ -79,6 +84,14 @@ public class Thread extends FacebookType {
    */
   public List<Message> getComments() {
     return unmodifiableList(comments);
+  }
+
+  public boolean addComment(Message comment) {
+    return comments.add(comment);
+  }
+
+  public boolean removeComment(Message comment) {
+    return comments.remove(comment);
   }
 
   /**
@@ -90,4 +103,16 @@ public class Thread extends FacebookType {
     return unmodifiableList(to);
   }
 
+  public boolean addTo(NamedFacebookType subscriber) {
+    return to.add(subscriber);
+  }
+
+  public boolean removeTo(NamedFacebookType subscriber) {
+    return to.remove(subscriber);
+  }
+
+  @JsonMappingCompleted
+  void convertTime() {
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
+  }
 }

@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
@@ -31,8 +30,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/photo">Photo Graph API type</a>.
@@ -48,6 +50,7 @@ public class Photo extends NamedFacebookType {
    * @return An object containing the name and ID of the user who posted the photo.
    */
   @Getter
+  @Setter
   @Facebook
   private CategorizedFacebookType from;
 
@@ -57,6 +60,7 @@ public class Photo extends NamedFacebookType {
    * @return The album-sized view of the photo.
    */
   @Getter
+  @Setter
   @Facebook
   private String picture;
 
@@ -66,6 +70,7 @@ public class Photo extends NamedFacebookType {
    * @return The full-sized source of the photo.
    */
   @Getter
+  @Setter
   @Facebook
   private String source;
 
@@ -75,6 +80,7 @@ public class Photo extends NamedFacebookType {
    * @return The height of the photo, in pixels.
    */
   @Getter
+  @Setter
   @Facebook
   private Integer height;
 
@@ -84,6 +90,7 @@ public class Photo extends NamedFacebookType {
    * @return The width of the photo, in pixels.
    */
   @Getter
+  @Setter
   @Facebook
   private Integer width;
 
@@ -93,6 +100,7 @@ public class Photo extends NamedFacebookType {
    * @return A link to the photo on Facebook.
    */
   @Getter
+  @Setter
   @Facebook
   private String link;
 
@@ -102,6 +110,7 @@ public class Photo extends NamedFacebookType {
    * @return The icon-sized source of the photo.
    */
   @Getter
+  @Setter
   @Facebook
   private String icon;
 
@@ -114,14 +123,33 @@ public class Photo extends NamedFacebookType {
    */
   @Deprecated
   @Getter
+  @Setter
   @Facebook
   private Integer position;
 
   @Facebook("created_time")
-  private String createdTime;
+  private String rawCreatedTime;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
+
+  /**
+   * The last time the photo or its caption was updated.
+   * 
+   * @return The last time the photo or its caption was updated.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
+
+  /**
+   * The time the photo was initially published.
+   * 
+   * @return The time the photo was initially published.
+   */
+  @Getter
+  @Setter
+  private Date createdTime;
 
   @Facebook
   private List<Tag> tags = new ArrayList<Tag>();
@@ -142,11 +170,22 @@ public class Photo extends NamedFacebookType {
    * @since 1.6.10
    */
   @Getter
+  @Setter
   @Facebook
   private Place place;
 
   @Facebook("backdated_time")
-  private String backdatedTime;
+  private String rawBackdatedTime;
+
+  /**
+   * Back dated time
+   * 
+   * @return the back dated time
+   * @since 1.6.15
+   */
+  @Getter
+  @Setter
+  private Date backdatedTime;
 
   /**
    * String that represents the back dated time granularity
@@ -155,6 +194,7 @@ public class Photo extends NamedFacebookType {
    * @since 1.6.15
    */
   @Getter
+  @Setter
   @Facebook("backdated_time_granularity")
   private String backdatedTimeGranularity;
 
@@ -174,6 +214,7 @@ public class Photo extends NamedFacebookType {
      * @return X coordinate (as a percentage of distance from left vs. width).
      */
     @Getter
+    @Setter
     @Facebook
     private Double x;
 
@@ -183,21 +224,27 @@ public class Photo extends NamedFacebookType {
      * @return Y coordinate (as a percentage of distance from top vs. height).
      */
     @Getter
+    @Setter
     @Facebook
     private Double y;
 
     @Facebook("created_time")
-    private String createdTime;
-
-    private static final long serialVersionUID = 1L;
+    private String rawCreatedTime;
 
     /**
      * Date this tag was created.
      * 
      * @return Date this tag was created.
      */
-    public Date getCreatedTime() {
-      return toDateFromLongFormat(createdTime);
+    @Getter
+    @Setter
+    private Date createdTime;
+
+    private static final long serialVersionUID = 1L;
+
+    @JsonMappingCompleted
+    void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
     }
   }
 
@@ -215,6 +262,7 @@ public class Photo extends NamedFacebookType {
      * @return The height of the image in pixels.
      */
     @Getter
+    @Setter
     @Facebook
     private Integer height;
 
@@ -224,6 +272,7 @@ public class Photo extends NamedFacebookType {
      * @return The width of the image in pixels.
      */
     @Getter
+    @Setter
     @Facebook
     private Integer width;
 
@@ -233,6 +282,7 @@ public class Photo extends NamedFacebookType {
      * @return The source URL of the image.
      */
     @Getter
+    @Setter
     @Facebook
     private String source;
 
@@ -264,24 +314,6 @@ public class Photo extends NamedFacebookType {
   }
 
   /**
-   * The time the photo was initially published.
-   * 
-   * @return The time the photo was initially published.
-   */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
-  }
-
-  /**
-   * The last time the photo or its caption was updated.
-   * 
-   * @return The last time the photo or its caption was updated.
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
-  }
-
-  /**
    * An array containing the users and their positions in this photo. The x and y coordinates are percentages from the
    * left and top edges of the photo, respectively.
    * 
@@ -290,6 +322,14 @@ public class Photo extends NamedFacebookType {
    */
   public List<Tag> getTags() {
     return unmodifiableList(tags);
+  }
+
+  public boolean addTag(Tag tag) {
+    return tags.add(tag);
+  }
+
+  public boolean removeTag(Tag tag) {
+    return tags.remove(tag);
   }
 
   /**
@@ -302,6 +342,14 @@ public class Photo extends NamedFacebookType {
     return unmodifiableList(comments);
   }
 
+  public boolean addComment(Comment comment) {
+    return comments.add(comment);
+  }
+
+  public boolean removeComment(Comment comment) {
+    return comments.remove(comment);
+  }
+
   /**
    * Users who like the photo.
    * 
@@ -310,6 +358,14 @@ public class Photo extends NamedFacebookType {
    */
   public List<NamedFacebookType> getLikes() {
     return unmodifiableList(likes);
+  }
+
+  public boolean addLike(NamedFacebookType like) {
+    return likes.add(like);
+  }
+
+  public boolean removeLike(NamedFacebookType like) {
+    return likes.remove(like);
   }
 
   /**
@@ -322,14 +378,18 @@ public class Photo extends NamedFacebookType {
     return unmodifiableList(images);
   }
 
-  /**
-   * Back dated time
-   * 
-   * @return the back dated time
-   * @since 1.6.15
-   */
-  public Date getBackdatedTime() {
-    return toDateFromLongFormat(backdatedTime);
+  public boolean addImage(Image image) {
+    return images.add(image);
   }
 
+  public boolean removeImage(Image image) {
+    return images.remove(image);
+  }
+
+  @JsonMappingCompleted
+  void convertTime() {
+    backdatedTime = toDateFromLongFormat(rawBackdatedTime);
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
+  }
 }

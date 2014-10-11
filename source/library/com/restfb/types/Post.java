@@ -41,6 +41,7 @@ import com.restfb.json.JsonObject;
 import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Post Graph API type</a>.
@@ -57,6 +58,7 @@ public class Post extends NamedFacebookType {
    * @return An object containing the ID and name of the user who posted the message.
    */
   @Getter
+  @Setter
   @Facebook
   private CategorizedFacebookType from;
 
@@ -66,6 +68,7 @@ public class Post extends NamedFacebookType {
    * @return The message.
    */
   @Getter
+  @Setter
   @Facebook
   private String message;
 
@@ -75,6 +78,7 @@ public class Post extends NamedFacebookType {
    * @return If available, a link to the picture included with this post.
    */
   @Getter
+  @Setter
   @Facebook
   private String picture;
 
@@ -84,6 +88,7 @@ public class Post extends NamedFacebookType {
    * @return The link attached to this post.
    */
   @Getter
+  @Setter
   @Facebook
   private String link;
 
@@ -93,6 +98,7 @@ public class Post extends NamedFacebookType {
    * @return The caption of the link (appears beneath the link name).
    */
   @Getter
+  @Setter
   @Facebook
   private String caption;
 
@@ -102,6 +108,7 @@ public class Post extends NamedFacebookType {
    * @return A description of the link (appears beneath the link caption).
    */
   @Getter
+  @Setter
   @Facebook
   private String description;
 
@@ -111,6 +118,7 @@ public class Post extends NamedFacebookType {
    * @return If available, the source link attached to this post (for example, a flash or video file).
    */
   @Getter
+  @Setter
   @Facebook
   private String source;
 
@@ -120,6 +128,7 @@ public class Post extends NamedFacebookType {
    * @return The type of post this is, for example {@code "link"}.
    */
   @Getter
+  @Setter
   @Facebook
   private String type;
 
@@ -129,6 +138,7 @@ public class Post extends NamedFacebookType {
    * @return The application used to create this post.
    */
   @Getter
+  @Setter
   @Facebook
   private NamedFacebookType application;
 
@@ -138,6 +148,7 @@ public class Post extends NamedFacebookType {
    * @return A link to an icon representing the type of this post.
    */
   @Getter
+  @Setter
   @Facebook
   private String icon;
 
@@ -147,6 +158,7 @@ public class Post extends NamedFacebookType {
    * @return A string indicating which application was used to create this post.
    */
   @Getter
+  @Setter
   @Facebook
   private String attribution;
 
@@ -156,6 +168,7 @@ public class Post extends NamedFacebookType {
    * @return The privacy settings for this post.
    */
   @Getter
+  @Setter
   @Facebook
   private Privacy privacy;
 
@@ -176,14 +189,33 @@ public class Post extends NamedFacebookType {
    * 
    */
   @Getter
+  @Setter
   @Facebook
   private Likes likes;
 
   @Facebook("created_time")
-  private String createdTime;
+  private String rawCreatedTime;
+
+  /**
+   * The time the post was initially published.
+   * 
+   * @return The time the post was initially published.
+   */
+  @Getter
+  @Setter
+  private Date createdTime;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
+
+  /**
+   * The time of the last comment on this post.
+   * 
+   * @return The time of the last comment on this post.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   /**
    * The Facebook object id for an uploaded photo or video.
@@ -192,6 +224,7 @@ public class Post extends NamedFacebookType {
    * @since 1.6.5
    */
   @Getter
+  @Setter
   @Facebook("object_id")
   private String objectId;
 
@@ -202,6 +235,7 @@ public class Post extends NamedFacebookType {
    * @since 1.6.12
    */
   @Getter
+  @Setter
   @Facebook("status_type")
   private String statusType;
 
@@ -212,6 +246,7 @@ public class Post extends NamedFacebookType {
    * @since 1.6.16
    */
   @Getter
+  @Setter
   @Facebook
   private String story;
 
@@ -221,6 +256,7 @@ public class Post extends NamedFacebookType {
    * @return The comments for this post.
    */
   @Getter
+  @Setter
   @Facebook
   private Comments comments;
 
@@ -231,6 +267,7 @@ public class Post extends NamedFacebookType {
    * @since 1.6.8
    */
   @Getter
+  @Setter
   @Facebook
   private com.restfb.types.Place place;
 
@@ -251,6 +288,8 @@ public class Post extends NamedFacebookType {
 
   private Map<String, List<MessageTag>> messageTags = new HashMap<String, List<MessageTag>>();
 
+  @Getter
+  @Setter
   @Facebook
   private Shares shares;
 
@@ -295,6 +334,7 @@ public class Post extends NamedFacebookType {
      * @return The location of this place.
      */
     @Getter
+    @Setter
     @Facebook
     private Location location;
 
@@ -316,6 +356,7 @@ public class Post extends NamedFacebookType {
      * @return The offset, within the message field, of the object mentioned.
      */
     @Getter
+    @Setter
     @Facebook
     private Integer offset;
 
@@ -325,6 +366,7 @@ public class Post extends NamedFacebookType {
      * @return The length, within the message field, of the object mentioned.
      */
     @Getter
+    @Setter
     @Facebook
     private Integer length;
 
@@ -346,6 +388,7 @@ public class Post extends NamedFacebookType {
      * @return The name of the property.
      */
     @Getter
+    @Setter
     @Facebook
     private String name;
 
@@ -355,6 +398,7 @@ public class Post extends NamedFacebookType {
      * @return The text of the property.
      */
     @Getter
+    @Setter
     @Facebook
     private String text;
 
@@ -364,6 +408,7 @@ public class Post extends NamedFacebookType {
      * @return The URL of the property.
      */
     @Getter
+    @Setter
     @Facebook
     private String href;
 
@@ -409,9 +454,10 @@ public class Post extends NamedFacebookType {
      * @return The number of likes.
      */
     @Getter
+    @Setter
     @Facebook
     private Long totalCount = 0L;
-    
+
     @Facebook
     private JsonObject summary;
 
@@ -452,15 +498,23 @@ public class Post extends NamedFacebookType {
     public List<NamedFacebookType> getData() {
       return unmodifiableList(data);
     }
-    
+
+    public boolean addData(NamedFacebookType like) {
+      return data.add(like);
+    }
+
+    public boolean removeData(NamedFacebookType like) {
+      return data.remove(like);
+    }
+
     /**
      * add change count value, if summary is set and count is empty
      */
     @JsonMappingCompleted
     private void fillTotalCount() {
-	if (totalCount == 0 && summary != null && summary.has("total_count")){
-	    totalCount = summary.getLong("total_count");
-	}
+      if (totalCount == 0 && summary != null && summary.has("total_count")) {
+        totalCount = summary.getLong("total_count");
+      }
     }
   }
 
@@ -488,9 +542,10 @@ public class Post extends NamedFacebookType {
      * @return The number of comments.
      */
     @Getter
+    @Setter
     @Facebook("total_count")
     private Long totalCount = 0L;
-    
+
     @Facebook
     private JsonObject summary = null;
 
@@ -531,15 +586,23 @@ public class Post extends NamedFacebookType {
     public List<Comment> getData() {
       return unmodifiableList(data);
     }
-    
+
+    public boolean addData(Comment comment) {
+      return data.add(comment);
+    }
+
+    public boolean removeData(Comment comment) {
+      return data.remove(comment);
+    }
+
     /**
      * set total count if summary is present
      */
     @JsonMappingCompleted
     private void fillTotalCount() {
-	if (totalCount == 0 && summary != null && summary.has("total_count")){
-	    totalCount = summary.getLong("total_count");
-	}
+      if (totalCount == 0 && summary != null && summary.has("total_count")) {
+        totalCount = summary.getLong("total_count");
+      }
     }
   }
 
@@ -558,6 +621,7 @@ public class Post extends NamedFacebookType {
      * @return The description of the privacy value.
      */
     @Getter
+    @Setter
     @Facebook
     private String value;
 
@@ -567,6 +631,7 @@ public class Post extends NamedFacebookType {
      * @return The privacy description.
      */
     @Getter
+    @Setter
     @Facebook
     private String description;
 
@@ -576,6 +641,7 @@ public class Post extends NamedFacebookType {
      * @return The privacy friends restriction.
      */
     @Getter
+    @Setter
     @Facebook
     private String friends;
 
@@ -585,6 +651,7 @@ public class Post extends NamedFacebookType {
      * @return The privacy networks restriction.
      */
     @Getter
+    @Setter
     @Facebook
     private String networks;
 
@@ -594,6 +661,7 @@ public class Post extends NamedFacebookType {
      * @return The privacy "deny" restriction.
      */
     @Getter
+    @Setter
     @Facebook
     private String deny;
 
@@ -604,6 +672,7 @@ public class Post extends NamedFacebookType {
      * @return The privacy "allow" restriction.
      */
     @Getter
+    @Setter
     @Facebook
     private String allow;
 
@@ -649,6 +718,7 @@ public class Post extends NamedFacebookType {
      * @return Gets the name of the action.
      */
     @Getter
+    @Setter
     @Facebook
     private String name;
 
@@ -658,6 +728,7 @@ public class Post extends NamedFacebookType {
      * @return The link for the action.
      */
     @Getter
+    @Setter
     @Facebook
     private String link;
 
@@ -703,6 +774,7 @@ public class Post extends NamedFacebookType {
      * @return The number of shares.
      */
     @Getter
+    @Setter
     @Facebook
     private Long count = 0L;
 
@@ -757,7 +829,7 @@ public class Post extends NamedFacebookType {
     }
     return 0L;
   }
-  
+
   /**
    * The number of comments of this post.
    * 
@@ -770,22 +842,10 @@ public class Post extends NamedFacebookType {
     return 0L;
   }
 
-  /**
-   * The time the post was initially published.
-   * 
-   * @return The time the post was initially published.
-   */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
-  }
-
-  /**
-   * The time of the last comment on this post.
-   * 
-   * @return The time of the last comment on this post.
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   /**
@@ -797,6 +857,14 @@ public class Post extends NamedFacebookType {
     return unmodifiableList(to);
   }
 
+  public boolean addTo(NamedFacebookType profile) {
+    return to.add(profile);
+  }
+
+  public boolean removeTo(NamedFacebookType profile) {
+    return to.remove(profile);
+  }
+
   /**
    * A list of available action names and links (including commenting, liking, and an optional app-specified action).
    * 
@@ -805,6 +873,14 @@ public class Post extends NamedFacebookType {
    */
   public List<Action> getActions() {
     return unmodifiableList(actions);
+  }
+
+  public boolean addAction(Action action) {
+    return actions.add(action);
+  }
+
+  public boolean removeAction(Action action) {
+    return actions.remove(action);
   }
 
   /**
@@ -818,6 +894,14 @@ public class Post extends NamedFacebookType {
     return unmodifiableList(properties);
   }
 
+  public boolean addProperty(Property property) {
+    return properties.add(property);
+  }
+
+  public boolean removeProperty(Property property) {
+    return properties.remove(property);
+  }
+
   /**
    * Objects (Users, Pages, etc) tagged as being with the publisher of the post ("Who are you with?" on Facebook).
    * 
@@ -829,6 +913,14 @@ public class Post extends NamedFacebookType {
     return unmodifiableList(withTags);
   }
 
+  public boolean addWithTag(NamedFacebookType withTag) {
+    return withTags.add(withTag);
+  }
+
+  public boolean removeWithTag(NamedFacebookType withTag) {
+    return withTags.remove(withTag);
+  }
+
   /**
    * Objects tagged in the message (Users, Pages, etc).
    * 
@@ -837,5 +929,13 @@ public class Post extends NamedFacebookType {
    */
   public Map<String, List<MessageTag>> getMessageTags() {
     return unmodifiableMap(messageTags);
+  }
+
+  public void addMessageTag(String key, List<MessageTag> tagList) {
+    messageTags.put(key, tagList);
+  }
+
+  public void removeMessageTag(String key) {
+    messageTags.remove(key);
   }
 }

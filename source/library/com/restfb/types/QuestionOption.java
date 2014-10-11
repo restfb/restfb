@@ -22,12 +22,14 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/question_option" >QuestionOption Graph API
@@ -44,6 +46,7 @@ public class QuestionOption extends NamedFacebookType {
    * @return User who asked the question.
    */
   @Getter
+  @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -53,6 +56,7 @@ public class QuestionOption extends NamedFacebookType {
    * @return Number of votes this option has received.
    */
   @Getter
+  @Setter
   @Facebook
   private Integer votes;
 
@@ -62,20 +66,26 @@ public class QuestionOption extends NamedFacebookType {
    * @return Optional page associated with this option.
    */
   @Getter
+  @Setter
   @Facebook
   private CategorizedFacebookType object;
 
   @Facebook("created_time")
-  private String createdTime;
-
-  private static final long serialVersionUID = 1L;
+  private String rawCreatedTime;
 
   /**
    * Time when option was created.
    * 
    * @return Time when option was created.
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  @Getter
+  @Setter
+  private Date createdTime;
+
+  private static final long serialVersionUID = 1L;
+
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 }

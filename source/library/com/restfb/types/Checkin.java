@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
@@ -31,8 +30,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/checkin">Checkin Graph API type</a>.
@@ -47,7 +49,7 @@ public class Checkin extends FacebookType {
    * 
    * @return The message the user added to the check-in.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private String message;
 
@@ -56,7 +58,7 @@ public class Checkin extends FacebookType {
    * 
    * @return The ID and name of the user who made the check-in.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -65,7 +67,7 @@ public class Checkin extends FacebookType {
    * 
    * @return The ID and name of the application that made the check-in.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private NamedFacebookType application;
 
@@ -74,12 +76,20 @@ public class Checkin extends FacebookType {
    * 
    * @return The ID, name, and location of the Facebook Page that represents the location of the check-in.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private com.restfb.types.Place place;
 
   @Facebook("created_time")
-  private String createdTime;
+  transient private String rawCreatedTime;
+  
+  /**
+   * The time the check-in was created.
+   * 
+   * @return The time the check-in was created.
+   */
+  @Getter @Setter
+  private Date createdTime;
 
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
@@ -125,7 +135,7 @@ public class Checkin extends FacebookType {
        * 
        * @return The latitude of the check-in.
        */
-      @Getter
+      @Getter @Setter
       @Facebook
       private Double latitude;
 
@@ -134,7 +144,7 @@ public class Checkin extends FacebookType {
        * 
        * @return The longitude of the check-in.
        */
-      @Getter
+      @Getter @Setter
       @Facebook
       private Double longitude;
 
@@ -144,7 +154,7 @@ public class Checkin extends FacebookType {
        * @return The city of the check-in.
        * @since 1.6.5
        */
-      @Getter
+      @Getter @Setter
       @Facebook
       private String city;
 
@@ -154,7 +164,7 @@ public class Checkin extends FacebookType {
        * @return The state of the check-in.
        * @since 1.6.5
        */
-      @Getter
+      @Getter @Setter
       @Facebook
       private String state;
 
@@ -164,7 +174,7 @@ public class Checkin extends FacebookType {
        * @return The country of the check-in.
        * @since 1.6.5
        */
-      @Getter
+      @Getter @Setter
       @Facebook
       private String country;
 
@@ -221,13 +231,9 @@ public class Checkin extends FacebookType {
 
   }
 
-  /**
-   * The time the check-in was created.
-   * 
-   * @return The time the check-in was created.
-   */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  @JsonMapper.JsonMappingCompleted
+  void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 
   /**
@@ -238,6 +244,14 @@ public class Checkin extends FacebookType {
   public List<Comment> getComments() {
     return unmodifiableList(comments);
   }
+  
+  public boolean addComment(Comment comment) {
+      return comments.add(comment);
+  }
+  
+  public boolean removeComment(Comment comment) {
+      return comments.remove(comment);
+  }
 
   /**
    * Tags for the check-in. I.e. Users tagged in the check-in
@@ -246,5 +260,13 @@ public class Checkin extends FacebookType {
    */
   public List<NamedFacebookType> getTags() {
     return unmodifiableList(tags);
+  }
+  
+  public boolean addTag(NamedFacebookType tag) {
+      return tags.add(tag);
+  }
+  
+  public boolean removeTag(NamedFacebookType tag) {
+      return tags.remove(tag);
   }
 }

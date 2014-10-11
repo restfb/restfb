@@ -23,10 +23,12 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents an external URL as it relates to the Facebook social graph - shares and comments from the URL on Facebook,
@@ -45,7 +47,7 @@ public class Url extends FacebookType {
    * 
    * @return The Open Graph object that is canonically associated with this URL
    */
-  @Getter
+  @Getter @Setter
   @Facebook("og_object")
   private OGObject ogObject;
 
@@ -55,19 +57,15 @@ public class Url extends FacebookType {
 
   @Facebook
   private JsonObject share;
-
+  
   /**
    * The number of Facebook comments associated with this URL.
    * 
    * @return The number of Facebook comments associated with this URL
    */
-  public int getCommentCount() {
-    if (share.has("comment_count")) {
-      return share.getInt("comment_count");
-    }
-    return 0;
-  }
-
+  @Getter @Setter
+  private int commentCount = 0;
+  
   /**
    * The number of shares of this URL on Facebook.
    * 
@@ -75,11 +73,17 @@ public class Url extends FacebookType {
    * 
    * @return The number of shares of this URL on Facebook
    */
-  public int getShareCount() {
-    if (share.has("share_count")) {
-      return share.getInt("share_count");
+  @Getter @Setter
+  private int shareCount = 0;
+
+  @JsonMappingCompleted
+  void fillCounts() {
+    if (share.has("comment_count")) {
+      commentCount = share.getInt("comment_count");
     }
-    return 0;
+    if (share.has("share_count")) {
+      shareCount = share.getInt("share_count");
+    }
   }
 
   private static final long serialVersionUID = 1L;
@@ -94,7 +98,7 @@ public class Url extends FacebookType {
      * 
      * @return The description of the object
      */
-    @Getter
+    @Getter @Setter
     @Facebook
     private String description;
 
@@ -103,7 +107,7 @@ public class Url extends FacebookType {
      * 
      * @return The title of the object
      */
-    @Getter
+    @Getter @Setter
     @Facebook
     private String title;
 
@@ -112,7 +116,7 @@ public class Url extends FacebookType {
      * 
      * @return The object type as String
      */
-    @Getter
+    @Getter @Setter
     @Facebook
     private String type;
 
@@ -121,20 +125,24 @@ public class Url extends FacebookType {
      * 
      * @return This URL
      */
-    @Getter
+    @Getter @Setter
     @Facebook
     private String url;
 
     @Facebook("updated_time")
-    private String updatedTime;
+    private String rawUpdatedTime;
 
     /**
      * When the object was last updated.
      * 
      * @return date when the object was last updated.
      */
-    public Date getUpdatedTime() {
-      return toDateFromLongFormat(updatedTime);
+    @Getter @Setter
+    private Date updatedTime;
+    
+    @JsonMappingCompleted
+    void convertTime() {
+      updatedTime = toDateFromLongFormat(rawUpdatedTime);
     }
   }
 }

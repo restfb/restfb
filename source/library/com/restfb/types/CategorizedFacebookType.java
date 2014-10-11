@@ -24,6 +24,7 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Superclass for <a href="http://developers.facebook.com/docs/reference/api/">Graph API types</a> that include a
@@ -39,7 +40,7 @@ public class CategorizedFacebookType extends NamedFacebookType {
    * 
    * @return The category field for this type.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private String category;
 

@@ -27,6 +27,7 @@ import java.io.Serializable;
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/">Venue Graph API type</a>.
@@ -43,6 +44,7 @@ public class Venue implements Serializable {
    * @since 1.6.13
    */
   @Getter
+  @Setter
   @Facebook
   private String id;
 
@@ -52,6 +54,7 @@ public class Venue implements Serializable {
    * @return Street address of the venue.
    */
   @Getter
+  @Setter
   @Facebook
   private String street;
 
@@ -61,6 +64,7 @@ public class Venue implements Serializable {
    * @return The venue's city.
    */
   @Getter
+  @Setter
   @Facebook
   private String city;
 
@@ -70,6 +74,7 @@ public class Venue implements Serializable {
    * @return The venue's state.
    */
   @Getter
+  @Setter
   @Facebook
   private String state;
 
@@ -79,6 +84,7 @@ public class Venue implements Serializable {
    * @return The venue's zip code.
    */
   @Getter
+  @Setter
   @Facebook
   private String zip;
 
@@ -88,6 +94,7 @@ public class Venue implements Serializable {
    * @return The venue's country.
    */
   @Getter
+  @Setter
   @Facebook
   private String country;
 
@@ -97,6 +104,7 @@ public class Venue implements Serializable {
    * @return The venue's latitude.
    */
   @Getter
+  @Setter
   @Facebook
   private Double latitude;
 
@@ -106,6 +114,7 @@ public class Venue implements Serializable {
    * @return The venue's longitude.
    */
   @Getter
+  @Setter
   @Facebook
   private Double longitude;
 

@@ -30,7 +30,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/question">Question Graph API type</a>.
@@ -46,6 +49,7 @@ public class Question extends FacebookType {
    * @return User who asked the question.
    */
   @Getter
+  @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -55,37 +59,38 @@ public class Question extends FacebookType {
    * @return Text of the question.
    */
   @Getter
+  @Setter
   @Facebook
   private String question;
 
   @Facebook("created_time")
-  private String createdTime;
+  private String rawCreatedTime;
 
   @Facebook("updated_time")
-  private String updatedTime;
-
-  @Facebook
-  private List<QuestionOption> options = new ArrayList<QuestionOption>();
-
-  private static final long serialVersionUID = 1L;
+  private String rawUpdatedTime;
 
   /**
    * Time when question was created.
    * 
    * @return Time when question was created.
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
-  }
+  @Getter
+  @Setter
+  private Date createdTime;
 
   /**
    * Time when question was last updated.
    * 
    * @return Time when question was last updated.
    */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
-  }
+  @Getter
+  @Setter
+  private Date updatedTime;
+
+  @Facebook
+  private List<QuestionOption> options = new ArrayList<QuestionOption>();
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * The list of options available as answers to the question.
@@ -94,5 +99,19 @@ public class Question extends FacebookType {
    */
   public List<QuestionOption> getOptions() {
     return unmodifiableList(options);
+  }
+
+  public boolean addOption(QuestionOption option) {
+    return options.add(option);
+  }
+
+  public boolean removeOption(QuestionOption option) {
+    return options.remove(option);
+  }
+
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 }

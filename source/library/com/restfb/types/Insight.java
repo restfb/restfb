@@ -27,7 +27,9 @@ import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
+import static java.util.Collections.unmodifiableList;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/insights" >Insight Graph API type</a>.
@@ -43,6 +45,7 @@ public class Insight extends NamedFacebookType {
    * @return Length of the period during which the insights were collected.
    */
   @Getter
+  @Setter
   @Facebook
   private String period;
 
@@ -52,8 +55,12 @@ public class Insight extends NamedFacebookType {
    * @return The human-readable description of this Insight data.
    */
   @Getter
+  @Setter
   @Facebook
   private String description;
+
+  @Facebook
+  private List<JsonObject> values = new ArrayList<JsonObject>();
 
   /**
    * Data for this Insight as a list of <tt>{@link com.restfb.json.JsonObject}</tt> because its structure can vary
@@ -61,9 +68,17 @@ public class Insight extends NamedFacebookType {
    * 
    * @return Data for this Insight.
    */
-  @Getter
-  @Facebook
-  private List<JsonObject> values = new ArrayList<JsonObject>();
+  public List<JsonObject> getValues() {
+    return unmodifiableList(values);
+  }
+
+  public boolean addValue(JsonObject json) {
+    return values.add(json);
+  }
+
+  public boolean removeValue(JsonObject json) {
+    return values.remove(json);
+  }
 
   private static final long serialVersionUID = 1L;
 

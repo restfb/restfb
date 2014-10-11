@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
@@ -31,8 +30,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/page/#conversations"> Conversation Graph
@@ -49,6 +51,7 @@ public class Conversation extends FacebookType {
    * @return A URL for this conversation.
    */
   @Getter
+  @Setter
   @Facebook
   private String link;
 
@@ -58,6 +61,7 @@ public class Conversation extends FacebookType {
    * @return The subject of this conversation.
    */
   @Getter
+  @Setter
   @Facebook
   private String subject;
 
@@ -67,11 +71,21 @@ public class Conversation extends FacebookType {
    * @return The title of a message in the conversation
    */
   @Getter
+  @Setter
   @Facebook
   private String snippet;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
+
+  /**
+   * Last update time of the conversation
+   * 
+   * @return Last update time of the conversation
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   /**
    * The number of messages in the conversation
@@ -79,6 +93,7 @@ public class Conversation extends FacebookType {
    * @return The number of messages in the conversation
    */
   @Getter
+  @Setter
   @Facebook("message_count")
   private Long messageCount;
 
@@ -90,6 +105,8 @@ public class Conversation extends FacebookType {
    * 
    * @return The number of unread messages in the conversation
    */
+  @Getter
+  @Setter
   @Facebook("unread_count")
   private Long unreadCount = 0L;
 
@@ -111,6 +128,7 @@ public class Conversation extends FacebookType {
    * @return Whether The Page can reply to the conversation
    */
   @Getter
+  @Setter
   @Facebook("can_reply")
   private Boolean canReply;
 
@@ -120,11 +138,12 @@ public class Conversation extends FacebookType {
    * @return Whether you are subscribed to the conversation
    */
   @Getter
+  @Setter
   @Facebook("is_subscribed")
   private Boolean subscribed;
 
   @Facebook
-  private List<Message> messages;
+  private List<Message> messages = new ArrayList<Message>();
 
   private static final long serialVersionUID = 1L;
 
@@ -143,6 +162,7 @@ public class Conversation extends FacebookType {
      * @return The name field for this type.
      */
     @Getter
+    @Setter
     @Facebook
     private String name;
 
@@ -174,13 +194,9 @@ public class Conversation extends FacebookType {
 
   }
 
-  /**
-   * Last update time of the conversation
-   * 
-   * @return Last update time of the conversation
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  @JsonMappingCompleted
+  void convertTime() {
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   /**
@@ -192,6 +208,14 @@ public class Conversation extends FacebookType {
     return unmodifiableList(tags);
   }
 
+  public boolean addTag(Tag tag) {
+    return tags.add(tag);
+  }
+
+  public boolean removeTag(Tag tag) {
+    return tags.remove(tag);
+  }
+
   /**
    * Users who are on this message conversation
    * 
@@ -199,6 +223,14 @@ public class Conversation extends FacebookType {
    */
   public List<NamedFacebookType> getParticipants() {
     return unmodifiableList(participants);
+  }
+
+  public boolean addParticipant(NamedFacebookType participant) {
+    return participants.add(participant);
+  }
+
+  public boolean removeParticipant(NamedFacebookType participant) {
+    return participants.remove(participant);
   }
 
   /**
@@ -210,6 +242,14 @@ public class Conversation extends FacebookType {
     return unmodifiableList(senders);
   }
 
+  public boolean addSender(NamedFacebookType sender) {
+    return senders.add(sender);
+  }
+
+  public boolean removeSender(NamedFacebookType sender) {
+    return senders.remove(sender);
+  }
+
   /**
    * List of all messages in the conversation
    * 
@@ -219,6 +259,14 @@ public class Conversation extends FacebookType {
     return unmodifiableList(messages);
   }
 
+  public boolean addMessage(Message message) {
+    return messages.add(message);
+  }
+
+  public boolean removeMessage(Message message) {
+    return messages.remove(message);
+  }
+
   /**
    * Users who used to be on this message conversation.
    * 
@@ -226,5 +274,13 @@ public class Conversation extends FacebookType {
    */
   public List<NamedFacebookType> getFormerParticipants() {
     return unmodifiableList(formerParticipants);
+  }
+
+  public boolean addFormerParticipant(NamedFacebookType formerParticipant) {
+    return formerParticipants.add(formerParticipant);
+  }
+
+  public boolean removeFormerParticipant(NamedFacebookType formerParticipant) {
+    return formerParticipants.remove(formerParticipant);
   }
 }

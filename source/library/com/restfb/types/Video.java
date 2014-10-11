@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
@@ -30,7 +29,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/video">Video Graph API type</a>.
@@ -46,6 +48,7 @@ public class Video extends NamedFacebookType {
    * @return An object containing the name and ID of the user who posted the video.
    */
   @Getter
+  @Setter
   @Facebook
   private CategorizedFacebookType from;
 
@@ -56,6 +59,7 @@ public class Video extends NamedFacebookType {
    * @deprecated FB seems to have removed this field.
    */
   @Getter
+  @Setter
   @Facebook
   @Deprecated
   private String message;
@@ -66,6 +70,7 @@ public class Video extends NamedFacebookType {
    * @return The long-form HTML description of the video.
    */
   @Getter
+  @Setter
   @Facebook
   private String description;
 
@@ -75,6 +80,7 @@ public class Video extends NamedFacebookType {
    * @return A picture URL which represents the video.
    */
   @Getter
+  @Setter
   @Facebook
   private String picture;
 
@@ -84,6 +90,7 @@ public class Video extends NamedFacebookType {
    * @return An icon URL which represents the video.
    */
   @Getter
+  @Setter
   @Facebook
   private String icon;
 
@@ -94,6 +101,7 @@ public class Video extends NamedFacebookType {
    * @since 1.6.5
    */
   @Getter
+  @Setter
   @Facebook
   private String source;
 
@@ -103,6 +111,7 @@ public class Video extends NamedFacebookType {
    * @return HTML that may be used to embed the video on another website.
    */
   @Getter
+  @Setter
   @Facebook("embed_html")
   private String embedHtml;
 
@@ -112,14 +121,33 @@ public class Video extends NamedFacebookType {
    * @return The length of the video, in seconds.
    */
   @Getter
+  @Setter
   @Facebook
   private Integer length;
 
   @Facebook("created_time")
-  private String createdTime;
+  private String rawCreatedTime;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
+
+  /**
+   * The time the video was initially published.
+   * 
+   * @return The time the video was initially published.
+   */
+  @Getter
+  @Setter
+  private Date createdTime;
+
+  /**
+   * The last time the video or its caption were updated.
+   * 
+   * @return The last time the video or its caption were updated.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   @Facebook
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
@@ -139,6 +167,14 @@ public class Video extends NamedFacebookType {
     return unmodifiableList(tags);
   }
 
+  public boolean addTag(NamedFacebookType tag) {
+    return tags.add(tag);
+  }
+
+  public boolean removeTag(NamedFacebookType tag) {
+    return tags.remove(tag);
+  }
+
   /**
    * Comments for the video.
    * 
@@ -148,21 +184,17 @@ public class Video extends NamedFacebookType {
     return unmodifiableList(comments);
   }
 
-  /**
-   * The time the video was initially published.
-   * 
-   * @return The time the video was initially published.
-   */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  public boolean addComment(Comment comment) {
+    return comments.add(comment);
   }
 
-  /**
-   * The last time the video or its caption were updated.
-   * 
-   * @return The last time the video or its caption were updated.
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  public boolean removeComment(Comment comment) {
+    return comments.remove(comment);
+  }
+
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 }

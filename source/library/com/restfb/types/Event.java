@@ -30,8 +30,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
+import java.util.ArrayList;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Graph API type</a>.
@@ -47,6 +52,7 @@ public class Event extends NamedFacebookType {
    * @return The user who owns the event.
    */
   @Getter
+  @Setter
   @Facebook
   private Owner owner;
 
@@ -56,14 +62,33 @@ public class Event extends NamedFacebookType {
    * @return The long-form HTML description of the event.
    */
   @Getter
+  @Setter
   @Facebook
   private String description;
 
   @Facebook("start_time")
-  private String startTime;
+  private String rawStartTime;
 
   @Facebook("end_time")
-  private String endTime;
+  private String rawEndTime;
+
+  /**
+   * The start time of the event.
+   * 
+   * @return The start time of the event.
+   */
+  @Getter
+  @Setter
+  private Date startTime;
+
+  /**
+   * The end time of the event.
+   * 
+   * @return The end time of the event.
+   */
+  @Getter
+  @Setter
+  private Date endTime;
 
   /**
    * The location for this event, a string name.
@@ -71,6 +96,7 @@ public class Event extends NamedFacebookType {
    * @return The location for this event, a string name.
    */
   @Getter
+  @Setter
   @Facebook
   private String location;
 
@@ -80,6 +106,7 @@ public class Event extends NamedFacebookType {
    * @return The RSVP status of this event.
    */
   @Getter
+  @Setter
   @Facebook("rsvp_status")
   private String rsvpStatus;
 
@@ -89,6 +116,7 @@ public class Event extends NamedFacebookType {
    * @return The location of this event, a structured address object.
    */
   @Getter
+  @Setter
   @Facebook
   private Venue venue;
 
@@ -98,11 +126,21 @@ public class Event extends NamedFacebookType {
    * @return The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
    */
   @Getter
+  @Setter
   @Facebook
   private String privacy;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
+
+  /**
+   * The last time the event was updated.
+   * 
+   * @return The last time the event was updated.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   /**
    * The URL to a location to buy tickets for this event (on Events for Pages only).
@@ -111,6 +149,7 @@ public class Event extends NamedFacebookType {
    * @since 1.6.13
    */
   @Getter
+  @Setter
   @Facebook("ticket_uri")
   private String ticketUri;
 
@@ -122,6 +161,7 @@ public class Event extends NamedFacebookType {
    * @since 1.6.13
    */
   @Getter
+  @Setter
   @Facebook
   private String picture;
 
@@ -132,6 +172,7 @@ public class Event extends NamedFacebookType {
    * @since 1.6.13
    */
   @Getter
+  @Setter
   @Facebook("is_date_only")
   private Boolean isDateOnly;
 
@@ -151,6 +192,7 @@ public class Event extends NamedFacebookType {
      * @return The unique identifier for this owner.
      */
     @Getter
+    @Setter
     @Facebook
     private String id;
 
@@ -160,6 +202,7 @@ public class Event extends NamedFacebookType {
      * @return The name of this owner.
      */
     @Getter
+    @Setter
     @Facebook
     private String name;
 
@@ -169,6 +212,7 @@ public class Event extends NamedFacebookType {
      * @return The category for this owner.
      */
     @Getter
+    @Setter
     @Facebook
     private String category;
 
@@ -179,7 +223,7 @@ public class Event extends NamedFacebookType {
      */
     @Getter
     @Facebook("category_list")
-    private List<Category> categoryList;
+    private List<Category> categoryList = new ArrayList<Category>();
 
     private static final long serialVersionUID = 1L;
 
@@ -205,6 +249,14 @@ public class Event extends NamedFacebookType {
     @Override
     public String toString() {
       return ReflectionUtils.toString(this);
+    }
+
+    public boolean addCategory(Category category) {
+      return categoryList.add(category);
+    }
+
+    public boolean removeCategory(Category category) {
+      return categoryList.remove(category);
     }
 
   }
@@ -224,6 +276,7 @@ public class Event extends NamedFacebookType {
      * @return The unique identifier for this category.
      */
     @Getter
+    @Setter
     @Facebook
     private String id;
 
@@ -233,6 +286,7 @@ public class Event extends NamedFacebookType {
      * @return The name of this category.
      */
     @Getter
+    @Setter
     @Facebook
     private String name;
 
@@ -264,39 +318,16 @@ public class Event extends NamedFacebookType {
 
   }
 
-  /**
-   * The start time of the event.
-   * 
-   * @return The start time of the event.
-   */
-  public Date getStartTime() {
-    Date date = toDateFromLongFormat(startTime);
+  @JsonMappingCompleted
+  void convertTime() {
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
 
     // Sometimes the date comes back in short form - if long form parsing
     // failed, try short instead
-    return date == null ? toDateFromShortFormat(startTime) : date;
+    Date dateEnd = toDateFromLongFormat(rawEndTime);
+    endTime = dateEnd == null ? toDateFromShortFormat(rawEndTime) : dateEnd;
+
+    Date dateStart = toDateFromLongFormat(rawStartTime);
+    startTime = dateStart == null ? toDateFromShortFormat(rawStartTime) : dateStart;
   }
-
-  /**
-   * The end time of the event.
-   * 
-   * @return The end time of the event.
-   */
-  public Date getEndTime() {
-    Date date = toDateFromLongFormat(endTime);
-
-    // Sometimes the date comes back in short form - if long form parsing
-    // failed, try short instead
-    return date == null ? toDateFromShortFormat(endTime) : date;
-  }
-
-  /**
-   * The last time the event was updated.
-   * 
-   * @return The last time the event was updated.
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
-  }
-
 }

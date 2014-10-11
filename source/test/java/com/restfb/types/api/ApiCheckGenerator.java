@@ -141,7 +141,7 @@ public class ApiCheckGenerator extends BaseTestCheck {
   }
 
   public static void main(String[] args) throws IOException {
-      ApiCheckGenerator gen = new ApiCheckGenerator();
-      gen.createApiProperties();
+    ApiCheckGenerator gen = new ApiCheckGenerator();
+    gen.createApiProperties();
   }
 }

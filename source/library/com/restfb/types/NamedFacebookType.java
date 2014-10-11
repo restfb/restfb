@@ -24,6 +24,7 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Superclass for <a href="http://developers.facebook.com/docs/reference/api/">Graph API types</a> that include a
@@ -40,6 +41,7 @@ public class NamedFacebookType extends FacebookType {
    * @return The name field for this type.
    */
   @Getter
+  @Setter
   @Facebook
   private String name;
 

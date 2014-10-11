@@ -26,8 +26,11 @@ import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 import static com.restfb.util.StringUtils.isBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Base class which encapsulates behavior and properties common to most <a
@@ -44,6 +47,7 @@ public class FacebookType implements Serializable {
    * @return This object's unique Facebook ID.
    */
   @Getter
+  @Setter
   @Facebook
   private String id;
 
@@ -53,6 +57,7 @@ public class FacebookType implements Serializable {
    * @return This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
    */
   @Getter
+  @Setter
   @Facebook
   private Metadata metadata;
 
@@ -62,6 +67,7 @@ public class FacebookType implements Serializable {
    * @return This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
    */
   @Getter
+  @Setter
   @Facebook
   private String type;
 
@@ -106,6 +112,7 @@ public class FacebookType implements Serializable {
      * @return The available connections for this object.
      */
     @Getter
+    @Setter
     @Facebook
     private Connections connections;
 
@@ -116,18 +123,12 @@ public class FacebookType implements Serializable {
      * @since 1.6.16
      */
     @Getter
+    @Setter
     @Facebook
     private String type;
 
-    /**
-     * Existing fields in the current type
-     * 
-     * @return list of field of the current type
-     * @since 1.6.16
-     */
-    @Getter
     @Facebook
-    private List<NamedFacebookType> fields;
+    private List<NamedFacebookType> fields = new ArrayList<NamedFacebookType>();
 
     private static final long serialVersionUID = 1L;
 
@@ -170,6 +171,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'home' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String home;
 
@@ -179,6 +181,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'feed' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String feed;
 
@@ -188,6 +191,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'friends' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String friends;
 
@@ -197,6 +201,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'family' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String family;
 
@@ -206,6 +211,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'activities' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String activities;
 
@@ -215,6 +221,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'interests' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String interests;
 
@@ -224,6 +231,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'music' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String music;
 
@@ -233,6 +241,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'books' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String books;
 
@@ -242,6 +251,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'movies' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String movies;
 
@@ -251,6 +261,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'television' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String television;
 
@@ -260,6 +271,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'likes' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String likes;
 
@@ -269,6 +281,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'posts' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String posts;
 
@@ -278,6 +291,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'tagged' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String tagged;
 
@@ -287,6 +301,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'statuses' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String statuses;
 
@@ -296,6 +311,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'links' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String links;
 
@@ -305,6 +321,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'notes' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String notes;
 
@@ -314,6 +331,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'photos' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String photos;
 
@@ -323,6 +341,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'albums' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String albums;
 
@@ -332,6 +351,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'events' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String events;
 
@@ -341,6 +361,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'groups' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String groups;
 
@@ -350,6 +371,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'videos' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String videos;
 
@@ -359,6 +381,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'picture' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String picture;
 
@@ -368,6 +391,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'inbox' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String inbox;
 
@@ -377,6 +401,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'outbox' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String outbox;
 
@@ -386,6 +411,7 @@ public class FacebookType implements Serializable {
        * @return This object's 'updates' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
+      @Setter
       @Facebook
       private String updates;
 
@@ -640,6 +666,24 @@ public class FacebookType implements Serializable {
         return !isBlank(updates);
       }
 
+    }
+
+    /**
+     * Existing fields in the current type
+     * 
+     * @return list of field of the current type
+     * @since 1.6.16
+     */
+    public List<NamedFacebookType> getFields() {
+      return Collections.unmodifiableList(fields);
+    }
+
+    public boolean addField(NamedFacebookType field) {
+      return fields.add(field);
+    }
+
+    public boolean removeField(NamedFacebookType field) {
+      return fields.remove(field);
     }
   }
 }

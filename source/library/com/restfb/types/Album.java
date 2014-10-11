@@ -27,7 +27,9 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/album">Album Graph API type</a>.
@@ -42,7 +44,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return An object containing the ID and name of the profile who posted this album.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private CategorizedFacebookType from;
 
@@ -51,7 +53,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return The description of the album.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private String description;
 
@@ -60,7 +62,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return The location of the album.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private String location;
 
@@ -69,7 +71,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return A link to this album on Facebook.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private String link;
 
@@ -78,7 +80,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return The number of photos in this album.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private Long count;
 
@@ -87,7 +89,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return The album cover photo ID
    */
-  @Getter
+  @Getter @Setter
   @Facebook("cover_photo")
   private String coverPhoto;
 
@@ -96,7 +98,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return The privacy settings for the album.
    */
-  @Getter
+  @Getter @Setter
   @Facebook
   private String privacy;
 
@@ -105,33 +107,37 @@ public class Album extends NamedFacebookType {
    * 
    * @return The {@code can_upload} setting for this album.
    */
-  @Getter
+  @Getter @Setter
   @Facebook("can_upload")
   private Boolean canUpload;
-
-  @Facebook("created_time")
-  private String createdTime;
-
-  @Facebook("updated_time")
-  private String updatedTime;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * The time the photo album was initially created.
    * 
    * @return The time the photo album was initially created.
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
-  }
+  @Getter @Setter
+  private Date createdTime;
 
   /**
    * The last time the photo album was updated.
    * 
    * @return The last time the photo album was updated.
    */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  @Getter @Setter
+  private Date updatedTime;
+  
+  private static final long serialVersionUID = 1L;
+
+  @Facebook("created_time")
+  transient private String rawCreatedTime;
+
+  @Facebook("updated_time")
+  transient private String rawUpdatedTime;
+  
+  @JsonMappingCompleted
+  void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
+      updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 }

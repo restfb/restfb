@@ -22,12 +22,14 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/link">Link Graph API type</a>.
@@ -44,6 +46,7 @@ public class Link extends NamedFacebookType {
    * @return An object containing the name and ID of the user who posted the link.
    */
   @Getter
+  @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -53,6 +56,7 @@ public class Link extends NamedFacebookType {
    * @return The link message content.
    */
   @Getter
+  @Setter
   @Facebook
   private String message;
 
@@ -62,6 +66,7 @@ public class Link extends NamedFacebookType {
    * @return The picture associated with the link.
    */
   @Getter
+  @Setter
   @Facebook
   private String picture;
 
@@ -71,6 +76,7 @@ public class Link extends NamedFacebookType {
    * @return The actual URL that was shared.
    */
   @Getter
+  @Setter
   @Facebook
   private String link;
 
@@ -80,6 +86,7 @@ public class Link extends NamedFacebookType {
    * @return The link description.
    */
   @Getter
+  @Setter
   @Facebook
   private String description;
 
@@ -89,13 +96,12 @@ public class Link extends NamedFacebookType {
    * @return The link icon.
    */
   @Getter
+  @Setter
   @Facebook
   private String icon;
 
   @Facebook("created_time")
-  private String createdTime;
-
-  private static final long serialVersionUID = 1L;
+  transient private String rawCreatedTime;
 
   /**
    * The time at which this object was created, if available.
@@ -103,7 +109,14 @@ public class Link extends NamedFacebookType {
    * @return The time at which this object was created.
    * @since 1.6.3
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  @Getter
+  @Setter
+  private Date createdTime;
+
+  private static final long serialVersionUID = 1L;
+
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 }
