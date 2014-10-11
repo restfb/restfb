@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010-2014 Norbert Bartels
+ * Copyright (c) 2010-2014 Norbert Bartels.
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -21,37 +22,33 @@
 
 package com.restfb.integration;
 
-import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
-import com.restfb.Parameter;
 import com.restfb.Version;
-import com.restfb.exception.FacebookOAuthException;
-import com.restfb.types.Post;
+import com.restfb.integration.base.RestFbIntegrationTestBase;
+import java.util.List;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
-public class PostSearchITCase extends RestFbIntegrationTestBase {
-
-  @Test
-  public void tesPostSearchV1_0() {
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_1_0);
-    Connection publicSearch =
-        facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
-          Parameter.with("type", "post"));
-
-    assertNotNull(((Post) publicSearch.getData().get(0)).getId());
-  }
-
-  @Test(expected = FacebookOAuthException.class)
-  public void tesPostSearchV2_0() {
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_0);
-    Connection publicSearch =
-        facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
-          Parameter.with("type", "post"));
-
-    fail("facebook should not allow this public search");
-  }
-
+public class FetchInboxITCase extends RestFbIntegrationTestBase {
+    
+    @Test
+    public void fetchInboxThread() {
+	DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
+	Connection<com.restfb.types.Thread> connection = client.fetchConnection("/" + getTestSettings().getUserId() + "/inbox", com.restfb.types.Thread.class);
+	assertNotNull(connection.getData());
+	
+	List<com.restfb.types.Thread> threadList = connection.getData();
+	assertTrue(threadList.size() > 0);
+	assertTrue(threadList.get(0).getComments().size() > 0);
+	
+	for (com.restfb.types.Thread thread : threadList) {
+	    assertNotNull(thread.getId());
+	    assertNotNull(thread.getUpdatedTime());
+	    assertNotNull(thread.getUnread());
+	    assertNotNull(thread.getUnseen());
+	}
+    }
+    
 }
