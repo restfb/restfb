@@ -20,23 +20,45 @@
  * THE SOFTWARE.
  */
 
-
 package com.restfb;
 
 public enum Version {
-    UNVERSIONED(null), VERSION_1_0("v1.0"), VERSION_2_0("v2.0"), VERSION_2_1("v2.1");
-    
-    private final String urlElement; 
-    
-    Version(String urlElement) {
-        this.urlElement = urlElement;
-    }
-    
-    public String getUrlElement() {
-        return this.urlElement;
-    }
-    
-    public boolean isUrlElementRequired() {
-        return null != this.urlElement;
-    }
+  /**
+   * unversiond api
+   */
+  UNVERSIONED(null),
+  /**
+   * graph api 1.0, available until April 30, 2015
+   * @since April 21, 2010
+   */
+  VERSION_1_0("v1.0"),
+  /**
+   * graph api 2.0, available until August 7, 2016
+   * @since April 30, 2014
+   */
+  VERSION_2_0("v2.0"),
+  /**
+   * graph api 2.1, available until October 30, 2016
+   * @since August 7, 2014
+   */
+  VERSION_2_1("v2.1"),
+  /**
+   * graph api 2.2, available at least until At least until October 30, 2016
+   * @since October 30, 2014
+   */
+  Version_2_2("v2.2");
+
+  private final String urlElement;
+
+  Version(String urlElement) {
+    this.urlElement = urlElement;
+  }
+
+  public String getUrlElement() {
+    return this.urlElement;
+  }
+
+  public boolean isUrlElementRequired() {
+    return null != this.urlElement;
+  }
 }
