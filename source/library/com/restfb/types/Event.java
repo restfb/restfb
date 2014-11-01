@@ -35,6 +35,8 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
 import java.util.ArrayList;
+import java.util.Collections;
+import static java.util.Collections.unmodifiableList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -216,12 +218,7 @@ public class Event extends NamedFacebookType {
     @Facebook
     private String category;
 
-    /**
-     * List of other categories for this owner.
-     * 
-     * @return List of other categories for this owner.
-     */
-    @Getter
+    
     @Facebook("category_list")
     private List<Category> categoryList = new ArrayList<Category>();
 
@@ -257,6 +254,15 @@ public class Event extends NamedFacebookType {
 
     public boolean removeCategory(Category category) {
       return categoryList.remove(category);
+    }
+    
+    /**
+     * List of other categories for this owner.
+     * 
+     * @return List of other categories for this owner.
+     */
+    public List<Category> getCategoryList() {
+	return unmodifiableList(categoryList);
     }
 
   }

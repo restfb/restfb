@@ -34,7 +34,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class SetterGetterTestBase {
@@ -158,6 +160,15 @@ public class SetterGetterTestBase {
       assertEquals(testText, 1, ((List) getter.invoke(instance)).size());
       remover.invoke(instance, o);
       assertEquals(testText, 0, ((List) getter.invoke(instance)).size());
+      try {
+	  ((List) getter.invoke(instance)).add(o);
+	  fail("should not be possible");
+      } catch (UnsupportedOperationException e) {
+	  // catch non modifiable exception
+	  assertTrue(true);
+      }
+	  
+      
     } catch (SecurityException ex) {
       fail("SecurityException: " + testText);
     } catch (IllegalAccessException ex) {

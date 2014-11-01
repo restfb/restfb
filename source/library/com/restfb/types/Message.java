@@ -46,7 +46,7 @@ import lombok.Setter;
  * @author alockhart
  */
 public class Message extends FacebookType {
-  
+
   @Facebook("created_time")
   private String rawCreatedTime;
 
@@ -69,12 +69,6 @@ public class Message extends FacebookType {
   @Facebook
   private NamedFacebookType from;
 
-  /**
-   * A list of the message recipients
-   * 
-   * @return A list of the message recipients
-   */
-  @Getter
   @Facebook
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
@@ -295,12 +289,21 @@ public class Message extends FacebookType {
   public boolean removeAttachment(Attachment attachment) {
     return attachments.remove(attachment);
   }
-  
-  public boolean addTo(NamedFacebookType receiver) {
-      return to.add(from);
+
+  /**
+   * A list of the message recipients
+   * 
+   * @return A list of the message recipients
+   */
+  public List<NamedFacebookType> getTo() {
+    return unmodifiableList(to);
   }
-  
+
+  public boolean addTo(NamedFacebookType receiver) {
+    return to.add(from);
+  }
+
   public boolean removeTo(NamedFacebookType receiver) {
-      return to.remove(from);
+    return to.remove(from);
   }
 }
