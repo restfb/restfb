@@ -151,7 +151,7 @@ public class Comment extends FacebookType {
   @Getter @Setter
   @Facebook
   private Attachment attachment;
-
+  
   private static final long serialVersionUID = 2L;
 
   @JsonMappingCompleted

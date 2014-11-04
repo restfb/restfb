@@ -218,7 +218,42 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("is_published")
   private Boolean isPublished;
+  
+  /**
+   * Indicates whether the Page is unclaimed.
+   * 
+   * @return Indicates whether the Page is unclaimed.
+   * @since 1.7.0
+   */
+  @Getter
+  @Setter
+  @Facebook("is_unclaimed")
+  private Boolean isUnclaimed;
 
+  /**
+   * The director of the film. 
+   * Applicable to Films.
+   * 
+   * @return The director of the film
+   * @since 1.7.0
+   */
+  @Getter
+  @Setter
+  @Facebook("directed_by")
+  private String directedBy;
+  
+  /**
+   * General manager of the business. 
+   * Applicable to Restaurants or Nightlife.
+   * 
+   * @return General manager of the business.
+   * @since 1.7.0
+   */
+  @Getter
+  @Setter
+  @Facebook("general_manager")
+  private String generalManager;
+  
   /**
    * The general information for a page.
    * 
@@ -261,6 +296,43 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook
   private String website;
+  
+  /**
+   * The name of a Location Page 
+   * that provides additional location 
+   * information for that Page beside its name. 
+   * 
+   * @return the name of Location Page
+   * @since 1.7.0
+   */
+  @Getter
+  @Setter
+  @Facebook("name_with_location_descriptor")
+  private String nameWithLocationDescriptor;
+  
+  /**
+   * Booking agent of the band. 
+   * Applicable to Bands.
+   * 
+   * @return Booking agent of the band
+   * @since 1.7.0
+   */
+  @Getter
+  @Setter
+  @Facebook("booking_agent")
+  private String bookingAgent;
+  
+  /**
+   * Press contact information of the band. 
+   * Applicable to Bands.
+   * 
+   * @return Press contact information of the band
+   * @since 1.7.0
+   */
+  @Getter
+  @Setter
+  @Facebook("press_contact")
+  private String pressContact;
 
   @Facebook("category_list")
   private List<Category> categoryList = new ArrayList<Category>();

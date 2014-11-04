@@ -321,6 +321,18 @@ public class User extends NamedFacebookType {
   @Setter
   @Facebook
   private Currency currency;
+  
+  /**
+   * This returns a string which is the same for this person 
+   * across all the apps managed by the same Business Manager.
+   * 
+   * @return string which is the same for a person across all apps managed by one company
+   * @since 1.7.0
+   */
+  @Getter
+  @Setter
+  @Facebook("token_for_business")
+  private String tokenForBusiness;
 
   @Facebook("interested_in")
   private List<String> interestedIn = new ArrayList<String>();
