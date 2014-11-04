@@ -10,9 +10,9 @@ RestFB itself is open source software released under the terms of the MIT Licens
 
 ## Installation
 
-RestFB is a single JAR - just drop `restfb-1.6.16.jar` into your app and you're ready to go.
+RestFB is a single JAR - just drop `restfb-1.7.0.jar` into your app and you're ready to go.
 
-Download it here: http://restfb.com/downloads/restfb-1.6.16.jar
+Download it here: http://restfb.com/downloads/restfb-1.7.0.jar
 
 Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to your project like this:
 
@@ -20,7 +20,7 @@ Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to you
 <dependency>
   <groupId>com.restfb</groupId>
   <artifactId>restfb</artifactId>
-  <version>1.6.16</version>
+  <version>1.7.0</version>
 </dependency>
 ```
 

@@ -1,3 +1,23 @@
+1.7.0 (November 7, 2014)
+
+* Issue #7: speed up date parsing, DateFormatStrategies added
+  Thanks for input and code review to @inthepocket, Marcel Stoer, Mike Hazelwood, Peter Vahlstrup
+* Issue #139: performance boost section added to website
+* Issue #58: JsonArray serializable
+  Thanks to @EpiXl33t, @rackom
+* Issue #44: DefaulWebRequestor should not close binaryAttachment stream
+  Thanks to Marcel Stoer
+* Issue #138: Thread type added
+* Issue #145, Issue #146, Issue #150: Graph API 2.2 added
+* Issue #133: comments and likes total count API unified
+* Issue #143: API Versioning added to other endpoints
+  Thanks to @munwaikong
+* Issue #48: make types mutable
+  Thanks to Courtney Robinson, Broc Seib, Marcel Stoer
+* Issue #144: API check util added
+* Issue #136: integration test configuration enhanced
+* Issue #130: URL type replaced by a current URL type implementation
+
 1.6.16 (September 22, 2014)
 
 * lombok library added to generate getter automatically
