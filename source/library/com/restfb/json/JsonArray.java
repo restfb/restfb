@@ -25,6 +25,7 @@ package com.restfb.json;
  */
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ import java.util.Map;
  * @author JSON.org
  * @version 2009-04-13
  */
-public class JsonArray {
+public class JsonArray implements Serializable {
   /**
    * The arrayList where the JsonArray's properties are kept.
    */
