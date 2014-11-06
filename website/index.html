@@ -56,6 +56,7 @@
 		<li><a href="#json-mapping-rules">JSON Mapping Rules</a></li>
 		<li><a href="#error-handling">Error Handling</a></li>
 		<li><a href="#extensibility-and-unit-testing">Extensibility and Unit Testing</a></li>
+		<li><a href="#boost-performance">Boost Performance</a></li>
 		<li class="separator"></li>
 		<li><a href="#links">Links</a></li>
 		<li><a href="#restfb-users">RestFB Users</a></li>
@@ -1232,6 +1233,49 @@ User user = facebookClient.<a target="_blank" href="javadoc/com/restfb/FacebookC
 
 assert "123456".equals(user.getId());
 assert "Test Person".equals(user.getName());</pre>
+	    
+	    <a name="boost-performance"></a>
+	    <div class="spacer"></div>
+
+	    <h2>Boost Performance</h2>
+	    
+	    <p>
+		Generating an <code>SimpleDateFormat</code> instance is incredible expensive 
+		and you should not generate a new formatter for every date string 
+		you have to parse. Therefore RestFB provides the possibility to 
+		replace the old and slow parsing with a faster solution. But 
+		you have to take care of some cleanup because the higher 
+		speed can result in a small memory leak. Of course RestFB 
+		provides everything you need to do it right.
+	    </p>
+	    
+	    <p>
+		With version 1.7.0 you can decide which <code><a target="_blank" href="javadoc/com/restfb/util/DateFormatStrategy.html">DateFormatStrategy</a></code> you 
+		use. The default strategy is the <code><a target="_blank" href="javadoc/com/restfb/util/SimpleDateFormatStrategy.html">SimpleDateFormatStrategy</a></code>. It's 
+		almost the same behavior as in the versions before 1.7.0 and you 
+		don't need to change anything. 
+	    </p>
+	    
+	    <p>
+		The faster stretegy is called <code><a target="_blank" href="javadoc/com/restfb/util/CachedDateFormatStrategy.html">CachedDateFormatStrategy</a></code>. You have 
+		to set this manually in the <code><a target="_blank" href="javadoc/com/restfb/util/DateUtils.html">DateUtils</a></code> singleton and call the 
+		<code>clearThreadLocal</code> method at the end of a thread to prevent the 
+		memory leak mentioned above. You should have a look at the code 
+		example below.
+	    </p>
+	    <p>
+		Because we provide the <code><a target="_blank" href="javadoc/com/restfb/util/DateFormatStrategy.html">DateFormatStrategy</a></code> as an Interface you can implement your own strategy.
+	    </p>
+	    <pre class="prettyprint">
+DateUtils.setDateFormatStrategy(new CachedDateFormatStrategy());
+// do your normal stuff in that thread
+...
+// clean the thread local cache just before you finish the thread
+DateFormatStrategy strategy = DateUtils.getDateFormatStrategy();
+if (strategy instanceof CachedDateFormatStrategy) {
+     ((CachedDateFormatStrategy)strategy).clearThreadLocal();
+}
+	    </pre>
 
 	    <a name="links"></a>
 	    <div class="spacer"></div>
