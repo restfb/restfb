@@ -282,7 +282,7 @@ div.spacer {
 }
 
 pre.prettyprint {
-
+	line-height: 22px;
 }
 
 @media print {
