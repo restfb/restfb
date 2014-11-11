@@ -182,7 +182,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Creates a Facebook Graph API client with no access token.
    * <p>
    * Without an access token, you can view and search public graph data but can't do much else.
+   * @deprecated  As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
    */
+  @Deprecated
   public DefaultFacebookClient() {
     this(null);
   }
@@ -192,7 +194,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * 
    * @param accessToken
    *          A Facebook OAuth access token.
+   * @deprecated  As of release 1.7.1 replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
    */
+  @Deprecated
   public DefaultFacebookClient(String accessToken) {
     this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
   }
@@ -218,7 +222,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @param appSecret
    *          A Facebook application secret.
    * @since 1.6.13
+   * @deprecated  As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, java.lang.String, com.restfb.Version) }
    */
+  @Deprecated
   public DefaultFacebookClient(String accessToken, String appSecret) {
     this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
   }
@@ -249,7 +255,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
+   * @deprecated  As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.WebRequestor, com.restfb.JsonMapper, com.restfb.Version) }
    */
+  @Deprecated
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
     this(accessToken, null, webRequestor, jsonMapper, null);
   }
@@ -285,6 +293,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
    * @param jsonMapper
    *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
+   * @param apiVersion
+   *          Version of the api endpoint
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
