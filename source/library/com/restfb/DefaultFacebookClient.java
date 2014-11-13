@@ -28,7 +28,6 @@ import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.join;
 import static com.restfb.util.StringUtils.toBytes;
 import static com.restfb.util.StringUtils.toInteger;
-import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.StringUtils.trimToNull;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.lang.String.format;
@@ -38,6 +37,7 @@ import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
@@ -342,8 +342,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
 
-    illegalParamNames.addAll(Arrays
-      .asList(ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME));
+    illegalParamNames.addAll(Arrays.asList(ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME));
   }
 
   /**
@@ -680,7 +679,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.FacebookClient#obtainUserAccessToken(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   * @see com.restfb.FacebookClient#obtainUserAccessToken(java.lang.String, java.lang.String, java.lang.String,
+   *      java.lang.String)
    */
   @Override
   public AccessToken obtainUserAccessToken(String appId, String appSecret, String redirectUri, String verificationCode) {
@@ -922,8 +922,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         if (executeAsDelete && !isHttpDeleteFallback()) {
           return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
         } else {
-          return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString,
-            binaryAttachments == null ? null : binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()])) : webRequestor
+          return executeAsPost ? webRequestor.executePost(
+            fullEndpoint,
+            parameterString,
+            binaryAttachments == null ? null
+                : binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()])) : webRequestor
             .executeGet(fullEndpoint + "?" + parameterString);
         }
       }
@@ -987,11 +990,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     // If we get any HTTP response code other than a 200 OK or 400 Bad Request
     // or 401 Not Authorized or 403 Forbidden or 404 Not Found or 500 Internal
-    // Server Error,
+    // Server Error or 302 Not Modified
     // throw an exception.
     if (HTTP_OK != response.getStatusCode() && HTTP_BAD_REQUEST != response.getStatusCode()
         && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_NOT_FOUND != response.getStatusCode()
-        && HTTP_INTERNAL_ERROR != response.getStatusCode() && HTTP_FORBIDDEN != response.getStatusCode())
+        && HTTP_INTERNAL_ERROR != response.getStatusCode() && HTTP_FORBIDDEN != response.getStatusCode()
+        && HTTP_NOT_MODIFIED != response.getStatusCode())
       throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
 
     String json = response.getBody();

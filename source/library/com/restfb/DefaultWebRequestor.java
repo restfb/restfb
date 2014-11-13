@@ -346,30 +346,19 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection = openConnection(new URL(url));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
       httpUrlConnection.setUseCaches(false);
+      httpUrlConnection.setRequestMethod(httpMethod.name());
 
       // Allow subclasses to customize the connection if they'd like to - set
       // their own headers, timeouts, etc.
       customizeConnection(httpUrlConnection);
 
-      httpUrlConnection.setRequestMethod(httpMethod.name());
       httpUrlConnection.connect();
 
       if (logger.isLoggable(FINER)) {
         logger.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
       }
 
-      try {
-        inputStream =
-            httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
-              .getInputStream();
-      } catch (IOException e) {
-        if (logger.isLoggable(WARNING)) {
-          logger
-            .warning(format("An error occurred while making a " + httpMethod.name() + " request to %s: %s", url, e));
-        }
-      }
-
-      Response response = new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
+      Response response = fetchResponse(inputStream, httpUrlConnection);
 
       if (logger.isLoggable(FINE)) {
         logger.log(FINE, "Facebook responded with {0}", response);
@@ -379,6 +368,21 @@ public class DefaultWebRequestor implements WebRequestor {
     } finally {
       closeQuietly(httpUrlConnection);
     }
+  }
+
+  protected Response fetchResponse(InputStream inputStream, HttpURLConnection httpUrlConnection) throws IOException {
+    try {
+      inputStream =
+          httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
+            .getInputStream();
+    } catch (IOException e) {
+      if (logger.isLoggable(WARNING)) {
+        logger.warning(format("An error occurred while making a " + httpUrlConnection.getRequestMethod()
+            + " request to %s: %s", httpUrlConnection.getURL(), e));
+      }
+    }
+
+    return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
   }
 
 }
