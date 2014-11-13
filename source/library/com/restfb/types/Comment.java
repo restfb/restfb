@@ -133,6 +133,16 @@ public class Comment extends FacebookType {
   @Getter @Setter
   @Facebook("can_comment")
   private boolean canComment;
+  
+  /**
+   * Whether the viewer can hide this comment
+   * 
+   * @return can_hide
+   * @since 1.7.1
+   */
+  @Getter @Setter
+  @Facebook("can_hide")
+  private boolean canHide;
 
   /**
    * The replies to this comment
