@@ -15,5 +15,6 @@
   "can_remove": true, 
   "created_time": "2014-10-17T14:03:17+0000", 
   "like_count": 0, 
-  "user_likes": false
+  "user_likes": false,
+  "is_hidden" : true
 }
