@@ -38,12 +38,15 @@ public class RestFbIntegrationTestSettings {
 
   private String pageId = "";
 
+  private String userGroupId = "";
+
   public RestFbIntegrationTestSettings(Properties settings) {
     writeToFacebook = Boolean.getBoolean(settings.getProperty("writeToFacebook", "false"));
-    userAccessToken = settings.getProperty("user.accessToken","");
-    pageAccessToken = settings.getProperty("page.accessToken","");
-    userId = settings.getProperty("user.id","");
-    pageId = settings.getProperty("page.id","");
+    userAccessToken = settings.getProperty("user.accessToken", "");
+    pageAccessToken = settings.getProperty("page.accessToken", "");
+    userId = settings.getProperty("user.id", "");
+    pageId = settings.getProperty("page.id", "");
+    userGroupId = settings.getProperty("user.group.id", "");
 
     checkSettings();
   }
@@ -68,19 +71,23 @@ public class RestFbIntegrationTestSettings {
     return pageId;
   }
 
+  public String getGroupId() {
+    return userGroupId;
+  }
+
   private void checkSettings() {
-      if (getUserId().isEmpty()) {
-	throw new IllegalArgumentException("user id not set");
-      }
-      if (getUserAccessToken().isEmpty()) {
-	throw new IllegalArgumentException("access token not set");
-      }
-      if (getPageId().isEmpty()) {
-	throw new IllegalArgumentException("page id not set");
-      }
-      if (getPageAccessToken().isEmpty()) {
-	throw new IllegalArgumentException("page access token not set");
-      }
+    if (getUserId().isEmpty()) {
+      throw new IllegalArgumentException("user id not set");
+    }
+    if (getUserAccessToken().isEmpty()) {
+      throw new IllegalArgumentException("access token not set");
+    }
+    if (getPageId().isEmpty()) {
+      throw new IllegalArgumentException("page id not set");
+    }
+    if (getPageAccessToken().isEmpty()) {
+      throw new IllegalArgumentException("page access token not set");
+    }
   }
 
 }
