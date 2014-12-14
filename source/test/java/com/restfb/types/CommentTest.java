@@ -21,7 +21,9 @@
 package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -41,5 +43,13 @@ public class CommentTest extends AbstractJsonMapperTests {
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_canHide"), Comment.class);
         assertTrue(exampleComment.isCanHide());
 	assertFalse(exampleComment.getIsHidden());
+    }
+    
+    @Test
+    public void checkV2_2_object() {
+	Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_object"), Comment.class);
+	assertNotNull(exampleComment.getObject());
+	assertEquals("1559830900918160", exampleComment.getObject().getId());
+	assertEquals("picture time", exampleComment.getObject().getName());
     }
 }

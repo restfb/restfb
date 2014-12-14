@@ -149,12 +149,22 @@ public class Comment extends FacebookType {
    * The original poster can still see the comment, 
    * along with the page admin and anyone else tagged in the comment
    * 
-   * return is_hidden
+   * @return is_hidden
    * @since 1.7.1
    */
   @Getter @Setter
   @Facebook("is_hidden")
   private Boolean isHidden;
+  
+  /**
+   * Parent object this comment was made on.
+   * 
+   * @return object
+   * @since 1.7.1
+   */
+  @Getter @Setter
+  @Facebook
+  private NamedFacebookType object;
 
   /**
    * The replies to this comment
