@@ -149,6 +149,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String ERROR_TYPE_ATTRIBUTE_NAME = "type";
 
   /**
+   * API error response 'error_user_title' attribute name.
+   */
+  protected static final String ERROR_USER_TITLE_ATTRIBUTE_NAME = "error_user_title";
+  
+  /**
+   * API error response 'error_user_msg' attribute name.
+   */
+  protected static final String ERROR_USER_MSG_ATTRIBUTE_NAME = "error_user_msg";
+  
+  /**
    * API error response 'message' attribute name.
    */
   protected static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
@@ -976,7 +986,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw graphFacebookExceptionMapper
         .exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
           innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
-          innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME));
+          innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
+	  innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
+	  innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -1023,7 +1035,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         return;
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
-        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME));
+        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME), null, null);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -1055,16 +1067,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      *      java.lang.Integer, java.lang.String, java.lang.String)
      */
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
-        Integer httpStatusCode, String type, String message) {
+        Integer httpStatusCode, String type, String message, String errorUserTitle, String errorUserMessage) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
-        return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode);
+        return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle, errorUserMessage);
 
       if ("QueryParseException".equals(type))
-        return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode);
+        return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle, errorUserMessage);
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
-      return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode);
+      return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle, errorUserMessage);
     }
   }
 
