@@ -248,7 +248,7 @@ abstract class BaseFacebookClient {
   protected String queriesToJson(Map<String, String> queries) {
     verifyParameterPresence("queries", queries);
 
-    if (queries.keySet().size() == 0)
+    if (queries.keySet().isEmpty())
       throw new IllegalArgumentException("You must specify at least one query.");
 
     JsonObject jsonObject = new JsonObject();

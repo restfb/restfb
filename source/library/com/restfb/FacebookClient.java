@@ -168,6 +168,7 @@ public interface FacebookClient {
    * @deprecated As of 1.6.12, prefer {@link #executeFqlQuery(String, Class, Parameter...)} because it connects to the
    *             Graph API FQL endpoint instead of the legacy FQL endpoint.
    */
+  @Deprecated
   <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters);
 
   /**
@@ -192,6 +193,7 @@ public interface FacebookClient {
    * @deprecated As of 1.6.12, prefer {@link #executeFqlMultiquery(Map, Class, Parameter...)} because it connects to the
    *             Graph API FQL endpoint instead of the legacy FQL endpoint.
    */
+  @Deprecated
   <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
 
   /**

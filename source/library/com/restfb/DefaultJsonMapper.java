@@ -223,7 +223,7 @@ public class DefaultJsonMapper implements JsonMapper {
       // If there are no annotated fields, assume we're mapping to a built-in
       // type. If this is actually the empty object, just return a new instance
       // of the corresponding Java type.
-      if (fieldsWithAnnotation.size() == 0)
+      if (fieldsWithAnnotation.isEmpty())
         if (isEmptyObject(json)) {
           T instance = createInstance(type);
 
