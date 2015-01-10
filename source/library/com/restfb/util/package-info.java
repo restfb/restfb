@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
