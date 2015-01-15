@@ -1,0 +1,17 @@
+{
+  "concentration": [
+    {
+      "id": "112363008776524",
+      "name": "Computer Science"
+    }
+  ],
+  "school": {
+    "id": "109826632370208",
+    "name": "Saarland University"
+  },
+  "type": "College",
+  "year": {
+    "id": "137616982934053",
+    "name": "2006"
+  }
+}
