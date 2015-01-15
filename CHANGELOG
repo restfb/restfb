@@ -1,3 +1,62 @@
+1.7.0 (November 7, 2014)
+
+* Issue #7: speed up date parsing, DateFormatStrategies added
+  Thanks for input and code review to @inthepocket, Marcel Stoer, Mike Hazelwood, Peter Vahlstrup
+* Issue #139: performance boost section added to website
+* Issue #58: JsonArray serializable
+  Thanks to @EpiXl33t, @rackom
+* Issue #44: DefaulWebRequestor should not close binaryAttachment stream
+  Thanks to Marcel Stoer
+* Issue #138: Thread type added
+* Issue #145, Issue #146, Issue #150: Graph API 2.2 added
+* Issue #133: comments and likes total count API unified
+* Issue #143: API Versioning added to other endpoints
+  Thanks to @munwaikong
+* Issue #48: make types mutable
+  Thanks to Courtney Robinson, Broc Seib, Marcel Stoer
+* Issue #144: API check util added
+* Issue #136: integration test configuration enhanced
+* Issue #130: URL type replaced by a current URL type implementation
+
+1.6.16 (September 22, 2014)
+
+* lombok library added to generate getter automatically
+* deleteObject bug using Graph API 2.1 fixed 
+  Thanks to @Rekoe
+* total count added to connection
+  Thanks to @alfredoivan
+* obtaining extended access token via GET
+  Thanks to Venkateswaran S
+* Review type added
+  Thanks to @bhargavr
+* Missing field added to Group, Metadata, Page, Post
+* Likes and Comments count fixed in Post object
+* fetchObjects fails if non of the ids exist fixed
+  Thanks to @oferfort
+* User.Picture type added
+* Logging documentation improved, example refreshed
+* empty list json issue fixed
+  Thanks to Shaya Potter
+* example build.xml modified to find the restfb.jar
+  Thanks to Shaya Potter
+* DeAuth type added
+* lot of unittests added
+* integration tests added
+
+1.6.15 (August 29, 2014)
+
+* basic support for Facebook API versioning added (unversioned, v1.0, v2.0, v2.1)
+* category_list for Place 
+  Thanks to Quentin Rousseau
+* Photo.Tag x and y changed to Double
+  Thanks to Peter Vahlstrup
+* Backdated time and granularity added to Photo
+  Thanks to Peter Vahlstrup
+* website added to Page
+  Thanks to Damian Pawlowski
+* unit test reorganized, mvn test is working now correctly
+* some unit test added to check some issues
+
 1.6.14 (January 27, 2014)
 
 * Fix for regression in 1.6.13 where one DefaultFacebookClient constructor override would ignore the supplied

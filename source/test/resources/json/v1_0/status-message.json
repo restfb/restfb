@@ -1,0 +1,20 @@
+{
+    "id": "12345678",
+    "from": {
+        "name": "tester",
+        "id": "987654321"
+    },
+    "place": {
+        "id": "512463778831080",
+        "name": "İstanbul Ataşehir",
+        "location": {
+            "street": "",
+            "city": "Istanbul",
+            "state": "",
+            "country": "Turkey",
+            "zip": "",
+            "latitude": 40.996917045135,
+            "longitude": 29.138584188444
+        }
+    }
+}

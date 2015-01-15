@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
@@ -31,6 +30,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/status">Status Message Graph API type</a>.
@@ -39,17 +42,59 @@ import com.restfb.Facebook;
  * @since 1.6
  */
 public class StatusMessage extends NamedFacebookType {
+
+  /**
+   * The user who posted the message.
+   * 
+   * @return The user who posted the message.
+   */
+  @Getter
+  @Setter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * The status message content.
+   * 
+   * @return The status message content.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String message;
 
+  /**
+   * The place where status message is attached.
+   * 
+   * @return The place where the status message posted.
+   * @since 1.6.15
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Place place;
+
+  /**
+   * The object type which is set to status.
+   * 
+   * @return The object type which is set to status.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String type;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
+
+  /**
+   * The time the message was published.
+   * 
+   * @return The time the message was published.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   @Facebook
   private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
@@ -99,40 +144,9 @@ public class StatusMessage extends NamedFacebookType {
     private static final long serialVersionUID = 1L;
   }
 
-  /**
-   * The user who posted the message.
-   * 
-   * @return The user who posted the message.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * The status message content.
-   * 
-   * @return The status message content.
-   */
-  public String getMessage() {
-    return message;
-  }
-
-  /**
-   * The object type which is set to status.
-   * 
-   * @return The object type which is set to status.
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * The time the message was published.
-   * 
-   * @return The time the message was published.
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  @JsonMappingCompleted
+  void convertTime() {
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   /**
@@ -144,6 +158,14 @@ public class StatusMessage extends NamedFacebookType {
     return unmodifiableList(likes);
   }
 
+  public boolean addLike(NamedFacebookType like) {
+    return likes.add(like);
+  }
+
+  public boolean removeLike(NamedFacebookType like) {
+    return likes.remove(like);
+  }
+
   /**
    * All of the comments on this message.
    * 
@@ -151,5 +173,13 @@ public class StatusMessage extends NamedFacebookType {
    */
   public List<Comment> getComments() {
     return unmodifiableList(comments);
+  }
+
+  public boolean addComment(Comment comment) {
+    return comments.add(comment);
+  }
+
+  public boolean removeComment(Comment comment) {
+    return comments.remove(comment);
   }
 }

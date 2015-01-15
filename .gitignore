@@ -1,8 +1,9 @@
 /build
 /pom.xml.asc
 /.eclipse-build
-<<<<<<< HEAD
 /target
 /.idea
 *.iml
 /target/
+/nb-configuration.xml
+/source/test/resources/integration-test.properties

@@ -26,6 +26,8 @@ import java.io.Serializable;
 
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a location (address and latitude/longitude).
@@ -36,24 +38,74 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.6.8
  */
 public class Location implements Serializable {
+
+  /**
+   * The street address of this location.
+   * 
+   * @return The street address of this location.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String street;
 
+  /**
+   * The city name of this location.
+   * 
+   * @return The city name of this location.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String city;
 
+  /**
+   * The state name of this location.
+   * 
+   * @return The state name of this location.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String state;
 
+  /**
+   * The country name of this location.
+   * 
+   * @return The country name of this location.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String country;
 
+  /**
+   * The postal code of this location.
+   * 
+   * @return The postal code of this location.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String zip;
 
+  /**
+   * The latitude of this location.
+   * 
+   * @return The latitude of this location.
+   */
+  @Getter
+  @Setter
   @Facebook
   private Double latitude;
 
+  /**
+   * The longitude of this location.
+   * 
+   * @return The longitude of this location.
+   */
+  @Getter
+  @Setter
   @Facebook
   private Double longitude;
 
@@ -83,66 +135,4 @@ public class Location implements Serializable {
     return ReflectionUtils.toString(this);
   }
 
-  /**
-   * The street address of this location.
-   * 
-   * @return The street address of this location.
-   */
-  public String getStreet() {
-    return street;
-  }
-
-  /**
-   * The city name of this location.
-   * 
-   * @return The city name of this location.
-   */
-  public String getCity() {
-    return city;
-  }
-
-  /**
-   * The state name of this location.
-   * 
-   * @return The state name of this location.
-   */
-  public String getState() {
-    return state;
-  }
-
-  /**
-   * The country name of this location.
-   * 
-   * @return The country name of this location.
-   */
-  public String getCountry() {
-    return country;
-  }
-
-  /**
-   * The postal code of this location.
-   * 
-   * @return The postal code of this location.
-   */
-  public String getZip() {
-    return zip;
-  }
-
-  /**
-   * The latitude of this location.
-   * 
-   * @return The latitude of this location.
-   */
-  public Double getLatitude() {
-    return latitude;
-  }
-
-  /**
-   * The longitude of this location.
-   * 
-   * @return The longitude of this location.
-   */
-  public Double getLongitude() {
-    return longitude;
-  }
 }

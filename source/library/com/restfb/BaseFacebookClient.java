@@ -193,6 +193,11 @@ abstract class BaseFacebookClient {
       if (!json.startsWith("{"))
         return;
 
+      int subStrEnd = Math.min(50, json.length());
+      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+        return; // no need to parse json
+      }
+
       JsonObject errorObject = null;
 
       // We need to swallow exceptions here because it's possible to get a legit

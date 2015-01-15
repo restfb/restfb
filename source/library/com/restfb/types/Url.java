@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2014 Norbert Bartels.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,49 +23,126 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Represents a Facebook URL.
+ * Represents an external URL as it relates to the Facebook social graph - shares and comments from the URL on Facebook,
+ * and any Open Graph objects associated with the URL.
  * 
- * @author <a href="http://restfb.com">Mark Allen</a>
- * @deprecated As of 1.6.10, this type is deprecated and will be removed in a future release.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/v2.1/url">URL Graph API type</a>.
+ * 
+ * Facebook APi Version 2.1+
+ * 
+ * @since 1.7.0
  */
-@Deprecated
-public class Url extends NamedFacebookType {
-  @Facebook
-  private Long shares;
+public class Url extends FacebookType {
+
+  /**
+   * The Open Graph object that is canonically associated with this URL.
+   * 
+   * @return The Open Graph object that is canonically associated with this URL
+   */
+  @Getter @Setter
+  @Facebook("og_object")
+  private OGObject ogObject;
+
+  // @Getter
+  // @Facebook("app_links")
+  // private AppLinks appLinks;
 
   @Facebook
-  private String picture;
+  private JsonObject share;
+  
+  /**
+   * The number of Facebook comments associated with this URL.
+   * 
+   * @return The number of Facebook comments associated with this URL
+   */
+  @Getter @Setter
+  private int commentCount = 0;
+  
+  /**
+   * The number of shares of this URL on Facebook.
+   * 
+   * is set <code>0</code> if the share count is not present
+   * 
+   * @return The number of shares of this URL on Facebook
+   */
+  @Getter @Setter
+  private int shareCount = 0;
 
-  @Facebook
-  private String link;
-
-  @Facebook
-  private String category;
-
-  @Facebook("fan_count")
-  private Long fanCount;
+  @JsonMappingCompleted
+  void fillCounts() {
+    if (share.has("comment_count")) {
+      commentCount = share.getInt("comment_count");
+    }
+    if (share.has("share_count")) {
+      shareCount = share.getInt("share_count");
+    }
+  }
 
   private static final long serialVersionUID = 1L;
 
-  public Long getShares() {
-    return shares;
-  }
+  /**
+   * The Open Graph object that is canonically associated with this URL.
+   */
+  public static class OGObject extends FacebookType {
 
-  public String getPicture() {
-    return picture;
-  }
+    /**
+     * The description of the object.
+     * 
+     * @return The description of the object
+     */
+    @Getter @Setter
+    @Facebook
+    private String description;
 
-  public String getLink() {
-    return link;
-  }
+    /**
+     * The title of the object.
+     * 
+     * @return The title of the object
+     */
+    @Getter @Setter
+    @Facebook
+    private String title;
 
-  public String getCategory() {
-    return category;
-  }
+    /**
+     * The object type.
+     * 
+     * @return The object type as String
+     */
+    @Getter @Setter
+    @Facebook
+    private String type;
 
-  public Long getFanCount() {
-    return fanCount;
+    /**
+     * This URL.
+     * 
+     * @return This URL
+     */
+    @Getter @Setter
+    @Facebook
+    private String url;
+
+    @Facebook("updated_time")
+    private String rawUpdatedTime;
+
+    /**
+     * When the object was last updated.
+     * 
+     * @return date when the object was last updated.
+     */
+    @Getter @Setter
+    private Date updatedTime;
+    
+    @JsonMappingCompleted
+    void convertTime() {
+      updatedTime = toDateFromLongFormat(rawUpdatedTime);
+    }
   }
 }

@@ -22,11 +22,14 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a Connection to a <a href="http://developers.facebook.com/docs/reference/api/page">Page Graph API
@@ -37,16 +40,21 @@ import com.restfb.Facebook;
  */
 public class PageConnection extends CategorizedFacebookType {
   @Facebook("created_time")
-  private String createdTime;
-
-  private static final long serialVersionUID = 1L;
+  private String rawCreatedTime;
 
   /**
    * The time the connection was initially created.
    * 
    * @return The time the connection was initially created.
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  @Getter
+  @Setter
+  private Date createdTime;
+
+  private static final long serialVersionUID = 1L;
+
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 }

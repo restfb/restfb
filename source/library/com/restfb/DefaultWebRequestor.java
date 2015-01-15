@@ -78,6 +78,11 @@ public class DefaultWebRequestor implements WebRequestor {
   private static final Logger logger = Logger.getLogger("com.restfb.HTTP");
 
   /**
+   * By default this is true, to prevent breaking existing usage
+   */
+  private boolean autocloseBinaryAttachmentStream = true;
+
+  /**
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
   @Override
@@ -230,7 +235,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
       return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
     } finally {
-      if (binaryAttachments.length > 0)
+      if (autocloseBinaryAttachmentStream && binaryAttachments.length > 0)
         for (BinaryAttachment binaryAttachment : binaryAttachments)
           closeQuietly(binaryAttachment.getData());
 
@@ -345,4 +350,25 @@ public class DefaultWebRequestor implements WebRequestor {
     int fileExtensionIndex = name.lastIndexOf(".");
     return fileExtensionIndex > 0 ? name.substring(0, fileExtensionIndex) : name;
   }
+
+  /**
+   * returns if the binary attachment stream is closed automatically
+   * 
+   * @since 1.7.0
+   * @return
+   */
+  public boolean isAutocloseBinaryAttachmentStream() {
+    return autocloseBinaryAttachmentStream;
+  }
+
+  /**
+   * define if the binary attachment stream is closed automatically after sending the content to facebook
+   * 
+   * @since 1.7.0
+   * @param autocloseBinaryAttachmentStream
+   */
+  public void setAutocloseBinaryAttachmentStream(boolean autocloseBinaryAttachmentStream) {
+    this.autocloseBinaryAttachmentStream = autocloseBinaryAttachmentStream;
+  }
+
 }

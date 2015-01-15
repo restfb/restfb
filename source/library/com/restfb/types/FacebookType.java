@@ -22,12 +22,15 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.StringUtils.isBlank;
-
-import java.io.Serializable;
-
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+import static com.restfb.util.StringUtils.isBlank;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Base class which encapsulates behavior and properties common to most <a
@@ -37,12 +40,34 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class FacebookType implements Serializable {
+
+  /**
+   * This object's unique Facebook ID.
+   * 
+   * @return This object's unique Facebook ID.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String id;
 
+  /**
+   * This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
+   * 
+   * @return This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
+   */
+  @Getter
+  @Setter
   @Facebook
   private Metadata metadata;
 
+  /**
+   * This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
+   * 
+   * @return This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String type;
 
@@ -73,33 +98,6 @@ public class FacebookType implements Serializable {
   }
 
   /**
-   * This object's unique Facebook ID.
-   * 
-   * @return This object's unique Facebook ID.
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   * 
-   * @return This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   */
-  public Metadata getMetadata() {
-    return metadata;
-  }
-
-  /**
-   * This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   * 
-   * @return This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
    * Represents <a href="http://developers.facebook.com/docs/api#introspection">Facebook Object metadata</a>, available
    * by including the {@code metadata=1} URL parameter in an API request.
    * 
@@ -107,8 +105,30 @@ public class FacebookType implements Serializable {
    * @since 1.5
    */
   public static class Metadata implements Serializable {
+
+    /**
+     * The available connections for this object.
+     * 
+     * @return The available connections for this object.
+     */
+    @Getter
+    @Setter
     @Facebook
     private Connections connections;
+
+    /**
+     * The metadata type of the object
+     * 
+     * @return the metadata type
+     * @since 1.6.16
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String type;
+
+    @Facebook
+    private List<NamedFacebookType> fields = new ArrayList<NamedFacebookType>();
 
     private static final long serialVersionUID = 1L;
 
@@ -144,78 +164,254 @@ public class FacebookType implements Serializable {
      * @since 1.5
      */
     public static class Connections implements Serializable {
+
+      /**
+       * This object's 'home' connection URL.
+       * 
+       * @return This object's 'home' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String home;
 
+      /**
+       * This object's 'feed' connection URL.
+       * 
+       * @return This object's 'feed' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String feed;
 
+      /**
+       * This object's 'friends' connection URL.
+       * 
+       * @return This object's 'friends' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String friends;
 
+      /**
+       * This object's 'family' connection URL.
+       * 
+       * @return This object's 'family' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String family;
 
+      /**
+       * This object's 'activities' connection URL.
+       * 
+       * @return This object's 'activities' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String activities;
 
+      /**
+       * This object's 'interests' connection URL.
+       * 
+       * @return This object's 'interests' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String interests;
 
+      /**
+       * This object's 'music' connection URL.
+       * 
+       * @return This object's 'music' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String music;
 
+      /**
+       * This object's 'books' connection URL.
+       * 
+       * @return This object's 'books' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String books;
 
+      /**
+       * This object's 'movies' connection URL.
+       * 
+       * @return This object's 'movies' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String movies;
 
+      /**
+       * This object's 'television' connection URL.
+       * 
+       * @return This object's 'television' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String television;
 
+      /**
+       * This object's 'likes' connection URL.
+       * 
+       * @return This object's 'likes' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String likes;
 
+      /**
+       * This object's 'posts' connection URL.
+       * 
+       * @return This object's 'posts' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String posts;
 
+      /**
+       * This object's 'tagged' connection URL.
+       * 
+       * @return This object's 'tagged' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String tagged;
 
+      /**
+       * This object's 'statuses' connection URL.
+       * 
+       * @return This object's 'statuses' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String statuses;
 
+      /**
+       * This object's 'links' connection URL.
+       * 
+       * @return This object's 'links' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String links;
 
+      /**
+       * This object's 'notes' connection URL.
+       * 
+       * @return This object's 'notes' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String notes;
 
+      /**
+       * This object's 'photos' connection URL.
+       * 
+       * @return This object's 'photos' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String photos;
 
+      /**
+       * This object's 'albums' connection URL.
+       * 
+       * @return This object's 'albums' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String albums;
 
+      /**
+       * This object's 'events' connection URL.
+       * 
+       * @return This object's 'events' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String events;
 
+      /**
+       * This object's 'groups' connection URL.
+       * 
+       * @return This object's 'groups' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String groups;
 
+      /**
+       * This object's 'videos' connection URL.
+       * 
+       * @return This object's 'videos' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String videos;
 
+      /**
+       * This object's 'picture' connection URL.
+       * 
+       * @return This object's 'picture' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String picture;
 
+      /**
+       * This object's 'inbox' connection URL.
+       * 
+       * @return This object's 'inbox' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String inbox;
 
+      /**
+       * This object's 'outbox' connection URL.
+       * 
+       * @return This object's 'outbox' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String outbox;
 
+      /**
+       * This object's 'updates' connection URL.
+       * 
+       * @return This object's 'updates' connection URL, or {@code null} if it doesn't have one.
+       */
+      @Getter
+      @Setter
       @Facebook
       private String updates;
 
@@ -470,239 +666,24 @@ public class FacebookType implements Serializable {
         return !isBlank(updates);
       }
 
-      /**
-       * This object's 'home' connection URL.
-       * 
-       * @return This object's 'home' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getHome() {
-        return home;
-      }
-
-      /**
-       * This object's 'feed' connection URL.
-       * 
-       * @return This object's 'feed' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getFeed() {
-        return feed;
-      }
-
-      /**
-       * This object's 'friends' connection URL.
-       * 
-       * @return This object's 'friends' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getFriends() {
-        return friends;
-      }
-
-      /**
-       * This object's 'family' connection URL.
-       * 
-       * @return This object's 'family' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getFamily() {
-        return family;
-      }
-
-      /**
-       * This object's 'activities' connection URL.
-       * 
-       * @return This object's 'activities' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getActivities() {
-        return activities;
-      }
-
-      /**
-       * This object's 'interests' connection URL.
-       * 
-       * @return This object's 'interests' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getInterests() {
-        return interests;
-      }
-
-      /**
-       * This object's 'music' connection URL.
-       * 
-       * @return This object's 'music' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getMusic() {
-        return music;
-      }
-
-      /**
-       * This object's 'books' connection URL.
-       * 
-       * @return This object's 'books' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getBooks() {
-        return books;
-      }
-
-      /**
-       * This object's 'movies' connection URL.
-       * 
-       * @return This object's 'movies' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getMovies() {
-        return movies;
-      }
-
-      /**
-       * This object's 'television' connection URL.
-       * 
-       * @return This object's 'television' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getTelevision() {
-        return television;
-      }
-
-      /**
-       * This object's 'likes' connection URL.
-       * 
-       * @return This object's 'likes' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getLikes() {
-        return likes;
-      }
-
-      /**
-       * This object's 'posts' connection URL.
-       * 
-       * @return This object's 'posts' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getPosts() {
-        return posts;
-      }
-
-      /**
-       * This object's 'tagged' connection URL.
-       * 
-       * @return This object's 'tagged' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getTagged() {
-        return tagged;
-      }
-
-      /**
-       * This object's 'statuses' connection URL.
-       * 
-       * @return This object's 'statuses' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getStatuses() {
-        return statuses;
-      }
-
-      /**
-       * This object's 'links' connection URL.
-       * 
-       * @return This object's 'links' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getLinks() {
-        return links;
-      }
-
-      /**
-       * This object's 'notes' connection URL.
-       * 
-       * @return This object's 'notes' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getNotes() {
-        return notes;
-      }
-
-      /**
-       * This object's 'photos' connection URL.
-       * 
-       * @return This object's 'photos' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getPhotos() {
-        return photos;
-      }
-
-      /**
-       * This object's 'albums' connection URL.
-       * 
-       * @return This object's 'albums' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getAlbums() {
-        return albums;
-      }
-
-      /**
-       * This object's 'events' connection URL.
-       * 
-       * @return This object's 'events' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getEvents() {
-        return events;
-      }
-
-      /**
-       * This object's 'groups' connection URL.
-       * 
-       * @return This object's 'groups' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getGroups() {
-        return groups;
-      }
-
-      /**
-       * This object's 'videos' connection URL.
-       * 
-       * @return This object's 'videos' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getVideos() {
-        return videos;
-      }
-
-      /**
-       * This object's 'picture' connection URL.
-       * 
-       * @return This object's 'picture' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getPicture() {
-        return picture;
-      }
-
-      /**
-       * This object's 'inbox' connection URL.
-       * 
-       * @return This object's 'inbox' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getInbox() {
-        return inbox;
-      }
-
-      /**
-       * This object's 'outbox' connection URL.
-       * 
-       * @return This object's 'outbox' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getOutbox() {
-        return outbox;
-      }
-
-      /**
-       * This object's 'updates' connection URL.
-       * 
-       * @return This object's 'updates' connection URL, or {@code null} if it doesn't have one.
-       */
-      public String getUpdates() {
-        return updates;
-      }
     }
 
     /**
-     * The available connections for this object.
+     * Existing fields in the current type
      * 
-     * @return The available connections for this object.
+     * @return list of field of the current type
+     * @since 1.6.16
      */
-    public Connections getConnections() {
-      return connections;
+    public List<NamedFacebookType> getFields() {
+      return Collections.unmodifiableList(fields);
+    }
+
+    public boolean addField(NamedFacebookType field) {
+      return fields.add(field);
+    }
+
+    public boolean removeField(NamedFacebookType field) {
+      return fields.remove(field);
     }
   }
 }

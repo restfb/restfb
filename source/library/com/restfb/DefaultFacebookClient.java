@@ -174,6 +174,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
 
   /**
+   * Version of API endpoint.
+   */
+  protected Version apiVersion = Version.UNVERSIONED;
+
+  /**
    * Creates a Facebook Graph API client with no access token.
    * <p>
    * Without an access token, you can view and search public graph data but can't do much else.
@@ -189,7 +194,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          A Facebook OAuth access token.
    */
   public DefaultFacebookClient(String accessToken) {
-    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper());
+    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
+  }
+
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param apiVersion
+   *          Version of the api endpoint
+   * @since 1.6.14
+   */
+  public DefaultFacebookClient(String accessToken, Version apiVersion) {
+    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), apiVersion);
   }
 
   /**
@@ -202,7 +220,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @since 1.6.13
    */
   public DefaultFacebookClient(String accessToken, String appSecret) {
-    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper());
+    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
+  }
+
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param appSecret
+   *          A Facebook application secret.
+   * @param apiVersion
+   *          Version of the api endpoint
+   * @since 1.6.14
+   */
+  public DefaultFacebookClient(String accessToken, String appSecret, Version apiVersion) {
+    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), apiVersion);
   }
 
   /**
@@ -218,7 +251,26 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
-    this(accessToken, null, webRequestor, jsonMapper);
+    this(accessToken, null, webRequestor, jsonMapper, null);
+  }
+
+  /**
+   * Creates a Facebook Graph API client with the given {@code accessToken}.
+   * 
+   * @param accessToken
+   *          A Facebook OAuth access token.
+   * @param webRequestor
+   *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
+   * @param jsonMapper
+   *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
+   * @param apiVersion
+   *          Version of the api endpoint
+   * @throws NullPointerException
+   *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
+   * @since 1.6.14
+   */
+  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper, Version apiVersion) {
+    this(accessToken, null, webRequestor, jsonMapper, apiVersion);
   }
 
   /**
@@ -236,7 +288,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
    */
-  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper) {
+  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
+      Version apiVersion) {
     super();
 
     verifyParameterPresence("jsonMapper", jsonMapper);
@@ -247,6 +300,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
+    this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
 
     illegalParamNames.addAll(Arrays
@@ -259,7 +313,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public boolean deleteObject(String object, Parameter... parameters) {
     verifyParameterPresence("object", object);
-    return "true".equals(makeRequest(object, true, true, null, parameters));
+
+    String responseString = makeRequest(object, true, true, null, parameters);
+    String cmpString;
+
+    try {
+      JsonObject jObj = new JsonObject(responseString);
+      cmpString = jObj.getString("success");
+    } catch (JsonException jex) {
+      cmpString = responseString;
+    }
+
+    return "true".equals(cmpString);
   }
 
   /**
@@ -331,45 +396,67 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     try {
-      JsonObject jsonObject =
-          new JsonObject(makeRequest("",
-            parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, join(ids)), parameters)));
+      String jsonString =
+          makeRequest("", parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, join(ids)), parameters));
 
-      return objectType.equals(JsonObject.class) ? (T) jsonObject : jsonMapper.toJavaObject(jsonObject.toString(),
-        objectType);
+      return jsonMapper.toJavaObject(jsonString, objectType);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
     }
+  }
+
+  public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
+    return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
   }
 
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
    *      com.restfb.Parameter[])
    */
-  public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers, BinaryAttachment binaryAttachment,
+  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
       Parameter... parameters) {
-    verifyParameterPresence("connection", connection);
 
-    List<BinaryAttachment> binaryAttachments = new ArrayList<BinaryAttachment>();
+    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
     if (binaryAttachment != null)
-      binaryAttachments.add(binaryAttachment);
+      attachments.add(binaryAttachment);
 
-    return jsonMapper.toJavaObject(makeRequest(connection, true, false, headers, binaryAttachments, parameters), objectType);
+    return publish(connection, objectType, attachments, parameters);
   }
 
   /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.Parameter[])
+   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
+   *      com.restfb.Parameter[])
    */
+  public <T> T publish(String connection, Class<T> objectType, List<BinaryAttachment> binaryAttachments,
+      Parameter... parameters) {
+
+    return publish(connection, objectType, null, binaryAttachments, parameters);
+  }
+
   public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers, Parameter... parameters) {
-    return publish(connection, objectType, headers, null, parameters);
+    return publish(connection, objectType, headers, (List<BinaryAttachment>) null, parameters);
   }
   
-  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters) {
-    return publish(connection, objectType, null, binaryAttachment, parameters);
+  @Override
+  public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers,
+      BinaryAttachment binaryAttachment, Parameter... parameters) {
+
+    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
+    if (binaryAttachment != null)
+      attachments.add(binaryAttachment);
+    
+    return publish(connection, objectType, headers, attachments, parameters);
   }
-  
-  public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
-    return publish(connection, objectType, null, null, parameters);
+
+  public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers,
+      List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
+    verifyParameterPresence("connection", connection);
+
+    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
+    if (binaryAttachments != null)
+      attachments = binaryAttachments;
+
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, headers, attachments, parameters), objectType);
   }
 
   /**
@@ -592,7 +679,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("accessToken", accessToken);
 
     String response =
-        makeRequest("/oauth/access_token", true, false, null, Parameter.with("client_id", appId),
+        makeRequest("/oauth/access_token", false, false, null, Parameter.with("client_id", appId),
           Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),
           Parameter.with("fb_exchange_token", accessToken));
 
@@ -880,6 +967,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       if (!json.startsWith("{"))
         return;
 
+      int subStrEnd = Math.min(50, json.length());
+      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+        return; // no need to parse json
+      }
+
       JsonObject errorObject = new JsonObject(json);
 
       if (errorObject == null || !errorObject.has(ERROR_ATTRIBUTE_NAME))
@@ -924,6 +1016,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       // If this is not an object, it's not an error response.
       if (!json.startsWith("{"))
         return;
+
+      int subStrEnd = Math.min(50, json.length());
+      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+        return; // no need to parse json
+      }
 
       JsonObject errorObject = null;
 
@@ -1047,7 +1144,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @return The base endpoint URL for the Graph API.
    */
   protected String getFacebookGraphEndpointUrl() {
-    return FACEBOOK_GRAPH_ENDPOINT_URL;
+    if (apiVersion.isUrlElementRequired()) {
+      return FACEBOOK_GRAPH_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+    } else {
+      return FACEBOOK_GRAPH_ENDPOINT_URL;
+    }
   }
 
   /**
@@ -1057,7 +1158,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @since 1.6.5
    */
   protected String getFacebookGraphVideoEndpointUrl() {
-    return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+    if (apiVersion.isUrlElementRequired()) {
+      return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+    } else {
+      return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+    }
   }
 
   /**
@@ -1065,6 +1170,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   protected String getFacebookReadOnlyEndpointUrl() {
-    return FACEBOOK_READ_ONLY_ENDPOINT_URL;
+    if (apiVersion.isUrlElementRequired()) {
+      return FACEBOOK_READ_ONLY_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+    } else {
+      return FACEBOOK_READ_ONLY_ENDPOINT_URL;
+    }
   }
 }

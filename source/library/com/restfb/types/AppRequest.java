@@ -22,11 +22,13 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/user/#apprequests" >App Request Graph API
@@ -36,20 +38,53 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class AppRequest extends FacebookType {
+
+  /**
+   * App associated with the request.
+   * 
+   * @return App associated with the request.
+   */
+  @Getter @Setter
   @Facebook
   private Application application;
 
+  /**
+   * The recipient user associated with the request.
+   * 
+   * @return The recipient user associated with the request.
+   */
+  @Getter @Setter
   @Facebook
   private NamedFacebookType to;
 
+  /**
+   * The sender user associated with the request.
+   * 
+   * @return The sender user associated with the request.
+   */
+  @Getter @Setter
   @Facebook
   private NamedFacebookType from;
 
+  /**
+   * A string describing the request.
+   * 
+   * @return A string describing the request.
+   */
+  @Getter @Setter
   @Facebook
   private String message;
 
   @Facebook("created_time")
-  private String createdTime;
+  transient private String rawCreatedTime;
+  
+  /**
+   * Timestamp when the request was created.
+   * 
+   * @return Timestamp when the request was created.
+   */
+  @Getter @Setter
+  private Date createdTime;
 
   private static final long serialVersionUID = 1L;
 
@@ -60,75 +95,30 @@ public class AppRequest extends FacebookType {
    * @since 1.6.10
    */
   public static class Application extends NamedFacebookType {
-    @Facebook("canvas_name")
-    private String canvasName;
-
-    @Facebook
-    private String namespace;
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * The application's canvas name.
      * 
      * @return The application's canvas name.
      */
-    public String getCanvasName() {
-      return canvasName;
-    }
+    @Getter @Setter
+    @Facebook("canvas_name")
+    private String canvasName;
 
     /**
      * The application's namespace.
      * 
      * @return The application's namespace.
      */
-    public String getNamespace() {
-      return namespace;
-    }
+    @Getter @Setter
+    @Facebook
+    private String namespace;
+
+    private static final long serialVersionUID = 1L;
   }
 
-  /**
-   * App associated with the request.
-   * 
-   * @return App associated with the request.
-   */
-  public Application getApplication() {
-    return application;
-  }
-
-  /**
-   * The recipient user associated with the request.
-   * 
-   * @return The recipient user associated with the request.
-   */
-  public NamedFacebookType getTo() {
-    return to;
-  }
-
-  /**
-   * The sender user associated with the request.
-   * 
-   * @return The sender user associated with the request.
-   */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * A string describing the request.
-   * 
-   * @return A string describing the request.
-   */
-  public String getMessage() {
-    return message;
-  }
-
-  /**
-   * Timestamp when the request was created.
-   * 
-   * @return Timestamp when the request was created.
-   */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  @JsonMapper.JsonMappingCompleted
+  void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 }

@@ -1,0 +1,324 @@
+{
+    "fields": [
+        {
+            "name": "id",
+            "description": "The user id",
+            "type": "numeric string"
+        },
+        {
+            "name": "about",
+            "description": "About the user",
+            "type": "string"
+        },
+        {
+            "name": "address",
+            "description": "The user's address",
+            "type": "location"
+        },
+        {
+            "name": "age_range",
+            "description": "Age range",
+            "type": "agerange"
+        },
+        {
+            "name": "bio",
+            "description": "The user's bio",
+            "type": "string"
+        },
+        {
+            "name": "birthday",
+            "description": "The user's birthday",
+            "type": "string"
+        },
+        {
+            "name": "context",
+            "description": "Context",
+            "type": "usercontext"
+        },
+        {
+            "name": "currency",
+            "description": "Currency",
+            "type": "currency"
+        },
+        {
+            "name": "devices",
+            "description": "The users's devices",
+            "type": "list<userdevice>"
+        },
+        {
+            "name": "education",
+            "description": "The user's education",
+            "type": "list<educationexperience>"
+        },
+        {
+            "name": "email",
+            "description": "Email address",
+            "type": "string"
+        },
+        {
+            "name": "favorite_athletes",
+            "description": "The user's favorite athletes",
+            "type": "list<experience>"
+        },
+        {
+            "name": "favorite_teams",
+            "description": "The user's favorite teams",
+            "type": "list<experience>"
+        },
+        {
+            "name": "first_name",
+            "description": "The user's first name",
+            "type": "string"
+        },
+        {
+            "name": "gender",
+            "description": "The user's gender",
+            "type": "string"
+        },
+        {
+            "name": "hometown",
+            "description": "The user's hometown",
+            "type": "page"
+        },
+        {
+            "name": "inspirational_people",
+            "description": "The user's inspirational people",
+            "type": "list<experience>"
+        },
+        {
+            "name": "install_type",
+            "description": "Install type",
+            "type": "enum"
+        },
+        {
+            "name": "installed",
+            "description": "Is the app installed?",
+            "type": "bool"
+        },
+        {
+            "name": "interested_in",
+            "description": "Genders the user is interested in",
+            "type": "list<string>"
+        },
+        {
+            "name": "is_shared_login",
+            "description": "Is the user a shared login (aka a gray user)",
+            "type": "bool"
+        },
+        {
+            "name": "is_verified",
+            "description": "People with large numbers of followers can have the authenticity of their identity [manually verified by Facebook](https://www.facebook.com/help/196050490547892). This field indicates whether the user profile is verified in this way.",
+            "type": "bool"
+        },
+        {
+            "name": "languages",
+            "description": "The user's languages",
+            "type": "list<experience>"
+        },
+        {
+            "name": "last_name",
+            "description": "The user's last name",
+            "type": "string"
+        },
+        {
+            "name": "link",
+            "description": "A link to the user's Timeline",
+            "type": "string"
+        },
+        {
+            "name": "location",
+            "description": "The user's current location",
+            "type": "page"
+        },
+        {
+            "name": "locale",
+            "description": "The user's locale",
+            "type": "string"
+        },
+        {
+            "name": "meeting_for",
+            "description": "What the user is interested in meeting for",
+            "type": "list<string>"
+        },
+        {
+            "name": "middle_name",
+            "description": "The user's middle name",
+            "type": "string"
+        },
+        {
+            "name": "name",
+            "description": "The user's full name",
+            "type": "string"
+        },
+        {
+            "name": "name_format",
+            "description": "The user's name formatted to correctly handle Chinese, Japanese, Korean ordering",
+            "type": "string"
+        },
+        {
+            "name": "payment_pricepoints",
+            "description": "The user's payment pricepoints",
+            "type": "paymentpricepoints"
+        },
+        {
+            "name": "test_group",
+            "description": "Platform test group",
+            "type": "unsigned int32"
+        },
+        {
+            "name": "political",
+            "description": "The user's political views",
+            "type": "string"
+        },
+        {
+            "name": "relationship_status",
+            "description": "The user's relationship status",
+            "type": "string"
+        },
+        {
+            "name": "religion",
+            "description": "The user's religion",
+            "type": "string"
+        },
+        {
+            "name": "security_settings",
+            "description": "Security settings",
+            "type": "securitysettings"
+        },
+        {
+            "name": "significant_other",
+            "description": "The user's significant other",
+            "type": "user"
+        },
+        {
+            "name": "sports",
+            "description": "The user's sports",
+            "type": "list<experience>"
+        },
+        {
+            "name": "suggested_groups",
+            "description": "Suggested group threads",
+            "type": "list<messagingsuggestedgroup>"
+        },
+        {
+            "name": "quotes",
+            "description": "The user's favorite quotes",
+            "type": "string"
+        },
+        {
+            "name": "third_party_id",
+            "description": "A string containing an anonymous, but unique identifier for the user. You can use this identifier with third-parties",
+            "type": "string"
+        },
+        {
+            "name": "timezone",
+            "description": "Timezone",
+            "type": "float (min: -24) (max: 24)"
+        },
+        {
+            "name": "updated_time",
+            "description": "Updated time",
+            "type": "datetime"
+        },
+        {
+            "name": "shared_login_upgrade_required_by",
+            "description": "The time that the shared loginneeds to be upgraded to Business Manager by",
+            "type": "datetime"
+        },
+        {
+            "name": "verified",
+            "description": "Indicates whether the user account has been verified. This is distinct from the `is_verified` field.",
+            "type": "bool"
+        },
+        {
+            "name": "video_upload_limits",
+            "description": "Video upload limits",
+            "type": "videouploadlimits"
+        },
+        {
+            "name": "viewer_can_send_gift",
+            "description": "Can the viewer send a gift to this user?",
+            "type": "bool"
+        },
+        {
+            "name": "website",
+            "description": "The user's website",
+            "type": "string"
+        },
+        {
+            "name": "work",
+            "description": "The user's work",
+            "type": "list<workexperience>"
+        },
+        {
+            "name": "cover",
+            "description": "Cover Photo",
+            "type": "coverphoto"
+        }
+    ],
+    "type": "user",
+    "connections": {
+        "atlas_notifications": "https://graph.facebook.com/123456789/atlas_notifications?pretty=0",
+        "accounts": "https://graph.facebook.com/123456789/accounts?pretty=0",
+        "achievements": "https://graph.facebook.com/123456789/achievements?pretty=0",
+        "activities": "https://graph.facebook.com/123456789/activities?pretty=0",
+        "adaccounts": "https://graph.facebook.com/123456789/adaccounts?pretty=0",
+        "adaccountgroups": "https://graph.facebook.com/123456789/adaccountgroups?pretty=0",
+        "albums": "https://graph.facebook.com/123456789/albums?pretty=0",
+        "applications": "https://graph.facebook.com/123456789/applications?pretty=0",
+        "apprequests": "https://graph.facebook.com/123456789/apprequests?pretty=0",
+        "apprequestformerrecipients": "https://graph.facebook.com/123456789/apprequestformerrecipients?pretty=0",
+        "books": "https://graph.facebook.com/123456789/books?pretty=0",
+        "brand_teams": "https://graph.facebook.com/123456789/brand_teams?pretty=0",
+        "checkins": "https://graph.facebook.com/123456789/checkins?pretty=0",
+        "commission_splits": "https://graph.facebook.com/123456789/commission_splits?pretty=0",
+        "conversations": "https://graph.facebook.com/123456789/conversations?pretty=0",
+        "events": "https://graph.facebook.com/123456789/events?pretty=0",
+        "family": "https://graph.facebook.com/123456789/family?pretty=0",
+        "feed": "https://graph.facebook.com/123456789/feed?pretty=0",
+        "friendlists": "https://graph.facebook.com/123456789/friendlists?pretty=0",
+        "friendrequests": "https://graph.facebook.com/123456789/friendrequests?pretty=0",
+        "friends": "https://graph.facebook.com/123456789/friends?pretty=0",
+        "ids_for_business": "https://graph.facebook.com/123456789/ids_for_business?pretty=0",
+        "integrated_plugin_feed": "https://graph.facebook.com/123456789/integrated_plugin_feed?pretty=0",
+        "invitable_friends": "https://graph.facebook.com/123456789/invitable_friends?pretty=0",
+        "games": "https://graph.facebook.com/123456789/games?pretty=0",
+        "groups": "https://graph.facebook.com/123456789/groups?pretty=0",
+        "home": "https://graph.facebook.com/123456789/home?pretty=0",
+        "inbox": "https://graph.facebook.com/123456789/inbox?pretty=0",
+        "interests": "https://graph.facebook.com/123456789/interests?pretty=0",
+        "likes": "https://graph.facebook.com/123456789/likes?pretty=0",
+        "links": "https://graph.facebook.com/123456789/links?pretty=0",
+        "locations": "https://graph.facebook.com/123456789/locations?pretty=0",
+        "megaphone_top_stories": "https://graph.facebook.com/123456789/megaphone_top_stories?pretty=0",
+        "movies": "https://graph.facebook.com/123456789/movies?pretty=0",
+        "music": "https://graph.facebook.com/123456789/music?pretty=0",
+        "notification_seen_states": "https://graph.facebook.com/123456789/notification_seen_states?pretty=0",
+        "notifications": "https://graph.facebook.com/123456789/notifications?pretty=0",
+        "notify_me": "https://graph.facebook.com/123456789/notify_me?pretty=0",
+        "objects": "https://graph.facebook.com/123456789/objects?pretty=0",
+        "outbox": "https://graph.facebook.com/123456789/outbox?pretty=0",
+        "payments": "https://graph.facebook.com/123456789/payments?pretty=0",
+        "payment_transactions": "https://graph.facebook.com/123456789/payment_transactions?pretty=0",
+        "permissions": "https://graph.facebook.com/123456789/permissions?pretty=0",
+        "photos": "https://graph.facebook.com/123456789/photos?pretty=0",
+        "picture": "https://graph.facebook.com/123456789/picture?pretty=0",
+        "tagged_places": "https://graph.facebook.com/123456789/tagged_places?pretty=0",
+        "platformrequests": "https://graph.facebook.com/123456789/platformrequests?pretty=0",
+        "pokes": "https://graph.facebook.com/123456789/pokes?pretty=0",
+        "posts": "https://graph.facebook.com/123456789/posts?pretty=0",
+        "privacy_options": "https://graph.facebook.com/123456789/privacy_options?pretty=0",
+        "ratings": "https://graph.facebook.com/123456789/ratings?pretty=0",
+        "scores": "https://graph.facebook.com/123456789/scores?pretty=0",
+        "screennames": "https://graph.facebook.com/123456789/screennames?pretty=0",
+        "statuses": "https://graph.facebook.com/123456789/statuses?pretty=0",
+        "suggested_friends": "https://graph.facebook.com/123456789/suggested_friends?pretty=0",
+        "taggable_friends": "https://graph.facebook.com/123456789/taggable_friends?pretty=0",
+        "tagged": "https://graph.facebook.com/123456789/tagged?pretty=0",
+        "television": "https://graph.facebook.com/123456789/television?pretty=0",
+        "threads": "https://graph.facebook.com/123456789/threads?pretty=0",
+        "updates": "https://graph.facebook.com/123456789/updates?pretty=0",
+        "vaultimages": "https://graph.facebook.com/123456789/vaultimages?pretty=0",
+        "videos": "https://graph.facebook.com/123456789/videos?pretty=0"
+    }
+}

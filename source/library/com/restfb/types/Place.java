@@ -23,6 +23,11 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import java.util.ArrayList;
+import static java.util.Collections.unmodifiableList;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents information about the place where an event occurred, for example a {@link Checkin} or {@link Photo}.
@@ -32,13 +37,6 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class Place extends NamedFacebookType {
-  @Facebook
-  private Location location;
-
-  @Facebook("location")
-  private String locationAsString;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * Location containing geographic information such as latitude, longitude, country, and other fields (fields will vary
@@ -48,9 +46,10 @@ public class Place extends NamedFacebookType {
    * 
    * @return Location containing geographic information such as latitude, longitude, country, and other fields.
    */
-  public Location getLocation() {
-    return location;
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private Location location;
 
   /**
    * Description for this location.
@@ -61,7 +60,32 @@ public class Place extends NamedFacebookType {
    * @return Description for this location.
    * @since 1.6.12
    */
-  public String getLocationAsString() {
-    return locationAsString;
+  @Getter
+  @Setter
+  @Facebook("location")
+  private String locationAsString;
+
+  @Facebook("category_list")
+  private List<Category> categoryList = new ArrayList<Category>();
+
+  /**
+   * List of other categories for this place.
+   * 
+   * @return List of other categories for this place.
+   * @since 1.6.15
+   */
+  public List<Category> getCategoryList() {
+    return unmodifiableList(categoryList);
   }
+
+  public boolean addCategory(Category category) {
+    return categoryList.add(category);
+  }
+
+  public boolean removeCategory(Category category) {
+    return categoryList.remove(category);
+  }
+
+  private static final long serialVersionUID = 1L;
+
 }

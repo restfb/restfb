@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
@@ -31,7 +30,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Comment Graph API type</a>.
@@ -40,76 +43,35 @@ import com.restfb.util.ReflectionUtils;
  * @since 1.5
  */
 public class Comment extends FacebookType {
-  @Facebook
-  private CategorizedFacebookType from;
-
-  @Facebook
-  private String message;
-
-  @Facebook("created_time")
-  private String createdTime;
-
-  @Facebook
-  private Long likes;
-
-  @Facebook("like_count")
-  private Long likeCount;
-
-  @Facebook("can_remove")
-  private Boolean canRemove;
-
-  @Facebook("user_likes")
-  private Boolean userLikes;
-
-  @Facebook
-  private Comment parent;
-
-  @Facebook("can_comment")
-  private boolean canComment;
-
-  @Facebook("comments")
-  private Comments comments;
-
-  @Facebook
-  private Attachment attachment;
-
-  private static final long serialVersionUID = 2L;
 
   /**
    * User who posted the comment.
    * 
    * @return User who posted the comment.
    */
-  public CategorizedFacebookType getFrom() {
-    return from;
-  }
-
-  /**
-   * Attachment (image) added to a comment.
-   * 
-   * @return Attachment on the comment
-   */
-  public Attachment getAttachment() {
-    return attachment;
-  }
+  @Getter @Setter
+  @Facebook
+  private CategorizedFacebookType from;
 
   /**
    * Text contents of the comment.
    * 
    * @return Text contents of the comment.
    */
-  public String getMessage() {
-    return message;
-  }
+  @Getter @Setter
+  @Facebook
+  private String message;
 
+  @Facebook("created_time")
+  private String rawCreatedTime;
+  
   /**
    * Date on which the comment was created.
    * 
    * @return Date on which the comment was created.
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
-  }
+  @Getter @Setter
+  private Date createdTime;
 
   /**
    * The number of likes on this comment.
@@ -118,10 +80,9 @@ public class Comment extends FacebookType {
    * @deprecated As of September 5, 2012, Facebook is changing over to {@code like_count}, so this method will be
    *             replaced by {@link #likeCount}.
    */
-  @Deprecated
-  public Long getLikes() {
-    return likes;
-  }
+  @Getter @Setter
+  @Facebook
+  private Long likes;
 
   /**
    * The number of likes on this comment.
@@ -129,9 +90,9 @@ public class Comment extends FacebookType {
    * @return The number of likes on this comment.
    * @since 1.6.10
    */
-  public Long getLikeCount() {
-    return likeCount;
-  }
+  @Getter @Setter
+  @Facebook("like_count")
+  private Long likeCount;
 
   /**
    * This field is returned only if the authenticated user can remove this comment.
@@ -139,9 +100,9 @@ public class Comment extends FacebookType {
    * @return This field is returned only if the authenticated user can remove this comment.
    * @since 1.6.10
    */
-  public Boolean getCanRemove() {
-    return canRemove;
-  }
+  @Getter @Setter
+  @Facebook("can_remove")
+  private Boolean canRemove;
 
   /**
    * This field is returned only if the authenticated user likes this comment
@@ -149,9 +110,9 @@ public class Comment extends FacebookType {
    * @return This field is returned only if the authenticated user likes this comment.
    * @since 1.6.10
    */
-  public Boolean getUserLikes() {
-    return userLikes;
-  }
+  @Getter @Setter
+  @Facebook("user_likes")
+  private Boolean userLikes;
 
   /**
    * If this comment is a reply, this field returns the parent comment, otherwise no value
@@ -159,9 +120,9 @@ public class Comment extends FacebookType {
    * @return the parent Comment
    * @since 1.6.13
    */
-  public Comment getParent() {
-    return parent;
-  }
+  @Getter @Setter
+  @Facebook
+  private Comment parent;
 
   /**
    * Specifies whether you can reply to this comment
@@ -169,17 +130,33 @@ public class Comment extends FacebookType {
    * @return can_comment
    * @since 1.6.13
    */
-  public boolean getCanComment() {
-    return canComment;
-  }
+  @Getter @Setter
+  @Facebook("can_comment")
+  private boolean canComment;
 
   /**
    * The replies to this comment
    * 
    * @return replies
    */
-  public Comments getComments() {
-    return comments;
+  @Getter @Setter
+  @Facebook("comments")
+  private Comments comments;
+
+  /**
+   * Attachment (image) added to a comment.
+   * 
+   * @return Attachment on the comment
+   */
+  @Getter @Setter
+  @Facebook
+  private Attachment attachment;
+  
+  private static final long serialVersionUID = 2L;
+
+  @JsonMappingCompleted
+  void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 
   /**
@@ -188,8 +165,15 @@ public class Comment extends FacebookType {
    * @author <a href="http://ityx.de">Jan Schweizer</a>
    */
   public static class Comments implements Serializable {
+
+    /**
+     * The number of comments.
+     * 
+     * @return The number of comments.
+     */
+    @Getter @Setter
     @Facebook
-    private Long count;
+    private Long count = 0L;
 
     @Facebook
     private List<Comment> data = new ArrayList<Comment>();
@@ -221,21 +205,20 @@ public class Comment extends FacebookType {
     }
 
     /**
-     * The number of comments.
-     * 
-     * @return The number of comments.
-     */
-    public Long getCount() {
-      return count;
-    }
-
-    /**
      * The comments.
      * 
      * @return The comments.
      */
     public List<Comment> getData() {
       return unmodifiableList(data);
+    }
+    
+    public boolean addData(Comment comment) {
+	return data.add(comment);
+    }
+    
+    public boolean removeData(Comment comment) {
+	return data.remove(comment);
     }
   }
 
@@ -247,16 +230,10 @@ public class Comment extends FacebookType {
   public static class Media extends FacebookType {
     private static final long serialVersionUID = 1L;
 
+    @Getter
+    @Setter
     @Facebook
     private Image image;
-
-    public Image getImage() {
-      return image;
-    }
-
-    public void setImage(Image image) {
-      this.image = image;
-    }
   }
 
   /**
@@ -265,12 +242,18 @@ public class Comment extends FacebookType {
    * @author <a href="http://ityx.de">Jan Schweizer</a>
    */
   public static class Attachment extends FacebookType {
+
+    @Getter
+    @Setter
     @Facebook
     private String url;
 
+    @Getter
+    @Setter
     @Facebook
     private String type;
 
+    @Getter @Setter
     @Facebook("media")
     private Media media;
 
@@ -297,26 +280,6 @@ public class Comment extends FacebookType {
     public String toString() {
       return ReflectionUtils.toString(this);
     }
-
-    public String getUrl() {
-      return url;
-    }
-
-    public void setUrl(String url) {
-      this.url = url;
-    }
-
-    public String getType() {
-      return type;
-    }
-
-    public void setType(String type) {
-      this.type = type;
-    }
-
-    public Media getMedia() {
-      return media;
-    }
   }
 
   /**
@@ -327,25 +290,17 @@ public class Comment extends FacebookType {
   public static class Image extends FacebookType {
     private static final long serialVersionUID = 1L;
 
+    @Getter @Setter
     @Facebook
     private Integer height;
 
+    @Getter @Setter
     @Facebook
     private Integer width;
 
+    @Getter @Setter
     @Facebook
     private String src;
 
-    public int getHeight() {
-      return height;
-    }
-
-    public int getWidth() {
-      return width;
-    }
-
-    public String getSrc() {
-      return src;
-    }
   }
 }

@@ -1,0 +1,42 @@
+[
+	{
+		"affiliations":
+			[
+				{
+					"nid":50431663,
+					"name":"Intuit",
+					"type":"work",
+					"status":"",
+					"year":0
+				}
+			],
+		"name":"Heather Merlin",
+		"pic_big":"https:\/\/secure-profile.facebook.com\/profile6\/13580\/1406\/n284asf55_7662.jpg"
+	},
+	{
+		"affiliations":
+			[
+				{
+					"nid":16777221,
+					"name":"Cornell",
+					"type":"college",
+					"status":"Alumnus\/Alumna",
+					"year":2004
+				},
+				{
+					"nid":50431762,
+					"name":"Bain & Company",
+					"type":"work",
+					"status":"",
+					"year":0
+				}
+			],
+		"name":"Steve Nolan",
+		"pic_big":"https:\/\/secure-profile.facebook.com\/v228\/34\/54\/n40573a87a_1795.jpg"
+	},
+	{
+		"affiliations":{},
+		"name":"Third person",
+		"pic_big":"https:\/\/secure-profile.facebook.com\/v2328\/34\/54\/n40573a87a_1791.jpg"
+	}
+]	

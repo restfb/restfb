@@ -22,11 +22,14 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/question_option" >QuestionOption Graph API
@@ -36,53 +39,53 @@ import com.restfb.Facebook;
  * @since 1.6.10
  */
 public class QuestionOption extends NamedFacebookType {
-  @Facebook
-  private NamedFacebookType from;
-
-  @Facebook
-  private Integer votes;
-
-  @Facebook
-  private CategorizedFacebookType object;
-
-  @Facebook("created_time")
-  private String createdTime;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * User who asked the question.
    * 
    * @return User who asked the question.
    */
-  public NamedFacebookType getFrom() {
-    return from;
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private NamedFacebookType from;
 
   /**
    * Number of votes this option has received.
    * 
    * @return Number of votes this option has received.
    */
-  public Integer getVotes() {
-    return votes;
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private Integer votes;
 
   /**
    * Optional page associated with this option.
    * 
    * @return Optional page associated with this option.
    */
-  public CategorizedFacebookType getObject() {
-    return object;
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private CategorizedFacebookType object;
+
+  @Facebook("created_time")
+  private String rawCreatedTime;
 
   /**
    * Time when option was created.
    * 
    * @return Time when option was created.
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
+  @Getter
+  @Setter
+  private Date createdTime;
+
+  private static final long serialVersionUID = 1L;
+
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 }

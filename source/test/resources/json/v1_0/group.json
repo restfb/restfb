@@ -1,0 +1,15 @@
+{
+  "id": "987654321", 
+  "owner": {
+    "id": "123456789", 
+    "name": "Tester"
+  }, 
+  "name": "TestGroup", 
+  "venue": {
+    "street": ""
+  }, 
+  "privacy": "CLOSED", 
+  "icon": "https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", 
+  "updated_time": "2013-02-17T17:51:20+0000", 
+  "email": "987654321@groups.facebook.com"
+}

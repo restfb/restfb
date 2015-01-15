@@ -1,0 +1,51 @@
+{
+    "id": "10000224132434695_6841623116674",
+    "from": {
+        "id": "3572537253",
+        "name": "Tester"
+    },
+    "message": "Ich finde ja, dass man seine Gedanken besser trennen kann...",
+    "picture": "https://fbexternal-a.akamaihd.net/ryV9-excn.jpg",
+    "link": "http://www.spiegel.de/karriere/berufsleben/microsoft-home-office-und-flexible-arbeitszeit-fuer-alle-a-989526.html",
+    "name": "Arbeiten von Überall: Gebt mir ein Büro! - SPIEGEL ONLINE",
+    "caption": "www.spiegel.de",
+    "description": "Bei Microsoft fallen alle räumlichen Hemmungen. Ob zu Hause, auf Reisen, bei Oma: Die Mitarbeiter dürfen nun arbeiten, wo sie wollen. Doof nur, wenn das ausgerechnet das Büro ist.",
+    "icon": "https://fbstatic-a.akamaihd.net/rP7quc.png",
+    "actions": [
+        {
+            "name": "Comment",
+            "link": "https://www.facebook.com/10000224132434695/posts/6841623116674"
+        },
+        {
+            "name": "Like",
+            "link": "https://www.facebook.com/10000224132434695/posts/6841623116674"
+        }
+    ],
+    "message_tags" : {},
+    "privacy": {
+        "description": "Your friends",
+        "value": "ALL_FRIENDS",
+        "friends": "",
+        "networks": "",
+        "allow": "",
+        "deny": ""
+    },
+    "type": "link",
+    "status_type": "shared_story",
+    "created_time": "2014-09-03T13:13:48+0000",
+    "updated_time": "2014-09-03T13:13:48+0000",
+    "likes": {
+        "data": [
+            {
+                "id": "7299977049",
+                "name": "Liker"
+            }
+        ],
+        "paging": {
+            "cursors": {
+                "after": "NzAxMDg5Mjk5OTc3MDQ5",
+                "before": "NzAxMDg5Mjk5OTc3MDQ5"
+            }
+        }
+    }
+}

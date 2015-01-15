@@ -1,0 +1,55 @@
+{
+    "id": "<snip>",
+    "from": {
+        "name": "<snip>",
+        "id": "<snip>"
+    },
+    "picture": "https://s-platform.ak.fbcdn.net/www/app_full_proxy.php?app=148126438601567&v=1&size=z&cksum=57e9619155b615eccb9479b421384af6&src=http\u00253A\u00252F\u00252Fgiveaways.bigprize.com\u00252Fassets\u00252F659\u00252Fimages\u00252Fpedialax_share.jpg",
+    "link": "http://giveaways.bigprize.com/659/share?ref=image&ft=659\u00252134bba9513fe10e736560d893bc1f2f6b",
+    "name": "Enter in 10 seconds! Win Maid Service for a year from Pedia-Lax. Enter daily and share with your friends. Drawing ends on 11/15/11. Good luck!",
+    "caption": "Ari wants to join the Big Prize Giveaways winners list with a friend!",
+    "properties": [
+        [
+        ],
+        {
+            "name": "Estimated time to enter",
+            "text": "Less than 30 seconds",
+            "href": "http://giveaways.bigprize.com/659/share?ref=story&ft=659\u00252134bba9513fe10e736560d893bc1f2f6b"
+        },
+        {
+            "name": "Info required",
+            "text": "None. No forms to fill out. No surveys."
+        },
+        {
+            "name": "Deadline",
+            "text": "11/15/11 - 3 PM EST"
+        }
+    ],
+    "icon": "https://fbcdn-photos-a.akamaihd.net/photos-ak-snc7/v43/251/148126438601567/app_2_148126438601567_4928.gif",
+    "actions": [
+        {
+            "name": "Comment",
+            "link": "https://www.facebook.com/789750650/posts/309401279070584"
+        },
+        {
+            "name": "Like",
+            "link": "https://www.facebook.com/789750650/posts/309401279070584"
+        },
+        {
+            "name": "Enter me to win",
+            "link": "http://giveaways.bigprize.com/659/share?ref=action&ft=659\u00252134bba9513fe10e736560d893bc1f2f6b"
+        }
+    ],
+    "type": "link",
+    "status_type": "app_created_story",
+    "application": {
+        "name": "Sweepstakes",
+        "namespace": "tmp_bigprize_gways",
+        "id": "148126438601567"
+    },
+    "created_time": "2011-11-10T16:36:30+0000",
+    "updated_time": "2011-11-10T16:36:30+0000",
+    "comments": {
+        "count": 0
+    }
+}

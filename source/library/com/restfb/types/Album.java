@@ -27,6 +27,9 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import java.util.Date;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/album">Album Graph API type</a>.
@@ -35,125 +38,106 @@ import com.restfb.Facebook;
  * @since 1.5
  */
 public class Album extends NamedFacebookType {
-  @Facebook
-  private CategorizedFacebookType from;
-
-  @Facebook
-  private String description;
-
-  @Facebook
-  private String location;
-
-  @Facebook
-  private String link;
-
-  @Facebook
-  private Long count;
-
-  @Facebook("cover_photo")
-  private String coverPhoto;
-
-  @Facebook
-  private String privacy;
-
-  @Facebook("can_upload")
-  private Boolean canUpload;
-
-  @Facebook("created_time")
-  private String createdTime;
-
-  @Facebook("updated_time")
-  private String updatedTime;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * An object containing the ID and name of the profile who posted this album.
    * 
    * @return An object containing the ID and name of the profile who posted this album.
    */
-  public CategorizedFacebookType getFrom() {
-    return from;
-  }
+  @Getter @Setter
+  @Facebook
+  private CategorizedFacebookType from;
 
   /**
    * The description of the album.
    * 
    * @return The description of the album.
    */
-  public String getDescription() {
-    return description;
-  }
+  @Getter @Setter
+  @Facebook
+  private String description;
 
   /**
    * The location of the album.
    * 
    * @return The location of the album.
    */
-  public String getLocation() {
-    return location;
-  }
+  @Getter @Setter
+  @Facebook
+  private String location;
 
   /**
    * A link to this album on Facebook.
    * 
    * @return A link to this album on Facebook.
    */
-  public String getLink() {
-    return link;
-  }
+  @Getter @Setter
+  @Facebook
+  private String link;
 
   /**
    * The number of photos in this album.
    * 
    * @return The number of photos in this album.
    */
-  public Long getCount() {
-    return count;
-  }
+  @Getter @Setter
+  @Facebook
+  private Long count;
 
   /**
    * The album cover photo ID.
    * 
    * @return The album cover photo ID
    */
-  public String getCoverPhoto() {
-    return coverPhoto;
-  }
+  @Getter @Setter
+  @Facebook("cover_photo")
+  private String coverPhoto;
 
   /**
    * The privacy settings for the album.
    * 
    * @return The privacy settings for the album.
    */
-  public String getPrivacy() {
-    return privacy;
-  }
+  @Getter @Setter
+  @Facebook
+  private String privacy;
 
   /**
    * Whether or not the user has permission to upload to this album.
    * 
    * @return The {@code can_upload} setting for this album.
    */
-  public Boolean getCanUpload() {
-    return canUpload;
-  }
+  @Getter @Setter
+  @Facebook("can_upload")
+  private Boolean canUpload;
 
   /**
    * The time the photo album was initially created.
    * 
    * @return The time the photo album was initially created.
    */
-  public Date getCreatedTime() {
-    return toDateFromLongFormat(createdTime);
-  }
+  @Getter @Setter
+  private Date createdTime;
 
   /**
    * The last time the photo album was updated.
    * 
    * @return The last time the photo album was updated.
    */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
+  @Getter @Setter
+  private Date updatedTime;
+  
+  private static final long serialVersionUID = 1L;
+
+  @Facebook("created_time")
+  transient private String rawCreatedTime;
+
+  @Facebook("updated_time")
+  transient private String rawUpdatedTime;
+  
+  @JsonMappingCompleted
+  void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
+      updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 }

@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Facebook;
+import static java.util.Collections.unmodifiableList;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.
@@ -34,20 +37,19 @@ import com.restfb.Facebook;
  */
 public class Account extends CategorizedFacebookType {
   private static final long serialVersionUID = 1L;
-  @Facebook("access_token")
-  private String accessToken;
-
-  @Facebook("perms")
-  private List<String> perms = new ArrayList<String>();
 
   /**
    * An OAuth access token for this account / page.
    * 
    * @return An OAuth access token for this account.
    */
-  public String getAccessToken() {
-    return accessToken;
-  }
+  @Getter
+  @Setter
+  @Facebook("access_token")
+  private String accessToken;
+
+  @Facebook("perms")
+  private List<String> perms = new ArrayList<String>();
 
   /**
    * A list of permissions the user has for this page. <a
@@ -56,6 +58,26 @@ public class Account extends CategorizedFacebookType {
    * @return A list of permissions the user has for this page.
    */
   public List<String> getPerms() {
-    return perms;
+    return unmodifiableList(perms);
   }
+
+  /**
+   * add a permission to the permission list.
+   * 
+   * @param permission
+   */
+  public void addPerm(String permission) {
+    perms.add(permission);
+  }
+
+  /**
+   * remove the permission from the permission list.
+   * 
+   * @param permission
+   * @return
+   */
+  public boolean removePerm(String permission) {
+    return perms.remove(permission);
+  }
+
 }

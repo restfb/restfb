@@ -23,6 +23,8 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Superclass for <a href="http://developers.facebook.com/docs/reference/api/">Graph API types</a> that include a
@@ -32,17 +34,16 @@ import com.restfb.Facebook;
  * @since 1.5
  */
 public class CategorizedFacebookType extends NamedFacebookType {
-  @Facebook
-  private String category;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * The category field for this type.
    * 
    * @return The category field for this type.
    */
-  public String getCategory() {
-    return category;
-  }
+  @Getter @Setter
+  @Facebook
+  private String category;
+
+  private static final long serialVersionUID = 1L;
+
 }

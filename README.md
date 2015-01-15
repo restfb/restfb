@@ -10,9 +10,9 @@ RestFB itself is open source software released under the terms of the MIT Licens
 
 ## Installation
 
-RestFB is a single JAR - just drop `restfb-1.6.14.jar` into your app and you're ready to go.
+RestFB is a single JAR - just drop `restfb-1.7.0.jar` into your app and you're ready to go.
 
-Download it here: http://restfb.com/downloads/restfb-1.6.14.jar
+Download it here: http://restfb.com/downloads/restfb-1.7.0.jar
 
 Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to your project like this:
 
@@ -20,7 +20,7 @@ Or, if you're using [Maven](http://maven.apache.org/), you can add RestFB to you
 <dependency>
   <groupId>com.restfb</groupId>
   <artifactId>restfb</artifactId>
-  <version>1.6.14</version>
+  <version>1.7.0</version>
 </dependency>
 ```
 
@@ -511,6 +511,22 @@ class Payload {
   
   // Add whatever other fields you might have
 }
+```
+
+#### Parsing Deauthorization Callback request</h3>
+```java
+
+// Facebook can send you an encoded signed request, as soon as someone deletes
+// your Facebook app. This only happens, if you have defined a deauthorization
+// callback url in your Facebook App (Settings -> Advanced).
+
+String signedRequest = "xxx";
+String appSecret = "yyy";
+DeAuth deauthObj = facebookClient.parseSignedRequest(signedRequest,
+  appSecret, DeAuth.class);
+
+out.println("This user just deleted your app: " + deauthObj.getUserId());
+out.println("Deauthorization at: " + deauthObj.getIssuedAt());
 ```
 
 #### Generating appsecret_proof

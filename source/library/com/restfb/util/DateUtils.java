@@ -26,7 +26,6 @@ import static java.lang.String.format;
 import static java.util.logging.Level.FINER;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -66,6 +65,11 @@ public final class DateUtils {
    * Logger.
    */
   private static final Logger logger = Logger.getLogger(DateUtils.class.getName());
+
+  /**
+   * DateFormatStrategy (default: SimpleDateFormat).
+   */
+  private static DateFormatStrategy strategy = new SimpleDateFormatStrategy();
 
   /**
    * Prevents instantiation.
@@ -152,12 +156,33 @@ public final class DateUtils {
       return null;
 
     try {
-      return new SimpleDateFormat(format).parse(date);
+      return strategy.formatFor(format).parse(date);
     } catch (ParseException e) {
       if (logger.isLoggable(FINER))
         logger.fine(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
 
       return null;
     }
+  }
+
+  /**
+   * get the current DateFormatStrategy.
+   * 
+   * @return the current DateFormatStrategy
+   */
+  public static DateFormatStrategy getDateFormatStrategy() {
+    return strategy;
+  }
+
+  /**
+   * set the {@link DateFormatStrategy}.
+   * 
+   * default value: {@link SimpleDateFormatStrategy}
+   * 
+   * @param dateFormatStrategy
+   * 
+   */
+  public static void setDateFormatStrategy(DateFormatStrategy dateFormatStrategy) {
+    strategy = dateFormatStrategy;
   }
 }

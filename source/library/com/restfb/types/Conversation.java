@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.io.Serializable;
@@ -31,7 +30,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/page/#conversations"> Conversation Graph
@@ -41,25 +44,69 @@ import com.restfb.util.ReflectionUtils;
  * @author Felipe Kurkowski
  */
 public class Conversation extends FacebookType {
+
+  /**
+   * A URL for this conversation.
+   * 
+   * @return A URL for this conversation.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String link;
 
+  /**
+   * The subject of this conversation.
+   * 
+   * @return The subject of this conversation.
+   */
+  @Getter
+  @Setter
   @Facebook
   private String subject;
 
+  /**
+   * The title of a message in the conversation
+   * 
+   * @return The title of a message in the conversation
+   */
+  @Getter
+  @Setter
   @Facebook
   private String snippet;
 
   @Facebook("updated_time")
-  private String updatedTime;
+  private String rawUpdatedTime;
 
+  /**
+   * Last update time of the conversation
+   * 
+   * @return Last update time of the conversation
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
+
+  /**
+   * The number of messages in the conversation
+   * 
+   * @return The number of messages in the conversation
+   */
+  @Getter
+  @Setter
   @Facebook("message_count")
   private Long messageCount;
 
   /**
+   * The number of unread messages in the conversation
+   * 
    * Facebook does not send the unread count if there aren't any new messages. In order to keep data consistency, we set
    * the default value to zero. If this value is sent, the {@link com.restfb.JsonMapper} will override it.
+   * 
+   * @return The number of unread messages in the conversation
    */
+  @Getter
+  @Setter
   @Facebook("unread_count")
   private Long unreadCount = 0L;
 
@@ -75,14 +122,28 @@ public class Conversation extends FacebookType {
   @Facebook
   private List<NamedFacebookType> senders = new ArrayList<NamedFacebookType>();
 
+  /**
+   * Whether The Page can reply to the conversation
+   * 
+   * @return Whether The Page can reply to the conversation
+   */
+  @Getter
+  @Setter
   @Facebook("can_reply")
   private Boolean canReply;
 
+  /**
+   * Whether you are subscribed to the conversation
+   * 
+   * @return Whether you are subscribed to the conversation
+   */
+  @Getter
+  @Setter
   @Facebook("is_subscribed")
-  private Boolean isSubscribed;
+  private Boolean subscribed;
 
   @Facebook
-  private List<Message> messages;
+  private List<Message> messages = new ArrayList<Message>();
 
   private static final long serialVersionUID = 1L;
 
@@ -95,6 +156,13 @@ public class Conversation extends FacebookType {
    */
   public static class Tag implements Serializable {
 
+    /**
+     * The name field for this type.
+     * 
+     * @return The name field for this type.
+     */
+    @Getter
+    @Setter
     @Facebook
     private String name;
 
@@ -124,50 +192,11 @@ public class Conversation extends FacebookType {
       return ReflectionUtils.toString(this);
     }
 
-    /**
-     * The name field for this type.
-     * 
-     * @return The name field for this type.
-     */
-    public String getName() {
-      return name;
-    }
   }
 
-  /**
-   * The title of a message in the conversation
-   * 
-   * @return The title of a message in the conversation
-   */
-  public String getSnippet() {
-    return snippet;
-  }
-
-  /**
-   * Last update time of the conversation
-   * 
-   * @return Last update time of the conversation
-   */
-  public Date getUpdatedTime() {
-    return toDateFromLongFormat(updatedTime);
-  }
-
-  /**
-   * The number of messages in the conversation
-   * 
-   * @return The number of messages in the conversation
-   */
-  public Long getMessageCount() {
-    return messageCount;
-  }
-
-  /**
-   * The number of unread messages in the conversation
-   * 
-   * @return The number of unread messages in the conversation
-   */
-  public Long getUnreadCount() {
-    return unreadCount;
+  @JsonMappingCompleted
+  void convertTime() {
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   /**
@@ -179,6 +208,14 @@ public class Conversation extends FacebookType {
     return unmodifiableList(tags);
   }
 
+  public boolean addTag(Tag tag) {
+    return tags.add(tag);
+  }
+
+  public boolean removeTag(Tag tag) {
+    return tags.remove(tag);
+  }
+
   /**
    * Users who are on this message conversation
    * 
@@ -186,6 +223,14 @@ public class Conversation extends FacebookType {
    */
   public List<NamedFacebookType> getParticipants() {
     return unmodifiableList(participants);
+  }
+
+  public boolean addParticipant(NamedFacebookType participant) {
+    return participants.add(participant);
+  }
+
+  public boolean removeParticipant(NamedFacebookType participant) {
+    return participants.remove(participant);
   }
 
   /**
@@ -197,22 +242,12 @@ public class Conversation extends FacebookType {
     return unmodifiableList(senders);
   }
 
-  /**
-   * Whether The Page can reply to the conversation
-   * 
-   * @return Whether The Page can reply to the conversation
-   */
-  public Boolean getCanReply() {
-    return canReply;
+  public boolean addSender(NamedFacebookType sender) {
+    return senders.add(sender);
   }
 
-  /**
-   * Whether you are subscribed to the conversation
-   * 
-   * @return Whether you are subscribed to the conversation
-   */
-  public Boolean getSubscribed() {
-    return isSubscribed;
+  public boolean removeSender(NamedFacebookType sender) {
+    return senders.remove(sender);
   }
 
   /**
@@ -224,22 +259,12 @@ public class Conversation extends FacebookType {
     return unmodifiableList(messages);
   }
 
-  /**
-   * A URL for this conversation.
-   * 
-   * @return A URL for this conversation.
-   */
-  public String getLink() {
-    return link;
+  public boolean addMessage(Message message) {
+    return messages.add(message);
   }
 
-  /**
-   * The subject of this conversation.
-   * 
-   * @return The subject of this conversation.
-   */
-  public String getSubject() {
-    return subject;
+  public boolean removeMessage(Message message) {
+    return messages.remove(message);
   }
 
   /**
@@ -249,5 +274,13 @@ public class Conversation extends FacebookType {
    */
   public List<NamedFacebookType> getFormerParticipants() {
     return unmodifiableList(formerParticipants);
+  }
+
+  public boolean addFormerParticipant(NamedFacebookType formerParticipant) {
+    return formerParticipants.add(formerParticipant);
+  }
+
+  public boolean removeFormerParticipant(NamedFacebookType formerParticipant) {
+    return formerParticipants.remove(formerParticipant);
   }
 }

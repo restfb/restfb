@@ -1,0 +1,14 @@
+{
+    "category": "Community",
+    "name": "Test Coomunity",
+    "access_token": "testtoken",
+    "perms": [
+        "ADMINISTER",
+        "EDIT_PROFILE",
+        "CREATE_CONTENT",
+        "MODERATE_CONTENT",
+        "CREATE_ADS",
+        "BASIC_ADMIN"
+    ],
+    "id": "123456789"
+}

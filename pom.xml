@@ -1,76 +1,116 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.restfb</groupId>
-	<artifactId>restfb</artifactId>
-	<packaging>jar</packaging>
-	<name>RestFB</name>
-	<version>1.6.14</version>
-	<description>RestFB is a simple and flexible Facebook Graph API and Old REST API client written in Java.</description>
-	<url>http://restfb.com</url>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.restfb</groupId>
+    <artifactId>restfb</artifactId>
+    <packaging>jar</packaging>
+    <name>RestFB</name>
+    <version>1.7.0</version>
+    <description>RestFB is a simple and flexible Facebook Graph API and Old REST API client written in Java.</description>
+    <url>http://restfb.com</url>
 
-	<licenses>
-		<license>
-			<name>MIT License</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.source>1.6</project.build.source>
+        <project.build.target>1.6</project.build.target>
+    </properties>
 
-	<scm>
-		<connection>scm:git:ssh://github.com/revetkn/restfb.git</connection>
-		<url>http://github.com/revetkn/restfb</url>
-	</scm>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<developers>
-		<developer>
-			<id>mark.a.allen</id>
-			<name>Mark Allen</name>
-			<email>mark.a.allen@gmail.com</email>
-			<url>http://restfb.com</url>
-			<roles>
-				<role>Project Lead</role>
-			</roles>
-			<timezone>-5</timezone>
-		</developer>
-		<developer>
-			<id>kaosko</id>
-			<name>Kalle Korhonen</name>
-			<email>kaosko@apache.org</email>
-			<url>http://tynamo.org</url>
-			<roles>
-				<role>Mavenizer</role>
-			</roles>
-			<timezone>-8</timezone>
-		</developer>
-	</developers>
+    <scm>
+        <connection>scm:git:ssh://github.com/revetkn/restfb.git</connection>
+        <url>http://github.com/revetkn/restfb</url>
+    </scm>
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <developers>
+        <developer>
+            <id>mark.a.allen</id>
+            <name>Mark Allen</name>
+            <email>mark.a.allen@gmail.com</email>
+            <url>http://restfb.com</url>
+            <roles>
+                <role>Project Lead</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>kaosko</id>
+            <name>Kalle Korhonen</name>
+            <email>kaosko@apache.org</email>
+            <url>http://tynamo.org</url>
+            <roles>
+                <role>Mavenizer</role>
+            </roles>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>nbartels</id>
+            <name>Norbert Bartels</name>
+            <url>http://www.phpmonkeys.de</url>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>Europe/Berlin</timezone>
+        </developer>
+    </developers>
 
-	<build>
-		<sourceDirectory>source/library</sourceDirectory>
-		<testSourceDirectory>source/test</testSourceDirectory>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<fork>true</fork>
-					<encoding>UTF-8</encoding>
-					<source>1.6</source>
-					<target>1.6</target>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.14.4</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>source/library</sourceDirectory>
+        <testSourceDirectory>source/test/java</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>source/test/resources</directory>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <fork>true</fork>
+                    <encoding>UTF-8</encoding>
+                    <source>${project.build.source}</source>
+                    <target>${project.build.target}</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.17</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
