@@ -60,6 +60,4 @@ public class FakeWebRequestor implements WebRequestor {
       this.savedUrl = url;
       return new Response(HTTP_OK, url);
     }
-    
-    
 }

@@ -405,24 +405,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
-  public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
-    return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
-   *      com.restfb.Parameter[])
-   */
-  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
-      Parameter... parameters) {
-
-    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
-    if (binaryAttachment != null)
-      attachments.add(binaryAttachment);
-
-    return publish(connection, objectType, attachments, parameters);
-  }
-
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
    *      com.restfb.Parameter[])
@@ -433,6 +415,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return publish(connection, objectType, null, binaryAttachments, parameters);
   }
 
+  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
+      Parameter... parameters) {
+
+    return publish(connection, objectType, null, binaryAttachment, parameters);
+  }
+  
+  public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
+    return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
+  }  
+  
+  // --- Start Runtastic ---
   public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers, Parameter... parameters) {
     return publish(connection, objectType, headers, (List<BinaryAttachment>) null, parameters);
   }
@@ -444,10 +437,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
     if (binaryAttachment != null)
       attachments.add(binaryAttachment);
-    
+
     return publish(connection, objectType, headers, attachments, parameters);
   }
-
+  
   public <T> T publish(String connection, Class<T> objectType, Map<String, String> headers,
       List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
@@ -458,6 +451,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     return jsonMapper.toJavaObject(makeRequest(connection, true, false, headers, attachments, parameters), objectType);
   }
+  // --- End Runtastic ---
+  
 
   /**
    * @see com.restfb.FacebookClient#executeMultiquery(java.util.Map, java.lang.Class, com.restfb.Parameter[])
