@@ -1,3 +1,21 @@
+1.7.1 (January 16, 2015)
+
+* Issue #149: can_hide and is_hidden fields added
+  Thanks for input and code snippets and review to Aurelie Vache
+* Issue #154: deprecated constructors flagged with annotation
+* Issue #155: version 1.7.1 prepared
+* Issue #156: Version Enum fixed
+  Thanks to Aurelie Vache
+* Issue #158: experimental high level API added
+* Issue #160: old FQL query and multiquery method set to deprecated
+* Issue #161: object field added to comment
+* Issue #164: additional details added to facebook exception
+  Thanks to Chandler
+* Issue #166: Copyright updated
+* Issue #168: User.Education can handle String-only year
+  Thanks to @suryaganeshv
+* Issue #169: unittest fixed for java 8
+
 1.7.0 (November 7, 2014)
 
 * Issue #7: speed up date parsing, DateFormatStrategies added

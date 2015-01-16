@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,7 @@ public class Connection<T> implements Iterable<List<T>> {
    * @see java.lang.Iterable#iterator()
    * @since 1.6.7
    */
+  @Override
   public Iterator<List<T>> iterator() {
     return new ConnectionIterator<T>(this);
   }
@@ -80,6 +81,7 @@ public class Connection<T> implements Iterable<List<T>> {
     /**
      * @see java.util.Iterator#hasNext()
      */
+    @Override
     public boolean hasNext() {
       // Special case: initial page will always have data
       if (initialPage)
@@ -91,6 +93,7 @@ public class Connection<T> implements Iterable<List<T>> {
     /**
      * @see java.util.Iterator#next()
      */
+    @Override
     public List<T> next() {
       // Special case: initial page will always have data, return it
       // immediately.
@@ -109,6 +112,7 @@ public class Connection<T> implements Iterable<List<T>> {
     /**
      * @see java.util.Iterator#remove()
      */
+    @Override
     public void remove() {
       throw new UnsupportedOperationException(ConnectionIterator.class.getSimpleName()
           + " doesn't support the remove() operation.");

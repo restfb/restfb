@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,6 +65,9 @@ import com.restfb.WebRequestor;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.util.InsightUtils.Period;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.InsightUtils}.
@@ -339,7 +342,7 @@ public class InsightUtilsTest {
   }
 
   @Test
-  public void executeInsightQueriesByDate1() throws IOException {
+  public void executeInsightQueriesByDate1() throws IOException, JSONException {
     // note that the query that is passed to the FacebookClient WebRequestor is
     // ignored,
     // so arguments of executeInsightQueriesByDate:
@@ -356,13 +359,12 @@ public class InsightUtilsTest {
     JsonArray ja = results.get(d20101205_0000pst);
     Assert.assertNotNull(ja);
     // not ideal that this test requires on a stable JsonArray.toString()
-    assertEquals(
-      "[{\"metric\":\"page_fans\",\"value\":3777},{\"metric\":\"page_fans_gender\",\"value\":{\"U\":58,\"F\":1656,\"M\":2014}}]",
-      ja.toString());
+    String expectedJson = "[{\"metric\":\"page_fans\",\"value\":3777},{\"metric\":\"page_fans_gender\",\"value\":{\"U\":58,\"F\":1656,\"M\":2014}}]";
+    JSONAssert.assertEquals(expectedJson, ja.toString(), JSONCompareMode.NON_EXTENSIBLE);
   }
 
   @Test
-  public void executeInsightQueriesByDate2() throws IOException, ParseException {
+  public void executeInsightQueriesByDate2() throws IOException, ParseException, JSONException {
     // note that the query that is passed to the FacebookClient WebRequestor is
     // ignored,
     // so arguments of executeInsightQueriesByDate:
@@ -390,18 +392,25 @@ public class InsightUtilsTest {
     Assert.assertNotNull(results);
     assertEquals(4, results.size());
     // not ideal that this test requires on a stable JsonArray.toString()
-    assertEquals(
-      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":761},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":2,\"app_4949752878\":3,\"wall\":30}}]").toString(),
-      results.get(d20030629_0000pst).toString());
-    assertEquals(
-      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":705},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"photos\":1,\"app_2373072738\":2,\"wall\":23}}]").toString(),
-      results.get(d20030630_0000pst).toString());
-    assertEquals(
-      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":582},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"wall\":12}}]").toString(),
-      results.get(d20030701_0000pst).toString());
-    assertEquals(
-      new JsonArray("[{\"metric\":\"page_active_users\",\"value\":125},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":1,\"wall\":11}}]").toString(),
-      results.get(d20030702_0000pst).toString());
+    
+    String expectedString = null;
+    String actualString = null;
+    
+    expectedString = new JsonArray("[{\"metric\":\"page_active_users\",\"value\":761},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":2,\"app_4949752878\":3,\"wall\":30}}]").toString();
+    actualString = results.get(d20030629_0000pst).toString();
+    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
+    
+    expectedString = new JsonArray("[{\"metric\":\"page_active_users\",\"value\":705},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"photos\":1,\"app_2373072738\":2,\"wall\":23}}]").toString();
+    actualString = results.get(d20030630_0000pst).toString();
+    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
+    
+    expectedString = new JsonArray("[{\"metric\":\"page_active_users\",\"value\":582},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"wall\":12}}]").toString();
+    actualString = results.get(d20030701_0000pst).toString();
+    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
+    
+    expectedString = new JsonArray("[{\"metric\":\"page_active_users\",\"value\":125},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":1,\"wall\":11}}]").toString();
+    actualString = results.get(d20030702_0000pst).toString();
+    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
   }
 
   @Test

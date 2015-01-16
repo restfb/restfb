@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Norbert Bartels.
+ * Copyright (c) 2010-2015 Norbert Bartels.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ public enum Version {
    * graph api 2.2, available at least until At least until October 30, 2016
    * @since October 30, 2014
    */
-  Version_2_2("v2.2");
+  VERSION_2_2("v2.2");
 
   private final String urlElement;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Norbert Bartels.
+ * Copyright (c) 2010-2015 Norbert Bartels.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -102,12 +101,18 @@ public class SetterGetterTestBase {
             + field.getDeclaringClass().getName();
     try {
       Method getter = null;
+      
+      String capName = capitalizedName(field);
+//      if (capName.matches("^Is[A-Z].*")) {
+//	  capName = capName.substring(2);
+//      }
+      
       if (field.getType().equals(boolean.class)) {
-        getter = theClass.getMethod("is" + capitalizedName(field));
+	getter = theClass.getMethod("is" + capName);
       } else {
-        getter = theClass.getMethod("get" + capitalizedName(field));
+        getter = theClass.getMethod("get" + capName);
       }
-      Method setter = theClass.getMethod("set" + capitalizedName(field), field.getType());
+      Method setter = theClass.getMethod("set" + capName, field.getType());
 
       Object o = getExampleValueByType(field.getType());
       setter.invoke(instance, o);

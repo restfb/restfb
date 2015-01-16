@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,9 @@ package com.restfb.exception;
         "type": "OAuthException",
         "message": "(#210) User not visible",
         "code": 210,
-        "error_subcode": 123
+        "error_subcode": 123,
+	"error_user_title": "A title",
+        "error_user_msg": "A message"
       }
   } </code>
  * 
@@ -55,9 +57,13 @@ public class FacebookOAuthException extends FacebookGraphException {
    *          Value of the Facebook response attribute {@code error.error_subcode}.
    * @param httpStatusCode
    *          The HTTP status code returned by the server, e.g. 500.
+   * @param userTitle
+   *          Value of the Facebook response attribute {@code error.error_user_title}.
+   * @param userMessage
+   *          Value of the Facebook response attribute {@code error.error_user_message}.
    */
   public FacebookOAuthException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
-      Integer httpStatusCode) {
-    super(errorType, errorMessage, errorCode, errorSubcode, httpStatusCode);
+      Integer httpStatusCode, String userTitle, String userMessage) {
+    super(errorType, errorMessage, errorCode, errorSubcode, httpStatusCode, userTitle, userMessage);
   }
 }

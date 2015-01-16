@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -514,6 +514,20 @@ public class User extends NamedFacebookType {
     @Setter
     @Facebook
     private NamedFacebookType year;
+    
+    /**
+     * Description for this year.
+     * 
+     * It is possible for Facebook to return either this value or {@link #getYear()}. If {@link #getYear()} returns
+     * {@code null}, then check this method to see if it has data, e.g. {@code "1997"}.
+     * 
+     * @return Description for this year.
+     * @since 1.7.1
+     */
+    @Getter
+    @Setter
+    @Facebook("year")
+    private String yearAsString;
 
     /**
      * Degree acquired.

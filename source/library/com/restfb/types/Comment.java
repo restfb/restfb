@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -133,6 +133,38 @@ public class Comment extends FacebookType {
   @Getter @Setter
   @Facebook("can_comment")
   private boolean canComment;
+  
+  /**
+   * Whether the viewer can hide this comment
+   * 
+   * @return can_hide
+   * @since 1.7.1
+   */
+  @Getter @Setter
+  @Facebook("can_hide")
+  private boolean canHide;
+  
+  /**
+   * Whether this comment is hidden. 
+   * The original poster can still see the comment, 
+   * along with the page admin and anyone else tagged in the comment
+   * 
+   * @return is_hidden
+   * @since 1.7.1
+   */
+  @Getter @Setter
+  @Facebook("is_hidden")
+  private Boolean isHidden;
+  
+  /**
+   * Parent object this comment was made on.
+   * 
+   * @return object
+   * @since 1.7.1
+   */
+  @Getter @Setter
+  @Facebook
+  private NamedFacebookType object;
 
   /**
    * The replies to this comment

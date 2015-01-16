@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -223,7 +223,7 @@ public class DefaultJsonMapper implements JsonMapper {
       // If there are no annotated fields, assume we're mapping to a built-in
       // type. If this is actually the empty object, just return a new instance
       // of the corresponding Java type.
-      if (fieldsWithAnnotation.size() == 0)
+      if (fieldsWithAnnotation.isEmpty())
         if (isEmptyObject(json)) {
           T instance = createInstance(type);
 

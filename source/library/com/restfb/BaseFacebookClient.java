@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -139,9 +139,10 @@ abstract class BaseFacebookClient {
      */
     @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
-        Integer httpStatusCode, String type, String message) {
+        Integer httpStatusCode, String type, String message, String userTitle, String userMessage) {
       if (errorCode == API_EC_PARAM_ACCESS_TOKEN)
-        return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, errorSubcode, httpStatusCode);
+        return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, errorSubcode, httpStatusCode,
+          userTitle, userMessage);
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookResponseStatusException.
@@ -213,7 +214,7 @@ abstract class BaseFacebookClient {
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
         errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null, httpStatusCode, null,
-        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME));
+        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME), null, null);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -247,7 +248,7 @@ abstract class BaseFacebookClient {
   protected String queriesToJson(Map<String, String> queries) {
     verifyParameterPresence("queries", queries);
 
-    if (queries.keySet().size() == 0)
+    if (queries.keySet().isEmpty())
       throw new IllegalArgumentException("You must specify at least one query.");
 
     JsonObject jsonObject = new JsonObject();

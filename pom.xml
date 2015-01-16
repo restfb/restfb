@@ -5,7 +5,7 @@
     <artifactId>restfb</artifactId>
     <packaging>jar</packaging>
     <name>RestFB</name>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
     <description>RestFB is a simple and flexible Facebook Graph API and Old REST API client written in Java.</description>
     <url>http://restfb.com</url>
 
@@ -62,18 +62,24 @@
     </developers>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.14.4</version>
-            <scope>provided</scope>
-        </dependency>
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.11</version>
+	    <scope>test</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.14.4</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.skyscreamer</groupId>
+	    <artifactId>jsonassert</artifactId>
+	    <version>1.2.3</version>
+	    <scope>test</scope>
+	</dependency>
     </dependencies>
 
     <build>

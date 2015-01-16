@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,9 @@ import static java.lang.String.format;
         "type": "Exception",
         "message": "...",
         "code": 210,
-        "error_subcode": 123        
+        "error_subcode": 123,
+	"error_user_title": "A title",
+        "error_user_msg": "A message"
       }
   } </code>
  * 
@@ -52,6 +54,16 @@ public class FacebookGraphException extends FacebookException {
    * The Facebook API error message.
    */
   private String errorMessage;
+
+  /**
+   * The Facebook API error user title.
+   */
+  private String errorUserTitle;
+
+  /**
+   * The Facebook API error user message.
+   */
+  private String errorUserMessage;
 
   /**
    * The Facebook API error code.
@@ -81,9 +93,13 @@ public class FacebookGraphException extends FacebookException {
    *          Value of the Facebook response attribute {@code error.error_subcode}.
    * @param httpStatusCode
    *          The HTTP status code returned by the server, e.g. 500.
+   * @param errorUserTitle
+   *          Value of the Facebook response attribute {@code error.error_user_title}.
+   * @param errorUserMessage
+   *          Value of the Facebook response attribute {@code error.error_user_msg}.
    */
   public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
-      Integer httpStatusCode) {
+      Integer httpStatusCode, String errorUserTitle, String errorUserMessage) {
     super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,
       errorCode, errorSubcode));
     this.errorType = errorType;
@@ -91,6 +107,8 @@ public class FacebookGraphException extends FacebookException {
     this.errorCode = errorCode;
     this.errorSubcode = errorSubcode;
     this.httpStatusCode = httpStatusCode;
+    this.errorUserTitle = errorUserTitle;
+    this.errorUserMessage = errorUserMessage;
   }
 
   /**
@@ -138,4 +156,25 @@ public class FacebookGraphException extends FacebookException {
   public Integer getHttpStatusCode() {
     return httpStatusCode;
   }
+
+  /**
+   * Gets the Facebook API error user title.
+   * 
+   * @return the Facebook API error user title
+   * @since 1.7.1
+   */
+  public String getErrorUserTitle() {
+    return errorUserTitle;
+  }
+
+  /**
+   * Gets the Facebook API error user message.
+   * 
+   * @return the Facebook API error user message
+   * @since 1.7.1
+   */
+  public String getErrorUserMessage() {
+    return errorUserMessage;
+  }
+
 }

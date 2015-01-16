@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Norbert Bartels.
+ * Copyright (c) 2010-2015 Norbert Bartels.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,14 @@ public class EndpointBuilderTest {
         DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_1);
         String respstring = client.fetchObject("/me", String.class);
         assertEquals("https://graph.facebook.com/v2.1/me?access_token=12345&format=json", respstring);
+    }
+    
+    @Test
+    public void version22Test() {
+        FakeWebRequestor wr = new FakeWebRequestor();
+        DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
+        String respstring = client.fetchObject("/me", String.class);
+        assertEquals("https://graph.facebook.com/v2.2/me?access_token=12345&format=json", respstring);
     }
     
     @Test

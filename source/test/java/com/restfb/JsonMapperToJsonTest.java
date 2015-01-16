@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2014 Mark Allen.
+ * Copyright (c) 2010-2015 Mark Allen.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,10 +30,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONException;
 
 import org.junit.Assert;
 
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.
@@ -88,19 +91,20 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle a basic Javabean?
    */
   @Test
-  public void basicJavabean() {
+  public void basicJavabean() throws JSONException {
     BasicUser basicUser = new BasicUser();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
     String json = createJsonMapper().toJson(basicUser);
-    Assert.assertTrue("{\"uid\":12345,\"name\":\"Fred\"}".equals(json));
+    String expectedJson = "{\"uid\":12345,\"name\":\"Fred\"}";
+    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
   /**
    * Can we handle a more complex Javabean?
    */
   @Test
-  public void complexJavabean() {
+  public void complexJavabean() throws JSONException {
     UserWithPhotos userWithPhotos = new UserWithPhotos();
     userWithPhotos.uid = 12345L;
     userWithPhotos.name = null;
@@ -112,10 +116,8 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     userWithPhotos.photos.add(photo);
 
     String json = createJsonMapper().toJson(userWithPhotos);
-
-    Assert
-      .assertTrue("{\"uid\":12345,\"photos\":[{\"id\":null,\"location\":null},{\"id\":5678,\"location\":\"Las Vegas\"}],\"name\":null}"
-        .equals(json));
+    String expectedJson = "{\"uid\":12345,\"photos\":[{\"id\":null,\"location\":null},{\"id\":5678,\"location\":\"Las Vegas\"}],\"name\":null}";
+    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
   /**
@@ -124,7 +126,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * See http://wiki.developers.facebook.com/index.php/Attachment_(Streams).
    */
   @Test
-  public void streamPublish() {
+  public void streamPublish() throws JSONException {
     ActionLink category = new ActionLink();
     category.href = "http://bit.ly/KYbaN";
     category.text = "humor";
@@ -151,9 +153,8 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     attachment.media = media;
 
     String json = createJsonMapper().toJson(attachment);
-    Assert
-      .assertTrue("{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}"
-        .equals(json));
+    String expectedJson = "{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}";
+    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
   /**
@@ -168,7 +169,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle a Map?
    */
   @Test
-  public void map() {
+  public void map() throws JSONException {
     UserWithPhotos basicUser = new UserWithPhotos();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
@@ -179,9 +180,8 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     map.put("basicUser", basicUser);
 
     String json = createJsonMapper().toJson(map);
-    Assert
-      .assertTrue("{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}"
-        .equals(json));
+    String expectedJson = "{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}";
+    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
   @Test
