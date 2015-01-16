@@ -268,6 +268,7 @@ public interface FacebookClient {
    */
   List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments);
 
+  
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
    * given {@code connection}, mapping the result to an instance of {@code objectType}.
@@ -284,7 +285,7 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType, Parameter... parameters);
+  <T> T publish(String connection, Class<T> objectType, Map<String, String> headers, Parameter... parameters);
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
@@ -305,8 +306,11 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
-  <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters);
+  <T> T publish(String connection, Class<T> objectType, Map<String, String> headers, BinaryAttachment binaryAttachment, Parameter... parameters);
 
+  // MALA
+  <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters);
+  <T> T publish(String connection, Class<T> objectType, Parameter... parameters);
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph API delete</a> operation on the given
    * {@code object}.

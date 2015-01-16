@@ -37,6 +37,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -133,12 +135,18 @@ public class DefaultWebRequestor implements WebRequestor {
   public Response executePost(String url, String parameters) throws IOException {
     return executePost(url, parameters, (BinaryAttachment[]) null);
   }
+  
+  @Override
+  public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+    return executePost(url, null, parameters, binaryAttachments);
+  }
+  
 
   /**
    * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, com.restfb.BinaryAttachment[])
    */
   @Override
-  public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+  public Response executePost(String url, Map<String, String> headers, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
     if (binaryAttachments == null)
       binaryAttachments = new BinaryAttachment[] {};
 
@@ -162,11 +170,24 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setRequestMethod("POST");
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
+      
+      // MALA
+      if (headers != null) {
+        Iterator<Map.Entry<String, String>> it = headers.entrySet().iterator();
+        while (it.hasNext()) {
+          Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
+          httpUrlConnection.setRequestProperty(entry.getKey(), entry.getValue());
+          it.remove();
+        }
+      }
 
       if (binaryAttachments.length > 0) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
         httpUrlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + MULTIPART_BOUNDARY);
       }
+
+      if (logger.isLoggable(FINER))
+        logger.finer("Request headers: " + httpUrlConnection.getRequestProperties());
 
       httpUrlConnection.connect();
       outputStream = httpUrlConnection.getOutputStream();
