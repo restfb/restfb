@@ -23,6 +23,7 @@
 package com.restfb;
 
 import java.io.IOException;
+
 import static java.net.HttpURLConnection.HTTP_OK;
 
 /**
@@ -50,6 +51,12 @@ public class FakeWebRequestor implements WebRequestor {
     public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
         this.savedUrl = url;
         return new Response(HTTP_OK, url);
+    }
+
+    @Override
+    public Response executeDelete(String url, String parameters) throws IOException {
+      this.savedUrl = url;
+      return new Response(HTTP_OK, url);
     }
     
     

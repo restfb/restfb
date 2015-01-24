@@ -350,4 +350,49 @@ public class DefaultWebRequestor implements WebRequestor {
     this.autocloseBinaryAttachmentStream = autocloseBinaryAttachmentStream;
   }
 
+  @Override
+  public Response executeDelete(String url, String parameters) throws IOException {
+
+    HttpURLConnection httpUrlConnection = null;
+    OutputStream outputStream = null;
+    InputStream inputStream = null;
+
+    try {
+      httpUrlConnection = openConnection(new URL(url));
+      httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
+
+      // Allow subclasses to customize the connection if they'd like to - set
+      // their own headers, timeouts, etc.
+      customizeConnection(httpUrlConnection);
+
+      httpUrlConnection.setRequestMethod("DELETE");
+      httpUrlConnection.setDoOutput(true);
+      httpUrlConnection.setUseCaches(false);
+
+      httpUrlConnection.connect();
+      outputStream = httpUrlConnection.getOutputStream();
+      outputStream.write(parameters.getBytes(ENCODING_CHARSET));
+
+      if (logger.isLoggable(FINER))
+        logger.finer("Response headers: " + httpUrlConnection.getHeaderFields());
+
+      try {
+        inputStream =
+            httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
+              .getInputStream();
+      } catch (IOException e) {
+        if (logger.isLoggable(WARNING))
+          logger.warning("An error occurred while POSTing to " + url + ": " + e);
+      }
+
+      return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
+    
+    } finally {
+      
+      closeQuietly(outputStream);
+      closeQuietly(httpUrlConnection);
+    }
+    
+  }
+
 }
