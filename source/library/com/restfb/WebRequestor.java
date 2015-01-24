@@ -131,4 +131,17 @@ public interface WebRequestor {
    *           If an error occurs while performing the {@code POST}.
    */
   Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException;
+  
+  /**
+   * Given a Facebook API endpoint URL and parameter string, execute a {@code DELETE} to the endpoint URL.
+   * 
+   * @param url
+   *          The URL to submit the {@code DELETE} to.
+   * @param parameters
+   *          The parameters to be {@code DELETE}d.
+   * @return HTTP response data.
+   * @throws IOException
+   *           If an error occurs while performing the {@code DELETE}.
+   */
+  Response executeDelete(String url, String parameters) throws IOException;
 }
