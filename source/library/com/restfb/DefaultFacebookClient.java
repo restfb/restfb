@@ -198,11 +198,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * <p>
    * Without an access token, you can view and search public graph data but can't do much else.
    * 
-   * @deprecated As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
+   * @deprecated As of release 1.7.1, replaced by {@link #DefaultFacebookClient(com.restfb.Version) }
    */
   @Deprecated
   public DefaultFacebookClient() {
-    this(null);
+    this((String) null);
   }
 
   /**
@@ -215,6 +215,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Deprecated
   public DefaultFacebookClient(String accessToken) {
     this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
+  }
+
+  /**
+   * Creates a Facebook Graph API client with the given {@code apiVersion}.
+   * 
+   * @param apiVersion
+   *          Version of the api endpoint
+   */
+  public DefaultFacebookClient(Version apiVersion) {
+    this(null, null, new DefaultWebRequestor(), new DefaultJsonMapper(), apiVersion);
   }
 
   /**
