@@ -51,7 +51,7 @@ public class FacebookClientTest {
     String php_result2 = "cb064987988fcd658470d6a24f1c68f6d7982c80ab9efb08cb8c84ef88fd03e1";
     DefaultFacebookClient facebookClient2 = new DefaultFacebookClient();
     String test2 = facebookClient2.obtainAppSecretProof("helloWorld", "PRIE7$oG2uS-Yf17kEnUEpi5hvW/#AFo");
-    assertEquals(php_result2, test2);   
+    assertEquals(php_result2, test2);
   }
 
   /**
@@ -108,17 +108,17 @@ public class FacebookClientTest {
       assertEquals(null, e.getErrorCode());
     }
   }
-  
+
   @Test
   public void deleteObjectReturnsJson() {
-      FacebookClient facebookClient = facebookClientWithResponse(new Response(200,"{\"success\":true}"));
-      assertTrue(facebookClient.deleteObject("12345"));
+    FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "{\"success\":true}"));
+    assertTrue(facebookClient.deleteObject("12345"));
   }
-  
+
   @Test
   public void deleteObjectReturnsText() {
-      FacebookClient facebookClient = facebookClientWithResponse(new Response(200,"true"));
-      assertTrue(facebookClient.deleteObject("12345"));
+    FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "true"));
+    assertTrue(facebookClient.deleteObject("12345"));
   }
 
   /**
@@ -142,9 +142,16 @@ public class FacebookClientTest {
       }
 
       @Override
-      public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+      public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments)
+          throws IOException {
         return response;
       }
+
+      @Override
+      public Response executeDelete(String url) throws IOException {
+        return response;
+      }
+
     }, new DefaultJsonMapper());
   }
 }

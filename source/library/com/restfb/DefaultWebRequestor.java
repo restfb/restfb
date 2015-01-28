@@ -80,53 +80,21 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   private boolean autocloseBinaryAttachmentStream = true;
 
+  protected enum HttpMethod {
+    GET, DELETE, POST
+  }
+
   /**
+   * @throws java.io.IOException
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
   @Override
   public Response executeGet(String url) throws IOException {
-    if (logger.isLoggable(FINE))
-      logger.fine("Making a GET request to " + url);
-
-    HttpURLConnection httpUrlConnection = null;
-    InputStream inputStream = null;
-
-    try {
-      httpUrlConnection = openConnection(new URL(url));
-      httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
-      httpUrlConnection.setUseCaches(false);
-
-      // Allow subclasses to customize the connection if they'd like to - set
-      // their own headers, timeouts, etc.
-      customizeConnection(httpUrlConnection);
-
-      httpUrlConnection.setRequestMethod("GET");
-      httpUrlConnection.connect();
-
-      if (logger.isLoggable(FINER))
-        logger.finer("Response headers: " + httpUrlConnection.getHeaderFields());
-
-      try {
-        inputStream =
-            httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
-              .getInputStream();
-      } catch (IOException e) {
-        if (logger.isLoggable(WARNING))
-          logger.warning(format("An error occurred while making a GET request to %s: %s", url, e));
-      }
-
-      Response response = new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
-
-      if (logger.isLoggable(FINE))
-        logger.fine("Facebook responded with " + response);
-
-      return response;
-    } finally {
-      closeQuietly(httpUrlConnection);
-    }
+    return execute(url, HttpMethod.GET);
   }
 
   /**
+   * @throws java.io.IOException
    * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String)
    */
   @Override
@@ -135,17 +103,20 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   /**
+   * @throws java.io.IOException
    * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, com.restfb.BinaryAttachment[])
    */
   @Override
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
-    if (binaryAttachments == null)
+    if (binaryAttachments == null) {
       binaryAttachments = new BinaryAttachment[] {};
+    }
 
-    if (logger.isLoggable(FINE))
+    if (logger.isLoggable(FINE)) {
       logger.fine("Executing a POST to " + url + " with parameters "
           + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + urlDecode(parameters)
           + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
+    }
 
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
@@ -183,9 +154,10 @@ public class DefaultWebRequestor implements WebRequestor {
             .append(createFormFieldName(binaryAttachment)).append("\"; filename=\"")
             .append(binaryAttachment.getFilename()).append("\"");
 
-          if (binaryAttachment.getContentType() != null && binaryAttachment.getContentType().length() > 0)
+          if (binaryAttachment.getContentType() != null && binaryAttachment.getContentType().length() > 0) {
             stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Type: ")
               .append(binaryAttachment.getContentType());
+          }
 
           stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE);
 
@@ -200,23 +172,27 @@ public class DefaultWebRequestor implements WebRequestor {
         outputStream.write(parameters.getBytes(ENCODING_CHARSET));
       }
 
-      if (logger.isLoggable(FINER))
-        logger.finer("Response headers: " + httpUrlConnection.getHeaderFields());
+      if (logger.isLoggable(FINER)) {
+        logger.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
+      }
 
       try {
         inputStream =
             httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
               .getInputStream();
       } catch (IOException e) {
-        if (logger.isLoggable(WARNING))
-          logger.warning("An error occurred while POSTing to " + url + ": " + e);
+        if (logger.isLoggable(WARNING)) {
+          logger.log(WARNING, "An error occurred while POSTing to {0}: {1}", new Object[] { url, e });
+        }
       }
 
       return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
     } finally {
-      if (autocloseBinaryAttachmentStream && binaryAttachments.length > 0)
-        for (BinaryAttachment binaryAttachment : binaryAttachments)
+      if (autocloseBinaryAttachmentStream && binaryAttachments.length > 0) {
+        for (BinaryAttachment binaryAttachment : binaryAttachments) {
           closeQuietly(binaryAttachment.getData());
+        }
+      }
 
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
@@ -266,8 +242,9 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       closeable.close();
     } catch (Throwable t) {
-      if (logger.isLoggable(WARNING))
-        logger.warning("Unable to close " + closeable + ": " + t);
+      if (logger.isLoggable(WARNING)) {
+        logger.log(WARNING, "Unable to close {0}: {1}", new Object[] { closeable, t });
+      }
     }
   }
 
@@ -286,8 +263,9 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       httpUrlConnection.disconnect();
     } catch (Throwable t) {
-      if (logger.isLoggable(WARNING))
-        logger.warning("Unable to disconnect " + httpUrlConnection + ": " + t);
+      if (logger.isLoggable(WARNING)) {
+        logger.log(WARNING, "Unable to disconnect {0}: {1}", new Object[] { httpUrlConnection, t });
+      }
     }
   }
 
@@ -307,8 +285,9 @@ public class DefaultWebRequestor implements WebRequestor {
    *           If either {@code source} or @{code destination} is {@code null}.
    */
   protected void write(InputStream source, OutputStream destination, int bufferSize) throws IOException {
-    if (source == null || destination == null)
+    if (source == null || destination == null) {
       throw new NullPointerException("Must provide non-null source and destination streams.");
+    }
 
     int read = 0;
     byte[] chunk = new byte[bufferSize];
@@ -351,48 +330,55 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executeDelete(String url, String parameters) throws IOException {
+  public Response executeDelete(String url) throws IOException {
+    return execute(url, HttpMethod.DELETE);
+  }
+
+  private Response execute(String url, HttpMethod httpMethod) throws IOException {
+    if (logger.isLoggable(FINE)) {
+      logger.log(FINE, "Making a {0} request to {1}", new Object[] { httpMethod.name(), url });
+    }
 
     HttpURLConnection httpUrlConnection = null;
-    OutputStream outputStream = null;
     InputStream inputStream = null;
 
     try {
       httpUrlConnection = openConnection(new URL(url));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
+      httpUrlConnection.setUseCaches(false);
 
       // Allow subclasses to customize the connection if they'd like to - set
       // their own headers, timeouts, etc.
       customizeConnection(httpUrlConnection);
 
-      httpUrlConnection.setRequestMethod("DELETE");
-      httpUrlConnection.setDoOutput(true);
-      httpUrlConnection.setUseCaches(false);
-
+      httpUrlConnection.setRequestMethod(httpMethod.name());
       httpUrlConnection.connect();
-      outputStream = httpUrlConnection.getOutputStream();
-      outputStream.write(parameters.getBytes(ENCODING_CHARSET));
 
-      if (logger.isLoggable(FINER))
-        logger.finer("Response headers: " + httpUrlConnection.getHeaderFields());
+      if (logger.isLoggable(FINER)) {
+        logger.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
+      }
 
       try {
         inputStream =
             httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
               .getInputStream();
       } catch (IOException e) {
-        if (logger.isLoggable(WARNING))
-          logger.warning("An error occurred while POSTing to " + url + ": " + e);
+        if (logger.isLoggable(WARNING)) {
+          logger
+            .warning(format("An error occurred while making a " + httpMethod.name() + " request to %s: %s", url, e));
+        }
       }
 
-      return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
-    
+      Response response = new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
+
+      if (logger.isLoggable(FINE)) {
+        logger.log(FINE, "Facebook responded with {0}", response);
+      }
+
+      return response;
     } finally {
-      
-      closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
     }
-    
   }
 
 }

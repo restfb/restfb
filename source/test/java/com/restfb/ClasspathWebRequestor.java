@@ -78,7 +78,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executeDelete(String url, String parameters) throws IOException {
+  public Response executeDelete(String url) throws IOException {
     return response;
   }
 }

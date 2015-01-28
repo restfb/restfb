@@ -152,12 +152,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * API error response 'error_user_title' attribute name.
    */
   protected static final String ERROR_USER_TITLE_ATTRIBUTE_NAME = "error_user_title";
-  
+
   /**
    * API error response 'error_user_msg' attribute name.
    */
   protected static final String ERROR_USER_MSG_ATTRIBUTE_NAME = "error_user_msg";
-  
+
   /**
    * API error response 'message' attribute name.
    */
@@ -189,10 +189,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected Version apiVersion = Version.UNVERSIONED;
 
   /**
+   * By default this is <code>false</code>, so real http DELETE is used
+   */
+  protected boolean httpDeleteFallback = false;
+
+  /**
    * Creates a Facebook Graph API client with no access token.
    * <p>
    * Without an access token, you can view and search public graph data but can't do much else.
-   * @deprecated  As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
+   * 
+   * @deprecated As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
    */
   @Deprecated
   public DefaultFacebookClient() {
@@ -204,7 +210,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * 
    * @param accessToken
    *          A Facebook OAuth access token.
-   * @deprecated  As of release 1.7.1 replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
+   * @deprecated As of release 1.7.1 replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
    */
   @Deprecated
   public DefaultFacebookClient(String accessToken) {
@@ -232,7 +238,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @param appSecret
    *          A Facebook application secret.
    * @since 1.6.13
-   * @deprecated  As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, java.lang.String, com.restfb.Version) }
+   * @deprecated As of release 1.7.1, replaced by
+   *             {@link #DefaultFacebookClient(java.lang.String, java.lang.String, com.restfb.Version) }
    */
   @Deprecated
   public DefaultFacebookClient(String accessToken, String appSecret) {
@@ -265,7 +272,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
    * @throws NullPointerException
    *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
-   * @deprecated  As of release 1.7.1, replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.WebRequestor, com.restfb.JsonMapper, com.restfb.Version) }
+   * @deprecated As of release 1.7.1, replaced by
+   *             {@link #DefaultFacebookClient(java.lang.String, com.restfb.WebRequestor, com.restfb.JsonMapper, com.restfb.Version) }
    */
   @Deprecated
   public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
@@ -365,7 +373,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     String connectionJson = null;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
       connectionJson = makeRequestAndProcessResponse(new Requestor() {
-	@Override
+        @Override
         public Response makeRequest() throws IOException {
           return webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
             urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)));
@@ -373,7 +381,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       });
     } else {
       connectionJson = makeRequestAndProcessResponse(new Requestor() {
-	@Override
+        @Override
         public Response makeRequest() throws IOException {
           return webRequestor.executeGet(connectionPageUrl);
         }
@@ -437,8 +445,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("connection", connection);
 
     List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
-    if (binaryAttachments != null)
+    if (binaryAttachments != null) {
       attachments = binaryAttachments;
+    }
 
     return jsonMapper.toJavaObject(makeRequest(connection, true, false, attachments, parameters), objectType);
   }
@@ -448,15 +457,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *      com.restfb.Parameter[])
    */
   @Override
-  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters) {
-    
+  public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
+      Parameter... parameters) {
+
     List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
-    if (binaryAttachment != null)
+    if (binaryAttachment != null) {
       attachments.add(binaryAttachment);
-    
+    }
+
     return publish(connection, objectType, attachments, parameters);
   }
-  
+
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */
@@ -847,21 +858,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @param executeAsDelete
    *          {@code true} to add a special 'treat this request as a {@code DELETE}' parameter.
    * @param binaryAttachments
-   *          A list of binary files to include in a {@code POST} request. Pass {@code null} if no attachment should be sent.
+   *          A list of binary files to include in a {@code POST} request. Pass {@code null} if no attachment should be
+   *          sent.
    * @param parameters
    *          Arbitrary number of parameters to send along to Facebook as part of the API call.
    * @return The JSON returned by Facebook for the API call.
    * @throws FacebookException
    *           If an error occurs while making the Facebook API POST or processing the response.
    */
-  protected String makeRequest(String endpoint, final boolean executeAsPost, boolean executeAsDelete,
+  protected String makeRequest(String endpoint, final boolean executeAsPost, final boolean executeAsDelete,
       final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
     verifyParameterLegality(parameters);
 
-    if (executeAsDelete)
+    if (executeAsDelete && isHttpDeleteFallback()) {
       parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
+    }
 
     trimToEmpty(endpoint).toLowerCase();
+
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
@@ -874,9 +888,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
        */
       public Response makeRequest() throws IOException {
-        return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments == null ? null
-            : binaryAttachments.toArray(new BinaryAttachment[] {})) : webRequestor.executeGet(fullEndpoint + "?"
-            + parameterString);
+        if (executeAsDelete && !isHttpDeleteFallback()) {
+          return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
+        } else {
+          return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString,
+            binaryAttachments == null ? null : binaryAttachments.toArray(new BinaryAttachment[] {})) : webRequestor
+            .executeGet(fullEndpoint + "?" + parameterString);
+        }
       }
     });
   }
@@ -900,6 +918,26 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     } catch (Exception e) {
       throw new IllegalStateException("Creation of appsecret_proof has failed", e);
     }
+  }
+
+  /**
+   * returns if the fallback post method (<code>true</code>) is used or the http delete (<code>false</code>)
+   * 
+   * @return
+   */
+  public boolean isHttpDeleteFallback() {
+    return httpDeleteFallback;
+  }
+
+  /**
+   * Set to <code>true</code> if the facebook http delete fallback should be used. Facebook allows to use the http POST
+   * with the parameter "method=delete" to override the post and use delete instead. This feature allow http client that
+   * do not support the whole http method set, to delete objects from facebook
+   * 
+   * @param httpDeleteFallback
+   */
+  public void setHttpDeleteFallback(boolean httpDeleteFallback) {
+    this.httpDeleteFallback = httpDeleteFallback;
   }
 
   protected static interface Requestor {
@@ -994,12 +1032,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           innerErrorObject.has(ERROR_SUBCODE_ATTRIBUTE_NAME) ? toInteger(innerErrorObject
             .getString(ERROR_SUBCODE_ATTRIBUTE_NAME)) : null;
 
-      throw graphFacebookExceptionMapper
-        .exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
-          innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
-          innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
-	  innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
-	  innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME));
+      throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
+        innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+        innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
+        innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
+        innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME));
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -1080,14 +1117,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
         Integer httpStatusCode, String type, String message, String errorUserTitle, String errorUserMessage) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
-        return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle, errorUserMessage);
+        return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
+          errorUserMessage);
 
       if ("QueryParseException".equals(type))
-        return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle, errorUserMessage);
+        return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
+          errorUserMessage);
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
-      return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle, errorUserMessage);
+      return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
+        errorUserMessage);
     }
   }
 

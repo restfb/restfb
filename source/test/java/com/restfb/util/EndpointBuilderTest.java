@@ -30,52 +30,71 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class EndpointBuilderTest {
-    
-    @Test
-    public void version1Test() {
-        FakeWebRequestor wr = new FakeWebRequestor();
-        DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_1_0);
-        String respstring = client.fetchObject("/me", String.class);
-        assertEquals("https://graph.facebook.com/v1.0/me?access_token=12345&format=json", respstring);
-    }
-    
-    @Test
-    public void version2Test() {
-        FakeWebRequestor wr = new FakeWebRequestor();
-        DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_0);
-        String respstring = client.fetchObject("/me", String.class);
-        assertEquals("https://graph.facebook.com/v2.0/me?access_token=12345&format=json", respstring);
-    }
-    
-    @Test
-    public void version21Test() {
-        FakeWebRequestor wr = new FakeWebRequestor();
-        DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_1);
-        String respstring = client.fetchObject("/me", String.class);
-        assertEquals("https://graph.facebook.com/v2.1/me?access_token=12345&format=json", respstring);
-    }
-    
-    @Test
-    public void version22Test() {
-        FakeWebRequestor wr = new FakeWebRequestor();
-        DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
-        String respstring = client.fetchObject("/me", String.class);
-        assertEquals("https://graph.facebook.com/v2.2/me?access_token=12345&format=json", respstring);
-    }
-    
-    @Test
-    public void unversionedTest() {
-        FakeWebRequestor wr = new FakeWebRequestor();
-        DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.UNVERSIONED);
-        String respstring = client.fetchObject("/me", String.class);
-        assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respstring);
-    }
-    
-    @Test
-    public void unversionedNoVersionTest() {
-        FakeWebRequestor wr = new FakeWebRequestor();
-        DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper());
-        String respstring = client.fetchObject("/me", String.class);
-        assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respstring);
-    }
+
+  @Test
+  public void version1Test() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_1_0);
+    String respstring = client.fetchObject("/me", String.class);
+    assertEquals("https://graph.facebook.com/v1.0/me?access_token=12345&format=json", respstring);
+  }
+
+  @Test
+  public void version2Test() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_0);
+    String respstring = client.fetchObject("/me", String.class);
+    assertEquals("https://graph.facebook.com/v2.0/me?access_token=12345&format=json", respstring);
+  }
+
+  @Test
+  public void version21Test() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_1);
+    String respstring = client.fetchObject("/me", String.class);
+    assertEquals("https://graph.facebook.com/v2.1/me?access_token=12345&format=json", respstring);
+  }
+
+  @Test
+  public void version22Test() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
+    String respstring = client.fetchObject("/me", String.class);
+    assertEquals("https://graph.facebook.com/v2.2/me?access_token=12345&format=json", respstring);
+  }
+
+  @Test
+  public void unversionedTest() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.UNVERSIONED);
+    String respstring = client.fetchObject("/me", String.class);
+    assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respstring);
+  }
+
+  @Test
+  public void unversionedNoVersionTest() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper());
+    String respstring = client.fetchObject("/me", String.class);
+    assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respstring);
+  }
+
+  @Test
+  public void deleteObjectDELETETest() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
+    client.deleteObject("comment");
+    assertEquals("DELETE", wr.getMethod());
+    assertEquals("https://graph.facebook.com/v2.2/comment?access_token=12345&format=json", wr.getSavedUrl());
+  }
+
+  @Test
+  public void deleteObjectPOSTTest() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
+    client.setHttpDeleteFallback(true);
+    client.deleteObject("comment");
+    assertEquals("POST", wr.getMethod());
+    assertEquals("https://graph.facebook.com/v2.2/comment", wr.getSavedUrl());
+  }
 }
