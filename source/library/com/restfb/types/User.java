@@ -140,6 +140,16 @@ public class User extends NamedFacebookType {
   private String religion;
 
   /**
+   * Unspecific age range that this person's age fits into.
+   * 
+   * @return The user's age range
+   */
+  @Getter
+  @Setter
+  @Facebook("age_range")
+  private AgeRange ageRange;
+
+  /**
    * A link to the user's personal website.
    * 
    * @return A link to the user's personal website.
@@ -321,10 +331,9 @@ public class User extends NamedFacebookType {
   @Setter
   @Facebook
   private Currency currency;
-  
+
   /**
-   * This returns a string which is the same for this person 
-   * across all the apps managed by the same Business Manager.
+   * This returns a string which is the same for this person across all the apps managed by the same Business Manager.
    * 
    * @return string which is the same for a person across all apps managed by one company
    * @since 1.7.0
@@ -514,7 +523,7 @@ public class User extends NamedFacebookType {
     @Setter
     @Facebook
     private NamedFacebookType year;
-    
+
     /**
      * Description for this year.
      * 
@@ -861,6 +870,29 @@ public class User extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
+  }
+
+  public static class AgeRange {
+
+    /**
+     * The lower bounds of the range for this person's age.
+     * 
+     * @return The lower bounds of the range for this person's age.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer min;
+
+    /**
+     * The upper bounds of the range for this person's age.
+     * 
+     * @return The upper bounds of the range for this person's age.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer max;
   }
 
   /**

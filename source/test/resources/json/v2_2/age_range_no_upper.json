@@ -1,0 +1,7 @@
+{
+  "id": "123456789", 
+  "name": "Test Benutzer", 
+  "age_range": {
+    "min": 21
+  }
+}
