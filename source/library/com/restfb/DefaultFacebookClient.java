@@ -679,6 +679,28 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * @see com.restfb.FacebookClient#obtainUserAccessToken(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public AccessToken obtainUserAccessToken(String appId, String appSecret, String redirectUri, String verificationCode) {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence("verificationCode", verificationCode);
+    verifyParameterPresence("redirectUri", redirectUri);
+
+    String response =
+        makeRequest("oauth/access_token", Parameter.with("client_id", appId),
+          Parameter.with("client_secret", appSecret), Parameter.with("code", verificationCode),
+          Parameter.with("redirect_uri", redirectUri));
+
+    try {
+      return AccessToken.fromQueryString(response);
+    } catch (Throwable t) {
+      throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+    }
+  }
+
+  /**
    * Convenience method which invokes {@link #obtainExtendedAccessToken(String, String, String)} with the current access
    * token.
    * 
