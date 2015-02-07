@@ -344,6 +344,27 @@ public interface FacebookClient {
   List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys);
 
   /**
+   * Obtains an access token which can be used to perform Graph API operations on behalf of a user.
+   * <p>
+   * See <a href="https://developers.facebook.com/docs/facebook-login/access-tokens">Access Tokens</a>.
+   *
+   * @param appId
+   *          The ID of the app for which you'd like to obtain an access token.
+   * @param appSecret
+   *          The secret for the app for which you'd like to obtain an access token.
+   * @param redirectUri
+   *          The redirect URI which was used to obtain the {@code verificationCode}.
+   * @param verificationCode
+   *          The verification code in the Graph API callback to the redirect URI.
+   * @return The access token for the user identified by {@code appId}, {@code appSecret}, {@code redirectUri}
+   * and {@code verificationCode}.
+   * @throws FacebookException
+   *           If an error occurs while attempting to obtain an access token.
+   * @since 1.7.x
+   */
+  AccessToken obtainUserAccessToken(String appId, String appSecret, String redirectUri, String verificationCode);
+
+  /**
    * Obtains an access token which can be used to perform Graph API operations on behalf of an application instead of a
    * user.
    * <p>
