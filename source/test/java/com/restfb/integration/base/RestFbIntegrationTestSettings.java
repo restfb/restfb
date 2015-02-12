@@ -41,7 +41,7 @@ public class RestFbIntegrationTestSettings {
   private String userGroupId = "";
 
   public RestFbIntegrationTestSettings(Properties settings) {
-    writeToFacebook = Boolean.getBoolean(settings.getProperty("writeToFacebook", "false"));
+    writeToFacebook = Boolean.parseBoolean(settings.getProperty("writeToFacebook", "false"));
     userAccessToken = settings.getProperty("user.accessToken", "");
     pageAccessToken = settings.getProperty("page.accessToken", "");
     userId = settings.getProperty("user.id", "");
