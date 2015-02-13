@@ -360,7 +360,7 @@ public interface FacebookClient {
    * and {@code verificationCode}.
    * @throws FacebookException
    *           If an error occurs while attempting to obtain an access token.
-   * @since 1.7.x
+   * @since 1.8.0
    */
   AccessToken obtainUserAccessToken(String appId, String appSecret, String redirectUri, String verificationCode);
 

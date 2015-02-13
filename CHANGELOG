@@ -1,3 +1,17 @@
+1.8.0 (February 13, 2015)
+
+* Issue #93: obtain user access token method added
+  Thanks to Johno Crawford
+* Issue #173: http delete added
+  Thanks to Eric Hydrick
+* Issue #176: DefaulFacebookClient - missing constructor added
+  Thanks to Denis Bardadym
+* Issue #177: User age-range added
+* Issue #179 + #171: restfb website moved to gh pages
+  Thanks for the input to Marcel Stör
+* Issue #181: binary post Integration test added
+  Thanks to Rick Fischer 
+
 1.7.1 (January 16, 2015)
 
 * Issue #149: can_hide and is_hidden fields added
