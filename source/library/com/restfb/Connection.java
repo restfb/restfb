@@ -34,6 +34,7 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
+import com.restfb.types.Summary;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -48,6 +49,7 @@ public class Connection<T> implements Iterable<List<T>> {
   private String previousPageUrl;
   private String nextPageUrl;
   private Long totalCount;
+  private Summary summary;
 
   /**
    * @see java.lang.Iterable#iterator()
@@ -172,6 +174,8 @@ public class Connection<T> implements Iterable<List<T>> {
     
     if (jsonObject.has("summary")) {
         JsonObject jsonSummary = jsonObject.getJsonObject("summary");
+        summary = facebookClient.getJsonMapper()
+              .toJavaObject(jsonSummary.toString(), Summary.class);
         totalCount = jsonSummary.has("total_count") ? jsonSummary.getLong("total_count") : null;
     } else {
         totalCount = null;
