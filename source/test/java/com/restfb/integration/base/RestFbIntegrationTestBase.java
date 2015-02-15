@@ -39,8 +39,8 @@ abstract public class RestFbIntegrationTestBase {
       try {
 	props.load(propertyStream);
 	testSettings = new RestFbIntegrationTestSettings(props);
-	if (testSettings.writeAccessAllowed()) {
-	    Assume.assumeNotNull(getClass().getAnnotation(NeedFacebookWriteAccess.class));
+	if (getClass().getAnnotation(NeedFacebookWriteAccess.class) != null) {
+	    Assume.assumeTrue(testSettings.writeAccessAllowed());
 	}
       }
       catch (Throwable ioe) {

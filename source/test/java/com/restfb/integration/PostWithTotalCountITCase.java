@@ -44,5 +44,6 @@ public class PostWithTotalCountITCase extends RestFbIntegrationTestBase {
     assertTrue(gotPost.getLikes().getTotalCount() > 0);
     assertEquals(gotPost.getLikesCount(), gotPost.getLikes().getTotalCount());
     assertTrue(gotPost.getComments().getTotalCount() > 0);
+    assertEquals(gotPost.getComments().getTotalCount(), gotPost.getCommentsCount());
   }
 }
