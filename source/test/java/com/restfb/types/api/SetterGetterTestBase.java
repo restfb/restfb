@@ -50,16 +50,16 @@ public class SetterGetterTestBase {
 
   public SetterGetterTestBase() {
     defaultInstances = new HashMap<Class, Object>();
-    defaultInstances.put(boolean.class, new Boolean(true));
-    defaultInstances.put(byte.class, new Byte((byte) 0));
-    defaultInstances.put(char.class, new Character('0'));
-    defaultInstances.put(short.class, new Short((short) 0));
-    defaultInstances.put(int.class, new Integer(0));
-    defaultInstances.put(long.class, new Long(0));
-    defaultInstances.put(float.class, new Float(0f));
-    defaultInstances.put(double.class, new Double(0d));
+    defaultInstances.put(boolean.class, Boolean.TRUE);
+    defaultInstances.put(byte.class, Byte.valueOf((byte) 0));
+    defaultInstances.put(char.class, Character.valueOf('0'));
+    defaultInstances.put(short.class, Short.valueOf((short) 0));
+    defaultInstances.put(int.class, Integer.valueOf(0));
+    defaultInstances.put(long.class, Long.valueOf(0));
+    defaultInstances.put(float.class, Float.valueOf(0f));
+    defaultInstances.put(double.class, Double.valueOf(0));
     defaultInstances.put(List.class, new ArrayList());
-    defaultInstances.put(String.class, new String("test"));
+    defaultInstances.put(String.class, "test");
     defaultInstances.put(NamedFacebookType.class, new NamedFacebookType());
     defaultInstances.put(Message.class, new Message());
     ignoredFields.add("serialVersionUID");
