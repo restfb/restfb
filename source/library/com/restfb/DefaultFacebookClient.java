@@ -923,7 +923,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
         } else {
           return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString,
-            binaryAttachments == null ? null : binaryAttachments.toArray(new BinaryAttachment[] {})) : webRequestor
+            binaryAttachments == null ? null : binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()])) : webRequestor
             .executeGet(fullEndpoint + "?" + parameterString);
         }
       }
