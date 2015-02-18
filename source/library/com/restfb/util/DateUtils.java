@@ -22,12 +22,12 @@
 
 package com.restfb.util;
 
-import static java.lang.String.format;
-import static java.util.logging.Level.FINER;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Logger;
+
+import static java.lang.String.format;
+import static java.util.logging.Level.FINER;
 
 /**
  * A collection of date-handling utility methods.
@@ -93,7 +93,7 @@ public final class DateUtils {
     // Is this an all-digit date? Then assume it's the "seconds since epoch"
     // variant
     if (date.trim().matches("\\d+"))
-      return new Date(Long.valueOf(date) * 1000L);
+      return new Date(Long.parseLong(date) * 1000L);
 
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
 

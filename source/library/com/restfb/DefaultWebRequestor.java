@@ -109,7 +109,7 @@ public class DefaultWebRequestor implements WebRequestor {
   @Override
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
     if (binaryAttachments == null) {
-      binaryAttachments = new BinaryAttachment[] {};
+      binaryAttachments = new BinaryAttachment[0];
     }
 
     if (logger.isLoggable(FINE)) {

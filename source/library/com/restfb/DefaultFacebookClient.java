@@ -42,6 +42,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -342,7 +343,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
 
     illegalParamNames.addAll(Arrays
-      .asList(new String[] { ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME }));
+      .asList(ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME));
   }
 
   /**
@@ -906,8 +907,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
     }
 
-    trimToEmpty(endpoint).toLowerCase();
-
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
@@ -924,7 +923,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
         } else {
           return executeAsPost ? webRequestor.executePost(fullEndpoint, parameterString,
-            binaryAttachments == null ? null : binaryAttachments.toArray(new BinaryAttachment[] {})) : webRequestor
+            binaryAttachments == null ? null : binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()])) : webRequestor
             .executeGet(fullEndpoint + "?" + parameterString);
         }
       }
@@ -940,7 +939,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appSecret", appSecret);
 
     try {
-      byte[] key = appSecret.getBytes();
+      byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
       SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
       Mac mac = Mac.getInstance("HmacSHA256");
       mac.init(signingKey);
@@ -1051,7 +1050,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       JsonObject errorObject = new JsonObject(json);
 
-      if (errorObject == null || !errorObject.has(ERROR_ATTRIBUTE_NAME))
+      if (!errorObject.has(ERROR_ATTRIBUTE_NAME))
         return;
 
       JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
@@ -1205,7 +1204,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {
-    trimToEmpty(apiCall).toLowerCase();
     while (apiCall.startsWith("/"))
       apiCall = apiCall.substring(1);
 

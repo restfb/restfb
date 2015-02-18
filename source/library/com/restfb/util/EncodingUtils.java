@@ -22,13 +22,13 @@
 
 package com.restfb.util;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  * A collection of data-encoding utility methods.
@@ -98,7 +98,7 @@ public final class EncodingUtils {
       out[j++] = toDigits[0x0F & data[i]];
     }
 
-    return new String(out).getBytes();
+    return new String(out).getBytes(Charset.forName("UTF-8"));
   }
 
   /**
@@ -117,14 +117,13 @@ public final class EncodingUtils {
    */
   public static String encodeAppSecretProof(String appSecret, String accessToken) throws NoSuchAlgorithmException,
       InvalidKeyException, UnsupportedEncodingException {
-    byte[] key = appSecret.getBytes();
+    byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
     SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
     Mac mac = Mac.getInstance("HmacSHA256");
     mac.init(signingKey);
-    byte[] raw = mac.doFinal(accessToken.getBytes());
+    byte[] raw = mac.doFinal(accessToken.getBytes(Charset.forName("UTF-8")));
     byte[] hex = encodeHex(raw);
-    String out = new String(hex, "UTF-8");
-    return out;
+      return new String(hex, Charset.forName("UTF-8"));
   }
 
   /**
