@@ -521,7 +521,7 @@ public class JsonObject implements Serializable {
   public double getDouble(String key) {
     Object o = get(key);
     try {
-      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o);
     } catch (Exception e) {
       throw new JsonException("JsonObject[" + quote(key) + "] is not a number.");
     }
@@ -812,7 +812,7 @@ public class JsonObject implements Serializable {
   public double optDouble(String key, double defaultValue) {
     try {
       Object o = opt(key);
-      return o instanceof Number ? ((Number) o).doubleValue() : new Double((String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : Double.parseDouble((String) o);
     } catch (Exception e) {
       return defaultValue;
     }

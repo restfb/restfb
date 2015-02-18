@@ -269,7 +269,7 @@ public class JsonArray implements Serializable {
   public double getDouble(int index) {
     Object o = get(index);
     try {
-      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o);
     } catch (Exception e) {
       throw new JsonException("JsonArray[" + index + "] is not a number.");
     }
