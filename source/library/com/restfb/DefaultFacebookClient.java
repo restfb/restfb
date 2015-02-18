@@ -1050,7 +1050,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       JsonObject errorObject = new JsonObject(json);
 
-      if (errorObject == null || !errorObject.has(ERROR_ATTRIBUTE_NAME))
+      if (!errorObject.has(ERROR_ATTRIBUTE_NAME))
         return;
 
       JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
