@@ -906,8 +906,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
     }
 
-    trimToEmpty(endpoint).toLowerCase();
-
     if (!endpoint.startsWith("/"))
       endpoint = "/" + endpoint;
 
@@ -1205,7 +1203,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {
-    trimToEmpty(apiCall).toLowerCase();
     while (apiCall.startsWith("/"))
       apiCall = apiCall.substring(1);
 
