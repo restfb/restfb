@@ -633,13 +633,13 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (Integer.class.equals(type) || Integer.TYPE.equals(type))
-      return new Integer(jsonObject.getInt(facebookFieldName));
+      return jsonObject.getInt(facebookFieldName);
     if (Boolean.class.equals(type) || Boolean.TYPE.equals(type))
-      return new Boolean(jsonObject.getBoolean(facebookFieldName));
+      return jsonObject.getBoolean(facebookFieldName);
     if (Long.class.equals(type) || Long.TYPE.equals(type))
-      return new Long(jsonObject.getLong(facebookFieldName));
+      return jsonObject.getLong(facebookFieldName);
     if (Double.class.equals(type) || Double.TYPE.equals(type))
-      return new Double(jsonObject.getDouble(facebookFieldName));
+      return jsonObject.getDouble(facebookFieldName);
     if (Float.class.equals(type) || Float.TYPE.equals(type))
       return new BigDecimal(jsonObject.getString(facebookFieldName)).floatValue();
     if (BigInteger.class.equals(type))
