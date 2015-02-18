@@ -974,7 +974,7 @@ public class JsonObject implements Serializable {
    *           If the key is null.
    */
   public JsonObject put(String key, int value) {
-    put(key, new Integer(value));
+    put(key, Integer.valueOf(value));
     return this;
   }
 
@@ -990,7 +990,7 @@ public class JsonObject implements Serializable {
    *           If the key is null.
    */
   public JsonObject put(String key, long value) {
-    put(key, new Long(value));
+    put(key, Long.valueOf(value));
     return this;
   }
 
@@ -1191,13 +1191,13 @@ public class JsonObject implements Serializable {
       if (b == '0') {
         if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
           try {
-            return new Integer(Integer.parseInt(s.substring(2), 16));
+            return Integer.valueOf(Integer.parseInt(s.substring(2), 16));
           } catch (Exception e) {
             /* Ignore the error */
           }
         } else {
           try {
-            return new Integer(Integer.parseInt(s, 8));
+            return Integer.parseInt(s, 8);
           } catch (Exception e) {
             /* Ignore the error */
           }
@@ -1207,9 +1207,9 @@ public class JsonObject implements Serializable {
         if (s.indexOf('.') > -1 || s.indexOf('e') > -1 || s.indexOf('E') > -1) {
           return Double.valueOf(s);
         } else {
-          Long myLong = new Long(s);
+          Long myLong = Long.valueOf(s);
           if (myLong.longValue() == myLong.intValue()) {
-            return new Integer(myLong.intValue());
+            return myLong.intValue();
           } else {
             return myLong;
           }
