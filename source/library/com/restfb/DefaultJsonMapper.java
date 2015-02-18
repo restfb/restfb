@@ -171,9 +171,10 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     try {
-      List<T> list = new ArrayList<T>();
+
 
       JsonArray jsonArray = new JsonArray(json);
+      List<T> list = new ArrayList<T>(jsonArray.length());
       for (int i = 0; i < jsonArray.length(); i++)
         list.add(toJavaObject(jsonArray.get(i).toString(), type));
 
