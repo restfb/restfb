@@ -343,7 +343,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
 
     illegalParamNames.addAll(Arrays
-      .asList(new String[] { ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME }));
+      .asList(ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME));
   }
 
   /**

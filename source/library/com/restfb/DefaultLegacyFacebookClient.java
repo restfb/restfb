@@ -464,8 +464,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * Initializes the set of illegal URL parameter names.
    */
   protected void initializeIllegalParamNames() {
-    illegalParamNames.addAll(Arrays.asList(new String[] { API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME,
-        METHOD_PARAM_NAME, SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME }));
+    illegalParamNames.addAll(Arrays.asList(API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME,
+                                           METHOD_PARAM_NAME, SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME));
   }
 
   /**
