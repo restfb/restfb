@@ -313,7 +313,7 @@ public class Post extends NamedFacebookType {
       return;
 
     for (String key : getNames(rawMessageTags)) {
-      String messageTagJson = rawMessageTags.getString(key).toString();
+      String messageTagJson = rawMessageTags.getString(key);
       messageTags.put(key, jsonMapper.toJavaList(messageTagJson, MessageTag.class));
     }
   }
