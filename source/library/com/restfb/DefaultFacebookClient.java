@@ -42,6 +42,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -938,7 +939,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appSecret", appSecret);
 
     try {
-      byte[] key = appSecret.getBytes();
+      byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
       SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
       Mac mac = Mac.getInstance("HmacSHA256");
       mac.init(signingKey);
