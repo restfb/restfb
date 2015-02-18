@@ -872,7 +872,7 @@ public class User extends NamedFacebookType {
 
   }
 
-  public static class AgeRange {
+  public static class AgeRange implements Serializable {
 
     /**
      * The lower bounds of the range for this person's age.
