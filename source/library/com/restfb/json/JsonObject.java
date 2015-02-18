@@ -1191,7 +1191,7 @@ public class JsonObject implements Serializable {
       if (b == '0') {
         if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
           try {
-            return Integer.valueOf(Integer.parseInt(s.substring(2), 16));
+            return Integer.parseInt(s.substring(2), 16);
           } catch (Exception e) {
             /* Ignore the error */
           }
