@@ -22,7 +22,11 @@
 
 package com.restfb;
 
-import static org.junit.Assert.assertTrue;
+import org.json.JSONException;
+import org.junit.Assert;
+import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -30,13 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONException;
 
-import org.junit.Assert;
-
-import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.
@@ -141,7 +140,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
         "http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg";
     medium.type = "image";
 
-    List<Medium> media = new ArrayList<Medium>();
+    List<Medium> media = new ArrayList<Medium>(1);
     media.add(medium);
 
     Attachment attachment = new Attachment();

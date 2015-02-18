@@ -22,11 +22,6 @@
 
 package com.restfb.util;
 
-import static java.lang.String.format;
-import static java.util.Collections.sort;
-import static java.util.Collections.synchronizedMap;
-import static java.util.Collections.unmodifiableList;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,6 +34,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static java.lang.String.format;
+import static java.util.Collections.sort;
+import static java.util.Collections.synchronizedMap;
+import static java.util.Collections.unmodifiableList;
 
 /**
  * A collection of reflection-related utility methods.
@@ -203,7 +203,7 @@ public final class ReflectionUtils {
     if (clazz == null)
       throw new IllegalArgumentException("The 'clazz' parameter cannot be null.");
 
-    List<Method> methods = new ArrayList<Method>();
+    List<Method> methods = new ArrayList<Method>(clazz.getMethods().length);
 
     for (Method method : clazz.getMethods()) {
       String methodName = method.getName();

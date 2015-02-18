@@ -22,19 +22,19 @@
 
 package com.restfb;
 
-import static com.restfb.util.StringUtils.isBlank;
-import static java.util.Collections.unmodifiableList;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
+import com.restfb.util.ReflectionUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonException;
-import com.restfb.json.JsonObject;
-import com.restfb.util.ReflectionUtils;
+import static com.restfb.util.StringUtils.isBlank;
+import static java.util.Collections.unmodifiableList;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
@@ -135,7 +135,7 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   @SuppressWarnings("unchecked")
   public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
-    List<T> data = new ArrayList<T>();
+
 
     if (json == null)
       throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
@@ -150,6 +150,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
     // Pull out data
     JsonArray jsonData = jsonObject.getJsonArray("data");
+    List<T> data = new ArrayList<T>(jsonData.length());
     for (int i = 0; i < jsonData.length(); i++)
       data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : facebookClient.getJsonMapper()
         .toJavaObject(jsonData.get(i).toString(), connectionType));

@@ -163,10 +163,10 @@ public class JsonArray implements Serializable {
    */
 
   public JsonArray(Collection<?> collection, boolean includeSuperClass) {
-    this.myArrayList = new ArrayList<Object>();
+    this.myArrayList = new ArrayList<Object>(collection != null ? collection.size() : 10);
     if (collection != null) {
       Iterator<?> iter = collection.iterator();
-      ;
+
       while (iter.hasNext()) {
         Object o = iter.next();
         if (o instanceof Map<?, ?>) {

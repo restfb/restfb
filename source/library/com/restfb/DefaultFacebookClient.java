@@ -454,7 +454,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       Parameter... parameters) {
     verifyParameterPresence("connection", connection);
 
-    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
+    List<BinaryAttachment> attachments = emptyList();
     if (binaryAttachments != null) {
       attachments = binaryAttachments;
     }
@@ -470,7 +470,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
       Parameter... parameters) {
 
-    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
+    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>(1);
     if (binaryAttachment != null) {
       attachments.add(binaryAttachment);
     }
