@@ -159,20 +159,20 @@ abstract class BaseFacebookClient {
    * @since 1.6.3
    */
   protected void initializeReadOnlyApiCalls() {
-    readOnlyApiCalls.addAll(asList(new String[] { "admin.getallocation", "admin.getappproperties",
-        "admin.getbannedusers", "admin.getlivestreamvialink", "admin.getmetrics", "admin.getrestrictioninfo",
-        "application.getpublicinfo", "auth.getapppublickey", "auth.getsession", "auth.getsignedpublicsessiondata",
-        "comments.get", "connect.getunconnectedfriendscount", "dashboard.getactivity", "dashboard.getcount",
-        "dashboard.getglobalnews", "dashboard.getnews", "dashboard.multigetcount", "dashboard.multigetnews",
-        "data.getcookies", "events.get", "events.getmembers", "fbml.getcustomtags", "feed.getappfriendstories",
-        "feed.getregisteredtemplatebundlebyid", "feed.getregisteredtemplatebundles", "fql.multiquery", "fql.query",
-        "friends.arefriends", "friends.get", "friends.getappusers", "friends.getlists", "friends.getmutualfriends",
-        "gifts.get", "groups.get", "groups.getmembers", "intl.gettranslations", "links.get", "notes.get",
-        "notifications.get", "pages.getinfo", "pages.isadmin", "pages.isappadded", "pages.isfan",
-        "permissions.checkavailableapiaccess", "permissions.checkgrantedapiaccess", "photos.get", "photos.getalbums",
-        "photos.gettags", "profile.getinfo", "profile.getinfooptions", "stream.get", "stream.getcomments",
-        "stream.getfilters", "users.getinfo", "users.getloggedinuser", "users.getstandardinfo",
-        "users.hasapppermission", "users.isappuser", "users.isverified", "video.getuploadlimits" }));
+    readOnlyApiCalls.addAll(asList("admin.getallocation", "admin.getappproperties",
+                                   "admin.getbannedusers", "admin.getlivestreamvialink", "admin.getmetrics", "admin.getrestrictioninfo",
+                                   "application.getpublicinfo", "auth.getapppublickey", "auth.getsession", "auth.getsignedpublicsessiondata",
+                                   "comments.get", "connect.getunconnectedfriendscount", "dashboard.getactivity", "dashboard.getcount",
+                                   "dashboard.getglobalnews", "dashboard.getnews", "dashboard.multigetcount", "dashboard.multigetnews",
+                                   "data.getcookies", "events.get", "events.getmembers", "fbml.getcustomtags", "feed.getappfriendstories",
+                                   "feed.getregisteredtemplatebundlebyid", "feed.getregisteredtemplatebundles", "fql.multiquery", "fql.query",
+                                   "friends.arefriends", "friends.get", "friends.getappusers", "friends.getlists", "friends.getmutualfriends",
+                                   "gifts.get", "groups.get", "groups.getmembers", "intl.gettranslations", "links.get", "notes.get",
+                                   "notifications.get", "pages.getinfo", "pages.isadmin", "pages.isappadded", "pages.isfan",
+                                   "permissions.checkavailableapiaccess", "permissions.checkgrantedapiaccess", "photos.get", "photos.getalbums",
+                                   "photos.gettags", "profile.getinfo", "profile.getinfooptions", "stream.get", "stream.getcomments",
+                                   "stream.getfilters", "users.getinfo", "users.getloggedinuser", "users.getstandardinfo",
+                                   "users.hasapppermission", "users.isappuser", "users.isverified", "video.getuploadlimits"));
   }
 
   /**
