@@ -123,8 +123,7 @@ public final class EncodingUtils {
     mac.init(signingKey);
     byte[] raw = mac.doFinal(accessToken.getBytes(Charset.forName("UTF-8")));
     byte[] hex = encodeHex(raw);
-    String out = new String(hex, Charset.forName("UTF-8"));
-    return out;
+      return new String(hex, Charset.forName("UTF-8"));
   }
 
   /**
