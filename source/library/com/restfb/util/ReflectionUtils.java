@@ -147,7 +147,7 @@ public final class ReflectionUtils {
    */
   public static <T extends Annotation> List<Method> findMethodsWithAnnotation(Class<?> type, Class<T> annotationType) {
     ClassAnnotationCacheKey cacheKey = new ClassAnnotationCacheKey(type, annotationType);
-    List<Method> cachedResults = (List<Method>) METHODS_WITH_ANNOTATION_CACHE.get(cacheKey);
+    List<Method> cachedResults = METHODS_WITH_ANNOTATION_CACHE.get(cacheKey);
 
     if (cachedResults != null)
       return cachedResults;

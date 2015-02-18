@@ -170,7 +170,7 @@ public class JsonArray implements Serializable {
       while (iter.hasNext()) {
         Object o = iter.next();
         if (o instanceof Map<?, ?>) {
-          this.myArrayList.add(new JsonObject((Map<?, ?>) o, includeSuperClass));
+          this.myArrayList.add(new JsonObject(o, includeSuperClass));
         } else if (!JsonObject.isStandardProperty(o.getClass())) {
           this.myArrayList.add(new JsonObject(o, includeSuperClass));
         } else {

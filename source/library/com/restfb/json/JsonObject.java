@@ -328,7 +328,7 @@ public class JsonObject implements Serializable {
             } else if (result instanceof Collection<?>) { // List or Set
               map.put(key, new JsonArray((Collection<?>) result, includeSuperClass));
             } else if (result instanceof Map<?, ?>) {
-              map.put(key, new JsonObject((Map<?, ?>) result, includeSuperClass));
+              map.put(key, new JsonObject(result, includeSuperClass));
             } else if (isStandardProperty(result.getClass())) { // Primitives,
               // String and
               // Wrapper
@@ -1407,7 +1407,7 @@ public class JsonObject implements Serializable {
       return value.toString();
     }
     if (value instanceof Map<?, ?>) {
-      return new JsonObject((Map<?, ?>) value).toString();
+      return new JsonObject(value).toString();
     }
     if (value instanceof Collection<?>) {
       return new JsonArray((Collection<?>) value).toString();
@@ -1461,7 +1461,7 @@ public class JsonObject implements Serializable {
       return ((JsonArray) value).toString(indentFactor, indent);
     }
     if (value instanceof Map<?, ?>) {
-      return new JsonObject((Map<?, ?>) value).toString(indentFactor, indent);
+      return new JsonObject(value).toString(indentFactor, indent);
     }
     if (value instanceof Collection<?>) {
       return new JsonArray((Collection<?>) value).toString(indentFactor, indent);

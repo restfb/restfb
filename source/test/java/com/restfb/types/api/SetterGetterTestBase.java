@@ -21,9 +21,9 @@
  */
 package com.restfb.types.api;
 
-import com.restfb.types.FacebookType;
 import com.restfb.types.Message;
 import com.restfb.types.NamedFacebookType;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -74,7 +75,7 @@ public class SetterGetterTestBase {
   public void testInstance(final Object instance) {
     List<Field> fields = Arrays.asList(instance.getClass().getDeclaredFields());
     for (Iterator<Field> iterator = fields.iterator(); iterator.hasNext();) {
-      Field field = (Field) iterator.next();
+      Field field = iterator.next();
 
       if (ignoredFields.contains(field.getName())) {
         continue;
