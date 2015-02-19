@@ -22,11 +22,13 @@
 
 package com.restfb;
 
-import static com.restfb.util.StringUtils.isBlank;
-import static com.restfb.util.StringUtils.toBytes;
-import static com.restfb.util.StringUtils.trimToEmpty;
-import static com.restfb.util.UrlUtils.urlEncode;
-import static java.net.HttpURLConnection.HTTP_OK;
+import com.restfb.WebRequestor.Response;
+import com.restfb.exception.FacebookException;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.exception.FacebookNetworkException;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -37,13 +39,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import com.restfb.WebRequestor.Response;
-import com.restfb.exception.FacebookException;
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.exception.FacebookNetworkException;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonException;
-import com.restfb.json.JsonObject;
+import static com.restfb.util.StringUtils.isBlank;
+import static com.restfb.util.StringUtils.toBytes;
+import static com.restfb.util.StringUtils.trimToEmpty;
+import static com.restfb.util.UrlUtils.urlEncode;
+import static java.net.HttpURLConnection.HTTP_OK;
 
 /**
  * Default implementation of a <a href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook API</a>
@@ -273,7 +273,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
 
     try {
       JsonArray jsonArray =
-          new JsonArray(makeRequest("fql.multiquery", sessionKey, parameters.toArray(new Parameter[0])));
+          new JsonArray(makeRequest("fql.multiquery", sessionKey, parameters.toArray(new Parameter[parameters.size()])));
 
       for (int i = 0; i < jsonArray.length(); i++) {
         JsonObject jsonObject = jsonArray.getJsonObject(i);
@@ -464,8 +464,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * Initializes the set of illegal URL parameter names.
    */
   protected void initializeIllegalParamNames() {
-    illegalParamNames.addAll(Arrays.asList(new String[] { API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME,
-        METHOD_PARAM_NAME, SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME }));
+    illegalParamNames.addAll(Arrays.asList(API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME,
+                                           METHOD_PARAM_NAME, SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME));
   }
 
   /**

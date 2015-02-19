@@ -123,7 +123,7 @@ public class JsonArray implements Serializable {
       case ']':
       case ')':
         if (q != c) {
-          throw x.syntaxError("Expected a '" + new Character(q) + "'");
+          throw x.syntaxError("Expected a '" + Character.valueOf(q) + "'");
         }
         return;
       default:
@@ -170,7 +170,7 @@ public class JsonArray implements Serializable {
       while (iter.hasNext()) {
         Object o = iter.next();
         if (o instanceof Map<?, ?>) {
-          this.myArrayList.add(new JsonObject((Map<?, ?>) o, includeSuperClass));
+          this.myArrayList.add(new JsonObject(o, includeSuperClass));
         } else if (!JsonObject.isStandardProperty(o.getClass())) {
           this.myArrayList.add(new JsonObject(o, includeSuperClass));
         } else {
@@ -269,7 +269,7 @@ public class JsonArray implements Serializable {
   public double getDouble(int index) {
     Object o = get(index);
     try {
-      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o);
     } catch (Exception e) {
       throw new JsonException("JsonArray[" + index + "] is not a number.");
     }
@@ -624,7 +624,7 @@ public class JsonArray implements Serializable {
    * @return this.
    */
   public JsonArray put(int value) {
-    put(new Integer(value));
+    put(Integer.valueOf(value));
     return this;
   }
 
@@ -636,7 +636,7 @@ public class JsonArray implements Serializable {
    * @return this.
    */
   public JsonArray put(long value) {
-    put(new Long(value));
+    put(Long.valueOf(value));
     return this;
   }
 
@@ -728,7 +728,7 @@ public class JsonArray implements Serializable {
    *           If the index is negative.
    */
   public JsonArray put(int index, int value) {
-    put(index, new Integer(value));
+    put(index, Integer.valueOf(value));
     return this;
   }
 
@@ -745,7 +745,7 @@ public class JsonArray implements Serializable {
    *           If the index is negative.
    */
   public JsonArray put(int index, long value) {
-    put(index, new Long(value));
+    put(index, Long.valueOf(value));
     return this;
   }
 

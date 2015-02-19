@@ -328,7 +328,7 @@ public class JsonObject implements Serializable {
             } else if (result instanceof Collection<?>) { // List or Set
               map.put(key, new JsonArray((Collection<?>) result, includeSuperClass));
             } else if (result instanceof Map<?, ?>) {
-              map.put(key, new JsonObject((Map<?, ?>) result, includeSuperClass));
+              map.put(key, new JsonObject(result, includeSuperClass));
             } else if (isStandardProperty(result.getClass())) { // Primitives,
               // String and
               // Wrapper
@@ -521,7 +521,7 @@ public class JsonObject implements Serializable {
   public double getDouble(String key) {
     Object o = get(key);
     try {
-      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : Double.valueOf((String) o);
     } catch (Exception e) {
       throw new JsonException("JsonObject[" + quote(key) + "] is not a number.");
     }
@@ -812,7 +812,7 @@ public class JsonObject implements Serializable {
   public double optDouble(String key, double defaultValue) {
     try {
       Object o = opt(key);
-      return o instanceof Number ? ((Number) o).doubleValue() : new Double((String) o).doubleValue();
+      return o instanceof Number ? ((Number) o).doubleValue() : Double.parseDouble((String) o);
     } catch (Exception e) {
       return defaultValue;
     }
@@ -974,7 +974,7 @@ public class JsonObject implements Serializable {
    *           If the key is null.
    */
   public JsonObject put(String key, int value) {
-    put(key, new Integer(value));
+    put(key, Integer.valueOf(value));
     return this;
   }
 
@@ -990,7 +990,7 @@ public class JsonObject implements Serializable {
    *           If the key is null.
    */
   public JsonObject put(String key, long value) {
-    put(key, new Long(value));
+    put(key, Long.valueOf(value));
     return this;
   }
 
@@ -1191,13 +1191,13 @@ public class JsonObject implements Serializable {
       if (b == '0') {
         if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
           try {
-            return new Integer(Integer.parseInt(s.substring(2), 16));
+            return Integer.parseInt(s.substring(2), 16);
           } catch (Exception e) {
             /* Ignore the error */
           }
         } else {
           try {
-            return new Integer(Integer.parseInt(s, 8));
+            return Integer.parseInt(s, 8);
           } catch (Exception e) {
             /* Ignore the error */
           }
@@ -1207,9 +1207,9 @@ public class JsonObject implements Serializable {
         if (s.indexOf('.') > -1 || s.indexOf('e') > -1 || s.indexOf('E') > -1) {
           return Double.valueOf(s);
         } else {
-          Long myLong = new Long(s);
+          Long myLong = Long.valueOf(s);
           if (myLong.longValue() == myLong.intValue()) {
-            return new Integer(myLong.intValue());
+            return myLong.intValue();
           } else {
             return myLong;
           }
@@ -1407,7 +1407,7 @@ public class JsonObject implements Serializable {
       return value.toString();
     }
     if (value instanceof Map<?, ?>) {
-      return new JsonObject((Map<?, ?>) value).toString();
+      return new JsonObject(value).toString();
     }
     if (value instanceof Collection<?>) {
       return new JsonArray((Collection<?>) value).toString();
@@ -1461,7 +1461,7 @@ public class JsonObject implements Serializable {
       return ((JsonArray) value).toString(indentFactor, indent);
     }
     if (value instanceof Map<?, ?>) {
-      return new JsonObject((Map<?, ?>) value).toString(indentFactor, indent);
+      return new JsonObject(value).toString(indentFactor, indent);
     }
     if (value instanceof Collection<?>) {
       return new JsonArray((Collection<?>) value).toString(indentFactor, indent);

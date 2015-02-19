@@ -558,15 +558,15 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (Integer.class.equals(type) || Integer.TYPE.equals(type))
-      return (T) new Integer(json);
+      return (T) Integer.valueOf(json);
     if (Boolean.class.equals(type) || Boolean.TYPE.equals(type))
-      return (T) new Boolean(json);
+      return (T) Boolean.valueOf(json);
     if (Long.class.equals(type) || Long.TYPE.equals(type))
-      return (T) new Long(json);
+      return (T) Long.valueOf(json);
     if (Double.class.equals(type) || Double.TYPE.equals(type))
-      return (T) new Double(json);
+      return (T) Double.valueOf(json);
     if (Float.class.equals(type) || Float.TYPE.equals(type))
-      return (T) new Float(json);
+      return (T) Float.valueOf(json);
     if (BigInteger.class.equals(type))
       return (T) new BigInteger(json);
     if (BigDecimal.class.equals(type))
@@ -633,13 +633,13 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (Integer.class.equals(type) || Integer.TYPE.equals(type))
-      return new Integer(jsonObject.getInt(facebookFieldName));
+      return jsonObject.getInt(facebookFieldName);
     if (Boolean.class.equals(type) || Boolean.TYPE.equals(type))
-      return new Boolean(jsonObject.getBoolean(facebookFieldName));
+      return jsonObject.getBoolean(facebookFieldName);
     if (Long.class.equals(type) || Long.TYPE.equals(type))
-      return new Long(jsonObject.getLong(facebookFieldName));
+      return jsonObject.getLong(facebookFieldName);
     if (Double.class.equals(type) || Double.TYPE.equals(type))
-      return new Double(jsonObject.getDouble(facebookFieldName));
+      return jsonObject.getDouble(facebookFieldName);
     if (Float.class.equals(type) || Float.TYPE.equals(type))
       return new BigDecimal(jsonObject.getString(facebookFieldName)).floatValue();
     if (BigInteger.class.equals(type))
