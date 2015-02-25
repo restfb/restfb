@@ -48,10 +48,10 @@ import java.util.Map;
 public class ETagWebRequestor extends DefaultWebRequestor {
 
   private final Map<String, ETagResponse> etagCache = Collections
-    .synchronizedMap(new SoftHashMap<String, ETagResponse>());
-  private final ThreadLocal<Boolean> useCache = new ThreadLocal<Boolean>();
+    .synchronizedMap(new SoftHashMap<String, ETagResponse>());  
   private final ThreadLocal<ETagResponse> currentETagRespThreadLocal = new ThreadLocal<ETagResponse>();
-
+  private volatile boolean useCache = true;
+  
   @Override
   protected void customizeConnection(HttpURLConnection connection) {
     if (isUseCache() && connection.getRequestMethod().equals(HttpMethod.GET.name())) {
@@ -65,21 +65,24 @@ public class ETagWebRequestor extends DefaultWebRequestor {
 
   @Override
   protected Response fetchResponse(InputStream inputStream, HttpURLConnection httpUrlConnection) throws IOException {
-    if (isUseCache() && httpUrlConnection.getRequestMethod().equals(HttpMethod.GET.name())) {
-      if (httpUrlConnection.getResponseCode() == HTTP_NOT_MODIFIED && currentETagRespThreadLocal.get() != null) {
-        ETagResponse etagResp = currentETagRespThreadLocal.get();
-        currentETagRespThreadLocal.remove();
-        return new Response(httpUrlConnection.getResponseCode(), etagResp.getBody());
-      } else {
-        Response resp = super.fetchResponse(inputStream, httpUrlConnection);
-        if (httpUrlConnection.getHeaderField("ETag") != null) {
-          etagCache.put(httpUrlConnection.getURL().toString(),
-            new ETagResponse(httpUrlConnection.getHeaderField("ETag"), resp.getBody()));
+    try {
+      if (isUseCache() && httpUrlConnection.getRequestMethod().equals(HttpMethod.GET.name())) {
+        if (httpUrlConnection.getResponseCode() == HTTP_NOT_MODIFIED && currentETagRespThreadLocal.get() != null) {
+          ETagResponse etagResp = currentETagRespThreadLocal.get();        
+          return new Response(httpUrlConnection.getResponseCode(), etagResp.getBody());
+        } else {
+          Response resp = super.fetchResponse(inputStream, httpUrlConnection);
+          if (httpUrlConnection.getHeaderField("ETag") != null) {
+            etagCache.put(httpUrlConnection.getURL().toString(),
+              new ETagResponse(httpUrlConnection.getHeaderField("ETag"), resp.getBody()));
+          }
+          return resp;
         }
-        return resp;
+      } else {
+        return super.fetchResponse(inputStream, httpUrlConnection);
       }
-    } else {
-      return super.fetchResponse(inputStream, httpUrlConnection);
+    } finally {
+      currentETagRespThreadLocal.remove();
     }
   }
 
@@ -89,11 +92,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
    * @return <code>true</code> if ETag-Cache is used, <code>false</code> if not
    */
   public boolean isUseCache() {
-    if (useCache.get() == null) {
-      return true;
-    } else {
-      return useCache.get();
-    }
+    return this.useCache;
   }
 
   /**
@@ -104,7 +103,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
    * @param useCache
    */
   public void setUseCache(boolean useCache) {
-    this.useCache.set(useCache);
+    this.useCache = useCache;
   }
 
   private class ETagResponse {
