@@ -22,6 +22,7 @@
 package com.restfb.integration.base;
 
 import java.util.Properties;
+import org.junit.Assume;
 
 /**
  * Settings holder for integration testing.
@@ -47,8 +48,6 @@ public class RestFbIntegrationTestSettings {
     userId = settings.getProperty("user.id", "");
     pageId = settings.getProperty("page.id", "");
     userGroupId = settings.getProperty("user.group.id", "");
-
-    checkSettings();
   }
 
   public boolean writeAccessAllowed() {
@@ -56,38 +55,27 @@ public class RestFbIntegrationTestSettings {
   }
 
   public String getUserAccessToken() {
+    Assume.assumeFalse(userAccessToken.isEmpty());
     return userAccessToken;
   }
 
   public String getUserId() {
+    Assume.assumeFalse(userId.isEmpty());
     return userId;
   }
 
   public String getPageAccessToken() {
+    Assume.assumeFalse(pageAccessToken.isEmpty());
     return pageAccessToken;
   }
 
   public String getPageId() {
+    Assume.assumeFalse(pageId.isEmpty());
     return pageId;
   }
 
   public String getGroupId() {
+    Assume.assumeFalse(userGroupId.isEmpty());
     return userGroupId;
   }
-
-  private void checkSettings() {
-    if (getUserId().isEmpty()) {
-      throw new IllegalArgumentException("user id not set");
-    }
-    if (getUserAccessToken().isEmpty()) {
-      throw new IllegalArgumentException("access token not set");
-    }
-    if (getPageId().isEmpty()) {
-      throw new IllegalArgumentException("page id not set");
-    }
-    if (getPageAccessToken().isEmpty()) {
-      throw new IllegalArgumentException("page access token not set");
-    }
-  }
-
 }
