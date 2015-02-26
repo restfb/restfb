@@ -21,13 +21,9 @@
 
 package com.restfb.integration;
 
-import com.restfb.DefaultFacebookClient;
-import com.restfb.DefaultJsonMapper;
 import com.restfb.ETagWebRequestor;
-import com.restfb.Version;
 import com.restfb.WebRequestor.Response;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.types.User;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import static org.junit.Assert.assertEquals;
@@ -35,34 +31,34 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
-    
-    @Test
-    public void fetchMeWithCache() throws IOException {
-	String requestUrl = "https://graph.facebook.com/v2.2/me?format=json&access_token=";
-	requestUrl += getTestSettings().getUserAccessToken();
-	ETagWebRequestor webRequest = new ETagWebRequestor();
-	Response resp1 = webRequest.executeGet(requestUrl);
-	assertNotNull(resp1);
-	assertEquals(HttpURLConnection.HTTP_OK, (int)resp1.getStatusCode());
-	Response resp2 = webRequest.executeGet(requestUrl);
-	assertNotNull(resp2);
-	assertEquals(HttpURLConnection.HTTP_NOT_MODIFIED, (int)resp2.getStatusCode());
-	assertEquals(resp1.getBody(), resp2.getBody());
-    }
-    
-    @Test
-    public void fetchMeWithoutCache() throws IOException {
-	String requestUrl = "https://graph.facebook.com/v2.2/me?format=json&access_token=";
-	requestUrl += getTestSettings().getUserAccessToken();
-	ETagWebRequestor webRequest = new ETagWebRequestor();
-	webRequest.setUseCache(false);
-	Response resp1 = webRequest.executeGet(requestUrl);
-	assertNotNull(resp1);
-	assertEquals(HttpURLConnection.HTTP_OK, (int)resp1.getStatusCode());
-	Response resp2 = webRequest.executeGet(requestUrl);
-	assertNotNull(resp2);
-	assertEquals(HttpURLConnection.HTTP_OK, (int)resp2.getStatusCode());
-	assertEquals(resp1.getBody(), resp2.getBody());
-    }
-    
+
+  @Test
+  public void fetchMeWithCache() throws IOException {
+    String requestUrl = "https://graph.facebook.com/v2.2/me?format=json&access_token=";
+    requestUrl += getTestSettings().getUserAccessToken();
+    ETagWebRequestor webRequest = new ETagWebRequestor();
+    Response resp1 = webRequest.executeGet(requestUrl);
+    assertNotNull(resp1);
+    assertEquals(HttpURLConnection.HTTP_OK, (int) resp1.getStatusCode());
+    Response resp2 = webRequest.executeGet(requestUrl);
+    assertNotNull(resp2);
+    assertEquals(HttpURLConnection.HTTP_NOT_MODIFIED, (int) resp2.getStatusCode());
+    assertEquals(resp1.getBody(), resp2.getBody());
+  }
+
+  @Test
+  public void fetchMeWithoutCache() throws IOException {
+    String requestUrl = "https://graph.facebook.com/v2.2/me?format=json&access_token=";
+    requestUrl += getTestSettings().getUserAccessToken();
+    ETagWebRequestor webRequest = new ETagWebRequestor();
+    webRequest.setUseCache(false);
+    Response resp1 = webRequest.executeGet(requestUrl);
+    assertNotNull(resp1);
+    assertEquals(HttpURLConnection.HTTP_OK, (int) resp1.getStatusCode());
+    Response resp2 = webRequest.executeGet(requestUrl);
+    assertNotNull(resp2);
+    assertEquals(HttpURLConnection.HTTP_OK, (int) resp2.getStatusCode());
+    assertEquals(resp1.getBody(), resp2.getBody());
+  }
+
 }
