@@ -66,7 +66,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
   @Override
   protected Response fetchResponse(InputStream inputStream, HttpURLConnection httpUrlConnection) throws IOException {
     try {
-      if (isUseCache() && httpUrlConnection.getRequestMethod().equals(HttpMethod.GET.name())) {
+      if (httpUrlConnection.getRequestMethod().equals(HttpMethod.GET.name())) {
         if (httpUrlConnection.getResponseCode() == HTTP_NOT_MODIFIED && currentETagRespThreadLocal.get() != null) {
           ETagResponse etagResp = currentETagRespThreadLocal.get();        
           return new Response(httpUrlConnection.getResponseCode(), etagResp.getBody());
