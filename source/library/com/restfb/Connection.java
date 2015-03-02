@@ -35,6 +35,7 @@ import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
+import com.restfb.util.UrlUtils;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
@@ -48,6 +49,9 @@ public class Connection<T> implements Iterable<List<T>> {
   private String previousPageUrl;
   private String nextPageUrl;
   private Long totalCount;
+  private String beforeCursor;
+  private String afterCursor;
+  private String baseCursorURL;
 
   /**
    * @see java.lang.Iterable#iterator()
@@ -169,17 +173,37 @@ public class Connection<T> implements Iterable<List<T>> {
       previousPageUrl = null;
       nextPageUrl = null;
     }
-    
+
+    if (jsonObject.has("paging") && jsonObject.getJsonObject("paging").has("cursors")) {
+      JsonObject jsonCursors = jsonObject.getJsonObject("paging").getJsonObject("cursors");
+      beforeCursor = jsonCursors.has("before") ? jsonCursors.getString("before") : null;
+      afterCursor = jsonCursors.has("after") ? jsonCursors.getString("after") : null;
+    }
+
     if (jsonObject.has("summary")) {
-        JsonObject jsonSummary = jsonObject.getJsonObject("summary");
-        totalCount = jsonSummary.has("total_count") ? jsonSummary.getLong("total_count") : null;
+      JsonObject jsonSummary = jsonObject.getJsonObject("summary");
+      totalCount = jsonSummary.has("total_count") ? jsonSummary.getLong("total_count") : null;
     } else {
-        totalCount = null;
+      totalCount = null;
     }
 
     this.data = unmodifiableList(data);
     this.facebookClient = facebookClient;
     this.connectionType = connectionType;
+  }
+
+  public Connection<T> setCursorBaseURL(String baseUrl) {
+    if (facebookClient instanceof DefaultFacebookClient) {
+      this.baseCursorURL = ((DefaultFacebookClient) facebookClient).createEndpointForApiCall(baseUrl, false);
+    }
+    if (previousPageUrl == null && beforeCursor != null) {
+      this.previousPageUrl = UrlUtils.replaceOrAddQueryParameter(baseUrl, "before", beforeCursor);
+    }
+
+    if (nextPageUrl == null && afterCursor != null) {
+      this.nextPageUrl = UrlUtils.replaceOrAddQueryParameter(baseUrl, "after", afterCursor);
+    }
+    return this;
   }
 
   /**
@@ -262,7 +286,7 @@ public class Connection<T> implements Iterable<List<T>> {
   public boolean hasNext() {
     return !isBlank(getNextPageUrl());
   }
-  
+
   /**
    * provides the total count of elements, if FB provides them (API >= v2.0)
    * 
@@ -270,6 +294,6 @@ public class Connection<T> implements Iterable<List<T>> {
    * @since 1.6.16
    */
   public Long getTotalCount() {
-      return totalCount;
+    return totalCount;
   }
 }

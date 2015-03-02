@@ -157,4 +157,22 @@ public final class UrlUtils {
 
     return parameters;
   }
+
+  public static String replaceOrAddQueryParameter(String url, String key, String value) {
+    String[] urlParts = url.split("\\?");
+    String qParameter = key + "=" + value;
+
+    if (urlParts.length == 2) {
+      Map<String, List<String>> paramMap = extractParametersFromQueryString(urlParts[1]);
+      if (paramMap.containsKey(key)) {
+        String queryValue = paramMap.get(key).get(0);
+        return url.replace(key + "=" + queryValue, qParameter);
+      } else {
+        return url + "&" + qParameter;
+      }
+
+    } else {
+      return url + "?" + qParameter;
+    }
+  }
 }

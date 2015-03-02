@@ -20,6 +20,7 @@
  */
 package com.restfb;
 
+import com.restfb.types.NamedFacebookType;
 import com.restfb.types.User;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -42,5 +43,13 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     public void checkV2_1() {
         Connection<User> con = new Connection<User>(new DefaultFacebookClient(), jsonFromClasspath("v2_1/connection-user-friends"), User.class);
         assertEquals(99L, con.getTotalCount().longValue());
+    }
+    
+    @Test
+    public void cursorConnection() {
+	String json = jsonFromClasspath("v2_2/cursor_only_paging1");
+	Connection<NamedFacebookType> con = new Connection<NamedFacebookType>(new DefaultFacebookClient(Version.VERSION_2_0), json , NamedFacebookType.class);
+	con.setCursorBaseURL("http://www.example.com");
+	assertEquals("http://www.example.com?after=ODA5Mzg5NTEyNDI4MTI3",con.getNextPageUrl());
     }
 }
