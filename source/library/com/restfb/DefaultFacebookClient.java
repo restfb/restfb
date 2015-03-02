@@ -1213,7 +1213,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     if (readOnlyApiCalls.contains(apiCall))
       baseUrl = getFacebookReadOnlyEndpointUrl();
-    else if (hasAttachment && apiCall.endsWith("/videos"))
+    else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos")))
       baseUrl = getFacebookGraphVideoEndpointUrl();
 
     return format("%s/%s", baseUrl, apiCall);
