@@ -516,6 +516,14 @@ public interface FacebookClient {
    * @since 1.6.7
    */
   WebRequestor getWebRequestor();
+  
+  /**
+   * generates an logout url
+   * 
+   * @param next may be null, url the webpage should redirect after logout
+   * @since 1.9.0
+   */
+  String getLogoutUrl(String next);
 
   /**
    * Represents an access token/expiration date pair.

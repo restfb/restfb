@@ -120,6 +120,20 @@ public class FacebookClientTest {
     FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "true"));
     assertTrue(facebookClient.deleteObject("12345"));
   }
+  
+  @Test
+  public void checkLogoutUrl() {
+      FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_2);
+      String logoutUrl = client.getLogoutUrl(null);
+      assertEquals("https://www.facebook.com/logout.php?access_token=123456&format=json", logoutUrl);
+  }
+  
+  @Test
+  public void checkLogoutUrlWithNext() {
+      FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_2);
+      String logoutUrl = client.getLogoutUrl("http://www.example.com");
+      assertEquals("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456&format=json", logoutUrl);
+  }
 
   /**
    * Simple way to create a {@code FacebookClient} whose web requests always return the provided synthetic

@@ -92,6 +92,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected FacebookExceptionMapper graphFacebookExceptionMapper;
 
+  protected static final String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
+  
   /**
    * API endpoint URL.
    */
@@ -562,6 +564,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       makeRequest("fql", false, false, null,
         parametersWithAdditionalParameter(Parameter.with(FQL_QUERY_PARAM_NAME, query), parameters)), objectType);
   }
+
+    @Override
+    public String getLogoutUrl(String next) {
+	Parameter p = null;
+	String parameterString;
+	if (next != null) {
+	    p = Parameter.with("next", next);
+	    parameterString = toParameterString(p);
+	} else {
+	    parameterString = toParameterString();
+	}
+	
+	final String fullEndPoint = createEndpointForApiCall("logout.php",false);
+	return fullEndPoint + "?" + parameterString;
+    }
 
   /**
    * @see com.restfb.FacebookClient#executeFqlMultiquery(java.util.Map, java.lang.Class, com.restfb.Parameter[])
@@ -1213,10 +1230,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String baseUrl = getFacebookGraphEndpointUrl();
 
-    if (readOnlyApiCalls.contains(apiCall))
+    if (readOnlyApiCalls.contains(apiCall)) {
       baseUrl = getFacebookReadOnlyEndpointUrl();
-    else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos")))
+    } 
+    else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
       baseUrl = getFacebookGraphVideoEndpointUrl();
+    } else if (apiCall.endsWith("logout.php")) {
+	baseUrl = FACEBOOK_ENDPOINT_URL;
+    }
 
     return format("%s/%s", baseUrl, apiCall);
   }
