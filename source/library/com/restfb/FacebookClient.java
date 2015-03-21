@@ -34,6 +34,7 @@ import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
 import com.restfb.exception.FacebookSignedRequestParsingException;
 import com.restfb.exception.FacebookSignedRequestVerificationException;
+import com.restfb.scope.ScopeBuilder;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -356,8 +357,8 @@ public interface FacebookClient {
    *          The redirect URI which was used to obtain the {@code verificationCode}.
    * @param verificationCode
    *          The verification code in the Graph API callback to the redirect URI.
-   * @return The access token for the user identified by {@code appId}, {@code appSecret}, {@code redirectUri}
-   * and {@code verificationCode}.
+   * @return The access token for the user identified by {@code appId}, {@code appSecret}, {@code redirectUri} and
+   *         {@code verificationCode}.
    * @throws FacebookException
    *           If an error occurs while attempting to obtain an access token.
    * @since 1.8.0
@@ -516,14 +517,31 @@ public interface FacebookClient {
    * @since 1.6.7
    */
   WebRequestor getWebRequestor();
-  
+
   /**
    * generates an logout url
    * 
-   * @param next may be null, url the webpage should redirect after logout
+   * @param next
+   *          may be null, url the webpage should redirect after logout
    * @since 1.9.0
    */
   String getLogoutUrl(String next);
+
+  /**
+   * generates the login dialog url
+   * 
+   * @param appId
+   *          The ID of your app, found in your app's dashboard.
+   * @param redirectUri
+   *          The URL that you want to redirect the person logging in back to. This URL will capture the response from
+   *          the Login Dialog. If you are using this in a webview within a desktop app, this must be set to
+   *          <code>https://www.facebook.com/connect/login_success.html</code>.
+   * @param scope
+   *          List of Permissions to request from the person using your app.
+   * @since 1.9.0
+   * @return
+   */
+  String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope);
 
   /**
    * Represents an access token/expiration date pair.

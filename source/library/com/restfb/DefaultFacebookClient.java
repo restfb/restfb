@@ -69,6 +69,7 @@ import com.restfb.exception.FacebookSignedRequestVerificationException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
+import com.restfb.scope.ScopeBuilder;
 import com.restfb.util.StringUtils;
 
 /**
@@ -93,7 +94,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected FacebookExceptionMapper graphFacebookExceptionMapper;
 
   protected static final String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
-  
+
   /**
    * API endpoint URL.
    */
@@ -374,7 +375,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
-    return new Connection<T>(this, makeRequest(connection, parameters), connectionType).setCursorBaseURL(createEndpointForApiCall(connection, false));
+    return new Connection<T>(this, makeRequest(connection, parameters), connectionType)
+      .setCursorBaseURL(createEndpointForApiCall(connection, false));
   }
 
   /**
@@ -565,20 +567,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         parametersWithAdditionalParameter(Parameter.with(FQL_QUERY_PARAM_NAME, query), parameters)), objectType);
   }
 
-    @Override
-    public String getLogoutUrl(String next) {
-	Parameter p = null;
-	String parameterString;
-	if (next != null) {
-	    p = Parameter.with("next", next);
-	    parameterString = toParameterString(p);
-	} else {
-	    parameterString = toParameterString();
-	}
-	
-	final String fullEndPoint = createEndpointForApiCall("logout.php",false);
-	return fullEndPoint + "?" + parameterString;
+  @Override
+  public String getLogoutUrl(String next) {
+    Parameter p = null;
+    String parameterString;
+    if (next != null) {
+      p = Parameter.with("next", next);
+      parameterString = toParameterString(false, p);
+    } else {
+      parameterString = toParameterString(false);
     }
+
+    final String fullEndPoint = createEndpointForApiCall("logout.php", false);
+    return fullEndPoint + "?" + parameterString;
+  }
 
   /**
    * @see com.restfb.FacebookClient#executeFqlMultiquery(java.util.Map, java.lang.Class, com.restfb.Parameter[])
@@ -811,6 +813,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected String urlDecodeSignedRequestToken(String signedRequestToken) {
     verifyParameterPresence("signedRequestToken", signedRequestToken);
     return signedRequestToken.replace("-", "+").replace("_", "/").trim();
+  }
+
+  @Override
+  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope) {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("redirectUri", redirectUri);
+    verifyParameterPresence("scope", scope);
+
+    String dialogUrl = FACEBOOK_ENDPOINT_URL + "/dialog/oauth";
+
+    Parameter clientId = Parameter.with("client_id", appId);
+    Parameter redirectUriParameter = Parameter.with("redirect_uri", redirectUri);
+    Parameter scopeParam = Parameter.with("scope", scope.toString());
+
+    return dialogUrl + "?" + toParameterString(false, clientId, redirectUriParameter, scopeParam);
   }
 
   /**
@@ -1193,6 +1210,22 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs when building the parameter string.
    */
   protected String toParameterString(Parameter... parameters) {
+      return toParameterString(true, parameters);
+  }
+  
+  
+  /**
+   * Generate the parameter string to be included in the Facebook API request.
+   * 
+   * @param withJsonParameter
+   *	      add additional parameter format with type json
+   * @param parameters
+   *          Arbitrary number of extra parameters to include in the request.
+   * @return The parameter string to include in the Facebook API request.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs when building the parameter string.
+   */
+  protected String toParameterString(boolean withJsonParameter, Parameter... parameters) {
     if (!isBlank(accessToken))
       parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
 
@@ -1201,8 +1234,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           parametersWithAdditionalParameter(
             Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);
 
-    parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
-
+    if (withJsonParameter) {
+	parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
+    }
+	
     StringBuilder parameterStringBuilder = new StringBuilder();
     boolean first = true;
 
@@ -1232,11 +1267,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     if (readOnlyApiCalls.contains(apiCall)) {
       baseUrl = getFacebookReadOnlyEndpointUrl();
-    } 
-    else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
+    } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
       baseUrl = getFacebookGraphVideoEndpointUrl();
     } else if (apiCall.endsWith("logout.php")) {
-	baseUrl = FACEBOOK_ENDPOINT_URL;
+      baseUrl = FACEBOOK_ENDPOINT_URL;
     }
 
     return format("%s/%s", baseUrl, apiCall);

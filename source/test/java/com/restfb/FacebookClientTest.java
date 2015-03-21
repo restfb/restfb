@@ -24,6 +24,7 @@ package com.restfb;
 
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookOAuthException;
+import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
 import java.io.IOException;
 import static org.junit.Assert.assertEquals;
@@ -125,14 +126,21 @@ public class FacebookClientTest {
   public void checkLogoutUrl() {
       FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_2);
       String logoutUrl = client.getLogoutUrl(null);
-      assertEquals("https://www.facebook.com/logout.php?access_token=123456&format=json", logoutUrl);
+      assertEquals("https://www.facebook.com/logout.php?access_token=123456", logoutUrl);
   }
   
   @Test
   public void checkLogoutUrlWithNext() {
       FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_2);
       String logoutUrl = client.getLogoutUrl("http://www.example.com");
-      assertEquals("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456&format=json", logoutUrl);
+      assertEquals("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456", logoutUrl);
+  }
+  
+  @Test
+  public void checkLoginDialogURL() {
+      FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_0);
+      String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder());
+      assertEquals("https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile", loginDialogUrlString);
   }
 
   /**
