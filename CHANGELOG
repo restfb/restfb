@@ -1,3 +1,17 @@
+1.9.0 (March 25, 2015)
+* Issue #196: Logout Url Builder added
+  Thanks to Fagner Brack
+* Issue #193: AdVideo support merged
+  Thanks to @maczam
+* Issue #192: ETag thread safety
+* Issue #191: cursor support added
+  Thanks to @oferfort
+* Issue #187: Findbugs and Intellij inspection fixes
+  Thanks to Damian Pawlowski
+* Issue #106: ETag support added
+* Issue #52: ScopeBuilder added
+  Thanks to Broc Seib for the input
+
 1.8.0 (February 13, 2015)
 
 * Issue #93: obtain user access token method added
