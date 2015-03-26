@@ -29,24 +29,34 @@ public enum Version {
   UNVERSIONED(null),
   /**
    * graph api 1.0, available until April 30, 2015
+   * 
    * @since April 21, 2010
    */
   VERSION_1_0("v1.0"),
   /**
    * graph api 2.0, available until August 7, 2016
+   * 
    * @since April 30, 2014
    */
   VERSION_2_0("v2.0"),
   /**
    * graph api 2.1, available until October 30, 2016
+   * 
    * @since August 7, 2014
    */
   VERSION_2_1("v2.1"),
   /**
-   * graph api 2.2, available at least until At least until October 30, 2016
+   * graph api 2.2, available until March 25, 2017
+   * 
    * @since October 30, 2014
    */
-  VERSION_2_2("v2.2");
+  VERSION_2_2("v2.2"),
+  /**
+   * graph api 2.3, available at least until March 25, 2017
+   * 
+   * @since March 25, 2015
+   */
+  VERSION_2_3("v2.3");
 
   private final String urlElement;
 
