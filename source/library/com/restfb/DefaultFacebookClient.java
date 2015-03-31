@@ -1102,7 +1102,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
             .getString(ERROR_SUBCODE_ATTRIBUTE_NAME)) : null;
 
       throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
-        innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME),
+        innerErrorObject.optString(ERROR_TYPE_ATTRIBUTE_NAME),
         innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
         innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
         innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME));
