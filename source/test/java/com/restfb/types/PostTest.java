@@ -84,4 +84,12 @@ public class PostTest extends AbstractJsonMapperTests {
       String message = "Esse carro \u00e9 maravilhoso.Deus n\u00e3o nos desampara.Obrigada Senhor.";
       assertEquals(message, examplePost.getMessage());
   }
+  
+  @Test
+  public void checkV2_3_AdminCreator() {
+      Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-admin-creator"), Post.class);
+      assertNotNull(examplePost.getAdminCreator());
+      assertEquals("Graph API Explorer", examplePost.getAdminCreator().getName());
+      assertEquals("145634995501895", examplePost.getAdminCreator().getId());
+  }
 }

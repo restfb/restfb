@@ -292,6 +292,19 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook
   private Shares shares;
+  
+  /**
+   * ID of admin who created the post. 
+   * 
+   * Applies to pages only
+   * 
+   * @return ID of admin who created the post.
+   * @since 1.10.0
+   */
+  @Getter
+  @Setter
+  @Facebook("admin_creator")
+  private NamedFacebookType adminCreator;
 
   private static final long serialVersionUID = 3L;
 
