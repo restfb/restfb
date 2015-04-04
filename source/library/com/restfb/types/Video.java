@@ -31,6 +31,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -225,5 +226,62 @@ public class Video extends NamedFacebookType {
     createdTime = toDateFromLongFormat(rawCreatedTime);
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
     scheduledPublishTime = toDateFromLongFormat(rawScheduledPublishTime);
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-thumbnail/">Video Thumbnail
+   * Graph API type</a>.
+   * 
+   * @since 1.10.0
+   */
+  public static class Thumbnail implements Serializable {
+
+    /**
+     * The name of the thumbnail
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String name;
+
+    /**
+     * The height of the thumbnail
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer height;
+
+    /**
+     * The width of the thumbnail
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer width;
+
+    /**
+     * The scale of the thumbnail
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Float scale;
+
+    /**
+     * The uri of the thumbnail
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String uri;
+
+    /**
+     * Whether this is the preferred thumbnail for the video
+     */
+    @Getter
+    @Setter
+    @Facebook("is_preferred")
+    private Boolean isPreferred;
   }
 }
