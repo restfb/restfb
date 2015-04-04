@@ -216,6 +216,19 @@ public enum UserDataPermissions implements FacebookPermissions {
   USER_PHOTOS("user_photos"), //
 
   /**
+   * Provides access to the posts on a person's Timeline.
+   * 
+   * Includes their own posts, posts they are tagged in, and posts other people make on their Timeline.
+   * 
+   * <strong>Review</strong>
+   * 
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   * 
+   * @since 1.10.0
+   */
+  USER_POSTS("user_posts"), //
+
+  /**
    * Provides access to a person's relationship interests as the <code>interested_in</code> field on the User object.
    * 
    * <strong>Review</strong>
