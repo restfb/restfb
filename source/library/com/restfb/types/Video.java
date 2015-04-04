@@ -125,11 +125,27 @@ public class Video extends NamedFacebookType {
   @Facebook
   private Integer length;
 
+  /**
+   * Whether a post about this video is published.
+   * 
+   * This field is only accessible in Graph API 2.3 or later.
+   * 
+   * @return whether a post about this video is published.
+   * @since 1.10.0
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean published;
+
   @Facebook("created_time")
   private String rawCreatedTime;
 
   @Facebook("updated_time")
   private String rawUpdatedTime;
+
+  @Facebook("scheduled_publish_time")
+  private String rawScheduledPublishTime;
 
   /**
    * The time the video was initially published.
@@ -148,6 +164,18 @@ public class Video extends NamedFacebookType {
   @Getter
   @Setter
   private Date updatedTime;
+
+  /**
+   * The time that the video is scheduled to expire.
+   * 
+   * This field is only accessible in Graph API 2.3 or later.
+   * 
+   * @return The time that the video is scheduled to expire.
+   * @since 1.10.0
+   */
+  @Getter
+  @Setter
+  private Date scheduledPublishTime;
 
   @Facebook
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
@@ -196,5 +224,6 @@ public class Video extends NamedFacebookType {
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
+    scheduledPublishTime = toDateFromLongFormat(rawScheduledPublishTime);
   }
 }
