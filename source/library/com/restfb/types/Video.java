@@ -138,6 +138,28 @@ public class Video extends NamedFacebookType {
   @Setter
   @Facebook
   private Boolean published;
+  
+  /**
+   * Back dated time
+   *
+   * @since 1.10.0
+   */
+  @Getter
+  @Setter
+  private Date backdatedTime;
+  
+  /**
+   * String that represents the back dated time granularity
+   *
+   * @since 1.10.0
+   */
+  @Getter
+  @Setter
+  @Facebook("backdated_time_granularity")
+  private String backdatedTimeGranularity;
+  
+  @Facebook("backdated_time")
+  private String rawBackdatedTime;
 
   @Facebook("created_time")
   private String rawCreatedTime;
@@ -225,6 +247,7 @@ public class Video extends NamedFacebookType {
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
+    backdatedTime = toDateFromLongFormat(rawBackdatedTime);
     scheduledPublishTime = toDateFromLongFormat(rawScheduledPublishTime);
   }
 
