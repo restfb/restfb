@@ -218,7 +218,7 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("is_published")
   private Boolean isPublished;
-  
+
   /**
    * Indicates whether the Page is unclaimed.
    * 
@@ -231,8 +231,7 @@ public class Page extends CategorizedFacebookType {
   private Boolean isUnclaimed;
 
   /**
-   * The director of the film. 
-   * Applicable to Films.
+   * The director of the film. Applicable to Films.
    * 
    * @return The director of the film
    * @since 1.7.0
@@ -241,10 +240,9 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("directed_by")
   private String directedBy;
-  
+
   /**
-   * General manager of the business. 
-   * Applicable to Restaurants or Nightlife.
+   * General manager of the business. Applicable to Restaurants or Nightlife.
    * 
    * @return General manager of the business.
    * @since 1.7.0
@@ -253,7 +251,7 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("general_manager")
   private String generalManager;
-  
+
   /**
    * The general information for a page.
    * 
@@ -296,11 +294,9 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook
   private String website;
-  
+
   /**
-   * The name of a Location Page 
-   * that provides additional location 
-   * information for that Page beside its name. 
+   * The name of a Location Page that provides additional location information for that Page beside its name.
    * 
    * @return the name of Location Page
    * @since 1.7.0
@@ -309,10 +305,9 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("name_with_location_descriptor")
   private String nameWithLocationDescriptor;
-  
+
   /**
-   * Booking agent of the band. 
-   * Applicable to Bands.
+   * Booking agent of the band. Applicable to Bands.
    * 
    * @return Booking agent of the band
    * @since 1.7.0
@@ -321,10 +316,9 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("booking_agent")
   private String bookingAgent;
-  
+
   /**
-   * Press contact information of the band. 
-   * Applicable to Bands.
+   * Press contact information of the band. Applicable to Bands.
    * 
    * @return Press contact information of the band
    * @since 1.7.0
@@ -403,6 +397,49 @@ public class Page extends CategorizedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page-settings/">Page Settings
+   * Graph API type</a>.
+   * 
+   * @since 1.10.0
+   */
+  public static class Settings implements Serializable {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String setting;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String value;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
   }
 
   /**

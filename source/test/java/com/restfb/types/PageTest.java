@@ -22,7 +22,9 @@
 package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class PageTest extends AbstractJsonMapperTests {
@@ -58,6 +60,16 @@ public class PageTest extends AbstractJsonMapperTests {
         Category cat = examplePage.getCategoryList().get(0);
         assertEquals("Company",cat.getName());
         assertEquals("2200",cat.getId());
+    }
+    
+    @Test
+    public void checkV2_3_settings() {
+	List<Page.Settings> pageSettingList = createJsonMapper().toJavaList(jsonFromClasspath("v2_3/page-settings"), Page.Settings.class);
+	assertEquals(11, pageSettingList.size());
+	for (Page.Settings pageSetting : pageSettingList) {
+	    assertNotNull(pageSetting.getSetting());
+	    assertNotNull(pageSetting.getValue());
+	}
     }
     
 }

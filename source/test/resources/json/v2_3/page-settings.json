@@ -1,0 +1,48 @@
+{
+  "data": [
+    {
+      "setting": "USERS_CAN_POST", 
+      "value": true
+    }, 
+    {
+      "setting": "USERS_CAN_MESSAGE", 
+      "value": true
+    }, 
+    {
+      "setting": "USERS_CAN_POST_PHOTOS", 
+      "value": true
+    }, 
+    {
+      "setting": "USERS_CAN_TAG_PHOTOS", 
+      "value": false
+    }, 
+    {
+      "setting": "WALL_COMBINED_POSTS", 
+      "value": false
+    }, 
+    {
+      "setting": "PLATFORM_OPTOUTS_CAN_POST", 
+      "value": true
+    }, 
+    {
+      "setting": "SHOW_RECENT_POSTS_BY_OTHERS", 
+      "value": true
+    }, 
+    {
+      "setting": "APPEARS_IN_RELATED_PAGES", 
+      "value": true
+    }, 
+    {
+      "setting": "AGE_RESTRICTIONS", 
+      "value": "Anyone (13+)"
+    }, 
+    {
+      "setting": "PROFANITY_FILTER", 
+      "value": "Off"
+    }, 
+    {
+      "setting": "REVIEW_POSTS_BY_OTHER", 
+      "value": false
+    }
+  ]
+}
