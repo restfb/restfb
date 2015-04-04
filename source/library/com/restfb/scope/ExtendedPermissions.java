@@ -77,6 +77,20 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   PUBLISH_ACTIONS("publish_actions"), //
+  
+  /**
+   * Gives your app the ability to post, comment and like as any of the Pages managed by a person using your app. 
+   * 
+   * Publishing as an individual personal account is not possible with this permission. To post 
+   * as an individual, please see the <code>publish_actions</code> permission.
+   * 
+   * <strong>Review</strong>
+   * 
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   * 
+   * since Graph API 2.3
+   */
+  PUBLISH_PAGES("publish_pages"), //
 
   /**
    * Provides access to the names of custom lists a person has created to organize their friends. This is useful for
