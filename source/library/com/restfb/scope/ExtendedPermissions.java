@@ -104,8 +104,29 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <strong>Review</strong>
    * 
    * If your app requests this permission Facebook will have to review how your app uses it.
+   * 
+   * @deprecated in Graph API 2.3 use READ_CUSTOM_FRIENDLISTS instead. If you use the Graph API before 2.3 ignore the deprecation warning
    */
+  @Deprecated
   READ_FRIENDLISTS("read_friendlists"), //
+  
+  /**
+   * Provides access to the names of custom lists a person has created to organize their friends. 
+   * 
+   * This is useful for rendering an audience selector when someone is publishing stories to Facebook from your app.
+   * 
+   * This permission does not give access to a list of person's friends. If you want to access a person's friends who
+   * also use your app, you should use the user_friends permission.
+   * 
+   * This permission will also not help you invite a person's friends to use your app.
+   * 
+   * This permission was called read_friendlists before v2.3.
+   * 
+   * <strong>Review</strong>
+   * 
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  READ_CUSTOM_FRIENDLISTS("read_custom_friendlists"), //
 
   /**
    * Provides read-only access to the Insights data for Pages, Apps and web domains the person owns.
