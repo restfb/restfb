@@ -1,0 +1,12 @@
+{
+  "voip_info": {
+    "has_permission": true, 
+    "has_mobile_app": true, 
+    "is_pushable": true, 
+    "is_callable": true, 
+    "is_callable_webrtc": true, 
+    "reason_code": 1356044, 
+    "reason_description": "This person can't be called right now."
+  }, 
+  "id": "1234567890"
+}

@@ -1,0 +1,7 @@
+{
+    "amex": 0, 
+    "cash_only": 1, 
+    "discover": 0, 
+    "mastercard": 1, 
+    "visa": 1
+  }
