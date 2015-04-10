@@ -424,6 +424,30 @@ public class Post extends NamedFacebookType {
     @Setter
     @Facebook
     private String href;
+    
+    /**
+     * If this post is marked as hidden (applies to Pages only).
+     * 
+     * @since 1.10.0
+     * @return if this post is marked as hidden
+     */
+    @Getter
+    @Setter
+    @Facebook("is_hidden")
+    private Boolean isHidden;
+    
+    /**
+     * Indicates whether a scheduled post was published. 
+     * (applies to scheduled Page Post only, for users post and 
+     * instanlty published posts this value is always <code>true</code>)
+     * 
+     * @since 1.10.0
+     * @return indicates whether a scheduled post was published
+     */
+    @Getter
+    @Setter
+    @Facebook("is_published")
+    private Boolean isPublished;
 
     private static final long serialVersionUID = 1L;
 

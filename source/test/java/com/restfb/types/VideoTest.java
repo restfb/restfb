@@ -22,7 +22,6 @@ package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
 import java.util.List;
-import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

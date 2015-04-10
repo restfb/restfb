@@ -31,6 +31,8 @@ public class VideoTest extends SetterGetterTestBase {
 	Video obj = new Video();
 	addIgnoredField("rawUpdatedTime");
 	addIgnoredField("rawCreatedTime");
+	addIgnoredField("rawBackdatedTime");
+	addIgnoredField("rawScheduledPublishTime");
 	testInstance(obj);
     }
     	    
