@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010-2015 Norbert Bartels
+ * Copyright (c) 2010-2015 Norbert Bartels.
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,31 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb;
 
-import com.restfb.types.NamedFacebookType;
-import com.restfb.types.User;
-import static org.junit.Assert.assertEquals;
+package com.restfb.integration;
+
+import com.restfb.Connection;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.Version;
+import com.restfb.integration.base.RestFbIntegrationTestBase;
+import com.restfb.types.Group;
+import java.util.List;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
-public class ConnectionTest extends AbstractJsonMapperTests {
+public class FetchGroupITCase extends RestFbIntegrationTestBase {
 
-    @Test
-    public void checkV1_0() {
-        Connection<User> con = new Connection<User>(new DefaultFacebookClient(), jsonFromClasspath("v1_0/connection-user-friends"), User.class);
-        assertEquals(null, con.getTotalCount());
+  @Test
+  public void fetchGroup() {
+    DefaultFacebookClient client =
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_3);
+    Connection<Group> connection = client.fetchConnection("/me/groups", Group.class);
+    for (List<Group> groupList : connection) {
+      for (Group group : groupList) {
+        assertNotNull(group.getName());
+      }
     }
-
-    @Test
-    public void checkV2_0() {
-        Connection<User> con = new Connection<User>(new DefaultFacebookClient(), jsonFromClasspath("v2_0/connection-user-friends"), User.class);
-        assertEquals(99L, con.getTotalCount().longValue());
-    }
-
-    @Test
-    public void checkV2_1() {
-        Connection<User> con = new Connection<User>(new DefaultFacebookClient(), jsonFromClasspath("v2_1/connection-user-friends"), User.class);
-        assertEquals(99L, con.getTotalCount().longValue());
-    }
-    
+  }
 }

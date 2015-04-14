@@ -51,7 +51,6 @@ public class Connection<T> implements Iterable<List<T>> {
   private Long totalCount;
   private String beforeCursor;
   private String afterCursor;
-  private String baseCursorURL;
 
   /**
    * @see java.lang.Iterable#iterator()
@@ -192,20 +191,6 @@ public class Connection<T> implements Iterable<List<T>> {
     this.connectionType = connectionType;
   }
 
-  public Connection<T> setCursorBaseURL(String baseUrl) {
-    if (facebookClient instanceof DefaultFacebookClient) {
-      this.baseCursorURL = ((DefaultFacebookClient) facebookClient).createEndpointForApiCall(baseUrl, false);
-    }
-    if (previousPageUrl == null && beforeCursor != null) {
-      this.previousPageUrl = UrlUtils.replaceOrAddQueryParameter(baseUrl, "before", beforeCursor);
-    }
-
-    if (nextPageUrl == null && afterCursor != null) {
-      this.nextPageUrl = UrlUtils.replaceOrAddQueryParameter(baseUrl, "after", afterCursor);
-    }
-    return this;
-  }
-
   /**
    * Fetches the next page of the connection. Designed to be used by {@link ConnectionIterator}.
    * 
@@ -295,5 +280,13 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   public Long getTotalCount() {
     return totalCount;
+  }
+  
+  public String getBeforeCursor() {
+      return beforeCursor;
+  }
+  
+  public String getAfterCursor() {
+      return afterCursor;
   }
 }
