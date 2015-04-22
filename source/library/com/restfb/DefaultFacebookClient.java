@@ -690,7 +690,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           Parameter.with("client_id", appId), Parameter.with("client_secret", appSecret));
 
     try {
-      return AccessToken.fromQueryString(response);
+      return getAccessTokenFromResponse(response);
     } catch (Throwable t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
     }
@@ -713,7 +713,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           Parameter.with("redirect_uri", redirectUri));
 
     try {
-      return AccessToken.fromQueryString(response);
+      return getAccessTokenFromResponse(response);
     } catch (Throwable t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
     }
@@ -758,9 +758,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           Parameter.with("fb_exchange_token", accessToken));
 
     try {
-      return AccessToken.fromQueryString(response);
+      return getAccessTokenFromResponse(response);
     } catch (Throwable t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+    }
+  }
+
+  private AccessToken getAccessTokenFromResponse(String response) {
+    try {
+      return getJsonMapper().toJavaObject(response, AccessToken.class);
+    } catch (FacebookJsonMappingException fjme) {
+      return AccessToken.fromQueryString(response);
     }
   }
 
@@ -1209,15 +1217,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs when building the parameter string.
    */
   protected String toParameterString(Parameter... parameters) {
-      return toParameterString(true, parameters);
+    return toParameterString(true, parameters);
   }
-  
-  
+
   /**
    * Generate the parameter string to be included in the Facebook API request.
    * 
    * @param withJsonParameter
-   *	      add additional parameter format with type json
+   *          add additional parameter format with type json
    * @param parameters
    *          Arbitrary number of extra parameters to include in the request.
    * @return The parameter string to include in the Facebook API request.
@@ -1234,9 +1241,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
             Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);
 
     if (withJsonParameter) {
-	parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
+      parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
     }
-	
+
     StringBuilder parameterStringBuilder = new StringBuilder();
     boolean first = true;
 

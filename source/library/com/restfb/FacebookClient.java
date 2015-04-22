@@ -557,8 +557,13 @@ public interface FacebookClient {
     @Facebook("access_token")
     private String accessToken;
 
-    @Facebook
+    @Facebook("expires_in")
+    private Long rawExpires;
+
     private Long expires;
+
+    @Facebook("token_type")
+    private String tokenType;
 
     /**
      * Given a query string of the form {@code access_token=XXX} or {@code access_token=XXX&expires=YYY}, return an
@@ -581,14 +586,21 @@ public interface FacebookClient {
       Map<String, List<String>> urlParameters = extractParametersFromQueryString(queryString);
 
       String extendedAccessToken = null;
+      String tokenType = null;
 
-      if (urlParameters.containsKey("access_token"))
+      if (urlParameters.containsKey("access_token")) {
         extendedAccessToken = urlParameters.get("access_token").get(0);
+      }
 
-      if (extendedAccessToken == null)
+      if (urlParameters.containsKey("token_type")) {
+        tokenType = urlParameters.get("token_type").get(0);
+      }
+
+      if (extendedAccessToken == null) {
         throw new IllegalArgumentException(format(
           "Was expecting a query string of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. "
               + "Instead, the query string was '%s'", queryString));
+      }
 
       Long expires = null;
 
@@ -598,13 +610,15 @@ public interface FacebookClient {
         try {
           expires = Long.valueOf(urlParameters.get("expires").get(0));
         } catch (NumberFormatException e) {}
-        if (expires != null)
+        if (expires != null) {
           expires = new Date().getTime() + 1000L * expires;
+        }
       }
 
       AccessToken accessToken = new AccessToken();
       accessToken.accessToken = extendedAccessToken;
       accessToken.expires = expires;
+      accessToken.tokenType = tokenType;
       return accessToken;
     }
 
@@ -649,6 +663,23 @@ public interface FacebookClient {
     public Date getExpires() {
       return expires == null ? null : new Date(expires);
     }
+
+    /**
+     * The token type of this access token provided by Facebook
+     * 
+     * @return the access token type
+     */
+    public String getTokenType() {
+      return tokenType;
+    }
+
+    @JsonMapper.JsonMappingCompleted
+    void convertExpires() {
+      if (rawExpires != null) {
+        expires = new Date().getTime() + 1000L * rawExpires;
+      }
+    }
+
   }
 
   /**
@@ -659,7 +690,7 @@ public interface FacebookClient {
    * FIXME does this class belong here?
    * 
    * <p>
-   * See <a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/">
+   * See <a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/">Debug access tokens</a>
    * 
    * @author Broc Seib
    */
