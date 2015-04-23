@@ -247,7 +247,11 @@ public class User extends NamedFacebookType {
   private JsonObject rawPicture;
 
   /**
-   * The user's picture, if provided
+   * The user's picture, if provided.
+   * 
+   * To force Facebook to fill the <code>picture</code> field you 
+   * have to fetch the user with the <code>fields=picture</code>
+   * parameter, otherwise the picture is <code>null</code>.
    * 
    * @return the user's picture as picture object
    * @since 1.6.16

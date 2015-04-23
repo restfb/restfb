@@ -178,6 +178,10 @@ public class Comment extends FacebookType {
   /**
    * Attachment (image) added to a comment.
    * 
+   * To force Facebook to fill the <code>attachment</code> field you 
+   * have to fetch the comment with the <code>fields=attachment</code>
+   * parameter, otherwise the attachments are <code>null</code>.
+   * 
    * @return Attachment on the comment
    */
   @Getter @Setter
