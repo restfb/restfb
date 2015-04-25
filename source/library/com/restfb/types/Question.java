@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;

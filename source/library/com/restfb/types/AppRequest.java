@@ -44,7 +44,8 @@ public class AppRequest extends FacebookType {
    * 
    * @return App associated with the request.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private Application application;
 
@@ -53,7 +54,8 @@ public class AppRequest extends FacebookType {
    * 
    * @return The recipient user associated with the request.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private NamedFacebookType to;
 
@@ -62,7 +64,8 @@ public class AppRequest extends FacebookType {
    * 
    * @return The sender user associated with the request.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -71,19 +74,21 @@ public class AppRequest extends FacebookType {
    * 
    * @return A string describing the request.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private String message;
 
   @Facebook("created_time")
   transient private String rawCreatedTime;
-  
+
   /**
    * Timestamp when the request was created.
    * 
    * @return Timestamp when the request was created.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   private Date createdTime;
 
   private static final long serialVersionUID = 1L;
@@ -101,7 +106,8 @@ public class AppRequest extends FacebookType {
      * 
      * @return The application's canvas name.
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook("canvas_name")
     private String canvasName;
 
@@ -110,7 +116,8 @@ public class AppRequest extends FacebookType {
      * 
      * @return The application's namespace.
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private String namespace;
 
@@ -119,6 +126,6 @@ public class AppRequest extends FacebookType {
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {
-      createdTime = toDateFromLongFormat(rawCreatedTime);
+    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 }

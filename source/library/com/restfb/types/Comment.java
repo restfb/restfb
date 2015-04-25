@@ -49,7 +49,8 @@ public class Comment extends FacebookType {
    * 
    * @return User who posted the comment.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private CategorizedFacebookType from;
 
@@ -58,19 +59,21 @@ public class Comment extends FacebookType {
    * 
    * @return Text contents of the comment.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private String message;
 
   @Facebook("created_time")
   private String rawCreatedTime;
-  
+
   /**
    * Date on which the comment was created.
    * 
    * @return Date on which the comment was created.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   private Date createdTime;
 
   /**
@@ -80,7 +83,8 @@ public class Comment extends FacebookType {
    * @deprecated As of September 5, 2012, Facebook is changing over to {@code like_count}, so this method will be
    *             replaced by {@link #likeCount}.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private Long likes;
 
@@ -90,9 +94,20 @@ public class Comment extends FacebookType {
    * @return The number of likes on this comment.
    * @since 1.6.10
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("like_count")
   private Long likeCount;
+
+  /**
+   * Number of replies to this comment.
+   * 
+   * @return Number of replies to this comment
+   */
+  @Getter
+  @Setter
+  @Facebook("comment_count")
+  private long commentCount;
 
   /**
    * This field is returned only if the authenticated user can remove this comment.
@@ -100,7 +115,8 @@ public class Comment extends FacebookType {
    * @return This field is returned only if the authenticated user can remove this comment.
    * @since 1.6.10
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("can_remove")
   private Boolean canRemove;
 
@@ -110,7 +126,8 @@ public class Comment extends FacebookType {
    * @return This field is returned only if the authenticated user likes this comment.
    * @since 1.6.10
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("user_likes")
   private Boolean userLikes;
 
@@ -120,7 +137,8 @@ public class Comment extends FacebookType {
    * @return the parent Comment
    * @since 1.6.13
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private Comment parent;
 
@@ -130,39 +148,42 @@ public class Comment extends FacebookType {
    * @return can_comment
    * @since 1.6.13
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("can_comment")
   private boolean canComment;
-  
+
   /**
    * Whether the viewer can hide this comment
    * 
    * @return can_hide
    * @since 1.7.1
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("can_hide")
   private boolean canHide;
-  
+
   /**
-   * Whether this comment is hidden. 
-   * The original poster can still see the comment, 
-   * along with the page admin and anyone else tagged in the comment
+   * Whether this comment is hidden. The original poster can still see the comment, along with the page admin and anyone
+   * else tagged in the comment
    * 
    * @return is_hidden
    * @since 1.7.1
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("is_hidden")
   private Boolean isHidden;
-  
+
   /**
    * Parent object this comment was made on.
    * 
    * @return object
    * @since 1.7.1
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private NamedFacebookType object;
 
@@ -171,28 +192,29 @@ public class Comment extends FacebookType {
    * 
    * @return replies
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("comments")
   private Comments comments;
 
   /**
    * Attachment (image) added to a comment.
    * 
-   * To force Facebook to fill the <code>attachment</code> field you 
-   * have to fetch the comment with the <code>fields=attachment</code>
-   * parameter, otherwise the attachments are <code>null</code>.
+   * To force Facebook to fill the <code>attachment</code> field you have to fetch the comment with the
+   * <code>fields=attachment</code> parameter, otherwise the attachments are <code>null</code>.
    * 
    * @return Attachment on the comment
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private Attachment attachment;
-  
+
   private static final long serialVersionUID = 2L;
 
   @JsonMappingCompleted
   void convertTime() {
-      createdTime = toDateFromLongFormat(rawCreatedTime);
+    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 
   /**
@@ -207,7 +229,8 @@ public class Comment extends FacebookType {
      * 
      * @return The number of comments.
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private Long count = 0L;
 
@@ -248,13 +271,13 @@ public class Comment extends FacebookType {
     public List<Comment> getData() {
       return unmodifiableList(data);
     }
-    
+
     public boolean addData(Comment comment) {
-	return data.add(comment);
+      return data.add(comment);
     }
-    
+
     public boolean removeData(Comment comment) {
-	return data.remove(comment);
+      return data.remove(comment);
     }
   }
 
@@ -289,7 +312,8 @@ public class Comment extends FacebookType {
     @Facebook
     private String type;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook("media")
     private Media media;
 
@@ -326,15 +350,18 @@ public class Comment extends FacebookType {
   public static class Image extends FacebookType {
     private static final long serialVersionUID = 1L;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private Integer height;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private Integer width;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private String src;
 

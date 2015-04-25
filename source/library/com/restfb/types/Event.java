@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
 
 import java.io.Serializable;
@@ -30,12 +29,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
 import java.util.ArrayList;
-import java.util.Collections;
 import static java.util.Collections.unmodifiableList;
 import lombok.Getter;
 import lombok.Setter;
@@ -166,6 +163,26 @@ public class Event extends NamedFacebookType {
   @Setter
   @Facebook
   private String picture;
+  
+  /**
+   * The group the event belongs to, if any.
+   * 
+   * @return The group the event belongs to, if any.
+   */
+  @Getter
+  @Setter
+  @Facebook("parent_group")
+  private Group parentGroup; 
+  
+  /**
+   * Location associated with the event, if any.
+   * 
+   * @return Location associated with the event, if any
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Page place;
 
   /**
    * Should the time information be ignored in the dates for this event?

@@ -26,9 +26,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class GraphResponse {
-    
-    @Getter @Setter
-    @Facebook
-    private boolean success;
-    
+
+  @Getter
+  @Setter
+  @Facebook
+  private boolean success;
+
 }

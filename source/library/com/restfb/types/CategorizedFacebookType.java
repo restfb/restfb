@@ -40,7 +40,8 @@ public class CategorizedFacebookType extends NamedFacebookType {
    * 
    * @return The category field for this type.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private String category;
 

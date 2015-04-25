@@ -27,7 +27,6 @@ import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import com.restfb.util.ReflectionUtils;
 import static com.restfb.util.StringUtils.isBlank;

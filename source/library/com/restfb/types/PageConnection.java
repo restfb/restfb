@@ -22,7 +22,6 @@
 
 package com.restfb.types;
 
-
 import java.util.Date;
 
 import com.restfb.Facebook;

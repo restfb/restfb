@@ -322,8 +322,9 @@ public class Post extends NamedFacebookType {
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
     messageTags = new HashMap<String, List<MessageTag>>();
 
-    if (rawMessageTags == null)
+    if (rawMessageTags == null) {
       return;
+    }
 
     for (String key : getNames(rawMessageTags)) {
       String messageTagJson = rawMessageTags.getString(key);
@@ -849,8 +850,9 @@ public class Post extends NamedFacebookType {
    * @return The number of likes on this post.
    */
   public Long getLikesCount() {
-    if (getLikes() != null)
+    if (getLikes() != null) {
       return getLikes().getTotalCount();
+    }
 
     return likesCount;
   }

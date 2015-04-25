@@ -40,7 +40,8 @@ public class Application extends CategorizedFacebookType {
    * 
    * @return The description of the application written by the 3rd party developers.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private String description;
 
@@ -49,7 +50,8 @@ public class Application extends CategorizedFacebookType {
    * 
    * @return A link to application dashboard on Facebook Connections feed.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private String link;
 
