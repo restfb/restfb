@@ -25,7 +25,6 @@ package com.restfb.types;
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import static java.util.Collections.unmodifiableList;
 import java.util.List;

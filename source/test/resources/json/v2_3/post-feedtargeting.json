@@ -1,0 +1,25 @@
+{
+  "feed_targeting": {
+    "age_min": 21,
+    "age_max": 65,
+    "locales": [
+      "5"
+    ],
+    "fan_of": [
+      "1409827349235487"
+    ],
+    "genders": [
+      1
+    ],
+    "relationship_statuses": [
+      2,
+      4,
+      3
+    ],
+    "education_statuses": [
+      "2"
+    ]
+  },
+  "id": "349489628480201_804755019620324",
+  "created_time": "2015-05-01T19:41:57+0000"
+}

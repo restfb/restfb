@@ -25,21 +25,74 @@ import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
 public class PageTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Page obj = new Page();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testCover() {
-	Page.Cover obj = new Page.Cover();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    Page obj = new Page();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testCover() {
+    Page.Cover obj = new Page.Cover();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testEngagement() {
+    Page.Engagement obj = new Page.Engagement();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testMailingAddress() {
+    Page.MailingAddress obj = new Page.MailingAddress();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testPagePaymentOptions() {
+    Page.PagePaymentOptions obj = new Page.PagePaymentOptions();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testPageRestaurantServices() {
+    Page.PageRestaurantServices obj = new Page.PageRestaurantServices();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testPageRestaurantSpecialties() {
+    Page.PageRestaurantSpecialties obj = new Page.PageRestaurantSpecialties();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testPageStartDate() {
+    Page.PageStartDate obj = new Page.PageStartDate();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testPageStartInfo() {
+    Page.PageStartInfo obj = new Page.PageStartInfo();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testSettings() {
+    Page.Settings obj = new Page.Settings();
+    testInstance(obj);
+  }
+
+  @Test
+  public void testVoipInfo() {
+    Page.VoipInfo obj = new Page.VoipInfo();
+    testInstance(obj);
+  }
 }

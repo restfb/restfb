@@ -22,8 +22,6 @@ package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
@@ -65,31 +63,41 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getTo());
     assertEquals(1, examplePost.getTo().size());
   }
-  
+
   @Test
   public void checkV2_1_Likes() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-messagetags"), Post.class);
     assertEquals(1L, examplePost.getLikes().getData().size());
   }
-  
+
   @Test
   public void checkV2_1_LikesWithTotalCount() {
-      Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-with-likes-totalcount"), Post.class);
-      assertEquals(33L, examplePost.getLikes().getTotalCount().longValue());
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-with-likes-totalcount"), Post.class);
+    assertEquals(33L, examplePost.getLikes().getTotalCount().longValue());
   }
-  
+
   @Test
   public void checkV2_1_PortogueseText() {
-      Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-portoguese"), Post.class);
-      String message = "Esse carro \u00e9 maravilhoso.Deus n\u00e3o nos desampara.Obrigada Senhor.";
-      assertEquals(message, examplePost.getMessage());
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-portoguese"), Post.class);
+    String message = "Esse carro \u00e9 maravilhoso.Deus n\u00e3o nos desampara.Obrigada Senhor.";
+    assertEquals(message, examplePost.getMessage());
   }
-  
+
   @Test
   public void checkV2_3_AdminCreator() {
-      Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-admin-creator"), Post.class);
-      assertNotNull(examplePost.getAdminCreator());
-      assertEquals("Graph API Explorer", examplePost.getAdminCreator().getName());
-      assertEquals("145634995501895", examplePost.getAdminCreator().getId());
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-admin-creator"), Post.class);
+    assertNotNull(examplePost.getAdminCreator());
+    assertEquals("Graph API Explorer", examplePost.getAdminCreator().getName());
+    assertEquals("145634995501895", examplePost.getAdminCreator().getId());
+  }
+
+  @Test
+  public void checkV2_3_FeedTargeting() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-feedtargeting"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertEquals(21, examplePost.getFeedTargeting().getAgeMin().intValue());
+    assertEquals(65, examplePost.getFeedTargeting().getAgeMax().intValue());
   }
 }

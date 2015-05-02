@@ -173,6 +173,20 @@ public class Post extends NamedFacebookType {
   private Privacy privacy;
 
   /**
+   * Object that controls news feed targeting for this post.
+   * 
+   * To force Facebook to fill the <code>feed_targeting</code> field you have to fetch the post with the
+   * <code>fields=feed_targeting</code> parameter, otherwise the feedTargeting is <code>null</code>.
+   * 
+   * 
+   * @since 1.11.0
+   */
+  @Getter
+  @Setter
+  @Facebook("feed_targeting")
+  private FeedTargeting feedTargeting;
+
+  /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
    */
   @Facebook("likes")
@@ -292,9 +306,9 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook
   private Shares shares;
-  
+
   /**
-   * ID of admin who created the post. 
+   * ID of admin who created the post.
    * 
    * Applies to pages only
    * 
@@ -425,7 +439,7 @@ public class Post extends NamedFacebookType {
     @Setter
     @Facebook
     private String href;
-    
+
     /**
      * If this post is marked as hidden (applies to Pages only).
      * 
@@ -436,10 +450,9 @@ public class Post extends NamedFacebookType {
     @Setter
     @Facebook("is_hidden")
     private Boolean isHidden;
-    
+
     /**
-     * Indicates whether a scheduled post was published. 
-     * (applies to scheduled Page Post only, for users post and 
+     * Indicates whether a scheduled post was published. (applies to scheduled Page Post only, for users post and
      * instanlty published posts this value is always <code>true</code>)
      * 
      * @since 1.10.0
@@ -796,6 +809,339 @@ public class Post extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
+  }
+
+  /**
+   * Object that controls news feed targeting for this post.
+   * 
+   * Anyone in these groups will be more likely to see this post, others will be less likely, but may still see it
+   * anyway. Any of the targeting fields shown here can be used, none are required (applies to Pages only).
+   * 
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post#fields">Feed Targeting API type</a>.
+   */
+  public static class FeedTargeting implements Serializable {
+
+    /**
+     * Maximum age.
+     */
+    @Getter
+    @Setter
+    @Facebook("age_max")
+    private Integer ageMax;
+
+    /**
+     * Must be 13 or higher. Default is 0
+     */
+    @Getter
+    @Setter
+    @Facebook("age_min")
+    private Integer ageMin;
+
+    @Facebook
+    private List<Integer> cities = new ArrayList<Integer>();
+
+    @Facebook("college_majors")
+    private List<String> collegeMajors = new ArrayList<String>();
+
+    @Facebook("college_networks")
+    private List<FacebookType> collegeNetworks = new ArrayList<FacebookType>();
+
+    @Facebook("college_years")
+    private List<Integer> collegeYears = new ArrayList<Integer>();
+
+    @Facebook
+    private List<String> countries = new ArrayList<String>();
+
+    @Facebook("education_statuses")
+    private List<Integer> educationStatuses = new ArrayList<Integer>();
+
+    @Facebook("fan_of")
+    private List<String> fanOf = new ArrayList<String>();
+
+    @Facebook
+    private List<Integer> genders = new ArrayList<Integer>();
+
+    @Facebook("interested_in")
+    private List<Integer> interestedIn = new ArrayList<Integer>();
+
+    @Facebook
+    private List<Integer> locales = new ArrayList<Integer>();
+
+    @Facebook
+    private List<Integer> regions = new ArrayList<Integer>();
+
+    @Facebook("relationship_statuses")
+    private List<Integer> relationshipStatuses = new ArrayList<Integer>();
+
+    @Facebook("work_networks")
+    private List<NamedFacebookType> workNetworks = new ArrayList<NamedFacebookType>();
+
+    /**
+     * Values of targeting cities.
+     * 
+     * Use type of adcity to find Targeting Options and use the returned key to specify.
+     * 
+     * @return list of cities
+     */
+    public List<Integer> getCities() {
+      return unmodifiableList(cities);
+    }
+
+    public boolean addCity(Integer city) {
+      return cities.add(city);
+    }
+
+    public boolean removeCity(Integer city) {
+      return cities.remove(city);
+    }
+
+    /**
+     * Target people who majored in these college subjects.
+     * 
+     * Limited to 200 college major values. Use type of adcollegemajor to find Targeting Options and use the returned
+     * name to specify.
+     * 
+     * @return list of college majors
+     */
+    public List<String> getCollegeMajors() {
+      return unmodifiableList(collegeMajors);
+    }
+
+    public boolean addCollegeMajor(String collegeMajor) {
+      return collegeMajors.add(collegeMajor);
+    }
+
+    public boolean removeCollegeMajor(String collegeMajor) {
+      return collegeMajors.remove(collegeMajor);
+    }
+
+    /**
+     * Colleges, for college graduates.
+     * 
+     * Limit is 200 values.
+     * 
+     * @return list of colleges
+     */
+    public List<FacebookType> getCollegeNetworks() {
+      return unmodifiableList(collegeNetworks);
+    }
+
+    public boolean addCollegeNetwork(FacebookType collegeNetwork) {
+      return collegeNetworks.add(collegeNetwork);
+    }
+
+    public boolean removeCollegeNetwork(FacebookType collegeNetwork) {
+      return collegeNetworks.remove(collegeNetwork);
+    }
+
+    /**
+     * Array of integers for graduation year from college.
+     * 
+     * @return graduation year list
+     */
+    public List<Integer> getCollegeYears() {
+      return unmodifiableList(collegeYears);
+    }
+
+    public boolean addCollegeYear(Integer collegeYear) {
+      return collegeYears.add(collegeYear);
+    }
+
+    public boolean removeCollegeYear(Integer collegeYear) {
+      return collegeYears.remove(collegeYear);
+    }
+
+    /**
+     * Values of targeting countries.
+     * 
+     * You can specify up to 25 countries. Use ISO 3166 format codes.
+     * 
+     * @return list of targeting countries.
+     */
+    public List<String> getCountries() {
+      return unmodifiableList(countries);
+    }
+
+    public boolean addCountry(String country) {
+      return countries.add(country);
+    }
+
+    public boolean removeCountry(String country) {
+      return countries.remove(country);
+    }
+
+    /**
+     * Array of integers for targeting based on education level.
+     * 
+     * Use 1 for high school, 2 for undergraduate, and 3 for alum (or localized equivalents).
+     * 
+     * @return list of education levels
+     */
+    public List<Integer> getEducationStatuses() {
+      return unmodifiableList(educationStatuses);
+    }
+
+    public boolean addEducationStatus(Integer educationStatus) {
+      return educationStatuses.add(educationStatus);
+    }
+
+    public boolean removeEducationStatus(Integer educationStatus) {
+      return educationStatuses.remove(educationStatus);
+    }
+
+    /**
+     * List of object ids.
+     * 
+     * the user should be fan of these objects (interests).
+     * 
+     * @return list of object ids
+     */
+    public List<String> getFanOf() {
+      return unmodifiableList(fanOf);
+    }
+
+    public boolean addFanOf(String interestId) {
+      return fanOf.add(interestId);
+    }
+
+    public boolean removeFanOf(String interestId) {
+      return fanOf.remove(interestId);
+    }
+
+    /**
+     * Target specific genders.
+     * 
+     * 1 targets all male viewers and 2 females. Default is to target both.
+     * 
+     * @return list of genders
+     */
+    public List<Integer> getGenders() {
+      return unmodifiableList(genders);
+    }
+
+    public boolean addGender(Integer gender) {
+      return genders.add(gender);
+    }
+
+    public boolean removeGender(Integer gender) {
+      return genders.remove(gender);
+    }
+
+    /**
+     * Indicates targeting based on the 'interested in' field of the user profile.
+     * 
+     * You can specify an integer of 1 to indicate male, 2 indicates female. Default is all types.
+     * 
+     * Please note 'interested in' targeting is not available in France due to local laws.
+     * 
+     * @return list of 'interested in' types
+     */
+    public List<Integer> getInterestedIn() {
+      return unmodifiableList(interestedIn);
+    }
+
+    public boolean addInterestedIn(Integer interest) {
+      return interestedIn.add(interest);
+    }
+
+    public boolean removeInterestedIn(Integer interest) {
+      return interestedIn.remove(interest);
+    }
+
+    /**
+     * Targeted locales.
+     * 
+     * Use type of adlocale to find Targeting Options and use the returned key to specify.
+     * 
+     * @return list of locales
+     */
+    public List<Integer> getLocales() {
+      return unmodifiableList(locales);
+    }
+
+    public boolean addLocale(Integer locale) {
+      return locales.add(locale);
+    }
+
+    public boolean removeLocale(Integer locale) {
+      return locales.remove(locale);
+    }
+
+    /**
+     * Values of targeting regions.
+     * 
+     * Use type of adregion to find Targeting Options and use the returned key to specify.
+     * 
+     * @return list of regions
+     */
+    public List<Integer> getRegions() {
+      return unmodifiableList(regions);
+    }
+
+    public boolean addRegion(Integer region) {
+      return regions.add(region);
+    }
+
+    public boolean removeRegion(Integer region) {
+      return regions.remove(region);
+    }
+
+    /**
+     * Array of integers for targeting based on relationship status.
+     * 
+     * Use 1 for single, 2 for 'in a relationship', 3 for married, and 4 for engaged. Default is all types.
+     * 
+     * @return list of relationship statuses
+     */
+    public List<Integer> getRelationshipStatuses() {
+      return unmodifiableList(relationshipStatuses);
+    }
+
+    public boolean addRelationshipStatus(Integer relationshipStatus) {
+      return relationshipStatuses.add(relationshipStatus);
+    }
+
+    public boolean removeRelationshipStatus(Integer relationshipStatus) {
+      return relationshipStatuses.remove(relationshipStatus);
+    }
+
+    /**
+     * Company, organization, or other workplace.
+     * 
+     * <b>Name</b>: Name of targeted workplace. Use type of adworkplace to find Targeting Options and use the returned
+     * name to specify this.
+     * 
+     * <b>Id</b>: Unique ID of targeted workplace. Use type of adworkplace to find Targeting Options and use the
+     * returned key to specify this (must match paired name value).
+     * 
+     * @return list of work networks
+     */
+    public List<NamedFacebookType> getWorkNetworks() {
+      return unmodifiableList(workNetworks);
+    }
+
+    public boolean addWorkNetwork(NamedFacebookType workNetwork) {
+      return workNetworks.add(workNetwork);
+    }
+
+    public boolean removeWorkNetwork(NamedFacebookType workNetwork) {
+      return workNetworks.remove(workNetwork);
+    }
+
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
   }
 
   /**

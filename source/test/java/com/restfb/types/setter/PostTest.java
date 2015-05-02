@@ -100,5 +100,11 @@ public class PostTest extends SetterGetterTestBase {
 	addIgnoredField("rawCreatedTime");
 	testInstance(obj);
     }
+    
+    @Test
+    public void testFeedTargeting() {
+	Post.FeedTargeting obj = new Post.FeedTargeting();
+	testInstance(obj);
+    }
 	    
 }

@@ -102,14 +102,14 @@ public class SetterGetterTestBase {
             + field.getDeclaringClass().getName();
     try {
       Method getter = null;
-      
+
       String capName = capitalizedName(field);
-//      if (capName.matches("^Is[A-Z].*")) {
-//	  capName = capName.substring(2);
-//      }
-      
+      // if (capName.matches("^Is[A-Z].*")) {
+      // capName = capName.substring(2);
+      // }
+
       if (field.getType().equals(boolean.class)) {
-	getter = theClass.getMethod("is" + capName);
+        getter = theClass.getMethod("is" + capName);
       } else {
         getter = theClass.getMethod("get" + capName);
       }
@@ -167,14 +167,13 @@ public class SetterGetterTestBase {
       remover.invoke(instance, o);
       assertEquals(testText, 0, ((List) getter.invoke(instance)).size());
       try {
-	  ((List) getter.invoke(instance)).add(o);
-	  fail("should not be possible");
+        ((List) getter.invoke(instance)).add(o);
+        fail("should not be possible");
       } catch (UnsupportedOperationException e) {
-	  // catch non modifiable exception
-	  assertTrue(true);
+        // catch non modifiable exception
+        assertTrue(true);
       }
-	  
-      
+
     } catch (SecurityException ex) {
       fail("SecurityException: " + testText);
     } catch (IllegalAccessException ex) {
@@ -226,6 +225,17 @@ public class SetterGetterTestBase {
     if (method.getName().equals("add" + capitalizedName(field, true))) {
       adder = method;
     }
+
+    // change -ies to -y
+    if (method.getName().equals("add" + capitalizedName(field).replace("ies", "y"))) {
+      adder = method;
+    }
+
+    // change -ses to -s
+    if (method.getName().equals("add" + capitalizedName(field).replace("ses", "s"))) {
+      adder = method;
+    }
+
     // remove 'List' from field
     if (method.getName().equals("add" + capitalizedName(field).replace("List", ""))) {
       adder = method;
@@ -247,6 +257,17 @@ public class SetterGetterTestBase {
     if (method.getName().equals("remove" + capitalizedName(field, true))) {
       remover = method;
     }
+
+    // change -ies to -y
+    if (method.getName().equals("remove" + capitalizedName(field).replace("ies", "y"))) {
+      remover = method;
+    }
+
+    // change -ses to -s
+    if (method.getName().equals("remove" + capitalizedName(field).replace("ses", "s"))) {
+      remover = method;
+    }
+
     // remove 'List' from field
     if (method.getName().equals("remove" + capitalizedName(field).replace("List", ""))) {
       remover = method;
