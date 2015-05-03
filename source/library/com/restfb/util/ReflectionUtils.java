@@ -75,8 +75,9 @@ public final class ReflectionUtils {
    *         otherwise.
    */
   public static boolean isPrimitive(Object object) {
-    if (object == null)
+    if (object == null) {
       return false;
+    }
 
     Class<?> type = object.getClass();
 
@@ -108,8 +109,9 @@ public final class ReflectionUtils {
     List<FieldWithAnnotation<T>> cachedResults =
         (List<FieldWithAnnotation<T>>) FIELDS_WITH_ANNOTATION_CACHE.get(cacheKey);
 
-    if (cachedResults != null)
+    if (cachedResults != null) {
       return cachedResults;
+    }
 
     List<FieldWithAnnotation<T>> fieldsWithAnnotation = new ArrayList<FieldWithAnnotation<T>>();
 
@@ -118,8 +120,9 @@ public final class ReflectionUtils {
       for (Field field : type.getDeclaredFields()) {
         T annotation = field.getAnnotation(annotationType);
 
-        if (annotation != null)
+        if (annotation != null) {
           fieldsWithAnnotation.add(new FieldWithAnnotation<T>(field, annotation));
+        }
       }
 
       type = type.getSuperclass();
@@ -149,8 +152,9 @@ public final class ReflectionUtils {
     ClassAnnotationCacheKey cacheKey = new ClassAnnotationCacheKey(type, annotationType);
     List<Method> cachedResults = METHODS_WITH_ANNOTATION_CACHE.get(cacheKey);
 
-    if (cachedResults != null)
+    if (cachedResults != null) {
       return cachedResults;
+    }
 
     List<Method> methodsWithAnnotation = new ArrayList<Method>();
 
@@ -159,8 +163,9 @@ public final class ReflectionUtils {
       for (Method method : type.getDeclaredMethods()) {
         T annotation = method.getAnnotation(annotationType);
 
-        if (annotation != null)
+        if (annotation != null) {
           methodsWithAnnotation.add(method);
+        }
       }
 
       type = type.getSuperclass();
@@ -184,8 +189,9 @@ public final class ReflectionUtils {
    */
   public static Class<?> getFirstParameterizedTypeArgument(Field field) {
     Type type = field.getGenericType();
-    if (!(type instanceof ParameterizedType))
+    if (!(type instanceof ParameterizedType)) {
       return null;
+    }
 
     ParameterizedType parameterizedType = (ParameterizedType) type;
     Type firstTypeArgument = parameterizedType.getActualTypeArguments()[0];
@@ -200,8 +206,9 @@ public final class ReflectionUtils {
    * @return All accessor methods for the given {@code clazz}.
    */
   public static List<Method> getAccessors(Class<?> clazz) {
-    if (clazz == null)
+    if (clazz == null) {
       throw new IllegalArgumentException("The 'clazz' parameter cannot be null.");
+    }
 
     List<Method> methods = new ArrayList<Method>();
 
@@ -214,8 +221,9 @@ public final class ReflectionUtils {
           && method.getParameterTypes().length == 0
           && ((methodName.startsWith("get") && methodName.length() > 3)
               || (methodName.startsWith("is") && methodName.length() > 2) || (methodName.startsWith("has") && methodName
-            .length() > 3)))
+            .length() > 3))) {
         methods.add(method);
+      }
     }
 
     // Order the methods alphabetically by name
@@ -248,10 +256,11 @@ public final class ReflectionUtils {
     boolean first = true;
 
     for (Method method : getAccessors(object.getClass())) {
-      if (first)
+      if (first) {
         first = false;
-      else
+      } else {
         buffer.append(" ");
+      }
 
       try {
         String methodName = method.getName();
@@ -282,16 +291,18 @@ public final class ReflectionUtils {
    *           If an error occurs while performing reflection operations.
    */
   public static int hashCode(Object object) {
-    if (object == null)
+    if (object == null) {
       return 0;
+    }
 
     int hashCode = 17;
 
     for (Method method : getAccessors(object.getClass())) {
       try {
         Object result = method.invoke(object);
-        if (result != null)
+        if (result != null) {
           hashCode = hashCode * 31 + result.hashCode();
+        }
       } catch (Exception e) {
         throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object, e);
       }
@@ -312,14 +323,17 @@ public final class ReflectionUtils {
    *           If an error occurs while performing reflection operations.
    */
   public static boolean equals(Object object1, Object object2) {
-    if (object1 == null && object2 == null)
+    if (object1 == null && object2 == null) {
       return true;
-    if (!(object1 != null && object2 != null))
+    }
+    if (!(object1 != null && object2 != null)) {
       return false;
+    }
 
     // Bail if the classes aren't at least one-way assignable to each other
-    if (!(object1.getClass().isInstance(object2) || object2.getClass().isInstance(object1)))
+    if (!(object1.getClass().isInstance(object2) || object2.getClass().isInstance(object1))) {
       return false;
+    }
 
     // Only compare accessors that are present in both classes
     Set<Method> accessorMethodsIntersection = new HashSet<Method>(getAccessors(object1.getClass()));
@@ -329,12 +343,15 @@ public final class ReflectionUtils {
       try {
         Object result1 = method.invoke(object1);
         Object result2 = method.invoke(object2);
-        if (result1 == null && result2 == null)
+        if (result1 == null && result2 == null) {
           continue;
-        if (!(result1 != null && result2 != null))
+        }
+        if (!(result1 != null && result2 != null)) {
           return false;
-        if (!result1.equals(result2))
+        }
+        if (!result1.equals(result2)) {
           return false;
+        }
       } catch (Exception e) {
         throw new IllegalStateException("Unable to reflectively invoke " + method, e);
       }
@@ -390,9 +407,6 @@ public final class ReflectionUtils {
       return annotation;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
       return format("Field %s.%s (%s): %s", field.getDeclaringClass().getName(), field.getName(), field.getType(),
@@ -446,25 +460,30 @@ public final class ReflectionUtils {
      */
     @Override
     public boolean equals(Object obj) {
-      if (this == obj)
+      if (this == obj) {
         return true;
-      if (obj == null)
+      }
+      if (obj == null) {
         return false;
-      if (getClass() != obj.getClass())
+      }
+      if (getClass() != obj.getClass()) {
         return false;
+      }
 
       ClassAnnotationCacheKey other = (ClassAnnotationCacheKey) obj;
 
       if (annotation == null) {
-        if (other.annotation != null)
+        if (other.annotation != null) {
           return false;
+        }
       } else if (!annotation.equals(other.annotation)) {
         return false;
       }
 
       if (clazz == null) {
-        if (other.clazz != null)
+        if (other.clazz != null) {
           return false;
+        }
       } else if (!clazz.equals(other.clazz)) {
         return false;
       }

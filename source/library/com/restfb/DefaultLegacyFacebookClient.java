@@ -261,10 +261,11 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     parameters.add(Parameter.with("queries", queriesToJson(queries)));
 
     for (Parameter additionalParameter : additionalParameters) {
-      if (additionalParameter.name.equals("queries"))
+      if (additionalParameter.name.equals("queries")) {
         throw new IllegalArgumentException("You cannot specify a parameter named 'queries' "
             + "because it's reserved for use by RestFB for this call. "
             + "Specify your queries in the Map that gets passed to this method.");
+      }
 
       parameters.add(additionalParameter);
     }
@@ -325,8 +326,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     }
 
     // If we get any HTTP response code other than a 200 OK, throw an exception
-    if (HTTP_OK != response.getStatusCode())
+    if (HTTP_OK != response.getStatusCode()) {
       throw new FacebookNetworkException("Facebook POST failed", response.getStatusCode());
+    }
 
     String json = response.getBody();
 
@@ -361,9 +363,10 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     // New OAuth access token parameter is simple: just one value.
     // The legacy stuff requires a bunch more work.
     if (usesAccessTokenAuthentication()) {
-      if (sessionKey != null)
+      if (sessionKey != null) {
         throw new IllegalArgumentException("If you're using the OAuth access token "
             + "for authentication, you cannot " + "specify a session key.");
+      }
 
       sortedParameters.put(ACCESS_TOKEN_PARAM_NAME, accessToken);
     } else {
@@ -371,8 +374,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
       sortedParameters.put(VERSION_PARAM_NAME, VERSION_PARAM_VALUE);
       sortedParameters.put(CALL_ID_PARAM_NAME, String.valueOf(System.currentTimeMillis()));
 
-      if (!isBlank(sessionKey))
+      if (!isBlank(sessionKey)) {
         sortedParameters.put(SESSION_KEY_PARAM_NAME, sessionKey);
+      }
 
       sortedParameters.put(SIG_PARAM_NAME, generateSignature(sortedParameters));
     }
@@ -381,10 +385,11 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     boolean first = true;
 
     for (Entry<String, String> entry : sortedParameters.entrySet()) {
-      if (first)
+      if (first) {
         first = false;
-      else
+      } else {
         parameterStringBuilder.append("&");
+      }
 
       parameterStringBuilder.append(urlEncode(entry.getKey()));
       parameterStringBuilder.append("=");
@@ -464,8 +469,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    * Initializes the set of illegal URL parameter names.
    */
   protected void initializeIllegalParamNames() {
-    illegalParamNames.addAll(Arrays.asList(API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME,
-                                           METHOD_PARAM_NAME, SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME));
+    illegalParamNames.addAll(Arrays.asList(API_KEY_PARAM_NAME, CALL_ID_PARAM_NAME, SIG_PARAM_NAME, METHOD_PARAM_NAME,
+      SESSION_KEY_PARAM_NAME, FORMAT_PARAM_NAME, VERSION_PARAM_NAME, ACCESS_TOKEN_PARAM_NAME));
   }
 
   /**

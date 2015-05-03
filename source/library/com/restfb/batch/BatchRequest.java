@@ -98,8 +98,9 @@ public class BatchRequest {
    */
   protected BatchRequest(String relativeUrl, List<Parameter> parameters, String method, List<BatchHeader> headers,
       List<Parameter> bodyParameters, String attachedFiles, String dependsOn, String name, boolean omitResponseOnSuccess) {
-    if (isBlank(relativeUrl))
+    if (isBlank(relativeUrl)) {
       throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");
+    }
 
     this.relativeUrl = relativeUrl;
     this.method = method;
@@ -109,10 +110,11 @@ public class BatchRequest {
     this.name = name;
     this.omitResponseOnSuccess = omitResponseOnSuccess;
 
-    if (parameters.size() > 0)
+    if (parameters.size() > 0) {
       this.relativeUrl =
           format(this.relativeUrl.indexOf("?") == -1 ? "%s?%s" : "%s&%s", this.relativeUrl,
             generateParameterString(parameters));
+    }
 
     this.body = generateParameterString(bodyParameters);
   }
@@ -276,17 +278,19 @@ public class BatchRequest {
    * @return A URL query string representation of the given {@code parameters}.
    */
   protected String generateParameterString(List<Parameter> parameters) {
-    if (parameters == null)
+    if (parameters == null) {
       return "";
+    }
 
     StringBuilder parameterStringBuilder = new StringBuilder();
     boolean first = true;
 
     for (Parameter parameter : parameters) {
-      if (first)
+      if (first) {
         first = false;
-      else
+      } else {
         parameterStringBuilder.append("&");
+      }
 
       parameterStringBuilder.append(urlEncode(parameter.name));
       parameterStringBuilder.append("=");
@@ -296,25 +300,16 @@ public class BatchRequest {
     return parameterStringBuilder.toString();
   }
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     return ReflectionUtils.hashCode(this);
   }
 
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(Object that) {
     return ReflectionUtils.equals(this, that);
   }
 
-  /**
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return ReflectionUtils.toString(this);

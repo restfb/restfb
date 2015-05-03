@@ -140,9 +140,10 @@ abstract class BaseFacebookClient {
     @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
         Integer httpStatusCode, String type, String message, String userTitle, String userMessage) {
-      if (errorCode == API_EC_PARAM_ACCESS_TOKEN)
+      if (errorCode == API_EC_PARAM_ACCESS_TOKEN) {
         return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, errorSubcode, httpStatusCode,
           userTitle, userMessage);
+      }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookResponseStatusException.
@@ -159,20 +160,20 @@ abstract class BaseFacebookClient {
    * @since 1.6.3
    */
   protected void initializeReadOnlyApiCalls() {
-    readOnlyApiCalls.addAll(asList("admin.getallocation", "admin.getappproperties",
-                                   "admin.getbannedusers", "admin.getlivestreamvialink", "admin.getmetrics", "admin.getrestrictioninfo",
-                                   "application.getpublicinfo", "auth.getapppublickey", "auth.getsession", "auth.getsignedpublicsessiondata",
-                                   "comments.get", "connect.getunconnectedfriendscount", "dashboard.getactivity", "dashboard.getcount",
-                                   "dashboard.getglobalnews", "dashboard.getnews", "dashboard.multigetcount", "dashboard.multigetnews",
-                                   "data.getcookies", "events.get", "events.getmembers", "fbml.getcustomtags", "feed.getappfriendstories",
-                                   "feed.getregisteredtemplatebundlebyid", "feed.getregisteredtemplatebundles", "fql.multiquery", "fql.query",
-                                   "friends.arefriends", "friends.get", "friends.getappusers", "friends.getlists", "friends.getmutualfriends",
-                                   "gifts.get", "groups.get", "groups.getmembers", "intl.gettranslations", "links.get", "notes.get",
-                                   "notifications.get", "pages.getinfo", "pages.isadmin", "pages.isappadded", "pages.isfan",
-                                   "permissions.checkavailableapiaccess", "permissions.checkgrantedapiaccess", "photos.get", "photos.getalbums",
-                                   "photos.gettags", "profile.getinfo", "profile.getinfooptions", "stream.get", "stream.getcomments",
-                                   "stream.getfilters", "users.getinfo", "users.getloggedinuser", "users.getstandardinfo",
-                                   "users.hasapppermission", "users.isappuser", "users.isverified", "video.getuploadlimits"));
+    readOnlyApiCalls.addAll(asList("admin.getallocation", "admin.getappproperties", "admin.getbannedusers",
+      "admin.getlivestreamvialink", "admin.getmetrics", "admin.getrestrictioninfo", "application.getpublicinfo",
+      "auth.getapppublickey", "auth.getsession", "auth.getsignedpublicsessiondata", "comments.get",
+      "connect.getunconnectedfriendscount", "dashboard.getactivity", "dashboard.getcount", "dashboard.getglobalnews",
+      "dashboard.getnews", "dashboard.multigetcount", "dashboard.multigetnews", "data.getcookies", "events.get",
+      "events.getmembers", "fbml.getcustomtags", "feed.getappfriendstories", "feed.getregisteredtemplatebundlebyid",
+      "feed.getregisteredtemplatebundles", "fql.multiquery", "fql.query", "friends.arefriends", "friends.get",
+      "friends.getappusers", "friends.getlists", "friends.getmutualfriends", "gifts.get", "groups.get",
+      "groups.getmembers", "intl.gettranslations", "links.get", "notes.get", "notifications.get", "pages.getinfo",
+      "pages.isadmin", "pages.isappadded", "pages.isfan", "permissions.checkavailableapiaccess",
+      "permissions.checkgrantedapiaccess", "photos.get", "photos.getalbums", "photos.gettags", "profile.getinfo",
+      "profile.getinfooptions", "stream.get", "stream.getcomments", "stream.getfilters", "users.getinfo",
+      "users.getloggedinuser", "users.getstandardinfo", "users.hasapppermission", "users.isappuser",
+      "users.isverified", "video.getuploadlimits"));
   }
 
   /**
@@ -191,8 +192,9 @@ abstract class BaseFacebookClient {
   protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     try {
       // If this is not an object, it's not an error response.
-      if (!json.startsWith("{"))
+      if (!json.startsWith("{")) {
         return;
+      }
 
       int subStrEnd = Math.min(50, json.length());
       if (!json.substring(0, subStrEnd).contains("\"error\"")) {
@@ -209,8 +211,9 @@ abstract class BaseFacebookClient {
         errorObject = new JsonObject(json);
       } catch (JsonException e) {}
 
-      if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME))
+      if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME)) {
         return;
+      }
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
         errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null, httpStatusCode, null,
@@ -248,15 +251,17 @@ abstract class BaseFacebookClient {
   protected String queriesToJson(Map<String, String> queries) {
     verifyParameterPresence("queries", queries);
 
-    if (queries.keySet().isEmpty())
+    if (queries.keySet().isEmpty()) {
       throw new IllegalArgumentException("You must specify at least one query.");
+    }
 
     JsonObject jsonObject = new JsonObject();
 
     for (Entry<String, String> entry : queries.entrySet()) {
-      if (isBlank(entry.getKey()) || isBlank(entry.getValue()))
+      if (isBlank(entry.getKey()) || isBlank(entry.getValue())) {
         throw new IllegalArgumentException("Provided queries must have non-blank keys and values. " + "You provided: "
             + queries);
+      }
 
       try {
         jsonObject.put(trimToEmpty(entry.getKey()), trimToEmpty(entry.getValue()));
@@ -321,9 +326,10 @@ abstract class BaseFacebookClient {
    */
   protected void verifyParameterLegality(Parameter... parameters) {
     for (Parameter parameter : parameters)
-      if (illegalParamNames.contains(parameter.name))
+      if (illegalParamNames.contains(parameter.name)) {
         throw new IllegalArgumentException("Parameter '" + parameter.name + "' is reserved for RestFB use - "
             + "you cannot specify it yourself.");
+      }
   }
 
   /**
@@ -338,8 +344,9 @@ abstract class BaseFacebookClient {
    */
   protected void verifyParameterPresence(String parameterName, String parameter) {
     verifyParameterPresence(parameterName, (Object) parameter);
-    if (parameter.trim().length() == 0)
+    if (parameter.trim().length() == 0) {
       throw new IllegalArgumentException("The '" + parameterName + "' parameter cannot be an empty string.");
+    }
   }
 
   /**
@@ -353,7 +360,8 @@ abstract class BaseFacebookClient {
    *           If {@code parameter} is {@code null}.
    */
   protected void verifyParameterPresence(String parameterName, Object parameter) {
-    if (parameter == null)
+    if (parameter == null) {
       throw new NullPointerException("The '" + parameterName + "' parameter cannot be null.");
+    }
   }
 }

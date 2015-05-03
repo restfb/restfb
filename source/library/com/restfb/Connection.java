@@ -35,7 +35,6 @@ import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
-import com.restfb.util.UrlUtils;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
@@ -87,8 +86,9 @@ public class Connection<T> implements Iterable<List<T>> {
     @Override
     public boolean hasNext() {
       // Special case: initial page will always have data
-      if (initialPage)
+      if (initialPage) {
         return true;
+      }
 
       return connection.hasNext();
     }
@@ -105,9 +105,10 @@ public class Connection<T> implements Iterable<List<T>> {
         return connection.getData();
       }
 
-      if (!connection.hasNext())
+      if (!connection.hasNext()) {
         throw new NoSuchElementException("There are no more pages in the connection.");
-
+      }
+	
       connection = connection.fetchNextPage();
       return connection.getData();
     }
@@ -140,8 +141,9 @@ public class Connection<T> implements Iterable<List<T>> {
   public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
     List<T> data = new ArrayList<T>();
 
-    if (json == null)
+    if (json == null) {
       throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
+    }
 
     JsonObject jsonObject = null;
 
@@ -153,9 +155,10 @@ public class Connection<T> implements Iterable<List<T>> {
 
     // Pull out data
     JsonArray jsonData = jsonObject.getJsonArray("data");
-    for (int i = 0; i < jsonData.length(); i++)
+    for (int i = 0; i < jsonData.length(); i++) {
       data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : facebookClient.getJsonMapper()
         .toJavaObject(jsonData.get(i).toString(), connectionType));
+    }
 
     // Pull out paging info, if present
     if (jsonObject.has("paging")) {
@@ -201,25 +204,16 @@ public class Connection<T> implements Iterable<List<T>> {
     return facebookClient.fetchConnectionPage(getNextPageUrl(), connectionType);
   }
 
-  /**
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return ReflectionUtils.toString(this);
   }
 
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(Object object) {
     return ReflectionUtils.equals(this, object);
   }
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     return ReflectionUtils.hashCode(this);

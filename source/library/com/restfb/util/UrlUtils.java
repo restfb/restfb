@@ -60,8 +60,9 @@ public final class UrlUtils {
    *           If unable to URL-encode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static String urlEncode(String string) {
-    if (string == null)
+    if (string == null) {
       return null;
+    }
     try {
       return encode(string, ENCODING_CHARSET);
     } catch (UnsupportedEncodingException e) {
@@ -82,8 +83,9 @@ public final class UrlUtils {
    * @since 1.6.5
    */
   public static String urlDecode(String string) {
-    if (string == null)
+    if (string == null) {
       return null;
+    }
     try {
       return decode(string, ENCODING_CHARSET);
     } catch (UnsupportedEncodingException e) {
@@ -104,8 +106,9 @@ public final class UrlUtils {
    *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static Map<String, List<String>> extractParametersFromQueryString(String queryString) {
-    if (queryString == null)
+    if (queryString == null) {
       return emptyMap();
+    }
 
     // If there is no ? character at the front of the string, append it.
     return extractParametersFromUrl(format("restfb://url%s", queryString.startsWith("?") ? queryString : "?"
@@ -126,8 +129,9 @@ public final class UrlUtils {
    *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static Map<String, List<String>> extractParametersFromUrl(String url) {
-    if (url == null)
+    if (url == null) {
       return emptyMap();
+    }
 
     Map<String, List<String>> parameters = new HashMap<String, List<String>>();
 
@@ -141,8 +145,9 @@ public final class UrlUtils {
         String key = urlDecode(pair[0]);
         String value = "";
 
-        if (pair.length > 1)
+        if (pair.length > 1) {
           value = urlDecode(pair[1]);
+        }
 
         List<String> values = parameters.get(key);
 

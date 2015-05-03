@@ -237,8 +237,9 @@ public class DefaultWebRequestor implements WebRequestor {
    *          The resource to close.
    */
   protected void closeQuietly(Closeable closeable) {
-    if (closeable == null)
+    if (closeable == null) {
       return;
+    }
     try {
       closeable.close();
     } catch (Throwable t) {
@@ -258,8 +259,9 @@ public class DefaultWebRequestor implements WebRequestor {
    *          The connection to close.
    */
   protected void closeQuietly(HttpURLConnection httpUrlConnection) {
-    if (httpUrlConnection == null)
+    if (httpUrlConnection == null) {
       return;
+    }
     try {
       httpUrlConnection.disconnect();
     } catch (Throwable t) {
@@ -289,7 +291,7 @@ public class DefaultWebRequestor implements WebRequestor {
       throw new NullPointerException("Must provide non-null source and destination streams.");
     }
 
-    int read = 0;
+    int read;
     byte[] chunk = new byte[bufferSize];
     while ((read = source.read(chunk)) > 0)
       destination.write(chunk, 0, read);

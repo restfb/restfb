@@ -77,8 +77,9 @@ public final class StringUtils {
    *         version is a blank string.
    */
   public static String trimToNull(String string) {
-    if (isBlank(string))
+    if (isBlank(string)) {
       return null;
+    }
     return string.trim();
   }
 
@@ -92,8 +93,9 @@ public final class StringUtils {
    *         version is a blank string.
    */
   public static String trimToEmpty(String string) {
-    if (isBlank(string))
+    if (isBlank(string)) {
       return "";
+    }
     return string.trim();
   }
 
@@ -111,8 +113,9 @@ public final class StringUtils {
    *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
-    if (string == null)
+    if (string == null) {
       throw new NullPointerException("Parameter 'string' cannot be null.");
+    }
 
     try {
       return string.getBytes(ENCODING_CHARSET);
@@ -135,8 +138,9 @@ public final class StringUtils {
    * @since 1.6.13
    */
   public static String toString(byte[] data) {
-    if (data == null)
+    if (data == null) {
       throw new NullPointerException("Parameter 'data' cannot be null.");
+    }
 
     try {
       return new String(data, ENCODING_CHARSET);
@@ -156,8 +160,9 @@ public final class StringUtils {
    *           If an error occurs while processing the {@code inputStream}.
    */
   public static String fromInputStream(InputStream inputStream) throws IOException {
-    if (inputStream == null)
+    if (inputStream == null) {
       return null;
+    }
 
     BufferedReader reader = null;
 
@@ -171,14 +176,16 @@ public final class StringUtils {
 
       return response.toString();
     } finally {
-      if (reader != null)
+      if (reader != null) {
         try {
           reader.close();
         } catch (Throwable t) {
           // Really nothing we can do but log the error
-          if (logger.isLoggable(WARNING))
+          if (logger.isLoggable(WARNING)) {
             logger.warning("Unable to close stream, continuing on: " + t);
+          }
         }
+      }
     }
   }
 
@@ -201,17 +208,19 @@ public final class StringUtils {
    * @return A comma-separated string representation of the given {@code list}.
    */
   public static String join(List<String> list) {
-    if (list == null)
+    if (list == null) {
       return null;
+    }
 
     StringBuilder joined = new StringBuilder();
     boolean first = true;
 
     for (String element : list) {
-      if (first)
+      if (first) {
         first = false;
-      else
+      } else {
         joined.append(",");
+      }
       joined.append(element);
     }
 
@@ -228,8 +237,9 @@ public final class StringUtils {
    *         not a valid {@code Integer}.
    */
   public static Integer toInteger(String string) {
-    if (string == null)
+    if (string == null) {
       return null;
+    }
 
     try {
       return parseInt(string);

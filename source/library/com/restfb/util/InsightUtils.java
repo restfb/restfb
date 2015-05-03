@@ -143,9 +143,10 @@ public class InsightUtils {
               result.put(metricName, resultByDate);
             }
 
-            if (resultByDate.put(date, metricValue) != null)
+            if (resultByDate.put(date, metricValue) != null) {
               throw new IllegalStateException(format(
                 "MultiQuery response has two results for metricName: %s and date: %s", metricName, date));
+	    }
           } catch (JsonException e) {
             throw new FacebookJsonMappingException(format("Could not decode result for %s: %s", metricResult,
               e.getMessage()), e);
@@ -202,22 +203,27 @@ public class InsightUtils {
    */
   public static SortedMap<Date, JsonArray> executeInsightQueriesByDate(FacebookClient facebookClient,
       String pageObjectId, Set<String> metrics, Period period, Set<Date> periodEndDates) {
-    if (facebookClient == null)
+    if (facebookClient == null) {
       throw new IllegalArgumentException("The 'facebookClient' parameter is required.");
-
-    if (isBlank(pageObjectId))
+    }
+      
+    if (isBlank(pageObjectId)) {
       throw new IllegalArgumentException(
         "The 'pageObjectId' parameter should be a non-empty string, probably a positive number.");
-
-    if (isEmpty(metrics))
+    }
+      
+    if (isEmpty(metrics)) {
       throw new IllegalArgumentException("The 'metrics' set should be non-empty.");
-
-    if (period == null)
+    }
+      
+    if (period == null) {
       throw new IllegalArgumentException("The 'period' parameter is required.");
-
-    if (isEmpty(periodEndDates))
+    }
+      
+    if (isEmpty(periodEndDates)) {
       throw new IllegalArgumentException("The 'periodEndDates' set should be non-empty");
-
+    }
+    
     // put dates into an array where we can easily access the index of each
     // date, as these ordinal positions will be used as query identifiers
     // in the MultiQuery
@@ -246,8 +252,9 @@ public class InsightUtils {
           // resolve the map key back into a date
           int queryIndex = Integer.parseInt(key);
           Date d = datesByQueryIndex.get(queryIndex);
-          if (d == null)
+          if (d == null) {
             throw new IllegalStateException("MultiQuery response had an unexpected key value: " + key);
+	  }
 
           result.put(d, innerResult);
         } catch (NumberFormatException nfe) {
@@ -295,8 +302,9 @@ public class InsightUtils {
       int metricCount = 0;
       for (String metric : metrics) {
         if (!isBlank(metric)) {
-          if (metricCount > 0)
+          if (metricCount > 0) {
             in.append(',');
+	  }
 
           in.append('\'');
           in.append(metric.trim());
@@ -320,13 +328,15 @@ public class InsightUtils {
    * @see #convertToMidnightInPacificTimeZone(Set)
    */
   public static Date convertToMidnightInPacificTimeZone(Date date) {
-    if (date == null)
+    if (date == null) {
       throw new IllegalArgumentException("The 'date' parameter is required.");
+    }
 
     Set<Date> convertedDates = convertToMidnightInPacificTimeZone(singleton(date));
 
-    if (convertedDates.size() != 1)
+    if (convertedDates.size() != 1) {
       throw new IllegalStateException("Internal error, expected 1 date.");
+    }
 
     return convertedDates.iterator().next();
   }

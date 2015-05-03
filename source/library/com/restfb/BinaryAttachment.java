@@ -58,14 +58,16 @@ public class BinaryAttachment {
    *          The attachment's data.
    * @throws IllegalArgumentException
    *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
-   * @deprecated use the stream-less API passing a {@code byte[]} for data          
+   * @deprecated use the stream-less API passing a {@code byte[]} for data
    */
   @Deprecated
   protected BinaryAttachment(String filename, InputStream data) {
-    if (isBlank(filename))
+    if (isBlank(filename)) {
       throw new IllegalArgumentException("Binary attachment filename cannot be blank.");
-    if (data == null)
+    }
+    if (data == null) {
       throw new IllegalArgumentException("Binary attachment data cannot be null.");
+    }
 
     this.filename = filename;
     this.dataStream = data;
@@ -92,7 +94,7 @@ public class BinaryAttachment {
     if (isBlank(contentType)) {
       throw new IllegalArgumentException("ContentType cannot be null.");
     }
-    
+
     this.contentType = contentType;
   }
 
@@ -131,7 +133,7 @@ public class BinaryAttachment {
   public static BinaryAttachment with(String filename, InputStream data, String contentType) {
     return new BinaryAttachment(filename, data, contentType);
   }
-  
+
   /**
    * Creates a new binary attachment.
    * 
@@ -144,15 +146,17 @@ public class BinaryAttachment {
    * @since 1.6.17
    */
   protected BinaryAttachment(String filename, byte[] data) {
-    if (isBlank(filename))
+    if (isBlank(filename)) {
       throw new IllegalArgumentException("Binary attachment filename cannot be blank.");
-    if (data == null)
+    }
+    if (data == null) {
       throw new IllegalArgumentException("Binary attachment data cannot be null.");
-    
+    }
+
     this.filename = filename;
     this.data = data;
   }
-  
+
   /**
    * Creates a new binary attachment.
    * 
@@ -172,10 +176,10 @@ public class BinaryAttachment {
     if (isBlank(contentType)) {
       throw new IllegalArgumentException("ContentType cannot be null.");
     }
-    
+
     this.contentType = contentType;
   }
-  
+
   /**
    * Creates a binary attachment.
    * 
@@ -191,7 +195,7 @@ public class BinaryAttachment {
   public static BinaryAttachment with(String filename, byte[] data) {
     return new BinaryAttachment(filename, data);
   }
-  
+
   /**
    * Creates a binary attachment.
    * 
@@ -210,25 +214,16 @@ public class BinaryAttachment {
     return new BinaryAttachment(filename, data, contentType);
   }
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     return ReflectionUtils.hashCode(this);
   }
 
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(Object that) {
     return ReflectionUtils.equals(this, that);
   }
 
-  /**
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return format("[filename=%s]", getFilename());

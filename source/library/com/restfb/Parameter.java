@@ -62,12 +62,14 @@ public final class Parameter {
    *           {@code null}.
    */
   private Parameter(String name, Object value, JsonMapper jsonMapper) {
-    if (isBlank(name) || value == null)
+    if (isBlank(name) || value == null) {
       throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value.");
-
-    if (jsonMapper == null)
+    }
+      
+    if (jsonMapper == null) {
       throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");
-
+    }
+      
     this.name = trimToEmpty(name).toLowerCase();
 
     // Special handling for Date types - turn them into Facebook date strings.
@@ -114,6 +116,8 @@ public final class Parameter {
    *          The parameter name.
    * @param value
    *          The parameter value.
+   * @param jsonMapper 
+   *	The jsonMapper
    * @return A {@code Parameter} instance with the given {@code name} and {@code value}.
    * @throws IllegalArgumentException
    *           If {@code name} or {@code value} is {@code null} or a blank string.
@@ -129,24 +133,25 @@ public final class Parameter {
    */
   @Override
   public boolean equals(Object obj) {
-    if (obj == null)
+    if (obj == null) {
       return false;
-    if (!getClass().equals(obj.getClass()))
+    }
+    if (!getClass().equals(obj.getClass())) {
       return false;
+    }
 
     Parameter other = (Parameter) obj;
 
-    if (this.name != other.name && (!this.name.equals(other.name)))
+    if (this.name != other.name && (!this.name.equals(other.name))) {
       return false;
-    if (this.value != other.value && (!this.value.equals(other.value)))
+    }
+    if (this.value != other.value && (!this.value.equals(other.value))) {
       return false;
+    }
 
     return true;
   }
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     int hash = 7;
@@ -155,9 +160,6 @@ public final class Parameter {
     return hash;
   }
 
-  /**
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return format("Parameter[%s=%s]", name, value);

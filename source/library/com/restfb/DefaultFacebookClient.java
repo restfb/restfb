@@ -383,7 +383,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
-    String connectionJson = null;
+    String connectionJson;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
       connectionJson = makeRequestAndProcessResponse(new Requestor() {
         @Override
@@ -423,19 +423,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("ids", ids);
     verifyParameterPresence("connectionType", objectType);
 
-    if (ids.isEmpty())
+    if (ids.isEmpty()) {
       throw new IllegalArgumentException("The list of IDs cannot be empty.");
+    }
 
-    for (Parameter parameter : parameters)
-      if (IDS_PARAM_NAME.equals(parameter.name))
+    for (Parameter parameter : parameters) {
+      if (IDS_PARAM_NAME.equals(parameter.name)) {
         throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
             + "RestFB will populate this for you with " + "the list of IDs you passed to this method.");
+      }
+    }
 
     // Normalize the IDs
     for (int i = 0; i < ids.size(); i++) {
       String id = ids.get(i).trim().toLowerCase();
-      if ("".equals(id))
+      if ("".equals(id)) {
         throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
+      }
+
       ids.set(i, id);
     }
 
@@ -495,11 +500,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("objectType", objectType);
 
-    for (Parameter parameter : parameters)
-      if (QUERIES_PARAM_NAME.equals(parameter.name))
+    for (Parameter parameter : parameters) {
+      if (QUERIES_PARAM_NAME.equals(parameter.name)) {
         throw new IllegalArgumentException("You cannot specify the '" + QUERIES_PARAM_NAME
             + "' URL parameter yourself - " + "RestFB will populate this for you with "
             + "the queries you passed to this method.");
+      }
+    }
 
     try {
       JsonArray jsonArray =
@@ -536,11 +543,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("query", query);
     verifyParameterPresence("objectType", objectType);
 
-    for (Parameter parameter : parameters)
-      if (QUERY_PARAM_NAME.equals(parameter.name))
+    for (Parameter parameter : parameters) {
+      if (QUERY_PARAM_NAME.equals(parameter.name)) {
         throw new IllegalArgumentException("You cannot specify the '" + QUERY_PARAM_NAME
             + "' URL parameter yourself - " + "RestFB will populate this for you with "
             + "the query you passed to this method.");
+      }
+    }
 
     return jsonMapper.toJavaList(
       makeRequest("fql.query", false, false, null,
@@ -555,11 +564,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("query", query);
     verifyParameterPresence("objectType", objectType);
 
-    for (Parameter parameter : parameters)
-      if (FQL_QUERY_PARAM_NAME.equals(parameter.name))
+    for (Parameter parameter : parameters) {
+      if (FQL_QUERY_PARAM_NAME.equals(parameter.name)) {
         throw new IllegalArgumentException("You cannot specify the '" + FQL_QUERY_PARAM_NAME
             + "' URL parameter yourself - " + "RestFB will populate this for you with "
             + "the query you passed to this method.");
+      }
+    }
 
     return jsonMapper.toJavaList(
       makeRequest("fql", false, false, null,
@@ -589,11 +600,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> T executeFqlMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("objectType", objectType);
 
-    for (Parameter parameter : parameters)
-      if (FQL_QUERY_PARAM_NAME.equals(parameter.name))
+    for (Parameter parameter : parameters) {
+      if (FQL_QUERY_PARAM_NAME.equals(parameter.name)) {
         throw new IllegalArgumentException("You cannot specify the '" + FQL_QUERY_PARAM_NAME
             + "' URL parameter yourself - " + "RestFB will populate this for you with "
             + "the queries you passed to this method.");
+      }
+    }
 
     try {
       List<JsonObject> jsonObjects =
@@ -650,8 +663,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments) {
     verifyParameterPresence("binaryAttachments", binaryAttachments);
 
-    if (batchRequests == null || batchRequests.size() == 0)
+    if (batchRequests == null || batchRequests.isEmpty()) {
       throw new IllegalArgumentException("You must specify at least one batch request.");
+    }
 
     return jsonMapper.toJavaList(
       makeRequest("", true, false, binaryAttachments, Parameter.with("batch", jsonMapper.toJson(batchRequests, true))),
@@ -667,8 +681,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("secretKey", secretKey);
 
-    if (sessionKeys == null || sessionKeys.length == 0)
+    if (sessionKeys == null || sessionKeys.length == 0) {
       return emptyList();
+    }
 
     String json =
         makeRequest("/oauth/exchange_sessions", true, false, null, Parameter.with("client_id", appId),
@@ -735,10 +750,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @since 1.6.10
    */
   public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {
-    if (accessToken == null)
+    if (accessToken == null) {
       throw new IllegalStateException(format(
         "You cannot call this method because you did not construct this instance of %s with an access token.",
         getClass().getSimpleName()));
+    }
 
     return obtainExtendedAccessToken(appId, appSecret, accessToken);
   }
@@ -781,9 +797,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String[] signedRequestTokens = signedRequest.split("[.]");
 
-    if (signedRequestTokens.length != 2)
+    if (signedRequestTokens.length != 2) {
       throw new FacebookSignedRequestParsingException(format(
         "Signed request '%s' is expected to be signature and payload strings separated by a '.'", signedRequest));
+    }
 
     String encodedSignature = signedRequestTokens[0];
     String urlDecodedSignature = urlDecodeSignedRequestToken(encodedSignature);
@@ -796,14 +813,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // Convert payload to a JsonObject so we can pull algorithm data out of it
     JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);
 
-    if (!payloadObject.has("algorithm"))
+    if (!payloadObject.has("algorithm")) {
       throw new FacebookSignedRequestParsingException("Unable to detect algorithm used for signed request");
+    }
 
     String algorithm = payloadObject.getString("algorithm");
 
-    if (!verifySignedRequest(appSecret, algorithm, encodedPayload, signature))
+    if (!verifySignedRequest(appSecret, algorithm, encodedPayload, signature)) {
       throw new FacebookSignedRequestVerificationException(
         "Signed request verification failed. Are you sure the request was made for the app identified by the app secret you provided?");
+    }
 
     // Marshal to the user's preferred type.
     // If the user asked for a JsonObject, send back the one we already parsed.
@@ -858,8 +877,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("signature", signature);
 
     // Normalize algorithm name...FB calls it differently than Java does
-    if ("HMAC-SHA256".equalsIgnoreCase(algorithm))
+    if ("HMAC-SHA256".equalsIgnoreCase(algorithm)) {
       algorithm = "HMACSHA256";
+    }
 
     try {
       Mac mac = Mac.getInstance(algorithm);
@@ -948,8 +968,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       parameters = parametersWithAdditionalParameter(Parameter.with(METHOD_PARAM_NAME, "delete"), parameters);
     }
 
-    if (!endpoint.startsWith("/"))
+    if (!endpoint.startsWith("/")) {
       endpoint = "/" + endpoint;
+    }
 
     final String fullEndpoint =
         createEndpointForApiCall(endpoint, binaryAttachments != null && binaryAttachments.size() > 0);
@@ -959,6 +980,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       /**
        * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
        */
+      @Override
       public Response makeRequest() throws IOException {
         if (executeAsDelete && !isHttpDeleteFallback()) {
           return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
@@ -1036,8 +1058,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (HTTP_OK != response.getStatusCode() && HTTP_BAD_REQUEST != response.getStatusCode()
         && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_NOT_FOUND != response.getStatusCode()
         && HTTP_INTERNAL_ERROR != response.getStatusCode() && HTTP_FORBIDDEN != response.getStatusCode()
-        && HTTP_NOT_MODIFIED != response.getStatusCode())
+        && HTTP_NOT_MODIFIED != response.getStatusCode()) {
       throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
+    }
 
     String json = response.getBody();
 
@@ -1046,8 +1069,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     // If there was no response error information and this was a 500 or 401
     // error, something weird happened on Facebook's end. Bail.
-    if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode())
+    if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode()) {
       throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
+    }
 
     return json;
   }
@@ -1192,13 +1216,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      */
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
         Integer httpStatusCode, String type, String message, String errorUserTitle, String errorUserMessage) {
-      if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type))
+      if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type)) {
         return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
           errorUserMessage);
+      }
 
-      if ("QueryParseException".equals(type))
+      if ("QueryParseException".equals(type)) {
         return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
           errorUserMessage);
+      }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
@@ -1232,13 +1258,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs when building the parameter string.
    */
   protected String toParameterString(boolean withJsonParameter, Parameter... parameters) {
-    if (!isBlank(accessToken))
+    if (!isBlank(accessToken)) {
       parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
+    }
 
-    if (!isBlank(accessToken) && !isBlank(appSecret))
+    if (!isBlank(accessToken) && !isBlank(appSecret)) {
       parameters =
           parametersWithAdditionalParameter(
             Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);
+    }
 
     if (withJsonParameter) {
       parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
@@ -1248,10 +1276,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     boolean first = true;
 
     for (Parameter parameter : parameters) {
-      if (first)
+      if (first) {
         first = false;
-      else
+      } else {
         parameterStringBuilder.append("&");
+      }
 
       parameterStringBuilder.append(urlEncode(parameter.name));
       parameterStringBuilder.append("=");

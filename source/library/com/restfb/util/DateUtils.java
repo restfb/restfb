@@ -87,20 +87,23 @@ public final class DateUtils {
    *         is {@code null} or invalid.
    */
   public static Date toDateFromLongFormat(String date) {
-    if (date == null)
+    if (date == null) {
       return null;
+    }
 
     // Is this an all-digit date? Then assume it's the "seconds since epoch"
     // variant
-    if (date.trim().matches("\\d+"))
+    if (date.trim().matches("\\d+")) {
       return new Date(Long.parseLong(date) * 1000L);
+    }
 
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
 
     // Fall back to variant without timezone if the initial parse fails
-    if (parsedDate == null)
+    if (parsedDate == null) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE);
-
+    }
+      
     return parsedDate;
   }
 
@@ -113,15 +116,17 @@ public final class DateUtils {
    *         is {@code null} or invalid.
    */
   public static Date toDateFromShortFormat(String date) {
-    if (date == null)
+    if (date == null) {
       return null;
+    }
 
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
 
     // Fall back to variant if initial parse fails
-    if (parsedDate == null)
+    if (parsedDate == null) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT);
-
+    }
+      
     return parsedDate;
   }
 
@@ -134,11 +139,13 @@ public final class DateUtils {
    *         {@code date} is {@code null} or invalid.
    */
   public static Date toDateFromMonthYearFormat(String date) {
-    if (date == null)
+    if (date == null) {
       return null;
+    }
 
-    if ("0000-00".equals(date))
+    if ("0000-00".equals(date)) {
       return null;
+    }
 
     return toDateWithFormatString(date, FACEBOOK_MONTH_YEAR_DATE_FORMAT);
   }
@@ -152,15 +159,17 @@ public final class DateUtils {
    *         or invalid.
    */
   private static Date toDateWithFormatString(String date, String format) {
-    if (date == null)
+    if (date == null) {
       return null;
+    }
 
     try {
       return strategy.formatFor(format).parse(date);
     } catch (ParseException e) {
-      if (logger.isLoggable(FINER))
+      if (logger.isLoggable(FINER)) {
         logger.fine(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
-
+      }
+	
       return null;
     }
   }

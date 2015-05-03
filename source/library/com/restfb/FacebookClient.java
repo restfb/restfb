@@ -431,6 +431,7 @@ public interface FacebookClient {
    *          The secret for the app that can read this signed request.
    * @param objectType
    *          Object type token.
+   * @param <T> class of objectType
    * @return An instance of type {@code objectType} which contains the decoded object embedded within
    *         {@code signedRequest}.
    * @throws FacebookSignedRequestParsingException
@@ -523,6 +524,7 @@ public interface FacebookClient {
    * 
    * @param next
    *          may be null, url the webpage should redirect after logout
+   * @return the logout url
    * @since 1.9.0
    */
   String getLogoutUrl(String next);
@@ -622,25 +624,16 @@ public interface FacebookClient {
       return accessToken;
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
       return ReflectionUtils.hashCode(this);
     }
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object that) {
       return ReflectionUtils.equals(this, that);
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
       return ReflectionUtils.toString(this);
@@ -771,25 +764,16 @@ public interface FacebookClient {
       return userId;
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
       return ReflectionUtils.hashCode(this);
     }
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object that) {
       return ReflectionUtils.equals(this, that);
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
       return ReflectionUtils.toString(this);
