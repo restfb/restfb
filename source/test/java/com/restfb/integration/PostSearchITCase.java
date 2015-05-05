@@ -34,22 +34,12 @@ import org.junit.Test;
 
 public class PostSearchITCase extends RestFbIntegrationTestBase {
 
-  @Test
-  public void tesPostSearchV1_0() {
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_1_0);
-    Connection publicSearch =
-        facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
-          Parameter.with("type", "post"));
-
-    assertNotNull(((Post) publicSearch.getData().get(0)).getId());
-  }
-
   @Test(expected = FacebookOAuthException.class)
   public void tesPostSearchV2_0() {
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_0);
-    Connection publicSearch =
-        facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
-          Parameter.with("type", "post"));
+    DefaultFacebookClient facebookClient =
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_0);
+    facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
+      Parameter.with("type", "post"));
 
     fail("facebook should not allow this public search");
   }
