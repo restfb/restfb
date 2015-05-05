@@ -40,6 +40,7 @@ import com.restfb.Facebook;
 import com.restfb.FacebookClient;
 import com.restfb.JsonMapper;
 import com.restfb.Parameter;
+import com.restfb.Version;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Page;
@@ -57,7 +58,8 @@ public class GraphReaderExample extends Example {
   /**
    * RestFB Graph API client.
    */
-  private final FacebookClient facebookClient;
+  private final FacebookClient facebookClient23;
+  private final FacebookClient facebookClient20;
 
   /**
    * Entry point. You must provide a single argument on the command line: a valid Graph API access token.
@@ -76,7 +78,8 @@ public class GraphReaderExample extends Example {
   }
 
   GraphReaderExample(String accessToken) {
-    facebookClient = new DefaultFacebookClient(accessToken);
+    facebookClient23 = new DefaultFacebookClient(accessToken, Version.VERSION_2_3);
+    facebookClient20 = new DefaultFacebookClient(accessToken, Version.VERSION_2_0);
   }
 
   void runEverything() {
@@ -98,8 +101,8 @@ public class GraphReaderExample extends Example {
   void fetchObject() {
     out.println("* Fetching single objects *");
 
-    User user = facebookClient.fetchObject("me", User.class);
-    Page page = facebookClient.fetchObject("cocacola", Page.class);
+    User user = facebookClient23.fetchObject("me", User.class);
+    Page page = facebookClient23.fetchObject("cocacola", Page.class);
 
     out.println("User name: " + user.getName());
     out.println("Page likes: " + page.getLikes());
@@ -109,15 +112,17 @@ public class GraphReaderExample extends Example {
     out.println("* Fetching multiple objects at once as a JsonObject *");
 
     List<String> ids = new ArrayList<String>();
-    ids.add("btaylor");
+    ids.add("4");
     ids.add("http://www.imdb.com/title/tt0117500/");
 
     // Make the API call
-    JsonObject results = facebookClient.fetchObjects(ids, JsonObject.class);
+    JsonObject results = facebookClient23.fetchObjects(ids, JsonObject.class);
 
+      System.out.println(results.toString(3));
+    
     // Pull out JSON data by key and map each type by hand.
     JsonMapper jsonMapper = new DefaultJsonMapper();
-    User user = jsonMapper.toJavaObject(results.getString("btaylor"), User.class);
+    User user = jsonMapper.toJavaObject(results.getString("4"), User.class);
     Url url = jsonMapper.toJavaObject(results.getString("http://www.imdb.com/title/tt0117500/"), Url.class);
 
     out.println("User is " + user);
@@ -128,7 +133,7 @@ public class GraphReaderExample extends Example {
     out.println("* Fetching multiple objects at once *");
 
     FetchObjectsResults fetchObjectsResults =
-        facebookClient.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
+        facebookClient23.fetchObjects(Arrays.asList("me", "cocacola"), FetchObjectsResults.class);
 
     out.println("User name: " + fetchObjectsResults.me.getName());
     out.println("Page likes: " + fetchObjectsResults.page.getLikes());
@@ -137,10 +142,10 @@ public class GraphReaderExample extends Example {
   void fetchDifferentDataTypesAsJsonObject() {
     out.println("* Fetching different types of data as JsonObject *");
 
-    JsonObject btaylor = facebookClient.fetchObject("btaylor", JsonObject.class);
-    out.println(btaylor.getString("name"));
+    JsonObject zuck = facebookClient23.fetchObject("4", JsonObject.class);
+    out.println(zuck.getString("name"));
 
-    JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject.class);
+    JsonObject photosConnection = facebookClient23.fetchObject("me/photos", JsonObject.class);
     JsonArray photosConnectionData = photosConnection.getJsonArray("data");
 
     if (photosConnectionData.length() > 0) {
@@ -148,8 +153,8 @@ public class GraphReaderExample extends Example {
       out.println(firstPhotoUrl);
     }
 
-    String query = "SELECT uid, name FROM user WHERE uid=220439 or uid=7901103";
-    List<JsonObject> queryResults = facebookClient.executeQuery(query, JsonObject.class);
+    String query = "SELECT uid, name FROM user WHERE uid=4 or uid=11";
+    List<JsonObject> queryResults = facebookClient20.executeFqlQuery(query, JsonObject.class);
 
     if (queryResults.size() > 0)
       out.println(queryResults.get(0).getString("name"));
@@ -169,8 +174,8 @@ public class GraphReaderExample extends Example {
   void fetchConnections() {
     out.println("* Fetching connections *");
 
-    Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
-    Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
+    Connection<User> myFriends = facebookClient23.fetchConnection("me/friends", User.class);
+    Connection<Post> myFeed = facebookClient23.fetchConnection("me/feed", Post.class);
 
     out.println("Count of my friends: " + myFriends.getData().size());
 
@@ -182,7 +187,7 @@ public class GraphReaderExample extends Example {
     out.println("* FQL Query *");
 
     List<FqlUser> users =
-        facebookClient.executeQuery("SELECT uid, name FROM user WHERE uid=220439 or uid=7901103", FqlUser.class);
+        facebookClient20.executeFqlQuery("SELECT uid, name FROM user WHERE uid=4 or uid=11", FqlUser.class);
 
     out.println("User: " + users);
   }
@@ -191,10 +196,10 @@ public class GraphReaderExample extends Example {
     out.println("* FQL Multiquery *");
 
     Map<String, String> queries = new HashMap<String, String>();
-    queries.put("users", "SELECT uid, name FROM user WHERE uid=220439 OR uid=7901103");
+    queries.put("users", "SELECT uid, name FROM user WHERE uid=4 OR uid=11");
     queries.put("likers", "SELECT user_id FROM like WHERE object_id=122788341354");
 
-    MultiqueryResults multiqueryResults = facebookClient.executeMultiquery(queries, MultiqueryResults.class);
+    MultiqueryResults multiqueryResults = facebookClient20.executeFqlMultiquery(queries, MultiqueryResults.class);
 
     out.println("Users: " + multiqueryResults.users);
     out.println("People who liked: " + multiqueryResults.likers);
@@ -247,16 +252,16 @@ public class GraphReaderExample extends Example {
   void search() {
     out.println("* Searching connections *");
 
-    Connection<Post> publicSearch =
-        facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
-          Parameter.with("type", "post"));
+//    Connection<Post> publicSearch =
+//        facebookClient23.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
+//          Parameter.with("type", "post"));
 
     Connection<User> targetedSearch =
-        facebookClient.fetchConnection("me/home", User.class, Parameter.with("q", "Mark"),
+        facebookClient23.fetchConnection("search", User.class, Parameter.with("q", "Mark"),
           Parameter.with("type", "user"));
 
-    if (publicSearch.getData().size() > 0)
-      out.println("Public search: " + publicSearch.getData().get(0).getMessage());
+//    if (publicSearch.getData().size() > 0)
+//      out.println("Public search: " + publicSearch.getData().get(0).getMessage());
 
     out.println("Posts on my wall by friends named Mark: " + targetedSearch.getData().size());
   }
@@ -264,7 +269,7 @@ public class GraphReaderExample extends Example {
   void metadata() {
     out.println("* Metadata *");
 
-    User userWithMetadata = facebookClient.fetchObject("me", User.class, Parameter.with("metadata", 1));
+    User userWithMetadata = facebookClient23.fetchObject("me", User.class, Parameter.with("metadata", 1));
 
     out.println("User metadata: has albums? " + userWithMetadata.getMetadata().getConnections().hasAlbums());
   }
@@ -272,8 +277,8 @@ public class GraphReaderExample extends Example {
   void paging() {
     out.println("* Paging support *");
 
-    Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
-    Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class, Parameter.with("limit", 100));
+    Connection<User> myFriends = facebookClient23.fetchConnection("me/friends", User.class);
+    Connection<Post> myFeed = facebookClient23.fetchConnection("me/feed", Post.class, Parameter.with("limit", 100));
 
     out.println("Count of my friends: " + myFriends.getData().size());
 
@@ -288,7 +293,7 @@ public class GraphReaderExample extends Example {
   void selection() {
     out.println("* Selecting specific fields *");
 
-    User user = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id,name"));
+    User user = facebookClient23.fetchObject("me", User.class, Parameter.with("fields", "id,name"));
 
     out.println("User name: " + user.getName());
   }
@@ -299,7 +304,7 @@ public class GraphReaderExample extends Example {
     Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
 
     Connection<Post> filteredFeed =
-        facebookClient.fetchConnection("me/feed", Post.class, Parameter.with("limit", 3),
+        facebookClient23.fetchConnection("me/feed", Post.class, Parameter.with("limit", 3),
           Parameter.with("until", "yesterday"), Parameter.with("since", oneWeekAgo));
 
     out.println("Filtered feed count: " + filteredFeed.getData().size());
@@ -307,6 +312,6 @@ public class GraphReaderExample extends Example {
 
   void rawJsonResponse() {
     out.println("* Raw JSON *");
-    out.println("User object JSON: " + facebookClient.fetchObject("me", String.class));
+    out.println("User object JSON: " + facebookClient23.fetchObject("me", String.class));
   }
 }
