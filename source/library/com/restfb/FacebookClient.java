@@ -24,10 +24,12 @@ package com.restfb;
 
 import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static java.lang.String.format;
+import static java.util.Collections.unmodifiableList;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
@@ -431,7 +433,8 @@ public interface FacebookClient {
    *          The secret for the app that can read this signed request.
    * @param objectType
    *          Object type token.
-   * @param <T> class of objectType
+   * @param <T>
+   *          class of objectType
    * @return An instance of type {@code objectType} which contains the decoded object embedded within
    *         {@code signedRequest}.
    * @throws FacebookSignedRequestParsingException
@@ -706,7 +709,10 @@ public interface FacebookClient {
     @Facebook("user_id")
     private String userId;
 
-    // FIXME let's read 'scopes' and 'metadata' if they exist. They are a nested structure...
+    @Facebook
+    private List<String> scopes = new ArrayList<String>();
+
+    // FIXME let's read 'metadata' if it exist. It's a nested structure...
 
     /**
      * The application id.
@@ -762,6 +768,15 @@ public interface FacebookClient {
      */
     public String getUserId() {
       return userId;
+    }
+
+    /**
+     * List of scopes the access token 'contains'
+     * 
+     * @return list of scopes
+     */
+    public List<String> getScopes() {
+      return unmodifiableList(scopes);
     }
 
     @Override
