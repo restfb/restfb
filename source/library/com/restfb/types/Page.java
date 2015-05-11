@@ -272,6 +272,17 @@ public class Page extends CategorizedFacebookType {
   private String hometown;
 
   /**
+   * Opening hours
+   *
+   * @since 1.10.1
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Hours hours;
+
+
+  /**
    * Legal information about the Page publishers.
    * 
    * @since 1.10.0
