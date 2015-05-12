@@ -236,7 +236,9 @@ public class User extends NamedFacebookType {
    * 
    * @return The user's Facebook username.
    * @since 1.6.5
+   * @deprecated since graph api 2.0
    */
+  @Deprecated
   @Getter
   @Setter
   @Facebook
