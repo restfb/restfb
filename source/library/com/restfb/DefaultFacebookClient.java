@@ -720,7 +720,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("appSecret", appSecret);
     verifyParameterPresence("verificationCode", verificationCode);
-    verifyParameterPresence("redirectUri", redirectUri);
 
     String response =
         makeRequest("oauth/access_token", Parameter.with("client_id", appId),
