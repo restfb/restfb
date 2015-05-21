@@ -36,8 +36,10 @@ import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
 import com.restfb.exception.FacebookSignedRequestParsingException;
 import com.restfb.exception.FacebookSignedRequestVerificationException;
+import com.restfb.json.JsonObject;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.util.ReflectionUtils;
+import java.io.Serializable;
 
 /**
  * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client must operate.
@@ -690,11 +692,11 @@ public interface FacebookClient {
    * 
    * @author Broc Seib
    */
-  public static class DebugTokenInfo {
+  public static class DebugTokenInfo implements Serializable {
     @Facebook("app_id")
     private String appId;
 
-    @Facebook("application")
+    @Facebook
     private String application;
 
     @Facebook("expires_at")
@@ -708,6 +710,15 @@ public interface FacebookClient {
 
     @Facebook("user_id")
     private String userId;
+
+    @Facebook("profile_id")
+    private String profileId;
+
+    @Facebook
+    private JsonObject metadata;
+
+    @Facebook
+    private DebugTokenError error;
 
     @Facebook
     private List<String> scopes = new ArrayList<String>();
@@ -777,6 +788,69 @@ public interface FacebookClient {
      */
     public List<String> getScopes() {
       return unmodifiableList(scopes);
+    }
+
+    /**
+     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'
+     * 
+     * @return General metadata associated with the access token
+     */
+    public JsonObject getMetaData() {
+      return metadata;
+    }
+
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
+  public static class DebugTokenError implements Serializable {
+
+    @Facebook
+    private Integer code;
+
+    @Facebook
+    private String message;
+
+    @Facebook
+    private Integer subcode;
+
+    /**
+     * The error code for the error.
+     * 
+     * @return The error code for the error.
+     */
+    public Integer getCode() {
+      return code;
+    }
+
+    /**
+     * The error message for the error.
+     * 
+     * @return The error message for the error.
+     */
+    public String getMessage() {
+      return message;
+    }
+
+    /**
+     * The error subcode for the error.
+     * 
+     * @return The error subcode for the error.
+     */
+    public Integer getSubcode() {
+      return subcode;
     }
 
     @Override
