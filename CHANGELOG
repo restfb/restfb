@@ -1,3 +1,21 @@
+1.11.0 (May 28, 2015)
+
+* Issue #221: Add feed_targeting object and addfield to Post type
+* Issue #226: Cleanup
+* Issue #227: Mark Version 1.0 as deprecated
+* Issue #228: Update example code
+* Issue #229: Add scopes field to DebugTokenInfo
+* Issue #230: username field in user type is deprecated
+  Thanks to @ashrithg
+* Issue #231: Added hours field to page response
+  Thanks for the pull request to Mattias Holmqvist
+* Issue #235: Add more fields to DebugTokenInfo
+  Thanks to @fern
+* Issue #236: Bugfix: obtainUserAccessToken will not validate code in fb_signed_request
+  Thanks to @frett
+* Issue #237: Comments regarding location and venue deprecation added
+  Thanks to @Blarff
+
 1.10.1 (April 24, 2015)
 
 * Issue #223: access token parsing for Graph API 2.3 added
