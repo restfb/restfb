@@ -92,6 +92,8 @@ public class Event extends NamedFacebookType {
   /**
    * The location for this event, a string name.
    * 
+   * Deprecated with API version 2.3, use <code>place</code> field instead
+   * 
    * @return The location for this event, a string name.
    */
   @Getter
@@ -111,6 +113,8 @@ public class Event extends NamedFacebookType {
 
   /**
    * The location of this event, a structured address object.
+   * 
+   * Deprecated with API version 2.3, use <code>place</code> field instead
    * 
    * @return The location of this event, a structured address object.
    */
@@ -163,7 +167,7 @@ public class Event extends NamedFacebookType {
   @Setter
   @Facebook
   private String picture;
-  
+
   /**
    * The group the event belongs to, if any.
    * 
@@ -172,8 +176,8 @@ public class Event extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook("parent_group")
-  private Group parentGroup; 
-  
+  private Group parentGroup;
+
   /**
    * Location associated with the event, if any.
    * 
@@ -235,7 +239,6 @@ public class Event extends NamedFacebookType {
     @Facebook
     private String category;
 
-    
     @Facebook("category_list")
     private List<Category> categoryList = new ArrayList<Category>();
 
@@ -272,14 +275,14 @@ public class Event extends NamedFacebookType {
     public boolean removeCategory(Category category) {
       return categoryList.remove(category);
     }
-    
+
     /**
      * List of other categories for this owner.
      * 
      * @return List of other categories for this owner.
      */
     public List<Category> getCategoryList() {
-	return unmodifiableList(categoryList);
+      return unmodifiableList(categoryList);
     }
 
   }
