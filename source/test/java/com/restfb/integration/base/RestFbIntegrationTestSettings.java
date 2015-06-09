@@ -41,6 +41,8 @@ public class RestFbIntegrationTestSettings {
 
   private String userGroupId = "";
 
+  private String appSecret = "";
+
   public RestFbIntegrationTestSettings(Properties settings) {
     writeToFacebook = Boolean.parseBoolean(settings.getProperty("writeToFacebook", "false"));
     userAccessToken = settings.getProperty("user.accessToken", "");
@@ -48,6 +50,7 @@ public class RestFbIntegrationTestSettings {
     userId = settings.getProperty("user.id", "");
     pageId = settings.getProperty("page.id", "");
     userGroupId = settings.getProperty("user.group.id", "");
+    appSecret = settings.getProperty("app.secret", "");
   }
 
   public boolean writeAccessAllowed() {
@@ -77,5 +80,10 @@ public class RestFbIntegrationTestSettings {
   public String getGroupId() {
     Assume.assumeFalse(userGroupId.isEmpty());
     return userGroupId;
+  }
+
+  public String getAppSecret() {
+    Assume.assumeFalse(appSecret.isEmpty());
+    return appSecret;
   }
 }
