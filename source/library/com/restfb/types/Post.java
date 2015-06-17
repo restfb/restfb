@@ -22,18 +22,6 @@
 
 package com.restfb.types;
 
-import static com.restfb.json.JsonObject.getNames;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableMap;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
@@ -42,6 +30,14 @@ import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.*;
+
+import static com.restfb.json.JsonObject.getNames;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Post Graph API type</a>.
@@ -320,6 +316,29 @@ public class Post extends NamedFacebookType {
   @Facebook("admin_creator")
   private NamedFacebookType adminCreator;
 
+  /**
+   * If this post is marked as hidden (applies to Pages only).
+   *
+   * @since 1.10.0
+   * @return if this post is marked as hidden
+   */
+  @Getter
+  @Setter
+  @Facebook("is_hidden")
+  private Boolean isHidden;
+
+  /**
+   * Indicates whether a scheduled post was published. (applies to scheduled Page Post only, for users post and
+   * instantly published posts this value is always <code>true</code>)
+   *
+   * @since 1.10.0
+   * @return indicates whether a scheduled post was published
+   */
+  @Getter
+  @Setter
+  @Facebook("is_published")
+  private Boolean isPublished;
+
   private static final long serialVersionUID = 3L;
 
   /**
@@ -439,29 +458,6 @@ public class Post extends NamedFacebookType {
     @Setter
     @Facebook
     private String href;
-
-    /**
-     * If this post is marked as hidden (applies to Pages only).
-     * 
-     * @since 1.10.0
-     * @return if this post is marked as hidden
-     */
-    @Getter
-    @Setter
-    @Facebook("is_hidden")
-    private Boolean isHidden;
-
-    /**
-     * Indicates whether a scheduled post was published. (applies to scheduled Page Post only, for users post and
-     * instanlty published posts this value is always <code>true</code>)
-     * 
-     * @since 1.10.0
-     * @return indicates whether a scheduled post was published
-     */
-    @Getter
-    @Setter
-    @Facebook("is_published")
-    private Boolean isPublished;
 
     private static final long serialVersionUID = 1L;
 
