@@ -22,8 +22,10 @@ package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PostTest extends AbstractJsonMapperTests {
@@ -99,5 +101,12 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getFeedTargeting());
     assertEquals(21, examplePost.getFeedTargeting().getAgeMin().intValue());
     assertEquals(65, examplePost.getFeedTargeting().getAgeMax().intValue());
+  }
+
+  @Test
+  public void checkV2_3_IsHidden() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-ishidden"), Post.class);
+    assertNotNull(examplePost);
+    assertTrue(examplePost.getIsHidden());
   }
 }

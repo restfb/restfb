@@ -1,0 +1,32 @@
+{
+  "id": "12345678_987654321",
+  "from": {
+    "name": "Test",
+    "category": "Restaurant/Cafe",
+    "id": "12345678"
+  },
+  "message": "just a simple test object",
+  "actions": [
+    {
+      "name": "Comment",
+      "link": "https://www.facebook.com/12345678/posts/987654321"
+    },
+    {
+      "name": "Like",
+      "link": "https://www.facebook.com/12345678/posts/987654321"
+    }
+  ],
+  "privacy": {
+    "value": "EVERYONE",
+    "description": "Anyone who can see this page",
+    "friends": "",
+    "allow": "",
+    "deny": ""
+  },
+  "type": "status",
+  "status_type": "mobile_status_update",
+  "created_time": "2015-05-01T19:41:57+0000",
+  "updated_time": "2015-05-01T19:41:57+0000",
+  "is_hidden": true,
+  "is_expired": false
+}
