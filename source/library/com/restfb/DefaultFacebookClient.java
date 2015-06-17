@@ -456,8 +456,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
-   *      com.restfb.Parameter[])
+   * com.restfb.Parameter[])
    */
+  @Override
   public <T> T publish(String connection, Class<T> objectType, List<BinaryAttachment> binaryAttachments,
       Parameter... parameters) {
     verifyParameterPresence("connection", connection);
@@ -734,20 +735,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Convenience method which invokes {@link #obtainExtendedAccessToken(String, String, String)} with the current access
-   * token.
-   * 
-   * @param appId
-   *          The ID of the app for which you'd like to obtain an extended access token.
-   * @param appSecret
-   *          The secret for the app for which you'd like to obtain an extended access token.
-   * @return An extended access token for the given {@code accessToken}.
-   * @throws FacebookException
-   *           If an error occurs while attempting to obtain an extended access token.
-   * @throws IllegalStateException
-   *           If this instance was not constructed with an access token.
-   * @since 1.6.10
+   * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String)
    */
+  @Override
   public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {
     if (accessToken == null) {
       throw new IllegalStateException(format(

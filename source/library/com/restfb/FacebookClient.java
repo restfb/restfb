@@ -295,6 +295,28 @@ public interface FacebookClient {
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
+   * given {@code connection} and includes some files - photos, for example - in the publish request, and mapping the
+   * result to an instance of {@code objectType}.
+   * 
+   * @param <T>
+   *          Java type to map to.
+   * @param connection
+   *          The Connection to publish to.
+   * @param objectType
+   *          Object type token.
+   * @param binaryAttachments
+   *          The files to include in the publish request.
+   * @param parameters
+   *          URL parameters to include in the API call.
+   * @return An instance of type {@code objectType} which contains the Facebook response to your publish request.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   */
+  <T> T publish(String connection, Class<T> objectType, List<BinaryAttachment> binaryAttachments, Parameter... parameters);
+
+  
+  /**
+   * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
    * given {@code connection} and includes a file - a photo, for example - in the publish request, and mapping the
    * result to an instance of {@code objectType}.
    * 
@@ -422,6 +444,23 @@ public interface FacebookClient {
    * @since 1.6.13
    */
   String obtainAppSecretProof(String accessToken, String appSecret);
+  
+  /**
+   * Convenience method which invokes {@link #obtainExtendedAccessToken(String, String, String)} with the current access
+   * token.
+   * 
+   * @param appId
+   *          The ID of the app for which you'd like to obtain an extended access token.
+   * @param appSecret
+   *          The secret for the app for which you'd like to obtain an extended access token.
+   * @return An extended access token for the given {@code accessToken}.
+   * @throws FacebookException
+   *           If an error occurs while attempting to obtain an extended access token.
+   * @throws IllegalStateException
+   *           If this instance was not constructed with an access token.
+   * @since 1.6.10
+   */
+   AccessToken obtainExtendedAccessToken(String appId, String appSecret);
 
   /**
    * Parses a signed request and verifies it against your App Secret.
