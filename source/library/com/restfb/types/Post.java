@@ -22,6 +22,18 @@
 
 package com.restfb.types;
 
+import static com.restfb.json.JsonObject.getNames;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
@@ -30,14 +42,6 @@ import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-import java.util.*;
-
-import static com.restfb.json.JsonObject.getNames;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableMap;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Post Graph API type</a>.
