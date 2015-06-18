@@ -456,19 +456,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * @see com.restfb.FacebookClient#publish(java.lang.String, java.lang.Class, com.restfb.BinaryAttachment,
-   * com.restfb.Parameter[])
+   *      com.restfb.Parameter[])
    */
   @Override
   public <T> T publish(String connection, Class<T> objectType, List<BinaryAttachment> binaryAttachments,
       Parameter... parameters) {
     verifyParameterPresence("connection", connection);
 
-    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
-    if (binaryAttachments != null) {
-      attachments = binaryAttachments;
-    }
-
-    return jsonMapper.toJavaObject(makeRequest(connection, true, false, attachments, parameters), objectType);
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachments, parameters), objectType);
   }
 
   /**
@@ -479,8 +474,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
       Parameter... parameters) {
 
-    List<BinaryAttachment> attachments = new ArrayList<BinaryAttachment>();
+    List<BinaryAttachment> attachments = null;
     if (binaryAttachment != null) {
+      attachments = new ArrayList<BinaryAttachment>();
       attachments.add(binaryAttachment);
     }
 
