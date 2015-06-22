@@ -320,6 +320,19 @@ public class Post extends NamedFacebookType {
   @Facebook("admin_creator")
   private NamedFacebookType adminCreator;
 
+  /**
+   * Whether this post is hidden. The original poster can still see the post, along with the page admin and anyone
+   * else tagged in the post (for page only)
+   *
+   * @return is_hidden
+   * @since 1.12.0
+   */
+  @Getter
+  @Setter
+  @Facebook("is_hidden")
+  private Boolean isHidden;
+
+
   private static final long serialVersionUID = 3L;
 
   /**

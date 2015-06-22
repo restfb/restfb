@@ -314,6 +314,16 @@ public class Comment extends FacebookType {
 
     @Getter
     @Setter
+    @Facebook
+    private String title;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String description;
+
+    @Getter
+    @Setter
     @Facebook("media")
     private Media media;
 
