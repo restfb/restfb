@@ -1,0 +1,5 @@
+{
+  "summary": "Custom Audience No Longer Shared",
+  "description": "This ad uses a custom audience that's no longer being shared with you. Please contact the person who set up the audience for more information.",
+  "check_name": "invalid_custom_audiences"
+}

@@ -1,0 +1,24 @@
+{
+  "rf_spec": {
+    "min_reach_limits": {
+      "US": 1000000,
+      "CA": 1000000
+    },
+    "countries": [
+      "US",
+      "CA"
+    ],
+    "min_campaign_duration": {
+      "US": 3,
+      "CA": 3
+    },
+    "max_campaign_duration": {
+      "US": 30,
+      "CA": 30
+    },
+    "max_days_to_finish": {
+      "US": 56,
+      "CA": 56
+    }
+  }
+}
