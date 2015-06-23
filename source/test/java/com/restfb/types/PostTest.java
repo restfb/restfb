@@ -6,10 +6,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,7 +22,6 @@ package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -108,5 +107,18 @@ public class PostTest extends AbstractJsonMapperTests {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-ishidden"), Post.class);
     assertNotNull(examplePost);
     assertTrue(examplePost.getIsHidden());
+  }
+
+  @Test
+  public void checkV2_3_Attachments() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-attachments"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getAttachments());
+    assertNotNull(examplePost.getAttachments().getData());
+    assertEquals(1, examplePost.getAttachments().getData().size());
+    assertNotNull(examplePost.getAttachments().getData().get(0));
+    assertNotNull(examplePost.getAttachments().getData().get(0).getSubAttachments());
+    assertNotNull(examplePost.getAttachments().getData().get(0).getSubAttachments().getData());
+    assertEquals(3, examplePost.getAttachments().getData().get(0).getSubAttachments().getData().size());
   }
 }

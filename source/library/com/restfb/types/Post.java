@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2010-2015 Mark Allen.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,11 +21,6 @@
  */
 
 package com.restfb.types;
-
-import static com.restfb.json.JsonObject.getNames;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,14 +33,18 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
+import static com.restfb.json.JsonObject.getNames;
 import com.restfb.types.Checkin.Place.Location;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Post Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -54,7 +53,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * An object containing the ID and name of the user who posted the message.
-   * 
+   *
    * @return An object containing the ID and name of the user who posted the message.
    */
   @Getter
@@ -64,7 +63,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The message.
-   * 
+   *
    * @return The message.
    */
   @Getter
@@ -74,7 +73,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * If available, a link to the picture included with this post.
-   * 
+   *
    * @return If available, a link to the picture included with this post.
    */
   @Getter
@@ -84,7 +83,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The link attached to this post.
-   * 
+   *
    * @return The link attached to this post.
    */
   @Getter
@@ -94,7 +93,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The caption of the link (appears beneath the link name).
-   * 
+   *
    * @return The caption of the link (appears beneath the link name).
    */
   @Getter
@@ -104,7 +103,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * A description of the link (appears beneath the link caption).
-   * 
+   *
    * @return A description of the link (appears beneath the link caption).
    */
   @Getter
@@ -114,7 +113,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * If available, the source link attached to this post (for example, a flash or video file).
-   * 
+   *
    * @return If available, the source link attached to this post (for example, a flash or video file).
    */
   @Getter
@@ -124,7 +123,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The type of post this is, for example {@code "link"}.
-   * 
+   *
    * @return The type of post this is, for example {@code "link"}.
    */
   @Getter
@@ -134,7 +133,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The application used to create this post.
-   * 
+   *
    * @return The application used to create this post.
    */
   @Getter
@@ -144,7 +143,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * A link to an icon representing the type of this post.
-   * 
+   *
    * @return A link to an icon representing the type of this post.
    */
   @Getter
@@ -154,7 +153,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * A string indicating which application was used to create this post.
-   * 
+   *
    * @return A string indicating which application was used to create this post.
    */
   @Getter
@@ -164,7 +163,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The privacy settings for this post.
-   * 
+   *
    * @return The privacy settings for this post.
    */
   @Getter
@@ -174,11 +173,11 @@ public class Post extends NamedFacebookType {
 
   /**
    * Object that controls news feed targeting for this post.
-   * 
+   *
    * To force Facebook to fill the <code>feed_targeting</code> field you have to fetch the post with the
    * <code>fields=feed_targeting</code> parameter, otherwise the feedTargeting is <code>null</code>.
-   * 
-   * 
+   *
+   *
    * @since 1.11.0
    */
   @Getter
@@ -194,13 +193,13 @@ public class Post extends NamedFacebookType {
 
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
-   * 
+   *
    * -- GETTER -- The likes on this post.
    * <p>
    * Sometimes this can be {@code null} - check {@link #getLikesCount()} instead in that case.
-   * 
+   *
    * @return The likes on this post.
-   * 
+   *
    */
   @Getter
   @Setter
@@ -212,7 +211,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The time the post was initially published.
-   * 
+   *
    * @return The time the post was initially published.
    */
   @Getter
@@ -224,7 +223,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The time of the last comment on this post.
-   * 
+   *
    * @return The time of the last comment on this post.
    */
   @Getter
@@ -233,7 +232,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The Facebook object id for an uploaded photo or video.
-   * 
+   *
    * @return The Facebook object id for an uploaded photo or video.
    * @since 1.6.5
    */
@@ -244,7 +243,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The {@code status_type} of post this is, for example {@code "approved_friend"}.
-   * 
+   *
    * @return The {@code status_type} of post this is, for example {@code "approved_friend"}.
    * @since 1.6.12
    */
@@ -255,7 +254,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Text from stories not intentionally generated by users
-   * 
+   *
    * @return Text from stories not intentionally generated by users
    * @since 1.6.16
    */
@@ -266,7 +265,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The comments for this post.
-   * 
+   *
    * @return The comments for this post.
    */
   @Getter
@@ -276,7 +275,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The place where this post occurred.
-   * 
+   *
    * @return The place where this post occurred.
    * @since 1.6.8
    */
@@ -309,9 +308,9 @@ public class Post extends NamedFacebookType {
 
   /**
    * ID of admin who created the post.
-   * 
+   *
    * Applies to pages only
-   * 
+   *
    * @return ID of admin who created the post.
    * @since 1.10.0
    */
@@ -343,6 +342,19 @@ public class Post extends NamedFacebookType {
   @Facebook("is_published")
   private Boolean isPublished;
 
+  /**
+   * Attachments added to a post.
+   *
+   * To force Facebook to fill the <code>attachments</code> field you have to fetch the post with the
+   * <code>fields=attachments</code> parameter, otherwise the attachments are <code>null</code>.
+   *
+   * @return Attachment on the post
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Attachments attachments;
+
   private static final long serialVersionUID = 3L;
 
   /**
@@ -350,7 +362,7 @@ public class Post extends NamedFacebookType {
    * <p>
    * This is a temporary hack until we have formal public support for it/improved {@code JsonMapper} capabilities so it
    * can handle arbitrary Map types.
-   * 
+   *
    * @param jsonMapper
    *          The {@code JsonMapper} that was used to map to this type.
    * @since 1.6.11
@@ -371,7 +383,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Place Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
    * @deprecated As of release 1.6.10, replaced by {@link Location}.
@@ -381,7 +393,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The location of this place.
-     * 
+     *
      * @return The location of this place.
      */
     @Getter
@@ -395,7 +407,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Message Tag Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
    */
@@ -403,7 +415,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The offset, within the message field, of the object mentioned.
-     * 
+     *
      * @return The offset, within the message field, of the object mentioned.
      */
     @Getter
@@ -413,7 +425,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The length, within the message field, of the object mentioned.
-     * 
+     *
      * @return The length, within the message field, of the object mentioned.
      */
     @Getter
@@ -427,7 +439,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Represents the undocumented {@code Property} type.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.4
    */
@@ -435,7 +447,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The name of the property.
-     * 
+     *
      * @return The name of the property.
      */
     @Getter
@@ -445,7 +457,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The text of the property.
-     * 
+     *
      * @return The text of the property.
      */
     @Getter
@@ -455,7 +467,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The URL of the property.
-     * 
+     *
      * @return The URL of the property.
      */
     @Getter
@@ -493,7 +505,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Likes Graph API type</a>
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6
    */
@@ -501,7 +513,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The number of likes.
-     * 
+     *
      * @return The number of likes.
      */
     @Getter
@@ -543,7 +555,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The likes.
-     * 
+     *
      * @return The likes.
      */
     public List<NamedFacebookType> getData() {
@@ -571,12 +583,12 @@ public class Post extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Comments Graph API type</a>.
-   * 
+   *
    * <p>
    * Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the count
    * (now called 'total_count')
    * </p>
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5.3
    */
@@ -584,12 +596,12 @@ public class Post extends NamedFacebookType {
 
     /**
      * The number of comments.
-     * 
+     *
      * <p>
      * Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the
      * count (now called 'total_count')
      * </p>
-     * 
+     *
      * @return The number of comments.
      */
     @Getter
@@ -631,7 +643,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The comments.
-     * 
+     *
      * @return The comments.
      */
     public List<Comment> getData() {
@@ -660,7 +672,7 @@ public class Post extends NamedFacebookType {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/reference/api/privacy-parameter/">Privacy Graph API
    * type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
@@ -668,7 +680,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The description of the privacy value.
-     * 
+     *
      * @return The description of the privacy value.
      */
     @Getter
@@ -678,7 +690,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The privacy description.
-     * 
+     *
      * @return The privacy description.
      */
     @Getter
@@ -688,7 +700,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The privacy friends restriction.
-     * 
+     *
      * @return The privacy friends restriction.
      */
     @Getter
@@ -698,7 +710,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The privacy networks restriction.
-     * 
+     *
      * @return The privacy networks restriction.
      */
     @Getter
@@ -708,7 +720,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "cannot" see the post.
-     * 
+     *
      * @return The privacy "deny" restriction.
      */
     @Getter
@@ -719,7 +731,7 @@ public class Post extends NamedFacebookType {
     /**
      * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "can" see the post. This can
      * also be ALL_FRIENDS or FRIENDS_OF_FRIENDS to include all members of those sets.
-     * 
+     *
      * @return The privacy "allow" restriction.
      */
     @Getter
@@ -757,7 +769,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Action Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
@@ -765,7 +777,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * Gets the name of the action.
-     * 
+     *
      * @return Gets the name of the action.
      */
     @Getter
@@ -775,7 +787,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * The link for the action.
-     * 
+     *
      * @return The link for the action.
      */
     @Getter
@@ -813,10 +825,10 @@ public class Post extends NamedFacebookType {
 
   /**
    * Object that controls news feed targeting for this post.
-   * 
+   *
    * Anyone in these groups will be more likely to see this post, others will be less likely, but may still see it
    * anyway. Any of the targeting fields shown here can be used, none are required (applies to Pages only).
-   * 
+   *
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post#fields">Feed Targeting API type</a>.
    */
   public static class FeedTargeting implements Serializable {
@@ -878,9 +890,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Values of targeting cities.
-     * 
+     *
      * Use type of adcity to find Targeting Options and use the returned key to specify.
-     * 
+     *
      * @return list of cities
      */
     public List<Integer> getCities() {
@@ -897,10 +909,10 @@ public class Post extends NamedFacebookType {
 
     /**
      * Target people who majored in these college subjects.
-     * 
+     *
      * Limited to 200 college major values. Use type of adcollegemajor to find Targeting Options and use the returned
      * name to specify.
-     * 
+     *
      * @return list of college majors
      */
     public List<String> getCollegeMajors() {
@@ -917,9 +929,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Colleges, for college graduates.
-     * 
+     *
      * Limit is 200 values.
-     * 
+     *
      * @return list of colleges
      */
     public List<FacebookType> getCollegeNetworks() {
@@ -936,7 +948,7 @@ public class Post extends NamedFacebookType {
 
     /**
      * Array of integers for graduation year from college.
-     * 
+     *
      * @return graduation year list
      */
     public List<Integer> getCollegeYears() {
@@ -953,9 +965,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Values of targeting countries.
-     * 
+     *
      * You can specify up to 25 countries. Use ISO 3166 format codes.
-     * 
+     *
      * @return list of targeting countries.
      */
     public List<String> getCountries() {
@@ -972,9 +984,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Array of integers for targeting based on education level.
-     * 
+     *
      * Use 1 for high school, 2 for undergraduate, and 3 for alum (or localized equivalents).
-     * 
+     *
      * @return list of education levels
      */
     public List<Integer> getEducationStatuses() {
@@ -991,9 +1003,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * List of object ids.
-     * 
+     *
      * the user should be fan of these objects (interests).
-     * 
+     *
      * @return list of object ids
      */
     public List<String> getFanOf() {
@@ -1010,9 +1022,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Target specific genders.
-     * 
+     *
      * 1 targets all male viewers and 2 females. Default is to target both.
-     * 
+     *
      * @return list of genders
      */
     public List<Integer> getGenders() {
@@ -1029,11 +1041,11 @@ public class Post extends NamedFacebookType {
 
     /**
      * Indicates targeting based on the 'interested in' field of the user profile.
-     * 
+     *
      * You can specify an integer of 1 to indicate male, 2 indicates female. Default is all types.
-     * 
+     *
      * Please note 'interested in' targeting is not available in France due to local laws.
-     * 
+     *
      * @return list of 'interested in' types
      */
     public List<Integer> getInterestedIn() {
@@ -1050,9 +1062,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Targeted locales.
-     * 
+     *
      * Use type of adlocale to find Targeting Options and use the returned key to specify.
-     * 
+     *
      * @return list of locales
      */
     public List<Integer> getLocales() {
@@ -1069,9 +1081,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Values of targeting regions.
-     * 
+     *
      * Use type of adregion to find Targeting Options and use the returned key to specify.
-     * 
+     *
      * @return list of regions
      */
     public List<Integer> getRegions() {
@@ -1088,9 +1100,9 @@ public class Post extends NamedFacebookType {
 
     /**
      * Array of integers for targeting based on relationship status.
-     * 
+     *
      * Use 1 for single, 2 for 'in a relationship', 3 for married, and 4 for engaged. Default is all types.
-     * 
+     *
      * @return list of relationship statuses
      */
     public List<Integer> getRelationshipStatuses() {
@@ -1107,13 +1119,13 @@ public class Post extends NamedFacebookType {
 
     /**
      * Company, organization, or other workplace.
-     * 
+     *
      * <b>Name</b>: Name of targeted workplace. Use type of adworkplace to find Targeting Options and use the returned
      * name to specify this.
-     * 
+     *
      * <b>Id</b>: Unique ID of targeted workplace. Use type of adworkplace to find Targeting Options and use the
      * returned key to specify this (must match paired name value).
-     * 
+     *
      * @return list of work networks
      */
     public List<NamedFacebookType> getWorkNetworks() {
@@ -1147,14 +1159,14 @@ public class Post extends NamedFacebookType {
   /**
    * Represents the Shares included the <a href="http://developers.facebook.com/docs/reference/api/post">Post</a>
    * response. Presently only supports count.
-   * 
+   *
    * @since 1.6.11
    */
   public static class Shares implements Serializable {
 
     /**
      * The number of shares.
-     * 
+     *
      * @return The number of shares.
      */
     @Getter
@@ -1191,8 +1203,69 @@ public class Post extends NamedFacebookType {
   }
 
   /**
+   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Place Graph API type</a>.
+   *
+   * @author <a href="https://github.com/kevinleturc/">Kevin Leturc</a>
+   * @since 1.12.0
+   */
+  public static class Attachments extends NamedFacebookType {
+
+    /**
+     * All media attachments associated with this post.
+     *
+     * @return All media attachments associated with this post.
+     */
+    @Facebook
+    private List<StoryAttachment> data = new ArrayList<StoryAttachment>();
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+    /**
+     * The attachments.
+     *
+     * @return The attachments.
+     */
+    public List<StoryAttachment> getData() {
+      return unmodifiableList(data);
+    }
+
+    public boolean addData(StoryAttachment attachment) {
+      return data.add(attachment);
+    }
+
+    public boolean removeData(StoryAttachment attachment) {
+      return data.remove(attachment);
+    }
+
+  }
+
+  /**
    * The number of likes on this post.
-   * 
+   *
    * @return The number of likes on this post.
    */
   public Long getLikesCount() {
@@ -1205,7 +1278,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The number of shares of this post.
-   * 
+   *
    * @return The number of shares of this post.
    */
   public Long getSharesCount() {
@@ -1217,7 +1290,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * The number of comments of this post.
-   * 
+   *
    * @return The number of comments of this post.
    */
   public Long getCommentsCount() {
@@ -1235,7 +1308,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * A list of the profiles mentioned or targeted in this post.
-   * 
+   *
    * @return A list of the profiles mentioned or targeted in this post.
    */
   public List<NamedFacebookType> getTo() {
@@ -1252,7 +1325,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * A list of available action names and links (including commenting, liking, and an optional app-specified action).
-   * 
+   *
    * @return A list of available action names and links (including commenting, liking, and an optional app-specified
    *         action).
    */
@@ -1272,7 +1345,7 @@ public class Post extends NamedFacebookType {
    * A list of properties for this post.
    * <p>
    * This field is undocumented.
-   * 
+   *
    * @return A list of properties for this post.
    */
   public List<Property> getProperties() {
@@ -1289,7 +1362,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Objects (Users, Pages, etc) tagged as being with the publisher of the post ("Who are you with?" on Facebook).
-   * 
+   *
    * @return Objects (Users, Pages, etc) tagged as being with the publisher of the post ("Who are you with?" on
    *         Facebook).
    * @since 1.6.10
@@ -1308,7 +1381,7 @@ public class Post extends NamedFacebookType {
 
   /**
    * Objects tagged in the message (Users, Pages, etc).
-   * 
+   *
    * @return Objects tagged in the message (Users, Pages, etc).
    * @since 1.6.10
    */
