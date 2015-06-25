@@ -1203,12 +1203,12 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Place Graph API type</a>.
+   * Represents the attachments included in<a href="http://developers.facebook.com/docs/reference/api/post">Graph API Post type</a>.
    *
    * @author <a href="https://github.com/kevinleturc/">Kevin Leturc</a>
    * @since 1.12.0
    */
-  public static class Attachments extends NamedFacebookType {
+  public static class Attachments implements Serializable {
 
     /**
      * All media attachments associated with this post.

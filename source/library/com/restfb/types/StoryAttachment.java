@@ -11,7 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/v2.3/story_attachment">Story Attachment Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/v2.3/story_attachment">Story
+ * Attachment Graph API type</a>.
  *
  * @author <a href="https://github.com/kevinleturc/">Kevin Leturc</a>
  * @since 1.12.0
@@ -91,30 +92,6 @@ public class StoryAttachment extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
-
-  /**
    * Represents the list of subattachments that are associated with this attachment. This will have data if the parent
    * attachment is a container for multiple other attachments. For example, a multi-photo story will have a parent
    * attachment representing an upload of multiple photos to an album where each subattachment will contain the actual
@@ -184,29 +161,6 @@ public class StoryAttachment extends FacebookType {
     @Facebook
     private Image image;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   /**
@@ -232,30 +186,6 @@ public class StoryAttachment extends FacebookType {
     @Facebook
     private String src;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
   }
 
   /**
@@ -269,30 +199,6 @@ public class StoryAttachment extends FacebookType {
     @Setter
     @Facebook
     private String url;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
 
   }
 

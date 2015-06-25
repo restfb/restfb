@@ -48,4 +48,5 @@ public class StoryAttachmentTest extends AbstractJsonMapperTests {
     List<StoryAttachment> subAttachments = attachment.getSubAttachments().getData();
     assertEquals(3, subAttachments.size());
   }
+
 }
