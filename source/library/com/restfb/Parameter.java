@@ -76,7 +76,7 @@ public final class Parameter {
     // Otherwise, use the JSON value of the type.
     this.value =
         value instanceof Date ? new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT).format(value) : jsonMapper
-          .toJson(value);
+          .toJson(value, true);
   }
 
   /**

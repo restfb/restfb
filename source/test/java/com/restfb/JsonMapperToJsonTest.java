@@ -32,8 +32,6 @@ import java.util.List;
 import java.util.Map;
 import org.json.JSONException;
 
-import org.junit.Assert;
-
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -50,7 +48,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void nullObject() {
     String json = createJsonMapper().toJson(null);
-    Assert.assertTrue("null".equals(json));
+    assertTrue("null".equals(json));
   }
 
   /**
@@ -59,7 +57,21 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void emptyList() {
     String json = createJsonMapper().toJson(new ArrayList<Object>());
-    Assert.assertTrue("[]".equals(json));
+    assertTrue("[]".equals(json));
+  }
+
+  @Test
+  public void emptyFacebookList() throws JSONException {
+    ListObject obj = new ListObject();
+    String json = createJsonMapper().toJson(obj, true);
+    JSONAssert.assertEquals("{id: 12345}", json, true);
+  }
+
+  @Test
+  public void emptyFacebookMap() throws JSONException {
+    MapObject obj = new MapObject();
+    String json = createJsonMapper().toJson(obj, true);
+    JSONAssert.assertEquals("{id: 12345}", json, true);
   }
 
   /**
@@ -68,7 +80,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void emptyObject() {
     String json = createJsonMapper().toJson(new Object());
-    Assert.assertTrue("{}".equals(json));
+    assertTrue("{}".equals(json));
   }
 
   /**
@@ -77,14 +89,14 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void primitives() {
     // Close your eyes and pretend that string is a primitive here
-    Assert.assertTrue("Testing".equals(createJsonMapper().toJson("Testing")));
-    Assert.assertTrue("true".equals(createJsonMapper().toJson(true)));
-    Assert.assertTrue("1".equals(createJsonMapper().toJson(1)));
-    Assert.assertTrue("1".equals(createJsonMapper().toJson(1L)));
-    Assert.assertTrue("1.0".equals(createJsonMapper().toJson(1F)));
-    Assert.assertTrue("1.0".equals(createJsonMapper().toJson(1D)));
-    Assert.assertTrue("1".equals(createJsonMapper().toJson(new BigInteger("1"))));
-    Assert.assertTrue("1.0".equals(createJsonMapper().toJson(new BigDecimal("1"))));
+    assertTrue("Testing".equals(createJsonMapper().toJson("Testing")));
+    assertTrue("true".equals(createJsonMapper().toJson(true)));
+    assertTrue("1".equals(createJsonMapper().toJson(1)));
+    assertTrue("1".equals(createJsonMapper().toJson(1L)));
+    assertTrue("1.0".equals(createJsonMapper().toJson(1F)));
+    assertTrue("1.0".equals(createJsonMapper().toJson(1D)));
+    assertTrue("1".equals(createJsonMapper().toJson(new BigInteger("1"))));
+    assertTrue("1.0".equals(createJsonMapper().toJson(new BigDecimal("1"))));
   }
 
   /**
@@ -116,7 +128,8 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     userWithPhotos.photos.add(photo);
 
     String json = createJsonMapper().toJson(userWithPhotos);
-    String expectedJson = "{\"uid\":12345,\"photos\":[{\"id\":null,\"location\":null},{\"id\":5678,\"location\":\"Las Vegas\"}],\"name\":null}";
+    String expectedJson =
+        "{\"uid\":12345,\"photos\":[{\"id\":null,\"location\":null},{\"id\":5678,\"location\":\"Las Vegas\"}],\"name\":null}";
     JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
@@ -153,7 +166,8 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     attachment.media = media;
 
     String json = createJsonMapper().toJson(attachment);
-    String expectedJson = "{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}";
+    String expectedJson =
+        "{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}";
     JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
@@ -162,7 +176,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyMap() {
-    Assert.assertTrue("{}".equals(createJsonMapper().toJson(new HashMap<String, Object>())));
+    assertTrue("{}".equals(createJsonMapper().toJson(new HashMap<String, Object>())));
   }
 
   /**
@@ -180,7 +194,8 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     map.put("basicUser", basicUser);
 
     String json = createJsonMapper().toJson(map);
-    String expectedJson = "{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}";
+    String expectedJson =
+        "{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}";
     JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
@@ -201,6 +216,26 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     // selected to marshal to JSON if there are multiple fields with the same
     // mapping
     assertTrue(json.contains("Philly") || json.contains("Philadelphia"));
+  }
+
+  static class ListObject {
+
+    @Facebook
+    Long id = 12345L;
+
+    @Facebook
+    List<Integer> list = new ArrayList<Integer>();
+
+  }
+
+  static class MapObject {
+
+    @Facebook
+    Long id = 12345L;
+
+    @Facebook
+    Map<Integer, Integer> list = new HashMap<Integer, Integer>();
+
   }
 
   static class BasicUser {

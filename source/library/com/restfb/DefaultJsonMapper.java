@@ -57,6 +57,7 @@ import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Post.Comments;
 import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
+import java.util.Collection;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -546,7 +547,7 @@ public class DefaultJsonMapper implements JsonMapper {
       try {
         Object fieldValue = fieldWithAnnotation.getField().get(object);
 
-        if (!(ignoreNullValuedProperties && fieldValue == null)) {
+        if (!(ignoreNullValuedProperties && (fieldValue == null || isEmptyCollectionOrMap(fieldValue)))) {
           jsonObject.put(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
@@ -556,6 +557,18 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     return jsonObject;
+  }
+  
+  private boolean isEmptyCollectionOrMap(Object fieldValue) {
+      if (fieldValue instanceof Collection) {
+	  return ((Collection) fieldValue).isEmpty();
+      } 
+      
+      if (fieldValue instanceof Map) {
+	  return ((Map) fieldValue).isEmpty();
+      }
+      
+      return false;
   }
 
   /**
