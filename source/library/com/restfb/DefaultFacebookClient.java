@@ -66,10 +66,16 @@ import com.restfb.exception.FacebookResponseContentException;
 import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.exception.FacebookSignedRequestParsingException;
 import com.restfb.exception.FacebookSignedRequestVerificationException;
+import com.restfb.exception.devicetoken.DeviceTokenExceptionFactory;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.scope.ScopeBuilder;
+import com.restfb.types.DeviceCode;
 import com.restfb.util.StringUtils;
 
 /**
@@ -705,6 +711,34 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       return getAccessTokenFromResponse(response);
     } catch (Throwable t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+    }
+  }
+
+  @Override
+  public DeviceCode fetchDeviceCode(String appId, ScopeBuilder scope) {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("scope", scope);
+
+    String response =
+        makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_code"),
+          Parameter.with("client_id", appId), Parameter.with("scope", scope.toString()));
+    return jsonMapper.toJavaObject(response, DeviceCode.class);
+  }
+
+  @Override
+  public AccessToken obtainDeviceAccessToken(String appId, String code) throws FacebookDeviceTokenCodeExpiredException,
+      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
+    verifyParameterPresence("appId", appId);
+    verifyParameterPresence("code", code);
+
+    try {
+      String response =
+          makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_token"),
+            Parameter.with("client_id", appId), Parameter.with("code", code));
+      return getAccessTokenFromResponse(response);
+    } catch (FacebookOAuthException foae) {
+      DeviceTokenExceptionFactory.createFrom(foae);
+      return null;
     }
   }
 
