@@ -19,40 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.restfb.experimental.api;
 
-import com.restfb.FacebookClient;
-import com.restfb.experimental.api.impl.ApiFactory;
+import com.restfb.types.Subscription;
+import java.util.List;
 
-public class Facebook {
+public interface Applications {
 
-  private final FacebookClient facebookClient;
+  List<Subscription> fetchSubscriptions(String appId);
 
-  public Facebook(FacebookClient facebookClient) {
-    this.facebookClient = facebookClient;
-  }
+  boolean createSubscription(String appId, String verifyToken, Subscription subscription);
 
-  public Comments comments() {
-    return ApiFactory.createComments(facebookClient);
-  }
+  boolean removeSubscription(String appId, String object);
 
-  public Pages pages() {
-    return ApiFactory.createPages(facebookClient);
-  }
-
-  public Posts posts() {
-    return ApiFactory.createPosts(facebookClient);
-  }
-
-  public Groups groups() {
-    return ApiFactory.createGroups(facebookClient);
-  }
-
-  public Users users() {
-    return ApiFactory.createUsers(facebookClient);
-  }
-
-  public Applications apps() {
-    return ApiFactory.createApplications(facebookClient);
-  }
 }
