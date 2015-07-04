@@ -1,3 +1,19 @@
+1.12.0 (July 5, 2015)
+
+* Issue #258: Device Access Token support added
+* Issue #256: Using FeedTargeting wrapper when posting
+  Thanks to @Karnifexx
+* Issue #249 and #248: PR Post is hidden wrong place
+  Thanks to @2bitoperations
+* Issue #247: Inefficiency in DefaultFacebookClient
+  Thanks to @lawrence-dol
+* Issue #245: FacebookClient (interface) publish method missing
+  Thanks to @lawrence-dol
+* Issue #243: appsecret_proof integration tests
+* Issue #220: RTU subcription high level API
+  Thanks to @FrancoisThareau
+* Issue #207: Graph API 2.3 video playlist support
+
 1.11.0 (May 28, 2015)
 
 * Issue #221: Add feed_targeting object and addfield to Post type
