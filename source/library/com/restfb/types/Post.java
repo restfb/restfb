@@ -185,6 +185,11 @@ public class Post extends NamedFacebookType {
   @Facebook("feed_targeting")
   private FeedTargeting feedTargeting;
 
+  @Getter
+  @Setter
+  @Facebook
+  private Targeting targeting;
+
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
    */
@@ -823,6 +828,110 @@ public class Post extends NamedFacebookType {
 
   }
 
+  public static class Targeting implements Serializable {
+
+    @Facebook
+    protected List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
+    @Facebook
+    protected List<String> countries = new ArrayList<String>();
+    @Facebook
+    protected List<Integer> regions = new ArrayList<Integer>();
+    @Facebook
+    protected List<Integer> locales = new ArrayList<Integer>();
+
+    public boolean addCity(NamedFacebookType city) {
+      return cities.add(city);
+    }
+
+    public boolean addCountry(String country) {
+      return countries.add(country);
+    }
+
+    public boolean addLocale(Integer locale) {
+      return locales.add(locale);
+    }
+
+    public boolean addRegion(Integer region) {
+      return regions.add(region);
+    }
+
+    /**
+     * Values of targeting cities.
+     *
+     * Use type of adcity to find Targeting Options and use the returned key to specify.
+     *
+     * @return list of cities
+     */
+    public List<NamedFacebookType> getCities() {
+      return unmodifiableList(cities);
+    }
+
+    /**
+     * Values of targeting countries.
+     *
+     * You can specify up to 25 countries. Use ISO 3166 format codes.
+     *
+     * @return list of targeting countries.
+     */
+    public List<String> getCountries() {
+      return unmodifiableList(countries);
+    }
+
+    /**
+     * Targeted locales.
+     *
+     * Use type of adlocale to find Targeting Options and use the returned key to specify.
+     *
+     * @return list of locales
+     */
+    public List<Integer> getLocales() {
+      return unmodifiableList(locales);
+    }
+
+    /**
+     * Values of targeting regions.
+     *
+     * Use type of adregion to find Targeting Options and use the returned key to specify.
+     *
+     * @return list of regions
+     */
+    public List<Integer> getRegions() {
+      return unmodifiableList(regions);
+    }
+
+    public boolean removeCity(NamedFacebookType city) {
+      return cities.remove(city);
+    }
+
+    public boolean removeCountry(String country) {
+      return countries.remove(country);
+    }
+
+    public boolean removeLocale(Integer locale) {
+      return locales.remove(locale);
+    }
+
+    public boolean removeRegion(Integer region) {
+      return regions.remove(region);
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+
+  }
+
   /**
    * Object that controls news feed targeting for this post.
    *
@@ -831,7 +940,7 @@ public class Post extends NamedFacebookType {
    *
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post#fields">Feed Targeting API type</a>.
    */
-  public static class FeedTargeting implements Serializable {
+  public static class FeedTargeting extends Targeting {
 
     /**
      * Maximum age.
@@ -849,9 +958,6 @@ public class Post extends NamedFacebookType {
     @Facebook("age_min")
     private Integer ageMin;
 
-    @Facebook
-    private List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
-
     @Facebook("college_majors")
     private List<String> collegeMajors = new ArrayList<String>();
 
@@ -860,9 +966,6 @@ public class Post extends NamedFacebookType {
 
     @Facebook("college_years")
     private List<Integer> collegeYears = new ArrayList<Integer>();
-
-    @Facebook
-    private List<String> countries = new ArrayList<String>();
 
     @Facebook("education_statuses")
     private List<Integer> educationStatuses = new ArrayList<Integer>();
@@ -876,36 +979,11 @@ public class Post extends NamedFacebookType {
     @Facebook("interested_in")
     private List<Integer> interestedIn = new ArrayList<Integer>();
 
-    @Facebook
-    private List<Integer> locales = new ArrayList<Integer>();
-
-    @Facebook
-    private List<Integer> regions = new ArrayList<Integer>();
-
     @Facebook("relationship_statuses")
     private List<Integer> relationshipStatuses = new ArrayList<Integer>();
 
     @Facebook("work_networks")
     private List<NamedFacebookType> workNetworks = new ArrayList<NamedFacebookType>();
-
-    /**
-     * Values of targeting cities.
-     *
-     * Use type of adcity to find Targeting Options and use the returned key to specify.
-     *
-     * @return list of cities
-     */
-    public List<NamedFacebookType> getCities() {
-      return unmodifiableList(cities);
-    }
-
-    public boolean addCity(NamedFacebookType city) {
-      return cities.add(city);
-    }
-
-    public boolean removeCity(NamedFacebookType city) {
-      return cities.remove(city);
-    }
 
     /**
      * Target people who majored in these college subjects.
@@ -961,25 +1039,6 @@ public class Post extends NamedFacebookType {
 
     public boolean removeCollegeYear(Integer collegeYear) {
       return collegeYears.remove(collegeYear);
-    }
-
-    /**
-     * Values of targeting countries.
-     *
-     * You can specify up to 25 countries. Use ISO 3166 format codes.
-     *
-     * @return list of targeting countries.
-     */
-    public List<String> getCountries() {
-      return unmodifiableList(countries);
-    }
-
-    public boolean addCountry(String country) {
-      return countries.add(country);
-    }
-
-    public boolean removeCountry(String country) {
-      return countries.remove(country);
     }
 
     /**
@@ -1061,44 +1120,6 @@ public class Post extends NamedFacebookType {
     }
 
     /**
-     * Targeted locales.
-     *
-     * Use type of adlocale to find Targeting Options and use the returned key to specify.
-     *
-     * @return list of locales
-     */
-    public List<Integer> getLocales() {
-      return unmodifiableList(locales);
-    }
-
-    public boolean addLocale(Integer locale) {
-      return locales.add(locale);
-    }
-
-    public boolean removeLocale(Integer locale) {
-      return locales.remove(locale);
-    }
-
-    /**
-     * Values of targeting regions.
-     *
-     * Use type of adregion to find Targeting Options and use the returned key to specify.
-     *
-     * @return list of regions
-     */
-    public List<Integer> getRegions() {
-      return unmodifiableList(regions);
-    }
-
-    public boolean addRegion(Integer region) {
-      return regions.add(region);
-    }
-
-    public boolean removeRegion(Integer region) {
-      return regions.remove(region);
-    }
-
-    /**
      * Array of integers for targeting based on relationship status.
      *
      * Use 1 for single, 2 for 'in a relationship', 3 for married, and 4 for engaged. Default is all types.
@@ -1138,21 +1159,6 @@ public class Post extends NamedFacebookType {
 
     public boolean removeWorkNetwork(NamedFacebookType workNetwork) {
       return workNetworks.remove(workNetwork);
-    }
-
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
     }
   }
 

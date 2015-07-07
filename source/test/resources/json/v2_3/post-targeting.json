@@ -1,0 +1,26 @@
+{
+  "feed_targeting": {
+    "cities": [
+      {
+        "id": "542609",
+        "name": "Berlin"
+      }
+    ],
+    "countries": [
+      "DE"
+    ]
+  },
+  "targeting": {
+    "cities": [
+      {
+        "id": "542609",
+        "name": "Berlin"
+      }
+    ],
+    "countries": [
+      "DE"
+    ]
+  },
+  "id": "349489628480201_838440639585095",
+  "created_time": "2015-07-07T22:11:16+0000"
+}
