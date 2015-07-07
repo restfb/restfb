@@ -103,6 +103,17 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void checkV2_3_FeedTargeting_Issue262() {
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-feedtargeting-issue262"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getFeedTargeting().getCities());
+    assertEquals("Newark", examplePost.getFeedTargeting().getCities().get(0).getName());
+    assertEquals("2484432", examplePost.getFeedTargeting().getCities().get(0).getId());
+  }
+
+  @Test
   public void checkV2_3_IsHidden() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-ishidden"), Post.class);
     assertNotNull(examplePost);

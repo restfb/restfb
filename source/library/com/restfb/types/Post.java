@@ -850,7 +850,7 @@ public class Post extends NamedFacebookType {
     private Integer ageMin;
 
     @Facebook
-    private List<Integer> cities = new ArrayList<Integer>();
+    private List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
 
     @Facebook("college_majors")
     private List<String> collegeMajors = new ArrayList<String>();
@@ -895,15 +895,15 @@ public class Post extends NamedFacebookType {
      *
      * @return list of cities
      */
-    public List<Integer> getCities() {
+    public List<NamedFacebookType> getCities() {
       return unmodifiableList(cities);
     }
 
-    public boolean addCity(Integer city) {
+    public boolean addCity(NamedFacebookType city) {
       return cities.add(city);
     }
 
-    public boolean removeCity(Integer city) {
+    public boolean removeCity(NamedFacebookType city) {
       return cities.remove(city);
     }
 
@@ -1203,7 +1203,8 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the attachments included in<a href="http://developers.facebook.com/docs/reference/api/post">Graph API Post type</a>.
+   * Represents the attachments included in<a href="http://developers.facebook.com/docs/reference/api/post">Graph API
+   * Post type</a>.
    *
    * @author <a href="https://github.com/kevinleturc/">Kevin Leturc</a>
    * @since 1.12.0
