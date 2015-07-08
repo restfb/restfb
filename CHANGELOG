@@ -1,3 +1,12 @@
+1.13.0 (July 8, 2015)
+
+* Issue #261: field targeting missing in post type
+  Thanks to @Karnifexx
+* Issue #262: mapping exception when using post with feed_targeting and target city
+  Thanks to @Karnifexx
+* Issue #263: field full_picture missing in post type
+  Thanks to @CannyDuck
+
 1.12.0 (July 5, 2015)
 
 * Issue #258: Device Access Token support added
