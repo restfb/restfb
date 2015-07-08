@@ -112,11 +112,10 @@ public class PostTest extends AbstractJsonMapperTests {
     assertEquals("Newark", examplePost.getFeedTargeting().getCities().get(0).getName());
     assertEquals("2484432", examplePost.getFeedTargeting().getCities().get(0).getId());
   }
-  
+
   @Test
   public void checkV2_3_Targeting() {
-    Post examplePost =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-targeting"), Post.class);
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-targeting"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getTargeting());
     assertNotNull(examplePost.getTargeting().getCities());
@@ -129,6 +128,13 @@ public class PostTest extends AbstractJsonMapperTests {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-ishidden"), Post.class);
     assertNotNull(examplePost);
     assertTrue(examplePost.getIsHidden());
+  }
+
+  @Test
+  public void checkV2_3_FullPicture() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-fullpicture"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFullPicture());
   }
 
   @Test

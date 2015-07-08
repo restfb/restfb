@@ -360,6 +360,21 @@ public class Post extends NamedFacebookType {
   @Facebook
   private Attachments attachments;
 
+  /**
+   * Full picture URL.
+   * 
+   * you get the url to this posts full picture.
+   * 
+   * To force Facebook to fill the <code>full_picture</code> field you have to fetch the post with the
+   * <code>fields=full_picture</code> parameter, otherwise the full_picture is <code>null</code>.
+   * 
+   * @return String representing the url to the post's full picture
+   */
+  @Getter
+  @Setter
+  @Facebook("full_picture")
+  private String fullPicture;
+
   private static final long serialVersionUID = 3L;
 
   /**
