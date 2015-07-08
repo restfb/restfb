@@ -94,11 +94,11 @@ public class BatchRequest {
    *          To make sure FB returns JSON in the event that this request completes successfully, set this to
    *          {@code false}.
    * @throws IllegalArgumentException
-   *           If {@code relativeUrl} is {@code null} or blank.
+   *           If {@code relativeUrl} is {@code null}.
    */
   protected BatchRequest(String relativeUrl, List<Parameter> parameters, String method, List<BatchHeader> headers,
       List<Parameter> bodyParameters, String attachedFiles, String dependsOn, String name, boolean omitResponseOnSuccess) {
-    if (isBlank(relativeUrl)) {
+    if (relativeUrl == null) {
       throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");
     }
 
