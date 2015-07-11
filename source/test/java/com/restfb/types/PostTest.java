@@ -100,6 +100,7 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getFeedTargeting());
     assertEquals(21, examplePost.getFeedTargeting().getAgeMin().intValue());
     assertEquals(65, examplePost.getFeedTargeting().getAgeMax().intValue());
+    assertEquals(5, examplePost.getFeedTargeting().getLocales().get(0).intValue());
   }
 
   @Test
@@ -121,6 +122,16 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getTargeting().getCities());
     assertEquals("Berlin", examplePost.getTargeting().getCities().get(0).getName());
     assertEquals("542609", examplePost.getTargeting().getCities().get(0).getId());
+  }
+
+  @Test
+  public void checkV2_3_FeedTargeting_Region() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-feedtargeting-region"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getFeedTargeting().getRegions());
+    assertEquals("California", examplePost.getFeedTargeting().getRegions().get(0).getName());
+    assertEquals("6", examplePost.getFeedTargeting().getRegions().get(0).getId());
   }
 
   @Test

@@ -764,7 +764,7 @@ public class Post extends NamedFacebookType {
     @Facebook
     protected List<String> countries = new ArrayList<String>();
     @Facebook
-    protected List<Integer> regions = new ArrayList<Integer>();
+    protected List<NamedFacebookType> regions = new ArrayList<NamedFacebookType>();
     @Facebook
     protected List<Integer> locales = new ArrayList<Integer>();
 
@@ -780,7 +780,7 @@ public class Post extends NamedFacebookType {
       return locales.add(locale);
     }
 
-    public boolean addRegion(Integer region) {
+    public boolean addRegion(NamedFacebookType region) {
       return regions.add(region);
     }
 
@@ -824,7 +824,7 @@ public class Post extends NamedFacebookType {
      *
      * @return list of regions
      */
-    public List<Integer> getRegions() {
+    public List<NamedFacebookType> getRegions() {
       return unmodifiableList(regions);
     }
 
@@ -840,7 +840,7 @@ public class Post extends NamedFacebookType {
       return locales.remove(locale);
     }
 
-    public boolean removeRegion(Integer region) {
+    public boolean removeRegion(NamedFacebookType region) {
       return regions.remove(region);
     }
 
