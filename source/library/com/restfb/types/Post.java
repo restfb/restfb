@@ -690,101 +690,15 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a href="https://developers.facebook.com/docs/reference/api/privacy-parameter/">Privacy Graph API
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/privacy/">Privacy Graph API
    * type</a>.
-   *
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.5
+   * 
+   * @TODO remove with next major version
+   * @deprecated use {@link com.restfb.types.Privacy} instead
    */
-  public static class Privacy implements Serializable {
-
-    /**
-     * The description of the privacy value.
-     *
-     * @return The description of the privacy value.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String value;
-
-    /**
-     * The privacy description.
-     *
-     * @return The privacy description.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String description;
-
-    /**
-     * The privacy friends restriction.
-     *
-     * @return The privacy friends restriction.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String friends;
-
-    /**
-     * The privacy networks restriction.
-     *
-     * @return The privacy networks restriction.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String networks;
-
-    /**
-     * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "cannot" see the post.
-     *
-     * @return The privacy "deny" restriction.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String deny;
-
-    /**
-     * For CUSTOM settings, a comma-separated list of user IDs and friend list IDs that "can" see the post. This can
-     * also be ALL_FRIENDS or FRIENDS_OF_FRIENDS to include all members of those sets.
-     *
-     * @return The privacy "allow" restriction.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String allow;
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
+  @Deprecated
+  public static class Privacy extends com.restfb.types.Privacy {
+    // only here due to API reason
   }
 
   /**

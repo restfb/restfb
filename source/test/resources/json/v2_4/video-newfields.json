@@ -1,0 +1,38 @@
+{
+  "privacy": {
+    "allow": "",
+    "deny": "",
+    "description": "Public",
+    "friends": "",
+    "networks": "",
+    "value": "EVERYONE"
+  },
+  "format": [
+    {
+      "embed_html": "<iframe src=\"https://www.facebook.com/video/embed?video_id=380038225525888\" width=\"130\" height=\"73\" frameborder=\"0\"></iframe>",
+      "filter": "130x130",
+      "height": 73,
+      "picture": "https://scontent.xx.fbcdn.net/hvthumb-xta1/v/l/t15.0-10/s130x130/11413888_380038372192540_145105831_n.jpg?oh=db984016036f9ee875b9018fec574d35&oe=56174921",
+      "width": 130
+    },
+    {
+      "embed_html": "<iframe src=\"https://www.facebook.com/video/embed?video_id=380038225525888\" width=\"480\" height=\"270\" frameborder=\"0\"></iframe>",
+      "filter": "480x480",
+      "height": 270,
+      "picture": "https://scontent.xx.fbcdn.net/hvthumb-xta1/v/l/t15.0-10/s480x480/11413888_380038372192540_145105831_n.jpg?oh=aacf66b72616082dc7bd85ca2b709ca4&oe=561E9074",
+      "width": 480
+    },
+    {
+      "embed_html": "<iframe src=\"https://www.facebook.com/video/embed?video_id=380038225525888\" width=\"640\" height=\"360\" frameborder=\"0\"></iframe>",
+      "filter": "native",
+      "height": 360,
+      "picture": "https://scontent.xx.fbcdn.net/hvthumb-xta1/v/l/t15.0-10/11413888_380038372192540_145105831_n.jpg?oh=f7f534d9d26ceca1fb94e79b589f82f6&oe=56190D90",
+      "width": 640
+    }
+  ],
+  "status": {
+    "video_status": "ready"
+  },
+  "embeddable": true,
+  "id": "380038225525888"
+}

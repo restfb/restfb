@@ -28,19 +28,62 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class VideoTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV2_3_ThumbnailList() {
-	List<Video.Thumbnail> thumbnailList = createJsonMapper().toJavaList(jsonFromClasspath("v2_3/video-thumbnails"), Video.Thumbnail.class);
-	assertEquals(10, thumbnailList.size());
-	for (Video.Thumbnail thumbnail : thumbnailList) {
-	    assertEquals(null, thumbnail.getName());
-	    assertEquals(302, thumbnail.getHeight().intValue());
-	    assertEquals(403, thumbnail.getWidth().intValue());
-	    assertEquals(1, thumbnail.getScale().intValue());
-	    assertTrue(thumbnail.getUri().contains("akamaihd.net"));
-	    assertNotNull(thumbnail.getIsPreferred());
-	}
+
+  @Test
+  public void checkV2_3_ThumbnailList() {
+    List<Video.Thumbnail> thumbnailList =
+        createJsonMapper().toJavaList(jsonFromClasspath("v2_3/video-thumbnails"), Video.Thumbnail.class);
+    assertEquals(10, thumbnailList.size());
+    for (Video.Thumbnail thumbnail : thumbnailList) {
+      assertEquals(null, thumbnail.getName());
+      assertEquals(302, thumbnail.getHeight().intValue());
+      assertEquals(403, thumbnail.getWidth().intValue());
+      assertEquals(1, thumbnail.getScale().intValue());
+      assertTrue(thumbnail.getUri().contains("akamaihd.net"));
+      assertNotNull(thumbnail.getIsPreferred());
     }
-    
+  }
+
+  @Test
+  public void checkV2_4_Privacy() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
+    assertNotNull(exampleVideo.getPrivacy());
+    Privacy privacy = exampleVideo.getPrivacy();
+    assertEquals("", privacy.getAllow());
+    assertEquals("EVERYONE", privacy.getValue());
+    assertEquals("Public", privacy.getDescription());
+  }
+
+  @Test
+  public void checkV2_4_Formats() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
+    assertNotNull(exampleVideo.getFormat());
+    assertEquals(3, exampleVideo.getFormat().size());
+    Video.VideoFormat format0 = exampleVideo.getFormat().get(0);
+    assertEquals("130x130", format0.getFilter());
+    assertEquals(73, format0.getHeight().intValue());
+    assertEquals(130, format0.getWidth().intValue());
+    Video.VideoFormat format1 = exampleVideo.getFormat().get(1);
+    assertEquals("480x480", format1.getFilter());
+    assertEquals(270, format1.getHeight().intValue());
+    assertEquals(480, format1.getWidth().intValue());
+    Video.VideoFormat format2 = exampleVideo.getFormat().get(2);
+    assertEquals("native", format2.getFilter());
+    assertEquals(360, format2.getHeight().intValue());
+    assertEquals(640, format2.getWidth().intValue());
+  }
+
+  @Test
+  public void checkV2_4_Embeddable() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
+    assertTrue(exampleVideo.getEmbeddable());
+  }
+
+  @Test
+  public void checkV2_4_Status() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
+    assertNotNull(exampleVideo.getStatus());
+    assertEquals("ready", exampleVideo.getStatus().getVideoStatus());
+  }
+
 }

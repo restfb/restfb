@@ -76,6 +76,49 @@ public class Video extends NamedFacebookType {
   private String description;
 
   /**
+   * Whether the video is embeddable.
+   * 
+   * @return Whether the video is embeddable.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean embeddable;
+
+  /**
+   * If this object has a place, the event associated with the place.
+   * 
+   * @return the event associated with the place
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Event event;
+
+  @Facebook
+  private List<VideoFormat> format = new ArrayList<VideoFormat>();
+
+  /**
+   * Location associated with the video, if any.
+   * 
+   * @return Location associated with the video, if any.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Place place;
+
+  /**
+   * The content category of this video.
+   * 
+   * @return The content category of this video.
+   */
+  @Getter
+  @Setter
+  @Facebook("content_category")
+  private String contentCategory;
+
+  /**
    * A picture URL which represents the video.
    * 
    * @return A picture URL which represents the video.
@@ -127,6 +170,26 @@ public class Video extends NamedFacebookType {
   private Integer length;
 
   /**
+   * Privacy setting for the video.
+   * 
+   * @return Privacy setting for the video.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Privacy privacy;
+
+  /**
+   * Object describing the status attributes of a video.
+   * 
+   * @return Object describing the status attributes of a video.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private VideoStatus status;
+
+  /**
    * Whether a post about this video is published.
    * 
    * This field is only accessible in Graph API 2.3 or later.
@@ -138,7 +201,7 @@ public class Video extends NamedFacebookType {
   @Setter
   @Facebook
   private Boolean published;
-  
+
   /**
    * Back dated time
    *
@@ -147,7 +210,7 @@ public class Video extends NamedFacebookType {
   @Getter
   @Setter
   private Date backdatedTime;
-  
+
   /**
    * String that represents the back dated time granularity
    *
@@ -157,7 +220,7 @@ public class Video extends NamedFacebookType {
   @Setter
   @Facebook("backdated_time_granularity")
   private String backdatedTimeGranularity;
-  
+
   @Facebook("backdated_time")
   private String rawBackdatedTime;
 
@@ -207,6 +270,23 @@ public class Video extends NamedFacebookType {
   private List<Comment> comments = new ArrayList<Comment>();
 
   private static final long serialVersionUID = 1L;
+
+  /**
+   * The different formats of the video.
+   * 
+   * @return The different formats of the video.
+   */
+  public List<VideoFormat> getFormat() {
+    return unmodifiableList(format);
+  }
+
+  public boolean addFormat(VideoFormat videoFormat) {
+    return format.add(videoFormat);
+  }
+
+  public boolean removeFormat(VideoFormat videoFormat) {
+    return format.remove(videoFormat);
+  }
 
   /**
    * Tags for the video.
@@ -306,5 +386,92 @@ public class Video extends NamedFacebookType {
     @Setter
     @Facebook("is_preferred")
     private Boolean isPreferred;
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-format/">Video Format Graph
+   * API type</a>.
+   */
+  public static class VideoFormat implements Serializable {
+
+    /**
+     * HTML to embed the video in this format.
+     * 
+     * @return HTML to embed the video in this format.
+     */
+    @Getter
+    @Setter
+    @Facebook("embed_html")
+    private String embedHtml;
+
+    /**
+     * The filter applied to this video format.
+     * 
+     * @return The filter applied to this video format.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String filter;
+
+    /**
+     * The thumbnail for the video in this format.
+     * 
+     * @return The thumbnail for the video in this format.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String picture;
+
+    /**
+     * The width of the video in this format.
+     * 
+     * @return The width of the video in this format.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer width;
+
+    /**
+     * The height of the video in this format.
+     * 
+     * @return The height of the video in this format.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer height;
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-status/">Video Status Graph
+   * API type</a>.
+   */
+  public static class VideoStatus implements Serializable {
+
+    /**
+     * Status of a video.
+     * 
+     * Either "ready" (uploaded, encoded, thumbnails extracted), "processing" (not ready yet) or "error" (processing
+     * failed).
+     * 
+     * @return Status of a video
+     */
+    @Getter
+    @Setter
+    @Facebook("video_status")
+    private String videoStatus;
+
+    /**
+     * Video processing progress in percent [int 0 to 100].
+     * 
+     * @return Video processing progress in percent [int 0 to 100].
+     */
+    @Getter
+    @Setter
+    @Facebook("processing_progress")
+    private Integer processingProgress;
   }
 }
