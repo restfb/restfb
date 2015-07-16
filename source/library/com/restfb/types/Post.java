@@ -523,169 +523,17 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Likes Graph API type</a>
-   *
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6
+   * @TODO: remove on type refactoring
    */
-  public static class Likes implements Serializable {
+  public static class Likes extends com.restfb.types.Likes {
 
-    /**
-     * The number of likes.
-     *
-     * @return The number of likes.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Long totalCount = 0L;
-
-    @Facebook
-    private JsonObject summary;
-
-    @Facebook
-    private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
-    /**
-     * The likes.
-     *
-     * @return The likes.
-     */
-    public List<NamedFacebookType> getData() {
-      return unmodifiableList(data);
-    }
-
-    public boolean addData(NamedFacebookType like) {
-      return data.add(like);
-    }
-
-    public boolean removeData(NamedFacebookType like) {
-      return data.remove(like);
-    }
-
-    /**
-     * add change count value, if summary is set and count is empty
-     */
-    @JsonMappingCompleted
-    private void fillTotalCount() {
-      if (totalCount == 0 && summary != null && summary.has("total_count")) {
-        totalCount = summary.getLong("total_count");
-      }
-    }
   }
 
   /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Comments Graph API type</a>.
-   *
-   * <p>
-   * Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the count
-   * (now called 'total_count')
-   * </p>
-   *
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.5.3
+   * @TODO: remove on type refactoring
    */
-  public static class Comments implements Serializable {
+  public static class Comments extends com.restfb.types.Comments {
 
-    /**
-     * The number of comments.
-     *
-     * <p>
-     * Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the
-     * count (now called 'total_count')
-     * </p>
-     *
-     * @return The number of comments.
-     */
-    @Getter
-    @Setter
-    @Facebook("total_count")
-    private Long totalCount = 0L;
-
-    @Facebook
-    private JsonObject summary = null;
-
-    @Facebook
-    private List<Comment> data = new ArrayList<Comment>();
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
-    /**
-     * The comments.
-     *
-     * @return The comments.
-     */
-    public List<Comment> getData() {
-      return unmodifiableList(data);
-    }
-
-    public boolean addData(Comment comment) {
-      return data.add(comment);
-    }
-
-    public boolean removeData(Comment comment) {
-      return data.remove(comment);
-    }
-
-    /**
-     * set total count if summary is present
-     */
-    @JsonMappingCompleted
-    private void fillTotalCount() {
-      if (totalCount == 0 && summary != null && summary.has("total_count")) {
-        totalCount = summary.getLong("total_count");
-      }
-    }
   }
 
   /**

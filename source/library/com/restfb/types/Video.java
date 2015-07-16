@@ -98,6 +98,18 @@ public class Video extends NamedFacebookType {
   private List<VideoFormat> format = new ArrayList<VideoFormat>();
 
   /**
+   * People who like this.
+   * 
+   * you need to add the field to the fields query parameter to get the likes list otherwise null is returned
+   * 
+   * @return People who like this
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Likes likes;
+
+  /**
    * Location associated with the video, if any.
    * 
    * @return Location associated with the video, if any.
@@ -265,6 +277,9 @@ public class Video extends NamedFacebookType {
   @Facebook
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
 
+  /**
+   * @TODO: replace this with {@link com.restfb.types.Comments}
+   */
   @Facebook
   private List<Comment> comments = new ArrayList<Comment>();
 
