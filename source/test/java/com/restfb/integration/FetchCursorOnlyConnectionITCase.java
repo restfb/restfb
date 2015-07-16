@@ -1,7 +1,5 @@
-/*
- * The MIT License
- *
- * Copyright 2015 viego2.
+/**
+ * Copyright (c) 2010-2015 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.restfb</groupId>
     <artifactId>restfb</artifactId>
@@ -8,58 +8,59 @@
     <version>1.13.0</version>
     <description>RestFB is a simple and flexible Facebook Graph API and Old REST API client written in Java.</description>
     <url>http://restfb.com</url>
+    <inceptionYear>2010</inceptionYear>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.build.source>1.6</project.build.source>
-        <project.build.target>1.6</project.build.target>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	<project.build.source>1.6</project.build.source>
+	<project.build.target>1.6</project.build.target>
     </properties>
 
     <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
-            <distribution>repo</distribution>
-        </license>
+	<license>
+	    <name>MIT License</name>
+	    <url>http://www.opensource.org/licenses/mit-license.php</url>
+	    <distribution>repo</distribution>
+	</license>
     </licenses>
 
     <scm>
-        <connection>scm:git:ssh://github.com/revetkn/restfb.git</connection>
-        <url>http://github.com/revetkn/restfb</url>
+	<connection>scm:git:ssh://github.com/restfb/restfb.git</connection>
+	<url>http://github.com/restfb/restfb</url>
     </scm>
 
     <developers>
-        <developer>
-            <id>mark.a.allen</id>
-            <name>Mark Allen</name>
-            <email>mark.a.allen@gmail.com</email>
-            <url>http://restfb.com</url>
-            <roles>
-                <role>Project Lead</role>
-            </roles>
-            <timezone>-5</timezone>
-        </developer>
-        <developer>
-            <id>kaosko</id>
-            <name>Kalle Korhonen</name>
-            <email>kaosko@apache.org</email>
-            <url>http://tynamo.org</url>
-            <roles>
-                <role>Mavenizer</role>
-            </roles>
-            <timezone>-8</timezone>
-        </developer>
-        <developer>
-            <id>nbartels</id>
-            <name>Norbert Bartels</name>
-            <url>http://www.phpmonkeys.de</url>
+	<developer>
+	    <id>mark.a.allen</id>
+	    <name>Mark Allen</name>
+	    <email>mark.a.allen@gmail.com</email>
+	    <url>http://restfb.com</url>
+	    <roles>
+		<role>Project Lead</role>
+	    </roles>
+	    <timezone>-5</timezone>
+	</developer>
+	<developer>
+	    <id>kaosko</id>
+	    <name>Kalle Korhonen</name>
+	    <email>kaosko@apache.org</email>
+	    <url>http://tynamo.org</url>
+	    <roles>
+		<role>Mavenizer</role>
+	    </roles>
+	    <timezone>-8</timezone>
+	</developer>
+	<developer>
+	    <id>nbartels</id>
+	    <name>Norbert Bartels</name>
+	    <url>http://www.phpmonkeys.de</url>
 	    <roles>
 		<role>Maintainer</role>
-                <role>Developer</role>
-            </roles>
-            <timezone>Europe/Berlin</timezone>
-        </developer>
+		<role>Developer</role>
+	    </roles>
+	    <timezone>Europe/Berlin</timezone>
+	</developer>
     </developers>
 
     <dependencies>
@@ -84,40 +85,65 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>source/library</sourceDirectory>
-        <testSourceDirectory>source/test/java</testSourceDirectory>
-        <testResources>
-            <testResource>
-                <directory>source/test/resources</directory>
-            </testResource>
-        </testResources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <fork>true</fork>
-                    <encoding>UTF-8</encoding>
-                    <source>${project.build.source}</source>
-                    <target>${project.build.target}</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.17</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+	<sourceDirectory>source/library</sourceDirectory>
+	<testSourceDirectory>source/test/java</testSourceDirectory>
+	<testResources>
+	    <testResource>
+		<directory>source/test/resources</directory>
+	    </testResource>
+	</testResources>
+	<plugins>
+	    <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>2.3.2</version>
+		<configuration>
+		    <fork>true</fork>
+		    <encoding>UTF-8</encoding>
+		    <source>${project.build.source}</source>
+		    <target>${project.build.target}</target>
+		    <showDeprecation>true</showDeprecation>
+		    <showWarnings>true</showWarnings>
+		</configuration>
+	    </plugin>
+	    <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-failsafe-plugin</artifactId>
+		<version>2.17</version>
+		<executions>
+		    <execution>
+			<goals>
+			    <goal>integration-test</goal>
+			    <goal>verify</goal>
+			</goals>
+		    </execution>
+		</executions>
+	    </plugin>
+	    <plugin>
+		<groupId>com.mycila</groupId>
+		<artifactId>license-maven-plugin</artifactId>
+		<version>2.11</version>
+		<configuration>
+		    <header>licensing/LICENSE-restfb</header>
+		    <excludes>
+			<exclude>**/*.xml</exclude>
+			<exclude>**/README.md</exclude>
+			<exclude>**/CHANGELOG</exclude>
+			<exclude>target/**</exclude>
+			<exclude>licensing/**</exclude>
+			<exclude>build/**</exclude>
+			<exclude>source/library/com/restfb/json/Json**</exclude>
+			<exclude>source/test/resources/**</exclude>
+		    </excludes>
+		</configuration>
+		<executions>
+		    <execution>
+			<goals>
+			    <goal>check</goal>
+			</goals>
+		    </execution>
+		</executions>
+	    </plugin>
+	</plugins>
     </build>
 </project>

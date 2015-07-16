@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2010-2015 Mark Allen.
+/**
+ * Copyright (c) 2010-2015 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.restfb.types;
 
 import java.io.Serializable;
