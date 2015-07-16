@@ -32,6 +32,7 @@ public class PageTest extends SetterGetterTestBase {
     Page obj = new Page();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawPicture");
     testInstance(obj);
   }
 

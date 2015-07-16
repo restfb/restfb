@@ -22,6 +22,9 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,15 +41,20 @@ import lombok.Setter;
  */
 public class Page extends CategorizedFacebookType {
 
+  @Facebook("picture")
+  private JsonObject rawPicture;
+
   /**
-   * The page's picture.
+   * The pages's profile picture, if provided.
    * 
-   * @return The page's picture.
+   * To force Facebook to fill the <code>picture</code> field you have to fetch the page with the
+   * <code>fields=picture</code> parameter, otherwise the picture is <code>null</code>.
+   * 
+   * @return the page's profile picture as ProfilePictureSource object
    */
   @Getter
   @Setter
-  @Facebook
-  private String picture;
+  private ProfilePictureSource picture;
 
   /**
    * Affiliation of this person. Applicable to Pages representing people
@@ -279,7 +287,6 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook
   private Hours hours;
-
 
   /**
    * Legal information about the Page publishers.
@@ -1538,5 +1545,16 @@ public class Page extends CategorizedFacebookType {
 
   public boolean removeFoodStyle(String foodStyle) {
     return foodStyles.remove(foodStyle);
+  }
+
+  @JsonMappingCompleted
+  protected void fillProfilePicture(JsonMapper jsonMapper) {
+    picture = null;
+
+    if (rawPicture == null)
+      return;
+
+    String picJson = rawPicture.getJsonObject("data").toString();
+    picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
   }
 }

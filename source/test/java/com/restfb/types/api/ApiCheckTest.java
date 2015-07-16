@@ -54,7 +54,7 @@ public class ApiCheckTest extends BaseTestCheck {
         Iterator<String> expIterator = expectedMethods.iterator();
         while (expIterator.hasNext()) {
           String expMethod = expIterator.next();
-          assertTrue(key, currentMethods.contains(expMethod));
+          assertTrue(key + " method not found " + expMethod, currentMethods.contains(expMethod));
         }
       }
     }

@@ -24,6 +24,7 @@ package com.restfb.types;
 import com.restfb.AbstractJsonMapperTests;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -96,6 +97,15 @@ public class PageTest extends AbstractJsonMapperTests {
 	assertTrue(page.getVoipInfo().getIsCallableWebrtc());
 	assertEquals(1356044, page.getVoipInfo().getReasonCode().intValue());
 	assertEquals("This person can't be called right now.", page.getVoipInfo().getReasonDescription());
+    }
+    
+    @Test
+    public void checkV2_4_picture() {
+	Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/page-picture"), Page.class);
+	assertNotNull(page);
+	assertNotNull(page.getPicture());
+	assertFalse(page.getPicture().getIsSilhouette());
+	assertEquals("https://fbcdn-profile-a.akamaihd.net/testpicture.jpg", page.getPicture().getUrl());
     }
     
 }

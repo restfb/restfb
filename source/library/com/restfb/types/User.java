@@ -694,75 +694,11 @@ public class User extends NamedFacebookType {
 
   }
 
-  public static class Picture implements Serializable {
-
-    /**
-     * The URL of the profile photo
-     * 
-     * @return The URL of the profile photo
-     * @since 1.6.16
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String url;
-
-    /**
-     * Indicates whether the profile photo is the default 'silhouette' picture, or has been replaced
-     * 
-     * @return is the photo the default or has been replaced
-     * @since 1.6.16
-     */
-    @Getter
-    @Setter
-    @Facebook("is_silhouette")
-    private Boolean isSilhouette;
-
-    /**
-     * Picture height in pixels
-     * 
-     * @return Picture height in pixels
-     * @since 1.6.16
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Integer height;
-
-    /**
-     * Picture width in pixels
-     * 
-     * @return Picture width in pixels
-     * @since 1.6.16
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Integer width;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
+  /**
+   * @TODO remove this on type refactoring
+   */
+  public static class Picture extends ProfilePictureSource {
+      // nothing here
   }
 
   /**
