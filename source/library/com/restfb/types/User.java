@@ -249,9 +249,8 @@ public class User extends NamedFacebookType {
   /**
    * The user's picture, if provided.
    * 
-   * To force Facebook to fill the <code>picture</code> field you 
-   * have to fetch the user with the <code>fields=picture</code>
-   * parameter, otherwise the picture is <code>null</code>.
+   * To force Facebook to fill the <code>picture</code> field you have to fetch the user with the
+   * <code>fields=picture</code> parameter, otherwise the picture is <code>null</code>.
    * 
    * @return the user's picture as picture object
    * @since 1.6.16
@@ -352,6 +351,9 @@ public class User extends NamedFacebookType {
 
   @Facebook("meeting_for")
   private List<String> meetingFor = new ArrayList<String>();
+
+  @Facebook
+  private List<UserDevice> devices = new ArrayList<UserDevice>();
 
   @Facebook
   private List<Work> work = new ArrayList<Work>();
@@ -876,6 +878,49 @@ public class User extends NamedFacebookType {
 
   }
 
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user-device/">Use">User Device
+   * Graph API type</a>.
+   * 
+   * @author <a href="http://restfb.com">Norbert Bartels</a>
+   */
+  public static class UserDevice implements Serializable {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String hardware;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String os;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
   public static class AgeRange implements Serializable {
 
     /**
@@ -897,6 +942,30 @@ public class User extends NamedFacebookType {
     @Setter
     @Facebook
     private Integer max;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
   }
 
   /**
@@ -988,6 +1057,25 @@ public class User extends NamedFacebookType {
 
   public boolean removeWork(Work workHistoryItem) {
     return work.remove(workHistoryItem);
+  }
+
+  /**
+   * The list of devices the person is using.
+   * 
+   * This will return only iOS and Android devices
+   * 
+   * @return The list of devices the person is using.
+   */
+  public List<UserDevice> getDevices() {
+    return unmodifiableList(devices);
+  }
+
+  public boolean addDevice(UserDevice device) {
+    return devices.add(device);
+  }
+
+  public boolean removeDevice(UserDevice device) {
+    return devices.remove(device);
   }
 
   /**
