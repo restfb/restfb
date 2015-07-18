@@ -1,3 +1,17 @@
+1.14.0 (July 18, 2015)
+
+* Issue #273: Normalize license header
+* Issue #271: Add devices Field to User
+* Issue #270: Graph API 2.4 - Video type new fields
+* Issue #267: Wrong mapping for (Feed)Targeting
+  Thanks to @Karnifexx
+* Issue #266: general Graph API 2.4 support
+* Issue #265: PR - Blank URL in BatchRequest
+  Thanks to @ehrmann
+* Issue #260: ProfilePictureSource for Page
+* Issue #246: Commens/Likes added to Video type (incl special Count method)
+  Thanks to @anenkov
+
 1.13.0 (July 8, 2015)
 
 * Issue #261: field targeting missing in post type
