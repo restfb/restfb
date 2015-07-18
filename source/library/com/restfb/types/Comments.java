@@ -58,6 +58,10 @@ public class Comments implements Serializable {
   @Setter
   @Facebook("total_count")
   private Long totalCount = 0L;
+  
+  @Getter
+  @Setter
+  private String order;
 
   @Facebook
   private JsonObject summary = null;
@@ -115,6 +119,16 @@ public class Comments implements Serializable {
   private void fillTotalCount() {
     if (totalCount == 0 && summary != null && summary.has("total_count")) {
       totalCount = summary.getLong("total_count");
+    }
+  }
+  
+  /**
+   * set the order the comments are sorted
+   */
+  @JsonMappingCompleted
+  private void fillOrder() {
+    if (summary != null && summary.has("order")) {
+      order = summary.getString("order");
     }
   }
 }

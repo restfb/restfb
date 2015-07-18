@@ -87,4 +87,40 @@ public class VideoTest extends AbstractJsonMapperTests {
     assertEquals("ready", exampleVideo.getStatus().getVideoStatus());
   }
 
+  @Test
+  public void checkV2_4_LikesCount() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-likescount"), Video.class);
+    assertEquals(10566L, exampleVideo.getLikesCount().longValue());
+  }
+
+  @Test
+  public void checkV2_4_Likes() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-likescount"), Video.class);
+    assertNotNull(exampleVideo.getLikes());
+    Likes likes = exampleVideo.getLikes();
+    assertNotNull(likes.getData());
+    NamedFacebookType like = likes.getData().get(0);
+    assertEquals("Princess Hayiria", like.getName());
+    assertEquals("1466760573639983", like.getId());
+    assertEquals(10566L, likes.getTotalCount().longValue());
+  }
+
+  @Test
+  public void checkV2_4_CommentsCount() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-commentcount"), Video.class);
+    assertEquals(231L, exampleVideo.getCommentsCount().longValue());
+  }
+
+  @Test
+  public void checkV2_4_Comments() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-commentcount"), Video.class);
+    assertNotNull(exampleVideo.getComments());
+    Comments comments = exampleVideo.getComments();
+    assertNotNull(comments.getData());
+    Comment c = comments.getData().get(0);
+    assertEquals("Anas Umar", c.getFrom().getName());
+    assertEquals("Goood nd fn", c.getMessage());
+    assertEquals(231L, comments.getTotalCount().longValue());
+  }
+
 }

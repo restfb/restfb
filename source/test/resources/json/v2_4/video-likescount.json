@@ -1,0 +1,23 @@
+{
+  "likes": {
+    "data": [
+      {
+        "id": "1466760573639983",
+        "name": "Princess Hayiria"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "MTQ2Njc2MDU3MzYzOTk4MwZDZD",
+        "after": "MTQ2Njc2MDU3MzYzOTk4MwZDZD"
+      },
+      "next": "https://graph.facebook.com/10153698778433306/likes?pretty=0&summary=true&limit=1&after=MTQ2Njc2MDU3MzYzOTk4MwZDZD"
+    },
+    "summary": {
+      "total_count": 10566,
+      "can_like": true,
+      "has_liked": false
+    }
+  },
+  "id": "10153698778433306"
+}

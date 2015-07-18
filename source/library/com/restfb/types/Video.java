@@ -65,6 +65,16 @@ public class Video extends NamedFacebookType {
   private String message;
 
   /**
+   * The comments for this video.
+   *
+   * @return The comments for this video.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Comments comments;
+
+  /**
    * The long-form HTML description of the video.
    * 
    * @return The long-form HTML description of the video.
@@ -277,12 +287,6 @@ public class Video extends NamedFacebookType {
   @Facebook
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
 
-  /**
-   * @TODO: replace this with {@link com.restfb.types.Comments}
-   */
-  @Facebook
-  private List<Comment> comments = new ArrayList<Comment>();
-
   private static final long serialVersionUID = 1L;
 
   /**
@@ -320,21 +324,53 @@ public class Video extends NamedFacebookType {
     return tags.remove(tag);
   }
 
-  /**
-   * Comments for the video.
-   * 
-   * @return Comments for the video.
-   */
-  public List<Comment> getComments() {
-    return unmodifiableList(comments);
-  }
-
+  @Deprecated
   public boolean addComment(Comment comment) {
-    return comments.add(comment);
+    if (getComments() != null) {
+      return getComments().addData(comment);
+    }
+    return false;
   }
 
+  @Deprecated
   public boolean removeComment(Comment comment) {
-    return comments.remove(comment);
+    if (getComments() != null) {
+      return getComments().removeData(comment);
+    }
+    return false;
+  }
+
+  /**
+   * The number of likes on this video.
+   * 
+   * you have to fetch the video id with <code>?fields=likes.summary(true)</code> in order to speed up the likes
+   * count generation, you may use <code>?fields=likes.limit(1).summary(true)</code>, so only 1 like is fetched,
+   * but the complete summary
+   *
+   * @return The number of likes on this video.
+   */
+  public Long getLikesCount() {
+    if (getLikes() != null) {
+      return getLikes().getTotalCount();
+    }
+
+    return 0L;
+  }
+
+  /**
+   * The number of comments of this video.
+   * 
+   * you have to fetch the video id with <code>?fields=comments.summary(true)</code> in order to speed up the comments
+   * count generation, you may use <code>?fields=comments.limit(1).summary(true)</code>, so only 1 comment is fetched,
+   * but the complete summary
+   *
+   * @return The number of comments of this video.
+   */
+  public Long getCommentsCount() {
+    if (getComments() != null) {
+      return getComments().getTotalCount();
+    }
+    return 0L;
   }
 
   @JsonMappingCompleted
@@ -488,4 +524,5 @@ public class Video extends NamedFacebookType {
     @Facebook("processing_progress")
     private Integer processingProgress;
   }
+
 }
