@@ -41,7 +41,9 @@ public class BatchHeader {
    * "Magic" no-argument constructor so we can reflectively make instances of this class with DefaultJsonMapper, but
    * normal client code cannot.
    */
-  protected BatchHeader() {}
+  protected BatchHeader() {
+      // nothing here
+  }
 
   /**
    * Creates a {@code BatchHeader} with the given name/value pair.

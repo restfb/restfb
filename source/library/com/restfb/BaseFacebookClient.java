@@ -96,7 +96,7 @@ abstract class BaseFacebookClient {
   /**
    * Logger.
    */
-  protected final Logger logger = Logger.getLogger(getClass().getName());
+  protected final Logger LOGGER = Logger.getLogger(getClass().getName());
 
   /**
    * Initializes this Facebook client.
@@ -208,7 +208,9 @@ abstract class BaseFacebookClient {
       // whether or not there's an error_code field present.
       try {
         errorObject = new JsonObject(json);
-      } catch (JsonException e) {}
+      } catch (JsonException e) {
+        // do nothing here
+      }
 
       if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME)) {
         return;

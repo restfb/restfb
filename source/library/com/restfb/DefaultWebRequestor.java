@@ -72,7 +72,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger("com.restfb.HTTP");
+  private static final Logger LOGGER = Logger.getLogger("com.restfb.HTTP");
 
   /**
    * By default this is true, to prevent breaking existing usage
@@ -111,8 +111,8 @@ public class DefaultWebRequestor implements WebRequestor {
       binaryAttachments = new BinaryAttachment[0];
     }
 
-    if (logger.isLoggable(FINE)) {
-      logger.fine("Executing a POST to " + url + " with parameters "
+    if (LOGGER.isLoggable(FINE)) {
+      LOGGER.fine("Executing a POST to " + url + " with parameters "
           + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + urlDecode(parameters)
           + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
     }
@@ -171,8 +171,8 @@ public class DefaultWebRequestor implements WebRequestor {
         outputStream.write(parameters.getBytes(ENCODING_CHARSET));
       }
 
-      if (logger.isLoggable(FINER)) {
-        logger.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
+      if (LOGGER.isLoggable(FINER)) {
+        LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
       }
 
       try {
@@ -180,8 +180,8 @@ public class DefaultWebRequestor implements WebRequestor {
             httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
               .getInputStream();
       } catch (IOException e) {
-        if (logger.isLoggable(WARNING)) {
-          logger.log(WARNING, "An error occurred while POSTing to {0}: {1}", new Object[] { url, e });
+        if (LOGGER.isLoggable(WARNING)) {
+          LOGGER.log(WARNING, "An error occurred while POSTing to {0}: {1}", new Object[] { url, e });
         }
       }
 
@@ -242,8 +242,8 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       closeable.close();
     } catch (Throwable t) {
-      if (logger.isLoggable(WARNING)) {
-        logger.log(WARNING, "Unable to close {0}: {1}", new Object[] { closeable, t });
+      if (LOGGER.isLoggable(WARNING)) {
+        LOGGER.log(WARNING, "Unable to close {0}: {1}", new Object[] { closeable, t });
       }
     }
   }
@@ -264,8 +264,8 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       httpUrlConnection.disconnect();
     } catch (Throwable t) {
-      if (logger.isLoggable(WARNING)) {
-        logger.log(WARNING, "Unable to disconnect {0}: {1}", new Object[] { httpUrlConnection, t });
+      if (LOGGER.isLoggable(WARNING)) {
+        LOGGER.log(WARNING, "Unable to disconnect {0}: {1}", new Object[] { httpUrlConnection, t });
       }
     }
   }
@@ -336,8 +336,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   private Response execute(String url, HttpMethod httpMethod) throws IOException {
-    if (logger.isLoggable(FINE)) {
-      logger.log(FINE, "Making a {0} request to {1}", new Object[] { httpMethod.name(), url });
+    if (LOGGER.isLoggable(FINE)) {
+      LOGGER.log(FINE, "Making a {0} request to {1}", new Object[] { httpMethod.name(), url });
     }
 
     HttpURLConnection httpUrlConnection = null;
@@ -355,14 +355,14 @@ public class DefaultWebRequestor implements WebRequestor {
 
       httpUrlConnection.connect();
 
-      if (logger.isLoggable(FINER)) {
-        logger.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
+      if (LOGGER.isLoggable(FINER)) {
+        LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
       }
 
       Response response = fetchResponse(inputStream, httpUrlConnection);
 
-      if (logger.isLoggable(FINE)) {
-        logger.log(FINE, "Facebook responded with {0}", response);
+      if (LOGGER.isLoggable(FINE)) {
+        LOGGER.log(FINE, "Facebook responded with {0}", response);
       }
 
       return response;
@@ -377,8 +377,8 @@ public class DefaultWebRequestor implements WebRequestor {
           httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
             .getInputStream();
     } catch (IOException e) {
-      if (logger.isLoggable(WARNING)) {
-        logger.warning(format("An error occurred while making a " + httpUrlConnection.getRequestMethod()
+      if (LOGGER.isLoggable(WARNING)) {
+        LOGGER.warning(format("An error occurred while making a " + httpUrlConnection.getRequestMethod()
             + " request to %s: %s", httpUrlConnection.getURL(), e));
       }
     }

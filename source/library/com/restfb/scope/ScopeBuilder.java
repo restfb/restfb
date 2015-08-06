@@ -26,6 +26,8 @@ import java.util.List;
 
 public class ScopeBuilder {
 
+  private final List<FacebookPermissions> permissions;
+
   public ScopeBuilder(boolean withoutPublicProfile) {
     this.permissions = new ArrayList<FacebookPermissions>();
     if (!withoutPublicProfile) {
@@ -36,8 +38,6 @@ public class ScopeBuilder {
   public ScopeBuilder() {
     this(false);
   }
-
-  private final List<FacebookPermissions> permissions;
 
   public ScopeBuilder addPermission(FacebookPermissions permission) {
     permissions.add(permission);

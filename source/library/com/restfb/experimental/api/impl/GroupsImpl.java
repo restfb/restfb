@@ -31,29 +31,30 @@ import java.util.List;
 
 public class GroupsImpl implements Groups {
 
-    FacebookClient facebookClient;
-    
-    GroupsImpl(FacebookClient facebookClient) {
-	this.facebookClient = facebookClient;
-    }
-    
-    @Override
-    public Group get(String groupId) {
-	return facebookClient.fetchObject(groupId, Group.class);
+  FacebookClient facebookClient;
+
+  GroupsImpl(FacebookClient facebookClient) {
+    this.facebookClient = facebookClient;
+  }
+
+  @Override
+  public Group get(String groupId) {
+    return facebookClient.fetchObject(groupId, Group.class);
+  }
+
+  @Override
+  public List<NamedFacebookType> memberList(String groupId) {
+
+    List<NamedFacebookType> memberList = new ArrayList<NamedFacebookType>();
+    Connection<NamedFacebookType> connection =
+        facebookClient.fetchConnection(groupId + "/members", NamedFacebookType.class);
+    for (List<NamedFacebookType> memberPage : connection) {
+      for (NamedFacebookType member : memberPage) {
+        memberList.add(member);
+      }
     }
 
-    @Override
-    public List<NamedFacebookType> memberList(String groupId) {
-	
-	List<NamedFacebookType> memberList = new ArrayList<NamedFacebookType>();
-	Connection<NamedFacebookType> connection = facebookClient.fetchConnection(groupId + "/members", NamedFacebookType.class);
-	for (List<NamedFacebookType> memberPage : connection) {
-	    for (NamedFacebookType member : memberPage) {
-		memberList.add(member);
-	    }
-	}
-	
-	return memberList;
-    }
-    
+    return memberList;
+  }
+
 }

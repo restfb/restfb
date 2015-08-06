@@ -63,7 +63,9 @@ public final class ReflectionUtils {
   /**
    * Prevents instantiation.
    */
-  private ReflectionUtils() {}
+  private ReflectionUtils() {
+    // prevent instantiation
+  }
 
   /**
    * Is the given {@code object} a primitive type or wrapper for a primitive type?

@@ -30,32 +30,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersImpl implements Users {
-    private final FacebookClient facebookClient;
+  private final FacebookClient facebookClient;
 
-    public UsersImpl(FacebookClient facebookClient) {
-	this.facebookClient = facebookClient;
-    }
-    
-    @Override
-    public User get(String userId) {
-	return facebookClient.fetchObject(userId, User.class);
-    }
+  public UsersImpl(FacebookClient facebookClient) {
+    this.facebookClient = facebookClient;
+  }
 
-    @Override
-    public User getMe() {
-	return get("me");
-    }
+  @Override
+  public User get(String userId) {
+    return facebookClient.fetchObject(userId, User.class);
+  }
 
-    @Override
-    public List<Account> getAccounts() {
-	List<Account> accountList = new ArrayList<Account>();
-	Connection<Account> connection = facebookClient.fetchConnection("me/accounts", Account.class);
-	for (List<Account> accountPage : connection) {
-	    for (Account account : accountPage) {
-		accountList.add(account);
-	    }
-	}
-	return accountList;
+  @Override
+  public User getMe() {
+    return get("me");
+  }
+
+  @Override
+  public List<Account> getAccounts() {
+    List<Account> accountList = new ArrayList<Account>();
+    Connection<Account> connection = facebookClient.fetchConnection("me/accounts", Account.class);
+    for (List<Account> accountPage : connection) {
+      for (Account account : accountPage) {
+        accountList.add(account);
+      }
     }
-    
+    return accountList;
+  }
+
 }

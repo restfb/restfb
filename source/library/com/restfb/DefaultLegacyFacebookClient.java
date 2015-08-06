@@ -260,7 +260,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     parameters.add(Parameter.with("queries", queriesToJson(queries)));
 
     for (Parameter additionalParameter : additionalParameters) {
-      if (additionalParameter.name.equals("queries")) {
+      if ("queries".equals(additionalParameter.name)) {
         throw new IllegalArgumentException("You cannot specify a parameter named 'queries' "
             + "because it's reserved for use by RestFB for this call. "
             + "Specify your queries in the Map that gets passed to this method.");

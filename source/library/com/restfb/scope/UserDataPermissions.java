@@ -301,11 +301,11 @@ public enum UserDataPermissions implements FacebookPermissions {
    */
   USER_WORK_HISTORY("user_work_history");
 
+  String permissionString;
+
   UserDataPermissions(String facebookPermissionString) {
     this.permissionString = facebookPermissionString;
   }
-
-  String permissionString;
 
   @Override
   public String getPermissionString() {

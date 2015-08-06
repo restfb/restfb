@@ -45,7 +45,9 @@ public final class UrlUtils {
   /**
    * Prevents instantiation.
    */
-  private UrlUtils() {}
+  private UrlUtils() {
+    // Prevents instantiation
+  }
 
   /**
    * URL-encodes a string.
@@ -140,7 +142,7 @@ public final class UrlUtils {
       String query = urlParts[1];
 
       for (String param : query.split("&")) {
-        String pair[] = param.split("=");
+        String[] pair = param.split("=");
         String key = urlDecode(pair[0]);
         String value = "";
 

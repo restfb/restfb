@@ -69,6 +69,7 @@ public class JsonStringer extends JsonWriter {
    * 
    * @return The JSON text.
    */
+  @Override
   public String toString() {
     return this.mode == 'd' ? this.writer.toString() : null;
   }

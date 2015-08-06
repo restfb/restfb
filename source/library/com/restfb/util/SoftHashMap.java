@@ -43,16 +43,16 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V> implements Serializable
     expungeStaleEntries();
     V result = null;
     // We get the SoftReference represented by that key
-    SoftReference<V> soft_ref = hash.get(key);
-    if (soft_ref != null) {
+    SoftReference<V> softRef = hash.get(key);
+    if (softRef != null) {
       // From the SoftReference we get the value, which can be
       // null if it has been garbage collected
-      result = soft_ref.get();
+      result = softRef.get();
       if (result == null) {
         // If the value has been garbage collected, remove the
         // entry from the HashMap.
         hash.remove(key);
-        reverseLookup.remove(soft_ref);
+        reverseLookup.remove(softRef);
       }
     }
     return result;

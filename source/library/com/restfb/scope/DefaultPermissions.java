@@ -55,11 +55,11 @@ enum DefaultPermissions implements FacebookPermissions {
    */
   PUBLIC_PROFILE("public_profile");
 
+  String permissionString;
+
   DefaultPermissions(String facebookPermissionString) {
     this.permissionString = facebookPermissionString;
   }
-
-  String permissionString;
 
   @Override
   public String getPermissionString() {

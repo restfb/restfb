@@ -48,12 +48,14 @@ public final class StringUtils {
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger(StringUtils.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(StringUtils.class.getName());
 
   /**
    * Prevents instantiation.
    */
-  private StringUtils() {}
+  private StringUtils() {
+    // Prevents instantiation
+  }
 
   /**
    * Is {@code string} blank (null or only whitespace)?
@@ -180,8 +182,8 @@ public final class StringUtils {
           reader.close();
         } catch (Throwable t) {
           // Really nothing we can do but log the error
-          if (logger.isLoggable(WARNING)) {
-            logger.warning("Unable to close stream, continuing on: " + t);
+          if (LOGGER.isLoggable(WARNING)) {
+            LOGGER.warning("Unable to close stream, continuing on: " + t);
           }
         }
       }

@@ -42,16 +42,16 @@ public class DeviceTokenExceptionFactory {
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
 
     String errorMessage = oauthException.getErrorMessage();
-    if (errorMessage.equals("authorization_pending")) {
+    if ("authorization_pending".equals(errorMessage)) {
       throw new FacebookDeviceTokenPendingException(errorMessage, oauthException);
     }
-    if (errorMessage.equals("authorization_declined")) {
+    if ("authorization_declined".equals(errorMessage)) {
       throw new FacebookDeviceTokenDeclinedException(errorMessage, oauthException);
     }
-    if (errorMessage.equals("slow_down")) {
+    if ("slow_down".equals(errorMessage)) {
       throw new FacebookDeviceTokenSlowdownException(errorMessage, oauthException);
     }
-    if (errorMessage.equals("code_expired")) {
+    if ("code_expired".equals(errorMessage)) {
       throw new FacebookDeviceTokenCodeExpiredException(errorMessage, oauthException);
     }
 

@@ -63,7 +63,7 @@ public final class DateUtils {
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger(DateUtils.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(DateUtils.class.getName());
 
   /**
    * DateFormatStrategy (default: SimpleDateFormat).
@@ -73,7 +73,9 @@ public final class DateUtils {
   /**
    * Prevents instantiation.
    */
-  private DateUtils() {}
+  private DateUtils() {
+    // Prevents instantiation
+  }
 
   /**
    * Returns a Java representation of a Facebook "long" {@code date} string, or the number of seconds since the epoch.
@@ -102,7 +104,7 @@ public final class DateUtils {
     if (parsedDate == null) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE);
     }
-      
+
     return parsedDate;
   }
 
@@ -125,7 +127,7 @@ public final class DateUtils {
     if (parsedDate == null) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT);
     }
-      
+
     return parsedDate;
   }
 
@@ -165,10 +167,10 @@ public final class DateUtils {
     try {
       return strategy.formatFor(format).parse(date);
     } catch (ParseException e) {
-      if (logger.isLoggable(FINER)) {
-        logger.fine(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
+      if (LOGGER.isLoggable(FINER)) {
+        LOGGER.fine(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
       }
-	
+
       return null;
     }
   }

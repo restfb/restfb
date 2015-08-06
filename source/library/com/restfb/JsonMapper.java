@@ -121,5 +121,7 @@ public interface JsonMapper {
    */
   @Target({ METHOD })
   @Retention(RUNTIME)
-  public @interface JsonMappingCompleted {}
+  public @interface JsonMappingCompleted {
+    // annotation
+  }
 }

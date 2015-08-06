@@ -182,11 +182,11 @@ public enum ExtendedPermissions implements FacebookPermissions {
    */
   RSVP_EVENT("rsvp_event");
 
+  String permissionString;
+
   ExtendedPermissions(String facebookPermissionString) {
     this.permissionString = facebookPermissionString;
   }
-
-  String permissionString;
 
   @Override
   public String getPermissionString() {

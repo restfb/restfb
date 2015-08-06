@@ -21,7 +21,6 @@
  */
 package com.restfb.batch;
 
-import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
@@ -109,7 +108,7 @@ public class BatchRequest {
     this.name = name;
     this.omitResponseOnSuccess = omitResponseOnSuccess;
 
-    if (parameters.size() > 0) {
+    if (!parameters.isEmpty()) {
       this.relativeUrl =
           format(this.relativeUrl.indexOf("?") == -1 ? "%s?%s" : "%s&%s", this.relativeUrl,
             generateParameterString(parameters));

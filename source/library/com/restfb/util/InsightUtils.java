@@ -73,7 +73,6 @@ public class InsightUtils {
   }
 
   private static final TimeZone PST_TIMEZONE = TimeZone.getTimeZone("PST");
-  private static final long SECONDS_IN_DAY = 60 * 60 * 24;
 
   /**
    * Queries Facebook via FQL for several Insights at different date points.
@@ -145,7 +144,7 @@ public class InsightUtils {
             if (resultByDate.put(date, metricValue) != null) {
               throw new IllegalStateException(format(
                 "MultiQuery response has two results for metricName: %s and date: %s", metricName, date));
-	    }
+            }
           } catch (JsonException e) {
             throw new FacebookJsonMappingException(format("Could not decode result for %s: %s", metricResult,
               e.getMessage()), e);
@@ -205,24 +204,24 @@ public class InsightUtils {
     if (facebookClient == null) {
       throw new IllegalArgumentException("The 'facebookClient' parameter is required.");
     }
-      
+
     if (isBlank(pageObjectId)) {
       throw new IllegalArgumentException(
         "The 'pageObjectId' parameter should be a non-empty string, probably a positive number.");
     }
-      
+
     if (isEmpty(metrics)) {
       throw new IllegalArgumentException("The 'metrics' set should be non-empty.");
     }
-      
+
     if (period == null) {
       throw new IllegalArgumentException("The 'period' parameter is required.");
     }
-      
+
     if (isEmpty(periodEndDates)) {
       throw new IllegalArgumentException("The 'periodEndDates' set should be non-empty");
     }
-    
+
     // put dates into an array where we can easily access the index of each
     // date, as these ordinal positions will be used as query identifiers
     // in the MultiQuery
@@ -253,7 +252,7 @@ public class InsightUtils {
           Date d = datesByQueryIndex.get(queryIndex);
           if (d == null) {
             throw new IllegalStateException("MultiQuery response had an unexpected key value: " + key);
-	  }
+          }
 
           result.put(d, innerResult);
         } catch (NumberFormatException nfe) {
@@ -303,7 +302,7 @@ public class InsightUtils {
         if (!isBlank(metric)) {
           if (metricCount > 0) {
             in.append(',');
-	  }
+          }
 
           in.append('\'');
           in.append(metric.trim());
@@ -382,7 +381,7 @@ public class InsightUtils {
     long time = date.getTime() / 1000L;
     // note we cannot use a Daylight sensitive Calendar here since that would
     // adjust the time incorrectly over the DST junction
-    time += SECONDS_IN_DAY;
+    time += Period.DAY.getPeriodLength();
     return time;
   }
 

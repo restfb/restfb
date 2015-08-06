@@ -1167,16 +1167,16 @@ public class JsonObject implements Serializable {
    * @return A simple JSON value.
    */
   static public Object stringToValue(String s) {
-    if (s.equals("")) {
+    if ("".equals(s)) {
       return s;
     }
-    if (s.equalsIgnoreCase("true")) {
+    if ("true".equalsIgnoreCase(s)) {
       return Boolean.TRUE;
     }
-    if (s.equalsIgnoreCase("false")) {
+    if ("false".equalsIgnoreCase(s)) {
       return Boolean.FALSE;
     }
-    if (s.equalsIgnoreCase("null")) {
+    if ("null".equalsIgnoreCase(s)) {
       return JsonObject.NULL;
     }
 

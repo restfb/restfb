@@ -31,7 +31,9 @@ import com.restfb.experimental.api.Users;
 
 public class ApiFactory {
 
-  private ApiFactory() {}
+  private ApiFactory() {
+    /* nothing here */
+  }
 
   public static Comments createComments(FacebookClient client) {
     return new CommentsImpl(client);

@@ -836,6 +836,7 @@ public class JsonArray implements Serializable {
    * 
    * @return a printable, displayable, transmittable representation of the array.
    */
+  @Override
   public String toString() {
     try {
       return '[' + join(",") + ']';

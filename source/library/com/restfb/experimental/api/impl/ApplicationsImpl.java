@@ -32,6 +32,8 @@ import java.util.List;
 
 public class ApplicationsImpl implements Applications {
 
+  private static final String SUBSCRIPTIONS_ENDPOINT = "/subscriptions";
+
   private final FacebookClient facebookClient;
 
   ApplicationsImpl(FacebookClient facebookClient) {
@@ -41,7 +43,7 @@ public class ApplicationsImpl implements Applications {
   @Override
   public List<Subscription> fetchSubscriptions(String appId) {
     Connection<Subscription> subscriptionConn =
-        facebookClient.fetchConnection(appId + "/subscriptions", Subscription.class);
+        facebookClient.fetchConnection(appId + SUBSCRIPTIONS_ENDPOINT, Subscription.class);
 
     List<Subscription> subList = new ArrayList<Subscription>();
 
@@ -56,11 +58,9 @@ public class ApplicationsImpl implements Applications {
 
   @Override
   public boolean createSubscription(String appId, String verifyToken, Subscription subscription) {
-    List<Parameter> paramList = new ArrayList<Parameter>();
-
-    paramList.add(Parameter.with("verify_token", verifyToken));
-    paramList.add(Parameter.with("object", subscription.getObject()));
-    paramList.add(Parameter.with("callback_url", subscription.getCallbackUrl()));
+    Parameter verifyTokenParam = Parameter.with("verify_token", verifyToken);
+    Parameter objectParam = Parameter.with("object", subscription.getObject());
+    Parameter callbackParam = Parameter.with("callback_url", subscription.getCallbackUrl());
 
     String fieldString = "";
     for (String field : subscription.getFields()) {
@@ -71,16 +71,16 @@ public class ApplicationsImpl implements Applications {
       fieldString = fieldString.substring(1);
     }
 
-    paramList.add(Parameter.with("fields", fieldString));
-    Parameter paramArray[] = new Parameter[paramList.size()];
-    paramArray = paramList.toArray(paramArray);
+    Parameter fieldsParam = Parameter.with("fields", fieldString);
 
-    JsonObject returnValue = facebookClient.publish(appId + "/subscriptions", JsonObject.class, paramArray);
+    JsonObject returnValue =
+        facebookClient.publish(appId + SUBSCRIPTIONS_ENDPOINT, JsonObject.class, verifyTokenParam, objectParam,
+          callbackParam, fieldsParam);
     return returnValue.optBoolean("success", false);
   }
 
   @Override
   public boolean removeSubscription(String appId, String object) {
-    return facebookClient.deleteObject(appId + "/subscriptions", Parameter.with("object", object));
+    return facebookClient.deleteObject(appId + SUBSCRIPTIONS_ENDPOINT, Parameter.with("object", object));
   }
 }

@@ -359,7 +359,7 @@ public class JsonTokener {
     back();
 
     s = sb.toString().trim();
-    if (s.equals("")) {
+    if ("".equals(s)) {
       throw syntaxError("Missing value");
     }
     return JsonObject.stringToValue(s);
@@ -410,6 +410,7 @@ public class JsonTokener {
    * 
    * @return " at character [this.index]"
    */
+  @Override
   public String toString() {
     return " at character " + index;
   }
