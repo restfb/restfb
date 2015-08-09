@@ -1,0 +1,5 @@
+Bundle-SymbolicName: com.restfb
+Bundle-Name: Restfb Bundlor
+Bundle-ManifestVersion: 2
+Export-Template: 
+ *;version=${project.version};provider=bundlor
