@@ -75,16 +75,19 @@ public class Comment extends FacebookType {
   private Date createdTime;
 
   /**
-   * The number of likes on this comment.
+   * Duplicate mapping for "likes" since FB can return it differently in different situations.
    *
-   * @return The number of likes on this comment.
-   * @deprecated As of September 5, 2012, Facebook is changing over to {@code like_count}, so this method will be
-   *             replaced by {@link #likeCount}.
+   * -- GETTER -- The likes on this post.
+   * <p>
+   * Sometimes this can be {@code null} - check {@link #getLikeCount()} instead in that case.
+   *
+   * @return The likes on this comment.
+   *
    */
   @Getter
   @Setter
   @Facebook
-  private Long likes;
+  private Likes likes;
 
   /**
    * The number of likes on this comment.

@@ -29,28 +29,35 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class CommentTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV2_2_NoHide() {
-        Comment exampleComment =
+
+  @Test
+  public void checkV2_2_NoHide() {
+    Comment exampleComment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_noCanHide"), Comment.class);
-        assertFalse(exampleComment.isCanHide());
-	assertTrue(exampleComment.getIsHidden());
-    }
-    
-    @Test
-    public void checkV2_2_canHide() {
-        Comment exampleComment =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_canHide"), Comment.class);
-        assertTrue(exampleComment.isCanHide());
-	assertFalse(exampleComment.getIsHidden());
-    }
-    
-    @Test
-    public void checkV2_2_object() {
-	Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_object"), Comment.class);
-	assertNotNull(exampleComment.getObject());
-	assertEquals("1559830900918160", exampleComment.getObject().getId());
-	assertEquals("picture time", exampleComment.getObject().getName());
-    }
+    assertFalse(exampleComment.isCanHide());
+    assertTrue(exampleComment.getIsHidden());
+  }
+
+  @Test
+  public void checkV2_2_canHide() {
+    Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_canHide"), Comment.class);
+    assertTrue(exampleComment.isCanHide());
+    assertFalse(exampleComment.getIsHidden());
+  }
+
+  @Test
+  public void checkV2_2_object() {
+    Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_object"), Comment.class);
+    assertNotNull(exampleComment.getObject());
+    assertEquals("1559830900918160", exampleComment.getObject().getId());
+    assertEquals("picture time", exampleComment.getObject().getName());
+  }
+
+  @Test
+  public void checkV2_2_issue286() {
+    Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment-issue286"), Comment.class);
+    assertNotNull(exampleComment.getObject());
+    assertEquals("520586098107541", exampleComment.getObject().getId());
+    assertEquals("new comment", exampleComment.getMessage());
+  }
 }
