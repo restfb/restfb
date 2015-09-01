@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/restfb/restfb.svg?branch=dev)](https://travis-ci.org/restfb/restfb)
+[![Build Status](https://travis-ci.org/restfb/restfb.svg)](https://travis-ci.org/restfb/restfb)
 
 # RestFB (http://restfb.com)
 ## What it is

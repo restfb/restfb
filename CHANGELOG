@@ -1,3 +1,12 @@
+1.14.1 (September 1, 2015)
+
+* Issue #252: strange events behaviour
+  Thanks to Paul Myburgh
+* Issue #277: version enum changed - LATEST added
+  Thanks to @skaluva
+* Issue #286: likes field in comment type changed
+  Thanks to Bogdan Neacsa
+
 1.14.0 (July 18, 2015)
 
 * Issue #273: Normalize license header
