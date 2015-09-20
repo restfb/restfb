@@ -519,6 +519,10 @@ public class DefaultJsonMapper implements JsonMapper {
       return ((BigDecimal) object).doubleValue();
     }
 
+    if (object instanceof Enum) {
+      return ((Enum) object).name();
+    }
+
     // We've passed the special-case bits, so let's try to marshal this as a
     // plain old Javabean...
 
