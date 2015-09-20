@@ -557,17 +557,17 @@ public class DefaultJsonMapper implements JsonMapper {
 
     return jsonObject;
   }
-  
+
   private boolean isEmptyCollectionOrMap(Object fieldValue) {
-      if (fieldValue instanceof Collection) {
-	  return ((Collection) fieldValue).isEmpty();
-      } 
-      
-      if (fieldValue instanceof Map) {
-	  return ((Map) fieldValue).isEmpty();
-      }
-      
-      return false;
+    if (fieldValue instanceof Collection) {
+      return ((Collection) fieldValue).isEmpty();
+    }
+
+    if (fieldValue instanceof Map) {
+      return ((Map) fieldValue).isEmpty();
+    }
+
+    return false;
   }
 
   /**
@@ -710,6 +710,17 @@ public class DefaultJsonMapper implements JsonMapper {
     }
     if (List.class.equals(type)) {
       return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
+    }
+    if (type.isEnum()) {
+      Class<? extends Enum> enumType = type.asSubclass(Enum.class);
+      try {
+        return Enum.valueOf(enumType, jsonObject.getString(facebookFieldName));
+      } catch (IllegalArgumentException iae) {
+        if (logger.isLoggable(FINE)) {
+          logger
+            .fine("Cannot map string " + jsonObject.getString(facebookFieldName) + " to enum " + enumType.getName());
+        }
+      }
     }
 
     String rawValueAsString = rawValue.toString();
