@@ -469,64 +469,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
   }
 
-  @Override
-  @Deprecated
-  @SuppressWarnings("unchecked")
-  public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("objectType", objectType);
-
-    for (Parameter parameter : parameters) {
-      if (QUERIES_PARAM_NAME.equals(parameter.name)) {
-        throw new IllegalArgumentException(
-          "You cannot specify the '" + QUERIES_PARAM_NAME + "' URL parameter yourself - "
-              + "RestFB will populate this for you with " + "the queries you passed to this method.");
-      }
-    }
-
-    try {
-      JsonArray jsonArray = new JsonArray(makeRequest("fql.multiquery", false, false, null,
-        parametersWithAdditionalParameter(Parameter.with(QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
-
-      JsonObject normalizedJson = new JsonObject();
-
-      for (int i = 0; i < jsonArray.length(); i++) {
-        JsonObject jsonObject = jsonArray.getJsonObject(i);
-
-        // For empty resultsets, Facebook will return an empty object instead of
-        // an empty list. Hack around that here.
-        JsonArray resultsArray = jsonObject.get("fql_result_set") instanceof JsonArray
-            ? jsonObject.getJsonArray("fql_result_set") : new JsonArray();
-
-        normalizedJson.put(jsonObject.getString("name"), resultsArray);
-      }
-
-      return objectType.equals(JsonObject.class) ? (T) normalizedJson
-          : jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
-    } catch (JsonException e) {
-      throw new FacebookJsonMappingException("Unable to process fql.multiquery JSON response", e);
-    }
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#executeQuery(java.lang.String, java.lang.Class, com.restfb.Parameter[])
-   */
-  @Override
-  @Deprecated
-  public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("query", query);
-    verifyParameterPresence("objectType", objectType);
-
-    for (Parameter parameter : parameters) {
-      if (QUERY_PARAM_NAME.equals(parameter.name)) {
-        throw new IllegalArgumentException("You cannot specify the '" + QUERY_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with " + "the query you passed to this method.");
-      }
-    }
-
-    return jsonMapper.toJavaList(makeRequest("fql.query", false, false, null,
-      parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
-  }
-
   /**
    * @see com.restfb.FacebookClient#executeFqlQuery(java.lang.String, java.lang.Class, com.restfb.Parameter[])
    */

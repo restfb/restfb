@@ -175,52 +175,6 @@ public interface FacebookClient {
    * @return A list of instances of {@code objectType} which map to the query results.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
-   * @deprecated As of 1.6.12, prefer {@link #executeFqlQuery(String, Class, Parameter...)} because it connects to the
-   *             Graph API FQL endpoint instead of the legacy FQL endpoint.
-   */
-  @Deprecated
-  <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters);
-
-  /**
-   * Executes an <a href="http://developers.facebook.com/docs/reference/fql/">FQL multiquery</a>, which allows you to
-   * batch multiple queries into a single request.
-   * <p>
-   * You'll need to write your own container type ({@code objectType}) to hold the results. See
-   * <a href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
-   * 
-   * @param <T>
-   *          Java type to map to.
-   * @param queries
-   *          A mapping of query names to queries. This is marshaled to JSON and sent over the wire to the Facebook API
-   *          endpoint as the {@code queries} parameter.
-   * @param objectType
-   *          Object type token.
-   * @param parameters
-   *          URL parameters to include in the API call (optional).
-   * @return An instance of type {@code objectType} which contains the requested objects' data.
-   * @throws FacebookException
-   *           If an error occurs while performing the API call.
-   * @deprecated As of 1.6.12, prefer {@link #executeFqlMultiquery(Map, Class, Parameter...)} because it connects to the
-   *             Graph API FQL endpoint instead of the legacy FQL endpoint.
-   */
-  @Deprecated
-  <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
-
-  /**
-   * Executes an <a href="http://developers.facebook.com/docs/reference/fql/">FQL query</a>, mapping the resultset to a
-   * {@code List} of instances of {@code objectType}.
-   * 
-   * @param <T>
-   *          Java type to map to.
-   * @param query
-   *          The FQL query to execute, e.g. {@code "SELECT name FROM user WHERE uid=220439 or uid=7901103"}.
-   * @param objectType
-   *          Resultset object type token.
-   * @param parameters
-   *          URL parameters to include in the API call (optional).
-   * @return A list of instances of {@code objectType} which map to the query results.
-   * @throws FacebookException
-   *           If an error occurs while performing the API call.
    * @since 1.6.12
    */
   <T> List<T> executeFqlQuery(String query, Class<T> objectType, Parameter... parameters);
