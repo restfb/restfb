@@ -1491,6 +1491,28 @@ public class Page extends CategorizedFacebookType {
     public String toString() {
       return ReflectionUtils.toString(this);
     }
+
+    /**
+     * convert the value field in a boolean and return it.
+     * 
+     * Every value that's not the String "true" (case is ignored) is <code>false</code>!
+     * 
+     * @return the value field as boolean.
+     */
+    public boolean getValueAsBoolean() {
+      return Boolean.parseBoolean(value);
+    }
+
+    /**
+     * Takes the value and converts it into a json object if possible.
+     * 
+     * May throw a JsonException
+     * 
+     * @return
+     */
+    public JsonObject getValueAsJsonObject() {
+      return new JsonObject(value);
+    }
   }
 
   /**
