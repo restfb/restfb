@@ -26,14 +26,7 @@ public enum Version {
   /**
    * unversiond api
    */
-  UNVERSIONED(null), //
-  /**
-   * <tt>Graph API 1.0</tt>, available until April 30, 2015
-   * 
-   * @since April 21, 2010
-   * @deprecated use VERSION_2_0 instead
-   */
-  @Deprecated VERSION_1_0("v1.0"),
+  UNVERSIONED(null),
 
   /**
    * <tt>Graph API 2.0</tt>, available until August 7, 2016
