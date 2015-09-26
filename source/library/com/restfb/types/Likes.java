@@ -128,16 +128,16 @@ public class Likes implements Serializable {
   private void fillFromSummary() {
     if (summary != null) {
 
-      if (totalCount == 0 && summary.has("total_count")) {
-        totalCount = summary.getLong("total_count");
+      if (totalCount == 0 && summary.get("total_count") != null) {
+        totalCount = summary.getLong("total_count", totalCount);
       }
 
-      if (summary.has("has_liked")) {
-        hasLiked = summary.getBoolean("has_liked");
+      if (summary.get("has_liked") != null) {
+        hasLiked = summary.get("has_liked").asBoolean();
       }
 
-      if (summary.has("can_like")) {
-        canLike = summary.getBoolean("can_like");
+      if (summary.get("can_like") != null) {
+        canLike = summary.get("can_like").asBoolean();
       }
     }
 

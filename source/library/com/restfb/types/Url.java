@@ -83,12 +83,8 @@ public class Url extends FacebookType {
 
   @JsonMappingCompleted
   void fillCounts() {
-    if (share.has("comment_count")) {
-      commentCount = share.getInt("comment_count");
-    }
-    if (share.has("share_count")) {
-      shareCount = share.getInt("share_count");
-    }
+    commentCount = share.getInt("comment_count", commentCount);
+    shareCount = share.getInt("share_count", shareCount);
   }
 
   private static final long serialVersionUID = 1L;

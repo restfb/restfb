@@ -28,8 +28,8 @@ import static java.util.Arrays.asList;
 
 import com.restfb.exception.generator.DefaultLegacyFacebookExceptionGenerator;
 import com.restfb.exception.generator.LegacyFacebookExceptionGenerator;
-import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
+import com.restfb.json.ParseException;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -181,8 +181,8 @@ abstract class BaseFacebookClient {
       }
 
       try {
-        jsonObject.put(trimToEmpty(entry.getKey()), trimToEmpty(entry.getValue()));
-      } catch (JsonException e) {
+        jsonObject.add(trimToEmpty(entry.getKey()), trimToEmpty(entry.getValue()));
+      } catch (ParseException e) {
         // Shouldn't happen unless bizarre input is provided
         throw new IllegalArgumentException("Unable to convert " + queries + " to JSON.", e);
       }

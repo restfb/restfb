@@ -76,7 +76,7 @@ public class ApplicationsImpl implements Applications {
 
     JsonObject returnValue = facebookClient.publish(appId + SUBSCRIPTIONS_ENDPOINT, JsonObject.class, verifyTokenParam,
       objectParam, callbackParam, fieldsParam);
-    return returnValue.optBoolean("success", false);
+    return returnValue.getBoolean("success", false);
   }
 
   @Override

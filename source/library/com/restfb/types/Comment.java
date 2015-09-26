@@ -21,7 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
@@ -261,7 +260,7 @@ public class Comment extends FacebookType {
 
     try {
       JsonObject rawMessageTagsObject = jsonMapper.toJavaObject(rawMessageTags, JsonObject.class);
-      for (String key : getNames(rawMessageTagsObject)) {
+      for (String key : rawMessageTagsObject.names()) {
         String tagArrayString = rawMessageTagsObject.get(key).toString();
         messageTags.addAll(jsonMapper.toJavaList(tagArrayString, MessageTag.class));
       }

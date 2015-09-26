@@ -15,6 +15,7 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 * `Post.Comments` replaced with `Comments` type.
 * `Post.Privacy` replaced with `Privacy` type.
 * `Photo.getComments` returns `Comments` type instead of `Comment list
+* json API changed, you should look [here](https://github.com/ralfstx/minimal-json)
 
 ## Comment.Attachment removed
 We have removed the `Comment.Attachment` type because it is replaced by 
@@ -58,3 +59,11 @@ cleanup.
 ## The `photo` type returns `Comments` type instead of list
 Because the comments of a photo not only contains the comments we have to change the
 returned type. Now you may access the summary object and fetch the total count.
+## Json.org parser replaced with minimal-json
+The Json.org parser is not as free as it should be and so we replaced
+it with the minimal-json parser. It's published under the MIT license
+and provides a much better performance. The minimal json benchmarks are
+very promising and our own benchmarks in the restfb benchmark project
+support their statements. Because minimal json has a different API you have
+to change your code accordingly. To understand the API better, you should have
+a look at the [github repository of minimal json](https://github.com/ralfstx/minimal-json).

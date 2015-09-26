@@ -21,7 +21,6 @@
  */
 package com.restfb;
 
-import static com.restfb.json.JsonObject.NULL;
 import static com.restfb.util.ReflectionUtils.*;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
@@ -31,9 +30,7 @@ import static java.util.Collections.unmodifiableSet;
 import static java.util.logging.Level.*;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonException;
-import com.restfb.json.JsonObject;
+import com.restfb.json.*;
 import com.restfb.types.Comments;
 import com.restfb.util.ReflectionUtils.*;
 
@@ -58,6 +55,11 @@ public class DefaultJsonMapper implements JsonMapper {
    * mapping failure so client code can decide how to handle the problem.
    */
   protected JsonMappingErrorHandler jsonMappingErrorHandler;
+
+  /**
+   * Helper to convert {@see JsonValue} into a given type
+   */
+  private JsonHelper jsonHelper = new JsonHelper();
 
   /**
    * Logger.
@@ -137,11 +139,11 @@ public class DefaultJsonMapper implements JsonMapper {
       // Doing this simplifies mapping, so we don't have to worry about having a
       // little placeholder object that only has a "data" value.
       try {
-        JsonObject jsonObject = new JsonObject(json);
-        String[] fieldNames = JsonObject.getNames(jsonObject);
+        JsonObject jsonObject = Json.parse(json).asObject();
+        List<String> fieldNames = jsonObject.names();
 
-        if (fieldNames != null) {
-          boolean hasSingleDataProperty = fieldNames.length == 1 && "data".equals(fieldNames[0]);
+        if (fieldNames != null && !fieldNames.isEmpty()) {
+          boolean hasSingleDataProperty = fieldNames.size() == 1 && "data".equals(fieldNames.get(0));
           Object jsonDataObject = jsonObject.get("data");
 
           if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray)) {
@@ -155,7 +157,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
           json = jsonDataObject.toString();
         }
-      } catch (JsonException e) {
+      } catch (ParseException e) {
         // Should never get here, but just in case...
         if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {
           return null;
@@ -170,9 +172,10 @@ public class DefaultJsonMapper implements JsonMapper {
     try {
       List<T> list = new ArrayList<T>();
 
-      JsonArray jsonArray = new JsonArray(json);
-      for (int i = 0; i < jsonArray.length(); i++)
-        list.add(toJavaObject(jsonArray.get(i).toString(), type));
+      JsonArray jsonArray = Json.parse(json).asArray();
+      for (int i = 0; i < jsonArray.size(); i++) {
+        list.add(toJavaObject(jsonHelper.getStringFrom(jsonArray.get(i)), type));
+      }
 
       return unmodifiableList(list);
     } catch (FacebookJsonMappingException e) {
@@ -217,7 +220,7 @@ public class DefaultJsonMapper implements JsonMapper {
     try {
       // Are we asked to map to JsonObject? If so, short-circuit right away.
       if (type.equals(JsonObject.class)) {
-        return (T) new JsonObject(json);
+        return (T) Json.parse(json).asObject();
       }
 
       List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);
@@ -256,19 +259,25 @@ public class DefaultJsonMapper implements JsonMapper {
         return null;
       }
 
-      JsonObject jsonObject = new JsonObject(json);
+      JsonValue jsonValue = Json.parse(json);
       T instance = createInstance(type);
 
       if (instance instanceof JsonObject) {
-        return (T) jsonObject;
+        return (T) jsonValue.asObject();
       }
+
+      if (!jsonValue.isObject()) {
+        return null;
+      }
+
+      JsonObject jsonObject = jsonValue.asObject();
 
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
         String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
 
-        if (!jsonObject.has(facebookFieldName)) {
+        if (jsonObject.get(facebookFieldName) == null) {
           if (logger.isLoggable(FINER)) {
             logger.finer("No JSON value present for '" + facebookFieldName + "', skipping. JSON is '" + json + "'.");
           }
@@ -291,7 +300,9 @@ public class DefaultJsonMapper implements JsonMapper {
               toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
           } catch (FacebookJsonMappingException e) {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
-          } catch (JsonException e) {
+          } catch (ParseException e) {
+            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
+          } catch (UnsupportedOperationException uoe) {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
           }
         } else {
@@ -439,8 +450,7 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   @Override
   public String toJson(Object object) {
-    // Delegate to recursive method
-    return toJsonInternal(object, false).toString();
+    return toJson(object, false);
   }
 
   /**
@@ -448,7 +458,8 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   @Override
   public String toJson(Object object, boolean ignoreNullValuedProperties) {
-    return toJsonInternal(object, ignoreNullValuedProperties).toString();
+    JsonValue jsonObj = toJsonInternal(object, ignoreNullValuedProperties);
+    return jsonHelper.getStringFrom(jsonObj);
   }
 
   /**
@@ -465,15 +476,15 @@ public class DefaultJsonMapper implements JsonMapper {
    * @throws FacebookJsonMappingException
    *           If an error occurs while marshaling to JSON.
    */
-  protected Object toJsonInternal(Object object, boolean ignoreNullValuedProperties) {
+  protected JsonValue toJsonInternal(Object object, boolean ignoreNullValuedProperties) {
     if (object == null) {
-      return NULL;
+      return Json.NULL;
     }
 
     if (object instanceof List<?>) {
       JsonArray jsonArray = new JsonArray();
       for (Object o : (List<?>) object)
-        jsonArray.put(toJsonInternal(o, ignoreNullValuedProperties));
+        jsonArray.add(toJsonInternal(o, ignoreNullValuedProperties));
 
       return jsonArray;
     }
@@ -487,10 +498,13 @@ public class DefaultJsonMapper implements JsonMapper {
         }
 
         try {
-          jsonObject.put((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
-        } catch (JsonException e) {
+          jsonObject.add((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
+        } catch (ParseException e) {
           throw new FacebookJsonMappingException(
             "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, e);
+        } catch (IllegalArgumentException ie) {
+          throw new FacebookJsonMappingException(
+            "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, ie);
         }
       }
 
@@ -498,19 +512,19 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (isPrimitive(object)) {
-      return object;
+      return primitiveToJsonValue(object);
     }
 
     if (object instanceof BigInteger) {
-      return ((BigInteger) object).longValue();
+      return Json.value(((BigInteger) object).longValue());
     }
 
     if (object instanceof BigDecimal) {
-      return ((BigDecimal) object).doubleValue();
+      return Json.value(((BigDecimal) object).doubleValue());
     }
 
     if (object instanceof Enum) {
-      return ((Enum) object).name();
+      return Json.value(((Enum) object).name());
     }
 
     // We've passed the special-case bits, so let's try to marshal this as a
@@ -541,7 +555,7 @@ public class DefaultJsonMapper implements JsonMapper {
         Object fieldValue = fieldWithAnnotation.getField().get(object);
 
         if (!(ignoreNullValuedProperties && (fieldValue == null || isEmptyCollectionOrMap(fieldValue)))) {
-          jsonObject.put(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
+          jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
         throw new FacebookJsonMappingException(
@@ -632,7 +646,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @param facebookFieldName
    *          Specifies what JSON field to pull "raw" data from.
    * @return A
-   * @throws JsonException
+   * @throws ParseException
    *           If an error occurs while mapping JSON to Java.
    * @throws FacebookJsonMappingException
    *           If an error occurs while mapping JSON to Java.
@@ -640,10 +654,10 @@ public class DefaultJsonMapper implements JsonMapper {
   protected Object toJavaType(FieldWithAnnotation<Facebook> fieldWithAnnotation, JsonObject jsonObject,
       String facebookFieldName) {
     Class<?> type = fieldWithAnnotation.getField().getType();
-    Object rawValue = jsonObject.get(facebookFieldName);
+    JsonValue rawValue = jsonObject.get(facebookFieldName);
 
     // Short-circuit right off the bat if we've got a null value.
-    if (NULL.equals(rawValue)) {
+    if (rawValue.isNull()) {
       return null;
     }
 
@@ -659,8 +673,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
       // Per Antonello Naccarato, sometimes FB will return an empty JSON array
       // instead of an empty string. Look for that here.
-      if (rawValue instanceof JsonArray) {
-        if (((JsonArray) rawValue).length() == 0) {
+      if (rawValue.isArray()) {
+        if (rawValue.asArray().size() == 0) {
           if (logger.isLoggable(FINER)) {
             logger.finer("Coercing an empty JSON array " + "to an empty string for " + fieldWithAnnotation);
           }
@@ -674,29 +688,29 @@ public class DefaultJsonMapper implements JsonMapper {
       // field that you'd like to have a numeric type shoved into.
       // User beware: this will turn *anything* into a string, which might lead
       // to results you don't expect.
-      return rawValue.toString();
+      return jsonHelper.getStringFrom(rawValue);
     }
 
     if (Integer.class.equals(type) || Integer.TYPE.equals(type)) {
-      return jsonObject.getInt(facebookFieldName);
+      return jsonHelper.getIntegerFrom(rawValue);
     }
     if (Boolean.class.equals(type) || Boolean.TYPE.equals(type)) {
-      return jsonObject.getBoolean(facebookFieldName);
+      return jsonHelper.getBooleanFrom(rawValue);
     }
     if (Long.class.equals(type) || Long.TYPE.equals(type)) {
-      return jsonObject.getLong(facebookFieldName);
+      return jsonHelper.getLongFrom(rawValue);
     }
     if (Double.class.equals(type) || Double.TYPE.equals(type)) {
-      return jsonObject.getDouble(facebookFieldName);
+      return jsonHelper.getDoubleFrom(rawValue);
     }
     if (Float.class.equals(type) || Float.TYPE.equals(type)) {
-      return new BigDecimal(jsonObject.getString(facebookFieldName)).floatValue();
+      return jsonHelper.getFloatFrom(rawValue);
     }
     if (BigInteger.class.equals(type)) {
-      return new BigInteger(jsonObject.getString(facebookFieldName));
+      return jsonHelper.getBigIntegerFrom(rawValue);
     }
     if (BigDecimal.class.equals(type)) {
-      return new BigDecimal(jsonObject.getString(facebookFieldName));
+      return jsonHelper.getBigDecimalFrom(rawValue);
     }
     if (List.class.equals(type)) {
       return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
@@ -704,16 +718,15 @@ public class DefaultJsonMapper implements JsonMapper {
     if (type.isEnum()) {
       Class<? extends Enum> enumType = type.asSubclass(Enum.class);
       try {
-        return Enum.valueOf(enumType, jsonObject.getString(facebookFieldName));
+        return Enum.valueOf(enumType, rawValue.asString());
       } catch (IllegalArgumentException iae) {
         if (logger.isLoggable(FINE)) {
-          logger
-            .fine("Cannot map string " + jsonObject.getString(facebookFieldName) + " to enum " + enumType.getName());
+          logger.fine("Cannot map string " + rawValue.asString() + " to enum " + enumType.getName());
         }
       }
     }
 
-    String rawValueAsString = rawValue.toString();
+    String rawValueAsString = jsonHelper.getStringFrom(rawValue);
 
     // Hack for issue 76 where FB will sometimes return a Post's Comments as
     // "[]" instead of an object type (wtf)
@@ -725,8 +738,8 @@ public class DefaultJsonMapper implements JsonMapper {
       }
 
       JsonObject workaroundJsonObject = new JsonObject();
-      workaroundJsonObject.put("total_count", 0);
-      workaroundJsonObject.put("data", new JsonArray());
+      workaroundJsonObject.add("total_count", 0);
+      workaroundJsonObject.add("data", new JsonArray());
       rawValueAsString = workaroundJsonObject.toString();
     }
 
@@ -778,6 +791,52 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   protected boolean isEmptyObject(String json) {
     return "{}".equals(json);
+  }
+
+  private JsonValue primitiveToJsonValue(Object object) {
+    if (object == null) {
+      return Json.value("null");
+    }
+
+    Class<?> type = object.getClass();
+
+    if (object instanceof String) {
+      return Json.value((String) object);
+    }
+
+    if (object instanceof Integer || Integer.TYPE.equals(type)) {
+      return Json.value((Integer) object);
+    }
+
+    if (object instanceof Boolean || Boolean.TYPE.equals(type)) {
+      return Json.value((Boolean) object);
+    }
+
+    if (object instanceof Long || Long.TYPE.equals(type)) {
+      return Json.value((Long) object);
+    }
+
+    if (object instanceof Double || Double.TYPE.equals(type)) {
+      return Json.value((Double) object);
+    }
+
+    if (object instanceof Float || Float.TYPE.equals(type)) {
+      return Json.value((Float) object);
+    }
+
+    if (object instanceof Byte || Byte.TYPE.equals(type)) {
+      return Json.value((Byte) object);
+    }
+    if (object instanceof Short || Short.TYPE.equals(type)) {
+      return Json.value((Short) object);
+    }
+
+    if (object instanceof Character || Character.TYPE.equals(type)) {
+      return Json.value((Character) object);
+    }
+
+    return Json.NULL;
+
   }
 
   /**

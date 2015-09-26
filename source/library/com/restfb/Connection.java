@@ -25,9 +25,10 @@ import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.Json;
 import com.restfb.json.JsonArray;
-import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
+import com.restfb.json.ParseException;
 import com.restfb.util.ReflectionUtils;
 
 import java.util.ArrayList;
@@ -143,23 +144,23 @@ public class Connection<T> implements Iterable<List<T>> {
     JsonObject jsonObject;
 
     try {
-      jsonObject = new JsonObject(json);
-    } catch (JsonException e) {
+      jsonObject = Json.parse(json).asObject();
+    } catch (ParseException e) {
       throw new FacebookJsonMappingException("The connection JSON you provided was invalid: " + json, e);
     }
 
     // Pull out data
-    JsonArray jsonData = jsonObject.getJsonArray("data");
-    for (int i = 0; i < jsonData.length(); i++) {
+    JsonArray jsonData = jsonObject.get("data").asArray();
+    for (int i = 0; i < jsonData.size(); i++) {
       data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
           : facebookClient.getJsonMapper().toJavaObject(jsonData.get(i).toString(), connectionType));
     }
 
     // Pull out paging info, if present
-    if (jsonObject.has("paging")) {
-      JsonObject jsonPaging = jsonObject.getJsonObject("paging");
-      previousPageUrl = jsonPaging.has("previous") ? jsonPaging.getString("previous") : null;
-      nextPageUrl = jsonPaging.has("next") ? jsonPaging.getString("next") : null;
+    if (jsonObject.get("paging") != null) {
+      JsonObject jsonPaging = jsonObject.get("paging").asObject();
+      previousPageUrl = jsonPaging.getString("previous", null);
+      nextPageUrl = jsonPaging.getString("next", null);
       if (null != previousPageUrl && previousPageUrl.startsWith("http://")) {
         previousPageUrl = previousPageUrl.replaceFirst("http://", "https://");
       }
@@ -171,15 +172,15 @@ public class Connection<T> implements Iterable<List<T>> {
       nextPageUrl = null;
     }
 
-    if (jsonObject.has("paging") && jsonObject.getJsonObject("paging").has("cursors")) {
-      JsonObject jsonCursors = jsonObject.getJsonObject("paging").getJsonObject("cursors");
-      beforeCursor = jsonCursors.has("before") ? jsonCursors.getString("before") : null;
-      afterCursor = jsonCursors.has("after") ? jsonCursors.getString("after") : null;
+    if (jsonObject.get("paging") != null && jsonObject.get("paging").asObject().get("cursors") != null) {
+      JsonObject jsonCursors = jsonObject.get("paging").asObject().get("cursors").asObject();
+      beforeCursor = jsonCursors.getString("before", null);
+      afterCursor = jsonCursors.getString("after", null);
     }
 
-    if (jsonObject.has("summary")) {
-      JsonObject jsonSummary = jsonObject.getJsonObject("summary");
-      totalCount = jsonSummary.has("total_count") ? jsonSummary.getLong("total_count") : null;
+    if (jsonObject.get("summary") != null) {
+      JsonObject jsonSummary = jsonObject.get("summary").asObject();
+      totalCount = jsonSummary.get("total_count") != null ? jsonSummary.getLong("total_count", 0L) : null;
     } else {
       totalCount = null;
     }

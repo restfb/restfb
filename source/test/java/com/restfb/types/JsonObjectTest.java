@@ -35,9 +35,9 @@ public class JsonObjectTest extends AbstractJsonMapperTests {
   public void issue327Test() {
     JsonObject json = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/issue-327"), JsonObject.class);
     assertNotNull(json);
-    JsonObject picData = json.getJsonObject("data");
+    JsonObject picData = json.get("data").asObject();
     assertNotNull(picData);
-    assertFalse(picData.getBoolean("is_silhouette"));
-    assertNotNull(picData.getString("url"));
+    assertFalse(picData.get("is_silhouette").asBoolean());
+    assertNotNull(picData.get("url").asString());
   }
 }

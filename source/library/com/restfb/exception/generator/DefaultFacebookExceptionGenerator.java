@@ -24,8 +24,9 @@ package com.restfb.exception.generator;
 import static com.restfb.util.StringUtils.toInteger;
 
 import com.restfb.exception.*;
-import com.restfb.json.JsonException;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
+import com.restfb.json.ParseException;
 
 public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExceptionGenerator
     implements FacebookExceptionGenerator {
@@ -96,25 +97,26 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
       // If we have a batch API exception, throw it.
       throwBatchFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
 
-      JsonObject errorObject = new JsonObject(json);
+      JsonObject errorObject = Json.parse(json).asObject();
 
-      if (!errorObject.has(ERROR_ATTRIBUTE_NAME)) {
+      if (errorObject.get(ERROR_ATTRIBUTE_NAME) == null) {
         return;
       }
 
-      JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
+      JsonObject innerErrorObject = errorObject.get(ERROR_ATTRIBUTE_NAME).asObject();
 
       // If there's an Integer error code, pluck it out.
-      Integer errorCode = innerErrorObject.has(ERROR_CODE_ATTRIBUTE_NAME)
-          ? toInteger(innerErrorObject.getString(ERROR_CODE_ATTRIBUTE_NAME)) : null;
-      Integer errorSubcode = innerErrorObject.has(ERROR_SUBCODE_ATTRIBUTE_NAME)
-          ? toInteger(innerErrorObject.getString(ERROR_SUBCODE_ATTRIBUTE_NAME)) : null;
+      Integer errorCode = innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME) != null
+          ? toInteger(innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME).toString()) : null;
+      Integer errorSubcode = innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME) != null
+          ? toInteger(innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME).toString()) : null;
 
       throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
-        innerErrorObject.optString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
-        innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
-        innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME), errorObject);
-    } catch (JsonException e) {
+        innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME, null),
+        innerErrorObject.get(ERROR_MESSAGE_ATTRIBUTE_NAME).asString(),
+        innerErrorObject.getString(ERROR_USER_TITLE_ATTRIBUTE_NAME, null),
+        innerErrorObject.getString(ERROR_USER_MSG_ATTRIBUTE_NAME, null), errorObject);
+    } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
       // do nothing here
@@ -128,14 +130,14 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
 
       JsonObject errorObject = silentlyCreateObjectFromString(json);
 
-      if (errorObject == null || !errorObject.has(BATCH_ERROR_ATTRIBUTE_NAME)
-          || !errorObject.has(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME))
+      if (errorObject == null || errorObject.get(BATCH_ERROR_ATTRIBUTE_NAME) == null
+          || errorObject.get(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME) == null)
         return;
 
-      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
-        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME), null, null,
+      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME, 0),
+        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME, null), null, null,
         errorObject);
-    } catch (JsonException e) {
+    } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
       // do nothing here

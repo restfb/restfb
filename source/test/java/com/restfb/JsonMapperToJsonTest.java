@@ -32,6 +32,11 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
+import org.json.JSONException;
+import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -96,10 +101,13 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     assertTrue("true".equals(createJsonMapper().toJson(true)));
     assertTrue("1".equals(createJsonMapper().toJson(1)));
     assertTrue("1".equals(createJsonMapper().toJson(1L)));
-    assertTrue("1.0".equals(createJsonMapper().toJson(1F)));
-    assertTrue("1.0".equals(createJsonMapper().toJson(1D)));
+    assertTrue("1".equals(createJsonMapper().toJson(1F)));
+    assertTrue("1.1".equals(createJsonMapper().toJson(1.1F)));
+    assertTrue("1".equals(createJsonMapper().toJson(1D)));
+    assertTrue("1.1".equals(createJsonMapper().toJson(1.1D)));
     assertTrue("1".equals(createJsonMapper().toJson(new BigInteger("1"))));
-    assertTrue("1.0".equals(createJsonMapper().toJson(new BigDecimal("1"))));
+    assertTrue("1".equals(createJsonMapper().toJson(new BigDecimal("1"))));
+    assertTrue("1.1".equals(createJsonMapper().toJson(new BigDecimal("1.1"))));
   }
 
   /**

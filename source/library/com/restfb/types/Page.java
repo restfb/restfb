@@ -26,6 +26,7 @@ import static java.util.Collections.unmodifiableList;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
@@ -1532,7 +1533,7 @@ public class Page extends CategorizedFacebookType {
      * @return
      */
     public JsonObject getValueAsJsonObject() {
-      return new JsonObject(value);
+      return Json.parse(value).asObject();
     }
   }
 
@@ -1597,7 +1598,7 @@ public class Page extends CategorizedFacebookType {
     if (rawPicture == null)
       return;
 
-    String picJson = rawPicture.getJsonObject("data").toString();
+    String picJson = rawPicture.get("data").toString();
     picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
   }
 }

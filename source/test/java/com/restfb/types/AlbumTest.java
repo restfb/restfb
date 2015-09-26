@@ -40,7 +40,7 @@ public class AlbumTest extends AbstractJsonMapperTests {
     List<Comment> comments = exampleAlbum.getComments().getData();
     assertEquals(1, comments.size());
     Comment exampleComment = comments.get(0);
-    assertEquals("521525131216804",exampleComment.getFrom().getId());
+    assertEquals("521525131216804", exampleComment.getFrom().getId());
     assertNotNull(exampleComment.getMessage());
   }
 

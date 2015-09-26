@@ -43,5 +43,4 @@ public interface Groups {
    * @return
    */
   List<NamedFacebookType> memberList(String groupId);
-
 }

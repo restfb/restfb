@@ -426,7 +426,7 @@ public class Event extends NamedFacebookType {
     if (rawPicture == null)
       return;
 
-    JsonObject picData = rawPicture.getJsonObject("data");
+    JsonObject picData = rawPicture.get("data").asObject();
     if (picData != null) {
       picture = jsonMapper.toJavaObject(picData.toString(), ProfilePictureSource.class);
     }

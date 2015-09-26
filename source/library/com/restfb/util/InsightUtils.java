@@ -28,8 +28,9 @@ import static java.util.Collections.singleton;
 import com.restfb.FacebookClient;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
-import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
+import com.restfb.json.ParseException;
 
 import java.util.*;
 
@@ -115,12 +116,24 @@ public class InsightUtils {
 
         // [{"metric":"page_active_users","value":582},
         // {"metric":"page_tab_views_login_top_unique","value":{"wall":12,"app_4949752878":1}}]
-        for (int resultIndex = 0; resultIndex < resultByMetric.length(); resultIndex++) {
-          JsonObject metricResult = resultByMetric.getJsonObject(resultIndex);
+        for (int resultIndex = 0; resultIndex < resultByMetric.size(); resultIndex++) {
+          JsonObject metricResult = resultByMetric.get(resultIndex).asObject();
 
           try {
-            String metricName = metricResult.getString("metric");
-            Object metricValue = metricResult.get("value");
+            String metricName = metricResult.get("metric").asString();
+
+            JsonValue jsonVal = metricResult.get("value");
+
+            Object metricValue = null;
+            if (jsonVal.isNumber()) {
+              metricValue = jsonVal.asInt();
+            }
+            if (jsonVal.isObject()) {
+              metricValue = jsonVal.asObject();
+            }
+            if (jsonVal.isString()) {
+              metricValue = jsonVal.asString();
+            }
 
             // store into output collection
             SortedMap<Date, Object> resultByDate = result.get(metricName);
@@ -133,7 +146,7 @@ public class InsightUtils {
               throw new IllegalStateException(
                 format("MultiQuery response has two results for metricName: %s and date: %s", metricName, date));
             }
-          } catch (JsonException e) {
+          } catch (ParseException e) {
             throw new FacebookJsonMappingException(
               format("Could not decode result for %s: %s", metricResult, e.getMessage()), e);
           }
@@ -230,9 +243,8 @@ public class InsightUtils {
       JsonObject response = facebookClient.executeFqlMultiquery(fqlByQueryIndex, JsonObject.class);
 
       // transform the response into a Map
-      for (Iterator<?> it = response.keys(); it.hasNext();) {
-        String key = (String) it.next();
-        JsonArray innerResult = (JsonArray) response.get(key);
+      for (String key : response.names()) {
+        JsonArray innerResult = response.get(key).asArray();
 
         try {
           // resolve the map key back into a date

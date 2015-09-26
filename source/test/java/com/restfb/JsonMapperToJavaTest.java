@@ -323,9 +323,8 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     JsonMapper jsonMapper = createJsonMapper();
     Story story = jsonMapper.toJavaObject(jsonFromClasspath("story"), Story.class);
 
-    for (Iterator<?> i = story.storyTags.keys(); i.hasNext();) {
-      String fieldName = (String) i.next();
-      List<StoryTag> storyTags = jsonMapper.toJavaList(story.storyTags.getString(fieldName), StoryTag.class);
+    for (String fieldName : story.storyTags.names()) {
+      List<StoryTag> storyTags = jsonMapper.toJavaList(story.storyTags.get(fieldName).toString(), StoryTag.class);
 
       for (StoryTag storyTag : storyTags)
         actualStoryTagIds.add(storyTag.id);

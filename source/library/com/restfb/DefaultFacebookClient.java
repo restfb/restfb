@@ -37,9 +37,7 @@ import com.restfb.exception.*;
 import com.restfb.exception.devicetoken.*;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.exception.generator.FacebookExceptionGenerator;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonException;
-import com.restfb.json.JsonObject;
+import com.restfb.json.*;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.StringUtils;
@@ -303,13 +301,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     String cmpString;
 
     try {
-      JsonObject jObj = new JsonObject(responseString);
-      cmpString = jObj.getString("success");
-    } catch (JsonException jex) {
+      JsonValue jObj = Json.parse(responseString);
+      boolean success = false;
+      if (jObj.isObject()) {
+        success = jObj.asObject().get("success").asBoolean();
+      } else {
+        success = jObj.asBoolean();
+      }
+      return success;
+    } catch (ParseException jex) {
       cmpString = responseString;
+      return "true".equals(cmpString);
     }
-
-    return "true".equals(cmpString);
   }
 
   /**
@@ -393,7 +396,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           makeRequest("", parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, join(ids)), parameters));
 
       return jsonMapper.toJavaObject(jsonString, objectType);
-    } catch (JsonException e) {
+    } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
     }
   }
@@ -497,15 +500,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
         // For empty result sets, Facebook will return an empty object instead of
         // an empty list. Hack around that here.
-        JsonArray resultsArray = jsonObject.get("fql_result_set") instanceof JsonArray
-            ? jsonObject.getJsonArray("fql_result_set") : new JsonArray();
+        JsonArray resultsArray =
+            jsonObject.get("fql_result_set").isArray() ? jsonObject.get("fql_result_set").asArray() : new JsonArray();
 
-        normalizedJson.put(jsonObject.getString("name"), resultsArray);
+        String key = jsonObject.get("name").toString();
+        normalizedJson.add(key, resultsArray);
       }
 
       return objectType.equals(JsonObject.class) ? (T) normalizedJson
           : jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
-    } catch (JsonException e) {
+    } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process fql.multiquery JSON response", e);
     }
   }
@@ -694,11 +698,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // Convert payload to a JsonObject so we can pull algorithm data out of it
     JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);
 
-    if (!payloadObject.has("algorithm")) {
+    if (payloadObject.get("algorithm") == null) {
       throw new FacebookSignedRequestParsingException("Unable to detect algorithm used for signed request");
     }
 
-    String algorithm = payloadObject.getString("algorithm");
+    String algorithm = payloadObject.getString("algorithm", null);
 
     if (!verifySignedRequest(appSecret, algorithm, encodedPayload, signature)) {
       throw new FacebookSignedRequestVerificationException(
@@ -780,8 +784,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("inputToken", inputToken);
 
     String response = makeRequest("/debug_token", Parameter.with("input_token", inputToken));
-    JsonObject json = new JsonObject(response);
-    JsonObject data = json.getJsonObject("data");
+    JsonObject json = Json.parse(response).asObject();
+    JsonObject data = json.get("data").asObject();
 
     try {
       return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);

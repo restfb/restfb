@@ -47,7 +47,7 @@ public class DebugTokenInfoTest extends AbstractJsonMapperTests {
     assertNotNull(exampleDebugTokenInfo);
     assertNotNull(exampleDebugTokenInfo.getMetaData());
     JsonObject metaData = exampleDebugTokenInfo.getMetaData();
-    assertTrue(metaData.has("sso"));
-    assertEquals("iphone-safari", metaData.getString("sso"));
+    assertNotNull(metaData.get("sso"));
+    assertEquals("iphone-safari", metaData.get("sso").asString());
   }
 }

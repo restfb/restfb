@@ -25,6 +25,7 @@ import static com.restfb.util.InsightUtils.*;
 import static org.junit.Assert.assertEquals;
 
 import com.restfb.*;
+import com.restfb.json.Json;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.util.InsightUtils.*;
@@ -231,9 +232,9 @@ public class InsightUtilsTest {
 
     String fql = fqlByQueryIndex.values().iterator().next();
     Assert.assertEquals(
-      "SELECT metric, value FROM insights WHERE object_id='31698190356' AND metric IN ('page_active_users') AND period=604800 AND end_time="
-          + t20101205_0000,
-      fql);
+            "SELECT metric, value FROM insights WHERE object_id='31698190356' AND metric IN ('page_active_users') AND period=604800 AND end_time="
+                    + t20101205_0000,
+            fql);
   }
 
   @Test
@@ -377,27 +378,31 @@ public class InsightUtilsTest {
     String expectedString;
     String actualString;
 
-    expectedString = new JsonArray(
-      "[{\"metric\":\"page_active_users\",\"value\":761},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":2,\"app_4949752878\":3,\"wall\":30}}]")
-        .toString();
+    expectedString = Json
+      .parse(
+              "[{\"metric\":\"page_active_users\",\"value\":761},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":2,\"app_4949752878\":3,\"wall\":30}}]")
+      .toString();
     actualString = results.get(d20030629_0000pst).toString();
     JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
 
-    expectedString = new JsonArray(
-      "[{\"metric\":\"page_active_users\",\"value\":705},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"photos\":1,\"app_2373072738\":2,\"wall\":23}}]")
-        .toString();
+    expectedString = Json
+      .parse(
+              "[{\"metric\":\"page_active_users\",\"value\":705},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"photos\":1,\"app_2373072738\":2,\"wall\":23}}]")
+      .toString();
     actualString = results.get(d20030630_0000pst).toString();
     JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
 
-    expectedString = new JsonArray(
-      "[{\"metric\":\"page_active_users\",\"value\":582},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"wall\":12}}]")
-        .toString();
+    expectedString = Json
+      .parse(
+              "[{\"metric\":\"page_active_users\",\"value\":582},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"wall\":12}}]")
+      .toString();
     actualString = results.get(d20030701_0000pst).toString();
     JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
 
-    expectedString = new JsonArray(
-      "[{\"metric\":\"page_active_users\",\"value\":125},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":1,\"wall\":11}}]")
-        .toString();
+    expectedString = Json
+      .parse(
+              "[{\"metric\":\"page_active_users\",\"value\":125},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":1,\"wall\":11}}]")
+      .toString();
     actualString = results.get(d20030702_0000pst).toString();
     JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
   }
@@ -426,9 +431,9 @@ public class InsightUtilsTest {
     Object metricValue = metricResult.get(d20101205_0000pst);
     Assert.assertTrue(metricValue instanceof JsonObject);
     JsonObject o = (JsonObject) metricValue;
-    assertEquals(58, o.getInt("U"));
-    assertEquals(1656, o.getInt("F"));
-    assertEquals(2014, o.getInt("M"));
+    assertEquals(58, o.getInt("U", 0));
+    assertEquals(1656, o.getInt("F", 0));
+    assertEquals(2014, o.getInt("M", 0));
   }
 
   @Test
@@ -472,27 +477,27 @@ public class InsightUtilsTest {
     metricResult = results.get("page_tab_views_login_top_unique");
     assertEquals(4, metricResult.size());
     JsonObject o = (JsonObject) metricResult.get(d20030629_0000pst);
-    assertEquals(3, o.length());
-    assertEquals(2, o.getInt("photos"));
-    assertEquals(3, o.getInt("app_4949752878"));
-    assertEquals(30, o.getInt("wall"));
+    assertEquals(3, o.names().size());
+    assertEquals(2, o.getInt("photos", 0));
+    assertEquals(3, o.getInt("app_4949752878", 0));
+    assertEquals(30, o.getInt("wall", 0));
 
     o = (JsonObject) metricResult.get(d20030630_0000pst);
-    assertEquals(4, o.length());
-    assertEquals(1, o.getInt("photos"));
-    assertEquals(1, o.getInt("app_4949752878"));
-    assertEquals(2, o.getInt("app_2373072738"));
-    assertEquals(23, o.getInt("wall"));
+    assertEquals(4, o.names().size());
+    assertEquals(1, o.getInt("photos", 0));
+    assertEquals(1, o.getInt("app_4949752878", 0));
+    assertEquals(2, o.getInt("app_2373072738", 0));
+    assertEquals(23, o.getInt("wall", 0));
 
     o = (JsonObject) metricResult.get(d20030701_0000pst);
-    assertEquals(2, o.length());
-    assertEquals(1, o.getInt("app_4949752878"));
-    assertEquals(12, o.getInt("wall"));
+    assertEquals(2, o.names().size());
+    assertEquals(1, o.getInt("app_4949752878", 0));
+    assertEquals(12, o.getInt("wall", 0));
 
     o = (JsonObject) metricResult.get(d20030702_0000pst);
-    assertEquals(2, o.length());
-    assertEquals(1, o.getInt("photos"));
-    assertEquals(11, o.getInt("wall"));
+    assertEquals(2, o.names().size());
+    assertEquals(1, o.getInt("photos", 0));
+    assertEquals(11, o.getInt("wall", 0));
   }
 
   @Test

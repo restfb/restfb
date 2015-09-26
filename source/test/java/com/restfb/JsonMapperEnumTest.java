@@ -29,7 +29,7 @@ public class JsonMapperEnumTest {
 
   @Test
   public void createWithEnum() {
-    String simpleJson = "{ id: 12345, test_enum: \"FOO\"}";
+    String simpleJson = "{\"id\": 12345, \"test_enum\": \"FOO\"}";
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
     assertEquals("12345", testType.id);
@@ -39,7 +39,7 @@ public class JsonMapperEnumTest {
 
   @Test
   public void createWithNonExistingEnumValue() {
-    String simpleJson = "{ id: 12345, test_enum: \"BAZ\"}";
+    String simpleJson = "{\"id\": 12345, \"test_enum\": \"BAZ\"}";
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
     assertEquals("12345", testType.id);

@@ -22,8 +22,9 @@
 package com.restfb.exception.generator;
 
 import com.restfb.exception.*;
-import com.restfb.json.JsonException;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
+import com.restfb.json.ParseException;
 
 public class DefaultLegacyFacebookExceptionGenerator implements LegacyFacebookExceptionGenerator {
 
@@ -65,14 +66,14 @@ public class DefaultLegacyFacebookExceptionGenerator implements LegacyFacebookEx
 
       JsonObject errorObject = silentlyCreateObjectFromString(json);
 
-      if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME)) {
+      if (errorObject == null || errorObject.get(LEGACY_ERROR_CODE_ATTRIBUTE_NAME) == null) {
         return;
       }
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
-        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null, httpStatusCode, null,
-        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME), null, null, errorObject);
-    } catch (JsonException e) {
+        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME, 0), null, httpStatusCode, null,
+        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME, null), null, null, errorObject);
+    } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
       // nothing to do here
@@ -111,8 +112,8 @@ public class DefaultLegacyFacebookExceptionGenerator implements LegacyFacebookEx
     // users.getLoggedInUser returning 1240077) - we're only interested in
     // whether or not there's an error_code field present.
     try {
-      errorObject = new JsonObject(json);
-    } catch (JsonException e) {
+      errorObject = Json.parse(json).asObject();
+    } catch (ParseException e) {
       // do nothing here
     }
 

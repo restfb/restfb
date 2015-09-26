@@ -19,10 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.json;
+package com.restfb;
 
 import static org.junit.Assert.assertEquals;
 
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -37,25 +39,25 @@ public class SerializationTests {
   @Test
   public void jsonArray() throws Exception {
     JsonArray arrayToSerialize = new JsonArray();
-    arrayToSerialize.put(123);
-    arrayToSerialize.put("test");
+    arrayToSerialize.add(123);
+    arrayToSerialize.add("test");
 
     JsonArray deserializedArray = (JsonArray) serializeAndDeserialize(arrayToSerialize);
 
-    assertEquals(123, deserializedArray.getInt(0));
-    assertEquals("test", deserializedArray.getString(1));
+    assertEquals(123, deserializedArray.get(0).asInt());
+    assertEquals("test", deserializedArray.get(1).asString());
   }
 
   @Test
   public void jsonObject() throws Exception {
     JsonObject objectToSerialize = new JsonObject();
-    objectToSerialize.put("one", 123);
-    objectToSerialize.put("two", "test");
+    objectToSerialize.add("one", 123);
+    objectToSerialize.add("two", "test");
 
     JsonObject deserializedObject = (JsonObject) serializeAndDeserialize(objectToSerialize);
 
-    assertEquals(123, deserializedObject.getInt("one"));
-    assertEquals("test", deserializedObject.getString("two"));
+    assertEquals(123, deserializedObject.get("one").asInt());
+    assertEquals("test", deserializedObject.get("two").asString());
   }
 
   protected Object serializeAndDeserialize(Object objectToSerialize) throws Exception {

@@ -124,8 +124,8 @@ public class Comments implements Serializable {
    */
   @JsonMappingCompleted
   private void fillTotalCount() {
-    if (totalCount == 0 && summary != null && summary.has("total_count")) {
-      totalCount = summary.getLong("total_count");
+    if (totalCount == 0 && summary != null && summary.get("total_count") != null) {
+      totalCount = summary.getLong("total_count", totalCount);
     }
   }
 
@@ -134,8 +134,8 @@ public class Comments implements Serializable {
    */
   @JsonMappingCompleted
   private void fillOrder() {
-    if (summary != null && summary.has("order")) {
-      order = summary.getString("order");
+    if (summary != null) {
+      order = summary.getString("order", order);
     }
   }
 
@@ -144,8 +144,8 @@ public class Comments implements Serializable {
    */
   @JsonMappingCompleted
   private void fillCanComment() {
-    if (summary != null && summary.has("can_comment")) {
-      canComment = summary.getBoolean("can_comment");
+    if (summary != null && summary.get("can_comment") != null) {
+      canComment = summary.get("can_comment").asBoolean();
     }
   }
 }
