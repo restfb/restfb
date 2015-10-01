@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import com.restfb.util.StringUtils;
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
 import static com.restfb.util.StringUtils.fromInputStream;
 import static com.restfb.util.UrlUtils.urlDecode;
@@ -173,6 +174,11 @@ public class DefaultWebRequestor implements WebRequestor {
 
       if (LOGGER.isLoggable(FINER)) {
         LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
+      }
+      
+      if (LOGGER.isLoggable(FINE)) {
+        String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
+        LOGGER.log(FINE, "Facebook used the API {0} to answer your request", usedApiVersion);
       }
 
       try {
