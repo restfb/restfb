@@ -51,6 +51,16 @@ public class Insight extends NamedFacebookType {
   private String period;
 
   /**
+   * The human-readable title of this Insight data.
+   *
+   * @return The human-readable title of this Insight data.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String title;
+
+  /**
    * The human-readable description of this Insight data.
    * 
    * @return The human-readable description of this Insight data.

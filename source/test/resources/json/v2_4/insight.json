@@ -1,0 +1,12 @@
+{
+  "name": "post_stories_by_action_type",
+  "period": "lifetime",
+  "values": [
+    {
+      "value": 0
+    }
+  ],
+  "title": "Lifetime Post Stories by action type",
+  "description": "Lifetime: The number of stories created about your Page post, by action type. (Total Count)",
+  "id": "123452253635426_25173125254/insights/post_stories_by_action_type/lifetime"
+}
