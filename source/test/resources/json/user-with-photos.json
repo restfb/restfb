@@ -1,13 +1,12 @@
 {
-	"uid": 1234,
-	"name": "Test Person",
-	"photos" :
-		[
-			{
-				"id": 1
-			},
-			{
-				"id": 2
-			}				
-		]
+  "uid": 1234,
+  "name": "Test Person",
+  "photos": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    }
+  ]
 }

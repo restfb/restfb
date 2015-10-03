@@ -24,15 +24,15 @@ package com.restfb.integration.experimental;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
-import org.junit.Test;
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.experimental.api.Facebook;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
+
+import org.junit.Test;
+
+import java.util.List;
 
 public class FetchGroupMemberITCase extends RestFbIntegrationTestBase {
 

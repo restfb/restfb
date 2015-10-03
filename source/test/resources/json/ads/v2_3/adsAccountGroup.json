@@ -2,12 +2,16 @@
   "id": "368121234",
   "name": "Ad account group 1",
   "status": "1",
-  "users": [{
+  "users": [
+    {
       "uid": 9876554,
       "role": 1001
-    }],
-  "accounts": [{
+    }
+  ],
+  "accounts": [
+    {
       "account_id": 333444555,
       "status": 2
-    }]
+    }
+  ]
 }

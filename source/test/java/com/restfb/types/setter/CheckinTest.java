@@ -21,10 +21,10 @@
  */
 package com.restfb.types.setter;
 
-import org.junit.Test;
-
 import com.restfb.types.Checkin;
 import com.restfb.types.api.SetterGetterTestBase;
+
+import org.junit.Test;
 
 public class CheckinTest extends SetterGetterTestBase {
 

@@ -23,8 +23,6 @@ package com.restfb.integration;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
@@ -35,6 +33,8 @@ import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
+
+import org.junit.Test;
 
 public class DeviceCodeITCase extends RestFbIntegrationTestBase {
 

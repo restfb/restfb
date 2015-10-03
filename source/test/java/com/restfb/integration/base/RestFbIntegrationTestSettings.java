@@ -21,9 +21,9 @@
  */
 package com.restfb.integration.base;
 
-import java.util.Properties;
-
 import org.junit.Assume;
+
+import java.util.Properties;
 
 /**
  * Settings holder for integration testing.

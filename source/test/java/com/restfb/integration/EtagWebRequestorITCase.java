@@ -24,14 +24,14 @@ package com.restfb.integration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-
-import org.junit.Test;
-
 import com.restfb.ETagWebRequestor;
 import com.restfb.WebRequestor.Response;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
+
+import org.junit.Test;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
 
 public class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
 

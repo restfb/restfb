@@ -21,11 +21,11 @@
  */
 package com.restfb.types.api;
 
+import com.restfb.types.*;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import com.restfb.types.*;
 
 public class ApiCheckGenerator extends BaseTestCheck {
 

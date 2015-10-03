@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 public class PageTest extends AbstractJsonMapperTests {
 

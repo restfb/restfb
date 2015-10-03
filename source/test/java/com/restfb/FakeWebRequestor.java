@@ -23,9 +23,9 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
-import java.io.IOException;
-
 import com.restfb.DefaultWebRequestor.HttpMethod;
+
+import java.io.IOException;
 
 /**
  * Fake Web Requestor for unit tests.

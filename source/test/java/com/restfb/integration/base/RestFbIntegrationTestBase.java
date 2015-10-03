@@ -21,11 +21,11 @@
  */
 package com.restfb.integration.base;
 
-import java.io.InputStream;
-import java.util.Properties;
-
 import org.junit.Assume;
 import org.junit.Before;
+
+import java.io.InputStream;
+import java.util.Properties;
 
 abstract public class RestFbIntegrationTestBase {
 

@@ -24,10 +24,10 @@ package com.restfb.util;
 import static com.restfb.util.InsightUtils.*;
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.restfb.*;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
+import com.restfb.util.InsightUtils.*;
 
 import org.json.JSONException;
 import org.junit.Assert;
@@ -37,10 +37,10 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import com.restfb.*;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
-import com.restfb.util.InsightUtils.*;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.InsightUtils}.

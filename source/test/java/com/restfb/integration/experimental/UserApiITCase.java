@@ -23,17 +23,17 @@ package com.restfb.integration.experimental;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.experimental.api.Facebook;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Account;
 import com.restfb.types.User;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
 
 public class UserApiITCase extends RestFbIntegrationTestBase {
 

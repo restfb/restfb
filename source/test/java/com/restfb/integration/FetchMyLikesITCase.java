@@ -23,15 +23,15 @@ package com.restfb.integration;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
-
-import org.junit.Test;
-
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
+
+import org.junit.Test;
+
+import java.util.List;
 
 public class FetchMyLikesITCase extends RestFbIntegrationTestBase {
 

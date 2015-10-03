@@ -23,15 +23,15 @@ package com.restfb;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.util.Date;
-
-import org.junit.Test;
-
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
+
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>

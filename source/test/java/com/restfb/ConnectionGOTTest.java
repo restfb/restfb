@@ -23,14 +23,14 @@ package com.restfb;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
+import com.restfb.types.Post;
+import com.restfb.types.Post.Comments;
+import com.restfb.types.Post.Likes;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.restfb.types.Post;
-import com.restfb.types.Post.Comments;
-import com.restfb.types.Post.Likes;
+import java.util.List;
 
 public class ConnectionGOTTest extends AbstractJsonMapperTests {
 

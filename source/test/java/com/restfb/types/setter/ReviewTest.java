@@ -21,10 +21,10 @@
  */
 package com.restfb.types.setter;
 
-import org.junit.Test;
-
 import com.restfb.types.Review;
 import com.restfb.types.api.SetterGetterTestBase;
+
+import org.junit.Test;
 
 public class ReviewTest extends SetterGetterTestBase {
 

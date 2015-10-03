@@ -23,9 +23,9 @@ package com.restfb.types;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-
 import com.restfb.AbstractJsonMapperTests;
+
+import org.junit.Test;
 
 public class GroupTest extends AbstractJsonMapperTests {
 

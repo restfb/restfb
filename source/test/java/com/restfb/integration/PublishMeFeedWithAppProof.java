@@ -21,15 +21,15 @@
  */
 package com.restfb.integration;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 @NeedFacebookWriteAccess
 public class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {

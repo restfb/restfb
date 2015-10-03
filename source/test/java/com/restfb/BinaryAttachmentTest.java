@@ -24,11 +24,11 @@ package com.restfb;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-
-import org.junit.Test;
 
 public class BinaryAttachmentTest {
 

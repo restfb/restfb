@@ -23,12 +23,12 @@ package com.restfb;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import com.restfb.types.FacebookType;
+import com.restfb.types.User;
 
 import org.junit.Test;
 
-import com.restfb.types.FacebookType;
-import com.restfb.types.User;
+import java.util.List;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>

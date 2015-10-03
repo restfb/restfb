@@ -23,9 +23,9 @@ package com.restfb;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
 import com.restfb.types.Post;
+
+import org.junit.Test;
 
 /**
  * Facebook can return Post comment fields as an empty array instead of an empty object. These tests ensure our JSON

@@ -23,8 +23,6 @@ package com.restfb.integration;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
-
 import com.restfb.BinaryAttachment;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -32,6 +30,8 @@ import com.restfb.Version;
 import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbImageIntegrationTestBase;
 import com.restfb.json.JsonObject;
+
+import org.junit.Test;
 
 @NeedFacebookWriteAccess
 public class PostByteImageITCase extends RestFbImageIntegrationTestBase {

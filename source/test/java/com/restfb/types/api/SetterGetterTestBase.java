@@ -23,11 +23,11 @@ package com.restfb.types.api;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.*;
-import java.util.*;
-
 import com.restfb.types.Message;
 import com.restfb.types.NamedFacebookType;
+
+import java.lang.reflect.*;
+import java.util.*;
 
 public class SetterGetterTestBase {
 

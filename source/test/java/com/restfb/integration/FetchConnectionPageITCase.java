@@ -24,13 +24,13 @@ package com.restfb.integration;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.Test;
-
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
+
+import org.junit.Test;
 
 public class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
 

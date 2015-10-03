@@ -23,10 +23,10 @@ package com.restfb.types;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
-
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.User.Picture;
+
+import org.junit.Test;
 
 public class UserTest extends AbstractJsonMapperTests {
 

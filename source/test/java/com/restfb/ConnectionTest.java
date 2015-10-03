@@ -23,9 +23,9 @@ package com.restfb;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-
 import com.restfb.types.User;
+
+import org.junit.Test;
 
 public class ConnectionTest extends AbstractJsonMapperTests {
 

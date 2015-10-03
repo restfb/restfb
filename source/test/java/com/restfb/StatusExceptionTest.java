@@ -24,9 +24,9 @@ package com.restfb;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.junit.Test;
-
 import com.restfb.exception.FacebookGraphException;
+
+import org.junit.Test;
 
 public class StatusExceptionTest extends AbstractJsonMapperTests {
 

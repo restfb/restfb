@@ -23,13 +23,13 @@ package com.restfb.integration;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Event;
+
+import org.junit.Test;
 
 public class FetchEventsIssue252 extends RestFbIntegrationTestBase {
 

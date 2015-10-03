@@ -25,9 +25,9 @@ import static com.restfb.util.StringUtils.fromInputStream;
 import static java.lang.String.format;
 import static java.util.logging.Logger.getLogger;
 
-import java.io.IOException;
-
 import com.restfb.DefaultJsonMapper.JsonMappingErrorHandler;
+
+import java.io.IOException;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>

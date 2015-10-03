@@ -23,10 +23,10 @@ package com.restfb.types.api;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.util.*;
-
-import org.junit.Test;
 
 public class ApiCheckTest extends BaseTestCheck {
 
