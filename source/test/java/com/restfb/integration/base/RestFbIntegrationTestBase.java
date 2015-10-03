@@ -23,6 +23,7 @@ package com.restfb.integration.base;
 
 import java.io.InputStream;
 import java.util.Properties;
+
 import org.junit.Assume;
 import org.junit.Before;
 
@@ -32,21 +33,20 @@ abstract public class RestFbIntegrationTestBase {
 
   @Before
   public void setup() {
-   
-      InputStream propertyStream = getClass().getClassLoader().getResourceAsStream("integration-test.properties");
-      Assume.assumeNotNull(propertyStream);
-      Properties props = new Properties();
-      try {
-	props.load(propertyStream);
-	testSettings = new RestFbIntegrationTestSettings(props);
-	if (getClass().getAnnotation(NeedFacebookWriteAccess.class) != null) {
-	    Assume.assumeTrue(testSettings.writeAccessAllowed());
-	}
+
+    InputStream propertyStream = getClass().getClassLoader().getResourceAsStream("integration-test.properties");
+    Assume.assumeNotNull(propertyStream);
+    Properties props = new Properties();
+    try {
+      props.load(propertyStream);
+      testSettings = new RestFbIntegrationTestSettings(props);
+      if (getClass().getAnnotation(NeedFacebookWriteAccess.class) != null) {
+        Assume.assumeTrue(testSettings.writeAccessAllowed());
       }
-      catch (Throwable ioe) {
-	  Assume.assumeNoException(ioe);
-      }
-      
+    } catch (Throwable ioe) {
+      Assume.assumeNoException(ioe);
+    }
+
   }
 
   protected RestFbIntegrationTestSettings getTestSettings() {

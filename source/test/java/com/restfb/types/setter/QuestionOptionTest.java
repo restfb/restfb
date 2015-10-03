@@ -21,18 +21,19 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.QuestionOption;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.QuestionOption;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class QuestionOptionTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	QuestionOption obj = new QuestionOption();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    	    
+
+  @Test
+  public void test() {
+    QuestionOption obj = new QuestionOption();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

@@ -21,11 +21,14 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +49,8 @@ public class Url extends FacebookType {
    * 
    * @return The Open Graph object that is canonically associated with this URL
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("og_object")
   private OGObject ogObject;
 
@@ -56,15 +60,16 @@ public class Url extends FacebookType {
 
   @Facebook
   private JsonObject share;
-  
+
   /**
    * The number of Facebook comments associated with this URL.
    * 
    * @return The number of Facebook comments associated with this URL
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   private int commentCount = 0;
-  
+
   /**
    * The number of shares of this URL on Facebook.
    * 
@@ -72,7 +77,8 @@ public class Url extends FacebookType {
    * 
    * @return The number of shares of this URL on Facebook
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   private int shareCount = 0;
 
   @JsonMappingCompleted
@@ -97,7 +103,8 @@ public class Url extends FacebookType {
      * 
      * @return The description of the object
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private String description;
 
@@ -106,7 +113,8 @@ public class Url extends FacebookType {
      * 
      * @return The title of the object
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private String title;
 
@@ -115,7 +123,8 @@ public class Url extends FacebookType {
      * 
      * @return The object type as String
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private String type;
 
@@ -124,7 +133,8 @@ public class Url extends FacebookType {
      * 
      * @return This URL
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     @Facebook
     private String url;
 
@@ -136,9 +146,10 @@ public class Url extends FacebookType {
      * 
      * @return date when the object was last updated.
      */
-    @Getter @Setter
+    @Getter
+    @Setter
     private Date updatedTime;
-    
+
     @JsonMappingCompleted
     void convertTime() {
       updatedTime = toDateFromLongFormat(rawUpdatedTime);

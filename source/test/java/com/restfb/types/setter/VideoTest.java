@@ -21,20 +21,21 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Video;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Video;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class VideoTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Video obj = new Video();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	addIgnoredField("rawBackdatedTime");
-	addIgnoredField("rawScheduledPublishTime");
-	testInstance(obj);
-    }
-    	    
+
+  @Test
+  public void test() {
+    Video obj = new Video();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawBackdatedTime");
+    addIgnoredField("rawScheduledPublishTime");
+    testInstance(obj);
+  }
+
 }

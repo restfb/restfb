@@ -21,22 +21,23 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Date;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class PageRatingTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void check() {
-        PageRating exampleRating =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/page-rating"), PageRating.class);
-        assertEquals(new Date(1409827400000L), exampleRating.getCreatedTime());
-        assertEquals("123456789", exampleRating.getFrom().getId());
-        assertEquals("Tester", exampleRating.getFrom().getName());
-        assertEquals(4, exampleRating.getRating());
-        assertEquals("Everything is nice here!", exampleRating.getReview());
-    }
+
+  @Test
+  public void check() {
+    PageRating exampleRating = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/page-rating"), PageRating.class);
+    assertEquals(new Date(1409827400000L), exampleRating.getCreatedTime());
+    assertEquals("123456789", exampleRating.getFrom().getId());
+    assertEquals("Tester", exampleRating.getFrom().getName());
+    assertEquals(4, exampleRating.getRating());
+    assertEquals("Everything is nice here!", exampleRating.getReview());
+  }
 }

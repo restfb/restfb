@@ -21,20 +21,23 @@
  */
 package com.restfb.integration;
 
-import com.restfb.integration.base.RestFbIntegrationTestBase;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
+import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import org.junit.Test;
 
 public class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void checkConnectionPage() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
+    DefaultFacebookClient client =
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
     Connection<Post> connection = client.fetchConnection("/cocacola/feed", Post.class);
     assertTrue(connection.getData().size() > 0);
     if (connection.hasNext()) {

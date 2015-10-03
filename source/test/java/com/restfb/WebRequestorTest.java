@@ -22,13 +22,14 @@
 package com.restfb;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class WebRequestorTest {
-    
-    @Test
-    public void enumChecker() {
-	assertEquals("GET",DefaultWebRequestor.HttpMethod.GET.name());
-	assertEquals("DELETE",DefaultWebRequestor.HttpMethod.DELETE.name());
-    }
+
+  @Test
+  public void enumChecker() {
+    assertEquals("GET", DefaultWebRequestor.HttpMethod.GET.name());
+    assertEquals("DELETE", DefaultWebRequestor.HttpMethod.DELETE.name());
+  }
 }

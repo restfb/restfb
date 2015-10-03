@@ -23,6 +23,7 @@ package com.restfb.experimental.api;
 
 import com.restfb.types.Account;
 import com.restfb.types.User;
+
 import java.util.List;
 
 public interface Users {
@@ -33,19 +34,19 @@ public interface Users {
    * @param userId
    * @return
    */
-  public User get(String userId);
+  User get(String userId);
 
   /**
    * get the user with id me
    * 
    * @return
    */
-  public User getMe();
-  
+  User getMe();
+
   /**
    * fetch list of account information connected to the user
    * 
-   * @return 
+   * @return
    */
-  public List<Account> getAccounts();
+  List<Account> getAccounts();
 }

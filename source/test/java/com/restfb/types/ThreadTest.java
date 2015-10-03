@@ -21,10 +21,12 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class ThreadTest extends AbstractJsonMapperTests {
 

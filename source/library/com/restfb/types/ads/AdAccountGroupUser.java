@@ -22,18 +22,19 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class AdAccountGroupUser {
-    
-    @Getter
-    @Setter
-    @Facebook
-    private String uid;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String role;
+  @Getter
+  @Setter
+  @Facebook
+  private String uid;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String role;
 }

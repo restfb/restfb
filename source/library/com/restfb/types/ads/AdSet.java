@@ -22,44 +22,44 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign">Ad Set type</a>.
  * 
- * Note: Ad Set vs Ad Campaign
- * Prior to July 2014 ad sets were referred to as 'campaigns'. When using ad 
- * sets in API calls the parameter may be referred to as 'adcampaign'. 
- * A campaign contains one or more ad sets.
+ * Note: Ad Set vs Ad Campaign Prior to July 2014 ad sets were referred to as 'campaigns'. When using ad sets in API
+ * calls the parameter may be referred to as 'adcampaign'. A campaign contains one or more ad sets.
  */
 public class AdSet extends NamedAdsObject {
-    
-    @Getter
-    @Setter
-    @Facebook("adcampaign_group")
-    private AdCampaignGroup adcampaignGroup;
-    
-    @Facebook("adlabels")
-    private List<AdLabel> adLabels = new ArrayList<AdLabel>();
-    
-    @Getter
-    @Setter
-    @Facebook
-    private String account_id;
-    
-    public boolean addAdLabel(AdLabel adLabel) {
-	return adLabels.add(adLabel);
-    }
 
-    public boolean removeAdLabel(AdLabel adLabel) {
-	return adLabels.remove(adLabel);
-    }
+  @Getter
+  @Setter
+  @Facebook("adcampaign_group")
+  private AdCampaignGroup adcampaignGroup;
 
-    public List<AdLabel> getAdlabels() {
-	return Collections.unmodifiableList(adLabels);
-    }
+  @Facebook("adlabels")
+  private List<AdLabel> adLabels = new ArrayList<AdLabel>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private String account_id;
+
+  public boolean addAdLabel(AdLabel adLabel) {
+    return adLabels.add(adLabel);
+  }
+
+  public boolean removeAdLabel(AdLabel adLabel) {
+    return adLabels.remove(adLabel);
+  }
+
+  public List<AdLabel> getAdlabels() {
+    return Collections.unmodifiableList(adLabels);
+  }
 }

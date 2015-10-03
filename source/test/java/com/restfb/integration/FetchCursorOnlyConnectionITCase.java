@@ -21,21 +21,26 @@
  */
 package com.restfb.integration;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
-    
-    @Test
-    public void fetchLikes() {
-	DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_0);
-	Connection<NamedFacebookType> con = client.fetchConnection("40796308305_1565015867092106/likes", NamedFacebookType.class);
-	assertEquals("https://graph.facebook.com/v2.0/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==", con.getNextPageUrl());
-    }
-    
+
+  @Test
+  public void fetchLikes() {
+    DefaultFacebookClient client =
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_0);
+    Connection<NamedFacebookType> con =
+        client.fetchConnection("40796308305_1565015867092106/likes", NamedFacebookType.class);
+    assertEquals("https://graph.facebook.com/v2.0/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==",
+      con.getNextPageUrl());
+  }
+
 }

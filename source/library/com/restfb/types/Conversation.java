@@ -21,17 +21,18 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
 import lombok.Setter;
 

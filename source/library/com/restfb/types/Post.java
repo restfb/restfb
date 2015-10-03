@@ -21,23 +21,21 @@
  */
 package com.restfb.types;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static com.restfb.json.JsonObject.getNames;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
-import static com.restfb.json.JsonObject.getNames;
 import com.restfb.types.Checkin.Place.Location;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.util.ReflectionUtils;
-import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableMap;
+
+import java.io.Serializable;
+import java.util.*;
+
 import lombok.Getter;
 import lombok.Setter;
 

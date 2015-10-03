@@ -27,6 +27,7 @@ import com.restfb.Parameter;
 import com.restfb.experimental.api.Applications;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Subscription;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,9 +74,8 @@ public class ApplicationsImpl implements Applications {
 
     Parameter fieldsParam = Parameter.with("fields", fieldString);
 
-    JsonObject returnValue =
-        facebookClient.publish(appId + SUBSCRIPTIONS_ENDPOINT, JsonObject.class, verifyTokenParam, objectParam,
-          callbackParam, fieldsParam);
+    JsonObject returnValue = facebookClient.publish(appId + SUBSCRIPTIONS_ENDPOINT, JsonObject.class, verifyTokenParam,
+      objectParam, callbackParam, fieldsParam);
     return returnValue.optBoolean("success", false);
   }
 

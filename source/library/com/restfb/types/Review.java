@@ -21,10 +21,13 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 

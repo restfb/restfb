@@ -21,13 +21,15 @@
  */
 package com.restfb.types;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
+
+import org.junit.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.StoryAttachment.Image;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 public class StoryAttachmentTest extends AbstractJsonMapperTests {
 

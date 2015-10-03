@@ -21,14 +21,17 @@
  */
 package com.restfb.types;
 
+import static java.util.Collections.unmodifiableList;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import static java.util.Collections.unmodifiableList;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -58,7 +61,7 @@ public class Comments implements Serializable {
   @Setter
   @Facebook("total_count")
   private Long totalCount = 0L;
-  
+
   @Getter
   @Setter
   private String order;
@@ -121,7 +124,7 @@ public class Comments implements Serializable {
       totalCount = summary.getLong("total_count");
     }
   }
-  
+
   /**
    * set the order the comments are sorted
    */

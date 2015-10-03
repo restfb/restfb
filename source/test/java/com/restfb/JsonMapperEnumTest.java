@@ -22,6 +22,7 @@
 package com.restfb;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class JsonMapperEnumTest {
@@ -45,14 +46,14 @@ public class JsonMapperEnumTest {
     assertEquals(null, testType.testEnum);
     assertEquals("BAZ", testType.testEnumString);
   }
-  
+
   @Test
   public void createJsonFromObject() {
-      DefaultJsonMapper mapper = new DefaultJsonMapper();
-      EnumTestTypeSimple testType = new EnumTestTypeSimple();
-      testType.testEnum = EnumTestEnum.BAR;
-      testType.id = "1234";
-      String jsonString = mapper.toJson(testType);
-      System.out.println(jsonString);
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    EnumTestTypeSimple testType = new EnumTestTypeSimple();
+    testType.testEnum = EnumTestEnum.BAR;
+    testType.id = "1234";
+    String jsonString = mapper.toJson(testType);
+    System.out.println(jsonString);
   }
 }

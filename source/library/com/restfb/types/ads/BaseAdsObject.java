@@ -23,7 +23,9 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+
 import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 

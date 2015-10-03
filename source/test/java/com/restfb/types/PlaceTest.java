@@ -21,27 +21,28 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class PlaceTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV2_1() {
-        Place examplePlace
-                = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/place"), Place.class);
-        assertEquals(3,examplePlace.getCategoryList().size());
-        Category cat1 = examplePlace.getCategoryList().get(0);
-        assertEquals("Region", cat1.getName());
-        assertEquals("115725465228008", cat1.getId());
-        
-        Category cat2 = examplePlace.getCategoryList().get(1);
-        assertEquals("River", cat2.getName());
-        assertEquals("407338945943828", cat2.getId());
-        
-        Category cat3 = examplePlace.getCategoryList().get(2);
-        assertEquals("Ocean", cat3.getName());
-        assertEquals("215492291888288", cat3.getId());
-    }
+
+  @Test
+  public void checkV2_1() {
+    Place examplePlace = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/place"), Place.class);
+    assertEquals(3, examplePlace.getCategoryList().size());
+    Category cat1 = examplePlace.getCategoryList().get(0);
+    assertEquals("Region", cat1.getName());
+    assertEquals("115725465228008", cat1.getId());
+
+    Category cat2 = examplePlace.getCategoryList().get(1);
+    assertEquals("River", cat2.getName());
+    assertEquals("407338945943828", cat2.getId());
+
+    Category cat3 = examplePlace.getCategoryList().get(2);
+    assertEquals("Ocean", cat3.getName());
+    assertEquals("215492291888288", cat3.getId());
+  }
 }

@@ -21,24 +21,24 @@
  */
 package com.restfb.integration;
 
-import com.restfb.integration.base.RestFbIntegrationTestBase;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
+import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class PostWithTotalCountITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void checkPostWithCommentsAndLikes() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
-    Post gotPost =
-        client.fetchObject("74133697733_10152424266332734", Post.class,
-          Parameter.with("fields", "from,to,likes.summary(true),comments.summary(true)"));
+    DefaultFacebookClient client =
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
+    Post gotPost = client.fetchObject("74133697733_10152424266332734", Post.class,
+      Parameter.with("fields", "from,to,likes.summary(true),comments.summary(true)"));
     assertNotNull(gotPost);
     assertTrue(gotPost.getLikesCount() > 0);
     assertTrue(gotPost.getLikes().getTotalCount() > 0);

@@ -21,40 +21,42 @@
  */
 package com.restfb;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class BinaryAttachmentTest {
-    
-    @Test
-    public void checkByteArray() {
-	String attachmentData = "this is a short string";
-	BinaryAttachment att = BinaryAttachment.with("myfile.jpg", attachmentData.getBytes());
-	assertEquals("myfile.jpg", att.getFilename());
-	InputStream is = att.getData();
-	assertTrue(is instanceof ByteArrayInputStream);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void checkByteArrayNull() {
-	BinaryAttachment.with("filename", (byte[])null);
-    }
-    
-    @Test
-    public void checkInputStream() {
-	InputStream stream = this.getClass().getClassLoader().getResourceAsStream("json/account.json");
-	BinaryAttachment att = BinaryAttachment.with("myfile.jpg", stream);
-	assertEquals("myfile.jpg", att.getFilename());
-	InputStream is = att.getData();
-	assertTrue(is instanceof BufferedInputStream);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void checkInpuStreamNull() {
-	BinaryAttachment.with("filename", (InputStream)null);
-    }
+
+  @Test
+  public void checkByteArray() {
+    String attachmentData = "this is a short string";
+    BinaryAttachment att = BinaryAttachment.with("myfile.jpg", attachmentData.getBytes());
+    assertEquals("myfile.jpg", att.getFilename());
+    InputStream is = att.getData();
+    assertTrue(is instanceof ByteArrayInputStream);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void checkByteArrayNull() {
+    BinaryAttachment.with("filename", (byte[]) null);
+  }
+
+  @Test
+  public void checkInputStream() {
+    InputStream stream = this.getClass().getClassLoader().getResourceAsStream("json/account.json");
+    BinaryAttachment att = BinaryAttachment.with("myfile.jpg", stream);
+    assertEquals("myfile.jpg", att.getFilename());
+    InputStream is = att.getData();
+    assertTrue(is instanceof BufferedInputStream);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void checkInpuStreamNull() {
+    BinaryAttachment.with("filename", (InputStream) null);
+  }
 }

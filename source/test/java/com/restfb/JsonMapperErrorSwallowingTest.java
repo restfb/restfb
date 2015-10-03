@@ -48,9 +48,8 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
    */
   @Test
   public void objectWithIncorrectFields() {
-    MostlyIncorrectUser mostlyIncorrectUser =
-        createErrorSwallowingJsonMapper()
-          .toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
+    MostlyIncorrectUser mostlyIncorrectUser = createErrorSwallowingJsonMapper()
+      .toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
 
     assertTrue(null == mostlyIncorrectUser.uid);
     assertTrue(null == mostlyIncorrectUser.name);

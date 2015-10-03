@@ -21,16 +21,17 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.DeAuth;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.DeAuth;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class DeAuthTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	DeAuth obj = new DeAuth();
-	addIgnoredField("rawIssuedAt");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    DeAuth obj = new DeAuth();
+    addIgnoredField("rawIssuedAt");
+    testInstance(obj);
+  }
 }

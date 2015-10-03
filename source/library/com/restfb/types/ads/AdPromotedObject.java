@@ -22,11 +22,13 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">Ad Promoted Object type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">Ad Promoted
+ * Object type</a>.
  */
 public class AdPromotedObject {
 

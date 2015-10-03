@@ -22,6 +22,7 @@
 package com.restfb.scope;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class ScopeBuilderTest {

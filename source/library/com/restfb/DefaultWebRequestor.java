@@ -21,15 +21,14 @@
  */
 package com.restfb;
 
-import com.restfb.util.StringUtils;
 import static com.restfb.util.StringUtils.ENCODING_CHARSET;
 import static com.restfb.util.StringUtils.fromInputStream;
 import static com.restfb.util.UrlUtils.urlDecode;
 import static java.lang.String.format;
 import static java.net.HttpURLConnection.HTTP_OK;
-import static java.util.logging.Level.FINE;
-import static java.util.logging.Level.FINER;
-import static java.util.logging.Level.WARNING;
+import static java.util.logging.Level.*;
+
+import com.restfb.util.StringUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -175,16 +174,15 @@ public class DefaultWebRequestor implements WebRequestor {
       if (LOGGER.isLoggable(FINER)) {
         LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
       }
-      
+
       if (LOGGER.isLoggable(FINE)) {
         String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
         LOGGER.log(FINE, "Facebook used the API {0} to answer your request", usedApiVersion);
       }
 
       try {
-        inputStream =
-            httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
-              .getInputStream();
+        inputStream = httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream()
+            : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         if (LOGGER.isLoggable(WARNING)) {
           LOGGER.log(WARNING, "An error occurred while POSTing to {0}: {1}", new Object[] { url, e });
@@ -347,7 +345,6 @@ public class DefaultWebRequestor implements WebRequestor {
     }
 
     HttpURLConnection httpUrlConnection = null;
-    InputStream inputStream = null;
 
     try {
       httpUrlConnection = openConnection(new URL(url));
@@ -365,7 +362,7 @@ public class DefaultWebRequestor implements WebRequestor {
         LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
       }
 
-      Response response = fetchResponse(inputStream, httpUrlConnection);
+      Response response = fetchResponse(httpUrlConnection);
 
       if (LOGGER.isLoggable(FINE)) {
         LOGGER.log(FINE, "Facebook responded with {0}", response);
@@ -377,15 +374,16 @@ public class DefaultWebRequestor implements WebRequestor {
     }
   }
 
-  protected Response fetchResponse(InputStream inputStream, HttpURLConnection httpUrlConnection) throws IOException {
+  protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
+    InputStream inputStream = null;
     try {
-      inputStream =
-          httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream() : httpUrlConnection
-            .getInputStream();
+      inputStream = httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream()
+          : httpUrlConnection.getInputStream();
     } catch (IOException e) {
       if (LOGGER.isLoggable(WARNING)) {
-        LOGGER.warning(format("An error occurred while making a " + httpUrlConnection.getRequestMethod()
-            + " request to %s: %s", httpUrlConnection.getURL(), e));
+        LOGGER.warning(
+          format("An error occurred while making a " + httpUrlConnection.getRequestMethod() + " request to %s: %s",
+            httpUrlConnection.getURL(), e));
       }
     }
 

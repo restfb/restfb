@@ -21,6 +21,10 @@
  */
 package com.restfb.integration;
 
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+
 import com.restfb.BinaryAttachment;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -28,8 +32,6 @@ import com.restfb.Version;
 import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbImageIntegrationTestBase;
 import com.restfb.json.JsonObject;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 @NeedFacebookWriteAccess
 public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
@@ -39,9 +41,8 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
-    JsonObject obj =
-        client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
-          BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
+    JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
+      BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
     assertNotNull(obj);
   }
 
@@ -49,9 +50,8 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   public void postLinkToPageFeedWithMessage() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
-    JsonObject obj =
-        client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
-          Parameter.with("message", "Just a test url"), Parameter.with("link", "http://www.restfb.com"));
+    JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
+      Parameter.with("message", "Just a test url"), Parameter.with("link", "http://www.restfb.com"));
     assertNotNull(obj);
   }
 
@@ -60,9 +60,8 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
-    JsonObject obj =
-        client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
-          BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
+    JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
+      BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
     assertNotNull(obj);
   }
 
@@ -71,9 +70,8 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
-    JsonObject obj =
-        client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
-          BinaryAttachment.with("test.png", imageAsBytes, "image/png"));
+    JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
+      BinaryAttachment.with("test.png", imageAsBytes, "image/png"));
     assertNotNull(obj);
   }
 

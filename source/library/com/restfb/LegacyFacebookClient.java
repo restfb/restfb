@@ -21,17 +21,17 @@
  */
 package com.restfb;
 
+import com.restfb.exception.FacebookException;
+
 import java.util.List;
 import java.util.Map;
-
-import com.restfb.exception.FacebookException;
 
 /**
  * Specifies how a <a href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook API</a> client must
  * operate.
  * <p>
- * Implementors must support Legacy authentication (API Key, Application Secret, and Session Key) as well as the <a
- * href="http://developers.facebook.com/docs/guides/upgrade#oauth">new OAuth authentication</a> method. Using OAuth
+ * Implementors must support Legacy authentication (API Key, Application Secret, and Session Key) as well as the
+ * <a href="http://developers.facebook.com/docs/guides/upgrade#oauth">new OAuth authentication</a> method. Using OAuth
  * authentication is much simpler and strongly recommended.
  * <p>
  * Green-field projects should use the new <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> via
@@ -42,8 +42,8 @@ import com.restfb.exception.FacebookException;
  * a single object.</li>
  * <li>The {@link #executeForList(String, Class, Parameter...)} family of methods should be used when performing API
  * calls that return a list of objects.</li>
- * <li>The {@link #executeMultiquery(Map, Class, Parameter...)} family of methods should be used when performing <a
- * href="http://wiki.developers.facebook.com/index.php/Fql.multiquery"> {@code fql.multiquery}</a> API calls.</li>
+ * <li>The {@link #executeMultiquery(Map, Class, Parameter...)} family of methods should be used when performing
+ * <a href="http://wiki.developers.facebook.com/index.php/Fql.multiquery"> {@code fql.multiquery}</a> API calls.</li>
  * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>

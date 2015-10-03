@@ -26,6 +26,7 @@ import com.restfb.FacebookClient;
 import com.restfb.experimental.api.Groups;
 import com.restfb.types.Group;
 import com.restfb.types.NamedFacebookType;
+
 import java.util.ArrayList;
 import java.util.List;
 

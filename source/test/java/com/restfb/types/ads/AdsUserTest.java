@@ -21,18 +21,20 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class AdsUserTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV2_3() {
-	AdUser exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_3/adsUser"), AdUser.class);
-	assertEquals("12121111111", exampleUser.getId());
-	assertEquals(1001, exampleUser.getRole().intValue());
-	assertEquals(1, exampleUser.getPermissions().get(0).intValue());
-    }
-    
+
+  @Test
+  public void checkV2_3() {
+    AdUser exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_3/adsUser"), AdUser.class);
+    assertEquals("12121111111", exampleUser.getId());
+    assertEquals(1001, exampleUser.getRole().intValue());
+    assertEquals(1, exampleUser.getPermissions().get(0).intValue());
+  }
+
 }

@@ -112,8 +112,8 @@ public final class UrlUtils {
     }
 
     // If there is no ? character at the front of the string, append it.
-    return extractParametersFromUrl(format("restfb://url%s", queryString.startsWith("?") ? queryString : "?"
-        + queryString));
+    return extractParametersFromUrl(
+      format("restfb://url%s", queryString.startsWith("?") ? queryString : "?" + queryString));
   }
 
   /**

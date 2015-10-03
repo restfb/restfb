@@ -25,11 +25,6 @@ import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
@@ -44,7 +39,12 @@ import com.restfb.json.JsonObject;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.ReflectionUtils;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client must operate.
@@ -109,8 +109,8 @@ public interface FacebookClient {
    * Fetches multiple <a href="http://developers.facebook.com/docs/reference/api/">Graph API objects</a> in a single
    * call, mapping the results to an instance of {@code objectType}.
    * <p>
-   * You'll need to write your own container type ({@code objectType}) to hold the results. See <a
-   * href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
+   * You'll need to write your own container type ({@code objectType}) to hold the results. See
+   * <a href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
    * 
    * @param <T>
    *          Java type to map to.
@@ -185,8 +185,8 @@ public interface FacebookClient {
    * Executes an <a href="http://developers.facebook.com/docs/reference/fql/">FQL multiquery</a>, which allows you to
    * batch multiple queries into a single request.
    * <p>
-   * You'll need to write your own container type ({@code objectType}) to hold the results. See <a
-   * href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
+   * You'll need to write your own container type ({@code objectType}) to hold the results. See
+   * <a href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
    * 
    * @param <T>
    *          Java type to map to.
@@ -229,8 +229,8 @@ public interface FacebookClient {
    * Executes an <a href="http://developers.facebook.com/docs/reference/fql/">FQL multiquery</a>, which allows you to
    * batch multiple queries into a single request.
    * <p>
-   * You'll need to write your own container type ({@code objectType}) to hold the results. See <a
-   * href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
+   * You'll need to write your own container type ({@code objectType}) to hold the results. See
+   * <a href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
    * 
    * @param <T>
    *          Java type to map to.
@@ -268,8 +268,8 @@ public interface FacebookClient {
   List<BatchResponse> executeBatch(List<BatchRequest> batchRequests);
 
   /**
-   * Executes operations as a batch with binary attachments using the <a
-   * href="https://developers.facebook.com/docs/reference/api/batch/">Batch API</a>.
+   * Executes operations as a batch with binary attachments using the
+   * <a href="https://developers.facebook.com/docs/reference/api/batch/">Batch API</a>.
    * 
    * @param batchRequests
    *          The operations to execute.
@@ -648,7 +648,7 @@ public interface FacebookClient {
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
-  public static class AccessToken {
+  class AccessToken {
     @Facebook("access_token")
     private String accessToken;
 
@@ -692,9 +692,10 @@ public interface FacebookClient {
       }
 
       if (extendedAccessToken == null) {
-        throw new IllegalArgumentException(format(
-          "Was expecting a query string of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. "
-              + "Instead, the query string was '%s'", queryString));
+        throw new IllegalArgumentException(
+          format("Was expecting a query string of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. "
+              + "Instead, the query string was '%s'",
+            queryString));
       }
 
       Long expires = null;
@@ -780,7 +781,7 @@ public interface FacebookClient {
    * 
    * @author Broc Seib
    */
-  public static class DebugTokenInfo implements Serializable {
+  class DebugTokenInfo implements Serializable {
     @Facebook("app_id")
     private String appId;
 
@@ -903,7 +904,7 @@ public interface FacebookClient {
     }
   }
 
-  public static class DebugTokenError implements Serializable {
+  class DebugTokenError implements Serializable {
 
     @Facebook
     private Integer code;

@@ -21,11 +21,13 @@
  */
 package com.restfb.types;
 
+import static java.util.Collections.unmodifiableList;
+
+import com.restfb.Facebook;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.restfb.Facebook;
-import static java.util.Collections.unmodifiableList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,8 +53,8 @@ public class Account extends CategorizedFacebookType {
   private List<String> perms = new ArrayList<String>();
 
   /**
-   * A list of permissions the user has for this page. <a
-   * href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">See roles list here</a>
+   * A list of permissions the user has for this page.
+   * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">See roles list here</a>
    * 
    * @return A list of permissions the user has for this page.
    */

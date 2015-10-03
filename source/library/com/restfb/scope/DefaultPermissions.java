@@ -49,8 +49,7 @@ enum DefaultPermissions implements FacebookPermissions {
    * <li>The person queried is the person using the app.</li>
    * <li>The person queried is using the app, and is a friend of the person using the app.</li>
    * <li>The person queried is using the app, is not a friend of the person using the app, but the app includes either
-   * an app access token or an appsecret_proof argument with the call.</li>
-   * <br />
+   * an app access token or an appsecret_proof argument with the call.</li> <br />
    * <strong>Review</strong> Your app may use this permission without review from Facebook.
    */
   PUBLIC_PROFILE("public_profile");

@@ -21,17 +21,19 @@
  */
 package com.restfb;
 
-import com.restfb.exception.FacebookGraphException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
 import org.junit.Test;
+
+import com.restfb.exception.FacebookGraphException;
 
 public class StatusExceptionTest extends AbstractJsonMapperTests {
 
   @Test
   public void statusException() {
     String jsonErrorString = jsonFromClasspath("exampleError");
-    DefaultFacebookClient client = new DefaultFacebookClient();
+    DefaultFacebookClient client = new DefaultFacebookClient(Version.LATEST);
     try {
       client.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
       fail();

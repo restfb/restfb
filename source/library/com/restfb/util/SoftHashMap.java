@@ -25,11 +25,13 @@
  */
 package com.restfb.util;
 
-import java.lang.ref.*;
-import java.util.*;
 import java.io.Serializable;
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.SoftReference;
+import java.util.*;
 
-public class SoftHashMap<K, V> extends AbstractMap<K, V> implements Serializable {
+public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable {
   /** The internal HashMap that will hold the SoftReference. */
   private final Map<K, SoftReference<V>> hash = new HashMap<K, SoftReference<V>>();
 

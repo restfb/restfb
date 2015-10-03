@@ -21,20 +21,23 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static com.restfb.util.DateUtils.toDateFromShortFormat;
+import static com.restfb.util.StringUtils.isBlank;
+import static java.util.Collections.unmodifiableList;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import com.restfb.util.ReflectionUtils;
-import static com.restfb.util.StringUtils.isBlank;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import static java.util.Collections.unmodifiableList;
 import java.util.Date;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -324,8 +327,9 @@ public class User extends NamedFacebookType {
   /**
    * The user's currency preferences.
    * <p>
-   * Further documentation available on Facebook's <a
-   * href="https://developers.facebook.com/docs/payments/user_currency">Displaying prices in user's currency</a> page.
+   * Further documentation available on Facebook's
+   * <a href="https://developers.facebook.com/docs/payments/user_currency">Displaying prices in user's currency</a>
+   * page.
    * 
    * @return The user's currency preferences.
    * @since 1.6.12
@@ -698,7 +702,7 @@ public class User extends NamedFacebookType {
    * @TODO remove this on type refactoring
    */
   public static class Picture extends ProfilePictureSource {
-      // nothing here
+    // nothing here
   }
 
   /**

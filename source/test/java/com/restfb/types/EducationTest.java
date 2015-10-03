@@ -21,29 +21,30 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
 import org.junit.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class EducationTest extends AbstractJsonMapperTests {
 
-    @Test
-    public void checkV2_2_StringYear() {
-        User.Education exampleEducation =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education"),User.Education.class);
-        
-	assertNull(exampleEducation.getYear());
-	assertEquals("1997", exampleEducation.getYearAsString());
-	
-    }
+  @Test
+  public void checkV2_2_StringYear() {
+    User.Education exampleEducation =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education"), User.Education.class);
 
-    @Test
-    public void checkV2_2_NamedYear() {
-        User.Education exampleEducation =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education-year-named"),User.Education.class);
-        
-	assertEquals("2006", exampleEducation.getYear().getName());
-    }
+    assertNull(exampleEducation.getYear());
+    assertEquals("1997", exampleEducation.getYearAsString());
+
+  }
+
+  @Test
+  public void checkV2_2_NamedYear() {
+    User.Education exampleEducation =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education-year-named"), User.Education.class);
+
+    assertEquals("2006", exampleEducation.getYear().getName());
+  }
 }

@@ -21,10 +21,12 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class AdsAccountGroupTest extends AbstractJsonMapperTests {
 

@@ -21,23 +21,13 @@
  */
 package com.restfb.types.api;
 
+import static org.junit.Assert.*;
+
+import java.lang.reflect.*;
+import java.util.*;
+
 import com.restfb.types.Message;
 import com.restfb.types.NamedFacebookType;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class SetterGetterTestBase {
 
@@ -97,9 +87,8 @@ public class SetterGetterTestBase {
   private void testGetterAndSetter(Field field, Object instance) {
 
     Class<?> theClass = field.getDeclaringClass();
-    String testText =
-        "Problem checking setter and getter for field " + field.getName() + " on "
-            + field.getDeclaringClass().getName();
+    String testText = "Problem checking setter and getter for field " + field.getName() + " on "
+        + field.getDeclaringClass().getName();
     try {
       Method getter = null;
 
@@ -133,9 +122,8 @@ public class SetterGetterTestBase {
 
   private void testListGetterAndAddRemove(Field field, Object instance) {
     Class<?> theClass = field.getDeclaringClass();
-    String testText =
-        "Problem checking add,remove and getter for field " + field.getName() + " on "
-            + field.getDeclaringClass().getName();
+    String testText = "Problem checking add,remove and getter for field " + field.getName() + " on "
+        + field.getDeclaringClass().getName();
     try {
       Method[] methods = theClass.getMethods();
       Method adder = null;

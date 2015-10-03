@@ -22,12 +22,13 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/reference/api/FriendList" >FriendList Graph API
- * type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/reference/api/FriendList" >FriendList Graph API type</a>
+ * .
  * 
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author <a href="http://restfb.com">Mark Allen</a>

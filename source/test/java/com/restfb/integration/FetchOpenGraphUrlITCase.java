@@ -21,21 +21,24 @@
  */
 package com.restfb.integration;
 
-import com.restfb.integration.base.RestFbIntegrationTestBase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
+import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Url;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 public class FetchOpenGraphUrlITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void imdbUrlCheck() {
 
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
+    DefaultFacebookClient client =
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
     Url objectUrl = client.fetchObject("/", Url.class, Parameter.with("id", "http://www.imdb.com/title/tt2015381/"));
     assertNotNull(objectUrl);
     assertEquals("http://www.imdb.com/title/tt2015381/", objectUrl.getId());

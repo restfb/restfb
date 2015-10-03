@@ -53,7 +53,8 @@ import java.util.Map;
  * more forgiving in the texts they will accept:
  * <ul>
  * <li>An extra <code>,</code>&nbsp;<small>(comma)</small> may appear just before the closing bracket.</li>
- * <li>The <code>null</code> value will be inserted when there is <code>,</code> &nbsp;<small>(comma)</small> elision.</li>
+ * <li>The <code>null</code> value will be inserted when there is <code>,</code> &nbsp;<small>(comma)</small> elision.
+ * </li>
  * <li>Strings may be quoted with <code>'</code>&nbsp;<small>(single quote)</small>.</li>
  * <li>Strings do not need to be quoted at all if they do not begin with a quote or single quote, and if they do not
  * contain leading or trailing spaces, and if they do not contain any of these characters:
@@ -851,8 +852,8 @@ public class JsonArray implements Serializable {
    * 
    * @param indentFactor
    *          The number of spaces to add to each level of indentation.
-   * @return a printable, displayable, transmittable representation of the object, beginning with <code>[</code>
-   *         &nbsp;<small>(left bracket)</small> and ending with <code>]</code>&nbsp;<small>(right bracket)</small>.
+   * @return a printable, displayable, transmittable representation of the object, beginning with <code>[</code> &nbsp;
+   *         <small>(left bracket)</small> and ending with <code>]</code>&nbsp;<small>(right bracket)</small>.
    * @throws JsonException
    */
   public String toString(int indentFactor) {

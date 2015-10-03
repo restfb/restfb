@@ -24,16 +24,16 @@ package com.restfb;
 import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
@@ -85,11 +85,7 @@ public class Connection<T> implements Iterable<List<T>> {
     @Override
     public boolean hasNext() {
       // Special case: initial page will always have data
-      if (initialPage) {
-        return true;
-      }
-
-      return connection.hasNext();
+      return initialPage || connection.hasNext();
     }
 
     /**
@@ -107,7 +103,7 @@ public class Connection<T> implements Iterable<List<T>> {
       if (!connection.hasNext()) {
         throw new NoSuchElementException("There are no more pages in the connection.");
       }
-	
+
       connection = connection.fetchNextPage();
       return connection.getData();
     }
@@ -117,8 +113,8 @@ public class Connection<T> implements Iterable<List<T>> {
      */
     @Override
     public void remove() {
-      throw new UnsupportedOperationException(ConnectionIterator.class.getSimpleName()
-          + " doesn't support the remove() operation.");
+      throw new UnsupportedOperationException(
+        ConnectionIterator.class.getSimpleName() + " doesn't support the remove() operation.");
     }
   }
 
@@ -144,7 +140,7 @@ public class Connection<T> implements Iterable<List<T>> {
       throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
     }
 
-    JsonObject jsonObject = null;
+    JsonObject jsonObject;
 
     try {
       jsonObject = new JsonObject(json);
@@ -155,8 +151,8 @@ public class Connection<T> implements Iterable<List<T>> {
     // Pull out data
     JsonArray jsonData = jsonObject.getJsonArray("data");
     for (int i = 0; i < jsonData.length(); i++) {
-      data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i) : facebookClient.getJsonMapper()
-        .toJavaObject(jsonData.get(i).toString(), connectionType));
+      data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
+          : facebookClient.getJsonMapper().toJavaObject(jsonData.get(i).toString(), connectionType));
     }
 
     // Pull out paging info, if present
@@ -274,12 +270,12 @@ public class Connection<T> implements Iterable<List<T>> {
   public Long getTotalCount() {
     return totalCount;
   }
-  
+
   public String getBeforeCursor() {
-      return beforeCursor;
+    return beforeCursor;
   }
-  
+
   public String getAfterCursor() {
-      return afterCursor;
+    return afterCursor;
   }
 }

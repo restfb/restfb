@@ -21,17 +21,18 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class PlaceLocationStringTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV1_0() {
-        Place examplePlace
-                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/place-locationstring"), Place.class);
-        assertEquals("Skill Idiomas - Unidade Itaquera", examplePlace.getLocationAsString());
-    }
-    
+
+  @Test
+  public void checkV1_0() {
+    Place examplePlace = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/place-locationstring"), Place.class);
+    assertEquals("Skill Idiomas - Unidade Itaquera", examplePlace.getLocationAsString());
+  }
+
 }

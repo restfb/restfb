@@ -21,17 +21,19 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class MetadataUserTest  extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV2_1() {
-        FacebookType.Metadata exampleUserMetadata =
+import com.restfb.AbstractJsonMapperTests;
+
+public class MetadataUserTest extends AbstractJsonMapperTests {
+
+  @Test
+  public void checkV2_1() {
+    FacebookType.Metadata exampleUserMetadata =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/metadata-user"), FacebookType.Metadata.class);
-        assertEquals("user", exampleUserMetadata.getType());
-        assertEquals(51, exampleUserMetadata.getFields().size());
-    }
+    assertEquals("user", exampleUserMetadata.getType());
+    assertEquals(51, exampleUserMetadata.getFields().size());
+  }
 }

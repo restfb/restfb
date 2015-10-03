@@ -21,34 +21,35 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Message;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Message;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class MessageTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Message obj = new Message();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testAttachment() {
-	Message.Attachment obj = new Message.Attachment();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testImageData() {
-	Message.ImageData obj = new Message.ImageData();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    Message obj = new Message();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testAttachment() {
+    Message.Attachment obj = new Message.Attachment();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testImageData() {
+    Message.ImageData obj = new Message.ImageData();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

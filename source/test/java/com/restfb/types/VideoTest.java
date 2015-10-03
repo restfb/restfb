@@ -21,12 +21,13 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
+import static org.junit.Assert.*;
+
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class VideoTest extends AbstractJsonMapperTests {
 

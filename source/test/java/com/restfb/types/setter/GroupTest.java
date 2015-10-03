@@ -21,16 +21,17 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Group;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Group;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class GroupTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Group obj = new Group();
-	addIgnoredField("rawUpdatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Group obj = new Group();
+    addIgnoredField("rawUpdatedTime");
+    testInstance(obj);
+  }
 }

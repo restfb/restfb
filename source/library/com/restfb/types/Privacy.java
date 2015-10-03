@@ -23,13 +23,15 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+
 import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/privacy/">Privacy Graph API
- * type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/privacy/">Privacy Graph API type</a>
+ * .
  *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5

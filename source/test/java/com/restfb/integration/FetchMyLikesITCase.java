@@ -21,14 +21,17 @@
  */
 package com.restfb.integration;
 
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
+import org.junit.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
-import java.util.List;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 public class FetchMyLikesITCase extends RestFbIntegrationTestBase {
 
@@ -40,7 +43,7 @@ public class FetchMyLikesITCase extends RestFbIntegrationTestBase {
     for (List<NamedFacebookType> groupList : connection) {
       for (NamedFacebookType group : groupList) {
         assertNotNull(group.getId());
-	assertNotNull(group.getName());
+        assertNotNull(group.getName());
       }
     }
   }

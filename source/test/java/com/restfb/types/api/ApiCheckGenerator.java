@@ -21,44 +21,11 @@
  */
 package com.restfb.types.api;
 
-import com.restfb.types.Account;
-import com.restfb.types.Album;
-import com.restfb.types.AppRequest;
-import com.restfb.types.Application;
-import com.restfb.types.CategorizedFacebookType;
-import com.restfb.types.Category;
-import com.restfb.types.Checkin;
-import com.restfb.types.Comment;
-import com.restfb.types.Conversation;
-import com.restfb.types.DeAuth;
-import com.restfb.types.Event;
-import com.restfb.types.FacebookType;
-import com.restfb.types.FriendList;
-import com.restfb.types.Group;
-import com.restfb.types.Insight;
-import com.restfb.types.Link;
-import com.restfb.types.Location;
-import com.restfb.types.Message;
-import com.restfb.types.NamedFacebookType;
-import com.restfb.types.Note;
-import com.restfb.types.Page;
-import com.restfb.types.PageConnection;
-import com.restfb.types.PageRating;
-import com.restfb.types.Photo;
-import com.restfb.types.Place;
-import com.restfb.types.Post;
-import com.restfb.types.Question;
-import com.restfb.types.QuestionOption;
-import com.restfb.types.Review;
-import com.restfb.types.StatusMessage;
-import com.restfb.types.TestUser;
-import com.restfb.types.Url;
-import com.restfb.types.User;
-import com.restfb.types.Venue;
-import com.restfb.types.Video;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+
+import com.restfb.types.*;
 
 public class ApiCheckGenerator extends BaseTestCheck {
 

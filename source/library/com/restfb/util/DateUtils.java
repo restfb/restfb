@@ -21,12 +21,12 @@
  */
 package com.restfb.util;
 
+import static java.lang.String.format;
+import static java.util.logging.Level.FINER;
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Logger;
-
-import static java.lang.String.format;
-import static java.util.logging.Level.FINER;
 
 /**
  * A collection of date-handling utility methods.
@@ -190,6 +190,7 @@ public final class DateUtils {
    * default value: {@link SimpleDateFormatStrategy}
    * 
    * @param dateFormatStrategy
+   *          the used {@see DateFormatStrategy}
    * 
    */
   public static void setDateFormatStrategy(DateFormatStrategy dateFormatStrategy) {

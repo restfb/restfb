@@ -21,33 +21,32 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class GroupTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV1_0() {
-        Group examplegroup =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/group"), Group.class);
-        assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
-        assertEquals("123456789", examplegroup.getOwner().getId());
-    }
-    
-    @Test
-    public void checkV2_0() {
-        Group examplegroup =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/group"), Group.class);
-        assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
-        assertEquals("123456789", examplegroup.getOwner().getId());
-    }
-    
-    @Test
-    public void checkV2_1() {
-        Group examplegroup =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/group"), Group.class);
-        assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
-        assertEquals("123456789", examplegroup.getOwner().getId());
-    }
+
+  @Test
+  public void checkV1_0() {
+    Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/group"), Group.class);
+    assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
+    assertEquals("123456789", examplegroup.getOwner().getId());
+  }
+
+  @Test
+  public void checkV2_0() {
+    Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/group"), Group.class);
+    assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
+    assertEquals("123456789", examplegroup.getOwner().getId());
+  }
+
+  @Test
+  public void checkV2_1() {
+    Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/group"), Group.class);
+    assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
+    assertEquals("123456789", examplegroup.getOwner().getId());
+  }
 }

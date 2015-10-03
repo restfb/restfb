@@ -21,29 +21,33 @@
  */
 package com.restfb;
 
-import com.restfb.types.NamedFacebookType;
-import com.restfb.types.User;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
+
+import com.restfb.types.User;
 
 public class ConnectionTest extends AbstractJsonMapperTests {
 
-    @Test
-    public void checkV1_0() {
-        Connection<User> con = new Connection<User>(new DefaultFacebookClient(), jsonFromClasspath("v1_0/connection-user-friends"), User.class);
-        assertEquals(null, con.getTotalCount());
-    }
+  @Test
+  public void checkV1_0() {
+    Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
+      jsonFromClasspath("v1_0/connection-user-friends"), User.class);
+    assertEquals(null, con.getTotalCount());
+  }
 
-    @Test
-    public void checkV2_0() {
-        Connection<User> con = new Connection<User>(new DefaultFacebookClient(), jsonFromClasspath("v2_0/connection-user-friends"), User.class);
-        assertEquals(99L, con.getTotalCount().longValue());
-    }
+  @Test
+  public void checkV2_0() {
+    Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
+      jsonFromClasspath("v2_0/connection-user-friends"), User.class);
+    assertEquals(99L, con.getTotalCount().longValue());
+  }
 
-    @Test
-    public void checkV2_1() {
-        Connection<User> con = new Connection<User>(new DefaultFacebookClient(), jsonFromClasspath("v2_1/connection-user-friends"), User.class);
-        assertEquals(99L, con.getTotalCount().longValue());
-    }
-    
+  @Test
+  public void checkV2_1() {
+    Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
+      jsonFromClasspath("v2_1/connection-user-friends"), User.class);
+    assertEquals(99L, con.getTotalCount().longValue());
+  }
+
 }

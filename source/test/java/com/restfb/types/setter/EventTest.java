@@ -21,32 +21,33 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Event;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Event;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class EventTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Event obj = new Event();
-	addIgnoredField("rawStartTime");
-	addIgnoredField("rawEndTime");
-	addIgnoredField("rawUpdatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testOwner() {
-	Event.Owner obj = new Event.Owner();
-	addIgnoredField("rawIssuedAt");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testCategory() {
-	Event.Category obj = new Event.Category();
-	addIgnoredField("rawIssuedAt");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Event obj = new Event();
+    addIgnoredField("rawStartTime");
+    addIgnoredField("rawEndTime");
+    addIgnoredField("rawUpdatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testOwner() {
+    Event.Owner obj = new Event.Owner();
+    addIgnoredField("rawIssuedAt");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testCategory() {
+    Event.Category obj = new Event.Category();
+    addIgnoredField("rawIssuedAt");
+    testInstance(obj);
+  }
 }

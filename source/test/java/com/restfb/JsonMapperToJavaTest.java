@@ -21,11 +21,7 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -39,12 +35,7 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-import com.restfb.types.Account;
-import com.restfb.types.Conversation;
-import com.restfb.types.Message;
-import com.restfb.types.NamedFacebookType;
-import com.restfb.types.Post;
-import com.restfb.types.User;
+import com.restfb.types.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
@@ -247,8 +238,8 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   /**
-   * test reading in the sample account from <a
-   * href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">here</a>
+   * test reading in the sample account from
+   * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">here</a>
    */
   @Test
   public void accountTest() {
@@ -300,6 +291,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   /**
    * Makes sure we handle "null" when inside of a list instead of throwing a mapping exception.
    */
+  @Test
   public void testNulls() {
     List<NamedFacebookType> types =
         createJsonMapper().toJavaList(jsonFromClasspath("nulls-in-list"), NamedFacebookType.class);
@@ -355,12 +347,12 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
       // Expected
     }
   }
-  
-  @Test 
+
+  @Test
   public void jsonEmptyArray() {
-      User u = createJsonMapper().toJavaObject("[]", User.class);
-      assertNotNull(u);
-      assertNull(u.getName());
+    User u = createJsonMapper().toJavaObject("[]", User.class);
+    assertNotNull(u);
+    assertNull(u.getName());
   }
 
   static class Story {

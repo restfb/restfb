@@ -21,17 +21,18 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Album;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Album;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class AlbumTest extends SetterGetterTestBase {
-    
-    @Test
-    public void checkAlbumSetterCanUpload() {
-	Album obj = new Album();
-	addIgnoredField("rawCreatedTime");
-	addIgnoredField("rawUpdatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void checkAlbumSetterCanUpload() {
+    Album obj = new Album();
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawUpdatedTime");
+    testInstance(obj);
+  }
 }

@@ -22,12 +22,7 @@
 package com.restfb.experimental.api.impl;
 
 import com.restfb.FacebookClient;
-import com.restfb.experimental.api.Applications;
-import com.restfb.experimental.api.Comments;
-import com.restfb.experimental.api.Groups;
-import com.restfb.experimental.api.Pages;
-import com.restfb.experimental.api.Posts;
-import com.restfb.experimental.api.Users;
+import com.restfb.experimental.api.*;
 
 public class ApiFactory {
 

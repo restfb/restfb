@@ -38,7 +38,7 @@ public interface WebRequestor {
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
-  public static class Response {
+  class Response {
     /**
      * HTTP response status code (e.g. 200).
      */
@@ -48,7 +48,7 @@ public interface WebRequestor {
      * HTTP response body as text.
      */
     private String body;
-    
+
     /**
      * Creates a response with the given HTTP status code and response body as text.
      * 
@@ -79,7 +79,7 @@ public interface WebRequestor {
     public String getBody() {
       return body;
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */

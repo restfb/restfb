@@ -21,14 +21,15 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.CategorizedFacebookType;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.CategorizedFacebookType;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class CategorizedFacebookTypeTest extends SetterGetterTestBase {
-    @Test
-    public void test() {
-	CategorizedFacebookType obj = new CategorizedFacebookType();
-	testInstance(obj);
-    }
+  @Test
+  public void test() {
+    CategorizedFacebookType obj = new CategorizedFacebookType();
+    testInstance(obj);
+  }
 }

@@ -42,7 +42,7 @@ public class BatchHeader {
    * normal client code cannot.
    */
   protected BatchHeader() {
-      // nothing here
+    // nothing here
   }
 
   /**

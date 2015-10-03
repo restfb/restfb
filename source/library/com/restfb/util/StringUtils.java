@@ -25,11 +25,7 @@ import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 import static java.util.logging.Level.WARNING;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -171,9 +167,10 @@ public final class StringUtils {
       reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET));
       StringBuilder response = new StringBuilder();
 
-      String line = null;
-      while ((line = reader.readLine()) != null)
+      String line;
+      while ((line = reader.readLine()) != null) {
         response.append(line);
+      }
 
       return response.toString();
     } finally {

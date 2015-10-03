@@ -21,10 +21,11 @@
  */
 package com.restfb;
 
-import com.restfb.DefaultWebRequestor.HttpMethod;
+import static java.net.HttpURLConnection.HTTP_OK;
+
 import java.io.IOException;
 
-import static java.net.HttpURLConnection.HTTP_OK;
+import com.restfb.DefaultWebRequestor.HttpMethod;
 
 /**
  * Fake Web Requestor for unit tests.
@@ -65,6 +66,7 @@ public class FakeWebRequestor implements WebRequestor {
 
   /**
    * get the used HTTP Method.
+   * 
    * @return HTTP Method as String
    */
   public String getMethod() {
@@ -73,6 +75,7 @@ public class FakeWebRequestor implements WebRequestor {
 
   /**
    * get the called url.
+   * 
    * @return the called url as String
    */
   public String getSavedUrl() {

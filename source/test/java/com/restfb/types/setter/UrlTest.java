@@ -21,19 +21,20 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Url;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Url;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class UrlTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Url obj = new Url();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	addIgnoredField("share");
-	testInstance(obj);
-    }
-    	    
+
+  @Test
+  public void test() {
+    Url obj = new Url();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("share");
+    testInstance(obj);
+  }
+
 }

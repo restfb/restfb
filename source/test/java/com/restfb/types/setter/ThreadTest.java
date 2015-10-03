@@ -21,17 +21,18 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class ThreadTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	com.restfb.types.Thread obj = new com.restfb.types.Thread();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    	    
+
+  @Test
+  public void test() {
+    com.restfb.types.Thread obj = new com.restfb.types.Thread();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

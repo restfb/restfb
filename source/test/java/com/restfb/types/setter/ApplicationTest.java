@@ -21,15 +21,16 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Application;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Application;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class ApplicationTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Application obj = new Application();
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Application obj = new Application();
+    testInstance(obj);
+  }
 }

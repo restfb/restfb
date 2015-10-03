@@ -21,13 +21,12 @@
  */
 package com.restfb.util;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static com.restfb.util.DateUtils.toDateFromMonthYearFormat;
-import static com.restfb.util.DateUtils.toDateFromShortFormat;
-import java.util.Arrays;
-import java.util.Collection;
+import static com.restfb.util.DateUtils.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,8 +40,8 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class DateUtilsTest {
 
-    private DateFormatStrategy expectedStrategy;
-    
+  private DateFormatStrategy expectedStrategy;
+
   @Parameterized.Parameters
   public static Collection strategies() {
     return Arrays.asList(new Object[][] { { new CachedDateFormatStrategy() }, { new SimpleDateFormatStrategy() } });

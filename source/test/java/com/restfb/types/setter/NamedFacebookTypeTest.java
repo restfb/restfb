@@ -21,19 +21,19 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Message;
-import com.restfb.types.NamedFacebookType;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.NamedFacebookType;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class NamedFacebookTypeTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	NamedFacebookType obj = new NamedFacebookType();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    NamedFacebookType obj = new NamedFacebookType();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

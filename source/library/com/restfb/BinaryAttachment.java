@@ -21,15 +21,15 @@
  */
 package com.restfb;
 
+import static com.restfb.util.StringUtils.isBlank;
+import static java.lang.String.format;
+
+import com.restfb.util.ReflectionUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import lombok.Getter;
-
-import com.restfb.util.ReflectionUtils;
-
-import static com.restfb.util.StringUtils.isBlank;
-import static java.lang.String.format;
 
 /**
  * Represents a binary file that can be uploaded to Facebook.

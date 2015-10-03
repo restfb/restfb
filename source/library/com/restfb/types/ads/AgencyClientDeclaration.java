@@ -22,11 +22,14 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/agency-client-declaration/">Agency Client Declaration type</a>.
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/agency-client-declaration/">Agency
+ * Client Declaration type</a>.
  */
 class AgencyClientDeclaration {
 

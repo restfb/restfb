@@ -21,33 +21,38 @@
  */
 package com.restfb.integration;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.junit.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
-import java.util.List;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class FetchInboxITCase extends RestFbIntegrationTestBase {
-    
-    @Test
-    public void fetchInboxThread() {
-	DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
-	Connection<com.restfb.types.Thread> connection = client.fetchConnection("/" + getTestSettings().getUserId() + "/inbox", com.restfb.types.Thread.class);
-	assertNotNull(connection.getData());
-	
-	List<com.restfb.types.Thread> threadList = connection.getData();
-	assertTrue(threadList.size() > 0);
-	assertTrue(threadList.get(0).getComments().size() > 0);
-	
-	for (com.restfb.types.Thread thread : threadList) {
-	    assertNotNull(thread.getId());
-	    assertNotNull(thread.getUpdatedTime());
-	    assertNotNull(thread.getUnread());
-	    assertNotNull(thread.getUnseen());
-	}
+
+  @Test
+  public void fetchInboxThread() {
+    DefaultFacebookClient client =
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
+    Connection<com.restfb.types.Thread> connection =
+        client.fetchConnection("/" + getTestSettings().getUserId() + "/inbox", com.restfb.types.Thread.class);
+    assertNotNull(connection.getData());
+
+    List<com.restfb.types.Thread> threadList = connection.getData();
+    assertTrue(threadList.size() > 0);
+    assertTrue(threadList.get(0).getComments().size() > 0);
+
+    for (com.restfb.types.Thread thread : threadList) {
+      assertNotNull(thread.getId());
+      assertNotNull(thread.getUpdatedTime());
+      assertNotNull(thread.getUnread());
+      assertNotNull(thread.getUnseen());
     }
-    
+  }
+
 }

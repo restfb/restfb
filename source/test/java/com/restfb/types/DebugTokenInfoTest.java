@@ -21,13 +21,13 @@
  */
 package com.restfb.types;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.FacebookClient;
 import com.restfb.json.JsonObject;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class DebugTokenInfoTest extends AbstractJsonMapperTests {
 

@@ -21,17 +21,18 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Conversation;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Conversation;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class ConversationTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Conversation obj = new Conversation();
-	addIgnoredField("rawCreatedTime");
-	addIgnoredField("rawUpdatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Conversation obj = new Conversation();
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawUpdatedTime");
+    testInstance(obj);
+  }
 }

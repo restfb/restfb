@@ -23,15 +23,15 @@ package com.restfb.batch;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Encapsulates a discrete part of an entire <a href="https://developers.facebook.com/docs/reference/api/batch/"
- * target="_blank">Facebook Batch API</a> response.
+ * Encapsulates a discrete part of an entire
+ * <a href="https://developers.facebook.com/docs/reference/api/batch/" target="_blank">Facebook Batch API</a> response.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.5

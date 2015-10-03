@@ -21,21 +21,23 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class StatusMessageTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkPlaceV1_0() {
-        StatusMessage examplePlace
-                = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/status-message"), StatusMessage.class);
-        assertNotNull(examplePlace.getPlace());
-        Location loc = examplePlace.getPlace().getLocation();
-        assertEquals("Istanbul", loc.getCity());
-        assertEquals("Turkey", loc.getCountry());
-        assertEquals("", loc.getZip());
-    }
+
+  @Test
+  public void checkPlaceV1_0() {
+    StatusMessage examplePlace =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/status-message"), StatusMessage.class);
+    assertNotNull(examplePlace.getPlace());
+    Location loc = examplePlace.getPlace().getLocation();
+    assertEquals("Istanbul", loc.getCity());
+    assertEquals("Turkey", loc.getCountry());
+    assertEquals("", loc.getZip());
+  }
 }

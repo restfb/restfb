@@ -21,20 +21,21 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.StatusMessage;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.StatusMessage;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class StatusMessageTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	StatusMessage obj = new StatusMessage();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	addIgnoredField("emptyLikes");
-	addIgnoredField("emptyComments");
-	testInstance(obj);
-    }
-    	    
+
+  @Test
+  public void test() {
+    StatusMessage obj = new StatusMessage();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("emptyLikes");
+    addIgnoredField("emptyComments");
+    testInstance(obj);
+  }
+
 }

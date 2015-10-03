@@ -21,17 +21,18 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.AppRequest;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.AppRequest;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class AppRequestTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	AppRequest obj = new AppRequest();
-	addIgnoredField("rawCreatedTime");
-	addIgnoredField("rawUpdatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    AppRequest obj = new AppRequest();
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawUpdatedTime");
+    testInstance(obj);
+  }
 }

@@ -21,18 +21,19 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Note;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Note;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class NoteTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Note obj = new Note();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    Note obj = new Note();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

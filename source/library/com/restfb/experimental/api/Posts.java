@@ -23,6 +23,7 @@ package com.restfb.experimental.api;
 
 import com.restfb.types.Comment;
 import com.restfb.types.Post;
+
 import java.util.List;
 
 public interface Posts {
@@ -33,13 +34,13 @@ public interface Posts {
    * @param postId
    * @return
    */
-  public Post get(String postId);
-  
+  Post get(String postId);
+
   /**
    * fetch all comments of a post
    * 
    * @param post
    * @return
    */
-  public List<Comment> fetchCommentList(Post post);
+  List<Comment> fetchCommentList(Post post);
 }

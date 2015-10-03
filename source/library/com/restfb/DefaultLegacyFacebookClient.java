@@ -21,6 +21,10 @@
  */
 package com.restfb;
 
+import static com.restfb.util.StringUtils.*;
+import static com.restfb.util.UrlUtils.urlEncode;
+import static java.net.HttpURLConnection.HTTP_OK;
+
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookException;
 import com.restfb.exception.FacebookJsonMappingException;
@@ -31,18 +35,8 @@ import com.restfb.json.JsonObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.TreeMap;
-
-import static com.restfb.util.StringUtils.isBlank;
-import static com.restfb.util.StringUtils.toBytes;
-import static com.restfb.util.StringUtils.trimToEmpty;
-import static com.restfb.util.UrlUtils.urlEncode;
-import static java.net.HttpURLConnection.HTTP_OK;
 
 /**
  * Default implementation of a <a href="http://developers.facebook.com/docs/reference/rest/">Legacy Facebook API</a>
@@ -91,8 +85,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   protected static final String VERSION_PARAM_VALUE = "1.0";
 
   /**
-   * Creates a Facebook API client with the given <a
-   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth access token</a>.
+   * Creates a Facebook API client with the given
+   * <a href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth access token</a>.
    * 
    * @param accessToken
    *          An OAuth access token.
@@ -145,7 +139,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
    *             is moving to OAuth and will stop supporting the old authentication scheme soon.
    */
   @Deprecated
-  public DefaultLegacyFacebookClient(String apiKey, String secretKey, WebRequestor webRequestor, JsonMapper jsonMapper) {
+  public DefaultLegacyFacebookClient(String apiKey, String secretKey, WebRequestor webRequestor,
+      JsonMapper jsonMapper) {
     super();
 
     verifyParameterPresence("apiKey", apiKey);
@@ -162,8 +157,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
   }
 
   /**
-   * Creates a Facebook API client with the given <a
-   * href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth access token</a>.
+   * Creates a Facebook API client with the given
+   * <a href="http://developers.facebook.com/docs/guides/upgrade#oauth">OAuth access token</a>.
    * 
    * @param accessToken
    *          An OAuth access token.
@@ -261,9 +256,9 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
 
     for (Parameter additionalParameter : additionalParameters) {
       if ("queries".equals(additionalParameter.name)) {
-        throw new IllegalArgumentException("You cannot specify a parameter named 'queries' "
-            + "because it's reserved for use by RestFB for this call. "
-            + "Specify your queries in the Map that gets passed to this method.");
+        throw new IllegalArgumentException(
+          "You cannot specify a parameter named 'queries' " + "because it's reserved for use by RestFB for this call. "
+              + "Specify your queries in the Map that gets passed to this method.");
       }
 
       parameters.add(additionalParameter);
@@ -272,17 +267,16 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     JsonObject normalizedJson = new JsonObject();
 
     try {
-      JsonArray jsonArray =
-          new JsonArray(makeRequest("fql.multiquery", sessionKey, parameters.toArray(new Parameter[parameters.size()])));
+      JsonArray jsonArray = new JsonArray(
+        makeRequest("fql.multiquery", sessionKey, parameters.toArray(new Parameter[parameters.size()])));
 
       for (int i = 0; i < jsonArray.length(); i++) {
         JsonObject jsonObject = jsonArray.getJsonObject(i);
 
         // For empty resultsets, Facebook will return an empty object instead of
         // an empty list. Hack around that here.
-        JsonArray resultsArray =
-            jsonObject.get("fql_result_set") instanceof JsonArray ? jsonObject.getJsonArray("fql_result_set")
-                : new JsonArray();
+        JsonArray resultsArray = jsonObject.get("fql_result_set") instanceof JsonArray
+            ? jsonObject.getJsonArray("fql_result_set") : new JsonArray();
 
         normalizedJson.put(jsonObject.getString("name"), resultsArray);
       }
@@ -363,8 +357,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     // The legacy stuff requires a bunch more work.
     if (usesAccessTokenAuthentication()) {
       if (sessionKey != null) {
-        throw new IllegalArgumentException("If you're using the OAuth access token "
-            + "for authentication, you cannot " + "specify a session key.");
+        throw new IllegalArgumentException(
+          "If you're using the OAuth access token " + "for authentication, you cannot " + "specify a session key.");
       }
 
       sortedParameters.put(ACCESS_TOKEN_PARAM_NAME, accessToken);
@@ -392,8 +386,8 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
 
       parameterStringBuilder.append(urlEncode(entry.getKey()));
       parameterStringBuilder.append("=");
-      parameterStringBuilder.append(usesAccessTokenAuthentication() ? urlEncodedValueForParameterName(entry.getKey(),
-        entry.getValue()) : urlEncode(entry.getValue()));
+      parameterStringBuilder.append(usesAccessTokenAuthentication()
+          ? urlEncodedValueForParameterName(entry.getKey(), entry.getValue()) : urlEncode(entry.getValue()));
     }
 
     return parameterStringBuilder.toString();

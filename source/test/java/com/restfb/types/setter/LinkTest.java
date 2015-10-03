@@ -21,17 +21,18 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Link;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Link;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class LinkTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Link obj = new Link();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Link obj = new Link();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
 }

@@ -25,31 +25,18 @@ import static com.restfb.util.StringUtils.isBlank;
 import static java.lang.String.format;
 import static java.util.Collections.singleton;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TimeZone;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
 import com.restfb.FacebookClient;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 
+import java.util.*;
+
 /**
- * Utility methods to ease querying <a target="_blank"
- * href="http://developers.facebook.com/docs/reference/fql/insights/">Insight Metrics</a> over a set of dates.
+ * Utility methods to ease querying
+ * <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights/">Insight Metrics</a> over a set
+ * of dates.
  * 
  * @author Andrew Liles
  * @since 1.6.10
@@ -116,7 +103,8 @@ public class InsightUtils {
    * @see #executeInsightQueriesByDate(FacebookClient, String, Set, Period, Set)
    */
   public static SortedMap<String, SortedMap<Date, Object>> executeInsightQueriesByMetricByDate(
-      FacebookClient facebookClient, String pageObjectId, Set<String> metrics, Period period, Set<Date> periodEndDates) {
+      FacebookClient facebookClient, String pageObjectId, Set<String> metrics, Period period,
+      Set<Date> periodEndDates) {
     SortedMap<String, SortedMap<Date, Object>> result = new TreeMap<String, SortedMap<Date, Object>>();
     SortedMap<Date, JsonArray> raw =
         executeInsightQueriesByDate(facebookClient, pageObjectId, metrics, period, periodEndDates);
@@ -142,12 +130,12 @@ public class InsightUtils {
             }
 
             if (resultByDate.put(date, metricValue) != null) {
-              throw new IllegalStateException(format(
-                "MultiQuery response has two results for metricName: %s and date: %s", metricName, date));
+              throw new IllegalStateException(
+                format("MultiQuery response has two results for metricName: %s and date: %s", metricName, date));
             }
           } catch (JsonException e) {
-            throw new FacebookJsonMappingException(format("Could not decode result for %s: %s", metricResult,
-              e.getMessage()), e);
+            throw new FacebookJsonMappingException(
+              format("Could not decode result for %s: %s", metricResult, e.getMessage()), e);
           }
         }
       }
@@ -317,8 +305,9 @@ public class InsightUtils {
   /**
    * Slides this date back to midnight in the PST timezone fit for the Facebook Query Language.
    * <p>
-   * More details are available at <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights"
-   * >http://developers.facebook.com/docs/reference/fql/insights</a>.
+   * More details are available at
+   * <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights" >http://developers.facebook.
+   * com/docs/reference/fql/insights</a>.
    * 
    * @param date
    *          The date to slide back.
@@ -342,8 +331,9 @@ public class InsightUtils {
   /**
    * Slides these dates back to midnight in the PST timezone fit for the Facebook Query Language.
    * <p>
-   * More details are available at <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights"
-   * >http://developers.facebook.com/docs/reference/fql/insights</a>.
+   * More details are available at
+   * <a target="_blank" href="http://developers.facebook.com/docs/reference/fql/insights" >http://developers.facebook.
+   * com/docs/reference/fql/insights</a>.
    * 
    * @param dates
    *          The dates to slide back.
@@ -408,7 +398,7 @@ public class InsightUtils {
    *          The collection to check.
    * @return {@code true} if {@code collection} is {@code null} or empty, {@code false} otherwise.
    */
-  static <T extends Object> boolean isEmpty(Collection<T> collection) {
+  static <T> boolean isEmpty(Collection<T> collection) {
     return collection == null || collection.isEmpty();
   }
 }

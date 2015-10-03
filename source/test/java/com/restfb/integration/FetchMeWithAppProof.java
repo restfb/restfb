@@ -21,20 +21,20 @@
  */
 package com.restfb.integration;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class FetchMeWithAppProof extends RestFbIntegrationTestBase {
 
   @Test
   public void fetchWithProof() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), getTestSettings().getAppSecret(),
-          Version.VERSION_2_3);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
+      getTestSettings().getAppSecret(), Version.VERSION_2_3);
     User me = client.fetchObject("/me", User.class);
     Assert.assertNotNull(me);
   }

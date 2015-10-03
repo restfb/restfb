@@ -21,15 +21,13 @@
  */
 package com.restfb.types.ads;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
 import lombok.Getter;
 import lombok.Setter;
 

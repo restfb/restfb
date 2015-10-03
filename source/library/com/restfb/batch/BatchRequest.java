@@ -26,16 +26,16 @@ import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.restfb.Facebook;
 import com.restfb.Parameter;
 import com.restfb.util.ReflectionUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Encapsulates a discrete part of an entire <a href="https://developers.facebook.com/docs/reference/api/batch/"
- * target="_blank">Facebook Batch API</a> request.
+ * Encapsulates a discrete part of an entire
+ * <a href="https://developers.facebook.com/docs/reference/api/batch/" target="_blank">Facebook Batch API</a> request.
  * <p>
  * Must be constructed by {@link BatchRequestBuilder}.
  * 
@@ -95,7 +95,8 @@ public class BatchRequest {
    *           If {@code relativeUrl} is {@code null}.
    */
   protected BatchRequest(String relativeUrl, List<Parameter> parameters, String method, List<BatchHeader> headers,
-      List<Parameter> bodyParameters, String attachedFiles, String dependsOn, String name, boolean omitResponseOnSuccess) {
+      List<Parameter> bodyParameters, String attachedFiles, String dependsOn, String name,
+      boolean omitResponseOnSuccess) {
     if (relativeUrl == null) {
       throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");
     }
@@ -109,9 +110,8 @@ public class BatchRequest {
     this.omitResponseOnSuccess = omitResponseOnSuccess;
 
     if (!parameters.isEmpty()) {
-      this.relativeUrl =
-          format(this.relativeUrl.indexOf("?") == -1 ? "%s?%s" : "%s&%s", this.relativeUrl,
-            generateParameterString(parameters));
+      this.relativeUrl = format(!this.relativeUrl.contains("?") ? "%s?%s" : "%s&%s", this.relativeUrl,
+        generateParameterString(parameters));
     }
 
     this.body = generateParameterString(bodyParameters);

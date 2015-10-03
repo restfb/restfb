@@ -24,9 +24,11 @@ package com.restfb.types.ads;
 import com.restfb.json.JsonObject;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/">Funding Source Details type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/">Funding Source
+ * Details type</a>.
+ * 
  * @TODO: get correct information from Facebook, this type is used but missing in the documentation
  */
 public class FundingSourceDetails extends JsonObject {
-    
+
 }

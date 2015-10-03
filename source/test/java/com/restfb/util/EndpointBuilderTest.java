@@ -21,12 +21,14 @@
  */
 package com.restfb.util;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.FakeWebRequestor;
 import com.restfb.Version;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class EndpointBuilderTest {
 

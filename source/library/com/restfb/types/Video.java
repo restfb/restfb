@@ -21,16 +21,17 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -343,9 +344,9 @@ public class Video extends NamedFacebookType {
   /**
    * The number of likes on this video.
    * 
-   * you have to fetch the video id with <code>?fields=likes.summary(true)</code> in order to speed up the likes
-   * count generation, you may use <code>?fields=likes.limit(1).summary(true)</code>, so only 1 like is fetched,
-   * but the complete summary
+   * you have to fetch the video id with <code>?fields=likes.summary(true)</code> in order to speed up the likes count
+   * generation, you may use <code>?fields=likes.limit(1).summary(true)</code>, so only 1 like is fetched, but the
+   * complete summary
    *
    * @return The number of likes on this video.
    */

@@ -21,13 +21,15 @@
  */
 package com.restfb.types;
 
+import static java.util.Collections.unmodifiableList;
+
+import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
-import static java.util.Collections.unmodifiableList;
 import lombok.Getter;
 import lombok.Setter;
 

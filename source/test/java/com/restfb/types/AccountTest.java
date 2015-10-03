@@ -21,41 +21,40 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class AccountTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void checkV1_0() {
-        Account exampleAccount =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/account"), Account.class);
-        assertEquals("testtoken", exampleAccount.getAccessToken());
-        assertEquals("123456789", exampleAccount.getId());
-        assertEquals(6, exampleAccount.getPerms().size());
-        assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
-    }
-    
-    @Test
-    public void checkV2_0() {
-        Account exampleAccount =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/account"), Account.class);
-        assertEquals("testtoken", exampleAccount.getAccessToken());
-        assertEquals("123456789", exampleAccount.getId());
-        assertEquals(6, exampleAccount.getPerms().size());
-        assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
-    }
-    
-    @Test
-    public void checkV2_1() {
-        Account exampleAccount =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/account"), Account.class);
-        assertEquals("testtoken", exampleAccount.getAccessToken());
-        assertEquals("123456789", exampleAccount.getId());
-        assertEquals(6, exampleAccount.getPerms().size());
-        assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
-    }
-    
+
+  @Test
+  public void checkV1_0() {
+    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/account"), Account.class);
+    assertEquals("testtoken", exampleAccount.getAccessToken());
+    assertEquals("123456789", exampleAccount.getId());
+    assertEquals(6, exampleAccount.getPerms().size());
+    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
+  }
+
+  @Test
+  public void checkV2_0() {
+    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/account"), Account.class);
+    assertEquals("testtoken", exampleAccount.getAccessToken());
+    assertEquals("123456789", exampleAccount.getId());
+    assertEquals(6, exampleAccount.getPerms().size());
+    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
+  }
+
+  @Test
+  public void checkV2_1() {
+    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/account"), Account.class);
+    assertEquals("testtoken", exampleAccount.getAccessToken());
+    assertEquals("123456789", exampleAccount.getId());
+    assertEquals(6, exampleAccount.getPerms().size());
+    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
+  }
+
 }

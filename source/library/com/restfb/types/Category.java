@@ -28,5 +28,5 @@ package com.restfb.types;
  * @since 1.6.15
  */
 public class Category extends NamedFacebookType {
-    
+
 }

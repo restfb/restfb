@@ -30,11 +30,7 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * A JsonObject is an unordered collection of name/value pairs. Its external form is a string wrapped in curly braces
@@ -79,7 +75,7 @@ import java.util.TreeSet;
  */
 public class JsonObject implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * JsonObject.NULL is equivalent to the value that JavaScript calls null, whilst Java's null is equivalent to the
    * value that JavaScript calls undefined.
@@ -500,10 +496,10 @@ public class JsonObject implements Serializable {
   public boolean getBoolean(String key) {
     Object o = get(key);
     if (o.equals(Boolean.FALSE) || (o instanceof String && ((String) o).equalsIgnoreCase("false"))
-            || (o instanceof Integer && ((Integer) o) == 0)) {
+        || (o instanceof Integer && ((Integer) o) == 0)) {
       return false;
     } else if (o.equals(Boolean.TRUE) || (o instanceof String && ((String) o).equalsIgnoreCase("true"))
-            || (o instanceof Integer && ((Integer) o) == 1)) {
+        || (o instanceof Integer && ((Integer) o) == 1)) {
       return true;
     }
     throw new JsonException("JsonObject[" + quote(key) + "] is not a Boolean.");
@@ -1320,8 +1316,8 @@ public class JsonObject implements Serializable {
    *          The number of spaces to add to each level of indentation.
    * @param indent
    *          The indentation of the top level.
-   * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
-   *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+   * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code> &nbsp;
+   *         <small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
    * @throws JsonException
    *           If the object contains an invalid number.
    */
@@ -1379,8 +1375,8 @@ public class JsonObject implements Serializable {
    * 
    * @param value
    *          The value to be serialized.
-   * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
-   *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+   * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code> &nbsp;
+   *         <small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
    * @throws JsonException
    *           If the value is or contains an invalid number.
    */
@@ -1429,8 +1425,8 @@ public class JsonObject implements Serializable {
    *          The number of spaces to add to each level of indentation.
    * @param indent
    *          The indentation of the top level.
-   * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
-   *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+   * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code> &nbsp;
+   *         <small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
    * @throws JsonException
    *           If the object contains an invalid number.
    */

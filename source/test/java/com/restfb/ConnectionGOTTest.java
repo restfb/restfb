@@ -21,13 +21,16 @@
  */
 package com.restfb;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.restfb.types.Post;
 import com.restfb.types.Post.Comments;
 import com.restfb.types.Post.Likes;
-import java.util.List;
-import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class ConnectionGOTTest extends AbstractJsonMapperTests {
 
@@ -38,7 +41,7 @@ public class ConnectionGOTTest extends AbstractJsonMapperTests {
   @Test
   public void check_2_1_comments_likes_count() {
     Connection<Post> con =
-        new Connection<Post>(new DefaultFacebookClient(), jsonFromClasspath("v2_1/feed-got"), Post.class);
+        new Connection<Post>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("v2_1/feed-got"), Post.class);
     List<Post> postPage = con.getData();
     for (Post post : postPage) {
       Comments cs = post.getComments();

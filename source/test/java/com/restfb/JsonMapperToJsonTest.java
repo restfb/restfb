@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONException;
 
+import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -189,7 +189,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("testId", new BigInteger("412"));
-    map.put("floatId", Float.valueOf(123.45F));
+    map.put("floatId", 123.45F);
     map.put("basicUser", basicUser);
 
     String json = createJsonMapper().toJson(map);

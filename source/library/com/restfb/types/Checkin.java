@@ -21,17 +21,18 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import com.restfb.util.ReflectionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,7 +49,8 @@ public class Checkin extends FacebookType {
    * 
    * @return The message the user added to the check-in.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private String message;
 
@@ -57,7 +59,8 @@ public class Checkin extends FacebookType {
    * 
    * @return The ID and name of the user who made the check-in.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private NamedFacebookType from;
 
@@ -66,7 +69,8 @@ public class Checkin extends FacebookType {
    * 
    * @return The ID and name of the application that made the check-in.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private NamedFacebookType application;
 
@@ -75,19 +79,21 @@ public class Checkin extends FacebookType {
    * 
    * @return The ID, name, and location of the Facebook Page that represents the location of the check-in.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private com.restfb.types.Place place;
 
   @Facebook("created_time")
   transient private String rawCreatedTime;
-  
+
   /**
    * The time the check-in was created.
    * 
    * @return The time the check-in was created.
    */
-  @Getter @Setter
+  @Getter
+  @Setter
   private Date createdTime;
 
   @Facebook
@@ -134,7 +140,8 @@ public class Checkin extends FacebookType {
        * 
        * @return The latitude of the check-in.
        */
-      @Getter @Setter
+      @Getter
+      @Setter
       @Facebook
       private Double latitude;
 
@@ -143,7 +150,8 @@ public class Checkin extends FacebookType {
        * 
        * @return The longitude of the check-in.
        */
-      @Getter @Setter
+      @Getter
+      @Setter
       @Facebook
       private Double longitude;
 
@@ -153,7 +161,8 @@ public class Checkin extends FacebookType {
        * @return The city of the check-in.
        * @since 1.6.5
        */
-      @Getter @Setter
+      @Getter
+      @Setter
       @Facebook
       private String city;
 
@@ -163,7 +172,8 @@ public class Checkin extends FacebookType {
        * @return The state of the check-in.
        * @since 1.6.5
        */
-      @Getter @Setter
+      @Getter
+      @Setter
       @Facebook
       private String state;
 
@@ -173,7 +183,8 @@ public class Checkin extends FacebookType {
        * @return The country of the check-in.
        * @since 1.6.5
        */
-      @Getter @Setter
+      @Getter
+      @Setter
       @Facebook
       private String country;
 
@@ -223,7 +234,7 @@ public class Checkin extends FacebookType {
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {
-      createdTime = toDateFromLongFormat(rawCreatedTime);
+    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 
   /**
@@ -234,13 +245,13 @@ public class Checkin extends FacebookType {
   public List<Comment> getComments() {
     return unmodifiableList(comments);
   }
-  
+
   public boolean addComment(Comment comment) {
-      return comments.add(comment);
+    return comments.add(comment);
   }
-  
+
   public boolean removeComment(Comment comment) {
-      return comments.remove(comment);
+    return comments.remove(comment);
   }
 
   /**
@@ -251,12 +262,12 @@ public class Checkin extends FacebookType {
   public List<NamedFacebookType> getTags() {
     return unmodifiableList(tags);
   }
-  
+
   public boolean addTag(NamedFacebookType tag) {
-      return tags.add(tag);
+    return tags.add(tag);
   }
-  
+
   public boolean removeTag(NamedFacebookType tag) {
-      return tags.remove(tag);
+    return tags.remove(tag);
   }
 }

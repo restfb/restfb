@@ -21,10 +21,13 @@
  */
 package com.restfb;
 
-import com.restfb.json.JsonObject;
-import java.util.List;
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.junit.Test;
+
+import com.restfb.json.JsonObject;
 
 public class FQLMessageTagsTest extends AbstractJsonMapperTests {
 

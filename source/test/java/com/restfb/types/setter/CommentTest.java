@@ -21,37 +21,38 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Comment;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Comment;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class CommentTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Comment obj = new Comment();
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testAttachment() {
-	Comment.Attachment obj = new Comment.Attachment();
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testImage() {
-	Comment.Image obj = new Comment.Image();
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testMedia() {
-	Comment.Media obj = new Comment.Media();
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Comment obj = new Comment();
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testAttachment() {
+    Comment.Attachment obj = new Comment.Attachment();
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testImage() {
+    Comment.Image obj = new Comment.Image();
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testMedia() {
+    Comment.Media obj = new Comment.Media();
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
 }

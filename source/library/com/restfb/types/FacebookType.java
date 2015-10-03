@@ -21,19 +21,22 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.StringUtils.isBlank;
+
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
-import static com.restfb.util.StringUtils.isBlank;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Base class which encapsulates behavior and properties common to most <a
- * href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>.
+ * Base class which encapsulates behavior and properties common to most
+ * <a href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5

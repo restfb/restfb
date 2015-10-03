@@ -22,26 +22,28 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adgroup/deliverychecks">Delivery Check type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adgroup/deliverychecks">Delivery Check
+ * type</a>.
  */
 public class AdDeliveryCheck {
-    
-    @Getter
-    @Setter
-    @Facebook("check_name")
-    private String checkName;
-    
-    @Getter
-    @Setter
-    @Facebook
-    private String summary;
-    
-    @Getter
-    @Setter
-    @Facebook
-    private String description;
+
+  @Getter
+  @Setter
+  @Facebook("check_name")
+  private String checkName;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String summary;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String description;
 }

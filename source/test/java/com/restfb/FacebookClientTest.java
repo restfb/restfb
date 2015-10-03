@@ -21,17 +21,17 @@
  */
 package com.restfb;
 
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.util.Date;
+
+import org.junit.Test;
+
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
-import java.io.IOException;
-import java.util.Date;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -39,19 +39,19 @@ import org.junit.Test;
 public class FacebookClientTest {
 
   /**
-   * Is the appsecret_proof hash function correct
+   * Is the <code>appsecret_proof</code> hash function correct
    */
   @Test
   public void testMakeAppSecretProof() {
     System.out.println("Testing make App Secret Proof");
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient();
+    DefaultFacebookClient facebookClient = new DefaultFacebookClient(Version.LATEST);
     String test = facebookClient.obtainAppSecretProof("test", "test");
     // obtained from running hash_hmac("sha256","test","test");
     String php_result = "88cd2108b5347d973cf39cdf9053d7dd42704876d8c9a9bd8e2d168259d3ddf7";
     assertEquals(php_result, test);
     // obtained from running hash_hmac("sha256","helloWorld",'PRIE7$oG2uS-Yf17kEnUEpi5hvW/#AFo');
     String php_result2 = "cb064987988fcd658470d6a24f1c68f6d7982c80ab9efb08cb8c84ef88fd03e1";
-    DefaultFacebookClient facebookClient2 = new DefaultFacebookClient();
+    DefaultFacebookClient facebookClient2 = new DefaultFacebookClient(Version.LATEST);
     String test2 = facebookClient2.obtainAppSecretProof("helloWorld", "PRIE7$oG2uS-Yf17kEnUEpi5hvW/#AFo");
     assertEquals(php_result2, test2);
   }
@@ -61,9 +61,8 @@ public class FacebookClientTest {
    */
   @Test
   public void oauthExceptionWithErrorCode() {
-    FacebookClient facebookClient =
-        facebookClientWithResponse(new Response(403,
-          "{\"error\":{\"message\":\"(#210) User not visible\",\"type\":\"OAuthException\",\"code\":210}}"));
+    FacebookClient facebookClient = facebookClientWithResponse(new Response(403,
+      "{\"error\":{\"message\":\"(#210) User not visible\",\"type\":\"OAuthException\",\"code\":210}}"));
 
     try {
       facebookClient.fetchObject("me", User.class);
@@ -79,9 +78,8 @@ public class FacebookClientTest {
    */
   @Test
   public void oauthExceptionWithErrorSubcode() {
-    FacebookClient facebookClient =
-        facebookClientWithResponse(new Response(403,
-          "{\"error\":{\"message\":\"App Not Installed\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":458}}"));
+    FacebookClient facebookClient = facebookClientWithResponse(new Response(403,
+      "{\"error\":{\"message\":\"App Not Installed\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":458}}"));
 
     try {
       facebookClient.fetchObject("me", User.class);
@@ -98,9 +96,8 @@ public class FacebookClientTest {
    */
   @Test
   public void oauthExceptionWithoutErrorCode() {
-    FacebookClient facebookClient =
-        facebookClientWithResponse(new Response(403,
-          "{\"error\":{\"message\":\"(#210) User not visible\",\"type\":\"OAuthException\"}}"));
+    FacebookClient facebookClient = facebookClientWithResponse(
+      new Response(403, "{\"error\":{\"message\":\"(#210) User not visible\",\"type\":\"OAuthException\"}}"));
 
     try {
       facebookClient.fetchObject("me", User.class);
@@ -113,9 +110,8 @@ public class FacebookClientTest {
 
   @Test
   public void obtainExtendedAccessTokenV23() {
-    FacebookClient fbc =
-        facebookClientWithResponse(new Response(200,
-          "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\", \"expires_in\":132363}"));
+    FacebookClient fbc = facebookClientWithResponse(
+      new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\", \"expires_in\":132363}"));
     FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
     assertEquals("accesstoken", at.getAccessToken());
     assertEquals("tokentype", at.getTokenType());
@@ -124,9 +120,8 @@ public class FacebookClientTest {
 
   @Test
   public void obtainExtendedAccessTokenV23WithoutExpiresIn() {
-    FacebookClient fbc =
-        facebookClientWithResponse(new Response(200,
-          "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\"}"));
+    FacebookClient fbc = facebookClientWithResponse(
+      new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\"}"));
     FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
     assertEquals("accesstoken", at.getAccessToken());
     assertEquals("tokentype", at.getTokenType());
@@ -175,7 +170,8 @@ public class FacebookClientTest {
   public void checkLogoutUrlWithNext() {
     FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_2);
     String logoutUrl = client.getLogoutUrl("http://www.example.com");
-    assertEquals("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456", logoutUrl);
+    assertEquals("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456",
+      logoutUrl);
   }
 
   @Test
@@ -218,6 +214,6 @@ public class FacebookClientTest {
         return response;
       }
 
-    }, new DefaultJsonMapper());
+    }, new DefaultJsonMapper(), Version.LATEST);
   }
 }

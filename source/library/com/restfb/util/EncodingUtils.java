@@ -21,13 +21,14 @@
  */
 package com.restfb.util;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * A collection of data-encoding utility methods.
@@ -114,19 +115,20 @@ public final class EncodingUtils {
    * @throws InvalidKeyException
    * @throws UnsupportedEncodingException
    */
-  public static String encodeAppSecretProof(String appSecret, String accessToken) throws NoSuchAlgorithmException,
-      InvalidKeyException, UnsupportedEncodingException {
+  public static String encodeAppSecretProof(String appSecret, String accessToken)
+      throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
     byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
     SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
     Mac mac = Mac.getInstance("HmacSHA256");
     mac.init(signingKey);
     byte[] raw = mac.doFinal(accessToken.getBytes(Charset.forName("UTF-8")));
     byte[] hex = encodeHex(raw);
-      return new String(hex, Charset.forName("UTF-8"));
+    return new String(hex, Charset.forName("UTF-8"));
   }
 
   /**
-   * A very fast and memory efficient class to encode and decode to and from BASE64 in full accordance with RFC 2045.<br>
+   * A very fast and memory efficient class to encode and decode to and from BASE64 in full accordance with RFC 2045.
+   * <br>
    * <br>
    * On Windows XP sp1 with 1.4.2_04 and later ;), this encoder and decoder is about 10 times faster on small arrays (10
    * - 1000 bytes) and 2-3 times as fast on larger arrays (10000 - 1000000 bytes) compared to
@@ -136,7 +138,8 @@ public final class EncodingUtils {
    * On byte arrays the encoder is about 20% faster than Jakarta Commons Base64 Codec for encode and about 50% faster
    * for decoding large arrays. This implementation is about twice as fast on very small arrays (&lt 30 bytes). If
    * source/destination is a <code>String</code> this version is about three times as fast due to the fact that the
-   * Commons Codec result has to be recoded to a <code>String</code> from <code>byte[]</code>, which is very expensive.<br>
+   * Commons Codec result has to be recoded to a <code>String</code> from <code>byte[]</code>, which is very expensive.
+   * <br>
    * <br>
    * 
    * This encode/decode algorithm doesn't create any temporary arrays as many other codecs do, it only allocates the
@@ -190,6 +193,7 @@ public final class EncodingUtils {
   private static class Base64 {
     private static final char[] CA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray();
     private static final int[] IA = new int[256];
+
     static {
       Arrays.fill(IA, -1);
       for (int i = 0, iS = CA.length; i < iS; i++)

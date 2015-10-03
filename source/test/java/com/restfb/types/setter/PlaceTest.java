@@ -21,18 +21,19 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Place;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Place;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class PlaceTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Place obj = new Place();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    Place obj = new Place();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

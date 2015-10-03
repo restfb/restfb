@@ -22,6 +22,7 @@
 package com.restfb.experimental.api;
 
 import com.restfb.types.Subscription;
+
 import java.util.List;
 
 public interface Applications {

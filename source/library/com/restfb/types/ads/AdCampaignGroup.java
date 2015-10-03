@@ -21,16 +21,20 @@
  */
 package com.restfb.types.ads;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import java.util.Date;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adaccountgroup/">Ad Campaign Group type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adaccountgroup/">Ad Campaign Group
+ * type</a>.
  */
 public class AdCampaignGroup extends NamedAdsObject {
 
@@ -83,26 +87,25 @@ public class AdCampaignGroup extends NamedAdsObject {
 
   @Facebook("start_time")
   private String rawStartTime;
-  
+
   @Getter
   @Setter
   private Date startTime;
 
   @Facebook("stop_time")
   private String rawStopTime;
-  
+
   @Getter
   @Setter
   private Date stopTime;
 
   @Facebook("updated_time")
   private String rawUpdatedTime;
-  
+
   @Getter
   @Setter
   private Date updatedTime;
 
-  
   @JsonMapper.JsonMappingCompleted
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);

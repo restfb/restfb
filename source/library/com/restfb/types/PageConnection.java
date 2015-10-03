@@ -21,17 +21,19 @@
  */
 package com.restfb.types;
 
-import java.util.Date;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a Connection to a <a href="http://developers.facebook.com/docs/reference/api/page">Page Graph API
- * type</a>, for example the Pages returned from {@code me/music}.
+ * Represents a Connection to a <a href="http://developers.facebook.com/docs/reference/api/page">Page Graph API type</a>
+ * , for example the Pages returned from {@code me/music}.
  * 
  * @author Patrick Alberts
  * @since 1.6.3

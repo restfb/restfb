@@ -23,9 +23,9 @@ package com.restfb.util;
 
 import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static com.restfb.util.UrlUtils.extractParametersFromUrl;
-import org.junit.Assert;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -58,7 +58,7 @@ public class UrlUtilsTest {
     String expectedURL = "http://www.example.com?access_token=123&before=56789";
     Assert.assertEquals(expectedURL, resultURL);
   }
-  
+
   @Test
   public void addParameterNoParameter() {
     String exampleUrl = "http://www.example.com";
@@ -66,7 +66,7 @@ public class UrlUtilsTest {
     String expectedURL = "http://www.example.com?before=56789";
     Assert.assertEquals(expectedURL, resultURL);
   }
-  
+
   @Test
   public void addParameter() {
     String exampleUrl = "http://www.example.com?access_token=123";

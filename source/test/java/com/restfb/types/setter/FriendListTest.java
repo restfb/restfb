@@ -21,15 +21,16 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.FriendList;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.FriendList;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class FriendListTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	FriendList obj = new FriendList();
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    FriendList obj = new FriendList();
+    testInstance(obj);
+  }
 }

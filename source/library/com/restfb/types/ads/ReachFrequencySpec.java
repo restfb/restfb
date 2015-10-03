@@ -23,12 +23,15 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
+
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reachandfrequency/">Reach Frequency Spec type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reachandfrequency/">Reach Frequency Spec
+ * type</a>.
  */
 public class ReachFrequencySpec {
 

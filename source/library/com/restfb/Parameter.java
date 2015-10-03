@@ -26,10 +26,10 @@ import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 
+import com.restfb.exception.FacebookJsonMappingException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * Representation of a Facebook API request parameter.
@@ -64,18 +64,17 @@ public final class Parameter {
     if (isBlank(name) || value == null) {
       throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value.");
     }
-      
+
     if (jsonMapper == null) {
       throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");
     }
-      
+
     this.name = trimToEmpty(name).toLowerCase();
 
     // Special handling for Date types - turn them into Facebook date strings.
     // Otherwise, use the JSON value of the type.
-    this.value =
-        value instanceof Date ? new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT).format(value) : jsonMapper
-          .toJson(value, true);
+    this.value = value instanceof Date ? new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT).format(value)
+        : jsonMapper.toJson(value, true);
   }
 
   /**
@@ -83,9 +82,9 @@ public final class Parameter {
    * <p>
    * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a
    * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean and it will be
-   * converted to JSON automatically. See the "attachment" section of <a
-   * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for an
-   * example of where this is useful.
+   * converted to JSON automatically. See the "attachment" section of
+   * <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for
+   * an example of where this is useful.
    * 
    * @param name
    *          The parameter name.
@@ -107,16 +106,16 @@ public final class Parameter {
    * <p>
    * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a
    * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean and it will be
-   * converted to JSON automatically. See the "attachment" section of <a
-   * href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for an
-   * example of where this is useful.
+   * converted to JSON automatically. See the "attachment" section of
+   * <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for
+   * an example of where this is useful.
    * 
    * @param name
    *          The parameter name.
    * @param value
    *          The parameter value.
-   * @param jsonMapper 
-   *	The jsonMapper
+   * @param jsonMapper
+   *          The jsonMapper
    * @return A {@code Parameter} instance with the given {@code name} and {@code value}.
    * @throws IllegalArgumentException
    *           If {@code name} or {@code value} is {@code null} or a blank string.

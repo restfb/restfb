@@ -21,14 +21,11 @@
  */
 package com.restfb.types.api;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.util.*;
+
 import org.junit.Test;
 
 public class ApiCheckTest extends BaseTestCheck {
@@ -51,8 +48,7 @@ public class ApiCheckTest extends BaseTestCheck {
         expectedMethods = new HashSet<String>(Arrays.asList(methods));
       }
       if (expectedMethods.size() > 0) {
-        Iterator<String> expIterator = expectedMethods.iterator();
-        while (expIterator.hasNext()) {
+        for (Iterator<String> expIterator = expectedMethods.iterator(); expIterator.hasNext();) {
           String expMethod = expIterator.next();
           assertTrue(key + " method not found " + expMethod, currentMethods.contains(expMethod));
         }

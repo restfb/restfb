@@ -21,12 +21,11 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import java.util.Date;
-
-import static org.junit.Assert.assertEquals;
+import com.restfb.AbstractJsonMapperTests;
 
 public class HoursTest extends AbstractJsonMapperTests {
 
@@ -65,6 +64,5 @@ public class HoursTest extends AbstractJsonMapperTests {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/page-hours"), Page.class);
     assertEquals("20:00", page.getHours().getSunday2close());
   }
-
 
 }

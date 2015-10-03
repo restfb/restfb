@@ -22,22 +22,14 @@
 package com.restfb.util;
 
 import static java.lang.String.format;
-import static java.util.Collections.sort;
-import static java.util.Collections.synchronizedMap;
-import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A collection of reflection-related utility methods.
@@ -215,14 +207,11 @@ public final class ReflectionUtils {
 
     for (Method method : clazz.getMethods()) {
       String methodName = method.getName();
-      if (!"getClass".equals(methodName)
-          && !"hashCode".equals(methodName)
-          && method.getReturnType() != null
-          && !Void.class.equals(method.getReturnType())
-          && method.getParameterTypes().length == 0
+      if (!"getClass".equals(methodName) && !"hashCode".equals(methodName) && method.getReturnType() != null
+          && !Void.class.equals(method.getReturnType()) && method.getParameterTypes().length == 0
           && ((methodName.startsWith("get") && methodName.length() > 3)
-              || (methodName.startsWith("is") && methodName.length() > 2) || (methodName.startsWith("has") && methodName
-            .length() > 3))) {
+              || (methodName.startsWith("is") && methodName.length() > 2)
+              || (methodName.startsWith("has") && methodName.length() > 3))) {
         methods.add(method);
       }
     }

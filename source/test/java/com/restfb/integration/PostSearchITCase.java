@@ -21,16 +21,16 @@
  */
 package com.restfb.integration;
 
-import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.Connection;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.exception.FacebookOAuthException;
+import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-import org.junit.Test;
 
 public class PostSearchITCase extends RestFbIntegrationTestBase {
 

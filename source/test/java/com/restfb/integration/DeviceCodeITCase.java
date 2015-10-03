@@ -21,6 +21,10 @@
  */
 package com.restfb.integration;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
@@ -31,10 +35,6 @@ import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-import org.junit.Test;
 
 public class DeviceCodeITCase extends RestFbIntegrationTestBase {
 
@@ -44,9 +44,9 @@ public class DeviceCodeITCase extends RestFbIntegrationTestBase {
     ScopeBuilder scope = new ScopeBuilder();
     DeviceCode deviceCode = client.fetchDeviceCode(getTestSettings().getAppId(), scope);
     assertNotNull(deviceCode);
+    FacebookClient.AccessToken token = null;
     try {
-      FacebookClient.AccessToken token =
-          client.obtainDeviceAccessToken(getTestSettings().getAppId(), deviceCode.getCode());
+      token = client.obtainDeviceAccessToken(getTestSettings().getAppId(), deviceCode.getCode());
     } catch (FacebookDeviceTokenCodeExpiredException ex) {
       fail();
     } catch (FacebookDeviceTokenPendingException ex) {
@@ -56,5 +56,6 @@ public class DeviceCodeITCase extends RestFbIntegrationTestBase {
     } catch (FacebookDeviceTokenSlowdownException ex) {
       fail();
     }
+    assertNotNull(token);
   }
 }

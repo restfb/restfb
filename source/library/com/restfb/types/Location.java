@@ -21,10 +21,11 @@
  */
 package com.restfb.types;
 
-import java.io.Serializable;
-
 import com.restfb.Facebook;
 import com.restfb.util.ReflectionUtils;
+
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -21,11 +21,14 @@
  */
 package com.restfb.types.ads;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.types.Page;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -72,7 +75,7 @@ public class Business extends NamedAdsObject {
   @Setter
   @Facebook("vertical_id")
   private Integer verticalId;
-  
+
   @JsonMappingCompleted
   void convertTime() {
     updateTime = toDateFromLongFormat(rawUpdateTime);

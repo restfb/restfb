@@ -26,19 +26,15 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.util.Arrays.asList;
 
+import com.restfb.exception.*;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Logger;
-
-import com.restfb.exception.FacebookException;
-import com.restfb.exception.FacebookExceptionMapper;
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.exception.FacebookOAuthException;
-import com.restfb.exception.FacebookResponseStatusException;
-import com.restfb.json.JsonException;
-import com.restfb.json.JsonObject;
 
 /**
  * Base class that contains data and functionality common to {@link DefaultFacebookClient} and
@@ -133,12 +129,12 @@ abstract class BaseFacebookClient {
     protected static final int API_EC_PARAM_ACCESS_TOKEN = 190;
 
     /**
-     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(java.lang.Integer,
-     *      java.lang.Integer, java.lang.String, java.lang.String)
+     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
+     *      String, String, String)
      */
     @Override
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode,
-        Integer httpStatusCode, String type, String message, String userTitle, String userMessage) {
+    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
+        String type, String message, String userTitle, String userMessage) {
       if (errorCode == API_EC_PARAM_ACCESS_TOKEN) {
         return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, errorSubcode, httpStatusCode,
           userTitle, userMessage);
@@ -153,8 +149,9 @@ abstract class BaseFacebookClient {
   /**
    * Stores off the set of API calls that support the read-only endpoint.
    * <p>
-   * This list was cribbed from the <a href="https://github.com/facebook/php-sdk/blob/master/src/facebook.php"
-   * target="_blank">Official PHP Facebook API client</a>.
+   * This list was cribbed from the
+   * <a href="https://github.com/facebook/php-sdk/blob/master/src/facebook.php" target="_blank">Official PHP Facebook
+   * API client</a>.
    * 
    * @since 1.6.3
    */
@@ -171,8 +168,8 @@ abstract class BaseFacebookClient {
       "pages.isadmin", "pages.isappadded", "pages.isfan", "permissions.checkavailableapiaccess",
       "permissions.checkgrantedapiaccess", "photos.get", "photos.getalbums", "photos.gettags", "profile.getinfo",
       "profile.getinfooptions", "stream.get", "stream.getcomments", "stream.getfilters", "users.getinfo",
-      "users.getloggedinuser", "users.getstandardinfo", "users.hasapppermission", "users.isappuser",
-      "users.isverified", "video.getuploadlimits"));
+      "users.getloggedinuser", "users.getstandardinfo", "users.hasapppermission", "users.isappuser", "users.isverified",
+      "video.getuploadlimits"));
   }
 
   /**
@@ -260,8 +257,8 @@ abstract class BaseFacebookClient {
 
     for (Entry<String, String> entry : queries.entrySet()) {
       if (isBlank(entry.getKey()) || isBlank(entry.getValue())) {
-        throw new IllegalArgumentException("Provided queries must have non-blank keys and values. " + "You provided: "
-            + queries);
+        throw new IllegalArgumentException(
+          "Provided queries must have non-blank keys and values. " + "You provided: " + queries);
       }
 
       try {
@@ -328,8 +325,8 @@ abstract class BaseFacebookClient {
   protected void verifyParameterLegality(Parameter... parameters) {
     for (Parameter parameter : parameters)
       if (illegalParamNames.contains(parameter.name)) {
-        throw new IllegalArgumentException("Parameter '" + parameter.name + "' is reserved for RestFB use - "
-            + "you cannot specify it yourself.");
+        throw new IllegalArgumentException(
+          "Parameter '" + parameter.name + "' is reserved for RestFB use - " + "you cannot specify it yourself.");
       }
   }
 

@@ -21,36 +21,37 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Photo;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Photo;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class PhotoTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Photo obj = new Photo();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	addIgnoredField("rawBackdatedTime");
-	
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testImage() {
-	Photo.Image obj = new Photo.Image();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    
-    @Test
-    public void testTags() {
-	Photo.Tag obj = new Photo.Tag();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    Photo obj = new Photo();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawBackdatedTime");
+
+    testInstance(obj);
+  }
+
+  @Test
+  public void testImage() {
+    Photo.Image obj = new Photo.Image();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
+  @Test
+  public void testTags() {
+    Photo.Tag obj = new Photo.Tag();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

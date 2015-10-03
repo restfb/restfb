@@ -22,11 +22,12 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class Hours extends NamedFacebookType {
-  
+
   @Getter
   @Setter
   @Facebook("mon_1_open")

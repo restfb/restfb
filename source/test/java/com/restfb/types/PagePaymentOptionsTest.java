@@ -21,21 +21,23 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
+import com.restfb.AbstractJsonMapperTests;
+
 public class PagePaymentOptionsTest extends AbstractJsonMapperTests {
-    
-    @Test
-    public void convertPaymentOptions() {
-	Page.PagePaymentOptions paymentOptions =
+
+  @Test
+  public void convertPaymentOptions() {
+    Page.PagePaymentOptions paymentOptions =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/page-paymentoptions"), Page.PagePaymentOptions.class);
-	assertFalse(paymentOptions.getAmex());
-	assertTrue(paymentOptions.getCashOnly());
-	assertFalse(paymentOptions.getDiscover());
-	assertTrue(paymentOptions.getMastercard());
-	assertTrue(paymentOptions.getVisa());
-    }
+    assertFalse(paymentOptions.getAmex());
+    assertTrue(paymentOptions.getCashOnly());
+    assertFalse(paymentOptions.getDiscover());
+    assertTrue(paymentOptions.getMastercard());
+    assertTrue(paymentOptions.getVisa());
+  }
 }

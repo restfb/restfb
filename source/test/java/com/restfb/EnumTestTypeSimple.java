@@ -23,9 +23,9 @@ package com.restfb;
 
 public class EnumTestTypeSimple {
 
-    @Facebook
-    public String id;
-    
-    @Facebook("test_enum")
-    public EnumTestEnum testEnum;
+  @Facebook
+  public String id;
+
+  @Facebook("test_enum")
+  public EnumTestEnum testEnum;
 }

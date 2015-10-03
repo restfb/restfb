@@ -22,14 +22,17 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adaccountgroup/">Ad Account Group Type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adaccountgroup/">Ad Account Group Type</a>
+ * .
  */
 public class AdAccountGroup extends NamedAdsObject {
 

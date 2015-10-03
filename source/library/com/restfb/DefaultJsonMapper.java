@@ -22,18 +22,20 @@
 package com.restfb;
 
 import static com.restfb.json.JsonObject.NULL;
-import static com.restfb.util.ReflectionUtils.findFieldsWithAnnotation;
-import static com.restfb.util.ReflectionUtils.findMethodsWithAnnotation;
-import static com.restfb.util.ReflectionUtils.getFirstParameterizedTypeArgument;
-import static com.restfb.util.ReflectionUtils.isPrimitive;
+import static com.restfb.util.ReflectionUtils.*;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
-import static java.util.logging.Level.FINE;
-import static java.util.logging.Level.FINER;
-import static java.util.logging.Level.FINEST;
+import static java.util.logging.Level.*;
+
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonException;
+import com.restfb.json.JsonObject;
+import com.restfb.types.Post.Comments;
+import com.restfb.util.ReflectionUtils.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -41,22 +43,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.logging.Logger;
-
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonException;
-import com.restfb.json.JsonObject;
-import com.restfb.types.Post.Comments;
-import com.restfb.util.ReflectionUtils.FieldWithAnnotation;
-import java.util.Collection;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -65,8 +54,8 @@ import java.util.Collection;
  */
 public class DefaultJsonMapper implements JsonMapper {
   /**
-   * We call this instance's {@link JsonMappingErrorHandler#handleMappingError(String)} method on mapping failure so
-   * client code can decide how to handle the problem.
+   * We call this instance's {@link JsonMappingErrorHandler#handleMappingError(String, Class, Exception)} method on
+   * mapping failure so client code can decide how to handle the problem.
    */
   protected JsonMappingErrorHandler jsonMappingErrorHandler;
 
@@ -134,8 +123,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // into an object). Check for that special case here.
       if (isEmptyObject(json)) {
         if (logger.isLoggable(FINER)) {
-          logger.finer("Encountered {} when we should've seen []. "
-              + "Mapping the {} as an empty list and moving on...");
+          logger
+            .finer("Encountered {} when we should've seen []. " + "Mapping the {} as an empty list and moving on...");
         }
 
         return new ArrayList<T>();
@@ -159,8 +148,8 @@ public class DefaultJsonMapper implements JsonMapper {
             if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {
               return null;
             } else {
-              throw new FacebookJsonMappingException("JSON is an object but is being mapped as a list "
-                  + "instead. Offending JSON is '" + json + "'.");
+              throw new FacebookJsonMappingException(
+                "JSON is an object but is being mapped as a list " + "instead. Offending JSON is '" + json + "'.");
             }
           }
 
@@ -172,7 +161,8 @@ public class DefaultJsonMapper implements JsonMapper {
           return null;
         } else {
           throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
-              + type.getName() + " instances.  Offending JSON is " + json, e);
+              + type.getName() + " instances.  Offending JSON is " + json,
+            e);
         }
       }
     }
@@ -191,8 +181,8 @@ public class DefaultJsonMapper implements JsonMapper {
       if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {
         return null;
       } else {
-        throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
-            + type.getName() + " instances", e);
+        throw new FacebookJsonMappingException(
+          "Unable to convert Facebook response " + "JSON to a list of " + type.getName() + " instances", e);
       }
     }
   }
@@ -297,8 +287,8 @@ public class DefaultJsonMapper implements JsonMapper {
         // See issues 56 and 90 for examples of this behavior and discussion.
         if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
           try {
-            fieldWithAnnotation.getField()
-              .set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+            fieldWithAnnotation.getField().set(instance,
+              toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
           } catch (FacebookJsonMappingException e) {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
           } catch (JsonException e) {
@@ -306,8 +296,8 @@ public class DefaultJsonMapper implements JsonMapper {
           }
         } else {
           try {
-            fieldWithAnnotation.getField()
-              .set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+            fieldWithAnnotation.getField().set(instance,
+              toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
           } catch (Exception e) {
             if (!jsonMappingErrorHandler.handleMappingError(json, type, e)) {
               throw e;
@@ -346,8 +336,8 @@ public class DefaultJsonMapper implements JsonMapper {
    * @throws InvocationTargetException
    *           If unable to invoke the method.
    */
-  protected void invokeJsonMappingCompletedMethods(Object object) throws IllegalArgumentException,
-      IllegalAccessException, InvocationTargetException {
+  protected void invokeJsonMappingCompletedMethods(Object object)
+      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
     for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {
       method.setAccessible(true);
 
@@ -356,9 +346,9 @@ public class DefaultJsonMapper implements JsonMapper {
       else if (method.getParameterTypes().length == 1 && JsonMapper.class.equals(method.getParameterTypes()[0]))
         method.invoke(object, this);
       else
-        throw new FacebookJsonMappingException(format(
-          "Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",
-          JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));
+        throw new FacebookJsonMappingException(
+          format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",
+            JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));
     }
   }
 
@@ -382,8 +372,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
     if (logger.isLoggable(FINER)) {
       logger.finer("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName() + "."
-          + field.getName() + ", but continuing on because '" + facebookFieldName
-          + "' is mapped to multiple fields in " + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);
+          + field.getName() + ", but continuing on because '" + facebookFieldName + "' is mapped to multiple fields in "
+          + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);
     }
   }
 
@@ -420,7 +410,8 @@ public class DefaultJsonMapper implements JsonMapper {
    *          Java fields annotated with the {@code Facebook} annotation.
    * @return Any Facebook JSON fields that are mapped to more than 1 Java field.
    */
-  protected Set<String> facebookFieldNamesWithMultipleMappings(List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
+  protected Set<String> facebookFieldNamesWithMultipleMappings(
+      List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
     Map<String, Integer> facebookFieldsNamesWithOccurrenceCount = new HashMap<String, Integer>();
     Set<String> facebookFieldNamesWithMultipleMappings = new HashSet<String>();
 
@@ -428,9 +419,8 @@ public class DefaultJsonMapper implements JsonMapper {
     // @Facebook-annotated field
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
       String fieldName = getFacebookFieldName(fieldWithAnnotation);
-      int occurrenceCount =
-          facebookFieldsNamesWithOccurrenceCount.containsKey(fieldName) ? facebookFieldsNamesWithOccurrenceCount
-            .get(fieldName) : 0;
+      int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.containsKey(fieldName)
+          ? facebookFieldsNamesWithOccurrenceCount.get(fieldName) : 0;
       facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
     }
 
@@ -499,8 +489,8 @@ public class DefaultJsonMapper implements JsonMapper {
         try {
           jsonObject.put((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
         } catch (JsonException e) {
-          throw new FacebookJsonMappingException("Unable to process value '" + entry.getValue() + "' for key '"
-              + entry.getKey() + "' in Map " + object, e);
+          throw new FacebookJsonMappingException(
+            "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, e);
         }
       }
 
@@ -539,8 +529,8 @@ public class DefaultJsonMapper implements JsonMapper {
     // the non-null field.
     Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
     if (facebookFieldNamesWithMultipleMappings.size() > 0 && logger.isLoggable(FINE)) {
-      logger.fine(format("Unable to convert to JSON because multiple @" + Facebook.class.getSimpleName()
-          + " annotations for the same name are present: " + facebookFieldNamesWithMultipleMappings));
+      logger.fine("Unable to convert to JSON because multiple @" + Facebook.class.getSimpleName()
+          + " annotations for the same name are present: " + facebookFieldNamesWithMultipleMappings);
     }
 
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
@@ -554,8 +544,8 @@ public class DefaultJsonMapper implements JsonMapper {
           jsonObject.put(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
-        throw new FacebookJsonMappingException("Unable to process field '" + facebookFieldName + "' for "
-            + object.getClass(), e);
+        throw new FacebookJsonMappingException(
+          "Unable to process field '" + facebookFieldName + "' for " + object.getClass(), e);
       }
     }
 
@@ -567,11 +557,7 @@ public class DefaultJsonMapper implements JsonMapper {
       return ((Collection) fieldValue).isEmpty();
     }
 
-    if (fieldValue instanceof Map) {
-      return ((Map) fieldValue).isEmpty();
-    }
-
-    return false;
+    return (fieldValue instanceof Map && ((Map) fieldValue).isEmpty());
   }
 
   /**
@@ -763,10 +749,9 @@ public class DefaultJsonMapper implements JsonMapper {
    *           constructor, etc.)
    */
   protected <T> T createInstance(Class<T> type) {
-    String errorMessage =
-        "Unable to create an instance of " + type
-            + ". Please make sure that if it's a nested class, is marked 'static'. "
-            + "It should have a no-argument constructor.";
+    String errorMessage = "Unable to create an instance of " + type
+        + ". Please make sure that if it's a nested class, is marked 'static'. "
+        + "It should have a no-argument constructor.";
 
     try {
       Constructor<T> defaultConstructor = type.getDeclaredConstructor();
@@ -801,7 +786,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.2
    */
-  public static interface JsonMappingErrorHandler {
+  public interface JsonMappingErrorHandler {
     /**
      * This method will be called by {@code DefaultJsonMapper} if it encounters an error while attempting to map JSON to
      * a Java object.

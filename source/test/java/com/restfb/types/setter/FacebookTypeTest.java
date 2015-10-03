@@ -21,17 +21,17 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Event;
-import com.restfb.types.FacebookType;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.FacebookType;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class FacebookTypeTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	FacebookType obj = new FacebookType();
-	addIgnoredField("rawIssuedAt");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    FacebookType obj = new FacebookType();
+    addIgnoredField("rawIssuedAt");
+    testInstance(obj);
+  }
 }

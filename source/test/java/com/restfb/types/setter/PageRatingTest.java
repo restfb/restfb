@@ -21,19 +21,19 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Page;
-import com.restfb.types.PageRating;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.PageRating;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class PageRatingTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	PageRating obj = new PageRating();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    PageRating obj = new PageRating();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

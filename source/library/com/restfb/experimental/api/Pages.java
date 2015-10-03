@@ -33,7 +33,7 @@ public interface Pages {
    * 
    * @return map with page id and page access token
    */
-  public Map<String, String> fetchAllAccessTokens();
+  Map<String, String> fetchAllAccessTokens();
 
   /**
    * fetch the page access token for the pageId.
@@ -42,6 +42,6 @@ public interface Pages {
    *          page id of the page the page access token should be retrieved
    * @return the page access token
    */
-  public String fetchAccessToken(String pageId);
+  String fetchAccessToken(String pageId);
 
 }

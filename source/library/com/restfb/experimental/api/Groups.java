@@ -23,24 +23,25 @@ package com.restfb.experimental.api;
 
 import com.restfb.types.Group;
 import com.restfb.types.NamedFacebookType;
+
 import java.util.List;
 
 public interface Groups {
-    
-    /**
-     * fetch group with groupid
-     * 
-     * @param groupId
-     * @return 
-     */
-    public Group get(String groupId);
-    
-    /**
-     * fetch list of group members
-     * 
-     * @param groupId
-     * @return 
-     */
-    public List<NamedFacebookType> memberList(String groupId);
-    
+
+  /**
+   * fetch group with groupid
+   * 
+   * @param groupId
+   * @return
+   */
+  Group get(String groupId);
+
+  /**
+   * fetch list of group members
+   * 
+   * @param groupId
+   * @return
+   */
+  List<NamedFacebookType> memberList(String groupId);
+
 }

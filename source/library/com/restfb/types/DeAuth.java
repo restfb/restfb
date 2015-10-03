@@ -21,11 +21,14 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,26 +39,30 @@ import lombok.Setter;
  */
 public class DeAuth implements Serializable {
 
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook
   private String algorithm;
 
   @Facebook("issued_at")
   private String rawIssuedAt;
-  
-  @Getter @Setter
+
+  @Getter
+  @Setter
   private Date issuedAt;
 
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("profile_id")
   private String profileId;
 
-  @Getter @Setter
+  @Getter
+  @Setter
   @Facebook("user_id")
   private String userId;
 
   @JsonMappingCompleted
   void convertTime() {
-      issuedAt = toDateFromLongFormat(rawIssuedAt);
+    issuedAt = toDateFromLongFormat(rawIssuedAt);
   }
 }

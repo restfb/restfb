@@ -21,16 +21,17 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Insight;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Insight;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class InsightTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Insight obj = new Insight();
-	addIgnoredField("rawUpdatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Insight obj = new Insight();
+    addIgnoredField("rawUpdatedTime");
+    testInstance(obj);
+  }
 }

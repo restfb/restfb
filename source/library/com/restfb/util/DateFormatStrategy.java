@@ -33,12 +33,11 @@ import java.text.DateFormat;
 public interface DateFormatStrategy {
 
   /**
-   * fetch the DateFormat instance that is used to parse a date in the
-   * DateUtils
+   * fetch the DateFormat instance that is used to parse a date in the DateUtils
    * 
    * @param format
    *          the format pattern as string
    * @return a DateFormat instance
    */
-  public DateFormat formatFor(String format);
+  DateFormat formatFor(String format);
 }

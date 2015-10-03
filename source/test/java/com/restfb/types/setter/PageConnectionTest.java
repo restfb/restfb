@@ -21,18 +21,19 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.PageConnection;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.PageConnection;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class PageConnectionTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	PageConnection obj = new PageConnection();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-	    
+
+  @Test
+  public void test() {
+    PageConnection obj = new PageConnection();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

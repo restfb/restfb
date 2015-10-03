@@ -21,16 +21,17 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Checkin;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Checkin;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class CheckinTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Checkin obj = new Checkin();
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
+
+  @Test
+  public void test() {
+    Checkin obj = new Checkin();
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
 }

@@ -21,18 +21,19 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.Review;
-import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.Test;
 
+import com.restfb.types.Review;
+import com.restfb.types.api.SetterGetterTestBase;
+
 public class ReviewTest extends SetterGetterTestBase {
-    
-    @Test
-    public void test() {
-	Review obj = new Review();
-	addIgnoredField("rawUpdatedTime");
-	addIgnoredField("rawCreatedTime");
-	testInstance(obj);
-    }
-    	    
+
+  @Test
+  public void test() {
+    Review obj = new Review();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
+
 }

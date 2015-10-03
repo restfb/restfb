@@ -21,11 +21,12 @@
  */
 package com.restfb.integration.base;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
-import static org.junit.Assert.assertNotNull;
 
 abstract public class RestFbImageIntegrationTestBase extends RestFbIntegrationTestBase {
 
@@ -36,8 +37,7 @@ abstract public class RestFbImageIntegrationTestBase extends RestFbIntegrationTe
     String randomImage = (testImages[idx]);
     InputStream is = getClass().getResourceAsStream("/binary/" + randomImage);
     assertNotNull(is);
-    byte[] imageAsBytes = getBytesFromInputStream(is);
-    return imageAsBytes;
+    return getBytesFromInputStream(is);
   }
 
   protected byte[] getBytesFromInputStream(InputStream is) {
