@@ -109,6 +109,36 @@ public class Location implements Serializable {
   @Facebook
   private Double longitude;
 
+  /**
+   * The region of this location.
+   *
+   * @return The region of this location
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String region;
+
+  /**
+   * The name of this location.
+   *
+   * @return The name of this location
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String name;
+
+  /**
+   * The parent location if this location is located within another location.
+   *
+   * @return The parent location if this location is located within another location
+   */
+  @Getter
+  @Setter
+  @Facebook("located_in")
+  private String locatedIn;
+
   private static final long serialVersionUID = 1L;
 
   /**
