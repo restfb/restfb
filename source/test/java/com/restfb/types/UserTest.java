@@ -66,4 +66,15 @@ public class UserTest extends AbstractJsonMapperTests {
     assertEquals(13, exampleUser.getAgeRange().getMin().intValue());
     assertEquals(17, exampleUser.getAgeRange().getMax().intValue());
   }
+
+  @Test
+  public void checkCoverPhoto() {
+    User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/cover_photo"), User.class);
+    assertEquals("Test Benutzer", exampleUser.getName());
+    assertEquals("123456789", exampleUser.getId());
+    assertNotNull(exampleUser.getCover());
+    assertEquals("987654321", exampleUser.getCover().getId());
+    assertEquals(0, exampleUser.getCover().getOffsetY().intValue());
+    assertEquals("https://scontent.xx.fbcdn.net/hphotos-xaf1/v/l/t1.0-9/s720x720/34352425342534.jpg", exampleUser.getCover().getSource());
+  }
 }

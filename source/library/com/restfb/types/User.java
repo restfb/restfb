@@ -81,6 +81,16 @@ public class User extends NamedFacebookType {
   private String lastName;
 
   /**
+   * The person's cover photo
+   *
+   * @return The person's cover photo
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private CoverPhoto cover;
+
+  /**
    * A link to the user's profile.
    * 
    * @return A link to the user's profile.
