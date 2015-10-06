@@ -170,6 +170,19 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
   }
 
+  @Test
+  public void specialTypes() throws JSONException {
+    JsonMapper jsonMapper = createJsonMapper();
+    SpecialJavaTypes special = new SpecialJavaTypes();
+    special.decimal = new BigDecimal("1234567.4");
+    special.integer = new BigInteger("1234567");
+
+    String string = jsonMapper.toJson(special);
+    String expectedJson = "{\"integer\":1234567, \"decimal\":1234567.4}";
+
+    JSONAssert.assertEquals(expectedJson, string, JSONCompareMode.NON_EXTENSIBLE);
+  }
+
   /**
    * Can we handle an empty Map?
    */
@@ -313,5 +326,13 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
     @Facebook
     List<Medium> media;
+  }
+
+  static class SpecialJavaTypes {
+    @Facebook
+    BigDecimal decimal;
+
+    @Facebook
+    BigInteger integer;
   }
 }

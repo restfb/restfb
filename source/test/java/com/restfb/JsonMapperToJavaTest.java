@@ -32,6 +32,8 @@ import com.restfb.types.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -327,6 +329,19 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void specialTypes() {
+    JsonMapper jsonMapper = createJsonMapper();
+    SpecialJavaTypes object =
+        jsonMapper.toJavaObject("{\"integer\":\"1234567\", \"decimal\":\"1234567.4\"}", SpecialJavaTypes.class);
+    assertNotNull(object.decimal);
+    assertNotNull(object.integer);
+
+    assertEquals(1234567, object.integer.intValue());
+    assertEquals(1234567, object.decimal.intValue());
+    assertEquals(1234567.4, object.decimal.floatValue(), 0.1);
+  }
+
+  @Test
   public void jsonMappingCompleted() {
     JsonMapper jsonMapper = createJsonMapper();
 
@@ -410,6 +425,14 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
     @Facebook
     List<Affiliation> affiliations;
+  }
+
+  static class SpecialJavaTypes {
+    @Facebook
+    BigDecimal decimal;
+
+    @Facebook
+    BigInteger integer;
   }
 
   static class BasicJsonMappingCompletedClass {
