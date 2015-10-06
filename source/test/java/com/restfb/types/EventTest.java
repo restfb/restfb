@@ -21,6 +21,7 @@
  */
 package com.restfb.types;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -43,6 +44,19 @@ public class EventTest extends AbstractJsonMapperTests {
     assertNotNull(event);
     assertNotNull(event.getPlace());
     assertNotNull(event.getPlace().getLocation());
+  }
+
+  @Test
+  public void issue312_eventPictureAndCover() {
+    Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/issue312-event"), Event.class);
+    assertNotNull(event);
+    assertEquals(
+      "https://fbcdn-photos-h-a.akamaihd.net/hphotos-ak-xfp1/v/t1.0-0/c43.0.50.50/p50x50/12006310_1078877852124437_9067576785883091133_n.png?oh=252b25a37adf3e52b98b2377daead960&oe=56A03EC4&__gda__=1456603383_a12d1727201e97640e41c74e72e8a03a",
+      event.getPicture());
+    assertNotNull(event.getCover());
+    assertEquals(
+      "https://scontent.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/s720x720/12006310_1078877852124437_9067576785883091133_n.png?oh=561599ccf7e8247dbe550c6e1759aa39&oe=56D0F885",
+      event.getCover().getSource());
   }
 
 }

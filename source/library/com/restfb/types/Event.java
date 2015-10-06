@@ -27,6 +27,7 @@ import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
@@ -165,8 +166,10 @@ public class Event extends NamedFacebookType {
    */
   @Getter
   @Setter
-  @Facebook
   private String picture;
+
+  @Facebook("picture")
+  private JsonObject rawPicture;
 
   /**
    * The group the event belongs to, if any.
@@ -198,6 +201,16 @@ public class Event extends NamedFacebookType {
   @Setter
   @Facebook("is_date_only")
   private Boolean isDateOnly;
+
+  /**
+   * Cover picture
+   *
+   * @return Cover picture
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private CoverPhoto cover;
 
   private static final long serialVersionUID = 2L;
 
@@ -355,5 +368,18 @@ public class Event extends NamedFacebookType {
 
     Date dateStart = toDateFromLongFormat(rawStartTime);
     startTime = dateStart == null ? toDateFromShortFormat(rawStartTime) : dateStart;
+  }
+
+  @JsonMappingCompleted
+  protected void jsonMappingCompleted() {
+    picture = null;
+
+    if (rawPicture == null)
+      return;
+
+    JsonObject picData = rawPicture.getJsonObject("data");
+    if (picData != null) {
+      picture = picData.getString("url");
+    }
   }
 }
