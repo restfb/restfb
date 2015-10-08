@@ -1,3 +1,25 @@
+1.15.0 (October 8, 2015)
+
+* Issue #315 and #316: Graph API 2.5 support
+* Issue #122: Enum support added to DefaultJsonMapper
+  Thanks to @MusikPolice for the input
+* Issue #159: Marketing API support added
+  Thanks to @yange for the input
+* Issue #218: Value methods for PageSettings
+* Issue #289: Osgi bundle
+  Thanks to @skaluva for the PR
+* Issue #289: integration test for /me/likes
+* Issue #303: LICENSE added to root
+* Issue #304: Missing fields added to Location type
+* Issue #305: facebook-api-version header is logged
+* Issue #307: Missing fields added to Insight type
+* Issue #308: DefaultJsonMapper test coverage improved
+* Issue #309: Cleanup - formatting and imports
+* Issue #312: Event.getPicture() fixed
+  Thanks to @OhGhie4iew
+* Issue #313: CoverPhoto added to User
+* NoIssue: documentation improved on website
+
 1.14.1 (September 1, 2015)
 
 * Issue #252: strange events behaviour
