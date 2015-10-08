@@ -5,6 +5,8 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 `Comment.Attachment` -> `StoryAttachment`
 `FacebookClient.executeQuery()` -> `FacebookClient.executeFqlQuery()`
 `FacebookClient.executeMultiquery()` -> `FacebookClient.executeFqlMultiquery()`
+`User.Picture` -> `ProfilePictureSource`
+`Event.getPicture()` return type `String` -> `Event.getPicture()` return type `ProfilePictureSource`
 
 ## Comment.Attachment removed
 We have removed the `Comment.Attachment` type because it is replaced by 
@@ -19,3 +21,13 @@ Facebook side, so we don't need to support them further.
 The `DefaultFacebookClient` does not longer contain these methods. Because some
 developer still use the FQL interface (Graph API 2.0) they have to switch to the
 newer (and working) `executeFqlQuery` and `executeFqlMultiquery`.
+
+## User.Picture removed
+We had to remove the `User.Picture` type because we drop the
+compatibility. The picture field is now the `ProfilePictureSource`
+type.
+
+## Event.getPicture() returns `ProfilePictureSource` instead of `String`
+The `Event.getPicture()` returned the image url as `String`. We changed this because
+Facebook provides more information than only a `String`. The `ProfilePictureSource` is
+a better choice.
