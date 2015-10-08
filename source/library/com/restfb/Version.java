@@ -64,18 +64,25 @@ public enum Version {
   VERSION_2_3("v2.3"),
 
   /**
-   * graph api 2.4, available at least until July 8, 2017
+   * graph api 2.4, available until October 7, 2017
    * 
    * @since July 8, 2015
    */
   VERSION_2_4("v2.4"),
 
   /**
+   * graph api 2.5, available at least until April 2018
+   *
+   * @since October 7, 2015
+   */
+  VERSION_2_5("v2.5"),
+
+  /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
    * 
-   * this version is 2.4
+   * the current version is 2.5
    */
-  LATEST("v2.4");
+  LATEST("v2.5");
 
   private final String urlElement;
 
