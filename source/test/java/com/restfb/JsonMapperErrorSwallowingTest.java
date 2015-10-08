@@ -34,6 +34,12 @@ import java.util.List;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
+
+  @Test(expected = IllegalArgumentException.class)
+  public void NullJsonMappingErrorHandler() {
+    new DefaultJsonMapper(null);
+  }
+
   /**
    * Does the mapper return null for empty strings?
    */
@@ -41,6 +47,7 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
   public void emptyStrings() {
     assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", Integer.class));
     assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", String.class));
+    assertTrue(null == createErrorSwallowingJsonMapper().toJavaList("", String.class));
   }
 
   /**

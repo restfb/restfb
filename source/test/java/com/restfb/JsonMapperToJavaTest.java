@@ -34,10 +34,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
@@ -45,6 +42,15 @@ import java.util.Set;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
+
+  /**
+   * check type == null is handled correct
+   */
+  @Test(expected = FacebookJsonMappingException.class)
+  public void nullAsList() {
+    createJsonMapper().toJavaList("[]", null);
+    fail("type null should not be possible");
+  }
 
   /**
    * Can we handle the empty list?
@@ -369,6 +375,66 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     User u = createJsonMapper().toJavaObject("[]", User.class);
     assertNotNull(u);
     assertNull(u.getName());
+  }
+
+  /**
+   * check if a empty string is not mapped and a exception with the correct message is thrown instead
+   */
+  @Test
+  public void emptyStringAsList() {
+    try {
+      createJsonMapper().toJavaList("", HashMap.class);
+      fail("Empty string should not be mapped");
+    } catch (FacebookJsonMappingException fe) {
+      assertTrue(fe.getMessage().startsWith("JSON is an empty string"));
+    }
+  }
+
+  /**
+   * check if a empty string is not mapped and a exception with the correct message is thrown instead
+   */
+  @Test
+  public void emptyStringAsObject() {
+    try {
+      createJsonMapper().toJavaObject("", String.class);
+      fail("Empty string should not be mapped");
+    } catch (FacebookJsonMappingException fe) {
+      assertTrue(fe.getMessage().startsWith("JSON is an empty string"));
+    }
+  }
+
+  @Test
+  public void mapArrayAsObject() {
+    try {
+      createJsonMapper().toJavaObject("[{\"test\":123}]", String.class);
+      fail("array should not be mapped as String");
+    } catch (FacebookJsonMappingException fe) {
+      assertTrue(fe.getMessage().startsWith("JSON is an array but is being mapped as an object"));
+    }
+  }
+
+  @Test
+  public void primitives() {
+    Integer integerObject = createJsonMapper().toJavaObject("12345", Integer.class);
+    assertEquals(12345, integerObject.intValue());
+    Long longObject = createJsonMapper().toJavaObject("12345", Long.class);
+    assertEquals(12345, longObject.intValue());
+    Double doubleObject = createJsonMapper().toJavaObject("12345.321", Double.class);
+    assertEquals(12345.321d, doubleObject.doubleValue(), 0.001);
+    Float floatObject = createJsonMapper().toJavaObject("12345.321", Float.class);
+    assertEquals(12345.321d, floatObject.floatValue(), 0.001);
+    BigInteger bigIntObject = createJsonMapper().toJavaObject("12345", BigInteger.class);
+    assertEquals(12345, bigIntObject.intValue());
+    BigDecimal bigDecObject = createJsonMapper().toJavaObject("12345.321", BigDecimal.class);
+    assertEquals(12345.321d, bigDecObject.doubleValue(), 0.001);
+    Boolean boolObject1 = createJsonMapper().toJavaObject("true", Boolean.class);
+    assertEquals(Boolean.TRUE, boolObject1.booleanValue());
+    Boolean boolObject2 = createJsonMapper().toJavaObject("false", Boolean.class);
+    assertEquals(Boolean.FALSE, boolObject2.booleanValue());
+    String StringObject1 = createJsonMapper().toJavaObject("test", String.class);
+    assertEquals("test", StringObject1);
+    String StringObject2 = createJsonMapper().toJavaObject("\"test\"", String.class);
+    assertEquals("test", StringObject2);
   }
 
   static class Story {

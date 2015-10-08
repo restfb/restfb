@@ -21,8 +21,12 @@
  */
 package com.restfb;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonObject;
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -209,6 +213,31 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String expectedJson =
         "{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}";
     JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
+  }
+
+  @Test
+  public void mapWithNoStringKey() {
+    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    map.put(1, 3);
+    map.put(2, 1);
+    try {
+      String json = createJsonMapper().toJson(map);
+      fail("Map with non String keys should not be possible");
+    } catch (FacebookJsonMappingException fe) {
+      assertTrue(fe.getMessage().startsWith("Your Map keys must be of type class java.lang.String"));
+    }
+  }
+
+  @Test
+  public void mapWithInfiniteFloatValueKey() {
+    Map<String, Float> map = new HashMap<String, Float>();
+    map.put("test", Float.POSITIVE_INFINITY);
+    try {
+      String json = createJsonMapper().toJson(map);
+      fail("Map with infinity value should not be possible");
+    } catch (FacebookJsonMappingException fe) {
+      assertTrue(fe.getMessage().startsWith("Unable to process value"));
+    }
   }
 
   @Test
