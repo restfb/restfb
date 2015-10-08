@@ -63,14 +63,6 @@ public class UserTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testPicture() {
-    User.Picture obj = new User.Picture();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
   public void testSport() {
     User.Sport obj = new User.Sport();
     addIgnoredField("rawUpdatedTime");

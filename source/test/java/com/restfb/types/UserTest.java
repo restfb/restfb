@@ -24,7 +24,6 @@ package com.restfb.types;
 import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
-import com.restfb.types.User.Picture;
 
 import org.junit.Test;
 
@@ -37,7 +36,7 @@ public class UserTest extends AbstractJsonMapperTests {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/user-picture"), User.class);
     assertEquals("Tester", exampleUser.getName());
     assertEquals("123456789", exampleUser.getId());
-    Picture pic = exampleUser.getPicture();
+    ProfilePictureSource pic = exampleUser.getPicture();
     assertFalse(pic.getIsSilhouette());
     assertNotNull(pic.getUrl());
     assertEquals("https://fbcdn-profile-a.akamaihd.net/profilepic", pic.getUrl());
