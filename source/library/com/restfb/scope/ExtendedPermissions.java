@@ -62,6 +62,37 @@ public enum ExtendedPermissions implements FacebookPermissions {
   MANAGE_PAGES("manage_pages"), //
 
   /**
+   * Provides the access to manage call to actions of the Pages that you manage.
+   *
+   * <strong>Review</strong>
+   *
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   * 
+   * @since Graph API 2.5
+   */
+  PAGES_MANAGE_CTA("pages_manage_cta"), //
+
+  /**
+   * Provides access to manage leads retrieved from Lead Ads of the Pages that you manage.
+   *
+   * <strong>Review</strong>
+   *
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_LEADS("pages_manage_leads"), //
+
+  /**
+   * Provides the access to show the list of the Pages that you manage.
+   *
+   * <strong>Review</strong>
+   *
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   * 
+   * @since Graph API 2.5
+   */
+  PAGES_SHOW_LIST("pages_show_list"), //
+
+  /**
    * Provides access to publish Posts, Open Graph actions, achievements, scores and other activity on behalf of a person
    * using your app.
    * 
@@ -90,6 +121,15 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * since Graph API 2.3
    */
   PUBLISH_PAGES("publish_pages"), //
+
+  /**
+   * Provides read-only access to the Audience Network Insights data for Apps the person owns.
+   *
+   * <strong>Review</strong>
+   *
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  READ_AUDIENCE_NETWORK_INSIGHTS("read_audience_network_insights"), //
 
   /**
    * Provides access to the names of custom lists a person has created to organize their friends. This is useful for

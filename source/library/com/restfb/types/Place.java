@@ -43,7 +43,7 @@ public class Place extends NamedFacebookType {
   /**
    * Location containing geographic information such as latitude, longitude, country, and other fields (fields will vary
    * based on geography and availability of information).
-   * <p>
+   *
    * It is possible for Facebook to return either this value or {@link #getLocationAsString()}.
    * 
    * @return Location containing geographic information such as latitude, longitude, country, and other fields.
@@ -52,6 +52,18 @@ public class Place extends NamedFacebookType {
   @Setter
   @Facebook
   private Location location;
+
+  /**
+   * Overall Rating of Place, on a 5-star scale. 0 means not enough data to get a combined rating.
+   *
+   * @since Graph API 2.5
+   *
+   * @return Overall Rating of Place, on a 5-star scale.
+   */
+  @Getter
+  @Setter
+  @Facebook("overall_rating")
+  private Integer overallRating;
 
   /**
    * Description for this location.

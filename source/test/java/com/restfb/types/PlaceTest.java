@@ -22,6 +22,7 @@
 package com.restfb.types;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
 
@@ -44,5 +45,14 @@ public class PlaceTest extends AbstractJsonMapperTests {
     Category cat3 = examplePlace.getCategoryList().get(2);
     assertEquals("Ocean", cat3.getName());
     assertEquals("215492291888288", cat3.getId());
+  }
+
+  @Test
+  public void checkV2_5_rating0() {
+    Place examplePlace = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/place-with-rating"), Place.class);
+    assertNotNull(examplePlace);
+    assertEquals(0, examplePlace.getOverallRating().intValue());
+
+    assertEquals("Skill Idiomas - Unidade Itaquera", examplePlace.getName());
   }
 }

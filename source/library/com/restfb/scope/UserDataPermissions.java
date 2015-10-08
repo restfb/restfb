@@ -205,6 +205,18 @@ public enum UserDataPermissions implements FacebookPermissions {
   USER_LOCATION("user_location"), //
 
   /**
+   * Enables your app to read the Groups a person is an admin of through the groups edge on the User object.
+   *
+   * This permission does not allow you to create groups on behalf of a person. It is not possible to create groups via
+   * the Graph API. This does not let you read the groups a user is just a member of.
+   *
+   * <strong>Review</strong>
+   *
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  USER_MANAGED_GROUPS("user_managed_groups"), //
+
+  /**
    * Provides access to the photos a person has uploaded or been tagged in. This is available through the photos edge on
    * the User object.
    * 
