@@ -151,16 +151,6 @@ public class Post extends NamedFacebookType {
   private String icon;
 
   /**
-   * A string indicating which application was used to create this post.
-   *
-   * @return A string indicating which application was used to create this post.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String attribution;
-
-  /**
    * The privacy settings for this post.
    *
    * @return The privacy settings for this post.
