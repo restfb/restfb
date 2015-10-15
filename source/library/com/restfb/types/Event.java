@@ -123,7 +123,7 @@ public class Event extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook
-  private Venue venue;
+  private Location venue;
 
   /**
    * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
@@ -161,8 +161,8 @@ public class Event extends NamedFacebookType {
   /**
    * The event's picture.
    * 
-   * @return The event's picture (only returned if you explicitly include picture in the fields param;
-   *         example: ?fields=id,name,picture)
+   * @return The event's picture (only returned if you explicitly include picture in the fields param; example:
+   *         ?fields=id,name,picture)
    * @since 1.6.13
    */
   @Getter
@@ -202,6 +202,14 @@ public class Event extends NamedFacebookType {
   @Setter
   @Facebook("is_date_only")
   private Boolean isDateOnly;
+
+  /**
+   * the timezone of the event
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String timezone;
 
   /**
    * Cover picture
