@@ -30,7 +30,6 @@ import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
@@ -403,30 +402,6 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Place Graph API type</a>.
-   *
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6.8
-   * @deprecated As of release 1.6.10, replaced by {@link Location}.
-   */
-  @Deprecated
-  public static class Place extends NamedFacebookType {
-
-    /**
-     * The location of this place.
-     *
-     * @return The location of this place.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Location location;
-
-    private static final long serialVersionUID = 1L;
-
-  }
-
-  /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Message Tag Graph API type</a>.
    *
    * @author <a href="http://restfb.com">Mark Allen</a>
@@ -500,32 +475,6 @@ public class Post extends NamedFacebookType {
       return ReflectionUtils.toString(this);
     }
 
-  }
-
-  /**
-   * @TODO: remove on type refactoring
-   */
-  public static class Likes extends com.restfb.types.Likes {
-
-  }
-
-  /**
-   * @TODO: remove on type refactoring
-   */
-  public static class Comments extends com.restfb.types.Comments {
-
-  }
-
-  /**
-   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/privacy/">Privacy Graph API
-   * type</a>.
-   * 
-   * @TODO remove with next major version
-   * @deprecated use {@link com.restfb.types.Privacy} instead
-   */
-  @Deprecated
-  public static class Privacy extends com.restfb.types.Privacy {
-    // only here due to API reason
   }
 
   /**

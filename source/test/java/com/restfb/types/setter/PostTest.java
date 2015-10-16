@@ -48,40 +48,8 @@ public class PostTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testComments() {
-    Post.Comments obj = new Post.Comments();
-    addIgnoredField("summary");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testLikes() {
-    Post.Likes obj = new Post.Likes();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("summary");
-    testInstance(obj);
-  }
-
-  @Test
   public void testMessageTag() {
     Post.MessageTag obj = new Post.MessageTag();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testPlace() {
-    Post.Place obj = new Post.Place();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testPrivacy() {
-    Post.Privacy obj = new Post.Privacy();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
     testInstance(obj);

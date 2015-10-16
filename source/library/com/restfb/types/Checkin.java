@@ -82,7 +82,7 @@ public class Checkin extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private com.restfb.types.Place place;
+  private Place place;
 
   @Facebook("created_time")
   transient private String rawCreatedTime;
@@ -103,134 +103,6 @@ public class Checkin extends FacebookType {
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
 
   private static final long serialVersionUID = 2L;
-
-  /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/checkin">Place Graph API type</a>.
-   * 
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6
-   * @deprecated As of release 1.6.10, replaced by {@link Place}.
-   */
-  @Deprecated
-  public static class Place extends CategorizedFacebookType {
-
-    /**
-     * The latitude/longitude of the check-in.
-     * 
-     * @return The latitude/longitude of the check-in.
-     */
-    @Getter
-    @Facebook
-    private com.restfb.types.Location location;
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Represents the <a href="http://developers.facebook.com/docs/reference/api/checkin">Location Graph API type</a>.
-     * 
-     * @author <a href="http://restfb.com">Mark Allen</a>
-     * @since 1.6
-     * @deprecated As of release 1.6.10, replaced by {@link Location}.
-     */
-    @Deprecated
-    public static class Location implements Serializable {
-
-      /**
-       * The latitude of the check-in.
-       * 
-       * @return The latitude of the check-in.
-       */
-      @Getter
-      @Setter
-      @Facebook
-      private Double latitude;
-
-      /**
-       * The longitude of the check-in.
-       * 
-       * @return The longitude of the check-in.
-       */
-      @Getter
-      @Setter
-      @Facebook
-      private Double longitude;
-
-      /**
-       * The city of the check-in.
-       * 
-       * @return The city of the check-in.
-       * @since 1.6.5
-       */
-      @Getter
-      @Setter
-      @Facebook
-      private String city;
-
-      /**
-       * The state of the check-in.
-       * 
-       * @return The state of the check-in.
-       * @since 1.6.5
-       */
-      @Getter
-      @Setter
-      @Facebook
-      private String state;
-
-      /**
-       * The country of the check-in.
-       * 
-       * @return The country of the check-in.
-       * @since 1.6.5
-       */
-      @Getter
-      @Setter
-      @Facebook
-      private String country;
-
-      private static final long serialVersionUID = 1L;
-
-      /**
-       * @see java.lang.Object#hashCode()
-       */
-      @Override
-      public int hashCode() {
-        return ReflectionUtils.hashCode(this);
-      }
-
-      /**
-       * @see java.lang.Object#equals(java.lang.Object)
-       */
-      @Override
-      public boolean equals(Object that) {
-        return ReflectionUtils.equals(this, that);
-      }
-
-      /**
-       * @see java.lang.Object#toString()
-       */
-      @Override
-      public String toString() {
-        return ReflectionUtils.toString(this);
-      }
-    }
-
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
-  }
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {
