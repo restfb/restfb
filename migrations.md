@@ -9,6 +9,11 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 * `Event.getPicture()` return type `String` -> `Event.getPicture()` return type `ProfilePictureSource`
 * `Event.getVenue()` return type `Venue` -> returns `Location` now
 * `Group.getVenue()` return type `Venue` -> returns `Location` now
+* `Checkin.Place` replaced with `Place` type.
+* `Post.Place` replaced with `Place` type.
+* `Post.Likes` replaced with `Likes` type.
+* `Post.Comments` replaced with `Comments` type.
+* `Post.Privacy` replaced with `Privacy` type.
 
 ## Comment.Attachment removed
 We have removed the `Comment.Attachment` type because it is replaced by 
@@ -37,3 +42,14 @@ a better choice.
 ## `Venue` replaced with `Location` type
 The `Group` and the `Event` type contain a venue but this is the same type as `Location`.
 So we replaced it and don't need to take care of two different java entities.
+
+## deprecated classes removed
+We have some types that are only left, because we didn't want the break the API
+before version 2.0. With the new major release we can remove them and do some
+cleanup. 
+
+* `Checkin.Place` replaced with `Place` type.
+* `Post.Place` replaced with `Place` type.
+* `Post.Likes` replaced with `Likes` type.
+* `Post.Comments` replaced with `Comments` type.
+* `Post.Privacy` replaced with `Privacy` type.
