@@ -86,6 +86,36 @@ public class Video extends NamedFacebookType {
   private String description;
 
   /**
+   * URL to the permalink page of the video
+   *
+   * @return URL to the permalink page of the video
+   */
+  @Getter
+  @Setter
+  @Facebook("permalink_url")
+  private String permalinkUrl;
+
+  /**
+   * The video title or caption
+   *
+   * @return the video title or caption
+   */
+  @Getter
+  @Setter
+  @Facebook("title")
+  private String title;
+
+  /**
+   * Whether the video is eligible to be promoted on Instagram
+   *
+   * @return Whether the video is eligible to be promoted on Instagram
+   */
+  @Getter
+  @Setter
+  @Facebook("is_instagram_eligible")
+  private Boolean isInstagramEligible;
+
+  /**
    * Whether the video is embeddable.
    * 
    * @return Whether the video is embeddable.
@@ -141,9 +171,9 @@ public class Video extends NamedFacebookType {
   private String contentCategory;
 
   /**
-   * A picture URL which represents the video.
+   * A URL for the thumbnail picture of the video.
    * 
-   * @return A picture URL which represents the video.
+   * @return A URL for the thumbnail picture of the video.
    */
   @Getter
   @Setter
