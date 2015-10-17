@@ -32,10 +32,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-label">Ad Label type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-label">AdGroup Label type</a>
+ * .
  */
 public class AdLabel extends NamedAdsObject {
 
+  /**
+   * AdGroup Account
+   */
   @Getter
   @Setter
   @Facebook
@@ -44,6 +48,9 @@ public class AdLabel extends NamedAdsObject {
   @Facebook("created_time")
   private String rawCreatedTime;
 
+  /**
+   * Created time
+   */
   @Getter
   @Setter
   private Date createdTime;
@@ -51,6 +58,9 @@ public class AdLabel extends NamedAdsObject {
   @Facebook("updated_time")
   private String rawUpdatedTime;
 
+  /**
+   * Updated time
+   */
   @Getter
   @Setter
   private Date updatedTime;

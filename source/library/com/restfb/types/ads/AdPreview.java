@@ -27,7 +27,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/generatepreview/">Ad Preview type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/generatepreview/">AdGroup Preview type</a>
+ * .
  */
 public class AdPreview {
 

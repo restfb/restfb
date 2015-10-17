@@ -27,7 +27,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adcreative/">Ad Creative type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adcreative/">AdGroup Creative type</a>.
  */
 public class AdCreative extends BaseAdsObject {
 

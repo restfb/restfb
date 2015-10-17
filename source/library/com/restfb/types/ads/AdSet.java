@@ -31,10 +31,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign">Ad Set type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign">AdGroup Set
+ * type</a>.
  * 
- * Note: Ad Set vs Ad Campaign Prior to July 2014 ad sets were referred to as 'campaigns'. When using ad sets in API
- * calls the parameter may be referred to as 'adcampaign'. A campaign contains one or more ad sets.
+ * Note: AdGroup Set vs AdGroup Campaign Prior to July 2014 ad sets were referred to as 'campaigns'. When using ad sets
+ * in API calls the parameter may be referred to as 'adcampaign'. A campaign contains one or more ad sets.
  */
 public class AdSet extends NamedAdsObject {
 

@@ -21,96 +21,102 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adaccountgroup/">AdGroup Campaign Group
- * type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/transaction/">Ad transaction
+ * type</a>
  */
-public class AdCampaignGroup extends NamedAdsObject {
+public class AdTransaction extends BaseAdsObject {
 
+  /**
+   * Time at which the transaction was created
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer time;
+
+  /**
+   * ID of the source Ad Account
+   */
   @Getter
   @Setter
   @Facebook("account_id")
   private String accountId;
 
+  /**
+   * ID for the Brazilian invoice (if transaction was made in Brazil) else 0
+   */
+  @Getter
+  @Setter
+  @Facebook("fatura_id")
+  private Integer faturaId;
+
+  /**
+   * Type of charge involved in the transaction
+   */
+  @Getter
+  @Setter
+  @Facebook("charge_type")
+  private String chargeType;
+
+  /**
+   * Current status of the transaction
+   */
   @Getter
   @Setter
   @Facebook
-  private String objective;
+  private String status;
 
+  /**
+   * Start time of the transaction's billing period
+   */
   @Getter
   @Setter
-  @Facebook("campaign_group_status")
-  private String campaignGroupStatus;
+  @Facebook("billing_start_time")
+  private Integer billingStartTime;
 
+  /**
+   * End time of the transaction's billing period
+   */
   @Getter
   @Setter
-  @Facebook("is_completed")
-  private String isCompleted;
+  @Facebook("billing_end_time")
+  private Integer billingEndTime;
 
+  /**
+   * Method used to pay for the transaction
+   */
   @Getter
   @Setter
-  @Facebook("buying_type")
-  private String buyingType;
+  @Facebook("payment_option")
+  private String paymentOption;
 
+  /**
+   * Monetary amount given to the app for this transaction
+   */
   @Getter
   @Setter
-  @Facebook("promoted_object")
-  private AdPromotedObject promotedObject;
+  @Facebook("app_amount")
+  private Integer appAmount;
 
+  /**
+   * The type of ads included in this transaction
+   */
   @Getter
   @Setter
-  @Facebook("spend_cap")
-  private String spendCap;
+  @Facebook("product_type")
+  private String productType;
 
+  /**
+   * Monetary amount charged to the user for this transaction
+   */
   @Getter
   @Setter
-  @Facebook
-  private List<AdLabel> adlabels;
-
-  @Facebook("created_time")
-  private String rawCreatedTime;
-
-  @Getter
-  @Setter
-  private Date createdTime;
-
-  @Facebook("start_time")
-  private String rawStartTime;
-
-  @Getter
-  @Setter
-  private Date startTime;
-
-  @Facebook("stop_time")
-  private String rawStopTime;
-
-  @Getter
-  @Setter
-  private Date stopTime;
-
-  @Facebook("updated_time")
-  private String rawUpdatedTime;
-
-  @Getter
-  @Setter
-  private Date updatedTime;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    startTime = toDateFromLongFormat(rawStartTime);
-    stopTime = toDateFromLongFormat(rawStopTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
+  @Facebook("provider_amount")
+  private Integer providerAmount;
 }

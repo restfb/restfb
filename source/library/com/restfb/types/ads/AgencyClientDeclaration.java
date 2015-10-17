@@ -33,61 +33,121 @@ import lombok.Setter;
  */
 class AgencyClientDeclaration {
 
+  /**
+   * Whether this account is for an agency representing a client.
+   *
+   * @return Whether this account is for an agency representing a client
+   */
   @Getter
   @Setter
   @Facebook("agency_representing_client")
   Integer agencyRepresentingClient;
 
+  /**
+   * Whether the client is based in France.
+   *
+   * @return Whether the client is based in France
+   */
   @Getter
   @Setter
   @Facebook("client_based_in_france")
   Integer clientBasedInFrance;
 
+  /**
+   * Client's city.
+   *
+   * @return Client's city
+   */
   @Getter
   @Setter
   @Facebook("client_city")
   String clientCity;
 
+  /**
+   * Client's country code.
+   *
+   * @return Client's country code
+   */
   @Getter
   @Setter
   @Facebook("client_country_code")
   String clientCountryCode;
 
+  /**
+   * Client's email address.
+   *
+   * @return Client's email address
+   */
   @Getter
   @Setter
   @Facebook("client_email_address")
   String clientEmailAddress;
 
+  /**
+   * Name of the client.
+   *
+   * @return Name of the client
+   */
   @Getter
   @Setter
   @Facebook("client_name")
   String clientName;
 
+  /**
+   * Client's postal code.
+   *
+   * @return Client's postal code
+   */
   @Getter
   @Setter
   @Facebook("client_postal_code")
   String clientPostalCode;
 
+  /**
+   * Client's province.
+   *
+   * @return Client's province
+   */
   @Getter
   @Setter
   @Facebook("client_province")
   String clientProvince;
 
+  /**
+   * First line of client's street address.
+   *
+   * @return First line of client's street address
+   */
   @Getter
   @Setter
   @Facebook("client_street")
   String clientStreet;
 
+  /**
+   * Second line of client's street address.
+   *
+   * @return Second line of client's street address
+   */
   @Getter
   @Setter
   @Facebook("client_street2")
   String clientStreet2;
 
+  /**
+   * Whether the agency has a written mandate to advertise on behalf of this client.
+   *
+   * @return Whether the agency has a written mandate to advertise on behalf of this client
+   */
   @Getter
   @Setter
   @Facebook("has_written_mandate_from_advertiser")
   Integer hasWrittenMandateFromAdvertiser;
 
+  /**
+   * Whether the client is paying via invoice.
+   *
+   * @return Whether the client is paying via invoice
+   */
   @Getter
   @Setter
   @Facebook("is_client_paying_invoices")

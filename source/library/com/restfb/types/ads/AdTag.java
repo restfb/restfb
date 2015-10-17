@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adtag/">Ad Tag type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adtag/">AdGroup Tag type</a>.
  * 
  * @deprecated with Marketing API version 2.4 use {@link AdLabel} instead
  */

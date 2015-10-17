@@ -31,7 +31,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/aduser/">Ad User type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/aduser/">AdGroup User type</a>.
  */
 public class AdUser extends NamedAdsObject {
 
