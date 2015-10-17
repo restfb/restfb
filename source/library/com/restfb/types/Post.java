@@ -24,17 +24,19 @@ package com.restfb.types;
 import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableMap;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Checkin.Place.Location;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -299,9 +301,9 @@ public class Post extends NamedFacebookType {
   private List<NamedFacebookType> withTags = new ArrayList<NamedFacebookType>();
 
   @Facebook("message_tags")
-  private JsonObject rawMessageTags;
+  private String rawMessageTags;
 
-  private Map<String, List<MessageTag>> messageTags = new HashMap<String, List<MessageTag>>();
+  private List<MessageTag> messageTags = new ArrayList<MessageTag>();
 
   @Getter
   @Setter
@@ -386,15 +388,27 @@ public class Post extends NamedFacebookType {
    */
   @JsonMappingCompleted
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
-    messageTags = new HashMap<String, List<MessageTag>>();
 
     if (rawMessageTags == null) {
       return;
     }
 
-    for (String key : getNames(rawMessageTags)) {
-      String messageTagJson = rawMessageTags.getString(key);
-      messageTags.put(key, jsonMapper.toJavaList(messageTagJson, MessageTag.class));
+    try {
+      messageTags = jsonMapper.toJavaList(rawMessageTags, MessageTag.class);
+      return;
+    } catch (FacebookJsonMappingException je) {
+      // message tags not in Graph API 2.5 format, ignore this exception and try another way
+    }
+
+    try {
+      JsonObject rawMessageTagsObject = jsonMapper.toJavaObject(rawMessageTags, JsonObject.class);
+      for (String key : getNames(rawMessageTagsObject)) {
+        String tagArrayString = rawMessageTagsObject.get(key).toString();
+        messageTags.addAll(jsonMapper.toJavaList(tagArrayString, MessageTag.class));
+      }
+      return;
+    } catch (FacebookJsonMappingException je) {
+
     }
   }
 
@@ -1166,15 +1180,15 @@ public class Post extends NamedFacebookType {
    * @return Objects tagged in the message (Users, Pages, etc).
    * @since 1.6.10
    */
-  public Map<String, List<MessageTag>> getMessageTags() {
-    return unmodifiableMap(messageTags);
+  public List<MessageTag> getMessageTags() {
+    return unmodifiableList(messageTags);
   }
 
-  public void addMessageTag(String key, List<MessageTag> tagList) {
-    messageTags.put(key, tagList);
+  public void addMessageTag(MessageTag messageTag) {
+    messageTags.add(messageTag);
   }
 
-  public void removeMessageTag(String key) {
-    messageTags.remove(key);
+  public void removeMessageTag(MessageTag messageTag) {
+    messageTags.remove(messageTag);
   }
 }
