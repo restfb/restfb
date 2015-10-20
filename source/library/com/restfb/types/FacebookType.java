@@ -63,11 +63,6 @@ public class FacebookType implements Serializable {
   @Facebook
   private Metadata metadata;
 
-  /**
-   * This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   * 
-   * @return This object's type metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   */
   @Getter
   @Setter
   @Facebook

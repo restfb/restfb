@@ -59,4 +59,32 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertEquals("520586098107541", exampleComment.getObject().getId());
     assertEquals("new comment", exampleComment.getMessage());
   }
+
+  @Test
+  public void checkV2_4_messageTags() {
+    Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/message-tags"), Comment.class);
+    assertNotNull(exampleComment);
+    assertNotNull(exampleComment.getMessageTags());
+    assertFalse(exampleComment.getMessageTags().isEmpty());
+    MessageTag exampleTag = exampleComment.getMessageTags().get(0);
+    assertEquals("88388366982", exampleTag.getId());
+    assertEquals("Público", exampleTag.getName());
+    assertEquals("page", exampleTag.getType());
+    assertEquals(7, exampleTag.getLength().intValue());
+    assertEquals(94, exampleTag.getOffset().intValue());
+  }
+
+  @Test
+  public void checkV2_5_messageTags() {
+    Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message-tags"), Comment.class);
+    assertNotNull(exampleComment);
+    assertNotNull(exampleComment.getMessageTags());
+    assertFalse(exampleComment.getMessageTags().isEmpty());
+    MessageTag exampleTag = exampleComment.getMessageTags().get(0);
+    assertEquals("88388366982", exampleTag.getId());
+    assertEquals("Público", exampleTag.getName());
+    assertEquals("page", exampleTag.getType());
+    assertEquals(7, exampleTag.getLength().intValue());
+    assertEquals(94, exampleTag.getOffset().intValue());
+  }
 }

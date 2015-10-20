@@ -19,41 +19,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.setter;
+package com.restfb.types;
 
-import com.restfb.types.Comment;
-import com.restfb.types.api.SetterGetterTestBase;
+import com.restfb.Facebook;
 
-import org.junit.Test;
+import lombok.Getter;
+import lombok.Setter;
 
-public class CommentTest extends SetterGetterTestBase {
+/**
+ * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Message Tag Graph API type</a>.
+ *
+ * @author <a href="http://restfb.com">Mark Allen</a>
+ * @since 1.6.10
+ */
+public class MessageTag extends NamedFacebookType {
 
-  @Test
-  public void test() {
-    Comment obj = new Comment();
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawMessageTags");
-    testInstance(obj);
-  }
+  /**
+   * The offset, within the message field, of the object mentioned.
+   *
+   * @return The offset, within the message field, of the object mentioned.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer offset;
 
-  @Test
-  public void testAttachment() {
-    Comment.Attachment obj = new Comment.Attachment();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
+  /**
+   * The length, within the message field, of the object mentioned.
+   *
+   * @return The length, within the message field, of the object mentioned.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer length;
 
-  @Test
-  public void testImage() {
-    Comment.Image obj = new Comment.Image();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
+  private static final long serialVersionUID = 1L;
 
-  @Test
-  public void testMedia() {
-    Comment.Media obj = new Comment.Media();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
 }

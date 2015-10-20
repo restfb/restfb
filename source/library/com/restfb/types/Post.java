@@ -442,30 +442,8 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
    */
-  public static class MessageTag extends NamedFacebookType {
-
-    /**
-     * The offset, within the message field, of the object mentioned.
-     *
-     * @return The offset, within the message field, of the object mentioned.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Integer offset;
-
-    /**
-     * The length, within the message field, of the object mentioned.
-     *
-     * @return The length, within the message field, of the object mentioned.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Integer length;
-
-    private static final long serialVersionUID = 1L;
-
+  public static class MessageTag extends com.restfb.types.MessageTag {
+    // remove this on next major release
   }
 
   /**

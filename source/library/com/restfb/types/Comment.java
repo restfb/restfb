@@ -21,11 +21,15 @@
  */
 package com.restfb.types;
 
+import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
@@ -180,6 +184,16 @@ public class Comment extends FacebookType {
   private Boolean isHidden;
 
   /**
+   * Whether the viewer can like this comment
+   *
+   * @return can_like
+   */
+  @Getter
+  @Setter
+  @Facebook("can_like")
+  private Boolean canLike;
+
+  /**
    * Parent object this comment was made on.
    *
    * @return object
@@ -213,11 +227,48 @@ public class Comment extends FacebookType {
   @Facebook
   private Attachment attachment;
 
+  @Facebook("message_tags")
+  private String rawMessageTags;
+
+  private List<MessageTag> messageTags = new ArrayList<MessageTag>();
+
   private static final long serialVersionUID = 2L;
 
   @JsonMappingCompleted
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);
+  }
+
+  /**
+   * Post-JSON-mapping operation that populates the {@code messageTags} field "by hand".
+   * 
+   * @param jsonMapper
+   *          The {@code JsonMapper} that was used to map to this type.
+   */
+  @JsonMappingCompleted
+  protected void jsonMappingCompleted(JsonMapper jsonMapper) {
+
+    if (rawMessageTags == null) {
+      return;
+    }
+
+    try {
+      messageTags = jsonMapper.toJavaList(rawMessageTags, MessageTag.class);
+      return;
+    } catch (FacebookJsonMappingException je) {
+      // message tags not in Graph API 2.5 format, ignore this exception and try another way
+    }
+
+    try {
+      JsonObject rawMessageTagsObject = jsonMapper.toJavaObject(rawMessageTags, JsonObject.class);
+      for (String key : getNames(rawMessageTagsObject)) {
+        String tagArrayString = rawMessageTagsObject.get(key).toString();
+        messageTags.addAll(jsonMapper.toJavaList(tagArrayString, MessageTag.class));
+      }
+      return;
+    } catch (FacebookJsonMappingException je) {
+
+    }
   }
 
   /**
@@ -355,5 +406,23 @@ public class Comment extends FacebookType {
     @Facebook
     private String src;
 
+  }
+
+  /**
+   * Objects tagged in the message (Users, Pages, etc).
+   *
+   * @return Objects tagged in the message (Users, Pages, etc).
+   * @since 1.6.10
+   */
+  public List<MessageTag> getMessageTags() {
+    return unmodifiableList(messageTags);
+  }
+
+  public void addMessageTag(MessageTag messageTag) {
+    messageTags.add(messageTag);
+  }
+
+  public void removeMessageTag(MessageTag messageTag) {
+    messageTags.remove(messageTag);
   }
 }
