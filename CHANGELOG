@@ -1,3 +1,13 @@
+1.16.0 (October 22, 2015)
+
+* Issue #317: Marketing API improved
+* Issue #324: message_tags field added to Post type
+  Thanks to Miguel Sandim for input
+* Issue #325: missing fields added to Comment type
+  Thanks to Miguel Sandim for input
+* Issue #322: midding fields added to Video type
+  Thanks to @aonischenko for input
+
 1.15.0 (October 8, 2015)
 
 * Issue #315 and #316: Graph API 2.5 support
