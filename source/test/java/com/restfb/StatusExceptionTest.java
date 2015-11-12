@@ -22,16 +22,20 @@
 package com.restfb;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import com.restfb.exception.FacebookGraphException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class StatusExceptionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void statusException() {
+  public void statusException() throws JSONException {
     String jsonErrorString = jsonFromClasspath("exampleError");
     DefaultFacebookClient client = new DefaultFacebookClient(Version.LATEST);
     try {
@@ -43,6 +47,8 @@ public class StatusExceptionTest extends AbstractJsonMapperTests {
       assertEquals(190, fe.getErrorCode().intValue());
       assertEquals(460, fe.getErrorSubcode().intValue());
       assertEquals("Message describing the error", fe.getErrorMessage());
+      assertNotNull(fe.getRawErrorJson());
+      JSONAssert.assertEquals(jsonErrorString, fe.getRawErrorJson().toString(), false);
     }
   }
 

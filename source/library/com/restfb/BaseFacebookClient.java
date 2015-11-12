@@ -130,19 +130,19 @@ abstract class BaseFacebookClient {
 
     /**
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
-     *      String, String, String)
+     *      String, String, String, JsonObject)
      */
     @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-        String type, String message, String userTitle, String userMessage) {
+        String type, String message, String userTitle, String userMessage, JsonObject rawError) {
       if (errorCode == API_EC_PARAM_ACCESS_TOKEN) {
         return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, errorSubcode, httpStatusCode,
-          userTitle, userMessage);
+          userTitle, userMessage, rawError);
       }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookResponseStatusException.
-      return new FacebookResponseStatusException(errorCode, message);
+      return new FacebookResponseStatusException(errorCode, message, rawError);
     }
   }
 
@@ -215,7 +215,7 @@ abstract class BaseFacebookClient {
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
         errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null, httpStatusCode, null,
-        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME), null, null);
+        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME), null, null, errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }

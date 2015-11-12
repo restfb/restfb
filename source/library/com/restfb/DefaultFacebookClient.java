@@ -1106,7 +1106,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
         innerErrorObject.optString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
         innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
-        innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME));
+        innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME), errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -1153,7 +1153,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         return;
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
-        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME), null, null);
+        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME), null, null,
+        errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     }
@@ -1182,24 +1183,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static class DefaultGraphFacebookExceptionMapper implements FacebookExceptionMapper {
     /**
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
-     *      String, String, String)
+     *      String, String, String, JsonObject)
      */
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-        String type, String message, String errorUserTitle, String errorUserMessage) {
+        String type, String message, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type)) {
         return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage);
+          errorUserMessage, rawError);
       }
 
       if ("QueryParseException".equals(type)) {
         return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage);
+          errorUserMessage,rawError);
       }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
       return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-        errorUserMessage);
+        errorUserMessage, rawError);
     }
   }
 

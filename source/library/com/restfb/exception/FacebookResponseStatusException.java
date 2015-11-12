@@ -21,6 +21,8 @@
  */
 package com.restfb.exception;
 
+import com.restfb.json.JsonObject;
+
 import static java.lang.String.format;
 
 /**
@@ -33,7 +35,7 @@ import static java.lang.String.format;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class FacebookResponseStatusException extends FacebookException {
+public class FacebookResponseStatusException extends FacebookErrorMessageException {
   /**
    * The Facebook API error code.
    */
@@ -54,10 +56,11 @@ public class FacebookResponseStatusException extends FacebookException {
    * @param errorMessage
    *          Value of the Facebook response attribute {@code error_msg}.
    */
-  public FacebookResponseStatusException(Integer errorCode, String errorMessage) {
+  public FacebookResponseStatusException(Integer errorCode, String errorMessage, JsonObject rawError) {
     super(format("Received Facebook error response (code %d): %s", errorCode, errorMessage));
     this.errorCode = errorCode;
     this.errorMessage = errorMessage;
+    setRawErrorJson(rawError);
   }
 
   /**

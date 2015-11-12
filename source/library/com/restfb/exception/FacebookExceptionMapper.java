@@ -21,6 +21,8 @@
  */
 package com.restfb.exception;
 
+import com.restfb.json.JsonObject;
+
 /**
  * Specifies a method for mapping Graph and Old REST API exceptions to corresponding instances of
  * {@code FacebookException}.
@@ -47,8 +49,10 @@ public interface FacebookExceptionMapper {
    *          Graph API error_user_title field.
    * @param userMessage
    *          Graph API error_user_message field.
+   * @param rawError
+   *          raw error message as JSON
    * @return An appropriate {@code FacebookException} subclass.
    */
   FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-      String type, String message, String userTitle, String userMessage);
+      String type, String message, String userTitle, String userMessage, JsonObject rawError);
 }

@@ -21,6 +21,8 @@
  */
 package com.restfb.exception;
 
+import com.restfb.json.JsonObject;
+
 import static java.lang.String.format;
 
 /**
@@ -41,7 +43,7 @@ import static java.lang.String.format;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class FacebookGraphException extends FacebookException {
+public class FacebookGraphException extends FacebookErrorMessageException {
   private static final long serialVersionUID = 1L;
 
   /**
@@ -98,7 +100,7 @@ public class FacebookGraphException extends FacebookException {
    *          Value of the Facebook response attribute {@code error.error_user_msg}.
    */
   public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
-      Integer httpStatusCode, String errorUserTitle, String errorUserMessage) {
+                                Integer httpStatusCode, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
     super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,
       errorCode, errorSubcode));
     this.errorType = errorType;
@@ -108,6 +110,7 @@ public class FacebookGraphException extends FacebookException {
     this.httpStatusCode = httpStatusCode;
     this.errorUserTitle = errorUserTitle;
     this.errorUserMessage = errorUserMessage;
+    setRawErrorJson(rawError);
   }
 
   /**

@@ -21,6 +21,8 @@
  */
 package com.restfb.exception;
 
+import com.restfb.json.JsonObject;
+
 /**
  * Indicates that the Facebook Graph API endpoint returned JSON which indicates an error condition related to FQL query
  * parsing.
@@ -58,7 +60,7 @@ public class FacebookQueryParseException extends FacebookGraphException {
    *          Value of the Facebook response attribute {@code error.error_user_message}.
    */
   public FacebookQueryParseException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
-      Integer httpStatusCode, String userTitle, String userMessage) {
-    super(errorType, errorMessage, errorCode, errorSubcode, httpStatusCode, userTitle, userMessage);
+      Integer httpStatusCode, String userTitle, String userMessage, JsonObject rawError) {
+    super(errorType, errorMessage, errorCode, errorSubcode, httpStatusCode, userTitle, userMessage, rawError);
   }
 }
