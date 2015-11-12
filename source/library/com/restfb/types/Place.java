@@ -63,7 +63,7 @@ public class Place extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook("overall_rating")
-  private Integer overallRating;
+  private Double overallRating;
 
   /**
    * Description for this location.

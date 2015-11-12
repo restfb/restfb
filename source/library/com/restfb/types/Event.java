@@ -189,7 +189,7 @@ public class Event extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook
-  private Page place;
+  private Place place;
 
   /**
    * Should the time information be ignored in the dates for this event?
@@ -211,6 +211,46 @@ public class Event extends NamedFacebookType {
   @Setter
   @Facebook
   private CoverPhoto cover;
+
+  /**
+   * Number of people attending the event
+   *
+   * @return Number of people attending the event
+   */
+  @Getter
+  @Setter
+  @Facebook("attending_count")
+  private Integer attendingCount;
+
+  /**
+   * Number of people who declined the event
+   *
+   * @return Number of people who declined the event
+   */
+  @Getter
+  @Setter
+  @Facebook("declined_count")
+  private Integer declinedCount;
+
+  /**
+   * Number of people who maybe going to the event
+   *
+   * @return Number of people who maybe going to the event
+   */
+  @Getter
+  @Setter
+  @Facebook("maybe_count")
+  private Integer maybeCount;
+
+  /**
+   * Number of people who did not reply to the event
+   *
+   * @return Number of people who did not reply to the event
+   */
+  @Getter
+  @Setter
+  @Facebook("noreply_count")
+  private Integer noreplyCount;
 
   private static final long serialVersionUID = 2L;
 

@@ -21,6 +21,7 @@
  */
 package com.restfb.types;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -57,6 +58,22 @@ public class EventTest extends AbstractJsonMapperTests {
     assertEquals(
       "https://scontent.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/s720x720/12006310_1078877852124437_9067576785883091133_n.png?oh=561599ccf7e8247dbe550c6e1759aa39&oe=56D0F885",
       event.getCover().getSource());
+  }
+
+  @Test
+  public void exampleEventWithLocation() {
+    Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/event"), Event.class);
+    assertNotNull(event);
+    assertNotNull(event.getName());
+    assertTrue(event.getName().contains("New York"));
+    assertEquals(52, event.getAttendingCount().intValue());
+    assertNotNull(event.getPlace());
+    assertEquals(3.8, event.getPlace().getOverallRating().doubleValue(), 0.1);
+    assertNotNull(event.getPlace().getLocation());
+    assertTrue(event.getPlace().getName().contains("Ratskeller"));
+    assertEquals("Germany", event.getPlace().getLocation().getCountry());
+    assertEquals("66111", event.getPlace().getLocation().getZip());
+    assertEquals(49.2349091, event.getPlace().getLocation().getLatitude().doubleValue(), 0.1);
   }
 
 }
