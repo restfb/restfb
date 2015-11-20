@@ -21,11 +21,15 @@
  */
 package com.restfb.types;
 
+import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
@@ -68,10 +72,12 @@ public class Photo extends NamedFacebookType {
    * The full-sized source of the photo.
    * 
    * @return The full-sized source of the photo.
+   * @deprecated Use <code>images</code> field instead
    */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private String source;
 
   /**
@@ -115,6 +121,36 @@ public class Photo extends NamedFacebookType {
   private String icon;
 
   /**
+   * The album this photo is in
+   *
+   * @return The album this photo is in
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Album album;
+
+  /**
+   * A boolean indicating if the viewer can delete the photo
+   *
+   * @return A boolean indicating if the viewer can delete the photo
+   */
+  @Getter
+  @Setter
+  @Facebook("can_delete")
+  private Boolean canDelete;
+
+  /**
+   * A boolean indicating if the viewer can tag the photo
+   *
+   * @return A boolean indicating if the viewer can tag the photo
+   */
+  @Getter
+  @Setter
+  @Facebook("can_tag")
+  private Boolean canTag;
+
+  /**
    * The position of this photo in the album.
    * 
    * @return The position of this photo in the album.
@@ -132,6 +168,18 @@ public class Photo extends NamedFacebookType {
 
   @Facebook("updated_time")
   private String rawUpdatedTime;
+
+  /**
+   * If this object has a place, the event associated with the place
+   *
+   * @since Graph API 2.3
+   *
+   * @return If this object has a place, the event associated with the place
+   */
+  @Getter
+  @Setter
+  @Facebook
+  Event event;
 
   /**
    * The last time the photo or its caption was updated.
@@ -162,6 +210,11 @@ public class Photo extends NamedFacebookType {
 
   @Facebook
   private List<Image> images = new ArrayList<Image>();
+
+  @Facebook("name_tags")
+  private String rawNameTags;
+
+  private List<EntityAtTextRange> nameTags = new ArrayList<EntityAtTextRange>();
 
   /**
    * The location associated with this photo, if any.
@@ -368,6 +421,18 @@ public class Photo extends NamedFacebookType {
     return likes.remove(like);
   }
 
+  public List<EntityAtTextRange> getNameTags() {
+    return unmodifiableList(nameTags);
+  }
+
+  public boolean addNameTag(EntityAtTextRange nameTag) {
+    return nameTags.add(nameTag);
+  }
+
+  public boolean removeNameTag(EntityAtTextRange nameTag) {
+    return nameTags.remove(nameTag);
+  }
+
   /**
    * The 4 different stored representations of the photo.
    * 
@@ -391,5 +456,37 @@ public class Photo extends NamedFacebookType {
     backdatedTime = toDateFromLongFormat(rawBackdatedTime);
     createdTime = toDateFromLongFormat(rawCreatedTime);
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
+  }
+
+  /**
+   * Post-JSON-mapping operation that populates the {@code messageTags} field "by hand".
+   *
+   * @param jsonMapper
+   *          The {@code JsonMapper} that was used to map to this type.
+   */
+  @JsonMappingCompleted
+  protected void jsonMappingCompleted(JsonMapper jsonMapper) {
+
+    if (rawNameTags == null) {
+      return;
+    }
+
+    try {
+      nameTags = jsonMapper.toJavaList(rawNameTags, EntityAtTextRange.class);
+      return;
+    } catch (FacebookJsonMappingException je) {
+      // message tags not in Graph API 2.5 format, ignore this exception and try another way
+    }
+
+    try {
+      JsonObject rawMessageTagsObject = jsonMapper.toJavaObject(rawNameTags, JsonObject.class);
+      for (String key : getNames(rawMessageTagsObject)) {
+        String tagArrayString = rawMessageTagsObject.get(key).toString();
+        nameTags.addAll(jsonMapper.toJavaList(tagArrayString, EntityAtTextRange.class));
+      }
+      return;
+    } catch (FacebookJsonMappingException je) {
+
+    }
   }
 }

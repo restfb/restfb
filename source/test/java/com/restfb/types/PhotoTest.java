@@ -21,13 +21,14 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 
 public class PhotoTest extends AbstractJsonMapperTests {
 
@@ -155,5 +156,56 @@ public class PhotoTest extends AbstractJsonMapperTests {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-nobackdate"), Photo.class);
     assertEquals(examplePhoto.getBackdatedTimeGranularity(), null);
     assertEquals(examplePhoto.getBackdatedTime(), null);
+  }
+
+  @Test
+  public void checkWithAlbumV2_5() {
+    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
+    assertNotNull(examplePhoto.getAlbum());
+    Album album = examplePhoto.getAlbum();
+    assertEquals("Profile Pictures", album.getName());
+    assertEquals("1234567890987", album.getId());
+    assertEquals(1359978007000L, album.getCreatedTime().getTime());
+  }
+
+  @Test
+  public void checkWithFlagV2_5() {
+    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
+    assertNotNull(examplePhoto.getAlbum());
+    assertTrue(examplePhoto.getCanDelete().booleanValue());
+    assertTrue(examplePhoto.getCanTag().booleanValue());
+  }
+
+  @Test
+  public void checkImagesV2_5() {
+    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
+    assertNotNull(examplePhoto.getAlbum());
+    assertNotNull(examplePhoto.getImages());
+    assertEquals(3, examplePhoto.getImages().size());
+    Photo.Image image0 = examplePhoto.getImages().get(0);
+    assertEquals(246, image0.getHeight().intValue());
+    assertEquals(246, image0.getWidth().intValue());
+    Photo.Image image1 = examplePhoto.getImages().get(1);
+    assertEquals(130, image1.getHeight().intValue());
+    assertEquals(130, image1.getWidth().intValue());
+    Photo.Image image2 = examplePhoto.getImages().get(2);
+    assertEquals(225, image2.getHeight().intValue());
+    assertEquals(225, image2.getWidth().intValue());
+  }
+
+  @Test
+  public void checkFromv2_5() {
+    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
+    assertNotNull(examplePhoto.getAlbum());
+    assertEquals("1234567890", examplePhoto.getFrom().getId());
+  }
+
+  @Test
+  public void checkNameTagsV2_5() {
+    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
+    assertNotNull(examplePhoto.getNameTags());
+    List<EntityAtTextRange> nameTags = examplePhoto.getNameTags();
+    assertEquals("88388366982", nameTags.get(0).getId());
+    assertEquals("Público", nameTags.get(0).getName());
   }
 }

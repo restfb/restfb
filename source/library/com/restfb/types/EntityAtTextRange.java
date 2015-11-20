@@ -19,39 +19,58 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.setter;
+package com.restfb.types;
 
-import com.restfb.types.Photo;
-import com.restfb.types.api.SetterGetterTestBase;
+import com.restfb.Facebook;
 
-import org.junit.Test;
+import lombok.Getter;
+import lombok.Setter;
 
-public class PhotoTest extends SetterGetterTestBase {
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/graph-api/reference/entity-at-text-range/">EntityAtTextRange API
+ * type</a>.
+ */
+public class EntityAtTextRange extends NamedFacebookType {
 
-  @Test
-  public void test() {
-    Photo obj = new Photo();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawBackdatedTime");
-    addIgnoredField("rawNameTags");
-    testInstance(obj);
-  }
+  /**
+   * The object itself
+   *
+   * @return The object itself
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private NamedFacebookType object;
 
-  @Test
-  public void testImage() {
-    Photo.Image obj = new Photo.Image();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
+  /**
+   * The length, within the message field, of the object mentioned.
+   *
+   * @return The length, within the message field, of the object mentioned.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer length;
 
-  @Test
-  public void testTags() {
-    Photo.Tag obj = new Photo.Tag();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
+  /**
+   * The offset, within the message field, of the object mentioned.
+   *
+   * @return The offset, within the message field, of the object mentioned.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer offset;
 
+  /**
+   * Type of the object (may be <code>user</code>, <code>page</code>, <code>event</code>, <code>group</code>,
+   * <code>application</code>)
+   *
+   * @return Type of the object
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
 }
