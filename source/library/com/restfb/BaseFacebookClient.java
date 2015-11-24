@@ -187,27 +187,9 @@ abstract class BaseFacebookClient {
    */
   protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     try {
-      // If this is not an object, it's not an error response.
-      if (!json.startsWith("{")) {
-        return;
-      }
+      skipResponseStatusExceptionParsing(json);
 
-      int subStrEnd = Math.min(50, json.length());
-      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
-        return; // no need to parse json
-      }
-
-      JsonObject errorObject = null;
-
-      // We need to swallow exceptions here because it's possible to get a legit
-      // Facebook response that contains illegal JSON (e.g.
-      // users.getLoggedInUser returning 1240077) - we're only interested in
-      // whether or not there's an error_code field present.
-      try {
-        errorObject = new JsonObject(json);
-      } catch (JsonException e) {
-        // do nothing here
-      }
+      JsonObject errorObject = silentlyCreateObjectFromString(json);
 
       if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME)) {
         return;
@@ -218,7 +200,49 @@ abstract class BaseFacebookClient {
         errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME), null, null, errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
+    } catch (ResponseErrorJsonParsingException ex) {
+      // nothing to do here
     }
+  }
+
+  /**
+   *
+   * @param json
+   * @return
+   */
+  protected void skipResponseStatusExceptionParsing(String json) throws ResponseErrorJsonParsingException {
+    // If this is not an object, it's not an error response.
+    if (!json.startsWith("{")) {
+      throw new ResponseErrorJsonParsingException();
+    }
+
+    int subStrEnd = Math.min(50, json.length());
+    if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+      throw new ResponseErrorJsonParsingException();
+    }
+  }
+
+  /**
+   * create a {@see JsonObject} from String and swallow possible {@see JsonException}
+   * 
+   * @param json
+   *          the string representation of the json
+   * @return the JsonObject, may be <code>null</code>
+   */
+  protected JsonObject silentlyCreateObjectFromString(String json) {
+    JsonObject errorObject = null;
+
+    // We need to swallow exceptions here because it's possible to get a legit
+    // Facebook response that contains illegal JSON (e.g.
+    // users.getLoggedInUser returning 1240077) - we're only interested in
+    // whether or not there's an error_code field present.
+    try {
+      errorObject = new JsonObject(json);
+    } catch (JsonException e) {
+      // do nothing here
+    }
+
+    return errorObject;
   }
 
   /**

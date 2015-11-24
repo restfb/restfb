@@ -1074,26 +1074,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs while processing the JSON.
    */
   protected void throwFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
-    // If we have a legacy exception, throw it.
-    throwLegacyFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
-
-    // If we have a batch API exception, throw it.
-    throwBatchFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
-
     try {
-      // If the result is not an object, bail immediately.
-      if (!json.startsWith("{"))
-        return;
+      skipResponseStatusExceptionParsing(json);
 
-      int subStrEnd = Math.min(50, json.length());
-      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
-        return; // no need to parse json
-      }
+      // If we have a legacy exception, throw it.
+      throwLegacyFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
+
+      // If we have a batch API exception, throw it.
+      throwBatchFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
 
       JsonObject errorObject = new JsonObject(json);
 
-      if (!errorObject.has(ERROR_ATTRIBUTE_NAME))
+      if (!errorObject.has(ERROR_ATTRIBUTE_NAME)) {
         return;
+      }
 
       JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
 
@@ -1109,6 +1103,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME), errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
+    } catch (ResponseErrorJsonParsingException ex) {
+      // do nothing here
     }
   }
 
@@ -1129,24 +1125,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected void throwBatchFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     try {
-      // If this is not an object, it's not an error response.
-      if (!json.startsWith("{"))
-        return;
+      skipResponseStatusExceptionParsing(json);
 
-      int subStrEnd = Math.min(50, json.length());
-      if (!json.substring(0, subStrEnd).contains("\"error\"")) {
-        return; // no need to parse json
-      }
-
-      JsonObject errorObject = null;
-
-      // We need to swallow exceptions here because it's possible to get a legit
-      // Facebook response that contains illegal JSON (e.g.
-      // users.getLoggedInUser returning 1240077) - we're only interested in
-      // whether or not there's an error_code field present.
-      try {
-        errorObject = new JsonObject(json);
-      } catch (JsonException e) {}
+      JsonObject errorObject = silentlyCreateObjectFromString(json);
 
       if (errorObject == null || !errorObject.has(BATCH_ERROR_ATTRIBUTE_NAME)
           || !errorObject.has(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME))
@@ -1157,6 +1138,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
+    } catch (ResponseErrorJsonParsingException ex) {
+      // do nothing here
     }
   }
 
@@ -1194,7 +1177,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       if ("QueryParseException".equals(type)) {
         return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage,rawError);
+          errorUserMessage, rawError);
       }
 
       // Don't recognize this exception type? Just go with the standard
