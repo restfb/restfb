@@ -25,7 +25,6 @@ import static org.junit.Assert.*;
 
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookOAuthException;
-import com.restfb.exception.ResponseErrorJsonParsingException;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
 
@@ -182,56 +181,6 @@ public class FacebookClientTest {
     assertEquals(
       "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile",
       loginDialogUrlString);
-  }
-
-  @Test
-  public void checkSkipErrorResponseParsing_NoJsonObject() {
-    DefaultFacebookClient dfc = new DefaultFacebookClient(Version.VERSION_2_0);
-    String json = "testString";
-    try {
-      dfc.skipResponseStatusExceptionParsing(json);
-      fail("Exception not thrown");
-    } catch (ResponseErrorJsonParsingException e) {
-      // every thing fine;
-    }
-  }
-
-  @Test
-  public void checkSkipErrorResponseParsing_JsonObjectWithoutError() {
-    DefaultFacebookClient dfc = new DefaultFacebookClient(Version.VERSION_2_0);
-    String json = "{ \"testString\": \"example\" }";
-    try {
-      dfc.skipResponseStatusExceptionParsing(json);
-      fail("Exception not thrown");
-    } catch (ResponseErrorJsonParsingException e) {
-      // every thing fine;
-    }
-  }
-
-  @Test
-  public void checkSkipErrorResponseParsing_JsonObjectWithError() {
-    DefaultFacebookClient dfc = new DefaultFacebookClient(Version.VERSION_2_0);
-    String json = "{ \"error\": \"exampleError\" }";
-    try {
-      dfc.skipResponseStatusExceptionParsing(json);
-      // every thing fine;
-    } catch (ResponseErrorJsonParsingException e) {
-      fail("Exception not thrown");
-    }
-  }
-
-  @Test
-  public void checkSilentJsonObjectGeneration_WithValidJson() {
-    DefaultFacebookClient dfc = new DefaultFacebookClient(Version.VERSION_2_0);
-    String json = "{ \"error\": \"exampleError\" }";
-    assertNotNull(dfc.silentlyCreateObjectFromString(json));
-  }
-
-  @Test
-  public void checkSilentJsonObjectGeneration_WithInvalidJson() {
-    DefaultFacebookClient dfc = new DefaultFacebookClient(Version.VERSION_2_0);
-    String json = "{ \"error\"}";
-    assertNull(dfc.silentlyCreateObjectFromString(json));
   }
 
   /**

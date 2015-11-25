@@ -26,7 +26,8 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.util.Arrays.asList;
 
-import com.restfb.exception.*;
+import com.restfb.exception.generator.DefaultLegacyFacebookExceptionGenerator;
+import com.restfb.exception.generator.LegacyFacebookExceptionGenerator;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 
@@ -55,9 +56,9 @@ abstract class BaseFacebookClient {
   protected JsonMapper jsonMapper;
 
   /**
-   * Knows how to map Old REST API exceptions to formal Java exception types.
+   * legacy facebook exception generator to convert Facebook error json into java exceptions
    */
-  protected FacebookExceptionMapper legacyFacebookExceptionMapper;
+  private LegacyFacebookExceptionGenerator legacyFacebookExceptionGenerator;
 
   /**
    * Set of parameter names that user must not specify themselves, since we use these parameters internally.
@@ -68,16 +69,6 @@ abstract class BaseFacebookClient {
    * Set of API calls that can use the read-only endpoint for a performance boost.
    */
   protected final Set<String> readOnlyApiCalls = new HashSet<String>();
-
-  /**
-   * Legacy API error response 'error_code' attribute name.
-   */
-  protected static final String LEGACY_ERROR_CODE_ATTRIBUTE_NAME = "error_code";
-
-  /**
-   * Legacy API error response 'error_msg' attribute name.
-   */
-  protected static final String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
 
   /**
    * Reserved access token parameter name.
@@ -99,51 +90,28 @@ abstract class BaseFacebookClient {
    */
   public BaseFacebookClient() {
     initializeReadOnlyApiCalls();
-    legacyFacebookExceptionMapper = createLegacyFacebookExceptionMapper();
+    legacyFacebookExceptionGenerator = new DefaultLegacyFacebookExceptionGenerator();
   }
 
   /**
-   * Specifies how we map Old REST API exception types/messages to real Java exceptions.
-   * <p>
-   * Uses an instance of {@link DefaultLegacyFacebookExceptionMapper} by default.
-   * 
-   * @return An instance of the exception mapper we should use.
-   * @since 1.6.3
+   * fetch the current legacy facebook exception generator implementing the {@see LegacyFacebookExceptionGenerator}
+   * interface
+   *
+   * @return the current legacy facebook exception generator
    */
-  protected FacebookExceptionMapper createLegacyFacebookExceptionMapper() {
-    return new DefaultLegacyFacebookExceptionMapper();
+  public LegacyFacebookExceptionGenerator getLegacyFacebookExceptionGenerator() {
+    return legacyFacebookExceptionGenerator;
   }
 
   /**
-   * A canned implementation of {@code FacebookExceptionMapper} that maps Old REST API exceptions.
-   * 
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6.3
+   * override the default legacy facebook exception generator to provide a custom handling for the legacy facebook error
+   * objects
+   *
+   * @param legacyExceptionGenerator
+   *          the custom legacy exception generator implementing the {@see LegacyFacebookExceptionGenerator} interface
    */
-  protected static class DefaultLegacyFacebookExceptionMapper implements FacebookExceptionMapper {
-    /**
-     * Invalid OAuth 2.0 Access Token error code.
-     * <p>
-     * See http://www.takwing.idv.hk/tech/fb_dev/faq/general/gen_10.html
-     */
-    protected static final int API_EC_PARAM_ACCESS_TOKEN = 190;
-
-    /**
-     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
-     *      String, String, String, JsonObject)
-     */
-    @Override
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-        String type, String message, String userTitle, String userMessage, JsonObject rawError) {
-      if (errorCode == API_EC_PARAM_ACCESS_TOKEN) {
-        return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, errorSubcode, httpStatusCode,
-          userTitle, userMessage, rawError);
-      }
-
-      // Don't recognize this exception type? Just go with the standard
-      // FacebookResponseStatusException.
-      return new FacebookResponseStatusException(errorCode, message, rawError);
-    }
+  public void setLegacyFacebookExceptionGenerator(LegacyFacebookExceptionGenerator legacyExceptionGenerator) {
+    legacyFacebookExceptionGenerator = legacyExceptionGenerator;
   }
 
   /**
@@ -170,79 +138,6 @@ abstract class BaseFacebookClient {
       "profile.getinfooptions", "stream.get", "stream.getcomments", "stream.getfilters", "users.getinfo",
       "users.getloggedinuser", "users.getstandardinfo", "users.hasapppermission", "users.isappuser", "users.isverified",
       "video.getuploadlimits"));
-  }
-
-  /**
-   * If the {@code error_code} JSON field is present, we've got a response status error for this API call. Extracts
-   * relevant information from the JSON and throws an exception which encapsulates it for end-user consumption.
-   * 
-   * @param json
-   *          The JSON returned by Facebook in response to an API call.
-   * @param httpStatusCode
-   *          The HTTP status code returned by the server, e.g. 500.
-   * @throws FacebookResponseStatusException
-   *           If the JSON contains an error code.
-   * @throws FacebookJsonMappingException
-   *           If an error occurs while processing the JSON.
-   */
-  protected void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
-    try {
-      skipResponseStatusExceptionParsing(json);
-
-      JsonObject errorObject = silentlyCreateObjectFromString(json);
-
-      if (errorObject == null || !errorObject.has(LEGACY_ERROR_CODE_ATTRIBUTE_NAME)) {
-        return;
-      }
-
-      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
-        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME), null, httpStatusCode, null,
-        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME), null, null, errorObject);
-    } catch (JsonException e) {
-      throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
-    } catch (ResponseErrorJsonParsingException ex) {
-      // nothing to do here
-    }
-  }
-
-  /**
-   *
-   * @param json
-   * @return
-   */
-  protected void skipResponseStatusExceptionParsing(String json) throws ResponseErrorJsonParsingException {
-    // If this is not an object, it's not an error response.
-    if (!json.startsWith("{")) {
-      throw new ResponseErrorJsonParsingException();
-    }
-
-    int subStrEnd = Math.min(50, json.length());
-    if (!json.substring(0, subStrEnd).contains("\"error\"")) {
-      throw new ResponseErrorJsonParsingException();
-    }
-  }
-
-  /**
-   * create a {@see JsonObject} from String and swallow possible {@see JsonException}
-   * 
-   * @param json
-   *          the string representation of the json
-   * @return the JsonObject, may be <code>null</code>
-   */
-  protected JsonObject silentlyCreateObjectFromString(String json) {
-    JsonObject errorObject = null;
-
-    // We need to swallow exceptions here because it's possible to get a legit
-    // Facebook response that contains illegal JSON (e.g.
-    // users.getLoggedInUser returning 1240077) - we're only interested in
-    // whether or not there's an error_code field present.
-    try {
-      errorObject = new JsonObject(json);
-    } catch (JsonException e) {
-      // do nothing here
-    }
-
-    return errorObject;
   }
 
   /**
