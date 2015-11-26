@@ -1,3 +1,14 @@
+1.17.0 (November 26, 2015)
+
+* Issue #328: Facebook Exception provides access to raw error json
+  Thanks to Fran Sanchez for input
+* Issue #330: Bugfix: place field in Event type changed to Place type
+  Thanks to Matthew Gillingham for input
+* Issue #331: album field and other fields added to Photo type
+  Thanks to @tsurelad for input
+* Issue #333: Comments and more fields added to Album type
+  Thanks to Paolo for input
+
 1.16.0 (October 22, 2015)
 
 * Issue #317: Marketing API improved
