@@ -32,18 +32,30 @@ import java.util.Map;
 
 /**
  * WebRequestor with ETag-support.
- * 
- * The ETagWebRequestor caches all GET-requests with an ETag header field in a {@see SoftHashMap} and uses the ETag on
- * the next request as <code>If-None-Match</code> header field if the same URL is requested.
- * 
+ *
+ * <p>
+ * The {@see ETagWebRequestor} caches all <tt>GET</tt>-requests with an ETag header field in a {@see SoftHashMap} and
+ * uses the ETag on the next request as <code>If-None-Match</code> header field if the same URL is requested.
+ * </p>
+ *
+ * <p>
  * Is the response status code 304 (NOT MODIFIED) the old response from cache is used.
- * 
- * Attention: even 304 responses count as request at Facebook and so they count against the throttling limits. Facebook
- * suggests to use them for data that change only frequently
- * 
- * Further information regarding ETag at Facebook can be found here: https://developers.facebook.com/blog/post/627/
- * 
- * Attention 2: If excessifly used with a lot of URLs, the {@see SoftHashMap} can lead to a performance degradation
+ * </p>
+ *
+ * <p>
+ * <strong>Attention:</strong> even 304 responses count as request at Facebook and so they count against the throttling
+ * limits. Facebook suggests to use them for data that change only frequently
+ * </p>
+ *
+ * <p>
+ * Further information regarding ETag at Facebook can be found here:
+ * <a href="https://developers.facebook.com/blog/post/627/">https://developers.facebook.com/blog/post/627/</a>
+ * </p>
+ *
+ * <p>
+ * <strong>Attention 2</strong>: If excessively used with a lot of URLs, the {@see SoftHashMap} can lead to a
+ * performance degradation
+ * </p>
  */
 public class ETagWebRequestor extends DefaultWebRequestor {
 
@@ -97,9 +109,11 @@ public class ETagWebRequestor extends DefaultWebRequestor {
 
   /**
    * activate/deactivate the ETag-Cache for the next request.
-   * 
+   *
+   * <p>
    * when deactivated, the ETag-Cache is *not* deleted
-   * 
+   * </p>
+   *
    * @param useCache
    */
   public void setUseCache(boolean useCache) {

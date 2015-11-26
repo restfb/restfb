@@ -28,7 +28,7 @@ public enum Version {
    */
   UNVERSIONED(null), //
   /**
-   * graph api 1.0, available until April 30, 2015
+   * <tt>Graph API 1.0</tt>, available until April 30, 2015
    * 
    * @since April 21, 2010
    * @deprecated use VERSION_2_0 instead
@@ -36,42 +36,42 @@ public enum Version {
   @Deprecated VERSION_1_0("v1.0"),
 
   /**
-   * graph api 2.0, available until August 7, 2016
+   * <tt>Graph API 2.0</tt>, available until August 7, 2016
    * 
    * @since April 30, 2014
    */
   VERSION_2_0("v2.0"),
 
   /**
-   * graph api 2.1, available until October 30, 2016
+   * <tt>Graph API 2.1</tt>, available until October 30, 2016
    * 
    * @since August 7, 2014
    */
   VERSION_2_1("v2.1"),
 
   /**
-   * graph api 2.2, available until March 25, 2017
+   * <tt>Graph API 2.2</tt>, available until March 25, 2017
    * 
    * @since October 30, 2014
    */
   VERSION_2_2("v2.2"),
 
   /**
-   * graph api 2.3, available until July 8, 2017
+   * <tt>Graph API 2.3</tt>, available until July 8, 2017
    * 
    * @since March 25, 2015
    */
   VERSION_2_3("v2.3"),
 
   /**
-   * graph api 2.4, available until October 7, 2017
+   * <tt>Graph API 2.4</tt>, available until October 7, 2017
    * 
    * @since July 8, 2015
    */
   VERSION_2_4("v2.4"),
 
   /**
-   * graph api 2.5, available at least until April 2018
+   * <tt>Graph API 2.5</tt>, available at least until April 2018
    *
    * @since October 7, 2015
    */
@@ -79,8 +79,9 @@ public enum Version {
 
   /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
-   * 
-   * the current version is 2.5
+   * <p>
+   * the current version is <tt>Graph API 2.5</tt>
+   * </p>
    */
   LATEST("v2.5");
 
