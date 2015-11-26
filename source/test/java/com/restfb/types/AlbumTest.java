@@ -19,21 +19,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.setter;
+package com.restfb.types;
 
-import com.restfb.types.Album;
-import com.restfb.types.api.SetterGetterTestBase;
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
 
-public class AlbumTest extends SetterGetterTestBase {
+import java.util.List;
+
+public class AlbumTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkAlbumSetterCanUpload() {
-    Album obj = new Album();
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawPicture");
-    testInstance(obj);
+  public void checkV2_5_comments() {
+    Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/album-with-comments"), Album.class);
+    assertNotNull(exampleAlbum);
+    assertNotNull(exampleAlbum.getComments());
+    List<Comment> comments = exampleAlbum.getComments().getData();
+    assertEquals(1, comments.size());
+    Comment exampleComment = comments.get(0);
+    assertEquals("521525131216804",exampleComment.getFrom().getId());
+    assertNotNull(exampleComment.getMessage());
   }
+
+  @Test
+  public void checkV2_5_type() {
+    Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/album-with-comments"), Album.class);
+    assertNotNull(exampleAlbum);
+    assertEquals("wall", exampleAlbum.getType());
+  }
+
 }

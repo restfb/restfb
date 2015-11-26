@@ -24,7 +24,9 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 
 import java.util.Date;
 
@@ -137,6 +139,71 @@ public class Album extends NamedFacebookType {
   @Setter
   private Date updatedTime;
 
+  /**
+   * The type of the album. (app, cover, profile, mobile, wall, normal, album)
+   *
+   * @return The type of the album.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
+
+  /**
+   * The place associated with this album.
+   *
+   * @return The place associated with this album.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Place place;
+
+  /**
+   * The event associated with this album.
+   *
+   * @return The event associated with this album.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Event event;
+
+  /**
+   * The comments for this album.
+   *
+   * @return The comments for this album.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Comments comments;
+
+  @Facebook("picture")
+  private JsonObject rawPicture;
+
+  /**
+   * The album's picture, if provided.
+   *
+   * To force Facebook to fill the <code>picture</code> field you have to fetch the album with the
+   * <code>fields=picture</code> parameter, otherwise the picture is <code>null</code>.
+   *
+   * @return the album's picture as ProfilePictureSource object
+   */
+  @Getter
+  @Setter
+  private ProfilePictureSource picture;
+
+  /**
+   * People who like this.
+   *
+   * @return The likes on this album.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Likes likes;
+
   private static final long serialVersionUID = 1L;
 
   @Facebook("created_time")
@@ -149,5 +216,16 @@ public class Album extends NamedFacebookType {
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
+  }
+
+  @JsonMappingCompleted
+  protected void fillPicture(JsonMapper jsonMapper) {
+    picture = null;
+
+    if (rawPicture == null)
+      return;
+
+    String picJson = rawPicture.getJsonObject("data").toString();
+    picture = jsonMapper.toJavaObject(picJson, User.Picture.class);
   }
 }

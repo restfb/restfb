@@ -1,0 +1,25 @@
+{
+  "description": "Alcune delle somiglianze più curiose tra giocatori e personaggi celebri del mondo dello spettacolo e non (Fonte foto: Repubblica.it) Ve ne vengono in mente altre? ;)",
+  "id": "817655031603811",
+  "type": "wall",
+  "comments": {
+    "data": [
+      {
+        "created_time": "2014-11-12T15:14:17+0000",
+        "from": {
+          "name": "Calcio Illustrato",
+          "id": "521525131216804"
+        },
+        "message": "E loro due li riconoscete?",
+        "id": "817655031603811_817746908261290"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "NjkZD",
+        "after": "NjUZD"
+      },
+      "next": "https://graph.facebook.com/v2.5/817655031603811/comments?access_token=CAACEdEose0cBANLHB0G3SRzKnUALLCFOBzJSZA5xBQ0ddZChBx0AcFlTTsnCI4uZCbhdwtneHSAvS6F8ClKUzBwnPCmNZADP3oZA8lmWqW9sFoTcktZBKDKimYPmLa7M3obgkWeDVYYKRAmRltVl2HP9w5eZAbf6jFlkIlT3HTJbaARVJLQEKP4V0mph8LCBTcNrZATZCtZAHRKQZDZD&pretty=0&limit=5&after=NjUZD"
+    }
+  }
+}
