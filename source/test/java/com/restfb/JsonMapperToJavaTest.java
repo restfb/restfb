@@ -58,7 +58,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   public void emptyList() {
     List<Object> objects = createJsonMapper().toJavaList("[]", Object.class);
-    assertTrue(objects.size() == 0);
+    assertTrue(objects.isEmpty());
   }
 
   /**
@@ -173,7 +173,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
     // Make sure the weird Facebook "empty object means empty list" workaround
     // works
-    assertTrue(usersWithAffiliations.get(2).affiliations.size() == 0);
+    assertTrue(usersWithAffiliations.get(2).affiliations.isEmpty());
   }
 
   /**

@@ -21,7 +21,7 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import com.restfb.Connection;
@@ -39,10 +39,10 @@ public class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
     Connection<Post> connection = client.fetchConnection("/cocacola/feed", Post.class);
-    assertTrue(connection.getData().size() > 0);
+    assertFalse(connection.getData().isEmpty());
     if (connection.hasNext()) {
       Connection<Post> connection2 = client.fetchConnectionPage(connection.getNextPageUrl(), Post.class);
-      assertTrue(connection2.getData().size() > 0);
+      assertFalse(connection2.getData().isEmpty());
     } else {
       fail("Page has no second connection");
     }

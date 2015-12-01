@@ -36,17 +36,17 @@ import org.junit.Test;
 public class UrlUtilsTest {
   @Test
   public void queryString() {
-    assertTrue(extractParametersFromQueryString(null).size() == 0);
-    assertTrue(extractParametersFromQueryString("").size() == 0);
+    assertTrue(extractParametersFromQueryString(null).isEmpty());
+    assertTrue(extractParametersFromQueryString("").isEmpty());
     assertTrue(extractParametersFromQueryString("access_token=123").size() == 1);
     assertTrue(extractParametersFromQueryString("?access_token=123").size() == 1);
   }
 
   @Test
   public void urlParameters() {
-    assertTrue(extractParametersFromUrl(null).size() == 0);
-    assertTrue(extractParametersFromUrl("").size() == 0);
-    assertTrue(extractParametersFromUrl("access_token=123").size() == 0);
+    assertTrue(extractParametersFromUrl(null).isEmpty());
+    assertTrue(extractParametersFromUrl("").isEmpty());
+    assertTrue(extractParametersFromUrl("access_token=123").isEmpty());
     assertTrue(extractParametersFromUrl("?access_token=123").size() == 1);
     assertTrue(extractParametersFromUrl("http://whatever?access_token=123").size() == 1);
   }

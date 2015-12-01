@@ -52,7 +52,7 @@ public class UserApiITCase extends RestFbIntegrationTestBase {
   public void fetchAllAccounts() {
     List<Account> accList = fb.users().getAccounts();
     assertNotNull(accList);
-    assertTrue(accList.size() > 0);
+    assertFalse(accList.isEmpty());
   }
 
   @Test
