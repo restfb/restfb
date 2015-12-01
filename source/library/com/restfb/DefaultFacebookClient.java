@@ -854,7 +854,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     final String fullEndpoint =
-        createEndpointForApiCall(endpoint, binaryAttachments != null && binaryAttachments.size() > 0);
+        createEndpointForApiCall(endpoint, binaryAttachments != null && !binaryAttachments.isEmpty());
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(new Requestor() {

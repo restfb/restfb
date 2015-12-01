@@ -22,7 +22,7 @@
 package com.restfb.integration.experimental;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
@@ -43,7 +43,7 @@ public class FetchGroupMemberITCase extends RestFbIntegrationTestBase {
     Facebook fb = new Facebook(client);
     List<NamedFacebookType> memberList = fb.groups().memberList(getTestSettings().getGroupId());
     assertNotNull(memberList);
-    assertTrue(memberList.size() > 0);
+    assertFalse(memberList.isEmpty());
   }
 
 }
