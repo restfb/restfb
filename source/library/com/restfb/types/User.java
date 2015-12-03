@@ -511,8 +511,8 @@ public class User extends NamedFacebookType {
 
     @JsonMappingCompleted
     void convertTime() {
-      startDate = toDateFromLongFormat(rawStartDate);
-      endDate = toDateFromLongFormat(rawEndDate);
+      startDate = toDateFromShortFormat(rawStartDate);
+      endDate = toDateFromShortFormat(rawEndDate);
     }
   }
 

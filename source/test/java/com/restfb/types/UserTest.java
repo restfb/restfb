@@ -28,6 +28,8 @@ import com.restfb.types.User.Picture;
 
 import org.junit.Test;
 
+import java.util.List;
+
 public class UserTest extends AbstractJsonMapperTests {
 
   @Test
@@ -75,6 +77,20 @@ public class UserTest extends AbstractJsonMapperTests {
     assertNotNull(exampleUser.getCover());
     assertEquals("987654321", exampleUser.getCover().getId());
     assertEquals(0, exampleUser.getCover().getOffsetY().intValue());
-    assertEquals("https://scontent.xx.fbcdn.net/hphotos-xaf1/v/l/t1.0-9/s720x720/34352425342534.jpg", exampleUser.getCover().getSource());
+    assertEquals("https://scontent.xx.fbcdn.net/hphotos-xaf1/v/l/t1.0-9/s720x720/34352425342534.jpg",
+      exampleUser.getCover().getSource());
+  }
+
+  @Test
+  public void userWorkDates() {
+    User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/user-work"), User.class);
+    assertNotNull(exampleUser);
+    List<User.Work> workList = exampleUser.getWork();
+    assertEquals(1, workList.size());
+    User.Work work = workList.get(0);
+    assertNotNull(work.getStartDate());
+    assertEquals(1193871600000L, work.getStartDate().getTime());
+    assertNotNull(work.getEndDate());
+    assertEquals(1348956000000L, work.getEndDate().getTime());
   }
 }
