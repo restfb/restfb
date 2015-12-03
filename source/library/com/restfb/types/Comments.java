@@ -66,6 +66,10 @@ public class Comments implements Serializable {
   @Setter
   private String order;
 
+  @Getter
+  @Setter
+  private Boolean canComment;
+
   @Facebook
   private JsonObject summary = null;
 
@@ -132,6 +136,16 @@ public class Comments implements Serializable {
   private void fillOrder() {
     if (summary != null && summary.has("order")) {
       order = summary.getString("order");
+    }
+  }
+
+  /**
+   * set the can_comment
+   */
+  @JsonMappingCompleted
+  private void fillCanComment() {
+    if (summary != null && summary.has("can_comment")) {
+      canComment = summary.getBoolean("can_comment");
     }
   }
 }

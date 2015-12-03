@@ -199,11 +199,19 @@ public class Photo extends NamedFacebookType {
   @Setter
   private Date createdTime;
 
+  /**
+   * All of the comments on this photo.
+   *
+   * @return All of the comments on this photo.
+   * @since 1.6.5
+   */
+  @Getter
+  @Setter
   @Facebook
-  private List<Tag> tags = new ArrayList<Tag>();
+  private Comments comments;
 
   @Facebook
-  private List<Comment> comments = new ArrayList<Comment>();
+  private List<Tag> tags = new ArrayList<Tag>();
 
   @Facebook
   private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
@@ -383,24 +391,6 @@ public class Photo extends NamedFacebookType {
 
   public boolean removeTag(Tag tag) {
     return tags.remove(tag);
-  }
-
-  /**
-   * All of the comments on this photo.
-   * 
-   * @return All of the comments on this photo.
-   * @since 1.6.5
-   */
-  public List<Comment> getComments() {
-    return unmodifiableList(comments);
-  }
-
-  public boolean addComment(Comment comment) {
-    return comments.add(comment);
-  }
-
-  public boolean removeComment(Comment comment) {
-    return comments.remove(comment);
   }
 
   /**

@@ -14,6 +14,7 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 * `Post.Likes` replaced with `Likes` type.
 * `Post.Comments` replaced with `Comments` type.
 * `Post.Privacy` replaced with `Privacy` type.
+* `Photo.getComments` returns `Comments` type instead of `Comment list
 
 ## Comment.Attachment removed
 We have removed the `Comment.Attachment` type because it is replaced by 
@@ -52,4 +53,8 @@ cleanup.
 * `Post.Place` replaced with `Place` type.
 * `Post.Likes` replaced with `Likes` type.
 * `Post.Comments` replaced with `Comments` type.
-* `Post.Privacy` replaced with `Privacy` type.
+* `Post.Privacy` replaced with `Privacy` type.`
+
+## The `photo` type returns `Comments` type instead of list
+Because the comments of a photo not only contains the comments we have to change the
+returned type. Now you may access the summary object and fetch the total count.
