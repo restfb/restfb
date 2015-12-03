@@ -54,6 +54,24 @@ public class Likes implements Serializable {
   @Facebook
   private Long totalCount = 0L;
 
+  /**
+   * returns if the user can like the object
+   *
+   * @return if the user can like the object
+   */
+  @Getter
+  @Setter
+  private Boolean canLike;
+
+  /**
+   * returns if the user has liked the object
+   *
+   * @return if the user has liked the object
+   */
+  @Getter
+  @Setter
+  private Boolean hasLiked;
+
   @Facebook
   private JsonObject summary;
 
@@ -107,9 +125,21 @@ public class Likes implements Serializable {
    * add change count value, if summary is set and count is empty
    */
   @JsonMappingCompleted
-  private void fillTotalCount() {
-    if (totalCount == 0 && summary != null && summary.has("total_count")) {
-      totalCount = summary.getLong("total_count");
+  private void fillFromSummary() {
+    if (summary != null) {
+
+      if (totalCount == 0 && summary.has("total_count")) {
+        totalCount = summary.getLong("total_count");
+      }
+
+      if (summary.has("has_liked")) {
+        hasLiked = summary.getBoolean("has_liked");
+      }
+
+      if (summary.has("can_like")) {
+        canLike = summary.getBoolean("can_like");
+      }
     }
+
   }
 }

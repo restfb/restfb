@@ -188,4 +188,26 @@ public class PostTest extends AbstractJsonMapperTests {
     assertEquals(7, exampleTag.getLength().intValue());
     assertEquals(94, exampleTag.getOffset().intValue());
   }
+
+  @Test
+  public void checkV2_5_likesSummary_canHasLike() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-likes-summary"), Post.class);
+    assertNotNull(examplePost);
+    Likes likesWithSummary = examplePost.getLikes();
+    assertNotNull(likesWithSummary);
+    assertEquals(7L, likesWithSummary.getTotalCount().longValue());
+    assertTrue(likesWithSummary.getCanLike());
+    assertFalse(likesWithSummary.getHasLiked());
+  }
+
+  @Test
+  public void checkV2_3_likesSummary_canHasLike() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-likes-summary"), Post.class);
+    assertNotNull(examplePost);
+    Likes likesWithSummary = examplePost.getLikes();
+    assertNotNull(likesWithSummary);
+    assertEquals(7L, likesWithSummary.getTotalCount().longValue());
+    assertNull(likesWithSummary.getCanLike());
+    assertNull(likesWithSummary.getHasLiked());
+  }
 }
