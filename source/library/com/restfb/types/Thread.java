@@ -41,6 +41,8 @@ import lombok.Setter;
  */
 public class Thread extends FacebookType {
 
+  private static final long serialVersionUID = 1L;
+  
   @Facebook
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 

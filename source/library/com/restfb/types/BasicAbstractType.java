@@ -31,6 +31,8 @@ import java.io.Serializable;
  */
 public class BasicAbstractType implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * @see java.lang.Object#hashCode()
    */

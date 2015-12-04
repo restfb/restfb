@@ -37,6 +37,8 @@ import lombok.Setter;
  */
 public class AdLabel extends NamedAdsObject {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * AdGroup Account
    */

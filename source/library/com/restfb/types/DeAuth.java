@@ -38,6 +38,8 @@ import lombok.Setter;
  * @since 1.6.16
  */
 public class DeAuth implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @Setter

@@ -98,6 +98,8 @@ public class Url extends FacebookType {
    */
   public static class OGObject extends FacebookType {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * The description of the object.
      * 
