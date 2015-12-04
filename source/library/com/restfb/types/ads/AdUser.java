@@ -35,6 +35,8 @@ import lombok.Setter;
  */
 public class AdUser extends NamedAdsObject {
 
+  private static final long serialVersionUID = 1L;
+  
   @Facebook
   final private List<Integer> permissions = new ArrayList<Integer>();
 

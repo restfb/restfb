@@ -77,7 +77,7 @@ public class Group extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook
-  private Venue venue;
+  private Location venue;
 
   /**
    * The privacy setting of the group, either 'OPEN', 'CLOSED', or 'SECRET'.

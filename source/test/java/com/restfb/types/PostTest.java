@@ -33,7 +33,7 @@ public class PostTest extends AbstractJsonMapperTests {
   public void checkV2_1() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-story"), Post.class);
     assertEquals("Tester shared a link.", examplePost.getStory());
-    Post.Privacy priv = examplePost.getPrivacy();
+    Privacy priv = examplePost.getPrivacy();
     assertEquals("ALL_FRIENDS", priv.getValue());
   }
 

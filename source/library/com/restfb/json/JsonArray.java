@@ -69,6 +69,9 @@ import java.util.Map;
  * @version 2009-04-13
  */
 public class JsonArray implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
+  
   /**
    * The arrayList where the JsonArray's properties are kept.
    */

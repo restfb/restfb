@@ -26,6 +26,7 @@ import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
 import com.restfb.util.ReflectionUtils;
@@ -122,7 +123,7 @@ public class Event extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook
-  private Venue venue;
+  private Location venue;
 
   /**
    * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
@@ -158,15 +159,15 @@ public class Event extends NamedFacebookType {
   private String ticketUri;
 
   /**
-   * The URL of the event's picture.
+   * The event's picture.
    * 
-   * @return The URL of the event's picture (only returned if you explicitly include picture in the fields param;
-   *         example: ?fields=id,name,picture)
+   * @return The event's picture (only returned if you explicitly include picture in the fields param; example:
+   *         ?fields=id,name,picture)
    * @since 1.6.13
    */
   @Getter
   @Setter
-  private String picture;
+  private ProfilePictureSource picture;
 
   @Facebook("picture")
   private JsonObject rawPicture;
@@ -201,6 +202,14 @@ public class Event extends NamedFacebookType {
   @Setter
   @Facebook("is_date_only")
   private Boolean isDateOnly;
+
+  /**
+   * the timezone of the event
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String timezone;
 
   /**
    * Cover picture
@@ -411,7 +420,7 @@ public class Event extends NamedFacebookType {
   }
 
   @JsonMappingCompleted
-  protected void jsonMappingCompleted() {
+  protected void jsonMappingCompleted(JsonMapper jsonMapper) {
     picture = null;
 
     if (rawPicture == null)
@@ -419,7 +428,7 @@ public class Event extends NamedFacebookType {
 
     JsonObject picData = rawPicture.getJsonObject("data");
     if (picData != null) {
-      picture = picData.getString("url");
+      picture = jsonMapper.toJavaObject(picData.toString(), ProfilePictureSource.class);
     }
   }
 }

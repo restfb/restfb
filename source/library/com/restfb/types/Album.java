@@ -226,6 +226,6 @@ public class Album extends NamedFacebookType {
       return;
 
     String picJson = rawPicture.getJsonObject("data").toString();
-    picture = jsonMapper.toJavaObject(picJson, User.Picture.class);
+    picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
   }
 }

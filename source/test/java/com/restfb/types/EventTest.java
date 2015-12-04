@@ -21,9 +21,9 @@
  */
 package com.restfb.types;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.Assert.*;
+import static org.junit.Assume.assumeThat;
 
 import com.restfb.AbstractJsonMapperTests;
 
@@ -51,9 +51,12 @@ public class EventTest extends AbstractJsonMapperTests {
   public void issue312_eventPictureAndCover() {
     Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/issue312-event"), Event.class);
     assertNotNull(event);
+    assertNotNull(event.getPicture());
     assertEquals(
       "https://fbcdn-photos-h-a.akamaihd.net/hphotos-ak-xfp1/v/t1.0-0/c43.0.50.50/p50x50/12006310_1078877852124437_9067576785883091133_n.png?oh=252b25a37adf3e52b98b2377daead960&oe=56A03EC4&__gda__=1456603383_a12d1727201e97640e41c74e72e8a03a",
-      event.getPicture());
+      event.getPicture().getUrl());
+    assertFalse(event.getPicture().getIsSilhouette().booleanValue());
+
     assertNotNull(event.getCover());
     assertEquals(
       "https://scontent.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/s720x720/12006310_1078877852124437_9067576785883091133_n.png?oh=561599ccf7e8247dbe550c6e1759aa39&oe=56D0F885",
@@ -74,6 +77,44 @@ public class EventTest extends AbstractJsonMapperTests {
     assertEquals("Germany", event.getPlace().getLocation().getCountry());
     assertEquals("66111", event.getPlace().getLocation().getZip());
     assertEquals(49.2349091, event.getPlace().getLocation().getLatitude().doubleValue(), 0.1);
+  }
+
+  @Test
+  public void checkV2_0() {
+    Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/event"), Event.class);
+    assertNotNull(event);
+    assumeThat(event.getDescription(), containsString("chocolate event"));
+    assumeThat(event.getName(), containsString("Chocolate Festival"));
+    assertEquals("Africa/Johannesburg", event.getTimezone());
+    assertEquals("300473363410132", event.getId());
+    assertEquals("OPEN", event.getPrivacy());
+    assertNotNull(event.getLocation());
+    assertEquals("Lourensford Estate", event.getLocation());
+    assertNotNull(event.getOwner());
+    assertNotNull(event.getVenue());
+    assertEquals("181719998521108", event.getVenue().getId());
+    assertEquals(-34.071977375471, event.getVenue().getLatitude(), 0.1);
+    assertEquals(18.888539577026, event.getVenue().getLongitude(), 0.1);
+    assertEquals("Somerset West", event.getVenue().getCity());
+
+  }
+
+  @Test
+  public void checkV2_5() {
+    Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/event-location"), Event.class);
+    assertNotNull(event);
+    assumeThat(event.getDescription(), containsString("chocolate event"));
+    assumeThat(event.getName(), containsString("Chocolate Festival"));
+    assertEquals("Africa/Johannesburg", event.getTimezone());
+    assertEquals("300473363410132", event.getId());
+    assertNotNull(event.getCover());
+    assertNotNull(event.getPlace());
+    assertEquals("Lourensford Estate", event.getPlace().getName());
+    assertNotNull(event.getPlace().getLocation());
+    assertEquals("Somerset West", event.getPlace().getLocation().getCity());
+    assertEquals(-34.071977375471, event.getPlace().getLocation().getLatitude(), 0.1);
+    assertEquals(18.888539577026, event.getPlace().getLocation().getLongitude(), 0.1);
+    assertNotNull(event.getOwner());
   }
 
 }

@@ -31,6 +31,8 @@ import lombok.Setter;
 
 public class DeviceCode implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * Code used in the authorization poll
    */

@@ -39,6 +39,8 @@ import lombok.Setter;
  */
 public class Review extends FacebookType {
 
+  private static final long serialVersionUID = 1L;
+  
   @Facebook("created_time")
   private String rawCreatedTime;
 

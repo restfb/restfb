@@ -265,12 +265,12 @@ public class User extends NamedFacebookType {
    * To force Facebook to fill the <code>picture</code> field you have to fetch the user with the
    * <code>fields=picture</code> parameter, otherwise the picture is <code>null</code>.
    * 
-   * @return the user's picture as picture object
+   * @return the user's picture as ProfilePictureSource object
    * @since 1.6.16
    */
   @Getter
   @Setter
-  private Picture picture;
+  private ProfilePictureSource picture;
 
   /**
    * Duplicate mapping for "hometown" since FB can return it differently in different situations.
@@ -709,13 +709,6 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * @TODO remove this on type refactoring
-   */
-  public static class Picture extends ProfilePictureSource {
-    // nothing here
-  }
-
-  /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Sport Graph API type</a>.
    * 
    * @author Patrick Alberts
@@ -836,6 +829,8 @@ public class User extends NamedFacebookType {
    */
   public static class UserDevice implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook
@@ -873,6 +868,8 @@ public class User extends NamedFacebookType {
 
   public static class AgeRange implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * The lower bounds of the range for this person's age.
      * 
@@ -943,7 +940,7 @@ public class User extends NamedFacebookType {
       return;
 
     String picJson = rawPicture.getJsonObject("data").toString();
-    picture = jsonMapper.toJavaObject(picJson, User.Picture.class);
+    picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
   }
 
   /**

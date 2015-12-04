@@ -31,4 +31,6 @@ import com.restfb.json.JsonObject;
  */
 public class FundingSourceDetails extends JsonObject {
 
+  private static final long serialVersionUID = 1L;
+  
 }

@@ -23,5 +23,5 @@ package com.restfb.scope;
 
 interface FacebookPermissions {
 
-  public String getPermissionString();
+  String getPermissionString();
 }

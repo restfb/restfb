@@ -1,0 +1,30 @@
+{
+  "name": "Winelands Chocolate Festival",
+  "description": "25-26 July at Lourensford Wine Estate - The quality chocolate event this winter!",
+  "start_time": "2015-07-25",
+  "timezone": "Africa/Johannesburg",
+  "cover": {
+    "offset_x": 0,
+    "offset_y": 81,
+    "source": "https://scontent.xx.fbcdn.net/hphotos-xat1/t31.0-8/s720x720/11265394_827751643940852_4220761299600969114_o.jpg",
+    "id": "827751643940852"
+  },
+  "owner": {
+    "name": "Winelands Chocolate Festival",
+    "id": "758920484157302"
+  },
+  "place": {
+    "name": "Lourensford Estate",
+    "location": {
+      "city": "Somerset West",
+      "country": "South Africa",
+      "latitude": -34.071977375471,
+      "longitude": 18.888539577026,
+      "street": "Lourensford Avenue",
+      "zip": "7129"
+    },
+    "id": "181719998521108"
+  },
+  "id": "300473363410132"
+}
+

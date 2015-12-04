@@ -39,6 +39,8 @@ import lombok.Setter;
  * @since 1.6.16
  */
 public class PageRating extends FacebookType {
+  
+  private static final long serialVersionUID = 1L;
 
   @Facebook("created_time")
   private String rawCreatedTime;

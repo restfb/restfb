@@ -35,6 +35,8 @@ import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 import com.restfb.exception.*;
 import com.restfb.exception.devicetoken.*;
+import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
+import com.restfb.exception.generator.FacebookExceptionGenerator;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
@@ -66,9 +68,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   private String appSecret;
 
   /**
-   * Knows how to map Graph API exceptions to formal Java exception types.
+   * facebook exception generator to convert Facebook error json into java exceptions
    */
-  protected FacebookExceptionMapper graphFacebookExceptionMapper;
+  private FacebookExceptionGenerator graphFacebookExceptionGenerator;
 
   protected static final String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
 
@@ -100,16 +102,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String IDS_PARAM_NAME = "ids";
 
   /**
-   * Reserved legacy FQL query parameter name.
-   */
-  protected static final String QUERY_PARAM_NAME = "query";
-
-  /**
-   * Reserved legacy FQL multiquery parameter name.
-   */
-  protected static final String QUERIES_PARAM_NAME = "queries";
-
-  /**
    * Reserved FQL query parameter name.
    */
   protected static final String FQL_QUERY_PARAM_NAME = "q";
@@ -118,51 +110,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Reserved "result format" parameter name.
    */
   protected static final String FORMAT_PARAM_NAME = "format";
-
-  /**
-   * API error response 'error' attribute name.
-   */
-  protected static final String ERROR_ATTRIBUTE_NAME = "error";
-
-  /**
-   * API error response 'type' attribute name.
-   */
-  protected static final String ERROR_TYPE_ATTRIBUTE_NAME = "type";
-
-  /**
-   * API error response 'error_user_title' attribute name.
-   */
-  protected static final String ERROR_USER_TITLE_ATTRIBUTE_NAME = "error_user_title";
-
-  /**
-   * API error response 'error_user_msg' attribute name.
-   */
-  protected static final String ERROR_USER_MSG_ATTRIBUTE_NAME = "error_user_msg";
-
-  /**
-   * API error response 'message' attribute name.
-   */
-  protected static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
-
-  /**
-   * API error response 'code' attribute name.
-   */
-  protected static final String ERROR_CODE_ATTRIBUTE_NAME = "code";
-
-  /**
-   * API error response 'error_subcode' attribute name.
-   */
-  protected static final String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";
-
-  /**
-   * Batch API error response 'error' attribute name.
-   */
-  protected static final String BATCH_ERROR_ATTRIBUTE_NAME = "error";
-
-  /**
-   * Batch API error response 'error_description' attribute name.
-   */
-  protected static final String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
 
   /**
    * Version of API endpoint.
@@ -321,9 +268,28 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
     this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
-    graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
+    graphFacebookExceptionGenerator = new DefaultFacebookExceptionGenerator();
 
     illegalParamNames.addAll(Arrays.asList(ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME));
+  }
+
+  /**
+   * override the default facebook exception generator to provide a custom handling for the facebook error objects
+   * 
+   * @param exceptionGenerator
+   *          the custom exception generator implementing the {@see FacebookExceptionGenerator} interface
+   */
+  public void setFacebookExceptionGenerator(FacebookExceptionGenerator exceptionGenerator) {
+    graphFacebookExceptionGenerator = exceptionGenerator;
+  }
+
+  /**
+   * fetch the current facebook exception generator implementing the {@see FacebookExceptionGenerator} interface
+   * 
+   * @return the current facebook exception generator
+   */
+  public FacebookExceptionGenerator getFacebookExceptionGenerator() {
+    return graphFacebookExceptionGenerator;
   }
 
   /**
@@ -467,64 +433,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
     return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
-  }
-
-  @Override
-  @Deprecated
-  @SuppressWarnings("unchecked")
-  public <T> T executeMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("objectType", objectType);
-
-    for (Parameter parameter : parameters) {
-      if (QUERIES_PARAM_NAME.equals(parameter.name)) {
-        throw new IllegalArgumentException(
-          "You cannot specify the '" + QUERIES_PARAM_NAME + "' URL parameter yourself - "
-              + "RestFB will populate this for you with " + "the queries you passed to this method.");
-      }
-    }
-
-    try {
-      JsonArray jsonArray = new JsonArray(makeRequest("fql.multiquery", false, false, null,
-        parametersWithAdditionalParameter(Parameter.with(QUERIES_PARAM_NAME, queriesToJson(queries)), parameters)));
-
-      JsonObject normalizedJson = new JsonObject();
-
-      for (int i = 0; i < jsonArray.length(); i++) {
-        JsonObject jsonObject = jsonArray.getJsonObject(i);
-
-        // For empty resultsets, Facebook will return an empty object instead of
-        // an empty list. Hack around that here.
-        JsonArray resultsArray = jsonObject.get("fql_result_set") instanceof JsonArray
-            ? jsonObject.getJsonArray("fql_result_set") : new JsonArray();
-
-        normalizedJson.put(jsonObject.getString("name"), resultsArray);
-      }
-
-      return objectType.equals(JsonObject.class) ? (T) normalizedJson
-          : jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
-    } catch (JsonException e) {
-      throw new FacebookJsonMappingException("Unable to process fql.multiquery JSON response", e);
-    }
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#executeQuery(java.lang.String, java.lang.Class, com.restfb.Parameter[])
-   */
-  @Override
-  @Deprecated
-  public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("query", query);
-    verifyParameterPresence("objectType", objectType);
-
-    for (Parameter parameter : parameters) {
-      if (QUERY_PARAM_NAME.equals(parameter.name)) {
-        throw new IllegalArgumentException("You cannot specify the '" + QUERY_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with " + "the query you passed to this method.");
-      }
-    }
-
-    return jsonMapper.toJavaList(makeRequest("fql.query", false, false, null,
-      parametersWithAdditionalParameter(Parameter.with(QUERY_PARAM_NAME, query), parameters)), objectType);
   }
 
   /**
@@ -1038,7 +946,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     String json = response.getBody();
 
     // If the response contained an error code, throw an exception.
-    throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
+    getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
 
     // If there was no response error information and this was a 500 or 401
     // error, something weird happened on Facebook's end. Bail.
@@ -1047,144 +955,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     return json;
-  }
-
-  /**
-   * Throws an exception if Facebook returned an error response. Using the Graph API, it's possible to see both the new
-   * Graph API-style errors as well as Legacy API-style errors, so we have to handle both here. This method extracts
-   * relevant information from the error JSON and throws an exception which encapsulates it for end-user consumption.
-   * <p>
-   * For Graph API errors:
-   * <p>
-   * If the {@code error} JSON field is present, we've got a response status error for this API call.
-   * <p>
-   * For Legacy errors (e.g. FQL):
-   * <p>
-   * If the {@code error_code} JSON field is present, we've got a response status error for this API call.
-   * 
-   * @param json
-   *          The JSON returned by Facebook in response to an API call.
-   * @param httpStatusCode
-   *          The HTTP status code returned by the server, e.g. 500.
-   * @throws FacebookGraphException
-   *           If the JSON contains a Graph API error response.
-   * @throws FacebookResponseStatusException
-   *           If the JSON contains an Legacy API error response.
-   * @throws FacebookJsonMappingException
-   *           If an error occurs while processing the JSON.
-   */
-  protected void throwFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
-    try {
-      skipResponseStatusExceptionParsing(json);
-
-      // If we have a legacy exception, throw it.
-      throwLegacyFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
-
-      // If we have a batch API exception, throw it.
-      throwBatchFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
-
-      JsonObject errorObject = new JsonObject(json);
-
-      if (!errorObject.has(ERROR_ATTRIBUTE_NAME)) {
-        return;
-      }
-
-      JsonObject innerErrorObject = errorObject.getJsonObject(ERROR_ATTRIBUTE_NAME);
-
-      // If there's an Integer error code, pluck it out.
-      Integer errorCode = innerErrorObject.has(ERROR_CODE_ATTRIBUTE_NAME)
-          ? toInteger(innerErrorObject.getString(ERROR_CODE_ATTRIBUTE_NAME)) : null;
-      Integer errorSubcode = innerErrorObject.has(ERROR_SUBCODE_ATTRIBUTE_NAME)
-          ? toInteger(innerErrorObject.getString(ERROR_SUBCODE_ATTRIBUTE_NAME)) : null;
-
-      throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
-        innerErrorObject.optString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
-        innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
-        innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME), errorObject);
-    } catch (JsonException e) {
-      throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
-    } catch (ResponseErrorJsonParsingException ex) {
-      // do nothing here
-    }
-  }
-
-  /**
-   * If the {@code error} and {@code error_description} JSON fields are present, we've got a response status error for
-   * this batch API call. Extracts relevant information from the JSON and throws an exception which encapsulates it for
-   * end-user consumption.
-   * 
-   * @param json
-   *          The JSON returned by Facebook in response to a batch API call.
-   * @param httpStatusCode
-   *          The HTTP status code returned by the server, e.g. 500.
-   * @throws FacebookResponseStatusException
-   *           If the JSON contains an error code.
-   * @throws FacebookJsonMappingException
-   *           If an error occurs while processing the JSON.
-   * @since 1.6.5
-   */
-  protected void throwBatchFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
-    try {
-      skipResponseStatusExceptionParsing(json);
-
-      JsonObject errorObject = silentlyCreateObjectFromString(json);
-
-      if (errorObject == null || !errorObject.has(BATCH_ERROR_ATTRIBUTE_NAME)
-          || !errorObject.has(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME))
-        return;
-
-      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
-        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME), null, null,
-        errorObject);
-    } catch (JsonException e) {
-      throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
-    } catch (ResponseErrorJsonParsingException ex) {
-      // do nothing here
-    }
-  }
-
-  /**
-   * Specifies how we map Graph API exception types/messages to real Java exceptions.
-   * <p>
-   * Uses an instance of {@link DefaultGraphFacebookExceptionMapper} by default.
-   * 
-   * @return An instance of the exception mapper we should use.
-   * @since 1.6
-   */
-  protected FacebookExceptionMapper createGraphFacebookExceptionMapper() {
-    return new DefaultGraphFacebookExceptionMapper();
-  }
-
-  /**
-   * A canned implementation of {@code FacebookExceptionMapper} that maps Graph API exceptions.
-   * <p>
-   * Thanks to BatchFB's Jeff Schnitzer for doing some of the legwork to find these exception type names.
-   * 
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6.3
-   */
-  protected static class DefaultGraphFacebookExceptionMapper implements FacebookExceptionMapper {
-    /**
-     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
-     *      String, String, String, JsonObject)
-     */
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-        String type, String message, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
-      if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type)) {
-        return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage, rawError);
-      }
-
-      if ("QueryParseException".equals(type)) {
-        return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage, rawError);
-      }
-
-      // Don't recognize this exception type? Just go with the standard
-      // FacebookGraphException.
-      return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-        errorUserMessage, rawError);
-    }
   }
 
   /**
