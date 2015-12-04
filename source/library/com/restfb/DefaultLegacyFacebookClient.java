@@ -326,7 +326,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     String json = response.getBody();
 
     // If the response contained an error code, throw an exception
-    throwLegacyFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
+    getLegacyFacebookExceptionGenerator().throwLegacyFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
 
     return json;
   }

@@ -21,14 +21,11 @@
  */
 package com.restfb;
 
-import static com.restfb.util.StringUtils.ENCODING_CHARSET;
-import static com.restfb.util.StringUtils.fromInputStream;
-import static com.restfb.util.UrlUtils.urlDecode;
 import static java.lang.String.format;
-import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.logging.Level.*;
 
 import com.restfb.util.StringUtils;
+import com.restfb.util.UrlUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -113,7 +110,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
     if (LOGGER.isLoggable(FINE)) {
       LOGGER.fine("Executing a POST to " + url + " with parameters "
-          + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + urlDecode(parameters)
+          + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + UrlUtils.urlDecode(parameters)
           + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
     }
 
@@ -160,15 +157,15 @@ public class DefaultWebRequestor implements WebRequestor {
 
           stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE);
 
-          outputStream.write(stringBuilder.toString().getBytes(ENCODING_CHARSET));
+          outputStream.write(stringBuilder.toString().getBytes(StringUtils.ENCODING_CHARSET));
 
           write(binaryAttachment.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
 
           outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
-              + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(ENCODING_CHARSET));
+              + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(StringUtils.ENCODING_CHARSET));
         }
       } else {
-        outputStream.write(parameters.getBytes(ENCODING_CHARSET));
+        outputStream.write(parameters.getBytes(StringUtils.ENCODING_CHARSET));
       }
 
       if (LOGGER.isLoggable(FINER)) {
@@ -181,15 +178,15 @@ public class DefaultWebRequestor implements WebRequestor {
       }
 
       try {
-        inputStream = httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream()
-            : httpUrlConnection.getInputStream();
+        inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
+            ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         if (LOGGER.isLoggable(WARNING)) {
           LOGGER.log(WARNING, "An error occurred while POSTing to {0}: {1}", new Object[] { url, e });
         }
       }
 
-      return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
+      return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
     } finally {
       if (autocloseBinaryAttachmentStream && binaryAttachments.length > 0) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
@@ -377,8 +374,8 @@ public class DefaultWebRequestor implements WebRequestor {
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
     InputStream inputStream = null;
     try {
-      inputStream = httpUrlConnection.getResponseCode() != HTTP_OK ? httpUrlConnection.getErrorStream()
-          : httpUrlConnection.getInputStream();
+      inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
+          ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
     } catch (IOException e) {
       if (LOGGER.isLoggable(WARNING)) {
         LOGGER.warning(
@@ -387,7 +384,7 @@ public class DefaultWebRequestor implements WebRequestor {
       }
     }
 
-    return new Response(httpUrlConnection.getResponseCode(), fromInputStream(inputStream));
+    return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
   }
 
 }

@@ -43,12 +43,8 @@ public class ApiCheckGenerator extends BaseTestCheck {
       joinMethods(fetchMethodsFromClass(CategorizedFacebookType.class)));
     props.setProperty("Category.methods", joinMethods(fetchMethodsFromClass(Category.class)));
     props.setProperty("Checkin.methods", joinMethods(fetchMethodsFromClass(Checkin.class)));
-    props.setProperty("Checkin.Place.methods", joinMethods(fetchMethodsFromClass(Checkin.Place.class)));
     props.setProperty("Comment.methods", joinMethods(fetchMethodsFromClass(Comment.class)));
-    props.setProperty("Comment.Attachment.methods", joinMethods(fetchMethodsFromClass(Comment.Attachment.class)));
     props.setProperty("Comment.Comments.methods", joinMethods(fetchMethodsFromClass(Comment.Comments.class)));
-    props.setProperty("Comment.Image.methods", joinMethods(fetchMethodsFromClass(Comment.Image.class)));
-    props.setProperty("Comment.Media.methods", joinMethods(fetchMethodsFromClass(Comment.Media.class)));
     props.setProperty("Conversation.methods", joinMethods(fetchMethodsFromClass(Conversation.class)));
     props.setProperty("Conversation.Tag.methods", joinMethods(fetchMethodsFromClass(Conversation.Tag.class)));
     props.setProperty("DeAuth.methods", joinMethods(fetchMethodsFromClass(DeAuth.class)));
@@ -77,11 +73,7 @@ public class ApiCheckGenerator extends BaseTestCheck {
     props.setProperty("Place.methods", joinMethods(fetchMethodsFromClass(Place.class)));
     props.setProperty("Post.methods", joinMethods(fetchMethodsFromClass(Post.class)));
     props.setProperty("Post.Action.methods", joinMethods(fetchMethodsFromClass(Post.Action.class)));
-    props.setProperty("Post.Comments.methods", joinMethods(fetchMethodsFromClass(Post.Comments.class)));
-    props.setProperty("Post.Likes.methods", joinMethods(fetchMethodsFromClass(Post.Likes.class)));
     props.setProperty("Post.MessageTag.methods", joinMethods(fetchMethodsFromClass(Post.MessageTag.class)));
-    props.setProperty("Post.Place.methods", joinMethods(fetchMethodsFromClass(Post.Place.class)));
-    props.setProperty("Post.Privacy.methods", joinMethods(fetchMethodsFromClass(Post.Privacy.class)));
     props.setProperty("Post.Property.methods", joinMethods(fetchMethodsFromClass(Post.Property.class)));
     props.setProperty("Post.Shares.methods", joinMethods(fetchMethodsFromClass(Post.Shares.class)));
     props.setProperty("Question.methods", joinMethods(fetchMethodsFromClass(Question.class)));
@@ -97,10 +89,8 @@ public class ApiCheckGenerator extends BaseTestCheck {
     props.setProperty("User.Currency.methods", joinMethods(fetchMethodsFromClass(User.Currency.class)));
     props.setProperty("User.Education.methods", joinMethods(fetchMethodsFromClass(User.Education.class)));
     props.setProperty("User.EducationClass.methods", joinMethods(fetchMethodsFromClass(User.EducationClass.class)));
-    props.setProperty("User.Picture.methods", joinMethods(fetchMethodsFromClass(User.Picture.class)));
     props.setProperty("User.Sport.methods", joinMethods(fetchMethodsFromClass(User.Sport.class)));
     props.setProperty("User.Work.methods", joinMethods(fetchMethodsFromClass(User.Work.class)));
-    props.setProperty("Venue.methods", joinMethods(fetchMethodsFromClass(Venue.class)));
     props.setProperty("Video.methods", joinMethods(fetchMethodsFromClass(Video.class)));
 
     FileOutputStream out = new FileOutputStream("source/test/resources/api.properties");

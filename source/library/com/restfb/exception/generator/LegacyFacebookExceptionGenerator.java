@@ -19,41 +19,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.setter;
+package com.restfb.exception.generator;
 
-import com.restfb.types.Comment;
-import com.restfb.types.api.SetterGetterTestBase;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.exception.FacebookResponseStatusException;
 
-import org.junit.Test;
+/**
+ * Generator to convert Facebook error JSON into RestFB Exceptions.
+ *
+ * <p>
+ * Only used to handle errors in case of legacy Facebook access.
+ */
+public interface LegacyFacebookExceptionGenerator {
 
-public class CommentTest extends SetterGetterTestBase {
-
-  @Test
-  public void test() {
-    Comment obj = new Comment();
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawMessageTags");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testAttachment() {
-    Comment.Attachment obj = new Comment.Attachment();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testImage() {
-    Comment.Image obj = new Comment.Image();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testMedia() {
-    Comment.Media obj = new Comment.Media();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
+  /**
+   * If the {@code error_code} JSON field is present, we've got a response status error for this API call. Extracts
+   * relevant information from the JSON and throws an exception which encapsulates it for end-user consumption.
+   *
+   * @param json
+   *          The JSON returned by Facebook in response to an API call.
+   * @param httpStatusCode
+   *          The HTTP status code returned by the server, e.g. 500.
+   * @throws FacebookResponseStatusException
+   *           If the JSON contains an error code.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs while processing the JSON.
+   */
+  void throwLegacyFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode);
 }

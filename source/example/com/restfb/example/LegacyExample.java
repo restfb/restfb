@@ -143,6 +143,7 @@ public class LegacyExample extends Example {
     @Facebook
     List<Affiliation> affiliations;
 
+    @Override
     public String toString() {
       return format("Name: %s\nProfile Image URL: %s\nAffiliations: %s", name, pictureUrl, affiliations);
     }
@@ -155,6 +156,7 @@ public class LegacyExample extends Example {
     @Facebook
     String type;
 
+    @Override
     public String toString() {
       return format("%s (%s)", name, type);
     }

@@ -37,7 +37,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.8
  */
-public class Location implements Serializable {
+public class Location extends FacebookType {
 
   /**
    * The street address of this location.

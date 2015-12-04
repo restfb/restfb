@@ -23,9 +23,9 @@ package com.restfb;
 
 import static org.junit.Assert.assertEquals;
 
+import com.restfb.types.Comments;
+import com.restfb.types.Likes;
 import com.restfb.types.Post;
-import com.restfb.types.Post.Comments;
-import com.restfb.types.Post.Likes;
 
 import org.junit.Assert;
 import org.junit.Test;

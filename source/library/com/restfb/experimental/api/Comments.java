@@ -31,7 +31,7 @@ public interface Comments {
    * @param commentId
    * @return
    */
-  public Comment get(String commentId);
+  Comment get(String commentId);
 
   /**
    * hide the comment.
@@ -41,16 +41,15 @@ public interface Comments {
    * @param commentId
    * @return
    */
-  public boolean hide(String commentId);
+  boolean hide(String commentId);
 
   /**
    * unhide the comment.
    * 
-   * 
    * @param commentId
    * @return
    */
-  public boolean unhide(String commentId);
+  boolean unhide(String commentId);
 
   /**
    * delete the comment.
@@ -58,7 +57,7 @@ public interface Comments {
    * @param commentId
    * @return
    */
-  public boolean delete(String commentId);
+  boolean delete(String commentId);
 
   /**
    * update the comment message.
@@ -67,7 +66,7 @@ public interface Comments {
    * @param updatedMessage
    * @return
    */
-  public boolean update(String commentId, String updatedMessage);
+  boolean update(String commentId, String updatedMessage);
 
   /**
    * like the comment.
@@ -75,7 +74,7 @@ public interface Comments {
    * @param commentId
    * @return
    */
-  public boolean like(String commentId);
+  boolean like(String commentId);
 
   /**
    * unlike the comment.
@@ -83,5 +82,5 @@ public interface Comments {
    * @param commentId
    * @return
    */
-  public boolean unLike(String commentId);
+  boolean unLike(String commentId);
 }

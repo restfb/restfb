@@ -87,6 +87,7 @@ public class JsonObject implements Serializable {
      * 
      * @return NULL.
      */
+    @Override
     protected final Object clone() {
       return this;
     }
@@ -98,6 +99,7 @@ public class JsonObject implements Serializable {
      *          An object to test for nullness.
      * @return true if the object parameter is the JsonObject.NULL object or null.
      */
+    @Override
     public boolean equals(Object object) {
       return object == null || object == this;
     }
@@ -107,6 +109,7 @@ public class JsonObject implements Serializable {
      * 
      * @return The string "null".
      */
+    @Override
     public String toString() {
       return "null";
     }
@@ -1269,6 +1272,7 @@ public class JsonObject implements Serializable {
    *         <code>{</code>&nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right
    *         brace)</small>.
    */
+  @Override
   public String toString() {
     try {
       Iterator<?> keys = keys();

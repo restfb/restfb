@@ -140,10 +140,10 @@ public final class Parameter {
 
     Parameter other = (Parameter) obj;
 
-    if (this.name != other.name && (!this.name.equals(other.name))) {
+    if (this.name != other.name && !this.name.equals(other.name)) {
       return false;
     }
-    if (this.value != other.value && (!this.value.equals(other.value))) {
+    if (this.value != other.value && !this.value.equals(other.value)) {
       return false;
     }
 
