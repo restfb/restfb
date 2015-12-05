@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * a DateFormat strategy that returns a cached SimpleDateFormat instance.
@@ -71,6 +72,7 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
       SimpleDateFormat formatter = formatterMap.get(pattern);
       if (formatter == null) {
         formatter = new SimpleDateFormat(pattern);
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         formatterMap.put(pattern, formatter);
       }
 

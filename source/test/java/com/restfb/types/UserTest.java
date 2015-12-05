@@ -89,8 +89,8 @@ public class UserTest extends AbstractJsonMapperTests {
     assertEquals(1, workList.size());
     User.Work work = workList.get(0);
     assertNotNull(work.getStartDate());
-    assertEquals(1193871600000L, work.getStartDate().getTime());
+    assertEquals(1193875200000L, work.getStartDate().getTime());
     assertNotNull(work.getEndDate());
-    assertEquals(1348956000000L, work.getEndDate().getTime());
+    assertEquals(1348963200000L, work.getEndDate().getTime());
   }
 }

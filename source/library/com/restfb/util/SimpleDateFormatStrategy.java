@@ -23,6 +23,7 @@ package com.restfb.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  * a simple DateFormat strategy.
@@ -36,7 +37,9 @@ public class SimpleDateFormatStrategy implements DateFormatStrategy {
 
   @Override
   public DateFormat formatFor(String format) {
-    return new SimpleDateFormat(format);
+    SimpleDateFormat formatter = new SimpleDateFormat(format);
+    formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+    return formatter;
   }
 
 }
