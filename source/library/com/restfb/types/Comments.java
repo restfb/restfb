@@ -71,7 +71,7 @@ public class Comments implements Serializable {
   private Boolean canComment;
 
   @Facebook
-  private JsonObject summary = null;
+  private JsonObject summary;
 
   @Facebook
   private List<Comment> data = new ArrayList<Comment>();

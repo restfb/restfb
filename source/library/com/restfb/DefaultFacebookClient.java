@@ -119,7 +119,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * By default this is <code>false</code>, so real http DELETE is used
    */
-  protected boolean httpDeleteFallback = false;
+  protected boolean httpDeleteFallback;
 
   /**
    * Creates a Facebook Graph API client with no access token.
