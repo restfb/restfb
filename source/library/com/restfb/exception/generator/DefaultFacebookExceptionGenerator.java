@@ -167,6 +167,7 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
      *      String, String, String, JsonObject)
      */
+    @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
         String type, String message, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type)) {
