@@ -46,7 +46,7 @@ public class BinaryAttachment {
   private byte[] data;
   private InputStream dataStream;
   @Getter
-  private String contentType = null;
+  private String contentType;
 
   /**
    * Creates a new binary attachment.

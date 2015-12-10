@@ -68,7 +68,7 @@ public class Url extends FacebookType {
    */
   @Getter
   @Setter
-  private int commentCount = 0;
+  private int commentCount;
 
   /**
    * The number of shares of this URL on Facebook.
@@ -79,7 +79,7 @@ public class Url extends FacebookType {
    */
   @Getter
   @Setter
-  private int shareCount = 0;
+  private int shareCount;
 
   @JsonMappingCompleted
   void fillCounts() {
