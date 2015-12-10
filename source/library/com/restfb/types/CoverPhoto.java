@@ -32,6 +32,8 @@ import lombok.Setter;
  */
 public class CoverPhoto extends FacebookType {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * Deprecated. Please use the {@see CoverPhoto#id} field instead
    * 

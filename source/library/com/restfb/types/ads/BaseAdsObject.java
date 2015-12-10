@@ -34,6 +34,8 @@ import lombok.Setter;
  */
 public class BaseAdsObject implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
   @Getter
   @Setter
   @Facebook

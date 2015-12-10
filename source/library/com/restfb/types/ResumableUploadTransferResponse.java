@@ -32,6 +32,8 @@ import lombok.Getter;
  */
 public class ResumableUploadTransferResponse extends BasicAbstractType {
 
+  private static final long serialVersionUID = 1L;
+  
   @Getter
   @Facebook("start_offset")
   private Long startOffset;

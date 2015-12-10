@@ -40,6 +40,8 @@ import lombok.Setter;
  */
 public class VideoList extends FacebookType {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * Description of the playlist
    */

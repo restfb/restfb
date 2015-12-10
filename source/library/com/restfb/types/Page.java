@@ -1089,6 +1089,8 @@ public class Page extends CategorizedFacebookType {
 
   public static class MailingAddress implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * The mailing address ID.
      */
@@ -1164,6 +1166,8 @@ public class Page extends CategorizedFacebookType {
    */
   public static class Engagement implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * Number of people who like this.
      * 
@@ -1243,6 +1247,8 @@ public class Page extends CategorizedFacebookType {
    */
   public static class VoipInfo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook("has_permission")
@@ -1287,6 +1293,8 @@ public class Page extends CategorizedFacebookType {
    */
   public static class PageStartInfo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook
@@ -1300,6 +1308,8 @@ public class Page extends CategorizedFacebookType {
 
   public static class PageStartDate implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook
@@ -1324,6 +1334,8 @@ public class Page extends CategorizedFacebookType {
    */
   public static class PagePaymentOptions implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * Whether the business accepts American Express as a payment option.
      */
@@ -1373,6 +1385,8 @@ public class Page extends CategorizedFacebookType {
    */
   public static class PageRestaurantServices implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook
@@ -1427,6 +1441,8 @@ public class Page extends CategorizedFacebookType {
    */
   public static class PageRestaurantSpecialties implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook
@@ -1461,6 +1477,8 @@ public class Page extends CategorizedFacebookType {
    */
   public static class Settings implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook

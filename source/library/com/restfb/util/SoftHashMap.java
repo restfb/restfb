@@ -32,6 +32,9 @@ import java.lang.ref.SoftReference;
 import java.util.*;
 
 public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
+  
   /** The internal HashMap that will hold the SoftReference. */
   private final Map<K, SoftReference<V>> hash = new HashMap<K, SoftReference<V>>();
 

@@ -736,6 +736,9 @@ public interface FacebookClient {
    * @author Broc Seib
    */
   class DebugTokenInfo implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+
     @Facebook("app_id")
     private String appId;
 
@@ -860,6 +863,8 @@ public interface FacebookClient {
 
   class DebugTokenError implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Facebook
     private Integer code;
 

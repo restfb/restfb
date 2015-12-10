@@ -32,6 +32,8 @@ import lombok.Getter;
  */
 public class ResumableUploadStartResponse extends ResumableUploadTransferResponse {
 
+  private static final long serialVersionUID = 1L;
+  
   @Getter
   @Facebook("upload_session_id")
   private String uploadSessionId;
