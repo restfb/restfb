@@ -39,6 +39,8 @@ import lombok.Setter;
  */
 public class AdSet extends NamedAdsObject {
 
+  private static final long serialVersionUID = 1L;
+  
   @Getter
   @Setter
   @Facebook("adcampaign_group")

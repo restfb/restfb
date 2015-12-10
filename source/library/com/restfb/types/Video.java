@@ -420,6 +420,8 @@ public class Video extends NamedFacebookType {
    */
   public static class Thumbnail implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * The name of the thumbnail
      */
@@ -475,6 +477,8 @@ public class Video extends NamedFacebookType {
    */
   public static class VideoFormat implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * HTML to embed the video in this format.
      * 
@@ -532,6 +536,8 @@ public class Video extends NamedFacebookType {
    */
   public static class VideoStatus implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * Status of a video.
      * 

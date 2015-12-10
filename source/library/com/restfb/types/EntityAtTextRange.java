@@ -33,6 +33,8 @@ import lombok.Setter;
  */
 public class EntityAtTextRange extends NamedFacebookType {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * The object itself
    *

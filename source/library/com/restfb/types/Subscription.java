@@ -38,6 +38,8 @@ import lombok.Setter;
  */
 public class Subscription implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * Indicates the object type that this subscription applies to.
    * 

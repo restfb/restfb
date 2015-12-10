@@ -218,6 +218,8 @@ public class StoryAttachment extends FacebookType {
    */
   public static class Target extends FacebookType {
 
+    private static final long serialVersionUID = 1L;
+    
     @Getter
     @Setter
     @Facebook

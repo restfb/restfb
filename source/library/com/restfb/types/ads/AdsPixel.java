@@ -33,6 +33,8 @@ import lombok.Setter;
 
 public class AdsPixel extends NamedAdsObject {
 
+  private static final long serialVersionUID = 1L;
+  
   @Facebook
   @Getter
   @Setter

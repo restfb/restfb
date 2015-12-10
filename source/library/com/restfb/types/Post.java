@@ -408,6 +408,9 @@ public class Post extends NamedFacebookType {
    * @since 1.6.10
    */
   public static class MessageTag extends com.restfb.types.MessageTag {
+    
+    private static final long serialVersionUID = 1L;
+    
     // remove this on next major release
   }
 
@@ -535,6 +538,8 @@ public class Post extends NamedFacebookType {
 
   public static class Targeting implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Facebook
     protected List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
     @Facebook
@@ -647,6 +652,8 @@ public class Post extends NamedFacebookType {
    */
   public static class FeedTargeting extends Targeting {
 
+    private static final long serialVersionUID = 1L;
+    
     /**
      * Maximum age.
      */

@@ -37,6 +37,8 @@ import lombok.Setter;
  */
 public class ProfilePictureSource implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
   /**
    * URL of the profile picture
    * 
