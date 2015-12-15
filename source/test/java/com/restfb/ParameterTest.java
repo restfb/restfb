@@ -21,17 +21,17 @@
  */
 package com.restfb;
 
-import org.json.JSONException;
+import com.restfb.testutils.AssertJson;
+
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 
 public class ParameterTest {
 
   @Test
-  public void emptyFacebookList() throws JSONException {
+  public void emptyFacebookList() {
     JsonMapperToJsonTest.ListObject obj = new JsonMapperToJsonTest.ListObject();
     String val = Parameter.with("key", obj).value;
-    JSONAssert.assertEquals("{id: 12345}", val, true);
+    AssertJson.assertEquals("{\"id\": 12345}", val);
   }
 
 }

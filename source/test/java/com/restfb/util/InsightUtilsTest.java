@@ -28,15 +28,13 @@ import com.restfb.*;
 import com.restfb.json.Json;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
+import com.restfb.testutils.AssertJson;
 import com.restfb.util.InsightUtils.*;
 
-import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -325,7 +323,7 @@ public class InsightUtilsTest {
   }
 
   @Test
-  public void executeInsightQueriesByDate1() throws IOException, JSONException {
+  public void executeInsightQueriesByDate1() throws IOException {
     // note that the query that is passed to the FacebookClient WebRequestor is
     // ignored,
     // so arguments of executeInsightQueriesByDate:
@@ -343,11 +341,11 @@ public class InsightUtilsTest {
     // not ideal that this test requires on a stable JsonArray.toString()
     String expectedJson =
         "[{\"metric\":\"page_fans\",\"value\":3777},{\"metric\":\"page_fans_gender\",\"value\":{\"U\":58,\"F\":1656,\"M\":2014}}]";
-    JSONAssert.assertEquals(expectedJson, ja.toString(), JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedJson, ja.toString());
   }
 
   @Test
-  public void executeInsightQueriesByDate2() throws IOException, ParseException, JSONException {
+  public void executeInsightQueriesByDate2() throws IOException, ParseException {
     // note that the query that is passed to the FacebookClient WebRequestor is
     // ignored,
     // so arguments of executeInsightQueriesByDate:
@@ -383,28 +381,28 @@ public class InsightUtilsTest {
               "[{\"metric\":\"page_active_users\",\"value\":761},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":2,\"app_4949752878\":3,\"wall\":30}}]")
       .toString();
     actualString = results.get(d20030629_0000pst).toString();
-    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedString, actualString);
 
     expectedString = Json
       .parse(
               "[{\"metric\":\"page_active_users\",\"value\":705},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"photos\":1,\"app_2373072738\":2,\"wall\":23}}]")
       .toString();
     actualString = results.get(d20030630_0000pst).toString();
-    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedString, actualString);
 
     expectedString = Json
       .parse(
               "[{\"metric\":\"page_active_users\",\"value\":582},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"app_4949752878\":1,\"wall\":12}}]")
       .toString();
     actualString = results.get(d20030701_0000pst).toString();
-    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedString, actualString);
 
     expectedString = Json
       .parse(
               "[{\"metric\":\"page_active_users\",\"value\":125},{\"metric\":\"page_tab_views_login_top_unique\",\"value\":{\"photos\":1,\"wall\":11}}]")
       .toString();
     actualString = results.get(d20030702_0000pst).toString();
-    JSONAssert.assertEquals(expectedString, actualString, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedString, actualString);
   }
 
   @Test

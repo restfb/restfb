@@ -21,21 +21,13 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonObject;
-import org.json.JSONException;
-import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
+import com.restfb.testutils.AssertJson;
 
-import org.json.JSONException;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -69,17 +61,17 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void emptyFacebookList() throws JSONException {
+  public void emptyFacebookList() {
     ListObject obj = new ListObject();
     String json = createJsonMapper().toJson(obj, true);
-    JSONAssert.assertEquals("{id: 12345}", json, true);
+    AssertJson.assertEquals("{\"id\": 12345}", json);
   }
 
   @Test
-  public void emptyFacebookMap() throws JSONException {
+  public void emptyFacebookMap() {
     MapObject obj = new MapObject();
     String json = createJsonMapper().toJson(obj, true);
-    JSONAssert.assertEquals("{id: 12345}", json, true);
+    AssertJson.assertEquals("{\"id\": 12345}", json);
   }
 
   /**
@@ -114,20 +106,20 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle a basic Javabean?
    */
   @Test
-  public void basicJavabean() throws JSONException {
+  public void basicJavabean() {
     BasicUser basicUser = new BasicUser();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
     String json = createJsonMapper().toJson(basicUser);
     String expectedJson = "{\"uid\":12345,\"name\":\"Fred\"}";
-    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   /**
    * Can we handle a more complex Javabean?
    */
   @Test
-  public void complexJavabean() throws JSONException {
+  public void complexJavabean() {
     UserWithPhotos userWithPhotos = new UserWithPhotos();
     userWithPhotos.uid = 12345L;
     userWithPhotos.name = null;
@@ -141,7 +133,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(userWithPhotos);
     String expectedJson =
         "{\"uid\":12345,\"photos\":[{\"id\":null,\"location\":null},{\"id\":5678,\"location\":\"Las Vegas\"}],\"name\":null}";
-    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   /**
@@ -150,7 +142,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * See http://wiki.developers.facebook.com/index.php/Attachment_(Streams).
    */
   @Test
-  public void streamPublish() throws JSONException {
+  public void streamPublish() {
     ActionLink category = new ActionLink();
     category.href = "http://bit.ly/KYbaN";
     category.text = "humor";
@@ -179,11 +171,11 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(attachment);
     String expectedJson =
         "{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}";
-    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   @Test
-  public void specialTypes() throws JSONException {
+  public void specialTypes() {
     JsonMapper jsonMapper = createJsonMapper();
     SpecialJavaTypes special = new SpecialJavaTypes();
     special.decimal = new BigDecimal("1234567.4");
@@ -192,7 +184,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String string = jsonMapper.toJson(special);
     String expectedJson = "{\"integer\":1234567, \"decimal\":1234567.4}";
 
-    JSONAssert.assertEquals(expectedJson, string, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedJson, string);
   }
 
   /**
@@ -207,7 +199,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle a Map?
    */
   @Test
-  public void map() throws JSONException {
+  public void map() {
     UserWithPhotos basicUser = new UserWithPhotos();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
@@ -220,7 +212,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(map);
     String expectedJson =
         "{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}";
-    JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.NON_EXTENSIBLE);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   @Test
