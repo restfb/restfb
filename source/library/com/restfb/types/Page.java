@@ -28,10 +28,12 @@ import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
+import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -1011,6 +1013,18 @@ public class Page extends CategorizedFacebookType {
   @Facebook("press_contact")
   private String pressContact;
 
+  @Facebook("last_used_time")
+  private String rawLastUsedTime;
+
+  /**
+   * last used time of this object by the current viewer
+   *
+   * @return last used time of this object by the current viewer
+   */
+  @Getter
+  @Setter
+  private Date lastUsedTime;
+
   @Facebook("category_list")
   private List<Category> categoryList = new ArrayList<Category>();
 
@@ -1021,6 +1035,11 @@ public class Page extends CategorizedFacebookType {
   private List<String> foodStyles = new ArrayList<String>();
 
   private static final long serialVersionUID = 2L;
+
+  @JsonMappingCompleted
+  protected void fillDates(JsonMapper jsonMapper) {
+    lastUsedTime = DateUtils.toDateFromLongFormat(rawLastUsedTime);
+  }
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Cover Graph API type</a>.
@@ -1091,7 +1110,7 @@ public class Page extends CategorizedFacebookType {
   public static class MailingAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * The mailing address ID.
      */
@@ -1168,7 +1187,7 @@ public class Page extends CategorizedFacebookType {
   public static class Engagement implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Number of people who like this.
      * 
@@ -1249,7 +1268,7 @@ public class Page extends CategorizedFacebookType {
   public static class VoipInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook("has_permission")
@@ -1295,7 +1314,7 @@ public class Page extends CategorizedFacebookType {
   public static class PageStartInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook
@@ -1310,7 +1329,7 @@ public class Page extends CategorizedFacebookType {
   public static class PageStartDate implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook
@@ -1336,7 +1355,7 @@ public class Page extends CategorizedFacebookType {
   public static class PagePaymentOptions implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Whether the business accepts American Express as a payment option.
      */
@@ -1387,7 +1406,7 @@ public class Page extends CategorizedFacebookType {
   public static class PageRestaurantServices implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook
@@ -1443,7 +1462,7 @@ public class Page extends CategorizedFacebookType {
   public static class PageRestaurantSpecialties implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook
@@ -1479,7 +1498,7 @@ public class Page extends CategorizedFacebookType {
   public static class Settings implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook
