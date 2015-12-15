@@ -106,4 +106,11 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals("https://fbcdn-profile-a.akamaihd.net/testpicture.jpg", page.getPicture().getUrl());
   }
 
+  @Test
+  public void checkV2_5_lastusedtime() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-lastusedtime"), Page.class);
+    assertNotNull(page);
+    assertEquals(1413059309000L, page.getLastUsedTime().getTime());
+  }
+
 }
