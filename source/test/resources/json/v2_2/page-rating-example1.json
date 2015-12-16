@@ -1,0 +1,65 @@
+{
+  "message": "Everything is nice here!",
+  "start_time": "2015-11-29T11:03:21+0000",
+  "type": "places.rates",
+  "application": {
+    "link": "https://www.facebook.com/games/?app_id=302324425790",
+    "name": "Places",
+    "namespace": "app_places",
+    "id": "302324425790"
+  },
+  "comments": {
+    "data": [
+      {
+        "created_time": "2015-11-29T11:09:46+0000",
+        "from": {
+          "name": "Norbert Bartels",
+          "id": "705955836155788"
+        },
+        "message": "Und es geht noch weiter :D",
+        "can_remove": false,
+        "like_count": 0,
+        "user_likes": false,
+        "id": "904801129604590_904802532937783"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "WTI5dGJXVnVkRjlqZAFhKemIzSTZAPVEEwT0RBeU5UTXlPVE0zTnpnek9qRTBORGczT1RVek9EWT0ZD",
+        "after": "WTI5dGJXVnVkRjlqZAFhKemIzSTZAPVEEwT0RBeU5UTXlPVE0zTnpnek9qRTBORGczT1RVek9EWT0ZD"
+      }
+    },
+    "can_comment": true,
+    "comment_order": "chronological",
+    "count": 1
+  },
+  "from": {
+    "name": "Example Reviewer",
+    "id": "123456789"
+  },
+  "likes": {
+    "data": [
+    ],
+    "can_like": true,
+    "count": 0,
+    "user_likes": false
+  },
+  "no_feed_story": false,
+  "publish_time": "2015-11-29T11:03:21+0000",
+  "data": {
+    "rating": {
+      "value": 3,
+      "scale": 5
+    },
+    "review_text": "Ja ziemlich coole Sache, und die neue Sache mit dem längeren Text hilft ziemlich gut",
+    "is_draft": false,
+    "language": "de",
+    "generic_place": {
+      "id": "349489628480201",
+      "title": "Testers Paradise",
+      "type": "place",
+      "url": "https://www.facebook.com/Testers-Paradise-349489628480201/"
+    }
+  },
+  "id": "904801129604590"
+}

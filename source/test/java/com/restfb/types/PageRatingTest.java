@@ -21,23 +21,50 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-
 import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
 
 import java.util.Date;
 
+import static org.junit.Assert.*;
+
 public class PageRatingTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check() {
-    PageRating exampleRating = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/page-rating"), PageRating.class);
-    assertEquals(new Date(1409827400000L), exampleRating.getCreatedTime());
+  public void check_2_2() {
+    PageRating exampleRating = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/page-rating-example1"), PageRating.class);
+    assertEquals(1448795001000L, exampleRating.getStartTime().getTime());
     assertEquals("123456789", exampleRating.getFrom().getId());
-    assertEquals("Tester", exampleRating.getFrom().getName());
-    assertEquals(4, exampleRating.getRating());
-    assertEquals("Everything is nice here!", exampleRating.getReview());
+    assertEquals("Example Reviewer", exampleRating.getFrom().getName());
+    assertEquals("Everything is nice here!", exampleRating.getMessage());
+
+    assertNotNull(exampleRating.getComments());
+    Comments comments = exampleRating.getComments();
+    assertEquals("chronological", comments.getOrder());
+    assertEquals(1L, comments.getTotalCount().longValue());
+    assertTrue(comments.getCanComment());
+
+    assertNotNull(exampleRating.getLikes());
+    Likes likes = exampleRating.getLikes();
+    assertEquals(0L, likes.getTotalCount().longValue());
+    assertTrue(likes.getCanLike());
+    assertFalse(likes.getHasLiked());
+
+    assertNotNull(exampleRating.getPlace());
+    Place place = exampleRating.getPlace();
+    assertEquals("349489628480201", place.getId());
+    assertEquals("place", place.getType());
+
+    assertNotNull(exampleRating.getApplication());
+    Application appl = exampleRating.getApplication();
+    assertEquals("Places", appl.getName());
+    assertEquals("302324425790", appl.getId());
+    assertEquals("https://www.facebook.com/games/?app_id=302324425790", appl.getLink());
+
+    assertFalse(exampleRating.getIsDraft());
+    assertEquals(3D, exampleRating.getRatingValue().doubleValue(), 00.1);
+    assertEquals(5L, exampleRating.getRatingScale().intValue());
+
   }
 }

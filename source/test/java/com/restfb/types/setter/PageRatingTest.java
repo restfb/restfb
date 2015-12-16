@@ -33,6 +33,9 @@ public class PageRatingTest extends SetterGetterTestBase {
     PageRating obj = new PageRating();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawStartTime");
+    addIgnoredField("rawPublishTime");
+    addIgnoredField("data");
     testInstance(obj);
   }
 

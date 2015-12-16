@@ -70,8 +70,17 @@ public class Comments implements Serializable {
   @Setter
   private Boolean canComment;
 
+  @Facebook("comment_order")
+  private String openGraphCommentOrder;
+
+  @Facebook("can_comment")
+  private Boolean openGraphCanComment;
+
   @Facebook
-  private JsonObject summary;
+  private Long count = 0L;
+
+  @Facebook
+  private JsonObject summary = null;
 
   @Facebook
   private List<Comment> data = new ArrayList<Comment>();
@@ -127,6 +136,10 @@ public class Comments implements Serializable {
     if (totalCount == 0 && summary != null && summary.get("total_count") != null) {
       totalCount = summary.getLong("total_count", totalCount);
     }
+
+    if (totalCount == 0 && count != 0) {
+      totalCount = count;
+    }
   }
 
   /**
@@ -137,6 +150,10 @@ public class Comments implements Serializable {
     if (summary != null) {
       order = summary.getString("order", order);
     }
+
+	if (order == null && openGraphCommentOrder != null) {
+      order = openGraphCommentOrder;
+    }
   }
 
   /**
@@ -146,6 +163,10 @@ public class Comments implements Serializable {
   private void fillCanComment() {
     if (summary != null && summary.get("can_comment") != null) {
       canComment = summary.get("can_comment").asBoolean();
+    }
+
+    if (canComment == null && openGraphCanComment != null) {
+      canComment = openGraphCanComment;
     }
   }
 }

@@ -24,7 +24,9 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 
 import java.util.Date;
 
@@ -41,9 +43,9 @@ import lombok.Setter;
 public class PageRating extends FacebookType {
 
   private static final long serialVersionUID = 1L;
-  
-  @Facebook("created_time")
-  private String rawCreatedTime;
+
+  @Facebook("start_time")
+  private String rawStartTime;
 
   /**
    * Time the rating took place
@@ -52,7 +54,19 @@ public class PageRating extends FacebookType {
    */
   @Getter
   @Setter
-  private Date createdTime;
+  private Date startTime;
+
+  @Facebook("publish_time")
+  private String rawPublishTime;
+
+  /**
+   * Time the rating took place
+   *
+   * @return Time the rating took place
+   */
+  @Getter
+  @Setter
+  private Date publishTime;
 
   /**
    * Person who rated the page
@@ -61,70 +75,81 @@ public class PageRating extends FacebookType {
    */
   @Getter
   @Setter
-  @Facebook("reviewer")
+  @Facebook
   private NamedFacebookType from;
 
-  /**
-   * The open graph story that generated this rating.
-   * 
-   * This also contains the likes and comments that attached to the story
-   * 
-   * @return the open graph story that generated this rating
-   */
-  @Getter
-  @Setter
-  @Facebook("open_graph_story")
-  private Post story;
-
-  /**
-   * true if the person specified a rating.
-   * 
-   * only visible if the field is set in the request
-   * 
-   * @return true if the person specified a rating
-   */
-  @Getter
-  @Setter
-  @Facebook("has_rating")
-  private boolean hasRating;
-
-  /**
-   * true if the person added a text review to the rating.
-   * 
-   * only visible if the field is set in the request
-   * 
-   * @return true if the person added a text review to the rating
-   */
-  @Getter
-  @Setter
-  @Facebook("has_review")
-  private boolean hasReview;
-
-  /**
-   * Rating value of the review.
-   * 
-   * Value can be 1-5.
-   * 
-   * @return rating value of this review
-   */
   @Getter
   @Setter
   @Facebook
-  private int rating;
+  private String message;
 
-  /**
-   * Review text included with the rating
-   * 
-   * @return Review text included with the rating
-   */
   @Getter
   @Setter
-  @Facebook("review_text")
-  private String review;
+  @Facebook
+  private String type;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Application application;
+
+  @Getter
+  @Setter
+  @Facebook("no_feed_story")
+  private Boolean noFeedStory;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Comments comments;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Likes likes;
+
+  @Facebook
+  private JsonObject data;
+
+  @Getter
+  @Setter
+  private Double ratingValue;
+
+  @Getter
+  @Setter
+  private Long ratingScale;
+
+  @Getter
+  @Setter
+  private Boolean isDraft;
+
+  @Getter
+  @Setter
+  private String language;
+
+  @Getter
+  @Setter
+  private Place place;
 
   @JsonMappingCompleted
   void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
+    publishTime = toDateFromLongFormat(rawPublishTime);
+    startTime = toDateFromLongFormat(rawStartTime);
+  }
+
+  @JsonMappingCompleted
+  void fillAddititonalValues(JsonMapper mapper) {
+    if (data != null) {
+      JsonObject rating = data.get("rating").asObject();
+      if (rating != null) {
+        ratingValue = rating.get("value").asDouble();
+        ratingScale = rating.get("scale").asLong();
+      }
+
+      isDraft = data.get("is_draft").asBoolean();
+      language = data.getString("language", "");
+      place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);
+    }
   }
 
 }
