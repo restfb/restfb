@@ -72,6 +72,15 @@ public class Likes implements Serializable {
   @Setter
   private Boolean hasLiked;
 
+  @Facebook("can_like")
+  private Boolean openGraphCanLike;
+
+  @Facebook("user_likes")
+  private Boolean openGraphUserLikes;
+
+  @Facebook("count")
+  private Long openGraphCount = 0L;
+
   @Facebook
   private JsonObject summary;
 
@@ -125,21 +134,35 @@ public class Likes implements Serializable {
    * add change count value, if summary is set and count is empty
    */
   @JsonMappingCompleted
-  private void fillFromSummary() {
-    if (summary != null) {
-
-      if (totalCount == 0 && summary.has("total_count")) {
-        totalCount = summary.getLong("total_count");
-      }
-
-      if (summary.has("has_liked")) {
-        hasLiked = summary.getBoolean("has_liked");
-      }
-
-      if (summary.has("can_like")) {
-        canLike = summary.getBoolean("can_like");
-      }
+  private void fillTotalCount() {
+    if (totalCount == 0 && summary != null && summary.has("total_count")) {
+      totalCount = summary.getLong("total_count");
     }
 
+    if (openGraphCount != 0) {
+      totalCount = openGraphCount;
+    }
+  }
+
+  @JsonMappingCompleted
+  private void fillHasLiked() {
+    if (summary != null && summary.has("has_liked")) {
+      hasLiked = summary.getBoolean("has_liked");
+    }
+
+    if (hasLiked == null && openGraphUserLikes != null) {
+      hasLiked = openGraphUserLikes;
+    }
+  }
+
+  @JsonMappingCompleted
+  private void fillCanLike() {
+    if (summary != null && summary.has("can_like")) {
+      canLike = summary.getBoolean("can_like");
+    }
+
+    if (canLike == null && openGraphCanLike != null) {
+      canLike = openGraphCanLike;
+    }
   }
 }

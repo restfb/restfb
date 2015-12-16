@@ -66,6 +66,12 @@ public class Comments implements Serializable {
   @Setter
   private String order;
 
+  @Facebook("comment_order")
+  private String openGraphCommentOrder;
+
+  @Facebook
+  private Long count = 0L;
+
   @Facebook
   private JsonObject summary = null;
 
@@ -123,6 +129,10 @@ public class Comments implements Serializable {
     if (totalCount == 0 && summary != null && summary.has("total_count")) {
       totalCount = summary.getLong("total_count");
     }
+
+    if (totalCount == 0 && count != 0) {
+      totalCount = count;
+    }
   }
 
   /**
@@ -132,6 +142,10 @@ public class Comments implements Serializable {
   private void fillOrder() {
     if (summary != null && summary.has("order")) {
       order = summary.getString("order");
+    }
+
+    if (order == null && openGraphCommentOrder != null) {
+      order = openGraphCommentOrder;
     }
   }
 }
