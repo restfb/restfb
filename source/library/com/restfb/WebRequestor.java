@@ -142,4 +142,14 @@ public interface WebRequestor {
    *           If an error occurs while performing the {@code DELETE}.
    */
   Response executeDelete(String url) throws IOException;
+
+  /**
+   * Provides access to the facebook header information.
+   * 
+   * The fields <code>x-fb-rev</code>, <code>x-fb-trace-id</code> and <code>x-fb-debug</code> are checked and returned
+   * in a single container of the type {@see DebugHeaderInfo}
+   * 
+   * @return container with the explained facebook debug header information
+   */
+  DebugHeaderInfo getDebugHeaderInfo();
 }

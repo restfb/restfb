@@ -26,7 +26,8 @@ public enum Version {
   /**
    * unversiond api
    */
-  UNVERSIONED(null), //
+  UNVERSIONED(null),
+
   /**
    * <tt>Graph API 1.0</tt>, available until April 30, 2015
    * 
@@ -37,35 +38,35 @@ public enum Version {
 
   /**
    * <tt>Graph API 2.0</tt>, available until August 7, 2016
-   * 
+   *
    * @since April 30, 2014
    */
   VERSION_2_0("v2.0"),
 
   /**
    * <tt>Graph API 2.1</tt>, available until October 30, 2016
-   * 
+   *
    * @since August 7, 2014
    */
   VERSION_2_1("v2.1"),
 
   /**
    * <tt>Graph API 2.2</tt>, available until March 25, 2017
-   * 
+   *
    * @since October 30, 2014
    */
   VERSION_2_2("v2.2"),
 
   /**
    * <tt>Graph API 2.3</tt>, available until July 8, 2017
-   * 
+   *
    * @since March 25, 2015
    */
   VERSION_2_3("v2.3"),
 
   /**
    * <tt>Graph API 2.4</tt>, available until October 7, 2017
-   * 
+   *
    * @since July 8, 2015
    */
   VERSION_2_4("v2.4"),
@@ -97,5 +98,23 @@ public enum Version {
 
   public boolean isUrlElementRequired() {
     return null != this.urlElement;
+  }
+
+  /**
+   * converts a String (for example the url paramter) into a Version object
+   * 
+   * @param urlElement
+   *          String that should
+   * @return the generated version
+   */
+  public static Version getVersionFromString(String urlElement) {
+    if (urlElement != null) {
+      for (Version v : Version.values()) {
+        if (urlElement.equals(v.getUrlElement())) {
+          return v;
+        }
+      }
+    }
+    return UNVERSIONED;
   }
 }

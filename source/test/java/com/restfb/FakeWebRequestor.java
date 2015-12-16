@@ -64,6 +64,11 @@ public class FakeWebRequestor implements WebRequestor {
     return new Response(HTTP_OK, url);
   }
 
+  @Override
+  public DebugHeaderInfo getDebugHeaderInfo() {
+    return null;
+  }
+
   /**
    * get the used HTTP Method.
    * 

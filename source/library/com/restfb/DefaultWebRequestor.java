@@ -33,6 +33,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -66,10 +69,14 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   private static final int DEFAULT_READ_TIMEOUT_IN_MS = 180000;
 
+  private Map<String, List<String>> currentHeaders;
+
   /**
    * Logger.
    */
   private static final Logger LOGGER = Logger.getLogger("com.restfb.HTTP");
+
+  private DebugHeaderInfo debugHeaderInfo;
 
   /**
    * By default this is true, to prevent breaking existing usage
@@ -172,10 +179,7 @@ public class DefaultWebRequestor implements WebRequestor {
         LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
       }
 
-      if (LOGGER.isLoggable(FINE)) {
-        String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
-        LOGGER.log(FINE, "Facebook used the API {0} to answer your request", usedApiVersion);
-      }
+      fillHeaderAndDebugInfo(httpUrlConnection);
 
       try {
         inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
@@ -331,9 +335,23 @@ public class DefaultWebRequestor implements WebRequestor {
     this.autocloseBinaryAttachmentStream = autocloseBinaryAttachmentStream;
   }
 
+  /**
+   * access to the current response headers
+   * 
+   * @return the current reponse header map
+   */
+  public Map<String, List<String>> getCurrentHeaders() {
+    return currentHeaders;
+  }
+
   @Override
   public Response executeDelete(String url) throws IOException {
     return execute(url, HttpMethod.DELETE);
+  }
+
+  @Override
+  public DebugHeaderInfo getDebugHeaderInfo() {
+    return debugHeaderInfo;
   }
 
   private Response execute(String url, HttpMethod httpMethod) throws IOException {
@@ -359,6 +377,8 @@ public class DefaultWebRequestor implements WebRequestor {
         LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
       }
 
+      fillHeaderAndDebugInfo(httpUrlConnection);
+
       Response response = fetchResponse(httpUrlConnection);
 
       if (LOGGER.isLoggable(FINE)) {
@@ -369,6 +389,21 @@ public class DefaultWebRequestor implements WebRequestor {
     } finally {
       closeQuietly(httpUrlConnection);
     }
+  }
+
+  private void fillHeaderAndDebugInfo(HttpURLConnection httpUrlConnection) {
+    currentHeaders = Collections.unmodifiableMap(httpUrlConnection.getHeaderFields());
+
+    String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
+    if (LOGGER.isLoggable(FINE)) {
+      LOGGER.log(FINE, "Facebook used the API {0} to answer your request", usedApiVersion);
+    }
+
+    String fbTraceId = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-trace-id"));
+    String fbRev = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-rev"));
+    String fbDebug = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-debug"));
+    Version usedVersion = Version.getVersionFromString(usedApiVersion);
+    debugHeaderInfo = new DebugHeaderInfo(fbDebug, fbRev, fbTraceId, usedVersion);
   }
 
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
