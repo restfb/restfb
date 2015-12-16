@@ -80,4 +80,9 @@ public class ClasspathWebRequestor implements WebRequestor {
   public Response executeDelete(String url) throws IOException {
     return response;
   }
+
+  @Override
+  public DebugHeaderInfo getDebugHeaderInfo() {
+    return null;
+  }
 }
