@@ -1,3 +1,17 @@
+1.18.0 (December 20, 2015)
+
+* Issue #352: access to Facebook HTTP debug headers and HTTP headers in general
+  Thanks to Alex Conlin for input
+* Issue #351: "last used time" field added to page
+* Issue #340: Parsing yyyy-MM-dd produces wrong date
+* Issue #338: wrong date format for Work startDate and endDate
+  Thanks to @PetrF0X for input
+* Issue #336: Album type - fillPicture uses wrong type for mapping the image
+* Issue #335: Access post likes summary has_liked and can_like values
+  Thanks to @jarylchong for input
+* Issue #186: Page rating type rewrite
+  Thanks to Ron Heft for input
+
 1.17.0 (November 26, 2015)
 
 * Issue #328: Facebook Exception provides access to raw error json
