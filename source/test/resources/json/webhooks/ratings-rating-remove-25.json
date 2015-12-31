@@ -1,0 +1,20 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1452107389,
+      "changes": [
+        {
+          "field": "ratings",
+          "value": {
+            "item": "rating",
+            "verb": "remove",
+            "open_graph_story_id": 904801129604590,
+            "reviewer_id": 705955836155788
+          }
+        }
+      ]
+    }
+  ]
+}

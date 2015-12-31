@@ -1,0 +1,22 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1452098986,
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "recipient_id": 1234567890321,
+            "item": "post",
+            "verb": "remove",
+            "post_id": "1234567890321_901097836652708",
+            "sender_id": 1234567890321,
+            "created_time": 1452098986
+          }
+        }
+      ]
+    }
+  ]
+}

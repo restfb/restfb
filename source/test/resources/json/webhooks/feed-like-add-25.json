@@ -1,0 +1,23 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1450701319,
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "item": "like",
+            "verb": "add",
+            "post_id": "909653922461664_940663242694065",
+            "parent_id": "909653922461664_940663242694065",
+            "sender_id": 909653922461664,
+            "created_time": 1450701319,
+            "sender_name": "Tester"
+          }
+        }
+      ]
+    }
+  ]
+}

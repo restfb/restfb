@@ -1,0 +1,23 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1448795002,
+      "changes": [
+        {
+          "field": "ratings",
+          "value": {
+            "item": "rating",
+            "verb": "add",
+            "open_graph_story_id": 904801129604590,
+            "reviewer_id": 705955836155788,
+            "reviewer_name": "Tester",
+            "rating": 3,
+            "review_text": "Ja ziemlich coole Sache"
+          }
+        }
+      ]
+    }
+  ]
+}

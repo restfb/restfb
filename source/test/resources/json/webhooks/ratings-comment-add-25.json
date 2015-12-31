@@ -1,0 +1,24 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1448795386,
+      "changes": [
+        {
+          "field": "ratings",
+          "value": {
+            "item": "comment",
+            "verb": "add",
+            "comment_id": "904801129604590_904802532937783",
+            "post_id": "100002241334695_904801129604590",
+            "parent_id": "100002241334695_904801129604590",
+            "sender_id": 705955836155788,
+            "created_time": 1448795386,
+            "sender_name": "Tester"
+          }
+        }
+      ]
+    }
+  ]
+}
