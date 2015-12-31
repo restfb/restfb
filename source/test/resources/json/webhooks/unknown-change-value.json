@@ -1,0 +1,23 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1452107389,
+      "changes": [
+        {
+          "field": "foo",
+          "value": {
+            "item": "bar",
+            "verb": "remove",
+            "post_id": "100002241334695_904801129604590",
+            "parent_id": "100002241334695_904801129604590",
+            "sender_id": 705955836155788,
+            "created_time": 1451775296,
+            "sender_name": "Tester"
+          }
+        }
+      ]
+    }
+  ]
+}

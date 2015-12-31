@@ -1,0 +1,24 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1451949440,
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "item": "status",
+            "verb": "edited",
+            "post_id": "1234567890321_949560725137650",
+            "sender_id": 1234567890321,
+            "published": 1,
+            "created_time": 1451949415,
+            "message": "This is an edited test message",
+            "sender_name": "Tester"
+          }
+        }
+      ]
+    }
+  ]
+}
