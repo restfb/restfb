@@ -1,3 +1,8 @@
+1.18.1 (January 4, 2016)
+
+* Issue #355: copyright year changed to 2016
+* Issue #354: changelog syntax changed to markdown
+
 1.18.0 (December 20, 2015)
 
 * Issue #352: access to Facebook HTTP debug headers and HTTP headers in general<br>
