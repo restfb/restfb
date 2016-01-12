@@ -167,7 +167,7 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost);
     assertNotNull(examplePost.getMessageTags());
     assertFalse(examplePost.getMessageTags().isEmpty());
-    Post.MessageTag exampleTag = examplePost.getMessageTags().get(0);
+    MessageTag exampleTag = examplePost.getMessageTags().get(0);
     assertEquals("88388366982", exampleTag.getId());
     assertEquals("Público", exampleTag.getName());
     assertEquals("page", exampleTag.getType());
@@ -181,7 +181,7 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost);
     assertNotNull(examplePost.getMessageTags());
     assertFalse(examplePost.getMessageTags().isEmpty());
-    Post.MessageTag exampleTag = examplePost.getMessageTags().get(0);
+    MessageTag exampleTag = examplePost.getMessageTags().get(0);
     assertEquals("88388366982", exampleTag.getId());
     assertEquals("Público", exampleTag.getName());
     assertEquals("page", exampleTag.getType());

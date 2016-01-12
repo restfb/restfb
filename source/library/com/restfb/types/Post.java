@@ -401,19 +401,6 @@ public class Post extends NamedFacebookType {
   }
 
   /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Message Tag Graph API type</a>.
-   *
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6.10
-   */
-  public static class MessageTag extends com.restfb.types.MessageTag {
-    
-    private static final long serialVersionUID = 1L;
-    
-    // remove this on next major release
-  }
-
-  /**
    * Represents the undocumented {@code Property} type.
    *
    * @author <a href="http://restfb.com">Mark Allen</a>
@@ -538,7 +525,7 @@ public class Post extends NamedFacebookType {
   public static class Targeting implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Facebook
     protected List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
     @Facebook
@@ -652,7 +639,7 @@ public class Post extends NamedFacebookType {
   public static class FeedTargeting extends Targeting {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Maximum age.
      */

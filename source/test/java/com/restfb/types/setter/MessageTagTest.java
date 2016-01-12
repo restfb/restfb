@@ -22,58 +22,16 @@
 package com.restfb.types.setter;
 
 import com.restfb.types.MessageTag;
-import com.restfb.types.Post;
 import com.restfb.types.api.SetterGetterTestBase;
-
 import org.junit.Test;
 
-public class PostTest extends SetterGetterTestBase {
+public class MessageTagTest extends SetterGetterTestBase {
 
-  @Test
-  public void test() {
-    Post obj = new Post();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawMessageTags");
-    addIgnoredField("likesCount");
-    addIgnoredField("messageTags");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testAction() {
-    Post.Action obj = new Post.Action();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testProperty() {
-    Post.Property obj = new Post.Property();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testShares() {
-    Post.Shares obj = new Post.Shares();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testFeedTargeting() {
-    Post.FeedTargeting obj = new Post.FeedTargeting();
-    testInstance(obj);
-  }
-
-  @Test
-  public void testAttachments() {
-    Post.Attachments obj = new Post.Attachments();
-    testInstance(obj);
-  }
-
+    @Test
+    public void testMessageTag() {
+        MessageTag obj = new MessageTag();
+        addIgnoredField("rawUpdatedTime");
+        addIgnoredField("rawCreatedTime");
+        testInstance(obj);
+    }
 }
