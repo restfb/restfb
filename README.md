@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/restfb/restfb.png?label=ready&title=Ready)](https://waffle.io/restfb/restfb)
 [![Build Status](https://travis-ci.org/restfb/restfb.svg)](https://travis-ci.org/restfb/restfb)
 
 # RestFB (http://restfb.com)
