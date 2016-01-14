@@ -1,8 +1,0 @@
-You can run the examples like this:
-
-$ ant run-reader-examples "-Daccess_token=MY_ACCESS_TOKEN"
-$ ant run-publisher-examples "-Daccess_token=MY_ACCESS_TOKEN"
-$ ant run-legacy-examples "-Daccess_token=MY_ACCESS_TOKEN"
-
-Instructions for getting an OAuth access token are available on http://restfb.com.
-Apache Ant (http://ant.apache.org) must be installed to run the examples.
