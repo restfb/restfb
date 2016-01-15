@@ -36,51 +36,6 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
    */
   protected FacebookExceptionMapper graphFacebookExceptionMapper;
 
-  /**
-   * API error response 'error' attribute name.
-   */
-  protected static final String ERROR_ATTRIBUTE_NAME = "error";
-
-  /**
-   * API error response 'type' attribute name.
-   */
-  protected static final String ERROR_TYPE_ATTRIBUTE_NAME = "type";
-
-  /**
-   * API error response 'error_user_title' attribute name.
-   */
-  protected static final String ERROR_USER_TITLE_ATTRIBUTE_NAME = "error_user_title";
-
-  /**
-   * API error response 'error_user_msg' attribute name.
-   */
-  protected static final String ERROR_USER_MSG_ATTRIBUTE_NAME = "error_user_msg";
-
-  /**
-   * API error response 'message' attribute name.
-   */
-  protected static final String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
-
-  /**
-   * API error response 'code' attribute name.
-   */
-  protected static final String ERROR_CODE_ATTRIBUTE_NAME = "code";
-
-  /**
-   * API error response 'error_subcode' attribute name.
-   */
-  protected static final String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";
-
-  /**
-   * Batch API error response 'error' attribute name.
-   */
-  protected static final String BATCH_ERROR_ATTRIBUTE_NAME = "error";
-
-  /**
-   * Batch API error response 'error_description' attribute name.
-   */
-  protected static final String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
-
   public DefaultFacebookExceptionGenerator() {
     super();
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
@@ -103,24 +58,31 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
         return;
       }
 
-      JsonObject innerErrorObject = errorObject.get(ERROR_ATTRIBUTE_NAME).asObject();
+      ExceptionInformation container = createFacebookResponseTypeAndMessageContainer(errorObject, httpStatusCode);
 
-      // If there's an Integer error code, pluck it out.
-      Integer errorCode = innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME) != null
-          ? toInteger(innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME).toString()) : null;
-      Integer errorSubcode = innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME) != null
-          ? toInteger(innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME).toString()) : null;
-
-      throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
-        innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME, null),
-        innerErrorObject.get(ERROR_MESSAGE_ATTRIBUTE_NAME).asString(),
-        innerErrorObject.getString(ERROR_USER_TITLE_ATTRIBUTE_NAME, null),
-        innerErrorObject.getString(ERROR_USER_MSG_ATTRIBUTE_NAME, null), errorObject);
+      throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(container);
     } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
       // do nothing here
     }
+  }
+
+  protected ExceptionInformation createFacebookResponseTypeAndMessageContainer(JsonObject errorObject,
+      Integer httpStatusCode) {
+    JsonObject innerErrorObject = errorObject.get(ERROR_ATTRIBUTE_NAME).asObject();
+
+    // If there's an Integer error code, pluck it out.
+    Integer errorCode = innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME) != null
+        ? toInteger(innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME).toString()) : null;
+    Integer errorSubcode = innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME) != null
+        ? toInteger(innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME).toString()) : null;
+
+    return new ExceptionInformation(errorCode, errorSubcode, httpStatusCode,
+      innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME, null),
+      innerErrorObject.get(ERROR_MESSAGE_ATTRIBUTE_NAME).asString(),
+      innerErrorObject.getString(ERROR_USER_TITLE_ATTRIBUTE_NAME, null),
+      innerErrorObject.getString(ERROR_USER_MSG_ATTRIBUTE_NAME, null), errorObject);
   }
 
   @Override
@@ -134,9 +96,10 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
           || errorObject.get(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME) == null)
         return;
 
-      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME, 0),
-        null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME, null), null, null,
-        errorObject);
+      ExceptionInformation container = new ExceptionInformation(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME, 0),
+        httpStatusCode, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME, null), errorObject);
+
+      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(container);
     } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
@@ -165,27 +128,26 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
    * @since 1.6.3
    */
   protected static class DefaultGraphFacebookExceptionMapper implements FacebookExceptionMapper {
-    /**
-     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
-     *      String, String, String, JsonObject)
-     */
+
     @Override
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-        String type, String message, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
-      if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type)) {
-        return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage, rawError);
+    public FacebookException exceptionForTypeAndMessage(ExceptionInformation container) {
+      if ("OAuthException".equals(container.getType()) || "OAuthAccessTokenException".equals(container.getType())) {
+        return new FacebookOAuthException(container.getType(), container.getMessage(), container.getErrorCode(),
+          container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),
+          container.getUserMessage(), container.getRawError());
       }
 
-      if ("QueryParseException".equals(type)) {
-        return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage, rawError);
+      if ("QueryParseException".equals(container.getType())) {
+        return new FacebookQueryParseException(container.getType(), container.getMessage(), container.getErrorCode(),
+          container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),
+          container.getUserMessage(), container.getRawError());
       }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
-      return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-        errorUserMessage, rawError);
+      return new FacebookGraphException(container.getType(), container.getMessage(), container.getErrorCode(),
+        container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),
+        container.getUserMessage(), container.getRawError());
     }
   }
 }

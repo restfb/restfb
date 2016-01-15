@@ -33,16 +33,6 @@ public class DefaultLegacyFacebookExceptionGenerator implements LegacyFacebookEx
    */
   protected FacebookExceptionMapper legacyFacebookExceptionMapper;
 
-  /**
-   * Legacy API error response 'error_code' attribute name.
-   */
-  protected static final String LEGACY_ERROR_CODE_ATTRIBUTE_NAME = "error_code";
-
-  /**
-   * Legacy API error response 'error_msg' attribute name.
-   */
-  protected static final String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
-
   public DefaultLegacyFacebookExceptionGenerator() {
     legacyFacebookExceptionMapper = createLegacyFacebookExceptionMapper();
   }
@@ -70,9 +60,10 @@ public class DefaultLegacyFacebookExceptionGenerator implements LegacyFacebookEx
         return;
       }
 
-      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(
-        errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME, 0), null, httpStatusCode, null,
-        errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME, null), null, null, errorObject);
+      ExceptionInformation container = new ExceptionInformation(errorObject.getInt(LEGACY_ERROR_CODE_ATTRIBUTE_NAME, 0),
+        httpStatusCode, errorObject.getString(LEGACY_ERROR_MSG_ATTRIBUTE_NAME, null), errorObject);
+
+      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(container);
     } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
@@ -134,21 +125,18 @@ public class DefaultLegacyFacebookExceptionGenerator implements LegacyFacebookEx
      */
     protected static final int API_EC_PARAM_ACCESS_TOKEN = 190;
 
-    /**
-     * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
-     *      String, String, String, JsonObject)
-     */
     @Override
-    public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-        String type, String message, String userTitle, String userMessage, JsonObject rawError) {
-      if (errorCode == API_EC_PARAM_ACCESS_TOKEN) {
-        return new FacebookOAuthException(String.valueOf(errorCode), message, errorCode, errorSubcode, httpStatusCode,
-          userTitle, userMessage, rawError);
+    public FacebookException exceptionForTypeAndMessage(ExceptionInformation container) {
+      if (container.getErrorCode() == API_EC_PARAM_ACCESS_TOKEN) {
+        return new FacebookOAuthException(String.valueOf(container.getErrorCode()), container.getMessage(),
+          container.getErrorCode(), container.getErrorSubcode(), container.getHttpStatusCode(),
+          container.getUserTitle(), container.getUserMessage(), container.getRawError());
       }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookResponseStatusException.
-      return new FacebookResponseStatusException(errorCode, message, rawError);
+      return new FacebookResponseStatusException(container.getErrorCode(), container.getMessage(),
+        container.getRawError());
     }
   }
 }

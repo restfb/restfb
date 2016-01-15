@@ -21,8 +21,6 @@
  */
 package com.restfb.exception;
 
-import com.restfb.json.JsonObject;
-
 /**
  * Specifies a method for mapping Graph and Old REST API exceptions to corresponding instances of
  * {@code FacebookException}.
@@ -35,24 +33,9 @@ public interface FacebookExceptionMapper {
    * Given a Facebook API exception type and message, generates an instance of the corresponding
    * {@code FacebookGraphException} or one of its subclasses.
    * 
-   * @param errorCode
-   *          Old REST API exception error code field, e.g. 190.
-   * @param errorSubcode
-   *          Old REST API exception error subcode field, e.g. 459.
-   * @param httpStatusCode
-   *          The HTTP status code returned by the server, e.g. 500.
-   * @param type
-   *          Graph API exception type field, e.g. "OAuthException".
-   * @param message
-   *          Graph or Old REST API message field, e.g. "Invalid access token signature."
-   * @param userTitle
-   *          Graph API error_user_title field.
-   * @param userMessage
-   *          Graph API error_user_message field.
-   * @param rawError
-   *          raw error message as JSON
+   * @param container
+   *          container for all data needed to create the associated {@see FacebookException}
    * @return An appropriate {@code FacebookException} subclass.
    */
-  FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-      String type, String message, String userTitle, String userMessage, JsonObject rawError);
+  FacebookException exceptionForTypeAndMessage(ExceptionInformation container);
 }

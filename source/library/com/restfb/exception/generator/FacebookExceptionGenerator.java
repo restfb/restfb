@@ -34,6 +34,51 @@ import com.restfb.exception.FacebookResponseStatusException;
 public interface FacebookExceptionGenerator extends LegacyFacebookExceptionGenerator {
 
   /**
+   * API error response 'error' attribute name.
+   */
+  String ERROR_ATTRIBUTE_NAME = "error";
+
+  /**
+   * API error response 'type' attribute name.
+   */
+  String ERROR_TYPE_ATTRIBUTE_NAME = "type";
+
+  /**
+   * API error response 'error_user_title' attribute name.
+   */
+  String ERROR_USER_TITLE_ATTRIBUTE_NAME = "error_user_title";
+
+  /**
+   * API error response 'error_user_msg' attribute name.
+   */
+  String ERROR_USER_MSG_ATTRIBUTE_NAME = "error_user_msg";
+
+  /**
+   * API error response 'message' attribute name.
+   */
+  String ERROR_MESSAGE_ATTRIBUTE_NAME = "message";
+
+  /**
+   * API error response 'code' attribute name.
+   */
+  String ERROR_CODE_ATTRIBUTE_NAME = "code";
+
+  /**
+   * API error response 'error_subcode' attribute name.
+   */
+  String ERROR_SUBCODE_ATTRIBUTE_NAME = "error_subcode";
+
+  /**
+   * Batch API error response 'error' attribute name.
+   */
+  String BATCH_ERROR_ATTRIBUTE_NAME = "error";
+
+  /**
+   * Batch API error response 'error_description' attribute name.
+   */
+  String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
+
+  /**
    * Throws an exception if Facebook returned an error response. Using the Graph API, it's possible to see both the new
    * Graph API-style errors as well as Legacy API-style errors, so we have to handle both here. This method extracts
    * relevant information from the error JSON and throws an exception which encapsulates it for end-user consumption.

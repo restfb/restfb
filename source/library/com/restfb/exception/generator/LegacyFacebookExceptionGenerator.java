@@ -33,6 +33,16 @@ import com.restfb.exception.FacebookResponseStatusException;
 public interface LegacyFacebookExceptionGenerator {
 
   /**
+   * Legacy API error response 'error_code' attribute name.
+   */
+  String LEGACY_ERROR_CODE_ATTRIBUTE_NAME = "error_code";
+
+  /**
+   * Legacy API error response 'error_msg' attribute name.
+   */
+  String LEGACY_ERROR_MSG_ATTRIBUTE_NAME = "error_msg";
+
+  /**
    * If the {@code error_code} JSON field is present, we've got a response status error for this API call. Extracts
    * relevant information from the JSON and throws an exception which encapsulates it for end-user consumption.
    *
