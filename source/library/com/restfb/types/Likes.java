@@ -21,6 +21,7 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
@@ -30,6 +31,7 @@ import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -85,7 +87,7 @@ public class Likes implements Serializable {
   private JsonObject summary;
 
   @Facebook
-  private List<NamedFacebookType> data = new ArrayList<NamedFacebookType>();
+  private List<LikeItem> data = new ArrayList<LikeItem>();
 
   private static final long serialVersionUID = 1L;
 
@@ -118,15 +120,15 @@ public class Likes implements Serializable {
    *
    * @return The likes.
    */
-  public List<NamedFacebookType> getData() {
+  public List<LikeItem> getData() {
     return unmodifiableList(data);
   }
 
-  public boolean addData(NamedFacebookType like) {
+  public boolean addData(LikeItem like) {
     return data.add(like);
   }
 
-  public boolean removeData(NamedFacebookType like) {
+  public boolean removeData(LikeItem like) {
     return data.remove(like);
   }
 
@@ -167,5 +169,26 @@ public class Likes implements Serializable {
     if (canLike == null && openGraphCanLike != null) {
       canLike = openGraphCanLike;
     }
+  }
+
+  public static class LikeItem extends NamedFacebookType {
+
+    /**
+     * created time is the date the Like was created.
+     *
+     * may be null if Facebook does not provide this information
+     */
+    @Getter
+    @Setter
+    private Date createdTime;
+
+    @Facebook("created_time")
+    private String rawCreatedTime;
+
+    @JsonMappingCompleted
+    void convertTime() {
+      createdTime = toDateFromLongFormat(rawCreatedTime);
+    }
+
   }
 }

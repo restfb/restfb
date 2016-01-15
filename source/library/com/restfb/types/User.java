@@ -256,6 +256,16 @@ public class User extends NamedFacebookType {
   @Facebook
   private String username;
 
+  /**
+   * The user's Likes
+   *
+   * @return the user's Likes
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Likes likes;
+
   @Facebook("picture")
   private JsonObject rawPicture;
 
@@ -830,7 +840,7 @@ public class User extends NamedFacebookType {
   public static class UserDevice implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook
@@ -869,7 +879,7 @@ public class User extends NamedFacebookType {
   public static class AgeRange implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * The lower bounds of the range for this person's age.
      * 

@@ -17,6 +17,7 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 * `Photo.getComments` returns `Comments` type instead of `Comment list
 * json API changed, you should look [here](https://github.com/ralfstx/minimal-json)
 * `Post.MessageTag` replaced with `MessageTag` type
+* `Likes` data type moved from `NamedFacebookType` to `LikeItem`
 
 ## Comment.Attachment removed
 We have removed the `Comment.Attachment` type because it is replaced by 
@@ -74,3 +75,8 @@ a look at the [github repository of minimal json](https://github.com/ralfstx/min
 The `Post` object contains some inner classes. We removed the inner class `MessageTag` and replaced
 it with the `MessageTag` class we introduced already. The inner class was only for compatibility reasons there.
 If you work with MessageTags you have to change your import.
+
+## `Likes` type data type changed
+The `Likes` type contains a list of NamedFacebookTypes. These elements are in some cases not the correct type.
+So we changed the type and introduces the new `LikeItem` type. The new `LikeItem` type contains the `created_time` field.
+Most of the time this value is not set, but we provide it nevertheless.

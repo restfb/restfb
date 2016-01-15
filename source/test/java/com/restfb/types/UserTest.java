@@ -92,4 +92,15 @@ public class UserTest extends AbstractJsonMapperTests {
     assertNotNull(work.getEndDate());
     assertEquals(1348963200000L, work.getEndDate().getTime());
   }
+
+  @Test
+  public void userLikes() {
+    User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/user-likes"), User.class);
+    assertNotNull(exampleUser);
+    Likes likes = exampleUser.getLikes();
+    List<Likes.LikeItem> innerLikes = likes.getData();
+    assertNotNull(innerLikes);
+    assertEquals(4, innerLikes.size());
+  }
+
 }
