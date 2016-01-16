@@ -135,7 +135,6 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   @SuppressWarnings("unchecked")
   public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
-    List<T> data = new ArrayList<T>();
 
     if (json == null) {
       throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
@@ -151,6 +150,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
     // Pull out data
     JsonArray jsonData = jsonObject.get("data").asArray();
+    List<T> data = new ArrayList<T>(jsonData.size());
     for (int i = 0; i < jsonData.size(); i++) {
       data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
           : facebookClient.getJsonMapper().toJavaObject(jsonData.get(i).toString(), connectionType));

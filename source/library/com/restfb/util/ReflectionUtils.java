@@ -204,7 +204,6 @@ public final class ReflectionUtils {
     }
 
     List<Method> methods = new ArrayList<Method>();
-
     for (Method method : clazz.getMethods()) {
       String methodName = method.getName();
       if (!"getClass".equals(methodName) && !"hashCode".equals(methodName) && method.getReturnType() != null
