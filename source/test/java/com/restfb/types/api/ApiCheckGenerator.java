@@ -32,7 +32,7 @@ public class ApiCheckGenerator extends BaseTestCheck {
   public void createApiProperties() throws IOException {
     Properties props = new Properties();
 
-    // @TODO: search Klasses in package and replace this with a nicer call
+    // @TODO: search Classes in package and replace this with a nicer call
     props.setProperty("Account.methods", joinMethods(fetchMethodsFromClass(Account.class)));
     props.setProperty("Album.methods", joinMethods(fetchMethodsFromClass(Album.class)));
     props.setProperty("AppRequest.methods", joinMethods(fetchMethodsFromClass(AppRequest.class)));
@@ -44,7 +44,6 @@ public class ApiCheckGenerator extends BaseTestCheck {
     props.setProperty("Category.methods", joinMethods(fetchMethodsFromClass(Category.class)));
     props.setProperty("Checkin.methods", joinMethods(fetchMethodsFromClass(Checkin.class)));
     props.setProperty("Comment.methods", joinMethods(fetchMethodsFromClass(Comment.class)));
-    props.setProperty("Comment.Comments.methods", joinMethods(fetchMethodsFromClass(Comment.Comments.class)));
     props.setProperty("Conversation.methods", joinMethods(fetchMethodsFromClass(Conversation.class)));
     props.setProperty("Conversation.Tag.methods", joinMethods(fetchMethodsFromClass(Conversation.Tag.class)));
     props.setProperty("DeAuth.methods", joinMethods(fetchMethodsFromClass(DeAuth.class)));

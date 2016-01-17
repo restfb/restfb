@@ -27,7 +27,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="http://developers.facebook.com/docs/reference/api/application" >Application Graph API
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/application/" >Application Graph API
  * type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>

@@ -36,7 +36,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="http://developers.facebook.com/docs/reference/api/post">Comments Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/object/comments">Comments Graph API
+ * type</a>.
  *
  * <p>
  * Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the count
@@ -48,8 +49,21 @@ import lombok.Setter;
 public class Comments implements Serializable {
 
   /**
-   * The number of comments.
-   *
+   * The count of comments on this node.
+   * 
+   * <p>
+   * It is important to note that this value is changed depending on the {@code filter} modifier being used (where
+   * comment replies are available):
+   * </p>
+   * <ul>
+   * <li>if filter is {@code stream} then total_count will be a count of all comments (including replies) on the node.
+   * </li>
+   * <li>if filter is {@code toplevel} then total_count will be a count of all top-level comments on the node.</li>
+   * </ul>
+   * <p>
+   * {@code total_count} can be greater than or equal to the actual number of comments returned due to privacy or
+   * deletion
+   * </p>
    * <p>
    * Please request '{id}/comments?summary=true' explicitly if you would like the summary field which contains the count
    * (now called 'total_count')
@@ -62,6 +76,16 @@ public class Comments implements Serializable {
   @Facebook("total_count")
   private Long totalCount = 0L;
 
+  /**
+   * Order in which comments were returned.
+   * 
+   * <p>
+   * <code>ranked</code> indicates the most interesting comments are sorted first.<br>
+   * <code>chronological</code> indicates comments are sorted by the oldest comments first.
+   * </p>
+   *
+   * @return the order of the comments
+   */
   @Getter
   @Setter
   private String order;
@@ -87,25 +111,16 @@ public class Comments implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
   @Override
   public int hashCode() {
     return ReflectionUtils.hashCode(this);
   }
 
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
   public boolean equals(Object that) {
     return ReflectionUtils.equals(this, that);
   }
 
-  /**
-   * @see java.lang.Object#toString()
-   */
   @Override
   public String toString() {
     return ReflectionUtils.toString(this);
@@ -151,7 +166,7 @@ public class Comments implements Serializable {
       order = summary.getString("order", order);
     }
 
-	if (order == null && openGraphCommentOrder != null) {
+    if (order == null && openGraphCommentOrder != null) {
       order = openGraphCommentOrder;
     }
   }
