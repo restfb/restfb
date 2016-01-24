@@ -31,6 +31,8 @@ public class ApplicationTest extends SetterGetterTestBase {
   @Test
   public void test() {
     Application obj = new Application();
+    addIgnoredField("rawCreatedTime");
+    addIgnoredField("rawLastUsedTime");
     testInstance(obj);
   }
 }
