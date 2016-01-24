@@ -1,0 +1,14 @@
+{
+  "app_type": 1,
+  "app_name": "Test App",
+  "auth_referral_enabled": 0,
+  "contact_email": "text@example.com",
+  "created_time": "2013-02-06T16:33:38+0000",
+  "creator_uid": "10987654321",
+  "link": "http://www.example.com/",
+  "logo_url": "https://scontent.xx.fbcdn.net/example.png",
+  "social_discovery": 0,
+  "supports_attribution": true,
+  "supports_implicit_sdk_logging": true,
+  "id": "123456789085756"
+}
