@@ -48,8 +48,11 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <strong>Review</strong>
    *
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the
+   *             deprecation warning
    */
-  MANAGE_NOTIFICATIONS("manage_notifications"), //
+  @Deprecated MANAGE_NOTIFICATIONS("manage_notifications"), //
 
   /**
    * Enables your app to retrieve Page Access Tokens for the Pages and Apps that the person administrates.
@@ -182,8 +185,11 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <strong>Review</strong>
    * 
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the
+   *             deprecation warning
    */
-  READ_MAILBOX("read_mailbox"), //
+  @Deprecated READ_MAILBOX("read_mailbox"), //
 
   /**
    * Provides the ability to read from the Page Inboxes of the Pages managed by a person. This permission is often used
@@ -203,8 +209,11 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <strong>Review</strong>
    * 
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the
+   *             deprecation warning
    */
-  READ_STREAM("read_stream"), //
+  @Deprecated READ_STREAM("read_stream"), //
 
   /**
    * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).
