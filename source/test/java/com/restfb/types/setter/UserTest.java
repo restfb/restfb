@@ -35,6 +35,7 @@ public class UserTest extends SetterGetterTestBase {
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawPicture");
     addIgnoredField("hometownAsString");
+    addIgnoredField("rawSharedLoginUpgradeRequiredBy");
     testInstance(obj);
   }
 

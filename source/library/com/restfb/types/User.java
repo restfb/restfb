@@ -42,7 +42,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">User Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user">User Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Patrick Alberts
@@ -69,6 +69,26 @@ public class User extends NamedFacebookType {
   @Setter
   @Facebook("middle_name")
   private String middleName;
+
+  /**
+   * The person's name formatted to correctly handle Chinese, Japanese, or Korean ordering.
+   *
+   * @return The person's name formatted to correctly handle Chinese, Japanese, or Korean ordering
+   */
+  @Getter
+  @Setter
+  @Facebook("name_format")
+  private String nameFormat;
+
+  /**
+   * The person's payment pricepoints
+   *
+   * @return The person's payment pricepoints
+   */
+  @Getter
+  @Setter
+  @Facebook("payment_pricepoints")
+  private PaymentPricepoints paymentPricepoints;
 
   /**
    * The user's last name.
@@ -204,7 +224,13 @@ public class User extends NamedFacebookType {
   private Double timezone;
 
   /**
-   * Is the user verified?
+   * Indicates whether the account has been verified. This is distinct from the <code>is_verified</code> field. Someone
+   * is considered verified if they take any of the following actions:
+   * <ul>
+   * <li>Register for mobile</li>
+   * <li>Confirm their account via SMS</li>
+   * <li>Enter a valid credit card</li>
+   * </ul>
    * 
    * @return User verification status.
    */
@@ -212,6 +238,26 @@ public class User extends NamedFacebookType {
   @Setter
   @Facebook
   private Boolean verified;
+
+  /**
+   * Video upload limits
+   *
+   * @return Video upload limits
+   */
+  @Getter
+  @Setter
+  @Facebook("video_upload_limits")
+  private VideoUploadLimits videoUploadLimits;
+
+  /**
+   * Can the viewer send a gift to this person?
+   *
+   * @return Can the viewer send a gift to this person?
+   */
+  @Getter
+  @Setter
+  @Facebook("viewer_can_send_gift")
+  private Boolean viewerCanSendGift;
 
   /**
    * The user's gender.
@@ -245,7 +291,7 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's Facebook username.
-   * 
+   *
    * @return The user's Facebook username.
    * @since 1.6.5
    * @deprecated since graph api 2.0
@@ -255,6 +301,16 @@ public class User extends NamedFacebookType {
   @Setter
   @Facebook
   private String username;
+
+  /**
+   * The person's PGP public key
+   *
+   * @return The person's PGP public key
+   */
+  @Getter
+  @Setter
+  @Facebook("public_key")
+  private String publicKey;
 
   @Facebook("picture")
   private JsonObject rawPicture;
@@ -303,6 +359,28 @@ public class User extends NamedFacebookType {
   private NamedFacebookType location;
 
   /**
+   * Security settings
+   *
+   * @return Security settings
+   */
+  @Getter
+  @Setter
+  @Facebook("security_settings")
+  private SecuritySettings securitySettings;
+
+  /**
+   * The time that the shared loginneeds to be upgraded to Business Manager by
+   *
+   * @return The time that the shared loginneeds to be upgraded to Business Manager by
+   */
+  @Getter
+  @Setter
+  private Date sharedLoginUpgradeRequiredBy;
+
+  @Facebook("shared_login_upgrade_required_by")
+  private String rawSharedLoginUpgradeRequiredBy;
+
+  /**
    * The user's significant other.
    * 
    * @return The user's significant other.
@@ -311,6 +389,16 @@ public class User extends NamedFacebookType {
   @Setter
   @Facebook("significant_other")
   private NamedFacebookType significantOther;
+
+  /**
+   * Platform test group
+   *
+   * @return Platform test group
+   */
+  @Getter
+  @Setter
+  @Facebook("test_group")
+  private Long testGroup;
 
   @Facebook("updated_time")
   private String rawUpdatedTime;
@@ -360,6 +448,49 @@ public class User extends NamedFacebookType {
   @Facebook("token_for_business")
   private String tokenForBusiness;
 
+  /**
+   * Install type.
+   *
+   * @return Install type.
+   */
+  @Getter
+  @Setter
+  @Facebook("install_type")
+  private String installType;
+
+  /**
+   * Is the app making the request installed?
+   *
+   * @return Is the app making the request installed?
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean installed;
+
+  /**
+   * Is this a shared login (e.g. a gray user)
+   *
+   * @return Is this a shared login (e.g. a gray user)
+   */
+  @Getter
+  @Setter
+  @Facebook("is_shared_login")
+  private Boolean isSharedLogin;
+
+  /**
+   * People with large numbers of followers can have the authenticity of their identity manually verified by Facebook.
+   * This field indicates whether the person's profile is verified in this way.
+   *
+   * This is distinct from the <code>verified</code> field
+   *
+   * @return Is the user verified
+   */
+  @Getter
+  @Setter
+  @Facebook("is_verified")
+  private Boolean isVerified;
+
   @Facebook("interested_in")
   private List<String> interestedIn = new ArrayList<String>();
 
@@ -379,13 +510,16 @@ public class User extends NamedFacebookType {
   private List<Sport> sports = new ArrayList<Sport>();
 
   @Facebook("favorite_teams")
-  private List<NamedFacebookType> favoriteTeams = new ArrayList<NamedFacebookType>();
+  private List<Experience> favoriteTeams = new ArrayList<Experience>();
 
   @Facebook("favorite_athletes")
-  private List<NamedFacebookType> favoriteAthletes = new ArrayList<NamedFacebookType>();
+  private List<Experience> favoriteAthletes = new ArrayList<Experience>();
+
+  @Facebook("inspirational_people")
+  private List<Experience> inspirationalPeople = new ArrayList<Experience>();
 
   @Facebook
-  private List<NamedFacebookType> languages = new ArrayList<NamedFacebookType>();
+  private List<Experience> languages = new ArrayList<Experience>();
 
   private static final long serialVersionUID = 1L;
 
@@ -924,8 +1058,9 @@ public class User extends NamedFacebookType {
    * @return The user's birthday, or {@code null} if unavailable or only available in month/year format.
    */
   public Date getBirthdayAsDate() {
-    if (isBlank(getBirthday()) || getBirthday().split("/").length < 2)
+    if (isBlank(getBirthday()) || getBirthday().split("/").length < 2) {
       return null;
+    }
 
     return toDateFromShortFormat(birthday);
   }
@@ -933,6 +1068,7 @@ public class User extends NamedFacebookType {
   @JsonMappingCompleted
   void convertTime() {
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
+    sharedLoginUpgradeRequiredBy = toDateFromLongFormat(rawSharedLoginUpgradeRequiredBy);
   }
 
   @JsonMappingCompleted
@@ -1067,15 +1203,15 @@ public class User extends NamedFacebookType {
    * 
    * @return A list of the favorite sports teams from the user's profile.
    */
-  public List<NamedFacebookType> getFavoriteTeams() {
+  public List<Experience> getFavoriteTeams() {
     return unmodifiableList(favoriteTeams);
   }
 
-  public boolean addFavoriteTeam(NamedFacebookType team) {
+  public boolean addFavoriteTeam(Experience team) {
     return favoriteTeams.add(team);
   }
 
-  public boolean removeFavoriteTeam(NamedFacebookType team) {
+  public boolean removeFavoriteTeam(Experience team) {
     return favoriteTeams.remove(team);
   }
 
@@ -1084,16 +1220,33 @@ public class User extends NamedFacebookType {
    * 
    * @return A list of the favorite athletes from the user's profile.
    */
-  public List<NamedFacebookType> getFavoriteAthletes() {
+  public List<Experience> getFavoriteAthletes() {
     return unmodifiableList(favoriteAthletes);
   }
 
-  public boolean addFavoriteAthlete(NamedFacebookType athlet) {
+  public boolean addFavoriteAthlete(Experience athlet) {
     return favoriteAthletes.add(athlet);
   }
 
-  public boolean removeFavoriteAthlete(NamedFacebookType athlet) {
+  public boolean removeFavoriteAthlete(Experience athlet) {
     return favoriteAthletes.remove(athlet);
+  }
+
+  /**
+   * The person's inspirational people.
+   *
+   * @return The person's inspirational people.
+   */
+  public List<Experience> getInspirationalPeople() {
+    return unmodifiableList(inspirationalPeople);
+  }
+
+  public boolean addInspirationalPeople(Experience person) {
+    return inspirationalPeople.add(person);
+  }
+
+  public boolean removeInspirationalPeople(Experience person) {
+    return inspirationalPeople.remove(person);
   }
 
   /**
@@ -1101,15 +1254,268 @@ public class User extends NamedFacebookType {
    * 
    * @return A list of the languages from the user's profile.
    */
-  public List<NamedFacebookType> getLanguages() {
+  public List<Experience> getLanguages() {
     return unmodifiableList(languages);
   }
 
-  public boolean addLanguage(NamedFacebookType language) {
+  public boolean addLanguage(Experience language) {
     return languages.add(language);
   }
 
-  public boolean removeLanguage(NamedFacebookType language) {
+  public boolean removeLanguage(Experience language) {
     return languages.remove(language);
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/security-settings/">Security
+   * Settings Graph API type</a>
+   */
+  public static class SecuritySettings implements Serializable {
+
+    /**
+     * Secure browsing settings
+     *
+     * @return Secure browsing settings
+     */
+    @Getter
+    @Setter
+    @Facebook("secure_browsing")
+    private SecureBrowsing secureBrowsing;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/secure-browsing/">Secure Browsing
+   * Graph API type</a>.
+   */
+  public static class SecureBrowsing implements Serializable {
+
+    /**
+     * Enabled
+     *
+     * @return Enabled
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Boolean enabled;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/payment-pricepoints/">Payment
+   * Pricepoints Graph API type</a>.
+   */
+  public static class PaymentPricepoints {
+
+    @Facebook
+    private List<PaymentPricepoint> mobile = new ArrayList<PaymentPricepoint>();
+
+    /**
+     * Mobile payment pricepoints
+     * 
+     * @return Mobile payment pricepoints
+     */
+    public List<PaymentPricepoint> getMobile() {
+      return unmodifiableList(mobile);
+    }
+
+    public boolean addMobile(PaymentPricepoint language) {
+      return mobile.add(language);
+    }
+
+    public boolean removeMobile(PaymentPricepoint language) {
+      return mobile.remove(language);
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/payment-pricepoint/">Payment
+   * Pricepoint Graph API type</a>.
+   */
+  public static class PaymentPricepoint implements Serializable {
+
+    @Getter
+    @Setter
+    @Facebook
+    private Double credits;
+
+    @Getter
+    @Setter
+    @Facebook("local_currency")
+    private String localCurrency;
+
+    @Getter
+    @Setter
+    @Facebook("user_price")
+    private String userPrice;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-upload-limits/">Video Upload
+   * Limits Graph API type</a>.
+   */
+  public static class VideoUploadLimits implements Serializable {
+
+    @Getter
+    @Setter
+    @Facebook
+    private Long length;
+
+    @Getter
+    @Setter
+    @Facebook
+    private Long size;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
+
+  public static class Experience extends NamedFacebookType {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String description;
+
+    @Getter
+    @Setter
+    @Facebook
+    private User from;
+
+    @Facebook
+    private List<User> with = new ArrayList<User>();
+
+    /**
+     * Tagged users
+     * 
+     * @return Tagged users
+     */
+    public List<User> getWith() {
+      return unmodifiableList(with);
+    }
+
+    public boolean addWith(User with) {
+      return this.with.add(with);
+    }
+
+    public boolean removeWith(User with) {
+      return this.with.remove(with);
+    }
   }
 }
