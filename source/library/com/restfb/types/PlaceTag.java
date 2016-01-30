@@ -24,7 +24,7 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.JsonMapper;
 
 import java.util.Date;
 
@@ -32,28 +32,34 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a Connection to a <a href="https://developers.facebook.com/docs/graph-api/reference/page/">Page Graph API type</a>
- * , for example the Pages returned from {@code me/music}.
- * 
- * @author Patrick Alberts
- * @since 1.6.3
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/place-tag/">Place Tag Graph API
+ * type</a>.
  */
-public class PageConnection extends CategorizedFacebookType {
-  @Facebook("created_time")
-  private String rawCreatedTime;
+public class PlaceTag extends FacebookType {
 
   /**
-   * The time the connection was initially created.
-   * 
-   * @return The time the connection was initially created.
+   * Time when the place was visited
+   *
+   * @return Time when the place was visited
    */
   @Getter
   @Setter
   private Date createdTime;
 
-  private static final long serialVersionUID = 1L;
+  @Facebook("created_time")
+  private String rawCreatedTime;
 
-  @JsonMappingCompleted
+  /**
+   * The place that was visited
+   *
+   * @return The place that was visited
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Page place;
+
+  @JsonMapper.JsonMappingCompleted
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);
   }
