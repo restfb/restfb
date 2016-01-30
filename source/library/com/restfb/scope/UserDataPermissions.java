@@ -159,8 +159,11 @@ public enum UserDataPermissions implements FacebookPermissions {
    * <strong>Review</strong>
    * 
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the
+   *             deprecation warning
    */
-  USER_GROUPS("user_groups"), //
+  @Deprecated USER_GROUPS("user_groups"), //
 
   /**
    * Provides access to a person's hometown location through the hometown field on the User object. This is set by the
@@ -273,8 +276,13 @@ public enum UserDataPermissions implements FacebookPermissions {
    * <strong>Review</strong>
    * 
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the
+   *             deprecation warning. If you are calling the endpoint <code>/{user-id}/posts</code>
+   *             or <code>/{user-id}/feed</code>, ask for the <code>user_posts</code> permission
+   *             instead (only v2.3 or older).
    */
-  USER_STATUS("user_status"), //
+  @Deprecated USER_STATUS("user_status"), //
 
   /**
    * Provides access to the Places a person has been tagged at in photos, videos, statuses and links.
