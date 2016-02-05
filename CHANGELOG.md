@@ -1,3 +1,20 @@
+1.19.0 (February 5, 2016)
+
+* Issue #375: "private message page replies" support added
+* Issue #369: `Translation` type added
+* Issue #370: `PlaceTag` type added
+* Issue #371: deprecation information for permissions add<br>
+  Thanks to @lomon for hint
+* Issue #368: `Milestone` type added
+* Issue #373: `User` fields missing<br>
+  Thanks to @lomon for hint
+* Issue #366: `Application` type missing fields added
+* Issue #358: `Payment` type added
+* Issue #343: Webhook types added
+* Issue #363: example code moved to repository
+* Issue #362: waffle.io badge added
+* Issue #356: `PageCallToAction` type added
+
 1.18.1 (January 4, 2016)
 
 * Issue #355: copyright year changed to 2016
