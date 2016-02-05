@@ -169,6 +169,26 @@ public class Comment extends FacebookType {
   private boolean canHide;
 
   /**
+   * Whether the viewer can send a private reply to this comment (Page viewers only)
+   * 
+   * @return Whether the viewer can send a private reply to this comment
+   */
+  @Getter
+  @Setter
+  @Facebook("can_reply_privately")
+  private Boolean canReplyPrivately;
+
+  /**
+   * For comments with private replies, gets conversation between the Page and author of the comment (Page viewers only)
+   *
+   * @return conversation between Page and author of the comment
+   */
+  @Getter
+  @Setter
+  @Facebook("private_reply_conversation")
+  private Conversation privateReplyConversation;
+
+  /**
    * Whether this comment is hidden. The original poster can still see the comment, along with the page admin and anyone
    * else tagged in the comment
    *
