@@ -26,6 +26,8 @@ import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
+import com.restfb.json.JsonValue;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
@@ -38,270 +40,316 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/message/">Message Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Felipe Kurkowski
  * @author alockhart
  */
 public class Message extends FacebookType {
 
-  @Facebook("created_time")
-  private String rawCreatedTime;
+    @Facebook("created_time")
+    private String rawCreatedTime;
 
-  /**
-   * The time the message was initially created.
-   * 
-   * @return The time the message was initially created.
-   */
-  @Getter
-  @Setter
-  private Date createdTime;
+    /**
+     * The time the message was initially created.
+     *
+     * @return The time the message was initially created.
+     */
+    @Getter
+    @Setter
+    private Date createdTime;
 
-  /**
-   * The sender of this message
-   * 
-   * @return The sender of this message
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private NamedFacebookType from;
+    /**
+     * The subject of the message.
+     *
+     * @return The subject of the message.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String subject;
 
-  @Facebook
-  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
+    /**
+     * The sender of this message
+     *
+     * @return The sender of this message
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private NamedFacebookType from;
 
-  /**
-   * The text of the message
-   * 
-   * @return The text of the message
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String message;
+    @Facebook
+    private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
-  @Facebook
-  private List<Attachment> attachments = new ArrayList<Attachment>();
+    /**
+     * The text of the message
+     *
+     * @return The text of the message
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String message;
 
-  @Facebook("updated_time")
-  transient private String rawUpdatedTime;
+    @Facebook
+    private List<Attachment> attachments = new ArrayList<Attachment>();
 
-  /**
-   * The time of the last update to this message.
-   * 
-   * @return The time of the last update to this message.
-   */
-  @Getter
-  @Setter
-  private Date updatedTime;
+    @Facebook("updated_time")
+    transient private String rawUpdatedTime;
 
-  /**
-   * The "unread" count for this message.
-   * 
-   * @return The "unread" count for this message.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private Integer unread;
+    /**
+     * The time of the last update to this message.
+     *
+     * @return The time of the last update to this message.
+     */
+    @Getter
+    @Setter
+    private Date updatedTime;
 
-  /**
-   * Whether this message has been seen.
-   * 
-   * @return Whether this message has been seen.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private Boolean unseen;
+    /**
+     * The "unread" count for this message.
+     *
+     * @return The "unread" count for this message.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer unread;
 
-  private static final long serialVersionUID = 1L;
+    /**
+     * Whether this message has been seen.
+     *
+     * @return Whether this message has been seen.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Boolean unseen;
 
-  /**
-   * Represents an attached file that you may find on a private message.
-   * 
-   * @author alockhart
-   * @since 1.6.12
-   */
-  public static class Attachment extends FacebookType {
+    @Facebook("tags")
+    private String rawTags;
+
+    private List<String> tags = new ArrayList<String>();
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * The attachment's filename, for example 121423423.jpg.
-     * 
-     * @return The attachment's filename.
+     * Represents an attached file that you may find on a private message.
+     *
+     * @author alockhart
+     * @since 1.6.12
      */
-    @Getter
-    @Setter
-    @Facebook
-    private String name;
+    public static class Attachment extends FacebookType {
 
-    /**
-     * The attachment's mime type, for example image/jpeg.
-     * 
-     * @return The attachment's mime type.
-     */
-    @Getter
-    @Setter
-    @Facebook("mime_type")
-    private String mimeType;
+        private static final long serialVersionUID = 1L;
 
-    /**
-     * The size of the attachment in bytes.
-     * 
-     * @return The size of the attachment in bytes.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Long size;
+        /**
+         * The attachment's filename, for example 121423423.jpg.
+         *
+         * @return The attachment's filename.
+         */
+        @Getter
+        @Setter
+        @Facebook
+        private String name;
 
-    /**
-     * When the attached file is an image, Facebook will also send information about it's width, height and url.
-     * 
-     * @return The attachment's image data.
-     */
-    @Getter
-    @Setter
-    @Facebook("image_data")
-    private ImageData imageData;
+        /**
+         * The attachment's mime type, for example image/jpeg.
+         *
+         * @return The attachment's mime type.
+         */
+        @Getter
+        @Setter
+        @Facebook("mime_type")
+        private String mimeType;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
+        /**
+         * The size of the attachment in bytes.
+         *
+         * @return The size of the attachment in bytes.
+         */
+        @Getter
+        @Setter
+        @Facebook
+        private Long size;
+
+        /**
+         * When the attached file is an image, Facebook will also send information about it's width, height and url.
+         *
+         * @return The attachment's image data.
+         */
+        @Getter
+        @Setter
+        @Facebook("image_data")
+        private ImageData imageData;
+
+        /**
+         * @see java.lang.Object#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            return ReflectionUtils.hashCode(this);
+        }
+
+        /**
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object that) {
+            return ReflectionUtils.equals(this, that);
+        }
+
+        /**
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return ReflectionUtils.toString(this);
+        }
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * Additional attachment information, only present when an attached file is an image.
+     *
+     * @author Felipe Kurkowski
      */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
+    public static class ImageData implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * The image's width.
+         *
+         * @return The image's width.
+         */
+        @Getter
+        @Setter
+        @Facebook
+        private int width;
+
+        /**
+         * The image's height.
+         *
+         * @return The image's height.
+         */
+        @Getter
+        @Setter
+        @Facebook
+        private int height;
+
+        /**
+         * The image's url.
+         *
+         * @return The image's url.
+         */
+        @Getter
+        @Setter
+        @Facebook
+        private String url;
+
+        /**
+         * The image's preview url.
+         *
+         * @return The image's preview url.
+         */
+        @Getter
+        @Setter
+        @Facebook("preview_url")
+        private String previewUrl;
+
+        /**
+         * @see java.lang.Object#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            return ReflectionUtils.hashCode(this);
+        }
+
+        /**
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object that) {
+            return ReflectionUtils.equals(this, that);
+        }
+
+        /**
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return ReflectionUtils.toString(this);
+        }
+    }
+
+    @JsonMappingCompleted
+    void convertTime() {
+        createdTime = toDateFromLongFormat(rawCreatedTime);
+        updatedTime = toDateFromLongFormat(rawUpdatedTime);
+    }
+
+    @JsonMappingCompleted
+    void convertTags() {
+        if (rawTags != null) {
+            JsonValue parsedObject = Json.parse(rawTags);
+            if (parsedObject.isObject()) {
+                if (parsedObject.asObject().get("data").isArray()) {
+                    for (JsonValue tagObject : parsedObject.asObject().get("data").asArray()) {
+                        tags.add(tagObject.asObject().get("name").asString());
+                    }
+                }
+            }
+        }
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * The attachments associated with the message.
+     *
+     * @return The attachments associated with the message.
      */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
+    public List<Attachment> getAttachments() {
+        return (attachments != null ? unmodifiableList(attachments) : null);
     }
-  }
 
-  /**
-   * Additional attachment information, only present when an attached file is an image.
-   * 
-   * @author Felipe Kurkowski
-   */
-  public static class ImageData implements Serializable {
-    private static final long serialVersionUID = 1L;
+    public boolean addAttachment(Attachment attachment) {
+        return attachments.add(attachment);
+    }
 
-    /**
-     * The image's width.
-     * 
-     * @return The image's width.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private int width;
-
-    /**
-     * The image's height.
-     * 
-     * @return The image's height.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private int height;
-
-    /**
-     * The image's url.
-     * 
-     * @return The image's url.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String url;
-
-    /**
-     * The image's preview url.
-     * 
-     * @return The image's preview url.
-     */
-    @Getter
-    @Setter
-    @Facebook("preview_url")
-    private String previewUrl;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
+    public boolean removeAttachment(Attachment attachment) {
+        return attachments.remove(attachment);
     }
 
     /**
-     * @see java.lang.Object#equals(java.lang.Object)
+     * A list of the message recipients
+     *
+     * @return A list of the message recipients
      */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
+    public List<NamedFacebookType> getTo() {
+        return unmodifiableList(to);
+    }
+
+    public boolean addTo(NamedFacebookType receiver) {
+        return to.add(from);
+    }
+
+    public boolean removeTo(NamedFacebookType receiver) {
+        return to.remove(from);
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * A set of tags indicating the message folder and source of the message.
+     *
+     * @return A set of tags indicating the message folder and source of the message.
      */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
+    public List<String> getTags() {
+        return unmodifiableList(tags);
     }
-  }
 
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
+    public boolean addTag(String tag) {
+        return tags.add(tag);
+    }
 
-  /**
-   * The attachments associated with the message.
-   * 
-   * @return The attachments associated with the message.
-   */
-  public List<Attachment> getAttachments() {
-    return (attachments != null ? unmodifiableList(attachments) : null);
-  }
-
-  public boolean addAttachment(Attachment attachment) {
-    return attachments.add(attachment);
-  }
-
-  public boolean removeAttachment(Attachment attachment) {
-    return attachments.remove(attachment);
-  }
-
-  /**
-   * A list of the message recipients
-   * 
-   * @return A list of the message recipients
-   */
-  public List<NamedFacebookType> getTo() {
-    return unmodifiableList(to);
-  }
-
-  public boolean addTo(NamedFacebookType receiver) {
-    return to.add(from);
-  }
-
-  public boolean removeTo(NamedFacebookType receiver) {
-    return to.remove(from);
-  }
+    public boolean removeTag(String tag) {
+        return tags.remove(tag);
+    }
 }

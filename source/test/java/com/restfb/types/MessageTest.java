@@ -19,38 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.setter;
+package com.restfb.types;
 
-import com.restfb.types.Message;
-import com.restfb.types.api.SetterGetterTestBase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
 
-public class MessageTest extends SetterGetterTestBase {
+import java.util.List;
+
+public class MessageTest extends AbstractJsonMapperTests {
 
   @Test
-  public void test() {
-    Message obj = new Message();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawTags");
-    testInstance(obj);
+  public void photoTags_V2_5() {
+    Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message"), Message.class);
+    assertNotNull(exampleMessage);
+    List<String> tags = exampleMessage.getTags();
+    assertEquals(4, tags.size());
+    assertEquals("Test", exampleMessage.getMessage());
+    assertEquals("Tester Page", exampleMessage.getFrom().getName());
+    assertEquals("Test User", exampleMessage.getTo().get(0).getName());
   }
-
-  @Test
-  public void testAttachment() {
-    Message.Attachment obj = new Message.Attachment();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testImageData() {
-    Message.ImageData obj = new Message.ImageData();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
 }
