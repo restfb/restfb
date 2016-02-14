@@ -51,6 +51,16 @@ import lombok.Setter;
 public class User extends NamedFacebookType {
 
   /**
+   * Social context for this person
+   *
+   * @return Social context for this person
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private FacebookType context;
+
+  /**
    * The user's first name.
    * 
    * @return The user's first name.
