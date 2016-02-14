@@ -69,6 +69,18 @@ public class Photo extends NamedFacebookType {
   private String picture;
 
   /**
+   * ID of the page story this corresponds to.
+   *
+   * May not be on all photos. Applies only to published photos
+   *
+   * @return ID of the page story this corresponds to.
+   */
+  @Getter
+  @Setter
+  @Facebook("page_story_id")
+  private String pageStoryId;
+
+  /**
    * The full-sized source of the photo.
    * 
    * @return The full-sized source of the photo.
