@@ -41,6 +41,16 @@ import lombok.Setter;
 public class AppRequest extends FacebookType {
 
   /**
+   * Request action type for structured request
+   *
+   * @return Request action type for structured request
+   */
+  @Getter
+  @Setter
+  @Facebook("action_type")
+  private String actionType;
+
+  /**
    * App associated with the request.
    * 
    * @return App associated with the request.
@@ -49,6 +59,16 @@ public class AppRequest extends FacebookType {
   @Setter
   @Facebook
   private Application application;
+
+  /**
+   * Optional data passed with the request for tracking purposes
+   *
+   * @return Optional data passed with the request for tracking purposes
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String data;
 
   /**
    * The recipient user associated with the request.
