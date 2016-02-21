@@ -37,6 +37,7 @@ public class PageCallToActionTest extends AbstractJsonMapperTests {
     assertEquals("http://example.com/", callToAction.getWebUrl());
     assertEquals("WEBSITE", callToAction.getWebDestinationType());
     assertEquals("1243536243", callToAction.getId());
-
+    assertEquals(1450699560000L, callToAction.getUpdatedTime().getTime());
+    assertEquals(1450699560000L, callToAction.getCreatedTime().getTime());
   }
 }
