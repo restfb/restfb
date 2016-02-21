@@ -36,10 +36,13 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/question">Question Graph API type</a>.
- * 
+ *
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
+ * @Deprecated removed after Graph API Version 1.0
  */
+@Deprecated
 public class Question extends FacebookType {
 
   /**

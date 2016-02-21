@@ -26,6 +26,7 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.Test;
 
+@Deprecated
 public class QuestionTest extends SetterGetterTestBase {
 
   @Test
