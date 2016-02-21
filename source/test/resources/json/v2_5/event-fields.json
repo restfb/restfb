@@ -1,0 +1,14 @@
+{
+  "can_guests_invite": true,
+  "guest_list_enabled": true,
+  "start_time": "2016-02-19T01:00:00+0100",
+  "is_viewer_admin": true,
+  "updated_time": "2016-02-15T23:39:13+0000",
+  "declined_count": 0,
+  "maybe_count": 0,
+  "noreply_count": 0,
+  "is_page_owned": true,
+  "timezone": "Europe/Berlin",
+  "interested_count": 0,
+  "id": "1002732343106078"
+}

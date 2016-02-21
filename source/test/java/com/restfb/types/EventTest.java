@@ -125,4 +125,19 @@ public class EventTest extends AbstractJsonMapperTests {
     assertNotNull(event.getOwner());
   }
 
+  @Test
+  public void checkV2_5_issue380() {
+    Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/event-fields"), Event.class);
+    assertNotNull(event);
+    assertTrue(event.getIsPageOwned());
+    assertTrue(event.getIsViewerAdmin());
+    assertEquals(0L, event.getDeclinedCount().longValue());
+    assertTrue(event.getCanGuestsInvite());
+    assertEquals(1455840000000L, event.getStartTime().getTime());
+    assertEquals("Europe/Berlin", event.getTimezone());
+    assertEquals(0L, event.getMaybeCount().longValue());
+    assertEquals(0L, event.getNoreplyCount().longValue());
+    assertEquals(0L, event.getInterestedCount().longValue());
+  }
+
 }
