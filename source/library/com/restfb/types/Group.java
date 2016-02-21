@@ -40,6 +40,29 @@ import lombok.Setter;
 public class Group extends NamedFacebookType {
 
   /**
+   * Information about the group's cover photo.
+   *
+   * @return Information about the group's cover photo.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private CoverPhoto cover;
+
+  /**
+   * The email address to upload content to the group.
+   * <p>
+   * Only current members of the group can use this.
+   * </p>
+   * 
+   * @return The email address to upload content to the group.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String email;
+
+  /**
    * An object containing the name and ID of the user who owns the group.
    * 
    * @return An object containing the name and ID of the user who owns the group.
@@ -68,6 +91,31 @@ public class Group extends NamedFacebookType {
   @Setter
   @Facebook
   private String link;
+
+  /**
+   * The number of pending member requests.
+   * <p>
+   * If the token is for an administrator, this is the total number of outstanding requests. If the token is for a group
+   * member, this will return the number of friends who have requested membership and also use the same app that is
+   * making the request.
+   * </p>
+   *
+   * @return The number of pending member requests
+   */
+  @Getter
+  @Setter
+  @Facebook("member_request_count")
+  private Long memberRequestCount;
+
+  /**
+   * The parent of this group, if it exists.
+   *
+   * @return The parent of this group, if it exists
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private NamedFacebookType parent;
 
   /**
    * The location of this group, a structured address object.
