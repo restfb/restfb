@@ -57,6 +57,37 @@ public class Event extends NamedFacebookType {
   private Owner owner;
 
   /**
+   * The category of the event.
+   *
+   * @since Graph API 2.4
+   * @return The category of the event
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String category;
+
+  /**
+   * Can guests invite friends.
+   *
+   * @return Can guests invite friends
+   */
+  @Getter
+  @Setter
+  @Facebook("can_guests_invite")
+  private Boolean canGuestsInvite;
+
+  /**
+   * Can see guest list.
+   *
+   * @return Can see guest list
+   */
+  @Getter
+  @Setter
+  @Facebook("guest_list_enabled")
+  private Boolean guestListEnabled;
+
+  /**
    * The long-form HTML description of the event.
    * 
    * @return The long-form HTML description of the event.
@@ -125,6 +156,37 @@ public class Event extends NamedFacebookType {
   private Venue venue;
 
   /**
+   * Number of people interested in the event.
+   *
+   * @since Graph API 2.1
+   * @return Number of people interested in the event
+   */
+  @Getter
+  @Setter
+  @Facebook("interested_count")
+  private Long interestedCount;
+
+  /**
+   * Whether the event is created by page or not.
+   *
+   * @return Whether the event is created by page or not
+   */
+  @Getter
+  @Setter
+  @Facebook("is_page_owned")
+  private Boolean isPageOwned;
+
+  /**
+   * Whether the viewer is admin or not.
+   *
+   * @return Whether the viewer is admin or not
+   */
+  @Getter
+  @Setter
+  @Facebook("is_viewer_admin")
+  private Boolean isViewerAdmin;
+
+  /**
    * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
    * 
    * @return The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
@@ -183,7 +245,8 @@ public class Event extends NamedFacebookType {
 
   /**
    * Location associated with the event, if any.
-   * 
+   *
+   * @since Graph API 2.3
    * @return Location associated with the event, if any
    */
   @Getter
@@ -215,6 +278,7 @@ public class Event extends NamedFacebookType {
   /**
    * Number of people attending the event
    *
+   * @since Graph API 2.1
    * @return Number of people attending the event
    */
   @Getter
@@ -225,6 +289,7 @@ public class Event extends NamedFacebookType {
   /**
    * Number of people who declined the event
    *
+   * @since Graph API 2.1
    * @return Number of people who declined the event
    */
   @Getter
@@ -235,6 +300,7 @@ public class Event extends NamedFacebookType {
   /**
    * Number of people who maybe going to the event
    *
+   * @since Graph API 2.1
    * @return Number of people who maybe going to the event
    */
   @Getter
@@ -245,6 +311,7 @@ public class Event extends NamedFacebookType {
   /**
    * Number of people who did not reply to the event
    *
+   * @since Graph API 2.1
    * @return Number of people who did not reply to the event
    */
   @Getter
@@ -337,7 +404,6 @@ public class Event extends NamedFacebookType {
     public List<Category> getCategoryList() {
       return unmodifiableList(categoryList);
     }
-
   }
 
   /**
