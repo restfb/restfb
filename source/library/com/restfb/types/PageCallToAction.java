@@ -21,7 +21,12 @@
  */
 package com.restfb.types;
 
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +36,100 @@ import lombok.Setter;
  * Action type</a>
  */
 public class PageCallToAction extends FacebookType {
+
+  /**
+   * App that stores the destination info on Android.
+   *
+   * @return App that stores the destination info on Android
+   */
+  @Getter
+  @Setter
+  @Facebook("android_app")
+  private Application androidApp;
+
+  @Facebook("created_time")
+  private String rawCreatedTime;
+
+  /**
+   * Time when the call-to-action was created.
+   *
+   * @return Time when the call-to-action was created
+   */
+  @Getter
+  @Setter
+  private Date createdTime;
+
+  /**
+   * Email address that can be contacted by a user.
+   *
+   * @return Email address that can be contacted by a user
+   */
+  @Getter
+  @Setter
+  @Facebook("email_address")
+  private String emailAddress;
+
+  /**
+   * Page that owns the call-to-action.
+   *
+   * @return Page that owns the call-to-action
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Page from;
+
+  /**
+   * App that stores the destination info on iPhone.
+   *
+   * @return App that stores the destination info on iPhone
+   */
+  @Getter
+  @Setter
+  @Facebook("iphone_app")
+  private Application iphoneApp;
+
+  /**
+   * Destination deeplink for the call-to-action on iPhone.
+   *
+   * @return Destination deeplink for the call-to-action on iPhone
+   */
+  @Getter
+  @Setter
+  @Facebook("iphone_deeplink")
+  private String iphoneDeeplink;
+
+  /**
+   * Destination url for the call-to-action on iPhone.
+   *
+   * @return Destination url for the call-to-action on iPhone
+   */
+  @Getter
+  @Setter
+  @Facebook("iphone_url")
+  private String iphoneUrl;
+
+  /**
+   * Current running status of this action.
+   *
+   * @return Current running status of this action
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String status;
+
+  @Facebook("updated_time")
+  private String rawUpdatedTime;
+
+  /**
+   * Time when the call-to-action was last updated.
+   *
+   * @return Time when the call-to-action was last updated
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
   /**
    * Destination type for the call-to-action on desktop.
@@ -145,4 +244,10 @@ public class PageCallToAction extends FacebookType {
   @Setter
   @Facebook("iphoneUrl")
   private String iphone_url;
+
+  @JsonMapper.JsonMappingCompleted
+  void convertTime() {
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+  }
 }
