@@ -28,6 +28,7 @@ import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
 
+@Deprecated
 public class StatusMessageTest extends AbstractJsonMapperTests {
 
   @Test

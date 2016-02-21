@@ -37,7 +37,9 @@ import lombok.Setter;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
+ * @Deprecated removed after Graph API 1.0
  */
+@Deprecated
 public class QuestionOption extends NamedFacebookType {
 
   /**
