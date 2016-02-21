@@ -98,6 +98,16 @@ public class Conversation extends FacebookType {
   private Long messageCount;
 
   /**
+   * The name of the message folder or source.
+   *
+   * @return The name of the message folder or source
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String name;
+
+  /**
    * The number of unread messages in the conversation
    * 
    * Facebook does not send the unread count if there aren't any new messages. In order to keep data consistency, we set
