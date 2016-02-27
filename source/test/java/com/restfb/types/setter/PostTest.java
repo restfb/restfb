@@ -34,6 +34,7 @@ public class PostTest extends SetterGetterTestBase {
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawMessageTags");
+    addIgnoredField("rawScheduledPublishTime");
     addIgnoredField("likesCount");
     addIgnoredField("messageTags");
     testInstance(obj);
