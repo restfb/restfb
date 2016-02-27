@@ -22,6 +22,7 @@
 package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
@@ -67,6 +68,19 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook
   private String message;
+
+  /**
+   * The permanent static URL to the post on www.facebook.com.
+   * <p>
+   * Example: https://www.facebook.com/FacebookforDevelopers/posts/10153449196353553
+   * </p>
+   * 
+   * @return The permanent static URL to the post on www.facebook.com.
+   */
+  @Getter
+  @Setter
+  @Facebook("permalink_url")
+  private String permalinkUrl;
 
   /**
    * If available, a link to the picture included with this post.
@@ -159,6 +173,16 @@ public class Post extends NamedFacebookType {
   private Privacy privacy;
 
   /**
+   * Status of the promotion, if the post was promoted.
+   *
+   * @return Status of the promotion, if the post was promoted
+   */
+  @Getter
+  @Setter
+  @Facebook("promotion_status")
+  private String promotionStatus;
+
+  /**
    * Object that controls news feed targeting for this post.
    *
    * To force Facebook to fill the <code>feed_targeting</code> field you have to fetch the post with the
@@ -172,10 +196,35 @@ public class Post extends NamedFacebookType {
   @Facebook("feed_targeting")
   private FeedTargeting feedTargeting;
 
+  /**
+   * The profile this was posted on if different from the author.
+   *
+   * @return The profile this was posted on if different from the author
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private NamedFacebookType target;
+
+  /**
+   * Ads targeting information of the post.
+   *
+   * @return Ads targeting information of the post
+   */
   @Getter
   @Setter
   @Facebook
   private Targeting targeting;
+
+  /**
+   * Timeline visibility information of the post.
+   *
+   * @return imeline visibility information of the post
+   */
+  @Getter
+  @Setter
+  @Facebook("timeline_visibility")
+  private String timelineVisibility;
 
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
@@ -293,6 +342,28 @@ public class Post extends NamedFacebookType {
 
   private List<MessageTag> messageTags = new ArrayList<MessageTag>();
 
+  /**
+   * UNIX timestamp of the scheduled publish time for the post.
+   *
+   * @return UNIX timestamp of the scheduled publish time for the post
+   */
+  @Facebook("scheduled_publish_time")
+  private String rawScheduledPublishTime;
+
+  /**
+   * UNIX timestamp of the scheduled publish time for the post.
+   *
+   * @return UNIX timestamp of the scheduled publish time for the post
+   */
+  @Getter
+  @Setter
+  private Date scheduledPublishTime;
+
+  /**
+   * Number of times the post has been shared.
+   *
+   * @return Number of times the post has been shared
+   */
   @Getter
   @Setter
   @Facebook
@@ -312,6 +383,40 @@ public class Post extends NamedFacebookType {
   private NamedFacebookType adminCreator;
 
   /**
+   * Whether the post can be promoted on Instagram.
+   * <p>
+   * It returns the enum <code>eligible</code> if it can be promoted. Otherwise it returns an enum for why it cannot be
+   * promoted
+   * </p>
+   * 
+   * @return Whether the post can be promoted on Instagram
+   */
+  @Getter
+  @Setter
+  @Facebook("instagram_eligibility")
+  private String instagramEligibility;
+
+  /**
+   * Whether or not the post references an app.
+   *
+   * @return Whether or not the post references an app
+   */
+  @Getter
+  @Setter
+  @Facebook("is_app_share")
+  private Boolean isAppShare;
+
+  /**
+   * Whether the post has expiration time that has passed
+   *
+   * @return Whether the post has expiration time that has passed
+   */
+  @Getter
+  @Setter
+  @Facebook("is_expired")
+  private Boolean isExpired;
+
+  /**
    * If this post is marked as hidden (applies to Pages only).
    *
    * @since 1.10.0
@@ -321,6 +426,28 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook("is_hidden")
   private Boolean isHidden;
+
+  /**
+   * Whether this post can be promoted in Instagram.
+   *
+   * @return Whether this post can be promoted in Instagram
+   */
+  @Getter
+  @Setter
+  @Facebook("is_instagram_eligible")
+  private Boolean isInstagramEligible;
+
+  /**
+   * Whether the post is currently popular.
+   *
+   * Based on whether the total actions as a percentage of reach exceeds a certain threshold
+   *
+   * @return Whether the post is currently popular
+   */
+  @Getter
+  @Setter
+  @Facebook("is_popular")
+  private Boolean isPopular;
 
   /**
    * Indicates whether a scheduled post was published. (applies to scheduled Page Post only, for users post and
@@ -333,6 +460,16 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook("is_published")
   private Boolean isPublished;
+
+  /**
+   * Whether the post is a spherical video post.
+   *
+   * @return Whether the post is a spherical video post
+   */
+  @Getter
+  @Setter
+  @Facebook("is_spherical")
+  private Boolean isSpherical;
 
   /**
    * Attachments added to a post.
@@ -1009,6 +1146,7 @@ public class Post extends NamedFacebookType {
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
+    scheduledPublishTime = toDateFromLongFormat(rawScheduledPublishTime);
   }
 
   /**

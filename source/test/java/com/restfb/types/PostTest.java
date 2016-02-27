@@ -210,4 +210,18 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNull(likesWithSummary.getCanLike());
     assertNull(likesWithSummary.getHasLiked());
   }
+
+  @Test
+  public void checkV2_5_scheduled() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-scheduled"), Post.class);
+    assertNotNull(examplePost);
+    assertEquals(1459416660000L, examplePost.getScheduledPublishTime().getTime());
+    assertEquals("inactive", examplePost.getPromotionStatus());
+    assertFalse(examplePost.getIsExpired());
+    assertFalse(examplePost.getIsPopular());
+    assertFalse(examplePost.getIsInstagramEligible());
+    assertEquals("https://www.facebook.com/permalink.php?story_fbid=653434235363&id=123456789",
+      examplePost.getPermalinkUrl());
+    assertEquals("no timeline unit for this post", examplePost.getTimelineVisibility());
+  }
 }
