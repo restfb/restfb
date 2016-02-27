@@ -113,4 +113,17 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals(1413059309000L, page.getLastUsedTime().getTime());
   }
 
+  @Test
+  public void checkV2_5_moreFields() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-morefields"), Page.class);
+    assertNotNull(page);
+    assertEquals(0.12, page.getAssetScore(), 0.001);
+    assertEquals(2, page.getCountryPageLikes().intValue());
+    assertEquals("PLACE", page.getPlaceType());
+    assertEquals("test street 10, 12345 test town", page.getSingleLineAddress());
+    assertEquals("not_verified", page.getVerificationStatus());
+    assertFalse(page.getIsAlwaysOpen());
+    assertTrue(page.getCanCheckin());
+  }
+
 }

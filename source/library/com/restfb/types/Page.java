@@ -74,6 +74,16 @@ public class Page extends CategorizedFacebookType {
   private String affiliation;
 
   /**
+   * App ID for app-owned Pages and app Pages.
+   *
+   * @return App ID for app-owned Pages and app Pages
+   */
+  @Getter
+  @Setter
+  @Facebook("app_id")
+  private String appId;
+
+  /**
    * Artists the band likes. Applicable to Bands
    * 
    * @since 1.10.0
@@ -83,6 +93,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("artists_we_like")
   private String artistsWeLike;
+
+  /**
+   * relevance score of an asset.
+   *
+   * @return relevance score of an asset
+   */
+  @Getter
+  @Setter
+  @Facebook("asset_score")
+  private Double assetScore;
 
   /**
    * Dress code of the business. Applicable to Restaurants or Nightlife. Can be one of Casual, Dressy or Unspecified
@@ -151,6 +171,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("contact_address")
   private MailingAddress contactAddress;
+
+  /**
+   * If this is a Page in a Global Pages hierarchy, the number of people who are being directed to this Page.
+   *
+   * @return If this is a Page in a Global Pages hierarchy, the number of people who are being directed to this Page.
+   */
+  @Getter
+  @Setter
+  @Facebook("country_page_likes")
+  private Integer countryPageLikes;
 
   /**
    * Biography of the band. Applicable to Bands
@@ -250,6 +280,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("global_brand_page_name")
   private String globalBrandPageName;
+
+  /**
+   * This brand's global Root ID.
+   *
+   * @return This brand's global Root ID
+   */
+  @Getter
+  @Setter
+  @Facebook("global_brand_root_id")
+  private String globalBrandRootId;
 
   /**
    * This brand's global (parent) Page.
@@ -369,6 +409,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("pharma_safety_info")
   private String pharmaSafetyInfo;
+
+  /**
+   * For places, the category of the place.
+   *
+   * @return For places, the category of the place
+   */
+  @Getter
+  @Setter
+  @Facebook("place_type")
+  private String placeType;
 
   /**
    * The plot outline of the film. Applicable to Films
@@ -569,6 +619,16 @@ public class Page extends CategorizedFacebookType {
   private String season;
 
   /**
+   * The page address, if any, in a simple single line format.
+   *
+   * @return The page address, if any, in a simple single line format
+   */
+  @Getter
+  @Setter
+  @Facebook("single_line_address")
+  private String singleLineAddress;
+
+  /**
    * The cast of the film. Applicable to Films
    * 
    * @since 1.10.0
@@ -691,6 +751,16 @@ public class Page extends CategorizedFacebookType {
   private Video featuredVideo;
 
   /**
+   * Showing whether this Page is verified and in what color e.g. blue verified, gray verified or not verified
+   *
+   * @return Showing whether this Page is verified and in what color
+   */
+  @Getter
+  @Setter
+  @Facebook("verification_status")
+  private String verificationStatus;
+
+  /**
    * Voip info
    * 
    * @since 1.10.0
@@ -773,15 +843,35 @@ public class Page extends CategorizedFacebookType {
   private String products;
 
   /**
+   * Indicates whether a user has accepted the TOS for running LeadGen Ads on the Page.
+   * 
+   * @return Indicates whether a user has accepted the TOS for running LeadGen Ads on the Page
+   */
+  @Getter
+  @Setter
+  @Facebook("leadgen_tos_accepted")
+  private Boolean leadgenTosAccepted;
+
+  /**
    * The number of likes the page has.
    * 
-   * @return The number of likes the page has.
+   * @return The number of likes the page has
    * @since 1.6.5
    */
   @Getter
   @Setter
   @Facebook
   private Long likes;
+
+  /**
+   * Indicates whether this location is always open.
+   *
+   * @return Indicates whether this location is always open
+   */
+  @Getter
+  @Setter
+  @Facebook("is_always_open")
+  private Boolean isAlwaysOpen;
 
   /**
    * Is this a community page?
@@ -871,6 +961,16 @@ public class Page extends CategorizedFacebookType {
   private Long talkingAboutCount;
 
   /**
+   * Whether this page has checkin functionality enabled.
+   *
+   * @return Whether this page has checkin functionality enabled
+   */
+  @Getter
+  @Setter
+  @Facebook("can_checkin")
+  private Boolean canCheckin;
+
+  /**
    * Indicates whether the current session user can post on this page.
    * 
    * @return Whether the current session user can post on this page.
@@ -925,6 +1025,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("directed_by")
   private String directedBy;
+
+  /**
+   * Subtext about the Page being viewed.
+   *
+   * @return Subtext about the Page being viewed
+   */
+  @Getter
+  @Setter
+  @Facebook("display_subtext")
+  private String displaySubtext;
 
   /**
    * General manager of the business. Applicable to Restaurants or Nightlife.
