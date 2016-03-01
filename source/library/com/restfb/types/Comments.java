@@ -72,6 +72,15 @@ public class Comments implements Serializable {
   @Facebook
   private Long count = 0L;
 
+  /**
+   * returns if the user can comment the object
+   *
+   * @return if the user can comment the object
+   */
+  @Getter
+  @Setter
+  private Boolean canComment;
+
   @Facebook
   private JsonObject summary = null;
 
