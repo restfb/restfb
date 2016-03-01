@@ -1,0 +1,14 @@
+{
+  "open_graph_story": {
+    "id": "987654321"
+  },
+  "reviewer": {
+    "name": "Example Reviewer",
+    "id": "123456789"
+  },
+  "review_text": "Perfect place to work. Perfect colleagues to work with ;)",
+  "created_time": "2016-01-25T12:17:43+0000",
+  "rating": 5,
+  "has_rating": true,
+  "has_review": true
+}

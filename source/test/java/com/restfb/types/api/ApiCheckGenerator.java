@@ -62,6 +62,7 @@ public class ApiCheckGenerator extends BaseTestCheck {
     props.setProperty("Message.ImageData.methods", joinMethods(fetchMethodsFromClass(Message.ImageData.class)));
     props.setProperty("NamedFacebookType.methods", joinMethods(fetchMethodsFromClass(NamedFacebookType.class)));
     props.setProperty("Note.methods", joinMethods(fetchMethodsFromClass(Note.class)));
+    props.setProperty("OpenGraphRating.methods", joinMethods(fetchMethodsFromClass(OpenGraphRating.class)));
     props.setProperty("Page.methods", joinMethods(fetchMethodsFromClass(Page.class)));
     props.setProperty("Page.Cover.methods", joinMethods(fetchMethodsFromClass(Page.Cover.class)));
     props.setProperty("PageConnection.methods", joinMethods(fetchMethodsFromClass(PageConnection.class)));
