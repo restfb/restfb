@@ -224,4 +224,15 @@ public class PostTest extends AbstractJsonMapperTests {
       examplePost.getPermalinkUrl());
     assertEquals("no timeline unit for this post", examplePost.getTimelineVisibility());
   }
+
+  @Test
+  public void canCommentComments_V2_5() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/comments-with-summary"), Post.class);
+    Comments comments = examplePost.getComments();
+    assertNotNull(comments);
+    assertEquals(1L, comments.getTotalCount().longValue());
+    assertTrue(comments.getCanComment());
+    Comment c = comments.getData().get(0);
+    assertEquals("Whooo, great Picture", c.getMessage());
+  }
 }
