@@ -23,7 +23,6 @@ package com.restfb.types;
 
 import static com.restfb.json.JsonObject.getNames;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
@@ -70,6 +69,16 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook
   private String message;
+
+  /**
+   * ID of the parent post
+   *
+   * @return ID of the parent post
+   */
+  @Getter
+  @Setter
+  @Facebook("parent_id")
+  private String parentId;
 
   /**
    * The permanent static URL to the post on www.facebook.com.

@@ -235,4 +235,12 @@ public class PostTest extends AbstractJsonMapperTests {
     Comment c = comments.getData().get(0);
     assertEquals("Whooo, great Picture", c.getMessage());
   }
+  
+  @Test
+  public void checkV2_5_parentField() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-parent"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getParentId());
+    assertEquals("380528198800882_493275620859472", examplePost.getParentId());
+  }
 }
