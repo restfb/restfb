@@ -224,4 +224,12 @@ public class PostTest extends AbstractJsonMapperTests {
       examplePost.getPermalinkUrl());
     assertEquals("no timeline unit for this post", examplePost.getTimelineVisibility());
   }
+
+  @Test
+  public void checkV2_5_parentField() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-parent"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getParentId());
+    assertEquals("380528198800882_493275620859472", examplePost.getParentId());
+  }
 }
