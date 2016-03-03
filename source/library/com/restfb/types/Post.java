@@ -144,16 +144,6 @@ public class Post extends NamedFacebookType {
   private String source;
 
   /**
-   * The type of post this is, for example {@code "link"}.
-   *
-   * @return The type of post this is, for example {@code "link"}.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
-
-  /**
    * The application used to create this post.
    *
    * @return The application used to create this post.

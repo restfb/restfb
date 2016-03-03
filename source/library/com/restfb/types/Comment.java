@@ -393,11 +393,6 @@ public class Comment extends FacebookType {
 
     @Getter
     @Setter
-    @Facebook
-    private String type;
-
-    @Getter
-    @Setter
     @Facebook("media")
     private Media media;
 

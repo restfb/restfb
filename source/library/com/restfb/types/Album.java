@@ -140,16 +140,6 @@ public class Album extends NamedFacebookType {
   private Date updatedTime;
 
   /**
-   * The type of the album. (app, cover, profile, mobile, wall, normal, album)
-   *
-   * @return The type of the album.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
-
-  /**
    * The place associated with this album.
    *
    * @return The place associated with this album.
