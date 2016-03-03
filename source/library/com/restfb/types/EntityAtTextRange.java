@@ -65,14 +65,4 @@ public class EntityAtTextRange extends NamedFacebookType {
   @Facebook
   private Integer offset;
 
-  /**
-   * Type of the object (may be <code>user</code>, <code>page</code>, <code>event</code>, <code>group</code>,
-   * <code>application</code>)
-   *
-   * @return Type of the object
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
 }

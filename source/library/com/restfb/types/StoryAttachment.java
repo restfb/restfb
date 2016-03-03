@@ -83,16 +83,6 @@ public class StoryAttachment extends FacebookType {
   private String title;
 
   /**
-   * Returns type of the attachment.
-   *
-   * @return Type of the attachment.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
-
-  /**
    * Returns URL of the attachment.
    *
    * @return URL of the attachment.

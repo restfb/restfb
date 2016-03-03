@@ -86,11 +86,6 @@ public class PageRating extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private String type;
-
-  @Getter
-  @Setter
-  @Facebook
   private Application application;
 
   @Getter
