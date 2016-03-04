@@ -32,6 +32,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class WebhookEntry {
+  @Facebook
+  @Getter
+  @Setter
+  private String uid;
 
   @Facebook
   @Getter
@@ -42,8 +46,13 @@ public class WebhookEntry {
   @Setter
   private Date date = new Date();
 
-  @Facebook("date")
+  @Facebook("time")
   private Long rawDate;
+
+  @Facebook("changed_fields")
+  @Getter
+  @Setter
+  private List<String> changedFields = new ArrayList<String>();
 
   @Facebook
   @Getter
