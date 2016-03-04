@@ -1,3 +1,27 @@
+1.20.0 (March 4, 2016)
+
+* Issue #377: Check the permissions
+* Issue #379: Missing fields in `AppRequest` type
+* Issue #380: Missing fields in `Event` type
+* Issue #381: Missing fields in `Group` type
+* Issue #382: Missing fields in `Message` type
+* Issue #383: Missing fields in `Photo` type
+* Issue #384: Missing fields in `User` type
+* Issue #385: Missing fields in `Page` type
+* Issue #388: Missing fields in `Conversation` type
+* Issue #389: Missing fields in `PageCallToAction` type
+* Issue #392: Deprecated types marked
+* Issue #393: Missing fields in `Post` type
+* Issue #394 and #395: `PageRatings` are outdated<br>
+  Thanks to @anenkov for PR
+* Issue #396 and #397: `Comments` misses `can_comment` field<br>
+  Thanks to @anenkov for PR
+* Issue #398: Missing `parent_id` field in `Post` type<br>
+  Thanks to @vido88
+* Issue #400: duplicate `type` field in several types
+* Issue #401: Webhooks Fields update<br>
+  Thanks to @cmmoran
+
 1.19.0 (February 5, 2016)
 
 * Issue #375: "private message page replies" support added
