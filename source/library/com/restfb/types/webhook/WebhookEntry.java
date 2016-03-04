@@ -33,27 +33,38 @@ import lombok.Setter;
 
 public class WebhookEntry {
 
-  @Facebook
   @Getter
   @Setter
+  @Facebook
+  private String uid;
+
+
+  @Getter
+  @Setter
+  @Facebook
   private String id;
 
   @Getter
   @Setter
-  private Date date = new Date();
+  private Date time = new Date();
 
-  @Facebook("date")
-  private Long rawDate;
+  @Facebook("time")
+  private Long rawTime;
 
-  @Facebook
   @Getter
   @Setter
+  @Facebook("changed_fields")
+  private List<String> changedFields = new ArrayList<String>();
+
+  @Getter
+  @Setter
+  @Facebook
   private List<Change> changes = new ArrayList<Change>();
 
   @JsonMappingCompleted
   private void convertDate() {
-    if (rawDate != null) {
-      date.setTime(rawDate * 1000);
+    if (rawTime != null) {
+      time.setTime(rawTime * 1000);
     }
   }
 }
