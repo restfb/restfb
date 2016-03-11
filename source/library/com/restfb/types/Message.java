@@ -174,6 +174,11 @@ public class Message extends FacebookType {
         @Facebook
         private Long size;
 
+        @Getter
+        @Setter
+        @Facebook("file_url")
+        private String fileUrl;
+
         /**
          * When the attached file is an image, Facebook will also send information about it's width, height and url.
          *
@@ -183,6 +188,14 @@ public class Message extends FacebookType {
         @Setter
         @Facebook("image_data")
         private ImageData imageData;
+
+        /**
+         * returns if the attachment is a image
+         * @return true if the attachment is a image, false otherwise
+         */
+        public boolean isImage() {
+            return null != imageData;
+        }
 
         /**
          * @see java.lang.Object#hashCode()
@@ -228,6 +241,16 @@ public class Message extends FacebookType {
         private int width;
 
         /**
+         * The image's max width.
+         *
+         * @return The image's max width.
+         */
+        @Getter
+        @Setter
+        @Facebook("max_width")
+        private int maxWidth;
+
+        /**
          * The image's height.
          *
          * @return The image's height.
@@ -236,6 +259,21 @@ public class Message extends FacebookType {
         @Setter
         @Facebook
         private int height;
+
+        /**
+         * The image's max height.
+         *
+         * @return The image's max height.
+         */
+        @Getter
+        @Setter
+        @Facebook("max_height")
+        private int maxHeight;
+
+        @Getter
+        @Setter
+        @Facebook("render_as_sticker")
+        private boolean renderAsSticker;
 
         /**
          * The image's url.
@@ -256,6 +294,41 @@ public class Message extends FacebookType {
         @Setter
         @Facebook("preview_url")
         private String previewUrl;
+
+        @Getter
+        @Setter
+        @Facebook("image_type")
+        private int imageType;
+
+        @Getter
+        @Setter
+        @Facebook("raw_gif_image")
+        private String rawGifImage;
+
+        @Getter
+        @Setter
+        @Facebook("raw_webp_image")
+        private String rawWebpImage;
+
+        @Getter
+        @Setter
+        @Facebook("animated_gif_url")
+        private String animatedGifUrl;
+
+        @Getter
+        @Setter
+        @Facebook("animated_gif_preview_url")
+        private String animatedGifPreviewUrl;
+
+        @Getter
+        @Setter
+        @Facebook("animated_webp_url")
+        private String animatedWebpUrl;
+
+        @Getter
+        @Setter
+        @Facebook("animated_webp_preview_url")
+        private String animatedWebpPreviewUrl;
 
         /**
          * @see java.lang.Object#hashCode()

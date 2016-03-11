@@ -1,0 +1,82 @@
+[
+  {
+    "attachments": {
+      "data": [
+        {
+          "id": "93467428263234",
+          "mime_type": "image/gif",
+          "name": "12345678900.gif",
+          "size": null,
+          "image_data": {
+            "width": 244,
+            "height": 150,
+            "render_as_sticker": false,
+            "url": "https://cdn.fbsbx.com/12345678900.gif",
+            "preview_url": "https://cdn.fbsbx.com/12345678900_preview.gif",
+            "image_type": 1,
+            "raw_gif_image": "https://cdn.fbsbx.com/12345678900_raw_gif.gif",
+            "raw_webp_image": "https://cdn.fbsbx.com/12345678900_raw_webp.webp",
+            "animated_gif_url": "https://cdn.fbsbx.com/12345678900_animated_gif.gif",
+            "animated_gif_preview_url": "https://cdn.fbsbx.com/12345678900_animated_preview_gif.gif",
+            "animated_webp_url": "https://cdn.fbsbx.com/12345678900_animated_webp.webp",
+            "animated_webp_preview_url": "https://cdn.fbsbx.com/12345678900_animated_webp.webp",
+            "max_width": 244,
+            "max_height": 150
+          }
+        }
+      ]
+    },
+    "id": "m_mid.12345678900:3911138c1ded9ef216"
+  },
+  {
+    "attachments": {
+      "data": [
+        {
+          "id": "47282572382",
+          "mime_type": "image/jpeg",
+          "name": "47282572382.jpg",
+          "size": null,
+          "image_data": {
+            "width": 591,
+            "height": 696,
+            "render_as_sticker": false,
+            "url": "https://scontent.xx.fbcdn.net/47282572382.jpg",
+            "preview_url": "https://scontent.xx.fbcdn.net/47282572382_preview.jpg",
+            "image_type": 1,
+            "max_width": 591,
+            "max_height": 696
+          }
+        }
+      ]
+    },
+    "id": "m_mid.12345678901:7a3d2e32067df56823"
+  },
+  {
+    "attachments": {
+      "data": [
+        {
+          "id": "94627237835",
+          "mime_type": "text/plain",
+          "name": "example.txt",
+          "size": 324,
+          "file_url": "https://cdn.fbsbx.com/94627237835.txt"
+        }
+      ]
+    },
+    "id": "m_mid.12345678902:c5a2402a8313545132"
+  },
+  {
+    "attachments": {
+      "data": [
+        {
+          "id": "3242534253",
+          "mime_type": "application/octet-stream",
+          "name": "binary.jar",
+          "size": 468142,
+          "file_url": "https://cdn.fbsbx.com/3242534253.jar"
+        }
+      ]
+    },
+    "id": "m_mid.12345678903:677de8a9aa5f5fe383"
+  }
+]
