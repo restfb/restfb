@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import com.restfb.Connection;
 import org.junit.Test;
 
 import java.util.List;
@@ -46,8 +45,9 @@ public class MessageTest extends AbstractJsonMapperTests {
 
   @Test
   public void messagesWithAttachment() {
-    List<Message> messageList = createJsonMapper().toJavaList(jsonFromClasspath("v2_5/messages-with-attachments"), Message.class);
-    for (Message message: messageList) {
+    List<Message> messageList =
+        createJsonMapper().toJavaList(jsonFromClasspath("v2_5/messages-with-attachments"), Message.class);
+    for (Message message : messageList) {
       assertNotNull(message);
       Message.Attachment attachment = message.getAttachments().get(0);
       if (attachment.isImage()) {
@@ -57,5 +57,15 @@ public class MessageTest extends AbstractJsonMapperTests {
         assertNotNull(attachment.getFileUrl());
       }
     }
+  }
+
+  @Test
+  public void messagesWithShares() {
+    Message exampleMessage =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message-with-share"), Message.class);
+    assertNotNull(exampleMessage);
+    assertEquals(1, exampleMessage.getShares().size());
+    Message.Share exampleShare = exampleMessage.getShares().get(0);
+    assertEquals("https://example.org/sample.png", exampleShare.getLink());
   }
 }

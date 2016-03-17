@@ -1,0 +1,29 @@
+{
+  "shares": {
+    "data": [
+      {
+        "id": null,
+        "link": "https://example.org/sample.png",
+        "name": "",
+        "description": null,
+        "picture": null
+      }
+    ]
+  },
+  "message": "",
+  "to": {
+    "data": [
+      {
+        "name": "Test Page",
+        "email": "123456789@facebook.com",
+        "id": "123456789"
+      }
+    ]
+  },
+  "from": {
+    "name": "Test User",
+    "email": "987654321@facebook.com",
+    "id": "987654321"
+  },
+  "id": "m_mid.46348462:357234723feb"
+}
