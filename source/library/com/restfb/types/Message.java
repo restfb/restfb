@@ -39,7 +39,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="http://developers.facebook.com/docs/reference/api/message/">Message Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/message/">Message Graph API type</a>.
  *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Felipe Kurkowski
@@ -94,6 +94,9 @@ public class Message extends FacebookType {
 
     @Facebook
     private List<Attachment> attachments = new ArrayList<Attachment>();
+
+    @Facebook
+    private List<Share> shares = new ArrayList<Share>();
 
     @Facebook("updated_time")
     transient private String rawUpdatedTime;
@@ -221,6 +224,38 @@ public class Message extends FacebookType {
             return ReflectionUtils.toString(this);
         }
     }
+
+  /**
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/message/shares/">Message Share
+   * Graph API type</a>.
+   */
+  public static class Share extends NamedFacebookType {
+
+    /**
+     * The URL to the shared item.
+     *
+     * @return The URL to the shared item.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String link;
+
+    /**
+     * The description of the shared item.
+     *
+     * @return The description of the shared item.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String description;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String picture;
+  }
 
     /**
      * Additional attachment information, only present when an attached file is an image.
@@ -390,6 +425,25 @@ public class Message extends FacebookType {
 
     public boolean removeAttachment(Attachment attachment) {
         return attachments.remove(attachment);
+    }
+
+    /**
+     * The shares associated with the message.
+     *
+     * This is page only.
+     *
+     * @return The shares associated with the message.
+     */
+    public List<Share> getShares() {
+        return (shares != null ? unmodifiableList(shares) : null);
+    }
+
+    public boolean addShare(Share share) {
+        return shares.add(share);
+    }
+
+    public boolean removeShare(Share share) {
+        return shares.remove(share);
     }
 
     /**
