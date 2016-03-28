@@ -1,3 +1,13 @@
+1.21.0 (March 28, 2016)
+
+* Issue #390: `Notification` type added
+* Issue #403: Missing fields in `Message Attachment`
+* Issue #404: Integration test for posting a image to a group<br>
+  Thanks to @kfredy for question
+* Issue #405: Missing field `shares` added to `Message` type<br>
+  Thanks to @ajeetsk for hint
+* Issue #407: Build files updated
+
 1.20.0 (March 4, 2016)
 
 * Issue #377: Check the permissions

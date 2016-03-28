@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <name>RestFB</name>
     <version>2.0.0-SNAPSHOT</version>
-    <description>RestFB is a simple and flexible Facebook Graph API and Old REST API client written in Java.</description>
+    <description>RestFB is a simple and flexible Facebook Graph API client written in Java.</description>
     <url>http://restfb.com</url>
     <inceptionYear>2010</inceptionYear>
 
