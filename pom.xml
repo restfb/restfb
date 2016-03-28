@@ -64,24 +64,30 @@
     </developers>
 
     <dependencies>
-	<dependency>
-	    <groupId>junit</groupId>
-	    <artifactId>junit</artifactId>
-	    <version>4.11</version>
-	    <scope>test</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.projectlombok</groupId>
-	    <artifactId>lombok</artifactId>
-	    <version>1.14.4</version>
-	    <scope>provided</scope>
-	</dependency>
-	<dependency>
-	    <groupId>org.skyscreamer</groupId>
-	    <artifactId>jsonassert</artifactId>
-	    <version>1.2.3</version>
-	    <scope>test</scope>
-	</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.6</version>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+	    	<groupId>org.skyscreamer</groupId>
+	    	<artifactId>jsonassert</artifactId>
+	    	<version>1.2.3</version>
+	    	<scope>test</scope>
+		</dependency>
     </dependencies>
 
     <build>
