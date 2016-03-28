@@ -38,7 +38,7 @@
         <property name="mavenStagingRepositoryUrl" value="https://oss.sonatype.org/service/local/staging/deploy/maven2" />
 
         <artifact:dependencies pathId="dependency.classpath">
-                <dependency groupId="org.projectlombok" artifactId="lombok" version="1.14.4" scope="provided"/>
+                <dependency groupId="org.projectlombok" artifactId="lombok" version="1.16.6" scope="provided"/>
         </artifact:dependencies>
 	
         <target name="compile" description="Compiles library code">
@@ -73,7 +73,7 @@
 
         <target name="doc" description="Builds Javadoc">
                 <echo message="Building Javadoc..." />
-                <taskdef classname="lombok.delombok.ant.DelombokTask" classpathref="dependency.classpath" name="delombok" />
+                <taskdef classname="lombok.delombok.ant.Tasks$Delombok" classpathref="dependency.classpath" name="delombok" />
                 <mkdir dir="${javadocDir}" />		
                 <mkdir dir="${delombokDir}" />
 
@@ -83,16 +83,16 @@
                         </fileset>
                         <format value="suppressWarnings:skip" />
                 </delombok>
-		
-                <!-- TODO: make a stylesheet that looks good with Java 7's new javadoc -->
-                <!-- stylesheetfile="${miscDir}/javadoc/javadoc.css" -->
-		
-		<javadoc destdir="${javadocDir}" author="true" version="true" use="true" windowtitle="RestFB ${libraryVersion}" access="public"
-			overview="${miscDir}/javadoc/overview.html" linksource="yes">
-                        <packageset dir="${delombokDir}" defaultexcludes="yes" />
+
+                <javadoc destdir="${javadocDir}" author="true" version="true" use="true"
+                         windowtitle="RestFB ${libraryVersion}" access="public"
+                         overview="${miscDir}/javadoc/overview.html" linksource="yes"
+                         stylesheetfile="${miscDir}/javadoc/stylesheet.css">
+                        <packageset dir="${delombokDir}" defaultexcludes="yes"/>
                         <doctitle><![CDATA[<h1>RestFB ${libraryVersion}</h1>]]></doctitle>
-                        <bottom><![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2015 Mark Allen. All Rights Reserved.</i>]]></bottom>
-                        <link href="http://docs.oracle.com/javase/7/docs/api/" />
+                        <bottom>
+                                <![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2015 Mark Allen. All Rights Reserved.</i>]]></bottom>
+                        <link href="http://docs.oracle.com/javase/7/docs/api/"/>
                 </javadoc>
         </target>
 
