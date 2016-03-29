@@ -38,6 +38,7 @@ import lombok.Setter;
  * type</a>.
  * 
  * @author Anand Hemmige
+ * @author Venil Noronha
  * @since 1.6.16
  */
 public class PageRating extends FacebookType {
@@ -135,15 +136,24 @@ public class PageRating extends FacebookType {
   @JsonMappingCompleted
   void fillAddititonalValues(JsonMapper mapper) {
     if (data != null) {
-      JsonObject rating = data.get("rating").asObject();
-      if (rating != null) {
-        ratingValue = rating.get("value").asDouble();
-        ratingScale = rating.get("scale").asLong();
+      if (data.get("rating") != null) {
+        JsonObject rating = data.get("rating").asObject();
+        if (rating != null) {
+          ratingValue = rating.get("value").asDouble();
+          ratingScale = rating.get("scale").asLong();
+        }
       }
 
-      isDraft = data.get("is_draft").asBoolean();
-      language = data.getString("language", "");
-      place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);
+      if (data.get("is_draft") != null) {
+        isDraft = data.get("is_draft").asBoolean();
+      }
+      if (data.get("language") != null) {
+        language = data.getString("language", "");
+      }
+
+      if (data.get("generic_place") != null) {
+        place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);
+      }
     }
   }
 

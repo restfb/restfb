@@ -22,6 +22,7 @@
 package com.restfb.types;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -42,5 +43,12 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
     assertEquals(5L, exampleRating.getRating().longValue());
     assertTrue(exampleRating.getHasRating());
     assertTrue(exampleRating.getHasReview());
+  }
+
+  @Test
+  public void check_2_5_simple() {
+    OpenGraphRating exampleRating =
+            createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/open-graph-rating-simple"), OpenGraphRating.class);
+    assertNotNull(exampleRating);
   }
 }
