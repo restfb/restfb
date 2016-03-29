@@ -26,10 +26,10 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 
 import java.util.Date;
 
-import com.restfb.json.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +38,7 @@ import lombok.Setter;
  * type</a>.
  * 
  * @author Anand Hemmige
+ * @author Venil Noronha
  * @since 1.6.16
  */
 public class PageRating extends FacebookType {
@@ -133,14 +134,17 @@ public class PageRating extends FacebookType {
   @JsonMappingCompleted
   void fillAddititonalValues(JsonMapper mapper) {
     if (data != null) {
-      JsonObject rating = data.getJsonObject("rating");
-      if (rating != null) {
+      if (data.has("rating")) {
+        JsonObject rating = data.getJsonObject("rating");
         ratingValue = rating.getDouble("value");
         ratingScale = rating.getLong("scale");
       }
-
-      isDraft = data.getBoolean("is_draft");
-      language = data.getString("language");
+      if (data.has("is_draft")) {
+        isDraft = data.getBoolean("is_draft");
+      }
+      if (data.has("language")) {
+        language = data.getString("language");
+      }
       place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);
     }
   }

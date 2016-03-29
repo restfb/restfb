@@ -1,0 +1,25 @@
+{
+  "open_graph_story": {
+    "message": "Ziemlich cool",
+    "start_time": "2014-09-04T10:43:20+0000",
+    "type": "places.rates",
+    "data": {
+      "generic_place": {
+        "id": "3848732435",
+        "title": "Test Place",
+        "type": "place",
+        "url": "https://www.facebook.com/TestPlace/"
+      }
+    },
+    "id": "8473635262"
+  },
+  "created_time": "2014-09-04T10:43:20+0000",
+  "has_rating": true,
+  "has_review": true,
+  "rating": 4,
+  "review_text": "Ziemlich cool",
+  "reviewer": {
+    "name": "Test User",
+    "id": "987654321324"
+  }
+}
