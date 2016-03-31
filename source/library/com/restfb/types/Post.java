@@ -210,6 +210,7 @@ public class Post extends NamedFacebookType {
   /**
    * The profile this was posted on if different from the author.
    *
+   * @RestFB.GraphApi.Since 2.5
    * @return The profile this was posted on if different from the author
    */
   @Getter

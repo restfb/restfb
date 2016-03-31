@@ -93,6 +93,8 @@
                         <bottom>
                                 <![CDATA[<i>RestFB ${libraryVersion}. Copyright &#169; 2010-2015 Mark Allen. All Rights Reserved.</i>]]></bottom>
                         <link href="http://docs.oracle.com/javase/7/docs/api/"/>
+			<taglet name="com.restfb.taglets.GraphApiSince" path="lib/restfb-taglets-1.0.jar"/>
+			<taglet name="com.restfb.taglets.GraphApiUntil" path="lib/restfb-taglets-1.0.jar"/>
                 </javadoc>
         </target>
 
