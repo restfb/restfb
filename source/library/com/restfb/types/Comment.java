@@ -170,7 +170,8 @@ public class Comment extends FacebookType {
 
   /**
    * Whether the viewer can send a private reply to this comment (Page viewers only)
-   * 
+   *
+   * @RestFB.GraphApi.Since 2.5
    * @return Whether the viewer can send a private reply to this comment
    */
   @Getter
@@ -181,6 +182,7 @@ public class Comment extends FacebookType {
   /**
    * For comments with private replies, gets conversation between the Page and author of the comment (Page viewers only)
    *
+   * @RestFB.GraphApi.Since 2.5
    * @return conversation between Page and author of the comment
    */
   @Getter
