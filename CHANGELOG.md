@@ -1,3 +1,9 @@
+1.21.1 (April 2, 2016)
+
+* Issue #409 and #410: Handled missing rating, is_draft, language fields in PageRating<br>
+  Thanks to @venilnoronha for bug report and PR
+* Issue #411: Custom RestFB tags added to javadoc
+
 1.21.0 (March 28, 2016)
 
 * Issue #390: `Notification` type added
