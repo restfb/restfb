@@ -78,5 +78,31 @@
       ]
     },
     "id": "m_mid.12345678903:677de8a9aa5f5fe383"
+  },
+  {
+    "attachments": {
+      "data": [
+        {
+          "id": "938363527532",
+          "mime_type": "video/mp4",
+          "name": "video-1459980657.mp4",
+          "size": 1017695,
+          "image_data": {
+            "width": 1280,
+            "height": 720
+          },
+          "video_data": {
+            "width": 1280,
+            "height": 720,
+            "length": 5,
+            "video_type": 1,
+            "url": "https://video.xx.fbcdn.net/hvideo-xpf1/examplevideo.mp4",
+            "preview_url": "https://scontent.xx.fbcdn.net/hvthumb-xfp1/example_preview.jpg",
+            "rotation": 0
+          }
+        }
+      ]
+    },
+    "id": "m_mid.12345678903:23945326ededef"
   }
 ]

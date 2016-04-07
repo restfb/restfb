@@ -39,7 +39,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/message/">Message Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/message/">Message Graph API type</a>
+ * .
  *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Felipe Kurkowski
@@ -47,183 +48,203 @@ import lombok.Setter;
  */
 public class Message extends FacebookType {
 
-    @Facebook("created_time")
-    private String rawCreatedTime;
+  @Facebook("created_time")
+  private String rawCreatedTime;
 
-    /**
-     * The time the message was initially created.
-     *
-     * @return The time the message was initially created.
-     */
-    @Getter
-    @Setter
-    private Date createdTime;
+  /**
+   * The time the message was initially created.
+   *
+   * @return The time the message was initially created.
+   */
+  @Getter
+  @Setter
+  private Date createdTime;
 
-    /**
-     * The subject of the message.
-     *
-     * @return The subject of the message.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String subject;
+  /**
+   * The subject of the message.
+   *
+   * @return The subject of the message.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String subject;
 
-    /**
-     * The sender of this message
-     *
-     * @return The sender of this message
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType from;
+  /**
+   * The sender of this message
+   *
+   * @return The sender of this message
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private NamedFacebookType from;
 
-    @Facebook
-    private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
+  @Facebook
+  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
-    /**
-     * The text of the message
-     *
-     * @return The text of the message
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String message;
+  /**
+   * The text of the message
+   *
+   * @return The text of the message
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String message;
 
-    @Facebook
-    private List<Attachment> attachments = new ArrayList<Attachment>();
+  @Facebook
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
-    @Facebook
-    private List<Share> shares = new ArrayList<Share>();
+  @Facebook
+  private List<Share> shares = new ArrayList<Share>();
 
-    @Facebook("updated_time")
-    transient private String rawUpdatedTime;
+  @Facebook("updated_time")
+  transient private String rawUpdatedTime;
 
-    /**
-     * The time of the last update to this message.
-     *
-     * @return The time of the last update to this message.
-     */
-    @Getter
-    @Setter
-    private Date updatedTime;
+  /**
+   * The time of the last update to this message.
+   *
+   * @return The time of the last update to this message.
+   */
+  @Getter
+  @Setter
+  private Date updatedTime;
 
-    /**
-     * The "unread" count for this message.
-     *
-     * @return The "unread" count for this message.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Integer unread;
+  /**
+   * The "unread" count for this message.
+   *
+   * @return The "unread" count for this message.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer unread;
 
-    /**
-     * Whether this message has been seen.
-     *
-     * @return Whether this message has been seen.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Boolean unseen;
+  /**
+   * Whether this message has been seen.
+   *
+   * @return Whether this message has been seen.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean unseen;
 
-    @Facebook("tags")
-    private String rawTags;
+  @Facebook("tags")
+  private String rawTags;
 
-    private List<String> tags = new ArrayList<String>();
+  private List<String> tags = new ArrayList<String>();
+
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * Represents an attached file that you may find on a private message.
+   *
+   * @author alockhart
+   * @since 1.6.12
+   */
+  public static class Attachment extends FacebookType {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Represents an attached file that you may find on a private message.
+     * The attachment's filename, for example 121423423.jpg.
      *
-     * @author alockhart
-     * @since 1.6.12
+     * @return The attachment's filename.
      */
-    public static class Attachment extends FacebookType {
+    @Getter
+    @Setter
+    @Facebook
+    private String name;
 
-        private static final long serialVersionUID = 1L;
+    /**
+     * The attachment's mime type, for example image/jpeg.
+     *
+     * @return The attachment's mime type.
+     */
+    @Getter
+    @Setter
+    @Facebook("mime_type")
+    private String mimeType;
 
-        /**
-         * The attachment's filename, for example 121423423.jpg.
-         *
-         * @return The attachment's filename.
-         */
-        @Getter
-        @Setter
-        @Facebook
-        private String name;
+    /**
+     * The size of the attachment in bytes.
+     *
+     * @return The size of the attachment in bytes.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Long size;
 
-        /**
-         * The attachment's mime type, for example image/jpeg.
-         *
-         * @return The attachment's mime type.
-         */
-        @Getter
-        @Setter
-        @Facebook("mime_type")
-        private String mimeType;
+    @Getter
+    @Setter
+    @Facebook("file_url")
+    private String fileUrl;
 
-        /**
-         * The size of the attachment in bytes.
-         *
-         * @return The size of the attachment in bytes.
-         */
-        @Getter
-        @Setter
-        @Facebook
-        private Long size;
+    /**
+     * When the attached file is an image, Facebook will also send information about it's width, height and url.
+     *
+     * @return The attachment's image data.
+     */
+    @Getter
+    @Setter
+    @Facebook("image_data")
+    private ImageData imageData;
 
-        @Getter
-        @Setter
-        @Facebook("file_url")
-        private String fileUrl;
+    /**
+     * When the attached file is a video, Facebook will also send information about it's width, height and url.
+     *
+     * @return The attachment's video data.
+     */
+    @Getter
+    @Setter
+    @Facebook("video_data")
+    private VideoData videoData;
 
-        /**
-         * When the attached file is an image, Facebook will also send information about it's width, height and url.
-         *
-         * @return The attachment's image data.
-         */
-        @Getter
-        @Setter
-        @Facebook("image_data")
-        private ImageData imageData;
-
-        /**
-         * returns if the attachment is a image
-         * @return true if the attachment is a image, false otherwise
-         */
-        public boolean isImage() {
-            return null != imageData;
-        }
-
-        /**
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
-            return ReflectionUtils.hashCode(this);
-        }
-
-        /**
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
-        @Override
-        public boolean equals(Object that) {
-            return ReflectionUtils.equals(this, that);
-        }
-
-        /**
-         * @see java.lang.Object#toString()
-         */
-        @Override
-        public String toString() {
-            return ReflectionUtils.toString(this);
-        }
+    /**
+     * returns if the attachment is a image
+     * 
+     * @return true if the attachment is a image, false otherwise
+     */
+    public boolean isImage() {
+      return null != imageData && null == videoData;
     }
+
+    /**
+     * returns if the attachment is a video
+     * 
+     * @return true if the attachment is a video, false otherwise
+     */
+    public boolean isVideo() {
+      return null != videoData;
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
+    }
+  }
 
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/message/shares/">Message Share
@@ -257,223 +278,252 @@ public class Message extends FacebookType {
     private String picture;
   }
 
+  /**
+   * Additional attachment information, only present when an attached file is an image.
+   *
+   * @author Felipe Kurkowski
+   */
+  public static class ImageData extends AttachmentData {
+    private static final long serialVersionUID = 1L;
+
     /**
-     * Additional attachment information, only present when an attached file is an image.
+     * The image's max width.
      *
-     * @author Felipe Kurkowski
+     * @return The image's max width.
      */
-    public static class ImageData implements Serializable {
-        private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
+    @Facebook("max_width")
+    private int maxWidth;
 
-        /**
-         * The image's width.
-         *
-         * @return The image's width.
-         */
-        @Getter
-        @Setter
-        @Facebook
-        private int width;
+    /**
+     * The image's max height.
+     *
+     * @return The image's max height.
+     */
+    @Getter
+    @Setter
+    @Facebook("max_height")
+    private int maxHeight;
 
-        /**
-         * The image's max width.
-         *
-         * @return The image's max width.
-         */
-        @Getter
-        @Setter
-        @Facebook("max_width")
-        private int maxWidth;
+    @Getter
+    @Setter
+    @Facebook("render_as_sticker")
+    private boolean renderAsSticker;
 
-        /**
-         * The image's height.
-         *
-         * @return The image's height.
-         */
-        @Getter
-        @Setter
-        @Facebook
-        private int height;
+    @Getter
+    @Setter
+    @Facebook("image_type")
+    private int imageType;
 
-        /**
-         * The image's max height.
-         *
-         * @return The image's max height.
-         */
-        @Getter
-        @Setter
-        @Facebook("max_height")
-        private int maxHeight;
+    @Getter
+    @Setter
+    @Facebook("raw_gif_image")
+    private String rawGifImage;
 
-        @Getter
-        @Setter
-        @Facebook("render_as_sticker")
-        private boolean renderAsSticker;
+    @Getter
+    @Setter
+    @Facebook("raw_webp_image")
+    private String rawWebpImage;
 
-        /**
-         * The image's url.
-         *
-         * @return The image's url.
-         */
-        @Getter
-        @Setter
-        @Facebook
-        private String url;
+    @Getter
+    @Setter
+    @Facebook("animated_gif_url")
+    private String animatedGifUrl;
 
-        /**
-         * The image's preview url.
-         *
-         * @return The image's preview url.
-         */
-        @Getter
-        @Setter
-        @Facebook("preview_url")
-        private String previewUrl;
+    @Getter
+    @Setter
+    @Facebook("animated_gif_preview_url")
+    private String animatedGifPreviewUrl;
 
-        @Getter
-        @Setter
-        @Facebook("image_type")
-        private int imageType;
+    @Getter
+    @Setter
+    @Facebook("animated_webp_url")
+    private String animatedWebpUrl;
 
-        @Getter
-        @Setter
-        @Facebook("raw_gif_image")
-        private String rawGifImage;
+    @Getter
+    @Setter
+    @Facebook("animated_webp_preview_url")
+    private String animatedWebpPreviewUrl;
 
-        @Getter
-        @Setter
-        @Facebook("raw_webp_image")
-        private String rawWebpImage;
+  }
 
-        @Getter
-        @Setter
-        @Facebook("animated_gif_url")
-        private String animatedGifUrl;
+  /**
+   * Additional attachment information, only present when an attached file is an video.
+   */
+  public static class VideoData extends AttachmentData {
 
-        @Getter
-        @Setter
-        @Facebook("animated_gif_preview_url")
-        private String animatedGifPreviewUrl;
+    private static final long serialVersionUID = 1L;
 
-        @Getter
-        @Setter
-        @Facebook("animated_webp_url")
-        private String animatedWebpUrl;
+    @Getter
+    @Setter
+    @Facebook
+    private int length;
 
-        @Getter
-        @Setter
-        @Facebook("animated_webp_preview_url")
-        private String animatedWebpPreviewUrl;
+    @Getter
+    @Setter
+    @Facebook("video_type")
+    private int videoType;
 
-        /**
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
-            return ReflectionUtils.hashCode(this);
-        }
+    @Getter
+    @Setter
+    @Facebook
+    private int rotation;
+  }
 
-        /**
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
-        @Override
-        public boolean equals(Object that) {
-            return ReflectionUtils.equals(this, that);
-        }
+  public static abstract class AttachmentData implements Serializable {
 
-        /**
-         * @see java.lang.Object#toString()
-         */
-        @Override
-        public String toString() {
-            return ReflectionUtils.toString(this);
-        }
-    }
+    private static final long serialVersionUID = 1L;
 
-    @JsonMappingCompleted
-    void convertTime() {
-        createdTime = toDateFromLongFormat(rawCreatedTime);
-        updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    }
+    /**
+     * The image's width.
+     *
+     * @return The image's width.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private int width;
 
-    @JsonMappingCompleted
-    void convertTags() {
-        if (rawTags != null) {
-            JsonObject parsedObject = new JsonObject(rawTags);
-            JsonArray tagsArray = parsedObject.getJsonArray("data");
-            for (int i = 0; i < tagsArray.length(); i++) {
-                tags.add(tagsArray.getJsonObject(i).getString("name"));
-            }
-        }
+    /**
+     * The image's height.
+     *
+     * @return The image's height.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private int height;
+
+    /**
+     * The image's url.
+     *
+     * @return The image's url.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String url;
+
+    /**
+     * The image's preview url.
+     *
+     * @return The image's preview url.
+     */
+    @Getter
+    @Setter
+    @Facebook("preview_url")
+    private String previewUrl;
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+      return ReflectionUtils.hashCode(this);
     }
 
     /**
-     * The attachments associated with the message.
-     *
-     * @return The attachments associated with the message.
+     * @see java.lang.Object#equals(java.lang.Object)
      */
-    public List<Attachment> getAttachments() {
-        return (attachments != null ? unmodifiableList(attachments) : null);
-    }
-
-    public boolean addAttachment(Attachment attachment) {
-        return attachments.add(attachment);
-    }
-
-    public boolean removeAttachment(Attachment attachment) {
-        return attachments.remove(attachment);
+    @Override
+    public boolean equals(Object that) {
+      return ReflectionUtils.equals(this, that);
     }
 
     /**
-     * The shares associated with the message.
-     *
-     * This is page only.
-     *
-     * @return The shares associated with the message.
+     * @see java.lang.Object#toString()
      */
-    public List<Share> getShares() {
-        return (shares != null ? unmodifiableList(shares) : null);
+    @Override
+    public String toString() {
+      return ReflectionUtils.toString(this);
     }
+  }
 
-    public boolean addShare(Share share) {
-        return shares.add(share);
-    }
+  @JsonMappingCompleted
+  void convertTime() {
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
+  }
 
-    public boolean removeShare(Share share) {
-        return shares.remove(share);
+  @JsonMappingCompleted
+  void convertTags() {
+    if (rawTags != null) {
+      JsonObject parsedObject = new JsonObject(rawTags);
+      JsonArray tagsArray = parsedObject.getJsonArray("data");
+      for (int i = 0; i < tagsArray.length(); i++) {
+        tags.add(tagsArray.getJsonObject(i).getString("name"));
+      }
     }
+  }
 
-    /**
-     * A list of the message recipients
-     *
-     * @return A list of the message recipients
-     */
-    public List<NamedFacebookType> getTo() {
-        return unmodifiableList(to);
-    }
+  /**
+   * The attachments associated with the message.
+   *
+   * @return The attachments associated with the message.
+   */
+  public List<Attachment> getAttachments() {
+    return (attachments != null ? unmodifiableList(attachments) : null);
+  }
 
-    public boolean addTo(NamedFacebookType receiver) {
-        return to.add(from);
-    }
+  public boolean addAttachment(Attachment attachment) {
+    return attachments.add(attachment);
+  }
 
-    public boolean removeTo(NamedFacebookType receiver) {
-        return to.remove(from);
-    }
+  public boolean removeAttachment(Attachment attachment) {
+    return attachments.remove(attachment);
+  }
 
-    /**
-     * A set of tags indicating the message folder and source of the message.
-     *
-     * @return A set of tags indicating the message folder and source of the message.
-     */
-    public List<String> getTags() {
-        return unmodifiableList(tags);
-    }
+  /**
+   * The shares associated with the message.
+   *
+   * This is page only.
+   *
+   * @return The shares associated with the message.
+   */
+  public List<Share> getShares() {
+    return (shares != null ? unmodifiableList(shares) : null);
+  }
 
-    public boolean addTag(String tag) {
-        return tags.add(tag);
-    }
+  public boolean addShare(Share share) {
+    return shares.add(share);
+  }
 
-    public boolean removeTag(String tag) {
-        return tags.remove(tag);
-    }
+  public boolean removeShare(Share share) {
+    return shares.remove(share);
+  }
+
+  /**
+   * A list of the message recipients
+   *
+   * @return A list of the message recipients
+   */
+  public List<NamedFacebookType> getTo() {
+    return unmodifiableList(to);
+  }
+
+  public boolean addTo(NamedFacebookType receiver) {
+    return to.add(from);
+  }
+
+  public boolean removeTo(NamedFacebookType receiver) {
+    return to.remove(from);
+  }
+
+  /**
+   * A set of tags indicating the message folder and source of the message.
+   *
+   * @return A set of tags indicating the message folder and source of the message.
+   */
+  public List<String> getTags() {
+    return unmodifiableList(tags);
+  }
+
+  public boolean addTag(String tag) {
+    return tags.add(tag);
+  }
+
+  public boolean removeTag(String tag) {
+    return tags.remove(tag);
+  }
 }
