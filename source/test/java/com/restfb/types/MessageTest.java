@@ -23,9 +23,11 @@ package com.restfb.types;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 import com.restfb.AbstractJsonMapperTests;
 
+import org.hamcrest.core.StringContains;
 import org.junit.Test;
 
 import java.util.List;
@@ -53,6 +55,16 @@ public class MessageTest extends AbstractJsonMapperTests {
       if (attachment.isImage()) {
         assertNotNull(attachment.getImageData());
         Message.ImageData imageData = attachment.getImageData();
+        assertThat(imageData.getPreviewUrl(), new StringContains("preview"));
+      } else if (attachment.isVideo()) {
+        assertNotNull(attachment.getVideoData());
+        Message.VideoData videoData = attachment.getVideoData();
+        assertThat(videoData.getUrl(), new StringContains("examplevideo.mp4"));
+        assertThat(videoData.getPreviewUrl(), new StringContains("example_preview.jpg"));
+        assertEquals(0,videoData.getRotation());
+        Message.ImageData imageData = attachment.getImageData();
+        assertEquals(1280, imageData.getWidth());
+        assertEquals(720, imageData.getHeight());
       } else {
         assertNotNull(attachment.getFileUrl());
       }
