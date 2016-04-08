@@ -54,6 +54,7 @@
 	<developer>
 	    <id>nbartels</id>
 	    <name>Norbert Bartels</name>
+	    <email>n.bartels@phpmonkeys.de</email>
 	    <url>http://www.phpmonkeys.de</url>
 	    <roles>
 		<role>Maintainer</role>

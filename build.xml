@@ -32,6 +32,7 @@
         <property name="mavenJar" value="${mavenDir}/${mavenArtifactId}-${libraryVersion}.jar" />
         <property name="mavenJavadocJar" value="${mavenDir}/${mavenArtifactId}-${libraryVersion}-javadoc.jar" />
         <property name="mavenSourcesJar" value="${mavenDir}/${mavenArtifactId}-${libraryVersion}-sources.jar" />
+        <property name="delombokSourcesJar" value="${buildDir}/${mavenArtifactId}-${libraryVersion}-delombok-sources.jar" />
         <property name="mavenSnapshotsRepositoryId" value="sonatype-nexus-snapshots" />
         <property name="mavenSnapshotsRepositoryUrl" value="https://oss.sonatype.org/content/repositories/snapshots" />
         <property name="mavenStagingRepositoryId" value="sonatype-nexus-staging" />
@@ -71,10 +72,8 @@
                 </zip>
         </target>
 
-        <target name="doc" description="Builds Javadoc">
-                <echo message="Building Javadoc..." />
+        <target name="delombok">
                 <taskdef classname="lombok.delombok.ant.Tasks$Delombok" classpathref="dependency.classpath" name="delombok" />
-                <mkdir dir="${javadocDir}" />		
                 <mkdir dir="${delombokDir}" />
 
                 <delombok verbose="true" encoding="UTF-8" to="${delombokDir}">
@@ -83,6 +82,19 @@
                         </fileset>
                         <format value="suppressWarnings:skip" />
                 </delombok>
+        </target>
+
+        <target name="delombokJar" depends="delombok" description="Builds the RestFB sources jar with delomboked sources">
+                <echo message="Building delomboked source jar" />
+
+                <jar destfile="${delombokSourcesJar}">
+                        <fileset dir="${delombokDir}" />
+                </jar>
+        </target>
+
+        <target name="doc" description="Builds Javadoc" depends="delombok">
+                <echo message="Building Javadoc..." />
+                <mkdir dir="${javadocDir}" />
 
                 <javadoc destdir="${javadocDir}" author="true" version="true" use="true"
                          windowtitle="RestFB ${libraryVersion}" access="public"
@@ -96,13 +108,6 @@
 			<taglet name="com.restfb.taglets.GraphApiSince" path="lib/restfb-taglets-1.0.jar"/>
 			<taglet name="com.restfb.taglets.GraphApiUntil" path="lib/restfb-taglets-1.0.jar"/>
                 </javadoc>
-        </target>
-
-        <target name="website" description="Creates the restfb.com website" depends="doc">
-                <zip destfile="${buildDir}/website.zip">
-                        <fileset dir="${buildDir}" includes="javadoc/**" />
-                        <fileset dir="${websiteDir}" />
-                </zip>
         </target>
 
         <target name="clean" description="Gets rid of build artifacts">
