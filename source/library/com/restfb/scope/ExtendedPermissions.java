@@ -56,6 +56,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
+   * @RestFB.GraphApi.Since 2.3
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
    */
   @Deprecated MANAGE_NOTIFICATIONS("manage_notifications"), //
@@ -82,8 +83,23 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
    * @since Graph API 2.5
+   * @RestFB.GraphApi.Since 2.5
    */
   PAGES_MANAGE_CTA("pages_manage_cta"), //
+
+  /**
+   * Lets your app manage Instant Articles on behalf of Facebook Pages administered by people using your app.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 2.5
+   * @since Graph API 2.5
+   */
+  PAGES_MANAGE_INSTANT_ARTICLES("pages_manage_instant_articles"), //
 
   /**
    * Provides access to manage leads retrieved from Lead Ads of the Pages that you manage.
@@ -94,6 +110,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
+   * @RestFB.GraphApi.Since 2.3
    * @since Graph API 2.3
    */
   PAGES_MANAGE_LEADS("pages_manage_leads"), //
@@ -108,6 +125,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
    * @since Graph API 2.5
+   * @RestFB.GraphApi.Since 2.5
    */
   PAGES_SHOW_LIST("pages_show_list"), //
 
@@ -145,6 +163,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
    * @since Graph API 2.3
+   * @RestFB.GraphApi.Since 2.3
    */
   PUBLISH_PAGES("publish_pages"), //
 
@@ -158,6 +177,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
    * @since Graph API 2.4
+   * @RestFB.GraphApi.Since 2.4
    */
   READ_AUDIENCE_NETWORK_INSIGHTS("read_audience_network_insights"), //
 
@@ -180,6 +200,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    *
    * @deprecated not usable since Graph API 2.3, use <code>READ_CUSTOM_FRIENDLISTS</code> instead. If you use the Graph
    *             API before 2.3 ignore the deprecation warning
+   * @RestFB.GraphApi.Until 2.2
    */
   @Deprecated READ_FRIENDLISTS("read_friendlists"), //
 
@@ -206,6 +227,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
    * @since Graph API 2.3
+   * @RestFB.GraphApi.Since 2.3
    */
   READ_CUSTOM_FRIENDLISTS("read_custom_friendlists"), //
 
@@ -230,6 +252,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
+   * @RestFB.GraphApi.Until 2.3
    */
   @Deprecated READ_MAILBOX("read_mailbox"), //
 
@@ -260,6 +283,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <p>
    * 
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
+   * @RestFB.GraphApi.Until 2.3
    */
   @Deprecated READ_STREAM("read_stream"), //
 
