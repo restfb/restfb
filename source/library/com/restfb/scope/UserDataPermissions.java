@@ -110,6 +110,8 @@ public enum UserDataPermissions implements FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
+   * @RestFB.GraphApi.Until 2.2
+   *
    * @Deprecated removed Not usable since Graph API 2.3. If you use the Graph API before 2.3 ignore the deprecation
    *             warning
    */
@@ -218,6 +220,8 @@ public enum UserDataPermissions implements FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Until 2.2
    *
    * @Deprecated removed Not usable since Graph API 2.3. If you use the Graph API before 2.3 ignore the deprecation
    *             warning
@@ -336,6 +340,8 @@ public enum UserDataPermissions implements FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Until 2.3
    *
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning. If
    *             you are calling the endpoint <code>/{user-id}/posts</code> or <code>/{user-id}/feed</code>, ask for the
