@@ -81,11 +81,19 @@ public class EndpointBuilderTest {
   }
 
   @Test
+  public void version26Test() {
+    FakeWebRequestor wr = new FakeWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_6);
+    String respString = client.fetchObject("/me", String.class);
+    assertEquals("https://graph.facebook.com/v2.6/me?access_token=12345&format=json", respString);
+  }
+
+  @Test
   public void versionLatestTest() {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.LATEST);
     String respString = client.fetchObject("/me", String.class);
-    assertEquals("https://graph.facebook.com/v2.5/me?access_token=12345&format=json", respString);
+    assertEquals("https://graph.facebook.com/v2.6/me?access_token=12345&format=json", respString);
   }
 
   @Test
