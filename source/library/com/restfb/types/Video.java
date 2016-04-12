@@ -222,6 +222,17 @@ public class Video extends NamedFacebookType {
   private Integer length;
 
   /**
+   * Number of unique people who watched the video broadcast when it was live.
+   *
+   * @RestFB.GraphApi.Since 2.6
+   * @return Number of unique people who watched the video broadcast when it was live.
+   */
+  @Getter
+  @Setter
+  @Facebook("live_audience_count")
+  private Integer liveAudienceCount;
+
+  /**
    * Privacy setting for the video.
    * 
    * @return Privacy setting for the video.
@@ -421,7 +432,7 @@ public class Video extends NamedFacebookType {
   public static class Thumbnail implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * The name of the thumbnail
      */
@@ -478,7 +489,7 @@ public class Video extends NamedFacebookType {
   public static class VideoFormat implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * HTML to embed the video in this format.
      * 
@@ -537,7 +548,7 @@ public class Video extends NamedFacebookType {
   public static class VideoStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Status of a video.
      * 
