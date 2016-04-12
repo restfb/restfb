@@ -1,0 +1,26 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1460111844,
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "item": "share",
+            "verb": "add",
+            "share_id": 98735342324352,
+            "post_id": "1234567890321_98735342324352",
+            "sender_id": 1234567890321,
+            "created_time": 1460111843,
+            "published": 1,
+            "message": "Ein Link zu was ganz anderem: www.daserste.de",
+            "link": "http://www.google.com/",
+            "sender_name": "Test Sender"
+          }
+        }
+      ]
+    }
+  ]
+}

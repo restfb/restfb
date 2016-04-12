@@ -85,6 +85,12 @@ public class ChangeValueFactory {
     FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //
     FEED_STATUS_ADD(FeedStatusValue.class), //
     FEED_STATUS_EDITED(FeedStatusValue.class), //
+    FEED_POST_ADD(FeedPostValue.class), //
+    FEED_POST_EDITED(FeedPostValue.class), //
+    FEED_POST_REMOVE(FeedPostValue.class), //
+    FEED_SHARE_ADD(FeedShareValue.class), //
+    FEED_SHARE_EDITED(FeedShareValue.class), //
+    FEED_SHARE_REMOVE(FeedShareValue.class), //
     FEED_LIKE_ADD(FeedLikeValue.class), //
     FEED_LIKE_REMOVE(FeedLikeValue.class), //
     RATINGS_RATING_ADD(RatingsRatingValue.class), //
