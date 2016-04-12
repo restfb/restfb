@@ -243,4 +243,20 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getParentId());
     assertEquals("380528198800882_493275620859472", examplePost.getParentId());
   }
+
+  @Test
+  public void checkV2_6_reactions() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/post-with-reactions"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getReactions());
+    Reactions reactions = examplePost.getReactions();
+    assertEquals("NONE", reactions.getViewerReaction());
+    assertEquals(1L, reactions.getTotalCount().intValue());
+    assertNotNull(reactions.getData());
+    Reactions.ReactionItem item = reactions.getData().get(0);
+    assertEquals("LIKE", item.getType());
+    assertEquals("46725238725", item.getId());
+    assertEquals("Some User", item.getName());
+    assertEquals(1L, examplePost.getReactionsCount().longValue());
+  }
 }
