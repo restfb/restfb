@@ -222,6 +222,17 @@ public class Video extends NamedFacebookType {
   private Integer length;
 
   /**
+   * Number of unique people who watched the video broadcast when it was live.
+   *
+   * @RestFB.GraphApi.Since 2.6
+   * @return Number of unique people who watched the video broadcast when it was live.
+   */
+  @Getter
+  @Setter
+  @Facebook("live_audience_count")
+  private Integer liveAudienceCount;
+
+  /**
    * Privacy setting for the video.
    * 
    * @return Privacy setting for the video.
