@@ -126,4 +126,20 @@ public class PageTest extends AbstractJsonMapperTests {
     assertTrue(page.getCanCheckin());
   }
 
+  @Test
+  public void checkV2_6_fanCount() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-fancount"), Page.class);
+    assertNotNull(page);
+    assertEquals(3L, page.getFanCount().longValue());
+    assertEquals(3L, page.getLikes().longValue());
+  }
+
+  @Test
+  public void checkV2_5_fanCount() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-with-likes"), Page.class);
+    assertNotNull(page);
+    assertEquals(3L, page.getFanCount().longValue());
+    assertEquals(3L, page.getLikes().longValue());
+  }
+
 }
