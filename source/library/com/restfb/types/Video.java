@@ -233,6 +233,19 @@ public class Video extends NamedFacebookType {
   private Integer liveAudienceCount;
 
   /**
+   * The live status of the video.
+   *
+   * Possible values contain LIVE, LIVE_STOPPED, VOD
+   *
+   * @RestFB.GraphApi.Since 2.6
+   * @return The live status of the video
+   */
+  @Getter
+  @Setter
+  @Facebook("live_status")
+  private String liveStatus;
+
+  /**
    * Privacy setting for the video.
    * 
    * @return Privacy setting for the video.
@@ -256,7 +269,8 @@ public class Video extends NamedFacebookType {
    * Whether a post about this video is published.
    * 
    * This field is only accessible in Graph API 2.3 or later.
-   * 
+   *
+   * @RestFB.GraphApi.Since 2.3
    * @return whether a post about this video is published.
    * @since 1.10.0
    */
