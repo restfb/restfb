@@ -1,0 +1,22 @@
+{
+  "reactions": {
+    "data": [
+      {
+        "id": "46725238725",
+        "name": "Some User",
+        "type": "LIKE"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "TVRBd01EQXdOekV5TlRjMk9UTXhPakUwTmpBeU56SXlNRGM2TWpVME1EazJNVFl4TXc9PQZDZD",
+        "after": "TVRBd01EQXdOekV5TlRjMk9UTXhPakUwTmpBeU56SXlNRGM2TWpVME1EazJNVFl4TXc9PQZDZD"
+      }
+    },
+    "summary": {
+      "total_count": 1,
+      "viewer_reaction": "NONE"
+    }
+  },
+  "id": "100002241334695_980648432019859"
+}

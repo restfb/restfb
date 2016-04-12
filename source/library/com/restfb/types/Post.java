@@ -315,6 +315,16 @@ public class Post extends NamedFacebookType {
   private Comments comments;
 
   /**
+   * The reactions for this post.
+   *
+   * @return The reactions for this post.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Reactions reactions;
+
+  /**
    * The place where this post occurred.
    *
    * @return The place where this post occurred.
@@ -1116,6 +1126,19 @@ public class Post extends NamedFacebookType {
     }
 
     return likesCount;
+  }
+
+  /**
+   * The number of reactions on this post.
+   *
+   * @return The number of reactions on this post.
+   */
+  public Long getReactionsCount() {
+    if (getReactions() != null) {
+      return getReactions().getTotalCount();
+    }
+
+    return 0L;
   }
 
   /**
