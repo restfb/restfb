@@ -854,7 +854,10 @@ public class Page extends CategorizedFacebookType {
 
   /**
    * The number of likes the page has.
-   * 
+   *
+   * Since Graph 2.6 you should use {@see Page#fanCount} instead
+   *
+   * @RestFB.GraphApi.Until 2.5
    * @return The number of likes the page has
    * @since 1.6.5
    */
@@ -862,6 +865,17 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook
   private Long likes;
+
+  /**
+   * The number of likes the page has.
+   *
+   * @return The number of likes the page has
+   * @RestFB.GraphApi.Since 2.6
+   */
+  @Getter
+  @Setter
+  @Facebook("fan_count")
+  private Long fanCount;
 
   /**
    * Indicates whether this location is always open.
@@ -1729,5 +1743,16 @@ public class Page extends CategorizedFacebookType {
 
     String picJson = rawPicture.get("data").toString();
     picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
+  }
+
+  @JsonMappingCompleted
+  protected void graphApi26LikesFallback() {
+    if (getFanCount() != null && getLikes() == null) {
+      likes = fanCount;
+    }
+
+    if (getFanCount() == null && getLikes() != null) {
+      fanCount = likes;
+    }
   }
 }
