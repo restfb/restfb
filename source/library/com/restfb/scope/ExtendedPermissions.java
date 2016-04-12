@@ -116,6 +116,25 @@ public enum ExtendedPermissions implements FacebookPermissions {
   PAGES_MANAGE_LEADS("pages_manage_leads"), //
 
   /**
+   * This allows you to send and receive messages through a Facebook Page.
+   *
+   * <p>
+   * This permission cannot be used to send promotional or advertising content. Conversations through this API can only
+   * begin when someone indicates—through a Messenger plugin or directly messaging you—that they want to receive
+   * messages from you.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 2.6
+   * @since Graph API 2.6
+   */
+  PAGES_MESSAGING("pages_messaging"), //
+
+  /**
    * Provides the access to show the list of the Pages that you manage.
    *
    * <p>
