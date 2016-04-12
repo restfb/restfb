@@ -88,20 +88,56 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void feedStatusAdd() {
+  public void feedPostRemove() {
     WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-status-add-25"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-post-remove-25"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertTrue(change.getValue() instanceof FeedStatusValue);
-    FeedStatusValue value = (FeedStatusValue) change.getValue();
+    assertTrue(change.getValue() instanceof FeedPostValue);
+    FeedPostValue value = (FeedPostValue) change.getValue();
+    assertEquals(ChangeValue.Verb.REMOVE, value.getVerb());
+    assertEquals("1234567890321_901097836652708", value.getPostId());
+    assertEquals("1234567890321", value.getSenderId());
+    assertEquals(1452098986000L, value.getCreatedTime().getTime());
+    assertEquals("1234567890321", value.getRecipientId());
+  }
+
+  @Test
+  public void feedPostAdd() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-post-add-25"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedPostValue);
+    FeedPostValue value = (FeedPostValue) change.getValue();
     assertEquals(ChangeValue.Verb.ADD, value.getVerb());
+    assertEquals("1234567890321_7293787835232", value.getPostId());
+    assertEquals("8423678347823", value.getSenderId());
+    assertFalse(value.isHidden());
+    assertEquals("Let's check this", value.getMessage());
+  }
+
+  @Test
+  public void feedShareAdd() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-share-add-25"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedShareValue);
+    FeedShareValue value = (FeedShareValue) change.getValue();
+    assertEquals(ChangeValue.Verb.ADD, value.getVerb());
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321", value.getSenderId());
     assertTrue(value.getPublished().booleanValue());
-    assertEquals("1234567890321_930145403745849", value.getPostId());
-    assertEquals("Tester", value.getSenderName());
-    assertEquals(1448633038000L, value.getCreatedTime().getTime());
+    assertNotNull(value.getMessage());
+    assertEquals("http://www.google.com/", value.getLink());
+    assertEquals("98735342324352", value.getShareId());
   }
 
   @Test
@@ -120,6 +156,23 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("status", value.getItem());
     assertEquals("This is an edited test message", value.getMessage());
     assertTrue(value.getPublished());
+  }
+
+  @Test
+  public void feedStatusAdd() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-status-add-25"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedStatusValue);
+    FeedStatusValue value = (FeedStatusValue) change.getValue();
+    assertEquals(ChangeValue.Verb.ADD, value.getVerb());
+    assertTrue(value.getPublished().booleanValue());
+    assertEquals("1234567890321_930145403745849", value.getPostId());
+    assertEquals("Tester", value.getSenderName());
+    assertEquals(1448633038000L, value.getCreatedTime().getTime());
   }
 
   @Test
