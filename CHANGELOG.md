@@ -1,3 +1,22 @@
+1.22.0 (April 13, 2016)
+
+* Graph API 2.6 support
+  * Issue #433: `PageAdminNote` type is missing
+  * Issue #431: `Pages` type `likes` renamed to `fan_count`
+  * Issue #430: Post `reactions`
+  * Issue #428: `Video` type has field `live_audience_count`
+  * Issue #427: `Video` type new field `live_status type`
+  * Issue #426: new permission `pages_messaging_phone_number`
+  * Issue #425: new permission `pages_messaging`
+  * Issue #437: reactions added to `Video` and `Photo` type
+  * Issue #424: Version enum
+* Issue #423: Missing `page post` values in webhook type<br>
+  Thanks to @volkenborn for providing some JSON files
+* Issue #419: add missing permission `pages_manage_instant_articles`
+* Issue #418: Improve `GraphResponse` type
+* Issue #415: Missing `getVideoData()` on `com.restfb.types.Message.Attachment<br>
+  Thanks to @lalitg14 for the hint and the JSON
+
 1.21.1 (April 2, 2016)
 
 * Issue #409 and #410: Handled missing rating, is_draft, language fields in PageRating<br>
