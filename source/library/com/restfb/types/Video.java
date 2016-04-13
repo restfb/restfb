@@ -98,12 +98,24 @@ public class Video extends NamedFacebookType {
   /**
    * The video title or caption
    *
+   * @RestFB.GraphApi.Since 2.5
    * @return the video title or caption
    */
   @Getter
   @Setter
   @Facebook("title")
   private String title;
+
+  /**
+   * Specifies if the video is eligible for crossposting.
+   *
+   * @RestFB.GraphApi.Since 2.6
+   * @return Specifies if the video is eligible for crossposting
+   */
+  @Getter
+  @Setter
+  @Facebook("is_crossposting_eligible")
+  private Boolean isCrosspostingEligible;
 
   /**
    * Whether the video is eligible to be promoted on Instagram
@@ -116,8 +128,21 @@ public class Video extends NamedFacebookType {
   private Boolean isInstagramEligible;
 
   /**
+   * Whether the video is exclusively used for copyright monitoring.
+   *
+   * @return Whether the video is exclusively used for copyright monitoring
+   */
+  @Getter
+  @Setter
+  @Facebook("is_reference_only")
+  private Boolean isReferenceOnly;
+
+
+
+  /**
    * Whether the video is embeddable.
-   * 
+   *
+   * @RestFB.GraphApi.Since 2.4
    * @return Whether the video is embeddable.
    */
   @Getter
