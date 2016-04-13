@@ -137,7 +137,15 @@ public class Video extends NamedFacebookType {
   @Facebook("is_reference_only")
   private Boolean isReferenceOnly;
 
-
+  /**
+   * The reactions for this video.
+   *
+   * @return The reactions for this video.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Reactions reactions;
 
   /**
    * Whether the video is embeddable.

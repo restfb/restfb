@@ -81,6 +81,16 @@ public class Photo extends NamedFacebookType {
   private String pageStoryId;
 
   /**
+   * The reactions for this photo.
+   *
+   * @return The reactions for this photo.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Reactions reactions;
+
+  /**
    * The full-sized source of the photo.
    * 
    * @return The full-sized source of the photo.
