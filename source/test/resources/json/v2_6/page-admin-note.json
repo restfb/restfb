@@ -1,0 +1,12 @@
+{
+  "body": "That's a very nice guy...",
+  "from": {
+    "name": "Test Page",
+    "id": "9876543219"
+  },
+  "id": "123412341234",
+  "user": {
+    "name": "Test User",
+    "id": "1234567890123"
+  }
+}

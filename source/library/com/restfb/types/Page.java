@@ -62,6 +62,9 @@ public class Page extends CategorizedFacebookType {
   @Setter
   private ProfilePictureSource picture;
 
+  @Facebook("admin_notes")
+  private List<PageAdminNote> adminNotes = new ArrayList<PageAdminNote>();
+
   /**
    * Affiliation of this person. Applicable to Pages representing people
    * 
@@ -1732,6 +1735,24 @@ public class Page extends CategorizedFacebookType {
 
   public boolean removeFoodStyle(String foodStyle) {
     return foodStyles.remove(foodStyle);
+  }
+
+  /**
+   * Notes of this page
+   *
+   * @return Notes of this page
+   * @RestFB.GraphApi.Since 2.6
+   */
+  public List<PageAdminNote> getAdminNotes() {
+    return unmodifiableList(adminNotes);
+  }
+
+  public boolean addAdminNote(PageAdminNote adminNote) {
+    return adminNotes.add(adminNote);
+  }
+
+  public boolean removeAdminNote(PageAdminNote adminNote) {
+    return adminNotes.remove(adminNote);
   }
 
   @JsonMappingCompleted

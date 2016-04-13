@@ -142,4 +142,12 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals(3L, page.getLikes().longValue());
   }
 
+  @Test
+  public void checkV2_6_adminNotes() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-admin_notes"), Page.class);
+    assertNotNull(page);
+    assertNotNull(page.getAdminNotes());
+    assertEquals(1L, page.getAdminNotes().size());
+  }
+
 }
