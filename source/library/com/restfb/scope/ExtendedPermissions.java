@@ -281,6 +281,19 @@ public enum ExtendedPermissions implements FacebookPermissions {
   READ_INSIGHTS("read_insights"), //
 
   /**
+   * Facebook has not yet officially documented this permission, but it is necessary for certain integrations
+   * with the new Messenger Platform.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * Your app will need to be approved and whitelisted by Facebook to use of this permission.
+   * @since Graph API 2.5
+   */
+  XMPP_LOGIN("xmpp_login"), //
+
+  /**
    * Provides the ability to read the messages in a person's Facebook Inbox through the inbox edge and the thread node.
    *
    * <p>
@@ -319,7 +332,7 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
    * <p>
-   * 
+   *
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
    * @RestFB.GraphApi.Until 2.3
    */
