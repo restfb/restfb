@@ -541,6 +541,9 @@ public class User extends NamedFacebookType {
   @Facebook
   private List<Experience> languages = new ArrayList<Experience>();
 
+  @Facebook
+  private List<PageLabel> labels = new ArrayList<PageLabel>();
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -1281,6 +1284,24 @@ public class User extends NamedFacebookType {
 
   public boolean removeLanguage(Experience language) {
     return languages.remove(language);
+  }
+
+  /**
+   * Page labels of this user
+   *
+   * @return labels of this user
+   * @RestFB.GraphApi.Since 2.6
+   */
+  public List<PageLabel> getLabels() {
+    return unmodifiableList(labels);
+  }
+
+  public boolean addLabel(PageLabel label) {
+    return labels.add(label);
+  }
+
+  public boolean removeLabels(PageLabel label) {
+    return labels.remove(label);
   }
 
   /**
