@@ -309,7 +309,7 @@ public class Message extends FacebookType {
     @Getter
     @Setter
     @Facebook("render_as_sticker")
-    private boolean renderAsSticker;
+    private Boolean renderAsSticker;
 
     @Getter
     @Setter

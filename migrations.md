@@ -3,6 +3,10 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 
 ## tl;dr
 * `Comment.Attachment` -> `StoryAttachment`
+* `Comment.isCanComment` -> `Comment.getCanComment`
+* `Comment.isCanHide` -> `Comment.getCanHide`
+* `FeedPostValue.isHidden` -> `FeedPostValue.getIsHidden`
+* `Message.isRenderAsSticker` -> `Message.getRenderAsSticker`
 * `FacebookClient.executeQuery()` -> `FacebookClient.executeFqlQuery()`
 * `FacebookClient.executeMultiquery()` -> `FacebookClient.executeFqlMultiquery()`
 * `User.Picture` -> `ProfilePictureSource`
@@ -24,6 +28,13 @@ We have removed the `Comment.Attachment` type because it is replaced by
 a newer type called `StoryAttachment`. `StoryAttachment` has the same 
 fields as `Comment.Attachment` but contains the target field, too. 
 Therefore it is better suitable to the original Facebook JSON.
+
+## `boolean` changed to `Boolean`
+Facebook returns for Graph API 2.4+ only requested fields. So some fields are
+not set. Because `boolean` is only `true` or `false` it is changed to Boolean. So
+a field can be `null` if it is not set. A developer needs to check for null now,
+but get better results if a field was not requested and not tricked by the Java
+default value for `boolean`.
 
 ## `FacebookClient#executeQuery` and `FacebookClient#executeMultiquery` removed
 The `FacebookClient` interface does not longer provide the `executeQuery` and 

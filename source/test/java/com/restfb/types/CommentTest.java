@@ -33,14 +33,14 @@ public class CommentTest extends AbstractJsonMapperTests {
   public void checkV2_2_NoHide() {
     Comment exampleComment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_noCanHide"), Comment.class);
-    assertFalse(exampleComment.isCanHide());
+    assertNull(exampleComment.getCanHide());
     assertTrue(exampleComment.getIsHidden());
   }
 
   @Test
   public void checkV2_2_canHide() {
     Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_canHide"), Comment.class);
-    assertTrue(exampleComment.isCanHide());
+    assertTrue(exampleComment.getCanHide());
     assertFalse(exampleComment.getIsHidden());
   }
 

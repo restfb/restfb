@@ -40,7 +40,7 @@ public class FeedPostValue extends AbstractFeedPostValue {
   @Getter
   @Setter
   @Facebook("is_hidden")
-  private boolean isHidden = false;
+  private Boolean isHidden = false;
 
   @Getter
   @Setter

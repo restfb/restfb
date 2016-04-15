@@ -39,7 +39,7 @@ public class CommentsImpl implements Comments {
   public boolean hide(String commentId) {
 
     Comment comment = facebookClient.fetchObject(commentId, Comment.class, Parameter.with("fields", "can_hide"));
-    if (comment.isCanHide()) {
+    if (comment.getCanHide()) {
       GraphResponse response =
           facebookClient.publish(commentId, GraphResponse.class, Parameter.with("is_hidden", "true"));
 
@@ -51,7 +51,7 @@ public class CommentsImpl implements Comments {
   @Override
   public boolean unhide(String commentId) {
     Comment comment = facebookClient.fetchObject(commentId, Comment.class, Parameter.with("fields", "can_hide"));
-    if (comment.isCanHide()) {
+    if (comment.getCanHide()) {
       GraphResponse response =
           facebookClient.publish(commentId, GraphResponse.class, Parameter.with("is_hidden", "false"));
 

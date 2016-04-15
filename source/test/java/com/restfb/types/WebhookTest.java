@@ -117,7 +117,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals(ChangeValue.Verb.ADD, value.getVerb());
     assertEquals("1234567890321_7293787835232", value.getPostId());
     assertEquals("8423678347823", value.getSenderId());
-    assertFalse(value.isHidden());
+    assertFalse(value.getIsHidden());
     assertEquals("Let's check this", value.getMessage());
   }
 
