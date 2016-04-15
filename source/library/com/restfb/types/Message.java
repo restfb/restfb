@@ -309,7 +309,19 @@ public class Message extends FacebookType {
     @Getter
     @Setter
     @Facebook("render_as_sticker")
-    private boolean renderAsSticker;
+    private Boolean renderAsSticker;
+
+    /**
+     * @deprecated use {@see Message#getRenderAsSticker()} instead
+     * @return
+     */
+    @Deprecated
+    public boolean isRenderAsSticker() {
+      if (renderAsSticker != null) {
+        return renderAsSticker.booleanValue();
+      }
+      return false;
+    }
 
     @Getter
     @Setter
