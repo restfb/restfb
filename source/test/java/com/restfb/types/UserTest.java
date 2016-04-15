@@ -93,4 +93,12 @@ public class UserTest extends AbstractJsonMapperTests {
     assertNotNull(work.getEndDate());
     assertEquals(1348963200000L, work.getEndDate().getTime());
   }
+  @Test
+  public void checkV2_6_label() {
+    User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/user-with-labels"), User.class);
+    assertNotNull(exampleUser);
+    assertNotNull(exampleUser.getLabels());
+    assertEquals(1L, exampleUser.getLabels().size());
+  }
+
 }

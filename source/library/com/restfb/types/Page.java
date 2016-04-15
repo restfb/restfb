@@ -369,6 +369,11 @@ public class Page extends CategorizedFacebookType {
   @Facebook("is_permanently_closed")
   private Boolean isPermanentlyClosed;
 
+  private List<PageLabel> labels = new ArrayList<PageLabel>();
+
+  @Facebook("labels")
+  private JsonObject rawLabels;
+
   /**
    * Personal information. Applicable to Pages representing People
    * 
@@ -1734,6 +1739,32 @@ public class Page extends CategorizedFacebookType {
 
   public boolean removeAdminNote(PageAdminNote adminNote) {
     return adminNotes.remove(adminNote);
+  }
+
+  /**
+   * Page labels of this page
+   *
+   * @return labels of this page
+   * @RestFB.GraphApi.Since 2.6
+   */
+  public List<PageLabel> getLabels() {
+    return unmodifiableList(labels);
+  }
+
+  public boolean addLabel(PageLabel label) {
+    return labels.add(label);
+  }
+
+  public boolean removeLabels(PageLabel label) {
+    return labels.remove(label);
+  }
+
+  @JsonMappingCompleted
+  protected void convertLabels(JsonMapper jsonMapper) {
+    if (rawLabels != null && rawLabels.get("data") != null) {
+      String innerLabelsString = rawLabels.get("data").toString();
+      labels = jsonMapper.toJavaList(innerLabelsString, PageLabel.class);
+    }
   }
 
   @JsonMappingCompleted

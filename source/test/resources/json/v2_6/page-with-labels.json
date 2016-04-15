@@ -1,0 +1,30 @@
+{
+  "id": "123456789098765",
+  "name": "Test Page",
+  "labels": {
+    "data": [
+      {
+        "id": "344234632t4234",
+        "name": "Nerd"
+      },
+      {
+        "id": "839465843648",
+        "name": "Ignorable"
+      },
+      {
+        "id": "833572353213",
+        "name": "Important"
+      },
+      {
+        "id": "352753725372",
+        "name": "Follow Up"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "OTgxMzU1MjAxOTYwMzA0",
+        "after": "OTA1OTMxNzI2MTY5MzE5"
+      }
+    }
+  }
+}
