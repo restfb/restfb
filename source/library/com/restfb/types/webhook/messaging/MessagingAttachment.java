@@ -19,58 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook;
+package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.types.webhook.messaging.MessagingItem;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class WebhookEntry {
+public class MessagingAttachment {
 
   @Getter
   @Setter
   @Facebook
-  private String uid;
+  private String type;
 
   @Getter
   @Setter
   @Facebook
-  private String id;
-
-  @Getter
-  @Setter
-  private Date time = new Date();
-
-  @Facebook("time")
-  private Long rawTime;
-
-  @Getter
-  @Setter
-  @Facebook("changed_fields")
-  private List<String> changedFields = new ArrayList<String>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<Change> changes = new ArrayList<Change>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<MessagingItem> messaging = new ArrayList<MessagingItem>();
-
-  @JsonMappingCompleted
-  private void convertDate() {
-    if (rawTime != null) {
-      time.setTime(rawTime * 1000);
-    }
-  }
-
+  private MessagingPayload payload;
 }

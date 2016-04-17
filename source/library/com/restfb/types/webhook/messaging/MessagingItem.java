@@ -19,58 +19,87 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook;
+package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.types.webhook.messaging.MessagingItem;
+import com.restfb.JsonMapper;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class WebhookEntry {
+public class MessagingItem {
 
   @Getter
   @Setter
   @Facebook
-  private String uid;
+  private MessagingParticipant sender;
 
   @Getter
   @Setter
   @Facebook
-  private String id;
+  private MessagingParticipant recipient;
+
+  @Facebook
+  private Long rawTimestamp;
 
   @Getter
   @Setter
-  private Date time = new Date();
-
-  @Facebook("time")
-  private Long rawTime;
-
-  @Getter
-  @Setter
-  @Facebook("changed_fields")
-  private List<String> changedFields = new ArrayList<String>();
+  private Date timestamp;
 
   @Getter
   @Setter
   @Facebook
-  private List<Change> changes = new ArrayList<Change>();
+  private DeliveryItem delivery;
 
   @Getter
   @Setter
   @Facebook
-  private List<MessagingItem> messaging = new ArrayList<MessagingItem>();
+  private MessageItem message;
 
-  @JsonMappingCompleted
-  private void convertDate() {
-    if (rawTime != null) {
-      time.setTime(rawTime * 1000);
+  @Getter
+  @Setter
+  @Facebook
+  private PostbackItem postback;
+
+  @Getter
+  @Setter
+  @Facebook
+  private OptinItem optin;
+
+  /**
+   * generic access to the inner item.
+   * 
+   * depending on the inner elements the corresponding element is returned. So you can get an {@see OptinItem},
+   * {@see PostbackItem}, {@see DeliveryItem} or {@see MessageItem}
+   * 
+   * @return the inner item.
+   */
+  public InnerMessagingItem getItem() {
+    if (optin != null) {
+      return optin;
     }
+
+    if (postback != null) {
+      return postback;
+    }
+
+    if (delivery != null) {
+      return delivery;
+    }
+
+    if (message != null) {
+      return message;
+    }
+
+    return null;
   }
 
+  @JsonMapper.JsonMappingCompleted
+  private void convertDate() {
+    if (rawTimestamp != null) {
+      timestamp.setTime(rawTimestamp * 1000);
+    }
+  }
 }
