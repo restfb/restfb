@@ -24,8 +24,13 @@ package com.restfb;
 import static org.junit.Assert.*;
 
 import com.restfb.WebRequestor.Response;
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.ResponseErrorJsonParsingException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
 
@@ -146,6 +151,82 @@ public class FacebookClientTest {
     assertEquals("accesstoken", at.getAccessToken());
     assertNull(at.getTokenType());
     assertTrue(at.getExpires().getTime() > new Date().getTime());
+  }
+
+  @Test
+  public void fetchDeviceCodeLatest() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+    try {
+      fbc.fetchDeviceCode("123456283", new ScopeBuilder());
+    } catch (FacebookJsonMappingException je) {
+
+    }
+    assertEquals("https://graph.facebook.com/v2.6/device/login", requestor.getSavedUrl());
+    assertEquals("type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json",
+      requestor.getParameters());
+  }
+
+  @Test
+  public void obtainDeviceAccessTokenCodeLatest() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+    try {
+      fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
+    } catch (IllegalArgumentException je) {
+      // exception can be ignored, the url is important
+    } catch (FacebookDeviceTokenCodeExpiredException e) {
+      // never reached
+    } catch (FacebookDeviceTokenPendingException e) {
+      // never reached
+    } catch (FacebookDeviceTokenSlowdownException e) {
+      // never reached
+    } catch (FacebookDeviceTokenDeclinedException e) {
+      // never reached
+    }
+    assertEquals("https://graph.facebook.com/v2.6/device/login_status", requestor.getSavedUrl());
+    assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
+      requestor.getParameters());
+  }
+
+  @Test
+  public void fetchDeviceCodeV25() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_5);
+    try {
+      fbc.fetchDeviceCode("123456283", new ScopeBuilder());
+    } catch (FacebookJsonMappingException je) {
+
+    }
+    assertEquals("https://graph.facebook.com/v2.5/oauth/device", requestor.getSavedUrl());
+    assertEquals("type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json",
+      requestor.getParameters());
+  }
+
+  @Test
+  public void obtainDeviceAccessTokenCodeV25() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_5);
+    try {
+      fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
+    } catch (IllegalArgumentException je) {
+      // exception can be ignored, the url is important
+    } catch (FacebookDeviceTokenCodeExpiredException e) {
+      // never reached
+    } catch (FacebookDeviceTokenPendingException e) {
+      // never reached
+    } catch (FacebookDeviceTokenSlowdownException e) {
+      // never reached
+    } catch (FacebookDeviceTokenDeclinedException e) {
+      // never reached
+    }
+    assertEquals("https://graph.facebook.com/v2.5/oauth/device", requestor.getSavedUrl());
+    assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
+      requestor.getParameters());
   }
 
   @Test

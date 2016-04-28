@@ -36,6 +36,8 @@ public class FakeWebRequestor implements WebRequestor {
 
   private HttpMethod method;
 
+  private String parameters;
+
   @Override
   public Response executeGet(String url) throws IOException {
     this.savedUrl = url;
@@ -47,6 +49,7 @@ public class FakeWebRequestor implements WebRequestor {
   public Response executePost(String url, String parameters) throws IOException {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
+    this.parameters = parameters;
     return new Response(HTTP_OK, url);
   }
 
@@ -54,6 +57,7 @@ public class FakeWebRequestor implements WebRequestor {
   public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
+    this.parameters = parameters;
     return new Response(HTTP_OK, url);
   }
 
@@ -85,5 +89,14 @@ public class FakeWebRequestor implements WebRequestor {
    */
   public String getSavedUrl() {
     return savedUrl;
+  }
+
+  /**
+   * get the used parameters (query string)
+   * 
+   * @return the used parameter
+   */
+  public String getParameters() {
+    return parameters;
   }
 }

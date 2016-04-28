@@ -676,7 +676,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("scope", scope);
 
-    String response = makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_code"),
+    String endpoint = "device/login";
+    // TODO: with next version we need a better solution here
+    if (apiVersion != Version.VERSION_2_6) {
+      endpoint = "oauth/device";
+    }
+
+    String response = makeRequest(endpoint, true, false, null, Parameter.with("type", "device_code"),
       Parameter.with("client_id", appId), Parameter.with("scope", scope.toString()));
     return jsonMapper.toJavaObject(response, DeviceCode.class);
   }
@@ -687,8 +693,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("code", code);
 
+    // TODO: with next version we need a better solution here
+    String endpoint = "device/login_status";
+    if (apiVersion != Version.VERSION_2_6) {
+      endpoint = "oauth/device";
+    }
+
     try {
-      String response = makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_token"),
+      String response = makeRequest(endpoint, true, false, null, Parameter.with("type", "device_token"),
         Parameter.with("client_id", appId), Parameter.with("code", code));
       return getAccessTokenFromResponse(response);
     } catch (FacebookOAuthException foae) {
