@@ -69,7 +69,7 @@ public final class Parameter {
       throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");
     }
 
-    this.name = trimToEmpty(name).toLowerCase();
+    this.name = trimToEmpty(name);
 
     // Special handling for Date types - turn them into Facebook date strings.
     // Otherwise, use the JSON value of the type.

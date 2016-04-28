@@ -21,6 +21,10 @@
  */
 package com.restfb;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -32,6 +36,81 @@ public class ParameterTest {
     JsonMapperToJsonTest.ListObject obj = new JsonMapperToJsonTest.ListObject();
     String val = Parameter.with("key", obj).value;
     JSONAssert.assertEquals("{id: 12345}", val, true);
+  }
+
+  @Test
+  public void correctKeyCheck() {
+    String key = "tHiSAtEsT";
+    String val = "sOmEVaLue";
+
+    Parameter testParam = Parameter.with(key, val);
+
+    assertEquals(key, testParam.name);
+    assertEquals(val, testParam.value);
+  }
+
+  @Test
+  public void correctKeyWithWsCheck() {
+    String key = "\n\ntHiSAtEsT\n\t";
+    String val = "sOmEVaLue";
+
+    Parameter testParam = Parameter.with(key, val);
+
+    assertEquals(key.trim(), testParam.name);
+    assertEquals(val, testParam.value);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void nullKeyCheck() {
+    Parameter.with(null, "val");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void emptyKeyCheck() {
+    Parameter.with("", "val");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void nullValueCheck() {
+    Parameter.with("key", null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void nullJsonMapper() {
+    Parameter.with("key", "value", null);
+  }
+
+  @Test
+  public void equalsCheck_null() {
+    Parameter obj = Parameter.with("name", "value");
+    assertFalse(obj.equals(null));
+  }
+
+  @Test
+  public void equalsCheck_differentClass() {
+    Parameter obj = Parameter.with("name", "value");
+    assertFalse(obj.equals(new Object()));
+  }
+
+  @Test
+  public void equalsCheck_differentName() {
+    Parameter obj1 = Parameter.with("name", "value");
+    Parameter obj2 = Parameter.with("name1", "value");
+    assertFalse(obj1.equals(obj2));
+  }
+
+  @Test
+  public void equalsCheck_differentValue() {
+    Parameter obj1 = Parameter.with("name", "value");
+    Parameter obj2 = Parameter.with("name", "value1");
+    assertFalse(obj1.equals(obj2));
+  }
+
+  @Test
+  public void equalsCheck_equals() {
+    Parameter obj1 = Parameter.with("name", "value");
+    Parameter obj2 = Parameter.with("name", "value");
+    assertTrue(obj1.equals(obj2));
   }
 
 }
