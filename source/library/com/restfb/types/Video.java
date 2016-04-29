@@ -158,6 +158,9 @@ public class Video extends NamedFacebookType {
   @Facebook
   private Boolean embeddable;
 
+  @Facebook("content_tags")
+  private List<String> contentTags = new ArrayList<String>();
+
   /**
    * If this object has a place, the event associated with the place.
    * 
@@ -411,6 +414,23 @@ public class Video extends NamedFacebookType {
 
   public boolean removeTag(NamedFacebookType tag) {
     return tags.remove(tag);
+  }
+
+  /**
+   * Tags that describe the contents of the video.
+   *
+   * @return Tags that describe the contents of the video.
+   */
+  public List<String> getContentTags() {
+    return unmodifiableList(contentTags);
+  }
+
+  public boolean addContentTag(String contentTag) {
+    return contentTags.add(contentTag);
+  }
+
+  public boolean removeContentTag(String contentTag) {
+    return contentTags.remove(contentTag);
   }
 
   @Deprecated
