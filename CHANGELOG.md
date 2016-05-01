@@ -1,3 +1,18 @@
+1.23.0 (May 1, 2016)
+
+* Graph API 2.6 support
+  * Issue #435: missing field `content_tags` in `Video` type
+  * Issue #438: missing `PageLabel` type
+  * Issue #441: `Messaging` webhook types (*Messenger Platform*)
+  * Issue #443: Send Api types (*Messenger Platform*)
+  * Issue #445: Device Login URL changed<br>
+    Thanks to DigitalXXL
+* Issue #444: bugfix - corrupted `Parameter` name<br>
+  Thanks to @rheylen
+* Issue #439: cleanup - change boolean to Boolean
+* Issue #440: Adding `xmpp_login` extended page permission<br>
+  Thanks to @alexdlaird for PR
+
 1.22.0 (April 13, 2016)
 
 * Graph API 2.6 support
