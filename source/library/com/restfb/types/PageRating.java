@@ -115,6 +115,10 @@ public class PageRating extends FacebookType {
 
   @Getter
   @Setter
+  private String reviewText;
+
+  @Getter
+  @Setter
   private Boolean isDraft;
 
   @Getter
@@ -132,12 +136,15 @@ public class PageRating extends FacebookType {
   }
 
   @JsonMappingCompleted
-  void fillAddititonalValues(JsonMapper mapper) {
+  void fillAdditionalValues(JsonMapper mapper) {
     if (data != null) {
       if (data.has("rating")) {
         JsonObject rating = data.getJsonObject("rating");
         ratingValue = rating.getDouble("value");
         ratingScale = rating.getLong("scale");
+      }
+      if (data.has("review_text")) {
+        reviewText = data.getString("review_text");
       }
       if (data.has("is_draft")) {
         isDraft = data.getBoolean("is_draft");
@@ -145,7 +152,11 @@ public class PageRating extends FacebookType {
       if (data.has("language")) {
         language = data.getString("language");
       }
-      place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);
+      if (data.has("generic_place")) {
+        place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);
+      } else if ( data.has("seller") ) {
+        place = mapper.toJavaObject(data.get("seller").toString(), Place.class);
+      }
     }
   }
 
