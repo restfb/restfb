@@ -21,19 +21,18 @@
  */
 package com.restfb.types;
 
+import static org.junit.Assert.*;
+
 import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
-
-import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class PageRatingTest extends AbstractJsonMapperTests {
 
   @Test
   public void check_2_2() {
-    PageRating exampleRating = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/page-rating-example1"), PageRating.class);
+    PageRating exampleRating =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/page-rating-example1"), PageRating.class);
     assertEquals(1448795001000L, exampleRating.getStartTime().getTime());
     assertEquals("123456789", exampleRating.getFrom().getId());
     assertEquals("Example Reviewer", exampleRating.getFrom().getName());
@@ -65,6 +64,15 @@ public class PageRatingTest extends AbstractJsonMapperTests {
     assertFalse(exampleRating.getIsDraft());
     assertEquals(3D, exampleRating.getRatingValue().doubleValue(), 00.1);
     assertEquals(5L, exampleRating.getRatingScale().intValue());
+  }
 
+  @Test
+  public void check_2_5() {
+    OpenGraphRating exampleOGRating =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-rating-example1"), OpenGraphRating.class);
+    assertNotNull(exampleOGRating.getOpenGraphStory().getPlace());
+    Place seller = exampleOGRating.getOpenGraphStory().getPlace();
+    assertEquals("seller", seller.getType());
+    assertEquals("149235290050", seller.getId());
   }
 }
