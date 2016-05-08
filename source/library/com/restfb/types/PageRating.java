@@ -148,6 +148,9 @@ public class PageRating extends FacebookType {
         }
       }
 
+      if (data.get("language") != null) {
+        language = data.get("language").toString();
+      }
       if (data.get("is_draft") != null) {
         isDraft = data.get("is_draft").asBoolean();
       }
