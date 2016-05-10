@@ -700,11 +700,21 @@ public interface FacebookClient {
 
       Long expires = null;
 
-      // If an expires value was provided and it's a valid long, great - use it.
+      // If an expires or expires_in value was provided and it's a valid long, great - use it.
       // Otherwise ignore it.
+      String rawExpires = null;
+
       if (urlParameters.containsKey("expires")) {
+        rawExpires = urlParameters.get("expires").get(0);
+      }
+
+      if (urlParameters.containsKey("expires_in")) {
+        rawExpires = urlParameters.get("expires_in").get(0);
+      }
+
+      if (rawExpires != null) {
         try {
-          expires = Long.valueOf(urlParameters.get("expires").get(0));
+          expires = Long.valueOf(rawExpires);
         } catch (NumberFormatException e) {}
         if (expires != null) {
           expires = new Date().getTime() + 1000L * expires;
