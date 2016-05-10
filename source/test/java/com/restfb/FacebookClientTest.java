@@ -264,6 +264,20 @@ public class FacebookClientTest {
       loginDialogUrlString);
   }
 
+  @Test
+  public void checkUrlWithExpiresIn() {
+    String queryString = "access_token=<access-token>&expires_in=5184000";
+    FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
+    assertTrue(1468096359099L < token.getExpires().getTime());
+  }
+
+  @Test
+  public void checkUrlWithExpires() {
+    String queryString = "access_token=<access-token>&expires=5184000";
+    FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
+    assertTrue(1468096359099L < token.getExpires().getTime());
+  }
+
   /**
    * Simple way to create a {@code FacebookClient} whose web requests always return the provided synthetic
    * {@code response}.
