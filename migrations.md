@@ -22,6 +22,8 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 * json API changed, you should look [here](https://github.com/ralfstx/minimal-json)
 * `Post.MessageTag` replaced with `MessageTag` type
 * `Likes` data type moved from `NamedFacebookType` to `LikeItem`
+* `likes` field changed from `long` to `Likes` in `Page` type
+* `likesCount` field added to `Page` type
 
 ## Comment.Attachment removed
 We have removed the `Comment.Attachment` type because it is replaced by 
@@ -91,3 +93,10 @@ If you work with MessageTags you have to change your import.
 The `Likes` type contains a list of NamedFacebookTypes. These elements are in some cases not the correct type.
 So we changed the type and introduces the new `LikeItem` type. The new `LikeItem` type contains the `created_time` field.
 Most of the time this value is not set, but we provide it nevertheless.
+
+## `Likes` added to `Page` type
+With Graph API 2.6 the `likes` field does not contain the count of the likes. Instead it is
+filled with the a list of likes. Therefore the returned type is `Likes`. Because in earlier
+versions we should be able to access the field as long, we use the duplicate mapping magic and
+renamed the old `likes` field to `likesCount`. This is similar to the `fanCount` that was introduced
+with Graph API 2.6 for the `Page` object.

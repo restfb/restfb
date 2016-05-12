@@ -871,8 +871,19 @@ public class Page extends CategorizedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("likes")
+  private Long likesCount;
+
+  /**
+   * The Pages that this Page Likes.
+   *
+   * @RestFB.GraphApi.Since 2.6
+   * @return The Pages that this Page Likes.
+   */
+  @Getter
+  @Setter
   @Facebook
-  private Long likes;
+  private Likes likes;
 
   /**
    * The number of likes the page has.
@@ -1799,12 +1810,12 @@ public class Page extends CategorizedFacebookType {
 
   @JsonMappingCompleted
   protected void graphApi26LikesFallback() {
-    if (getFanCount() != null && getLikes() == null) {
-      likes = fanCount;
+    if (getFanCount() != null && getLikesCount() == null) {
+      likesCount = fanCount;
     }
 
-    if (getFanCount() == null && getLikes() != null) {
-      fanCount = likes;
+    if (getFanCount() == null && getLikesCount() != null) {
+      fanCount = likesCount;
     }
   }
 }

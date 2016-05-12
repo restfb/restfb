@@ -131,7 +131,7 @@ public class PageTest extends AbstractJsonMapperTests {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-fancount"), Page.class);
     assertNotNull(page);
     assertEquals(3L, page.getFanCount().longValue());
-    assertEquals(3L, page.getLikes().longValue());
+    assertEquals(3L, page.getLikesCount().longValue());
   }
 
   @Test
@@ -139,7 +139,7 @@ public class PageTest extends AbstractJsonMapperTests {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-with-likes"), Page.class);
     assertNotNull(page);
     assertEquals(3L, page.getFanCount().longValue());
-    assertEquals(3L, page.getLikes().longValue());
+    assertEquals(3L, page.getLikesCount().longValue());
   }
 
   @Test
@@ -156,6 +156,17 @@ public class PageTest extends AbstractJsonMapperTests {
     assertNotNull(page);
     assertNotNull(page.getLabels());
     assertEquals(4L, page.getLabels().size());
+  }
+
+  @Test
+  public void checkV2_6_likes() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-likes"), Page.class);
+    assertNotNull(page);
+    assertNotNull(page.getLikes());
+    assertEquals(5, page.getLikes().getData().size());
+    Likes.LikeItem item = page.getLikes().getData().get(0);
+    assertEquals("10582587785", item.getId());
+    assertEquals("Damien Rice", item.getName());
   }
 
 }
