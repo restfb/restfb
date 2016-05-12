@@ -158,4 +158,15 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals(4L, page.getLabels().size());
   }
 
+  @Test
+  public void checkV2_6_likes() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-likes"), Page.class);
+    assertNotNull(page);
+    assertNotNull(page.getLikesList());
+    assertEquals(5, page.getLikesList().getData().size());
+    NamedFacebookType item = page.getLikesList().getData().get(0);
+    assertEquals("10582587785", item.getId());
+    assertEquals("Damien Rice", item.getName());
+  }
+
 }

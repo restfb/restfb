@@ -874,6 +874,17 @@ public class Page extends CategorizedFacebookType {
   private Long likes;
 
   /**
+   * The Pages that this Page Likes.
+   *
+   * @RestFB.GraphApi.Since 2.6
+   * @return The Pages that this Page Likes.
+   */
+  @Getter
+  @Setter
+  @Facebook("likes")
+  private Likes likesList;
+
+  /**
    * The number of likes the page has.
    *
    * @return The number of likes the page has

@@ -1,0 +1,36 @@
+{
+  "id": "6513804564",
+  "name": "Paolo Nutini",
+  "likes": {
+    "data": [
+      {
+        "name": "Damien Rice",
+        "id": "10582587785"
+      },
+      {
+        "name": "Arctic Monkeys",
+        "id": "9520450966"
+      },
+      {
+        "name": "Snow Patrol",
+        "id": "6191917071"
+      },
+      {
+        "name": "James Morrison",
+        "id": "6134209286"
+      },
+      {
+        "name": "Atlantic Records UK",
+        "id": "166380523407983"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "MTA1ODI1ODc3ODUZD",
+        "after": "MTY2MzgwNTIzNDA3OTgz"
+      }
+    }
+  },
+  "link": "https://www.facebook.com/PaoloNutini/",
+  "fan_count": 1089005
+}
