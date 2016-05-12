@@ -43,11 +43,17 @@ public class DebugHeaderInfo {
    */
   private final Version usedVersion;
 
-  public DebugHeaderInfo(String debug, String rev, String traceId, Version version) {
+  /**
+   * x-app-usage
+   */
+  private final String appUsage;
+
+  public DebugHeaderInfo(String debug, String rev, String traceId, Version version, String appUsage) {
     this.debug = debug;
     this.rev = rev;
     this.traceId = traceId;
     this.usedVersion = version;
+    this.appUsage = appUsage;
   }
 
   /**
@@ -85,4 +91,11 @@ public class DebugHeaderInfo {
   public Version getUsedVersion() {
     return usedVersion;
   }
+
+  /**
+   * get Facebook response header field <code>x-app-usage</code>
+   *
+   * @return the Facebook response header field x-app-usage
+   */
+  public String getAppUsage() { return appUsage; }
 }
