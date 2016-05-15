@@ -29,6 +29,6 @@ package com.restfb.types.webhook;
 public class ChangeValue {
 
   public enum Verb {
-    REMOVE, ADD, EDITED;
+    REMOVE, ADD, EDITED, HIDE;
   }
 }
