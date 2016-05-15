@@ -176,6 +176,21 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedStatusHide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-status-hide-25"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedStatusValue);
+    FeedStatusValue value = (FeedStatusValue) change.getValue();
+    assertEquals(ChangeValue.Verb.HIDE, value.getVerb());
+    assertEquals("1234567890321_7293787835232", value.getPostId());
+    assertEquals("Some Tester", value.getSenderName());
+  }
+
+  @Test
   public void feedLikeAdd() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-like-add-25"), WebhookObject.class);
