@@ -190,6 +190,18 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void checkV2_6_storyTags() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/post-with-storyAndMessageTags"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getMessageTags());
+    assertNotNull(examplePost.getStoryTags());
+    assertFalse(examplePost.getMessageTags().isEmpty());
+    assertFalse(examplePost.getStoryTags().isEmpty());
+    assertEquals(1, examplePost.getMessageTags().size());
+    assertEquals(2, examplePost.getStoryTags().size());
+  }
+
+  @Test
   public void checkV2_5_likesSummary_canHasLike() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-likes-summary"), Post.class);
     assertNotNull(examplePost);

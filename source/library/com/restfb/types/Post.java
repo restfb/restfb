@@ -352,6 +352,11 @@ public class Post extends NamedFacebookType {
 
   private List<MessageTag> messageTags = new ArrayList<MessageTag>();
 
+  @Facebook("story_tags")
+  private String rawStoryTags;
+
+  private List<MessageTag> storyTags = new ArrayList<MessageTag>();
+
   /**
    * UNIX timestamp of the scheduled publish time for the post.
    *
@@ -524,28 +529,38 @@ public class Post extends NamedFacebookType {
   @JsonMappingCompleted
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
 
-    if (rawMessageTags == null) {
-      return;
+    if (rawMessageTags != null) {
+      messageTags = createTags(rawMessageTags, jsonMapper);
     }
 
+    if (rawStoryTags != null) {
+      storyTags = createTags(rawStoryTags, jsonMapper);
+    }
+
+  }
+
+  private List<MessageTag> createTags(String rawTags, JsonMapper jsonMapper) {
+
     try {
-      messageTags = jsonMapper.toJavaList(rawMessageTags, MessageTag.class);
-      return;
+      return jsonMapper.toJavaList(rawTags, MessageTag.class);
     } catch (FacebookJsonMappingException je) {
       // message tags not in Graph API 2.5 format, ignore this exception and try another way
     }
 
     try {
-      JsonObject rawMessageTagsObject = jsonMapper.toJavaObject(rawMessageTags, JsonObject.class);
+      List<MessageTag> resultList = new ArrayList<MessageTag>();
+      JsonObject rawMessageTagsObject = jsonMapper.toJavaObject(rawTags, JsonObject.class);
       for (String key : rawMessageTagsObject.names()) {
         String tagArrayString = rawMessageTagsObject.get(key).toString();
-        messageTags.addAll(jsonMapper.toJavaList(tagArrayString, MessageTag.class));
+        resultList.addAll(jsonMapper.toJavaList(tagArrayString, MessageTag.class));
       }
-      return;
+      return resultList;
     } catch (FacebookJsonMappingException je) {
 
     }
+    return null;
   }
+
 
   /**
    * Represents the undocumented {@code Property} type.
@@ -1261,5 +1276,22 @@ public class Post extends NamedFacebookType {
 
   public void removeMessageTag(MessageTag messageTag) {
     messageTags.remove(messageTag);
+  }
+
+  /**
+   * Objects tagged in the story (Users, Pages, etc).
+   *
+   * @return Objects tagged in the story (Users, Pages, etc).
+   */
+  public List<MessageTag> getStoryTags() {
+    return unmodifiableList(storyTags);
+  }
+
+  public void addStoryTag(MessageTag messageTag) {
+    storyTags.add(messageTag);
+  }
+
+  public void removeStoryTag(MessageTag messageTag) {
+    storyTags.remove(messageTag);
   }
 }

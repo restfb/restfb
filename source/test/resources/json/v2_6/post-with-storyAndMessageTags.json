@@ -1,0 +1,29 @@
+{
+  "story_tags": [
+    {
+      "id": "123456789",
+      "name": "Test Page",
+      "type": "page",
+      "offset": 0,
+      "length": 16
+    },
+    {
+      "id": "987654321",
+      "name": "Mentioned Page",
+      "type": "page",
+      "offset": 26,
+      "length": 4
+    }
+  ],
+  "message_tags": [
+    {
+      "id": "987654321",
+      "name": "Mentioned Page",
+      "type": "page",
+      "offset": 26,
+      "length": 14
+    }
+  ],
+  "message": "You should have a look at Mentioned Page for more information",
+  "id": "349489628480201_496143940481435"
+}
