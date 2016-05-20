@@ -739,18 +739,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   @Override
-  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope) {
+  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("redirectUri", redirectUri);
     verifyParameterPresence("scope", scope);
 
     String dialogUrl = FACEBOOK_ENDPOINT_URL + "/dialog/oauth";
 
-    Parameter clientId = Parameter.with("client_id", appId);
-    Parameter redirectUriParameter = Parameter.with("redirect_uri", redirectUri);
-    Parameter scopeParam = Parameter.with("scope", scope.toString());
+    ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+    parameterList.add(Parameter.with("client_id", appId));
+    parameterList.add(Parameter.with("redirect_uri", redirectUri));
+    parameterList.add(Parameter.with("scope", scope.toString()));
 
-    return dialogUrl + "?" + toParameterString(false, clientId, redirectUriParameter, scopeParam);
+    // add optional parameters
+    for (Parameter p : parameters) {
+      parameterList.add(p);
+    }
+
+    return dialogUrl + "?" + toParameterString(false, parameterList.toArray(new Parameter[parameterList.size()]));
   }
 
   /**

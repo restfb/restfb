@@ -587,10 +587,12 @@ public interface FacebookClient {
    *          <code>https://www.facebook.com/connect/login_success.html</code>.
    * @param scope
    *          List of Permissions to request from the person using your app.
+   * @param additionalParameters
+   *          List of additional parameters
    * @since 1.9.0
    * @return
    */
-  String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope);
+  String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... additionalParameters);
 
   /**
    * Represents an access token/expiration date pair.

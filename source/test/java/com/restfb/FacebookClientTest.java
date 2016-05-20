@@ -265,6 +265,16 @@ public class FacebookClientTest {
   }
 
   @Test
+  public void checkLoginDialogURLAdditionalParameters() {
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_0);
+    String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
+      Parameter.with("auth_type", "reauthenticate"));
+    assertEquals(
+      "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile&auth_type=reauthenticate",
+      loginDialogUrlString);
+  }
+
+  @Test
   public void checkUrlWithExpiresIn() {
     String queryString = "access_token=<access-token>&expires_in=5184000";
     FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
