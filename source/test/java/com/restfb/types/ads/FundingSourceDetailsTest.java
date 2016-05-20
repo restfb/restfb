@@ -21,66 +21,22 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.types.FacebookType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.restfb.AbstractJsonMapperTests;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/">Funding Source
- * Details type</a>.
- */
-public class FundingSourceDetails extends FacebookType {
+import org.junit.Test;
 
-  private static final long serialVersionUID = 1L;
+public class FundingSourceDetailsTest extends AbstractJsonMapperTests {
 
-  /**
-   * Details of the Facebook Ads Coupon from the payment method
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String coupon;
-
-  /**
-   * Amount of Facebook Ads Coupon
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String amount;
-
-  /**
-   * Currency of the Facebook Ads Coupon
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
-
-  /**
-   * How the amount of Facebook Ads Coupon is displayed
-   */
-  @Getter
-  @Setter
-  @Facebook("display_amount")
-  private String displayAmount;
-
-  /**
-   * When the coupon will expire
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String expiration;
-
-  /**
-   * How the payment method is shown
-   */
-  @Getter
-  @Setter
-  @Facebook("display_string")
-  private String displayString;
-
+  @Test
+  public void checkFundingDetails() {
+    FundingSourceDetails details =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_3/fundingSourceDetails"), FundingSourceDetails.class);
+    assertNotNull(details);
+    assertEquals("12345679", details.getId());
+    assertEquals("American Express *1234", details.getDisplayString());
+    assertEquals("1", details.getType());
+  }
 }
