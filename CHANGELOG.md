@@ -1,3 +1,19 @@
+1.24.0 (May 22, 2016)
+
+* Issue #458: `FundingSourceDetails` causes an exception<br>
+  Thanks to @hkroger
+* Issue #457: `getLoginDialogUrl` does not support reauthentication<br>
+  Thanks to @hkroger
+* Issue #456: add "hide status" to webhook types
+* Issue #455: Add rate limiting header
+* Issue #454: Post: story tags are missing
+* Issue #453: `likes` field in `Page` my be a list instead of long<br>
+  Thanks to @vido88
+* Issue #451: Successful login redirect contains "expires_in" instead of expires<br>
+  Thanks to @Mobe91
+* Issue #448: PageRating missing fields / failing parsing<br>
+  Thanks to @ronaldheft for hint and PR
+
 1.23.0 (May 1, 2016)
 
 * Graph API 2.6 support
