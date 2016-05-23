@@ -25,8 +25,12 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
+import com.restfb.json.JsonObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -236,7 +240,7 @@ public class AdAccount extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("tos_accepted")
-  private Map<String, Integer> tosAccepted = new HashMap<String, Integer>();
+  private JsonObject tosAccepted;
 
   @Getter
   @Setter
