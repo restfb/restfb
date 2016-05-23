@@ -28,26 +28,14 @@ import com.restfb.Facebook;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Account extends CategorizedFacebookType {
-  private static final long serialVersionUID = 1L;
+public class Account extends Page {
 
-  /**
-   * An OAuth access token for this account / page.
-   * 
-   * @return An OAuth access token for this account.
-   */
-  @Getter
-  @Setter
-  @Facebook("access_token")
-  private String accessToken;
+  private static final long serialVersionUID = 1L;
 
   @Facebook("perms")
   private List<String> perms = new ArrayList<String>();
