@@ -1,0 +1,20 @@
+{
+  "name": "Test Company (AMEX)",
+  "offsite_pixels_tos_accepted": true,
+  "tos_accepted": {
+    "web_custom_audience_tos": 1,
+    "custom_audience_tos": 1
+  },
+  "funding_source": "12345678",
+  "funding_source_details": {
+    "id": "123123123",
+    "display_string": "American Express *1002",
+    "type": 1
+  },
+  "owner_business": {
+    "id": "123123123123",
+    "name": "Test Company"
+  },
+  "account_id": "123123123123",
+  "id": "act_123123123123"
+}
