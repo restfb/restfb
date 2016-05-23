@@ -21,8 +21,7 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
 
@@ -53,6 +52,17 @@ public class AccountTest extends AbstractJsonMapperTests {
     Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/account"), Account.class);
     assertEquals("testtoken", exampleAccount.getAccessToken());
     assertEquals("123456789", exampleAccount.getId());
+    assertEquals(6, exampleAccount.getPerms().size());
+    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
+  }
+
+  @Test
+  public void checkV2_6() {
+    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/account"), Account.class);
+    assertEquals("123123123123", exampleAccount.getId());
+    assertNotNull(exampleAccount.getOwnerBusiness());
+    assertEquals("123123123123", exampleAccount.getOwnerBusiness().getId());
+    assertEquals("Test Company", exampleAccount.getOwnerBusiness().getName());
     assertEquals(6, exampleAccount.getPerms().size());
     assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
   }

@@ -27,6 +27,7 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
+import com.restfb.types.ads.Business;
 import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils;
 
@@ -370,6 +371,16 @@ public class Page extends CategorizedFacebookType {
   private Boolean isPermanentlyClosed;
 
   private List<PageLabel> labels = new ArrayList<PageLabel>();
+
+  /**
+   * owner business of this object
+   *
+   * @return owner business of this object
+   */
+  @Getter
+  @Setter
+  @Facebook("owner_business")
+  private Business ownerBusiness;
 
   @Facebook("labels")
   private JsonObject rawLabels;
