@@ -1,0 +1,49 @@
+{
+  "data": [
+    {
+      "business_persona": {
+        "name": "Peter Smith",
+        "id": "123123123123"
+      },
+      "role": "ADMIN",
+      "status": "ACTIVE",
+      "email": "milkman@test.com",
+      "user": {
+        "name": "Peter Smith",
+        "id": "234234234234"
+      },
+      "created_time": "2016-01-21T15:33:50+0000",
+      "updated_time": "2016-01-21T15:33:50+0000"
+    },
+    {
+      "business_persona": {
+        "name": "Jane Doe",
+        "id": "1231231231234"
+      },
+      "role": "EMPLOYEE",
+      "status": "ACTIVE",
+      "email": "bono@u2.com",
+      "user": {
+        "name": "Jane Doe",
+        "id": "2342342342342344"
+      }
+    },
+    {
+      "business_persona": {
+        "name": "John Doe",
+        "id": "456456456456456456"
+      },
+      "role": "ADMIN",
+      "status": "ACTIVE",
+      "user": {
+        "name": "John Doe",
+        "id": "567567567567567567"
+      }
+    },
+    {
+      "role": "EMPLOYEE",
+      "status": "INVITED",
+      "email": "jesscias3@fb.com"
+    }
+  ]
+}
