@@ -21,12 +21,11 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonObject;
+
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -66,13 +65,6 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void emptyFacebookList() throws JSONException {
     ListObject obj = new ListObject();
-    String json = createJsonMapper().toJson(obj, true);
-    JSONAssert.assertEquals("{id: 12345}", json, true);
-  }
-
-  @Test
-  public void emptyFacebookMap() throws JSONException {
-    MapObject obj = new MapObject();
     String json = createJsonMapper().toJson(obj, true);
     JSONAssert.assertEquals("{id: 12345}", json, true);
   }

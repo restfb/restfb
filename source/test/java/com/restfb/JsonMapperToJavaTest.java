@@ -437,6 +437,32 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertEquals("test", StringObject2);
   }
 
+  @Test
+  public void jsonObjectToMap() {
+    String jsonString = "{ \"my_map\": { \"key1\": 1, \"key2\": 2}}";
+    MapTestType object = createJsonMapper().toJavaObject(jsonString, MapTestType.class);
+    assertNotNull(object);
+    assertNotNull(object.myMap);
+    assertEquals(1L, object.myMap.get("key1").longValue());
+    assertEquals(2L, object.myMap.get("key2").longValue());
+  }
+
+  @Test(expected = FacebookJsonMappingException.class)
+  public void jsonObjectToBadMap() {
+    String jsonString = "{ \"my_map\": { \"key1\": 1, \"key2\": 2}}";
+    createJsonMapper().toJavaObject(jsonString, BadMapTestType.class);
+  }
+
+  static class MapTestType {
+    @Facebook("my_map")
+    Map<String, Long> myMap;
+  }
+
+  static class BadMapTestType {
+    @Facebook("my_map")
+    Map<Integer, Long> myMap;
+  }
+
   static class Story {
     @Facebook
     String story;

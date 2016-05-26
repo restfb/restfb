@@ -701,6 +701,10 @@ public class DefaultJsonMapper implements JsonMapper {
     if (List.class.equals(type)) {
       return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
     }
+    if (Map.class.equals(type)) {
+      return convertJsonObjectToMap(rawValue.toString(), fieldWithAnnotation.getField());
+    }
+
     if (type.isEnum()) {
       Class<? extends Enum> enumType = type.asSubclass(Enum.class);
       try {
@@ -732,6 +736,29 @@ public class DefaultJsonMapper implements JsonMapper {
 
     // Some other type - recurse into it
     return toJavaObject(rawValueAsString, type);
+  }
+
+  private Map convertJsonObjectToMap(String json, Field field) {
+    Class<?> firstParam = getFirstParameterizedTypeArgument(field);
+    if (!String.class.equals(firstParam)) {
+      throw new FacebookJsonMappingException("The java type map needs to have a 'String' key, but is " + firstParam);
+    }
+
+    Class<?> secondParam = getSecondParameterizedTypeArgument(field);
+
+    if (json.startsWith("{")) {
+      JsonObject jsonObject = new JsonObject(json);
+      Map map = new HashMap();
+      Iterator<?> keyIt = jsonObject.keys();
+      while (keyIt.hasNext()) {
+        String key = (String) keyIt.next();
+        String value = jsonObject.getString(key);
+        map.put(key, toJavaObject(value, secondParam));
+      }
+      return map;
+    }
+
+    return null;
   }
 
   /**

@@ -109,13 +109,13 @@ public final class ReflectionUtils {
     List<FieldWithAnnotation<T>> fieldsWithAnnotation = new ArrayList<FieldWithAnnotation<T>>();
 
     // Walk all superclasses looking for annotated fields until we hit Object
-    while (!Object.class.equals(type)) {
+    while (!Object.class.equals(type) && type != null) {
       for (Field field : type.getDeclaredFields()) {
         T annotation = field.getAnnotation(annotationType);
-
         if (annotation != null) {
           fieldsWithAnnotation.add(new FieldWithAnnotation<T>(field, annotation));
         }
+
       }
 
       type = type.getSuperclass();
@@ -181,13 +181,30 @@ public final class ReflectionUtils {
    * @return The field's first parameterized type argument, or {@code null} if none exists.
    */
   public static Class<?> getFirstParameterizedTypeArgument(Field field) {
+    return getParameterizedTypeArgument(field, 0);
+  }
+
+  /**
+   * For a given {@code field}, get its second parameterized type argument.
+   *
+   * If the field has no type arguments, {@code null} is returned.
+   *
+   * @param field
+   *          The field to check.
+   * @return The field's second parameterized type argument, or {@code null} if none exists.
+   */
+  public static Class<?> getSecondParameterizedTypeArgument(Field field) {
+    return getParameterizedTypeArgument(field, 1);
+  }
+
+  private static Class<?> getParameterizedTypeArgument(Field field, int i) {
     Type type = field.getGenericType();
     if (!(type instanceof ParameterizedType)) {
       return null;
     }
 
     ParameterizedType parameterizedType = (ParameterizedType) type;
-    Type firstTypeArgument = parameterizedType.getActualTypeArguments()[0];
+    Type firstTypeArgument = parameterizedType.getActualTypeArguments()[i];
     return (firstTypeArgument instanceof Class) ? (Class<?>) firstTypeArgument : null;
   }
 
