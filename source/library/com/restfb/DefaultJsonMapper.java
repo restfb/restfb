@@ -34,10 +34,7 @@ import com.restfb.json.*;
 import com.restfb.types.Comments;
 import com.restfb.util.ReflectionUtils.*;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -714,6 +711,10 @@ public class DefaultJsonMapper implements JsonMapper {
     if (List.class.equals(type)) {
       return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
     }
+    if (Map.class.equals(type)) {
+      return convertJsonObjectToMap(rawValue.toString(), fieldWithAnnotation.getField());
+    }
+
     if (type.isEnum()) {
       Class<? extends Enum> enumType = type.asSubclass(Enum.class);
       try {
@@ -744,6 +745,33 @@ public class DefaultJsonMapper implements JsonMapper {
 
     // Some other type - recurse into it
     return toJavaObject(rawValueAsString, type);
+  }
+
+  private Map convertJsonObjectToMap(String json, Field field) {
+    Class<?> firstParam = getFirstParameterizedTypeArgument(field);
+    if (!String.class.equals(firstParam)) {
+      throw new FacebookJsonMappingException("The java type map needs to have a 'String' key, but is " + firstParam);
+    }
+
+    Class<?> secondParam = getSecondParameterizedTypeArgument(field);
+
+    if (json.startsWith("{")) {
+      JsonObject jsonObject = Json.parse(json).asObject();
+      Map map = new HashMap();
+      for(String key: jsonObject.names()) {
+        String value;
+        if (jsonObject.get(key).isString()) {
+          value = jsonObject.get(key).asString();
+        } else {
+          value = jsonObject.get(key).toString();
+        }
+
+        map.put(key, toJavaObject(value, secondParam));
+      }
+      return map;
+    }
+
+    return null;
   }
 
   /**
@@ -831,7 +859,7 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (object instanceof Character || Character.TYPE.equals(type)) {
-      return Json.value((Character) object);
+      return Json.value(Character.toString((Character) object));
     }
 
     return Json.NULL;

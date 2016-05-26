@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.testutils.AssertJson.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -64,14 +65,14 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   public void emptyFacebookList() {
     ListObject obj = new ListObject();
     String json = createJsonMapper().toJson(obj, true);
-    AssertJson.assertEquals("{\"id\": 12345}", json);
+    assertEquals("{\"id\": 12345}", json);
   }
 
   @Test
   public void emptyFacebookMap() {
     MapObject obj = new MapObject();
     String json = createJsonMapper().toJson(obj, true);
-    AssertJson.assertEquals("{\"id\": 12345}", json);
+    assertEquals("{\"id\": 12345}", json);
   }
 
   /**
@@ -97,6 +98,9 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     assertTrue("1.1".equals(createJsonMapper().toJson(1.1F)));
     assertTrue("1".equals(createJsonMapper().toJson(1D)));
     assertTrue("1.1".equals(createJsonMapper().toJson(1.1D)));
+    assertTrue("1".equals(createJsonMapper().toJson('1')));
+    assertTrue("1".equals(createJsonMapper().toJson(new Byte("1"))));
+    assertTrue("1".equals(createJsonMapper().toJson(new Short("1"))));
     assertTrue("1".equals(createJsonMapper().toJson(new BigInteger("1"))));
     assertTrue("1".equals(createJsonMapper().toJson(new BigDecimal("1"))));
     assertTrue("1.1".equals(createJsonMapper().toJson(new BigDecimal("1.1"))));
@@ -112,7 +116,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     basicUser.name = "Fred";
     String json = createJsonMapper().toJson(basicUser);
     String expectedJson = "{\"uid\":12345,\"name\":\"Fred\"}";
-    AssertJson.assertEquals(expectedJson, json);
+    assertEquals(expectedJson, json);
   }
 
   /**
@@ -133,7 +137,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(userWithPhotos);
     String expectedJson =
         "{\"uid\":12345,\"photos\":[{\"id\":null,\"location\":null},{\"id\":5678,\"location\":\"Las Vegas\"}],\"name\":null}";
-    AssertJson.assertEquals(expectedJson, json);
+    assertEquals(expectedJson, json);
   }
 
   /**
@@ -171,7 +175,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(attachment);
     String expectedJson =
         "{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}";
-    AssertJson.assertEquals(expectedJson, json);
+    assertEquals(expectedJson, json);
   }
 
   @Test
@@ -184,7 +188,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String string = jsonMapper.toJson(special);
     String expectedJson = "{\"integer\":1234567, \"decimal\":1234567.4}";
 
-    AssertJson.assertEquals(expectedJson, string);
+    assertEquals(expectedJson, string);
   }
 
   /**
@@ -212,7 +216,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(map);
     String expectedJson =
         "{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}";
-    AssertJson.assertEquals(expectedJson, json);
+    assertEquals(expectedJson, json);
   }
 
   @Test
