@@ -27,54 +27,96 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdsPixel extends NamedAdsObject {
+public class Campaign extends NamedAdsObject {
 
+  @Getter
+  @Setter
+  @Facebook("account_id")
+  private String accountId;
+
+  @Getter
+  @Setter
+  @Facebook("adlabels")
+  private List<AdLabel> adlabels;
+
+  @Getter
+  @Setter
+  @Facebook("buying_type")
+  private String buyingType;
+
+  @Getter
+  @Setter
+  @Facebook("can_use_spend_cap")
+  private Boolean canUseSpendCap;
+
+  @Getter
+  @Setter
+  @Facebook("configured_status")
+  private String configuredStatus;
+
+  @Getter
+  @Setter
+  private Date createdTime;
+
+  @Facebook("created_time")
+  private String rawCreatedTime;
+
+  @Getter
+  @Setter
+  @Facebook("effective_status")
+  private String effectiveStatus;
+
+  @Getter
+  @Setter
   @Facebook
+  private String objective;
+
   @Getter
   @Setter
-  private String code;
-
   @Facebook
+  private List<AdRecommendation> recommendations;
+
   @Getter
   @Setter
-  private String rulevalidation;
+  @Facebook("spend_cap")
+  private String spendCap;
 
+  @Getter
+  @Setter
+  private Date startTime;
+
+  @Facebook("start_time")
+  private String rawStartTime;
+
+  @Getter
+  @Setter
   @Facebook
-  @Getter
-  @Setter
-  private String rules;
-
-  @Facebook("creation_time")
-  private String rawCreationTime;
+  private String status;
 
   @Getter
   @Setter
-  private Date creationTime;
+  private Date stopTime;
 
-  @Facebook("last_fired_time")
-  private String rawLastFiredTime;
-
-  @Getter
-  @Setter
-  private Date lastFiredTime;
+  @Facebook("stop_time")
+  private String rawStopTime;
 
   @Getter
   @Setter
-  @Facebook("owner_ad_account")
-  private AdAccount ownerAdAccount;
+  private Date updatedTime;
 
-  @Getter
-  @Setter
-  @Facebook("owner_business")
-  private Business ownerBusiness;
+  @Facebook("updated_time")
+  private String rawUpdatedTime;
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {
-    creationTime = toDateFromLongFormat(rawCreationTime);
-    lastFiredTime = toDateFromLongFormat(rawLastFiredTime);
+    startTime = toDateFromLongFormat(rawStartTime);
+    stopTime = toDateFromLongFormat(rawStopTime);
+    createdTime = toDateFromLongFormat(rawCreatedTime);
+    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 }

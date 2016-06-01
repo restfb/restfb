@@ -21,60 +21,62 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 
-import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdsPixel extends NamedAdsObject {
+public class TargetingGeoLocation {
 
+  @Getter
+  @Setter
   @Facebook
+  private List<TargetingGeoLocationCity> cities;
+
   @Getter
   @Setter
-  private String code;
-
   @Facebook
+  private List<String> countries;
+
   @Getter
   @Setter
-  private String rulevalidation;
+  @Facebook("country_groups")
+  private List<String> countryGroups;
 
+  @Getter
+  @Setter
+  @Facebook("custom_locations")
+  private List<TargetingGeoLocationCustomLocation> customLocations;
+
+  @Getter
+  @Setter
+  @Facebook("electoral_districts")
+  private List<Object> electoralDistricts;
+
+  @Getter
+  @Setter
+  @Facebook("geo_markets")
+  private List<TargetingGeoLocationMarket> geoMarkets;
+
+  @Getter
+  @Setter
+  @Facebook("location_types")
+  private List<String> locationTypes;
+
+  @Getter
+  @Setter
   @Facebook
-  @Getter
-  @Setter
-  private String rules;
-
-  @Facebook("creation_time")
-  private String rawCreationTime;
+  private List<TargetingGeoLocationPlace> places;
 
   @Getter
   @Setter
-  private Date creationTime;
-
-  @Facebook("last_fired_time")
-  private String rawLastFiredTime;
+  @Facebook
+  private List<TargetingGeoLocationRegion> regions;
 
   @Getter
   @Setter
-  private Date lastFiredTime;
-
-  @Getter
-  @Setter
-  @Facebook("owner_ad_account")
-  private AdAccount ownerAdAccount;
-
-  @Getter
-  @Setter
-  @Facebook("owner_business")
-  private Business ownerBusiness;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    creationTime = toDateFromLongFormat(rawCreationTime);
-    lastFiredTime = toDateFromLongFormat(rawLastFiredTime);
-  }
+  @Facebook
+  private List<TargetingGeoLocationZip> zips;
 }

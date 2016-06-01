@@ -41,6 +41,11 @@ public class AdAccountGroup extends NamedAdsObject {
   @Facebook
   private Integer status;
 
+  @Getter
+  @Setter
+  @Facebook("account_group_id")
+  private String accountGroupId;
+
   /**
    * The users who own the ad account group.
    */

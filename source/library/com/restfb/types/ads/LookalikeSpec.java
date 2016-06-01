@@ -21,60 +21,42 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 
-import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdsPixel extends NamedAdsObject {
+public class LookalikeSpec {
 
+  @Getter
+  @Setter
   @Facebook
+  private String country;
+
   @Getter
   @Setter
-  private String code;
+  @Facebook("is_financial_service")
+  private Boolean isFinancialService;
 
+  @Getter
+  @Setter
+  @Facebook("origin")
+  private List<Object> origin;
+
+  @Getter
+  @Setter
   @Facebook
+  private Double ratio;
+
   @Getter
   @Setter
-  private String rulevalidation;
+  @Facebook("starting_ratio")
+  private Double startingRatio;
 
+  @Getter
+  @Setter
   @Facebook
-  @Getter
-  @Setter
-  private String rules;
-
-  @Facebook("creation_time")
-  private String rawCreationTime;
-
-  @Getter
-  @Setter
-  private Date creationTime;
-
-  @Facebook("last_fired_time")
-  private String rawLastFiredTime;
-
-  @Getter
-  @Setter
-  private Date lastFiredTime;
-
-  @Getter
-  @Setter
-  @Facebook("owner_ad_account")
-  private AdAccount ownerAdAccount;
-
-  @Getter
-  @Setter
-  @Facebook("owner_business")
-  private Business ownerBusiness;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    creationTime = toDateFromLongFormat(rawCreationTime);
-    lastFiredTime = toDateFromLongFormat(rawLastFiredTime);
-  }
+  private String type;
 }

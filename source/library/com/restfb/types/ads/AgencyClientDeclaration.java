@@ -41,7 +41,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("agency_representing_client")
-  Integer agencyRepresentingClient;
+  private Integer agencyRepresentingClient;
 
   /**
    * Whether the client is based in France.
@@ -51,7 +51,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_based_in_france")
-  Integer clientBasedInFrance;
+  private Integer clientBasedInFrance;
 
   /**
    * Client's city.
@@ -61,7 +61,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_city")
-  String clientCity;
+  private String clientCity;
 
   /**
    * Client's country code.
@@ -71,7 +71,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_country_code")
-  String clientCountryCode;
+  private String clientCountryCode;
 
   /**
    * Client's email address.
@@ -81,7 +81,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_email_address")
-  String clientEmailAddress;
+  private String clientEmailAddress;
 
   /**
    * Name of the client.
@@ -91,7 +91,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_name")
-  String clientName;
+  private String clientName;
 
   /**
    * Client's postal code.
@@ -101,7 +101,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_postal_code")
-  String clientPostalCode;
+  private String clientPostalCode;
 
   /**
    * Client's province.
@@ -111,7 +111,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_province")
-  String clientProvince;
+  private String clientProvince;
 
   /**
    * First line of client's street address.
@@ -121,7 +121,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_street")
-  String clientStreet;
+  private String clientStreet;
 
   /**
    * Second line of client's street address.
@@ -131,7 +131,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("client_street2")
-  String clientStreet2;
+  private String clientStreet2;
 
   /**
    * Whether the agency has a written mandate to advertise on behalf of this client.
@@ -141,7 +141,7 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("has_written_mandate_from_advertiser")
-  Integer hasWrittenMandateFromAdvertiser;
+  private Integer hasWrittenMandateFromAdvertiser;
 
   /**
    * Whether the client is paying via invoice.
@@ -151,5 +151,5 @@ class AgencyClientDeclaration {
   @Getter
   @Setter
   @Facebook("is_client_paying_invoices")
-  Integer isClientPayingInvoices;
+  private Integer isClientPayingInvoices;
 }

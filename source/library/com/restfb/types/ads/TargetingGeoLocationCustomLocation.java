@@ -21,60 +21,60 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdsPixel extends NamedAdsObject {
+public class TargetingGeoLocationCustomLocation {
 
+  @Getter
+  @Setter
+  @Facebook("address_string")
+  private String addressString;
+
+  @Getter
+  @Setter
   @Facebook
+  private String country;
+
   @Getter
   @Setter
-  private String code;
+  @Facebook("distance_unit")
+  private String distanceUnit;
 
+  @Getter
+  @Setter
   @Facebook
+  private String key;
+
   @Getter
   @Setter
-  private String rulevalidation;
-
   @Facebook
-  @Getter
-  @Setter
-  private String rules;
-
-  @Facebook("creation_time")
-  private String rawCreationTime;
+  private Double latitude;
 
   @Getter
   @Setter
-  private Date creationTime;
-
-  @Facebook("last_fired_time")
-  private String rawLastFiredTime;
+  @Facebook
+  private Double longitude;
 
   @Getter
   @Setter
-  private Date lastFiredTime;
+  @Facebook
+  private String name;
 
   @Getter
   @Setter
-  @Facebook("owner_ad_account")
-  private AdAccount ownerAdAccount;
+  @Facebook("primary_city_id")
+  private Long primaryCityId;
 
   @Getter
   @Setter
-  @Facebook("owner_business")
-  private Business ownerBusiness;
+  @Facebook
+  private Double radius;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    creationTime = toDateFromLongFormat(rawCreationTime);
-    lastFiredTime = toDateFromLongFormat(rawLastFiredTime);
-  }
+  @Getter
+  @Setter
+  @Facebook("region_id")
+  private Long regionId;
 }

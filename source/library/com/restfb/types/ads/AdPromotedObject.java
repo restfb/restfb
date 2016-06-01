@@ -62,4 +62,9 @@ public class AdPromotedObject {
   @Facebook("product_set_id")
   private String productSetId;
 
+  @Getter
+  @Setter
+  @Facebook("custom_event_type")
+  private String customEventType;
+
 }

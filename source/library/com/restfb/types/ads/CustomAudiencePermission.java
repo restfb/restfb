@@ -21,60 +21,30 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdsPixel extends NamedAdsObject {
-
-  @Facebook
-  @Getter
-  @Setter
-  private String code;
-
-  @Facebook
-  @Getter
-  @Setter
-  private String rulevalidation;
-
-  @Facebook
-  @Getter
-  @Setter
-  private String rules;
-
-  @Facebook("creation_time")
-  private String rawCreationTime;
+public class CustomAudiencePermission {
 
   @Getter
   @Setter
-  private Date creationTime;
-
-  @Facebook("last_fired_time")
-  private String rawLastFiredTime;
+  @Facebook("can_edit")
+  private Boolean canEdit;
 
   @Getter
   @Setter
-  private Date lastFiredTime;
+  @Facebook("can_see_insight")
+  private Boolean canSeeInsight;
 
   @Getter
   @Setter
-  @Facebook("owner_ad_account")
-  private AdAccount ownerAdAccount;
+  @Facebook("can_share")
+  private Boolean canShare;
 
   @Getter
   @Setter
-  @Facebook("owner_business")
-  private Business ownerBusiness;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    creationTime = toDateFromLongFormat(rawCreationTime);
-    lastFiredTime = toDateFromLongFormat(rawLastFiredTime);
-  }
+  @Facebook("subtype_supports_lookalike")
+  private Boolean subtypeSupportsLookalike;
 }
