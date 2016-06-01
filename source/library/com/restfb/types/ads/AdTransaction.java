@@ -33,7 +33,7 @@ import lombok.Setter;
 public class AdTransaction extends BaseAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * Time at which the transaction was created
    */

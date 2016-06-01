@@ -34,7 +34,7 @@ import lombok.Setter;
 public class AdsPixel extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Facebook
   @Getter
   @Setter
@@ -63,6 +63,16 @@ public class AdsPixel extends NamedAdsObject {
   @Getter
   @Setter
   private Date lastFiredTime;
+
+  @Getter
+  @Setter
+  @Facebook("owner_ad_account")
+  private AdAccount ownerAdAccount;
+
+  @Getter
+  @Setter
+  @Facebook("owner_business")
+  private Business ownerBusiness;
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

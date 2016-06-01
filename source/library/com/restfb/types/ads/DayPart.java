@@ -23,37 +23,25 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/aduser/">AdGroup User type</a>.
- */
-public class AdUser extends NamedAdsObject {
-
-  private static final long serialVersionUID = 1L;
-
-  @Facebook
-  final private List<Integer> permissions = new ArrayList<Integer>();
+public class DayPart {
 
   @Getter
   @Setter
-  @Facebook
-  private Integer role;
+  @Facebook("days")
+  private List<Long> days;
 
-  public boolean addPermission(int permission) {
-    return permissions.add(permission);
-  }
+  @Getter
+  @Setter
+  @Facebook("end_minute")
+  private Long endMinute;
 
-  public void removePermission(int permission) {
-    permissions.remove(permission);
-  }
-
-  public List<Integer> getPermissions() {
-    return Collections.unmodifiableList(permissions);
-  }
+  @Getter
+  @Setter
+  @Facebook("start_minute")
+  private Long startMinute;
 }

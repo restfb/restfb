@@ -23,37 +23,48 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/aduser/">AdGroup User type</a>.
- */
-public class AdUser extends NamedAdsObject {
+public class TargetingDynamicRule {
 
-  private static final long serialVersionUID = 1L;
+  @Getter
+  @Setter
+  @Facebook("action.type")
+  private String actionType;
 
-  @Facebook
-  final private List<Integer> permissions = new ArrayList<Integer>();
+  @Getter
+  @Setter
+  @Facebook("ad_group_id")
+  private String adGroupId;
+
+  @Getter
+  @Setter
+  @Facebook("campaign_group_id")
+  private String campaignGroupId;
+
+  @Getter
+  @Setter
+  @Facebook("campaign_id")
+  private String campaignId;
+
+  @Getter
+  @Setter
+  @Facebook("impression_count")
+  private String impressionCount;
+
+  @Getter
+  @Setter
+  @Facebook("page_id")
+  private String pageId;
 
   @Getter
   @Setter
   @Facebook
-  private Integer role;
+  private String post;
 
-  public boolean addPermission(int permission) {
-    return permissions.add(permission);
-  }
-
-  public void removePermission(int permission) {
-    permissions.remove(permission);
-  }
-
-  public List<Integer> getPermissions() {
-    return Collections.unmodifiableList(permissions);
-  }
+  @Getter
+  @Setter
+  @Facebook("retention_seconds")
+  private String retentionSeconds;
 }

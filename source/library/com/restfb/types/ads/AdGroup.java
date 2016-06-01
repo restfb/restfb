@@ -40,7 +40,7 @@ import lombok.Setter;
 public class AdGroup extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * The ID of the ad account that this ad belongs to.
    */

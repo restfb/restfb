@@ -42,7 +42,7 @@ import lombok.Setter;
 public class AdAccount extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Facebook("account_groups")
   private List<AdAccountGroup> accountGroups = new ArrayList<AdAccountGroup>();
 

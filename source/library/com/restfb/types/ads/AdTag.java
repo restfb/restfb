@@ -35,7 +35,7 @@ import java.util.List;
 public class AdTag extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Facebook("adgroups")
   private List<BaseAdsObject> adGroups = new ArrayList<BaseAdsObject>();
 

@@ -23,37 +23,40 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/aduser/">AdGroup User type</a>.
- */
-public class AdUser extends NamedAdsObject {
-
-  private static final long serialVersionUID = 1L;
-
-  @Facebook
-  final private List<Integer> permissions = new ArrayList<Integer>();
+public class LookalikeSpec {
 
   @Getter
   @Setter
   @Facebook
-  private Integer role;
+  private String country;
 
-  public boolean addPermission(int permission) {
-    return permissions.add(permission);
-  }
+  @Getter
+  @Setter
+  @Facebook("is_financial_service")
+  private Boolean isFinancialService;
 
-  public void removePermission(int permission) {
-    permissions.remove(permission);
-  }
+  @Getter
+  @Setter
+  @Facebook("origin")
+  private List<Object> origin;
 
-  public List<Integer> getPermissions() {
-    return Collections.unmodifiableList(permissions);
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private Double ratio;
+
+  @Getter
+  @Setter
+  @Facebook("starting_ratio")
+  private Double startingRatio;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
 }

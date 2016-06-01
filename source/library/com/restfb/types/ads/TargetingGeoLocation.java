@@ -23,37 +23,60 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/aduser/">AdGroup User type</a>.
- */
-public class AdUser extends NamedAdsObject {
-
-  private static final long serialVersionUID = 1L;
-
-  @Facebook
-  final private List<Integer> permissions = new ArrayList<Integer>();
+public class TargetingGeoLocation {
 
   @Getter
   @Setter
   @Facebook
-  private Integer role;
+  private List<TargetingGeoLocationCity> cities;
 
-  public boolean addPermission(int permission) {
-    return permissions.add(permission);
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private List<String> countries;
 
-  public void removePermission(int permission) {
-    permissions.remove(permission);
-  }
+  @Getter
+  @Setter
+  @Facebook("country_groups")
+  private List<String> countryGroups;
 
-  public List<Integer> getPermissions() {
-    return Collections.unmodifiableList(permissions);
-  }
+  @Getter
+  @Setter
+  @Facebook("custom_locations")
+  private List<TargetingGeoLocationCustomLocation> customLocations;
+
+  @Getter
+  @Setter
+  @Facebook("electoral_districts")
+  private List<Object> electoralDistricts;
+
+  @Getter
+  @Setter
+  @Facebook("geo_markets")
+  private List<TargetingGeoLocationMarket> geoMarkets;
+
+  @Getter
+  @Setter
+  @Facebook("location_types")
+  private List<String> locationTypes;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<TargetingGeoLocationPlace> places;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<TargetingGeoLocationRegion> regions;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<TargetingGeoLocationZip> zips;
 }

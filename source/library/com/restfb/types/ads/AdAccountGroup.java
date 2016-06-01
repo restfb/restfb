@@ -37,11 +37,16 @@ import lombok.Setter;
 public class AdAccountGroup extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Getter
   @Setter
   @Facebook
   private Integer status;
+
+  @Getter
+  @Setter
+  @Facebook("account_group_id")
+  private String accountGroupId;
 
   /**
    * The users who own the ad account group.

@@ -40,7 +40,7 @@ import lombok.Setter;
 public class AdImage extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * The ad account that owns the image
    */

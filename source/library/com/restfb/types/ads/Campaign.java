@@ -27,48 +27,95 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-label">AdGroup Label type</a>
- * .
- */
-public class AdLabel extends NamedAdsObject {
+public class Campaign extends NamedAdsObject {
 
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * AdGroup Account
-   */
   @Getter
   @Setter
-  @Facebook
-  private AdAccount account;
+  @Facebook("account_id")
+  private String accountId;
 
-  @Facebook("created_time")
-  private String rawCreatedTime;
+  @Getter
+  @Setter
+  @Facebook("adlabels")
+  private List<AdLabel> adlabels;
 
-  /**
-   * Created time
-   */
+  @Getter
+  @Setter
+  @Facebook("buying_type")
+  private String buyingType;
+
+  @Getter
+  @Setter
+  @Facebook("can_use_spend_cap")
+  private Boolean canUseSpendCap;
+
+  @Getter
+  @Setter
+  @Facebook("configured_status")
+  private String configuredStatus;
+
   @Getter
   @Setter
   private Date createdTime;
 
-  @Facebook("updated_time")
-  private String rawUpdatedTime;
+  @Facebook("created_time")
+  private String rawCreatedTime;
 
-  /**
-   * Updated time
-   */
+  @Getter
+  @Setter
+  @Facebook("effective_status")
+  private String effectiveStatus;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String objective;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<AdRecommendation> recommendations;
+
+  @Getter
+  @Setter
+  @Facebook("spend_cap")
+  private String spendCap;
+
+  @Getter
+  @Setter
+  private Date startTime;
+
+  @Facebook("start_time")
+  private String rawStartTime;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String status;
+
+  @Getter
+  @Setter
+  private Date stopTime;
+
+  @Facebook("stop_time")
+  private String rawStopTime;
+
   @Getter
   @Setter
   private Date updatedTime;
 
+  @Facebook("updated_time")
+  private String rawUpdatedTime;
+
   @JsonMapper.JsonMappingCompleted
   void convertTime() {
+    startTime = toDateFromLongFormat(rawStartTime);
+    stopTime = toDateFromLongFormat(rawStopTime);
     createdTime = toDateFromLongFormat(rawCreatedTime);
     updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }

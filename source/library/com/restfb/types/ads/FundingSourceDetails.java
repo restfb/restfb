@@ -41,7 +41,7 @@ public class FundingSourceDetails extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private String coupon;
+  private FundingSourceDetailsCoupon coupon;
 
   /**
    * Amount of Facebook Ads Coupon

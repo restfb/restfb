@@ -38,7 +38,7 @@ import lombok.Setter;
 public class Business extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Facebook("creation_time")
   private String rawCreationTime;
 

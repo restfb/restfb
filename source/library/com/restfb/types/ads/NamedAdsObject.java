@@ -32,7 +32,7 @@ import lombok.Setter;
 public class NamedAdsObject extends BaseAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Getter
   @Setter
   @Facebook

@@ -29,7 +29,7 @@ import lombok.Setter;
 public class AdConversionPixel extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Getter
   @Setter
   @Facebook("last_firing_time")

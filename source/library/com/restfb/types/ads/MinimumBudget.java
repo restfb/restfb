@@ -23,37 +23,33 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/aduser/">AdGroup User type</a>.
- */
-public class AdUser extends NamedAdsObject {
-
-  private static final long serialVersionUID = 1L;
-
-  @Facebook
-  final private List<Integer> permissions = new ArrayList<Integer>();
+public class MinimumBudget {
 
   @Getter
   @Setter
   @Facebook
-  private Integer role;
+  private String currency;
 
-  public boolean addPermission(int permission) {
-    return permissions.add(permission);
-  }
+  @Getter
+  @Setter
+  @Facebook("min_daily_budget_high_freq")
+  private Long minDailyBudgetHighFreq;
 
-  public void removePermission(int permission) {
-    permissions.remove(permission);
-  }
+  @Getter
+  @Setter
+  @Facebook("min_daily_budget_imp")
+  private Long minDailyBudgetImp;
 
-  public List<Integer> getPermissions() {
-    return Collections.unmodifiableList(permissions);
-  }
+  @Getter
+  @Setter
+  @Facebook("min_daily_budget_low_freq")
+  private Long minDailyBudgetLowFreq;
+
+  @Getter
+  @Setter
+  @Facebook("min_daily_budget_video_views")
+  private Long minDailyBudgetVideoViews;
 }

@@ -36,7 +36,7 @@ import lombok.Setter;
 public class AdKeywordStats extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * The number of times your ad was served. On our mobile apps an ad is counted as served the first time it's viewed.
    * On all other Facebook interfaces, an ad is served the first time it's placed in a person's News Feed or each time
