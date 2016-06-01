@@ -71,6 +71,10 @@ public class SetterGetterTestBase {
         continue;
       }
 
+      if (field.getName().startsWith("$")) {
+        continue;
+      }
+
       if (fieldIsList(field)) {
         testListGetterAndAddRemove(field, instance);
       } else {
@@ -177,7 +181,7 @@ public class SetterGetterTestBase {
 
   private String capitalizedName(final Field field, boolean removePlural) {
     String result = field.getName();
-    result = result.replaceFirst("" + result.charAt(0), "" + Character.toUpperCase(result.charAt(0)));
+    result = Character.toUpperCase(result.charAt(0)) + result.substring(1);
     if (!removePlural) {
       return result;
     } else {
