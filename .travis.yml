@@ -8,3 +8,7 @@ cache:
    - $HOME/.m2
 before_cache:
  - rm -rf $HOME/.m2/repository/com/restfb/
+
+after_success:
+ - chmod +x sonar.sh
+ - ./sonar.sh
