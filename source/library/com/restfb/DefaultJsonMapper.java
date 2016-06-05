@@ -62,7 +62,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger(DefaultJsonMapper.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(DefaultJsonMapper.class.getName());
 
   /**
    * Creates a JSON mapper which will throw {@link com.restfb.exception.FacebookJsonMappingException} whenever an error
@@ -122,9 +122,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // affiliations - it's a list except when there are none, then it turns
       // into an object). Check for that special case here.
       if (isEmptyObject(json)) {
-        if (logger.isLoggable(FINER)) {
-          logger
-            .finer("Encountered {} when we should've seen []. " + "Mapping the {} as an empty list and moving on...");
+        if (LOGGER.isLoggable(FINER)) {
+          LOGGER.finer("Encountered {} when we should've seen []. Mapping the {} as an empty list and moving on...");
         }
 
         return new ArrayList<T>();
@@ -149,7 +148,7 @@ public class DefaultJsonMapper implements JsonMapper {
               return null;
             } else {
               throw new FacebookJsonMappingException(
-                "JSON is an object but is being mapped as a list " + "instead. Offending JSON is '" + json + "'.");
+                "JSON is an object but is being mapped as a list instead. Offending JSON is '" + json + "'.");
             }
           }
 
@@ -160,7 +159,7 @@ public class DefaultJsonMapper implements JsonMapper {
         if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {
           return null;
         } else {
-          throw new FacebookJsonMappingException("Unable to convert Facebook response " + "JSON to a list of "
+          throw new FacebookJsonMappingException("Unable to convert Facebook response JSON to a list of "
               + type.getName() + " instances.  Offending JSON is " + json,
             e);
         }
@@ -182,7 +181,7 @@ public class DefaultJsonMapper implements JsonMapper {
         return null;
       } else {
         throw new FacebookJsonMappingException(
-          "Unable to convert Facebook response " + "JSON to a list of " + type.getName() + " instances", e);
+          "Unable to convert Facebook response JSON to a list of " + type.getName() + " instances", e);
       }
     }
   }
@@ -249,9 +248,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // Facebook will sometimes return the string "false" to mean null.
       // Check for that and bail early if we find it.
       if ("false".equals(json)) {
-        if (logger.isLoggable(FINE)) {
-          logger.fine("Encountered 'false' from Facebook when trying to map to " + type.getSimpleName()
-              + " - mapping null instead.");
+        if (LOGGER.isLoggable(FINE)) {
+          LOGGER.fine(format("Encountered 'false' from Facebook when trying to map to %s - mapping null instead.",
+            type.getSimpleName()));
         }
         return null;
       }
@@ -269,8 +268,8 @@ public class DefaultJsonMapper implements JsonMapper {
         String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
 
         if (!jsonObject.has(facebookFieldName)) {
-          if (logger.isLoggable(FINER)) {
-            logger.finer("No JSON value present for '" + facebookFieldName + "', skipping. JSON is '" + json + "'.");
+          if (LOGGER.isLoggable(FINER)) {
+            LOGGER.finer(format("No JSON value present for '%s', skipping. JSON is '%s'.", facebookFieldName, json));
           }
 
           continue;
@@ -364,14 +363,14 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   protected void logMultipleMappingFailedForField(String facebookFieldName,
       FieldWithAnnotation<Facebook> fieldWithAnnotation, String json) {
-    if (!logger.isLoggable(FINER)) {
+    if (!LOGGER.isLoggable(FINER)) {
       return;
     }
 
     Field field = fieldWithAnnotation.getField();
 
-    if (logger.isLoggable(FINER)) {
-      logger.finer("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName() + "."
+    if (LOGGER.isLoggable(FINER)) {
+      LOGGER.finer("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName() + "."
           + field.getName() + ", but continuing on because '" + facebookFieldName + "' is mapped to multiple fields in "
           + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);
     }
@@ -392,9 +391,10 @@ public class DefaultJsonMapper implements JsonMapper {
     // If no Facebook field name was specified in the annotation, assume
     // it's the same name as the Java field
     if (isBlank(facebookFieldName)) {
-      if (logger.isLoggable(FINEST)) {
-        logger.finest("No explicit Facebook field name found for " + field
-            + ", so defaulting to the field name itself (" + field.getName() + ")");
+      if (LOGGER.isLoggable(FINEST)) {
+        LOGGER
+          .finest(format("No explicit Facebook field name found for %s, so defaulting to the field name itself (%s)",
+            field, field.getName()));
       }
 
       facebookFieldName = field.getName();
@@ -528,9 +528,9 @@ public class DefaultJsonMapper implements JsonMapper {
     // it has is a non-null value and the other duplicate values are null, use
     // the non-null field.
     Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
-    if (facebookFieldNamesWithMultipleMappings.size() > 0 && logger.isLoggable(FINE)) {
-      logger.fine("Unable to convert to JSON because multiple @" + Facebook.class.getSimpleName()
-          + " annotations for the same name are present: " + facebookFieldNamesWithMultipleMappings);
+    if (facebookFieldNamesWithMultipleMappings.size() > 0 && LOGGER.isLoggable(FINE)) {
+      LOGGER.fine(format("Unable to convert to JSON because multiple @%s annotations for the same name are present: %s",
+        Facebook.class.getSimpleName(), facebookFieldNamesWithMultipleMappings));
     }
 
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
@@ -661,8 +661,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // instead of an empty string. Look for that here.
       if (rawValue instanceof JsonArray) {
         if (((JsonArray) rawValue).length() == 0) {
-          if (logger.isLoggable(FINER)) {
-            logger.finer("Coercing an empty JSON array " + "to an empty string for " + fieldWithAnnotation);
+          if (LOGGER.isLoggable(FINER)) {
+            LOGGER.finer(format("Coercing an empty JSON array to an empty string for %s", fieldWithAnnotation));
           }
 
           return "";
@@ -710,9 +710,9 @@ public class DefaultJsonMapper implements JsonMapper {
       try {
         return Enum.valueOf(enumType, jsonObject.getString(facebookFieldName));
       } catch (IllegalArgumentException iae) {
-        if (logger.isLoggable(FINE)) {
-          logger
-            .fine("Cannot map string " + jsonObject.getString(facebookFieldName) + " to enum " + enumType.getName());
+        if (LOGGER.isLoggable(FINE)) {
+          LOGGER.fine(
+            format("Cannot map string %s to enum %s", jsonObject.getString(facebookFieldName), enumType.getName()));
         }
       }
     }
@@ -722,8 +722,8 @@ public class DefaultJsonMapper implements JsonMapper {
     // Hack for issue 76 where FB will sometimes return a Post's Comments as
     // "[]" instead of an object type (wtf)
     if (Comments.class.isAssignableFrom(type) && rawValue instanceof JsonArray) {
-      if (logger.isLoggable(FINE)) {
-        logger.fine("Encountered comment array '" + rawValueAsString + "' but expected a "
+      if (LOGGER.isLoggable(FINE)) {
+        LOGGER.fine("Encountered comment array '" + rawValueAsString + "' but expected a "
             + Comments.class.getSimpleName() + " object instead.  Working around that " + "by coercing into an empty "
             + Comments.class.getSimpleName() + " instance...");
       }

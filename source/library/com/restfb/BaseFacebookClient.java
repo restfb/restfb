@@ -282,7 +282,7 @@ abstract class BaseFacebookClient {
     for (Entry<String, String> entry : queries.entrySet()) {
       if (isBlank(entry.getKey()) || isBlank(entry.getValue())) {
         throw new IllegalArgumentException(
-          "Provided queries must have non-blank keys and values. " + "You provided: " + queries);
+          "Provided queries must have non-blank keys and values. You provided: " + queries);
       }
 
       try {

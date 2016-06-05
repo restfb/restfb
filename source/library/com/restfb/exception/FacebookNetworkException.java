@@ -73,7 +73,7 @@ public class FacebookNetworkException extends FacebookException {
    *          The HTTP response status code.
    */
   public FacebookNetworkException(String message, Throwable cause, Integer httpStatusCode) {
-    super(format("A network error occurred while trying to " + "communicate with Facebook: %s (HTTP status code %d)",
+    super(format("A network error occurred while trying to communicate with Facebook: %s (HTTP status code %d)",
       message, httpStatusCode), cause);
     this.httpStatusCode = httpStatusCode;
   }
