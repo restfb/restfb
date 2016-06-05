@@ -648,10 +648,9 @@ public interface FacebookClient {
       }
 
       if (extendedAccessToken == null) {
-        throw new IllegalArgumentException(
-          format("Was expecting a query string of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. "
-              + "Instead, the query string was '%s'",
-            queryString));
+        throw new IllegalArgumentException(format(
+          "Was expecting a query string of the form 'access_token=XXX' or 'access_token=XXX&expires=YYY'. Instead, the query string was '%s'",
+          queryString));
       }
 
       Long expires = null;
@@ -748,7 +747,7 @@ public interface FacebookClient {
    * @author Broc Seib
    */
   class DebugTokenInfo implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Facebook("app_id")
@@ -876,7 +875,7 @@ public interface FacebookClient {
   class DebugTokenError implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Facebook
     private Integer code;
 

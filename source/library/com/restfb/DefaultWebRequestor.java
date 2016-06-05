@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -176,7 +177,7 @@ public class DefaultWebRequestor implements WebRequestor {
       }
 
       if (LOGGER.isLoggable(FINER)) {
-        LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
+        LOGGER.log(FINER, format("Response headers: %s", httpUrlConnection.getHeaderFields()));
       }
 
       fillHeaderAndDebugInfo(httpUrlConnection);
@@ -186,7 +187,7 @@ public class DefaultWebRequestor implements WebRequestor {
             ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         if (LOGGER.isLoggable(WARNING)) {
-          LOGGER.log(WARNING, "An error occurred while POSTing to {0}: {1}", new Object[] { url, e });
+          LOGGER.log(WARNING, format("An error occurred while POSTing to %s:", url), e);
         }
       }
 
@@ -248,7 +249,7 @@ public class DefaultWebRequestor implements WebRequestor {
       closeable.close();
     } catch (Throwable t) {
       if (LOGGER.isLoggable(WARNING)) {
-        LOGGER.log(WARNING, "Unable to close {0}: {1}", new Object[] { closeable, t });
+        LOGGER.log(WARNING, format("Unable to close %s: ", closeable), t);
       }
     }
   }
@@ -270,7 +271,7 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.disconnect();
     } catch (Throwable t) {
       if (LOGGER.isLoggable(WARNING)) {
-        LOGGER.log(WARNING, "Unable to disconnect {0}: {1}", new Object[] { httpUrlConnection, t });
+        LOGGER.log(WARNING, format("Unable to disconnect %s: ", httpUrlConnection), t);
       }
     }
   }
@@ -356,7 +357,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
   private Response execute(String url, HttpMethod httpMethod) throws IOException {
     if (LOGGER.isLoggable(FINE)) {
-      LOGGER.log(FINE, "Making a {0} request to {1}", new Object[] { httpMethod.name(), url });
+      LOGGER.log(FINE, format("Making a %s request to %s", httpMethod.name(), url));
     }
 
     HttpURLConnection httpUrlConnection = null;
@@ -374,7 +375,7 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.connect();
 
       if (LOGGER.isLoggable(FINER)) {
-        LOGGER.log(FINER, "Response headers: {0}", httpUrlConnection.getHeaderFields());
+        LOGGER.log(FINER, format("Response headers: %s", httpUrlConnection.getHeaderFields()));
       }
 
       fillHeaderAndDebugInfo(httpUrlConnection);
@@ -382,7 +383,7 @@ public class DefaultWebRequestor implements WebRequestor {
       Response response = fetchResponse(httpUrlConnection);
 
       if (LOGGER.isLoggable(FINE)) {
-        LOGGER.log(FINE, "Facebook responded with {0}", response);
+        LOGGER.log(FINE, format("Facebook responded with %s", response));
       }
 
       return response;
@@ -396,7 +397,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
     String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
     if (LOGGER.isLoggable(FINE)) {
-      LOGGER.log(FINE, "Facebook used the API {0} to answer your request", usedApiVersion);
+      LOGGER.log(FINE, format("Facebook used the API %s to answer your request", usedApiVersion));
     }
 
     String fbTraceId = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-trace-id"));
@@ -414,9 +415,8 @@ public class DefaultWebRequestor implements WebRequestor {
           ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
     } catch (IOException e) {
       if (LOGGER.isLoggable(WARNING)) {
-        LOGGER.warning(
-          format("An error occurred while making a " + httpUrlConnection.getRequestMethod() + " request to %s: %s",
-            httpUrlConnection.getURL(), e));
+        LOGGER.log(Level.WARNING, format("An error occurred while making a %s request to %s:",
+          httpUrlConnection.getRequestMethod(), httpUrlConnection.getURL()), e);
       }
     }
 
