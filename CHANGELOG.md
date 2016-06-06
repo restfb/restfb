@@ -1,3 +1,19 @@
+1.25.0 (June 6, 2016)
+
+* Issue #460: Issue with TOS fields in `AdAccount`<br>
+  Thanks to @hkroger
+* Issue #461: Page is missing `owner_business`<br>
+  Thanks to @hkroger
+* Issue #462: Retrieve business userpermissions<br>
+  Thanks to @hkroger
+* Issue #463: Provide JsonObject to Map<String, T> conversion
+* Issue #464: Custom/Lookalike Audience managment<br>
+  Thanks to @hkroger
+* Issue #468: getter/setter test base class improved
+* Issue #469: sonar analysis added to travis.yml
+* Issue #470: `pom.xml` improved - formatting and minor changes
+* Issue #471: logging changed, `String.format is used`
+
 1.24.0 (May 22, 2016)
 
 * Issue #458: `FundingSourceDetails` causes an exception<br>
