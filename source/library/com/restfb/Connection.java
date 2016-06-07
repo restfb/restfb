@@ -37,7 +37,9 @@ import java.util.NoSuchElementException;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
- * 
+ *
+ * @param <T>
+ *          The Facebook type
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Connection<T> implements Iterable<List<T>> {
@@ -134,7 +136,7 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   @SuppressWarnings("unchecked")
   public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
-    List<T> data = new ArrayList<T>();
+    List<T> dataList = new ArrayList<T>();
 
     if (json == null) {
       throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
@@ -151,7 +153,7 @@ public class Connection<T> implements Iterable<List<T>> {
     // Pull out data
     JsonArray jsonData = jsonObject.getJsonArray("data");
     for (int i = 0; i < jsonData.length(); i++) {
-      data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
+      dataList.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
           : facebookClient.getJsonMapper().toJavaObject(jsonData.get(i).toString(), connectionType));
     }
 
@@ -184,7 +186,7 @@ public class Connection<T> implements Iterable<List<T>> {
       totalCount = null;
     }
 
-    this.data = unmodifiableList(data);
+    this.data = unmodifiableList(dataList);
     this.facebookClient = facebookClient;
     this.connectionType = connectionType;
   }
