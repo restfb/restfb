@@ -21,8 +21,9 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
+import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.types.User;
 
 import org.junit.Test;
@@ -34,6 +35,8 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
       jsonFromClasspath("v1_0/connection-user-friends"), User.class);
     assertEquals(null, con.getTotalCount());
+    assertNotNull(con.getNextPageUrl());
+    assertTrue(con.hasNext());
   }
 
   @Test
@@ -50,4 +53,13 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     assertEquals(99L, con.getTotalCount().longValue());
   }
 
+  @Test(expected = FacebookJsonMappingException.class)
+  public void checkNullJson() {
+    new Connection<User>(new DefaultFacebookClient(Version.LATEST), null, User.class);
+  }
+
+  @Test(expected = FacebookJsonMappingException.class)
+  public void checkInvalidJson() {
+    new Connection<User>(new DefaultFacebookClient(Version.LATEST), "{", User.class);
+  }
 }

@@ -38,7 +38,8 @@ import java.util.NoSuchElementException;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
- * 
+ *
+ * @param <T> The Facebook type
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Connection<T> implements Iterable<List<T>> {
@@ -150,9 +151,9 @@ public class Connection<T> implements Iterable<List<T>> {
 
     // Pull out data
     JsonArray jsonData = jsonObject.get("data").asArray();
-    List<T> data = new ArrayList<T>(jsonData.size());
+    List<T> dataItem = new ArrayList<T>(jsonData.size());
     for (int i = 0; i < jsonData.size(); i++) {
-      data.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
+      dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
           : facebookClient.getJsonMapper().toJavaObject(jsonData.get(i).toString(), connectionType));
     }
 
@@ -185,7 +186,7 @@ public class Connection<T> implements Iterable<List<T>> {
       totalCount = null;
     }
 
-    this.data = unmodifiableList(data);
+    this.data = unmodifiableList(dataItem);
     this.facebookClient = facebookClient;
     this.connectionType = connectionType;
   }
