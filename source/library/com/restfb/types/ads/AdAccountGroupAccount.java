@@ -22,11 +22,12 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdAccountGroupAccount {
+public class AdAccountGroupAccount extends AbstractFacebookType {
 
   @Getter
   @Setter

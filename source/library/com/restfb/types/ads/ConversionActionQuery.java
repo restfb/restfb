@@ -22,8 +22,10 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +35,7 @@ import lombok.Setter;
  * <a href="https://developers.facebook.com/docs/marketing-api/reference/conversion-action-query/">Conversion action
  * query type</a>
  */
-public class ConversionActionQuery {
+public class ConversionActionQuery extends AbstractFacebookType {
 
   /**
    * Action type
@@ -41,7 +43,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("action.type")
-  private ArrayList<String> actionType = new ArrayList<String>();
+  private List<String> actionType = new ArrayList<String>();
 
   /**
    * Application
@@ -49,7 +51,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> application = new ArrayList<String>();
+  private List<String> application = new ArrayList<String>();
 
   /**
    * Rule based offsite conversion
@@ -57,7 +59,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("conversion_id")
-  private ArrayList<String> conversionId = new ArrayList<String>();
+  private List<String> conversionId = new ArrayList<String>();
 
   /**
    * Event Type
@@ -65,7 +67,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("event_type")
-  private ArrayList<String> eventType = new ArrayList<String>();
+  private List<String> eventType = new ArrayList<String>();
 
   /**
    * Event
@@ -73,7 +75,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> event = new ArrayList<String>();
+  private List<String> event = new ArrayList<String>();
 
   /**
    * Event creator
@@ -81,7 +83,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("event.creator")
-  private ArrayList<String> eventCreator = new ArrayList<String>();
+  private List<String> eventCreator = new ArrayList<String>();
 
   /**
    * Facebook pixel id
@@ -89,7 +91,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("fb_pixel")
-  private ArrayList<String> fbPixel = new ArrayList<String>();
+  private List<String> fbPixel = new ArrayList<String>();
 
   /**
    * Facebook pixel event
@@ -97,7 +99,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("fb_pixel_event")
-  private ArrayList<String> fbPixelEvent = new ArrayList<String>();
+  private List<String> fbPixelEvent = new ArrayList<String>();
 
   /**
    * Object
@@ -105,7 +107,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> object = new ArrayList<String>();
+  private List<String> object = new ArrayList<String>();
 
   /**
    * Object domain
@@ -113,7 +115,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("object.domain")
-  private ArrayList<String> objectDomain = new ArrayList<String>();
+  private List<String> objectDomain = new ArrayList<String>();
 
   /**
    * Offer
@@ -121,7 +123,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> offer = new ArrayList<String>();
+  private List<String> offer = new ArrayList<String>();
 
   /**
    * Offer creator
@@ -129,7 +131,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("offer.creator")
-  private ArrayList<String> offerCreator = new ArrayList<String>();
+  private List<String> offerCreator = new ArrayList<String>();
 
   /**
    * Offsite pixel
@@ -137,7 +139,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("offsite_pixel")
-  private ArrayList<String> offsitePixel = new ArrayList<String>();
+  private List<String> offsitePixel = new ArrayList<String>();
 
   /**
    * Page
@@ -145,7 +147,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> page = new ArrayList<String>();
+  private List<String> page = new ArrayList<String>();
 
   /**
    * Page parent
@@ -153,7 +155,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("page.parent")
-  private ArrayList<String> pageParent = new ArrayList<String>();
+  private List<String> pageParent = new ArrayList<String>();
 
   /**
    * Post
@@ -161,7 +163,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> post = new ArrayList<String>();
+  private List<String> post = new ArrayList<String>();
 
   /**
    * Post object
@@ -169,7 +171,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("post.object")
-  private ArrayList<String> postObject = new ArrayList<String>();
+  private List<String> postObject = new ArrayList<String>();
 
   /**
    * Post object wall
@@ -177,7 +179,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("post.object.wall")
-  private ArrayList<String> postObjectWall = new ArrayList<String>();
+  private List<String> postObjectWall = new ArrayList<String>();
 
   /**
    * Post wall
@@ -185,7 +187,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("post.wall")
-  private ArrayList<String> postWall = new ArrayList<String>();
+  private List<String> postWall = new ArrayList<String>();
 
   /**
    * Product set id
@@ -193,7 +195,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("product_set_id")
-  private ArrayList<String> productSetId = new ArrayList<String>();
+  private List<String> productSetId = new ArrayList<String>();
 
   /**
    * Question
@@ -201,7 +203,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> question = new ArrayList<String>();
+  private List<String> question = new ArrayList<String>();
 
   /**
    * Question creator
@@ -209,7 +211,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook("question.creator")
-  private ArrayList<String> questionCreator = new ArrayList<String>();
+  private List<String> questionCreator = new ArrayList<String>();
 
   /**
    * Response
@@ -217,7 +219,7 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> response = new ArrayList<String>();
+  private List<String> response = new ArrayList<String>();
 
   /**
    * Subtype
@@ -225,6 +227,6 @@ public class ConversionActionQuery {
   @Getter
   @Setter
   @Facebook
-  private ArrayList<String> subtype = new ArrayList<String>();
+  private List<String> subtype = new ArrayList<String>();
 
 }

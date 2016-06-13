@@ -22,6 +22,7 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +32,7 @@ import lombok.Setter;
  * <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/agency-client-declaration/">Agency
  * Client Declaration type</a>.
  */
-class AgencyClientDeclaration {
+class AgencyClientDeclaration extends AbstractFacebookType {
 
   /**
    * Whether this account is for an agency representing a client.

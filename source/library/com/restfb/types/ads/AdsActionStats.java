@@ -22,6 +22,7 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ads-action-stats/">Ads action
  * stats type</a>
  */
-public class AdsActionStats {
+public class AdsActionStats extends AbstractFacebookType {
 
   /**
    * The ID of the specific carousel card that people engaged with when they saw your ad.

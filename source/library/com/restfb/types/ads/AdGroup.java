@@ -35,8 +35,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
+ * @Deprecated use {@link Ad} instead
  */
+@Deprecated
 public class AdGroup extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
@@ -160,7 +161,7 @@ public class AdGroup extends NamedAdsObject {
   private String adReviewFeedback;
 
   @Facebook("tracking_specs")
-  private ArrayList<ConversionActionQuery> trackingSpecs = new ArrayList<ConversionActionQuery>();
+  private List<ConversionActionQuery> trackingSpecs = new ArrayList<ConversionActionQuery>();
 
   public List<ConversionActionQuery> getTrackingSpecs() {
     return Collections.unmodifiableList(trackingSpecs);
@@ -175,7 +176,7 @@ public class AdGroup extends NamedAdsObject {
   }
 
   @Facebook("conversion_specs")
-  private ArrayList<ConversionActionQuery> conversionSpecs = new ArrayList<ConversionActionQuery>();
+  private List<ConversionActionQuery> conversionSpecs = new ArrayList<ConversionActionQuery>();
 
   public List<ConversionActionQuery> getConversionSpecs() {
     return Collections.unmodifiableList(conversionSpecs);
@@ -190,7 +191,7 @@ public class AdGroup extends NamedAdsObject {
   }
 
   @Facebook
-  private ArrayList<AdLabel> adlabels = new ArrayList<AdLabel>();
+  private List<AdLabel> adlabels = new ArrayList<AdLabel>();
 
   public List<AdLabel> getAdLabels() {
     return Collections.unmodifiableList(adlabels);

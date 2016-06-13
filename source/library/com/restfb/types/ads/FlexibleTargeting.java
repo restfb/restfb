@@ -25,10 +25,11 @@ import com.restfb.Facebook;
 
 import java.util.List;
 
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class FlexibleTargeting {
+public class FlexibleTargeting extends AbstractFacebookType {
 
   @Getter
   @Setter

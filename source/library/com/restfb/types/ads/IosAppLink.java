@@ -22,11 +22,12 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class IosAppLink {
+public class IosAppLink extends AbstractFacebookType {
 
   @Getter
   @Setter

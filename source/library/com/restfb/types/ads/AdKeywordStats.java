@@ -106,7 +106,7 @@ public class AdKeywordStats extends NamedAdsObject {
    * likes and 2 comments would be counted as 4 actions.
    */
   @Facebook
-  private ArrayList<AdsActionStats> actions = new ArrayList<AdsActionStats>();
+  private List<AdsActionStats> actions = new ArrayList<AdsActionStats>();
 
   public List<AdsActionStats> getActions() {
     return Collections.unmodifiableList(actions);
@@ -125,7 +125,7 @@ public class AdKeywordStats extends NamedAdsObject {
    * ad. For example, if the same person likes and comments on a post, they will be counted as 1 unique person.
    */
   @Facebook("unique_actions")
-  private ArrayList<AdsActionStats> uniqueActions = new ArrayList<AdsActionStats>();
+  private List<AdsActionStats> uniqueActions = new ArrayList<AdsActionStats>();
 
   public List<AdsActionStats> getUniqueActions() {
     return Collections.unmodifiableList(uniqueActions);

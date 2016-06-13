@@ -1,0 +1,41 @@
+{
+  "account_id": "123123",
+  "adset": {
+    "id": "123123"
+  },
+  "campaign": {
+    "id": "123123"
+  },
+  "adset_id": "123123",
+  "bid_type": "ABSOLUTE_OCPM",
+  "configured_status": "ACTIVE",
+  "created_time": "2016-06-08T12:55:57+0300",
+  "creative": {
+    "id": "123123"
+  },
+  "effective_status": "ACTIVE",
+  "last_updated_by_app_id": "123123",
+  "campaign_id": "123123",
+  "updated_time": "2016-06-08T12:56:02+0300",
+  "tracking_specs": [
+    {
+      "action.type": [
+        "page_engagement"
+      ],
+      "page": [
+        "123123"
+      ]
+    }
+  ],
+  "conversion_specs": [
+    {
+      "action.type": [
+        "like"
+      ],
+      "page": [
+        "123123"
+      ]
+    }
+  ],
+  "id": "123123"
+}
