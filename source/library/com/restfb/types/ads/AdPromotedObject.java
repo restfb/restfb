@@ -22,6 +22,7 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">AdGroup
  * Promoted Object type</a>.
  */
-public class AdPromotedObject {
+public class AdPromotedObject extends AbstractFacebookType {
 
   @Getter
   @Setter

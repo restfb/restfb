@@ -26,13 +26,14 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.json.JsonObject;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPermission {
+public class UserPermission extends AbstractFacebookType {
 
   @Getter
   @Setter

@@ -22,6 +22,7 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/generatepreview/">AdGroup Preview type</a>
  * .
  */
-public class AdPreview {
+public class AdPreview extends AbstractFacebookType {
 
   @Getter
   @Setter

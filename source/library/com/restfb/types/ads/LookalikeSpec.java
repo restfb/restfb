@@ -22,13 +22,16 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class LookalikeSpec {
+public class LookalikeSpec extends AbstractFacebookType {
 
   @Getter
   @Setter
@@ -40,10 +43,8 @@ public class LookalikeSpec {
   @Facebook("is_financial_service")
   private Boolean isFinancialService;
 
-  @Getter
-  @Setter
   @Facebook("origin")
-  private List<Object> origin;
+  private List<Object> origin = new ArrayList<Object>();
 
   @Getter
   @Setter
@@ -59,4 +60,17 @@ public class LookalikeSpec {
   @Setter
   @Facebook
   private String type;
+
+  public boolean addOrigin(Object object) {
+    return origin.add(object);
+  }
+
+  public boolean removeOrigin(Object object) {
+    return origin.remove(object);
+  }
+
+  public List<Object> getOrigin() {
+    return Collections.unmodifiableList(origin);
+  }
+
 }

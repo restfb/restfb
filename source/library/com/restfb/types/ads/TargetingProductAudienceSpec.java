@@ -22,26 +22,49 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class TargetingProductAudienceSpec {
+public class TargetingProductAudienceSpec extends AbstractFacebookType {
 
-  @Getter
-  @Setter
   @Facebook("exclusions")
-  private List<TargetingProductAudienceSubSpec> exclusions;
+  private List<TargetingProductAudienceSubSpec> exclusions = new ArrayList<TargetingProductAudienceSubSpec>();
 
-  @Getter
-  @Setter
   @Facebook("inclusions")
-  private List<TargetingProductAudienceSubSpec> inclusions;
+  private List<TargetingProductAudienceSubSpec> inclusions = new ArrayList<TargetingProductAudienceSubSpec>();
 
   @Getter
   @Setter
   @Facebook("product_set_id")
   private String productSetId;
+
+  public boolean addExclusion(TargetingProductAudienceSubSpec exclusion) {
+    return exclusions.add(exclusion);
+  }
+
+  public boolean removeExclusion(TargetingProductAudienceSubSpec exclusion) {
+    return exclusions.remove(exclusion);
+  }
+
+  public List<TargetingProductAudienceSubSpec> getExclusions() {
+    return Collections.unmodifiableList(exclusions);
+  }
+
+  public boolean addInclusion(TargetingProductAudienceSubSpec inclusion) {
+    return inclusions.add(inclusion);
+  }
+
+  public boolean removeInclusion(TargetingProductAudienceSubSpec inclusion) {
+    return inclusions.remove(inclusion);
+  }
+
+  public List<TargetingProductAudienceSubSpec> getInclusions() {
+    return Collections.unmodifiableList(inclusions);
+  }
 }

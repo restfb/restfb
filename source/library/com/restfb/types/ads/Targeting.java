@@ -22,13 +22,14 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class Targeting {
+public class Targeting extends AbstractFacebookType {
 
   @Getter
   @Setter
