@@ -21,24 +21,23 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.restfb.AbstractJsonMapperTests;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.junit.Test;
 
-public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType {
+public class AndroidAppLinkTest extends AbstractJsonMapperTests {
 
-  @Getter
-  @Setter
-  @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
-
-  @Getter
-  @Setter
-  @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  @Test
+  public void test() {
+    AndroidAppLink adObj =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/androidAppLink"), AndroidAppLink.class);
+    assertEquals("test app name", adObj.getAppName());
+    assertEquals("example class", adObj.getClazz());
+    assertEquals("example package", adObj.getPackage());
+    assertEquals("http://example.org", adObj.getUrl());
+    assertNotNull(adObj);
+  }
 }

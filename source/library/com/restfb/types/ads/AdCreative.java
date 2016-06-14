@@ -23,6 +23,8 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,12 +37,147 @@ public class AdCreative extends BaseAdsObject {
 
   @Getter
   @Setter
-  @Facebook
-  private String thumbnail_url;
+  @Facebook("actor_id")
+  private String actorId;
+
+  @Getter
+  @Setter
+  @Facebook("actor_image_hash")
+  private String actorImageHash;
+
+  @Getter
+  @Setter
+  @Facebook("actor_image_url")
+  private String actorImageUrl;
+
+  @Getter
+  @Setter
+  @Facebook("actor_name")
+  private String actorName;
+
+  @Getter
+  @Setter
+  @Facebook("adlabels")
+  private List<AdLabel> adlabels;
+
+  @Getter
+  @Setter
+  @Facebook("applink_treatment")
+  private String applinkTreatment;
 
   @Getter
   @Setter
   @Facebook
-  private String object_type;
+  private String body;
+
+  @Getter
+  @Setter
+  @Facebook("call_to_action_type")
+  private String callToActionType;
+
+  @Getter
+  @Setter
+  @Facebook("image_crops")
+  private AdsImageCrops imageCrops;
+
+  @Getter
+  @Setter
+  @Facebook("image_hash")
+  private String imageHash;
+
+  @Getter
+  @Setter
+  @Facebook("image_url")
+  private String imageUrl;
+
+  @Getter
+  @Setter
+  @Facebook("instagram_actor_id")
+  private String instagramActorId;
+
+  @Getter
+  @Setter
+  @Facebook("instagram_permalink_url")
+  private String instagramPermalinkUrl;
+
+  @Getter
+  @Setter
+  @Facebook("instagram_story_id")
+  private String instagramStoryId;
+
+  @Getter
+  @Setter
+  @Facebook("link_og_id")
+  private String linkOgId;
+
+  @Getter
+  @Setter
+  @Facebook("link_url")
+  private String linkUrl;
+
+  @Getter
+  @Setter
+  @Facebook("object_id")
+  private String objectId;
+
+  @Getter
+  @Setter
+  @Facebook("object_story_id")
+  private String objectStoryId;
+
+  @Getter
+  @Setter
+  @Facebook("object_story_spec")
+  private AdCreativeObjectStorySpec objectStorySpec;
+
+  @Getter
+  @Setter
+  @Facebook("object_type")
+  private String objectType;
+
+  @Getter
+  @Setter
+  @Facebook("object_url")
+  private String objectUrl;
+
+  @Getter
+  @Setter
+  @Facebook("platform_customizations")
+  private Object platformCustomizations;
+
+  @Getter
+  @Setter
+  @Facebook("product_set_id")
+  private String productSetId;
+
+  @Getter
+  @Setter
+  @Facebook("run_status")
+  private String runStatus;
+
+  @Getter
+  @Setter
+  @Facebook("template_url")
+  private String templateUrl;
+
+  @Getter
+  @Setter
+  @Facebook("thumbnail_url")
+  private String thumbnailUrl;
+
+  @Getter
+  @Setter
+  @Facebook("title")
+  private String title;
+
+  @Getter
+  @Setter
+  @Facebook("url_tags")
+  private String urlTags;
+
+  @Getter
+  @Setter
+  @Facebook("creative_id")
+  private String creativeId;
 
 }

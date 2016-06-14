@@ -22,23 +22,57 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType {
+public class BroadTargetingCategories extends BaseAdsObject {
 
   @Getter
   @Setter
-  @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
+  @Facebook("category_description")
+  private String categoryDescription;
 
   @Getter
   @Setter
-  @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  @Facebook("parent_category")
+  private String parentCategory;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<String> path = new ArrayList<String>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private Long size;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String source;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Long type;
+
+  @Getter
+  @Setter
+  @Facebook("type_name")
+  private String typeName;
+
+  @Getter
+  @Setter
+  @Facebook("untranslated_name")
+  private String untranslatedName;
+
+  @Getter
+  @Setter
+  @Facebook("untranslated_parent_name")
+  private String untranslatedParentName;
 }

@@ -24,21 +24,34 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType {
+public class AndroidAppLink extends AbstractFacebookType {
 
   @Getter
   @Setter
-  @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
+  @Facebook("app_name")
+  private String appName;
 
   @Getter
   @Setter
-  @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  @Facebook("class")
+  private String clazz;
+
+  @Facebook("package")
+  private String aPackage;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String url;
+
+  public String getPackage() {
+    return aPackage;
+  }
+
+  public void setPackage(String aPackage) {
+    this.aPackage = aPackage;
+  }
 }

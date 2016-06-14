@@ -179,8 +179,6 @@ public class Ad extends NamedAdsObject {
     return Collections.unmodifiableList(trackingSpecs);
   }
 
-
-
   @JsonMapper.JsonMappingCompleted
   void convertTime() {
     createdTime = toDateFromLongFormat(rawCreatedTime);
