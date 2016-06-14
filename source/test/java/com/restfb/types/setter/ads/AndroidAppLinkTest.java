@@ -19,26 +19,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.setter.ads;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.ads.AndroidAppLink;
+import com.restfb.types.api.SetterGetterTestBase;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.junit.Test;
 
-import lombok.Getter;
-import lombok.Setter;
+public class AndroidAppLinkTest extends SetterGetterTestBase {
 
-public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
-
-  @Getter
-  @Setter
-  @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  @Test
+  public void test() {
+    AndroidAppLink object = new AndroidAppLink();
+    addIgnoredField("aPackage");
+    testInstance(object);
+  }
 }

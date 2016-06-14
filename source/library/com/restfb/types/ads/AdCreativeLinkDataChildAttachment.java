@@ -24,21 +24,58 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType {
+public class AdCreativeLinkDataChildAttachment extends AbstractFacebookType {
 
   @Getter
   @Setter
-  @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
+  @Facebook("call_to_action")
+  private AdCreativeLinkDataCallToAction callToAction;
 
   @Getter
   @Setter
-  @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  @Facebook
+  private String description;
+
+  @Getter
+  @Setter
+  @Facebook("image_crops")
+  private AdsImageCrops imageCrops;
+
+  @Getter
+  @Setter
+  @Facebook("image_hash")
+  private String imageHash;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String link;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String name;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String picture;
+
+  @Getter
+  @Setter
+  @Facebook("place_data")
+  private Object placeData;
+
+  @Getter
+  @Setter
+  @Facebook("static_card")
+  private Boolean staticCard;
+
+  @Getter
+  @Setter
+  @Facebook("video_id")
+  private String videoId;
 }

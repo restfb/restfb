@@ -32,7 +32,7 @@ import lombok.Setter;
  * <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/agency-client-declaration/">Agency
  * Client Declaration type</a>.
  */
-class AgencyClientDeclaration extends AbstractFacebookType {
+public class AgencyClientDeclaration extends AbstractFacebookType {
 
   /**
    * Whether this account is for an agency representing a client.

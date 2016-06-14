@@ -24,21 +24,48 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType {
+public class AdCreativeOfferData extends AbstractFacebookType {
 
   @Getter
   @Setter
-  @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
+  @Facebook("claim_limit")
+  private Long claimLimit;
 
   @Getter
   @Setter
-  @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  @Facebook("coupon_type")
+  private String couponType;
+
+  @Getter
+  @Setter
+  @Facebook("expiration_time")
+  private String expirationTime;
+
+  @Getter
+  @Setter
+  @Facebook("image_url")
+  private String imageUrl;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String message;
+  @Facebook("redemption_link")
+
+  @Getter
+  @Setter
+  private String redemptionLink;
+
+  @Getter
+  @Setter
+  @Facebook("reminder_time")
+  private String reminderTime;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String title;
 }

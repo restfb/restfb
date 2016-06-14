@@ -24,21 +24,18 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType {
+public class AdsPixelStats extends AbstractFacebookType {
 
   @Getter
   @Setter
-  @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
+  @Facebook
+  private Long count;
 
   @Getter
   @Setter
-  @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  @Facebook
+  private String value;
 }
