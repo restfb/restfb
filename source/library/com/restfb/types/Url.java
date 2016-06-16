@@ -148,6 +148,16 @@ public class Url extends FacebookType {
     @Setter
     private Date updatedTime;
 
+    /**
+     * The image url
+     *
+     * @return image url
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String image;
+
     @JsonMappingCompleted
     void convertTime() {
       updatedTime = toDateFromLongFormat(rawUpdatedTime);
