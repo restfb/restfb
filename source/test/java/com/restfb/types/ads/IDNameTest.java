@@ -21,15 +21,27 @@
  */
 package com.restfb.types.ads;
 
-public class IDName extends NamedAdsObject {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-  public IDName(String id, String name) {
-    setId(id);
-    setName(name);
+import com.restfb.AbstractJsonMapperTests;
+
+import org.junit.Test;
+
+public class IDNameTest extends AbstractJsonMapperTests {
+
+  @Test
+  public void test() {
+    IDName idname = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/idname"), IDName.class);
+    assertNotNull(idname);
+    assertEquals("123123", idname.getId());
+    assertEquals("testname", idname.getName());
   }
 
-  public IDName() {
-    super();
+  @Test
+  public void checkConstructor() {
+    IDName idname = new IDName("3456", "foobar");
+    assertEquals("3456", idname.getId());
+    assertEquals("foobar", idname.getName());
   }
-
 }

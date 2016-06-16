@@ -19,17 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.setter.ads;
 
-public class IDName extends NamedAdsObject {
+import com.restfb.types.ads.IDName;
+import com.restfb.types.api.SetterGetterTestBase;
 
-  public IDName(String id, String name) {
-    setId(id);
-    setName(name);
+import org.junit.Test;
+
+public class IDNameTest extends SetterGetterTestBase {
+
+  @Test
+  public void test() {
+    IDName object = new IDName();
+    testInstance(object);
   }
-
-  public IDName() {
-    super();
-  }
-
 }
