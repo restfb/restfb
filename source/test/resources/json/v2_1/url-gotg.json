@@ -5,7 +5,8 @@
     "title": "Guardians of the Galaxy (2014)",
     "type": "video.movie",
     "updated_time": "2014-09-28T17:22:43+0000",
-    "url": "http://www.imdb.com/title/tt2015381/"
+    "url": "http://www.imdb.com/title/tt2015381/",
+    "image": "http://www.example.com/screencap.png"
   },
   "share": {
     "comment_count": 0,

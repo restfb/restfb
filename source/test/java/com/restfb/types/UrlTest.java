@@ -21,11 +21,11 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
 
+import org.hamcrest.core.StringContains;
 import org.junit.Test;
 
 public class UrlTest extends AbstractJsonMapperTests {
@@ -39,6 +39,8 @@ public class UrlTest extends AbstractJsonMapperTests {
     assertEquals("10150298925420108", exampleUrl.getOgObject().getId());
     assertEquals("video.movie", exampleUrl.getOgObject().getType());
     assertEquals(1411924963000L, exampleUrl.getOgObject().getUpdatedTime().getTime());
+    assertThat("", exampleUrl.getOgObject().getImage(), new StringContains("screencap.png"));
+    assertThat("", exampleUrl.getOgObject().getTitle(), new StringContains("Guardians"));
     assertEquals(0, exampleUrl.getCommentCount());
     assertEquals(59573, exampleUrl.getShareCount());
   }
