@@ -1,0 +1,9 @@
+{
+  "key": "7",
+  "name": "Escaldes-Engordany",
+  "type": "region",
+  "country_code": "AD",
+  "country_name": "Andorra",
+  "supports_region": true,
+  "supports_city": true
+}

@@ -1,0 +1,11 @@
+{
+  "key": "790255",
+  "name": "Sarreguemines",
+  "type": "city",
+  "country_code": "FR",
+  "country_name": "France",
+  "region": "Lorraine",
+  "region_id": 1081,
+  "supports_region": true,
+  "supports_city": true
+}
