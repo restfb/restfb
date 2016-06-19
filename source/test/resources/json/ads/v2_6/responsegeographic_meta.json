@@ -1,0 +1,140 @@
+{
+  "data": {
+    "countries": {
+      "US": {
+        "key": "US",
+        "type": "country",
+        "name": "United States",
+        "supports_city": true,
+        "supports_region": true
+      },
+      "JP": {
+        "key": "JP",
+        "type": "country",
+        "name": "Japan",
+        "supports_city": true,
+        "supports_region": true
+      }
+    },
+    "regions": {
+      "10": {
+        "key": "10",
+        "type": "region",
+        "name": "Dubai",
+        "country_code": "AE",
+        "country_name": "United Arab Emirates",
+        "supports_city": true,
+        "supports_region": true
+      },
+      "100": {
+        "key": "100",
+        "type": "region",
+        "name": "Chubut",
+        "country_code": "AR",
+        "country_name": "Argentina",
+        "supports_city": true,
+        "supports_region": true
+      }
+    },
+    "cities": {
+      "3425": {
+        "key": "3425",
+        "type": "city",
+        "name": "Asyay-Ye Murdyan, Jowzjan",
+        "region_id": 41,
+        "region": "Balkh Province",
+        "country_code": "AF",
+        "country_name": "Afghanistan",
+        "supports_region": true
+      },
+      "2418779": {
+        "key": "2418779",
+        "type": "city",
+        "name": "Danville",
+        "region_id": 3847,
+        "region": "California",
+        "country_code": "US",
+        "country_name": "United States",
+        "supports_city": true,
+        "supports_region": true
+      }
+    },
+    "zips": {
+      "US:90210": {
+        "key": "US:90210",
+        "type": "zip",
+        "name": "90210",
+        "primary_city_id": 2417987,
+        "primary_city": "Beverly Hills",
+        "region_id": 3847,
+        "region": "California",
+        "country_code": "US",
+        "country_name": "United States",
+        "supports_city": true,
+        "supports_region": true
+      },
+      "DE:66740": {
+        "key": "DE:66740",
+        "type": "zip",
+        "name": "66740",
+        "primary_city_id": 591630,
+        "primary_city": "Saarlouis",
+        "region_id": 833,
+        "region": "Saarland",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "supports_city": true,
+        "supports_region": true
+      }
+    },
+    "places": {
+      "111745868854244": {
+        "key": "111745868854244",
+        "type": "place",
+        "name": "Four Barrel Coffee",
+        "address_string": "375 Valencia St, San Francisco, California 94103",
+        "latitude": "37.767010",
+        "longitude": "-122.421770",
+        "primary_city_id": 2421836,
+        "primary_city": "San Francisco",
+        "region_id": 3847,
+        "region": "California",
+        "country_code": "US",
+        "country_name": "United States"
+      }
+    },
+    "custom_locations": {
+    },
+    "geo_markets": {
+      "DMA:501": {
+        "key": "DMA:501",
+        "type": "geo_market",
+        "name": "New York",
+        "country_code": "US",
+        "country_name": "United States",
+        "supports_city": true,
+        "supports_region": true
+      },
+      "DMA:622": {
+        "key": "DMA:622",
+        "type": "geo_market",
+        "name": "New Orleans",
+        "country_code": "US",
+        "country_name": "United States",
+        "supports_city": true,
+        "supports_region": true
+      }
+    },
+    "electoral_districts": {
+      "US:CA02": {
+        "key": "US:CA02",
+        "type": "electoral_district",
+        "name": "California's 2nd District",
+        "region_id": 3847,
+        "region": "California",
+        "country_code": "US",
+        "country_name": "United States"
+      }
+    }
+  }
+}

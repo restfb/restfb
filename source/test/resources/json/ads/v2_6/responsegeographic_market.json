@@ -1,0 +1,8 @@
+{
+  "key": "DMA:501",
+  "name": "New York",
+  "type": "geo_market",
+  "country_code": "US",
+  "supports_region": true,
+  "supports_city": true
+}

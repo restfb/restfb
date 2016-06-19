@@ -1,0 +1,8 @@
+{
+  "key": "US:CA02",
+  "name": "California's 2nd Congressional District",
+  "type": "electoral_district",
+  "country_code": "US",
+  "supports_region": true,
+  "supports_city": true
+}

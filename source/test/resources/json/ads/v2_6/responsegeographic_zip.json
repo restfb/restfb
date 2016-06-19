@@ -1,0 +1,13 @@
+{
+  "key": "FR:66740",
+  "name": "66740",
+  "type": "zip",
+  "country_code": "FR",
+  "country_name": "France",
+  "region": "Languedoc-Roussillon",
+  "region_id": 1079,
+  "primary_city": "Villelongue-dels-Monts",
+  "primary_city_id": 796803,
+  "supports_region": true,
+  "supports_city": true
+}
