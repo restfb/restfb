@@ -1,0 +1,8 @@
+{
+  "rule": {
+    "url": {
+      "i_contains": "shoes"
+    }
+  },
+  "retention_seconds": 1234567
+}
