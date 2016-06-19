@@ -21,21 +21,21 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import static org.junit.Assert.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.restfb.AbstractJsonMapperTests;
 
-public class TargetingProductAudienceSubSpec extends AbstractFacebookType {
+import org.hamcrest.core.StringContains;
+import org.junit.Test;
 
-  @Getter
-  @Setter
-  @Facebook("retention_seconds")
-  private Long retentionSeconds;
+public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests {
 
-  @Getter
-  @Setter
-  @Facebook
-  private String rule;
+  @Test
+  public void test() {
+    TargetingProductAudienceSubSpec subSpec = createJsonMapper().toJavaObject(
+      jsonFromClasspath("ads/v2_6/targetingproductaudiencesubspec"), TargetingProductAudienceSubSpec.class);
+    assertNotNull(subSpec);
+    assertEquals(1234567L, subSpec.getRetentionSeconds().longValue());
+    assertThat(subSpec.getRule(), new StringContains("shoes"));
+  }
 }
