@@ -25,7 +25,6 @@ import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.hamcrest.core.StringContains;
 import org.junit.Test;
 
 public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests {
@@ -36,6 +35,10 @@ public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests
       jsonFromClasspath("ads/v2_6/targetingproductaudiencesubspec"), TargetingProductAudienceSubSpec.class);
     assertNotNull(subSpec);
     assertEquals(1234567L, subSpec.getRetentionSeconds().longValue());
-    assertThat(subSpec.getRule(), new StringContains("shoes"));
+    assertTrue(subSpec.getRule() instanceof RuleData);
+    RuleData ruleData = (RuleData)subSpec.getRule();
+    assertEquals("url", ruleData.getType());
+    assertEquals("i_contains", ruleData.getOperator().getType());
+    assertEquals("shoes", ruleData.getOperator().getValue());
   }
 }

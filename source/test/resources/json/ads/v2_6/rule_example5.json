@@ -1,0 +1,14 @@
+{
+  "and": [
+    {
+      "url": {
+        "i_contains": "shoes"
+      }
+    },
+    {
+      "url": {
+        "i_contains": "type=25"
+      }
+    }
+  ]
+}

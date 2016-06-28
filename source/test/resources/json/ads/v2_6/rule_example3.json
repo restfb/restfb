@@ -1,0 +1,14 @@
+{
+  "and": [
+    {
+      "event": {
+        "i_contains": "ViewContent"
+      }
+    },
+    {
+      "price": {
+        "gte": 100
+      }
+    }
+  ]
+}

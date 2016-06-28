@@ -1,0 +1,23 @@
+{
+  "or": [
+    {
+      "url": {
+        "i_contains": "shoes"
+      }
+    },
+    {
+      "and": [
+        {
+          "event": {
+            "i_contains": "ViewContent"
+          }
+        },
+        {
+          "category": {
+            "i_contains": "shoes"
+          }
+        }
+      ]
+    }
+  ]
+}
