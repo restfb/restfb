@@ -21,30 +21,21 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.json.JsonObject;
-import com.restfb.types.AbstractFacebookType;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class TargetingProductAudienceSubSpec extends AbstractFacebookType {
+public class RuleData extends Rule {
 
-  @Getter
-  @Setter
-  @Facebook("retention_seconds")
-  private Long retentionSeconds;
-
-  @Getter
-  @Setter
-  private Rule rule;
-
-  @Facebook("rule")
-  private JsonObject ruleJson;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertRule() {
-    rule = RuleFactory.createRuleFromJson(ruleJson);
+  public RuleData(String type) {
+    setType(type);
   }
+
+  @Getter
+  @Setter
+  private RuleOp operator;
+
+  @Getter
+  @Setter
+  private String type;
+
 }

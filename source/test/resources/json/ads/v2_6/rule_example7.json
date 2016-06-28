@@ -1,0 +1,32 @@
+{
+  "and": [
+    {
+      "or": [
+        {
+          "url": {
+            "i_contains": "shoes"
+          }
+        },
+        {
+          "url": {
+            "i_contains": "boots"
+          }
+        }
+      ]
+    },
+    {
+      "or": [
+        {
+          "url": {
+            "i_contains": "mybrand"
+          }
+        },
+        {
+          "url": {
+            "i_contains": "otherbrand"
+          }
+        }
+      ]
+    }
+  ]
+}
