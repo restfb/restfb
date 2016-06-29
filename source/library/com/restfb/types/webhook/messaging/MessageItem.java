@@ -48,6 +48,11 @@ public class MessageItem implements InnerMessagingItem {
 
   @Getter
   @Setter
+  @Facebook("is_echo")
+  private boolean isEcho;
+
+  @Getter
+  @Setter
   @Facebook
   private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
 }
