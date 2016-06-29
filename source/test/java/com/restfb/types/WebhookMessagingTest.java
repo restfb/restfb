@@ -79,6 +79,25 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     MessageItem item = messagingItem.getMessage();
+    assertFalse(item.isEcho());
+    assertNotNull(item);
+    assertEquals("mid.1457764197618:41d102a3e1ae206a38", item.getMid());
+    assertEquals("hello, world!", item.getText());
+    assertEquals(73L, item.getSeq().longValue());
+    assertTrue(item.getAttachments().isEmpty());
+  }
+  
+  @Test
+  public void messagingMessageBasicIsEcho() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-basic-echo"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    MessageItem item = messagingItem.getMessage();
+    assertTrue(item.isEcho());
     assertNotNull(item);
     assertEquals("mid.1457764197618:41d102a3e1ae206a38", item.getMid());
     assertEquals("hello, world!", item.getText());
