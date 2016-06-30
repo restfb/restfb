@@ -378,7 +378,7 @@ abstract class BaseFacebookClient {
    *          The name of the parameter (to be used in exception message).
    * @param parameter
    *          The parameter to check.
-   * @throws IllegalArgumentException
+   * @throws NullPointerException
    *           If {@code parameter} is {@code null}.
    */
   protected void verifyParameterPresence(String parameterName, Object parameter) {
