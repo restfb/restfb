@@ -1,0 +1,39 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": 12345654332,
+      "time": 1458692752478,
+      "messaging": [
+        {
+          "sender": {
+            "id": 987654321432
+          },
+          "recipient": {
+            "id": 12345654332
+          },
+          "timestamp": 1458692752478,
+          "message": {
+            "mid": "mid.1458668856218:ed81099e15d3f4f233",
+            "seq": 51,
+            "attachments": [
+              {
+                "type": "template",
+                "payload": {
+                  "template_type": "button",
+                  "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "BUTTON_URL",
+                      "title": "Visit Messenger"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

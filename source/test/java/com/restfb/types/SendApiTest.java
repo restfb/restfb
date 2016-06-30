@@ -64,7 +64,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
   public void messageImageAttachment() throws JSONException {
-    ImageAttachment attachment = new ImageAttachment("IMAGE_URL");
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "IMAGE_URL");
     Message recipient = new Message(attachment);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
@@ -72,6 +72,30 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
     JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"IMAGE_URL\"},\"type\":\"image\"}}",
       recipientJsonString, false);
+  }
+
+  @Test
+  public void messageVideoAttachment() throws JSONException {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.VIDEO, "VIDEO_URL");
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"VIDEO_URL\"},\"type\":\"video\"}}",
+            recipientJsonString, false);
+  }
+
+  @Test
+  public void messageAudioAttachment() throws JSONException {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.AUDIO, "AUDIO_URL");
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\"},\"type\":\"audio\"}}",
+            recipientJsonString, false);
   }
 
   @Test
