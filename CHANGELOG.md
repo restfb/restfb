@@ -1,3 +1,35 @@
+1.26.0 (June 30, 2016)
+
+* Issue #495 and #493: Messenger Attachment Improvements<br>
+  Thanks to @alexdlaird for the PR
+* Issue #494: Incorrect Javadoc throws declaration<br>
+  Thanks to @eebbesen for the PR
+* Issue #491: `is_echo` field added to `MessageItem`<br>
+  Thanks to @alexdlaird for the PR
+* Issue #490: `SendResponse` added as Send API Response<br>
+  Thanks to @alexdlaird for the hint
+* Issue #487: product catalog management API added<br>
+  Thanks to @hkroger for the hint
+* Issue #486: more comples structure for `rule` field<br>
+  Thanks to @hkroger for the hint
+* Issue #484: `TargetingProductAudienceSubSpec.retetionSeconds` changed<br>
+  Thanks to @hkroger for the hint
+* Issue #483: convenience constructor added to `IDName`<br>
+  Thanks to @hkroger for the hint
+* Issue #482: Missing Search API types added<br>
+  Thanks to @hkroger for the hint
+* Issue #481: Url class `OGObject` is missing `image`<br>
+  Thanks to @Enalmada for the hint
+* Issue #480: Sonar URL changed
+* Issue #479: missing fields in `AdCreative` type<br>
+  Thanks to @hkroger for the hint
+* Issue #478: Error while reading `AdGroup`<br>
+  Thanks to @hkroger for the hint
+* Issue #476: Sonar - fix connection issues
+* Issue #475: Sonar - xml indentation changed to 2 chars
+* Issue #472: setting welcome message for messenger bot<br>
+  Thanks to @bqcuong2212 for the hint
+
 1.25.0 (June 6, 2016)
 
 * Issue #460: Issue with TOS fields in `AdAccount`<br>
