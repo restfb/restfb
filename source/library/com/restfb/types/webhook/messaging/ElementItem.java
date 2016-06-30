@@ -27,70 +27,39 @@ import lombok.Setter;
 
 import java.util.List;
 
-public class MessagingPayload {
+public class ElementItem {
+    @Getter
+    @Setter
+    @Facebook
+    private String title;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String url;
+    @Getter
+    @Setter
+    @Facebook
+    private String subtitle;
 
-  @Getter
-  @Setter
-  @Facebook("template_type")
-  private String templateType;
+    @Getter
+    @Setter
+    @Facebook("image_url")
+    private String imageUrl;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ButtonItem> buttons;
+    @Getter
+    @Setter
+    @Facebook
+    private List<ButtonItem> buttons;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ElementItem> elements;
+    @Getter
+    @Setter
+    @Facebook
+    private int quantity;
 
-  @Getter
-  @Setter
-  @Facebook("recipient_name")
-  private String recipientName;
+    @Getter
+    @Setter
+    @Facebook
+    private double price;
 
-  @Getter
-  @Setter
-  @Facebook("order_number")
-  private String orderNumber;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
-
-  @Getter
-  @Setter
-  @Facebook("payment_method")
-  private String paymentMethod;
-
-  @Getter
-  @Setter
-  @Facebook("order_url")
-  private String orderUrl;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Long timestamp;
-
-  @Getter
-  @Setter
-  @Facebook
-  private AddressItem address;
-
-  @Getter
-  @Setter
-  @Facebook
-  private SummaryItem summary;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<AdjustmentItem> adjustmentItems;
+    @Getter
+    @Setter
+    @Facebook
+    private String currency;
 }

@@ -19,78 +19,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
+public class ReceiptElement {
+    @Facebook
+    private String title;
 
-public class MessagingPayload {
+    @Facebook
+    private String subtitle;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String url;
+    @Facebook
+    private int quantity;
 
-  @Getter
-  @Setter
-  @Facebook("template_type")
-  private String templateType;
+    @Facebook
+    private double price;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ButtonItem> buttons;
+    @Facebook
+    private String currency;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ElementItem> elements;
+    @Facebook("image_url")
+    private String imageUrl;
 
-  @Getter
-  @Setter
-  @Facebook("recipient_name")
-  private String recipientName;
-
-  @Getter
-  @Setter
-  @Facebook("order_number")
-  private String orderNumber;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
-
-  @Getter
-  @Setter
-  @Facebook("payment_method")
-  private String paymentMethod;
-
-  @Getter
-  @Setter
-  @Facebook("order_url")
-  private String orderUrl;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Long timestamp;
-
-  @Getter
-  @Setter
-  @Facebook
-  private AddressItem address;
-
-  @Getter
-  @Setter
-  @Facebook
-  private SummaryItem summary;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<AdjustmentItem> adjustmentItems;
+    public ReceiptElement(String title, String subtitle, int quantity, double price, String currency, String imageUrl) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.quantity = quantity;
+        this.price = price;
+        this.currency = currency;
+        this.imageUrl = imageUrl;
+    }
 }

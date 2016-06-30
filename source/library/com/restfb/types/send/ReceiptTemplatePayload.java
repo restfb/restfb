@@ -19,78 +19,62 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import lombok.Getter;
-import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MessagingPayload {
+public class ReceiptTemplatePayload extends TemplatePayload {
 
-  @Getter
-  @Setter
-  @Facebook
-  private String url;
+    @Facebook("recipient_name")
+    private String recipientName;
 
-  @Getter
-  @Setter
-  @Facebook("template_type")
-  private String templateType;
+    @Facebook("order_number")
+    private String orderNumber;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ButtonItem> buttons;
+    @Facebook
+    private String currency;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ElementItem> elements;
+    @Facebook("payment_method")
+    private String paymentMethod;
 
-  @Getter
-  @Setter
-  @Facebook("recipient_name")
-  private String recipientName;
+    @Facebook("order_url")
+    private String orderUrl;
 
-  @Getter
-  @Setter
-  @Facebook("order_number")
-  private String orderNumber;
+    @Facebook
+    private Long timestamp;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
+    @Facebook
+    private List<ReceiptElement> elements;
 
-  @Getter
-  @Setter
-  @Facebook("payment_method")
-  private String paymentMethod;
+    @Facebook
+    private ReceiptAddress address;
 
-  @Getter
-  @Setter
-  @Facebook("order_url")
-  private String orderUrl;
+    @Facebook
+    private ReceiptSummary summary;
 
-  @Getter
-  @Setter
-  @Facebook
-  private Long timestamp;
+    @Facebook
+    private List<ReceiptAdjustment> adjustments;
 
-  @Getter
-  @Setter
-  @Facebook
-  private AddressItem address;
+    public ReceiptTemplatePayload() {
+        setTemplateType("receipt");
+    }
 
-  @Getter
-  @Setter
-  @Facebook
-  private SummaryItem summary;
+    public boolean addElement(ReceiptElement element) {
+        if (elements == null) {
+            elements = new ArrayList<ReceiptElement>();
+        }
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<AdjustmentItem> adjustmentItems;
+        return elements.add(element);
+    }
+
+    public boolean addAdjustment(ReceiptAdjustment adjustment) {
+        if (adjustments == null) {
+            adjustments = new ArrayList<ReceiptAdjustment>();
+        }
+
+        return adjustments.add(adjustment);
+    }
 }
