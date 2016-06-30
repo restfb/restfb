@@ -23,24 +23,31 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
-public class ImageAttachment extends MessageAttachment {
+public class ReceiptAddress {
+    @Facebook("street_1")
+    private String street1;
 
-  @Facebook
-  private UrlPayload payload;
-
-  public ImageAttachment(String imageUrl) {
-    setType("image");
-    payload = new UrlPayload(imageUrl);
-  }
-
-  private static class UrlPayload {
+    @Facebook("street_2")
+    private String street2;
 
     @Facebook
-    private String url;
+    private String city;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
+    @Facebook("postal_code")
+    private String postalCode;
+
+    @Facebook
+    private String state;
+
+    @Facebook
+    private String country;
+
+    public ReceiptAddress(String street1, String street2, String city, String postalCode, String state, String country) {
+        this.street1 = street1;
+        this.street2 = street2;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.state = state;
+        this.country = country;
     }
-
-  }
 }

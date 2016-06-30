@@ -19,78 +19,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
+public class MediaAttachment extends MessageAttachment {
 
-public class MessagingPayload {
-
-  @Getter
-  @Setter
   @Facebook
-  private String url;
+  private UrlPayload payload;
 
-  @Getter
-  @Setter
-  @Facebook("template_type")
-  private String templateType;
+  public MediaAttachment(Type type, String imageUrl) {
+    setType(type.toString().toLowerCase());
+    payload = new UrlPayload(imageUrl);
+  }
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ButtonItem> buttons;
+  private static class UrlPayload {
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ElementItem> elements;
+    @Facebook
+    private String url;
 
-  @Getter
-  @Setter
-  @Facebook("recipient_name")
-  private String recipientName;
+    public UrlPayload(String urlString) {
+      url = urlString;
+    }
 
-  @Getter
-  @Setter
-  @Facebook("order_number")
-  private String orderNumber;
+  }
 
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
-
-  @Getter
-  @Setter
-  @Facebook("payment_method")
-  private String paymentMethod;
-
-  @Getter
-  @Setter
-  @Facebook("order_url")
-  private String orderUrl;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Long timestamp;
-
-  @Getter
-  @Setter
-  @Facebook
-  private AddressItem address;
-
-  @Getter
-  @Setter
-  @Facebook
-  private SummaryItem summary;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<AdjustmentItem> adjustmentItems;
+  public enum Type {
+    IMAGE, VIDEO, AUDIO, FILE, LOCATION;
+  }
 }

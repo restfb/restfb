@@ -25,72 +25,34 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+public class AddressItem {
+    @Getter
+    @Setter
+    @Facebook("street_1")
+    private String street1;
 
-public class MessagingPayload {
+    @Getter
+    @Setter
+    @Facebook("street_2")
+    private String street2;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String url;
+    @Getter
+    @Setter
+    @Facebook
+    private String city;
 
-  @Getter
-  @Setter
-  @Facebook("template_type")
-  private String templateType;
+    @Getter
+    @Setter
+    @Facebook("postal_code")
+    private String postalCode;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ButtonItem> buttons;
+    @Getter
+    @Setter
+    @Facebook
+    private String state;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ElementItem> elements;
-
-  @Getter
-  @Setter
-  @Facebook("recipient_name")
-  private String recipientName;
-
-  @Getter
-  @Setter
-  @Facebook("order_number")
-  private String orderNumber;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
-
-  @Getter
-  @Setter
-  @Facebook("payment_method")
-  private String paymentMethod;
-
-  @Getter
-  @Setter
-  @Facebook("order_url")
-  private String orderUrl;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Long timestamp;
-
-  @Getter
-  @Setter
-  @Facebook
-  private AddressItem address;
-
-  @Getter
-  @Setter
-  @Facebook
-  private SummaryItem summary;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<AdjustmentItem> adjustmentItems;
+    @Getter
+    @Setter
+    @Facebook
+    private String country;
 }

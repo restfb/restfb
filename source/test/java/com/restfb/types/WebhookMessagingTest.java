@@ -21,14 +21,13 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
-
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class WebhookMessagingTest extends AbstractJsonMapperTests {
 
@@ -131,5 +130,25 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     PostbackItem item = messagingItem.getPostback();
     assertNotNull(item);
     assertEquals("USER_DEFINED_PAYLOAD", item.getPayload());
+  }
+
+  @Test
+  public void messagingButtonTemplate() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-button-template"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    MessageItem item = messagingItem.getMessage();
+    assertFalse(item.getAttachments().isEmpty());
+    MessagingAttachment attachment = item.getAttachments().get(0);
+    assertEquals("template", attachment.getType());
+    assertEquals("button", attachment.getPayload().getTemplateType());
+    ButtonItem button = attachment.getPayload().getButtons().get(0);
+    assertEquals("web_url", button.getType());
+    assertEquals("BUTTON_URL", button.getUrl());
+    assertEquals("Visit Messenger", button.getTitle());
   }
 }

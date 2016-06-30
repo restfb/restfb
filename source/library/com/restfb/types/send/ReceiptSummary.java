@@ -19,78 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
+public class ReceiptSummary {
+    @Facebook("subtotal")
+    private double subtotal;
 
-public class MessagingPayload {
+    @Facebook("shipping_cost")
+    private double shippingCost;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String url;
+    @Facebook("total_tax")
+    private double totalTax;
 
-  @Getter
-  @Setter
-  @Facebook("template_type")
-  private String templateType;
+    @Facebook("total_cost")
+    private double totalCost;
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<ButtonItem> buttons;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<ElementItem> elements;
-
-  @Getter
-  @Setter
-  @Facebook("recipient_name")
-  private String recipientName;
-
-  @Getter
-  @Setter
-  @Facebook("order_number")
-  private String orderNumber;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
-
-  @Getter
-  @Setter
-  @Facebook("payment_method")
-  private String paymentMethod;
-
-  @Getter
-  @Setter
-  @Facebook("order_url")
-  private String orderUrl;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Long timestamp;
-
-  @Getter
-  @Setter
-  @Facebook
-  private AddressItem address;
-
-  @Getter
-  @Setter
-  @Facebook
-  private SummaryItem summary;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<AdjustmentItem> adjustmentItems;
+    public ReceiptSummary(double subtotal, double shippingCost, double totalTax, double totalCost) {
+        this.subtotal = subtotal;
+        this.shippingCost = shippingCost;
+        this.totalTax = totalTax;
+        this.totalCost = totalCost;
+    }
 }
