@@ -19,31 +19,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.send.TemplatePayload;
 
-import lombok.Getter;
 import lombok.Setter;
 
-public class SummaryItem {
-  @Getter
+public class AirlineUpdateTemplatePayload extends TemplatePayload {
+  @Setter
+  @Facebook("intro_message")
+  private String introMessage;
+
+  @Setter
+  @Facebook("update_type")
+  private String updateType;
+
+  @Facebook
+  private String locale;
+
   @Setter
   @Facebook
-  private Double subtotal;
+  private String themeColor;
 
-  @Getter
-  @Setter
-  @Facebook("shipping_cost")
-  private Double shippingCost;
+  @Facebook("pnr_number")
+  private String pnrNumber;
 
-  @Getter
-  @Setter
-  @Facebook("total_tax")
-  private Double totalTax;
+  @Facebook("update_flight_info")
+  private FlightInfo updateFlightInfo;
 
-  @Getter
-  @Setter
-  @Facebook("total_cost")
-  private Double totalCost;
+  public AirlineUpdateTemplatePayload(String locale, String pnrNumber, FlightInfo updateFlightInfo) {
+    setTemplateType("airline_update");
+    this.locale = locale;
+    this.pnrNumber = pnrNumber;
+    this.updateFlightInfo = updateFlightInfo;
+  }
 }

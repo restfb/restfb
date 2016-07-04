@@ -19,31 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.send.TemplatePayload;
 
-import lombok.Getter;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Setter;
 
-public class SummaryItem {
-  @Getter
-  @Setter
+public class AirlineBoardingPassTemplatePayload extends TemplatePayload {
+  @Facebook("intro_message")
+  private String introMessage;
+
   @Facebook
-  private Double subtotal;
+  private String locale;
 
-  @Getter
   @Setter
-  @Facebook("shipping_cost")
-  private Double shippingCost;
+  @Facebook("theme_color")
+  private String themeColor;
 
-  @Getter
-  @Setter
-  @Facebook("total_tax")
-  private Double totalTax;
+  @Facebook("boarding_pass")
+  private List<BoardingPass> boardingPassList;
 
-  @Getter
-  @Setter
-  @Facebook("total_cost")
-  private Double totalCost;
+  public AirlineBoardingPassTemplatePayload(String introMessage, String locale, List<BoardingPass> boardingPassList) {
+    setTemplateType("airline_boardingpass");
+    this.introMessage = introMessage;
+    this.locale = locale;
+    this.boardingPassList = boardingPassList;
+  }
+
+  public boolean addBoardingPass(BoardingPass boardingPass) {
+    if (boardingPassList == null) {
+      boardingPassList = new ArrayList<BoardingPass>();
+    }
+
+    return boardingPassList.add(boardingPass);
+  }
 }

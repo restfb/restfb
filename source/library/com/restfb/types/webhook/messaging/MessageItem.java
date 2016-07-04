@@ -53,6 +53,16 @@ public class MessageItem implements InnerMessagingItem {
 
   @Getter
   @Setter
+  @Facebook("app_id")
+  private String appId;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String metadata;
+
+  @Getter
+  @Setter
   @Facebook
   private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
 }

@@ -19,31 +19,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
-import lombok.Getter;
-import lombok.Setter;
+public class LocationAttachment extends MessageAttachment {
 
-public class SummaryItem {
-  @Getter
-  @Setter
-  @Facebook
-  private Double subtotal;
+    @Facebook
+    private LocationPayload payload;
 
-  @Getter
-  @Setter
-  @Facebook("shipping_cost")
-  private Double shippingCost;
+    public LocationAttachment(double lat, double longVal) {
+        setType("location");
+        payload = new LocationPayload(lat, longVal);
+    }
 
-  @Getter
-  @Setter
-  @Facebook("total_tax")
-  private Double totalTax;
+    private static class LocationPayload {
 
-  @Getter
-  @Setter
-  @Facebook("total_cost")
-  private Double totalCost;
+        @Facebook
+        private Coordinates coordinates;
+
+        public LocationPayload(double lat, double longVal) {
+            coordinates = new Coordinates(lat, longVal);
+        }
+
+        private static class Coordinates {
+            @Facebook
+            private double lat;
+            @Facebook("long")
+            private double longVal;
+
+            public Coordinates(double lat, double longVal) {
+                this.lat = lat;
+                this.longVal = longVal;
+            }
+        }
+    }
 }

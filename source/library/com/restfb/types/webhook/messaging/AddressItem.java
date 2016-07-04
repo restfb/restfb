@@ -22,37 +22,38 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class AddressItem {
-    @Getter
-    @Setter
-    @Facebook("street_1")
-    private String street1;
+  @Getter
+  @Setter
+  @Facebook("street_1")
+  private String street1;
 
-    @Getter
-    @Setter
-    @Facebook("street_2")
-    private String street2;
+  @Getter
+  @Setter
+  @Facebook("street_2")
+  private String street2;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String city;
+  @Getter
+  @Setter
+  @Facebook
+  private String city;
 
-    @Getter
-    @Setter
-    @Facebook("postal_code")
-    private String postalCode;
+  @Getter
+  @Setter
+  @Facebook("postal_code")
+  private String postalCode;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String state;
+  @Getter
+  @Setter
+  @Facebook
+  private String state;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String country;
+  @Getter
+  @Setter
+  @Facebook
+  private String country;
 }

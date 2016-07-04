@@ -26,24 +26,14 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-public class SummaryItem {
+public class CoordinatesItem {
   @Getter
   @Setter
   @Facebook
-  private Double subtotal;
+  private Double lat;
 
   @Getter
   @Setter
-  @Facebook("shipping_cost")
-  private Double shippingCost;
-
-  @Getter
-  @Setter
-  @Facebook("total_tax")
-  private Double totalTax;
-
-  @Getter
-  @Setter
-  @Facebook("total_cost")
-  private Double totalCost;
+  @Facebook("long")
+  private Double longVal;
 }

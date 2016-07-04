@@ -22,28 +22,29 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class ButtonItem {
 
-    @Getter
-    @Setter
-    @Facebook
-    private String type;
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String title;
+  @Getter
+  @Setter
+  @Facebook
+  private String title;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String url;
+  @Getter
+  @Setter
+  @Facebook
+  private String url;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String payload;
+  @Getter
+  @Setter
+  @Facebook
+  private String payload;
 }
