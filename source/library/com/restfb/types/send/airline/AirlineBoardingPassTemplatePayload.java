@@ -19,32 +19,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.send.TemplatePayload;
+import lombok.Setter;
 
-public class MediaAttachment extends MessageAttachment {
+import java.util.ArrayList;
+import java.util.List;
 
-  @Facebook
-  private UrlPayload payload;
-
-  public MediaAttachment(Type type, String imageUrl) {
-    setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
-  }
-
-  private static class UrlPayload {
+public class AirlineBoardingPassTemplatePayload extends TemplatePayload {
+    @Facebook("intro_message")
+    private String introMessage;
 
     @Facebook
-    private String url;
+    private String locale;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
+    @Setter
+    @Facebook("theme_color")
+    private String themeColor;
+
+    @Facebook("boarding_pass")
+    private List<BoardingPass> boardingPassList;
+
+    public AirlineBoardingPassTemplatePayload(String introMessage, String locale, List<BoardingPass> boardingPassList) {
+        setTemplateType("airline_boardingpass");
+        this.introMessage = introMessage;
+        this.locale = locale;
+        this.boardingPassList = boardingPassList;
     }
 
-  }
+    public boolean addBoardingPass(BoardingPass boardingPass) {
+        if (boardingPassList == null) {
+            boardingPassList = new ArrayList<BoardingPass>();
+        }
 
-  public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
-  }
+        return boardingPassList.add(boardingPass);
+    }
 }

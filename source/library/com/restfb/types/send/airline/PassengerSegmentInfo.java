@@ -19,32 +19,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
 
-public class MediaAttachment extends MessageAttachment {
+import java.util.ArrayList;
+import java.util.List;
 
-  @Facebook
-  private UrlPayload payload;
+public class PassengerSegmentInfo {
+    @Facebook("segment_id")
+    private String segmentId;
 
-  public MediaAttachment(Type type, String imageUrl) {
-    setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
-  }
-
-  private static class UrlPayload {
+    @Facebook("passenger_id")
+    private String passengerId;
 
     @Facebook
-    private String url;
+    private String seat;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
+    @Facebook("seat_type")
+    private String seatType;
+
+    @Facebook("product_info")
+    private List<ProductInfo> productInfoList;
+
+    public PassengerSegmentInfo(String segmentId, String passengerId, String seat, String seatType) {
+        this.segmentId = segmentId;
+        this.passengerId = passengerId;
+        this.seat = seat;
+        this.seatType = seatType;
     }
 
-  }
+    public boolean addProductInfo(ProductInfo productInfo) {
+        if (productInfoList == null) {
+            productInfoList = new ArrayList<ProductInfo>();
+        }
 
-  public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
-  }
+        return productInfoList.add(productInfo);
+    }
 }

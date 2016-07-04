@@ -19,32 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import lombok.Setter;
 
-public class MediaAttachment extends MessageAttachment {
+public class FlightInfo {
+    @Facebook("connection_id")
+    private String connectionId;
 
-  @Facebook
-  private UrlPayload payload;
+    @Facebook("segment_id")
+    private String segmentId;
 
-  public MediaAttachment(Type type, String imageUrl) {
-    setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
-  }
+    @Facebook("flight_number")
+    private String flightNumber;
 
-  private static class UrlPayload {
+    @Setter
+    @Facebook("aircraft_type")
+    private String aircraftType;
 
-    @Facebook
-    private String url;
+    @Facebook("departure_airport")
+    private FlightAirport departureAirport;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
+    @Facebook("arrival_airport")
+    private FlightAirport arrivalAirport;
+
+    @Facebook("flight_schedule")
+    private FlightSchedule flightSchedule;
+
+    @Facebook("travel_class")
+    private String travelClass;
+
+    public FlightInfo(String connectionId, String segmentId, String flightNumber, FlightAirport departureAirport, FlightAirport arrivalAirport, FlightSchedule flightSchedule, String travelClass) {
+        this.connectionId = connectionId;
+        this.segmentId = segmentId;
+        this.flightNumber = flightNumber;
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.flightSchedule = flightSchedule;
+        this.travelClass = travelClass;
     }
-
-  }
-
-  public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
-  }
 }

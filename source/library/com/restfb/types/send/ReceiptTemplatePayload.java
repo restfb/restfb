@@ -22,6 +22,7 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +41,18 @@ public class ReceiptTemplatePayload extends TemplatePayload {
     @Facebook("payment_method")
     private String paymentMethod;
 
+    @Setter
     @Facebook("order_url")
     private String orderUrl;
 
+    @Setter
     @Facebook
     private Long timestamp;
 
     @Facebook
     private List<ReceiptElement> elements;
 
+    @Setter
     @Facebook
     private ReceiptAddress address;
 
@@ -58,7 +62,12 @@ public class ReceiptTemplatePayload extends TemplatePayload {
     @Facebook
     private List<ReceiptAdjustment> adjustments;
 
-    public ReceiptTemplatePayload() {
+    public ReceiptTemplatePayload(String recipientName, String orderNumber, String currency, String paymentMethod, ReceiptSummary summary) {
+        this.recipientName = recipientName;
+        this.orderNumber = orderNumber;
+        this.currency = currency;
+        this.paymentMethod = paymentMethod;
+        this.summary = summary;
         setTemplateType("receipt");
     }
 

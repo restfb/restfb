@@ -23,28 +23,35 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
-public class MediaAttachment extends MessageAttachment {
-
-  @Facebook
-  private UrlPayload payload;
-
-  public MediaAttachment(Type type, String imageUrl) {
-    setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
-  }
-
-  private static class UrlPayload {
+public class LocationAttachment extends MessageAttachment {
 
     @Facebook
-    private String url;
+    private LocationPayload payload;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
+    public LocationAttachment(double lat, double longVal) {
+        setType("location");
+        payload = new LocationPayload(lat, longVal);
     }
 
-  }
+    private static class LocationPayload {
 
-  public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
-  }
+        @Facebook
+        private Coordinates coordinates;
+
+        public LocationPayload(double lat, double longVal) {
+            coordinates = new Coordinates(lat, longVal);
+        }
+
+        private static class Coordinates {
+            @Facebook
+            private double lat;
+            @Facebook("long")
+            private double longVal;
+
+            public Coordinates(double lat, double longVal) {
+                this.lat = lat;
+                this.longVal = longVal;
+            }
+        }
+    }
 }

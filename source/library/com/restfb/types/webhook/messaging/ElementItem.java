@@ -51,12 +51,12 @@ public class ElementItem {
     @Getter
     @Setter
     @Facebook
-    private int quantity;
+    private Integer quantity;
 
     @Getter
     @Setter
     @Facebook
-    private double price;
+    private Double price;
 
     @Getter
     @Setter

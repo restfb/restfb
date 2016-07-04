@@ -22,12 +22,11 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.Getter;
-import lombok.Setter;
 
 public class MessageItem implements InnerMessagingItem {
 
@@ -50,6 +49,16 @@ public class MessageItem implements InnerMessagingItem {
   @Setter
   @Facebook("is_echo")
   private boolean isEcho;
+
+  @Getter
+  @Setter
+  @Facebook("app_id")
+  private String appId;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String metadata;
 
   @Getter
   @Setter

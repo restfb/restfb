@@ -19,32 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send;
+package com.restfb.types.webhook.messaging.airline;
 
 import com.restfb.Facebook;
+import lombok.Getter;
+import lombok.Setter;
 
-public class MediaAttachment extends MessageAttachment {
-
-  @Facebook
-  private UrlPayload payload;
-
-  public MediaAttachment(Type type, String imageUrl) {
-    setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
-  }
-
-  private static class UrlPayload {
-
+public class PassengerInfoItem {
+    @Getter
+    @Setter
     @Facebook
-    private String url;
+    private String name;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
-    }
+    @Getter
+    @Setter
+    @Facebook("ticket_number")
+    private String ticketNumber;
 
-  }
-
-  public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
-  }
+    @Getter
+    @Setter
+    @Facebook("passenger_id")
+    private String passengerId;
 }
