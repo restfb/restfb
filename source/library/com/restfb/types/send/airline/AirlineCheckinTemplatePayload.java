@@ -19,32 +19,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.send.TemplatePayload;
+import lombok.Setter;
 
-public class MediaAttachment extends MessageAttachment {
+import java.util.ArrayList;
+import java.util.List;
 
-  @Facebook
-  private UrlPayload payload;
-
-  public MediaAttachment(Type type, String imageUrl) {
-    setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
-  }
-
-  private static class UrlPayload {
+public class AirlineCheckinTemplatePayload extends TemplatePayload {
+    @Facebook("intro_message")
+    private String introMessage;
 
     @Facebook
-    private String url;
+    private String locale;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
+    @Setter
+    @Facebook("theme_color")
+    private String themeColor;
+
+    @Facebook("pnr_number")
+    private String pnrNumber;
+
+    @Facebook("flight_info")
+    private List<FlightInfo> flightInfoList;
+
+    @Facebook("checkin_url")
+    private String checkinUrl;
+
+    public AirlineCheckinTemplatePayload(String introMessage, String locale, String pnrNumber, String checkinUrl) {
+        setTemplateType("airline_checkin");
+        this.introMessage = introMessage;
+        this.locale = locale;
+        this.pnrNumber = pnrNumber;
+        this.checkinUrl = checkinUrl;
     }
 
-  }
+    public boolean addFlightInfo(FlightInfo flightInfo) {
+        if (flightInfoList == null) {
+            flightInfoList = new ArrayList<FlightInfo>();
+        }
 
-  public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
-  }
+        return flightInfoList.add(flightInfo);
+    }
 }

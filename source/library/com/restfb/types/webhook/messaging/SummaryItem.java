@@ -29,20 +29,20 @@ public class SummaryItem {
     @Getter
     @Setter
     @Facebook
-    private double subtotal;
+    private Double subtotal;
 
     @Getter
     @Setter
     @Facebook("shipping_cost")
-    private double shippingCost;
+    private Double shippingCost;
 
     @Getter
     @Setter
     @Facebook("total_tax")
-    private double totalTax;
+    private Double totalTax;
 
     @Getter
     @Setter
     @Facebook("total_cost")
-    private double totalCost;
+    private Double totalCost;
 }

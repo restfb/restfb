@@ -19,32 +19,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.send.TemplatePayload;
+import lombok.Setter;
 
-public class MediaAttachment extends MessageAttachment {
+public class AirlineUpdateTemplatePayload extends TemplatePayload {
+    @Setter
+    @Facebook("intro_message")
+    private String introMessage;
 
-  @Facebook
-  private UrlPayload payload;
-
-  public MediaAttachment(Type type, String imageUrl) {
-    setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
-  }
-
-  private static class UrlPayload {
+    @Setter
+    @Facebook("update_type")
+    private String updateType;
 
     @Facebook
-    private String url;
+    private String locale;
 
-    public UrlPayload(String urlString) {
-      url = urlString;
+    @Setter
+    @Facebook
+    private String themeColor;
+
+    @Facebook("pnr_number")
+    private String pnrNumber;
+
+    @Facebook("update_flight_info")
+    private FlightInfo updateFlightInfo;
+
+    public AirlineUpdateTemplatePayload(String locale, String pnrNumber, FlightInfo updateFlightInfo) {
+        setTemplateType("airline_update");
+        this.locale = locale;
+        this.pnrNumber = pnrNumber;
+        this.updateFlightInfo = updateFlightInfo;
     }
-
-  }
-
-  public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
-  }
 }

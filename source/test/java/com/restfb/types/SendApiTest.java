@@ -26,6 +26,7 @@ import com.restfb.DefaultJsonMapper;
 import com.restfb.types.send.*;
 import com.restfb.types.send.Message;
 
+import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -95,6 +96,18 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\"},\"type\":\"audio\"}}",
+            recipientJsonString, false);
+  }
+
+  @Test
+  public void messageLocationAttachment() throws JSONException {
+    LocationAttachment attachment = new LocationAttachment(20, 30);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"coordinates\":{\"lat\":20, \"long\":30}},\"type\":\"location\"}}",
             recipientJsonString, false);
   }
 
@@ -192,4 +205,18 @@ public class SendApiTest extends AbstractJsonMapperTests {
       recipientJsonString, false);
   }
 
+  @Test
+  public void messageTemplateAirlineAttachment() throws JSONException {
+
+    AirlineCheckinTemplatePayload payload = new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+            "{\"attachment\":{\"payload\":{\"checkin_url\":\"http://www.google.com/checkin\",\"intro_message\":\"Intro Message\",\"template_type\":\"airline_checkin\",\"locale\":\"en_US\",\"pnr_number\":\"ABCDEF\"},\"type\":\"template\"}}",
+            recipientJsonString, false);
+  }
 }
