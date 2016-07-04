@@ -19,31 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
 
-import lombok.Getter;
 import lombok.Setter;
 
-public class SummaryItem {
-  @Getter
+public class FlightAirport {
+  @Facebook("airport_code")
+  private String airportCode;
+
+  @Facebook
+  private String city;
+
   @Setter
   @Facebook
-  private Double subtotal;
+  private String terminal;
 
-  @Getter
   @Setter
-  @Facebook("shipping_cost")
-  private Double shippingCost;
+  @Facebook
+  private String gate;
 
-  @Getter
-  @Setter
-  @Facebook("total_tax")
-  private Double totalTax;
-
-  @Getter
-  @Setter
-  @Facebook("total_cost")
-  private Double totalCost;
+  public FlightAirport(String airportCode, String city) {
+    this.airportCode = airportCode;
+    this.city = city;
+  }
 }

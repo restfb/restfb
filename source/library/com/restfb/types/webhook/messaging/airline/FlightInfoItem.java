@@ -19,31 +19,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.webhook.messaging.airline;
 
 import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class SummaryItem {
+public class FlightInfoItem {
   @Getter
   @Setter
-  @Facebook
-  private Double subtotal;
+  @Facebook("connection_id")
+  private String connectionId;
 
   @Getter
   @Setter
-  @Facebook("shipping_cost")
-  private Double shippingCost;
+  @Facebook("segment_id")
+  private String segmentId;
 
   @Getter
   @Setter
-  @Facebook("total_tax")
-  private Double totalTax;
+  @Facebook("flight_number")
+  private String flightNumber;
 
   @Getter
   @Setter
-  @Facebook("total_cost")
-  private Double totalCost;
+  @Facebook("aircraft_type")
+  private String aircraftType;
+
+  @Getter
+  @Setter
+  @Facebook("departure_airport")
+  private FlightAirportItem departureAirport;
+
+  @Getter
+  @Setter
+  @Facebook("arrival_airport")
+  private FlightAirportItem arrivalAirport;
+
+  @Getter
+  @Setter
+  @Facebook("flight_schedule")
+  private FlightScheduleItem flightSchedule;
+
+  @Getter
+  @Setter
+  @Facebook("travel_class")
+  private String travelClass;
 }

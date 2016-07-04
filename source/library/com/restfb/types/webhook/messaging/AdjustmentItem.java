@@ -22,17 +22,18 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class AdjustmentItem {
-    @Getter
-    @Setter
-    @Facebook
-    private String name;
+  @Getter
+  @Setter
+  @Facebook
+  private String name;
 
-    @Getter
-    @Setter
-    @Facebook
-    private double amount;
+  @Getter
+  @Setter
+  @Facebook
+  private Double amount;
 }

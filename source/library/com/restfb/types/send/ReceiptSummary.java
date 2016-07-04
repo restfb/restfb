@@ -22,24 +22,25 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import lombok.Setter;
 
 public class ReceiptSummary {
+    @Setter
     @Facebook("subtotal")
     private double subtotal;
 
+    @Setter
     @Facebook("shipping_cost")
     private double shippingCost;
 
+    @Setter
     @Facebook("total_tax")
     private double totalTax;
 
     @Facebook("total_cost")
     private double totalCost;
 
-    public ReceiptSummary(double subtotal, double shippingCost, double totalTax, double totalCost) {
-        this.subtotal = subtotal;
-        this.shippingCost = shippingCost;
-        this.totalTax = totalTax;
+    public ReceiptSummary(double totalCost) {
         this.totalCost = totalCost;
     }
 }

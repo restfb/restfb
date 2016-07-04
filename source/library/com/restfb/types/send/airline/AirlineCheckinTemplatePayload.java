@@ -19,31 +19,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.send.TemplatePayload;
 
-import lombok.Getter;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Setter;
 
-public class SummaryItem {
-  @Getter
-  @Setter
+public class AirlineCheckinTemplatePayload extends TemplatePayload {
+  @Facebook("intro_message")
+  private String introMessage;
+
   @Facebook
-  private Double subtotal;
+  private String locale;
 
-  @Getter
   @Setter
-  @Facebook("shipping_cost")
-  private Double shippingCost;
+  @Facebook("theme_color")
+  private String themeColor;
 
-  @Getter
-  @Setter
-  @Facebook("total_tax")
-  private Double totalTax;
+  @Facebook("pnr_number")
+  private String pnrNumber;
 
-  @Getter
-  @Setter
-  @Facebook("total_cost")
-  private Double totalCost;
+  @Facebook("flight_info")
+  private List<FlightInfo> flightInfoList;
+
+  @Facebook("checkin_url")
+  private String checkinUrl;
+
+  public AirlineCheckinTemplatePayload(String introMessage, String locale, String pnrNumber, String checkinUrl) {
+    setTemplateType("airline_checkin");
+    this.introMessage = introMessage;
+    this.locale = locale;
+    this.pnrNumber = pnrNumber;
+    this.checkinUrl = checkinUrl;
+  }
+
+  public boolean addFlightInfo(FlightInfo flightInfo) {
+    if (flightInfoList == null) {
+      flightInfoList = new ArrayList<FlightInfo>();
+    }
+
+    return flightInfoList.add(flightInfo);
+  }
 }

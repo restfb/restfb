@@ -26,6 +26,7 @@ import com.restfb.DefaultJsonMapper;
 import com.restfb.testutils.AssertJson;
 import com.restfb.types.send.*;
 import com.restfb.types.send.Message;
+import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
 
 import org.junit.Test;
 
@@ -95,6 +96,19 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
     AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\"},\"type\":\"audio\"}}",
             recipientJsonString);
+  }
+
+  @Test
+  public void messageLocationAttachment() {
+    LocationAttachment attachment = new LocationAttachment(20, 30);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"coordinates\":{\"lat\":20, \"long\":30}},\"type\":\"location\"}}",
+      recipientJsonString);
   }
 
   @Test
@@ -191,4 +205,19 @@ public class SendApiTest extends AbstractJsonMapperTests {
       recipientJsonString);
   }
 
+  @Test
+  public void messageTemplateAirlineAttachment() {
+
+    AirlineCheckinTemplatePayload payload =
+        new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"checkin_url\":\"http://www.google.com/checkin\",\"intro_message\":\"Intro Message\",\"template_type\":\"airline_checkin\",\"locale\":\"en_US\",\"pnr_number\":\"ABCDEF\"},\"type\":\"template\"}}",
+      recipientJsonString);
+  }
 }

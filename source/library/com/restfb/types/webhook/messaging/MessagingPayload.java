@@ -22,10 +22,12 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
-import lombok.Getter;
-import lombok.Setter;
+import com.restfb.types.webhook.messaging.airline.*;
 
 import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public class MessagingPayload {
 
@@ -33,6 +35,11 @@ public class MessagingPayload {
   @Setter
   @Facebook
   private String url;
+
+  @Getter
+  @Setter
+  @Facebook
+  private CoordinatesItem coordinates;
 
   @Getter
   @Setter
@@ -93,4 +100,79 @@ public class MessagingPayload {
   @Setter
   @Facebook
   private List<AdjustmentItem> adjustmentItems;
+
+  @Getter
+  @Setter
+  @Facebook("intro_message")
+  private String introMessage;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String locale;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String themeColor;
+
+  @Getter
+  @Setter
+  @Facebook("update_type")
+  private String updateType;
+
+  @Getter
+  @Setter
+  @Facebook("pnr_number")
+  private String pnrNumber;
+
+  @Getter
+  @Setter
+  @Facebook("passenger_info")
+  private List<PassengerInfoItem> passengerInfoItems;
+
+  @Getter
+  @Setter
+  @Facebook("flight_info")
+  private List<FlightInfoItem> flightInfoItems;
+
+  @Getter
+  @Setter
+  @Facebook("passenger_segment_info")
+  private List<PassengerSegmentInfoItem> passengerSegmentInfoItems;
+
+  @Getter
+  @Setter
+  @Facebook("price_info")
+  private List<PriceInfoItem> priceInfoItems;
+
+  @Getter
+  @Setter
+  @Facebook("base_price")
+  private Double basePrice;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Double tax;
+
+  @Getter
+  @Setter
+  @Facebook("total_price")
+  private Double totalPrice;
+
+  @Getter
+  @Setter
+  @Facebook("update_flight_info")
+  private FlightInfoItem updateFlightInfo;
+
+  @Getter
+  @Setter
+  @Facebook("checkin_url")
+  private String checkinUrl;
+
+  @Getter
+  @Setter
+  @Facebook("boarding_pass")
+  private List<BoardingPassItem> boardingPassItems;
 }

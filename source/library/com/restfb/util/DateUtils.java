@@ -21,12 +21,12 @@
  */
 package com.restfb.util;
 
-import static java.lang.String.format;
-import static java.util.logging.Level.FINER;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Logger;
+
+import static java.lang.String.format;
+import static java.util.logging.Level.FINER;
 
 /**
  * A collection of date-handling utility methods.
@@ -44,6 +44,11 @@ public final class DateUtils {
    * Facebook "long" date format (IETF RFC 3339) without a timezone component. Example: {@code 2010-02-28T16:11:08}
    */
   public static final String FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss";
+
+  /**
+   * Facebook "long" date format (IETF RFC 3339) without a timezone or seconds component. Example: {@code 2010-02-28T16:11}
+   */
+  public static final String FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE_OR_SECONDS = "yyyy-MM-dd'T'HH:mm";
 
   /**
    * Facebook short date format. Example: {@code 04/15/1984}
@@ -103,6 +108,11 @@ public final class DateUtils {
     // Fall back to variant without timezone if the initial parse fails
     if (parsedDate == null) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE);
+    }
+
+    // Fall back to variant without seconds if secondary parse fails
+    if (parsedDate == null) {
+      parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE_OR_SECONDS);
     }
 
     return parsedDate;
