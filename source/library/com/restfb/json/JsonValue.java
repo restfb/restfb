@@ -442,7 +442,7 @@ public abstract class JsonValue implements Serializable {
    */
   @Override
   public String toString() {
-    return toString(WriterConfig.MINIMAL);
+    return toString(WriterConfig.UNICODE);
   }
 
   /**

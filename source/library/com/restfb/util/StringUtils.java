@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 /**
  * A collection of string-handling utility methods.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
@@ -55,7 +55,7 @@ public final class StringUtils {
 
   /**
    * Is {@code string} blank (null or only whitespace)?
-   * 
+   *
    * @param string
    *          The string to check.
    * @return {@code true} if {@code string} is blank, {@code false} otherwise.
@@ -67,7 +67,7 @@ public final class StringUtils {
   /**
    * Returns a trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
    * version is a blank string.
-   * 
+   *
    * @param string
    *          The string to trim.
    * @return A trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
@@ -83,7 +83,7 @@ public final class StringUtils {
   /**
    * Returns a trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
    * version is a blank string.
-   * 
+   *
    * @param string
    *          The string to trim.
    * @return A trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
@@ -100,7 +100,7 @@ public final class StringUtils {
    * Converts {@code string} to a byte array.
    * <p>
    * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
-   * 
+   *
    * @param string
    *          The string to convert to a byte array.
    * @return A byte array representation of {@code string}.
@@ -123,11 +123,11 @@ public final class StringUtils {
 
   /**
    * Converts {@code data} to a string in {@value #ENCODING_CHARSET} format.
-   * 
+   *
    * @param data
    *          The data to convert to a string.
    * @return A string representation of {@code data}.
-   * 
+   *
    * @throws NullPointerException
    *           If {@code data} is {@code null}.
    * @throws IllegalStateException
@@ -148,10 +148,10 @@ public final class StringUtils {
 
   /**
    * Builds and returns a string representation of the given {@code inputStream} .
-   * 
+   *
    * @param inputStream
    *          The stream from which a string representation is built.
-   * 
+   *
    * @return A string representation of the given {@code inputStream}.
    * @throws IOException
    *           If an error occurs while processing the {@code inputStream}.
@@ -189,7 +189,7 @@ public final class StringUtils {
 
   /**
    * Joins the given {@code array} into a comma-separated string.
-   * 
+   *
    * @param array
    *          The array to join.
    * @return A comma-separated string representation of the given {@code array}.
@@ -200,7 +200,7 @@ public final class StringUtils {
 
   /**
    * Joins the given {@code list} into a comma-separated string.
-   * 
+   *
    * @param list
    *          The list to join.
    * @return A comma-separated string representation of the given {@code list}.
@@ -228,7 +228,7 @@ public final class StringUtils {
   /**
    * Returns an {@code Integer} representation of the given {@code string}, or {@code null} if it's not a valid
    * {@code Integer}.
-   * 
+   *
    * @param string
    *          The string to process.
    * @return The {@code Integer} representation of {@code string}, or {@code null} if {@code string} is {@code null} or

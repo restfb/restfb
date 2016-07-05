@@ -33,6 +33,9 @@ import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
 
+import com.restfb.types.send.IdMessageRecipient;
+import com.restfb.types.send.Message;
+import com.restfb.types.send.SendResponse;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -166,6 +169,27 @@ public class FacebookClientTest {
     assertEquals("type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json",
       requestor.getParameters());
   }
+
+  @Test
+  public void sendTextMessage() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+    try {
+      Message simpleTextMessage = new Message("That's funny \uD83D\uDE03");
+      IdMessageRecipient recipient = new IdMessageRecipient("968155906638513");
+
+      SendResponse response = fbc.publish("me/messages", SendResponse.class,
+              Parameter.with("recipient", recipient), Parameter.with("message", simpleTextMessage));
+    } catch (FacebookJsonMappingException je) {
+
+    }
+    assertEquals("https://graph.facebook.com/v2.6/me/messages", requestor.getSavedUrl());
+    assertEquals("recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json",
+            requestor.getParameters());
+  }
+
+
 
   @Test
   public void obtainDeviceAccessTokenCodeLatest() {

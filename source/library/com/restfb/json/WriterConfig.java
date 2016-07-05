@@ -39,6 +39,16 @@ public abstract class WriterConfig {
   };
 
   /**
+   * Write JSON in its minimal form, but escape almost all unicode signs; umlauts, smileys and more are escaped
+   */
+  public static WriterConfig UNICODE = new WriterConfig() {
+    @Override
+    JsonWriter createWriter(Writer writer) {
+      return new UnicodeJsonWriter(writer);
+    }
+  };
+
+  /**
    * Write JSON in pretty-print, with each value on a separate line and an indentation of two spaces.
    */
   public static WriterConfig PRETTY_PRINT = PrettyPrint.indentWithSpaces(2);
