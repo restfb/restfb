@@ -21,7 +21,7 @@
                 "title": "Legacy Attachment",
                 "url": "https:\/\/www.messenger.com\/",
                 "type": "fallback",
-                "payload": null
+                "payload": "BLOB_BLOB_BLOB"
               }
             ]
           }

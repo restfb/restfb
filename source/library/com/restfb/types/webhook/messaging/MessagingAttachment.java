@@ -45,6 +45,11 @@ public class MessagingAttachment {
 
   @Getter
   @Setter
-  @Facebook
+  @Facebook("payload")
   private MessagingPayload payload;
+
+  @Getter
+  @Setter
+  @Facebook("payload")
+  private String fallbackPayload;
 }

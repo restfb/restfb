@@ -110,8 +110,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("fallback", attachment.getType());
     assertEquals("Legacy Attachment", attachment.getTitle());
-    assertEquals(null, attachment.getPayload());
-
+    assertEquals("BLOB_BLOB_BLOB", attachment.getFallbackPayload());
   }
 
   @Test
