@@ -21,11 +21,13 @@
  */
 package com.restfb;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.restfb.exception.FacebookJsonMappingException;
 
+import org.hamcrest.core.StringContains;
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;

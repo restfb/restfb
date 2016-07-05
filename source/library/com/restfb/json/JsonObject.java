@@ -1123,7 +1123,9 @@ public class JsonObject implements Serializable {
         sb.append("\\r");
         break;
       default:
-        if (c < ' ' || (c >= '\u0080' && c < '\u00a0') || (c >= '\u2000' && c < '\u2100')) {
+        if (c < 32 || c > 0x7f) {
+        // original unicode detetion changed
+        // if (c < ' ' || (c >= '\u0080' && c < '\u00a0') || (c >= '\u2000' && c < '\u2100')) {
           t = "000" + Integer.toHexString(c);
           sb.append("\\u" + t.substring(t.length() - 4));
         } else {
