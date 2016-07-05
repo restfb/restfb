@@ -19,27 +19,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
-import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+public class FlightInfo {
+  @Facebook("connection_id")
+  private String connectionId;
 
-  @Getter
-  @Setter
-  @Facebook
-  private Long code;
+  @Facebook("segment_id")
+  private String segmentId;
 
-  @Getter
+  @Facebook("flight_number")
+  private String flightNumber;
+
   @Setter
-  @Facebook
-  private String description;
+  @Facebook("aircraft_type")
+  private String aircraftType;
+
+  @Facebook("departure_airport")
+  private FlightAirport departureAirport;
+
+  @Facebook("arrival_airport")
+  private FlightAirport arrivalAirport;
+
+  @Facebook("flight_schedule")
+  private FlightSchedule flightSchedule;
+
+  @Facebook("travel_class")
+  private String travelClass;
+
+  public FlightInfo(String connectionId, String segmentId, String flightNumber, FlightAirport departureAirport,
+      FlightAirport arrivalAirport, FlightSchedule flightSchedule, String travelClass) {
+    this.connectionId = connectionId;
+    this.segmentId = segmentId;
+    this.flightNumber = flightNumber;
+    this.departureAirport = departureAirport;
+    this.arrivalAirport = arrivalAirport;
+    this.flightSchedule = flightSchedule;
+    this.travelClass = travelClass;
+  }
 }

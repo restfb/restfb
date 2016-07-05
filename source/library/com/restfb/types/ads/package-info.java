@@ -19,27 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
-
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-
-import lombok.Getter;
-import lombok.Setter;
-
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
+ * Special types to interact with the Facebook <a href="https://developers.facebook.com/docs/marketing-apis">Marketing
+ * API</a>.
  */
-public class CustomAudienceStatus extends AbstractFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook
-  private Long code;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String description;
-}
+package com.restfb.types.ads;

@@ -33,38 +33,97 @@ import lombok.Setter;
  */
 public class ProductFeedSchedule extends AbstractFacebookType {
 
+  /**
+   * The day of month to fetch feed, for monthly schedules e.g., 1 for first of month
+   *
+   * -- GETTER --
+   * 
+   * @return The day of month to fetch feed, for monthly schedules e.g., 1 for first of month
+   */
   @Getter
   @Setter
   @Facebook("day_of_month")
   private Long mDayOfMonth;
 
+  /**
+   * The day of week to fetch feed, for weekly schedules.
+   *
+   * Allowed values: SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+   *
+   * -- GETTER --
+   * 
+   * @return The day of week to fetch feed, for weekly schedules.
+   */
   @Getter
   @Setter
   @Facebook("day_of_week")
   private String dayOfWeek;
 
+  /**
+   * Hour of the day to fetch the product feed, 0-23 PST
+   *
+   * -- GETTER --
+   * 
+   * @return Hour of the day to fetch the product feed, 0-23 PST
+   */
   @Getter
   @Setter
   @Facebook
   private Long hour;
 
+  /**
+   * The interval at which the product feed gets fetched
+   *
+   * -- GETTER --
+   * 
+   * @return The interval at which the product feed gets fetched
+   */
   @Getter
   @Setter
   @Facebook
   private String interval;
 
+  /**
+   * Minute of the hour to fetch the product feed, 0-59
+   *
+   * -- GETTER --
+   * 
+   * @return Minute of the hour to fetch the product feed, 0-59
+   */
   @Getter
   @Setter
   @Facebook
   private Long minute;
 
+  /**
+   * The location of the product feed to fetch
+   *
+   * -- GETTER --
+   * 
+   * @return The location of the product feed to fetch
+   */
   @Getter
   @Setter
   @Facebook
   private String url;
 
+  /**
+   * The username that is needed to access the url
+   *
+   * -- GETTER --
+   * 
+   * @return The username that is needed to access the url
+   */
   @Getter
   @Setter
   @Facebook
   private String username;
+
+  /**
+   * undocumented field according to GitHub issue #497
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String password;
 }

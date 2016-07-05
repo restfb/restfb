@@ -19,27 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.send.TemplatePayload;
 
-import lombok.Getter;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+public class AirlineBoardingPassTemplatePayload extends TemplatePayload {
+  @Facebook("intro_message")
+  private String introMessage;
 
-  @Getter
-  @Setter
   @Facebook
-  private Long code;
+  private String locale;
 
-  @Getter
   @Setter
-  @Facebook
-  private String description;
+  @Facebook("theme_color")
+  private String themeColor;
+
+  @Facebook("boarding_pass")
+  private List<BoardingPass> boardingPassList;
+
+  public AirlineBoardingPassTemplatePayload(String introMessage, String locale, List<BoardingPass> boardingPassList) {
+    setTemplateType("airline_boardingpass");
+    this.introMessage = introMessage;
+    this.locale = locale;
+    this.boardingPassList = boardingPassList;
+  }
+
+  public boolean addBoardingPass(BoardingPass boardingPass) {
+    if (boardingPassList == null) {
+      boardingPassList = new ArrayList<BoardingPass>();
+    }
+
+    return boardingPassList.add(boardingPass);
+  }
 }

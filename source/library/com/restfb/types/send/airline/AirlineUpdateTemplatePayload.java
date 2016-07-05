@@ -19,27 +19,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.send.TemplatePayload;
 
-import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+public class AirlineUpdateTemplatePayload extends TemplatePayload {
+  @Setter
+  @Facebook("intro_message")
+  private String introMessage;
 
-  @Getter
+  @Setter
+  @Facebook("update_type")
+  private String updateType;
+
+  @Facebook
+  private String locale;
+
   @Setter
   @Facebook
-  private Long code;
+  private String themeColor;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String description;
+  @Facebook("pnr_number")
+  private String pnrNumber;
+
+  @Facebook("update_flight_info")
+  private FlightInfo updateFlightInfo;
+
+  public AirlineUpdateTemplatePayload(String locale, String pnrNumber, FlightInfo updateFlightInfo) {
+    setTemplateType("airline_update");
+    this.locale = locale;
+    this.pnrNumber = pnrNumber;
+    this.updateFlightInfo = updateFlightInfo;
+  }
 }

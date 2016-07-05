@@ -45,6 +45,6 @@ public class MediaAttachment extends MessageAttachment {
   }
 
   public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE, LOCATION;
+    IMAGE, VIDEO, AUDIO, FILE
   }
 }

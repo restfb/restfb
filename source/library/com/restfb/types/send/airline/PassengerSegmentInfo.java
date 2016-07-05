@@ -19,27 +19,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+public class PassengerSegmentInfo {
+  @Facebook("segment_id")
+  private String segmentId;
 
-  @Getter
-  @Setter
+  @Facebook("passenger_id")
+  private String passengerId;
+
   @Facebook
-  private Long code;
+  private String seat;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String description;
+  @Facebook("seat_type")
+  private String seatType;
+
+  @Facebook("product_info")
+  private List<ProductInfo> productInfoList;
+
+  public PassengerSegmentInfo(String segmentId, String passengerId, String seat, String seatType) {
+    this.segmentId = segmentId;
+    this.passengerId = passengerId;
+    this.seat = seat;
+    this.seatType = seatType;
+  }
+
+  public boolean addProductInfo(ProductInfo productInfo) {
+    if (productInfoList == null) {
+      productInfoList = new ArrayList<ProductInfo>();
+    }
+
+    return productInfoList.add(productInfo);
+  }
 }

@@ -19,27 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
-import lombok.Getter;
+import java.util.Date;
+
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
-
-  @Getter
+public class FlightSchedule {
   @Setter
-  @Facebook
-  private Long code;
+  @Facebook("boarding_time")
+  private Date boardingTime;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String description;
+  @Facebook("departure_time")
+  private Date departureTime;
+
+  @Facebook("arrival_time")
+  private Date arrivalTime;
+
+  public FlightSchedule(Date departureTime, Date arrivalTime) {
+    this.departureTime = departureTime;
+    this.arrivalTime = arrivalTime;
+  }
 }

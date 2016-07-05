@@ -19,27 +19,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.send.TemplatePayload;
 
-import lombok.Getter;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+public class AirlineCheckinTemplatePayload extends TemplatePayload {
+  @Facebook("intro_message")
+  private String introMessage;
 
-  @Getter
-  @Setter
   @Facebook
-  private Long code;
+  private String locale;
 
-  @Getter
   @Setter
-  @Facebook
-  private String description;
+  @Facebook("theme_color")
+  private String themeColor;
+
+  @Facebook("pnr_number")
+  private String pnrNumber;
+
+  @Facebook("flight_info")
+  private List<FlightInfo> flightInfoList;
+
+  @Facebook("checkin_url")
+  private String checkinUrl;
+
+  public AirlineCheckinTemplatePayload(String introMessage, String locale, String pnrNumber, String checkinUrl) {
+    setTemplateType("airline_checkin");
+    this.introMessage = introMessage;
+    this.locale = locale;
+    this.pnrNumber = pnrNumber;
+    this.checkinUrl = checkinUrl;
+  }
+
+  public boolean addFlightInfo(FlightInfo flightInfo) {
+    if (flightInfoList == null) {
+      flightInfoList = new ArrayList<FlightInfo>();
+    }
+
+    return flightInfoList.add(flightInfo);
+  }
 }

@@ -19,27 +19,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
-import lombok.Getter;
-import lombok.Setter;
+public class LocationAttachment extends MessageAttachment {
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+    @Facebook
+    private LocationPayload payload;
 
-  @Getter
-  @Setter
-  @Facebook
-  private Long code;
+    public LocationAttachment(double lat, double longVal) {
+        setType("location");
+        payload = new LocationPayload(lat, longVal);
+    }
 
-  @Getter
-  @Setter
-  @Facebook
-  private String description;
+    private static class LocationPayload {
+
+        @Facebook
+        private Coordinates coordinates;
+
+        public LocationPayload(double lat, double longVal) {
+            coordinates = new Coordinates(lat, longVal);
+        }
+
+        private static class Coordinates {
+            @Facebook
+            private double lat;
+            @Facebook("long")
+            private double longVal;
+
+            public Coordinates(double lat, double longVal) {
+                this.lat = lat;
+                this.longVal = longVal;
+            }
+        }
+    }
 }

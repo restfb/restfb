@@ -36,5 +36,20 @@ public class MessagingAttachment {
   @Getter
   @Setter
   @Facebook
+  private String title;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String url;
+
+  @Getter
+  @Setter
+  @Facebook("payload")
   private MessagingPayload payload;
+
+  @Getter
+  @Setter
+  @Facebook("payload")
+  private String fallbackPayload;
 }

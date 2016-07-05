@@ -19,27 +19,79 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.webhook.messaging.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+public class BoardingPassItem {
+
+  @Getter
+  @Setter
+  @Facebook("passenger_name")
+  private String passengerName;
+
+  @Getter
+  @Setter
+  @Facebook("pnr_number")
+  private String pnrNumber;
+
+  @Getter
+  @Setter
+  @Facebook("travel_class")
+  private String travelClass;
 
   @Getter
   @Setter
   @Facebook
-  private Long code;
+  private String seat;
 
   @Getter
   @Setter
-  @Facebook
-  private String description;
+  @Facebook("auxiliary_fields")
+  private List<AirlineFieldItem> auxiliaryFields;
+
+  @Getter
+  @Setter
+  @Facebook("secondary_fields")
+  private List<AirlineFieldItem> secondaryFields;
+
+  @Getter
+  @Setter
+  @Facebook("logo_image_url")
+  private String logoImageUrl;
+
+  @Getter
+  @Setter
+  @Facebook("header_image_url")
+  private String headerImageUrl;
+
+  @Getter
+  @Setter
+  @Facebook("header_text_field")
+  private String headerTextField;
+
+  @Getter
+  @Setter
+  @Facebook("qr_code")
+  private String qrCode;
+
+  @Getter
+  @Setter
+  @Facebook("barcode_image_url")
+  private String barcodeImageUrl;
+
+  @Getter
+  @Setter
+  @Facebook("above_bar_code_image_url")
+  private String aboveBarCodeImageUrl;
+
+  @Getter
+  @Setter
+  @Facebook("flight_info")
+  private FlightInfoItem flightInfo;
 }

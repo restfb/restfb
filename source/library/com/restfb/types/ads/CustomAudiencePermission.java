@@ -27,25 +27,70 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-permission">Custom audience
+ * permission</a> Marketing API type
+ */
 public class CustomAudiencePermission extends AbstractFacebookType {
 
+  /**
+   * Permission to edit the audience
+   *
+   * -- GETTER --
+   *
+   * @return Permission to edit the audience
+   */
   @Getter
   @Setter
   @Facebook("can_edit")
   private Boolean canEdit;
 
+  /**
+   * Permission to see insight of the audience
+   *
+   * -- GETTER --
+   *
+   * @return Permission to see insight of the audience
+   */
   @Getter
   @Setter
   @Facebook("can_see_insight")
   private Boolean canSeeInsight;
 
+  /**
+   * Capability to share audience based on gatekeeper
+   *
+   * -- GETTER --
+   *
+   * @return Capability to share audience based on gatekeeper
+   */
   @Getter
   @Setter
   @Facebook("can_share")
   private Boolean canShare;
 
+  /**
+   * Capability to be used as seed for lookalike audience
+   *
+   * -- GETTER --
+   *
+   * @return Capability to be used as seed for lookalike audience
+   */
   @Getter
   @Setter
   @Facebook("subtype_supports_lookalike")
   private Boolean subtypeSupportsLookalike;
+
+  /**
+   * Capability to be used as seed for lookalike audience for recipient ad accounts
+   *
+   * -- GETTER --
+   *
+   * @return Capability to be used as seed for lookalike audience for recipient ad accounts
+   */
+  @Getter
+  @Setter
+  @Facebook("supports_recipient_lookalike")
+  private Boolean supportsRecipientLookalike;
 }

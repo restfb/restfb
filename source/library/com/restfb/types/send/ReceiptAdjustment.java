@@ -22,16 +22,14 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import lombok.Setter;
 
 public class ReceiptAdjustment {
+    @Setter
     @Facebook
     private String name;
 
+    @Setter
     @Facebook
     private String amount;
-
-    public ReceiptAdjustment(String name, String amount) {
-        this.name = name;
-        this.amount = amount;
-    }
 }

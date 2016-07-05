@@ -22,44 +22,45 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ElementItem {
-    @Getter
-    @Setter
-    @Facebook
-    private String title;
+  @Getter
+  @Setter
+  @Facebook
+  private String title;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String subtitle;
+  @Getter
+  @Setter
+  @Facebook
+  private String subtitle;
 
-    @Getter
-    @Setter
-    @Facebook("image_url")
-    private String imageUrl;
+  @Getter
+  @Setter
+  @Facebook("image_url")
+  private String imageUrl;
 
-    @Getter
-    @Setter
-    @Facebook
-    private List<ButtonItem> buttons;
+  @Getter
+  @Setter
+  @Facebook
+  private List<ButtonItem> buttons;
 
-    @Getter
-    @Setter
-    @Facebook
-    private int quantity;
+  @Getter
+  @Setter
+  @Facebook
+  private Integer quantity;
 
-    @Getter
-    @Setter
-    @Facebook
-    private double price;
+  @Getter
+  @Setter
+  @Facebook
+  private Double price;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String currency;
+  @Getter
+  @Setter
+  @Facebook
+  private String currency;
 }

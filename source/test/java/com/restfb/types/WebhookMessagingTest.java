@@ -27,6 +27,9 @@ import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import static org.junit.Assert.*;
 
 public class WebhookMessagingTest extends AbstractJsonMapperTests {
@@ -49,9 +52,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageAttachment() {
+  public void messagingMessageMediaAttachment() {
     WebhookObject webhookObject = createJsonMapper()
-      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-attachment"), WebhookObject.class);
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-media-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -66,6 +69,48 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("image", attachment.getType());
     assertEquals("IMAGE_URL", attachment.getPayload().getUrl());
+  }
+
+  @Test
+  public void messagingMessageLocationAttachment() {
+    WebhookObject webhookObject = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-location-attachment"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    MessageItem item = messagingItem.getMessage();
+    assertNotNull(item);
+    assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
+    assertNull(item.getText());
+    assertEquals(51L, item.getSeq().longValue());
+    assertFalse(item.getAttachments().isEmpty());
+    MessagingAttachment attachment = item.getAttachments().get(0);
+    assertEquals("location", attachment.getType());
+    assertEquals(12.34, attachment.getPayload().getCoordinates().getLat(), 0);
+    assertEquals(43.21, attachment.getPayload().getCoordinates().getLongVal(), 0);
+  }
+
+  @Test
+  public void messagingMessageLegacyFallbackAttachment() {
+    WebhookObject webhookObject = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-fallback-attachment"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    MessageItem item = messagingItem.getMessage();
+    assertNotNull(item);
+    assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
+    assertNull(item.getText());
+    assertEquals(51L, item.getSeq().longValue());
+    assertFalse(item.getAttachments().isEmpty());
+    MessagingAttachment attachment = item.getAttachments().get(0);
+    assertEquals("fallback", attachment.getType());
+    assertEquals("Legacy Attachment", attachment.getTitle());
+    assertEquals("BLOB_BLOB_BLOB", attachment.getFallbackPayload());
   }
 
   @Test
@@ -100,6 +145,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertNotNull(item);
     assertEquals("mid.1457764197618:41d102a3e1ae206a38", item.getMid());
     assertEquals("hello, world!", item.getText());
+    assertEquals("1517776481860111", item.getAppId());
+    assertEquals("DEVELOPER_DEFINED_METADATA_STRING", item.getMetadata());
     assertEquals(73L, item.getSeq().longValue());
     assertTrue(item.getAttachments().isEmpty());
   }
@@ -150,5 +197,33 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("web_url", button.getType());
     assertEquals("BUTTON_URL", button.getUrl());
     assertEquals("Visit Messenger", button.getTitle());
+  }
+
+  @Test
+  public void messagingAirlineItineraryTemplate() throws ParseException {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-airline-itinerary-template"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    MessageItem item = messagingItem.getMessage();
+    assertFalse(item.getAttachments().isEmpty());
+    MessagingAttachment attachment = item.getAttachments().get(0);
+    assertEquals("template", attachment.getType());
+    assertEquals("airline_itinerary", attachment.getPayload().getTemplateType());
+    assertEquals("Here's your flight itinerary.", attachment.getPayload().getIntroMessage());
+    assertEquals("en_US", attachment.getPayload().getLocale());
+    assertEquals("ABCDEF", attachment.getPayload().getPnrNumber());
+    assertEquals(12206, attachment.getPayload().getBasePrice(), 0);
+    assertEquals(200, attachment.getPayload().getTax(), 0);
+    assertEquals(14003, attachment.getPayload().getTotalPrice(), 0);
+    assertEquals("Farbound Smith Jr", attachment.getPayload().getPassengerInfoItems().get(0).getName());
+    assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
+    assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
+    assertEquals("2016-01-02T19:45", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime()));
+    assertEquals("12A", attachment.getPayload().getPassengerSegmentInfoItems().get(0).getSeat());
+    assertEquals("USD", attachment.getPayload().getPriceInfoItems().get(0).getCurrency());
   }
 }

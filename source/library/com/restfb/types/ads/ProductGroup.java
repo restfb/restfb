@@ -35,11 +35,25 @@ import lombok.Setter;
  */
 public class ProductGroup extends BaseAdsObject {
 
+  /**
+   * Retailer ID of the product group
+   *
+   * -- GETTER --
+   *
+   * @return Retailer ID of the product group
+   */
   @Getter
   @Setter
   @Facebook("retailer_id")
   private String retailerId;
 
+  /**
+   * The list of product variants and their options in the order they need to be displayed on the UI
+   *
+   * -- GETTER --
+   *
+   * @return The list of product variants and their options in the order they need to be displayed on the UI
+   */
   @Getter
   @Setter
   @Facebook("variants")

@@ -19,27 +19,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.webhook.messaging.airline;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
- * Audience Status</a> Marketing API type
- */
-public class CustomAudienceStatus extends AbstractFacebookType {
+public class FlightInfoItem {
+  @Getter
+  @Setter
+  @Facebook("connection_id")
+  private String connectionId;
 
   @Getter
   @Setter
-  @Facebook
-  private Long code;
+  @Facebook("segment_id")
+  private String segmentId;
 
   @Getter
   @Setter
-  @Facebook
-  private String description;
+  @Facebook("flight_number")
+  private String flightNumber;
+
+  @Getter
+  @Setter
+  @Facebook("aircraft_type")
+  private String aircraftType;
+
+  @Getter
+  @Setter
+  @Facebook("departure_airport")
+  private FlightAirportItem departureAirport;
+
+  @Getter
+  @Setter
+  @Facebook("arrival_airport")
+  private FlightAirportItem arrivalAirport;
+
+  @Getter
+  @Setter
+  @Facebook("flight_schedule")
+  private FlightScheduleItem flightSchedule;
+
+  @Getter
+  @Setter
+  @Facebook("travel_class")
+  private String travelClass;
 }
