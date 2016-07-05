@@ -175,4 +175,8 @@ public class MessagingPayload {
   @Setter
   @Facebook("boarding_pass")
   private List<BoardingPassItem> boardingPassItems;
+
+  @Getter
+  @Setter
+  private String fallback;
 }
