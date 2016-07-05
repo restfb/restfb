@@ -26,39 +26,93 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">Campaign</a>
+ * Marketing API type
+ */
 public class Campaign extends NamedAdsObject {
 
+  /**
+   * ID of the ad account that owns this campaign
+   *
+   * -- GETTER --
+   *
+   * @return ID of the ad account that owns this campaign
+   */
   @Getter
   @Setter
   @Facebook("account_id")
   private String accountId;
 
+  /**
+   * Ad Labels associated with this campaign
+   *
+   * -- GETTER --
+   *
+   * @return Ad Labels associated with this campaign
+   */
   @Getter
   @Setter
   @Facebook("adlabels")
   private List<AdLabel> adlabels;
 
+  /**
+   * Buying type, possible values are:
+   * <ul>
+   * <li>AUCTION: default</li>
+   * <li>RESERVED: for reach and frequency ads</li>
+   * </ul>
+   *
+   * -- GETTER --
+   *
+   * @return Buying type
+   */
   @Getter
   @Setter
   @Facebook("buying_type")
   private String buyingType;
 
+  /**
+   * Whether the campaign can set the spend cap
+   *
+   * -- GETTER --
+   *
+   * @return Whether the campaign can set the spend cap
+   */
   @Getter
   @Setter
   @Facebook("can_use_spend_cap")
   private Boolean canUseSpendCap;
 
+  /**
+   * If this status is PAUSED, all its active ad sets and ads will be paused and have an effective status
+   * CAMPAIGN_PAUSED. Prefer using 'status' instead of this.
+   *
+   * possible values: ACTIVE, PAUSED, DELETED, ARCHIVED
+   *
+   * -- GETTER --
+   *
+   * @return the configured status
+   */
   @Getter
   @Setter
   @Facebook("configured_status")
   private String configuredStatus;
 
+  /**
+   * Created Time
+   *
+   * -- GETTER --
+   *
+   * @return Created Time
+   */
   @Getter
   @Setter
   private Date createdTime;
@@ -66,26 +120,65 @@ public class Campaign extends NamedAdsObject {
   @Facebook("created_time")
   private String rawCreatedTime;
 
+  /**
+   * The effective status of this campaign.
+   *
+   * possible values: ACTIVE, PAUSED, DELETED, PENDING_REVIEW, DISAPPROVED, PREAPPROVED, PENDING_BILLING_INFO,
+   * CAMPAIGN_PAUSED, ARCHIVED, ADSET_PAUSED
+   *
+   * -- GETTER --
+   *
+   * @return The effective status of this campaign
+   */
   @Getter
   @Setter
   @Facebook("effective_status")
   private String effectiveStatus;
 
+  /**
+   * Campaign's objective
+   *
+   * -- GETTER --
+   *
+   * @return Campaign's objective
+   */
   @Getter
   @Setter
   @Facebook
   private String objective;
 
+  /**
+   * If there are recommendations for this campaign, this field includes them.
+   *
+   * -- GETTER --
+   *
+   * @return If there are recommendations for this campaign, this field includes them.
+   */
   @Getter
   @Setter
   @Facebook
-  private List<AdRecommendation> recommendations;
+  private List<AdRecommendation> recommendations = new ArrayList<AdRecommendation>();
 
+  /**
+   * A spend cap for the campaign, such that it will not spend more than this cap. Expressed as integer value of the
+   * subunit in your currency.
+   *
+   * -- GETTER --
+   *
+   * @return A spend cap for the campaign, such that it will not spend more than this cap.
+   */
   @Getter
   @Setter
   @Facebook("spend_cap")
   private String spendCap;
 
+  /**
+   * Start Time
+   *
+   * -- GETTER --
+   *
+   * @return Start Time
+   */
   @Getter
   @Setter
   private Date startTime;
@@ -93,11 +186,26 @@ public class Campaign extends NamedAdsObject {
   @Facebook("start_time")
   private String rawStartTime;
 
+  /**
+   * If this status is PAUSED, all its active ad sets and ads will be paused and have an effective status
+   * CAMPAIGN_PAUSED. The field returns the same value as 'configured_status', and is the suggested one to use.
+   *
+   * -- GETTER --
+   *
+   * @return the status
+   */
   @Getter
   @Setter
   @Facebook
   private String status;
 
+  /**
+   * Stop Time
+   *
+   * -- GETTER --
+   *
+   * @return Stop Time
+   */
   @Getter
   @Setter
   private Date stopTime;
@@ -105,6 +213,13 @@ public class Campaign extends NamedAdsObject {
   @Facebook("stop_time")
   private String rawStopTime;
 
+  /**
+   * Updated Time
+   *
+   * -- GETTER --
+   *
+   * @return Updated Time
+   */
   @Getter
   @Setter
   private Date updatedTime;

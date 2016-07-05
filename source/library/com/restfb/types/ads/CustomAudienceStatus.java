@@ -27,6 +27,10 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/custom-audience-status/">Custom
+ * Audience Status</a> Marketing API type
+ */
 public class CustomAudienceStatus extends AbstractFacebookType {
 
   @Getter
