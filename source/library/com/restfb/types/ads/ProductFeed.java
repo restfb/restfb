@@ -37,11 +37,25 @@ import lombok.Setter;
  */
 public class ProductFeed extends BaseAdsObject {
 
+  /**
+   * An ISO 3166-1 Alpha 2 country code
+   *
+   * -- GETTER --
+   *
+   * @return An ISO 3166-1 Alpha 2 country code
+   */
   @Getter
   @Setter
   @Facebook
   private String country;
 
+  /**
+   * Creation time of the product feed
+   *
+   * -- GETTER --
+   *
+   * @return Creation time of the product feed
+   */
   @Getter
   @Setter
   private Date createdTime;
@@ -49,46 +63,117 @@ public class ProductFeed extends BaseAdsObject {
   @Facebook("created_time")
   private String rawCreatedTime;
 
+  /**
+   * Default currency for products.
+   *
+   * If no currency is specified for items in the feed file, this value would be used
+   *
+   * -- GETTER --
+   *
+   * @return Default currency for products
+   */
   @Getter
   @Setter
   @Facebook("default_currency")
   private String defaultCurrency;
 
+  /**
+   * Allows products to be deleted if they are no longer included in a product feed
+   *
+   * -- GETTER --
+   *
+   * @return Allows products to be deleted if they are no longer included in a product feed
+   */
   @Getter
   @Setter
   @Facebook("deletion_enabled")
   private Boolean deletionEnabled;
 
+  /**
+   * The delimiter used in product feed file
+   *
+   * possible values: AUTODETECT, BAR, COMMA, TAB, TILDE, SEMICOLON
+   *
+   * -- GETTER --
+   *
+   * @return The delimiter used in product feed file
+   */
   @Getter
   @Setter
   @Facebook
   private String delimiter;
 
+  /**
+   * The character encoding used by provided feed
+   *
+   * possible values: AUTODETECT, LATIN1, UTF8, UTF16LE, UTF16BE, UTF32LE, UTF32BE
+   *
+   * -- GETTER --
+   *
+   * @return The character encoding used by provided feed
+   */
   @Getter
   @Setter
   @Facebook
   private String encoding;
 
+  /**
+   * File name of the product feed. Will be overridden by {@code name} if present
+   *
+   * -- GETTER --
+   *
+   * @return File name of the product feed. Will be overridden by {@code name} if present
+   */
   @Getter
   @Setter
   @Facebook("file_name")
   private String fileName;
 
+  /**
+   * The latest upload session of the product feed
+   *
+   * -- GETTER --
+   *
+   * @return The latest upload session of the product feed
+   */
   @Getter
   @Setter
   @Facebook("latest_upload")
   private ProductFeedUpload latestUpload;
 
+  /**
+   * The total products of this product catalog
+   *
+   * -- GETTER --
+   *
+   * @return The total products of this product catalog
+   */
   @Getter
   @Setter
   @Facebook("product_count")
   private Long productCount;
 
+  /**
+   * Allows tabs and newlines within fields
+   *
+   * possible values: AUTODETECT, ON, OFF
+   *
+   * -- GETTER --
+   *
+   * @return Allows tabs and newlines within fields
+   */
   @Getter
   @Setter
   @Facebook("quoted_fields_mode")
   private String quotedFieldsMode;
 
+  /**
+   * The configuration for fetching a feed in a recurrant manner
+   *
+   * -- GETTER --
+   *
+   * @return The configuration for fetching a feed in a recurrant manner
+   */
   @Getter
   @Setter
   @Facebook

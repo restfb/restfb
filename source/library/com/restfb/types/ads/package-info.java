@@ -19,43 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
-
-import com.restfb.Facebook;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import lombok.Getter;
-import lombok.Setter;
-
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/product-group">Product Group
- * type</a>
+ * Special types to interact with the Facebook <a href="https://developers.facebook.com/docs/marketing-apis">Marketing
+ * API</a>.
  */
-public class ProductGroup extends BaseAdsObject {
-
-  /**
-   * Retailer ID of the product group
-   *
-   * -- GETTER --
-   *
-   * @return Retailer ID of the product group
-   */
-  @Getter
-  @Setter
-  @Facebook("retailer_id")
-  private String retailerId;
-
-  /**
-   * The list of product variants and their options in the order they need to be displayed on the UI
-   *
-   * -- GETTER --
-   *
-   * @return The list of product variants and their options in the order they need to be displayed on the UI
-   */
-  @Getter
-  @Setter
-  @Facebook("variants")
-  private List<ProductVariant> variants = new ArrayList<ProductVariant>();
-}
+package com.restfb.types.ads;
