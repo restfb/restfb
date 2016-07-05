@@ -22,6 +22,7 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,8 +44,19 @@ public class MessagingAttachment {
   @Facebook
   private String url;
 
+  @Facebook("payload")
+  private String fallbackPayload;
+
   @Getter
   @Setter
   @Facebook
   private MessagingPayload payload;
+
+  @JsonMapper.JsonMappingCompleted
+  private void selectPayload() {
+    if (payload == null) {
+      payload = new MessagingPayload();
+      payload.setFallback(fallbackPayload);
+    }
+  }
 }
