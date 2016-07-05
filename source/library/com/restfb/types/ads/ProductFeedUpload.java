@@ -40,22 +40,52 @@ public class ProductFeedUpload extends BaseAdsObject {
   @Facebook("end_time")
   private String rawEndTime;
 
+  /**
+   * The time the upload was completed
+   *
+   * -- GETTER --
+   *
+   * @return The time the upload was completed
+   */
   @Getter
   @Setter
   private Date endTime;
 
+  /**
+   * The input method the product feed was obtained with
+   *
+   * possible values: Manual Upload, Server Fetch
+   *
+   * -- GETTER --
+   *
+   * @return The input method the product feed was obtained with
+   */
   @Getter
   @Setter
   @Facebook("input_method")
   private String inputMethod;
 
-  @Facebook("start_time")
-  private Date startTime;
-
+  /**
+   * The time the upload process started
+   *
+   * -- GETTER --
+   *
+   * @return The time the upload process started
+   */
   @Getter
   @Setter
+  private Date startTime;
+
+  @Facebook("start_time")
   private String rawStartTime;
 
+  /**
+   * The url to fetch the products from
+   *
+   * -- GETTER --
+   *
+   * @return The url to fetch the products from
+   */
   @Getter
   @Setter
   @Facebook("url")
