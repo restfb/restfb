@@ -41,7 +41,7 @@ public class MessagingItem {
   @Facebook
   private MessagingParticipant recipient;
 
-  @Facebook
+  @Facebook("timestamp")
   private Long rawTimestamp;
 
   @Getter
@@ -99,7 +99,7 @@ public class MessagingItem {
   @JsonMapper.JsonMappingCompleted
   private void convertDate() {
     if (rawTimestamp != null) {
-      timestamp.setTime(rawTimestamp * 1000);
+      timestamp = new Date(rawTimestamp);
     }
   }
 }
