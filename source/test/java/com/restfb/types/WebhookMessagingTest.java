@@ -208,6 +208,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertNotNull(messagingItem.getTimestamp());
+    assertEquals(1458692752478L, messagingItem.getTimestamp().getTime());
     MessageItem item = messagingItem.getMessage();
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
