@@ -67,7 +67,7 @@ public class ChangeValueFactory {
         return mapper.toJavaObject(value.toString(), changeValueEnum.getValueClass());
       } catch (IllegalArgumentException iae) {
         if (LOGGER.isLoggable(Level.WARNING)) {
-          LOGGER.warning("undefined change value detected");
+          LOGGER.warning("undefined change value detected: " + classDefinition);
           LOGGER.warning("please provide this information to the restfb team: " + value.toString());
         }
         return new FallBackChangeValue(value);
