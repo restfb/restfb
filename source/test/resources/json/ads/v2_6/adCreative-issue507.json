@@ -1,0 +1,45 @@
+{
+  "object_type": "INVALID",
+  "object_story_id": "123_234",
+  "name": "some text",
+  "thumbnail_url": "https://www.abc.com/",
+  "run_status": "ACTIVE",
+  "object_story_spec": {
+    "page_id": "123",
+    "link_data": {
+      "link": "http://www.mycompany.com/",
+      "child_attachments": [
+        {
+          "name": "Some text",
+          "call_to_action": {
+            "type": "LEARN_MORE"
+          },
+          "link": "http://www.mycompany.com/",
+          "picture": "http://pic.test.com/1"
+        },
+        {
+          "link": "http://www.mycompany.com/",
+          "call_to_action": {
+            "type": "LEARN_MORE"
+          }
+        },
+        {
+          "link": "http://www.mycompany.com/",
+          "call_to_action": {
+            "type": "LEARN_MORE"
+          }
+        }
+      ],
+      "multi_share_optimized": true,
+      "multi_share_end_card": true,
+      "call_to_action": {
+        "type": "LEARN_MORE",
+        "value": {
+          "link": "http://www.mycompany.com/"
+        }
+      },
+      "message": "Some text"
+    }
+  },
+  "id": "456"
+}

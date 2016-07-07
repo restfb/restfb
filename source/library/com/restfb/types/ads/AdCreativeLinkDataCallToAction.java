@@ -27,15 +27,35 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-creative-link-data-call-to-action/">
+ * AdCreativeLinkDataCallToAction</a> Marketing API type
+ */
 public class AdCreativeLinkDataCallToAction extends AbstractFacebookType {
 
+  /**
+   * The type of the action. Not all types can be used for all ads. Check Ads Product Guide to see which type can be
+   * used based on the objective of your campaign.
+   *
+   * -- GETTER --
+   *
+   * @return The type of the action
+   */
   @Getter
   @Setter
   @Facebook
   private String type;
 
+  /**
+   * JSON containing the call to action data.
+   *
+   * -- GETTER --
+   *
+   * @return JSON containing the call to action data.
+   */
   @Getter
   @Setter
   @Facebook
-  private Object value;
+  private AdCreativeLinkDataCallToActionValue value;
 }

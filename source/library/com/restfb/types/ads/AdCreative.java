@@ -31,7 +31,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adcreative/">AdGroup Creative type</a>.
  */
-public class AdCreative extends BaseAdsObject {
+public class AdCreative extends NamedAdsObject {
 
   @Getter
   @Setter
@@ -141,7 +141,7 @@ public class AdCreative extends BaseAdsObject {
   @Getter
   @Setter
   @Facebook("platform_customizations")
-  private Object platformCustomizations;
+  private String platformCustomizations;
 
   @Getter
   @Setter
