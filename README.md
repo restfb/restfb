@@ -4,6 +4,8 @@
 # RestFB (http://restfb.com)
 ## What it is
 
+[![Join the chat at https://gitter.im/restfb/restfb](https://badges.gitter.im/restfb/restfb.svg)](https://gitter.im/restfb/restfb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 RestFB is a pure Java Facebook Graph API and Old REST API client with no external dependencies.
 
 It was created by [Mark Allen](http://revetkn.com) and is maintained by [Norbert Bartels](http://www.phpmonkeys.de/) along with a worldwide team of contributors.
