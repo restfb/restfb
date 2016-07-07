@@ -29,6 +29,11 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/marketing-api/reference/ads-image-crops/">AdsImageCrops</a> Marketing
+ * API type
+ */
 public class AdsImageCrops {
 
   @Getter

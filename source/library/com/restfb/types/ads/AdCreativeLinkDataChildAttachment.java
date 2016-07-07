@@ -67,7 +67,7 @@ public class AdCreativeLinkDataChildAttachment extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("place_data")
-  private Object placeData;
+  private String placeData;
 
   @Getter
   @Setter
