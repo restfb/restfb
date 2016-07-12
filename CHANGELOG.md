@@ -1,3 +1,26 @@
+1.27.0 (July 12, 2016)
+
+* Issue #509: Marketing API - form leads added<br>
+* Issue #508: `creative_id` field removed from `AdCreative`<br>
+  Thanks to @hkroger for the hint
+* Issue #507: `AdCreativeLinkDataCallToAction` value cannot be deserialized<br>
+  Thanks to @hkroger for the hint
+* Issue #506: Add a Gitter chat badge to README.md
+* Issue #505: MessagingItem"` timestamp field is always null<br>
+  Thanks to @alexdlaird
+* Issue #504: Messenger fallback attachments<br>
+  Thanks to @alexdlaird for the PR
+* Issue #503: Location Attachment and Receipt Template Improvements; Airline Templates<br>
+  Thanks to @alexdlaird for the PR
+* Issue #502: Fallback Attachment Fails Parsing (String, Not Object)<br>
+  Thanks to @alexdlaird
+* Issue #500: EVEN MORE Attachment Improvements (Plus Some Message Attributes)<br>
+  Thanks to @alexdlaird
+* Issue #498: Custom Audience missing lookalike specific fields<br>
+  Thanks to @hkroger for the hint
+* Issue #497: When creating catalog, you need undocumented password field<br>
+  Thanks to @hkroger for the hint
+
 1.26.0 (June 30, 2016)
 
 * Issue #495 and #493: Messenger Attachment Improvements<br>
