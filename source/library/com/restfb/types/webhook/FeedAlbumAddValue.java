@@ -21,14 +21,31 @@
  */
 package com.restfb.types.webhook;
 
-/**
- * Basic ChangeValue
- *
- * provides a enum for the {@code Verb}
- */
-public class ChangeValue {
+import com.restfb.Facebook;
+import com.restfb.types.webhook.base.AbstractFeedPostValue;
+import lombok.Getter;
+import lombok.Setter;
 
-  public enum Verb {
-    REMOVE, ADD, EDITED, HIDE, UNHIDE;
-  }
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * change value of the feed album add
+ */
+public class FeedAlbumAddValue extends AbstractFeedPostValue {
+
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean published;
+
+  @Getter
+  @Setter
+  @Facebook("album_id")
+  private String albumId;
+
+  @Getter
+  @Setter
+  @Facebook("photo_ids")
+  private List<String> photoIds = new ArrayList<String>();
 }

@@ -1,0 +1,25 @@
+{
+  "entry": [
+    {
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "parent_id": "1234567890321_901097836652708",
+            "sender_name": "Tester",
+            "comment_id": "900728623356296_900744590021366",
+            "sender_id": 1234567890321,
+            "item": "comment",
+            "verb": "unhide",
+            "created_time": 1467894562,
+            "post_id": "1234567890321_901097836652708",
+            "message": "and the next one"
+          }
+        }
+      ],
+      "id": "1234567890321",
+      "time": 1467894562
+    }
+  ],
+  "object": "page"
+}
