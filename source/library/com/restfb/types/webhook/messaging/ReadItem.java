@@ -22,89 +22,19 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class MessagingItem {
+public class ReadItem implements InnerMessagingItem {
 
   @Getter
   @Setter
   @Facebook
-  private MessagingParticipant sender;
+  private String watermark;
 
   @Getter
   @Setter
   @Facebook
-  private MessagingParticipant recipient;
-
-  @Facebook("timestamp")
-  private Long rawTimestamp;
-
-  @Getter
-  @Setter
-  private Date timestamp;
-
-  @Getter
-  @Setter
-  @Facebook
-  private DeliveryItem delivery;
-  
-  @Getter
-  @Setter
-  @Facebook
-  private ReadItem read;
-  
-  @Getter
-  @Setter
-  @Facebook
-  private MessageItem message;
-
-  @Getter
-  @Setter
-  @Facebook
-  private PostbackItem postback;
-
-  @Getter
-  @Setter
-  @Facebook
-  private OptinItem optin;
-
-  /**
-   * generic access to the inner item.
-   * 
-   * depending on the inner elements the corresponding element is returned. So you can get an {@see OptinItem},
-   * {@see PostbackItem}, {@see DeliveryItem} or {@see MessageItem}
-   * 
-   * @return the inner item.
-   */
-  public InnerMessagingItem getItem() {
-    if (optin != null) {
-      return optin;
-    }
-
-    if (postback != null) {
-      return postback;
-    }
-
-    if (delivery != null) {
-      return delivery;
-    }
-
-    if (message != null) {
-      return message;
-    }
-
-    return null;
-  }
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertDate() {
-    if (rawTimestamp != null) {
-      timestamp = new Date(rawTimestamp);
-    }
-  }
+  private Long seq;
 }

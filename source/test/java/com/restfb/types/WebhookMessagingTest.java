@@ -48,7 +48,21 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.getMids().isEmpty());
     assertEquals("1458668856253", item.getWatermark());
     assertEquals(37L, item.getSeq().longValue());
-
+  }
+  
+  @Test
+  public void messagingRead() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-read-basic"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    ReadItem item = messagingItem.getRead();
+    assertNotNull(item);
+    assertEquals("1458668856253", item.getWatermark());
+    assertEquals(38L, item.getSeq().longValue());
   }
 
   @Test
