@@ -21,14 +21,29 @@
  */
 package com.restfb.types.webhook;
 
-/**
- * Basic ChangeValue
- *
- * provides a enum for the {@code Verb}
- */
-public class ChangeValue {
+import com.restfb.Facebook;
+import com.restfb.types.webhook.base.AbstractFeedPostValue;
+import lombok.Getter;
+import lombok.Setter;
 
-  public enum Verb {
-    REMOVE, ADD, EDITED, HIDE, UNHIDE;
-  }
+/**
+ * change value of the feed video add
+ */
+public class FeedVideoAddValue extends AbstractFeedPostValue {
+
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean published;
+
+  @Getter
+  @Setter
+  @Facebook("video_id")
+  private String videoId;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String link;
+
 }
