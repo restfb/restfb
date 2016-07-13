@@ -79,20 +79,30 @@ public class ChangeValueFactory {
   }
 
   enum ChangeValueEnumeration {
+    FEED_ALBUM_ADD(FeedAlbumAddValue.class), //
     FEED_COMMENT_ADD(FeedCommentValue.class), //
     FEED_COMMENT_EDITED(FeedCommentValue.class), //
     FEED_COMMENT_REMOVE(FeedCommentValue.class), //
+    FEED_COMMENT_HIDE(FeedCommentValue.class), //
+    FEED_COMMENT_UNHIDE(FeedCommentValue.class), //
     FEED_PHOTO_ADD(FeedPhotoAddValue.class), //
     FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //
+    FEED_PHOTO_EDITED(FeedPhotoAddValue.class), //
+    FEED_PHOTO_HIDE(FeedPhotoAddValue.class), //
+    FEED_VIDEO_ADD(FeedVideoAddValue.class), //
     FEED_STATUS_ADD(FeedStatusValue.class), //
     FEED_STATUS_EDITED(FeedStatusValue.class), //
     FEED_STATUS_HIDE(FeedStatusValue.class), //
     FEED_POST_ADD(FeedPostValue.class), //
     FEED_POST_EDITED(FeedPostValue.class), //
+    FEED_POST_HIDE(FeedPostValue.class), //
     FEED_POST_REMOVE(FeedPostValue.class), //
+    FEED_POST_UNHIDE(FeedPostValue.class), //
     FEED_SHARE_ADD(FeedShareValue.class), //
     FEED_SHARE_EDITED(FeedShareValue.class), //
+    FEED_SHARE_HIDE(FeedShareValue.class), //
     FEED_SHARE_REMOVE(FeedShareValue.class), //
+    FEED_SHARE_UNHIDE(FeedShareValue.class), //
     FEED_LIKE_ADD(FeedLikeValue.class), //
     FEED_LIKE_REMOVE(FeedLikeValue.class), //
     RATINGS_RATING_ADD(RatingsRatingValue.class), //

@@ -1,0 +1,23 @@
+{
+  "entry": [
+    {
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "photo_id": 1063068383729088,
+            "post_id": "1234567890321_900767076685784",
+            "sender_name": "Joe",
+            "sender_id": 1234567890321,
+            "item": "photo",
+            "verb": "hide",
+            "link": "https://www.example.org/test.jpg"
+          }
+        }
+      ],
+      "id": "1234567890321",
+      "time": 1467893527
+    }
+  ],
+  "object": "page"
+}
