@@ -124,4 +124,24 @@ public class VideoTest extends AbstractJsonMapperTests {
     assertEquals(231L, comments.getTotalCount().longValue());
   }
 
+  @Test
+  public void checkV2_7_feedType() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_7/video-feedtype"), Video.class);
+    assertNotNull(exampleVideo);
+    assertEquals("NOT_HIGHLIGHTED", exampleVideo.getFeedType());
+    assertEquals("/987654321/videos/977667602329064/", exampleVideo.getPermalinkUrl());
+    assertEquals("https://scontent.xx.fbcdn.net/example_picture.jpg", exampleVideo.getPicture());
+    assertEquals("https://static.xx.fbcdn.net/rsrc.php/icon.gif", exampleVideo.getIcon());
+    assertEquals(
+      "<iframe src=\"https://www.facebook.com/video/embed?video_id=977667602329064\" width=\"400\" height=\"224\" frameborder=\"0\"></iframe>",
+      exampleVideo.getEmbedHtml());
+    assertTrue(exampleVideo.getIsCrosspostingEligible());
+    assertTrue(exampleVideo.getIsInstagramEligible());
+    assertTrue(exampleVideo.getEmbeddable());
+    assertEquals(5.461D, exampleVideo.getLength().doubleValue(), 0.01);
+    assertEquals("ready", exampleVideo.getStatus().getVideoStatus());
+    assertEquals("Test Sender", exampleVideo.getFrom().getName());
+    assertEquals("987654321", exampleVideo.getFrom().getId());
+  }
+
 }

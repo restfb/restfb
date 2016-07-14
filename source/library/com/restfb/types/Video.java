@@ -171,6 +171,17 @@ public class Video extends NamedFacebookType {
   @Facebook
   private Event event;
 
+  /**
+   * Whether or not the video is highlighted in Video Channel.
+   *
+   * @RestFB.GraphApi.Since 2.7
+   * @return Whether or not the video is highlighted in Video Channel.
+   */
+  @Getter
+  @Setter
+  @Facebook("feed_type")
+  private String feedType;
+
   @Facebook
   private List<VideoFormat> format = new ArrayList<VideoFormat>();
 
@@ -255,7 +266,7 @@ public class Video extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook
-  private Integer length;
+  private Double length;
 
   /**
    * Number of unique people who watched the video broadcast when it was live.
