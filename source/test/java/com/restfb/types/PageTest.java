@@ -169,4 +169,20 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals("Damien Rice", item.getName());
   }
 
+  @Test
+  public void checkV2_7_webhook_subscribed() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_7/page-with-whsub"), Page.class);
+    assertNotNull(page);
+    assertTrue(page.getIsWebhooksSubscribed());
+    assertNotNull(page.getEngagement());
+    Page.Engagement engagement = page.getEngagement();
+    assertEquals("3", engagement.getCountString());
+    assertEquals(3L, engagement.getCount().longValue());
+    assertEquals("4", engagement.getCountStringWithLike());
+    assertEquals("3", engagement.getCountStringWithoutLike());
+    assertEquals("3 people like this.", engagement.getSocialSentence());
+    assertEquals("You and 3 others like this.", engagement.getSocialSentenceWithLike());
+    assertEquals("3 people like this.", engagement.getSocialSentenceWithoutLike());
+  }
+
 }

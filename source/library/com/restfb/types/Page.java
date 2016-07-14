@@ -1060,6 +1060,17 @@ public class Page extends CategorizedFacebookType {
   private Boolean isVerified;
 
   /**
+   * Indicates whether the application is subscribed for real time updates from this page
+   *
+   * @RestFB.GraphApi.Since 2.7
+   * @return Indicates whether the application is subscribed for real time updates from this page
+   */
+  @Getter
+  @Setter
+  @Facebook("is_webhooks_subscribed")
+  private Boolean isWebhooksSubscribed;
+
+  /**
    * The director of the film. Applicable to Films.
    * 
    * @return The director of the film
