@@ -70,6 +70,44 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedCommentHide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-comment-hide"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedCommentValue);
+    FeedCommentValue value = (FeedCommentValue) change.getValue();
+    assertFalse(value.isReply());
+    assertEquals(ChangeValue.Verb.HIDE, value.getVerb());
+    assertEquals("and the next one", value.getMessage());
+    assertEquals("1234567890321_901097836652708", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("900728623356296_900744590021366", value.getCommentId());
+    assertEquals(1467894562000L, value.getCreatedTime().getTime());
+  }
+
+  @Test
+  public void feedCommentUnhide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-comment-unhide"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedCommentValue);
+    FeedCommentValue value = (FeedCommentValue) change.getValue();
+    assertFalse(value.isReply());
+    assertEquals(ChangeValue.Verb.UNHIDE, value.getVerb());
+    assertEquals("and the next one", value.getMessage());
+    assertEquals("1234567890321_901097836652708", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("900728623356296_900744590021366", value.getCommentId());
+    assertEquals(1467894562000L, value.getCreatedTime().getTime());
+  }
+
+  @Test
   public void feedCommentRemove() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-comment-remove-25"), WebhookObject.class);
@@ -248,7 +286,21 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertTrue(photoChange.getPublished());
     assertEquals("https://www.example.org/test.jpg", photoChange.getLink());
     assertEquals("900767076685784", photoChange.getPhotoId());
+  }
 
+  @Test
+  public void feedPhotoEdited() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-photo-edited"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedPhotoAddValue);
+    FeedPhotoAddValue photoChange = (FeedPhotoAddValue) change.getValue();
+    assertTrue(photoChange.getPublished());
+    assertEquals("https://www.example.org/test.jpg", photoChange.getLink());
+    assertEquals("900767076685784", photoChange.getPhotoId());
   }
 
   @Test
@@ -420,5 +472,19 @@ public class WebhookTest extends AbstractJsonMapperTests {
     }
     assertTrue(parking);
     assertTrue(payment);
+  }
+
+  @Test
+  public void feedVideoAdd() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-video-add"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedVideoAddValue);
+    FeedVideoAddValue photoChange = (FeedVideoAddValue) change.getValue();
+    assertEquals("https://www.example.org/test.mp4", photoChange.getLink());
+    assertEquals("900767076685784", photoChange.getVideoId());
   }
 }

@@ -33,11 +33,6 @@ public class FeedVideoAddValue extends AbstractFeedPostValue {
 
   @Getter
   @Setter
-  @Facebook
-  private Boolean published;
-
-  @Getter
-  @Setter
   @Facebook("video_id")
   private String videoId;
 
