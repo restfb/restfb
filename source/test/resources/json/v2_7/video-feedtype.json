@@ -1,0 +1,19 @@
+{
+  "feed_type": "NOT_HIGHLIGHTED",
+  "permalink_url": "/987654321/videos/977667602329064/",
+  "from": {
+    "name": "Test Sender",
+    "id": "987654321"
+  },
+  "is_crossposting_eligible": true,
+  "is_instagram_eligible": true,
+  "embeddable": true,
+  "picture": "https://scontent.xx.fbcdn.net/example_picture.jpg",
+  "icon": "https://static.xx.fbcdn.net/rsrc.php/icon.gif",
+  "embed_html": "<iframe src=\"https://www.facebook.com/video/embed?video_id=977667602329064\" width=\"400\" height=\"224\" frameborder=\"0\"></iframe>",
+  "length": 5.461,
+  "status": {
+    "video_status": "ready"
+  },
+  "id": "1234567890"
+}
