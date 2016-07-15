@@ -44,7 +44,7 @@ public class LookalikeSpec extends AbstractFacebookType {
   private Boolean isFinancialService;
 
   @Facebook("origin")
-  private List<Object> origin = new ArrayList<Object>();
+  private List<Origin> origin = new ArrayList<Origin>();
 
   @Getter
   @Setter
@@ -61,16 +61,44 @@ public class LookalikeSpec extends AbstractFacebookType {
   @Facebook
   private String type;
 
-  public boolean addOrigin(Object object) {
+  public boolean addOrigin(Origin object) {
     return origin.add(object);
   }
 
-  public boolean removeOrigin(Object object) {
+  public boolean removeOrigin(Origin object) {
     return origin.remove(object);
   }
 
-  public List<Object> getOrigin() {
+  public List<Origin> getOrigin() {
     return Collections.unmodifiableList(origin);
+  }
+
+  public static class Origin extends NamedAdsObject {
+
+    /**
+     * {@code true}, returned only when the origin is deleted
+     *
+     * -- GETTER --
+     *
+     * @return {@code true}, returned only when the origin is deleted
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Boolean deleted;
+
+    /**
+     * {@code custom_audience} or {@code conversion_pixel} or {@code page} or {@code app}
+     *
+     * -- GETTER --
+     *
+     * @return {@code custom_audience} or {@code conversion_pixel} or {@code page} or {@code app}
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String type;
+
   }
 
 }
