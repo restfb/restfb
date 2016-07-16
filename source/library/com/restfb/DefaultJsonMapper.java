@@ -480,6 +480,10 @@ public class DefaultJsonMapper implements JsonMapper {
       return Json.NULL;
     }
 
+    if (object instanceof JsonValue) {
+      return (JsonValue) object;
+    }
+
     if (object instanceof List<?>) {
       JsonArray jsonArray = new JsonArray();
       for (Object o : (List<?>) object)

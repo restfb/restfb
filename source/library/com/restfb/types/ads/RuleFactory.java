@@ -21,10 +21,68 @@
  */
 package com.restfb.types.ads;
 
+import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 
+import java.util.List;
+
 public class RuleFactory {
+
+  public static JsonObject createJsonFromRule(Rule rule) {
+    if (rule == null) {
+      return null;
+    }
+
+    JsonObject result = new JsonObject();
+
+    if (rule instanceof RuleOpAnd) {
+      RuleOpAnd ruleOpAnd = (RuleOpAnd) rule;
+      List<Rule> ruleList = ruleOpAnd.getRuleList();
+      JsonArray jsonValues = new JsonArray();
+      for (Rule ruleListItem : ruleList) {
+        JsonObject obj = RuleFactory.createJsonFromRule(ruleListItem);
+        if (obj != null) {
+          jsonValues.add(obj);
+        }
+      }
+      result.add(ruleOpAnd.getType(), jsonValues);
+      return result;
+    }
+
+    if (rule instanceof RuleOpOr) {
+      RuleOpOr ruleOpOr = (RuleOpOr) rule;
+      List<Rule> ruleList = ruleOpOr.getRuleList();
+      JsonArray jsonValues = new JsonArray();
+      for (Rule ruleListItem : ruleList) {
+        JsonObject obj = RuleFactory.createJsonFromRule(ruleListItem);
+        if (obj != null) {
+          jsonValues.add(obj);
+        }
+      }
+      result.add(ruleOpOr.getType(), jsonValues);
+      return result;
+    }
+
+    if (rule instanceof RuleData) {
+      RuleData ruleData = (RuleData) rule;
+      result.add(ruleData.getType(), RuleFactory.createJsonFromRule(ruleData.getOperator()));
+      return result;
+    }
+
+    if (rule instanceof RuleOp) {
+      RuleOp ruleOp = (RuleOp) rule;
+      result.add(ruleOp.getType(), ruleOp.getValue());
+      return result;
+    }
+
+    if (result.names().isEmpty()) {
+      throw new IllegalArgumentException("unknown rule found");
+    } else {
+      return result;
+    }
+
+  }
 
   public static Rule createRuleFromJson(JsonObject ruleJson) {
 
@@ -127,6 +185,8 @@ public class RuleFactory {
     RuleOp rOp = new RuleOp(key);
     if (ruleJson.get(key).isString()) {
       rOp.setValue(ruleJson.get(key).asString());
+    } else {
+      rOp.setValue(ruleJson.get(key).toString());
     }
     return rOp;
   }

@@ -32,6 +32,7 @@ public class TargetingProductAudienceSubSpecTest extends SetterGetterTestBase {
   public void test() {
     TargetingProductAudienceSubSpec object = new TargetingProductAudienceSubSpec();
     addIgnoredField("ruleJson");
+    addIgnoredField("rule");
     testInstance(object);
   }
 }

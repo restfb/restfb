@@ -37,7 +37,6 @@ public class TargetingProductAudienceSubSpec extends AbstractFacebookType {
   private Long retentionSeconds;
 
   @Getter
-  @Setter
   private Rule rule;
 
   @Facebook("rule")
@@ -47,4 +46,10 @@ public class TargetingProductAudienceSubSpec extends AbstractFacebookType {
   void convertRule() {
     rule = RuleFactory.createRuleFromJson(ruleJson);
   }
+
+  void setRule(Rule rule) {
+    this.rule = rule;
+    ruleJson = RuleFactory.createJsonFromRule(rule);
+  }
+
 }

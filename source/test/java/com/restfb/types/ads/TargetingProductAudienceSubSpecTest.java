@@ -24,6 +24,8 @@ package com.restfb.types.ads;
 import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
+import com.restfb.json.JsonObject;
+import com.restfb.testutils.AssertJson;
 
 import org.junit.Test;
 
@@ -36,9 +38,22 @@ public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests
     assertNotNull(subSpec);
     assertEquals(1234567L, subSpec.getRetentionSeconds().longValue());
     assertTrue(subSpec.getRule() instanceof RuleData);
-    RuleData ruleData = (RuleData)subSpec.getRule();
+    RuleData ruleData = (RuleData) subSpec.getRule();
     assertEquals("url", ruleData.getType());
     assertEquals("i_contains", ruleData.getOperator().getType());
     assertEquals("shoes", ruleData.getOperator().getValue());
+  }
+
+  @Test
+  public void testReverse() {
+    JsonObject ruleJson =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example1"), JsonObject.class);
+    Rule rule = RuleFactory.createRuleFromJson(ruleJson);
+
+    TargetingProductAudienceSubSpec spec = new TargetingProductAudienceSubSpec();
+    spec.setRule(rule);
+
+    String json = createJsonMapper().toJson(spec, true);
+    AssertJson.assertEquals("{\"rule\":" + ruleJson.toString() + "}", json);
   }
 }

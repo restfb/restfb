@@ -26,6 +26,8 @@ import com.restfb.json.JsonValue;
 
 import org.junit.Assert;
 
+import static org.junit.Assert.fail;
+
 /**
  * Assertion utility for JSON as Strings. Based on junit and minimal json.
  */
@@ -65,18 +67,21 @@ public class AssertJson {
     }
 
     private static void failIfNotEquals(JsonValue expectedJson, JsonValue actualJson) {
-
-        if (actualJson.isObject() && expectedJson.isObject()) {
-            for (String key : expectedJson.asObject().names()) {
-                failIfNotEquals(expectedJson.asObject().get(key), actualJson.asObject().get(key));
+        try {
+            if (actualJson.isObject() && expectedJson.isObject()) {
+                for (String key : expectedJson.asObject().names()) {
+                    failIfNotEquals(expectedJson.asObject().get(key), actualJson.asObject().get(key));
+                }
+            } else if (actualJson.isArray() && expectedJson.isArray()) {
+                Assert.assertEquals(expectedJson.asArray().size(), actualJson.asArray().size());
+                for (int i = 0; i < actualJson.asArray().size(); i++) {
+                    failIfNotEquals(expectedJson.asArray().get(i), actualJson.asArray().get(i));
+                }
+            } else {
+                Assert.assertEquals(expectedJson, actualJson);
             }
-        } else if (actualJson.isArray() && expectedJson.isArray()) {
-            Assert.assertEquals(expectedJson.asArray().size(), actualJson.asArray().size());
-            for (int i = 0; i < actualJson.asArray().size(); i++) {
-                failIfNotEquals(expectedJson.asArray().get(i), actualJson.asArray().get(i));
-            }
-        } else {
-            Assert.assertEquals(expectedJson, actualJson);
+        } catch (NullPointerException npe) {
+            fail("Objects not equal: expected " + expectedJson + ", actual " + actualJson);
         }
     }
 }
