@@ -26,7 +26,9 @@ import static org.junit.Assert.*;
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
 
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class RuleTest extends AbstractJsonMapperTests {
 
@@ -130,6 +132,60 @@ public class RuleTest extends AbstractJsonMapperTests {
   public void checkBadJson() {
     JsonObject ruleJson = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_bad"), JsonObject.class);
     RuleFactory.createRuleFromJson(ruleJson);
+  }
+
+  @Test
+  public void example1testReverse() throws JSONException {
+    JsonObject ruleJson =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example1"), JsonObject.class);
+    Rule rule = RuleFactory.createRuleFromJson(ruleJson);
+    JsonObject ruleJsonReverse = RuleFactory.createJsonFromRule(rule);
+    JSONAssert.assertEquals(ruleJson.toString(), ruleJsonReverse.toString(), false);
+  }
+
+  @Test
+  public void example2testReverse() throws JSONException {
+    JsonObject ruleJson =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example2"), JsonObject.class);
+    Rule rule = RuleFactory.createRuleFromJson(ruleJson);
+    JsonObject ruleJsonReverse = RuleFactory.createJsonFromRule(rule);
+    JSONAssert.assertEquals(ruleJson.toString(), ruleJsonReverse.toString(), false);
+  }
+
+  @Test
+  public void example4testReverse() throws JSONException {
+    JsonObject ruleJson =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example4"), JsonObject.class);
+    Rule rule = RuleFactory.createRuleFromJson(ruleJson);
+    JsonObject ruleJsonReverse = RuleFactory.createJsonFromRule(rule);
+    JSONAssert.assertEquals(ruleJson.toString(), ruleJsonReverse.toString(), false);
+  }
+
+  @Test
+  public void example5testReverse() throws JSONException {
+    JsonObject ruleJson =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example5"), JsonObject.class);
+    Rule rule = RuleFactory.createRuleFromJson(ruleJson);
+    JsonObject ruleJsonReverse = RuleFactory.createJsonFromRule(rule);
+    JSONAssert.assertEquals(ruleJson.toString(), ruleJsonReverse.toString(), false);
+  }
+
+  @Test
+  public void example6testReverse() throws JSONException {
+    JsonObject ruleJson =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example6"), JsonObject.class);
+    Rule rule = RuleFactory.createRuleFromJson(ruleJson);
+    JsonObject ruleJsonReverse = RuleFactory.createJsonFromRule(rule);
+    JSONAssert.assertEquals(ruleJson.toString(), ruleJsonReverse.toString(), false);
+  }
+
+  @Test
+  public void example7testReverse() throws JSONException {
+    JsonObject ruleJson =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example7"), JsonObject.class);
+    Rule rule = RuleFactory.createRuleFromJson(ruleJson);
+    JsonObject ruleJsonReverse = RuleFactory.createJsonFromRule(rule);
+    JSONAssert.assertEquals(ruleJson.toString(), ruleJsonReverse.toString(), false);
   }
 
 }

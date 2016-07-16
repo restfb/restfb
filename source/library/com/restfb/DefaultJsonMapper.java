@@ -470,6 +470,10 @@ public class DefaultJsonMapper implements JsonMapper {
       return NULL;
     }
 
+    if (object instanceof JsonObject) {
+      return (JsonObject) object;
+    }
+
     if (object instanceof List<?>) {
       JsonArray jsonArray = new JsonArray();
       for (Object o : (List<?>) object)

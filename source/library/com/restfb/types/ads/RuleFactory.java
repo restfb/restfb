@@ -24,7 +24,64 @@ package com.restfb.types.ads;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 
+import java.util.List;
+
 public class RuleFactory {
+
+  public static JsonObject createJsonFromRule(Rule rule) {
+    if (rule == null) {
+      return null;
+    }
+
+    JsonObject result = new JsonObject();
+
+    if (rule instanceof RuleOpAnd) {
+      RuleOpAnd ruleOpAnd = (RuleOpAnd) rule;
+      List<Rule> ruleList = ruleOpAnd.getRuleList();
+      JsonArray jsonValues = new JsonArray();
+      for (Rule ruleListItem : ruleList) {
+        JsonObject obj = RuleFactory.createJsonFromRule(ruleListItem);
+        if (obj != null) {
+          jsonValues.put(obj);
+        }
+      }
+      result.put(ruleOpAnd.getType(), jsonValues);
+      return result;
+    }
+
+    if (rule instanceof RuleOpOr) {
+      RuleOpOr ruleOpOr = (RuleOpOr) rule;
+      List<Rule> ruleList = ruleOpOr.getRuleList();
+      JsonArray jsonValues = new JsonArray();
+      for (Rule ruleListItem : ruleList) {
+        JsonObject obj = RuleFactory.createJsonFromRule(ruleListItem);
+        if (obj != null) {
+          jsonValues.put(obj);
+        }
+      }
+      result.put(ruleOpOr.getType(), jsonValues);
+      return result;
+    }
+
+    if (rule instanceof RuleData) {
+      RuleData ruleData = (RuleData) rule;
+      result.put(ruleData.getType(), RuleFactory.createJsonFromRule(ruleData.getOperator()));
+      return result;
+    }
+
+    if (rule instanceof RuleOp) {
+      RuleOp ruleOp = (RuleOp) rule;
+      result.put(ruleOp.getType(), ruleOp.getValue());
+      return result;
+    }
+
+    if (result.length() == 0) {
+      throw new IllegalArgumentException("unknown rule found");
+    } else {
+      return result;
+    }
+
+  }
 
   public static Rule createRuleFromJson(JsonObject ruleJson) {
 
@@ -95,7 +152,7 @@ public class RuleFactory {
       RuleOpAnd rOp = new RuleOpAnd(key);
 
       for (int i = 0; i < andList.length(); i++) {
-        JsonObject item = (JsonObject) andList.get(0);
+        JsonObject item = (JsonObject) andList.get(i);
         Rule r = RuleFactory.createRuleFromJson(item);
         rOp.getRuleList().add(r);
       }
@@ -103,10 +160,11 @@ public class RuleFactory {
       return rOp;
     }
     if ("or".equals(key)) {
-      JsonArray andList = ruleJson.optJsonArray(key);
+      JsonArray orList = ruleJson.optJsonArray(key);
       RuleOpOr rOp = new RuleOpOr(key);
-      for (int i = 0; i < andList.length(); i++) {
-        JsonObject item = (JsonObject) andList.get(0);
+
+      for (int i = 0; i < orList.length(); i++) {
+        JsonObject item = (JsonObject) orList.get(i);
         Rule r = RuleFactory.createRuleFromJson(item);
         rOp.getRuleList().add(r);
       }
