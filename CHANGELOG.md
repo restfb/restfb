@@ -1,3 +1,22 @@
+1.28.0 (July 18, 2016)
+
+* Issue #513: More Webhook ChangeValue types added
+  Thanks to @gnagy for the PR
+* Issue #501: Error when sending smiley fixed
+  Thanks to @bqcuong2212 for the hint
+* Issue #496: TargetingProductAudienceSubSpec serialization
+  Thanks to @hkroger for the hint
+* Issue #518: Deserializing Lookalike Custom Audience fails
+  Thanks to @hkroger for the hint
+* Issue #511: Adding read-receipt item to web hook.
+  Thanks to @alexdlaird for the PR
+* Issue #514: Graph API 2.7 support
+* Issue #516: Graph API 2.7 - Add missing fields to Video type
+* Issue #516: Graph API 2.7 - Add missing is_webhooks_subscribed field to Page type
+* Issue #512: Append classDefinition to ChangeValueFactory log warning message
+  Thanks to @gnagy for the PR
+
+
 1.27.0 (July 12, 2016)
 
 * Issue #509: Marketing API - form leads added<br>
