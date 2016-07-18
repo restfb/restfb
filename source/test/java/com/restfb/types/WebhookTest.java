@@ -29,7 +29,25 @@ import com.restfb.types.webhook.*;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class WebhookTest extends AbstractJsonMapperTests {
+
+  @Test
+  public void feedAlbumAdd() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-album-add"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedAlbumAddValue);
+    FeedAlbumAddValue value = (FeedAlbumAddValue) change.getValue();
+    assertEquals("900767076685784", value.getAlbumId());
+    assertTrue(value.getPublished());
+    assertEquals(1467894325000L, value.getCreatedTime().getTime());
+    assertEquals(Arrays.asList("900767076685784", "900767076685785", "900767076685786"), value.getPhotoIds());
+  }
 
   @Test
   public void feedCommentAdd() {
@@ -160,6 +178,38 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedPostHide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-post-hide"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedPostValue);
+    FeedPostValue value = (FeedPostValue) change.getValue();
+    assertEquals(ChangeValue.Verb.HIDE, value.getVerb());
+    assertEquals("1234567890321_7293787835232", value.getPostId());
+    assertEquals("8423678347823", value.getSenderId());
+    assertEquals("Let's check this", value.getMessage());
+  }
+
+  @Test
+  public void feedPostUnhide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-post-unhide"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedPostValue);
+    FeedPostValue value = (FeedPostValue) change.getValue();
+    assertEquals(ChangeValue.Verb.UNHIDE, value.getVerb());
+    assertEquals("1234567890321_7293787835232", value.getPostId());
+    assertEquals("8423678347823", value.getSenderId());
+    assertEquals("Let's check this", value.getMessage());
+  }
+
+  @Test
   public void feedShareAdd() {
     WebhookObject webhookObject =
             createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-share-add-25"), WebhookObject.class);
@@ -174,6 +224,42 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321", value.getSenderId());
     assertTrue(value.getPublished().booleanValue());
     assertNotNull(value.getMessage());
+    assertEquals("http://www.google.com/", value.getLink());
+    assertEquals("98735342324352", value.getShareId());
+  }
+
+  @Test
+  public void feedShareHide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-share-hide"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedShareValue);
+    FeedShareValue value = (FeedShareValue) change.getValue();
+    assertEquals(ChangeValue.Verb.HIDE, value.getVerb());
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("Let me google that for you", value.getMessage());
+    assertEquals("http://www.google.com/", value.getLink());
+    assertEquals("98735342324352", value.getShareId());
+  }
+
+  @Test
+  public void feedShareUnhide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-share-unhide"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedShareValue);
+    FeedShareValue value = (FeedShareValue) change.getValue();
+    assertEquals(ChangeValue.Verb.UNHIDE, value.getVerb());
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("Let me google that for you", value.getMessage());
     assertEquals("http://www.google.com/", value.getLink());
     assertEquals("98735342324352", value.getShareId());
   }
@@ -301,6 +387,21 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertTrue(photoChange.getPublished());
     assertEquals("https://www.example.org/test.jpg", photoChange.getLink());
     assertEquals("900767076685784", photoChange.getPhotoId());
+  }
+
+  @Test
+  public void feedPhotoHide() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/feed-photo-hide"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertTrue(change.getValue() instanceof FeedPhotoAddValue);
+    FeedPhotoAddValue photoChange = (FeedPhotoAddValue) change.getValue();
+    assertEquals(ChangeValue.Verb.HIDE, photoChange.getVerb());
+    assertEquals("https://www.example.org/test.jpg", photoChange.getLink());
+    assertEquals("1063068383729088", photoChange.getPhotoId());
   }
 
   @Test
