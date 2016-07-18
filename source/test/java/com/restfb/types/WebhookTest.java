@@ -377,6 +377,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertNotNull("webhookObject not null", webhookObject);
     assertEquals("webhookObject.object", "page", webhookObject.getObject());
     assertFalse("webhookObject.entryList not empty", webhookObject.getEntryList().isEmpty());
+    assertEquals("page id", "1234567890321", webhookObject.getEntryList().get(0).getId());
+    assertTrue("update time", 1445000000000L < webhookObject.getEntryList().get(0).getTime().getTime());
     assertFalse("webhookObject.entryList[0].changes not empty", webhookObject.getEntryList().get(0).getChanges().isEmpty());
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
     assertEquals("change value class", change.getValue().getClass(), changeValueClass);
