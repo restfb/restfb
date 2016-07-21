@@ -22,11 +22,16 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import lombok.Setter;
 
 public class Message {
 
   @Facebook
   private String text;
+
+  @Setter
+  @Facebook
+  private String metadata;
 
   @Facebook
   private MessageAttachment attachment;
