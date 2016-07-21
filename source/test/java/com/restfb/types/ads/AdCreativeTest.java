@@ -21,9 +21,7 @@
  */
 package com.restfb.types.ads;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
 
@@ -47,7 +45,7 @@ public class AdCreativeTest extends AbstractJsonMapperTests {
 
     assertNotNull(adCreative.getObjectStorySpec());
     AdCreativeObjectStorySpec spec = adCreative.getObjectStorySpec();
-    assertEquals("123",spec.getPageId());
+    assertEquals("123", spec.getPageId());
 
     assertNotNull(spec.getLinkData());
     AdCreativeLinkData linkData = spec.getLinkData();
@@ -62,9 +60,21 @@ public class AdCreativeTest extends AbstractJsonMapperTests {
     List<AdCreativeLinkDataChildAttachment> childAttachments = linkData.getChildAttachments();
     assertEquals(3, childAttachments.size());
 
-    for (AdCreativeLinkDataChildAttachment att: childAttachments) {
+    for (AdCreativeLinkDataChildAttachment att : childAttachments) {
       assertEquals("http://www.mycompany.com/", att.getLink());
       assertEquals("LEARN_MORE", att.getCallToAction().getType());
     }
+  }
+
+  @Test
+  public void checkV2_6_issue523() {
+    AdCreative adCreative =
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/adCreative-issue523"), AdCreative.class);
+    assertNotNull(adCreative);
+    AdsImageCrops crops = adCreative.getImageCrops();
+    assertEquals(27L, crops.getThumb100x100().getLeft().longValue());
+    assertEquals(0L, crops.getThumb100x100().getTop().longValue());
+    assertEquals(655L, crops.getThumb100x100().getRight().longValue());
+    assertEquals(628L, crops.getThumb100x100().getBottom().longValue());
   }
 }
