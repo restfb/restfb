@@ -47,7 +47,7 @@ public class TargetingProductAudienceSubSpec extends AbstractFacebookType {
     rule = RuleFactory.createRuleFromJson(ruleJson);
   }
 
-  void setRule(Rule rule) {
+  public void setRule(Rule rule) {
     this.rule = rule;
     ruleJson = RuleFactory.createJsonFromRule(rule);
   }
