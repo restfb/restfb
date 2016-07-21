@@ -22,39 +22,20 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+public class QuickReply {
+    @Facebook
+    private String contentType;
 
-public class Message {
+    @Facebook
+    private String title;
 
-  @Facebook
-  private String text;
+    @Facebook
+    private String payload;
 
-  @Facebook
-  private List<QuickReply> quickReplies;
-
-  @Setter
-  @Facebook
-  private String metadata;
-
-  @Facebook
-  private MessageAttachment attachment;
-
-  public Message(String text) {
-    this.text = text;
-  }
-
-  public Message(MessageAttachment attachment) {
-    this.attachment = attachment;
-  }
-
-  public boolean addQuickReply(QuickReply quickReply) {
-    if (quickReplies == null) {
-      quickReplies = new ArrayList<QuickReply>();
+    public QuickReply(String contentType, String title, String payload) {
+        this.contentType = contentType;
+        this.title = title;
+        this.payload = payload;
     }
-
-    return quickReplies.add(quickReply);
-  }
 }

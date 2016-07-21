@@ -220,4 +220,22 @@ public class SendApiTest extends AbstractJsonMapperTests {
       "{\"attachment\":{\"payload\":{\"checkin_url\":\"http://www.google.com/checkin\",\"intro_message\":\"Intro Message\",\"template_type\":\"airline_checkin\",\"locale\":\"en_US\",\"pnr_number\":\"ABCDEF\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
+
+  @Test
+  public void messageWithQuickRepliesAndMetadata() {
+    QuickReply quickReply1 = new QuickReply("text", "title 1", "payload 1");
+    QuickReply quickReply2 = new QuickReply("text", "title 2", "payload 2");
+    Message message = new Message("message text");
+    message.setMetadata("metadata payload");
+    message.addQuickReply(quickReply1);
+    message.addQuickReply(quickReply2);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String messageJsonString = mapper.toJson(message, true);
+    System.out.println(messageJsonString);
+
+    AssertJson.assertEquals(
+      "{\"quickReplies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"contentType\":\"text\"},{\"payload\":\"payload 2\",\"title\":\"title 2\",\"contentType\":\"text\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
+      messageJsonString);
+  }
 }
