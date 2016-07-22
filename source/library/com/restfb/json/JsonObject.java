@@ -115,7 +115,7 @@ public class JsonObject implements Serializable {
   /**
    * The map where the JsonObject's properties are kept.
    */
-  private Map<Object, Object> map;
+  private Map<String, Object> map;
 
   /**
    * It is sometimes more convenient and less ambiguous to have a <code>NULL</code> object than to use Java's
@@ -128,7 +128,7 @@ public class JsonObject implements Serializable {
    * Construct an empty JsonObject.
    */
   public JsonObject() {
-    this.map = new HashMap<Object, Object>();
+    this.map = new HashMap<String, Object>();
   }
 
   /**
@@ -218,7 +218,7 @@ public class JsonObject implements Serializable {
    *          A map object that can be used to initialize the contents of the JsonObject.
    */
   public JsonObject(Map<Object, Object> map) {
-    this.map = (map == null) ? new HashMap<Object, Object>() : map;
+    this(map, false);
   }
 
   /**
@@ -232,15 +232,15 @@ public class JsonObject implements Serializable {
    *          - Tell whether to include the super class properties.
    */
   public JsonObject(Map<Object, Object> map, boolean includeSuperClass) {
-    this.map = new HashMap<Object, Object>();
+    this.map = new HashMap<String, Object>();
     if (map != null) {
       Iterator<Map.Entry<Object, Object>> i = map.entrySet().iterator();
       while (i.hasNext()) {
         Map.Entry<Object, Object> e = i.next();
         if (isStandardProperty(e.getValue().getClass())) {
-          this.map.put(e.getKey(), e.getValue());
+          this.map.put(String.valueOf(e.getKey()), e.getValue());
         } else {
-          this.map.put(e.getKey(), new JsonObject(e.getValue(), includeSuperClass));
+          this.map.put(String.valueOf(e.getKey()), new JsonObject(e.getValue(), includeSuperClass));
         }
       }
     }
@@ -671,7 +671,7 @@ public class JsonObject implements Serializable {
    * 
    * @return An iterator of the keys.
    */
-  public Iterator<?> keys() {
+  public Iterator<String> keys() {
     return this.map.keySet().iterator();
   }
 
