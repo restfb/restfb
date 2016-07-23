@@ -49,14 +49,6 @@ public class Payment extends FacebookType {
   private User user;
 
   /**
-   * The URL of the {@code og:product} object ordered
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String product;
-
-  /**
    * The quantity of the product contained in the order
    */
   @Getter
