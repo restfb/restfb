@@ -301,6 +301,9 @@ public class Targeting extends AbstractFacebookType {
   @Facebook("office_type")
   private List<IDName> officeType;
 
+  /**
+   * @RestFB.GraphApi.Until 2.7
+   */
   @Getter
   @Setter
   @Facebook("page_types")
@@ -325,6 +328,11 @@ public class Targeting extends AbstractFacebookType {
   @Setter
   @Facebook("product_audience_specs")
   private List<TargetingProductAudienceSpec> productAudienceSpecs;
+
+  @Getter
+  @Setter
+  @Facebook("publisher_platforms")
+  private List<String> publisherPlatforms;
 
   @Getter
   @Setter
