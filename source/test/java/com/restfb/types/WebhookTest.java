@@ -221,6 +221,13 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedStatusUnhide() {
+    FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-unhide", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.UNHIDE);
+    assertEquals("123456789_64352426", value.getPostId());
+    assertEquals("Tester", value.getSenderName());
+  }
+
+  @Test
   public void feedLikeAdd() {
     FeedLikeValue value = openAndCheckFeedPostBasics("feed-like-add-25", FeedLikeValue.class, ITEM_LIKE, ChangeValue.Verb.ADD);
     assertFalse(value.isPageLike());
