@@ -1,19 +1,40 @@
+1.29.0 (July 28, 2016)
+
+* Issue #391, #532 and #533: `LifeEvent` type added<br>
+  Thanks to @quangpld for the PR
+* Issue #522: TargetingProductAudienceSubSpec setRule not visible outside package<br>
+  Thanks to @hkroger for the hint
+* Issue #525: Add `Quick replies` support to `Send API`<br>
+  Thanks to @alexdlaird for the PR
+* Issue #524: Message object should contain a `metadata` field<br>
+  Thanks to @alexdlaird for the PR
+* Issue #523: `AdsImageCrops` deserialization doesn't work<br>
+  Thanks to @hkroger for the hint
+* Issue #528 and #527: Removed `product` from `com.restfb.types.Payment`<br>
+  Thanks to @fmachado for the PR
+* Issue #526: `jsonObject.keys()` as String-typed Iterator<br>
+  Thanks to @leandroutn for the hint
+* Issue #529: cleanup - Add unittests to utils package
+* Issue #531: Missing field `publisher_platforms` in Targeting class<br>
+  Thanks to @huymluu for the hint
+* Issue #530: Webhooks: add unhide for all HIDE-able elements
+
 1.28.0 (July 18, 2016)
 
-* Issue #513: More Webhook ChangeValue types added
+* Issue #513: More Webhook ChangeValue types added<br>
   Thanks to @gnagy for the PR
-* Issue #501: Error when sending smiley fixed
+* Issue #501: Error when sending smiley fixed<br>
   Thanks to @bqcuong2212 for the hint
-* Issue #496: TargetingProductAudienceSubSpec serialization
+* Issue #496: TargetingProductAudienceSubSpec serialization<br>
   Thanks to @hkroger for the hint
-* Issue #518: Deserializing Lookalike Custom Audience fails
+* Issue #518: Deserializing Lookalike Custom Audience fails<br>
   Thanks to @hkroger for the hint
-* Issue #511: Adding read-receipt item to web hook.
+* Issue #511: Adding read-receipt item to web hook.<br>
   Thanks to @alexdlaird for the PR
 * Issue #514: Graph API 2.7 support
 * Issue #516: Graph API 2.7 - Add missing fields to Video type
 * Issue #516: Graph API 2.7 - Add missing is_webhooks_subscribed field to Page type
-* Issue #512: Append classDefinition to ChangeValueFactory log warning message
+* Issue #512: Append classDefinition to ChangeValueFactory log warning message<br>
   Thanks to @gnagy for the PR
 
 
