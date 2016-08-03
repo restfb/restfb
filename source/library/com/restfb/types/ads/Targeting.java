@@ -24,6 +24,7 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -327,7 +328,7 @@ public class Targeting extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("product_audience_specs")
-  private List<TargetingProductAudienceSpec> productAudienceSpecs;
+  private List<TargetingProductAudienceSpec> productAudienceSpecs = new ArrayList<TargetingProductAudienceSpec>();
 
   @Getter
   @Setter
