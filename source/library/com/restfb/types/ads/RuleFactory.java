@@ -143,6 +143,9 @@ public class RuleFactory {
     if ("neq".equals(key)) {
       return createRuleOperator(ruleJson, key);
     }
+    if ("eq".equals(key)) {
+      return createRuleOperator(ruleJson, key);
+    }
     if ("regex_match".equals(key)) {
       return createRuleOperator(ruleJson, key);
     }

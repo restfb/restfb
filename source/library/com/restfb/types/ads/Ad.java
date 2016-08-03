@@ -119,8 +119,6 @@ public class Ad extends NamedAdsObject {
   @Facebook("status")
   private String status;
 
-  @Getter
-  @Setter
   @Facebook("tracking_specs")
   private List<ConversionActionQuery> trackingSpecs = new ArrayList<ConversionActionQuery>();
 

@@ -22,6 +22,7 @@
 package com.restfb.types.ads;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
@@ -55,5 +56,18 @@ public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests
 
     String json = createJsonMapper().toJson(spec, true);
     AssertJson.assertEquals("{\"rule\":" + ruleJson.toString() + "}", json);
+  }
+
+  @Test
+  public void testStringExample() {
+    TargetingProductAudienceSubSpec ruleJson =
+            createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_7/subspec_example"), TargetingProductAudienceSubSpec.class);
+    assertNotNull(ruleJson);
+    Rule rule = ruleJson.getRule();
+    assertNotNull(rule);
+    RuleData ruleData = (RuleData) rule;
+    assertEquals("event", ruleData.getType());
+    assertEquals("eq", ruleData.getOperator().getType());
+    assertEquals("BOUGHT", ruleData.getOperator().getValue());
   }
 }

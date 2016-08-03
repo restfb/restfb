@@ -40,4 +40,5 @@ public class TargetingTest extends AbstractJsonMapperTests {
     List<String> pubPlatforms = ruleJson.getPublisherPlatforms();
     assertEquals(2, pubPlatforms.size());
   }
+
 }

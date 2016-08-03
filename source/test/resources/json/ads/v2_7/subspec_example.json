@@ -1,0 +1,4 @@
+{
+  "retention_seconds": "604800",
+  "rule": "{\"event\":{\"eq\":\"BOUGHT\"}}"
+}
