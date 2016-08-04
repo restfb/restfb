@@ -32,7 +32,7 @@ public enum Version {
    * <tt>Graph API 1.0</tt>, available until April 30, 2015
    * 
    * @since April 21, 2010
-   * @deprecated use VERSION_2_0 instead
+   * @deprecated use {@link Version#VERSION_2_1} instead
    */
   @Deprecated VERSION_1_0("v1.0"),
 
@@ -40,8 +40,9 @@ public enum Version {
    * <tt>Graph API 2.0</tt>, available until August 7, 2016
    *
    * @since April 30, 2014
+   * @deprecated use {@link Version#VERSION_2_1} instead
    */
-  VERSION_2_0("v2.0"),
+  @Deprecated VERSION_2_0("v2.0"),
 
   /**
    * <tt>Graph API 2.1</tt>, available until October 30, 2016

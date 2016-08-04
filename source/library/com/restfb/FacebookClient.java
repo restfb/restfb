@@ -222,7 +222,9 @@ public interface FacebookClient {
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    * @since 1.6.12
+   * @deprecated With the deprecation of Graph API 2.0 (August 7, 2016) FQL is not longer supported, change this asap
    */
+  @Deprecated
   <T> List<T> executeFqlQuery(String query, Class<T> objectType, Parameter... parameters);
 
   /**
@@ -244,7 +246,9 @@ public interface FacebookClient {
    * @return An instance of type {@code objectType} which contains the requested objects' data.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @deprecated With the deprecation of Graph API 2.0 (August 7, 2016) FQL is not longer supported, change this asap
    */
+  @Deprecated
   <T> T executeFqlMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters);
 
   /**

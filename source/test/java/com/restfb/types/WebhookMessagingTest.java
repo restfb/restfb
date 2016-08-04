@@ -25,6 +25,8 @@ import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
+import com.restfb.types.webhook.messaging.airline.PassengerInfoItem;
+import com.restfb.types.webhook.messaging.airline.PassengerSegmentInfoItem;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -231,15 +233,23 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("airline_itinerary", attachment.getPayload().getTemplateType());
     assertEquals("Here's your flight itinerary.", attachment.getPayload().getIntroMessage());
     assertEquals("en_US", attachment.getPayload().getLocale());
+    assertNull(attachment.getPayload().getThemeColor());
     assertEquals("ABCDEF", attachment.getPayload().getPnrNumber());
     assertEquals(12206, attachment.getPayload().getBasePrice(), 0);
     assertEquals(200, attachment.getPayload().getTax(), 0);
     assertEquals(14003, attachment.getPayload().getTotalPrice(), 0);
-    assertEquals("Farbound Smith Jr", attachment.getPayload().getPassengerInfoItems().get(0).getName());
+
+    PassengerInfoItem passengerInfoItem = attachment.getPayload().getPassengerInfoItems().get(0);
+    assertEquals("Farbound Smith Jr", passengerInfoItem.getName());
+    assertEquals("p001",passengerInfoItem.getPassengerId());
+    assertEquals("0741234567890",passengerInfoItem.getTicketNumber());
+
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
     assertEquals("2016-01-02T19:45", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime()));
-    assertEquals("12A", attachment.getPayload().getPassengerSegmentInfoItems().get(0).getSeat());
+    PassengerSegmentInfoItem passengerSegmentInfoItem = attachment.getPayload().getPassengerSegmentInfoItems().get(0);
+    assertEquals("12A", passengerSegmentInfoItem.getSeat());
+    assertEquals("Business", passengerSegmentInfoItem.getSeatType());
     assertEquals("USD", attachment.getPayload().getPriceInfoItems().get(0).getCurrency());
   }
 }
