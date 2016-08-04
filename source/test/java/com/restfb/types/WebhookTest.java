@@ -25,7 +25,7 @@ import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.Change;
 import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.FallBackChangeValue;
-import com.restfb.types.webhook.FeedAlbumAddValue;
+import com.restfb.types.webhook.FeedAlbumValue;
 import com.restfb.types.webhook.FeedCommentValue;
 import com.restfb.types.webhook.FeedLikeValue;
 import com.restfb.types.webhook.FeedPhotoAddValue;
@@ -68,11 +68,19 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedAlbumAdd() {
-    FeedAlbumAddValue value = openAndCheckFeedPostBasics("feed-album-add", FeedAlbumAddValue.class, ITEM_ALBUM, ChangeValue.Verb.ADD);
+    FeedAlbumValue value = openAndCheckFeedPostBasics("feed-album-add", FeedAlbumValue.class, ITEM_ALBUM, ChangeValue.Verb.ADD);
     assertEquals("900767076685784", value.getAlbumId());
     assertTrue(value.getPublished());
     assertEquals(1467894325000L, value.getCreatedTime().getTime());
     assertEquals(Arrays.asList("900767076685784", "900767076685785", "900767076685786"), value.getPhotoIds());
+  }
+
+  @Test
+  public void feedAlbumEdited() {
+    FeedAlbumValue value = openAndCheckFeedPostBasics("feed-album-edited", FeedAlbumValue.class, ITEM_ALBUM, ChangeValue.Verb.EDITED);
+    assertEquals("900767076685784", value.getAlbumId());
+    assertFalse(value.getPublished());
+    assertEquals(1470322909000L, value.getCreatedTime().getTime());
   }
 
   @Test

@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * change value of the feed album add
  */
-public class FeedAlbumAddValue extends AbstractFeedPostValue {
+public class FeedAlbumValue extends AbstractFeedPostValue {
 
   @Getter
   @Setter
