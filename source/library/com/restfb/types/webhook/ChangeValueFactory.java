@@ -79,6 +79,7 @@ public class ChangeValueFactory {
 
   enum ChangeValueEnumeration {
     FEED_ALBUM_ADD(FeedAlbumAddValue.class), //
+    FEED_ALBUM_EDITED(FeedAlbumEditedValue.class), //
     FEED_COMMENT_ADD(FeedCommentValue.class), //
     FEED_COMMENT_EDITED(FeedCommentValue.class), //
     FEED_COMMENT_REMOVE(FeedCommentValue.class), //
