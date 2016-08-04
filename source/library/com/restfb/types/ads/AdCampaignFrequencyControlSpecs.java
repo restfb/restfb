@@ -24,60 +24,37 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class TargetingGeoLocation extends AbstractFacebookType {
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-frequency-control-specs/">Ad
+ * Campaign Frequency Control Specs Type</a> .
+ */
+public class AdCampaignFrequencyControlSpecs extends AbstractFacebookType {
 
+  /**
+   * Event name, only IMPRESSIONS currently.
+   */
   @Getter
   @Setter
   @Facebook
-  private List<TargetingGeoLocationCity> cities;
+  private String event;
 
+  /**
+   * Interval period in days, between 1 and 90 (inclusive)
+   */
   @Getter
   @Setter
-  @Facebook
-  private List<String> countries;
+  @Facebook("interval_days")
+  private Long intervalDays;
 
+  /**
+   * The maximum frequency, only 1 is allowed now.
+   */
   @Getter
   @Setter
-  @Facebook("country_groups")
-  private List<String> countryGroups;
-
-  @Getter
-  @Setter
-  @Facebook("custom_locations")
-  private List<TargetingGeoLocationCustomLocation> customLocations;
-
-  @Getter
-  @Setter
-  @Facebook("electoral_districts")
-  private List<TargetingGeoLocationElectoralDistrict> electoralDistricts;
-
-  @Getter
-  @Setter
-  @Facebook("geo_markets")
-  private List<TargetingGeoLocationMarket> geoMarkets;
-
-  @Getter
-  @Setter
-  @Facebook("location_types")
-  private List<String> locationTypes;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationPlace> places;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationRegion> regions;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationZip> zips;
+  @Facebook("max_frequency")
+  private Long maxFrequency;
 }

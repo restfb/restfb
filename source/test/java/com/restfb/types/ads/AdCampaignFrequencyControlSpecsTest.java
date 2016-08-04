@@ -21,63 +21,22 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.junit.Test;
 
-public class TargetingGeoLocation extends AbstractFacebookType {
+public class AdCampaignFrequencyControlSpecsTest extends AbstractJsonMapperTests {
 
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationCity> cities;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<String> countries;
-
-  @Getter
-  @Setter
-  @Facebook("country_groups")
-  private List<String> countryGroups;
-
-  @Getter
-  @Setter
-  @Facebook("custom_locations")
-  private List<TargetingGeoLocationCustomLocation> customLocations;
-
-  @Getter
-  @Setter
-  @Facebook("electoral_districts")
-  private List<TargetingGeoLocationElectoralDistrict> electoralDistricts;
-
-  @Getter
-  @Setter
-  @Facebook("geo_markets")
-  private List<TargetingGeoLocationMarket> geoMarkets;
-
-  @Getter
-  @Setter
-  @Facebook("location_types")
-  private List<String> locationTypes;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationPlace> places;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationRegion> regions;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationZip> zips;
+  @Test
+  public void check() {
+    AdCampaignFrequencyControlSpecs adCreative = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("ads/v2_7/campaignfreqcontrolspecs"), AdCampaignFrequencyControlSpecs.class);
+    assertNotNull(adCreative);
+    assertEquals("IMPRESSIONS", adCreative.getEvent());
+    assertEquals(3L, adCreative.getIntervalDays().longValue());
+    assertEquals(1L, adCreative.getMaxFrequency().longValue());
+  }
 }

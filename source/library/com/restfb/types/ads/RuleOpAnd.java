@@ -21,19 +21,19 @@
  */
 package com.restfb.types.ads;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class RuleOpAnd extends RuleOp {
 
-    @Getter
-    @Setter
-    private List<Rule> ruleList = new ArrayList<Rule>();
+  @Getter
+  @Setter
+  private List<Rule> ruleList = new ArrayList<Rule>();
 
-    public RuleOpAnd(String type) {
-        super(type);
-    }
+  public RuleOpAnd(String type) {
+    super(type);
+  }
 }

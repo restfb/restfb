@@ -24,60 +24,28 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class TargetingGeoLocation extends AbstractFacebookType {
+public class TargetingGeoLocationElectoralDistrict extends AbstractFacebookType {
 
   @Getter
   @Setter
   @Facebook
-  private List<TargetingGeoLocationCity> cities;
+  private String country;
+
+  @Getter
+  @Setter
+  @Facebook("electoral_district")
+  private String electoralDistrict;
 
   @Getter
   @Setter
   @Facebook
-  private List<String> countries;
-
-  @Getter
-  @Setter
-  @Facebook("country_groups")
-  private List<String> countryGroups;
-
-  @Getter
-  @Setter
-  @Facebook("custom_locations")
-  private List<TargetingGeoLocationCustomLocation> customLocations;
-
-  @Getter
-  @Setter
-  @Facebook("electoral_districts")
-  private List<TargetingGeoLocationElectoralDistrict> electoralDistricts;
-
-  @Getter
-  @Setter
-  @Facebook("geo_markets")
-  private List<TargetingGeoLocationMarket> geoMarkets;
-
-  @Getter
-  @Setter
-  @Facebook("location_types")
-  private List<String> locationTypes;
+  private String key;
 
   @Getter
   @Setter
   @Facebook
-  private List<TargetingGeoLocationPlace> places;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationRegion> regions;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<TargetingGeoLocationZip> zips;
+  private String name;
 }
