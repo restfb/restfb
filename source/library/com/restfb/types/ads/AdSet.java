@@ -137,7 +137,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("frequency_control_specs")
-  private List<Object> frequencyControlSpecs;
+  private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs;
 
   @Getter
   @Setter

@@ -23,7 +23,9 @@ package com.restfb.types.ads;
 
 import com.restfb.Facebook;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -82,7 +84,7 @@ public class ProductItem extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("custom_data")
-  private List<Object> customData;
+  private Map<String, String> customData = new HashMap<String, String>();
 
   @Getter
   @Setter
