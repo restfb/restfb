@@ -590,7 +590,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String endpoint = "device/login";
     // TODO: with next version we need a better solution here
-    if (apiVersion != Version.VERSION_2_6) {
+    if (!apiVersion.isNewDeviceTokenMethod()) {
       endpoint = "oauth/device";
     }
 
@@ -607,7 +607,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     // TODO: with next version we need a better solution here
     String endpoint = "device/login_status";
-    if (apiVersion != Version.VERSION_2_6) {
+    if (!apiVersion.isNewDeviceTokenMethod()) {
       endpoint = "oauth/device";
     }
 
@@ -800,12 +800,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public DebugTokenInfo debugToken(String inputToken) {
     verifyParameterPresence("inputToken", inputToken);
-
     String response = makeRequest("/debug_token", Parameter.with("input_token", inputToken));
-    JsonObject json = Json.parse(response).asObject();
-    JsonObject data = json.get("data").asObject();
 
     try {
+      JsonObject json = Json.parse(response).asObject();
+      JsonObject data = json.get("data").asObject();
       return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);
     } catch (Throwable t) {
       throw new FacebookResponseContentException("Unable to parse JSON from response.", t);

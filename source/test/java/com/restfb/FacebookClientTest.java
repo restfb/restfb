@@ -21,21 +21,23 @@
  */
 package com.restfb;
 
+import static com.restfb.util.StringUtils.fromInputStream;
 import static org.junit.Assert.*;
 
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookOAuthException;
+import com.restfb.exception.FacebookResponseContentException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
-
 import com.restfb.types.send.IdMessageRecipient;
 import com.restfb.types.send.Message;
 import com.restfb.types.send.SendResponse;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -189,8 +191,6 @@ public class FacebookClientTest {
             requestor.getParameters());
   }
 
-
-
   @Test
   public void obtainDeviceAccessTokenCodeLatest() {
     FakeWebRequestor requestor = new FakeWebRequestor();
@@ -230,6 +230,21 @@ public class FacebookClientTest {
   }
 
   @Test
+  public void fetchDeviceCodeV26() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+    try {
+      fbc.fetchDeviceCode("123456283", new ScopeBuilder());
+    } catch (FacebookJsonMappingException je) {
+
+    }
+    assertEquals("https://graph.facebook.com/v2.6/device/login", requestor.getSavedUrl());
+    assertEquals("type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json",
+            requestor.getParameters());
+  }
+
+  @Test
   public void obtainDeviceAccessTokenCodeV25() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
@@ -250,6 +265,64 @@ public class FacebookClientTest {
     assertEquals("https://graph.facebook.com/v2.5/oauth/device", requestor.getSavedUrl());
     assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
       requestor.getParameters());
+  }
+
+  @Test
+  public void obtainDeviceAccessTokenCodeV26() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+    try {
+      fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
+    } catch (IllegalArgumentException je) {
+      // exception can be ignored, the url is important
+    } catch (FacebookDeviceTokenCodeExpiredException e) {
+      // never reached
+    } catch (FacebookDeviceTokenPendingException e) {
+      // never reached
+    } catch (FacebookDeviceTokenSlowdownException e) {
+      // never reached
+    } catch (FacebookDeviceTokenDeclinedException e) {
+      // never reached
+    }
+    assertEquals("https://graph.facebook.com/v2.6/device/login_status", requestor.getSavedUrl());
+    assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
+            requestor.getParameters());
+  }
+
+  @Test
+  public void testDebugToken() throws IOException {
+    final String returnJson = fromInputStream(getClass().getResourceAsStream("/json/data-debug-token-info.json"));
+
+    FakeWebRequestor requestor = new FakeWebRequestor() {
+      @Override
+      public Response executeGet(String url) throws IOException {
+        super.executeGet(url);
+        return new Response(200, returnJson);
+      }
+    };
+
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+    FacebookClient.DebugTokenInfo debugTokenInfo = fbc.debugToken("myToken");
+    assertEquals("https://graph.facebook.com/v2.6/debug_token?input_token=myToken&access_token=accesstoken&format=json",
+      requestor.getSavedUrl());
+    assertNotNull(debugTokenInfo);
+  }
+
+  @Test(expected = FacebookResponseContentException.class)
+  public void testDebugTokenException() throws IOException {
+    FakeWebRequestor requestor = new FakeWebRequestor() {
+      @Override
+      public Response executeGet(String url) throws IOException {
+        super.executeGet(url);
+        return new Response(200, null);
+      }
+    };
+
+    FacebookClient fbc =
+            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+    fbc.debugToken("myToken");
   }
 
   @Test
