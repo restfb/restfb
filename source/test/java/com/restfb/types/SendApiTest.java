@@ -234,8 +234,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String messageJsonString = mapper.toJson(message, true);
     System.out.println(messageJsonString);
 
-    AssertJson.assertEquals(
-      "{\"quickReplies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"contentType\":\"text\"},{\"payload\":\"payload 2\",\"title\":\"title 2\",\"contentType\":\"text\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
-      messageJsonString);
+    AssertJson.assertEquals("{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"payload\":\"payload 2\",\"title\":\"title 2\",\"content_type\":\"text\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
+            messageJsonString);
   }
 }
