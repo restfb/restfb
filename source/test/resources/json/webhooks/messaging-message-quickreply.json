@@ -1,0 +1,28 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1458696618911,
+      "messaging": [
+        {
+          "sender": {
+            "id": 987654321432
+          },
+          "recipient": {
+            "id": 1234567890321
+          },
+          "timestamp": 1470779510432,
+          "message": {
+            "quick_reply": {
+              "payload": "PAYLOAD_QUICK_REPLY"
+            },
+            "mid": "mid.1458696618141:b4ef9d19ec21086067",
+            "seq": 867,
+            "text": "quick reply text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -32,7 +32,7 @@ public class Message {
   @Facebook
   private String text;
 
-  @Facebook
+  @Facebook("quick_replies")
   private List<QuickReply> quickReplies;
 
   @Setter

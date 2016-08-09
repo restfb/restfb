@@ -19,24 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send;
+package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+import lombok.Getter;
+import lombok.Setter;
 
-public class QuickReply {
+public class QuickReplyItem implements InnerMessagingItem {
 
-  @Facebook("content_type")
-  private String contentType;
-
-  @Facebook
-  private String title;
-
-  @Facebook
-  private String payload;
-
-  public QuickReply(String contentType, String title, String payload) {
-    this.contentType = contentType;
-    this.title = title;
-    this.payload = payload;
-  }
+    @Getter
+    @Setter
+    @Facebook
+    private String payload;
 }

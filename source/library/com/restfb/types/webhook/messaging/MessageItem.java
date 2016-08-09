@@ -26,6 +26,7 @@ import com.restfb.Facebook;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.restfb.types.send.QuickReply;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,6 +61,11 @@ public class MessageItem implements InnerMessagingItem {
   @Setter
   @Facebook
   private String metadata;
+
+  @Getter
+  @Setter
+  @Facebook("quick_reply")
+  private QuickReplyItem quickReply;
 
   @Getter
   @Setter
