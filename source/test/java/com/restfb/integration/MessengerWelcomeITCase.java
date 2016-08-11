@@ -30,6 +30,7 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
 import com.restfb.types.send.CallToAction;
+import com.restfb.types.send.Greeting;
 import com.restfb.types.send.Message;
 
 import org.junit.Test;
@@ -39,6 +40,20 @@ import java.util.List;
 
 public class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
 
+  @Test
+  public void setGreeting() {
+    String pageAccessToken = getTestSettings().getPageAccessToken();
+
+    FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_6);
+
+    Greeting greeting = new Greeting("Welcome and chat with the Testbot");
+
+    JsonObject response = client.publish(getTestSettings().getPageId() + "/thread_settings", JsonObject.class,
+      Parameter.with("setting_type", "greeting"), Parameter.with("greeting", greeting));
+
+    assertEquals("Successfully updated greeting", response.get("result").asString());
+  }
+  
   @Test
   public void setWelcomeMessage() {
     String pageAccessToken = getTestSettings().getPageAccessToken();
