@@ -34,6 +34,7 @@ public class AlbumTest extends SetterGetterTestBase {
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawPicture");
+    addIgnoredField("coverPhotoAsString");
     testInstance(obj);
   }
 }
