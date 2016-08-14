@@ -25,8 +25,8 @@ import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.types.send.*;
 import com.restfb.types.send.Message;
-
 import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
+
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -84,7 +84,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"VIDEO_URL\"},\"type\":\"video\"}}",
-            recipientJsonString, false);
+      recipientJsonString, false);
   }
 
   @Test
@@ -96,7 +96,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\"},\"type\":\"audio\"}}",
-            recipientJsonString, false);
+      recipientJsonString, false);
   }
 
   @Test
@@ -107,8 +107,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"coordinates\":{\"lat\":20, \"long\":30}},\"type\":\"location\"}}",
-            recipientJsonString, false);
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"coordinates\":{\"lat\":20, \"long\":30}},\"type\":\"location\"}}",
+      recipientJsonString, false);
   }
 
   @Test
@@ -184,6 +185,42 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void accountLink() throws JSONException {
+    AccountLinkButton button = new AccountLinkButton("https://www.example.com/oauth/authorize");
+    GenericTemplatePayload payload = new GenericTemplatePayload();
+    Bubble bubble = new Bubble("Link Bubble");
+    bubble.addButton(button);
+    payload.addBubble(bubble);
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message message = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String messageJsonString = mapper.toJson(message, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"account_link\",\"url\":\"https://www.example.com/oauth/authorize\"}],\"title\":\"Link Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      messageJsonString, false);
+  }
+
+  @Test
+  public void accountUnLink() throws JSONException {
+    AccountUnlinkButton button = new AccountUnlinkButton();
+    GenericTemplatePayload payload = new GenericTemplatePayload();
+    Bubble bubble = new Bubble("Link Bubble");
+    bubble.addButton(button);
+    payload.addBubble(bubble);
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message message = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String messageJsonString = mapper.toJson(message, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"account_unlink\"}],\"title\":\"Link Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      messageJsonString, false);
+  }
+
+  @Test
   public void messageTemplateGenericBubbleAttachment() throws JSONException {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
@@ -208,7 +245,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
   @Test
   public void messageTemplateAirlineAttachment() throws JSONException {
 
-    AirlineCheckinTemplatePayload payload = new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
+    AirlineCheckinTemplatePayload payload =
+        new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
 
@@ -216,8 +254,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals(
-            "{\"attachment\":{\"payload\":{\"checkin_url\":\"http://www.google.com/checkin\",\"intro_message\":\"Intro Message\",\"template_type\":\"airline_checkin\",\"locale\":\"en_US\",\"pnr_number\":\"ABCDEF\"},\"type\":\"template\"}}",
-            recipientJsonString, false);
+      "{\"attachment\":{\"payload\":{\"checkin_url\":\"http://www.google.com/checkin\",\"intro_message\":\"Intro Message\",\"template_type\":\"airline_checkin\",\"locale\":\"en_US\",\"pnr_number\":\"ABCDEF\"},\"type\":\"template\"}}",
+      recipientJsonString, false);
   }
 
   @Test
@@ -233,7 +271,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String messageJsonString = mapper.toJson(message, true);
     System.out.println(messageJsonString);
 
-    JSONAssert.assertEquals("{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"payload\":\"payload 2\",\"title\":\"title 2\",\"content_type\":\"text\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
-            messageJsonString, false);
+    JSONAssert.assertEquals(
+      "{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"payload\":\"payload 2\",\"title\":\"title 2\",\"content_type\":\"text\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
+      messageJsonString, false);
   }
 }
