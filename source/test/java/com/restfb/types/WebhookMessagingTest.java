@@ -21,16 +21,17 @@
  */
 package com.restfb.types;
 
+import static org.junit.Assert.*;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
+
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import static org.junit.Assert.*;
 
 public class WebhookMessagingTest extends AbstractJsonMapperTests {
 
@@ -49,7 +50,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("1458668856253", item.getWatermark());
     assertEquals(37L, item.getSeq().longValue());
   }
-  
+
   @Test
   public void messagingRead() {
     WebhookObject webhookObject =
@@ -88,7 +89,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   @Test
   public void messagingMessageLocationAttachment() {
     WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-location-attachment"), WebhookObject.class);
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-location-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -109,7 +110,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   @Test
   public void messagingMessageLegacyFallbackAttachment() {
     WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-fallback-attachment"), WebhookObject.class);
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-fallback-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -144,11 +145,11 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals(73L, item.getSeq().longValue());
     assertTrue(item.getAttachments().isEmpty());
   }
-  
+
   @Test
   public void messagingMessageBasicIsEcho() {
-    WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-basic-echo"), WebhookObject.class);
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-basic-echo"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -194,9 +195,40 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messagingAccountLinkingLinked() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-accountlinking-linked"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    AccountLinkingItem item = messagingItem.getAccountLinking();
+    assertNotNull(item);
+    assertTrue(item.isLinked());
+    assertEquals("linked", item.getStatus());
+    assertEquals("PASS_THROUGH_AUTHORIZATION_CODE", item.getAuthorizationCode());
+  }
+
+  @Test
+  public void messagingAccountLinkingUnlinked() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-accountlinking-unlinked"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    AccountLinkingItem item = messagingItem.getAccountLinking();
+    assertNotNull(item);
+    assertFalse(item.isLinked());
+    assertEquals("unlinked", item.getStatus());
+  }
+
+  @Test
   public void messagingButtonTemplate() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-button-template"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-button-template"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -215,8 +247,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
 
   @Test
   public void messagingAirlineItineraryTemplate() throws ParseException {
-    WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-airline-itinerary-template"), WebhookObject.class);
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-airline-itinerary-template"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -238,7 +270,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("Farbound Smith Jr", attachment.getPayload().getPassengerInfoItems().get(0).getName());
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
-    assertEquals("2016-01-02T19:45", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime()));
+    assertEquals("2016-01-02T19:45", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
+      .format(attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime()));
     assertEquals("12A", attachment.getPayload().getPassengerSegmentInfoItems().get(0).getSeat());
     assertEquals("USD", attachment.getPayload().getPriceInfoItems().get(0).getCurrency());
   }

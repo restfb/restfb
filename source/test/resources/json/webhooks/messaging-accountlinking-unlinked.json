@@ -1,0 +1,22 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": 12345654332,
+      "time": 1458668856451,
+      "messaging": [
+        {
+          "sender": {
+            "id": 987654321432
+          },
+          "recipient": {
+            "id": 12345654332
+          },
+          "account_linking": {
+            "status": "unlinked"
+          }
+        }
+      ]
+    }
+  ]
+}
