@@ -51,4 +51,23 @@ public class AlbumTest extends AbstractJsonMapperTests {
     assertEquals("wall", exampleAlbum.getType());
   }
 
+  @Test
+  public void checkV2_3_cover() {
+    Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/album-coverphoto"), Album.class);
+    assertNotNull(exampleAlbum);
+    assertNotNull(exampleAlbum.getCoverPhoto());
+    Photo coverPhoto = exampleAlbum.getCoverPhoto();
+    assertEquals("1234567890123456", coverPhoto.getId());
+  }
+
+  @Test
+  public void checkV2_4_cover() {
+    Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/album-coverphoto"), Album.class);
+    assertNotNull(exampleAlbum);
+    assertNotNull(exampleAlbum.getCoverPhoto());
+    Photo coverPhoto = exampleAlbum.getCoverPhoto();
+    assertEquals("1234567890123456", coverPhoto.getId());
+    assertEquals("A name!", coverPhoto.getName());
+  }
+
 }

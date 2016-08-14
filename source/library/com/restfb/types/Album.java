@@ -99,7 +99,10 @@ public class Album extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook("cover_photo")
-  private String coverPhoto;
+  private Photo coverPhoto;
+
+  @Facebook("cover_photo")
+  private String coverPhotoAsString;
 
   /**
    * The privacy settings for the album.
@@ -217,5 +220,13 @@ public class Album extends NamedFacebookType {
 
     String picJson = rawPicture.getJsonObject("data").toString();
     picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
+  }
+
+  @JsonMappingCompleted
+  private void fillCoverPhoto() {
+    if (coverPhoto == null && coverPhotoAsString != null) {
+      coverPhoto = new Photo();
+      coverPhoto.setId(coverPhotoAsString);
+    }
   }
 }
