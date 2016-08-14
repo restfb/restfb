@@ -184,6 +184,42 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void accountLink() {
+    AccountLinkButton button = new AccountLinkButton("https://www.example.com/oauth/authorize");
+    GenericTemplatePayload payload = new GenericTemplatePayload();
+    Bubble bubble = new Bubble("Link Bubble");
+    bubble.addButton(button);
+    payload.addBubble(bubble);
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message message = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String messageJsonString = mapper.toJson(message, true);
+
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"account_link\",\"url\":\"https://www.example.com/oauth/authorize\"}],\"title\":\"Link Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      messageJsonString);
+  }
+
+  @Test
+  public void accountUnLink() {
+    AccountUnlinkButton button = new AccountUnlinkButton();
+    GenericTemplatePayload payload = new GenericTemplatePayload();
+    Bubble bubble = new Bubble("Link Bubble");
+    bubble.addButton(button);
+    payload.addBubble(bubble);
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message message = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String messageJsonString = mapper.toJson(message, true);
+
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"account_unlink\"}],\"title\":\"Link Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      messageJsonString);
+  }
+
+  @Test
   public void messageTemplateGenericBubbleAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
