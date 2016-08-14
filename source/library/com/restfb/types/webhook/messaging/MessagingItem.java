@@ -73,11 +73,16 @@ public class MessagingItem {
   @Facebook
   private OptinItem optin;
 
+  @Getter
+  @Setter
+  @Facebook("account_linking")
+  private AccountLinkingItem accountLinking;
+
   /**
    * generic access to the inner item.
    * 
    * depending on the inner elements the corresponding element is returned. So you can get an {@see OptinItem},
-   * {@see PostbackItem}, {@see DeliveryItem} or {@see MessageItem}
+   * {@see PostbackItem}, {@see DeliveryItem}, {@see AccountLinkingItem} or {@see MessageItem}
    * 
    * @return the inner item.
    */
@@ -92,6 +97,10 @@ public class MessagingItem {
 
     if (delivery != null) {
       return delivery;
+    }
+
+    if (accountLinking != null) {
+      return accountLinking;
     }
 
     if (message != null) {
