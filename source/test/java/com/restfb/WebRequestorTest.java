@@ -21,9 +21,14 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 public class WebRequestorTest {
 
@@ -31,5 +36,44 @@ public class WebRequestorTest {
   public void enumChecker() {
     assertEquals("GET", DefaultWebRequestor.HttpMethod.GET.name());
     assertEquals("DELETE", DefaultWebRequestor.HttpMethod.DELETE.name());
+  }
+
+  @Test
+  public void testFillHeaderAndDebugInfo() {
+
+    String appUsage = "{ 'call_count': 10, 'total_time': 20, 'total_cputime': 30 }";
+    String pageUsage = "{ 'call_count': 20, 'total_time': 40, 'total_cputime': 60 }";
+
+    final Map<String, String> headerFields = new HashMap<String, String>();
+    headerFields.put("x-app-usage", appUsage);
+    headerFields.put("x-page-usage", pageUsage);
+
+    HttpURLConnection connection = new HttpURLConnection(null) {
+      @Override
+      public void disconnect() {
+      }
+
+      @Override
+      public boolean usingProxy() {
+        return false;
+      }
+
+      @Override
+      public void connect() throws IOException {
+      }
+
+      @Override
+      public String getHeaderField(String name) {
+        return headerFields.get(name);
+      }
+    };
+
+    DefaultWebRequestor defaultWebRequestor = new DefaultWebRequestor();
+    defaultWebRequestor.fillHeaderAndDebugInfo(connection);
+
+    DebugHeaderInfo debugHeaderInfo = defaultWebRequestor.getDebugHeaderInfo();
+
+    assertEquals(appUsage, debugHeaderInfo.getAppUsage());
+    assertEquals(pageUsage, debugHeaderInfo.getPageUsage());
   }
 }
