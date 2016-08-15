@@ -48,12 +48,18 @@ public class DebugHeaderInfo {
    */
   private final String appUsage;
 
-  public DebugHeaderInfo(String debug, String rev, String traceId, Version version, String appUsage) {
+  /**
+   * x-page-usage
+   */
+  private final String pageUsage;
+
+  public DebugHeaderInfo(String debug, String rev, String traceId, Version version, String appUsage, String pageUsage) {
     this.debug = debug;
     this.rev = rev;
     this.traceId = traceId;
     this.usedVersion = version;
     this.appUsage = appUsage;
+    this.pageUsage = pageUsage;
   }
 
   /**
@@ -98,4 +104,11 @@ public class DebugHeaderInfo {
    * @return the Facebook response header field x-app-usage
    */
   public String getAppUsage() { return appUsage; }
+
+  /**
+   * get Facebook response header field <code>x-page-usage</code>
+   *
+   * @return the Facebook response header field x-page-usage
+   */
+  public String getPageUsage() { return pageUsage; }
 }
