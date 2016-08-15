@@ -392,7 +392,7 @@ public class DefaultWebRequestor implements WebRequestor {
     }
   }
 
-  private void fillHeaderAndDebugInfo(HttpURLConnection httpUrlConnection) {
+  protected void fillHeaderAndDebugInfo(HttpURLConnection httpUrlConnection) {
     currentHeaders = Collections.unmodifiableMap(httpUrlConnection.getHeaderFields());
 
     String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
@@ -404,8 +404,9 @@ public class DefaultWebRequestor implements WebRequestor {
     String fbRev = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-rev"));
     String fbDebug = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-debug"));
     String fbAppUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-app-usage"));
+    String fbPageUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-page-usage"));
     Version usedVersion = Version.getVersionFromString(usedApiVersion);
-    debugHeaderInfo = new DebugHeaderInfo(fbDebug, fbRev, fbTraceId, usedVersion, fbAppUsage);
+    debugHeaderInfo = new DebugHeaderInfo(fbDebug, fbRev, fbTraceId, usedVersion, fbAppUsage, fbPageUsage);
   }
 
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
