@@ -1,3 +1,24 @@
+1.30.0 (August 15, 2016)
+
+* Issue #548 and #549: Support for `x-page-usage` header<br>
+  Thanks to @kukido for the PR
+* Issue #543: `getCoverPhoto` returns `Photo`-type now<br>
+  Thanks to @torbenw for the hint
+* Issue #546: account linking support for webhook<br>
+  Thanks to @marceloverdijk for the hint
+* Issue #547: account linking support for send API
+* Issue #542: greeting `thread_settings`<br>
+  Thanks to @uwol for the PR
+* Issue #541: quick replies not working correctly
+* Issue #539: Additional change values for webhook<br>
+  Thanks to @CrWEE for the PR
+* Issue #540: fetch device access token with Graph API 2.7 fixed
+* Issue #538: Ad types checked for usage of fields with type `object`
+* Issue #537: Integration test for likes/fan_count
+* Issue #536: Graph API 2.0 deprecated
+* Issue #535: Targeting rule deserialisation fixed<br>
+  Thanks to @hkroger for the hint
+
 1.29.0 (July 28, 2016)
 
 * Issue #391, #532 and #533: `LifeEvent` type added<br>
