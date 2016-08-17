@@ -36,24 +36,4 @@ public class CommentTest extends SetterGetterTestBase {
     testInstance(obj);
   }
 
-  @Test
-  public void testAttachment() {
-    Comment.Attachment obj = new Comment.Attachment();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testImage() {
-    Comment.Image obj = new Comment.Image();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  public void testMedia() {
-    Comment.Media obj = new Comment.Media();
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
 }
