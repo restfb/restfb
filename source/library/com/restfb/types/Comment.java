@@ -261,7 +261,7 @@ public class Comment extends FacebookType {
   private Comments comments;
 
   /**
-   * Attachment (image) added to a comment.
+   * Attachment (image, link, album, video) added to a comment.
    *
    * To force Facebook to fill the <code>attachment</code> field you have to fetch the comment with the
    * <code>fields=attachment</code> parameter, otherwise the attachments are <code>null</code>.
@@ -271,7 +271,7 @@ public class Comment extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private Attachment attachment;
+  private StoryAttachment attachment;
 
   @Facebook("message_tags")
   private String rawMessageTags;
@@ -287,7 +287,7 @@ public class Comment extends FacebookType {
 
   /**
    * Post-JSON-mapping operation that populates the {@code messageTags} field "by hand".
-   * 
+   *
    * @param jsonMapper
    *          The {@code JsonMapper} that was used to map to this type.
    */
@@ -379,74 +379,6 @@ public class Comment extends FacebookType {
     public boolean removeData(Comment comment) {
       return data.remove(comment);
     }
-  }
-
-  /**
-   * Media data as applicable for the attachment.
-   *
-   * @author <a href="http://ityx.de">Jan Schweizer</a>
-   */
-  public static class Media extends FacebookType {
-    private static final long serialVersionUID = 1L;
-
-    @Getter
-    @Setter
-    @Facebook
-    private Image image;
-  }
-
-  /**
-   * Contains the attachment data for a specific comment (like an image or such)
-   *
-   * @author <a href="http://ityx.de">Jan Schweizer</a>
-   */
-  public static class Attachment extends FacebookType {
-
-    @Getter
-    @Setter
-    @Facebook
-    private String url;
-
-    @Getter
-    @Setter
-    @Facebook
-    private String title;
-
-    @Getter
-    @Setter
-    @Facebook
-    private String description;
-
-    @Getter
-    @Setter
-    @Facebook("media")
-    private Media media;
-
-  }
-
-  /**
-   * Image data as applicable for the attachment
-   *
-   * @author <a href="http://ityx.de">Jan Schweizer</a>
-   */
-  public static class Image extends FacebookType {
-    private static final long serialVersionUID = 1L;
-
-    @Getter
-    @Setter
-    @Facebook
-    private Integer height;
-
-    @Getter
-    @Setter
-    @Facebook
-    private Integer width;
-
-    @Getter
-    @Setter
-    @Facebook
-    private String src;
-
   }
 
   /**

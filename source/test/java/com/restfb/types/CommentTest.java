@@ -24,6 +24,9 @@ package com.restfb.types;
 import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
+import com.restfb.types.StoryAttachment.Image;
+import com.restfb.types.StoryAttachment.Media;
+import com.restfb.types.StoryAttachment.Target;
 
 import org.junit.Test;
 
@@ -50,6 +53,38 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertNotNull(exampleComment.getObject());
     assertEquals("1559830900918160", exampleComment.getObject().getId());
     assertEquals("picture time", exampleComment.getObject().getName());
+  }
+
+  @Test
+  public void checkV2_2_attachment() {
+    Comment comment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_attachment"), Comment.class);
+    assertNotNull(comment.getObject());
+    assertEquals("229204807192138", comment.getFrom().getId());
+    assertEquals(null, comment.getParent());
+    assertEquals("test attachment", comment.getMessage());
+    assertEquals(0, comment.getCommentCount());
+    assertEquals(0L, comment.getLikeCount().longValue());
+    assertEquals(true, comment.getCanComment());
+    assertEquals(false, comment.getCanHide());
+    assertEquals(true, comment.getCanRemove());
+    assertEquals(true, comment.getCanLike());
+    assertEquals(false, comment.getIsHidden());
+    StoryAttachment attachment = comment.getAttachment();
+    assertEquals("https://www.facebook.com/229204807192138/photos/p.972460529533225/972460529533225/?type=3", attachment.getUrl());
+    assertEquals("photo", attachment.getType());
+    assertEquals(null, attachment.getTitle());
+    assertEquals(null, attachment.getDescription());
+    Media media = attachment.getMedia();
+    assertNotNull(media);
+    Image image = media.getImage();
+    assertNotNull(image);
+    assertEquals("https://scontent.xx.fbcdn.net/v/t1.0-9/14067576_972460529533225_2677071112954696357_n.jpg?oh=73826da052167394cd8ae9924cc2faee&oe=584DBFBA", image.getSrc());
+    assertEquals(199, image.getWidth().intValue());
+    assertEquals(60, image.getHeight().intValue());
+    Target target = attachment.getTarget();
+    assertNotNull(target);
+    assertEquals("972460529533225", target.getId());
+    assertEquals("https://www.facebook.com/229204807192138/photos/p.972460529533225/972460529533225/?type=3", target.getUrl());
   }
 
   @Test
