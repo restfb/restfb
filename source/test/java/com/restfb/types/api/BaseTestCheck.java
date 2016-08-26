@@ -43,10 +43,10 @@ public class BaseTestCheck {
       result += methodName + ",";
     }
 
-    if (methodList.size() > 0) {
-      return result.substring(0, result.length() - 1);
-    } else {
+    if (methodList.isEmpty()) {
       return result;
+    } else {
+      return result.substring(0, result.length() - 1);
     }
   }
 }

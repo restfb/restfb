@@ -47,7 +47,7 @@ public class ApiCheckTest extends BaseTestCheck {
         String[] methods = value.split(",");
         expectedMethods = new HashSet<String>(Arrays.asList(methods));
       }
-      if (expectedMethods.size() > 0) {
+      if (!expectedMethods.isEmpty()) {
         for (Iterator<String> expIterator = expectedMethods.iterator(); expIterator.hasNext();) {
           String expMethod = expIterator.next();
           assertTrue(key + " method not found " + expMethod, currentMethods.contains(expMethod));

@@ -533,7 +533,7 @@ public class DefaultJsonMapper implements JsonMapper {
     // it has is a non-null value and the other duplicate values are null, use
     // the non-null field.
     Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
-    if (facebookFieldNamesWithMultipleMappings.size() > 0 && LOGGER.isLoggable(FINE)) {
+    if (!facebookFieldNamesWithMultipleMappings.isEmpty() && LOGGER.isLoggable(FINE)) {
       LOGGER.fine(format("Unable to convert to JSON because multiple @%s annotations for the same name are present: %s",
         Facebook.class.getSimpleName(), facebookFieldNamesWithMultipleMappings));
     }

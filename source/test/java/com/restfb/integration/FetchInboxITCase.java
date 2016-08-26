@@ -21,6 +21,7 @@
  */
 package com.restfb.integration;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -44,8 +45,8 @@ public class FetchInboxITCase extends RestFbIntegrationTestBase {
     assertNotNull(connection.getData());
 
     List<com.restfb.types.Thread> threadList = connection.getData();
-    assertTrue(threadList.size() > 0);
-    assertTrue(threadList.get(0).getComments().size() > 0);
+    assertFalse(threadList.isEmpty());
+    assertFalse(threadList.get(0).getComments().isEmpty());
 
     for (com.restfb.types.Thread thread : threadList) {
       assertNotNull(thread.getId());
