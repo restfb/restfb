@@ -45,6 +45,7 @@ import com.restfb.util.StringUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.logging.Level;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -1121,7 +1122,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
-      // do nothing here
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.finer("caught ResponseErrorJsonParsingException - ignoring");
+      }
     }
   }
 
@@ -1156,7 +1159,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
-      // do nothing here
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.finer("caught ResponseErrorJsonParsingException - ignoring");
+      }
     }
   }
 

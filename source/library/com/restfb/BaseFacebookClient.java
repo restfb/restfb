@@ -34,6 +34,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -201,7 +202,9 @@ abstract class BaseFacebookClient {
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
-      // nothing to do here
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.finer("caught ResponseErrorJsonParsingException - ignoring");
+      }
     }
   }
 
@@ -239,7 +242,9 @@ abstract class BaseFacebookClient {
     try {
       errorObject = new JsonObject(json);
     } catch (JsonException e) {
-      // do nothing here
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.finer("illegal json received - returning null");
+      }
     }
 
     return errorObject;
