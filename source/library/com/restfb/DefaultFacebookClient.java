@@ -45,6 +45,7 @@ import com.restfb.util.StringUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.logging.Level;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -310,6 +311,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       }
       return success;
     } catch (ParseException jex) {
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.log(Level.FINER, "no valid JSON returned while deleting a object, using returned String instead", jex);
+      }
       cmpString = responseString;
       return "true".equals(cmpString);
     }
@@ -589,7 +593,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("scope", scope);
 
     String endpoint = "device/login";
-    // TODO: with next version we need a better solution here
     if (!apiVersion.isNewDeviceTokenMethod()) {
       endpoint = "oauth/device";
     }
@@ -605,7 +608,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("code", code);
 
-    // TODO: with next version we need a better solution here
     String endpoint = "device/login_status";
     if (!apiVersion.isNewDeviceTokenMethod()) {
       endpoint = "oauth/device";
@@ -681,6 +683,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getJsonMapper().toJavaObject(response, AccessToken.class);
     } catch (FacebookJsonMappingException fjme) {
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.log(Level.FINER, "could not map response to access token class try to fetch directly from String", fjme);
+      }
       return AccessToken.fromQueryString(response);
     }
   }
