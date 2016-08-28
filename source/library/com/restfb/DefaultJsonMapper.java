@@ -36,7 +36,6 @@ import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Post.Comments;
 import com.restfb.util.ReflectionUtils.*;
-import com.restfb.util.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

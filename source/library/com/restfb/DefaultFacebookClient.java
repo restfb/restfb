@@ -341,6 +341,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       JsonObject jObj = new JsonObject(responseString);
       cmpString = jObj.getString("success");
     } catch (JsonException jex) {
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.log(Level.FINER, "no valid JSON returned while deleting a object, using returned String instead", jex);
+      }
       cmpString = responseString;
     }
 
@@ -514,7 +517,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   @Deprecated
   public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("query", query);
+    verifyParameterPresence(QUERY_PARAM_NAME, query);
     verifyParameterPresence("objectType", objectType);
 
     for (Parameter parameter : parameters) {
@@ -533,7 +536,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public <T> List<T> executeFqlQuery(String query, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("query", query);
+    verifyParameterPresence(QUERY_PARAM_NAME, query);
     verifyParameterPresence("objectType", objectType);
 
     for (Parameter parameter : parameters) {
@@ -678,7 +681,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("scope", scope);
 
     String endpoint = "device/login";
-    // TODO: with next version we need a better solution here
     if (!apiVersion.isNewDeviceTokenMethod()) {
       endpoint = "oauth/device";
     }
@@ -694,7 +696,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("code", code);
 
-    // TODO: with next version we need a better solution here
     String endpoint = "device/login_status";
     if (!apiVersion.isNewDeviceTokenMethod()) {
       endpoint = "oauth/device";
@@ -770,6 +771,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getJsonMapper().toJavaObject(response, AccessToken.class);
     } catch (FacebookJsonMappingException fjme) {
+      if (LOGGER.isLoggable(Level.FINER)) {
+        LOGGER.log(Level.FINER, "could not map response to access token class try to fetch directly from String", fjme);
+      }
       return AccessToken.fromQueryString(response);
     }
   }
@@ -1123,7 +1127,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
       if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.finer("caught ResponseErrorJsonParsingException - ignoring");
+        LOGGER.log(Level.FINER, "caught ResponseErrorJsonParsingException - ignoring", ex);
       }
     }
   }
@@ -1160,7 +1164,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
       if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.finer("caught ResponseErrorJsonParsingException - ignoring");
+        LOGGER.log(Level.FINER, "caught ResponseErrorJsonParsingException - ignoring", ex);
       }
     }
   }
@@ -1190,6 +1194,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
      *      String, String, String, JsonObject)
      */
+    @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
         String type, String message, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type)) {

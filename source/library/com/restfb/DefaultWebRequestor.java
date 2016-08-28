@@ -312,7 +312,7 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   protected String createFormFieldName(BinaryAttachment binaryAttachment) {
     String name = binaryAttachment.getFilename();
-    int fileExtensionIndex = name.lastIndexOf(".");
+    int fileExtensionIndex = name.lastIndexOf('.');
     return fileExtensionIndex > 0 ? name.substring(0, fileExtensionIndex) : name;
   }
 
