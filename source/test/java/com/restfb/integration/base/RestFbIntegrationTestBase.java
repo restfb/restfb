@@ -43,7 +43,7 @@ abstract public class RestFbIntegrationTestBase {
       if (getClass().getAnnotation(NeedFacebookWriteAccess.class) != null) {
         Assume.assumeTrue(testSettings.writeAccessAllowed());
       }
-    } catch (Throwable ioe) {
+    } catch (Exception ioe) {
       Assume.assumeNoException(ioe);
     }
 

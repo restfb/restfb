@@ -247,7 +247,7 @@ public class DefaultWebRequestor implements WebRequestor {
     }
     try {
       closeable.close();
-    } catch (Throwable t) {
+    } catch (Exception t) {
       if (LOGGER.isLoggable(WARNING)) {
         LOGGER.log(WARNING, format("Unable to close %s: ", closeable), t);
       }
@@ -269,7 +269,7 @@ public class DefaultWebRequestor implements WebRequestor {
     }
     try {
       httpUrlConnection.disconnect();
-    } catch (Throwable t) {
+    } catch (Exception t) {
       if (LOGGER.isLoggable(WARNING)) {
         LOGGER.log(WARNING, format("Unable to disconnect %s: ", httpUrlConnection), t);
       }

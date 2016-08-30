@@ -7,7 +7,7 @@ package com.restfb.json;
  * @version 2008-09-18
  */
 public class JsonException extends RuntimeException {
-  private Throwable cause;
+  private Exception cause;
 
   private static final long serialVersionUID = 1L;
 
@@ -21,13 +21,13 @@ public class JsonException extends RuntimeException {
     super(message);
   }
 
-  public JsonException(Throwable t) {
+  public JsonException(Exception t) {
     super(t.getMessage());
     this.cause = t;
   }
 
   @Override
-  public Throwable getCause() {
+  public Exception getCause() {
     return this.cause;
   }
 }

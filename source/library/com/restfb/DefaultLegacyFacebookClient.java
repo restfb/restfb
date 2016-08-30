@@ -313,7 +313,7 @@ public class DefaultLegacyFacebookClient extends BaseFacebookClient implements L
     // Perform a POST to the API endpoint
     try {
       response = webRequestor.executePost(createEndpointForApiCall(method, false), parametersAsString);
-    } catch (Throwable t) {
+    } catch (Exception t) {
       throw new FacebookNetworkException("Facebook POST failed", t);
     }
 
