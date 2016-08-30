@@ -27,6 +27,7 @@ import static java.util.logging.Level.WARNING;
 
 import java.io.*;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -177,10 +178,10 @@ public final class StringUtils {
       if (reader != null) {
         try {
           reader.close();
-        } catch (Throwable t) {
+        } catch (Exception t) {
           // Really nothing we can do but log the error
           if (LOGGER.isLoggable(WARNING)) {
-            LOGGER.warning("Unable to close stream, continuing on: " + t);
+            LOGGER.log(Level.WARNING, "Unable to close stream, continuing on: ", t);
           }
         }
       }

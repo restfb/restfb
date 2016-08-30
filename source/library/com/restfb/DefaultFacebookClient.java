@@ -582,7 +582,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     try {
       return getAccessTokenFromResponse(response);
-    } catch (Throwable t) {
+    } catch (Exception t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
     }
   }
@@ -640,7 +640,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     try {
       return getAccessTokenFromResponse(response);
-    } catch (Throwable t) {
+    } catch (Exception t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
     }
   }
@@ -674,7 +674,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     try {
       return getAccessTokenFromResponse(response);
-    } catch (Throwable t) {
+    } catch (Exception t) {
       throw new FacebookResponseContentException("Unable to extract access token from response.", t);
     }
   }
@@ -811,7 +811,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       JsonObject json = Json.parse(response).asObject();
       JsonObject data = json.get("data").asObject();
       return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);
-    } catch (Throwable t) {
+    } catch (Exception t) {
       throw new FacebookResponseContentException("Unable to parse JSON from response.", t);
     }
   }
@@ -954,7 +954,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // Perform a GET or POST to the API endpoint
     try {
       response = requestor.makeRequest();
-    } catch (Throwable t) {
+    } catch (Exception t) {
       throw new FacebookNetworkException("Facebook request failed", t);
     }
 
