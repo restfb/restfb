@@ -23,7 +23,6 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 
-import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
@@ -36,7 +35,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Norbert Bartels</a>
  * @since 1.5
  */
-public class Subscription implements Serializable {
+public class Subscription extends AbstractFacebookType {
 
   /**
    * Indicates the object type that this subscription applies to.

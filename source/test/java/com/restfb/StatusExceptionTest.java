@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import com.restfb.exception.FacebookGraphException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;

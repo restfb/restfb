@@ -29,9 +29,7 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
 import com.restfb.types.ads.Business;
 import com.restfb.util.DateUtils;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -1211,7 +1209,7 @@ public class Page extends CategorizedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
    */
-  public static class Cover implements Serializable {
+  public static class Cover extends AbstractFacebookType {
 
     /**
      * The ID of the photo.
@@ -1245,33 +1243,9 @@ public class Page extends CategorizedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
   }
 
-  public static class MailingAddress implements Serializable {
+  public static class MailingAddress extends AbstractFacebookType {
 
     /**
      * The mailing address ID.
@@ -1346,7 +1320,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class Engagement implements Serializable {
+  public static class Engagement extends AbstractFacebookType {
 
     /**
      * Number of people who like this.
@@ -1425,7 +1399,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class VoipInfo implements Serializable {
+  public static class VoipInfo extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1469,7 +1443,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class PageStartInfo implements Serializable {
+  public static class PageStartInfo extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1482,7 +1456,7 @@ public class Page extends CategorizedFacebookType {
     private PageStartDate date;
   }
 
-  public static class PageStartDate implements Serializable {
+  public static class PageStartDate extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1506,7 +1480,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class PagePaymentOptions implements Serializable {
+  public static class PagePaymentOptions extends AbstractFacebookType {
 
     /**
      * Whether the business accepts American Express as a payment option.
@@ -1555,7 +1529,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class PageRestaurantServices implements Serializable {
+  public static class PageRestaurantServices extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1609,7 +1583,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class PageRestaurantSpecialties implements Serializable {
+  public static class PageRestaurantSpecialties extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1643,7 +1617,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class Settings implements Serializable {
+  public static class Settings extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1654,30 +1628,6 @@ public class Page extends CategorizedFacebookType {
     @Setter
     @Facebook
     private String value;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
 
     /**
      * convert the value field in a boolean and return it.

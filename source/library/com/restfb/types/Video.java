@@ -27,7 +27,6 @@ import static java.util.Collections.unmodifiableList;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -507,7 +506,7 @@ public class Video extends NamedFacebookType {
    * 
    * @since 1.10.0
    */
-  public static class Thumbnail implements Serializable {
+  public static class Thumbnail extends AbstractFacebookType {
 
     /**
      * The name of the thumbnail
@@ -562,7 +561,7 @@ public class Video extends NamedFacebookType {
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-format/">Video Format Graph
    * API type</a>.
    */
-  public static class VideoFormat implements Serializable {
+  public static class VideoFormat extends AbstractFacebookType {
 
     /**
      * HTML to embed the video in this format.
@@ -619,7 +618,7 @@ public class Video extends NamedFacebookType {
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-status/">Video Status Graph
    * API type</a>.
    */
-  public static class VideoStatus implements Serializable {
+  public static class VideoStatus extends AbstractFacebookType {
 
     /**
      * Status of a video.

@@ -28,9 +28,7 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -221,29 +219,6 @@ public class Message extends FacebookType {
       return null != videoData;
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   /**
@@ -383,7 +358,7 @@ public class Message extends FacebookType {
     private int rotation;
   }
 
-  public static abstract class AttachmentData implements Serializable {
+  public static abstract class AttachmentData extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
@@ -427,29 +402,6 @@ public class Message extends FacebookType {
     @Facebook("preview_url")
     private String previewUrl;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   @JsonMappingCompleted

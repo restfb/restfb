@@ -21,14 +21,14 @@
  */
 package com.restfb;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
 
 public class WebRequestorTest {
 

@@ -27,7 +27,6 @@ import static java.util.Collections.unmodifiableList;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -125,7 +124,7 @@ public class StatusMessage extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
    */
-  private static class EmptyLikes implements Serializable {
+  private static class EmptyLikes extends AbstractFacebookType {
     @Facebook
     private Long count;
 
@@ -139,7 +138,7 @@ public class StatusMessage extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.8
    */
-  private static class EmptyComments implements Serializable {
+  private static class EmptyComments extends AbstractFacebookType {
     @Facebook
     private Long count;
 

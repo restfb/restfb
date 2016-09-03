@@ -30,7 +30,7 @@ import lombok.Getter;
  * To get more information for example about the request parameter you should look
  * <a href="https://developers.facebook.com/docs/graph-api/video-uploads#transfer">here</a>
  */
-public class ResumableUploadTransferResponse extends BasicAbstractType {
+public class ResumableUploadTransferResponse extends AbstractFacebookType {
 
   @Getter
   @Facebook("start_offset")

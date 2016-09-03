@@ -22,9 +22,6 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
-
-import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +33,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Privacy implements Serializable {
+public class Privacy extends AbstractFacebookType {
 
   /**
    * The description of the privacy value.
@@ -100,29 +97,5 @@ public class Privacy implements Serializable {
   private String allow;
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
 
 }

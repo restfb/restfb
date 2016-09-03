@@ -24,9 +24,7 @@ package com.restfb.types;
 import static com.restfb.util.StringUtils.isBlank;
 
 import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +39,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class FacebookType implements Serializable {
+public class FacebookType extends AbstractFacebookType {
 
   /**
    * This object's unique Facebook ID.
@@ -71,37 +69,13 @@ public class FacebookType implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
-
-  /**
    * Represents <a href="http://developers.facebook.com/docs/api#introspection">Facebook Object metadata</a>, available
    * by including the {@code metadata=1} URL parameter in an API request.
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Metadata implements Serializable {
+  public static class Metadata extends AbstractFacebookType {
 
     /**
      * The available connections for this object.
@@ -130,37 +104,13 @@ public class FacebookType implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
-    /**
      * Represents <a href="http://developers.facebook.com/docs/api#introspection">Facebook Object connections
      * metadata</a>, available by including the {@code metadata=1} URL parameter in an API request.
      * 
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.5
      */
-    public static class Connections implements Serializable {
+    public static class Connections extends AbstractFacebookType {
 
       /**
        * This object's 'home' connection URL.
@@ -413,30 +363,6 @@ public class FacebookType implements Serializable {
       private String updates;
 
       private static final long serialVersionUID = 1L;
-
-      /**
-       * @see java.lang.Object#hashCode()
-       */
-      @Override
-      public int hashCode() {
-        return ReflectionUtils.hashCode(this);
-      }
-
-      /**
-       * @see java.lang.Object#equals(java.lang.Object)
-       */
-      @Override
-      public boolean equals(Object that) {
-        return ReflectionUtils.equals(this, that);
-      }
-
-      /**
-       * @see java.lang.Object#toString()
-       */
-      @Override
-      public String toString() {
-        return ReflectionUtils.toString(this);
-      }
 
       /**
        * Does this object have a 'home' connection?

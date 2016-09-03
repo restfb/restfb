@@ -28,9 +28,7 @@ import static java.util.Collections.unmodifiableList;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -327,7 +325,7 @@ public class Event extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.13
    */
-  public static class Owner implements Serializable {
+  public static class Owner extends AbstractFacebookType {
 
     /**
      * The unique identifier for this owner.
@@ -364,30 +362,6 @@ public class Event extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
     public boolean addCategory(Category category) {
       return categoryList.add(category);
     }
@@ -413,7 +387,7 @@ public class Event extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.13
    */
-  public static class Category implements Serializable {
+  public static class Category extends AbstractFacebookType {
 
     /**
      * The unique identifier for this category.
@@ -436,30 +410,6 @@ public class Event extends NamedFacebookType {
     private String name;
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
 
   }
 

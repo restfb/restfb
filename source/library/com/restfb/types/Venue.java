@@ -22,9 +22,6 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
-
-import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +32,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Venue implements Serializable {
+public class Venue extends AbstractFacebookType {
 
   /**
    * Unique identifier for the Venue.
@@ -120,27 +117,4 @@ public class Venue implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
 }

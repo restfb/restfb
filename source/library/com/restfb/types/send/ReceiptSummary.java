@@ -22,6 +22,7 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+
 import lombok.Setter;
 
 public class ReceiptSummary {

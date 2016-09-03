@@ -25,6 +25,10 @@ import com.restfb.util.ReflectionUtils;
 
 import java.io.Serializable;
 
+/**
+ * Basic type for all types that provides a minimal set of methods, especially the basic methods <code>hashcode</code>,
+ * <code>equals</code> and <code>toString</code.
+ */
 public abstract class AbstractFacebookType implements Serializable {
 
   private static final long serialVersionUID = 1L;

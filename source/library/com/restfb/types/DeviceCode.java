@@ -22,14 +22,11 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
-
-import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class DeviceCode implements Serializable {
+public class DeviceCode extends AbstractFacebookType {
 
   /**
    * Code used in the authorization poll
@@ -75,29 +72,5 @@ public class DeviceCode implements Serializable {
   @Setter
   @Facebook
   private Integer interval;
-
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
 
 }
