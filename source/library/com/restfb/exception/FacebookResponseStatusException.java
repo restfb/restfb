@@ -21,9 +21,9 @@
  */
 package com.restfb.exception;
 
-import com.restfb.json.JsonObject;
-
 import static java.lang.String.format;
+
+import com.restfb.json.JsonObject;
 
 /**
  * Indicates that the Legacy REST Facebook endpoint returned JSON which indicates an error condition.

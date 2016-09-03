@@ -26,7 +26,6 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -152,7 +151,7 @@ public class Payment extends FacebookType {
   /**
    * The items associated with the payment.
    */
-  public static class Item implements Serializable {
+  public static class Item extends AbstractFacebookType {
 
     /**
      * The type of this item.
@@ -183,7 +182,7 @@ public class Payment extends FacebookType {
   /**
    * The list of different action types that have occurred in this payment.
    */
-  public static class Action implements Serializable {
+  public static class Action extends AbstractFacebookType {
 
     /**
      * The type of this particular action. type can be:
@@ -287,7 +286,7 @@ public class Payment extends FacebookType {
    * consumer when the dispute is initiated. Additionally contains the current status of the dispute, the time the
    * dispute was created an an resolution reason, if available.
    */
-  public static class Dispute implements Serializable {
+  public static class Dispute extends AbstractFacebookType {
 
     /**
      * Comment provided by the consumer when the dispute is initiated.

@@ -23,11 +23,12 @@ package com.restfb.types.webhook;
 
 import com.restfb.Facebook;
 import com.restfb.types.webhook.base.AbstractFeedPostValue;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * change value of the feed album add

@@ -26,7 +26,6 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Getter;
@@ -37,7 +36,7 @@ import lombok.Setter;
  * 
  * @since 1.6.16
  */
-public class DeAuth implements Serializable {
+public class DeAuth extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
   

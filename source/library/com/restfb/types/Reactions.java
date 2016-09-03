@@ -26,9 +26,7 @@ import static java.util.Collections.unmodifiableList;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.json.JsonObject;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +36,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/post/reactions">Reactions Type</a>
  */
-public class Reactions implements Serializable {
+public class Reactions extends AbstractFacebookType {
 
   /**
    * The number of reactions.
@@ -66,30 +64,6 @@ public class Reactions implements Serializable {
   private List<ReactionItem> data = new ArrayList<ReactionItem>();
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
 
   /**
    * The reaction list.
@@ -128,7 +102,7 @@ public class Reactions implements Serializable {
   /**
    * the reaction type
    */
-  public static class ReactionItem implements Serializable {
+  public static class ReactionItem extends AbstractFacebookType {
 
     /**
      * the name of the user who sent the reaction
@@ -157,30 +131,6 @@ public class Reactions implements Serializable {
     @Setter
     @Facebook
     private String type;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
 
   }
 

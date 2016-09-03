@@ -22,7 +22,6 @@
 package com.restfb.types.ads;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;

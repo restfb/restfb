@@ -24,9 +24,7 @@ package com.restfb.types;
 import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,36 +110,12 @@ public class StoryAttachment extends FacebookType {
    *
    * @author <a href="https://github.com/kevinleturc/">Kevin Leturc</a>
    */
-  public static class Attachments implements Serializable {
+  public static class Attachments extends AbstractFacebookType {
 
     @Facebook
     private List<StoryAttachment> data = new ArrayList<StoryAttachment>();
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
 
     /**
      * The attachments.

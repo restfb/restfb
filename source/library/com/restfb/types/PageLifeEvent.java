@@ -23,13 +23,13 @@ package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
+import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+
 import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/life-event">Life Event Graph API</a>

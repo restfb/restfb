@@ -26,9 +26,7 @@ import static java.util.Collections.unmodifiableList;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +44,7 @@ import lombok.Setter;
  *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class Comments implements Serializable {
+public class Comments extends AbstractFacebookType {
 
   /**
    * The count of comments on this node.
@@ -110,21 +108,6 @@ public class Comments implements Serializable {
   private List<Comment> data = new ArrayList<Comment>();
 
   private static final long serialVersionUID = 1L;
-
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
 
   /**
    * The comments.

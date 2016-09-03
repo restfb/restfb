@@ -21,9 +21,8 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;

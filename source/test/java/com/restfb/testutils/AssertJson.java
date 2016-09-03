@@ -21,12 +21,12 @@
  */
 package com.restfb.testutils;
 
+import static org.junit.Assert.fail;
+
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
 
 import org.junit.Assert;
-
-import static org.junit.Assert.fail;
 
 /**
  * Assertion utility for JSON as Strings. Based on junit and minimal json.

@@ -34,6 +34,19 @@ public class BaseTestCheck {
       methodList.add(method.getName());
     }
 
+    Method[] inheritedMethods = clazz.getMethods();
+    for (Method method : inheritedMethods) {
+      if (method.getName().equals("equals")) {
+        methodList.add(method.getName());
+      }
+      if (method.getName().equals("hashCode")) {
+        methodList.add(method.getName());
+      }
+      if (method.getName().equals("toString")) {
+        methodList.add(method.getName());
+      }
+    }
+
     return methodList;
   }
 

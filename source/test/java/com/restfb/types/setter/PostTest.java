@@ -21,7 +21,6 @@
  */
 package com.restfb.types.setter;
 
-import com.restfb.types.MessageTag;
 import com.restfb.types.Post;
 import com.restfb.types.api.SetterGetterTestBase;
 

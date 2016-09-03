@@ -26,7 +26,6 @@ import com.restfb.Facebook;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.restfb.types.send.QuickReply;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -30,9 +30,7 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -552,7 +550,7 @@ public class User extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
    */
-  public static class Work implements Serializable {
+  public static class Work extends AbstractFacebookType {
 
     /**
      * The employer for this job.
@@ -625,30 +623,6 @@ public class User extends NamedFacebookType {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
-    /**
      * Friends associated with this job.
      * 
      * @return Friends associated with this job.
@@ -679,7 +653,7 @@ public class User extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
    */
-  public static class Education implements Serializable {
+  public static class Education extends AbstractFacebookType {
 
     /**
      * The school name and ID.
@@ -745,30 +719,6 @@ public class User extends NamedFacebookType {
     private List<EducationClass> classes = new ArrayList<EducationClass>();
 
     private static final long serialVersionUID = 2L;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
 
     /**
      * Concentrations/minors.
@@ -902,7 +852,7 @@ public class User extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.12
    */
-  public static class Currency implements Serializable {
+  public static class Currency extends AbstractFacebookType {
 
     /**
      * The ISO-4217-3 code for the user's preferred currency (defaulting to USD if the user hasn't set one).
@@ -952,30 +902,6 @@ public class User extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
   }
 
   /**
@@ -984,7 +910,7 @@ public class User extends NamedFacebookType {
    * 
    * @author <a href="http://restfb.com">Norbert Bartels</a>
    */
-  public static class UserDevice implements Serializable {
+  public static class UserDevice extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
@@ -998,32 +924,9 @@ public class User extends NamedFacebookType {
     @Facebook
     private String os;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
-  public static class AgeRange implements Serializable {
+  public static class AgeRange extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
@@ -1047,29 +950,6 @@ public class User extends NamedFacebookType {
     @Facebook
     private Integer max;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   /**
@@ -1308,7 +1188,7 @@ public class User extends NamedFacebookType {
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/security-settings/">Security
    * Settings Graph API type</a>
    */
-  public static class SecuritySettings implements Serializable {
+  public static class SecuritySettings extends AbstractFacebookType {
 
     /**
      * Secure browsing settings
@@ -1320,36 +1200,13 @@ public class User extends NamedFacebookType {
     @Facebook("secure_browsing")
     private SecureBrowsing secureBrowsing;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/secure-browsing/">Secure Browsing
    * Graph API type</a>.
    */
-  public static class SecureBrowsing implements Serializable {
+  public static class SecureBrowsing extends AbstractFacebookType {
 
     /**
      * Enabled
@@ -1361,36 +1218,13 @@ public class User extends NamedFacebookType {
     @Facebook
     private Boolean enabled;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/payment-pricepoints/">Payment
    * Pricepoints Graph API type</a>.
    */
-  public static class PaymentPricepoints {
+  public static class PaymentPricepoints extends AbstractFacebookType {
 
     @Facebook
     private List<PaymentPricepoint> mobile = new ArrayList<PaymentPricepoint>();
@@ -1411,37 +1245,13 @@ public class User extends NamedFacebookType {
     public boolean removeMobile(PaymentPricepoint language) {
       return mobile.remove(language);
     }
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/payment-pricepoint/">Payment
    * Pricepoint Graph API type</a>.
    */
-  public static class PaymentPricepoint implements Serializable {
+  public static class PaymentPricepoint extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1458,36 +1268,13 @@ public class User extends NamedFacebookType {
     @Facebook("user_price")
     private String userPrice;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-upload-limits/">Video Upload
    * Limits Graph API type</a>.
    */
-  public static class VideoUploadLimits implements Serializable {
+  public static class VideoUploadLimits extends AbstractFacebookType {
 
     @Getter
     @Setter
@@ -1498,30 +1285,6 @@ public class User extends NamedFacebookType {
     @Setter
     @Facebook
     private Long size;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
   public static class Experience extends NamedFacebookType {

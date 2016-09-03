@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.testutils.AssertJson;
 
 import org.junit.Test;
 

@@ -26,9 +26,7 @@ import static java.util.Collections.unmodifiableList;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

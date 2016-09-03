@@ -25,7 +25,6 @@ import static org.junit.Assert.*;
 
 import com.restfb.exception.ResponseErrorJsonParsingException;
 
-import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import org.junit.Test;
 
 public class FacebookExceptionGeneratorTest {

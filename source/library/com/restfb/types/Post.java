@@ -29,9 +29,7 @@ import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -568,7 +566,7 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.4
    */
-  public static class Property implements Serializable {
+  public static class Property extends AbstractFacebookType {
 
     /**
      * The name of the property.
@@ -602,30 +600,6 @@ public class Post extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
   }
 
   /**
@@ -634,7 +608,7 @@ public class Post extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Action implements Serializable {
+  public static class Action extends AbstractFacebookType {
 
     /**
      * Gets the name of the action.
@@ -658,33 +632,9 @@ public class Post extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
   }
 
-  public static class Targeting implements Serializable {
+  public static class Targeting extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
@@ -771,21 +721,6 @@ public class Post extends NamedFacebookType {
 
     public boolean removeRegion(NamedFacebookType region) {
       return regions.remove(region);
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
     }
 
   }
@@ -1028,7 +963,7 @@ public class Post extends NamedFacebookType {
    *
    * @since 1.6.11
    */
-  public static class Shares implements Serializable {
+  public static class Shares extends AbstractFacebookType {
 
     /**
      * The number of shares.
@@ -1042,30 +977,6 @@ public class Post extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
-
   }
 
   /**
@@ -1075,7 +986,7 @@ public class Post extends NamedFacebookType {
    * @author <a href="https://github.com/kevinleturc/">Kevin Leturc</a>
    * @since 1.12.0
    */
-  public static class Attachments implements Serializable {
+  public static class Attachments extends AbstractFacebookType {
 
     /**
      * All media attachments associated with this post.
@@ -1086,30 +997,6 @@ public class Post extends NamedFacebookType {
     private List<StoryAttachment> data = new ArrayList<StoryAttachment>();
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
 
     /**
      * The attachments.

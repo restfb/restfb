@@ -21,7 +21,6 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.restfb.DefaultFacebookClient;
@@ -29,16 +28,11 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.json.JsonObject;
-import com.restfb.types.send.CallToAction;
 import com.restfb.types.send.IdMessageRecipient;
 import com.restfb.types.send.Message;
-
 import com.restfb.types.send.SendResponse;
-import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.Test;
 
 public class MessengerUnicodeITCase extends RestFbIntegrationTestBase {
 

@@ -26,7 +26,6 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -858,7 +857,7 @@ public class Application extends CategorizedFacebookType {
    * <a href="https://developers.facebook.com/docs/graph-api/reference/mobile-sdk-error-category/" >Application Mobile
    * SDK Error Category Graph API type</a>.
    */
-  public static class MobileSdkErrorCategory implements Serializable {
+  public static class MobileSdkErrorCategory extends AbstractFacebookType {
 
     /**
      * The name for the category.
@@ -908,7 +907,7 @@ public class Application extends CategorizedFacebookType {
    * <a href="https://developers.facebook.com/docs/graph-api/reference/application-app-ad-debug-info/" >Application App
    * Ad Debug Info Graph API type</a>.
    */
-  public static class ApplicationAppAdDebugInfo implements Serializable {
+  public static class ApplicationAppAdDebugInfo extends AbstractFacebookType {
 
     /**
      * Timestamp of most recent install event reported by iOS SDK.
@@ -1130,7 +1129,7 @@ public class Application extends CategorizedFacebookType {
    * <a href="https://developers.facebook.com/docs/graph-api/reference/application-fast-app-switch/" >Application Fast
    * App Switch Graph API type</a>.
    */
-  private class ApplicationFastAppSwitch implements Serializable {
+  private class ApplicationFastAppSwitch extends AbstractFacebookType {
 
     @Facebook("blocked_device_models")
     private List<String> blockedDeviceModels = new ArrayList<String>();
@@ -1198,7 +1197,7 @@ public class Application extends CategorizedFacebookType {
    * <a href="https://developers.facebook.com/docs/graph-api/reference/application-restriction-info/" >Application
    * Restriction Info Graph API type</a>.
    */
-  private class ApplicationRestrictionInfo implements Serializable {
+  private class ApplicationRestrictionInfo extends AbstractFacebookType {
 
     /**
      * Age restrictions for the app.
@@ -1246,7 +1245,7 @@ public class Application extends CategorizedFacebookType {
    * <a href="https://developers.facebook.com/docs/graph-api/reference/application-object-store-urls/" >Application
    * Object Store URLs Info Graph API type</a>.
    */
-  private class ApplicationObjectStoreURLs implements Serializable {
+  private class ApplicationObjectStoreURLs extends AbstractFacebookType {
 
     /**
      * URL for the app in the Google Play store.

@@ -25,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
+
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

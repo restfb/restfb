@@ -21,11 +21,12 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import com.restfb.AbstractJsonMapperTests;
+
+import org.junit.Test;
 
 public class PageLabelTest extends AbstractJsonMapperTests {
 

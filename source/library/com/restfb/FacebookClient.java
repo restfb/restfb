@@ -37,10 +37,10 @@ import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.json.JsonObject;
 import com.restfb.scope.ScopeBuilder;
+import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.ReflectionUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -746,7 +746,7 @@ public interface FacebookClient {
    * 
    * @author Broc Seib
    */
-  class DebugTokenInfo implements Serializable {
+  class DebugTokenInfo extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
@@ -856,23 +856,9 @@ public interface FacebookClient {
       return metadata;
     }
 
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 
-  class DebugTokenError implements Serializable {
+  class DebugTokenError extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
@@ -912,19 +898,5 @@ public interface FacebookClient {
       return subcode;
     }
 
-    @Override
-    public int hashCode() {
-      return ReflectionUtils.hashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object that) {
-      return ReflectionUtils.equals(this, that);
-    }
-
-    @Override
-    public String toString() {
-      return ReflectionUtils.toString(this);
-    }
   }
 }
