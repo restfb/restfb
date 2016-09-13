@@ -148,9 +148,11 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
+    CallButton callButton = new CallButton("Call Support","+1234567890");
     ButtonTemplatePayload payload = new ButtonTemplatePayload();
     payload.addButton(button);
     payload.addButton(postbackButton);
+    payload.addButton(callButton);
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
 
@@ -158,7 +160,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals(
-      "{\"attachment\":{\"payload\":{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"}],\"template_type\":\"button\"},\"type\":\"template\"}}",
+      "{\"attachment\":{\"payload\":{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"template_type\":\"button\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 
@@ -167,10 +169,12 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
+    CallButton callButton = new CallButton("Call Support", "+1234567890");
     GenericTemplatePayload payload = new GenericTemplatePayload();
     Bubble bubble = new Bubble("My Bubble");
     bubble.addButton(button);
     bubble.addButton(postbackButton);
+    bubble.addButton(callButton);
     payload.addBubble(bubble);
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
@@ -179,7 +183,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals(
-      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"}],\"title\":\"My Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"title\":\"My Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 
