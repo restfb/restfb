@@ -263,18 +263,23 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
   public void messageWithQuickRepliesAndMetadata() {
-    QuickReply quickReply1 = new QuickReply("text", "title 1", "payload 1");
-    QuickReply quickReply2 = new QuickReply("text", "title 2", "payload 2");
+    QuickReply quickReply1 = new QuickReply("title 1", "payload 1");
+    QuickReply quickReply2 = new QuickReply("title 2", "payload 2");
+    quickReply2.setImageUrl("http://example.org/test.jpg");
+    QuickReply quickReply3 = new QuickReply();
+    QuickReply quickReply4 = new QuickReply();
+    quickReply4.setImageUrl("http://example.org/test2.jpg");
     Message message = new Message("message text");
     message.setMetadata("metadata payload");
     message.addQuickReply(quickReply1);
     message.addQuickReply(quickReply2);
+    message.addQuickReply(quickReply3);
+    message.addQuickReply(quickReply4);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
-    System.out.println(messageJsonString);
 
-    AssertJson.assertEquals("{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"payload\":\"payload 2\",\"title\":\"title 2\",\"content_type\":\"text\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
+    AssertJson.assertEquals("{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
             messageJsonString);
   }
 }

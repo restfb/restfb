@@ -23,6 +23,11 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import lombok.Setter;
+
+/**
+ * Represents the <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/quick-replies">Quick Reply</a>
+ */
 public class QuickReply {
 
   @Facebook("content_type")
@@ -34,9 +39,29 @@ public class QuickReply {
   @Facebook
   private String payload;
 
+  @Setter
+  @Facebook("image_url")
+  private String imageUrl;
+
+  /**
+   *
+   * @deprecated use constructor without contenttype instead. If using content type 'text' use
+   *             {@link QuickReply(String,String)} for 'location' use {@link QuickReply()}
+   */
+  @Deprecated
   public QuickReply(String contentType, String title, String payload) {
     this.contentType = contentType;
     this.title = title;
     this.payload = payload;
+  }
+
+  public QuickReply(String title, String payload) {
+    this.contentType = "text";
+    this.title = title;
+    this.payload = payload;
+  }
+
+  public QuickReply() {
+    this.contentType = "location";
   }
 }
