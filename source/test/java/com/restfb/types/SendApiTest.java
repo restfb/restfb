@@ -147,10 +147,13 @@ public class SendApiTest extends AbstractJsonMapperTests {
   public void messageGenericButtonsAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
+    WebButton buttonHeight = new WebButton("Check this", "http://www.google.com");
+    buttonHeight.setWebviewHeightRatio(WebviewHeightEnum.compact);
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
     CallButton callButton = new CallButton("Call Support","+1234567890");
     ButtonTemplatePayload payload = new ButtonTemplatePayload();
     payload.addButton(button);
+    payload.addButton(buttonHeight);
     payload.addButton(postbackButton);
     payload.addButton(callButton);
     TemplateAttachment attachment = new TemplateAttachment(payload);
@@ -160,7 +163,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals(
-      "{\"attachment\":{\"payload\":{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"template_type\":\"button\"},\"type\":\"template\"}}",
+      "{\"attachment\":{\"payload\":{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"webview_height_ratio\":\"compact\",\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"template_type\":\"button\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 

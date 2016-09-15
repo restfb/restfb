@@ -21,21 +21,7 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-import lombok.Setter;
+public enum WebviewHeightEnum {
 
-public class WebButton extends AbstractButton {
-
-  @Setter
-  @Facebook("webview_height_ratio")
-  private WebviewHeightEnum webviewHeightRatio;
-
-  @Facebook
-  private String url;
-
-  public WebButton(String title, String webUrl) {
-    super(title);
-    setType("web_url");
-    this.url = webUrl;
-  }
+    compact, tall, full;
 }
