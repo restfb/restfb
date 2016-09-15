@@ -227,12 +227,14 @@ public class SendApiTest extends AbstractJsonMapperTests {
   public void messageTemplateGenericBubbleAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
+    ShareButton share = new ShareButton();
     GenericTemplatePayload payload = new GenericTemplatePayload();
     Bubble bubble = new Bubble("My Bubble");
     bubble.setSubtitle("subtitle");
     bubble.setItemUrl("ITEM_URL");
     bubble.setImageUrl("IMAGE_URL");
     bubble.addButton(button);
+    bubble.addButton(share);
     payload.addBubble(bubble);
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
@@ -241,7 +243,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals(
-      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"}],\"image_url\":\"IMAGE_URL\",\"item_url\":\"ITEM_URL\",\"subtitle\":\"subtitle\",\"title\":\"My Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"}, {\"type\":\"element_share\"}],\"image_url\":\"IMAGE_URL\",\"item_url\":\"ITEM_URL\",\"subtitle\":\"subtitle\",\"title\":\"My Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 
