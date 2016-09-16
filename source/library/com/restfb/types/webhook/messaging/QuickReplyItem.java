@@ -25,11 +25,13 @@ import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 public class QuickReplyItem implements InnerMessagingItem {
 
-    @Getter
-    @Setter
-    @Facebook
-    private String payload;
+  @Getter
+  @Setter
+  @Facebook
+  private String payload;
 }

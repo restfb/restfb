@@ -25,10 +25,12 @@ import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Fallback for not unimplemented change values
  */
+@ToString
 public class FallBackChangeValue extends ChangeValue {
 
   @Getter
