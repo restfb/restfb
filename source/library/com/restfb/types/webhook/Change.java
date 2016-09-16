@@ -26,10 +26,12 @@ import com.restfb.JsonMapper;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * The transferred change containing the field and the value
  */
+@ToString
 public class Change {
 
   /**

@@ -27,7 +27,9 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 public class PassengerSegmentInfoItem {
   @Getter
   @Setter

@@ -25,7 +25,9 @@ import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 public class MessagingParticipant {
 
   @Getter

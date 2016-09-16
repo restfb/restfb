@@ -28,10 +28,12 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * root object to fetch information provided by a webhook call
  */
+@ToString
 public class WebhookObject {
 
   /**
