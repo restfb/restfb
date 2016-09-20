@@ -19,83 +19,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.webhook.messaging.payment;
 
 import com.restfb.Facebook;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * Represents the
- * <a href=" https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received">Message</a>
- * Callback
- */
+import java.io.Serializable;
+
 @ToString
-public class MessageItem implements InnerMessagingItem {
+public class Amount implements Serializable{
 
   /**
-   * Message ID
+   * Currency of amount
    */
   @Getter
   @Setter
   @Facebook
-  private String mid;
+  private String currency;
 
   /**
-   * Message sequence number
+   * Total amount
    */
   @Getter
   @Setter
   @Facebook
-  private Long seq;
-
-  /**
-   * Text of message
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String text;
-
-  /**
-   * Indicates the message sent from the page itself
-   */
-  @Getter
-  @Setter
-  @Facebook("is_echo")
-  private boolean isEcho;
-
-  /**
-   * ID of the app from which the message was sent
-   */
-  @Getter
-  @Setter
-  @Facebook("app_id")
-  private String appId;
-
-  /**
-   * Custom string passed to the Send API as the metadata field
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String metadata;
-
-  @Getter
-  @Setter
-  @Facebook("quick_reply")
-  private QuickReplyItem quickReply;
-
-  /**
-   * Array containing attachment data
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
+  private Double amount;
 }

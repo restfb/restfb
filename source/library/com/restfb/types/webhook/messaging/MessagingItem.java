@@ -80,6 +80,16 @@ public class MessagingItem {
   @Facebook("account_linking")
   private AccountLinkingItem accountLinking;
 
+  @Getter
+  @Setter
+  @Facebook("checkout_update")
+  private CheckoutUpdateItem checkoutUpdate;
+
+  @Getter
+  @Setter
+  @Facebook
+  private PaymentItem payment;
+
   /**
    * generic access to the inner item.
    * 
@@ -107,6 +117,14 @@ public class MessagingItem {
 
     if (message != null) {
       return message;
+    }
+
+    if (checkoutUpdate != null) {
+      return checkoutUpdate;
+    }
+
+    if (payment != null) {
+      return payment;
     }
 
     return null;

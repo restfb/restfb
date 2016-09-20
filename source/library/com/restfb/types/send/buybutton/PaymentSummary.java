@@ -19,83 +19,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send.buybutton;
 
 import com.restfb.Facebook;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * Represents the
- * <a href=" https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received">Message</a>
- * Callback
- */
-@ToString
-public class MessageItem implements InnerMessagingItem {
+@ToString(doNotUseGetters = true)
+public class PaymentSummary {
 
-  /**
-   * Message ID
-   */
-  @Getter
   @Setter
   @Facebook
-  private String mid;
+  private String currency;
 
-  /**
-   * Message sequence number
-   */
-  @Getter
   @Setter
-  @Facebook
-  private Long seq;
+  @Facebook("payment_type")
+  private PaymentTypeEnum paymentType;
 
-  /**
-   * Text of message
-   */
-  @Getter
   @Setter
-  @Facebook
-  private String text;
+  @Facebook("merchant_name")
+  private String merchant_name;
 
-  /**
-   * Indicates the message sent from the page itself
-   */
-  @Getter
-  @Setter
-  @Facebook("is_echo")
-  private boolean isEcho;
+  @Facebook("requested_user_info")
+  private List<RequestedUserInfoEnum> requestedUserInfo;
 
-  /**
-   * ID of the app from which the message was sent
-   */
-  @Getter
-  @Setter
-  @Facebook("app_id")
-  private String appId;
+  @Facebook("price_list")
+  private List<PriceListItem> priceList;
 
-  /**
-   * Custom string passed to the Send API as the metadata field
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String metadata;
+  public boolean addRequestedUserInfo(RequestedUserInfoEnum requestedUserInfoItem) {
+    if (requestedUserInfo == null) {
+      requestedUserInfo = new ArrayList<RequestedUserInfoEnum>();
+    }
 
-  @Getter
-  @Setter
-  @Facebook("quick_reply")
-  private QuickReplyItem quickReply;
+    return requestedUserInfo.add(requestedUserInfoItem);
+  }
 
-  /**
-   * Array containing attachment data
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
+  public boolean addPriceListItem(PriceListItem item) {
+    if (priceList == null) {
+      priceList = new ArrayList<PriceListItem>();
+    }
+
+    return priceList.add(item);
+  }
 }

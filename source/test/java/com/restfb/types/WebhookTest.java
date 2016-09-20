@@ -27,9 +27,12 @@ import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.*;
 import com.restfb.types.webhook.base.AbstractFeedPostValue;
 import com.restfb.types.webhook.base.BaseChangeValue;
-import com.restfb.types.webhook.messaging.MessagingItem;
-import com.restfb.types.webhook.messaging.QuickReplyItem;
+import com.restfb.types.webhook.messaging.*;
 
+import com.restfb.types.webhook.messaging.payment.Amount;
+import com.restfb.types.webhook.messaging.payment.PaymentCredentials;
+import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
+import com.restfb.types.webhook.messaging.payment.ShippingAddress;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -387,6 +390,54 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messagingPayment() {
+    WebhookObject webhookObject = openMessagingJson("messaging-payment");
+    assertNotNull(webhookObject);
+    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertEquals("USER_ID", item.getSender().getId());
+    assertEquals("PAGE_ID", item.getRecipient().getId());
+    PaymentItem paymentItem = (PaymentItem) item.getItem();
+    assertEquals("DEVELOPER_DEFINED_PAYLOAD", paymentItem.getPayload());
+    Amount amount = paymentItem.getAmount();
+    assertEquals("USD", amount.getCurrency());
+    assertEquals(29.62D, amount.getAmount(), 0.01);
+    PaymentCredentials credentials = paymentItem.getPaymentCredentials();
+    assertEquals("ch_18tmdBEoNIH3FPJHa60ep123", credentials.getChargeId());
+    assertEquals("stripe", credentials.getProviderType());
+    ReuqestedUserInfo userInfo = paymentItem.getRequestedUserInfo();
+    assertEquals("peter@anemailprovider.com", userInfo.getContactEmail());
+    assertEquals("Peter Chang", userInfo.getContactName());
+    assertEquals("+15105551234", userInfo.getContactPhone());
+    ShippingAddress shippingAddress = userInfo.getShippingAddress();
+    assertEquals("MENLO PARK", shippingAddress.getCity());
+    assertEquals("US", shippingAddress.getCountry());
+    assertEquals("94025", shippingAddress.getPostalCode());
+    assertEquals("CA", shippingAddress.getState());
+    assertEquals("1 Hacker Way", shippingAddress.getStreet1());
+    assertEquals("", shippingAddress.getStreet2());
+  }
+
+  @Test
+  public void checkoutUpdateShipping() {
+    WebhookObject webhookObject = openMessagingJson("messaging-checkoutupdate-shipping");
+    assertNotNull(webhookObject);
+    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertEquals("USER_ID", item.getSender().getId());
+    assertEquals("PAGE_ID", item.getRecipient().getId());
+    CheckoutUpdateItem checkoutUpdateItem = (CheckoutUpdateItem) item.getItem();
+    assertEquals("DEVELOPER_DEFINED_PAYLOAD", checkoutUpdateItem.getPayload());
+    assertNotNull(checkoutUpdateItem.getShippingAddress());
+    ShippingAddress shippingAddress = checkoutUpdateItem.getShippingAddress();
+    assertEquals("10105655000959552", shippingAddress.getId());
+    assertEquals("MENLO PARK", shippingAddress.getCity());
+    assertEquals("US", shippingAddress.getCountry());
+    assertEquals("94025", shippingAddress.getPostalCode());
+    assertEquals("CA", shippingAddress.getState());
+    assertEquals("1 Hacker Way", shippingAddress.getStreet1());
+    assertEquals("", shippingAddress.getStreet2());
+  }
+
+  @Test
   public void quickReply() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-quickreply"), WebhookObject.class);
@@ -414,15 +465,28 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   private WebhookObject openJson(String jsonName) {
+    WebhookObject webhookObject = getWHObjectFromJson(jsonName);
+    assertFalse("webhookObject.entryList[0].changes not empty",
+      webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    return webhookObject;
+  }
+
+  private WebhookObject openMessagingJson(String jsonName) {
+    WebhookObject webhookObject = getWHObjectFromJson(jsonName);
+    assertFalse("webhookObject.entryList[0].messaging not empty",
+            webhookObject.getEntryList().get(0).getMessaging().isEmpty());
+    return webhookObject;
+  }
+
+  private WebhookObject getWHObjectFromJson(String jsonName) {
     WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/" + jsonName), WebhookObject.class);
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/" + jsonName), WebhookObject.class);
     assertNotNull("webhookObject not null", webhookObject);
     assertEquals("webhookObject.object", "page", webhookObject.getObject());
     assertFalse("webhookObject.entryList not empty", webhookObject.getEntryList().isEmpty());
     assertEquals("page id", "1234567890321", webhookObject.getEntryList().get(0).getId());
     assertTrue("update time", 1445000000000L < webhookObject.getEntryList().get(0).getTime().getTime());
-    assertFalse("webhookObject.entryList[0].changes not empty",
-      webhookObject.getEntryList().get(0).getChanges().isEmpty());
     return webhookObject;
   }
+
 }
