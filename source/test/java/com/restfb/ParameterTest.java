@@ -50,6 +50,12 @@ public class ParameterTest {
   }
 
   @Test
+  public void useEnumAsValue() {
+    String val = Parameter.with("key", EnumTestEnum.FOO).value;
+    assertEquals("FOO", val);
+  }
+
+  @Test
   public void correctKeyWithWsCheck() {
     String key = "\n\ntHiSAtEsT\n\t";
     String val = "sOmEVaLue";

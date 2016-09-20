@@ -21,18 +21,24 @@
  */
 package com.restfb.types;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
+import com.restfb.Parameter;
+import com.restfb.types.send.SenderActionEnum;
 import com.restfb.types.webhook.*;
 import com.restfb.types.webhook.base.AbstractFeedPostValue;
 import com.restfb.types.webhook.base.BaseChangeValue;
-import com.restfb.types.webhook.messaging.*;
-
+import com.restfb.types.webhook.messaging.CheckoutUpdateItem;
+import com.restfb.types.webhook.messaging.MessagingItem;
+import com.restfb.types.webhook.messaging.PaymentItem;
+import com.restfb.types.webhook.messaging.QuickReplyItem;
 import com.restfb.types.webhook.messaging.payment.Amount;
 import com.restfb.types.webhook.messaging.payment.PaymentCredentials;
 import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
 import com.restfb.types.webhook.messaging.payment.ShippingAddress;
+
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -446,6 +452,16 @@ public class WebhookTest extends AbstractJsonMapperTests {
     QuickReplyItem qrItem = messageItem.getMessage().getQuickReply();
     assertNotNull(qrItem);
     assertEquals("PAYLOAD_QUICK_REPLY", qrItem.getPayload());
+  }
+
+  @Test
+  public void useEnumAsValue() {
+    String val1 = Parameter.with("key", SenderActionEnum.typing_on).value;
+    String val2 = Parameter.with("key", SenderActionEnum.typing_off).value;
+    String val3 = Parameter.with("key", SenderActionEnum.mark_seen).value;
+    assertEquals("typing_on", val1);
+    assertEquals("typing_off", val2);
+    assertEquals("mark_seen", val3);
   }
 
   private <T extends AbstractFeedPostValue> T openAndCheckFeedPostBasics(String jsonName, Class<T> changeValueClass,
