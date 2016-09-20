@@ -23,79 +23,26 @@ package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.restfb.types.webhook.messaging.payment.ShippingAddress;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
  * Represents the
- * <a href=" https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received">Message</a>
- * Callback
+ * <a href="https://developers.facebook.com/docs/messenger-platform/webhook-reference/checkout-update">Checkout
+ * Update</a> Callback
  */
 @ToString
-public class MessageItem implements InnerMessagingItem {
+public class CheckoutUpdateItem implements InnerMessagingItem {
 
-  /**
-   * Message ID
-   */
   @Getter
   @Setter
   @Facebook
-  private String mid;
-
-  /**
-   * Message sequence number
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private Long seq;
-
-  /**
-   * Text of message
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String text;
-
-  /**
-   * Indicates the message sent from the page itself
-   */
-  @Getter
-  @Setter
-  @Facebook("is_echo")
-  private boolean isEcho;
-
-  /**
-   * ID of the app from which the message was sent
-   */
-  @Getter
-  @Setter
-  @Facebook("app_id")
-  private String appId;
-
-  /**
-   * Custom string passed to the Send API as the metadata field
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String metadata;
+  private String payload;
 
   @Getter
   @Setter
-  @Facebook("quick_reply")
-  private QuickReplyItem quickReply;
-
-  /**
-   * Array containing attachment data
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
+  @Facebook("shipping_address")
+  private ShippingAddress shippingAddress;
 }

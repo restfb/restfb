@@ -1,0 +1,44 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1473208792799,
+      "messaging": [
+        {
+          "recipient": {
+            "id": "PAGE_ID"
+          },
+          "timestamp": 1473208792799,
+          "sender": {
+            "id": "USER_ID"
+          },
+          "payment": {
+            "payload": "DEVELOPER_DEFINED_PAYLOAD",
+            "requested_user_info": {
+              "shipping_address": {
+                "street1": "1 Hacker Way",
+                "street2": "",
+                "city": "MENLO PARK",
+                "state": "CA",
+                "country": "US",
+                "postal_code": "94025"
+              },
+              "contact_name": "Peter Chang",
+              "contact_email": "peter@anemailprovider.com",
+              "contact_phone": "+15105551234"
+            },
+            "payment_credentials": {
+              "provider_type": "stripe",
+              "charge_id": "ch_18tmdBEoNIH3FPJHa60ep123"
+            },
+            "amount": {
+              "currency": "USD",
+              "amount": 29.62
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

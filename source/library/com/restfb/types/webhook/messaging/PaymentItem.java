@@ -23,79 +23,50 @@ package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.restfb.types.webhook.messaging.payment.Amount;
+import com.restfb.types.webhook.messaging.payment.PaymentCredentials;
+import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
  * Represents the
- * <a href=" https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received">Message</a>
- * Callback
+ * <a href="https://developers.facebook.com/docs/messenger-platform/webhook-reference/payment">Payment</a> Callback
  */
 @ToString
-public class MessageItem implements InnerMessagingItem {
+public class PaymentItem implements InnerMessagingItem {
 
   /**
-   * Message ID
+   * Metadata defined in the Buy Button.
    */
   @Getter
   @Setter
   @Facebook
-  private String mid;
+  private String payload;
 
   /**
-   * Message sequence number
+   * Information that was requested from the user by the Buy Button.
+   */
+  @Getter
+  @Setter
+  @Facebook("requested_user_info")
+  private ReuqestedUserInfo requestedUserInfo;
+
+  /**
+   * Payment credentials.
+   */
+  @Getter
+  @Setter
+  @Facebook("payment_credentials")
+  private PaymentCredentials paymentCredentials;
+
+  /**
+   * Total amount of transaction.
    */
   @Getter
   @Setter
   @Facebook
-  private Long seq;
+  private Amount amount;
 
-  /**
-   * Text of message
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String text;
-
-  /**
-   * Indicates the message sent from the page itself
-   */
-  @Getter
-  @Setter
-  @Facebook("is_echo")
-  private boolean isEcho;
-
-  /**
-   * ID of the app from which the message was sent
-   */
-  @Getter
-  @Setter
-  @Facebook("app_id")
-  private String appId;
-
-  /**
-   * Custom string passed to the Send API as the metadata field
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String metadata;
-
-  @Getter
-  @Setter
-  @Facebook("quick_reply")
-  private QuickReplyItem quickReply;
-
-  /**
-   * Array containing attachment data
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
 }

@@ -19,83 +19,72 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.webhook.messaging.payment;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * Represents the
- * <a href=" https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-received">Message</a>
- * Callback
- */
 @ToString
-public class MessageItem implements InnerMessagingItem {
+public class ShippingAddress implements Serializable {
 
   /**
-   * Message ID
+   * ID of shipping address
    */
   @Getter
   @Setter
   @Facebook
-  private String mid;
+  private String id;
 
   /**
-   * Message sequence number
+   * Shipping address country
    */
   @Getter
   @Setter
   @Facebook
-  private Long seq;
+  private String country;
 
   /**
-   * Text of message
+   * Shipping address city
    */
   @Getter
   @Setter
   @Facebook
-  private String text;
+  private String city;
 
   /**
-   * Indicates the message sent from the page itself
-   */
-  @Getter
-  @Setter
-  @Facebook("is_echo")
-  private boolean isEcho;
-
-  /**
-   * ID of the app from which the message was sent
-   */
-  @Getter
-  @Setter
-  @Facebook("app_id")
-  private String appId;
-
-  /**
-   * Custom string passed to the Send API as the metadata field
+   * Shipping address street, first line
    */
   @Getter
   @Setter
   @Facebook
-  private String metadata;
-
-  @Getter
-  @Setter
-  @Facebook("quick_reply")
-  private QuickReplyItem quickReply;
+  private String street1;
 
   /**
-   * Array containing attachment data
+   * Shipping address street, second line
    */
   @Getter
   @Setter
   @Facebook
-  private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
+  private String street2;
+
+  /**
+   * Shipping address state
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String state;
+
+  /**
+   * Shipping address postal code
+   */
+  @Getter
+  @Setter
+  @Facebook("postal_code")
+  private String postalCode;
 }
