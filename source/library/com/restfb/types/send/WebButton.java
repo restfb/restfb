@@ -22,6 +22,7 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+
 import lombok.Setter;
 
 public class WebButton extends AbstractButton {
@@ -33,9 +34,25 @@ public class WebButton extends AbstractButton {
   @Facebook
   private String url;
 
+  @Facebook("messenger_extensions")
+  private Boolean messengerExtensions;
+
+  @Facebook("fallback_url")
+  private String fallbackUrl;
+
   public WebButton(String title, String webUrl) {
     super(title);
     setType("web_url");
     this.url = webUrl;
+  }
+
+  public void setMessengerExtensions(boolean withMessengerExtensions, String fallbackUrl) {
+    if (withMessengerExtensions) {
+      this.messengerExtensions = true;
+      this.fallbackUrl = fallbackUrl;
+    } else {
+      messengerExtensions = null;
+      this.fallbackUrl = null;
+    }
   }
 }
