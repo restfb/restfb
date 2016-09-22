@@ -21,10 +21,6 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import com.restfb.exception.FacebookJsonMappingException;
 
 import org.hamcrest.core.StringContains;
@@ -35,10 +31,9 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.
@@ -251,6 +246,13 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     // selected to marshal to JSON if there are multiple fields with the same
     // mapping
     assertTrue(json.contains("Philly") || json.contains("Philadelphia"));
+  }
+
+  @Test
+  public void convertDate() {
+    Date now = new Date(1474581731000L);
+    String myDate = createJsonMapper().toJson(now);
+    assertEquals("2016-09-22T22:02:11", myDate);
   }
 
   static class ListObject {

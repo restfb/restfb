@@ -162,6 +162,21 @@ public final class DateUtils {
   }
 
   /**
+   * Returns a String representation of a {@code date} object
+   * 
+   * @param date
+   *          as Date
+   * @return String representation of a {@code date} object. The String is in the form {@code 2010-02-28T16:11:08}
+   */
+  public static String toLongFormatFromDate(Date date) {
+    if (date == null) {
+      return null;
+    }
+
+    return strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE).format(date);
+  }
+
+  /**
    * Returns a Java representation of a {@code date} string.
    * 
    * @param date

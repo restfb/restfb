@@ -278,8 +278,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
 
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
-    assertEquals("2016-01-02T19:45", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
-      .format(attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime()));
+    assertEquals(1451763900000L, attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime().getTime());
     PassengerSegmentInfoItem passengerSegmentInfoItem = attachment.getPayload().getPassengerSegmentInfoItems().get(0);
     assertEquals("12A", passengerSegmentInfoItem.getSeat());
     assertEquals("Business", passengerSegmentInfoItem.getSeatType());

@@ -21,14 +21,13 @@
  */
 package com.restfb;
 
-import static com.restfb.util.DateUtils.FACEBOOK_LONG_DATE_FORMAT;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.util.DateUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -73,8 +72,7 @@ public final class Parameter {
 
     // Special handling for Date types - turn them into Facebook date strings.
     // Otherwise, use the JSON value of the type.
-    this.value = value instanceof Date ? new SimpleDateFormat(FACEBOOK_LONG_DATE_FORMAT).format(value)
-        : jsonMapper.toJson(value, true);
+    this.value = value instanceof Date ? DateUtils.toLongFormatFromDate((Date) value) : jsonMapper.toJson(value, true);
   }
 
   /**

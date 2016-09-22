@@ -22,6 +22,7 @@
 package com.restfb;
 
 import static com.restfb.json.JsonObject.NULL;
+import static com.restfb.util.DateUtils.FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE;
 import static com.restfb.util.ReflectionUtils.*;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
@@ -35,6 +36,7 @@ import com.restfb.json.JsonArray;
 import com.restfb.json.JsonException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Post.Comments;
+import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils.*;
 
 import java.lang.reflect.Constructor;
@@ -43,6 +45,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
@@ -515,6 +518,10 @@ public class DefaultJsonMapper implements JsonMapper {
 
     if (object instanceof Enum) {
       return ((Enum) object).name();
+    }
+
+    if (object instanceof Date) {
+      return DateUtils.toLongFormatFromDate((Date) object);
     }
 
     // We've passed the special-case bits, so let's try to marshal this as a
