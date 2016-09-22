@@ -1,3 +1,30 @@
+1.31.0 (September 22, 2016)
+
+* Messenger Platform Update:
+  * Issue #566: new QuickReply types added<br>
+    Thanks to @marceloverdijk for the hint
+  * Issue #567: `CallButton` added
+  * Issue #568: `ShareButton` added
+  * Issue #571: Field `webview_height_ratio` added to `WebButton`
+  * Issue #569: `BuyButton` added, `Payment` webhook type added
+  * Issue #570: Webview and Extension fields added
+* General Cleanup:
+  * Issue #556: log exceptions that can be ignored
+  * Issue #559: log more exceptions and use `lastIndexOf` with Char
+  * Issue #557: use `isEmpty()` instead of `size()` where possible
+  * Issue #561: catch `Exception` instead of `Throwable`
+  * Issue #564: types should extend `AbstractFacebookType`
+* Issue #552: Added missing fields to comment attachments<br>
+  Thanks to @mnshdw for the PR
+* Issue #544: Add `toString()` method to webhook classes<br>
+  Thanks to @marceloverdijk for the hint
+* Issue #553: Add `SenderAction` enum<br>
+  Thanks to @marceloverdijk for the hint
+* Issue #576: Fixed issue `MessagingItem.getItem` not returning `ReadItem`<br>
+  Thanks to @marceloverdijk for the PR
+* Issue #555: `FacebookPermissions` scope changed to public<br>
+  Thanks to @rhino88 for the PR
+
 1.30.0 (August 15, 2016)
 
 * Issue #548 and #549: Support for `x-page-usage` header<br>
