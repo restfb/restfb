@@ -32,6 +32,7 @@ import static java.util.logging.Level.*;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
 import com.restfb.types.Comments;
+import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils.*;
 
 import java.lang.reflect.Constructor;
@@ -528,6 +529,10 @@ public class DefaultJsonMapper implements JsonMapper {
 
     if (object instanceof Enum) {
       return Json.value(((Enum) object).name());
+    }
+
+    if (object instanceof Date) {
+      return Json.value(DateUtils.toLongFormatFromDate((Date) object));
     }
 
     // We've passed the special-case bits, so let's try to marshal this as a

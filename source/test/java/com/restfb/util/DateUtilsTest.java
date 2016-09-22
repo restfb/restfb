@@ -31,6 +31,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.DateUtils}.
@@ -85,6 +86,14 @@ public class DateUtilsTest {
     assertTrue(toDateFromMonthYearFormat("2011-12") != null);
     assertTrue(toDateFromMonthYearFormat("0000-00") == null);
     assertTrue(toDateFromMonthYearFormat("junk") == null);
+    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
+  }
+
+  @Test
+  public void dateToString() {
+    assertTrue(toLongFormatFromDate(null) == null);
+    assertTrue(toLongFormatFromDate(new Date()) != null);
+    assertEquals("2016-09-22T15:48:44", toLongFormatFromDate(new Date(1474559324000L)));
     assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
   }
 }

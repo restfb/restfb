@@ -28,6 +28,7 @@ import java.util.Date;
 import lombok.Setter;
 
 public class FlightSchedule {
+
   @Setter
   @Facebook("boarding_time")
   private Date boardingTime;
@@ -39,6 +40,7 @@ public class FlightSchedule {
   private Date arrivalTime;
 
   public FlightSchedule(Date departureTime, Date arrivalTime) {
+
     this.departureTime = departureTime;
     this.arrivalTime = arrivalTime;
   }

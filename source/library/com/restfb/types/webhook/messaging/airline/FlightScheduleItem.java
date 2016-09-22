@@ -28,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.restfb.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -74,13 +75,13 @@ public class FlightScheduleItem {
   @JsonMapper.JsonMappingCompleted
   void convertTimes() throws ParseException {
     if (rawBoardingTime != null) {
-      boardingTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(rawBoardingTime);
+      boardingTime = DateUtils.toDateFromLongFormat(rawBoardingTime);
     }
     if (rawDepartureTime != null) {
-      departureTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(rawDepartureTime);
+      departureTime = DateUtils.toDateFromLongFormat(rawDepartureTime);
     }
     if (rawArrivalTime != null) {
-      arrivalTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(rawArrivalTime);
+      arrivalTime = DateUtils.toDateFromLongFormat(rawArrivalTime);
     }
   }
 }

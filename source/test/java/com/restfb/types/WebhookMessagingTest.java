@@ -31,7 +31,6 @@ import com.restfb.types.webhook.messaging.*;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class WebhookMessagingTest extends AbstractJsonMapperTests {
 
@@ -270,8 +269,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("Farbound Smith Jr", attachment.getPayload().getPassengerInfoItems().get(0).getName());
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
-    assertEquals("2016-01-02T19:45", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
-      .format(attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime()));
+    assertEquals(1451763900000L, attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime().getTime());
     assertEquals("12A", attachment.getPayload().getPassengerSegmentInfoItems().get(0).getSeat());
     assertEquals("USD", attachment.getPayload().getPriceInfoItems().get(0).getCurrency());
   }

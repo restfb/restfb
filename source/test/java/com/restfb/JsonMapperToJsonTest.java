@@ -27,14 +27,12 @@ import static org.junit.Assert.fail;
 
 import com.restfb.exception.FacebookJsonMappingException;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.
@@ -260,6 +258,13 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     // selected to marshal to JSON if there are multiple fields with the same
     // mapping
     assertTrue(json.contains("Philly") || json.contains("Philadelphia"));
+  }
+
+  @Test
+  public void convertDate() {
+    Date now = new Date(1474581731000L);
+    String myDate = createJsonMapper().toJson(now);
+    Assert.assertEquals("2016-09-22T22:02:11", myDate);
   }
 
   static class ListObject {
