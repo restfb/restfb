@@ -111,6 +111,10 @@ public class MessagingItem {
       return delivery;
     }
 
+    if (read != null) {
+      return read;
+    }
+
     if (accountLinking != null) {
       return accountLinking;
     }
