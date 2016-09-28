@@ -46,7 +46,9 @@ public enum Version {
    * graph api 2.2, available at least until At least until October 30, 2016
    * @since October 30, 2014
    */
-  Version_2_2("v2.2");
+  Version_2_2("v2.2"),
+
+	VERSION_2_7("v2.7");
 
   private final String urlElement;
 
