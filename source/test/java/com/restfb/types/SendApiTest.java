@@ -31,6 +31,9 @@ import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
@@ -287,5 +290,19 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
     JSONAssert.assertEquals("{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
             messageJsonString, false);
+  }
+
+  @Test
+  public void messageWithMultipleQuickRepliesAddedAtOnce() throws JSONException {
+    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    quickReplyList.add(new QuickReply("title1", "payload 1"));
+    quickReplyList.add(new QuickReply("title2", "payload 2"));
+    Message message = new Message("message text");
+    message.addQuickReplies(quickReplyList);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String messageJsonString = mapper.toJson(message, true);
+
+    JSONAssert.assertEquals("{\"text\":\"message text\",\"quick_replies\":[{\"content_type\":\"text\",\"title\":\"title1\",\"payload\":\"payload 1\"},{\"content_type\":\"text\",\"title\":\"title2\",\"payload\":\"payload 2\"}]}", messageJsonString, false);
   }
 }

@@ -51,11 +51,29 @@ public class Message {
     this.attachment = attachment;
   }
 
+  /**
+   * add single {@code QuickReply} to the list of QuickReplies
+   * @param quickReply the QuickReply you like to add
+   * @return
+   */
   public boolean addQuickReply(QuickReply quickReply) {
     if (quickReplies == null) {
       quickReplies = new ArrayList<QuickReply>();
     }
 
     return quickReplies.add(quickReply);
+  }
+
+  /**
+   * add list of {@code QuickReply} objects to the list of QuickReplies
+   * @param quickReplyList the list QuickReplies you like to add
+   * @return
+   */
+  public boolean addQuickReplies(List<QuickReply> quickReplyList) {
+    if (quickReplies == null) {
+      quickReplies = new ArrayList<QuickReply>();
+    }
+
+    return quickReplies.addAll(quickReplyList);
   }
 }
