@@ -155,13 +155,13 @@
         <artifactId>license-maven-plugin</artifactId>
         <version>2.11</version>
         <configuration>
-          <header>licensing/LICENSE-restfb</header>
+          <header>LICENSE</header>
           <excludes>
             <exclude>**/*.xml</exclude>
             <exclude>**/README.md</exclude>
             <exclude>**/CHANGELOG</exclude>
             <exclude>target/**</exclude>
-            <exclude>licensing/**</exclude>
+            <exclude>LICENSE**</exclude>
             <exclude>build/**</exclude>
             <exclude>source/library/com/restfb/json/**</exclude>
             <exclude>source/test/java/com/restfb/json/**</exclude>
