@@ -102,6 +102,32 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messageAudioAttachmentWithReuse() {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.AUDIO, "AUDIO_URL");
+    attachment.setIsReusable(true);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\",\"is_reusable\":true},\"type\":\"audio\"}}",
+            recipientJsonString);
+  }
+
+  @Test
+  public void messageAudioAttachmentReuseId() {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.AUDIO, "123456789");
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"attachment_id\":\"123456789\"},\"type\":\"audio\"}}",
+            recipientJsonString);
+  }
+
+
+  @Test
   public void messageLocationAttachment() {
     LocationAttachment attachment = new LocationAttachment(20, 30);
     Message recipient = new Message(attachment);
