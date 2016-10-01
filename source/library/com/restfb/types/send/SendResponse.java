@@ -29,8 +29,8 @@ import lombok.Setter;
 
 /**
  * Represents the
- * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference#response">Messenger
- * API Send Response</a>.
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference#response">Messenger API Send
+ * Response</a>.
  */
 public class SendResponse extends AbstractFacebookType {
 
@@ -43,4 +43,13 @@ public class SendResponse extends AbstractFacebookType {
   @Setter
   @Facebook("message_id")
   private String messageId;
+
+  @Getter
+  @Setter
+  @Facebook("attachment_id")
+  private String attachmentId;
+
+  public boolean hasReusableAttachment() {
+    return attachmentId != null;
+  }
 }

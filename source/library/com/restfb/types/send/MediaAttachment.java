@@ -26,22 +26,57 @@ import com.restfb.Facebook;
 public class MediaAttachment extends MessageAttachment {
 
   @Facebook
-  private UrlPayload payload;
+  private MediaAttachmentPayload payload;
 
   public MediaAttachment(Type type, String imageUrl) {
     setType(type.toString().toLowerCase());
-    payload = new UrlPayload(imageUrl);
+    if (imageUrl.matches("^\\d+$")) {
+      payload = new ReuseIdPayload(imageUrl);
+    } else {
+      payload = new UrlPayload(imageUrl);
+    }
   }
 
-  private static class UrlPayload {
+  public void setIsReusable(boolean isReusable) {
+    payload.setIsReusable(isReusable);
+  }
+
+  private static class UrlPayload implements MediaAttachmentPayload {
 
     @Facebook
     private String url;
+
+    @Facebook("is_reusable")
+    private Boolean isReusable;
 
     public UrlPayload(String urlString) {
       url = urlString;
     }
 
+    @Override
+    public void setIsReusable(boolean isReusable) {
+      this.isReusable = isReusable;
+    }
+
+  }
+
+  private static class ReuseIdPayload implements MediaAttachmentPayload {
+
+    @Facebook("attachment_id")
+    private String attachmentId;
+
+    public ReuseIdPayload(String urlString) {
+      attachmentId = urlString;
+    }
+
+    @Override
+    public void setIsReusable(boolean isReusable) {
+      // ignore this here
+    }
+  }
+
+  private interface MediaAttachmentPayload {
+     void setIsReusable(boolean isReusable);
   }
 
   public enum Type {
