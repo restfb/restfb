@@ -23,6 +23,7 @@ package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
+import com.restfb.exception.FacebookPreconditionException;
 import com.restfb.testutils.AssertJson;
 import com.restfb.types.send.*;
 import com.restfb.types.send.Message;
@@ -329,5 +330,44 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String messageJsonString = mapper.toJson(message, true);
 
     AssertJson.assertEquals("{\"text\":\"message text\",\"quick_replies\":[{\"content_type\":\"text\",\"title\":\"title1\",\"payload\":\"payload 1\"},{\"content_type\":\"text\",\"title\":\"title2\",\"payload\":\"payload 2\"}]}", messageJsonString);
+  }
+
+  @Test(expected = FacebookPreconditionException.class)
+  public void messageWithTooManyReplies_tenPresentOneAdded() {
+    Message message = new Message("message text");
+    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    quickReplyList.add(new QuickReply("title1", "payload 1"));
+    quickReplyList.add(new QuickReply("title2", "payload 2"));
+    quickReplyList.add(new QuickReply("title3", "payload 3"));
+    quickReplyList.add(new QuickReply("title4", "payload 4"));
+    quickReplyList.add(new QuickReply("title5", "payload 5"));
+    quickReplyList.add(new QuickReply("title6", "payload 6"));
+    quickReplyList.add(new QuickReply("title7", "payload 7"));
+    quickReplyList.add(new QuickReply("title8", "payload 8"));
+    quickReplyList.add(new QuickReply("title9", "payload 9"));
+    quickReplyList.add(new QuickReply("title10", "payload 10"));
+    message.addQuickReplies(quickReplyList);
+    message.addQuickReply(new QuickReply("last","payload_last"));
+  }
+
+  @Test(expected = FacebookPreconditionException.class)
+  public void messageWithTooManyReplies_EightPresentThreeAdded() {
+    Message message = new Message("message text");
+    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    quickReplyList.add(new QuickReply("title1", "payload 1"));
+    quickReplyList.add(new QuickReply("title2", "payload 2"));
+    quickReplyList.add(new QuickReply("title3", "payload 3"));
+    quickReplyList.add(new QuickReply("title4", "payload 4"));
+    quickReplyList.add(new QuickReply("title5", "payload 5"));
+    quickReplyList.add(new QuickReply("title6", "payload 6"));
+    quickReplyList.add(new QuickReply("title7", "payload 7"));
+    quickReplyList.add(new QuickReply("title8", "payload 8"));
+
+    List<QuickReply> quickReplyListAdded = new ArrayList<QuickReply>();
+    quickReplyListAdded.add(new QuickReply("title1a", "payload 1a"));
+    quickReplyListAdded.add(new QuickReply("title2a", "payload 2a"));
+    quickReplyListAdded.add(new QuickReply("title3a", "payload 3a"));
+    message.addQuickReplies(quickReplyList);
+    message.addQuickReplies(quickReplyListAdded);
   }
 }
