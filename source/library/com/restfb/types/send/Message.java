@@ -22,6 +22,7 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.exception.FacebookPreconditionException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,9 @@ public class Message {
 
   /**
    * add single {@code QuickReply} to the list of QuickReplies
-   * @param quickReply the QuickReply you like to add
+   * 
+   * @param quickReply
+   *          the QuickReply you like to add
    * @return
    */
   public boolean addQuickReply(QuickReply quickReply) {
@@ -61,12 +64,16 @@ public class Message {
       quickReplies = new ArrayList<QuickReply>();
     }
 
+    checkPrecondition(1);
+
     return quickReplies.add(quickReply);
   }
 
   /**
    * add list of {@code QuickReply} objects to the list of QuickReplies
-   * @param quickReplyList the list QuickReplies you like to add
+   * 
+   * @param quickReplyList
+   *          the list QuickReplies you like to add
    * @return
    */
   public boolean addQuickReplies(List<QuickReply> quickReplyList) {
@@ -74,6 +81,16 @@ public class Message {
       quickReplies = new ArrayList<QuickReply>();
     }
 
+    checkPrecondition(quickReplyList.size());
+
     return quickReplies.addAll(quickReplyList);
+  }
+
+  private void checkPrecondition(int addingRepliesSize) {
+    if (quickReplies.size() + addingRepliesSize > 10) {
+      String message = "You cannot have more than 10 replies in one message, current size/try adding: "
+          + quickReplies.size() + "/" + addingRepliesSize;
+      throw new FacebookPreconditionException(message);
+    }
   }
 }

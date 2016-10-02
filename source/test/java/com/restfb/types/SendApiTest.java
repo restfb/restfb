@@ -23,6 +23,7 @@ package com.restfb.types;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
+import com.restfb.exception.FacebookPreconditionException;
 import com.restfb.types.send.*;
 import com.restfb.types.send.Message;
 import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
@@ -111,8 +112,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\",\"is_reusable\":true},\"type\":\"audio\"}}",
-            recipientJsonString, false);
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\",\"is_reusable\":true},\"type\":\"audio\"}}",
+      recipientJsonString, false);
   }
 
   @Test
@@ -124,9 +126,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"attachment_id\":\"123456789\"},\"type\":\"audio\"}}",
-            recipientJsonString, false);
+      recipientJsonString, false);
   }
-
 
   @Test
   public void messageLocationAttachment() throws JSONException {
@@ -180,7 +181,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     WebButton buttonHeight = new WebButton("Check this", "http://www.google.com");
     buttonHeight.setWebviewHeightRatio(WebviewHeightEnum.compact);
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
-    CallButton callButton = new CallButton("Call Support","+1234567890");
+    CallButton callButton = new CallButton("Call Support", "+1234567890");
     ButtonTemplatePayload payload = new ButtonTemplatePayload();
     payload.addButton(button);
     payload.addButton(buttonHeight);
@@ -314,8 +315,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
 
-    JSONAssert.assertEquals("{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
-            messageJsonString, false);
+    JSONAssert.assertEquals(
+      "{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
+      messageJsonString, false);
   }
 
   @Test
@@ -329,6 +331,47 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
 
-    JSONAssert.assertEquals("{\"text\":\"message text\",\"quick_replies\":[{\"content_type\":\"text\",\"title\":\"title1\",\"payload\":\"payload 1\"},{\"content_type\":\"text\",\"title\":\"title2\",\"payload\":\"payload 2\"}]}", messageJsonString, false);
+    JSONAssert.assertEquals(
+      "{\"text\":\"message text\",\"quick_replies\":[{\"content_type\":\"text\",\"title\":\"title1\",\"payload\":\"payload 1\"},{\"content_type\":\"text\",\"title\":\"title2\",\"payload\":\"payload 2\"}]}",
+      messageJsonString, false);
+  }
+
+  @Test(expected = FacebookPreconditionException.class)
+  public void messageWithTooManyReplies_tenPresentOneAdded() {
+    Message message = new Message("message text");
+    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    quickReplyList.add(new QuickReply("title1", "payload 1"));
+    quickReplyList.add(new QuickReply("title2", "payload 2"));
+    quickReplyList.add(new QuickReply("title3", "payload 3"));
+    quickReplyList.add(new QuickReply("title4", "payload 4"));
+    quickReplyList.add(new QuickReply("title5", "payload 5"));
+    quickReplyList.add(new QuickReply("title6", "payload 6"));
+    quickReplyList.add(new QuickReply("title7", "payload 7"));
+    quickReplyList.add(new QuickReply("title8", "payload 8"));
+    quickReplyList.add(new QuickReply("title9", "payload 9"));
+    quickReplyList.add(new QuickReply("title10", "payload 10"));
+    message.addQuickReplies(quickReplyList);
+    message.addQuickReply(new QuickReply("last", "payload_last"));
+  }
+
+  @Test(expected = FacebookPreconditionException.class)
+  public void messageWithTooManyReplies_EightPresentThreeAdded() {
+    Message message = new Message("message text");
+    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    quickReplyList.add(new QuickReply("title1", "payload 1"));
+    quickReplyList.add(new QuickReply("title2", "payload 2"));
+    quickReplyList.add(new QuickReply("title3", "payload 3"));
+    quickReplyList.add(new QuickReply("title4", "payload 4"));
+    quickReplyList.add(new QuickReply("title5", "payload 5"));
+    quickReplyList.add(new QuickReply("title6", "payload 6"));
+    quickReplyList.add(new QuickReply("title7", "payload 7"));
+    quickReplyList.add(new QuickReply("title8", "payload 8"));
+
+    List<QuickReply> quickReplyListAdded = new ArrayList<QuickReply>();
+    quickReplyListAdded.add(new QuickReply("title1a", "payload 1a"));
+    quickReplyListAdded.add(new QuickReply("title2a", "payload 2a"));
+    quickReplyListAdded.add(new QuickReply("title3a", "payload 3a"));
+    message.addQuickReplies(quickReplyList);
+    message.addQuickReplies(quickReplyListAdded);
   }
 }
