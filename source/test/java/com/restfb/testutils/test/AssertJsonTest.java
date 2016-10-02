@@ -92,4 +92,20 @@ public class AssertJsonTest {
 
     AssertJson.assertEquals(expectedString, actualString);
   }
+
+  @Test(expected = AssertionError.class)
+  public void check_Object_differentFields() {
+    String expectedString = "{}";
+    String actualString = "{\"id\":345}";
+
+    AssertJson.assertEquals(expectedString, actualString);
+  }
+
+  @Test(expected = AssertionError.class)
+  public void check_Object_Array() {
+    String expectedString = "{}";
+    String actualString = "[]";
+
+    AssertJson.assertEquals(expectedString, actualString);
+  }
 }

@@ -63,22 +63,28 @@ public class AssertJson {
             actualJson = Json.parse((String) actual);
         }
 
-        failIfNotEquals(expectedJson, actualJson);
+        failIfNotEquals(null, expectedJson, actualJson);
     }
 
-    private static void failIfNotEquals(JsonValue expectedJson, JsonValue actualJson) {
+    private static void failIfNotEquals(String key, JsonValue expectedJson, JsonValue actualJson) {
         try {
             if (actualJson.isObject() && expectedJson.isObject()) {
-                for (String key : expectedJson.asObject().names()) {
-                    failIfNotEquals(expectedJson.asObject().get(key), actualJson.asObject().get(key));
+                int actualFieldSize = actualJson.asObject().names().size();
+                int expectedFieldSize = expectedJson.asObject().names().size();
+                Assert.assertEquals("Objects have different fields - expected: " + expectedFieldSize + " actual: " + actualFieldSize, expectedFieldSize, actualFieldSize);
+                for (String keyName : expectedJson.asObject().names()) {
+                    failIfNotEquals(keyName, expectedJson.asObject().get(keyName), actualJson.asObject().get(keyName));
                 }
             } else if (actualJson.isArray() && expectedJson.isArray()) {
-                Assert.assertEquals(expectedJson.asArray().size(), actualJson.asArray().size());
+                int actualFieldSize = actualJson.asArray().size();
+                int expectedFieldSize = expectedJson.asArray().size();
+                Assert.assertEquals("Arrays have different sizes - expected: " + expectedFieldSize + " actual: " + actualFieldSize, expectedFieldSize, actualFieldSize);
                 for (int i = 0; i < actualJson.asArray().size(); i++) {
-                    failIfNotEquals(expectedJson.asArray().get(i), actualJson.asArray().get(i));
+                    failIfNotEquals(null, expectedJson.asArray().get(i), actualJson.asArray().get(i));
                 }
             } else {
-                Assert.assertEquals(expectedJson, actualJson);
+                String assertionString = (key != null) ? "Values with key '" + key + "' are different" : "Values are different";
+                Assert.assertEquals(assertionString, expectedJson, actualJson);
             }
         } catch (NullPointerException npe) {
             fail("Objects not equal: expected " + expectedJson + ", actual " + actualJson);
