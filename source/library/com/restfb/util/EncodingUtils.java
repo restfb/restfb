@@ -111,19 +111,19 @@ public final class EncodingUtils {
    * @param accessToken
    *          The facebook access token
    * @return A Hex encoded SHA256 Hash as a String
-   * @throws NoSuchAlgorithmException
-   * @throws InvalidKeyException
-   * @throws UnsupportedEncodingException
    */
-  public static String encodeAppSecretProof(String appSecret, String accessToken)
-      throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-    byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
-    SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
-    Mac mac = Mac.getInstance("HmacSHA256");
-    mac.init(signingKey);
-    byte[] raw = mac.doFinal(accessToken.getBytes(Charset.forName("UTF-8")));
-    byte[] hex = encodeHex(raw);
-    return new String(hex, Charset.forName("UTF-8"));
+  public static String encodeAppSecretProof(String appSecret, String accessToken) {
+    try {
+      byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
+      SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
+      Mac mac = Mac.getInstance("HmacSHA256");
+      mac.init(signingKey);
+      byte[] raw = mac.doFinal(accessToken.getBytes());
+      byte[] hex = encodeHex(raw);
+      return new String(hex, "UTF-8");
+    } catch (Exception e) {
+      throw new IllegalStateException("Creation of appsecret_proof has failed", e);
+    }
   }
 
   /**
