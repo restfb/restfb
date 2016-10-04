@@ -22,7 +22,6 @@
 package com.restfb;
 
 import static com.restfb.util.EncodingUtils.decodeBase64;
-import static com.restfb.util.EncodingUtils.encodeHex;
 import static com.restfb.util.StringUtils.*;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.lang.String.format;
@@ -40,10 +39,10 @@ import com.restfb.exception.generator.FacebookExceptionGenerator;
 import com.restfb.json.*;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
+import com.restfb.util.EncodingUtils;
 import com.restfb.util.StringUtils;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -909,18 +908,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public String obtainAppSecretProof(String accessToken, String appSecret) {
     verifyParameterPresence("accessToken", accessToken);
     verifyParameterPresence("appSecret", appSecret);
-
-    try {
-      byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
-      SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
-      Mac mac = Mac.getInstance("HmacSHA256");
-      mac.init(signingKey);
-      byte[] raw = mac.doFinal(accessToken.getBytes());
-      byte[] hex = encodeHex(raw);
-      return new String(hex, "UTF-8");
-    } catch (Exception e) {
-      throw new IllegalStateException("Creation of appsecret_proof has failed", e);
-    }
+    return EncodingUtils.encodeAppSecretProof(appSecret, accessToken);
   }
 
   /**
