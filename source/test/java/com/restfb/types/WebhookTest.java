@@ -50,6 +50,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   private static final String ITEM_LIKE = "like";
   private static final String ITEM_PHOTO = "photo";
   private static final String ITEM_POST = "post";
+  private static final String ITEM_REACTION = "reaction";
   private static final String ITEM_SHARE = "share";
   private static final String ITEM_STATUS = "status";
   private static final String ITEM_RATING = "rating";
@@ -172,6 +173,15 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_7293787835232", value.getPostId());
     assertEquals("8423678347823", value.getSenderId());
     assertEquals("Let's check this", value.getMessage());
+  }
+
+  @Test
+  public void feedReactionAdd() {
+    FeedReactionValue value =
+        openAndCheckFeedPostBasics("feed-reaction-add", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.ADD);
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("1234567890321", value.getSenderId());
   }
 
   @Test

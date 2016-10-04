@@ -101,6 +101,8 @@ public class ChangeValueFactory {
     FEED_POST_HIDE(FeedPostValue.class), //
     FEED_POST_REMOVE(FeedPostValue.class), //
     FEED_POST_UNHIDE(FeedPostValue.class), //
+    FEED_REACTION_ADD(FeedReactionValue.class), //
+    FEED_REACTION_REMOVE(FeedReactionValue.class), //
     FEED_SHARE_ADD(FeedShareValue.class), //
     FEED_SHARE_EDITED(FeedShareValue.class), //
     FEED_SHARE_HIDE(FeedShareValue.class), //
