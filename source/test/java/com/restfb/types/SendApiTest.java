@@ -144,14 +144,14 @@ public class SendApiTest extends AbstractJsonMapperTests {
   @Test
   public void messageGenericAttachment() {
 
-    ButtonTemplatePayload payload = new ButtonTemplatePayload();
+    ButtonTemplatePayload payload = new ButtonTemplatePayload("TITLE");
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"template_type\":\"button\"},\"type\":\"template\"}}",
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"text\":\"TITLE\", \"template_type\":\"button\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 
@@ -159,8 +159,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   public void messageGenericButtonAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
-    ButtonTemplatePayload payload = new ButtonTemplatePayload();
-    payload.setText("MY TEXT");
+    ButtonTemplatePayload payload = new ButtonTemplatePayload("MY TEXT");
     payload.addButton(button);
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
@@ -181,7 +180,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     buttonHeight.setWebviewHeightRatio(WebviewHeightEnum.compact);
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
     CallButton callButton = new CallButton("Call Support","+1234567890");
-    ButtonTemplatePayload payload = new ButtonTemplatePayload();
+    ButtonTemplatePayload payload = new ButtonTemplatePayload("TITLE");
     payload.addButton(button);
     payload.addButton(buttonHeight);
     payload.addButton(postbackButton);
@@ -193,7 +192,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals(
-      "{\"attachment\":{\"payload\":{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"webview_height_ratio\":\"compact\",\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"template_type\":\"button\"},\"type\":\"template\"}}",
+      "{\"attachment\":{\"payload\":{\"text\":\"TITLE\", \"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"webview_height_ratio\":\"compact\",\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"template_type\":\"button\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 

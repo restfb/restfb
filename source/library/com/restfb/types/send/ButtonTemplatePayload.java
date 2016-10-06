@@ -30,14 +30,14 @@ import lombok.Setter;
 
 public class ButtonTemplatePayload extends TemplatePayload {
 
-  @Setter
   @Facebook
   private String text;
 
   @Facebook
   private List<AbstractButton> buttons;
 
-  public ButtonTemplatePayload() {
+  public ButtonTemplatePayload(String titleText) {
+    this.text = titleText;
     setTemplateType("button");
   }
 
