@@ -37,7 +37,7 @@ public class PostSearchITCase extends RestFbIntegrationTestBase {
   @Test(expected = FacebookOAuthException.class)
   public void tesPostSearchV2_0() {
     DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_0);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_1);
     facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
       Parameter.with("type", "post"));
 
