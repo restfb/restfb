@@ -130,7 +130,8 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's biographical snippet.
-   * 
+   *
+   * @RestFB.GraphApi.Until 2.7
    * @return The user's biographical snippet.
    */
   @Getter
