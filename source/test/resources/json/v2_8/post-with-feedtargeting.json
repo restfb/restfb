@@ -1,0 +1,27 @@
+{
+  "feed_targeting": {
+    "cities": [
+      {
+        "id": 542609,
+        "name": "Berlin"
+      }
+    ],
+    "countries": [
+      "DE"
+    ]
+  },
+  "targeting": {
+    "geo_locations": {
+      "countries": [
+        "DE"
+      ],
+      "cities": [
+        {
+          "id": 542609,
+          "name": "Berlin"
+        }
+      ]
+    }
+  },
+  "id": "123456789_987654321"
+}

@@ -271,4 +271,15 @@ public class PostTest extends AbstractJsonMapperTests {
     assertEquals("Some User", item.getName());
     assertEquals(1L, examplePost.getReactionsCount().longValue());
   }
+
+  @Test
+  public void checkV2_8_feedTargeting() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getTargeting());
+    assertNotNull(examplePost.getTargeting().getGeoLocations());
+    assertEquals(examplePost.getTargeting().getCities(), examplePost.getTargeting().getGeoLocations().getCities());
+    assertEquals(examplePost.getTargeting().getCountries(), examplePost.getTargeting().getGeoLocations().getCountries());
+  }
 }

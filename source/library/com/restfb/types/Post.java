@@ -707,6 +707,14 @@ public class Post extends NamedFacebookType {
 
   public static class Targeting extends AbstractFacebookType {
 
+    /**
+     * @RestFB.GraphApi.Since 2.8
+     */
+    @Getter
+    @Setter
+    @Facebook("geo_locations")
+    FeedTargeting geoLocations;
+
     @Facebook
     protected List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
     @Facebook
@@ -717,18 +725,30 @@ public class Post extends NamedFacebookType {
     protected List<Integer> locales = new ArrayList<Integer>();
 
     public boolean addCity(NamedFacebookType city) {
+      if (geoLocations != null) {
+        return geoLocations.addCity(city);
+      }
       return cities.add(city);
     }
 
     public boolean addCountry(String country) {
+      if (geoLocations != null) {
+        return geoLocations.addCountry(country);
+      }
       return countries.add(country);
     }
 
     public boolean addLocale(Integer locale) {
+      if (geoLocations != null) {
+        return geoLocations.addLocale(locale);
+      }
       return locales.add(locale);
     }
 
     public boolean addRegion(NamedFacebookType region) {
+      if (geoLocations != null) {
+        return geoLocations.addRegion(region);
+      }
       return regions.add(region);
     }
 
@@ -740,6 +760,9 @@ public class Post extends NamedFacebookType {
      * @return list of cities
      */
     public List<NamedFacebookType> getCities() {
+      if (geoLocations != null) {
+        return geoLocations.getCities();
+      }
       return unmodifiableList(cities);
     }
 
@@ -751,6 +774,9 @@ public class Post extends NamedFacebookType {
      * @return list of targeting countries.
      */
     public List<String> getCountries() {
+      if (geoLocations != null) {
+        return geoLocations.getCountries();
+      }
       return unmodifiableList(countries);
     }
 
@@ -762,6 +788,9 @@ public class Post extends NamedFacebookType {
      * @return list of locales
      */
     public List<Integer> getLocales() {
+      if (geoLocations != null) {
+        return geoLocations.getLocales();
+      }
       return unmodifiableList(locales);
     }
 
@@ -773,22 +802,37 @@ public class Post extends NamedFacebookType {
      * @return list of regions
      */
     public List<NamedFacebookType> getRegions() {
+      if (geoLocations != null) {
+        return geoLocations.getRegions();
+      }
       return unmodifiableList(regions);
     }
 
     public boolean removeCity(NamedFacebookType city) {
+      if (geoLocations != null) {
+        return geoLocations.removeCity(city);
+      }
       return cities.remove(city);
     }
 
     public boolean removeCountry(String country) {
+      if (geoLocations != null) {
+        return geoLocations.removeCountry(country);
+      }
       return countries.remove(country);
     }
 
     public boolean removeLocale(Integer locale) {
+      if (geoLocations != null) {
+        return geoLocations.removeLocale(locale);
+      }
       return locales.remove(locale);
     }
 
     public boolean removeRegion(NamedFacebookType region) {
+      if (geoLocations != null) {
+        return geoLocations.removeRegion(region);
+      }
       return regions.remove(region);
     }
 
