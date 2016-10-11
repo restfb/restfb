@@ -1,0 +1,34 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1476219901013,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1476219900918,
+          "message": {
+            "mid": "mid.12345654332:226a70a704",
+            "seq": 1165,
+            "sticker_id": 56789012345678,
+            "attachments": [
+              {
+                "type": "image",
+                "payload": {
+                  "url": "https://scontent.xx.fbcdn.net/sticker.png",
+                  "sticker_id": 56789012345678
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

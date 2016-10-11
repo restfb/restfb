@@ -91,6 +91,11 @@ public class MessageItem implements InnerMessagingItem {
   @Facebook("quick_reply")
   private QuickReplyItem quickReply;
 
+  @Getter
+  @Setter
+  @Facebook("sticker_id")
+  private String stickerId;
+
   /**
    * Array containing attachment data
    */
