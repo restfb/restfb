@@ -22,6 +22,7 @@
 package com.restfb.types.send;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.restfb.AbstractJsonMapperTests;
 
@@ -31,8 +32,18 @@ public class SendResponseTest extends AbstractJsonMapperTests {
 
   @Test
   public void checkJson() {
-    SendResponse exampleResponse = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/sendresponse"), SendResponse.class);
+    SendResponse exampleResponse =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/sendresponse"), SendResponse.class);
     assertEquals("mid.1456970487936:c34767dfe57ee6e339", exampleResponse.getMessageId());
     assertEquals("1008372609250235", exampleResponse.getRecipientId());
+    assertTrue(exampleResponse.isSuccessful());
+  }
+
+  @Test
+  public void checkJson_result() {
+    SendResponse exampleResponse =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/sendresponse_result"), SendResponse.class);
+    assertEquals("Successfully added new_thread's CTAs", exampleResponse.getResult());
+    assertTrue(exampleResponse.isSuccessful());
   }
 }

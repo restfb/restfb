@@ -49,7 +49,16 @@ public class SendResponse extends AbstractFacebookType {
   @Facebook("attachment_id")
   private String attachmentId;
 
+  @Getter
+  @Setter
+  @Facebook
+  private String result;
+
   public boolean hasReusableAttachment() {
     return attachmentId != null;
+  }
+
+  public boolean isSuccessful() {
+    return result != null || messageId != null;
   }
 }
