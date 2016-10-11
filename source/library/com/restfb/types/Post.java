@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.restfb.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -864,6 +865,13 @@ public class Post extends NamedFacebookType {
     @Facebook("age_min")
     private Integer ageMin;
 
+    @Getter
+    @Setter
+    private Date relevantUntilTs;
+
+    @Facebook("relevant_until_ts")
+    private String rawRelevantUntilTs;
+
     @Facebook("college_majors")
     private List<String> collegeMajors = new ArrayList<String>();
 
@@ -1065,6 +1073,11 @@ public class Post extends NamedFacebookType {
 
     public boolean removeWorkNetwork(NamedFacebookType workNetwork) {
       return workNetworks.remove(workNetwork);
+    }
+
+    @JsonMappingCompleted
+    private void createTimeStamp() {
+      relevantUntilTs = DateUtils.toDateFromLongFormat(rawRelevantUntilTs);
     }
   }
 
