@@ -27,6 +27,8 @@ import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 public class PostTest extends AbstractJsonMapperTests {
 
   @Test
@@ -270,5 +272,15 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getTargeting().getGeoLocations());
     assertEquals(examplePost.getTargeting().getCities(), examplePost.getTargeting().getGeoLocations().getCities());
     assertEquals(examplePost.getTargeting().getCountries(), examplePost.getTargeting().getGeoLocations().getCountries());
+  }
+
+  @Test
+  public void checkV2_8_feedTargetingScheduleUntil() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting-schedule"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getFeedTargeting().getRelevantUntilTs());
+    Date ts = examplePost.getFeedTargeting().getRelevantUntilTs();
+    assertEquals(1457620560000L, ts.getTime());
   }
 }

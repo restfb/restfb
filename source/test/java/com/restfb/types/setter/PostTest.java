@@ -68,6 +68,7 @@ public class PostTest extends SetterGetterTestBase {
   @Test
   public void testFeedTargeting() {
     Post.FeedTargeting obj = new Post.FeedTargeting();
+    addIgnoredField("rawRelevantUntilTs");
     testInstance(obj);
   }
 
