@@ -40,6 +40,11 @@ public class MessagingPayload {
 
   @Getter
   @Setter
+  @Facebook("sticker_id")
+  private String stickerId;
+
+  @Getter
+  @Setter
   @Facebook
   private CoordinatesItem coordinates;
 

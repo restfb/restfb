@@ -30,10 +30,7 @@ import com.restfb.types.send.SenderActionEnum;
 import com.restfb.types.webhook.*;
 import com.restfb.types.webhook.base.AbstractFeedPostValue;
 import com.restfb.types.webhook.base.BaseChangeValue;
-import com.restfb.types.webhook.messaging.CheckoutUpdateItem;
-import com.restfb.types.webhook.messaging.MessagingItem;
-import com.restfb.types.webhook.messaging.PaymentItem;
-import com.restfb.types.webhook.messaging.QuickReplyItem;
+import com.restfb.types.webhook.messaging.*;
 import com.restfb.types.webhook.messaging.payment.Amount;
 import com.restfb.types.webhook.messaging.payment.PaymentCredentials;
 import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
@@ -462,6 +459,22 @@ public class WebhookTest extends AbstractJsonMapperTests {
     QuickReplyItem qrItem = messageItem.getMessage().getQuickReply();
     assertNotNull(qrItem);
     assertEquals("PAYLOAD_QUICK_REPLY", qrItem.getPayload());
+  }
+
+  @Test
+  public void stickerId() {
+    WebhookObject webhookObject = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-sticker"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    MessagingItem messageItem = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertNotNull(messageItem);
+    assertNotNull(messageItem.getMessage());
+    assertEquals("56789012345678", messageItem.getMessage().getStickerId());
+    assertNotNull(messageItem.getMessage().getAttachments());
+    assertEquals(1, messageItem.getMessage().getAttachments().size());
+    MessagingAttachment attachment = messageItem.getMessage().getAttachments().get(0);
+    assertNotNull(attachment.getPayload());
+    assertEquals("56789012345678", attachment.getPayload().getStickerId());
   }
 
   @Test
