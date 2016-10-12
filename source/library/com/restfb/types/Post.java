@@ -21,24 +21,23 @@
  */
 package com.restfb.types;
 
-import static com.restfb.json.JsonObject.getNames;
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-import static java.util.Collections.unmodifiableList;
-
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Checkin.Place.Location;
+import com.restfb.util.DateUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.restfb.util.DateUtils;
-import lombok.Getter;
-import lombok.Setter;
+import static com.restfb.json.JsonObject.getNames;
+import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import static java.util.Collections.unmodifiableList;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/post/">Post Graph API type</a>.
@@ -893,6 +892,9 @@ public class Post extends NamedFacebookType {
     @Facebook("interested_in")
     private List<Integer> interestedIn = new ArrayList<Integer>();
 
+    @Facebook
+    private List<String> interests = new ArrayList<String>();
+
     @Facebook("relationship_statuses")
     private List<Integer> relationshipStatuses = new ArrayList<Integer>();
 
@@ -1032,6 +1034,24 @@ public class Post extends NamedFacebookType {
     public boolean removeInterestedIn(Integer interest) {
       return interestedIn.remove(interest);
     }
+
+    /**
+     * Indicates targeting based on the 'interests' field of the user profile.
+     *
+     * @return list of 'interests' types
+     */
+    public List<String> getInterests() {
+      return unmodifiableList(interests);
+    }
+
+    public boolean addInterests(String interest) {
+      return interests.add(interest);
+    }
+
+    public boolean removeInterests(String interest) {
+      return interests.remove(interest);
+    }
+
 
     /**
      * Array of integers for targeting based on relationship status.

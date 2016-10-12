@@ -21,13 +21,16 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
-
 import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.Test;
 
 import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class PostTest extends AbstractJsonMapperTests {
 
@@ -293,5 +296,31 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getFeedTargeting().getRelevantUntilTs());
     Date ts = examplePost.getFeedTargeting().getRelevantUntilTs();
     assertEquals(1457620560000L, ts.getTime());
+  }
+
+  @Test
+  public void checkV2_5_feedTargetingWithRegions() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-with-feedtargeting-regions"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations().getRegions());
+    assertFalse(examplePost.getFeedTargeting().getGeoLocations().getRegions().isEmpty());
+
+    assertNotNull(examplePost.getFeedTargeting().getInterests());
+    assertFalse(examplePost.getFeedTargeting().getInterests().isEmpty());
+  }
+
+  @Test
+  public void checkV2_8_feedTargetingWithRegions() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting-regions"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations().getRegions());
+    assertFalse(examplePost.getFeedTargeting().getGeoLocations().getRegions().isEmpty());
+
+    assertNotNull(examplePost.getFeedTargeting().getInterests());
+    assertFalse(examplePost.getFeedTargeting().getInterests().isEmpty());
   }
 }
