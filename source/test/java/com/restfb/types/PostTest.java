@@ -193,7 +193,8 @@ public class PostTest extends AbstractJsonMapperTests {
 
   @Test
   public void checkV2_6_storyTags() {
-    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/post-with-storyAndMessageTags"), Post.class);
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/post-with-storyAndMessageTags"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getMessageTags());
     assertNotNull(examplePost.getStoryTags());
@@ -271,16 +272,46 @@ public class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getTargeting());
     assertNotNull(examplePost.getTargeting().getGeoLocations());
     assertEquals(examplePost.getTargeting().getCities(), examplePost.getTargeting().getGeoLocations().getCities());
-    assertEquals(examplePost.getTargeting().getCountries(), examplePost.getTargeting().getGeoLocations().getCountries());
+    assertEquals(examplePost.getTargeting().getCountries(),
+      examplePost.getTargeting().getGeoLocations().getCountries());
   }
 
   @Test
   public void checkV2_8_feedTargetingScheduleUntil() {
-    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting-schedule"), Post.class);
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting-schedule"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getFeedTargeting());
     assertNotNull(examplePost.getFeedTargeting().getRelevantUntilTs());
     Date ts = examplePost.getFeedTargeting().getRelevantUntilTs();
     assertEquals(1457620560000L, ts.getTime());
+  }
+
+  @Test
+  public void checkV2_5_feedTargetingWithRegions() {
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-with-feedtargeting-regions"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations().getRegions());
+    assertFalse(examplePost.getFeedTargeting().getGeoLocations().getRegions().isEmpty());
+
+    assertNotNull(examplePost.getFeedTargeting().getInterests());
+    assertFalse(examplePost.getFeedTargeting().getInterests().isEmpty());
+  }
+
+  @Test
+  public void checkV2_8_feedTargetingWithRegions() {
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting-regions"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getFeedTargeting());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations());
+    assertNotNull(examplePost.getFeedTargeting().getGeoLocations().getRegions());
+    assertFalse(examplePost.getFeedTargeting().getGeoLocations().getRegions().isEmpty());
+
+    assertNotNull(examplePost.getFeedTargeting().getInterests());
+    assertFalse(examplePost.getFeedTargeting().getInterests().isEmpty());
   }
 }
