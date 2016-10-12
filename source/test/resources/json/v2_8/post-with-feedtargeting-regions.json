@@ -1,0 +1,54 @@
+{
+  "targeting": {
+    "age_min": 21,
+    "age_max": 65,
+    "locales": [
+      23,
+      88
+    ],
+    "geo_locations": {
+      "countries": [
+        "CA"
+      ],
+      "regions": [
+        {
+          "key": "3886"
+        }
+      ],
+      "cities": [
+        {
+          "key": "2468631"
+        }
+      ]
+    }
+  },
+  "feed_targeting": {
+    "age_min": 21,
+    "age_max": 65,
+    "locales": [
+      23
+    ],
+    "genders": [
+      1
+    ],
+    "interests": [
+      "6003012461997"
+    ],
+    "geo_locations": {
+      "countries": [
+        "CA"
+      ],
+      "regions": [
+        {
+          "key": "3886"
+        }
+      ],
+      "cities": [
+        {
+          "key": "2468631"
+        }
+      ]
+    }
+  },
+  "id": "703438126457284_868981499902945"
+}
