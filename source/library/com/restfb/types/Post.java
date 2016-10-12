@@ -31,12 +31,13 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.Checkin.Place.Location;
+import com.restfb.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
-import com.restfb.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -720,8 +721,24 @@ public class Post extends NamedFacebookType {
     protected List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
     @Facebook
     protected List<String> countries = new ArrayList<String>();
+
     @Facebook
     protected List<NamedFacebookType> regions = new ArrayList<NamedFacebookType>();
+
+    @Facebook("regions")
+    private JsonObject rawRegions;
+
+    @JsonMappingCompleted
+    private void convertList(JsonMapper mapper) {
+      if (rawRegions != null) {
+        Iterator<String> it = rawRegions.keys();
+        while (it.hasNext()) {
+          String region = rawRegions.getString(it.next());
+          regions.add(mapper.toJavaObject(region, NamedFacebookType.class));
+        }
+      }
+    }
+
     @Facebook
     protected List<Integer> locales = new ArrayList<Integer>();
 
@@ -893,6 +910,9 @@ public class Post extends NamedFacebookType {
     @Facebook("interested_in")
     private List<Integer> interestedIn = new ArrayList<Integer>();
 
+    @Facebook
+    private List<String> interests = new ArrayList<String>();
+
     @Facebook("relationship_statuses")
     private List<Integer> relationshipStatuses = new ArrayList<Integer>();
 
@@ -1032,6 +1052,24 @@ public class Post extends NamedFacebookType {
     public boolean removeInterestedIn(Integer interest) {
       return interestedIn.remove(interest);
     }
+
+    /**
+     * Indicates targeting based on the 'interests' field of the user profile.
+     *
+     * @return list of 'interests' types
+     */
+    public List<String> getInterests() {
+      return unmodifiableList(interests);
+    }
+
+    public boolean addInterests(String interest) {
+      return interests.add(interest);
+    }
+
+    public boolean removeInterests(String interest) {
+      return interests.remove(interest);
+    }
+
 
     /**
      * Array of integers for targeting based on relationship status.
