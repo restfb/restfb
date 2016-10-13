@@ -1,4 +1,38 @@
-1.31.0 (September 22, 2016)
+# RestFB Changelog
+
+## 1.32.0 (October 13, 2016)
+
+* Graph API 2.8:
+  * Issue #589: Feed Targeting
+  * Issue #590: User Bios
+  * Issue #588: Basic support
+* Graph API 2.7:
+  * Issue #517: Add missing field to `VideoCopyright` 
+* Messenger Platform:
+  * Issue #594: add `sticker_id` to `MessageItem` class and `MessagingAttachment` class<br>
+    Thanks to @Abdelrahman-Hasan for the hint
+  * Issue #596: Improve the `SendResponse`<br>
+    Thanks to @marceloverdijk for the hint
+  * Issue #584: add `attachment_id` and `is_reusable` to `MediaAttachment` class<br>
+    Thanks to @Abdelrahman-Hasan for the hint
+  * Issue #581: Please add a `Message#addQuickReplies` (multiple)<br>
+    Thanks to @marceloverdijk for the hint
+  * Issue #582: Throw exception on adding too many `QuickReplies`
+  * Issue #580: Wrong Date in `FlightSchedule` leads to error code when sending
+  * Issue #592: Messenger documentation bug<br>
+    Thanks to @vraffy for the hint
+* Issue #587: Added `ChangeValue` type `FEED_REACTION_ADD`<br>
+  Thanks to @misternerd for the hint
+* Issue #586: Wrong `appsecret_proof` created by `EncodingUtils`<br>
+  Thanks to @mchmielarz for the hint
+* Issue #579: Move license files to root
+* Issue #600 and #601: `NPE` on empty `message_tags`<br>
+  Thanks to @anenkov for the PR
+* Issue #599: add support for interests in `post.feed_targeting`<br>
+  Thanks to @matthewbogner for the hint and PR
+* Issue #597: `relevant_until_ts` field in `FeedTargeting` is missing
+  
+## 1.31.0 (September 22, 2016)
 
 * Messenger Platform Update:
   * Issue #566: new QuickReply types added<br>
@@ -25,7 +59,7 @@
 * Issue #555: `FacebookPermissions` scope changed to public<br>
   Thanks to @rhino88 for the PR
 
-1.30.0 (August 15, 2016)
+## 1.30.0 (August 15, 2016)
 
 * Issue #548 and #549: Support for `x-page-usage` header<br>
   Thanks to @kukido for the PR
@@ -46,7 +80,7 @@
 * Issue #535: Targeting rule deserialisation fixed<br>
   Thanks to @hkroger for the hint
 
-1.29.0 (July 28, 2016)
+## 1.29.0 (July 28, 2016)
 
 * Issue #391, #532 and #533: `LifeEvent` type added<br>
   Thanks to @quangpld for the PR
@@ -67,7 +101,7 @@
   Thanks to @huymluu for the hint
 * Issue #530: Webhooks: add unhide for all HIDE-able elements
 
-1.28.0 (July 18, 2016)
+## 1.28.0 (July 18, 2016)
 
 * Issue #513: More Webhook ChangeValue types added<br>
   Thanks to @gnagy for the PR
@@ -85,8 +119,7 @@
 * Issue #512: Append classDefinition to ChangeValueFactory log warning message<br>
   Thanks to @gnagy for the PR
 
-
-1.27.0 (July 12, 2016)
+## 1.27.0 (July 12, 2016)
 
 * Issue #509: Marketing API - form leads added<br>
 * Issue #508: `creative_id` field removed from `AdCreative`<br>
@@ -109,7 +142,7 @@
 * Issue #497: When creating catalog, you need undocumented password field<br>
   Thanks to @hkroger for the hint
 
-1.26.0 (June 30, 2016)
+## 1.26.0 (June 30, 2016)
 
 * Issue #495 and #493: Messenger Attachment Improvements<br>
   Thanks to @alexdlaird for the PR
@@ -141,7 +174,7 @@
 * Issue #472: setting welcome message for messenger bot<br>
   Thanks to @bqcuong2212 for the hint
 
-1.25.0 (June 6, 2016)
+## 1.25.0 (June 6, 2016)
 
 * Issue #460: Issue with TOS fields in `AdAccount`<br>
   Thanks to @hkroger
@@ -157,7 +190,7 @@
 * Issue #470: `pom.xml` improved - formatting and minor changes
 * Issue #471: logging changed, `String.format is used`
 
-1.24.0 (May 22, 2016)
+## 1.24.0 (May 22, 2016)
 
 * Issue #458: `FundingSourceDetails` causes an exception<br>
   Thanks to @hkroger
@@ -173,7 +206,7 @@
 * Issue #448: PageRating missing fields / failing parsing<br>
   Thanks to @ronaldheft for hint and PR
 
-1.23.0 (May 1, 2016)
+## 1.23.0 (May 1, 2016)
 
 * Graph API 2.6 support
   * Issue #435: missing field `content_tags` in `Video` type
@@ -188,7 +221,7 @@
 * Issue #440: Adding `xmpp_login` extended page permission<br>
   Thanks to @alexdlaird for PR
 
-1.22.0 (April 13, 2016)
+## 1.22.0 (April 13, 2016)
 
 * Graph API 2.6 support
   * Issue #433: `PageAdminNote` type is missing
@@ -207,13 +240,13 @@
 * Issue #415: Missing `getVideoData()` on `com.restfb.types.Message.Attachment<br>
   Thanks to @lalitg14 for the hint and the JSON
 
-1.21.1 (April 2, 2016)
+## 1.21.1 (April 2, 2016)
 
 * Issue #409 and #410: Handled missing rating, is_draft, language fields in PageRating<br>
   Thanks to @venilnoronha for bug report and PR
 * Issue #411: Custom RestFB tags added to javadoc
 
-1.21.0 (March 28, 2016)
+## 1.21.0 (March 28, 2016)
 
 * Issue #390: `Notification` type added
 * Issue #403: Missing fields in `Message Attachment`
@@ -223,7 +256,7 @@
   Thanks to @ajeetsk for hint
 * Issue #407: Build files updated
 
-1.20.0 (March 4, 2016)
+## 1.20.0 (March 4, 2016)
 
 * Issue #377: Check the permissions
 * Issue #379: Missing fields in `AppRequest` type
@@ -247,7 +280,7 @@
 * Issue #401: Webhooks Fields update<br>
   Thanks to @cmmoran
 
-1.19.0 (February 5, 2016)
+## 1.19.0 (February 5, 2016)
 
 * Issue #375: "private message page replies" support added
 * Issue #369: `Translation` type added
@@ -264,12 +297,12 @@
 * Issue #362: waffle.io badge added
 * Issue #356: `PageCallToAction` type added
 
-1.18.1 (January 4, 2016)
+## 1.18.1 (January 4, 2016)
 
 * Issue #355: copyright year changed to 2016
 * Issue #354: changelog syntax changed to markdown
 
-1.18.0 (December 20, 2015)
+## 1.18.0 (December 20, 2015)
 
 * Issue #352: access to Facebook HTTP debug headers and HTTP headers in general<br>
   Thanks to Alex Conlin for input
@@ -283,7 +316,7 @@
 * Issue #186: `Page rating` type rewrite<br>
   Thanks to Ron Heft for input
 
-1.17.0 (November 26, 2015)
+## 1.17.0 (November 26, 2015)
 
 * Issue #328: Facebook Exception provides access to raw error json<br>
   Thanks to Fran Sanchez for input
@@ -294,7 +327,7 @@
 * Issue #333: `comments` and more fields added to `Album`-type<br>
   Thanks to Paolo for input
 
-1.16.0 (October 22, 2015)
+## 1.16.0 (October 22, 2015)
 
 * Issue #317: Marketing API improved
 * Issue #324: `message_tags` field added to `Post`-type<br>
@@ -304,7 +337,7 @@
 * Issue #322: missing fields added to `Video`-type<br>
   Thanks to @aonischenko for input
 
-1.15.0 (October 8, 2015)
+## 1.15.0 (October 8, 2015)
 
 * Issue #315 and #316: **Graph API 2.5 support**
 * Issue #122: Enum support added to `DefaultJsonMapper`<br>
@@ -326,7 +359,7 @@
 * Issue #313: `CoverPhoto` added to `User` type
 * NoIssue: documentation improved on website
 
-1.14.1 (September 1, 2015)
+## 1.14.1 (September 1, 2015)
 
 * Issue #252: strange events behaviour<br>
   Thanks to Paul Myburgh
@@ -335,7 +368,7 @@
 * Issue #286: `likes` field in `Comment` type changed<br>
   Thanks to Bogdan Neacsa
 
-1.14.0 (July 18, 2015)
+## 1.14.0 (July 18, 2015)
 
 * Issue #273: Normalize license header
 * Issue #271: Add `devices` field to `User`-type
@@ -349,7 +382,7 @@
 * Issue #246: Commens/Likes added to `Video` type (incl special count method)<br>
   Thanks to @anenkov
 
-1.13.0 (July 8, 2015)
+## 1.13.0 (July 8, 2015)
 
 * Issue #261: `targeting` field missing in `Post`-type<br>
   Thanks to @Karnifexx
@@ -358,7 +391,7 @@
 * Issue #263: `full_picture` field missing in `Post` type<br>
   Thanks to @CannyDuck
 
-1.12.0 (July 5, 2015)
+## 1.12.0 (July 5, 2015)
 
 * Issue #258: Device Access Token support added
 * Issue #256: Using FeedTargeting wrapper when posting<br>
@@ -374,7 +407,7 @@
   Thanks to @FrancoisThareau
 * Issue #207: Graph API 2.3 video playlist support
 
-1.11.0 (May 28, 2015)
+## 1.11.0 (May 28, 2015)
 
 * Issue #221: Add feed_targeting object and addfield to Post type
 * Issue #226: Cleanup
@@ -392,14 +425,14 @@
 * Issue #237: Comments regarding location and venue deprecation added<br>
   Thanks to @Blarff
 
-1.10.1 (April 24, 2015)
+## 1.10.1 (April 24, 2015)
 
 * Issue #223: access token parsing for Graph API 2.3 added<br>
   Thanks to @SmokyBot
 * Issue #224: javadoc improvement regarding how some fields are filled<br>
   Thanks to @munwaikong
 
-1.10.0 (April 22, 2015)
+## 1.10.0 (April 22, 2015)
 
 * Issue #219: `is_hidden` and `is_published` fields added to `Post`-type<br>
   Thanks to Karnifexx
@@ -423,7 +456,7 @@
   * Issue #212: `read_friendlists` permission is `read_custom_friendlists`
   * Issue #213: `publish_pages` permission
 
-1.9.0 (March 25, 2015)
+## 1.9.0 (March 25, 2015)
 
 * Issue #196: Logout Url Builder added<br>
   Thanks to Fagner Brack
@@ -438,7 +471,7 @@
 * Issue #52: `ScopeBuilder` added<br>
   Thanks to Broc Seib for the input
 
-1.8.0 (February 13, 2015)
+## 1.8.0 (February 13, 2015)
 
 * Issue #93: obtain user access token method added<br>
   Thanks to Johno Crawford
@@ -452,7 +485,7 @@
 * Issue #181: binary post Integration test added<br>
   Thanks to Rick Fischer 
 
-1.7.1 (January 16, 2015)
+## 1.7.1 (January 16, 2015)
 
 * Issue #149: `can_hide` and `is_hidden` fields added<br>
   Thanks for input, code snippets and review to Aurelie Vache
@@ -470,7 +503,7 @@
   Thanks to @suryaganeshv
 * Issue #169: unittest fixed for java 8
 
-1.7.0 (November 7, 2014)
+## 1.7.0 (November 7, 2014)
 
 * Issue #7: speed up date parsing, `DateFormatStrategies` added<br>
   Thanks for input and code review to @inthepocket, Marcel Stoer, Mike Hazelwood, Peter Vahlstrup
@@ -490,7 +523,7 @@
 * Issue #136: integration test configuration enhanced
 * Issue #130: `URL`-type replaced by a current `URL`-type implementation
 
-1.6.16 (September 22, 2014)
+## 1.6.16 (September 22, 2014)
 
 * Issue #131: lombok library added to generate getter automatically
 * Issue #129: deleteObject bug using Graph API 2.1 fixed<br>
@@ -515,7 +548,7 @@
 * lot of unittests added
 * integration tests added
 
-1.6.15 (August 29, 2014)
+## 1.6.15 (August 29, 2014)
 
 * Issue #119: basic support for Facebook API versioning added (unversioned, v1.0, v2.0, v2.1)
 * Issue #121: `category_list` field added to `Place`-type<br>
@@ -529,13 +562,13 @@
 * unit test reorganized, mvn test is working now correctly
 * some unit test added to check some issues
 
-1.6.14 (January 27, 2014)
+## 1.6.14 (January 27, 2014)
 
 * Fix for regression in 1.6.13 where one DefaultFacebookClient constructor override would ignore the supplied
   WebRequestor and JsonMapper and instead use the default implementations.<br>
   Thanks to AlekseiS
 
-1.6.13 (January 25, 2014)
+## 1.6.13 (January 25, 2014)
 
 * Support for `appsecret_proof` functionality.<br>
   Thanks to Daniel Piet and Mike Champion.
@@ -564,7 +597,7 @@
   Thanks to loicAG.
 * Added missing fields to `Event`-type
 
-1.6.12 (March 10, 2013)
+## 1.6.12 (March 10, 2013)
 
 * Now support Graph API FQL endpoint with new `FacebookClient.executeFqlQuery()` and `FacebookClient.executeFqlMultiquery()`.
   `FacebookClient.executeQuery()` and `FacebookClient.executeMultiquery()` have been deprecated.<br>
@@ -590,7 +623,7 @@
 * Fix for invalid Windows filename.<br>
   Thanks to Samuel Gélineau for the patch. 
 
-1.6.11 (September 7, 2012)
+## 1.6.11 (September 7, 2012)
 
 * *New feature*: you may annotate a method in a class mapped by JsonMapper with `@JsonMappingCompleted`.
   Your method may be *private* and must take *0 parameters* or *1 JsonMapper parameter*.
@@ -599,7 +632,7 @@
 * Bugfix: The `message_tags` field in `Post`-type could throw an exception when JsonMapper attempted to map it.<br>
   Thanks to Shaya Potter for reporting this.
 
-1.6.10 (September 3, 2012)
+## 1.6.10 (September 3, 2012)
 
 * *Potentially-breaking change*: in the event of a Graph API 404 (like fetching an object with an id that doesn't exist, e.g. /XXX)
   we now throw the correct FacebookOAuthException instead of FacebookNetworkException.<br>
@@ -642,12 +675,12 @@
 * Various changes to classes in `com.restfb.types` to reflect latest Facebook updates.<br>
   Thanks to Chris Petersen, Marcel Stoer, Mike Hazelwood, Marco Scavuzzo, Stefan Hauk, Mike Champion, nitinik, egor@technoparkcorp.com, and others.
 
-1.6.9 (October 21, 2011)
+## 1.6.9 (October 21, 2011)
 
 * Bugfix for `Connection` page iteration.<br>
   Thanks to Takashi Kawachi for the patch.
 
-1.6.8 (October 15, 2011)
+## 1.6.8 (October 15, 2011)
 
 * Now allow batch requests to specify `name` parameter and fixed a bug where request headers were not
   being included in requests.<br>
@@ -663,7 +696,7 @@
 * Moved to Github (https://github.com/revetkn/restfb) and back to an Ant-based build system for simplicity.
   RestFB releases will still be pushed to Maven central, but RestFB itself will no longer use Maven. 
 
-1.6.7 (September 10, 2011)
+## 1.6.7 (September 10, 2011)
 
 * The `Connection<T>` constructor is now public and the class implements `Iterable<List<T>>`.<br>
   Thanks to kongo09, Andrew Liles, and everyone else who requested this.
@@ -677,12 +710,12 @@
   It's available at http://restfb.com/examples/RestFB%20Log4j%20Example.zip<br>
   Thanks to Daniel Longosz for asking about this.
 
-1.6.6 (July 12, 2011)
+## 1.6.6 (July 12, 2011)
 
 * Fixes a bug introduced in 1.6.5 where facebookClient.delete(...) would throw an NPE.<br>
   Thanks to Garret Collins.
 
-1.6.5 (July 4, 2011)
+## 1.6.5 (July 4, 2011)
 
 * BREAKING CHANGE:
 
@@ -731,7 +764,7 @@
   Added the `type` field to `StatusMessage`.<br>
   Thanks to volkenborn@yahoo.com.
 
-1.6.4 (March 5, 2011)
+## 1.6.4 (March 5, 2011)
 
 * Added `application` and `type` fields to `Post`.<br>
   Thanks to nelrib.
@@ -739,7 +772,7 @@
   Thanks to Marcel Stoer.
 * Added undocumented `properties` field to `Post` type.
   
-1.6.3 (February 19, 2011)
+## 1.6.3 (February 19, 2011)
 
 * RestFB now automatically uses the faster read-only endpoints for Graph and Old REST API calls when possible.<br>
   Thanks to Dmitry Naumenko for the suggestion.
@@ -765,7 +798,7 @@
   Connection<Insight> insights = facebookClient.fetchConnection("PAGE_ID/insights", Insight.class);
   ```
 
-1.6.2 (January 23, 2011)
+## 1.6.2 (January 23, 2011)
 
 * You can now instruct `DefaultJsonMapper` how to handle mapping exceptions, e.g.
   ignoring them and mapping as null instead of throwing an exception. 
@@ -795,7 +828,7 @@
 * `DateUtils.toDateFromMonthYearFormat` now returns null for `0000-00` instead of `0 AD`.
   Not sure why FB gives us 0000-00 instead of null in some situations, e.g. work start date.
 
-1.6.1 (unofficial release)
+## 1.6.1 (unofficial release)
 
 * We're now fully Mavenized - you can add RestFB to your Maven project like this:
   ```xml
@@ -816,7 +849,7 @@
 * `Latitude` and `Longitude` fields on `Checkin.Place` are now of type `Double` instead of `Float`,
   thereby supporting the full precision of the data returned by FB instead of truncating to fit correctly in a Float.
 
-1.6 (December 30, 2010)
+## 1.6 (December 30, 2010)
 
 * POTENTIALLY BREAKING CHANGE: `User.getPicture()` has been removed.
   To get the user's picture, simply construct a URL by hand, e.g. http://graph.facebook.com/USER_ID/picture
@@ -872,12 +905,12 @@
 * Added middle_name field to User type.<br>
   Thanks to Fehmican Saglam.
 
-1.5.4 (September 16, 2010)
+## 1.5.4 (September 16, 2010)
 
 * Post comment type now handles case where FB returns an empty array instead of an object type.<br>
   Thanks to Pipo, CR, S13_Alan, Igor Kabiljo, and Jakub Danilewicz.
 
-1.5.3 (July 21, 2010)
+## 1.5.3 (July 21, 2010)
 
 * `NamedFacebookType` now handles situation where FB returns, for example,
   "hometown":"Beograd", instead of the expected "hometown":{"id":123,"name":"Belgrade, Serbia"}<br>
@@ -901,7 +934,7 @@
   Thanks to Kalle Korhonen and bijuphilip0 for the enhancement requests.
 * Added locale field to User.
 
-1.5.2 (June 8, 2010)
+## 1.5.2 (June 8, 2010)
 
 * No longer require an access token for the Graph API (now have a default constructor for `DefaultFacebookClient`).<br>
   Thanks to Yoav Shapira for the enhancement request.
@@ -913,12 +946,12 @@
   Thanks to Jumpa for reporting this.
 * Special check to only URL-encode access token if it's not already URL-encoded.
 
-1.5.1 (May 14, 2010)
+## 1.5.1 (May 14, 2010)
 
 * OAuth support broke in `DefaultLegacyFacebookClient` because Facebook changed the `token` param to `access_token`.<br>
   Thanks to Antonio Casula for the initial problem report.
   
-1.5 (May 1, 2010)
+## 1.5 (May 1, 2010)
 
 * Added support for the new Facebook Graph API
 * Old REST API now has support for the new OAuth authentication tokens
@@ -929,27 +962,27 @@
 * Enhanced examples and documentation<br>
   Thanks to Ofer Fort, Ryan Wilson, and Alex Launi for their input.
 
-1.4 (April 21, 2010)
+## 1.4 (April 21, 2010)
 
 * Added support for Java -> JSON mapping to support more complex API calls like stream.publish.<br>
   Thanks to Alex Launi and biz@layes.com for their input.
 
-1.3 (March 19, 2010)
+## 1.3 (March 19, 2010)
 
 * In response to recent FB changes, JSON mapper now coerces empty JSON arrays to empty Java Strings if you're trying to map to a String field.<br>
   Thanks to Antonello Naccarato for reporting this!
 
-1.2 (March 2, 2010)
+## 1.2 (March 2, 2010)
 
 * Fixed bug related to mapping JSON null to Java types
 * Library source is now included in the JAR for easy browsing in your IDE
 
-1.1 (February 23, 2010)
+## 1.1 (February 23, 2010)
 
 * Formal support for `fql.multiquery` API call
 * Minor JSON mapping fixes and error message improvements
 * Updated website with `fql.multiquery` documentation and explicit mention of non-support of session key acquisition
 
-1.0 (February 2, 2010)
+## 1.0 (February 2, 2010)
 
 * Initial release
