@@ -555,9 +555,8 @@ public class Post extends NamedFacebookType {
       }
       return resultList;
     } catch (FacebookJsonMappingException je) {
-
+      return new ArrayList<MessageTag>();
     }
-    return null;
   }
 
   /**
