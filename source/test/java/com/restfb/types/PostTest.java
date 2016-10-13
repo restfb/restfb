@@ -192,6 +192,14 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void checkV2_5_emptyMessageTags() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/empty-message-tags"), Post.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getMessageTags());
+    assertTrue(examplePost.getMessageTags().isEmpty());
+  }
+
+  @Test
   public void checkV2_6_storyTags() {
     Post examplePost =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/post-with-storyAndMessageTags"), Post.class);
