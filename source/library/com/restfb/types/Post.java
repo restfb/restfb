@@ -706,6 +706,25 @@ public class Post extends NamedFacebookType {
 
   }
 
+  public static class KeyedType extends NamedFacebookType {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String key;
+
+    @JsonMappingCompleted
+    private void replaceId() {
+      if (getId() == null && key != null) {
+        setId(key);
+      }
+
+      if (key == null && getId() != null) {
+        setKey(getId());
+      }
+    }
+  }
+
   public static class Targeting extends AbstractFacebookType {
 
     /**
@@ -717,12 +736,12 @@ public class Post extends NamedFacebookType {
     FeedTargeting geoLocations;
 
     @Facebook
-    protected List<NamedFacebookType> cities = new ArrayList<NamedFacebookType>();
+    protected List<KeyedType> cities = new ArrayList<KeyedType>();
     @Facebook
     protected List<String> countries = new ArrayList<String>();
 
     @Facebook
-    protected List<NamedFacebookType> regions = new ArrayList<NamedFacebookType>();
+    protected List<KeyedType> regions = new ArrayList<KeyedType>();
 
     @Facebook("regions")
     private JsonObject rawRegions;
@@ -733,7 +752,7 @@ public class Post extends NamedFacebookType {
         Iterator<String> it = rawRegions.keys();
         while (it.hasNext()) {
           String region = rawRegions.getString(it.next());
-          regions.add(mapper.toJavaObject(region, NamedFacebookType.class));
+          regions.add(mapper.toJavaObject(region, KeyedType.class));
         }
       }
     }
@@ -741,7 +760,7 @@ public class Post extends NamedFacebookType {
     @Facebook
     protected List<Integer> locales = new ArrayList<Integer>();
 
-    public boolean addCity(NamedFacebookType city) {
+    public boolean addCity(KeyedType city) {
       if (geoLocations != null) {
         return geoLocations.addCity(city);
       }
@@ -762,7 +781,7 @@ public class Post extends NamedFacebookType {
       return locales.add(locale);
     }
 
-    public boolean addRegion(NamedFacebookType region) {
+    public boolean addRegion(KeyedType region) {
       if (geoLocations != null) {
         return geoLocations.addRegion(region);
       }
@@ -776,7 +795,7 @@ public class Post extends NamedFacebookType {
      *
      * @return list of cities
      */
-    public List<NamedFacebookType> getCities() {
+    public List<KeyedType> getCities() {
       if (geoLocations != null) {
         return geoLocations.getCities();
       }
@@ -805,7 +824,7 @@ public class Post extends NamedFacebookType {
      * @return list of locales
      */
     public List<Integer> getLocales() {
-      if (geoLocations != null) {
+      if (geoLocations != null && !geoLocations.getLocales().isEmpty()) {
         return geoLocations.getLocales();
       }
       return unmodifiableList(locales);
@@ -818,7 +837,7 @@ public class Post extends NamedFacebookType {
      *
      * @return list of regions
      */
-    public List<NamedFacebookType> getRegions() {
+    public List<KeyedType> getRegions() {
       if (geoLocations != null) {
         return geoLocations.getRegions();
       }
@@ -1068,7 +1087,6 @@ public class Post extends NamedFacebookType {
     public boolean removeInterests(String interest) {
       return interests.remove(interest);
     }
-
 
     /**
      * Array of integers for targeting based on relationship status.
