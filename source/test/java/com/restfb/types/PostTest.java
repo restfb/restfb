@@ -297,29 +297,38 @@ public class PostTest extends AbstractJsonMapperTests {
 
   @Test
   public void checkV2_5_feedTargetingWithRegions() {
-    Post examplePost =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-with-feedtargeting-regions"), Post.class);
-    assertNotNull(examplePost);
-    assertNotNull(examplePost.getFeedTargeting());
-    assertNotNull(examplePost.getFeedTargeting().getGeoLocations());
-    assertNotNull(examplePost.getFeedTargeting().getGeoLocations().getRegions());
-    assertFalse(examplePost.getFeedTargeting().getGeoLocations().getRegions().isEmpty());
-
-    assertNotNull(examplePost.getFeedTargeting().getInterests());
-    assertFalse(examplePost.getFeedTargeting().getInterests().isEmpty());
+    verifyFeedTargeting("v2_5/post-with-feedtargeting-regions");
   }
 
   @Test
   public void checkV2_8_feedTargetingWithRegions() {
-    Post examplePost =
-        createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting-regions"), Post.class);
+    verifyFeedTargeting("v2_8/post-with-feedtargeting-regions");
+  }
+
+  private void verifyFeedTargeting(String exampleFile) {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath(exampleFile), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getFeedTargeting());
+    assertEquals(Integer.valueOf(21), examplePost.getFeedTargeting().getAgeMin());
+    assertEquals(Integer.valueOf(65), examplePost.getFeedTargeting().getAgeMax());
+    assertNotNull(examplePost.getFeedTargeting().getGenders());
+    assertFalse(examplePost.getFeedTargeting().getGenders().isEmpty());
+    assertEquals(Integer.valueOf(1), examplePost.getFeedTargeting().getGenders().get(0));
     assertNotNull(examplePost.getFeedTargeting().getGeoLocations());
     assertNotNull(examplePost.getFeedTargeting().getGeoLocations().getRegions());
     assertFalse(examplePost.getFeedTargeting().getGeoLocations().getRegions().isEmpty());
+    assertEquals("3886", examplePost.getFeedTargeting().getGeoLocations().getRegions().get(0).getId());
+    assertEquals("3886", examplePost.getFeedTargeting().getGeoLocations().getRegions().get(0).getKey());
+    assertEquals("2468631", examplePost.getFeedTargeting().getGeoLocations().getCities().get(0).getId());
+    assertEquals("2468631", examplePost.getFeedTargeting().getGeoLocations().getCities().get(0).getKey());
+    assertEquals("CA", examplePost.getFeedTargeting().getGeoLocations().getCountries().get(0));
 
     assertNotNull(examplePost.getFeedTargeting().getInterests());
     assertFalse(examplePost.getFeedTargeting().getInterests().isEmpty());
+    assertEquals("6003012461997", examplePost.getFeedTargeting().getInterests().get(0));
+
+    assertNotNull(examplePost.getFeedTargeting().getLocales());
+    assertFalse(examplePost.getFeedTargeting().getLocales().isEmpty());
+    assertEquals(Integer.valueOf(23), examplePost.getFeedTargeting().getLocales().get(0));
   }
 }
