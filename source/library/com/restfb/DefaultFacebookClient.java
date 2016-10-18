@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.EncodingUtils.decodeBase64;
 import static com.restfb.util.StringUtils.*;
 import static com.restfb.util.UrlUtils.urlEncode;
@@ -340,8 +341,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       JsonObject jObj = new JsonObject(responseString);
       cmpString = jObj.getString("success");
     } catch (JsonException jex) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.log(Level.FINER, "no valid JSON returned while deleting a object, using returned String instead", jex);
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("no valid JSON returned while deleting a object, using returned String instead", jex);
       }
       cmpString = responseString;
     }
@@ -770,8 +771,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getJsonMapper().toJavaObject(response, AccessToken.class);
     } catch (FacebookJsonMappingException fjme) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.log(Level.FINER, "could not map response to access token class try to fetch directly from String", fjme);
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("could not map response to access token class try to fetch directly from String", fjme);
       }
       return AccessToken.fromQueryString(response);
     }
@@ -1114,8 +1115,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.log(Level.FINER, "caught ResponseErrorJsonParsingException - ignoring", ex);
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("caught ResponseErrorJsonParsingException - ignoring", ex);
       }
     }
   }
@@ -1151,8 +1152,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.log(Level.FINER, "caught ResponseErrorJsonParsingException - ignoring", ex);
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("caught ResponseErrorJsonParsingException - ignoring", ex);
       }
     }
   }

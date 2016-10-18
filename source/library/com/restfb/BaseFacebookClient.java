@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.UrlUtils.urlEncode;
@@ -89,11 +90,6 @@ abstract class BaseFacebookClient {
    * Reserved application secret proof parameter name.
    */
   protected static final String APP_SECRET_PROOF_PARAM_NAME = "appsecret_proof";
-
-  /**
-   * Logger.
-   */
-  protected final Logger LOGGER = Logger.getLogger(getClass().getName());
 
   /**
    * Initializes this Facebook client.
@@ -202,8 +198,8 @@ abstract class BaseFacebookClient {
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.finer("caught ResponseErrorJsonParsingException - ignoring");
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("caught ResponseErrorJsonParsingException - ignoring");
       }
     }
   }
@@ -242,8 +238,8 @@ abstract class BaseFacebookClient {
     try {
       errorObject = new JsonObject(json);
     } catch (JsonException e) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.finer("illegal json received - returning null");
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("illegal json received - returning null");
       }
     }
 

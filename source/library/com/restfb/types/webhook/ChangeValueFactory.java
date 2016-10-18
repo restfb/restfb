@@ -21,11 +21,10 @@
  */
 package com.restfb.types.webhook;
 
+import static com.restfb.logging.RestFBLogger.VALUE_FACTORY_LOGGER;
+
 import com.restfb.JsonMapper;
 import com.restfb.json.JsonObject;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Factory to convert the value field of the change into a class with special fields
@@ -35,8 +34,6 @@ public class ChangeValueFactory {
   private String field;
 
   private JsonObject value;
-
-  private final Logger LOGGER = Logger.getLogger(getClass().getName());
 
   public ChangeValueFactory setField(String field) {
     this.field = field;
@@ -60,16 +57,12 @@ public class ChangeValueFactory {
         classDefinition += "_" + value.getString("verb").toUpperCase();
       }
 
-      // System.out.println(classDefinition);
-
       try {
         ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
         return mapper.toJavaObject(value.toString(), changeValueEnum.getValueClass());
       } catch (IllegalArgumentException iae) {
-        if (LOGGER.isLoggable(Level.WARNING)) {
-          LOGGER.warning("undefined change value detected: " + classDefinition);
-          LOGGER.warning("please provide this information to the restfb team: " + value.toString());
-        }
+        VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);
+        VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + value.toString());
         return new FallBackChangeValue(value);
       }
     }

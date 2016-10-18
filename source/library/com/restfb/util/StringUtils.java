@@ -21,14 +21,12 @@
  */
 package com.restfb.util;
 
+import static com.restfb.logging.RestFBLogger.UTILS_LOGGER;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
-import static java.util.logging.Level.WARNING;
 
 import java.io.*;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A collection of string-handling utility methods.
@@ -37,213 +35,206 @@ import java.util.logging.Logger;
  * @since 1.6
  */
 public final class StringUtils {
-    /**
-     * Default charset to use for encoding/decoding strings.
-     */
-    public static final String ENCODING_CHARSET = "UTF-8";
+  /**
+   * Default charset to use for encoding/decoding strings.
+   */
+  public static final String ENCODING_CHARSET = "UTF-8";
 
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER = Logger.getLogger(StringUtils.class.getName());
+  /**
+   * Prevents instantiation.
+   */
+  private StringUtils() {
+    // Prevents instantiation
+  }
 
-    /**
-     * Prevents instantiation.
-     */
-    private StringUtils() {
-        // Prevents instantiation
+  /**
+   * Is {@code string} blank (null or only whitespace)?
+   *
+   * @param string
+   *          The string to check.
+   * @return {@code true} if {@code string} is blank, {@code false} otherwise.
+   */
+  public static boolean isBlank(String string) {
+    return string == null || "".equals(string.trim());
+  }
+
+  /**
+   * Returns a trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
+   * version is a blank string.
+   *
+   * @param string
+   *          The string to trim.
+   * @return A trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
+   *         version is a blank string.
+   */
+  public static String trimToNull(String string) {
+    if (isBlank(string)) {
+      return null;
+    }
+    return string.trim();
+  }
+
+  /**
+   * Returns a trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
+   * version is a blank string.
+   *
+   * @param string
+   *          The string to trim.
+   * @return A trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
+   *         version is a blank string.
+   */
+  public static String trimToEmpty(String string) {
+    if (isBlank(string)) {
+      return "";
+    }
+    return string.trim();
+  }
+
+  /**
+   * Converts {@code string} to a byte array.
+   * <p>
+   * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
+   *
+   * @param string
+   *          The string to convert to a byte array.
+   * @return A byte array representation of {@code string}.
+   * @throws NullPointerException
+   *           If {@code string} is {@code null}.
+   * @throws IllegalStateException
+   *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   */
+  public static byte[] toBytes(String string) {
+    if (string == null) {
+      throw new NullPointerException("Parameter 'string' cannot be null.");
     }
 
-    /**
-     * Is {@code string} blank (null or only whitespace)?
-     *
-     * @param string
-     *          The string to check.
-     * @return {@code true} if {@code string} is blank, {@code false} otherwise.
-     */
-    public static boolean isBlank(String string) {
-        return string == null || "".equals(string.trim());
+    try {
+      return string.getBytes(ENCODING_CHARSET);
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
+    }
+  }
+
+  /**
+   * Converts {@code data} to a string in {@value #ENCODING_CHARSET} format.
+   *
+   * @param data
+   *          The data to convert to a string.
+   * @return A string representation of {@code data}.
+   *
+   * @throws NullPointerException
+   *           If {@code data} is {@code null}.
+   * @throws IllegalStateException
+   *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   * @since 1.6.13
+   */
+  public static String toString(byte[] data) {
+    if (data == null) {
+      throw new NullPointerException("Parameter 'data' cannot be null.");
     }
 
-    /**
-     * Returns a trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
-     * version is a blank string.
-     *
-     * @param string
-     *          The string to trim.
-     * @return A trimmed version of {@code string}, or {@code null} if {@code string} is {@code null} or the trimmed
-     *         version is a blank string.
-     */
-    public static String trimToNull(String string) {
-        if (isBlank(string)) {
-            return null;
-        }
-        return string.trim();
+    try {
+      return new String(data, ENCODING_CHARSET);
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
+    }
+  }
+
+  /**
+   * Builds and returns a string representation of the given {@code inputStream} .
+   *
+   * @param inputStream
+   *          The stream from which a string representation is built.
+   *
+   * @return A string representation of the given {@code inputStream}.
+   * @throws IOException
+   *           If an error occurs while processing the {@code inputStream}.
+   */
+  public static String fromInputStream(InputStream inputStream) throws IOException {
+    if (inputStream == null) {
+      return null;
     }
 
-    /**
-     * Returns a trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
-     * version is a blank string.
-     *
-     * @param string
-     *          The string to trim.
-     * @return A trimmed version of {@code string}, or an empty string if {@code string} is {@code null} or the trimmed
-     *         version is a blank string.
-     */
-    public static String trimToEmpty(String string) {
-        if (isBlank(string)) {
-            return "";
-        }
-        return string.trim();
-    }
+    BufferedReader reader = null;
 
-    /**
-     * Converts {@code string} to a byte array.
-     * <p>
-     * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
-     *
-     * @param string
-     *          The string to convert to a byte array.
-     * @return A byte array representation of {@code string}.
-     * @throws NullPointerException
-     *           If {@code string} is {@code null}.
-     * @throws IllegalStateException
-     *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
-     */
-    public static byte[] toBytes(String string) {
-        if (string == null) {
-            throw new NullPointerException("Parameter 'string' cannot be null.");
-        }
+    try {
+      reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET));
+      StringBuilder response = new StringBuilder();
 
+      String line;
+      while ((line = reader.readLine()) != null) {
+        response.append(line);
+      }
+
+      return response.toString();
+    } finally {
+      if (reader != null) {
         try {
-            return string.getBytes(ENCODING_CHARSET);
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
+          reader.close();
+        } catch (Exception t) {
+          // Really nothing we can do but log the error
+          UTILS_LOGGER.warn("Unable to close stream, continuing on: ", t);
         }
+      }
+    }
+  }
+
+  /**
+   * Joins the given {@code array} into a comma-separated string.
+   *
+   * @param array
+   *          The array to join.
+   * @return A comma-separated string representation of the given {@code array}.
+   */
+  public static String join(String[] array) {
+    return array == null ? null : join(asList(array));
+  }
+
+  /**
+   * Joins the given {@code list} into a comma-separated string.
+   *
+   * @param list
+   *          The list to join.
+   * @return A comma-separated string representation of the given {@code list}.
+   */
+  public static String join(List<String> list) {
+    if (list == null) {
+      return null;
     }
 
-    /**
-     * Converts {@code data} to a string in {@value #ENCODING_CHARSET} format.
-     *
-     * @param data
-     *          The data to convert to a string.
-     * @return A string representation of {@code data}.
-     *
-     * @throws NullPointerException
-     *           If {@code data} is {@code null}.
-     * @throws IllegalStateException
-     *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
-     * @since 1.6.13
-     */
-    public static String toString(byte[] data) {
-        if (data == null) {
-            throw new NullPointerException("Parameter 'data' cannot be null.");
-        }
+    StringBuilder joined = new StringBuilder();
+    boolean first = true;
 
-        try {
-            return new String(data, ENCODING_CHARSET);
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
-        }
+    for (String element : list) {
+      if (first) {
+        first = false;
+      } else {
+        joined.append(",");
+      }
+      joined.append(element);
     }
 
-    /**
-     * Builds and returns a string representation of the given {@code inputStream} .
-     *
-     * @param inputStream
-     *          The stream from which a string representation is built.
-     *
-     * @return A string representation of the given {@code inputStream}.
-     * @throws IOException
-     *           If an error occurs while processing the {@code inputStream}.
-     */
-    public static String fromInputStream(InputStream inputStream) throws IOException {
-        if (inputStream == null) {
-            return null;
-        }
+    return joined.toString();
+  }
 
-        BufferedReader reader = null;
-
-        try {
-            reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET));
-            StringBuilder response = new StringBuilder();
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-
-            return response.toString();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (Exception t) {
-                    // Really nothing we can do but log the error
-                    if (LOGGER.isLoggable(WARNING)) {
-                        LOGGER.log(Level.WARNING, "Unable to close stream, continuing on: ", t);
-                    }
-                }
-            }
-        }
+  /**
+   * Returns an {@code Integer} representation of the given {@code string}, or {@code null} if it's not a valid
+   * {@code Integer}.
+   *
+   * @param string
+   *          The string to process.
+   * @return The {@code Integer} representation of {@code string}, or {@code null} if {@code string} is {@code null} or
+   *         not a valid {@code Integer}.
+   */
+  public static Integer toInteger(String string) {
+    if (string == null) {
+      return null;
     }
 
-    /**
-     * Joins the given {@code array} into a comma-separated string.
-     *
-     * @param array
-     *          The array to join.
-     * @return A comma-separated string representation of the given {@code array}.
-     */
-    public static String join(String[] array) {
-        return array == null ? null : join(asList(array));
+    try {
+      return parseInt(string);
+    } catch (Exception e) {
+      return null;
     }
-
-    /**
-     * Joins the given {@code list} into a comma-separated string.
-     *
-     * @param list
-     *          The list to join.
-     * @return A comma-separated string representation of the given {@code list}.
-     */
-    public static String join(List<String> list) {
-        if (list == null) {
-            return null;
-        }
-
-        StringBuilder joined = new StringBuilder();
-        boolean first = true;
-
-        for (String element : list) {
-            if (first) {
-                first = false;
-            } else {
-                joined.append(",");
-            }
-            joined.append(element);
-        }
-
-        return joined.toString();
-    }
-
-    /**
-     * Returns an {@code Integer} representation of the given {@code string}, or {@code null} if it's not a valid
-     * {@code Integer}.
-     *
-     * @param string
-     *          The string to process.
-     * @return The {@code Integer} representation of {@code string}, or {@code null} if {@code string} is {@code null} or
-     *         not a valid {@code Integer}.
-     */
-    public static Integer toInteger(String string) {
-        if (string == null) {
-            return null;
-        }
-
-        try {
-            return parseInt(string);
-        } catch (Exception e) {
-            return null;
-        }
-    }
+  }
 }
