@@ -21,14 +21,12 @@
  */
 package com.restfb.util;
 
+import static com.restfb.logging.RestFBLogger.UTILS_LOGGER;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
-import static java.util.logging.Level.WARNING;
 
 import java.io.*;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A collection of string-handling utility methods.
@@ -41,11 +39,6 @@ public final class StringUtils {
    * Default charset to use for encoding/decoding strings.
    */
   public static final String ENCODING_CHARSET = "UTF-8";
-
-  /**
-   * Logger.
-   */
-  private static final Logger LOGGER = Logger.getLogger(StringUtils.class.getName());
 
   /**
    * Prevents instantiation.
@@ -180,9 +173,7 @@ public final class StringUtils {
           reader.close();
         } catch (Exception t) {
           // Really nothing we can do but log the error
-          if (LOGGER.isLoggable(WARNING)) {
-            LOGGER.log(Level.WARNING, "Unable to close stream, continuing on: ", t);
-          }
+          UTILS_LOGGER.warn("Unable to close stream, continuing on: ", t);
         }
       }
     }

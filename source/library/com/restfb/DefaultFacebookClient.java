@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.EncodingUtils.decodeBase64;
 import static com.restfb.util.StringUtils.*;
 import static com.restfb.util.UrlUtils.urlEncode;
@@ -310,8 +311,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       }
       return success;
     } catch (ParseException jex) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.log(Level.FINER, "no valid JSON returned while deleting a object, using returned String instead", jex);
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("no valid JSON returned while deleting a object, using returned String instead", jex);
       }
       cmpString = responseString;
       return "true".equals(cmpString);
@@ -682,8 +683,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getJsonMapper().toJavaObject(response, AccessToken.class);
     } catch (FacebookJsonMappingException fjme) {
-      if (LOGGER.isLoggable(Level.FINER)) {
-        LOGGER.log(Level.FINER, "could not map response to access token class try to fetch directly from String", fjme);
+      if (CLIENT_LOGGER.isTraceEnabled()) {
+        CLIENT_LOGGER.trace("could not map response to access token class try to fetch directly from String", fjme);
       }
       return AccessToken.fromQueryString(response);
     }

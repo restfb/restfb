@@ -21,8 +21,8 @@
  */
 package com.restfb;
 
+import static com.restfb.logging.RestFBLogger.HTTP_LOGGER;
 import static java.lang.String.format;
-import static java.util.logging.Level.*;
 
 import com.restfb.util.StringUtils;
 import com.restfb.util.UrlUtils;
@@ -36,8 +36,6 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Default implementation of a service that sends HTTP requests to the Facebook API endpoint.
@@ -71,11 +69,6 @@ public class DefaultWebRequestor implements WebRequestor {
   private static final int DEFAULT_READ_TIMEOUT_IN_MS = 180000;
 
   private Map<String, List<String>> currentHeaders;
-
-  /**
-   * Logger.
-   */
-  private static final Logger LOGGER = Logger.getLogger("com.restfb.HTTP");
 
   private DebugHeaderInfo debugHeaderInfo;
 
@@ -116,8 +109,8 @@ public class DefaultWebRequestor implements WebRequestor {
       binaryAttachments = new BinaryAttachment[0];
     }
 
-    if (LOGGER.isLoggable(FINE)) {
-      LOGGER.fine("Executing a POST to " + url + " with parameters "
+    if (HTTP_LOGGER.isDebugEnabled()) {
+      HTTP_LOGGER.debug("Executing a POST to " + url + " with parameters "
           + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + UrlUtils.urlDecode(parameters)
           + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
     }
@@ -176,8 +169,8 @@ public class DefaultWebRequestor implements WebRequestor {
         outputStream.write(parameters.getBytes(StringUtils.ENCODING_CHARSET));
       }
 
-      if (LOGGER.isLoggable(FINER)) {
-        LOGGER.log(FINER, format("Response headers: %s", httpUrlConnection.getHeaderFields()));
+      if (HTTP_LOGGER.isDebugEnabled()) {
+        HTTP_LOGGER.debug(format("Response headers: %s", httpUrlConnection.getHeaderFields()));
       }
 
       fillHeaderAndDebugInfo(httpUrlConnection);
@@ -186,9 +179,7 @@ public class DefaultWebRequestor implements WebRequestor {
         inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
             ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
       } catch (IOException e) {
-        if (LOGGER.isLoggable(WARNING)) {
-          LOGGER.log(WARNING, format("An error occurred while POSTing to %s:", url), e);
-        }
+        HTTP_LOGGER.warn(format("An error occurred while POSTing to %s:", url), e);
       }
 
       return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
@@ -248,9 +239,7 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       closeable.close();
     } catch (Exception t) {
-      if (LOGGER.isLoggable(WARNING)) {
-        LOGGER.log(WARNING, format("Unable to close %s: ", closeable), t);
-      }
+      HTTP_LOGGER.warn(format("Unable to close %s: ", closeable), t);
     }
   }
 
@@ -270,9 +259,7 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       httpUrlConnection.disconnect();
     } catch (Exception t) {
-      if (LOGGER.isLoggable(WARNING)) {
-        LOGGER.log(WARNING, format("Unable to disconnect %s: ", httpUrlConnection), t);
-      }
+      HTTP_LOGGER.warn(format("Unable to disconnect %s: ", httpUrlConnection), t);
     }
   }
 
@@ -356,8 +343,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   private Response execute(String url, HttpMethod httpMethod) throws IOException {
-    if (LOGGER.isLoggable(FINE)) {
-      LOGGER.log(FINE, format("Making a %s request to %s", httpMethod.name(), url));
+    if (HTTP_LOGGER.isDebugEnabled()) {
+      HTTP_LOGGER.debug(format("Making a %s request to %s", httpMethod.name(), url));
     }
 
     HttpURLConnection httpUrlConnection = null;
@@ -374,16 +361,16 @@ public class DefaultWebRequestor implements WebRequestor {
 
       httpUrlConnection.connect();
 
-      if (LOGGER.isLoggable(FINER)) {
-        LOGGER.log(FINER, format("Response headers: %s", httpUrlConnection.getHeaderFields()));
+      if (HTTP_LOGGER.isTraceEnabled()) {
+        HTTP_LOGGER.trace(format("Response headers: %s", httpUrlConnection.getHeaderFields()));
       }
 
       fillHeaderAndDebugInfo(httpUrlConnection);
 
       Response response = fetchResponse(httpUrlConnection);
 
-      if (LOGGER.isLoggable(FINE)) {
-        LOGGER.log(FINE, format("Facebook responded with %s", response));
+      if (HTTP_LOGGER.isDebugEnabled()) {
+        HTTP_LOGGER.debug(format("Facebook responded with %s", response));
       }
 
       return response;
@@ -396,8 +383,8 @@ public class DefaultWebRequestor implements WebRequestor {
     currentHeaders = Collections.unmodifiableMap(httpUrlConnection.getHeaderFields());
 
     String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
-    if (LOGGER.isLoggable(FINE)) {
-      LOGGER.log(FINE, format("Facebook used the API %s to answer your request", usedApiVersion));
+    if (HTTP_LOGGER.isDebugEnabled()) {
+      HTTP_LOGGER.debug(format("Facebook used the API %s to answer your request", usedApiVersion));
     }
 
     String fbTraceId = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-trace-id"));
@@ -415,10 +402,8 @@ public class DefaultWebRequestor implements WebRequestor {
       inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
           ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
     } catch (IOException e) {
-      if (LOGGER.isLoggable(WARNING)) {
-        LOGGER.log(Level.WARNING, format("An error occurred while making a %s request to %s:",
-          httpUrlConnection.getRequestMethod(), httpUrlConnection.getURL()), e);
-      }
+      HTTP_LOGGER.warn(format("An error occurred while making a %s request to %s:",
+        httpUrlConnection.getRequestMethod(), httpUrlConnection.getURL()), e);
     }
 
     return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));

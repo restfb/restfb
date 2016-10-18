@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.UrlUtils.urlEncode;
@@ -79,11 +80,6 @@ abstract class BaseFacebookClient {
    * Reserved application secret proof parameter name.
    */
   protected static final String APP_SECRET_PROOF_PARAM_NAME = "appsecret_proof";
-
-  /**
-   * Logger.
-   */
-  protected final Logger LOGGER = Logger.getLogger(getClass().getName());
 
   /**
    * Initializes this Facebook client.

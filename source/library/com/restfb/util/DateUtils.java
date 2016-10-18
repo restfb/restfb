@@ -21,6 +21,7 @@
  */
 package com.restfb.util;
 
+import static com.restfb.logging.RestFBLogger.UTILS_LOGGER;
 import static java.lang.String.format;
 import static java.util.logging.Level.FINER;
 
@@ -64,11 +65,6 @@ public final class DateUtils {
    * Facebook month-year only date format. Example: {@code Example: 2007-03}
    */
   public static final String FACEBOOK_MONTH_YEAR_DATE_FORMAT = "yyyy-MM";
-
-  /**
-   * Logger.
-   */
-  private static final Logger LOGGER = Logger.getLogger(DateUtils.class.getName());
 
   /**
    * DateFormatStrategy (default: SimpleDateFormat).
@@ -192,8 +188,8 @@ public final class DateUtils {
     try {
       return strategy.formatFor(format).parse(date);
     } catch (ParseException e) {
-      if (LOGGER.isLoggable(FINER)) {
-        LOGGER.fine(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
+      if (UTILS_LOGGER.isTraceEnabled()) {
+        UTILS_LOGGER.trace(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
       }
 
       return null;
