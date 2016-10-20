@@ -43,8 +43,22 @@ public abstract class RestFBLogger {
   public static final RestFBLogger VALUE_FACTORY_LOGGER;
 
   static {
+
+    Class loggerClass = null;
+
+    String forceJUL = System.getProperty("com.restfb.forceJUL", "false");
+    if (!Boolean.parseBoolean(forceJUL)) {
+      try {
+        RestFBLogger.class.getClassLoader().loadClass("org.slf4j.Logger");
+        loggerClass = com.restfb.logging.SLF4JLogger.class;
+      } catch (Exception e) {
+        loggerClass = com.restfb.logging.JulLogger.class;
+      }
+    } else {
+      loggerClass = com.restfb.logging.JulLogger.class;
+    }
+
     // define our logger class
-    Class loggerClass = com.restfb.logging.JulLogger.class;
     LOGGER_CLASS = loggerClass;
 
     // create the loggers

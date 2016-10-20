@@ -2,6 +2,7 @@
 Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a migration guide, where the breaking changes can be found
 
 ## tl;dr
+* Logging changed, `slf4j` is used if present
 * `Comment.Attachment` -> `StoryAttachment`
 * `Comment.isCanComment` -> `Comment.getCanComment`
 * `Comment.isCanHide` -> `Comment.getCanHide`
@@ -24,6 +25,15 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 * `Likes` data type moved from `NamedFacebookType` to `LikeItem`
 * `likes` field changed from `long` to `Likes` in `Page` type
 * `likesCount` field added to `Page` type
+
+## Logging changed
+As soon as the `slf4j` jars are found on the classpath, slf4j is used 
+as logging framework. As fallback we use the `java.util.logging` 
+framework. In the rare case you have `slf4j` on the classpath, but you 
+don't want RestFB to use it, you can switch to the `java.util.logging` with 
+the system.property "`com.restfb.forceJUL=true`". 
+
+Don't forget to add a RestFB logging configuration to your logging config.
 
 ## Comment.Attachment removed
 We have removed the `Comment.Attachment` type because it is replaced by 
