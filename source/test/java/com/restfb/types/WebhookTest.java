@@ -32,7 +32,7 @@ import com.restfb.types.webhook.base.AbstractFeedPostValue;
 import com.restfb.types.webhook.base.BaseChangeValue;
 import com.restfb.types.webhook.messaging.*;
 import com.restfb.types.webhook.messaging.payment.Amount;
-import com.restfb.types.webhook.messaging.payment.PaymentCredentials;
+import com.restfb.types.webhook.messaging.payment.PaymentCredential;
 import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
 import com.restfb.types.webhook.messaging.payment.ShippingAddress;
 
@@ -414,9 +414,9 @@ public class WebhookTest extends AbstractJsonMapperTests {
     Amount amount = paymentItem.getAmount();
     assertEquals("USD", amount.getCurrency());
     assertEquals(29.62D, amount.getAmount(), 0.01);
-    PaymentCredentials credentials = paymentItem.getPaymentCredentials();
-    assertEquals("ch_18tmdBEoNIH3FPJHa60ep123", credentials.getChargeId());
-    assertEquals("stripe", credentials.getProviderType());
+    PaymentCredential credential = paymentItem.getPaymentCredential();
+    assertEquals("ch_18tmdBEoNIH3FPJHa60ep123", credential.getChargeId());
+    assertEquals("stripe", credential.getProviderType());
     ReuqestedUserInfo userInfo = paymentItem.getRequestedUserInfo();
     assertEquals("peter@anemailprovider.com", userInfo.getContactEmail());
     assertEquals("Peter Chang", userInfo.getContactName());

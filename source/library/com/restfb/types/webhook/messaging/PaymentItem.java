@@ -24,7 +24,7 @@ package com.restfb.types.webhook.messaging;
 import com.restfb.Facebook;
 
 import com.restfb.types.webhook.messaging.payment.Amount;
-import com.restfb.types.webhook.messaging.payment.PaymentCredentials;
+import com.restfb.types.webhook.messaging.payment.PaymentCredential;
 import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,8 +58,8 @@ public class PaymentItem implements InnerMessagingItem {
    */
   @Getter
   @Setter
-  @Facebook("payment_credentials")
-  private PaymentCredentials paymentCredentials;
+  @Facebook("payment_credential")
+  private PaymentCredential paymentCredential;
 
   /**
    * Total amount of transaction.
