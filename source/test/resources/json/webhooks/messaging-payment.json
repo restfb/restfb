@@ -28,7 +28,7 @@
               "contact_email": "peter@anemailprovider.com",
               "contact_phone": "+15105551234"
             },
-            "payment_credentials": {
+            "payment_credential": {
               "provider_type": "stripe",
               "charge_id": "ch_18tmdBEoNIH3FPJHa60ep123"
             },

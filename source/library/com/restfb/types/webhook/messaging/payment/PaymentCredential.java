@@ -30,7 +30,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-public class PaymentCredentials implements Serializable {
+public class PaymentCredential implements Serializable {
 
   /**
    * Payment provider type
