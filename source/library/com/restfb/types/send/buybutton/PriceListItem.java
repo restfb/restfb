@@ -22,6 +22,7 @@
 package com.restfb.types.send.buybutton;
 
 import com.restfb.Facebook;
+
 import lombok.ToString;
 
 @ToString(doNotUseGetters = true)

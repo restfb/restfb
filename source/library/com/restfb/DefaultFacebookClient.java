@@ -45,7 +45,6 @@ import com.restfb.util.StringUtils;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.Level;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

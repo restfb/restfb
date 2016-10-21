@@ -23,14 +23,12 @@ package com.restfb;
 
 import static com.restfb.json.JsonObject.NULL;
 import static com.restfb.logging.RestFBLogger.MAPPER_LOGGER;
-import static com.restfb.util.DateUtils.FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE;
 import static com.restfb.util.ReflectionUtils.*;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
-import static java.util.logging.Level.*;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonArray;
@@ -46,10 +44,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 /**
  * Default implementation of a JSON-to-Java mapper.

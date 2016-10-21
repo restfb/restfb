@@ -24,7 +24,6 @@ package com.restfb;
 import static org.junit.Assert.*;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonException;
 import com.restfb.types.User;
 
 import org.junit.Test;

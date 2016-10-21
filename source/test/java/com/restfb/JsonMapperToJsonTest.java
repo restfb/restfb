@@ -21,9 +21,10 @@
  */
 package com.restfb;
 
+import static org.junit.Assert.*;
+
 import com.restfb.exception.FacebookJsonMappingException;
 
-import org.hamcrest.core.StringContains;
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -32,8 +33,6 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
-
-import static org.junit.Assert.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.

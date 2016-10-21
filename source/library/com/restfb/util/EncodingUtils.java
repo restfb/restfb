@@ -21,10 +21,7 @@
  */
 package com.restfb.util;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import javax.crypto.Mac;
