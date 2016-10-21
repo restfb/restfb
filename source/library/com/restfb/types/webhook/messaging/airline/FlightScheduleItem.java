@@ -23,12 +23,11 @@ package com.restfb.types.webhook.messaging.airline;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
+import com.restfb.util.DateUtils;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.restfb.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

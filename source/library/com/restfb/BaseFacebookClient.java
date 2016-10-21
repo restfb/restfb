@@ -21,7 +21,6 @@
  */
 package com.restfb;
 
-import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.UrlUtils.urlEncode;
@@ -34,9 +33,8 @@ import com.restfb.json.ParseException;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
+import java.util.Set;
 
 /**
  * Base class that contains data and functionality common to {@link DefaultFacebookClient} and

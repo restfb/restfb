@@ -28,7 +28,6 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
-import static java.util.logging.Level.*;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
@@ -44,7 +43,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 /**
  * Default implementation of a JSON-to-Java mapper.

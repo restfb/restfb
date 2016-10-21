@@ -23,11 +23,9 @@ package com.restfb.util;
 
 import static com.restfb.logging.RestFBLogger.UTILS_LOGGER;
 import static java.lang.String.format;
-import static java.util.logging.Level.FINER;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  * A collection of date-handling utility methods.

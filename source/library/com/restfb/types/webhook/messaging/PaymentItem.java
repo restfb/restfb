@@ -22,10 +22,10 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
-
 import com.restfb.types.webhook.messaging.payment.Amount;
 import com.restfb.types.webhook.messaging.payment.PaymentCredential;
 import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

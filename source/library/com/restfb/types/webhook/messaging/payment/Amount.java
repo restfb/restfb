@@ -23,11 +23,11 @@ package com.restfb.types.webhook.messaging.payment;
 
 import com.restfb.Facebook;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.io.Serializable;
 
 @ToString
 public class Amount implements Serializable{
