@@ -26,6 +26,7 @@ import com.restfb.types.NamedFacebookType;
 
 import java.util.List;
 
+@Deprecated
 public interface Groups {
 
   /**

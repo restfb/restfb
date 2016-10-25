@@ -24,6 +24,7 @@ package com.restfb.experimental.api;
 import com.restfb.FacebookClient;
 import com.restfb.experimental.api.impl.ApiFactory;
 
+@Deprecated
 public class Facebook {
 
   private final FacebookClient facebookClient;

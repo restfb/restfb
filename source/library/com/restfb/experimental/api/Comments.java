@@ -23,6 +23,7 @@ package com.restfb.experimental.api;
 
 import com.restfb.types.Comment;
 
+@Deprecated
 public interface Comments {
 
   /**

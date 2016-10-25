@@ -27,6 +27,7 @@ import com.restfb.experimental.api.Comments;
 import com.restfb.types.Comment;
 import com.restfb.types.GraphResponse;
 
+@Deprecated
 public class CommentsImpl implements Comments {
 
   private final FacebookClient facebookClient;

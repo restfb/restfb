@@ -30,6 +30,7 @@ import com.restfb.types.NamedFacebookType;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class GroupsImpl implements Groups {
 
   FacebookClient facebookClient;

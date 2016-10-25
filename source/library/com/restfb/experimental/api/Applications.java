@@ -25,6 +25,7 @@ import com.restfb.types.Subscription;
 
 import java.util.List;
 
+@Deprecated
 public interface Applications {
 
   List<Subscription> fetchSubscriptions(String appId);

@@ -31,6 +31,7 @@ import com.restfb.types.Subscription;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class ApplicationsImpl implements Applications {
 
   private static final String SUBSCRIPTIONS_ENDPOINT = "/subscriptions";

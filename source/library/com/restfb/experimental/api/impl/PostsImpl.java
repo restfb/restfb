@@ -30,6 +30,7 @@ import com.restfb.types.Post;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class PostsImpl implements Posts {
   private final FacebookClient facebookClient;
 

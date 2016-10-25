@@ -26,6 +26,7 @@ import com.restfb.types.Post;
 
 import java.util.List;
 
+@Deprecated
 public interface Posts {
 
   /**

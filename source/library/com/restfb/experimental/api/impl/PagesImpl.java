@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public class PagesImpl implements Pages {
   private final FacebookClient facebookClient;
 

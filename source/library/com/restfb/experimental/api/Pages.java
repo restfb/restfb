@@ -23,6 +23,7 @@ package com.restfb.experimental.api;
 
 import java.util.Map;
 
+@Deprecated
 public interface Pages {
 
   /**

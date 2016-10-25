@@ -26,6 +26,7 @@ import com.restfb.types.User;
 
 import java.util.List;
 
+@Deprecated
 public interface Users {
 
   /**
