@@ -1,5 +1,17 @@
 # RestFB Changelog
 
+## 1.33.0 (October 26, 2016)
+
+* Cleanup:
+  * Issue #602: Readme changed to describe only basic usage
+  * Issue #604: Experimental package marked as deprecated
+  * Issue #608: unused imports removed
+* Issue #605: more targeting improvements<br>
+  Thanks to @matthewbogner for the hint and PR
+* Issue #607: PaymentItem credentials changed to credential
+  Thanks to @barhun for the hint
+* Issue #603: Basic logging change to resolve #31
+  
 ## 1.32.0 (October 13, 2016)
 
 * Graph API 2.8:
