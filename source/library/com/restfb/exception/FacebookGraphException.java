@@ -100,7 +100,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
    *          Value of the Facebook response attribute {@code error.error_user_msg}.
    */
   public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
-                                Integer httpStatusCode, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
+      Integer httpStatusCode, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
     super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,
       errorCode, errorSubcode));
     this.errorType = errorType;
@@ -177,6 +177,23 @@ public class FacebookGraphException extends FacebookErrorMessageException {
    */
   public String getErrorUserMessage() {
     return errorUserMessage;
+  }
+
+  /**
+   * Gets the Facebook API error {@code fbtrace_id}.
+   *
+   * Internal support identifier. When reporting a bug related to a Graph API
+   * call, include the fbtrace_id to help us find log data for debugging.
+   *
+   * @return the Facebook API error {@code fbtrace_id}
+   */
+  public String getFbtraceId() {
+    if (getRawErrorJson() != null && getRawErrorJson().optJsonObject("error") != null) {
+      JsonObject errorJson = getRawErrorJson().optJsonObject("error");
+      return errorJson.optString("fbtrace_id");
+    }
+
+    return "";
   }
 
 }

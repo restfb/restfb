@@ -46,6 +46,26 @@ public class StatusExceptionTest extends AbstractJsonMapperTests {
       assertEquals("Message describing the error", fe.getErrorMessage());
       assertNotNull(fe.getRawErrorJson());
       JSONAssert.assertEquals(jsonErrorString, fe.getRawErrorJson().toString(), false);
+      assertEquals("", fe.getFbtraceId());
+    }
+  }
+
+  @Test
+  public void statusExceptionWithFbtraceId() throws JSONException {
+    String jsonErrorString = jsonFromClasspath("exampleErrorNew");
+    DefaultFacebookClient client = new DefaultFacebookClient(Version.LATEST);
+    try {
+      client.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
+      fail();
+    } catch (FacebookGraphException fe) {
+      assertEquals("A title", fe.getErrorUserTitle());
+      assertEquals("A message", fe.getErrorUserMessage());
+      assertEquals(190, fe.getErrorCode().intValue());
+      assertEquals(460, fe.getErrorSubcode().intValue());
+      assertEquals("Message describing the error", fe.getErrorMessage());
+      assertNotNull(fe.getRawErrorJson());
+      JSONAssert.assertEquals(jsonErrorString, fe.getRawErrorJson().toString(), false);
+      assertEquals("EJplcsCHuLu", fe.getFbtraceId());
     }
   }
 
