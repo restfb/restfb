@@ -34,11 +34,15 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
   public void recipientWithId() {
     IdMessageRecipient recipient = new IdMessageRecipient("12345");
+
+    assertTrue(recipient instanceof MessageRecipient);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
@@ -49,6 +53,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
   @Test
   public void recipientWithPhone() {
     PhoneMessageRecipient recipient = new PhoneMessageRecipient("12345");
+
+    assertTrue(recipient instanceof MessageRecipient);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);

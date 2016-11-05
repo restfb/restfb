@@ -21,14 +21,7 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-
-public class PhoneMessageRecipient implements MessageRecipient {
-
-  @Facebook("phone_number")
-  private String phoneNumber;
-
-  public PhoneMessageRecipient(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-}
+/**
+ * Marker interface for all MesssageRecipient implementations
+ */
+public interface MessageRecipient {}
