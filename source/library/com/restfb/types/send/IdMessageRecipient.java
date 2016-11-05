@@ -23,7 +23,7 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
-public class IdMessageRecipient {
+public class IdMessageRecipient implements MessageRecipient {
 
   @Facebook
   private String id;

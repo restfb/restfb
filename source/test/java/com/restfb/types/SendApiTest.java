@@ -35,11 +35,15 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
   public void recipientWithId() throws JSONException {
     IdMessageRecipient recipient = new IdMessageRecipient("12345");
+
+    assertTrue(recipient instanceof MessageRecipient);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
@@ -50,6 +54,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
   @Test
   public void recipientWithPhone() throws JSONException {
     PhoneMessageRecipient recipient = new PhoneMessageRecipient("12345");
+
+    assertTrue(recipient instanceof MessageRecipient);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
