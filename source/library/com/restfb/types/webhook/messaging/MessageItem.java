@@ -48,7 +48,12 @@ public class MessageItem implements InnerMessagingItem {
 
   /**
    * Message sequence number
+   *
+   * @Deprecated https://messengerblog.com/platform-updates/introducing-messenger-platform-v1-3-and-new-ways-to-drive-the-conversation/
+   *             "Developers who previously relied on using seq ID for deduping can use mid instead, and those who were
+   *             using it for ordering purposes can use timestamp instead."
    */
+  @Deprecated
   @Getter
   @Setter
   @Facebook
