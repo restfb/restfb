@@ -191,6 +191,25 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     PostbackItem item = messagingItem.getPostback();
     assertNotNull(item);
     assertEquals("USER_DEFINED_PAYLOAD", item.getPayload());
+    assertNull(item.getReferral());
+  }
+
+  @Test
+  public void messagingPostbackWithReferral() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-referral"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    PostbackItem item = messagingItem.getPostback();
+    assertNotNull(item);
+    assertEquals("USER_DEFINED_PAYLOAD", item.getPayload());
+    PostbackReferral referral = item.getReferral();
+    assertEquals("ref_data_in_m_dot_me_param", referral.getRef());
+    assertEquals("SHORTLINK", referral.getSource());
+    assertEquals("OPEN_THREAD", referral.getType());
   }
 
   @Test

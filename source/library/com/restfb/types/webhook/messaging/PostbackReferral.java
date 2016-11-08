@@ -28,26 +28,33 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Represents a receiving postback object as defined here:
- * https://developers.facebook.com/docs/messenger-platform/webhook-reference/postback
+ * Represents the referral sub object described here:
+ * https://developers.facebook.com/docs/messenger-platform/referral-params
  */
 @ToString
-public class PostbackItem implements InnerMessagingItem {
+public class PostbackReferral {
 
   /**
-   * payload parameter that was defined with the button
+   * The arbitrary data that was originally passed in the ref param added to the m.me link.
    */
   @Getter
   @Setter
   @Facebook
-  private String payload;
+  private String ref;
 
   /**
-   * Comes only with Get Started postback and if an optional ref param was passed from the entry point, such as m.me
-   * link.
+   * The source of this referral. Currently, the only possible value is “SHORTLINK”.
    */
   @Getter
   @Setter
   @Facebook
-  private PostbackReferral referral;
+  private String source;
+
+  /**
+   * The identifier for the referral. For referrals coming from m.me links, it will always be "OPEN_THREAD".
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
 }

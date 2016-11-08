@@ -1,0 +1,28 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": 12345654332,
+      "time": 1458692752478,
+      "messaging": [
+        {
+          "sender": {
+            "id": 987654321432
+          },
+          "recipient": {
+            "id": 12345654332
+          },
+          "timestamp": 1458692752478,
+          "postback": {
+            "payload": "USER_DEFINED_PAYLOAD",
+            "referral": {
+              "ref": "ref_data_in_m_dot_me_param",
+              "source": "SHORTLINK",
+              "type": "OPEN_THREAD"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
