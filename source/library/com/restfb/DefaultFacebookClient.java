@@ -298,13 +298,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("object", object);
 
     String responseString = makeRequest(object, true, true, null, parameters);
-    String cmpString;
 
     try {
       JsonValue jObj = Json.parse(responseString);
       boolean success = false;
       if (jObj.isObject()) {
-        success = jObj.asObject().get("success").asBoolean();
+        if (jObj.asObject().get("success") != null) {
+          success = jObj.asObject().get("success").asBoolean();
+        }
+        if (jObj.asObject().get("result") != null) {
+          success = jObj.asObject().get("result").asString().contains("Successfully deleted");
+        }
       } else {
         success = jObj.asBoolean();
       }
@@ -313,8 +317,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       if (CLIENT_LOGGER.isTraceEnabled()) {
         CLIENT_LOGGER.trace("no valid JSON returned while deleting a object, using returned String instead", jex);
       }
-      cmpString = responseString;
-      return "true".equals(cmpString);
+      return "true".equals(responseString);
     }
   }
 
