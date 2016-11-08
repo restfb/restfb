@@ -22,20 +22,46 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.exception.FacebookPreconditionException;
 
-abstract public class AbstractButton {
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.Setter;
+
+public class ListViewElement {
 
   @Facebook
-  private String type;
+  private String title;
+
+  @Setter
+  @Facebook
+  private String subtitle;
+
+  @Setter
+  @Facebook("image_url")
+  private String imageUrl;
+
+  @Setter
+  @Facebook("default_action")
+  private DefaultAction defaultAction;
 
   @Facebook
-  protected String title;
+  private List<AbstractButton> buttons;
 
-  public AbstractButton(String title) {
+  public ListViewElement(String title) {
     this.title = title;
   }
 
-  protected void setType(String type) {
-    this.type = type;
+  public boolean addButton(AbstractButton button) {
+    if (buttons == null) {
+      buttons = new ArrayList<AbstractButton>();
+    }
+
+    if (buttons.size() == 1) {
+      throw new FacebookPreconditionException("maximum of associated buttons is 1");
+    }
+
+    return buttons.add(button);
   }
 }

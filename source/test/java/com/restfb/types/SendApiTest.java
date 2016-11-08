@@ -21,6 +21,8 @@
  */
 package com.restfb.types;
 
+import static org.junit.Assert.assertTrue;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.exception.FacebookPreconditionException;
@@ -34,8 +36,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 public class SendApiTest extends AbstractJsonMapperTests {
 
@@ -224,6 +224,64 @@ public class SendApiTest extends AbstractJsonMapperTests {
     JSONAssert.assertEquals(
       "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"title\":\"My Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
       recipientJsonString, false);
+  }
+
+  @Test
+  public void messageListTemplatePayload() throws JSONException {
+    ListViewElement element1 = getListViewElement(100, "Classic White T-Shirt");
+    ListViewElement element2 = getListViewElement(101, "Classic Blue T-Shirt");
+
+    PostbackButton postbackButton = new PostbackButton("View More", "payload");
+
+    List<ListViewElement> listViewElementList = new ArrayList<ListViewElement>();
+    listViewElementList.add(element1);
+    listViewElementList.add(element2);
+    ListTemplatePayload payload = new ListTemplatePayload(listViewElementList);
+    payload.setTopElementStyle(ListTemplatePayload.TopElementStyleEnum.compact);
+    payload.addButton(postbackButton);
+
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    String expectedJson = "{\"attachment\":{\"payload\":{\"elements\":[{\"title\":\"Classic White T-Shirt\","
+        + "\"subtitle\":\"100% Cotton, 200% Comfortable\","
+        + "\"image_url\":\"https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png\"," + "\"default_action\":"
+        + "{\"webview_height_ratio\":\"tall\","
+        + "\"url\":\"https://peterssendreceiveapp.ngrok.io/view?item=100\",\"messenger_extensions\":true,"
+        + "\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":\"web_url\"},"
+        + "\"buttons\":[{\"webview_height_ratio\":\"tall\","
+        + "\"url\":\"https://peterssendreceiveapp.ngrok.io/shop?item=100\",\"messenger_extensions\":true,"
+        + "\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":\"web_url\","
+        + "\"title\":\"Buy\"}]},{\"title\":\"Classic Blue T-Shirt\",\"subtitle\":\"100% Cotton, 200% Comfortable\","
+        + "\"image_url\":\"https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png\",\"default_action\":"
+        + "{\"webview_height_ratio\":\"tall\",\"url\":\"https://peterssendreceiveapp.ngrok.io/view?item=101\","
+        + "\"messenger_extensions\":true,\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":"
+        + "\"web_url\"},\"buttons\":[{\"webview_height_ratio\":\"tall\","
+        + "\"url\":\"https://peterssendreceiveapp.ngrok.io/shop?item=101\",\"messenger_extensions\":true,"
+        + "\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":\"web_url\",\"title\":\"Buy\"}]}],"
+        + "\"top_element_style\":\"compact\",\"buttons\":[{\"payload\":\"payload\",\"type\":\"postback\","
+        + "\"title\":\"View More\"}],\"template_type\":\"list\"},\"type\":\"template\"}}";
+    JSONAssert.assertEquals(expectedJson, recipientJsonString, false);
+  }
+
+  private ListViewElement getListViewElement(int itemId, String title) {
+    DefaultAction defaultAction = new DefaultAction("https://peterssendreceiveapp.ngrok.io/view?item=" + itemId);
+    defaultAction.setMessengerExtensions(true, "https://peterssendreceiveapp.ngrok.io/");
+    defaultAction.setWebviewHeightRatio(WebviewHeightEnum.tall);
+
+    WebButton webButton = new WebButton("Buy", "https://peterssendreceiveapp.ngrok.io/shop?item=" + itemId);
+    webButton.setMessengerExtensions(true, "https://peterssendreceiveapp.ngrok.io/");
+    webButton.setWebviewHeightRatio(WebviewHeightEnum.tall);
+
+    ListViewElement element = new ListViewElement(title);
+    element.setSubtitle("100% Cotton, 200% Comfortable");
+    element.setImageUrl("https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png");
+    element.setDefaultAction(defaultAction);
+    element.addButton(webButton);
+    return element;
   }
 
   @Test
