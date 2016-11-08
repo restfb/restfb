@@ -21,6 +21,8 @@
  */
 package com.restfb.types;
 
+import static org.junit.Assert.assertTrue;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.exception.FacebookPreconditionException;
@@ -33,8 +35,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 public class SendApiTest extends AbstractJsonMapperTests {
 
@@ -93,7 +93,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"VIDEO_URL\"},\"type\":\"video\"}}",
-            recipientJsonString);
+      recipientJsonString);
   }
 
   @Test
@@ -105,7 +105,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\"},\"type\":\"audio\"}}",
-            recipientJsonString);
+      recipientJsonString);
   }
 
   @Test
@@ -117,8 +117,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\",\"is_reusable\":true},\"type\":\"audio\"}}",
-            recipientJsonString);
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"url\":\"AUDIO_URL\",\"is_reusable\":true},\"type\":\"audio\"}}",
+      recipientJsonString);
   }
 
   @Test
@@ -130,9 +131,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"attachment_id\":\"123456789\"},\"type\":\"audio\"}}",
-            recipientJsonString);
+      recipientJsonString);
   }
-
 
   @Test
   public void messageLocationAttachment() {
@@ -157,7 +157,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"text\":\"TITLE\", \"template_type\":\"button\"},\"type\":\"template\"}}",
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"text\":\"TITLE\", \"template_type\":\"button\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 
@@ -185,7 +186,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     WebButton buttonHeight = new WebButton("Check this", "http://www.google.com");
     buttonHeight.setWebviewHeightRatio(WebviewHeightEnum.compact);
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
-    CallButton callButton = new CallButton("Call Support","+1234567890");
+    CallButton callButton = new CallButton("Call Support", "+1234567890");
     ButtonTemplatePayload payload = new ButtonTemplatePayload("TITLE");
     payload.addButton(button);
     payload.addButton(buttonHeight);
@@ -223,6 +224,64 @@ public class SendApiTest extends AbstractJsonMapperTests {
     AssertJson.assertEquals(
       "{\"attachment\":{\"payload\":{\"elements\":[{\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}],\"title\":\"My Bubble\"}],\"template_type\":\"generic\"},\"type\":\"template\"}}",
       recipientJsonString);
+  }
+
+  @Test
+  public void messageListTemplatePayload() {
+    ListViewElement element1 = getListViewElement(100, "Classic White T-Shirt");
+    ListViewElement element2 = getListViewElement(101, "Classic Blue T-Shirt");
+
+    PostbackButton postbackButton = new PostbackButton("View More", "payload");
+
+    List<ListViewElement> listViewElementList = new ArrayList<ListViewElement>();
+    listViewElementList.add(element1);
+    listViewElementList.add(element2);
+    ListTemplatePayload payload = new ListTemplatePayload(listViewElementList);
+    payload.setTopElementStyle(ListTemplatePayload.TopElementStyleEnum.compact);
+    payload.addButton(postbackButton);
+
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    String expectedJson = "{\"attachment\":{\"payload\":{\"elements\":[{\"title\":\"Classic White T-Shirt\","
+        + "\"subtitle\":\"100% Cotton, 200% Comfortable\","
+        + "\"image_url\":\"https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png\"," + "\"default_action\":"
+        + "{\"webview_height_ratio\":\"tall\","
+        + "\"url\":\"https://peterssendreceiveapp.ngrok.io/view?item=100\",\"messenger_extensions\":true,"
+        + "\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":\"web_url\"},"
+        + "\"buttons\":[{\"webview_height_ratio\":\"tall\","
+        + "\"url\":\"https://peterssendreceiveapp.ngrok.io/shop?item=100\",\"messenger_extensions\":true,"
+        + "\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":\"web_url\","
+        + "\"title\":\"Buy\"}]},{\"title\":\"Classic Blue T-Shirt\",\"subtitle\":\"100% Cotton, 200% Comfortable\","
+        + "\"image_url\":\"https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png\",\"default_action\":"
+        + "{\"webview_height_ratio\":\"tall\",\"url\":\"https://peterssendreceiveapp.ngrok.io/view?item=101\","
+        + "\"messenger_extensions\":true,\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":"
+        + "\"web_url\"},\"buttons\":[{\"webview_height_ratio\":\"tall\","
+        + "\"url\":\"https://peterssendreceiveapp.ngrok.io/shop?item=101\",\"messenger_extensions\":true,"
+        + "\"fallback_url\":\"https://peterssendreceiveapp.ngrok.io/\",\"type\":\"web_url\",\"title\":\"Buy\"}]}],"
+        + "\"top_element_style\":\"compact\",\"buttons\":[{\"payload\":\"payload\",\"type\":\"postback\","
+        + "\"title\":\"View More\"}],\"template_type\":\"list\"},\"type\":\"template\"}}";
+    AssertJson.assertEquals(expectedJson, recipientJsonString);
+  }
+
+  private ListViewElement getListViewElement(int itemId, String title) {
+    DefaultAction defaultAction = new DefaultAction("https://peterssendreceiveapp.ngrok.io/view?item=" + itemId);
+    defaultAction.setMessengerExtensions(true, "https://peterssendreceiveapp.ngrok.io/");
+    defaultAction.setWebviewHeightRatio(WebviewHeightEnum.tall);
+
+    WebButton webButton = new WebButton("Buy", "https://peterssendreceiveapp.ngrok.io/shop?item=" + itemId);
+    webButton.setMessengerExtensions(true, "https://peterssendreceiveapp.ngrok.io/");
+    webButton.setWebviewHeightRatio(WebviewHeightEnum.tall);
+
+    ListViewElement element = new ListViewElement(title);
+    element.setSubtitle("100% Cotton, 200% Comfortable");
+    element.setImageUrl("https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png");
+    element.setDefaultAction(defaultAction);
+    element.addButton(webButton);
+    return element;
   }
 
   @Test
@@ -319,8 +378,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
 
-    AssertJson.assertEquals("{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
-            messageJsonString);
+    AssertJson.assertEquals(
+      "{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
+      messageJsonString);
   }
 
   @Test
@@ -334,7 +394,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
 
-    AssertJson.assertEquals("{\"text\":\"message text\",\"quick_replies\":[{\"content_type\":\"text\",\"title\":\"title1\",\"payload\":\"payload 1\"},{\"content_type\":\"text\",\"title\":\"title2\",\"payload\":\"payload 2\"}]}", messageJsonString);
+    AssertJson.assertEquals(
+      "{\"text\":\"message text\",\"quick_replies\":[{\"content_type\":\"text\",\"title\":\"title1\",\"payload\":\"payload 1\"},{\"content_type\":\"text\",\"title\":\"title2\",\"payload\":\"payload 2\"}]}",
+      messageJsonString);
   }
 
   @Test(expected = FacebookPreconditionException.class)
@@ -352,7 +414,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title9", "payload 9"));
     quickReplyList.add(new QuickReply("title10", "payload 10"));
     message.addQuickReplies(quickReplyList);
-    message.addQuickReply(new QuickReply("last","payload_last"));
+    message.addQuickReply(new QuickReply("last", "payload_last"));
   }
 
   @Test(expected = FacebookPreconditionException.class)

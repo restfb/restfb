@@ -21,21 +21,13 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
+public class DefaultAction extends WebButton {
 
-abstract public class AbstractButton {
-
-  @Facebook
-  private String type;
-
-  @Facebook
-  protected String title;
-
-  public AbstractButton(String title) {
-    this.title = title;
+  public DefaultAction(String webUrl) {
+    super(null, webUrl);
   }
 
-  protected void setType(String type) {
-    this.type = type;
+  public void setTitle(String title) {
+    this.title = title;
   }
 }
