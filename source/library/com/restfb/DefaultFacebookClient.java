@@ -334,19 +334,23 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("object", object);
 
     String responseString = makeRequest(object, true, true, null, parameters);
-    String cmpString;
-
     try {
+      boolean isSuccess = false;
       JsonObject jObj = new JsonObject(responseString);
-      cmpString = jObj.getString("success");
+      if (jObj.has("success")) {
+        isSuccess = jObj.getBoolean("success");
+      }
+      if (jObj.has("result")) {
+        isSuccess = jObj.getString("result").contains("Successfully deleted");
+      }
+      return isSuccess;
     } catch (JsonException jex) {
       if (CLIENT_LOGGER.isTraceEnabled()) {
         CLIENT_LOGGER.trace("no valid JSON returned while deleting a object, using returned String instead", jex);
       }
-      cmpString = responseString;
     }
 
-    return "true".equals(cmpString);
+    return "true".equals(responseString);
   }
 
   /**

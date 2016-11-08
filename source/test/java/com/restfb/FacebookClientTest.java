@@ -333,6 +333,12 @@ public class FacebookClientTest {
   }
 
   @Test
+  public void deleteObjectReturnsJsonGreetingMessengerPlatform() {
+    FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "{\"result\":\"Successfully deleted greeting\"}"));
+    assertTrue(facebookClient.deleteObject("12345"));
+  }
+
+  @Test
   public void deleteObjectReturnsText() {
     FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "true"));
     assertTrue(facebookClient.deleteObject("12345"));
