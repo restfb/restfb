@@ -64,6 +64,18 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void recipientWithUserRef() throws JSONException {
+    UserRefMessageRecipient recipient = new UserRefMessageRecipient("UNIQUE_USER_REF");
+
+    assertTrue(recipient instanceof MessageRecipient);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals("{\"user_ref\":\"UNIQUE_USER_REF\"}", recipientJsonString, false);
+  }
+
+  @Test
   public void messageText() throws JSONException {
     Message recipient = new Message("Just a Test");
 

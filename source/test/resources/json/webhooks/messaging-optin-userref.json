@@ -1,0 +1,24 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": 12345654332,
+      "time": 12341,
+      "messaging": [
+        {
+          "sender": {
+            "id": 987654321432
+          },
+          "recipient": {
+            "id": 12345654332
+          },
+          "timestamp": 1234567890,
+          "optin": {
+            "ref": "PASS_THROUGH_PARAM",
+            "user_ref": "UNIQUE_REF_PARAM"
+          }
+        }
+      ]
+    }
+  ]
+}
