@@ -24,6 +24,7 @@ package com.restfb.types;
 import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
+import com.restfb.types.send.UserRefMessageRecipient;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
@@ -177,6 +178,24 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     OptinItem item = messagingItem.getOptin();
     assertNotNull(item);
     assertEquals("PASS_THROUGH_PARAM", item.getRef());
+    assertNull(item.getUserRef());
+    assertNull(item.getUserRefMessageRecipient());
+  }
+
+  @Test
+  public void messagingOptinUserRef() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-optin-userref"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    OptinItem item = messagingItem.getOptin();
+    assertNotNull(item);
+    assertEquals("PASS_THROUGH_PARAM", item.getRef());
+    assertEquals("UNIQUE_REF_PARAM", item.getUserRef());
+    assertNotNull(item.getUserRefMessageRecipient());
   }
 
   @Test

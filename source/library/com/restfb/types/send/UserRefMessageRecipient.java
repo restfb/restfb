@@ -19,36 +19,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.types.send.UserRefMessageRecipient;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+public class UserRefMessageRecipient implements MessageRecipient {
 
-@ToString
-public class OptinItem implements InnerMessagingItem {
-
-  @Getter
-  @Setter
-  @Facebook
-  private String ref;
-
-  @Getter
-  @Setter
   @Facebook("user_ref")
   private String userRef;
 
-  @Getter
-  private UserRefMessageRecipient userRefMessageRecipient;
-
-  @JsonMapper.JsonMappingCompleted
-  private void provideRecipient() {
-    if (userRef != null) {
-      userRefMessageRecipient = new UserRefMessageRecipient(userRef);
-    }
+  public UserRefMessageRecipient(String userRef) {
+    this.userRef = userRef;
   }
+
 }
