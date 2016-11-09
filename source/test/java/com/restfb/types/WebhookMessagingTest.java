@@ -24,7 +24,6 @@ package com.restfb.types;
 import static org.junit.Assert.*;
 
 import com.restfb.AbstractJsonMapperTests;
-import com.restfb.types.send.UserRefMessageRecipient;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
@@ -140,12 +139,30 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     MessageItem item = messagingItem.getMessage();
+    assertEquals(item, messagingItem.getItem());
     assertFalse(item.isEcho());
     assertNotNull(item);
     assertEquals("mid.1457764197618:41d102a3e1ae206a38", item.getMid());
     assertEquals("hello, world!", item.getText());
     assertEquals(73L, item.getSeq().longValue());
     assertTrue(item.getAttachments().isEmpty());
+  }
+
+  @Test
+  public void messagingReferralBasic() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-referral-basic"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    ReferralItem referral = messagingItem.getReferral();
+    assertEquals(referral, messagingItem.getItem());
+    assertNotNull(referral);
+    assertEquals("ref_data_in_m_dot_me_param", referral.getRef());
+    assertEquals("SHORTLINK", referral.getSource());
+    assertEquals("OPEN_THREAD", referral.getType());
   }
 
   @Test
@@ -178,6 +195,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     OptinItem item = messagingItem.getOptin();
+    assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertEquals("PASS_THROUGH_PARAM", item.getRef());
     assertNull(item.getUserRef());
@@ -187,13 +205,14 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   @Test
   public void messagingOptinUserRef() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-optin-userref"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-optin-userref"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     OptinItem item = messagingItem.getOptin();
+    assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertEquals("PASS_THROUGH_PARAM", item.getRef());
     assertEquals("UNIQUE_REF_PARAM", item.getUserRef());
@@ -210,6 +229,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     PostbackItem item = messagingItem.getPostback();
+    assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertEquals("USER_DEFINED_PAYLOAD", item.getPayload());
     assertNull(item.getReferral());
@@ -218,13 +238,14 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   @Test
   public void messagingPostbackWithReferral() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-referral"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-referral"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     PostbackItem item = messagingItem.getPostback();
+    assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertEquals("USER_DEFINED_PAYLOAD", item.getPayload());
     PostbackReferral referral = item.getReferral();
@@ -243,6 +264,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     AccountLinkingItem item = messagingItem.getAccountLinking();
+    assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertTrue(item.isLinked());
     assertEquals("linked", item.getStatus());
@@ -259,6 +281,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     AccountLinkingItem item = messagingItem.getAccountLinking();
+    assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertFalse(item.isLinked());
     assertEquals("unlinked", item.getStatus());
@@ -315,7 +338,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
 
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
-    assertEquals(1451763900000L, attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime().getTime());
+    assertEquals(1451763900000L,
+      attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime().getTime());
     PassengerSegmentInfoItem passengerSegmentInfoItem = attachment.getPayload().getPassengerSegmentInfoItems().get(0);
     assertEquals("12A", passengerSegmentInfoItem.getSeat());
     assertEquals("Business", passengerSegmentInfoItem.getSeatType());
