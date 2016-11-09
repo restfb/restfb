@@ -54,12 +54,12 @@ public class MessagingItem {
   @Setter
   @Facebook
   private DeliveryItem delivery;
-  
+
   @Getter
   @Setter
   @Facebook
   private ReadItem read;
-  
+
   @Getter
   @Setter
   @Facebook
@@ -89,6 +89,11 @@ public class MessagingItem {
   @Setter
   @Facebook
   private PaymentItem payment;
+
+  @Getter
+  @Setter
+  @Facebook
+  private ReferralItem referral;
 
   /**
    * generic access to the inner item.
@@ -129,6 +134,10 @@ public class MessagingItem {
 
     if (payment != null) {
       return payment;
+    }
+
+    if (referral != null) {
+      return referral;
     }
 
     return null;
