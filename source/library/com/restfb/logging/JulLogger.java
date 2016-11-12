@@ -135,6 +135,7 @@ public class JulLogger extends RestFBLogger {
           break;
         }
       }
+      logRecord.setLoggerName(logger.getName());
       logger.log(logRecord);
     }
   }
