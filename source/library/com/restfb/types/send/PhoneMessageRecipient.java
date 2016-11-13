@@ -22,7 +22,9 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import lombok.ToString;
 
+@ToString
 public class PhoneMessageRecipient implements MessageRecipient {
 
   @Facebook("phone_number")
