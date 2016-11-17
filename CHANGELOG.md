@@ -1,5 +1,42 @@
 # RestFB Changelog
 
+## 1.34.0 (November 17, 2016)
+
+* Messenger Platform 1.3 support
+  * Issue #619: Passing parameters via M.me links
+  * Issue #620: List Template
+  * Issue #621: seq id is deprecated
+  * Issue #622: Checkbox plugin support
+    Thanks to @marceloverdijk for the hint
+  * Issue #623: messaging_referral event
+    Thanks to @marceloverdijk for the hint
+* Issue #625: Bugfix for logger name issue<br>
+  Thanks to @torbenw for the bug report
+* Issue #626: Add `toString` method to `MessageRecipient` Impls<br>
+  Thanks to @marceloverdijk for the hint
+* Issue #618: `deleteObject` support thread settings now<br>
+  Thanks to @marceloverdijk for the hint
+* Issue #574 and #617: Thread settings enums added<br>
+  Thanks to @marceloverdijk for the hint and PR
+* Issue #615 and #616: `NotificationTypeEnum` added<br>
+  Thanks to @marceloverdijk for the hint and PR
+* Issue #613: `fbtrace_id` added to `FacebookGraphException`<br>
+  Thanks to @marceloverdijk for the hint
+* Issue #612: `MessageRecipient` interface added<br>
+  Thanks to @marceloverdijk for the hint
+
+## 1.33.0 (October 26, 2016)
+
+* Cleanup:
+  * Issue #602: Readme changed to describe only basic usage
+  * Issue #604: Experimental package marked as deprecated
+  * Issue #608: unused imports removed
+* Issue #605: more targeting improvements<br>
+  Thanks to @matthewbogner for the hint and PR
+* Issue #607: PaymentItem credentials changed to credential
+  Thanks to @barhun for the hint
+* Issue #603: Basic logging change to resolve #31
+  
 ## 1.32.0 (October 13, 2016)
 
 * Graph API 2.8:
