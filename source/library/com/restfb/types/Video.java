@@ -375,11 +375,11 @@ public class Video extends NamedFacebookType {
   private Date updatedTime;
 
   /**
-   * The time that the video is scheduled to expire.
+   * The time that the video is scheduled to be published.
    * 
    * This field is only accessible in Graph API 2.3 or later.
    * 
-   * @return The time that the video is scheduled to expire.
+   * @return The time that the video is scheduled to be published.
    * @since 1.10.0
    */
   @Getter
