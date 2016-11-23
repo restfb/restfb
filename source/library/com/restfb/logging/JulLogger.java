@@ -127,14 +127,8 @@ public class JulLogger extends RestFBLogger {
       if (thrown != null) {
         logRecord.setThrown(thrown);
       }
-      StackTraceElement[] stacktrace = new Throwable().getStackTrace();
-      for (StackTraceElement element : stacktrace) {
-        if (!element.getClassName().equals(JulLogger.class.getName())) {
-          logRecord.setSourceClassName(element.getClassName());
-          logRecord.setSourceMethodName(element.getMethodName());
-          break;
-        }
-      }
+      logRecord.setSourceClassName(null);
+      logRecord.setSourceMethodName(null);
       logRecord.setLoggerName(logger.getName());
       logger.log(logRecord);
     }
