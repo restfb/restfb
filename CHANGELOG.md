@@ -1,14 +1,21 @@
 # RestFB Changelog
 
+## 1.34.1 (November 24, 2016)
+
+* Issue #632: fix error in javadoc<br>
+  Thanks to @alexconlin for the PR
+* Issue #631: performance issue with stacktrace during logging<br>
+  Thanks to @hkroger for the hint
+
 ## 1.34.0 (November 17, 2016)
 
 * Messenger Platform 1.3 support
   * Issue #619: Passing parameters via M.me links
   * Issue #620: List Template
   * Issue #621: seq id is deprecated
-  * Issue #622: Checkbox plugin support
+  * Issue #622: Checkbox plugin support<br>
     Thanks to @marceloverdijk for the hint
-  * Issue #623: messaging_referral event
+  * Issue #623: messaging_referral event<br>
     Thanks to @marceloverdijk for the hint
 * Issue #625: Bugfix for logger name issue<br>
   Thanks to @torbenw for the bug report
