@@ -63,10 +63,10 @@ public abstract class RestFBLogger {
 
     // create the loggers
     HTTP_LOGGER = getLoggerInstance("com.restfb.HTTP");
-    MAPPER_LOGGER = getLoggerInstance("com.restfb.DefaultJsonMapper");
+    MAPPER_LOGGER = getLoggerInstance("com.restfb.JSON_MAPPER");
     UTILS_LOGGER = getLoggerInstance("com.restfb.UTILITY");
-    CLIENT_LOGGER = getLoggerInstance("com.restfb.DefaultFacebookClient");
-    VALUE_FACTORY_LOGGER = getLoggerInstance("com.restfb.types.webhook.ChangeValueFactory");
+    CLIENT_LOGGER = getLoggerInstance("com.restfb.CLIENT");
+    VALUE_FACTORY_LOGGER = getLoggerInstance("com.restfb.types.CHANGE_VALUE_FACTORY");
   }
 
   public static RestFBLogger getLoggerInstance(String logCategory) {
@@ -77,7 +77,7 @@ public abstract class RestFBLogger {
       Constructor ctor = LOGGER_CLASS.getConstructor(ctrTypes);
       obj = ctor.newInstance(ctrArgs);
     } catch (Exception e) {
-      throw new FacebookLoggerException("logger cannot be created");
+      throw new FacebookLoggerException("cannot create logger: " + logCategory);
     }
 
     return (RestFBLogger) obj;
