@@ -8,12 +8,12 @@
 				{
 					"field": "feed",
 					"value": {
+						"reaction_type": "wow",
 						"created_time": 1475578854,
 						"item": "reaction",
 						"post_id": "1234567890321_98735342324352",
 						"parent_id": "1234567890321_901097836652708",
-						"verb": "add",
-						"reaction_type": "love",
+						"verb": "remove",
 						"sender_id": 1234567890321
 					}
 				}

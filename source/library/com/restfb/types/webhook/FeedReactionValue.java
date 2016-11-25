@@ -37,4 +37,9 @@ public class FeedReactionValue extends AbstractFeedPostValue {
   @Facebook("parent_id")
   private String parentId;
 
+  @Getter
+  @Setter
+  @Facebook("reaction_type")
+  private String reactionType;
+
 }

@@ -179,6 +179,27 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_901097836652708", value.getParentId());
     assertEquals("1234567890321", value.getSenderId());
+    assertEquals("love", value.getReactionType());
+  }
+
+  @Test
+  public void feedReactionEdit() {
+    FeedReactionValue value =
+            openAndCheckFeedPostBasics("feed-reaction-edit", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.EDIT);
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("wow", value.getReactionType());
+  }
+
+  @Test
+  public void feedReactionRemove() {
+    FeedReactionValue value =
+            openAndCheckFeedPostBasics("feed-reaction-remove", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.REMOVE);
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("wow", value.getReactionType());
   }
 
   @Test
