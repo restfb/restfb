@@ -28,9 +28,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * change value of the feed video add
+ * change value of the feed video
  */
-public class FeedVideoAddValue extends AbstractFeedPostValue {
+public class FeedVideoValue extends AbstractFeedPostValue {
+
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean published;
 
   @Getter
   @Setter
