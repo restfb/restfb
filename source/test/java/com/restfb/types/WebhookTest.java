@@ -334,10 +334,19 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedVideoAdd() {
-    FeedVideoAddValue value =
-        openAndCheckFeedPostBasics("feed-video-add", FeedVideoAddValue.class, ITEM_VIDEO, ChangeValue.Verb.ADD);
+    FeedVideoValue value =
+        openAndCheckFeedPostBasics("feed-video-add", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.ADD);
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
+  }
+
+  @Test
+  public void feedVideoEdited() {
+    FeedVideoValue value =
+            openAndCheckFeedPostBasics("feed-video-edited", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.EDITED);
+    assertEquals("https://www.example.org/test.mp4", value.getLink());
+    assertEquals("900767076685784", value.getVideoId());
+    assertTrue(value.getPublished().booleanValue());
   }
 
   @Test
