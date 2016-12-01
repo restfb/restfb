@@ -31,10 +31,9 @@ public class CallToActionTest extends AbstractJsonMapperTests {
 
   @Test
   public void checkJson() {
-    Message message = new Message("test");
-    CallToAction action = new CallToAction(message);
+    CallToAction action = new CallToAction("EXAMPLE_PAYLOAD");
 
     String json = createJsonMapper().toJson(action, true);
-    assertEquals("{\"message\":{\"text\":\"test\"}}", json);
+    assertEquals("{\"payload\":\"EXAMPLE_PAYLOAD\"}", json);
   }
 }
