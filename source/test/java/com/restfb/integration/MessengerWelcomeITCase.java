@@ -60,8 +60,7 @@ public class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
 
     FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_6);
 
-    Message simpleTextMessage = new Message("Welcome and chat with the Testbot");
-    CallToAction welcome = new CallToAction(simpleTextMessage);
+    CallToAction welcome = new CallToAction("GETTING_STARTED_BUTTON");
 
     List<CallToAction> actionList = new ArrayList<CallToAction>();
     actionList.add(welcome);

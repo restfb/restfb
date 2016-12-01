@@ -28,7 +28,7 @@ import com.restfb.Facebook;
  * documentation for further information
  * <p>
  * have a look at the
- * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference#welcome_message_configuration">
+ * <a href="https://developers.facebook.com/docs/messenger-platform/thread-settings/get-started-button">
  * Facebook documentation</a>
  * </p>
  *
@@ -36,9 +36,9 @@ import com.restfb.Facebook;
 public class CallToAction {
 
   @Facebook
-  private Message message;
+  private String payload;
 
-  public CallToAction(Message message) {
-    this.message = message;
+  public CallToAction(String payload) {
+    this.payload = payload;
   }
 }
