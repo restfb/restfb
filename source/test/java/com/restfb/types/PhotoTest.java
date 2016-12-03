@@ -220,4 +220,14 @@ public class PhotoTest extends AbstractJsonMapperTests {
     Comment c = comments.getData().get(0);
     assertEquals("Whooo, great Picture", c.getMessage());
   }
+
+  @Test
+  public void photoLikes_V2_5() {
+    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-comments"), Photo.class);
+    assertNotNull(examplePhoto.getLikes());
+    Likes likes = examplePhoto.getLikes();
+    assertTrue(likes.getCanLike());
+    assertFalse(likes.getHasLiked());
+    assertEquals(0L, likes.getTotalCount().longValue());
+  }
 }

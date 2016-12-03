@@ -198,7 +198,7 @@ public class Photo extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook
-  Event event;
+  private Event event;
 
   /**
    * The last time the photo or its caption was updated.
@@ -232,8 +232,10 @@ public class Photo extends NamedFacebookType {
   @Facebook
   private List<Tag> tags = new ArrayList<Tag>();
 
+  @Getter
+  @Setter
   @Facebook
-  private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
+  private Likes likes;
 
   @Facebook
   private List<Image> images = new ArrayList<Image>();
@@ -386,24 +388,6 @@ public class Photo extends NamedFacebookType {
 
   public boolean removeTag(Tag tag) {
     return tags.remove(tag);
-  }
-
-  /**
-   * Users who like the photo.
-   * 
-   * @return Users who like the photo.
-   * @since 1.6.5
-   */
-  public List<NamedFacebookType> getLikes() {
-    return unmodifiableList(likes);
-  }
-
-  public boolean addLike(NamedFacebookType like) {
-    return likes.add(like);
-  }
-
-  public boolean removeLike(NamedFacebookType like) {
-    return likes.remove(like);
   }
 
   public List<EntityAtTextRange> getNameTags() {

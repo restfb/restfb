@@ -23,5 +23,14 @@
       "can_comment": true
     }
   },
+  "likes": {
+    "data": [
+    ],
+    "summary": {
+      "total_count": 0,
+      "can_like": true,
+      "has_liked": false
+    }
+  },
   "id": "12345678943537"
 }
