@@ -360,7 +360,7 @@ public class FacebookClientTest {
 
   @Test
   public void checkLoginDialogURL() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_1);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder());
     assertEquals(
       "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile",
@@ -369,7 +369,7 @@ public class FacebookClientTest {
 
   @Test
   public void checkLoginDialogURLAdditionalParameters() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_1);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
       Parameter.with("auth_type", "reauthenticate"));
     assertEquals(

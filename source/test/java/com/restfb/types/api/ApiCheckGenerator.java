@@ -76,11 +76,7 @@ public class ApiCheckGenerator extends BaseTestCheck {
     props.setProperty("Post.MessageTag.methods", joinMethods(fetchMethodsFromClass(MessageTag.class)));
     props.setProperty("Post.Property.methods", joinMethods(fetchMethodsFromClass(Post.Property.class)));
     props.setProperty("Post.Shares.methods", joinMethods(fetchMethodsFromClass(Post.Shares.class)));
-    props.setProperty("Question.methods", joinMethods(fetchMethodsFromClass(Question.class)));
-    props.setProperty("QuestionOption.methods", joinMethods(fetchMethodsFromClass(QuestionOption.class)));
     props.setProperty("Review.methods", joinMethods(fetchMethodsFromClass(Review.class)));
-    props.setProperty("StatusMessage.methods", joinMethods(fetchMethodsFromClass(StatusMessage.class)));
-    props.setProperty("StatusMessage.methods", joinMethods(fetchMethodsFromClass(StatusMessage.class)));
     props.setProperty("StatusMessage.methods", joinMethods(fetchMethodsFromClass(StatusMessage.class)));
     props.setProperty("TestUser.methods", joinMethods(fetchMethodsFromClass(TestUser.class)));
     props.setProperty("Thread.methods", joinMethods(fetchMethodsFromClass(com.restfb.types.Thread.class)));

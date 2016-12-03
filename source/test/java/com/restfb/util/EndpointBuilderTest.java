@@ -33,14 +33,6 @@ import org.junit.Test;
 public class EndpointBuilderTest {
 
   @Test
-  public void version21Test() {
-    FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_1);
-    String respString = client.fetchObject("/me", String.class);
-    assertEquals("https://graph.facebook.com/v2.1/me?access_token=12345&format=json", respString);
-  }
-
-  @Test
   public void version22Test() {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
