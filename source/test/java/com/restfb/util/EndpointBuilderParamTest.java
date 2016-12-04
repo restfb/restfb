@@ -21,7 +21,7 @@
  */
 package com.restfb.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
@@ -62,11 +62,10 @@ public class EndpointBuilderParamTest {
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), currentVersion);
     String respString = client.fetchObject("/me", String.class);
     if (currentVersion.isUrlElementRequired()) {
-      assertEquals(
-        "https://graph.facebook.com/" + currentVersion.getUrlElement() + "/me?access_token=12345&format=json",
-        respString);
+      assertThat(respString).isEqualTo(
+        "https://graph.facebook.com/" + currentVersion.getUrlElement() + "/me?access_token=12345&format=json");
     } else {
-      assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respString);
+      assertThat(respString).isEqualTo("https://graph.facebook.com/me?access_token=12345&format=json");
     }
   }
 }

@@ -21,7 +21,7 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.types.Post;
 
@@ -41,8 +41,8 @@ public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   @Test
   public void emptyArrayTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-empty-comments"), Post.class);
-    assertTrue(post.getComments().getTotalCount() == 0);
-    assertTrue(post.getComments().getData().isEmpty());
+    assertThat(post.getComments().getTotalCount()).isEqualTo(0);
+    assertThat(post.getComments().getData()).isEmpty();
   }
 
   /**
@@ -51,7 +51,7 @@ public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   @Test
   public void onlyCountTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-comment-count-only"), Post.class);
-    assertTrue(post.getComments().getTotalCount() == 3);
+    assertThat(post.getComments().getTotalCount()).isEqualTo(3);
   }
 
   /**
@@ -60,6 +60,6 @@ public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   @Test
   public void normalTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-normal-comments"), Post.class);
-    assertTrue(post.getComments().getData().size() == 1);
+    assertThat(post.getComments().getData()).hasSize(1);
   }
 }

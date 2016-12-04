@@ -21,7 +21,7 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.json.JsonObject;
 
@@ -35,6 +35,6 @@ public class FQLMessageTagsTest extends AbstractJsonMapperTests {
   public void checkFQLmessageTags_2_0() {
     List<JsonObject> jsonObjectList =
         createJsonMapper().toJavaList(jsonFromClasspath("v2_0/fql-messagetags"), JsonObject.class);
-    assertEquals(14, jsonObjectList.size());
+    assertThat(jsonObjectList).hasSize(14);
   }
 }

@@ -21,7 +21,8 @@
  */
 package com.restfb.util;
 
-import org.junit.Assert;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class DateUtilsMultiThreadedTest {
     }
 
     // first and simple assert
-    Assert.assertEquals(threadCount, futures.size());
+    assertThat(futures).hasSize(threadCount);
 
     // generate list with expected values
     List<Long> expectedList = new ArrayList<Long>(threadCount);
@@ -81,7 +82,7 @@ public class DateUtilsMultiThreadedTest {
 
     // prepare collection comparison
     Collections.sort(resultList);
-    Assert.assertEquals(expectedList, resultList);
+    assertThat(resultList).isEqualTo(expectedList);
   }
 
   @Test

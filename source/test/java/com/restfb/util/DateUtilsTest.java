@@ -22,8 +22,7 @@
 package com.restfb.util;
 
 import static com.restfb.util.DateUtils.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,11 +57,11 @@ public class DateUtilsTest {
    */
   @Test
   public void shortDatesSimple() {
-    assertTrue(toDateFromShortFormat("04/15/1984") != null);
-    assertTrue(toDateFromShortFormat("01/01/1970") != null);
-    assertTrue(toDateFromShortFormat("1970-09-15") != null);
-    assertTrue(toDateFromShortFormat("junk") == null);
-    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
+    assertThat(toDateFromShortFormat("04/15/1984")).isNotNull();
+    assertThat(toDateFromShortFormat("01/01/1970")).isNotNull();
+    assertThat(toDateFromShortFormat("1970-09-15")).isNotNull();
+    assertThat(toDateFromShortFormat("junk")).isNull();
+    assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
   }
 
   /**
@@ -70,11 +69,11 @@ public class DateUtilsTest {
    */
   @Test
   public void longDatesSimple() {
-    assertTrue(toDateFromLongFormat("2011-12-22T21:00:00+0000") != null);
-    assertTrue(toDateFromLongFormat("2011-12-22T21:00:00") != null);
-    assertTrue(toDateFromLongFormat("1331784257") != null);
-    assertTrue(toDateFromLongFormat("junk") == null);
-    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
+    assertThat(toDateFromLongFormat("2011-12-22T21:00:00+0000")).isNotNull();
+    assertThat(toDateFromLongFormat("2011-12-22T21:00:00")).isNotNull();
+    assertThat(toDateFromLongFormat("1331784257")).isNotNull();
+    assertThat(toDateFromLongFormat("junk")).isNull();
+    assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
   }
 
   /**
@@ -82,18 +81,18 @@ public class DateUtilsTest {
    */
   @Test
   public void monthYearDates() {
-    assertTrue(toDateFromMonthYearFormat("2007-03") != null);
-    assertTrue(toDateFromMonthYearFormat("2011-12") != null);
-    assertTrue(toDateFromMonthYearFormat("0000-00") == null);
-    assertTrue(toDateFromMonthYearFormat("junk") == null);
-    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
+    assertThat(toDateFromMonthYearFormat("2007-03")).isNotNull();
+    assertThat(toDateFromMonthYearFormat("2011-12")).isNotNull();
+    assertThat(toDateFromMonthYearFormat("0000-00")).isNull();
+    assertThat(toDateFromMonthYearFormat("junk")).isNull();
+    assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
   }
 
   @Test
   public void dateToString() {
-    assertTrue(toLongFormatFromDate(null) == null);
-    assertTrue(toLongFormatFromDate(new Date()) != null);
-    assertEquals("2016-09-22T15:48:44", toLongFormatFromDate(new Date(1474559324000L)));
-    assertEquals(expectedStrategy, DateUtils.getDateFormatStrategy());
+    assertThat(toLongFormatFromDate(null)).isNull();
+    assertThat(toLongFormatFromDate(new Date())).isNotNull();
+    assertThat(toLongFormatFromDate(new Date(1474559324000L))).isEqualTo("2016-09-22T15:48:44");
+    assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
   }
 }

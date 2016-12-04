@@ -21,7 +21,9 @@
  */
 package com.restfb.exception.generator;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.ResponseErrorJsonParsingException;
@@ -67,14 +69,14 @@ public class FacebookExceptionGeneratorTest {
   public void checkSilentJsonObjectGeneration_WithValidJson() {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{ \"error\": \"exampleError\" }";
-    assertNotNull(generator.silentlyCreateObjectFromString(json));
+    assertThat(generator.silentlyCreateObjectFromString(json)).isNotNull();
   }
 
   @Test
   public void checkSilentJsonObjectGeneration_WithInvalidJson() {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{ \"error\"}";
-    assertNull(generator.silentlyCreateObjectFromString(json));
+    assertThat(generator.silentlyCreateObjectFromString(json)).isNull();
   }
 
   @Test
@@ -92,10 +94,10 @@ public class FacebookExceptionGeneratorTest {
 
     try {
       generator.throwFacebookResponseStatusExceptionIfNecessary(json, 500);
-      fail();
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
     } catch (FacebookOAuthException fex) {
-      assertTrue(fex.getIsTransient());
-      assertEquals(2, fex.getErrorCode().intValue());
+      assertThat(fex.getIsTransient()).isTrue();
+      assertThat(fex.getErrorCode().intValue()).isEqualTo(2);
     }
 
   }

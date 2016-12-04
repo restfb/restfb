@@ -21,7 +21,7 @@
  */
 package com.restfb.scope;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
@@ -30,20 +30,20 @@ public class ScopeBuilderTest {
   @Test
   public void noPermission() {
     ScopeBuilder s = new ScopeBuilder();
-    assertEquals("public_profile", s.toString());
+    assertThat(s.toString()).isEqualTo("public_profile");
   }
 
   @Test
   public void noPublicProfilePermission() {
     ScopeBuilder s = new ScopeBuilder(true);
-    assertEquals("", s.toString());
+    assertThat(s.toString()).isEqualTo("");
   }
 
   @Test
   public void singlePermission() {
     ScopeBuilder s = new ScopeBuilder();
     s.addPermission(FacebookPermissions.USER_STATUS);
-    assertEquals("public_profile,user_status", s.toString());
+    assertThat(s.toString()).isEqualTo("public_profile,user_status");
   }
 
   @Test
@@ -51,7 +51,7 @@ public class ScopeBuilderTest {
     ScopeBuilder s = new ScopeBuilder();
     s.addPermission(FacebookPermissions.USER_STATUS);
     s.addPermission(FacebookPermissions.USER_ABOUT_ME);
-    assertEquals("public_profile,user_status,user_about_me", s.toString());
+    assertThat(s.toString()).isEqualTo("public_profile,user_status,user_about_me");
   }
 
 }

@@ -21,8 +21,8 @@
  */
 package com.restfb.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import org.junit.Test;
 
@@ -36,7 +36,7 @@ public class EncodingUtilsTest {
 
     try {
       String actualChecksum = EncodingUtils.encodeAppSecretProof(secret, message);
-      assertEquals(expected, actualChecksum);
+      assertThat(actualChecksum).isEqualTo(expected);
     } catch (Exception e) {
       fail("Something went wrong");
     }

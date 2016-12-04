@@ -23,9 +23,8 @@ package com.restfb.util;
 
 import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static com.restfb.util.UrlUtils.extractParametersFromUrl;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -34,21 +33,22 @@ import org.junit.Test;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class UrlUtilsTest {
+
   @Test
   public void queryString() {
-    assertTrue(extractParametersFromQueryString(null).isEmpty());
-    assertTrue(extractParametersFromQueryString("").isEmpty());
-    assertTrue(extractParametersFromQueryString("access_token=123").size() == 1);
-    assertTrue(extractParametersFromQueryString("?access_token=123").size() == 1);
+    assertThat(extractParametersFromQueryString(null)).isEmpty();
+    assertThat(extractParametersFromQueryString("")).isEmpty();
+    assertThat(extractParametersFromQueryString("access_token=123")).hasSize(1);
+    assertThat(extractParametersFromQueryString("?access_token=123")).hasSize(1);
   }
 
   @Test
   public void urlParameters() {
-    assertTrue(extractParametersFromUrl(null).isEmpty());
-    assertTrue(extractParametersFromUrl("").isEmpty());
-    assertTrue(extractParametersFromUrl("access_token=123").isEmpty());
-    assertTrue(extractParametersFromUrl("?access_token=123").size() == 1);
-    assertTrue(extractParametersFromUrl("http://whatever?access_token=123").size() == 1);
+    assertThat(extractParametersFromUrl(null)).isEmpty();
+    assertThat(extractParametersFromUrl("")).isEmpty();
+    assertThat(extractParametersFromUrl("access_token=123")).isEmpty();
+    assertThat(extractParametersFromUrl("?access_token=123")).hasSize(1);
+    assertThat(extractParametersFromUrl("http://whatever?access_token=123")).hasSize(1);
   }
 
   @Test
@@ -56,7 +56,7 @@ public class UrlUtilsTest {
     String exampleUrl = "http://www.example.com?access_token=123&before=1234";
     String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
     String expectedURL = "http://www.example.com?access_token=123&before=56789";
-    Assert.assertEquals(expectedURL, resultURL);
+    assertThat(resultURL).isEqualTo(expectedURL);
   }
 
   @Test
@@ -64,7 +64,7 @@ public class UrlUtilsTest {
     String exampleUrl = "http://www.example.com";
     String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
     String expectedURL = "http://www.example.com?before=56789";
-    Assert.assertEquals(expectedURL, resultURL);
+    assertThat(resultURL).isEqualTo(expectedURL);
   }
 
   @Test
@@ -72,6 +72,6 @@ public class UrlUtilsTest {
     String exampleUrl = "http://www.example.com?access_token=123";
     String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
     String expectedURL = "http://www.example.com?access_token=123&before=56789";
-    Assert.assertEquals(expectedURL, resultURL);
+    assertThat(resultURL).isEqualTo(expectedURL);
   }
 }

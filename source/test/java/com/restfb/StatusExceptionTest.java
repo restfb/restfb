@@ -21,7 +21,8 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import com.restfb.exception.FacebookGraphException;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
@@ -37,16 +38,16 @@ public class StatusExceptionTest extends AbstractJsonMapperTests {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {
       generator.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
-      fail();
+      failBecauseExceptionWasNotThrown(FacebookGraphException.class);
     } catch (FacebookGraphException fe) {
-      assertEquals("A title", fe.getErrorUserTitle());
-      assertEquals("A message", fe.getErrorUserMessage());
-      assertEquals(190, fe.getErrorCode().intValue());
-      assertEquals(460, fe.getErrorSubcode().intValue());
-      assertEquals("Message describing the error", fe.getErrorMessage());
-      assertNotNull(fe.getRawErrorJson());
+      assertThat(fe.getErrorUserTitle()).isEqualTo("A title");
+      assertThat(fe.getErrorUserMessage()).isEqualTo("A message");
+      assertThat(fe.getErrorCode()).isEqualTo(190);
+      assertThat(fe.getErrorSubcode()).isEqualTo(460);
+      assertThat(fe.getErrorMessage()).isEqualTo("Message describing the error");
+      assertThat(fe.getRawErrorJson()).isNotNull();
       AssertJson.assertEquals(jsonErrorString, fe.getRawErrorJson().toString());
-      assertEquals("", fe.getFbtraceId());
+      assertThat(fe.getFbtraceId()).isEqualTo("");
     }
   }
 
@@ -56,16 +57,16 @@ public class StatusExceptionTest extends AbstractJsonMapperTests {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {
       generator.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
-      fail();
+      failBecauseExceptionWasNotThrown(FacebookGraphException.class);
     } catch (FacebookGraphException fe) {
-      assertEquals("A title", fe.getErrorUserTitle());
-      assertEquals("A message", fe.getErrorUserMessage());
-      assertEquals(190, fe.getErrorCode().intValue());
-      assertEquals(460, fe.getErrorSubcode().intValue());
-      assertEquals("Message describing the error", fe.getErrorMessage());
-      assertNotNull(fe.getRawErrorJson());
+      assertThat(fe.getErrorUserTitle()).isEqualTo("A title");
+      assertThat(fe.getErrorUserMessage()).isEqualTo("A message");
+      assertThat(fe.getErrorCode()).isEqualTo(190);
+      assertThat(fe.getErrorSubcode()).isEqualTo(460);
+      assertThat(fe.getErrorMessage()).isEqualTo("Message describing the error");
+      assertThat(fe.getRawErrorJson()).isNotNull();
       AssertJson.assertEquals(jsonErrorString, fe.getRawErrorJson().toString());
-      assertEquals("EJplcsCHuLu", fe.getFbtraceId());
+      assertThat(fe.getFbtraceId()).isEqualTo("EJplcsCHuLu");
     }
   }
 

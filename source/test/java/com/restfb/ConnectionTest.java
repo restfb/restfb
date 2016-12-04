@@ -21,7 +21,8 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.types.User;
@@ -34,32 +35,34 @@ public class ConnectionTest extends AbstractJsonMapperTests {
   public void checkV1_0() {
     Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
       jsonFromClasspath("v1_0/connection-user-friends"), User.class);
-    assertEquals(null, con.getTotalCount());
-    assertNotNull(con.getNextPageUrl());
-    assertTrue(con.hasNext());
+    assertThat(con.getTotalCount()).isNull();
+    assertThat(con.getNextPageUrl()).isNotNull();
+    assertThat(con.hasNext()).isTrue();
   }
 
   @Test
   public void checkV2_0() {
     Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
       jsonFromClasspath("v2_0/connection-user-friends"), User.class);
-    assertEquals(99L, con.getTotalCount().longValue());
+    assertThat(con.getTotalCount()).isEqualTo(99);
   }
 
   @Test
   public void checkV2_1() {
     Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
       jsonFromClasspath("v2_1/connection-user-friends"), User.class);
-    assertEquals(99L, con.getTotalCount().longValue());
+    assertThat(con.getTotalCount()).isEqualTo(99);
   }
 
   @Test(expected = FacebookJsonMappingException.class)
   public void checkNullJson() {
     new Connection<User>(new DefaultFacebookClient(Version.LATEST), null, User.class);
+    failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
   }
 
   @Test(expected = FacebookJsonMappingException.class)
   public void checkInvalidJson() {
     new Connection<User>(new DefaultFacebookClient(Version.LATEST), "{", User.class);
+    failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
   }
 }

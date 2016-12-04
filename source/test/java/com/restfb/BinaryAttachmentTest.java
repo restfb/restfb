@@ -21,8 +21,7 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 
 import org.junit.Test;
 
@@ -36,9 +35,8 @@ public class BinaryAttachmentTest {
   public void checkByteArray() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("myfile.jpg", attachmentData.getBytes());
-    assertEquals("myfile.jpg", att.getFilename());
-    InputStream is = att.getData();
-    assertTrue(is instanceof ByteArrayInputStream);
+    assertThat(att).hasFileName("myfile.jpg");
+    assertThat(att.getData()).isInstanceOf(ByteArrayInputStream.class);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -50,9 +48,8 @@ public class BinaryAttachmentTest {
   public void checkInputStream() {
     InputStream stream = this.getClass().getClassLoader().getResourceAsStream("json/account.json");
     BinaryAttachment att = BinaryAttachment.with("myfile.jpg", stream);
-    assertEquals("myfile.jpg", att.getFilename());
-    InputStream is = att.getData();
-    assertTrue(is instanceof BufferedInputStream);
+    assertThat(att).hasFileName("myfile.jpg");
+    assertThat(att.getData()).isInstanceOf(BufferedInputStream.class);
   }
 
   @Test(expected = IllegalArgumentException.class)

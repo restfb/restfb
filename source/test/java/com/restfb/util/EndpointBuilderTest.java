@@ -21,7 +21,7 @@
  */
 package com.restfb.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
@@ -37,7 +37,7 @@ public class EndpointBuilderTest {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper());
     String respstring = client.fetchObject("/me", String.class);
-    assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respstring);
+    assertThat(respstring).isEqualTo("https://graph.facebook.com/me?access_token=12345&format=json");
   }
 
   @Test
@@ -45,8 +45,8 @@ public class EndpointBuilderTest {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
     client.deleteObject("comment");
-    assertEquals("DELETE", wr.getMethod());
-    assertEquals("https://graph.facebook.com/v2.2/comment?access_token=12345&format=json", wr.getSavedUrl());
+    assertThat(wr.getMethod()).isEqualTo("DELETE");
+    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.2/comment?access_token=12345&format=json");
   }
 
   @Test
@@ -55,7 +55,7 @@ public class EndpointBuilderTest {
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
     client.setHttpDeleteFallback(true);
     client.deleteObject("comment");
-    assertEquals("POST", wr.getMethod());
-    assertEquals("https://graph.facebook.com/v2.2/comment", wr.getSavedUrl());
+    assertThat(wr.getMethod()).isEqualTo("POST");
+    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.2/comment");
   }
 }

@@ -21,7 +21,7 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
@@ -45,9 +45,9 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyStrings() {
-    assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", Integer.class));
-    assertTrue(null == createErrorSwallowingJsonMapper().toJavaObject("", String.class));
-    assertTrue(null == createErrorSwallowingJsonMapper().toJavaList("", String.class));
+    assertThat(createErrorSwallowingJsonMapper().toJavaObject("", Integer.class)).isNull();
+    assertThat(createErrorSwallowingJsonMapper().toJavaObject("", String.class)).isNull();
+    assertThat(createErrorSwallowingJsonMapper().toJavaList("", String.class)).isNull();
   }
 
   /**
@@ -58,9 +58,9 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
     MostlyIncorrectUser mostlyIncorrectUser = createErrorSwallowingJsonMapper()
       .toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
 
-    assertTrue(null == mostlyIncorrectUser.uid);
-    assertTrue(null == mostlyIncorrectUser.name);
-    assertTrue("1".equals(mostlyIncorrectUser.photos.get(0).getId()));
+    assertThat(mostlyIncorrectUser.uid).isNull();
+    assertThat(mostlyIncorrectUser.name).isNull();
+    assertThat(mostlyIncorrectUser.photos.get(0).getId()).isEqualTo("1");
   }
 
   /**
@@ -71,10 +71,10 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
     List<User> users =
         createErrorSwallowingJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
 
-    assertTrue("123".equals(users.get(0).getId()));
-    assertTrue(null == users.get(1));
-    assertTrue("456".equals(users.get(2).getId()));
-    assertTrue(users.size() == 3);
+    assertThat(users.get(0).getId()).isEqualTo("123");
+    assertThat(users.get(1)).isNull();
+    assertThat(users.get(2).getId()).isEqualTo("456");
+    assertThat(users).hasSize(3);
   }
 
   static class MostlyIncorrectUser {

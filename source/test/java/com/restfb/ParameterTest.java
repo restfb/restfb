@@ -21,9 +21,7 @@
  */
 package com.restfb;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 
 import com.restfb.testutils.AssertJson;
 
@@ -45,14 +43,13 @@ public class ParameterTest {
 
     Parameter testParam = Parameter.with(key, val);
 
-    assertEquals(key, testParam.name);
-    assertEquals(val, testParam.value);
+    assertThat(testParam).hasName(key);
+    assertThat(testParam).hasValue(val);
   }
 
   @Test
   public void useEnumAsValue() {
-    String val = Parameter.with("key", EnumTestEnum.FOO).value;
-    assertEquals("FOO", val);
+    assertThat(Parameter.with("key", EnumTestEnum.FOO)).hasValue("FOO");
   }
 
   @Test
@@ -62,8 +59,8 @@ public class ParameterTest {
 
     Parameter testParam = Parameter.with(key, val);
 
-    assertEquals(key.trim(), testParam.name);
-    assertEquals(val, testParam.value);
+    assertThat(testParam).hasName(key.trim());
+    assertThat(testParam).hasValue(val);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -88,35 +85,34 @@ public class ParameterTest {
 
   @Test
   public void equalsCheck_null() {
-    Parameter obj = Parameter.with("name", "value");
-    assertFalse(obj.equals(null));
+    assertThat(Parameter.with("name", "value")).isNotNull();
   }
 
   @Test
   public void equalsCheck_differentClass() {
     Parameter obj = Parameter.with("name", "value");
-    assertFalse(obj.equals(new Object()));
+    assertThat(obj).isNotEqualTo(new Object());
   }
 
   @Test
   public void equalsCheck_differentName() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name1", "value");
-    assertFalse(obj1.equals(obj2));
+    assertThat(obj1).isNotEqualTo(obj2);
   }
 
   @Test
   public void equalsCheck_differentValue() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name", "value1");
-    assertFalse(obj1.equals(obj2));
+    assertThat(obj1).isNotEqualTo(obj2);
   }
 
   @Test
   public void equalsCheck_equals() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name", "value");
-    assertTrue(obj1.equals(obj2));
+    assertThat(obj1).isEqualTo(obj2);
   }
 
 }

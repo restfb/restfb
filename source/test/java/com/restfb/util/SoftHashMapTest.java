@@ -21,7 +21,7 @@
  */
 package com.restfb.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
@@ -30,64 +30,64 @@ import java.util.Set;
 
 public class SoftHashMapTest {
 
-    @Test
-    public void checkSimpleSize() {
-        SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
-        assertEquals(0l, hashMap.size());
-        hashMap.put("test", 1);
-        assertEquals(1l, hashMap.size());
-    }
+  @Test
+  public void checkSimpleSize() {
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    assertThat(hashMap).isEmpty();
+    hashMap.put("test", 1);
+    assertThat(hashMap).hasSize(1);
+  }
 
-    @Test
-    public void checkSimpleClear() {
-        SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
-        hashMap.put("test", 1);
-        assertEquals(1l, hashMap.size());
-        hashMap.clear();
-        assertEquals(0l, hashMap.size());
-    }
+  @Test
+  public void checkSimpleClear() {
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    hashMap.put("test", 1);
+    assertThat(hashMap).hasSize(1);
+    hashMap.clear();
+    assertThat(hashMap).isEmpty();
+  }
 
-    @Test
-    public void checkSimpleGet() {
-        SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
-        hashMap.put("test", 1);
-        assertEquals(1l, hashMap.get("test").longValue());
-    }
+  @Test
+  public void checkSimpleGet() {
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    hashMap.put("test", 1);
+    assertThat(hashMap.get("test")).isEqualTo(1);
+  }
 
-    @Test
-    public void checkSimpleRemove() {
-        SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
-        hashMap.put("test", 1);
-        assertEquals(1l, hashMap.size());
-        hashMap.remove("test");
-        assertEquals(0l, hashMap.size());
-    }
+  @Test
+  public void checkSimpleRemove() {
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    hashMap.put("test", 1);
+    assertThat(hashMap).hasSize(1);
+    hashMap.remove("test");
+    assertThat(hashMap).isEmpty();
+  }
 
-    @Test
-    public void checkSimpleEntrySet() {
-        SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
-        hashMap.put("one", 1);
-        hashMap.put("two", 2);
-        assertEquals(2l, hashMap.size());
-        Set<Map.Entry<String, Integer>> copySet = hashMap.entrySet();
-        assertEquals(2l, copySet.size());
-    }
+  @Test
+  public void checkSimpleEntrySet() {
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    hashMap.put("one", 1);
+    hashMap.put("two", 2);
+    assertThat(hashMap).hasSize(2);
+    Set<Map.Entry<String, Integer>> copySet = hashMap.entrySet();
+    assertThat(copySet).hasSize(2);
+  }
 
-    @Test
-    public void checkSimpleEntrySet2() {
-        SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
-        hashMap.put("one", 1);
-        hashMap.put("two", 2);
-        Set<Map.Entry<String, Integer>> copySet = hashMap.entrySet();
-        assertEquals(2l, copySet.size());
-        for (Map.Entry<String, Integer> e : copySet) {
-            if (e.getKey().equals("one")) {
-                assertEquals(1l, e.getValue().longValue());
-            }
+  @Test
+  public void checkSimpleEntrySet2() {
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    hashMap.put("one", 1);
+    hashMap.put("two", 2);
+    Set<Map.Entry<String, Integer>> copySet = hashMap.entrySet();
+    assertThat(copySet).hasSize(2);
+    for (Map.Entry<String, Integer> e : copySet) {
+      if (e.getKey().equals("one")) {
+        assertThat(e.getValue()).isEqualTo(1);
+      }
 
-            if (e.getKey().equals("two")) {
-                assertEquals(2l, e.getValue().longValue());
-            }
-        }
+      if (e.getKey().equals("two")) {
+        assertThat(e.getValue()).isEqualTo(2);
+      }
     }
+  }
 }

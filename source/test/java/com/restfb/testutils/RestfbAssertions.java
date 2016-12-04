@@ -19,47 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.util;
+package com.restfb.testutils;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.restfb.BinaryAttachment;
+import com.restfb.FakeWebRequestor;
+import com.restfb.Parameter;
 
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
-import java.util.ArrayList;
-import java.util.List;
+public class RestfbAssertions extends Assertions {
 
-public class StringUtilsTest {
-
-  @Test
-  public void integerParseTest_null() {
-    assertThat(StringUtils.toInteger(null)).isNull();
+  public static BinaryAttachmentAssert assertThat(BinaryAttachment actual) {
+    return BinaryAttachmentAssert.assertThat(actual);
   }
 
-  @Test
-  public void integerParseTest_number() {
-    assertThat(StringUtils.toInteger("23")).isEqualTo(23);
+  public static ParameterAssert assertThat(Parameter actual) {
+    return ParameterAssert.assertThat(actual);
   }
 
-  @Test
-  public void integerParseTest_String() {
-    assertThat(StringUtils.toInteger("bla")).isNull();
-  }
-
-  @Test
-  public void joinArrayTest() {
-    assertThat(StringUtils.join(new String[] { "foo", "bar" })).isEqualTo("foo,bar");
-  }
-
-  @Test
-  public void joinListTest_null() {
-    assertThat(StringUtils.join((List) null)).isNull();
-  }
-
-  @Test
-  public void joinListTest_List() {
-    ArrayList<String> myStrings = new ArrayList<String>();
-    myStrings.add("foo");
-    myStrings.add("bar");
-    assertThat(StringUtils.join(myStrings)).isEqualTo("foo,bar");
+  public static FakeWebRequestorAssert assertThat(FakeWebRequestor actual) {
+    return FakeWebRequestorAssert.assertThat(actual);
   }
 }

@@ -21,13 +21,12 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.types.Comments;
 import com.restfb.types.Likes;
 import com.restfb.types.Post;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
@@ -46,13 +45,13 @@ public class ConnectionGOTTest extends AbstractJsonMapperTests {
     for (Post post : postPage) {
       Comments cs = post.getComments();
       if (null != cs && !cs.getData().isEmpty()) {
-        Assert.assertTrue(cs.getTotalCount() > 0);
+        assertThat(cs.getTotalCount()).isGreaterThan(0);
       }
       Likes ls = post.getLikes();
       if (null != ls && !ls.getData().isEmpty()) {
-        Assert.assertTrue(ls.getTotalCount() > 0);
+        assertThat(ls.getTotalCount()).isGreaterThan(0);
       }
     }
-    assertEquals(25, postPage.size());
+    assertThat(postPage).hasSize(25);
   }
 }

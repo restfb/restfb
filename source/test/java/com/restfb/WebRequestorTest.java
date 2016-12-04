@@ -21,7 +21,7 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
@@ -34,8 +34,8 @@ public class WebRequestorTest {
 
   @Test
   public void enumChecker() {
-    assertEquals("GET", DefaultWebRequestor.HttpMethod.GET.name());
-    assertEquals("DELETE", DefaultWebRequestor.HttpMethod.DELETE.name());
+    assertThat(DefaultWebRequestor.HttpMethod.GET.name()).isEqualTo("GET");
+    assertThat(DefaultWebRequestor.HttpMethod.DELETE.name()).isEqualTo("DELETE");
   }
 
   @Test
@@ -50,8 +50,7 @@ public class WebRequestorTest {
 
     HttpURLConnection connection = new HttpURLConnection(null) {
       @Override
-      public void disconnect() {
-      }
+      public void disconnect() {}
 
       @Override
       public boolean usingProxy() {
@@ -59,8 +58,7 @@ public class WebRequestorTest {
       }
 
       @Override
-      public void connect() throws IOException {
-      }
+      public void connect() throws IOException {}
 
       @Override
       public String getHeaderField(String name) {
@@ -73,7 +71,7 @@ public class WebRequestorTest {
 
     DebugHeaderInfo debugHeaderInfo = defaultWebRequestor.getDebugHeaderInfo();
 
-    assertEquals(appUsage, debugHeaderInfo.getAppUsage());
-    assertEquals(pageUsage, debugHeaderInfo.getPageUsage());
+    assertThat(debugHeaderInfo.getAppUsage()).isEqualTo(appUsage);
+    assertThat(debugHeaderInfo.getPageUsage()).isEqualTo(pageUsage);
   }
 }

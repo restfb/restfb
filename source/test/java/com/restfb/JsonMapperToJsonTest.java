@@ -21,13 +21,12 @@
  */
 package com.restfb;
 
-import static com.restfb.testutils.AssertJson.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.testutils.AssertJson;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -46,7 +45,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void nullObject() {
     String json = createJsonMapper().toJson(null);
-    assertTrue("null".equals(json));
+    assertThat(json).isEqualTo("null");
   }
 
   /**
@@ -55,21 +54,21 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void emptyList() {
     String json = createJsonMapper().toJson(new ArrayList<Object>());
-    assertTrue("[]".equals(json));
+    assertThat(json).isEqualTo("[]");
   }
 
   @Test
   public void emptyFacebookList() {
     ListObject obj = new ListObject();
     String json = createJsonMapper().toJson(obj, true);
-    assertEquals("{\"id\": 12345}", json);
+    assertThat(json).isEqualTo("{\"id\":12345}");
   }
 
   @Test
   public void emptyFacebookMap() {
     MapObject obj = new MapObject();
     String json = createJsonMapper().toJson(obj, true);
-    assertEquals("{\"id\": 12345}", json);
+    assertThat(json).isEqualTo("{\"id\":12345}");
   }
 
   /**
@@ -78,7 +77,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void emptyObject() {
     String json = createJsonMapper().toJson(new Object());
-    assertTrue("{}".equals(json));
+    assertThat(json).isEqualTo("{}");
   }
 
   /**
@@ -87,20 +86,20 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   @Test
   public void primitives() {
     // Close your eyes and pretend that string is a primitive here
-    assertTrue("Testing".equals(createJsonMapper().toJson("Testing")));
-    assertTrue("true".equals(createJsonMapper().toJson(true)));
-    assertTrue("1".equals(createJsonMapper().toJson(1)));
-    assertTrue("1".equals(createJsonMapper().toJson(1L)));
-    assertTrue("1".equals(createJsonMapper().toJson(1F)));
-    assertTrue("1.1".equals(createJsonMapper().toJson(1.1F)));
-    assertTrue("1".equals(createJsonMapper().toJson(1D)));
-    assertTrue("1.1".equals(createJsonMapper().toJson(1.1D)));
-    assertTrue("1".equals(createJsonMapper().toJson('1')));
-    assertTrue("1".equals(createJsonMapper().toJson(new Byte("1"))));
-    assertTrue("1".equals(createJsonMapper().toJson(new Short("1"))));
-    assertTrue("1".equals(createJsonMapper().toJson(new BigInteger("1"))));
-    assertTrue("1".equals(createJsonMapper().toJson(new BigDecimal("1"))));
-    assertTrue("1.1".equals(createJsonMapper().toJson(new BigDecimal("1.1"))));
+    assertThat(createJsonMapper().toJson("Testing")).isEqualTo("Testing");
+    assertThat(createJsonMapper().toJson(true)).isEqualTo("true");
+    assertThat(createJsonMapper().toJson(1)).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(1L)).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(1F)).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(1.1F)).isEqualTo("1.1");
+    assertThat(createJsonMapper().toJson(1D)).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(1.1D)).isEqualTo("1.1");
+    assertThat(createJsonMapper().toJson('1')).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(new Byte("1"))).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(new Short("1"))).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(new BigInteger("1"))).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(new BigDecimal("1"))).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(new BigDecimal("1.1"))).isEqualTo("1.1");
   }
 
   /**
@@ -113,7 +112,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     basicUser.name = "Fred";
     String json = createJsonMapper().toJson(basicUser);
     String expectedJson = "{\"uid\":12345,\"name\":\"Fred\"}";
-    assertEquals(expectedJson, json);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   /**
@@ -134,7 +133,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(userWithPhotos);
     String expectedJson =
         "{\"uid\":12345,\"photos\":[{\"id\":null,\"location\":null},{\"id\":5678,\"location\":\"Las Vegas\"}],\"name\":null}";
-    assertEquals(expectedJson, json);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   /**
@@ -172,7 +171,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(attachment);
     String expectedJson =
         "{\"description\":\"a funny looking cat\",\"name\":\"i'm bursting with joy\",\"caption\":\"{*actor*} rated the lolcat 5 stars\",\"properties\":{\"category\":{\"text\":\"humor\",\"href\":\"http://bit.ly/KYbaN\"},\"ratings\":\"5 stars\"},\"media\":[{\"src\":\"http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg\",\"type\":\"image\",\"href\":\"http://bit.ly/187gO1\"}],\"href\":\"http://bit.ly/187gO1\"}";
-    assertEquals(expectedJson, json);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   @Test
@@ -185,7 +184,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String string = jsonMapper.toJson(special);
     String expectedJson = "{\"integer\":1234567, \"decimal\":1234567.4}";
 
-    assertEquals(expectedJson, string);
+    AssertJson.assertEquals(expectedJson, string);
   }
 
   /**
@@ -193,7 +192,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyMap() {
-    assertTrue("{}".equals(createJsonMapper().toJson(new HashMap<String, Object>())));
+    assertThat(createJsonMapper().toJson(new HashMap<String, Object>())).isEqualTo("{}");
   }
 
   /**
@@ -213,7 +212,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     String json = createJsonMapper().toJson(map);
     String expectedJson =
         "{\"floatId\":123.45,\"testId\":412,\"basicUser\":{\"uid\":12345,\"photos\":null,\"name\":\"Fred\"}}";
-    assertEquals(expectedJson, json);
+    AssertJson.assertEquals(expectedJson, json);
   }
 
   @Test
@@ -223,9 +222,9 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     map.put(2, 1);
     try {
       String json = createJsonMapper().toJson(map);
-      fail("Map with non String keys should not be possible");
+      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
     } catch (FacebookJsonMappingException fe) {
-      assertTrue(fe.getMessage().startsWith("Your Map keys must be of type class java.lang.String"));
+      assertThat(fe.getMessage()).startsWith("Your Map keys must be of type class java.lang.String");
     }
   }
 
@@ -235,9 +234,9 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     map.put("test", Float.POSITIVE_INFINITY);
     try {
       String json = createJsonMapper().toJson(map);
-      fail("Map with infinity value should not be possible");
+      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
     } catch (FacebookJsonMappingException fe) {
-      assertTrue(fe.getMessage().startsWith("Unable to process value"));
+      assertThat(fe.getMessage()).startsWith("Unable to process value");
     }
   }
 
@@ -257,14 +256,14 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     // The current behavior is that it's luck of the draw which field is
     // selected to marshal to JSON if there are multiple fields with the same
     // mapping
-    assertTrue(json.contains("Philly") || json.contains("Philadelphia"));
+    assertThat(json).contains("Philly", "Philadelphia");
   }
 
   @Test
   public void convertDate() {
     Date now = new Date(1474581731000L);
     String myDate = createJsonMapper().toJson(now);
-    Assert.assertEquals("2016-09-22T22:02:11", myDate);
+    assertThat(myDate).isEqualTo("2016-09-22T22:02:11");
   }
 
   static class ListObject {

@@ -21,9 +21,7 @@
  */
 package com.restfb;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.json.JsonObject;
 
@@ -37,9 +35,9 @@ public class JsonMapperMultiFieldTest {
 
     TestClass1 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass1.class);
 
-    assertEquals("{}", test1.dataString);
-    assertNotNull(test1.dataObject);
-    assertEquals("{}", test1.dataObject.toString());
+    assertThat(test1.dataString).isEqualTo("{}");
+    assertThat(test1.dataObject).isNotNull();
+    assertThat(test1.dataObject.toString()).isEqualTo("{}");
   }
 
   @Test
@@ -48,8 +46,8 @@ public class JsonMapperMultiFieldTest {
 
     TestClass1 test1 = mapper.toJavaObject("{\"mydata\":123}", TestClass1.class);
 
-    assertEquals("123", test1.dataString);
-    assertNull(test1.dataObject);
+    assertThat(test1.dataString).isEqualTo("123");
+    assertThat(test1.dataObject).isNull();
   }
 
   @Test
@@ -58,9 +56,9 @@ public class JsonMapperMultiFieldTest {
 
     TestClass2 test2 = mapper.toJavaObject("{\"mydata\":{}}", TestClass2.class);
 
-    assertEquals("{}", test2.dataString);
-    assertNotNull(test2.dataObject);
-    assertEquals("{}", test2.dataObject.toString());
+    assertThat(test2.dataString).isEqualTo("{}");
+    assertThat(test2.dataObject).isNotNull();
+    assertThat(test2.dataObject.toString()).isEqualTo("{}");
   }
 
   @Test
@@ -69,8 +67,8 @@ public class JsonMapperMultiFieldTest {
 
     TestClass2 test2 = mapper.toJavaObject("{\"mydata\":123}", TestClass2.class);
 
-    assertEquals("123", test2.dataString);
-    assertNull(test2.dataObject);
+    assertThat(test2.dataString).isEqualTo("123");
+    assertThat(test2.dataObject).isNull();
   }
 
   @Test
@@ -79,10 +77,10 @@ public class JsonMapperMultiFieldTest {
 
     TestClass3 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass3.class);
 
-    assertNotNull(test1.dataObject1);
-    assertNotNull(test1.dataObject2);
-    assertEquals("{}", test1.dataObject1.toString());
-    assertEquals("{}", test1.dataObject2.toString());
+    assertThat(test1.dataObject1).isNotNull();
+    assertThat(test1.dataObject2).isNotNull();
+    assertThat(test1.dataObject1.toString()).isEqualTo("{}");
+    assertThat(test1.dataObject2.toString()).isEqualTo("{}");
   }
 
   private static class TestClass3 {

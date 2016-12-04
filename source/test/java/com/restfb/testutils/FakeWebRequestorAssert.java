@@ -19,47 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.util;
+package com.restfb.testutils;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.restfb.FakeWebRequestor;
 
-import org.junit.Test;
+import org.assertj.core.api.AbstractAssert;
+import org.assertj.core.util.Objects;
 
-import java.util.ArrayList;
-import java.util.List;
+public class FakeWebRequestorAssert extends AbstractAssert<FakeWebRequestorAssert, FakeWebRequestor> {
 
-public class StringUtilsTest {
-
-  @Test
-  public void integerParseTest_null() {
-    assertThat(StringUtils.toInteger(null)).isNull();
+  public FakeWebRequestorAssert(FakeWebRequestor actual) {
+    super(actual, FakeWebRequestorAssert.class);
   }
 
-  @Test
-  public void integerParseTest_number() {
-    assertThat(StringUtils.toInteger("23")).isEqualTo(23);
+  public static FakeWebRequestorAssert assertThat(FakeWebRequestor actual) {
+    return new FakeWebRequestorAssert(actual);
   }
 
-  @Test
-  public void integerParseTest_String() {
-    assertThat(StringUtils.toInteger("bla")).isNull();
+  public FakeWebRequestorAssert isSavedUrlEqualTo(String url) {
+    isNotNull();
+
+    if (!Objects.areEqual(actual.getSavedUrl(), url)) {
+      failWithMessage("Expected saved url should be <%s> but was <%s>", url, actual.getSavedUrl());
+    }
+
+    return this;
   }
 
-  @Test
-  public void joinArrayTest() {
-    assertThat(StringUtils.join(new String[] { "foo", "bar" })).isEqualTo("foo,bar");
-  }
+  public FakeWebRequestorAssert isParametersEqualTo(String parameters) {
+    isNotNull();
 
-  @Test
-  public void joinListTest_null() {
-    assertThat(StringUtils.join((List) null)).isNull();
-  }
+    if (!Objects.areEqual(actual.getParameters(), parameters)) {
+      failWithMessage("Expected parameters should be <%s> but was <%s>", parameters, actual.getParameters());
+    }
 
-  @Test
-  public void joinListTest_List() {
-    ArrayList<String> myStrings = new ArrayList<String>();
-    myStrings.add("foo");
-    myStrings.add("bar");
-    assertThat(StringUtils.join(myStrings)).isEqualTo("foo,bar");
+    return this;
   }
 }

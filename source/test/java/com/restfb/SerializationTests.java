@@ -21,7 +21,7 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
@@ -45,8 +45,8 @@ public class SerializationTests {
 
     JsonArray deserializedArray = (JsonArray) serializeAndDeserialize(arrayToSerialize);
 
-    assertEquals(123, deserializedArray.get(0).asInt());
-    assertEquals("test", deserializedArray.get(1).asString());
+    assertThat(deserializedArray.get(0).asInt()).isEqualTo(123);
+    assertThat(deserializedArray.get(1).asString()).isEqualTo("test");
   }
 
   @Test
@@ -57,8 +57,8 @@ public class SerializationTests {
 
     JsonObject deserializedObject = (JsonObject) serializeAndDeserialize(objectToSerialize);
 
-    assertEquals(123, deserializedObject.get("one").asInt());
-    assertEquals("test", deserializedObject.get("two").asString());
+    assertThat(deserializedObject.get("one").asInt()).isEqualTo(123);
+    assertThat(deserializedObject.get("two").asString()).isEqualTo("test");
   }
 
   protected Object serializeAndDeserialize(Object objectToSerialize) throws Exception {
