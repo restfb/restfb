@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 1.35.0 (December 16, 2016)
+
+* Issue #634: `FEED_REACTION_EDIT` webhook type added
+* Issue #636: `FEED_VIDEO_EDITED` webhook type added 
+* Issue #637: `CallToAction` object<br>
+  Thanks to @haresh208 for the hint
+
 ## 1.34.1 (November 24, 2016)
 
 * Issue #632: fix error in javadoc<br>
