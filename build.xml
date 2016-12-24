@@ -40,6 +40,7 @@
 
   <artifact:dependencies pathId="dependency.classpath">
     <dependency groupId="org.projectlombok" artifactId="lombok" version="1.16.6" scope="provided"/>
+    <dependency groupId="org.slf4j" artifactId="slf4j-api" version="1.7.21" scope="provided"/>
   </artifact:dependencies>
 
   <target name="compile" description="Compiles library code">
