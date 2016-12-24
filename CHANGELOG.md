@@ -1,5 +1,47 @@
 # RestFB Changelog
 
+## 2.0.0-rc.1 (December 24, 2016)
+
+* new Json parser
+  * Issue #321: Replace "Json.org" parser with "minimal-json" parser
+  * Issue #519: unicode (emoji) fix added to minimal-json (port of #501)
+  * Issue #585: improve the `JsonAssert` util
+* Logging
+  * Issue #31: support user-definable logging via slf4j<br>
+    Great idea @revetkn
+  * Issue #635: rename logger categories
+* Code quality
+  * Issue #339: Code quality fix - Collection.isEmpty should be used<br>
+    Thanks to @faisal-hameed for this PR
+  * Issue #345: Code quality fix - @Override annotation should be used<br>
+    Thanks to @faisal-hameed for this PR
+  * Issue #344: Code quality fix - Redundant field intializers<br>
+    Thanks to @faisal-hameed for this PR
+  * Issue #189 and #190: create collections with needed size<br>
+    Thanks to @profes for the report and PR
+* Cleanup
+  * Issue #299: `StoryAttachment` changed
+  * Issue #257: `Post` and `Comment` use same `Attachment` type
+  * Issue #302: Graph API 1.0 support removed
+  * Issue #314: `Event#getPicture` returns `Picture` instead of String
+  * Issue #311: Remove `Attribution` field from `Post` type
+  * Issue #310: `Event` venue field has wrong type
+  * Issue #323: Remove deprecated classes from `Post` type
+  * Issue #337: `Photo#getComments()` returns List of comments instead of Comments object<br>
+    Thanks to @vido88 for this report
+  * Issue #364: Remove inner class `MessageTag` from `Post`
+  * Issue #80: Exception Generator added<br>
+    Thanks to @slumx for the report
+  * Issue #195: `Likes` type improved
+  * Issue #113: `Event` can contain multiple `venues`<br>
+    Thanks to @guychauliac for the PR
+  * Issue #367: old inner class `comments` removed from `comment` type
+  * Issue #402: `Page` field `location` should be of type `Location`
+  * Issue #301: deprecated FQL methods removed
+  * Issue #609: Remove experimental classes
+  * Issue #467: Use `Comments` and `Likes` in `Photo` type
+  * Issue #452: fix bug from #448
+
 ## 1.35.0 (December 16, 2016)
 
 * Issue #634: `FEED_REACTION_EDIT` webhook type added
