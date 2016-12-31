@@ -130,7 +130,7 @@ public class DefaultLegacyFacebookExceptionGenerator implements LegacyFacebookEx
       if (container.getErrorCode() == API_EC_PARAM_ACCESS_TOKEN) {
         return new FacebookOAuthException(String.valueOf(container.getErrorCode()), container.getMessage(),
           container.getErrorCode(), container.getErrorSubcode(), container.getHttpStatusCode(),
-          container.getUserTitle(), container.getUserMessage(), container.getRawError());
+          container.getUserTitle(), container.getUserMessage(), container.getIsTransient(), container.getRawError());
       }
 
       // Don't recognize this exception type? Just go with the standard

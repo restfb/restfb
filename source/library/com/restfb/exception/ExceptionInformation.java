@@ -63,6 +63,8 @@ public class ExceptionInformation {
    */
   private final String userMessage;
 
+  private final Boolean isTransient;
+
   /**
    * raw error message as JSON
    */
@@ -81,7 +83,7 @@ public class ExceptionInformation {
    *          raw error message as JSON
    */
   public ExceptionInformation(Integer errorCode, Integer httpStatusCode, String message, JsonObject rawError) {
-    this(errorCode, null, httpStatusCode, null, message, null, null, rawError);
+    this(errorCode, null, httpStatusCode, null, message, null, null, null, rawError);
   }
 
   /**
@@ -105,7 +107,7 @@ public class ExceptionInformation {
    *          raw error message as JSON
    */
   public ExceptionInformation(Integer errorCode, Integer errorSubcode, Integer httpStatusCode, String type,
-      String message, String userTitle, String userMessage, JsonObject rawError) {
+      String message, String userTitle, String userMessage, Boolean isTransient, JsonObject rawError) {
     this.errorCode = errorCode;
     this.errorSubcode = errorSubcode;
     this.httpStatusCode = httpStatusCode;
@@ -113,6 +115,7 @@ public class ExceptionInformation {
     this.message = message;
     this.userTitle = userTitle;
     this.userMessage = userMessage;
+    this.isTransient = isTransient;
     this.rawError = rawError;
   }
 
@@ -142,6 +145,10 @@ public class ExceptionInformation {
 
   public String getUserMessage() {
     return userMessage;
+  }
+
+  public Boolean getIsTransient() {
+    return isTransient;
   }
 
   public JsonObject getRawError() {

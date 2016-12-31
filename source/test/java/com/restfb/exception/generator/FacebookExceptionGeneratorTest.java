@@ -23,6 +23,7 @@ package com.restfb.exception.generator;
 
 import static org.junit.Assert.*;
 
+import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.ResponseErrorJsonParsingException;
 
 import org.junit.Test;
@@ -77,6 +78,29 @@ public class FacebookExceptionGeneratorTest {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{ \"error\"}";
     assertNull(generator.silentlyCreateObjectFromString(json));
+  }
+
+  @Test
+  public void checkIsTransient() {
+    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
+    String json = "{\n" + //
+        "  \"error\": {\n" + //
+        "    \"message\": \"(#2) Service temporarily unavailable\",\n" + //
+        "    \"type\": \"OAuthException\",\n" + //
+        "    \"is_transient\": true,\n" + //
+        "    \"code\": 2,\n" + //
+        "    \"fbtrace_id\": \"abcdefgh\"\n" + //
+        "  }\n" + //
+        "}";
+
+    try {
+      generator.throwFacebookResponseStatusExceptionIfNecessary(json, 500);
+      fail();
+    } catch (FacebookOAuthException fex) {
+      assertTrue(fex.getIsTransient());
+      assertEquals(2, fex.getErrorCode().intValue());
+    }
+
   }
 
 }

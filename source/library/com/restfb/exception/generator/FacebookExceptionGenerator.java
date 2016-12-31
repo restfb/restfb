@@ -63,6 +63,8 @@ public interface FacebookExceptionGenerator extends LegacyFacebookExceptionGener
    */
   String ERROR_CODE_ATTRIBUTE_NAME = "code";
 
+  String ERROR_IS_TRANSIENT_NAME = "is_transient";
+
   /**
    * API error response 'error_subcode' attribute name.
    */

@@ -82,7 +82,8 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
       innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME, null),
       innerErrorObject.get(ERROR_MESSAGE_ATTRIBUTE_NAME).asString(),
       innerErrorObject.getString(ERROR_USER_TITLE_ATTRIBUTE_NAME, null),
-      innerErrorObject.getString(ERROR_USER_MSG_ATTRIBUTE_NAME, null), errorObject);
+      innerErrorObject.getString(ERROR_USER_MSG_ATTRIBUTE_NAME, null),
+      innerErrorObject.getBoolean(ERROR_IS_TRANSIENT_NAME, false), errorObject);
   }
 
   @Override
@@ -134,20 +135,20 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
       if ("OAuthException".equals(container.getType()) || "OAuthAccessTokenException".equals(container.getType())) {
         return new FacebookOAuthException(container.getType(), container.getMessage(), container.getErrorCode(),
           container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),
-          container.getUserMessage(), container.getRawError());
+          container.getUserMessage(), container.getIsTransient(), container.getRawError());
       }
 
       if ("QueryParseException".equals(container.getType())) {
         return new FacebookQueryParseException(container.getType(), container.getMessage(), container.getErrorCode(),
           container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),
-          container.getUserMessage(), container.getRawError());
+          container.getUserMessage(), container.getIsTransient(), container.getRawError());
       }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
       return new FacebookGraphException(container.getType(), container.getMessage(), container.getErrorCode(),
         container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),
-        container.getUserMessage(), container.getRawError());
+        container.getUserMessage(), container.getIsTransient(), container.getRawError());
     }
   }
 }

@@ -81,6 +81,8 @@ public class FacebookGraphException extends FacebookErrorMessageException {
    */
   private Integer httpStatusCode;
 
+  private Boolean isTransient;
+
   /**
    * Creates an exception with the given error type and message.
    * 
@@ -98,9 +100,12 @@ public class FacebookGraphException extends FacebookErrorMessageException {
    *          Value of the Facebook response attribute {@code error.error_user_title}.
    * @param errorUserMessage
    *          Value of the Facebook response attribute {@code error.error_user_msg}.
+   * @param isTransient
+   * 
    */
   public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
-      Integer httpStatusCode, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
+      Integer httpStatusCode, String errorUserTitle, String errorUserMessage, Boolean isTransient,
+      JsonObject rawError) {
     super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,
       errorCode, errorSubcode));
     this.errorType = errorType;
@@ -110,6 +115,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
     this.httpStatusCode = httpStatusCode;
     this.errorUserTitle = errorUserTitle;
     this.errorUserMessage = errorUserMessage;
+    this.isTransient = isTransient;
     setRawErrorJson(rawError);
   }
 
@@ -179,11 +185,15 @@ public class FacebookGraphException extends FacebookErrorMessageException {
     return errorUserMessage;
   }
 
+  public Boolean getIsTransient() {
+    return isTransient;
+  }
+
   /**
    * Gets the Facebook API error {@code fbtrace_id}.
    *
-   * Internal support identifier. When reporting a bug related to a Graph API
-   * call, include the fbtrace_id to help us find log data for debugging.
+   * Internal support identifier. When reporting a bug related to a Graph API call, include the fbtrace_id to help us
+   * find log data for debugging.
    *
    * @return the Facebook API error {@code fbtrace_id}
    */
