@@ -60,7 +60,8 @@ public class FacebookQueryParseException extends FacebookGraphException {
    *          Value of the Facebook response attribute {@code error.error_user_message}.
    */
   public FacebookQueryParseException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
-      Integer httpStatusCode, String userTitle, String userMessage, JsonObject rawError) {
-    super(errorType, errorMessage, errorCode, errorSubcode, httpStatusCode, userTitle, userMessage, rawError);
+      Integer httpStatusCode, String userTitle, String userMessage, Boolean isTransient, JsonObject rawError) {
+    super(errorType, errorMessage, errorCode, errorSubcode, httpStatusCode, userTitle, userMessage, isTransient,
+      rawError);
   }
 }

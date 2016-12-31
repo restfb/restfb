@@ -54,5 +54,5 @@ public interface FacebookExceptionMapper {
    * @return An appropriate {@code FacebookException} subclass.
    */
   FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-      String type, String message, String userTitle, String userMessage, JsonObject rawError);
+      String type, String message, String userTitle, String userMessage, Boolean isTransient, JsonObject rawError);
 }

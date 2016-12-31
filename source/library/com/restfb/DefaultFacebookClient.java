@@ -164,6 +164,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected static final String BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME = "error_description";
 
+  protected static final String ERROR_IS_TRANSIENT_NAME = "is_transient";
+
   /**
    * Version of API endpoint.
    */
@@ -1114,7 +1116,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(errorCode, errorSubcode, httpStatusCode,
         innerErrorObject.optString(ERROR_TYPE_ATTRIBUTE_NAME), innerErrorObject.getString(ERROR_MESSAGE_ATTRIBUTE_NAME),
         innerErrorObject.optString(ERROR_USER_TITLE_ATTRIBUTE_NAME),
-        innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME), errorObject);
+        innerErrorObject.optString(ERROR_USER_MSG_ATTRIBUTE_NAME),
+              innerErrorObject.optBoolean(ERROR_IS_TRANSIENT_NAME, false),
+
+              errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
@@ -1151,7 +1156,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME),
         null, httpStatusCode, null, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME), null, null,
-        errorObject);
+        null, errorObject);
     } catch (JsonException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
@@ -1184,25 +1189,26 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static class DefaultGraphFacebookExceptionMapper implements FacebookExceptionMapper {
     /**
      * @see com.restfb.exception.FacebookExceptionMapper#exceptionForTypeAndMessage(Integer, Integer, Integer, String,
-     *      String, String, String, JsonObject)
+     *      String, String, String, Boolean, JsonObject)
      */
     @Override
     public FacebookException exceptionForTypeAndMessage(Integer errorCode, Integer errorSubcode, Integer httpStatusCode,
-        String type, String message, String errorUserTitle, String errorUserMessage, JsonObject rawError) {
+        String type, String message, String errorUserTitle, String errorUserMessage, Boolean isTransient,
+        JsonObject rawError) {
       if ("OAuthException".equals(type) || "OAuthAccessTokenException".equals(type)) {
         return new FacebookOAuthException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage, rawError);
+          errorUserMessage, isTransient, rawError);
       }
 
       if ("QueryParseException".equals(type)) {
         return new FacebookQueryParseException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-          errorUserMessage, rawError);
+          errorUserMessage, isTransient, rawError);
       }
 
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
       return new FacebookGraphException(type, message, errorCode, errorSubcode, httpStatusCode, errorUserTitle,
-        errorUserMessage, rawError);
+        errorUserMessage, isTransient, rawError);
     }
   }
 
