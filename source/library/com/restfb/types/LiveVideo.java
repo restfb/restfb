@@ -32,7 +32,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://https://developers.facebook.com/docs/graph-api/reference/live-video/">Live Video API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/live-video/">Live Video API type</a>.
  */
 public class LiveVideo extends FacebookType {
 
