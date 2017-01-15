@@ -19,47 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.api;
+package com.restfb.types;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class BaseTestCheck {
+import com.restfb.AbstractJsonMapperTests;
 
-  protected Set<String> fetchMethodsFromClass(Class clazz) {
-    Method[] methods = clazz.getMethods();
-    Set<String> methodList = new HashSet<String>();
-    for (Method method : methods) {
-      methodList.add(method.getName());
-    }
+import org.junit.Test;
 
-    Method[] inheritedMethods = clazz.getMethods();
-    for (Method method : inheritedMethods) {
-      if (method.getName().equals("equals")) {
-        methodList.add(method.getName());
-      }
-      if (method.getName().equals("hashCode")) {
-        methodList.add(method.getName());
-      }
-      if (method.getName().equals("toString")) {
-        methodList.add(method.getName());
-      }
-    }
+public class WorkExperienceTest extends AbstractJsonMapperTests {
 
-    return methodList;
-  }
+  @Test
+  public void checkV2_8_workexperience() {
+    WorkExperience experience =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/work-experience"), WorkExperience.class);
 
-  protected String joinMethods(Set<String> methodList) {
-    String result = "";
-    for (String methodName : methodList) {
-      result += methodName + ",";
-    }
-
-    if (methodList.isEmpty()) {
-      return result;
-    } else {
-      return result.substring(0, result.length() - 1);
-    }
+    assertNotNull(experience);
+    assertEquals(1193875200000L, experience.getStartDate().getTime());
+    assertEquals(1348963200000L, experience.getEndDate().getTime());
+    assertEquals("1234567890", experience.getEmployer().getId());
+    assertEquals("Example Company", experience.getEmployer().getName());
+    assertEquals("Computer Scientist", experience.getPosition().getName());
+    assertEquals("108125275875311", experience.getPosition().getId());
   }
 }

@@ -540,102 +540,11 @@ public class User extends NamedFacebookType {
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
+   * @deprecated use WorkExperience instead
    */
-  public static class Work extends AbstractFacebookType {
+  @Deprecated
+  public static class Work extends WorkExperience {
 
-    /**
-     * The employer for this job.
-     * 
-     * @return The employer for this job.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType employer;
-
-    /**
-     * The location of this job.
-     * 
-     * @return The location of this job.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType location;
-
-    /**
-     * Position held at this job.
-     * 
-     * @return Position held at this job.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType position;
-
-    /**
-     * Description of this job.
-     * 
-     * @return Description of this job.
-     * @since 1.6.3
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String description;
-
-    @Facebook("start_date")
-    private String rawStartDate;
-
-    /**
-     * Date this job was started.
-     * 
-     * @return Date this job was started.
-     */
-    @Getter
-    @Setter
-    private Date startDate;
-
-    @Facebook("end_date")
-    private String rawEndDate;
-
-    /**
-     * Date this job ended.
-     * 
-     * @return Date this job ended.
-     */
-    @Getter
-    @Setter
-    private Date endDate;
-
-    @Facebook
-    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Friends associated with this job.
-     * 
-     * @return Friends associated with this job.
-     * @since 1.6.3
-     */
-    public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
-    }
-
-    public boolean addWith(NamedFacebookType friend) {
-      return with.add(friend);
-    }
-
-    public boolean removeWith(NamedFacebookType friend) {
-      return with.remove(friend);
-    }
-
-    @JsonMappingCompleted
-    void convertTime() {
-      startDate = toDateFromShortFormat(rawStartDate);
-      endDate = toDateFromShortFormat(rawEndDate);
-    }
   }
 
   /**
