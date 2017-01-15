@@ -520,7 +520,7 @@ public class User extends NamedFacebookType {
   private List<UserDevice> devices = new ArrayList<UserDevice>();
 
   @Facebook
-  private List<Work> work = new ArrayList<Work>();
+  private List<WorkExperience> work = new ArrayList<WorkExperience>();
 
   @Facebook
   private List<Education> education = new ArrayList<Education>();
@@ -544,109 +544,6 @@ public class User extends NamedFacebookType {
   private List<PageLabel> labels = new ArrayList<PageLabel>();
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Work Graph API type</a>.
-   * 
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @author Patrick Alberts
-   */
-  public static class Work extends AbstractFacebookType {
-
-    /**
-     * The employer for this job.
-     * 
-     * @return The employer for this job.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType employer;
-
-    /**
-     * The location of this job.
-     * 
-     * @return The location of this job.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType location;
-
-    /**
-     * Position held at this job.
-     * 
-     * @return Position held at this job.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType position;
-
-    /**
-     * Description of this job.
-     * 
-     * @return Description of this job.
-     * @since 1.6.3
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String description;
-
-    @Facebook("start_date")
-    private String rawStartDate;
-
-    /**
-     * Date this job was started.
-     * 
-     * @return Date this job was started.
-     */
-    @Getter
-    @Setter
-    private Date startDate;
-
-    @Facebook("end_date")
-    private String rawEndDate;
-
-    /**
-     * Date this job ended.
-     * 
-     * @return Date this job ended.
-     */
-    @Getter
-    @Setter
-    private Date endDate;
-
-    @Facebook
-    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Friends associated with this job.
-     * 
-     * @return Friends associated with this job.
-     * @since 1.6.3
-     */
-    public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
-    }
-
-    public boolean addWith(NamedFacebookType friend) {
-      return with.add(friend);
-    }
-
-    public boolean removeWith(NamedFacebookType friend) {
-      return with.remove(friend);
-    }
-
-    @JsonMappingCompleted
-    void convertTime() {
-      startDate = toDateFromShortFormat(rawStartDate);
-      endDate = toDateFromShortFormat(rawEndDate);
-    }
-  }
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Education Graph API type</a>.
@@ -1034,15 +931,15 @@ public class User extends NamedFacebookType {
    * 
    * @return A list of the work history from the user's profile.
    */
-  public List<Work> getWork() {
+  public List<WorkExperience> getWork() {
     return unmodifiableList(work);
   }
 
-  public boolean addWork(Work workHistoryItem) {
+  public boolean addWork(WorkExperience workHistoryItem) {
     return work.add(workHistoryItem);
   }
 
-  public boolean removeWork(Work workHistoryItem) {
+  public boolean removeWork(WorkExperience workHistoryItem) {
     return work.remove(workHistoryItem);
   }
 

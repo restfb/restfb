@@ -86,7 +86,6 @@ public class ApiCheckGenerator extends BaseTestCheck {
     props.setProperty("User.Education.methods", joinMethods(fetchMethodsFromClass(User.Education.class)));
     props.setProperty("User.EducationClass.methods", joinMethods(fetchMethodsFromClass(User.EducationClass.class)));
     props.setProperty("User.Sport.methods", joinMethods(fetchMethodsFromClass(User.Sport.class)));
-    props.setProperty("User.Work.methods", joinMethods(fetchMethodsFromClass(User.Work.class)));
     props.setProperty("Video.methods", joinMethods(fetchMethodsFromClass(Video.class)));
 
     FileOutputStream out = new FileOutputStream("source/test/resources/api.properties");

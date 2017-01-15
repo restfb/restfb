@@ -84,9 +84,9 @@ public class UserTest extends AbstractJsonMapperTests {
   public void userWorkDates() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/user-work"), User.class);
     assertNotNull(exampleUser);
-    List<User.Work> workList = exampleUser.getWork();
+    List<WorkExperience> workList = exampleUser.getWork();
     assertEquals(1, workList.size());
-    User.Work work = workList.get(0);
+    WorkExperience work = workList.get(0);
     assertNotNull(work.getStartDate());
     assertEquals(1193875200000L, work.getStartDate().getTime());
     assertNotNull(work.getEndDate());

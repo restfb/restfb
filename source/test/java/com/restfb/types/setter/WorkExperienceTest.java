@@ -19,47 +19,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.api;
+package com.restfb.types.setter;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
+import com.restfb.types.WorkExperience;
+import com.restfb.types.api.SetterGetterTestBase;
 
-public class BaseTestCheck {
+import org.junit.Test;
 
-  protected Set<String> fetchMethodsFromClass(Class clazz) {
-    Method[] methods = clazz.getMethods();
-    Set<String> methodList = new HashSet<String>();
-    for (Method method : methods) {
-      methodList.add(method.getName());
+public class WorkExperienceTest extends SetterGetterTestBase {
+
+    @Test
+    public void test() {
+        WorkExperience obj = new WorkExperience();
+        addIgnoredField("rawStartDate");
+        addIgnoredField("rawEndDate");
+        testInstance(obj);
     }
-
-    Method[] inheritedMethods = clazz.getMethods();
-    for (Method method : inheritedMethods) {
-      if (method.getName().equals("equals")) {
-        methodList.add(method.getName());
-      }
-      if (method.getName().equals("hashCode")) {
-        methodList.add(method.getName());
-      }
-      if (method.getName().equals("toString")) {
-        methodList.add(method.getName());
-      }
-    }
-
-    return methodList;
-  }
-
-  protected String joinMethods(Set<String> methodList) {
-    String result = "";
-    for (String methodName : methodList) {
-      result += methodName + ",";
-    }
-
-    if (!methodList.isEmpty()) {
-      return result.substring(0, result.length() - 1);
-    } else {
-      return result;
-    }
-  }
 }

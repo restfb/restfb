@@ -71,12 +71,4 @@ public class UserTest extends SetterGetterTestBase {
     testInstance(obj);
   }
 
-  @Test
-  public void testWork() {
-    User.Work obj = new User.Work();
-    addIgnoredField("rawStartDate");
-    addIgnoredField("rawEndDate");
-    testInstance(obj);
-  }
-
 }

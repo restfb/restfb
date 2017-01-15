@@ -2,29 +2,32 @@
 Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a migration guide, where the breaking changes can be found
 
 ## tl;dr
-* Logging changed, `slf4j` is used if present
-* `Comment.Attachment` -> `StoryAttachment`
-* `Comment.isCanComment` -> `Comment.getCanComment`
-* `Comment.isCanHide` -> `Comment.getCanHide`
-* `FeedPostValue.isHidden` -> `FeedPostValue.getIsHidden`
-* `Message.isRenderAsSticker` -> `Message.getRenderAsSticker`
-* `FacebookClient.executeQuery()` -> `FacebookClient.executeFqlQuery()`
-* `FacebookClient.executeMultiquery()` -> `FacebookClient.executeFqlMultiquery()`
-* `User.Picture` -> `ProfilePictureSource`
-* `Event.getPicture()` return type `String` -> `Event.getPicture()` return type `ProfilePictureSource`
-* `Event.getVenue()` return type `Venue` -> returns `Location` now
-* `Group.getVenue()` return type `Venue` -> returns `Location` now
-* `Checkin.Place` replaced with `Place` type.
-* `Post.Place` replaced with `Place` type.
-* `Post.Likes` replaced with `Likes` type.
-* `Post.Comments` replaced with `Comments` type.
-* `Post.Privacy` replaced with `Privacy` type.
-* `Photo.getComments` returns `Comments` type instead of `Comment list
-* json API changed, you should look [here](https://github.com/ralfstx/minimal-json)
-* `Post.MessageTag` replaced with `MessageTag` type
-* `Likes` data type moved from `NamedFacebookType` to `LikeItem`
-* `likes` field changed from `long` to `Likes` in `Page` type
-* `likesCount` field added to `Page` type
+* RC2
+  * `User.Work` -> `WorkExperience`
+* RC1
+  * Logging changed, `slf4j` is used if present
+  * `Comment.Attachment` -> `StoryAttachment`
+  * `Comment.isCanComment` -> `Comment.getCanComment`
+  * `Comment.isCanHide` -> `Comment.getCanHide`
+  * `FeedPostValue.isHidden` -> `FeedPostValue.getIsHidden`
+  * `Message.isRenderAsSticker` -> `Message.getRenderAsSticker`
+  * `FacebookClient.executeQuery()` -> `FacebookClient.executeFqlQuery()`
+  * `FacebookClient.executeMultiquery()` -> `FacebookClient.executeFqlMultiquery()`
+  * `User.Picture` -> `ProfilePictureSource`
+  * `Event.getPicture()` return type `String` -> `Event.getPicture()` return type `ProfilePictureSource`
+  * `Event.getVenue()` return type `Venue` -> returns `Location` now
+  * `Group.getVenue()` return type `Venue` -> returns `Location` now
+  * `Checkin.Place` replaced with `Place` type.
+  * `Post.Place` replaced with `Place` type.
+  * `Post.Likes` replaced with `Likes` type.
+  * `Post.Comments` replaced with `Comments` type.
+  * `Post.Privacy` replaced with `Privacy` type.
+  * `Photo.getComments` returns `Comments` type instead of `Comment list
+  * json API changed, you should look [here](https://github.com/ralfstx/minimal-json)
+  * `Post.MessageTag` replaced with `MessageTag` type
+  * `Likes` data type moved from `NamedFacebookType` to `LikeItem`
+  * `likes` field changed from `long` to `Likes` in `Page` type
+  * `likesCount` field added to `Page` type
 
 ## Logging changed
 As soon as the `slf4j` jars are found on the classpath, slf4j is used 
@@ -110,3 +113,7 @@ filled with the a list of likes. Therefore the returned type is `Likes`. Because
 versions we should be able to access the field as long, we use the duplicate mapping magic and
 renamed the old `likes` field to `likesCount`. This is similar to the `fanCount` that was introduced
 with Graph API 2.6 for the `Page` object.
+
+## `User.Work` replaced with `WorkExperience`
+The Graph API defines a `WorkExperience` type that is used in the `work` field of the `User` object.
+We had a custom inner class called work and this is no longer necessary.
