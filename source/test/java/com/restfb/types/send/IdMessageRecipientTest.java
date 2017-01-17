@@ -21,17 +21,17 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import lombok.ToString;
+import static org.junit.Assert.assertEquals;
 
-@ToString
-public class IdMessageRecipient extends AbstractFacebookType implements MessageRecipient  {
+import org.junit.Test;
 
-  @Facebook
-  private String id;
+public class IdMessageRecipientTest {
 
-  public IdMessageRecipient(String id) {
-    this.id = id;
+  @Test
+  public void checkEquals() {
+    IdMessageRecipient recipient1 = new IdMessageRecipient("123");
+    IdMessageRecipient recipient2 = new IdMessageRecipient("123");
+
+    assertEquals(recipient1, recipient2);
   }
 }
