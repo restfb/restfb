@@ -19,23 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+/**
+ * Contains all types that are necessary to interact with
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference">Facebook Send API</a>. The Send
+ * API is part of the <a href="https://developers.facebook.com/docs/messenger-platform">Facebook Messenger Platform</a>.
+ */
 package com.restfb.types.send;
-
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-
-import lombok.Getter;
-import lombok.Setter;
-
-public class ReceiptAdjustment extends AbstractFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook
-  private String name;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String amount;
-}

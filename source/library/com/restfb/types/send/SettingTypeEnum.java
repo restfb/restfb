@@ -22,8 +22,7 @@
 package com.restfb.types.send;
 
 /**
- * Represents the
- * <a href="https://developers.facebook.com/docs/messenger-platform/thread-settings">thread settings</a>
+ * Represents the <a href="https://developers.facebook.com/docs/messenger-platform/thread-settings">thread settings</a>
  * setting type
  */
 public enum SettingTypeEnum {

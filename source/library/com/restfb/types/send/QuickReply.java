@@ -22,23 +22,30 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/quick-replies">Quick Reply</a>
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/quick-replies">Quick Reply</a>
  */
-public class QuickReply {
+public class QuickReply extends AbstractFacebookType {
 
+  @Getter
   @Facebook("content_type")
   private String contentType;
 
+  @Getter
   @Facebook
   private String title;
 
+  @Getter
   @Facebook
   private String payload;
 
+  @Getter
   @Setter
   @Facebook("image_url")
   private String imageUrl;

@@ -23,8 +23,15 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import lombok.Getter;
+
+/**
+ * Represents the <a href="https://developers.facebook.com/docs/messenger-platform/account-linking/link-account">Link
+ * Account/Login button</a> type
+ */
 public class AccountLinkButton extends AbstractButton {
 
+  @Getter
   @Facebook
   private String url;
 

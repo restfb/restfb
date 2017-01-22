@@ -21,6 +21,11 @@
  */
 package com.restfb.types.send;
 
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/account-linking/unlink-account">Unlink
+ * Account/Logout button</a> type
+ */
 public class AccountUnlinkButton extends AbstractButton {
 
   public AccountUnlinkButton() {

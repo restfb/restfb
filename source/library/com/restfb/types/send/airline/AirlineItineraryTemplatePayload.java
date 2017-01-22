@@ -27,45 +27,64 @@ import com.restfb.types.send.TemplatePayload;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-itinerary-template">Airline
+ * Itinerary Template Payload</a> type
+ */
 public class AirlineItineraryTemplatePayload extends TemplatePayload {
+
+  @Getter
   @Facebook("intro_message")
   private String introMessage;
 
+  @Getter
   @Facebook
   private String locale;
 
+  @Getter
   @Setter
   @Facebook("theme_color")
   private String themeColor;
 
+  @Getter
   @Facebook("pnr_number")
   private String pnrNumber;
 
+  @Getter
   @Facebook("passenger_info")
   private List<PassengerInfo> passengerInfoList;
 
+  @Getter
   @Facebook("flight_info")
   private List<FlightInfo> flightInfoList;
 
+  @Getter
   @Facebook("passenger_segment_info")
   private List<PassengerSegmentInfo> passengerSegmentInfoList;
 
+  @Getter
   @Facebook("price_info")
   private List<PriceInfo> priceInfoList;
 
+  @Getter
   @Setter
   @Facebook("base_price")
   private double basePrice;
 
+  @Getter
   @Setter
   @Facebook
   private double tax;
 
+  @Getter
   @Facebook("total_price")
   private double totalPrice;
 
+  @Getter
   @Facebook
   private String currency;
 

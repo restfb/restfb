@@ -31,4 +31,5 @@ public class ShareButton extends AbstractButton {
     super(null);
     setType("element_share");
   }
+
 }

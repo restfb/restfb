@@ -27,19 +27,30 @@ import com.restfb.types.send.TemplatePayload;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-boardingpass-template">Airline
+ * Boardingpass Template Payload</a> type
+ */
 public class AirlineBoardingPassTemplatePayload extends TemplatePayload {
+
+  @Getter
   @Facebook("intro_message")
   private String introMessage;
 
+  @Getter
   @Facebook
   private String locale;
 
+  @Getter
   @Setter
   @Facebook("theme_color")
   private String themeColor;
 
+  @Getter
   @Facebook("boarding_pass")
   private List<BoardingPass> boardingPassList;
 

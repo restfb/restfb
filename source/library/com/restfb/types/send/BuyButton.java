@@ -24,14 +24,19 @@ package com.restfb.types.send;
 import com.restfb.Facebook;
 import com.restfb.types.send.buybutton.PaymentSummary;
 
+import lombok.Getter;
+
 /**
- *
+ * Represents the <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/buy-button">Buy
+ * Button</a> type
  */
 public class BuyButton extends AbstractButton {
 
+  @Getter
   @Facebook
   private String payload;
 
+  @Getter
   @Facebook("payment_summary")
   private PaymentSummary paymentSummary;
 

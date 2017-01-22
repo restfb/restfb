@@ -23,8 +23,11 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import lombok.Getter;
+
 public class MediaAttachment extends MessageAttachment {
 
+  @Getter
   @Facebook
   private MediaAttachmentPayload payload;
 
@@ -43,9 +46,11 @@ public class MediaAttachment extends MessageAttachment {
 
   private static class UrlPayload implements MediaAttachmentPayload {
 
+    @Getter
     @Facebook
     private String url;
 
+    @Getter
     @Facebook("is_reusable")
     private Boolean isReusable;
 
@@ -62,6 +67,7 @@ public class MediaAttachment extends MessageAttachment {
 
   private static class ReuseIdPayload implements MediaAttachmentPayload {
 
+    @Getter
     @Facebook("attachment_id")
     private String attachmentId;
 
@@ -76,7 +82,7 @@ public class MediaAttachment extends MessageAttachment {
   }
 
   private interface MediaAttachmentPayload {
-     void setIsReusable(boolean isReusable);
+    void setIsReusable(boolean isReusable);
   }
 
   public enum Type {

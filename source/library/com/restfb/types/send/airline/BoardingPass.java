@@ -22,57 +22,73 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class BoardingPass {
+public class BoardingPass extends AbstractFacebookType {
+
+  @Getter
   @Facebook("passenger_name")
   private String passengerName;
 
+  @Getter
   @Facebook("pnr_number")
   private String pnrNumber;
 
+  @Getter
   @Setter
   @Facebook("travel_class")
   private String travelClass;
 
+  @Getter
   @Setter
   @Facebook
   private String seat;
 
+  @Getter
   @Setter
   @Facebook("auxiliary_fields")
   private List<AirlineField> auxiliaryFields;
 
+  @Getter
   @Setter
   @Facebook("secondary_fields")
   private List<AirlineField> secondaryFields;
 
+  @Getter
   @Facebook("logo_image_url")
   private String logoImageUrl;
 
+  @Getter
   @Setter
   @Facebook("header_image_url")
   private String headerImageUrl;
 
+  @Getter
   @Setter
   @Facebook("header_text_field")
   private String headerTextField;
 
+  @Getter
   @Setter
   @Facebook("qr_code")
   private String qrCode;
 
+  @Getter
   @Setter
   @Facebook("barcode_image_url")
   private String barcodeImageUrl;
 
+  @Getter
   @Facebook("above_bar_code_image_url")
   private String aboveBarCodeImageUrl;
 
+  @Getter
   @Facebook("flight_info")
   private FlightInfo flightInfo;
 

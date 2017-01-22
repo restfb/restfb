@@ -22,15 +22,17 @@
 package com.restfb.types.send.buybutton;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
-import lombok.ToString;
+import lombok.Getter;
 
-@ToString(doNotUseGetters = true)
-public class PriceListItem {
+public class PriceListItem extends AbstractFacebookType {
 
+  @Getter
   @Facebook
   private String label;
 
+  @Getter
   @Facebook
   private String amount;
 

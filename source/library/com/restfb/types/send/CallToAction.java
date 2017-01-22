@@ -22,19 +22,23 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
+
+import lombok.Getter;
 
 /**
  * Used to send a new welcome message to Facebook and set it on a page. Have a look at the integration tests or the
  * documentation for further information
  * <p>
  * have a look at the
- * <a href="https://developers.facebook.com/docs/messenger-platform/thread-settings/get-started-button">
- * Facebook documentation</a>
+ * <a href="https://developers.facebook.com/docs/messenger-platform/thread-settings/get-started-button"> Facebook
+ * documentation</a>
  * </p>
  *
  */
-public class CallToAction {
+public class CallToAction extends AbstractFacebookType {
 
+  @Getter
   @Facebook
   private String payload;
 

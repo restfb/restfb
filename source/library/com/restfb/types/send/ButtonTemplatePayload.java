@@ -26,11 +26,15 @@ import com.restfb.Facebook;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
 public class ButtonTemplatePayload extends TemplatePayload {
 
+  @Getter
   @Facebook
   private String text;
 
+  @Getter
   @Facebook
   private List<AbstractButton> buttons;
 

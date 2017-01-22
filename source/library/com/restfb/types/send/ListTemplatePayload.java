@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
 public class ListTemplatePayload extends TemplatePayload {
@@ -38,6 +39,7 @@ public class ListTemplatePayload extends TemplatePayload {
   /**
    * Value must be large or compact. Default to large if not specified
    */
+  @Getter
   @Setter
   @Facebook("top_element_style")
   private TopElementStyleEnum topElementStyle;
@@ -69,6 +71,14 @@ public class ListTemplatePayload extends TemplatePayload {
     }
 
     return buttons.add(button);
+  }
+
+  public List<AbstractButton> getButtons() {
+    return Collections.unmodifiableList(buttons);
+  }
+
+  public List<ListViewElement> getElements() {
+    return Collections.unmodifiableList(elements);
   }
 
   public enum TopElementStyleEnum {

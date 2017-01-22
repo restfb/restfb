@@ -22,31 +22,36 @@
 package com.restfb.types.send.buybutton;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString(doNotUseGetters = true)
-public class PaymentSummary {
+public class PaymentSummary extends AbstractFacebookType {
 
+  @Getter
   @Setter
   @Facebook
   private String currency;
 
+  @Getter
   @Setter
   @Facebook("payment_type")
   private PaymentTypeEnum paymentType;
 
+  @Getter
   @Setter
   @Facebook("merchant_name")
   private String merchant_name;
 
+  @Getter
   @Facebook("requested_user_info")
   private List<RequestedUserInfoEnum> requestedUserInfo;
 
+  @Getter
   @Facebook("price_list")
   private List<PriceListItem> priceList;
 

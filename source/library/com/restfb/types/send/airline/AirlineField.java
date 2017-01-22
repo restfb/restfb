@@ -22,11 +22,17 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
-public class AirlineField {
+import lombok.Getter;
+
+public class AirlineField extends AbstractFacebookType {
+
+  @Getter
   @Facebook
   private String label;
 
+  @Getter
   @Facebook
   private String value;
 

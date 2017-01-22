@@ -23,35 +23,43 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import lombok.Getter;
+
 public class LocationAttachment extends MessageAttachment {
 
+  @Getter
+  @Facebook
+  private LocationPayload payload;
+
+  public LocationAttachment(double lat, double longVal) {
+    setType("location");
+    payload = new LocationPayload(lat, longVal);
+  }
+
+  private static class LocationPayload {
+
+    @Getter
     @Facebook
-    private LocationPayload payload;
+    private Coordinates coordinates;
 
-    public LocationAttachment(double lat, double longVal) {
-        setType("location");
-        payload = new LocationPayload(lat, longVal);
+    public LocationPayload(double lat, double longVal) {
+      coordinates = new Coordinates(lat, longVal);
     }
 
-    private static class LocationPayload {
+    private static class Coordinates {
 
-        @Facebook
-        private Coordinates coordinates;
+      @Getter
+      @Facebook
+      private double lat;
 
-        public LocationPayload(double lat, double longVal) {
-            coordinates = new Coordinates(lat, longVal);
-        }
+      @Getter
+      @Facebook("long")
+      private double longVal;
 
-        private static class Coordinates {
-            @Facebook
-            private double lat;
-            @Facebook("long")
-            private double longVal;
-
-            public Coordinates(double lat, double longVal) {
-                this.lat = lat;
-                this.longVal = longVal;
-            }
-        }
+      public Coordinates(double lat, double longVal) {
+        this.lat = lat;
+        this.longVal = longVal;
+      }
     }
+  }
 }

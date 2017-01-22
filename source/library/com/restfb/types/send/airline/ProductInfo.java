@@ -22,11 +22,22 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
-public class ProductInfo {
+import lombok.Getter;
+
+public class ProductInfo extends AbstractFacebookType {
+
+  public ProductInfo(String title, String value) {
+    this.title = title;
+    this.value = value;
+  }
+
+  @Getter
   @Facebook
   private String title;
 
+  @Getter
   @Facebook
   private String value;
 }

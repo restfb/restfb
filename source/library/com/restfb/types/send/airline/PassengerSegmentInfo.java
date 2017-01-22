@@ -22,23 +22,32 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PassengerSegmentInfo {
+import lombok.Getter;
+
+public class PassengerSegmentInfo extends AbstractFacebookType {
+
+  @Getter
   @Facebook("segment_id")
   private String segmentId;
 
+  @Getter
   @Facebook("passenger_id")
   private String passengerId;
 
+  @Getter
   @Facebook
   private String seat;
 
+  @Getter
   @Facebook("seat_type")
   private String seatType;
 
+  @Getter
   @Facebook("product_info")
   private List<ProductInfo> productInfoList;
 

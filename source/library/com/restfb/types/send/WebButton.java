@@ -23,20 +23,25 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import lombok.Getter;
 import lombok.Setter;
 
 public class WebButton extends AbstractButton {
 
+  @Getter
   @Setter
   @Facebook("webview_height_ratio")
   private WebviewHeightEnum webviewHeightRatio;
 
+  @Getter
   @Facebook
   private String url;
 
+  @Getter
   @Facebook("messenger_extensions")
   private Boolean messengerExtensions;
 
+  @Getter
   @Facebook("fallback_url")
   private String fallbackUrl;
 

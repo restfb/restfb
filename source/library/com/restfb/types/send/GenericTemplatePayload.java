@@ -26,8 +26,11 @@ import com.restfb.Facebook;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
 public class GenericTemplatePayload extends TemplatePayload {
 
+  @Getter
   @Facebook
   private List<Bubble> elements;
 

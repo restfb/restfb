@@ -24,27 +24,40 @@ package com.restfb.types.send.airline;
 import com.restfb.Facebook;
 import com.restfb.types.send.TemplatePayload;
 
+import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-update-template">Airline
+ * Update Template Payload</a> type
+ */
 public class AirlineUpdateTemplatePayload extends TemplatePayload {
+
+  @Getter
   @Setter
   @Facebook("intro_message")
   private String introMessage;
 
+  @Getter
   @Setter
   @Facebook("update_type")
   private String updateType;
 
+  @Getter
   @Facebook
   private String locale;
 
+  @Getter
   @Setter
   @Facebook
   private String themeColor;
 
+  @Getter
   @Facebook("pnr_number")
   private String pnrNumber;
 
+  @Getter
   @Facebook("update_flight_info")
   private FlightInfo updateFlightInfo;
 

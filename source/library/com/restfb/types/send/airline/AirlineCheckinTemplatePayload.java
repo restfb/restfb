@@ -27,25 +27,38 @@ import com.restfb.types.send.TemplatePayload;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-checkin-template">Airline
+ * Checkin Template Payload</a> type
+ */
 public class AirlineCheckinTemplatePayload extends TemplatePayload {
+
+  @Getter
   @Facebook("intro_message")
   private String introMessage;
 
+  @Getter
   @Facebook
   private String locale;
 
+  @Getter
   @Setter
   @Facebook("theme_color")
   private String themeColor;
 
+  @Getter
   @Facebook("pnr_number")
   private String pnrNumber;
 
+  @Getter
   @Facebook("flight_info")
   private List<FlightInfo> flightInfoList;
 
+  @Getter
   @Facebook("checkin_url")
   private String checkinUrl;
 

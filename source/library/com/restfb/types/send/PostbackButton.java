@@ -23,8 +23,16 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import lombok.Getter;
+
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/postback-button">Postback
+ * Button</a> type
+ */
 public class PostbackButton extends AbstractButton {
 
+  @Getter
   @Facebook
   private String payload;
 

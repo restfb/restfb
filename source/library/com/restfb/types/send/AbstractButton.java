@@ -22,12 +22,17 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
-abstract public class AbstractButton {
+import lombok.Getter;
 
+abstract public class AbstractButton extends AbstractFacebookType {
+
+  @Getter
   @Facebook
   private String type;
 
+  @Getter
   @Facebook
   protected String title;
 

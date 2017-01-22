@@ -24,67 +24,91 @@ package com.restfb.types.send;
 import com.restfb.Facebook;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/receipt-template">Receipt
+ * Template Payload</a> type
+ */
 public class ReceiptTemplatePayload extends TemplatePayload {
 
-    @Facebook("recipient_name")
-    private String recipientName;
+  @Getter
+  @Facebook("recipient_name")
+  private String recipientName;
 
-    @Facebook("order_number")
-    private String orderNumber;
+  @Getter
+  @Facebook("order_number")
+  private String orderNumber;
 
-    @Facebook
-    private String currency;
+  @Getter
+  @Facebook
+  private String currency;
 
-    @Facebook("payment_method")
-    private String paymentMethod;
+  @Getter
+  @Facebook("payment_method")
+  private String paymentMethod;
 
-    @Setter
-    @Facebook("order_url")
-    private String orderUrl;
+  @Getter
+  @Setter
+  @Facebook("order_url")
+  private String orderUrl;
 
-    @Setter
-    @Facebook
-    private Long timestamp;
+  @Getter
+  @Setter
+  @Facebook
+  private Long timestamp;
 
-    @Facebook
-    private List<ReceiptElement> elements;
+  @Facebook
+  private List<ReceiptElement> elements;
 
-    @Setter
-    @Facebook
-    private ReceiptAddress address;
+  @Getter
+  @Setter
+  @Facebook
+  private ReceiptAddress address;
 
-    @Facebook
-    private ReceiptSummary summary;
+  @Getter
+  @Facebook
+  private ReceiptSummary summary;
 
-    @Facebook
-    private List<ReceiptAdjustment> adjustments;
+  @Facebook
+  private List<ReceiptAdjustment> adjustments;
 
-    public ReceiptTemplatePayload(String recipientName, String orderNumber, String currency, String paymentMethod, ReceiptSummary summary) {
-        this.recipientName = recipientName;
-        this.orderNumber = orderNumber;
-        this.currency = currency;
-        this.paymentMethod = paymentMethod;
-        this.summary = summary;
-        setTemplateType("receipt");
+  public ReceiptTemplatePayload(String recipientName, String orderNumber, String currency, String paymentMethod,
+      ReceiptSummary summary) {
+    this.recipientName = recipientName;
+    this.orderNumber = orderNumber;
+    this.currency = currency;
+    this.paymentMethod = paymentMethod;
+    this.summary = summary;
+    setTemplateType("receipt");
+  }
+
+  public boolean addElement(ReceiptElement element) {
+    if (elements == null) {
+      elements = new ArrayList<ReceiptElement>();
     }
 
-    public boolean addElement(ReceiptElement element) {
-        if (elements == null) {
-            elements = new ArrayList<ReceiptElement>();
-        }
+    return elements.add(element);
+  }
 
-        return elements.add(element);
+  public boolean addAdjustment(ReceiptAdjustment adjustment) {
+    if (adjustments == null) {
+      adjustments = new ArrayList<ReceiptAdjustment>();
     }
 
-    public boolean addAdjustment(ReceiptAdjustment adjustment) {
-        if (adjustments == null) {
-            adjustments = new ArrayList<ReceiptAdjustment>();
-        }
+    return adjustments.add(adjustment);
+  }
 
-        return adjustments.add(adjustment);
-    }
+  public List<ReceiptElement> getElements() {
+    return Collections.unmodifiableList(elements);
+  }
+
+  public List<ReceiptAdjustment> getAdjustments() {
+    return Collections.unmodifiableList(adjustments);
+  }
 }

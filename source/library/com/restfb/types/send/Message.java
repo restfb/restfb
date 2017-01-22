@@ -23,24 +23,30 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 import com.restfb.exception.FacebookPreconditionException;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class Message {
+public class Message extends AbstractFacebookType {
 
+  @Getter
   @Facebook
   private String text;
 
   @Facebook("quick_replies")
   private List<QuickReply> quickReplies;
 
+  @Getter
   @Setter
   @Facebook
   private String metadata;
 
+  @Getter
   @Facebook
   private MessageAttachment attachment;
 
@@ -84,6 +90,10 @@ public class Message {
     checkPrecondition(quickReplyList.size());
 
     return quickReplies.addAll(quickReplyList);
+  }
+
+  public List<QuickReply> getQuickReplies() {
+    return Collections.unmodifiableList(quickReplies);
   }
 
   private void checkPrecondition(int addingRepliesSize) {

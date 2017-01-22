@@ -22,29 +22,36 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class Bubble {
+public class Bubble extends AbstractFacebookType {
 
+  @Getter
   @Facebook
   private String title;
 
+  @Getter
   @Setter
   @Facebook("item_url")
   private String itemUrl;
 
+  @Getter
   @Setter
   @Facebook("image_url")
   private String imageUrl;
 
+  @Getter
   @Setter
   @Facebook
   private String subtitle;
 
+  @Getter
   @Facebook
   private List<AbstractButton> buttons;
 
