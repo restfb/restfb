@@ -22,32 +22,43 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class FlightInfo {
+public class FlightInfo extends AbstractFacebookType {
+
+  @Getter
   @Facebook("connection_id")
   private String connectionId;
 
+  @Getter
   @Facebook("segment_id")
   private String segmentId;
 
+  @Getter
   @Facebook("flight_number")
   private String flightNumber;
 
+  @Getter
   @Setter
   @Facebook("aircraft_type")
   private String aircraftType;
 
+  @Getter
   @Facebook("departure_airport")
   private FlightAirport departureAirport;
 
+  @Getter
   @Facebook("arrival_airport")
   private FlightAirport arrivalAirport;
 
+  @Getter
   @Facebook("flight_schedule")
   private FlightSchedule flightSchedule;
 
+  @Getter
   @Facebook("travel_class")
   private String travelClass;
 

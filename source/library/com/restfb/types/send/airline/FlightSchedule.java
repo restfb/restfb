@@ -22,20 +22,25 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.Date;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class FlightSchedule {
+public class FlightSchedule extends AbstractFacebookType {
 
+  @Getter
   @Setter
   @Facebook("boarding_time")
   private Date boardingTime;
 
+  @Getter
   @Facebook("departure_time")
   private Date departureTime;
 
+  @Getter
   @Facebook("arrival_time")
   private Date arrivalTime;
 

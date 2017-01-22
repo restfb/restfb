@@ -22,6 +22,7 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import lombok.Getter;
 
 public class TemplateAttachment extends MessageAttachment {
 
@@ -30,6 +31,7 @@ public class TemplateAttachment extends MessageAttachment {
     this.payload = payload;
   }
 
+  @Getter
   @Facebook
   private TemplatePayload payload;
 

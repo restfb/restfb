@@ -22,34 +22,43 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class ReceiptAddress {
-    @Facebook("street_1")
-    private String street1;
+public class ReceiptAddress extends AbstractFacebookType {
 
-    @Setter
-    @Facebook("street_2")
-    private String street2;
+  @Getter
+  @Facebook("street_1")
+  private String street1;
 
-    @Facebook
-    private String city;
+  @Getter
+  @Setter
+  @Facebook("street_2")
+  private String street2;
 
-    @Facebook("postal_code")
-    private String postalCode;
+  @Getter
+  @Facebook
+  private String city;
 
-    @Facebook
-    private String state;
+  @Getter
+  @Facebook("postal_code")
+  private String postalCode;
 
-    @Facebook
-    private String country;
+  @Getter
+  @Facebook
+  private String state;
 
-    public ReceiptAddress(String street1, String city, String postalCode, String state, String country) {
-        this.street1 = street1;
-        this.city = city;
-        this.postalCode = postalCode;
-        this.state = state;
-        this.country = country;
-    }
+  @Getter
+  @Facebook
+  private String country;
+
+  public ReceiptAddress(String street1, String city, String postalCode, String state, String country) {
+    this.street1 = street1;
+    this.city = city;
+    this.postalCode = postalCode;
+    this.state = state;
+    this.country = country;
+  }
 }

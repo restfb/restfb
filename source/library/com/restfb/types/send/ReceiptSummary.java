@@ -22,26 +22,33 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class ReceiptSummary {
-    @Setter
-    @Facebook("subtotal")
-    private double subtotal;
+public class ReceiptSummary extends AbstractFacebookType {
 
-    @Setter
-    @Facebook("shipping_cost")
-    private double shippingCost;
+  @Getter
+  @Setter
+  @Facebook("subtotal")
+  private double subtotal;
 
-    @Setter
-    @Facebook("total_tax")
-    private double totalTax;
+  @Getter
+  @Setter
+  @Facebook("shipping_cost")
+  private double shippingCost;
 
-    @Facebook("total_cost")
-    private double totalCost;
+  @Getter
+  @Setter
+  @Facebook("total_tax")
+  private double totalTax;
 
-    public ReceiptSummary(double totalCost) {
-        this.totalCost = totalCost;
-    }
+  @Getter
+  @Facebook("total_cost")
+  private double totalCost;
+
+  public ReceiptSummary(double totalCost) {
+    this.totalCost = totalCost;
+  }
 }

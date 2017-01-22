@@ -23,11 +23,11 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-import lombok.ToString;
+import lombok.Getter;
 
-@ToString
-public class IdMessageRecipient extends AbstractFacebookType implements MessageRecipient  {
+public class IdMessageRecipient extends AbstractFacebookType implements MessageRecipient {
 
+  @Getter
   @Facebook
   private String id;
 

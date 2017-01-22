@@ -22,20 +22,27 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class FlightAirport {
+public class FlightAirport extends AbstractFacebookType {
+
+  @Getter
   @Facebook("airport_code")
   private String airportCode;
 
+  @Getter
   @Facebook
   private String city;
 
+  @Getter
   @Setter
   @Facebook
   private String terminal;
 
+  @Getter
   @Setter
   @Facebook
   private String gate;

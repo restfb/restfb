@@ -22,34 +22,43 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class ReceiptElement {
-    @Facebook
-    private String title;
+public class ReceiptElement extends AbstractFacebookType {
 
-    @Setter
-    @Facebook
-    private String subtitle;
+  @Getter
+  @Facebook
+  private String title;
 
-    @Setter
-    @Facebook
-    private int quantity;
+  @Getter
+  @Setter
+  @Facebook
+  private String subtitle;
 
-    @Facebook
-    private double price;
+  @Getter
+  @Setter
+  @Facebook
+  private int quantity;
 
-    @Setter
-    @Facebook
-    private String currency;
+  @Getter
+  @Facebook
+  private double price;
 
-    @Setter
-    @Facebook("image_url")
-    private String imageUrl;
+  @Getter
+  @Setter
+  @Facebook
+  private String currency;
 
-    public ReceiptElement(String title, double price) {
-        this.title = title;
-        this.price = price;
-    }
+  @Getter
+  @Setter
+  @Facebook("image_url")
+  private String imageUrl;
+
+  public ReceiptElement(String title, double price) {
+    this.title = title;
+    this.price = price;
+  }
 }

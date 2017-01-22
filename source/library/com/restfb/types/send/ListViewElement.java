@@ -23,25 +23,32 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 import com.restfb.exception.FacebookPreconditionException;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class ListViewElement {
+public class ListViewElement extends AbstractFacebookType {
 
+  @Getter
   @Facebook
   private String title;
 
+  @Getter
   @Setter
   @Facebook
   private String subtitle;
 
+  @Getter
   @Setter
   @Facebook("image_url")
   private String imageUrl;
 
+  @Getter
   @Setter
   @Facebook("default_action")
   private DefaultAction defaultAction;
@@ -63,5 +70,9 @@ public class ListViewElement {
     }
 
     return buttons.add(button);
+  }
+
+  public List<AbstractButton> getButtons() {
+    return Collections.unmodifiableList(buttons);
   }
 }

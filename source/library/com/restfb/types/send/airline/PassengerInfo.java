@@ -22,18 +22,23 @@
 package com.restfb.types.send.airline;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
+import lombok.Getter;
 import lombok.Setter;
 
-public class PassengerInfo {
+public class PassengerInfo extends AbstractFacebookType {
 
+  @Getter
   @Facebook
   private String name;
 
+  @Getter
   @Setter
   @Facebook("ticket_number")
   private String ticketNumber;
 
+  @Getter
   @Facebook("passenger_id")
   private String passengerId;
 

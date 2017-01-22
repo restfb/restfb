@@ -23,8 +23,8 @@ package com.restfb.types.send;
 
 /**
  * Represents the
- * <a href="https://developers.facebook.com/docs/messenger-platform/thread-settings/domain-whitelisting">domain whitelisting</a>
- * action type
+ * <a href="https://developers.facebook.com/docs/messenger-platform/thread-settings/domain-whitelisting">domain
+ * whitelisting</a> action type
  */
 public enum DomainActionTypeEnum {
   add, remove

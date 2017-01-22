@@ -22,11 +22,12 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import lombok.ToString;
+import com.restfb.types.AbstractFacebookType;
+import lombok.Getter;
 
-@ToString
-public class PhoneMessageRecipient implements MessageRecipient {
+public class PhoneMessageRecipient extends AbstractFacebookType implements MessageRecipient {
 
+  @Getter
   @Facebook("phone_number")
   private String phoneNumber;
 

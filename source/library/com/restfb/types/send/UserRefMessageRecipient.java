@@ -22,11 +22,13 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import lombok.ToString;
+import com.restfb.types.AbstractFacebookType;
 
-@ToString
-public class UserRefMessageRecipient implements MessageRecipient {
+import lombok.Getter;
 
+public class UserRefMessageRecipient extends AbstractFacebookType implements MessageRecipient {
+
+  @Getter
   @Facebook("user_ref")
   private String userRef;
 
