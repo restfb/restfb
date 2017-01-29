@@ -42,6 +42,20 @@
   * Issue #467: Use `Comments` and `Likes` in `Photo` type
   * Issue #452: fix bug from #448
 
+## 1.36.0 (January 29, 2017)
+
+* Issue #657: Add `equals`, `hashcode` and `toString` to Send API types<br>
+  Thanks to @marceloverdijk for the hint
+* Issue #655: `WorkExperience` type added
+* Issue #656: `SavedMessageResponse` type added
+* Issue #654: OpenGraph types added
+* Issue #652: `InstagramUse` type added<br>
+  Thanks to @hkroger for the hint
+* Issue #639: `LiveVideo` type added
+* Issue #650: `is_transient` field added to error<br>
+  Thanks to @hkroger for the hint
+* Issue #651: License header changed to 2017
+
 ## 1.35.0 (December 16, 2016)
 
 * Issue #634: `FEED_REACTION_EDIT` webhook type added
