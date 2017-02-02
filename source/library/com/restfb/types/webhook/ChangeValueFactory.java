@@ -112,7 +112,8 @@ public class ChangeValueFactory {
     RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //
     RATINGS_LIKE_ADD(RatingsLikeValue.class), //
     RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //
-    CONVERSATIONS(PageConversation.class);
+    CONVERSATIONS(PageConversation.class), //
+    LEADGEN(PageLeadgen.class);
 
     private Class<ChangeValue> valueClass;
 
