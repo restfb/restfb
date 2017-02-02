@@ -185,7 +185,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedReactionEdit() {
     FeedReactionValue value =
-            openAndCheckFeedPostBasics("feed-reaction-edit", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.EDIT);
+        openAndCheckFeedPostBasics("feed-reaction-edit", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.EDIT);
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_901097836652708", value.getParentId());
     assertEquals("1234567890321", value.getSenderId());
@@ -194,8 +194,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedReactionRemove() {
-    FeedReactionValue value =
-            openAndCheckFeedPostBasics("feed-reaction-remove", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.REMOVE);
+    FeedReactionValue value = openAndCheckFeedPostBasics("feed-reaction-remove", FeedReactionValue.class, ITEM_REACTION,
+      ChangeValue.Verb.REMOVE);
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_901097836652708", value.getParentId());
     assertEquals("1234567890321", value.getSenderId());
@@ -343,7 +343,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedVideoEdited() {
     FeedVideoValue value =
-            openAndCheckFeedPostBasics("feed-video-edited", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.EDITED);
+        openAndCheckFeedPostBasics("feed-video-edited", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.EDITED);
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
     assertTrue(value.getPublished().booleanValue());
@@ -413,6 +413,20 @@ public class WebhookTest extends AbstractJsonMapperTests {
     PageConversation value = (PageConversation) change.getValue();
     assertEquals("change page id", "1234567890321", value.getPageId());
     assertEquals("change thread id", "t_id.171899099639713", value.getThreadId());
+  }
+
+  @Test
+  public void pageLeadgen() {
+    WebhookObject webhookObject = openJson("leadgen");
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertEquals("change value class", change.getValue().getClass(), PageLeadgen.class);
+    PageLeadgen pageLeadgen = (PageLeadgen) change.getValue();
+    assertEquals("leadgen adgroup id", "0", pageLeadgen.getAdgroupId());
+    assertEquals("leadgen ad id", "0", pageLeadgen.getAdId());
+    assertEquals("leadgen form id", "12345", pageLeadgen.getFormId());
+    assertEquals("leadgen leadgen id", "1636129430026801", pageLeadgen.getLeadgenId());
+    assertEquals("leadgen page id", "12345", pageLeadgen.getPageId());
+    assertEquals("leadgen created time", 1485964825000L, pageLeadgen.getCreatedTime().getTime());
   }
 
   @Test
@@ -493,8 +507,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void stickerId() {
-    WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-sticker"), WebhookObject.class);
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-sticker"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem messageItem = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(messageItem);
@@ -543,13 +557,13 @@ public class WebhookTest extends AbstractJsonMapperTests {
   private WebhookObject openMessagingJson(String jsonName) {
     WebhookObject webhookObject = getWHObjectFromJson(jsonName);
     assertFalse("webhookObject.entryList[0].messaging not empty",
-            webhookObject.getEntryList().get(0).getMessaging().isEmpty());
+      webhookObject.getEntryList().get(0).getMessaging().isEmpty());
     return webhookObject;
   }
 
   private WebhookObject getWHObjectFromJson(String jsonName) {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/" + jsonName), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/" + jsonName), WebhookObject.class);
     assertNotNull("webhookObject not null", webhookObject);
     assertEquals("webhookObject.object", "page", webhookObject.getObject());
     assertFalse("webhookObject.entryList not empty", webhookObject.getEntryList().isEmpty());
