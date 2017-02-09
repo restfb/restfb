@@ -23,7 +23,16 @@ package com.restfb.scope;
 
 public enum ExtendedPermissions implements FacebookPermissions {
 
+  /**
+   * Provides the ability to both read and manage the ads for ad accounts you have access to. Please see
+   * <a href="https://developers.facebook.com/docs/marketing-api/buying-api">Ads Management</a> for details.
+   */
   ADS_MANAGEMENT("ads_management"), //
+
+  /**
+   * Provides the access to <a href="https://developers.facebook.com/docs/marketing-api/read-access-onboarding">Ads
+   * Insights API</a> to pull ads report information for ad accounts you have access to.
+   */
   ADS_READ("ads_read"), //
 
   /**
@@ -59,7 +68,8 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * @RestFB.GraphApi.Since 2.3
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
    */
-  @Deprecated MANAGE_NOTIFICATIONS("manage_notifications"), //
+  @Deprecated
+  MANAGE_NOTIFICATIONS("manage_notifications"), //
 
   /**
    * Enables your app to retrieve Page Access Tokens for the Pages and Apps that the person administrates.
@@ -240,7 +250,8 @@ public enum ExtendedPermissions implements FacebookPermissions {
    *             API before 2.3 ignore the deprecation warning
    * @RestFB.GraphApi.Until 2.2
    */
-  @Deprecated READ_FRIENDLISTS("read_friendlists"), //
+  @Deprecated
+  READ_FRIENDLISTS("read_friendlists"), //
 
   /**
    * Provides access to the names of custom lists a person has created to organize their friends.
@@ -307,7 +318,8 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
    * @RestFB.GraphApi.Until 2.3
    */
-  @Deprecated READ_MAILBOX("read_mailbox"), //
+  @Deprecated
+  READ_MAILBOX("read_mailbox"), //
 
   /**
    * Provides the ability to read from the Page Inboxes of the Pages managed by a person. This permission is often used
@@ -338,7 +350,8 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
    * @RestFB.GraphApi.Until 2.3
    */
-  @Deprecated READ_STREAM("read_stream"), //
+  @Deprecated
+  READ_STREAM("read_stream"), //
 
   /**
    * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).
@@ -359,7 +372,18 @@ public enum ExtendedPermissions implements FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
-  RSVP_EVENT("rsvp_event");
+  RSVP_EVENT("rsvp_event"), //
+
+  /**
+   * Read and write with Business Management API
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  BUSINESS_MANAGEMENT("business_management");
 
   String permissionString;
 
