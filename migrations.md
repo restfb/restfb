@@ -4,6 +4,7 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 ## tl;dr
 * RC2
   * `User.Work` -> `WorkExperience`
+  * `FacebookPermissions` interface is the only enum now, all permission are part of it.
 * RC1
   * Logging changed, `slf4j` is used if present
   * `Comment.Attachment` -> `StoryAttachment`
@@ -117,3 +118,10 @@ with Graph API 2.6 for the `Page` object.
 ## `User.Work` replaced with `WorkExperience`
 The Graph API defines a `WorkExperience` type that is used in the `work` field of the `User` object.
 We had a custom inner class called work and this is no longer necessary.
+
+## Facebook permissions moved to one class (`FacebookPermissions`)
+In older RestFB versions the permissions were splitted into different classes according to 
+their category. Facebook has several categories and a permission is connected to just one of them.
+The main categories are "user data" and "events, groups and pages". Now the permissions can be found
+in one class and the category is part of the permission. With this change it is much easier to 
+find a permission and work with them.

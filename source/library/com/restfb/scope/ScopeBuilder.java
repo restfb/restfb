@@ -31,7 +31,7 @@ public class ScopeBuilder {
   public ScopeBuilder(boolean withoutPublicProfile) {
     this.permissions = new ArrayList<FacebookPermissions>();
     if (!withoutPublicProfile) {
-      permissions.add(DefaultPermissions.PUBLIC_PROFILE);
+      permissions.add(FacebookPermissions.PUBLIC_PROFILE);
     }
   }
 
