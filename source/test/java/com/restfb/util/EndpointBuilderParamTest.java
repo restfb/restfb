@@ -29,33 +29,44 @@ import com.restfb.FakeWebRequestor;
 import com.restfb.Version;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
-public class EndpointBuilderTest {
+import java.util.ArrayList;
+import java.util.Collection;
 
-  @Test
-  public void unversionedNoVersionTest() {
-    FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper());
-    String respstring = client.fetchObject("/me", String.class);
-    assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respstring);
+@RunWith(Parameterized.class)
+public class EndpointBuilderParamTest {
+
+  private Version currentVersion;
+
+  @Parameterized.Parameters
+  public static Collection versionGenerator() {
+
+    ArrayList<Object[]> versions = new ArrayList<Object[]>();
+    for (Version v : Version.values()) {
+      Object[] obj = new Object[] { v };
+      versions.add(obj);
+    }
+
+    return versions;
+  }
+
+  public EndpointBuilderParamTest(Version version) {
+    currentVersion = version;
   }
 
   @Test
-  public void deleteObjectDELETETest() {
+  public void versionTest() {
     FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
-    client.deleteObject("comment");
-    assertEquals("DELETE", wr.getMethod());
-    assertEquals("https://graph.facebook.com/v2.2/comment?access_token=12345&format=json", wr.getSavedUrl());
-  }
-
-  @Test
-  public void deleteObjectPOSTTest() {
-    FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_2);
-    client.setHttpDeleteFallback(true);
-    client.deleteObject("comment");
-    assertEquals("POST", wr.getMethod());
-    assertEquals("https://graph.facebook.com/v2.2/comment", wr.getSavedUrl());
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), currentVersion);
+    String respString = client.fetchObject("/me", String.class);
+    if (currentVersion.isUrlElementRequired()) {
+      assertEquals(
+        "https://graph.facebook.com/" + currentVersion.getUrlElement() + "/me?access_token=12345&format=json",
+        respString);
+    } else {
+      assertEquals("https://graph.facebook.com/me?access_token=12345&format=json", respString);
+    }
   }
 }
