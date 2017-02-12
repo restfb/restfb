@@ -467,11 +467,11 @@ public class Message extends FacebookType {
   }
 
   public boolean addTo(NamedFacebookType receiver) {
-    return to.add(from);
+    return to.add(receiver);
   }
 
   public boolean removeTo(NamedFacebookType receiver) {
-    return to.remove(from);
+    return to.remove(receiver);
   }
 
   /**

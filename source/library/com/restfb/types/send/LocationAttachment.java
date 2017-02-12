@@ -23,6 +23,7 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 
 public class LocationAttachment extends MessageAttachment {
@@ -36,7 +37,7 @@ public class LocationAttachment extends MessageAttachment {
     payload = new LocationPayload(lat, longVal);
   }
 
-  private static class LocationPayload {
+  private static class LocationPayload extends AbstractFacebookType {
 
     @Getter
     @Facebook
@@ -46,7 +47,7 @@ public class LocationAttachment extends MessageAttachment {
       coordinates = new Coordinates(lat, longVal);
     }
 
-    private static class Coordinates {
+    private static class Coordinates extends AbstractFacebookType {
 
       @Getter
       @Facebook

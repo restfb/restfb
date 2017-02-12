@@ -60,6 +60,6 @@ public class PageLeadgen extends ChangeValue {
   @JsonMapper.JsonMappingCompleted
   private void convertTime() {
     createdTime = DateUtils.toDateFromLongFormat(rawCreatedTime);
-  };
+  }
 
 }
