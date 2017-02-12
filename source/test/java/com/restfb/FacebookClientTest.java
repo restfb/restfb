@@ -192,29 +192,6 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void obtainDeviceAccessTokenCodeLatest() {
-    FakeWebRequestor requestor = new FakeWebRequestor();
-    FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
-    try {
-      fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
-    } catch (IllegalArgumentException je) {
-      // exception can be ignored, the url is important
-    } catch (FacebookDeviceTokenCodeExpiredException e) {
-      // never reached
-    } catch (FacebookDeviceTokenPendingException e) {
-      // never reached
-    } catch (FacebookDeviceTokenSlowdownException e) {
-      // never reached
-    } catch (FacebookDeviceTokenDeclinedException e) {
-      // never reached
-    }
-    assertEquals("https://graph.facebook.com/v2.6/device/login_status", requestor.getSavedUrl());
-    assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
-      requestor.getParameters());
-  }
-
-  @Test
   public void fetchDeviceCodeV25() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
@@ -246,22 +223,7 @@ public class FacebookClientTest {
 
   @Test
   public void obtainDeviceAccessTokenCodeV25() {
-    FakeWebRequestor requestor = new FakeWebRequestor();
-    FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_5);
-    try {
-      fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
-    } catch (IllegalArgumentException je) {
-      // exception can be ignored, the url is important
-    } catch (FacebookDeviceTokenCodeExpiredException e) {
-      // never reached
-    } catch (FacebookDeviceTokenPendingException e) {
-      // never reached
-    } catch (FacebookDeviceTokenSlowdownException e) {
-      // never reached
-    } catch (FacebookDeviceTokenDeclinedException e) {
-      // never reached
-    }
+    FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_2_5);
     assertEquals("https://graph.facebook.com/v2.5/oauth/device", requestor.getSavedUrl());
     assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
       requestor.getParameters());
@@ -269,9 +231,16 @@ public class FacebookClientTest {
 
   @Test
   public void obtainDeviceAccessTokenCodeV26() {
+    FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_2_6);
+    assertEquals("https://graph.facebook.com/v2.6/device/login_status", requestor.getSavedUrl());
+    assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
+            requestor.getParameters());
+  }
+
+  private FakeWebRequestor createFbClientAndObtainAccessToken(Version version) {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), version);
     try {
       fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
     } catch (IllegalArgumentException je) {
@@ -285,9 +254,7 @@ public class FacebookClientTest {
     } catch (FacebookDeviceTokenDeclinedException e) {
       // never reached
     }
-    assertEquals("https://graph.facebook.com/v2.6/device/login_status", requestor.getSavedUrl());
-    assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
-            requestor.getParameters());
+    return requestor;
   }
 
   @Test

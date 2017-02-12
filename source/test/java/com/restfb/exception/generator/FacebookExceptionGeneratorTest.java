@@ -32,37 +32,34 @@ public class FacebookExceptionGeneratorTest {
 
   @Test
   public void checkSkipErrorResponseParsing_NoJsonObject() {
-    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "testString";
-    try {
-      generator.skipResponseStatusExceptionParsing(json);
-      fail("Exception not thrown");
-    } catch (ResponseErrorJsonParsingException e) {
-      // every thing fine;
-    }
+    parseJson(json, false);
   }
 
   @Test
   public void checkSkipErrorResponseParsing_JsonObjectWithoutError() {
-    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{ \"testString\": \"example\" }";
-    try {
-      generator.skipResponseStatusExceptionParsing(json);
-      fail("Exception not thrown");
-    } catch (ResponseErrorJsonParsingException e) {
-      // every thing fine;
-    }
+    parseJson(json, false);
   }
 
   @Test
   public void checkSkipErrorResponseParsing_JsonObjectWithError() {
-    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{ \"error\": \"exampleError\" }";
+    parseJson(json, true);
+  }
+
+  private void parseJson(String json, boolean failOnException) {
+    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {
       generator.skipResponseStatusExceptionParsing(json);
+      if (!failOnException) {
+        fail("Exception not thrown");
+      }
       // every thing fine;
     } catch (ResponseErrorJsonParsingException e) {
-      fail("Exception not thrown");
+      if (failOnException) {
+        fail("Exception thrown");
+      }
     }
   }
 
