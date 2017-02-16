@@ -1,0 +1,34 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1487254148732,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1487254148673,
+          "message": {
+            "mid": "mid.1487254148673:a082abc439",
+            "seq": 2203,
+            "sticker_id": 369239263222822,
+            "attachments": [
+              {
+                "type": "image",
+                "payload": {
+                  "url": "https:\/\/scontent.xx.fbcdn.net\/v\/t39.1997-6\/851557_369239266556155_759568595_n.png?_nc_ad=z-m&oh=85e24066ebe64f04d457b242e22e7054&oe=5939B5DC",
+                  "sticker_id": 369239263222822
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

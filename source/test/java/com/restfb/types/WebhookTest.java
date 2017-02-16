@@ -514,11 +514,31 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertNotNull(messageItem);
     assertNotNull(messageItem.getMessage());
     assertEquals("56789012345678", messageItem.getMessage().getStickerId());
+    assertFalse(messageItem.getMessage().isLike());
     assertNotNull(messageItem.getMessage().getAttachments());
     assertEquals(1, messageItem.getMessage().getAttachments().size());
     MessagingAttachment attachment = messageItem.getMessage().getAttachments().get(0);
     assertNotNull(attachment.getPayload());
     assertEquals("56789012345678", attachment.getPayload().getStickerId());
+    assertFalse(attachment.getPayload().isLike());
+  }
+
+  @Test
+  public void stickerId_isLike() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-sticker-thumbup"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    MessagingItem messageItem = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertNotNull(messageItem);
+    assertNotNull(messageItem.getMessage());
+    assertEquals("369239263222822", messageItem.getMessage().getStickerId());
+    assertTrue(messageItem.getMessage().isLike());
+    assertNotNull(messageItem.getMessage().getAttachments());
+    assertEquals(1, messageItem.getMessage().getAttachments().size());
+    MessagingAttachment attachment = messageItem.getMessage().getAttachments().get(0);
+    assertNotNull(attachment.getPayload());
+    assertEquals("369239263222822", attachment.getPayload().getStickerId());
+    assertTrue(attachment.getPayload().isLike());
   }
 
   @Test
