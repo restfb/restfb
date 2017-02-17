@@ -85,6 +85,21 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_901097836652708", value.getParentId());
     assertEquals("901097836652708_903438993085259", value.getCommentId());
     assertEquals(1449135003000L, value.getCreatedTime().getTime());
+    assertNull(value.getPhoto());
+  }
+
+  @Test
+  public void feedCommentAddWithPhoto() {
+    FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-add-with-photo", FeedCommentValue.class,
+      ITEM_COMMENT, ChangeValue.Verb.ADD);
+    assertFalse(value.isReply());
+    assertEquals("and the next one", value.getMessage());
+    assertEquals("1234567890321_901097836652708", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("901097836652708_903438993085259", value.getCommentId());
+    assertEquals(1449135003000L, value.getCreatedTime().getTime());
+    assertNotNull(value.getPhoto());
+
   }
 
   @Test
@@ -97,6 +112,20 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_900728623356296", value.getParentId());
     assertEquals("900728623356296_900744590021366", value.getCommentId());
     assertEquals(1448555737000L, value.getCreatedTime().getTime());
+    assertNull(value.getPhoto());
+  }
+
+  @Test
+  public void feedCommentEditedWithPhoto() {
+    FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-edited-with-photo", FeedCommentValue.class,
+      ITEM_COMMENT, ChangeValue.Verb.EDITED);
+    assertFalse(value.isReply());
+    assertEquals("Let's see the Webhooks in action :D", value.getMessage());
+    assertEquals("1234567890321_900728623356296", value.getPostId());
+    assertEquals("1234567890321_900728623356296", value.getParentId());
+    assertEquals("900728623356296_900744590021366", value.getCommentId());
+    assertEquals(1448555737000L, value.getCreatedTime().getTime());
+    assertNotNull(value.getPhoto());
   }
 
   @Test
@@ -525,8 +554,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void stickerId_isLike() {
-    WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-sticker-thumbup"), WebhookObject.class);
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-sticker-thumbup"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem messageItem = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(messageItem);
