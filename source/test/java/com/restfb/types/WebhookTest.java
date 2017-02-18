@@ -334,6 +334,17 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertTrue(value.getPublished());
     assertEquals("https://www.example.org/test.jpg", value.getLink());
     assertEquals("900767076685784", value.getPhotoId());
+    assertNull(value.getMessage());
+  }
+
+  @Test
+  public void feedPhotoAddWithMessage() {
+    FeedPhotoAddValue value =
+        openAndCheckFeedPostBasics("feed-photo-add-message", FeedPhotoAddValue.class, ITEM_PHOTO, ChangeValue.Verb.ADD);
+    assertTrue(value.getPublished());
+    assertEquals("https://www.example.org/test.jpg", value.getLink());
+    assertEquals("900767076685784", value.getPhotoId());
+    assertNotNull(value.getMessage());
   }
 
   @Test
@@ -343,6 +354,17 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertTrue(value.getPublished());
     assertEquals("https://www.example.org/test.jpg", value.getLink());
     assertEquals("900767076685784", value.getPhotoId());
+    assertNull(value.getMessage());
+  }
+
+  @Test
+  public void feedPhotoEditedWithMessage() {
+    FeedPhotoAddValue value = openAndCheckFeedPostBasics("feed-photo-edited-message", FeedPhotoAddValue.class,
+      ITEM_PHOTO, ChangeValue.Verb.EDITED);
+    assertTrue(value.getPublished());
+    assertEquals("https://www.example.org/test.jpg", value.getLink());
+    assertEquals("900767076685784", value.getPhotoId());
+    assertNotNull(value.getMessage());
   }
 
   @Test
@@ -367,6 +389,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
         openAndCheckFeedPostBasics("feed-video-add", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.ADD);
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
+    assertNotNull(value.getMessage());
   }
 
   @Test
@@ -376,6 +399,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
     assertTrue(value.getPublished().booleanValue());
+    assertNotNull(value.getMessage());
   }
 
   @Test
