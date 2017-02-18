@@ -47,4 +47,9 @@ public class FeedPhotoAddValue extends AbstractFeedPostValue {
   @Facebook
   private String link;
 
+  @Getter
+  @Setter
+  @Facebook
+  private String message;
+
 }

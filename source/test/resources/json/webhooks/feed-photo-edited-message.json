@@ -13,7 +13,8 @@
             "verb": "edited",
             "link": "https://www.example.org/test.jpg",
             "published": 1,
-            "created_time": 1467889659
+            "created_time": 1467889659,
+            "message": "Testing"
           }
         }
       ],
