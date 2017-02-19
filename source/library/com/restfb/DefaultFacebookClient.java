@@ -477,7 +477,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> T publish(String connection, Class<T> objectType, Parameter... parameters) {
     return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
   }
-
+  
   @Override
   @Deprecated
   @SuppressWarnings("unchecked")

@@ -159,18 +159,6 @@ public class Comment extends FacebookType {
   private Boolean canComment;
 
   /**
-   * @deprecated use {@see Comment#getCanComment} instead
-   * @return can_comment
-   */
-  @Deprecated
-  public boolean isCanComment() {
-    if (canComment != null) {
-      return canComment.booleanValue();
-    }
-    return false;
-  }
-
-  /**
    * Whether the viewer can hide this comment
    *
    * @return can_hide
@@ -180,18 +168,6 @@ public class Comment extends FacebookType {
   @Setter
   @Facebook("can_hide")
   private Boolean canHide;
-
-  /**
-   * @deprecated use {@see Comment#getCanHide} instead
-   * @return can_hide
-   */
-  @Deprecated
-  public boolean isCanHide() {
-    if (canHide != null) {
-      return canHide.booleanValue();
-    }
-    return false;
-  }
 
   /**
    * Whether the viewer can send a private reply to this comment (Page viewers only)
@@ -277,6 +253,30 @@ public class Comment extends FacebookType {
   private List<MessageTag> messageTags = new ArrayList<MessageTag>();
 
   private static final long serialVersionUID = 2L;
+
+  /**
+   * @deprecated use {@see Comment#getCanComment} instead
+   * @return can_comment
+   */
+  @Deprecated
+  public boolean isCanComment() {
+    if (canComment != null) {
+      return canComment.booleanValue();
+    }
+    return false;
+  }
+
+  /**
+   * @deprecated use {@see Comment#getCanHide} instead
+   * @return can_hide
+   */
+  @Deprecated
+  public boolean isCanHide() {
+    if (canHide != null) {
+      return canHide.booleanValue();
+    }
+    return false;
+  }
 
   @JsonMappingCompleted
   void convertTime() {
