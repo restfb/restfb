@@ -43,17 +43,6 @@ public class MessagingPayload {
   @Facebook("sticker_id")
   private String stickerId;
 
-  /**
-   * The user may send a like and this method can be used to discover the three know versions of the sticker
-   *
-   * @return {@code true} if the user sent a like (thumb up sticker), {@code false} otherwise
-   */
-  public boolean isLike() {
-    return ("369239263222822".equals(stickerId) // small like (thumb up) sticker
-        || "369239343222814".equals(stickerId) // medium size sticker
-        || "369239383222810".equals(stickerId)); // large size sticker
-  }
-
   @Getter
   @Setter
   @Facebook
@@ -197,4 +186,15 @@ public class MessagingPayload {
   @Getter
   @Setter
   private String fallback;
+
+  /**
+   * The user may send a like and this method can be used to discover the three know versions of the sticker
+   *
+   * @return {@code true} if the user sent a like (thumb up sticker), {@code false} otherwise
+   */
+  public boolean isLike() {
+    return "369239263222822".equals(stickerId) // small like (thumb up) sticker
+        || "369239343222814".equals(stickerId) // medium size sticker
+        || "369239383222810".equals(stickerId); // large size sticker
+  }
 }

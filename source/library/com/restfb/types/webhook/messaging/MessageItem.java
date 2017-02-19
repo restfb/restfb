@@ -49,7 +49,7 @@ public class MessageItem implements InnerMessagingItem {
   /**
    * Message sequence number
    *
-   * @Deprecated https://messengerblog.com/platform-updates/introducing-messenger-platform-v1-3-and-new-ways-to-drive-the-conversation/
+   * @deprecated https://messengerblog.com/platform-updates/introducing-messenger-platform-v1-3-and-new-ways-to-drive-the-conversation/
    *             "Developers who previously relied on using seq ID for deduping can use mid instead, and those who were
    *             using it for ordering purposes can use timestamp instead."
    */
@@ -102,21 +102,21 @@ public class MessageItem implements InnerMessagingItem {
   private String stickerId;
 
   /**
-   * The user may send a like and this method can be used to discover the three know versions of the sticker
-   * 
-   * @return {@code true} if the user sent a like (thumb up sticker), {@code false} otherwise
-   */
-  public boolean isLike() {
-    return ("369239263222822".equals(stickerId) // small like (thumb up) sticker
-        || "369239343222814".equals(stickerId) // medium size sticker
-        || "369239383222810".equals(stickerId)); // large size sticker
-  }
-
-  /**
    * Array containing attachment data
    */
   @Getter
   @Setter
   @Facebook
   private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
+
+  /**
+   * The user may send a like and this method can be used to discover the three know versions of the sticker
+   *
+   * @return {@code true} if the user sent a like (thumb up sticker), {@code false} otherwise
+   */
+  public boolean isLike() {
+    return "369239263222822".equals(stickerId) // small like (thumb up) sticker
+        || "369239343222814".equals(stickerId) // medium size sticker
+        || "369239383222810".equals(stickerId); // large size sticker
+  }
 }

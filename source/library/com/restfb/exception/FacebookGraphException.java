@@ -49,39 +49,39 @@ public class FacebookGraphException extends FacebookErrorMessageException {
   /**
    * The Facebook Graph API error type.
    */
-  private String errorType;
+  private final String errorType;
 
   /**
    * The Facebook API error message.
    */
-  private String errorMessage;
+  private final String errorMessage;
 
   /**
    * The Facebook API error user title.
    */
-  private String errorUserTitle;
+  private final String errorUserTitle;
 
   /**
    * The Facebook API error user message.
    */
-  private String errorUserMessage;
+  private final String errorUserMessage;
 
   /**
    * The Facebook API error code.
    */
-  private Integer errorCode;
+  private final Integer errorCode;
 
   /**
    * The Facebook API error subcode.
    */
-  private Integer errorSubcode;
+  private final Integer errorSubcode;
 
   /**
    * The HTTP status code returned by the server.
    */
-  private Integer httpStatusCode;
+  private final Integer httpStatusCode;
 
-  private Boolean isTransient;
+  private final Boolean isTransient;
 
   /**
    * Creates an exception with the given error type and message.
