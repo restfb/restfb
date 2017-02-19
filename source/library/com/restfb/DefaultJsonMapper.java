@@ -120,7 +120,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // into an object). Check for that special case here.
       if (isEmptyObject(json)) {
         if (MAPPER_LOGGER.isTraceEnabled()) {
-          MAPPER_LOGGER.trace("Encountered {} when we should've seen []. Mapping the {} as an empty list and moving on...");
+          MAPPER_LOGGER
+            .trace("Encountered {} when we should've seen []. Mapping the {} as an empty list and moving on...");
         }
 
         return new ArrayList<T>();
@@ -246,8 +247,9 @@ public class DefaultJsonMapper implements JsonMapper {
       // Check for that and bail early if we find it.
       if ("false".equals(json)) {
         if (MAPPER_LOGGER.isDebugEnabled()) {
-          MAPPER_LOGGER.debug(format("Encountered 'false' from Facebook when trying to map to %s - mapping null instead.",
-            type.getSimpleName()));
+          MAPPER_LOGGER
+            .debug(format("Encountered 'false' from Facebook when trying to map to %s - mapping null instead.",
+              type.getSimpleName()));
         }
         return null;
       }
@@ -272,7 +274,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
         if (jsonObject.get(facebookFieldName) == null) {
           if (MAPPER_LOGGER.isTraceEnabled()) {
-            MAPPER_LOGGER.trace(format("No JSON value present for '%s', skipping. JSON is '%s'.", facebookFieldName, json));
+            MAPPER_LOGGER
+              .trace(format("No JSON value present for '%s', skipping. JSON is '%s'.", facebookFieldName, json));
           }
 
           continue;
@@ -375,9 +378,9 @@ public class DefaultJsonMapper implements JsonMapper {
     Field field = fieldWithAnnotation.getField();
 
     if (MAPPER_LOGGER.isTraceEnabled()) {
-      MAPPER_LOGGER.trace("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName() + "."
-          + field.getName() + ", but continuing on because '" + facebookFieldName + "' is mapped to multiple fields in "
-          + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);
+      MAPPER_LOGGER.trace("Could not map '" + facebookFieldName + "' to " + field.getDeclaringClass().getSimpleName()
+          + "." + field.getName() + ", but continuing on because '" + facebookFieldName
+          + "' is mapped to multiple fields in " + field.getDeclaringClass().getSimpleName() + ". JSON is " + json);
     }
   }
 
@@ -397,7 +400,8 @@ public class DefaultJsonMapper implements JsonMapper {
     // it's the same name as the Java field
     if (isBlank(facebookFieldName)) {
       if (MAPPER_LOGGER.isTraceEnabled()) {
-        MAPPER_LOGGER.trace(format("No explicit Facebook field name found for %s, so defaulting to the field name itself (%s)",
+        MAPPER_LOGGER
+          .trace(format("No explicit Facebook field name found for %s, so defaulting to the field name itself (%s)",
             field, field.getName()));
       }
 
@@ -544,8 +548,9 @@ public class DefaultJsonMapper implements JsonMapper {
     // the non-null field.
     Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
     if (!facebookFieldNamesWithMultipleMappings.isEmpty() && MAPPER_LOGGER.isDebugEnabled()) {
-      MAPPER_LOGGER.debug(format("Unable to convert to JSON because multiple @%s annotations for the same name are present: %s",
-        Facebook.class.getSimpleName(), facebookFieldNamesWithMultipleMappings));
+      MAPPER_LOGGER
+        .debug(format("Unable to convert to JSON because multiple @%s annotations for the same name are present: %s",
+          Facebook.class.getSimpleName(), facebookFieldNamesWithMultipleMappings));
     }
 
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
@@ -663,17 +668,21 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (String.class.equals(type)) {
-      // Special handling here for better error checking.
-      // Since JsonObject.getString() will return literal JSON text even if it's
-      // _not_ a JSON string, we check the marshaled type and bail if needed.
-      // For example, calling JsonObject.getString("results") on the below
-      // JSON...
-      // {"results":[{"name":"Mark Allen"}]}
-      // ... would return the string "[{"name":"Mark Allen"}]" instead of
-      // throwing an error. So we throw the error ourselves.
-
-      // Per Antonello Naccarato, sometimes FB will return an empty JSON array
-      // instead of an empty string. Look for that here.
+      /*
+       * Special handling here for better error checking.
+       *
+       * Since {@code JsonObject.getString()} will return literal JSON text even if it's _not_ a JSON string, we check
+       * the marshaled type and bail if needed. For example, calling {@code JsonObject.getString("results")} on the
+       * below JSON...
+       *
+       * {@code {"results":[{"name":"Mark Allen"}]}}
+       *
+       * ... would return the string {@code "[{"name":"Mark Allen"}]"} instead of throwing an error. So we throw the
+       * error ourselves.
+       *
+       * Per Antonello Naccarato, sometimes FB will return an empty JSON array instead of an empty string. Look for that
+       * here.
+       */
       if (rawValue.isArray()) {
         if (rawValue.asArray().size() == 0) {
           if (MAPPER_LOGGER.isTraceEnabled()) {
@@ -684,11 +693,14 @@ public class DefaultJsonMapper implements JsonMapper {
         }
       }
 
-      // If the user wants a string, _always_ give her a string.
-      // This is useful if, for example, you've got a @Facebook-annotated string
-      // field that you'd like to have a numeric type shoved into.
-      // User beware: this will turn *anything* into a string, which might lead
-      // to results you don't expect.
+      /*
+       * If the user wants a string, _always_ give her a string.
+       *
+       * This is useful if, for example, you've got a @Facebook-annotated string field that you'd like to have a numeric
+       * type shoved into.
+       *
+       * User beware: this will turn *anything* into a string, which might lead to results you don't expect.
+       */
       return jsonHelper.getStringFrom(rawValue);
     }
 
@@ -733,8 +745,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
     String rawValueAsString = jsonHelper.getStringFrom(rawValue);
 
-    // Hack for issue 76 where FB will sometimes return a Post's Comments as
-    // "[]" instead of an object type (wtf)
+    // Hack for issue #76 where FB will sometimes return a Post's Comments as
+    // "[]" instead of an object type (wtf)F
     if (Comments.class.isAssignableFrom(type) && rawValue instanceof JsonArray) {
       if (MAPPER_LOGGER.isDebugEnabled()) {
         MAPPER_LOGGER.debug("Encountered comment array '" + rawValueAsString + "' but expected a "

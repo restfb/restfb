@@ -22,6 +22,9 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
+
+import java.io.Serializable;
 
 import lombok.Getter;
 
@@ -44,7 +47,7 @@ public class MediaAttachment extends MessageAttachment {
     payload.setIsReusable(isReusable);
   }
 
-  private static class UrlPayload implements MediaAttachmentPayload {
+  private static class UrlPayload extends AbstractFacebookType implements MediaAttachmentPayload {
 
     @Getter
     @Facebook
@@ -65,7 +68,7 @@ public class MediaAttachment extends MessageAttachment {
 
   }
 
-  private static class ReuseIdPayload implements MediaAttachmentPayload {
+  private static class ReuseIdPayload extends AbstractFacebookType implements MediaAttachmentPayload {
 
     @Getter
     @Facebook("attachment_id")
@@ -81,7 +84,7 @@ public class MediaAttachment extends MessageAttachment {
     }
   }
 
-  private interface MediaAttachmentPayload {
+  private interface MediaAttachmentPayload extends Serializable {
     void setIsReusable(boolean isReusable);
   }
 
