@@ -286,18 +286,6 @@ public class Message extends FacebookType {
     @Facebook("render_as_sticker")
     private Boolean renderAsSticker;
 
-    /**
-     * @deprecated use {@see Message#getRenderAsSticker()} instead
-     * @return
-     */
-    @Deprecated
-    public boolean isRenderAsSticker() {
-      if (renderAsSticker != null) {
-        return renderAsSticker.booleanValue();
-      }
-      return false;
-    }
-
     @Getter
     @Setter
     @Facebook("image_type")
@@ -332,6 +320,18 @@ public class Message extends FacebookType {
     @Setter
     @Facebook("animated_webp_preview_url")
     private String animatedWebpPreviewUrl;
+
+    /**
+     * @deprecated use {@see Message#getRenderAsSticker()} instead
+     * @return
+     */
+    @Deprecated
+    public boolean isRenderAsSticker() {
+      if (renderAsSticker != null) {
+        return renderAsSticker.booleanValue();
+      }
+      return false;
+    }
 
   }
 

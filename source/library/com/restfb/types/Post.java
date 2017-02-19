@@ -746,6 +746,9 @@ public class Post extends NamedFacebookType {
     @Facebook("regions")
     private JsonObject rawRegions;
 
+    @Facebook
+    protected List<Integer> locales = new ArrayList<Integer>();
+
     @JsonMappingCompleted
     private void convertList(JsonMapper mapper) {
       if (rawRegions != null) {
@@ -756,9 +759,6 @@ public class Post extends NamedFacebookType {
         }
       }
     }
-
-    @Facebook
-    protected List<Integer> locales = new ArrayList<Integer>();
 
     public boolean addCity(KeyedType city) {
       if (geoLocations != null) {
