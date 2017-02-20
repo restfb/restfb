@@ -99,7 +99,20 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("901097836652708_903438993085259", value.getCommentId());
     assertEquals(1449135003000L, value.getCreatedTime().getTime());
     assertNotNull(value.getPhoto());
+  }
 
+  @Test
+  public void feedCommentAddWithVideo() {
+    FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-add-with-video", FeedCommentValue.class,
+            ITEM_COMMENT, ChangeValue.Verb.ADD);
+    assertFalse(value.isReply());
+    assertEquals("and the next one", value.getMessage());
+    assertEquals("1234567890321_901097836652708", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("901097836652708_903438993085259", value.getCommentId());
+    assertEquals(1449135003000L, value.getCreatedTime().getTime());
+    assertNotNull(value.getVideo());
+    assertNull(value.getPhoto());
   }
 
   @Test
@@ -126,6 +139,20 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("900728623356296_900744590021366", value.getCommentId());
     assertEquals(1448555737000L, value.getCreatedTime().getTime());
     assertNotNull(value.getPhoto());
+  }
+
+  @Test
+  public void feedCommentEditedWithVideo() {
+    FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-edited-with-video", FeedCommentValue.class,
+            ITEM_COMMENT, ChangeValue.Verb.EDITED);
+    assertFalse(value.isReply());
+    assertEquals("Let's see the Webhooks in action :D", value.getMessage());
+    assertEquals("1234567890321_900728623356296", value.getPostId());
+    assertEquals("1234567890321_900728623356296", value.getParentId());
+    assertEquals("900728623356296_900744590021366", value.getCommentId());
+    assertEquals(1448555737000L, value.getCreatedTime().getTime());
+    assertNotNull(value.getVideo());
+    assertNull(value.getPhoto());
   }
 
   @Test

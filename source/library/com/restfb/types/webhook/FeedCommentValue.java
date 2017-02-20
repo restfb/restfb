@@ -52,6 +52,11 @@ public class FeedCommentValue extends AbstractFeedPostValue {
   @Facebook
   private String photo;
 
+  @Getter
+  @Setter
+  @Facebook
+  private String video;
+
   /**
    * returns {@code true} if the added comment is a reply (a comment to a comment), {@code false} otherwise
    *
