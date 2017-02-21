@@ -24,5 +24,5 @@
 if ([ "$TRAVIS_BRANCH" == "$RESTFB_BRANCH" ] || [ ! -z "$TRAVIS_TAG" ]) && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then
   mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
 else
-  echo "Not analyzed!"
+  mvn test -B
 fi
