@@ -42,6 +42,25 @@
   * Issue #467: Use `Comments` and `Likes` in `Photo` type
   * Issue #452: fix bug from #448
 
+## 1.37.0 (February 21, 2017)
+
+* Issue #660: Leadgen Webhook support added<br>
+  Thanks to @pibernardi for the hint and the test data
+* Issue #661: `business_management` permission added<br>
+  Thanks to @eipark for the hint
+* Issue #662: unit test improvements
+* Issue #663: `addTo` and `removeTo` in `Message` type fixed
+* Issue #664 and #665: `UserPermission` added<br>
+  Thanks to @anenkov for the PR
+* Issue #666: `isLike` method added to Messaging Webhook
+* Issue #667: `photo` field added to `FeedCommentValue`<br>
+  Thanks to @pcricardo for the hint
+* Issue #669: `message` field added to `FeedPhotoAddValue`<br>
+  Thanks to @incredibledevs for the hint
+* Issue #671: `video` field added to `FeedCommentValue`<br>
+  Thanks to @pcricardo for the hint
+* Issue #670: Some code smells removed/fixed  
+
 ## 1.36.0 (January 29, 2017)
 
 * Issue #657: Add `equals`, `hashcode` and `toString` to Send API types<br>
