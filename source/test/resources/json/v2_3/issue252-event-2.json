@@ -30,5 +30,6 @@
   },
   "start_time": "2015-10-01",
   "updated_time": "2015-06-21T10:51:27+0000",
-  "is_date_only": true
+  "is_date_only": true,
+  "is_canceled": true
 }

@@ -132,6 +132,16 @@ public class Event extends NamedFacebookType {
   private String location;
 
   /**
+   * Whether or not the event has been marked as canceled
+   *
+   * @return Whether or not the event has been marked as canceled
+   */
+  @Getter
+  @Setter
+  @Facebook("is_canceled")
+  private Boolean isCanceled;
+
+  /**
    * The RSVP status of this event.
    * 
    * @return The RSVP status of this event.
