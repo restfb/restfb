@@ -32,6 +32,7 @@ import com.restfb.types.User;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -97,6 +98,15 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     assertThat(it).isNotNull();
 
     assertThat(connection).isEqualTo(it.snapshot());
+  }
+
+  @Test
+  public void checkIterator_compatibility() {
+    Connection<FacebookType> connection = create3PageConnection();
+    assertThat(connection).isNotNull();
+
+    Iterator<List<FacebookType>> it = connection.iterator();
+    assertThat(it).isNotNull();
   }
 
   @Test
