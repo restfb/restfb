@@ -21,13 +21,19 @@
  */
 package com.restfb;
 
+import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.types.FacebookType;
 import com.restfb.types.User;
 
 import org.junit.Test;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ConnectionTest extends AbstractJsonMapperTests {
 
@@ -64,5 +70,107 @@ public class ConnectionTest extends AbstractJsonMapperTests {
   public void checkInvalidJson() {
     new Connection<User>(new DefaultFacebookClient(Version.LATEST), "{", User.class);
     failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+  }
+
+  @Test
+  public void checkIterator_reachAllElements() {
+    Connection<FacebookType> connection = create3PageConnection();
+
+    assertThat(connection).isNotNull();
+
+    int counter = 0;
+    for (List<FacebookType> page : connection) {
+      for (FacebookType type : page) {
+        counter++;
+      }
+    }
+
+    assertThat(counter).isEqualTo(18);
+  }
+
+  @Test
+  public void checkIterator_snapshot() {
+    Connection<FacebookType> connection = create3PageConnection();
+    assertThat(connection).isNotNull();
+
+    ConnectionIterator<FacebookType> it = connection.iterator();
+    assertThat(it).isNotNull();
+
+    assertThat(connection).isEqualTo(it.snapshot());
+  }
+
+  @Test
+  public void checkIterator_snapshotNext() {
+    Connection<FacebookType> connection = create3PageConnection();
+    assertThat(connection).isNotNull();
+
+    ConnectionIterator<FacebookType> it = connection.iterator();
+    assertThat(it).isNotNull();
+
+    it.next(); // first page
+    it.next(); // second page
+
+    assertThat(connection).isNotEqualTo(it.snapshot());
+
+    assertThat(it.snapshot().getPreviousPageUrl()).isNotNull().contains("page1");
+    assertThat(it.snapshot().getNextPageUrl()).isNotNull().contains("page3");
+  }
+
+  @Test(expected = NoSuchElementException.class)
+  public void checkIterator_lastThrowsException() {
+    Connection<FacebookType> connection = create3PageConnection();
+    ConnectionIterator<FacebookType> it = connection.iterator();
+    it.next(); // first page
+    it.next(); // second page
+    it.next(); // third and last page
+
+    assertThat(it.hasNext()).isFalse();
+    it.next();
+    failBecauseExceptionWasNotThrown(NoSuchElementException.class);
+  }
+
+  @Test
+  public void checkIterator_withCursor() {
+    Connection<FacebookType> connection = createCursorConnection();
+    assertThat(connection.getAfterCursor()).isEqualTo("NzU1MjI1MjU0");
+    assertThat(connection.getBeforeCursor()).isEqualTo("MTY1MTAyNjUxNg==");
+  }
+
+  private Connection<FacebookType> createCursorConnection() {
+    FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
+      @Override
+      public Response executeGet(String url) throws IOException {
+        return new Response(HTTP_OK, jsonFromClasspath("connection-with-cursor"));
+      }
+    };
+    DefaultFacebookClient facebookClient =
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_8);
+    return facebookClient.fetchConnection("/cursor", FacebookType.class);
+  }
+
+  private Connection<FacebookType> create3PageConnection() {
+    FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
+      @Override
+      public Response executeGet(String url) throws IOException {
+
+        if (url.equals("https://graph.facebook.com/v2.8/page1?access_token=token&format=json")) {
+          return new Response(HTTP_OK, jsonFromClasspath("connection-p1"));
+        }
+
+        if (url.equals("https://graph.facebook.com/v2.8/page2?access_token=token&format=json")) {
+          return new Response(HTTP_OK, jsonFromClasspath("connection-p2"));
+        }
+
+        if (url.equals("https://graph.facebook.com/v2.8/page3?access_token=token&format=json")) {
+          return new Response(HTTP_OK, jsonFromClasspath("connection-p3"));
+        }
+
+        return new Response(HTTP_OK, url);
+
+      }
+    };
+    DefaultFacebookClient facebookClient =
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_8);
+    return facebookClient.fetchConnection("/page1", FacebookType.class);
   }
 }

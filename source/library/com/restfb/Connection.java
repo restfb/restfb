@@ -39,7 +39,8 @@ import java.util.NoSuchElementException;
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
  *
- * @param <T> The Facebook type
+ * @param <T>
+ *          The Facebook type
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Connection<T> implements Iterable<List<T>> {
@@ -57,8 +58,8 @@ public class Connection<T> implements Iterable<List<T>> {
    * @since 1.6.7
    */
   @Override
-  public Iterator<List<T>> iterator() {
-    return new ConnectionIterator<T>(this);
+  public ConnectionIterator<T> iterator() {
+    return new Itr<T>(this);
   }
 
   /**
@@ -67,7 +68,7 @@ public class Connection<T> implements Iterable<List<T>> {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.7
    */
-  protected static class ConnectionIterator<T> implements Iterator<List<T>> {
+  protected static class Itr<T> implements ConnectionIterator<T> {
     private Connection<T> connection;
     private boolean initialPage = true;
 
@@ -77,7 +78,7 @@ public class Connection<T> implements Iterable<List<T>> {
      * @param connection
      *          The connection over which to iterate.
      */
-    protected ConnectionIterator(Connection<T> connection) {
+    protected Itr(Connection<T> connection) {
       this.connection = connection;
     }
 
@@ -115,8 +116,15 @@ public class Connection<T> implements Iterable<List<T>> {
      */
     @Override
     public void remove() {
-      throw new UnsupportedOperationException(
-        ConnectionIterator.class.getSimpleName() + " doesn't support the remove() operation.");
+      throw new UnsupportedOperationException(Itr.class.getSimpleName() + " doesn't support the remove() operation.");
+    }
+
+    /**
+     * @see ConnectionIterator#snapshot()
+     */
+    @Override
+    public Connection<T> snapshot() {
+      return connection;
     }
   }
 
@@ -192,7 +200,7 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   /**
-   * Fetches the next page of the connection. Designed to be used by {@link ConnectionIterator}.
+   * Fetches the next page of the connection. Designed to be used by {@link Itr}.
    * 
    * @return The next page of the connection.
    * @since 1.6.7
