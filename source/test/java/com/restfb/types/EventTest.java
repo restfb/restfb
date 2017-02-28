@@ -45,6 +45,7 @@ public class EventTest extends AbstractJsonMapperTests {
     assertNotNull(event);
     assertNotNull(event.getPlace());
     assertNotNull(event.getPlace().getLocation());
+    assertTrue(event.getIsCanceled());
   }
 
   @Test
