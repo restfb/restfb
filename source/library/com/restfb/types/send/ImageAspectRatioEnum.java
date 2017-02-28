@@ -21,35 +21,6 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import lombok.Getter;
-import lombok.Setter;
-
-public class GenericTemplatePayload extends TemplatePayload {
-
-  @Getter
-  @Facebook
-  private List<Bubble> elements;
-
-  @Getter
-  @Setter
-  @Facebook("image_aspect_ratio")
-  private ImageAspectRatioEnum imageAspectRatio;
-
-  public GenericTemplatePayload() {
-    setTemplateType("generic");
-  }
-
-  public boolean addBubble(Bubble bubble) {
-    if (elements == null) {
-      elements = new ArrayList<Bubble>();
-    }
-
-    return elements.add(bubble);
-  }
-
+public enum ImageAspectRatioEnum {
+  horizontal, square
 }
