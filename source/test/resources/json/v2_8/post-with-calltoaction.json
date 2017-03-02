@@ -1,0 +1,10 @@
+{
+  "id": "256080221451513_392686977790836",
+  "call_to_action": {
+    "type": "CONTACT_US",
+    "value": {
+      "link": "http://google.com/"
+    }
+  },
+  "type": "link"
+}

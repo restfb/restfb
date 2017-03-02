@@ -305,6 +305,17 @@ public class PostTest extends AbstractJsonMapperTests {
     verifyFeedTargeting("v2_8/post-with-feedtargeting-regions");
   }
 
+  @Test
+  public void checkV2_8_calltoaction() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-calltoaction"), Post.class);
+    assertEquals("link", examplePost.getType());
+    assertNotNull(examplePost.getCallToAction());
+    PostCallToAction action = examplePost.getCallToAction();
+    assertEquals("CONTACT_US", action.getType());
+    PostCallToAction.PostCallToActionValue value = action.getValue();
+    assertEquals("http://google.com/", value.getLink());
+  }
+
   private void verifyFeedTargeting(String exampleFile) {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath(exampleFile), Post.class);
     assertNotNull(examplePost);
