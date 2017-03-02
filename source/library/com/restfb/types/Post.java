@@ -61,6 +61,14 @@ public class Post extends NamedFacebookType {
   private CategorizedFacebookType from;
 
   /**
+   * The call to action type used in any Page posts for mobile app engagement ads
+   */
+  @Getter
+  @Setter
+  @Facebook("call_to_action")
+  private PostCallToAction callToAction;
+
+  /**
    * The message.
    *
    * @return The message.
