@@ -100,11 +100,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected static final String IDS_PARAM_NAME = "ids";
 
   /**
-   * Reserved FQL query parameter name.
-   */
-  protected static final String FQL_QUERY_PARAM_NAME = "q";
-
-  /**
    * Reserved "result format" parameter name.
    */
   protected static final String FORMAT_PARAM_NAME = "format";
@@ -444,26 +439,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return publish(connection, objectType, (List<BinaryAttachment>) null, parameters);
   }
 
-  /**
-   * @see com.restfb.FacebookClient#executeFqlQuery(java.lang.String, java.lang.Class, com.restfb.Parameter[])
-   */
-  @Override
-  public <T> List<T> executeFqlQuery(String query, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("query", query);
-    verifyParameterPresence("objectType", objectType);
-
-    for (Parameter parameter : parameters) {
-      if (FQL_QUERY_PARAM_NAME.equals(parameter.name)) {
-        throw new IllegalArgumentException(
-          "You cannot specify the '" + FQL_QUERY_PARAM_NAME + "' URL parameter yourself - "
-              + "RestFB will populate this for you with " + "the query you passed to this method.");
-      }
-    }
-
-    return jsonMapper.toJavaList(makeRequest("fql", false, false, null,
-      parametersWithAdditionalParameter(Parameter.with(FQL_QUERY_PARAM_NAME, query), parameters)), objectType);
-  }
-
   @Override
   public String getLogoutUrl(String next) {
     String parameterString;
@@ -476,48 +451,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     final String fullEndPoint = createEndpointForApiCall("logout.php", false);
     return fullEndPoint + "?" + parameterString;
-  }
-
-  /**
-   * @see com.restfb.FacebookClient#executeFqlMultiquery(java.util.Map, java.lang.Class, com.restfb.Parameter[])
-   */
-  @Override
-  @SuppressWarnings("unchecked")
-  public <T> T executeFqlMultiquery(Map<String, String> queries, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("objectType", objectType);
-
-    for (Parameter parameter : parameters) {
-      if (FQL_QUERY_PARAM_NAME.equals(parameter.name)) {
-        throw new IllegalArgumentException(
-          "You cannot specify the '" + FQL_QUERY_PARAM_NAME + "' URL parameter yourself - "
-              + "RestFB will populate this for you with " + "the queries you passed to this method.");
-      }
-    }
-
-    try {
-      List<JsonObject> jsonObjects = jsonMapper.toJavaList(
-        makeRequest("fql", false, false, null,
-          parametersWithAdditionalParameter(Parameter.with(FQL_QUERY_PARAM_NAME, queriesToJson(queries)), parameters)),
-        JsonObject.class);
-
-      JsonObject normalizedJson = new JsonObject();
-
-      for (JsonObject jsonObject : jsonObjects) {
-
-        // For empty result sets, Facebook will return an empty object instead of
-        // an empty list. Hack around that here.
-        JsonArray resultsArray =
-            jsonObject.get("fql_result_set").isArray() ? jsonObject.get("fql_result_set").asArray() : new JsonArray();
-
-        String key = jsonObject.get("name").toString();
-        normalizedJson.add(key, resultsArray);
-      }
-
-      return objectType.equals(JsonObject.class) ? (T) normalizedJson
-          : jsonMapper.toJavaObject(normalizedJson.toString(), objectType);
-    } catch (ParseException e) {
-      throw new FacebookJsonMappingException("Unable to process fql.multiquery JSON response", e);
-    }
   }
 
   /**
