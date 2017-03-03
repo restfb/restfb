@@ -64,6 +64,20 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void recipientWithPhoneAndName() throws JSONException {
+    PhoneMessageRecipient recipient = new PhoneMessageRecipient("12345");
+    recipient.setName(new PhoneMessageRecipient.Name("Jane", "Doe"));
+
+    assertTrue(recipient instanceof MessageRecipient);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals("{\"phone_number\":\"12345\", \"name\":{\"first_name\":\"Jane\",\"last_name\":\"Doe\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
   public void recipientWithUserRef() throws JSONException {
     UserRefMessageRecipient recipient = new UserRefMessageRecipient("UNIQUE_USER_REF");
 
