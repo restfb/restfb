@@ -21,24 +21,4 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-
-import lombok.Getter;
-
-/**
- * Represents the
- * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/postback-button">Postback
- * Button</a> type
- */
-public class PostbackButton extends AbstractButton implements MenuItem {
-
-  @Getter
-  @Facebook
-  private String payload;
-
-  public PostbackButton(String title, String postbackPayload) {
-    super(title);
-    setType("postback");
-    this.payload = postbackPayload;
-  }
-}
+public interface MenuItem {}

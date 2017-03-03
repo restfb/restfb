@@ -23,57 +23,30 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
-import lombok.Setter;
 
-public class WebButton extends AbstractButton implements MenuItem {
-
-  @Getter
-  @Setter
-  @Facebook("webview_height_ratio")
-  private WebviewHeightEnum webviewHeightRatio;
-
-  @Getter
-  @Facebook
-  private String url;
-
-  @Getter
-  @Facebook("messenger_extensions")
-  private Boolean messengerExtensions;
-
-  @Getter
-  @Facebook("fallback_url")
-  private String fallbackUrl;
-
-  @Facebook("webview_share_button")
-  private String webviewShareButton;
-
-  public WebButton(String title, String webUrl) {
-    super(title);
-    setType("web_url");
-    this.url = webUrl;
-  }
-
-  public void setMessengerExtensions(boolean withMessengerExtensions, String fallbackUrl) {
-    if (withMessengerExtensions) {
-      this.messengerExtensions = true;
-      this.fallbackUrl = fallbackUrl;
-    } else {
-      messengerExtensions = null;
-      this.fallbackUrl = null;
-    }
-  }
+public class NestedButton extends AbstractButton implements MenuItem {
 
   /**
-   * Set to {@code true} to disable sharing in the webview (for sensitive info).
-   * 
-   * @param disable
+   * Top-level menu items that user can interact with.
    */
-  public void setDisableSharing(boolean disable) {
-    if (disable) {
-      webviewShareButton = "hide";
-    } else {
-      webviewShareButton = null;
+  @Getter
+  @Facebook
+  private List<MenuItem> callToActions;
+
+  public NestedButton(String title) {
+    super(title);
+    setType("nested");
+  }
+
+  public void addCallToAction(MenuItem item) {
+    if (callToActions == null) {
+      callToActions = new ArrayList<MenuItem>();
     }
+
+    callToActions.add(item);
   }
 }

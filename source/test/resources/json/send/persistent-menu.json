@@ -1,0 +1,33 @@
+{
+  "locale": "default",
+  "composer_input_disabled": true,
+  "callToActions": [
+    {
+      "callToActions": [
+        {
+          "payload": "PAYBILL_PAYLOAD",
+          "type": "postback",
+          "title": "Pay Bill"
+        },
+        {
+          "payload": "HISTORY_PAYLOAD",
+          "type": "postback",
+          "title": "History"
+        },
+        {
+          "payload": "CONTACT_INFO_PAYLOAD",
+          "type": "postback",
+          "title": "Contact Info"
+        }
+      ],
+      "type": "nested",
+      "title": "My Account"
+    },
+    {
+      "webview_height_ratio": "full",
+      "url": "http://petershats.parseapp.com/hat-news",
+      "type": "web_url",
+      "title": "Latest News"
+    }
+  ]
+}
