@@ -23,15 +23,43 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+
+import java.util.Locale;
+
 import lombok.Getter;
 
 public class Greeting extends AbstractFacebookType {
 
+  /**
+   * The greeting text for the specific locale.
+   */
   @Getter
   @Facebook
   private String text;
 
+  /**
+   * Locale of the greeting text.
+   *
+   * Facebook will show this greeting text when user locale matches the provided locale. You must at least specify
+   * greeting text for the default locale. This is the text Facebook will fall back to if they don't find another
+   * matching the user's locale. See the list of
+   * <a href="https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales">supported
+   * locales</a>.
+   */
+  @Getter
+  @Facebook
+  private String locale;
+
   public Greeting(String text) {
+    this("default", text);
+  }
+
+  public Greeting(String locale, String text) {
     this.text = text;
+    this.locale = locale;
+  }
+
+  public Greeting(Locale locale, String text) {
+    this(locale.toString().toLowerCase(), text);
   }
 }
