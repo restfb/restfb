@@ -23,7 +23,9 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Getter;
+import lombok.Setter;
 
 public class PhoneMessageRecipient extends AbstractFacebookType implements MessageRecipient {
 
@@ -31,7 +33,27 @@ public class PhoneMessageRecipient extends AbstractFacebookType implements Messa
   @Facebook("phone_number")
   private String phoneNumber;
 
+  @Getter
+  @Setter
+  @Facebook
+  private Name name;
+
   public PhoneMessageRecipient(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+  }
+
+  public static class Name {
+
+    public Name(String firstName, String lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+
+    @Facebook("first_name")
+    private String firstName;
+
+    @Facebook("last_name")
+    private String lastName;
+
   }
 }
