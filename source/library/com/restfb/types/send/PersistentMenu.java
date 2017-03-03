@@ -23,57 +23,59 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import lombok.Getter;
 import lombok.Setter;
 
-public class WebButton extends AbstractButton implements MenuItem {
-
-  @Getter
-  @Setter
-  @Facebook("webview_height_ratio")
-  private WebviewHeightEnum webviewHeightRatio;
-
-  @Getter
-  @Facebook
-  private String url;
-
-  @Getter
-  @Facebook("messenger_extensions")
-  private Boolean messengerExtensions;
-
-  @Getter
-  @Facebook("fallback_url")
-  private String fallbackUrl;
-
-  @Facebook("webview_share_button")
-  private String webviewShareButton;
-
-  public WebButton(String title, String webUrl) {
-    super(title);
-    setType("web_url");
-    this.url = webUrl;
-  }
-
-  public void setMessengerExtensions(boolean withMessengerExtensions, String fallbackUrl) {
-    if (withMessengerExtensions) {
-      this.messengerExtensions = true;
-      this.fallbackUrl = fallbackUrl;
-    } else {
-      messengerExtensions = null;
-      this.fallbackUrl = null;
-    }
-  }
+public class PersistentMenu {
 
   /**
-   * Set to {@code true} to disable sharing in the webview (for sensitive info).
-   * 
-   * @param disable
+   * Locale of the menu.
+   *
+   * We will show this menu when user locale matches the provided locale. You must at least specify a menu for the
+   * default locale. This is the menu we will fall back to if we don't find another matching the user's locale. See the
+   * list of supported locales.
    */
-  public void setDisableSharing(boolean disable) {
-    if (disable) {
-      webviewShareButton = "hide";
-    } else {
-      webviewShareButton = null;
+  @Getter
+  @Facebook
+  private String locale;
+
+  /**
+   * Set to true to disable user input in the menu. This means users will only be able to interact with your bot via the
+   * menu, postbacks, buttons, and webviews.
+   */
+  @Setter
+  @Getter
+  @Facebook("composer_input_disabled")
+  private Boolean composerInputDisabled;
+
+  /**
+   * Top-level menu items that user can interact with.
+   */
+  @Getter
+  @Facebook
+  private List<MenuItem> callToActions;
+
+  public PersistentMenu() {
+    this("default");
+  }
+
+  public PersistentMenu(String locale) {
+    this.locale = locale;
+  }
+
+  public PersistentMenu(Locale locale) {
+    this(locale.toString().toLowerCase());
+  }
+
+  public void addCallToAction(MenuItem item) {
+    if (callToActions == null) {
+      callToActions = new ArrayList<MenuItem>();
     }
+
+    callToActions.add(item);
   }
 }
