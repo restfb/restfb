@@ -34,6 +34,8 @@ import lombok.Setter;
 
 public class Message extends AbstractFacebookType {
 
+  private static final int QUICK_REPLY_ITEM_LIMIT = 11;
+
   @Getter
   @Facebook
   private String text;
@@ -97,8 +99,8 @@ public class Message extends AbstractFacebookType {
   }
 
   private void checkPrecondition(int addingRepliesSize) {
-    if (quickReplies.size() + addingRepliesSize > 10) {
-      String message = "You cannot have more than 10 replies in one message, current size/try adding: "
+    if (quickReplies.size() + addingRepliesSize > QUICK_REPLY_ITEM_LIMIT) {
+      String message = "You cannot have more than " + QUICK_REPLY_ITEM_LIMIT + " replies in one message, current size/try adding: "
           + quickReplies.size() + "/" + addingRepliesSize;
       throw new FacebookPreconditionException(message);
     }
