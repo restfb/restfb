@@ -337,6 +337,17 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("909653922461664_940663242694065", value.getParentId());
     assertNull(value.getUserId());
     assertEquals("909653922461664_940663242694065", value.getPostId());
+    assertTrue(value.isPostLike());
+  }
+
+  @Test
+  public void feedLikeAddComment() {
+    FeedLikeValue value = openAndCheckFeedPostBasics("feed-like-add-comment-25", FeedLikeValue.class, ITEM_LIKE, ChangeValue.Verb.ADD);
+    assertFalse(value.isPageLike());
+    assertNull(value.getUserId());
+    assertEquals("940663242694065_659751347534292", value.getCommentId());
+    assertFalse(value.isPostLike());
+    assertTrue(value.isCommentLike());
   }
 
   @Test
