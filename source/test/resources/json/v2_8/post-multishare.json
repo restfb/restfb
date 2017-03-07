@@ -1,0 +1,52 @@
+{
+  "multi_share_end_card": true,
+  "multi_share_optimized": false,
+  "child_attachments": [
+    {
+      "id": "1251316061628168",
+      "picture": "https://external.xx.fbcdn.net/safe_image.php?d=AQABizUF9apnaqEy&w=158&h=158&url=fbstaging%3A%2F%2Fgraph.facebook.com%2Fstaging_resources%2FMDExMjUxMzE1NDA4Mjk0OTAwOjY0ODcyNDk1&_nc_hash=AQDHULWre-aKHrzA",
+      "name": "Google",
+      "link": "https://www.google.hu/",
+      "caption": "",
+      "description": " ",
+      "call_to_action": {
+        "type": "NO_BUTTON",
+        "value": {
+          "link": "https://www.google.hu/",
+          "link_title": "Google"
+        }
+      }
+    },
+    {
+      "id": "1251316068294834",
+      "picture": "https://external.xx.fbcdn.net/safe_image.php?d=AQA5ucGbIvV0Exvk&w=158&h=158&url=fbstaging%3A%2F%2Fgraph.facebook.com%2Fstaging_resources%2FMDExMjUxMzE1NTY0OTYxNTUxOjEzMzU2MDMzNjg%3D&_nc_hash=AQC23_aMRtP1cNSL",
+      "name": "Google",
+      "link": "https://www.google.hu/",
+      "caption": "",
+      "description": " ",
+      "call_to_action": {
+        "type": "NO_BUTTON",
+        "value": {
+          "link": "https://www.google.hu/",
+          "link_title": "Google"
+        }
+      }
+    },
+    {
+      "id": "1251316078294833",
+      "picture": "https://external.xx.fbcdn.net/safe_image.php?d=AQD6KpY4RHUKwZUI&w=158&h=158&url=fbstaging%3A%2F%2Fgraph.facebook.com%2Fstaging_resources%2FMDExMjUxMzE1ODI4Mjk0ODU4OjE3NjA3MTY1NzQ%3D&_nc_hash=AQAylc_McTCuSEvI",
+      "name": "Google",
+      "link": "https://www.google.hu/",
+      "caption": "",
+      "description": " ",
+      "call_to_action": {
+        "type": "NO_BUTTON",
+        "value": {
+          "link": "https://www.google.hu/",
+          "link_title": "Google"
+        }
+      }
+    }
+  ],
+  "id": "957280054365105_1251316064961501"
+}
