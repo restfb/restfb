@@ -61,12 +61,35 @@ public class Post extends NamedFacebookType {
   private CategorizedFacebookType from;
 
   /**
+   * Objectives under which this post can be advertised
+   *
+   * @return Objectives under which this post can be advertised
+   */
+  @Getter
+  @Setter
+  @Facebook("allowed_advertising_objectives")
+  private List<String> allowedAdvertisingObjectives = new ArrayList<String>();
+
+  /**
    * The call to action type used in any Page posts for mobile app engagement ads
    */
   @Getter
   @Setter
   @Facebook("call_to_action")
   private PostCallToAction callToAction;
+
+  @Facebook("child_attachments")
+  private List<Post> childAttachments = new ArrayList<Post>();
+
+  /**
+   * If comments are being mirrored to an external site, this function returns the domain of that external site.
+   *
+   * @return If comments are being mirrored to an external site, this function returns the domain of that external site.
+   */
+  @Getter
+  @Setter
+  @Facebook("comments_mirroring_domain")
+  private String commentsMirroringDomain;
 
   /**
    * The message.
@@ -507,6 +530,22 @@ public class Post extends NamedFacebookType {
   private Boolean isSpherical;
 
   /**
+   * Whether display the end card for a multi-link share post
+   */
+  @Getter
+  @Setter
+  @Facebook("multi_share_end_card")
+  private Boolean multiShareEndCard;
+
+  /**
+   * Whether automatically select the order of the links in multi-link share post when used in an ad
+   */
+  @Getter
+  @Setter
+  @Facebook("multi_share_optimized")
+  private Boolean multiShareOptimized;
+
+  /**
    * Attachments added to a post.
    *
    * To force Facebook to fill the <code>attachments</code> field you have to fetch the post with the
@@ -533,6 +572,14 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook("full_picture")
   private String fullPicture;
+
+  /**
+   * ID of the user or Page the post was shared from
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String via;
 
   private static final long serialVersionUID = 3L;
 
@@ -1367,5 +1414,22 @@ public class Post extends NamedFacebookType {
 
   public void removeStoryTag(MessageTag messageTag) {
     storyTags.remove(messageTag);
+  }
+
+  /**
+   * Sub-shares of a multi-link share post
+   *
+   * @return Sub-shares of a multi-link share post
+   */
+  public List<Post> getChildAttachments() {
+    return unmodifiableList(childAttachments);
+  }
+
+  public void addChildAttachment(Post childAttachment) {
+    childAttachments.add(childAttachment);
+  }
+
+  public void removeChildAttachment(Post childAttachment) {
+    childAttachments.remove(childAttachment);
   }
 }

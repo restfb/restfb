@@ -327,6 +327,24 @@ public class PostTest extends AbstractJsonMapperTests {
     assertEquals("http://google.com/", value.getLink());
   }
 
+  @Test
+  public void checkV2_8_multishare() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-multishare"), Post.class);
+    assertNotNull(examplePost);
+    assertTrue(examplePost.getMultiShareEndCard());
+    assertFalse(examplePost.getMultiShareOptimized());
+    assertEquals(3, examplePost.getChildAttachments().size());
+    Post child1 = examplePost.getChildAttachments().get(0);
+    assertNotNull(child1);
+    assertEquals("1251316061628168", child1.getId());
+    Post child2 = examplePost.getChildAttachments().get(1);
+    assertNotNull(child2);
+    assertEquals("1251316068294834", child2.getId());
+    Post child3 = examplePost.getChildAttachments().get(2);
+    assertNotNull(child3);
+    assertEquals("1251316078294833", child3.getId());
+  }
+
   private void verifyFeedTargeting(String exampleFile) {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath(exampleFile), Post.class);
     assertNotNull(examplePost);

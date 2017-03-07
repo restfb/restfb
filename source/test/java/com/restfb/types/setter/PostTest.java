@@ -38,6 +38,7 @@ public class PostTest extends SetterGetterTestBase {
     addIgnoredField("rawScheduledPublishTime");
     addIgnoredField("likesCount");
     addIgnoredField("messageTags");
+    addIgnoredField("allowedAdvertisingObjectives");
     testInstance(obj);
   }
 
