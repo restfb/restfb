@@ -42,6 +42,11 @@ public class FeedLikeValue extends AbstractFeedPostValue {
   @Facebook("parent_id")
   private String parentId;
 
+  @Getter
+  @Setter
+  @Facebook("comment_id")
+  private String commentId;
+
   /**
    * returns if the page is liked or a post.
    * 
@@ -52,5 +57,23 @@ public class FeedLikeValue extends AbstractFeedPostValue {
    */
   public boolean isPageLike() {
     return userId != null;
+  }
+
+  /**
+   * returns true if the liked item is a comment
+   * 
+   * @return true if the liked item is a comment
+   */
+  public boolean isCommentLike() {
+    return commentId != null;
+  }
+
+  /**
+   * returns true if the liked item is a post
+   * 
+   * @return true if the liked item is a post
+   */
+  public boolean isPostLike() {
+    return getPostId() != null;
   }
 }
