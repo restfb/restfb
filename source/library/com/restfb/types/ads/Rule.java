@@ -21,6 +21,6 @@
  */
 package com.restfb.types.ads;
 
-abstract public class Rule {
+public abstract class Rule {
 
 }

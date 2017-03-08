@@ -33,7 +33,7 @@ public class PostCallToAction extends FacebookType {
   @Facebook
   private PostCallToActionValue value;
 
-  public static class PostCallToActionValue {
+  public static class PostCallToActionValue extends AbstractFacebookType {
 
     @Getter
     @Setter

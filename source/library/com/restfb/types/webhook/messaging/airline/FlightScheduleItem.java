@@ -36,7 +36,7 @@ import lombok.ToString;
 public class FlightScheduleItem {
 
   @Facebook("boarding_time")
-  transient private String rawBoardingTime;
+  private transient String rawBoardingTime;
 
   /**
    * Timestamp for boarding time.
@@ -48,7 +48,7 @@ public class FlightScheduleItem {
   private Date boardingTime;
 
   @Facebook("departure_time")
-  transient private String rawDepartureTime;
+  private transient String rawDepartureTime;
 
   /**
    * Timestamp for departure time.
@@ -60,7 +60,7 @@ public class FlightScheduleItem {
   private Date departureTime;
 
   @Facebook("arrival_time")
-  transient private String rawArrivalTime;
+  private transient String rawArrivalTime;
 
   /**
    * Timestamp for arrival time.

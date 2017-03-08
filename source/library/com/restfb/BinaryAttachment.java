@@ -41,10 +41,14 @@ import lombok.Getter;
  * @since 1.6.5
  */
 public class BinaryAttachment {
+
   @Getter
   private String filename;
+
   private byte[] data;
+
   private InputStream dataStream;
+
   @Getter
   private String contentType;
 
@@ -98,6 +102,52 @@ public class BinaryAttachment {
   }
 
   /**
+   * Creates a new binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   * @since 1.6.17
+   */
+  protected BinaryAttachment(String filename, byte[] data) {
+    if (isBlank(filename)) {
+      throw new IllegalArgumentException("Binary attachment filename cannot be blank.");
+    }
+    if (data == null) {
+      throw new IllegalArgumentException("Binary attachment data cannot be null.");
+    }
+
+    this.filename = filename;
+    this.data = data;
+  }
+
+  /**
+   * Creates a new binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param contentType
+   *          The attachment's contentType.
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null}, {@code filename} is {@code null} or blank, or {@code contentType} is
+   *           {@code null} or blank.
+   * @since 1.6.17
+   */
+  protected BinaryAttachment(String filename, byte[] data, String contentType) {
+    this(filename, data);
+    if (isBlank(contentType)) {
+      throw new IllegalArgumentException("ContentType cannot be null.");
+    }
+
+    this.contentType = contentType;
+  }
+
+  /**
    * Creates a binary attachment.
    * 
    * @param filename
@@ -131,52 +181,6 @@ public class BinaryAttachment {
   @Deprecated
   public static BinaryAttachment with(String filename, InputStream data, String contentType) {
     return new BinaryAttachment(filename, data, contentType);
-  }
-
-  /**
-   * Creates a new binary attachment.
-   * 
-   * @param filename
-   *          The attachment's filename.
-   * @param data
-   *          The attachment's data.
-   * @throws IllegalArgumentException
-   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
-   * @since 1.6.17
-   */
-  protected BinaryAttachment(String filename, byte[] data) {
-    if (isBlank(filename)) {
-      throw new IllegalArgumentException("Binary attachment filename cannot be blank.");
-    }
-    if (data == null) {
-      throw new IllegalArgumentException("Binary attachment data cannot be null.");
-    }
-
-    this.filename = filename;
-    this.data = data;
-  }
-
-  /**
-   * Creates a new binary attachment.
-   * 
-   * @param filename
-   *          The attachment's filename.
-   * @param data
-   *          The attachment's data.
-   * @param contentType
-   *          The attachment's contentType.
-   * @throws IllegalArgumentException
-   *           If {@code data} is {@code null}, {@code filename} is {@code null} or blank, or {@code contentType} is
-   *           {@code null} or blank.
-   * @since 1.6.17
-   */
-  protected BinaryAttachment(String filename, byte[] data, String contentType) {
-    this(filename, data);
-    if (isBlank(contentType)) {
-      throw new IllegalArgumentException("ContentType cannot be null.");
-    }
-
-    this.contentType = contentType;
   }
 
   /**

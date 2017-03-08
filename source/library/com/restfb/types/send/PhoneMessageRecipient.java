@@ -42,18 +42,20 @@ public class PhoneMessageRecipient extends AbstractFacebookType implements Messa
     this.phoneNumber = phoneNumber;
   }
 
-  public static class Name {
+  public static class Name extends AbstractFacebookType {
+
+    @Getter
+    @Facebook("first_name")
+    private String firstName;
+
+    @Getter
+    @Facebook("last_name")
+    private String lastName;
 
     public Name(String firstName, String lastName) {
       this.firstName = firstName;
       this.lastName = lastName;
     }
-
-    @Facebook("first_name")
-    private String firstName;
-
-    @Facebook("last_name")
-    private String lastName;
 
   }
 }
