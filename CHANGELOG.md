@@ -1,5 +1,26 @@
 # RestFB Changelog
 
+## 1.38.0 (March 9, 2017)
+
+* Messenger Platform 1.4 support
+  * Issue #680: `PersistentMenu` added
+  * Issue #683: quick replies limit increased to 11
+  * Issue #682: `locale` added to `Greeting`
+  * Issue #681: optional `name` field added to phone recipient
+  * Issue #676: `image_aspect_ratio` added to `GenericTemplatePayload`  
+* Issue #673: `AdStudy` type added<br>
+  Thanks to @hkroger for the hint
+* Issue #674: `is_canceled` added to `Event`type<br>
+  Thanks to @DerKeil for the hint
+* Issue #672: `snapshot()` method added to connection iterator<br>
+  Thanks to @DerKeil for the information and the hints
+* Issue #679: `call_to_action` added to `Post` type<br>
+  Thanks to @CrWEE for the hint
+* Issue #685: `child_attachments` added to `Post` type<br>
+  Thanks to @nemzsom for the hint
+* Issue #686: `comment_id` added to `FeedLikeValue` webhook type<br>
+  Thanks to @Glenn-Bergmans for the hint
+
 ## 1.37.0 (February 21, 2017)
 
 * Issue #660: Leadgen Webhook support added<br>
