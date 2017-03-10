@@ -37,14 +37,20 @@ import com.restfb.exception.*;
 import com.restfb.exception.devicetoken.*;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.exception.generator.FacebookExceptionGenerator;
-import com.restfb.json.*;
+import com.restfb.json.Json;
+import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
+import com.restfb.json.ParseException;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.EncodingUtils;
 import com.restfb.util.StringUtils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -70,24 +76,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   private FacebookExceptionGenerator graphFacebookExceptionGenerator;
 
-  protected static final String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
+  protected String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
 
   /**
    * API endpoint URL.
    */
-  protected static final String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
+  protected String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
 
   /**
    * Read-only API endpoint URL.
    */
-  protected static final String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
+  protected String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
 
   /**
    * Video Upload API endpoint URL.
    * 
    * @since 1.6.5
    */
-  protected static final String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
+  protected String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
 
   /**
    * Reserved method override parameter name.
@@ -283,6 +289,46 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   public FacebookExceptionGenerator getFacebookExceptionGenerator() {
     return graphFacebookExceptionGenerator;
+  }
+
+  /**
+   * Redirect the Facebook endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook endpoint
+   */
+  public void setFacebookEndpointUrl(String url) {
+    this.FACEBOOK_ENDPOINT_URL = url;
+  }
+
+  /**
+   * Redirect the Facebook graph endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook graph endpoint
+   */
+  public void setFacebookGraphEndpointUrl(String url) {
+    this.FACEBOOK_GRAPH_ENDPOINT_URL = url;
+  }
+
+  /**
+   * Redirect the Facebook read only endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook read only endpoint
+   */
+  public void setFacebookReadOnlyEndpointUrl(String url) {
+    this.FACEBOOK_READ_ONLY_ENDPOINT_URL = url;
+  }
+
+  /**
+   * Redirect the Facebook graph video endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook graph video endpoint
+   */
+  public void setFacebookGraphVideoEndpointUrl(String url) {
+    this.FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = url;
   }
 
   /**
