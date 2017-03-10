@@ -70,24 +70,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected FacebookExceptionMapper graphFacebookExceptionMapper;
 
-  protected static final String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
+  protected String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
 
   /**
    * API endpoint URL.
    */
-  protected static final String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
+  protected String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
 
   /**
    * Read-only API endpoint URL.
    */
-  protected static final String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
+  protected String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
 
   /**
    * Video Upload API endpoint URL.
    * 
    * @since 1.6.5
    */
-  protected static final String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
+  protected String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
 
   /**
    * Reserved method override parameter name.
@@ -326,6 +326,46 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     graphFacebookExceptionMapper = createGraphFacebookExceptionMapper();
 
     illegalParamNames.addAll(Arrays.asList(ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME));
+  }
+
+  /**
+   * Redirect the Facebook endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook endpoint
+   */
+  public void setFacebookEndpointUrl(String url) {
+    this.FACEBOOK_ENDPOINT_URL = url;
+  }
+
+  /**
+   * Redirect the Facebook graph endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook graph endpoint
+   */
+  public void setFacebookGraphEndpointUrl(String url) {
+    this.FACEBOOK_GRAPH_ENDPOINT_URL = url;
+  }
+
+  /**
+   * Redirect the Facebook read only endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook read only endpoint
+   */
+  public void setFacebookReadOnlyEndpointUrl(String url) {
+    this.FACEBOOK_READ_ONLY_ENDPOINT_URL = url;
+  }
+
+  /**
+   * Redirect the Facebook graph video endpoint URL. This is useful when testing with virtual/mock services.
+   *
+   * @param url
+   *          The new URL for the Facebook graph video endpoint
+   */
+  public void setFacebookGraphVideoEndpointUrl(String url) {
+    this.FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = url;
   }
 
   /**
