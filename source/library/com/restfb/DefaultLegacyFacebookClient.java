@@ -43,7 +43,10 @@ import java.util.Map.Entry;
  * client.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ *
+ * @deprecated The old Rest API is deprecated with the Graph API 2.0, please migrate your code to the Graph API
  */
+@Deprecated
 public class DefaultLegacyFacebookClient extends BaseFacebookClient implements LegacyFacebookClient {
   /**
    * Facebook API key.

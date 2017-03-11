@@ -47,7 +47,10 @@ import java.util.Map;
  * </ul>
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
+ *
+ * @deprecated The old Rest API is deprecated with the Graph API 2.0, please migrate your code to the Graph API
  */
+@Deprecated
 public interface LegacyFacebookClient {
   /**
    * Executes a Facebook API method with the given {@code parameters}, ignoring the response.
