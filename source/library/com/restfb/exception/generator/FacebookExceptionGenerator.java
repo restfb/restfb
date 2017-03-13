@@ -31,7 +31,7 @@ import com.restfb.exception.FacebookResponseStatusException;
  * <p>
  * Provides methods to convert graph api errors and batch errors.
  */
-public interface FacebookExceptionGenerator extends LegacyFacebookExceptionGenerator {
+public interface FacebookExceptionGenerator {
 
   /**
    * API error response 'error' attribute name.

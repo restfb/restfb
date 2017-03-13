@@ -26,8 +26,6 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.util.Arrays.asList;
 
-import com.restfb.exception.generator.DefaultLegacyFacebookExceptionGenerator;
-import com.restfb.exception.generator.LegacyFacebookExceptionGenerator;
 import com.restfb.json.JsonObject;
 import com.restfb.json.ParseException;
 
@@ -37,8 +35,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * Base class that contains data and functionality common to {@link DefaultFacebookClient} and
- * {@link DefaultLegacyFacebookClient}.
+ * Base class that contains data and functionality from {@link DefaultFacebookClient}
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -53,11 +50,6 @@ abstract class BaseFacebookClient {
    * Handles mapping Facebook response JSON to Java objects.
    */
   protected JsonMapper jsonMapper;
-
-  /**
-   * legacy facebook exception generator to convert Facebook error json into java exceptions
-   */
-  private LegacyFacebookExceptionGenerator legacyFacebookExceptionGenerator;
 
   /**
    * Set of parameter names that user must not specify themselves, since we use these parameters internally.
@@ -84,28 +76,6 @@ abstract class BaseFacebookClient {
    */
   public BaseFacebookClient() {
     initializeReadOnlyApiCalls();
-    legacyFacebookExceptionGenerator = new DefaultLegacyFacebookExceptionGenerator();
-  }
-
-  /**
-   * fetch the current legacy facebook exception generator implementing the {@see LegacyFacebookExceptionGenerator}
-   * interface
-   *
-   * @return the current legacy facebook exception generator
-   */
-  public LegacyFacebookExceptionGenerator getLegacyFacebookExceptionGenerator() {
-    return legacyFacebookExceptionGenerator;
-  }
-
-  /**
-   * override the default legacy facebook exception generator to provide a custom handling for the legacy facebook error
-   * objects
-   *
-   * @param legacyExceptionGenerator
-   *          the custom legacy exception generator implementing the {@see LegacyFacebookExceptionGenerator} interface
-   */
-  public void setLegacyFacebookExceptionGenerator(LegacyFacebookExceptionGenerator legacyExceptionGenerator) {
-    legacyFacebookExceptionGenerator = legacyExceptionGenerator;
   }
 
   /**

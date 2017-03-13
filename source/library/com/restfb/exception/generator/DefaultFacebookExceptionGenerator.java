@@ -28,8 +28,7 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.ParseException;
 
-public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExceptionGenerator
-    implements FacebookExceptionGenerator {
+public class DefaultFacebookExceptionGenerator implements FacebookExceptionGenerator {
 
   /**
    * Knows how to map Graph API exceptions to formal Java exception types.
@@ -45,9 +44,6 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
   public void throwFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     try {
       skipResponseStatusExceptionParsing(json);
-
-      // If we have a legacy exception, throw it.
-      throwLegacyFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
 
       // If we have a batch API exception, throw it.
       throwBatchFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
@@ -100,7 +96,7 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
       ExceptionInformation container = new ExceptionInformation(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME, 0),
         httpStatusCode, errorObject.getString(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME, null), errorObject);
 
-      throw legacyFacebookExceptionMapper.exceptionForTypeAndMessage(container);
+      throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(container);
     } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to process the Facebook API response", e);
     } catch (ResponseErrorJsonParsingException ex) {
@@ -118,6 +114,46 @@ public class DefaultFacebookExceptionGenerator extends DefaultLegacyFacebookExce
    */
   protected FacebookExceptionMapper createGraphFacebookExceptionMapper() {
     return new DefaultGraphFacebookExceptionMapper();
+  }
+
+  /**
+   * checks if a string may be a json and contains a error string somewhere, this is used for speedup the error parsing
+   *
+   * @param json
+   */
+  protected void skipResponseStatusExceptionParsing(String json) throws ResponseErrorJsonParsingException {
+    // If this is not an object, it's not an error response.
+    if (!json.startsWith("{")) {
+      throw new ResponseErrorJsonParsingException();
+    }
+
+    int subStrEnd = Math.min(50, json.length());
+    if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+      throw new ResponseErrorJsonParsingException();
+    }
+  }
+
+  /**
+   * create a {@see JsonObject} from String and swallow possible {@see JsonException}
+   *
+   * @param json
+   *          the string representation of the json
+   * @return the JsonObject, may be <code>null</code>
+   */
+  protected JsonObject silentlyCreateObjectFromString(String json) {
+    JsonObject errorObject = null;
+
+    // We need to swallow exceptions here because it's possible to get a legit
+    // Facebook response that contains illegal JSON (e.g.
+    // users.getLoggedInUser returning 1240077) - we're only interested in
+    // whether or not there's an error_code field present.
+    try {
+      errorObject = Json.parse(json).asObject();
+    } catch (ParseException e) {
+      // do nothing here
+    }
+
+    return errorObject;
   }
 
   /**

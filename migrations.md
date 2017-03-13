@@ -5,6 +5,8 @@ Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a m
 * RC2
   * `User.Work` -> `WorkExperience`
   * `FacebookPermissions` interface is the only enum now, all permission are part of it.
+  * `LegacyFacebookClient` removed
+  * `DefaultLegacyFacebookClient` removed
 * RC1
   * Logging changed, `slf4j` is used if present
   * `Comment.Attachment` -> `StoryAttachment`
@@ -125,3 +127,11 @@ their category. Facebook has several categories and a permission is connected to
 The main categories are "user data" and "events, groups and pages". Now the permissions can be found
 in one class and the category is part of the permission. With this change it is much easier to 
 find a permission and work with them.
+
+## Removed the `LegacyFacebookClient`
+The old FacebookClient was used for accessing the Facebook Rest API. This API is deprecated and removed 
+with the deprecation of the Graph API 2.0. The calls lead only to an error. So we removed the 
+stuff that is related to the Rest API. Mainly the `LegacyFacebookClient` and its implementation 
+(`DefaultLegacyFacebookClient`) are removed. Additionally the exception generator was cleaned up, because
+here the legacy stuff is not needed anymore. With this change the error handling of the Batch processing
+is changed a bit, but should not disturb currently working installations.
