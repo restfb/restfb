@@ -104,7 +104,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedCommentAddWithVideo() {
     FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-add-with-video", FeedCommentValue.class,
-            ITEM_COMMENT, ChangeValue.Verb.ADD);
+      ITEM_COMMENT, ChangeValue.Verb.ADD);
     assertFalse(value.isReply());
     assertEquals("and the next one", value.getMessage());
     assertEquals("1234567890321_901097836652708", value.getPostId());
@@ -144,7 +144,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedCommentEditedWithVideo() {
     FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-edited-with-video", FeedCommentValue.class,
-            ITEM_COMMENT, ChangeValue.Verb.EDITED);
+      ITEM_COMMENT, ChangeValue.Verb.EDITED);
     assertFalse(value.isReply());
     assertEquals("Let's see the Webhooks in action :D", value.getMessage());
     assertEquals("1234567890321_900728623356296", value.getPostId());
@@ -342,7 +342,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedLikeAddComment() {
-    FeedLikeValue value = openAndCheckFeedPostBasics("feed-like-add-comment-25", FeedLikeValue.class, ITEM_LIKE, ChangeValue.Verb.ADD);
+    FeedLikeValue value =
+        openAndCheckFeedPostBasics("feed-like-add-comment-25", FeedLikeValue.class, ITEM_LIKE, ChangeValue.Verb.ADD);
     assertFalse(value.isPageLike());
     assertNull(value.getUserId());
     assertEquals("940663242694065_659751347534292", value.getCommentId());
@@ -493,6 +494,36 @@ public class WebhookTest extends AbstractJsonMapperTests {
   public void ratingsLikeRemove() {
     RatingsLikeValue value = openAndCheckBasics("ratings-like-remove-25", RatingsLikeValue.class, FIELD_RATINGS,
       ITEM_LIKE, ChangeValue.Verb.REMOVE);
+  }
+
+  @Test
+  public void ratingsReactionAdd() {
+    RatingsReactionValue value = openAndCheckBasics("ratings-reaction-add", RatingsReactionValue.class, FIELD_RATINGS,
+      ITEM_REACTION, ChangeValue.Verb.ADD);
+    assertNull(value.getReviewText());
+    assertNull(value.getCommentId());
+    assertEquals("716630661754264", value.getOpenGraphStoryId());
+    assertEquals("haha", value.getReactionType());
+  }
+
+  @Test
+  public void ratingsReactionEdit() {
+    RatingsReactionValue value = openAndCheckBasics("ratings-reaction-edit", RatingsReactionValue.class, FIELD_RATINGS,
+      ITEM_REACTION, ChangeValue.Verb.EDIT);
+    assertNull(value.getReviewText());
+    assertNull(value.getCommentId());
+    assertEquals("716630661754264", value.getOpenGraphStoryId());
+    assertEquals("angry", value.getReactionType());
+  }
+
+  @Test
+  public void ratingsReactionRemove() {
+    RatingsReactionValue value = openAndCheckBasics("ratings-reaction-remove", RatingsReactionValue.class,
+      FIELD_RATINGS, ITEM_REACTION, ChangeValue.Verb.REMOVE);
+    assertNull(value.getReviewText());
+    assertNull(value.getCommentId());
+    assertEquals("716630661754264", value.getOpenGraphStoryId());
+    assertEquals("angry", value.getReactionType());
   }
 
   @Test

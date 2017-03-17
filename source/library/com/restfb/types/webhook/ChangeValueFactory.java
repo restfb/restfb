@@ -112,6 +112,9 @@ public class ChangeValueFactory {
     RATINGS_COMMENT_REMOVE(RatingsCommentValue.class), //
     RATINGS_LIKE_ADD(RatingsLikeValue.class), //
     RATINGS_LIKE_REMOVE(RatingsLikeValue.class), //
+    RATINGS_REACTION_ADD(RatingsReactionValue.class), //
+    RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //
+    RATINGS_REACTION_EDIT(RatingsReactionValue.class), //
     CONVERSATIONS(PageConversation.class), //
     LEADGEN(PageLeadgen.class);
 

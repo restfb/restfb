@@ -1,0 +1,27 @@
+{
+  "entry": [
+    {
+      "changes": [
+        {
+          "field": "ratings",
+          "value": {
+            "reaction_type": "haha",
+            "post_id": "100002241334695_904801129604590",
+            "sender_name": "Testers Paradise",
+            "comment_id": null,
+            "sender_id": 705955836155788,
+            "review_text": null,
+            "item": "reaction",
+            "verb": "add",
+            "parent_id": "100002241334695_904801129604590",
+            "created_time": 1489617863,
+            "open_graph_story_id": 716630661754264
+          }
+        }
+      ],
+      "id": "1234567890321",
+      "time": 1489617864
+    }
+  ],
+  "object": "page"
+}
