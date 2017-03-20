@@ -38,6 +38,41 @@ public class PostCallToAction extends FacebookType {
     @Getter
     @Setter
     @Facebook
+    private String application;
+
+    @Getter
+    @Setter
+    @Facebook("lead_gen_form_id")
+    private String leadGenFormId;
+
+    @Getter
+    @Setter
+    @Facebook
     private String link;
+
+    @Getter
+    @Setter
+    @Facebook("link_caption")
+    private String linkCaption;
+
+    @Getter
+    @Setter
+    @Facebook("link_description")
+    private String linkDescription;
+
+    @Getter
+    @Setter
+    @Facebook("link_format")
+    private String linkFormat;
+
+    @Getter
+    @Setter
+    @Facebook("link_title")
+    private String linkTitle;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String page;
   }
 }

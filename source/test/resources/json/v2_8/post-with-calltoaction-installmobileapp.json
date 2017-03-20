@@ -1,0 +1,11 @@
+{
+  "call_to_action": {
+    "type": "INSTALL_MOBILE_APP",
+    "value": {
+      "link": "http://play.google.com/store/apps/details?id=com.king.candycrushsaga",
+      "application": "210831918949520",
+      "link_title": "Candy Crush Saga"
+    }
+  },
+  "id": "580802772014902_1266268073468365"
+}

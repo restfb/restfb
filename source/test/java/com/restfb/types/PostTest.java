@@ -317,7 +317,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_8_calltoaction() {
+  public void checkV2_8_calltoaction_contactUs() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-calltoaction"), Post.class);
     assertEquals("link", examplePost.getType());
     assertNotNull(examplePost.getCallToAction());
@@ -325,6 +325,34 @@ public class PostTest extends AbstractJsonMapperTests {
     assertEquals("CONTACT_US", action.getType());
     PostCallToAction.PostCallToActionValue value = action.getValue();
     assertEquals("http://google.com/", value.getLink());
+  }
+
+  @Test
+  public void checkV2_8_calltoaction_getQuote() {
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-calltoaction-getquote"), Post.class);
+    assertNotNull(examplePost.getCallToAction());
+    PostCallToAction action = examplePost.getCallToAction();
+    assertEquals("GET_QUOTE", action.getType());
+    PostCallToAction.PostCallToActionValue value = action.getValue();
+    assertEquals("http://fb.me/", value.getLink());
+    assertEquals("www.spray-net.com", value.getLinkCaption());
+    assertEquals("1747620755505911", value.getLeadGenFormId());
+    assertEquals("Book your free at-home consultation in London, ON!", value.getLinkDescription());
+    assertEquals("Revamp Your Doors & Windows in London, ON", value.getLinkTitle());
+  }
+
+  @Test
+  public void checkV2_8_calltoaction_installMobileApp() {
+    Post examplePost =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-calltoaction-installmobileapp"), Post.class);
+    assertNotNull(examplePost.getCallToAction());
+    PostCallToAction action = examplePost.getCallToAction();
+    assertEquals("INSTALL_MOBILE_APP", action.getType());
+    PostCallToAction.PostCallToActionValue value = action.getValue();
+    assertEquals("http://play.google.com/store/apps/details?id=com.king.candycrushsaga", value.getLink());
+    assertEquals("210831918949520", value.getApplication());
+    assertEquals("Candy Crush Saga", value.getLinkTitle());
   }
 
   @Test
