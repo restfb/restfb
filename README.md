@@ -59,7 +59,7 @@ You can write your own types too!
 
 ```java
 User user = facebookClient.fetchObject("me", User.class);
-Page page = facebookClient.fetchObject("cocacola", Parameter.with("fields", "fan_count"), Page.class);
+Page page = facebookClient.fetchObject("cocacola", Page.class, Parameter.with("fields", "fan_count"));
 
 out.println("User name: " + user.getName());
 out.println("Page likes: " + page.getFanCount());
