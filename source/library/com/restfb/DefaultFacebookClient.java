@@ -384,7 +384,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     // Normalize the IDs
     for (int i = 0; i < ids.size(); i++) {
-      String id = ids.get(i).trim().toLowerCase();
+      String id = ids.get(i).trim();
       if ("".equals(id)) {
         throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
       }

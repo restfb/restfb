@@ -42,7 +42,10 @@ import com.restfb.types.send.SendResponse;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -192,6 +195,58 @@ public class FacebookClientTest {
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v2.6/me/messages");
     assertThat(requestor).isParametersEqualTo(
       "recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json");
+  }
+
+  @Test
+  public void checkfetchObjects() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+
+    List<String> idList = new ArrayList<String>();
+    idList.add("123456789  ");
+    idList.add("abcdefghijkl");
+    idList.add("m_mid:35723r72$bfehZFDEBDET");
+
+    fbc.fetchObjects(idList, String.class);
+
+    assertThat(requestor.getSavedUrl()).contains("123456789", "abcdefghijkl", "m_mid%3A35723r72%24bfehZFDEBDET");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void checkfetchObjects_withEmptyId() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+
+    List<String> idList = new ArrayList<String>();
+    idList.add("  ");
+    idList.add("abcdefghijkl");
+    idList.add("m_mid:35723r72$bfehZFDEBDET");
+
+    fbc.fetchObjects(idList, String.class);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void checkfetchObjects_idsAsParameter() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+
+    List<String> idList = new ArrayList<String>();
+    idList.add("abcdefghijkl");
+    idList.add("m_mid:35723r72$bfehZFDEBDET");
+
+    fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void checkfetchObjects_emptyList() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+
+    fbc.fetchObjects(Collections.EMPTY_LIST, String.class);
   }
 
   @Test
