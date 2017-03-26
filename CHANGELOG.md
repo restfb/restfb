@@ -42,6 +42,21 @@
   * Issue #467: Use `Comments` and `Likes` in `Photo` type
   * Issue #452: fix bug from #448
 
+## 1.39.0 (March 26, 2017)
+
+* Issue #691: Rest API set to deprecated
+* Issue #690: Contributing.md added
+* Issue #696: Version 2.2 set to deprecated
+* Issue #694: Webhook: missing ChangeValues RATINGS_REACTION_ADD/EDIT/REMOVE
+* Issue #697: Missing fields in post.call_to_action added<br>
+  Thanks to @nemzsom for the hint
+* Issue #699: README.md updated<br>
+  Thanks to @chena for the PR
+* Issue #698 and #702: fetchObjects normelizes IDs<br>
+  Thanks to @UbaldoF and @oferfort for the hints
+* Issue #693: Adding setters to the facebook endpoint URL's<br>
+  Thanks to @jaguth for the PR
+
 ## 1.38.0 (March 9, 2017)
 
 * Messenger Platform 1.4 support
