@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2.0.0-rc.2 (March 28, 2017)
+
+* Issue #577: Move permissions in one class
+* Issue #642: Use AssertJ in core unit tests
+* Issue #677: Remove obsolete FQL methods
+* Issue #692: Remove Rest API access
+
 ## 2.0.0-rc.1 (December 24, 2016)
 
 * new Json parser
