@@ -301,6 +301,22 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("status", value.getItem());
     assertEquals("This is an edited test message", value.getMessage());
     assertTrue(value.getPublished());
+    assertEquals(0, value.getPhotos().size());
+  }
+
+  @Test
+  public void feedStatusEdited_withPhotos() {
+    FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-edited-photos", FeedStatusValue.class, ITEM_STATUS,
+            ChangeValue.Verb.EDITED);
+    assertEquals("edited", value.getVerbAsString());
+    assertEquals("Tester", value.getSenderName());
+    assertEquals("status", value.getItem());
+    assertEquals("This is an edited test message", value.getMessage());
+    assertTrue(value.getPublished());
+    assertEquals(3, value.getPhotos().size());
+    assertTrue(value.getPhotos().get(0).contains("exampleimage1.png"));
+    assertTrue(value.getPhotos().get(1).contains("exampleimage2.png"));
+    assertTrue(value.getPhotos().get(2).contains("exampleimage3.png"));
   }
 
   @Test
@@ -311,6 +327,21 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_930145403745849", value.getPostId());
     assertEquals("Tester", value.getSenderName());
     assertEquals(1448633038000L, value.getCreatedTime().getTime());
+    assertEquals(0, value.getPhotos().size());
+  }
+
+  @Test
+  public void feedStatusAdd_withPhotos() {
+    FeedStatusValue value =
+            openAndCheckFeedPostBasics("feed-status-add-photos", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.ADD);
+    assertTrue(value.getPublished().booleanValue());
+    assertEquals("1234567890321_930145403745849", value.getPostId());
+    assertEquals("Tester", value.getSenderName());
+    assertEquals(1448633038000L, value.getCreatedTime().getTime());
+    assertEquals(3, value.getPhotos().size());
+    assertTrue(value.getPhotos().get(0).contains("exampleimage1.png"));
+    assertTrue(value.getPhotos().get(1).contains("exampleimage2.png"));
+    assertTrue(value.getPhotos().get(2).contains("exampleimage3.png"));
   }
 
   @Test

@@ -27,6 +27,9 @@ import com.restfb.types.webhook.base.AbstractFeedPostValue;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Change value for feed status
  */
@@ -41,4 +44,9 @@ public class FeedStatusValue extends AbstractFeedPostValue {
   @Setter
   @Facebook
   private String message;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<String> photos = new ArrayList<String>();
 }

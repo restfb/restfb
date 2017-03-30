@@ -35,7 +35,7 @@ public class FeedShareValue extends AbstractFeedPostValue {
   @Getter
   @Setter
   @Facebook
-  Boolean published;
+  private Boolean published;
 
   @Getter
   @Setter
