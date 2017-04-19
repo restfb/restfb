@@ -1,0 +1,4 @@
+{
+  "tag": "SHIPPING_UPDATE",
+  "description": "The shipping_update tag may only be used to provide a shipping status notification for a product that has already been purchased. For example, when the product is shipped, in-transit, delivered, or delayed. This tag cannot be used for use cases beyond those listed above or for promotional content (ex: daily deals, coupons and discounts, or sale announcements)."
+}
