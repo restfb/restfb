@@ -111,6 +111,7 @@ public class User extends NamedFacebookType {
   /**
    * Shortened, locale-aware name for the person.
    *
+   * @RestFB.GraphApi.Since 2.9
    * @return Shortened, locale-aware name for the person
    */
   @Getter
