@@ -101,4 +101,12 @@ public class UserTest extends AbstractJsonMapperTests {
     assertEquals(1L, exampleUser.getLabels().size());
   }
 
+  @Test
+  public void checkV2_9_shortName() {
+    User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/user-with-short"), User.class);
+    assertNotNull(exampleUser);
+    assertNotNull(exampleUser.getShortName());
+    assertEquals("Tester", exampleUser.getShortName());
+  }
+
 }
