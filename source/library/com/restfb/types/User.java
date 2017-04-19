@@ -109,6 +109,16 @@ public class User extends NamedFacebookType {
   private String lastName;
 
   /**
+   * Shortened, locale-aware name for the person.
+   *
+   * @return Shortened, locale-aware name for the person
+   */
+  @Getter
+  @Setter
+  @Facebook("short_name")
+  private String shortName;
+
+  /**
    * The person's cover photo
    *
    * @return The person's cover photo
