@@ -82,4 +82,5 @@ public class Subscription extends AbstractFacebookType {
   @Facebook
   private Boolean active;
 
+
 }
