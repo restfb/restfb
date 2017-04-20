@@ -34,6 +34,7 @@ public class UrlTest extends SetterGetterTestBase {
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
     addIgnoredField("share");
+    addIgnoredField("engagement");
     testInstance(obj);
   }
 

@@ -45,4 +45,31 @@ public class UrlTest extends AbstractJsonMapperTests {
     assertEquals(59573, exampleUrl.getShareCount());
   }
 
+  @Test
+  public void checkURL_v2_8() {
+    Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/url-with-share"), Url.class);
+    assertNotNull(exampleUrl);
+    assertEquals(5871, exampleUrl.getCommentCount());
+    assertEquals(0, exampleUrl.getCommentPluginCount());
+    assertEquals(0, exampleUrl.getReactionCount());
+    assertEquals(172673672, exampleUrl.getShareCount());
+    assertNotNull(exampleUrl.getAppLinks());
+    assertEquals(1, exampleUrl.getAppLinks().getAndroid().size());
+    assertEquals(1, exampleUrl.getAppLinks().getIos().size());
+    assertEquals("website", exampleUrl.getOgObject().getType());
+  }
+
+  @Test
+  public void checkURL_v2_9() {
+    Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/url-with-engagement"), Url.class);
+    assertNotNull(exampleUrl);
+    assertEquals(13809962, exampleUrl.getCommentCount());
+    assertEquals(5871, exampleUrl.getCommentPluginCount());
+    assertEquals(94605429, exampleUrl.getReactionCount());
+    assertEquals(64258281, exampleUrl.getShareCount());
+    assertNotNull(exampleUrl.getAppLinks());
+    assertEquals(1, exampleUrl.getAppLinks().getAndroid().size());
+    assertEquals(1, exampleUrl.getAppLinks().getIos().size());
+    assertEquals("website", exampleUrl.getOgObject().getType());
+  }
 }
