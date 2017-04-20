@@ -26,6 +26,7 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.JsonObject;
+import com.restfb.types.ads.AppLinks;
 
 import java.util.Date;
 
@@ -36,7 +37,7 @@ import lombok.Setter;
  * Represents an external URL as it relates to the Facebook social graph - shares and comments from the URL on Facebook,
  * and any Open Graph objects associated with the URL.
  * 
- * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/v2.1/url">URL Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/url">URL Graph API type</a>.
  * 
  * Facebook APi Version 2.1+
  * 
@@ -54,40 +55,85 @@ public class Url extends FacebookType {
   @Facebook("og_object")
   private OGObject ogObject;
 
-  // @Getter
-  // @Facebook("app_links")
-  // private AppLinks appLinks;
+  /**
+   * AppLinks data associated with this URL.
+   *
+   * @return AppLinks data associated with this URL.
+   */
+  @Getter
+  @Setter
+  @Facebook("app_links")
+  private AppLinks appLinks;
 
   @Facebook
   private JsonObject share;
 
+  @Facebook
+  private JsonObject engagement;
+
   /**
-   * The number of Facebook comments associated with this URL.
+   * The sum of comments on posts containing this URL on Facebook.
    * 
-   * @return The number of Facebook comments associated with this URL
+   * @return The sum of comments on posts containing this URL on Facebook.
    */
   @Getter
   @Setter
   private int commentCount = 0;
 
   /**
-   * The number of shares of this URL on Facebook.
+   * The total shares of this URL all over Facebook.
    * 
    * is set <code>0</code> if the share count is not present
    * 
-   * @return The number of shares of this URL on Facebook
+   * @return The total shares of this URL all over Facebook.
    */
   @Getter
   @Setter
   private int shareCount = 0;
 
+  /**
+   * The sum of reactions across all posts containing the URL on Facebook.
+   *
+   * @return The sum of reactions across all posts containing the URL on Facebook.
+   */
+  @Getter
+  @Setter
+  private int reactionCount;
+
+  /**
+   * The number shown in the comments plugin associated with the URL. This number does not include comments made on
+   * posts on Facebook.
+   *
+   * @return The number shown in the comments plugin associated with the URL. This number does not include comments made
+   *         on posts on Facebook.
+   */
+  @Getter
+  @Setter
+  private int commentPluginCount;
+
   @JsonMappingCompleted
   void fillCounts() {
-    if (share.has("comment_count")) {
-      commentCount = share.getInt("comment_count");
+    if (share != null) {
+      if (share.has("comment_count")) {
+        commentCount = share.getInt("comment_count");
+      }
+      if (share.has("share_count")) {
+        shareCount = share.getInt("share_count");
+      }
     }
-    if (share.has("share_count")) {
-      shareCount = share.getInt("share_count");
+    if (engagement != null) {
+      if (engagement.has("comment_count")) {
+        commentCount = engagement.getInt("comment_count");
+      }
+      if (engagement.has("share_count")) {
+        shareCount = engagement.getInt("share_count");
+      }
+      if (engagement.has("reaction_count")) {
+        reactionCount = engagement.getInt("reaction_count");
+      }
+      if (engagement.has("comment_plugin_count")) {
+        commentPluginCount = engagement.getInt("comment_plugin_count");
+      }
     }
   }
 
