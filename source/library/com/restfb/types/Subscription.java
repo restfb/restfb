@@ -22,7 +22,10 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.Version;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -70,7 +73,20 @@ public class Subscription extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> fields;
+  private List<SubscriptionField> fields;
+
+  /**
+   * compatibility access to the subscription fields.
+   *
+   * can be used to allow older application to use the Subscription object without major change of the application code.
+   *
+   * @deprecated use fields instead and change your code to work with SubscriptionField objects.
+   */
+  @Deprecated
+  @Getter
+  @Setter
+  @Facebook("fields")
+  private List<String> compatFields;
 
   /**
    * Indicates whether or not the subscription is active.
@@ -82,5 +98,50 @@ public class Subscription extends AbstractFacebookType {
   @Facebook
   private Boolean active;
 
+  @JsonMapper.JsonMappingCompleted
+  private void convertCompatFields() {
+    if (compatFields != null && fields == null) {
+      fields = new ArrayList<SubscriptionField>();
+      for (String field : compatFields) {
+        fields.add(new SubscriptionField(field));
+      }
+    } else if (compatFields == null && fields != null) {
+      compatFields = new ArrayList<String>();
+      for (SubscriptionField subscriptionField : fields) {
+        compatFields.add(subscriptionField.getName());
+      }
+    }
+  }
+
+  public static class SubscriptionField extends AbstractFacebookType {
+
+    public SubscriptionField() {
+      // nothing to do
+    }
+
+    private SubscriptionField(String name) {
+      this.name = name;
+      this.version = Version.UNVERSIONED;
+    }
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String name;
+
+    @Getter
+    @Setter
+    private Version version;
+
+    @Facebook("version")
+    private String versionAsString;
+
+    @JsonMapper.JsonMappingCompleted
+    public void convertVersion() {
+      version = Version.getVersionFromString(versionAsString);
+    }
+  }
 
 }

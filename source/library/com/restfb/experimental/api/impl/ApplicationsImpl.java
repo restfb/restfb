@@ -65,7 +65,7 @@ public class ApplicationsImpl implements Applications {
     Parameter callbackParam = Parameter.with("callback_url", subscription.getCallbackUrl());
 
     String fieldString = "";
-    for (String field : subscription.getFields()) {
+    for (String field : subscription.getCompatFields()) {
       fieldString += "," + field;
     }
 
