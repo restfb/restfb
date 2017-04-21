@@ -1,0 +1,11 @@
+{
+  "object": "page",
+  "callback_url": "https://www.example.org/endpoint/callback",
+  "active": true,
+  "fields": [
+    "feed",
+    "messages",
+    "messaging_postbacks",
+    "ratings"
+  ]
+}

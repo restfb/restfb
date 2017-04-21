@@ -22,7 +22,10 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.Version;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -38,7 +41,7 @@ import lombok.Setter;
 public class Subscription extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * Indicates the object type that this subscription applies to.
    * 
@@ -72,7 +75,10 @@ public class Subscription extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> fields;
+  private List<SubscriptionField> fields;
+
+  @Facebook("fields")
+  private List<String> compatFields;
 
   /**
    * Indicates whether or not the subscription is active.
@@ -84,5 +90,45 @@ public class Subscription extends AbstractFacebookType {
   @Facebook
   private Boolean active;
 
+  @JsonMapper.JsonMappingCompleted
+  private void convertCompatFields() {
+    if (compatFields != null && fields == null) {
+      fields = new ArrayList<SubscriptionField>();
+      for (String field : compatFields) {
+        fields.add(new SubscriptionField(field));
+      }
+    }
+  }
+
+  public static class SubscriptionField extends AbstractFacebookType {
+
+    public SubscriptionField() {
+      // nothing to do
+    }
+
+    private SubscriptionField(String name) {
+      this.name = name;
+      this.version = Version.UNVERSIONED;
+    }
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String name;
+
+    @Getter
+    @Setter
+    private Version version;
+
+    @Facebook("version")
+    private String versionAsString;
+
+    @JsonMapper.JsonMappingCompleted
+    public void convertVersion() {
+      version = Version.getVersionFromString(versionAsString);
+    }
+  }
 
 }
