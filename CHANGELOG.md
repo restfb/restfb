@@ -49,6 +49,22 @@
   * Issue #467: Use `Comments` and `Likes` in `Photo` type
   * Issue #452: fix bug from #448
 
+## 1.40.0 (April 23, 2017)
+
+* Graph API 2.9:
+  * Issue #713: basic Graph API 2.9 support
+  * Issue #714: `short_name` added to `User` type
+  * Issue #716: `engagement` added to `URL` type
+  * Issue #715: `fields` in `subscriptions` object changed<br>
+  This is a breaking change! Check the javadoc
+* Messenger Platform 2.0:
+  * Issue #717: ID matching types added
+* Issue #706: multiple photos support added to Webhook type<br>
+  Thanks to @GithubMood for the hint
+* Issue #709: Integration test for posting to a group added
+* Issue #708: Fetching users from group integration test added<br>
+  Thanks to @saveSession for the hint
+
 ## 1.39.0 (March 26, 2017)
 
 * Issue #691: Rest API set to deprecated
