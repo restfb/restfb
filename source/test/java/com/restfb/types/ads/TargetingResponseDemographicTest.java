@@ -84,4 +84,13 @@ public class TargetingResponseDemographicTest extends AbstractJsonMapperTests {
     assertNull(demographic.getDisambiguationCategory());
     assertNull(demographic.getDescription());
   }
+
+  @Test
+  public void checkV2_8_squareBracketInString() {
+    TargetingResponseDemographic demographic = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("ads/v2_8/responsedemographic_brackets"), TargetingResponseDemographic.class);
+    assertEquals("[dunkelbunt]", demographic.getName());
+    assertEquals(3, demographic.getPath().size());
+    assertTrue(demographic.getPath().contains("[dunkelbunt]"));
+  }
 }
