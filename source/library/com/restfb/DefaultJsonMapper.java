@@ -166,8 +166,17 @@ public class DefaultJsonMapper implements JsonMapper {
       List<T> list = new ArrayList<T>();
 
       JsonArray jsonArray = new JsonArray(json);
-      for (int i = 0; i < jsonArray.length(); i++)
-        list.add(toJavaObject(jsonArray.get(i).toString(), type));
+      for (int i = 0; i < jsonArray.length(); i++) {
+        String rebuildJson = jsonArray.get(i).toString();
+        if (jsonArray.optJsonArray(i) == null && rebuildJson.startsWith("[")) {
+          // the inner JSON starts with square brackets but the parser don't think this is a JSON array
+          // so we think the parser is right and add quotes around the string
+          // solves Issue #719
+          list.add(toJavaObject('"' + rebuildJson + '"', type));
+        } else {
+          list.add(toJavaObject(rebuildJson, type));
+        }
+      }
 
       return unmodifiableList(list);
     } catch (FacebookJsonMappingException e) {
@@ -587,17 +596,14 @@ public class DefaultJsonMapper implements JsonMapper {
   @SuppressWarnings("unchecked")
   protected <T> T toPrimitiveJavaType(String json, Class<T> type) {
 
-    if (String.class.equals(type)) {
-      // If the string starts and ends with quotes, remove them, since Facebook
-      // can serve up strings surrounded by quotes.
-      if (json.length() > 1 && json.startsWith("\"") && json.endsWith("\"")) {
-        json = json.replaceFirst("\"", "");
-        json = json.substring(0, json.length() - 1);
-      }
-
-      return (T) json;
+    if (json.length() > 1 && json.startsWith("\"") && json.endsWith("\"")) {
+      json = json.replaceFirst("\"", "");
+      json = json.substring(0, json.length() - 1);
     }
 
+    if (String.class.equals(type)) {
+      return (T) json;
+    }
     if (Integer.class.equals(type) || Integer.TYPE.equals(type)) {
       return (T) Integer.valueOf(json);
     }
