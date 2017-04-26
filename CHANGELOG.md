@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 1.40.1 (April 26, 2017)
+
+* Issue #719: DefaultJsonMapper incorrectly attempts to map string to an array<br>
+  Thanks to @pkoivisto for the bug report
+
 ## 1.40.0 (April 23, 2017)
 
 * Graph API 2.9:
