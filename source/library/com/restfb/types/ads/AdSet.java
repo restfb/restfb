@@ -28,6 +28,7 @@ import com.restfb.JsonMapper;
 
 import java.util.*;
 
+import com.restfb.json.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,13 +53,18 @@ public class AdSet extends NamedAdsObject {
   @Facebook("adcampaign_group")
   private AdCampaignGroup adcampaignGroup;
 
+  @Getter
+  @Setter
+  @Facebook("attribution_spec")
+  private List<JsonObject> attributionSpec = new ArrayList<JsonObject>();
+
   @Facebook("adlabels")
   private List<AdLabel> adLabels = new ArrayList<AdLabel>();
 
   @Getter
   @Setter
   @Facebook("adset_schedule")
-  private List<DayPart> mAdsetSchedule = new ArrayList<DayPart>();
+  private List<DayPart> adsetSchedule = new ArrayList<DayPart>();
 
   @Getter
   @Setter
@@ -68,7 +74,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("bid_info")
-  private Map<String, Long> mBidInfo;
+  private Map<String, Long> bidInfo;
 
   @Getter
   @Setter
@@ -204,7 +210,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("targeting")
-  private Targeting mTargeting;
+  private Targeting targeting;
 
   @Getter
   @Setter

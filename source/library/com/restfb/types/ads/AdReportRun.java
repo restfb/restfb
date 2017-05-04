@@ -22,60 +22,76 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdCreativeVideoData extends AbstractFacebookType {
+/**
+ * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-report-run">AdReportRun
+ * type</a>
+ */
+public class AdReportRun extends BaseAdsObject {
 
   @Getter
   @Setter
-  @Facebook("branded_content_sponsor_page_id")
-  private String brandedContentSponsorPageId;
+  @Facebook("account_id")
+  private String accountId;
 
   @Getter
   @Setter
-  @Facebook("call_to_action")
-  private AdCreativeLinkDataCallToAction callToAction;
+  @Facebook("async_percent_completion")
+  private Long asyncPercentCompletion;
 
   @Getter
   @Setter
-  @Facebook
-  private String description;
+  @Facebook("async_status")
+  private String asyncStatus;
 
   @Getter
   @Setter
-  @Facebook("link_description")
-  private String linkDescription;
+  @Facebook("date_start")
+  private String dateStart;
 
   @Getter
   @Setter
-  @Facebook
-  private String message;
-
-  @Getter
-  @Setter
-  @Facebook("image_hash")
-  private String imageHash;
-
-  @Getter
-  @Setter
-  @Facebook("image_url")
-  private String imageUrl;
+  @Facebook("date_stop")
+  private String dateStop;
 
   @Getter
   @Setter
   @Facebook
-  private Targeting targeting;
+  private List<String> emails;
 
   @Getter
   @Setter
-  @Facebook
-  private String title;
+  @Facebook("friendly_name")
+  private String friendlyName;
 
   @Getter
   @Setter
-  @Facebook("video_id")
-  private String videoId;
+  @Facebook("is_bookmarked")
+  private Boolean isBookmarked;
+
+  @Getter
+  @Setter
+  @Facebook("is_running")
+  private Boolean isRunning;
+
+  @Getter
+  @Setter
+  @Facebook("schedule_id")
+  private String scheduleId;
+
+  @Getter
+  @Setter
+  @Facebook("time_completed")
+  private Long timeCompleted;
+
+  @Getter
+  @Setter
+  @Facebook("time_ref")
+  private Long timeRef;
+
 }
