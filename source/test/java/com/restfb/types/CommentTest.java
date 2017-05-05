@@ -87,4 +87,18 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertEquals(7, exampleTag.getLength().intValue());
     assertEquals(94, exampleTag.getOffset().intValue());
   }
+
+  @Test
+  public void checkV2_9_reactions() {
+    Comment exampleComment =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-reactions"), Comment.class);
+    assertNotNull(exampleComment);
+    assertNotNull(exampleComment.getReactions());
+    Reactions reactions = exampleComment.getReactions();
+    assertEquals(1214, reactions.getTotalCount().intValue());
+    assertEquals("NONE", reactions.getViewerReaction());
+    Reactions.ReactionItem rItem = reactions.getData().get(0);
+    assertEquals("LIKE", rItem.getType());
+    assertEquals("10204061807492438", rItem.getId());
+  }
 }

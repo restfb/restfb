@@ -93,6 +93,16 @@ public class Comment extends FacebookType {
   private Likes likes;
 
   /**
+   * The reactions for this post.
+   *
+   * @return The reactions for this post.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Reactions reactions;
+
+  /**
    * The number of likes on this comment.
    *
    * @return The number of likes on this comment.

@@ -1,0 +1,34 @@
+{
+  "reactions": {
+    "data": [
+      {
+        "id": "10204061807492438",
+        "name": "Ilaria Malvestiti",
+        "type": "LIKE"
+      },
+      {
+        "id": "10152432605146676",
+        "name": "Kelvin Chua",
+        "type": "LIKE"
+      },
+      {
+        "id": "10201988224815968",
+        "name": "Fabiola Zito",
+        "type": "LIKE"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "TVRRME1Ua3dNamd3TlRveE5Ea3pPVGN3TkRreE9qSTFOREE1TmpFMk1UTT0ZD",
+        "after": "TVRRNU5Ua3lNemt4T1RveE5Ea3pPVGN3TXpZAeE9qSTFOREE1TmpFMk1UTT0ZD"
+      },
+      "next": "https://graph.facebook.com/v2.9/705360702965731_705362516298883/reactions?access_token=token&pretty=0&summary=1&limit=3&after=TVRRNU5Ua3lNemt4T1RveE5Ea3pPVGN3TXpZAeE9qSTFOREE1TmpFMk1UTT0ZD"
+    },
+    "summary": {
+      "total_count": 1214,
+      "viewer_reaction": "NONE"
+    }
+  },
+  "message": "This is not just cheese. It's Parmigiano Reggiano. The King of cheese",
+  "id": "705360702965731_705362516298883"
+}
