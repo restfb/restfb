@@ -70,7 +70,8 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertEquals(true, comment.getCanLike());
     assertEquals(false, comment.getIsHidden());
     StoryAttachment attachment = comment.getAttachment();
-    assertEquals("https://www.facebook.com/229204807192138/photos/p.972460529533225/972460529533225/?type=3", attachment.getUrl());
+    assertEquals("https://www.facebook.com/229204807192138/photos/p.972460529533225/972460529533225/?type=3",
+      attachment.getUrl());
     assertEquals("photo", attachment.getType());
     assertEquals(null, attachment.getTitle());
     assertEquals(null, attachment.getDescription());
@@ -78,13 +79,16 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertNotNull(media);
     Image image = media.getImage();
     assertNotNull(image);
-    assertEquals("https://scontent.xx.fbcdn.net/v/t1.0-9/14067576_972460529533225_2677071112954696357_n.jpg?oh=73826da052167394cd8ae9924cc2faee&oe=584DBFBA", image.getSrc());
+    assertEquals(
+      "https://scontent.xx.fbcdn.net/v/t1.0-9/14067576_972460529533225_2677071112954696357_n.jpg?oh=73826da052167394cd8ae9924cc2faee&oe=584DBFBA",
+      image.getSrc());
     assertEquals(199, image.getWidth().intValue());
     assertEquals(60, image.getHeight().intValue());
     Target target = attachment.getTarget();
     assertNotNull(target);
     assertEquals("972460529533225", target.getId());
-    assertEquals("https://www.facebook.com/229204807192138/photos/p.972460529533225/972460529533225/?type=3", target.getUrl());
+    assertEquals("https://www.facebook.com/229204807192138/photos/p.972460529533225/972460529533225/?type=3",
+      target.getUrl());
   }
 
   @Test
@@ -121,5 +125,19 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertEquals("page", exampleTag.getType());
     assertEquals(7, exampleTag.getLength().intValue());
     assertEquals(94, exampleTag.getOffset().intValue());
+  }
+
+  @Test
+  public void checkV2_9_reactions() {
+    Comment exampleComment =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-reactions"), Comment.class);
+    assertNotNull(exampleComment);
+    assertNotNull(exampleComment.getReactions());
+    Reactions reactions = exampleComment.getReactions();
+    assertEquals(1214, reactions.getTotalCount().intValue());
+    assertEquals("NONE", reactions.getViewerReaction());
+    Reactions.ReactionItem rItem = reactions.getData().get(0);
+    assertEquals("LIKE", rItem.getType());
+    assertEquals("10204061807492438", rItem.getId());
   }
 }
