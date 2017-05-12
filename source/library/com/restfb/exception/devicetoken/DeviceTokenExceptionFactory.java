@@ -42,16 +42,16 @@ public class DeviceTokenExceptionFactory {
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
 
     String errorMessage = oauthException.getErrorMessage();
-    if ("authorization_pending".equals(errorMessage)) {
+    if ("authorization_pending".equals(errorMessage) || oauthException.getErrorSubcode() == 1349174) {
       throw new FacebookDeviceTokenPendingException(errorMessage, oauthException);
     }
     if ("authorization_declined".equals(errorMessage)) {
       throw new FacebookDeviceTokenDeclinedException(errorMessage, oauthException);
     }
-    if ("slow_down".equals(errorMessage)) {
+    if ("slow_down".equals(errorMessage) || oauthException.getErrorSubcode() == 1349172) {
       throw new FacebookDeviceTokenSlowdownException(errorMessage, oauthException);
     }
-    if ("code_expired".equals(errorMessage)) {
+    if ("code_expired".equals(errorMessage) || oauthException.getErrorSubcode() == 1349152) {
       throw new FacebookDeviceTokenCodeExpiredException(errorMessage, oauthException);
     }
 

@@ -34,7 +34,6 @@ import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.scope.ScopeBuilder;
-import com.restfb.types.FacebookType;
 import com.restfb.types.User;
 import com.restfb.types.send.IdMessageRecipient;
 import com.restfb.types.send.Message;
@@ -168,12 +167,12 @@ public class FacebookClientTest {
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
     try {
-      fbc.fetchDeviceCode("123456283", new ScopeBuilder());
+      fbc.fetchDeviceCode(new ScopeBuilder());
     } catch (FacebookJsonMappingException je) {
 
     }
     assertEquals("https://graph.facebook.com/v2.6/device/login", requestor.getSavedUrl());
-    assertEquals("type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json",
+    assertEquals("type=device_code&scope=public_profile&access_token=accesstoken&format=json",
       requestor.getParameters());
   }
 
@@ -181,26 +180,27 @@ public class FacebookClientTest {
   public void sendTextMessage() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
     try {
       Message simpleTextMessage = new Message("That's funny \uD83D\uDE03");
       IdMessageRecipient recipient = new IdMessageRecipient("968155906638513");
 
-      SendResponse response = fbc.publish("me/messages", SendResponse.class,
-              Parameter.with("recipient", recipient), Parameter.with("message", simpleTextMessage));
+      SendResponse response = fbc.publish("me/messages", SendResponse.class, Parameter.with("recipient", recipient),
+        Parameter.with("message", simpleTextMessage));
     } catch (FacebookJsonMappingException je) {
 
     }
     assertEquals("https://graph.facebook.com/v2.6/me/messages", requestor.getSavedUrl());
-    assertEquals("recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json",
-            requestor.getParameters());
+    assertEquals(
+      "recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json",
+      requestor.getParameters());
   }
 
   @Test
   public void checkfetchObjects() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
 
     List<String> idList = new ArrayList<String>();
     idList.add("123456789  ");
@@ -218,7 +218,7 @@ public class FacebookClientTest {
   public void checkfetchObjects_withEmptyId() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
 
     List<String> idList = new ArrayList<String>();
     idList.add("  ");
@@ -232,20 +232,20 @@ public class FacebookClientTest {
   public void checkfetchObjects_idsAsParameter() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
 
     List<String> idList = new ArrayList<String>();
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 
-    fbc.fetchObjects(idList, String.class, Parameter.with("ids","something"));
+    fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something"));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void checkfetchObjects_emptyList() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
 
     fbc.fetchObjects(Collections.EMPTY_LIST, String.class);
   }
@@ -269,15 +269,15 @@ public class FacebookClientTest {
   public void fetchDeviceCodeV26() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
     try {
-      fbc.fetchDeviceCode("123456283", new ScopeBuilder());
+      fbc.fetchDeviceCode(new ScopeBuilder());
     } catch (FacebookJsonMappingException je) {
 
     }
     assertEquals("https://graph.facebook.com/v2.6/device/login", requestor.getSavedUrl());
-    assertEquals("type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json",
-            requestor.getParameters());
+    assertEquals("type=device_code&scope=public_profile&access_token=accesstoken&format=json",
+      requestor.getParameters());
   }
 
   @Test
@@ -292,16 +292,18 @@ public class FacebookClientTest {
   public void obtainDeviceAccessTokenCodeV26() {
     FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_2_6);
     assertEquals("https://graph.facebook.com/v2.6/device/login_status", requestor.getSavedUrl());
-    assertEquals("type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json",
-            requestor.getParameters());
+    assertEquals("type=device_token&code=DevCode1234&access_token=accesstoken&format=json", requestor.getParameters());
   }
 
   private FakeWebRequestor createFbClientAndObtainAccessToken(Version version) {
     FakeWebRequestor requestor = new FakeWebRequestor();
-    FacebookClient fbc =
-            new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), version);
+    FacebookClient fbc = new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), version);
     try {
-      fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
+      if (version.isNewDeviceTokenMethod()) {
+        fbc.obtainDeviceAccessToken("DevCode1234");
+      } else {
+        fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
+      }
     } catch (IllegalArgumentException je) {
       // exception can be ignored, the url is important
     } catch (FacebookDeviceTokenCodeExpiredException e) {
@@ -359,7 +361,8 @@ public class FacebookClientTest {
 
   @Test
   public void deleteObjectReturnsJsonGreetingMessengerPlatform() {
-    FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "{\"result\":\"Successfully deleted greeting\"}"));
+    FacebookClient facebookClient =
+        facebookClientWithResponse(new Response(200, "{\"result\":\"Successfully deleted greeting\"}"));
     assertTrue(facebookClient.deleteObject("12345"));
   }
 
@@ -396,10 +399,11 @@ public class FacebookClientTest {
   @Test
   public void checkLoginDialogURLAdditionalParameters() {
     FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_0);
-    String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(), Parameter.with("auth_type", "reauthenticate"));
+    String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
+      Parameter.with("auth_type", "reauthenticate"));
     assertEquals(
-            "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile&auth_type=reauthenticate",
-            loginDialogUrlString);
+      "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile&auth_type=reauthenticate",
+      loginDialogUrlString);
   }
 
   @Test

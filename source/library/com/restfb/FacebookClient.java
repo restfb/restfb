@@ -497,6 +497,9 @@ public interface FacebookClient {
 
   /**
    * Method to initialize the device access token generation.
+   *
+   * This method is used for the Graph API 2.5 or lower. If you need to use an newer version you should use
+   * {@link #fetchDeviceCode(ScopeBuilder)}
    * 
    * You receive a {@link DeviceCode} instance and have to show the user the {@link DeviceCode#getVerificationUri()} and
    * the {@link DeviceCode#getUserCode()}. The user have to enter the user code at the verification url.
@@ -514,7 +517,28 @@ public interface FacebookClient {
   DeviceCode fetchDeviceCode(String appId, ScopeBuilder scope);
 
   /**
+   * Method to initialize the device access token generation.
+   *
+   * This method is used for the Graph API 2.6 or higher. If you need to use an older version you should use
+   * {@link #fetchDeviceCode(String, ScopeBuilder)}
+   *
+   * You receive a {@link DeviceCode} instance and have to show the user the {@link DeviceCode#getVerificationUri()} and
+   * the {@link DeviceCode#getUserCode()}. The user have to enter the user code at the verification url.
+   *
+   * Save the {@link DeviceCode#getCode()} to use it later, when polling Facebook with the
+   * {@link #obtainDeviceAccessToken(java.lang.String)} method.
+   *
+   * @param scope
+   *          List of Permissions to request from the person using your app.
+   * @return Instance of {@code DeviceCode} including the information to obtain the Device access token
+   */
+  DeviceCode fetchDeviceCode(ScopeBuilder scope);
+
+  /**
    * Method to poll Facebook and fetch the Device Access Token.
+   *
+   * This method is used for the Graph API 2.5 or lower. If you need to use an newer version you should use
+   * {@link #obtainDeviceAccessToken(String)}
    * 
    * You have to use this method to check if the user confirms the authorization.
    * 
@@ -537,6 +561,33 @@ public interface FacebookClient {
    * @since 1.12.0
    */
   AccessToken obtainDeviceAccessToken(String appId, String code) throws FacebookDeviceTokenCodeExpiredException,
+      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException;
+
+  /**
+   * Method to poll Facebook and fetch the Device Access Token.
+   *
+   * This method is used for the Graph API 2.6 or higher. If you need to use an older version you should use
+   * {@link #obtainDeviceAccessToken(String, String)}
+   *
+   * You have to use this method to check if the user confirms the authorization.
+   *
+   * {@link FacebookOAuthException} can be thrown if the authorization is declined or still pending.
+   *
+   * @param code
+   *          The device
+   * @return An extended access token for the given {@link AccessToken}.
+   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException
+   *           the {@link DeviceCode#getCode()} is expired, please fetch a new {@link DeviceCode}. Call
+   *           {@link #fetchDeviceCode(java.lang.String, com.restfb.scope.ScopeBuilder) }
+   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException
+   *           the user has not finished the authorisation process, yet. Please poll again later.
+   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException
+   *           the user declined the authorisation. You have to handle this problem.
+   * @throws com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException
+   *           you tried too often to fetch the device access token. You have to use a larger interval
+   * @since 1.12.0
+   */
+  AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException;
 
   /**
