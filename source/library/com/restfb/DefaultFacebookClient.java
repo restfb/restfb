@@ -573,13 +573,31 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("scope", scope);
 
-    String endpoint = "device/login";
-    if (!apiVersion.isNewDeviceTokenMethod()) {
-      endpoint = "oauth/device";
+    if (apiVersion.isNewDeviceTokenMethod()) {
+      throw new IllegalStateException(
+        "fetchDeviceCode(String, ScopeBuilder) is only allowed to be called with Graph API <= 2.5");
     }
 
-    String response = makeRequest(endpoint, true, false, null, Parameter.with("type", "device_code"),
+    String response = makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_code"),
       Parameter.with("client_id", appId), Parameter.with("scope", scope.toString()));
+    return jsonMapper.toJavaObject(response, DeviceCode.class);
+  }
+
+  @Override
+  public DeviceCode fetchDeviceCode(ScopeBuilder scope) {
+    verifyParameterPresence("scope", scope);
+
+    if (!apiVersion.isNewDeviceTokenMethod()) {
+      throw new IllegalStateException(
+        "fetchDeviceCode(ScopeBuilder) is only allowed to be called with Graph API >= 2.6");
+    }
+
+    if (accessToken == null) {
+      new IllegalStateException("access token is required to fetch a device access token");
+    }
+
+    String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),
+      Parameter.with("scope", scope.toString()));
     return jsonMapper.toJavaObject(response, DeviceCode.class);
   }
 
@@ -589,14 +607,38 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("appId", appId);
     verifyParameterPresence("code", code);
 
-    String endpoint = "device/login_status";
-    if (!apiVersion.isNewDeviceTokenMethod()) {
-      endpoint = "oauth/device";
+    if (apiVersion.isNewDeviceTokenMethod()) {
+      throw new IllegalStateException(
+        "obtainDeviceAccessToken(String, String) is only allowed to be called with Graph API <= 2.5");
     }
 
     try {
-      String response = makeRequest(endpoint, true, false, null, Parameter.with("type", "device_token"),
+      String response = makeRequest("oauth/device", true, false, null, Parameter.with("type", "device_token"),
         Parameter.with("client_id", appId), Parameter.with("code", code));
+      return getAccessTokenFromResponse(response);
+    } catch (FacebookOAuthException foae) {
+      DeviceTokenExceptionFactory.createFrom(foae);
+      return null;
+    }
+  }
+
+  @Override
+  public AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,
+      FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
+    verifyParameterPresence("code", code);
+
+    if (!apiVersion.isNewDeviceTokenMethod()) {
+      throw new IllegalStateException(
+        "obtainDeviceAccessToken(String) is only allowed to be called with Graph API >= 2.6");
+    }
+
+    if (accessToken == null) {
+      new IllegalStateException("access token is required to fetch a device access token");
+    }
+
+    try {
+      String response = makeRequest("device/login_status", true, false, null, Parameter.with("type", "device_token"),
+        Parameter.with("code", code));
       return getAccessTokenFromResponse(response);
     } catch (FacebookOAuthException foae) {
       DeviceTokenExceptionFactory.createFrom(foae);

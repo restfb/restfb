@@ -169,13 +169,13 @@ public class FacebookClientTest {
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
     try {
-      fbc.fetchDeviceCode("123456283", new ScopeBuilder());
+      fbc.fetchDeviceCode(new ScopeBuilder());
     } catch (FacebookJsonMappingException je) {
 
     }
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v2.6/device/login");
     assertThat(requestor).isParametersEqualTo(
-      "type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json");
+      "type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }
 
   @Test
@@ -271,13 +271,13 @@ public class FacebookClientTest {
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
     try {
-      fbc.fetchDeviceCode("123456283", new ScopeBuilder());
+      fbc.fetchDeviceCode(new ScopeBuilder());
     } catch (FacebookJsonMappingException je) {
 
     }
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v2.6/device/login");
     assertThat(requestor).isParametersEqualTo(
-      "type=device_code&client_id=123456283&scope=public_profile&access_token=accesstoken&format=json");
+      "type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }
 
   @Test
@@ -293,14 +293,18 @@ public class FacebookClientTest {
     FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_2_6);
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v2.6/device/login_status");
     assertThat(requestor).isParametersEqualTo(
-      "type=device_token&client_id=12345678&code=DevCode1234&access_token=accesstoken&format=json");
+      "type=device_token&code=DevCode1234&access_token=accesstoken&format=json");
   }
 
   private FakeWebRequestor createFbClientAndObtainAccessToken(Version version) {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc = new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), version);
     try {
-      fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
+      if (version.isNewDeviceTokenMethod()) {
+        fbc.obtainDeviceAccessToken("DevCode1234");
+      } else {
+        fbc.obtainDeviceAccessToken("12345678", "DevCode1234");
+      }
     } catch (IllegalArgumentException je) {
       // exception can be ignored, the url is important
     } catch (FacebookDeviceTokenCodeExpiredException e) {

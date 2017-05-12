@@ -21,15 +21,12 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
-import com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException;
-import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
-import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
-import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
+import com.restfb.exception.FacebookOAuthException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
@@ -40,22 +37,33 @@ public class DeviceCodeITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void fetchDeviceCode() {
-    DefaultFacebookClient client = new DefaultFacebookClient(Version.VERSION_2_3);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppId(), Version.VERSION_2_6);
     ScopeBuilder scope = new ScopeBuilder();
-    DeviceCode deviceCode = client.fetchDeviceCode(getTestSettings().getAppId(), scope);
+    DeviceCode deviceCode = client.fetchDeviceCode(scope);
     assertNotNull(deviceCode);
     FacebookClient.AccessToken token = null;
-    try {
-      token = client.obtainDeviceAccessToken(getTestSettings().getAppId(), deviceCode.getCode());
-    } catch (FacebookDeviceTokenCodeExpiredException ex) {
-      fail();
-    } catch (FacebookDeviceTokenPendingException ex) {
-      assertEquals("authorization_pending", ex.getMessage());
-    } catch (FacebookDeviceTokenDeclinedException ex) {
-      fail();
-    } catch (FacebookDeviceTokenSlowdownException ex) {
-      fail();
-    }
+    System.out.println("UserCode: " + deviceCode.getUserCode());
+
+    int count = 10;
+    do {
+      System.out.print(count + ":");
+      try {
+        token = client.obtainDeviceAccessToken(deviceCode.getCode());
+      } catch (FacebookOAuthException e) {
+        System.out.println("Subcode: " + e.getErrorSubcode());
+        System.out.println("Subcode: " + e.getErrorCode());
+        System.out.println(e.getErrorMessage());
+      } catch (Exception e) {
+        System.out.println(e);
+      }
+      try {
+        Thread.sleep(10000l);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      count--;
+    } while (count > 0 && token == null);
     assertNotNull(token);
+
   }
 }
