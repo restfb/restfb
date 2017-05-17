@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 1.41.0 (May 17, 2017)
+
+* Issue #723: `AdReportRunFields` type added<br>
+  Thanks to @eipark for the hint
+* Issue #725: Reactions support for `Comments`
+* Issue #726: Fetching device access tokens fixed
+
 ## 1.40.1 (April 26, 2017)
 
 * Issue #719: DefaultJsonMapper incorrectly attempts to map string to an array<br>
