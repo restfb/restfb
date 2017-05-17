@@ -110,8 +110,10 @@ public class InsightUtils {
         executeInsightQueriesByDate(facebookClient, pageObjectId, metrics, period, periodEndDates);
 
     if (!raw.isEmpty()) {
-      for (Date date : raw.keySet()) {
-        JsonArray resultByMetric = raw.get(date);
+      for (Map.Entry<Date, JsonArray> entry : raw.entrySet()) {
+
+        Date date = entry.getKey();
+        JsonArray resultByMetric = entry.getValue();
 
         // [{"metric":"page_active_users","value":582},
         // {"metric":"page_tab_views_login_top_unique","value":{"wall":12,"app_4949752878":1}}]

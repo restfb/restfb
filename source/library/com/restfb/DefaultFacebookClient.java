@@ -556,9 +556,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
-  /**
-   * @see com.restfb.FacebookClient#executeQuery(java.lang.String, java.lang.Class, com.restfb.Parameter[])
-   */
   @Override
   @Deprecated
   public <T> List<T> executeQuery(String query, Class<T> objectType, Parameter... parameters) {

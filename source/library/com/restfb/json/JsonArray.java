@@ -167,7 +167,6 @@ public class JsonArray implements Serializable {
     this.myArrayList = new ArrayList<Object>();
     if (collection != null) {
       Iterator<?> iter = collection.iterator();
-      ;
       while (iter.hasNext()) {
         Object o = iter.next();
         if (o instanceof Map<?, ?>) {
