@@ -140,4 +140,13 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertEquals("LIKE", rItem.getType());
     assertEquals("10204061807492438", rItem.getId());
   }
+
+  @Test
+  public void checkV2_9_permalink() {
+    Comment exampleComment =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-permalink"), Comment.class);
+    assertNotNull(exampleComment);
+    assertNotNull(exampleComment.getPermalinkUrl());
+  }
+
 }
