@@ -42,6 +42,9 @@ public class LookalikeSpecTest extends AbstractJsonMapperTests {
     assertEquals("abc123", origin.getId());
     assertEquals("My Custom Audience", origin.getName());
     assertEquals("custom_audience", origin.getType());
+    assertEquals(2, lead.getTargetCountries().size());
+    assertEquals("CA", lead.getTargetCountries().get(0));
+    assertEquals("US", lead.getTargetCountries().get(1));
   }
 
 }
