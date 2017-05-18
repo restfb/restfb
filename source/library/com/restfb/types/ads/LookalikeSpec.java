@@ -61,6 +61,9 @@ public class LookalikeSpec extends AbstractFacebookType {
   @Facebook
   private String type;
 
+  @Facebook("target_countries")
+  private List<String> targetCountries = new ArrayList<String>();
+
   public boolean addOrigin(Origin object) {
     return origin.add(object);
   }
@@ -71,6 +74,18 @@ public class LookalikeSpec extends AbstractFacebookType {
 
   public List<Origin> getOrigin() {
     return Collections.unmodifiableList(origin);
+  }
+
+  public boolean addTargetCountry(String targetCountry) {
+    return targetCountries.add(targetCountry);
+  }
+
+  public boolean removeTargetCountry(String targetCountry) {
+    return targetCountries.remove(targetCountry);
+  }
+
+  public List<String> getTargetCountries() {
+    return Collections.unmodifiableList(targetCountries);
   }
 
   public static class Origin extends NamedAdsObject {
