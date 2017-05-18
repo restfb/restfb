@@ -38,7 +38,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Comment Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/comment">Comment Graph API type</a>.
  *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -232,6 +232,16 @@ public class Comment extends FacebookType {
   @Setter
   @Facebook
   private NamedFacebookType object;
+
+  /**
+   * The permanent static URL to the comment
+   *
+   * @return permanent static url
+   */
+  @Getter
+  @Setter
+  @Facebook("permalink_url")
+  private String permalinkUrl;
 
   /**
    * The replies to this comment
