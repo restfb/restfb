@@ -129,6 +129,9 @@ public class Ad extends NamedAdsObject {
   @Facebook("updated_time")
   private String rawUpdatedTime;
 
+  @Facebook
+  private List<TargetingSentenceLine> targetingsentencelines = new ArrayList<TargetingSentenceLine>();
+
   public boolean addConversionSpec(ConversionActionQuery conversionSpec) {
     return conversionSpecs.add(conversionSpec);
   }
@@ -175,6 +178,18 @@ public class Ad extends NamedAdsObject {
 
   public List<ConversionActionQuery> getTrackingSpecs() {
     return Collections.unmodifiableList(trackingSpecs);
+  }
+
+  public boolean addTargetingsentenceline(TargetingSentenceLine targetingsentenceline) {
+    return targetingsentencelines.add(targetingsentenceline);
+  }
+
+  public boolean removeTargetingsentenceline(TargetingSentenceLine targetingsentenceline) {
+    return targetingsentencelines.remove(targetingsentenceline);
+  }
+
+  public List<TargetingSentenceLine> getTargetingsentencelines() {
+    return Collections.unmodifiableList(targetingsentencelines);
   }
 
   @JsonMapper.JsonMappingCompleted
