@@ -863,6 +863,15 @@ public interface FacebookClient {
     public JsonObject getMetaData() {
       return metadata;
     }
+    
+     /**
+     * All Error data associated with access token debug.
+     * 
+     * @return debug token error
+     */
+    public DebugTokenError getDebugTokenError() {
+      return error;
+    }
 
   }
 
