@@ -228,17 +228,6 @@ public class Page extends CategorizedFacebookType {
   private String business;
 
   /**
-   * The Page's category. e.g. Product/Service, Computers/Technology
-   * 
-   * @since 1.10.0
-   * @return the Page's category
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String category;
-
-  /**
    * Culinary team of the business. Applicable to Restaurants or Nightlife
    * 
    * @since 1.10.0

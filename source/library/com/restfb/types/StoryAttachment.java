@@ -185,11 +185,6 @@ public class StoryAttachment extends FacebookType {
     @Getter
     @Setter
     @Facebook
-    private String id;
-
-    @Getter
-    @Setter
-    @Facebook
     private String url;
 
   }
