@@ -307,7 +307,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedStatusEdited_withPhotos() {
     FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-edited-photos", FeedStatusValue.class, ITEM_STATUS,
-            ChangeValue.Verb.EDITED);
+      ChangeValue.Verb.EDITED);
     assertEquals("edited", value.getVerbAsString());
     assertEquals("Tester", value.getSenderName());
     assertEquals("status", value.getItem());
@@ -333,7 +333,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedStatusAdd_withPhotos() {
     FeedStatusValue value =
-            openAndCheckFeedPostBasics("feed-status-add-photos", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.ADD);
+        openAndCheckFeedPostBasics("feed-status-add-photos", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.ADD);
     assertTrue(value.getPublished().booleanValue());
     assertEquals("1234567890321_930145403745849", value.getPostId());
     assertEquals("Tester", value.getSenderName());
@@ -588,6 +588,20 @@ public class WebhookTest extends AbstractJsonMapperTests {
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
     assertEquals("change value class", change.getValue().getClass(), FallBackChangeValue.class);
     assertNotNull(((FallBackChangeValue) change.getValue()).getRawJson());
+  }
+
+  @Test
+  public void mentionPostAdd() {
+    WebhookObject webhookObject = openJson("mention-post-add");
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertEquals("change value class", change.getValue().getClass(), MentionPostAddValue.class);
+    MentionPostAddValue mentionPostAddValue = (MentionPostAddValue) change.getValue();
+    assertNotNull(mentionPostAddValue);
+    assertEquals("44444444_444444444", mentionPostAddValue.getPostId());
+    assertEquals("44444444", mentionPostAddValue.getSenderId());
+    assertEquals("Example Name", mentionPostAddValue.getSenderName());
+    assertEquals("post", mentionPostAddValue.getItem());
+    assertEquals(ChangeValue.Verb.ADD, mentionPostAddValue.getVerb());
   }
 
   @Test
