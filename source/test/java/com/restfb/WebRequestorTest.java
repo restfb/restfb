@@ -41,8 +41,8 @@ public class WebRequestorTest {
   @Test
   public void testFillHeaderAndDebugInfo() {
 
-    String appUsage = "{ 'call_count': 10, 'total_time': 20, 'total_cputime': 30 }";
-    String pageUsage = "{ 'call_count': 20, 'total_time': 40, 'total_cputime': 60 }";
+    String appUsage = "{ \"call_count\": 10, \"total_time\": 20, \"total_cputime\": 30 }";
+    String pageUsage = "{ \"call_count\": 20, \"total_time\": 40, \"total_cputime\": 60 }";
 
     final Map<String, String> headerFields = new HashMap<String, String>();
     headerFields.put("x-app-usage", appUsage);
@@ -71,7 +71,13 @@ public class WebRequestorTest {
 
     DebugHeaderInfo debugHeaderInfo = defaultWebRequestor.getDebugHeaderInfo();
 
-    assertThat(debugHeaderInfo.getAppUsage()).isEqualTo(appUsage);
-    assertThat(debugHeaderInfo.getPageUsage()).isEqualTo(pageUsage);
+    assertThat(debugHeaderInfo.getAppUsage()).isNotNull();
+    assertThat(debugHeaderInfo.getAppUsage().getCallCount()).isEqualTo(10);
+    assertThat(debugHeaderInfo.getAppUsage().getTotalTime()).isEqualTo(20);
+    assertThat(debugHeaderInfo.getAppUsage().getTotalCputime()).isEqualTo(30);
+    assertThat(debugHeaderInfo.getPageUsage()).isNotNull();
+    assertThat(debugHeaderInfo.getPageUsage().getCallCount()).isEqualTo(20);
+    assertThat(debugHeaderInfo.getPageUsage().getTotalTime()).isEqualTo(40);
+    assertThat(debugHeaderInfo.getPageUsage().getTotalCputime()).isEqualTo(60);
   }
 }

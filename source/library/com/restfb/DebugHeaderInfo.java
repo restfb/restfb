@@ -21,6 +21,12 @@
  */
 package com.restfb;
 
+import com.restfb.json.Json;
+import com.restfb.json.JsonObject;
+import com.restfb.util.StringUtils;
+
+import lombok.Getter;
+
 public class DebugHeaderInfo {
 
   /**
@@ -46,20 +52,20 @@ public class DebugHeaderInfo {
   /**
    * x-app-usage
    */
-  private final String appUsage;
+  private final HeaderUsage appUsage;
 
   /**
    * x-page-usage
    */
-  private final String pageUsage;
+  private final HeaderUsage pageUsage;
 
   public DebugHeaderInfo(String debug, String rev, String traceId, Version version, String appUsage, String pageUsage) {
     this.debug = debug;
     this.rev = rev;
     this.traceId = traceId;
     this.usedVersion = version;
-    this.appUsage = appUsage;
-    this.pageUsage = pageUsage;
+    this.appUsage = createUsage(appUsage);
+    this.pageUsage = createUsage(pageUsage);
   }
 
   /**
@@ -103,12 +109,61 @@ public class DebugHeaderInfo {
    *
    * @return the Facebook response header field x-app-usage
    */
-  public String getAppUsage() { return appUsage; }
+  public HeaderUsage getAppUsage() {
+    return appUsage;
+  }
 
   /**
    * get Facebook response header field <code>x-page-usage</code>
    *
    * @return the Facebook response header field x-page-usage
    */
-  public String getPageUsage() { return pageUsage; }
+  public HeaderUsage getPageUsage() {
+    return pageUsage;
+  }
+
+  private HeaderUsage createUsage(String usageInformation) {
+    if (StringUtils.isBlank(usageInformation)) {
+      return null;
+    }
+
+    try {
+      JsonObject jsonValue = Json.parse(usageInformation).asObject();
+      return new HeaderUsage(jsonValue.getInt("call_count", -1), jsonValue.getInt("total_time", -1),
+        jsonValue.getInt("total_cputime", -1));
+    } catch (Exception e) {
+      return new HeaderUsage(usageInformation);
+    }
+  }
+
+  public static class HeaderUsage {
+
+    HeaderUsage(String percentage) {
+      this.percentage = percentage;
+      this.percentageOnly = true;
+    }
+
+    HeaderUsage(Integer callCount, Integer totalTime, Integer totalCputime) {
+      this.callCount = callCount;
+      this.totalTime = totalTime;
+      this.totalCputime = totalCputime;
+      this.percentageOnly = false;
+    }
+
+    @Getter
+    private final boolean percentageOnly;
+
+    @Getter
+    private String percentage;
+
+    @Getter
+    private Integer callCount;
+
+    @Getter
+    private Integer totalTime;
+
+    @Getter
+    private Integer totalCputime;
+
+  }
 }
