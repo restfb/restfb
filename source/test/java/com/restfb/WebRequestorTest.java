@@ -22,6 +22,7 @@
 package com.restfb;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -41,8 +42,8 @@ public class WebRequestorTest {
   @Test
   public void testFillHeaderAndDebugInfo() {
 
-    String appUsage = "{ 'call_count': 10, 'total_time': 20, 'total_cputime': 30 }";
-    String pageUsage = "{ 'call_count': 20, 'total_time': 40, 'total_cputime': 60 }";
+    String appUsage = "{ \"call_count\": 10, \"total_time\": 20, \"total_cputime\": 30 }";
+    String pageUsage = "{ \"call_count\": 20, \"total_time\": 40, \"total_cputime\": 60 }";
 
     final Map<String, String> headerFields = new HashMap<String, String>();
     headerFields.put("x-app-usage", appUsage);
@@ -50,8 +51,7 @@ public class WebRequestorTest {
 
     HttpURLConnection connection = new HttpURLConnection(null) {
       @Override
-      public void disconnect() {
-      }
+      public void disconnect() {}
 
       @Override
       public boolean usingProxy() {
@@ -59,8 +59,7 @@ public class WebRequestorTest {
       }
 
       @Override
-      public void connect() throws IOException {
-      }
+      public void connect() throws IOException {}
 
       @Override
       public String getHeaderField(String name) {
@@ -73,7 +72,13 @@ public class WebRequestorTest {
 
     DebugHeaderInfo debugHeaderInfo = defaultWebRequestor.getDebugHeaderInfo();
 
-    assertEquals(appUsage, debugHeaderInfo.getAppUsage());
-    assertEquals(pageUsage, debugHeaderInfo.getPageUsage());
+    assertNotNull(debugHeaderInfo.getAppUsage());
+    assertEquals(10, debugHeaderInfo.getAppUsage().getCallCount().intValue());
+    assertEquals(20, debugHeaderInfo.getAppUsage().getTotalTime().intValue());
+    assertEquals(30, debugHeaderInfo.getAppUsage().getTotalCputime().intValue());
+    assertNotNull(debugHeaderInfo.getPageUsage());
+    assertEquals(20, debugHeaderInfo.getPageUsage().getCallCount().intValue());
+    assertEquals(40, debugHeaderInfo.getPageUsage().getTotalTime().intValue());
+    assertEquals(60, debugHeaderInfo.getPageUsage().getTotalCputime().intValue());
   }
 }
