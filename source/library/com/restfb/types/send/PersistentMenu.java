@@ -56,7 +56,7 @@ public class PersistentMenu {
    * Top-level menu items that user can interact with.
    */
   @Getter
-  @Facebook
+  @Facebook("call_to_actions")
   private List<MenuItem> callToActions;
 
   public PersistentMenu() {

@@ -1,9 +1,9 @@
 {
   "locale": "default",
   "composer_input_disabled": true,
-  "callToActions": [
+  "call_to_actions": [
     {
-      "callToActions": [
+      "call_to_actions": [
         {
           "payload": "PAYBILL_PAYLOAD",
           "type": "postback",
