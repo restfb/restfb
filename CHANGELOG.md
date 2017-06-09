@@ -1,5 +1,23 @@
 # RestFB Changelog
 
+## 1.42.0 (June 9, 2017)
+
+* Issue #730: Add `permalink_url` to `Comment`<br>
+  Thanks to @ashishnargundkar for the hint
+* Issue #729: Add `target_countries` to `LookalikeSpec<br>
+  Thanks to @graysky for the hint 
+* Issue #728: `TargetingSentenceLine` missing<br>
+  Thanks to @eipark for the hint
+* Issue #732: Getter for `DebugTokenError` added<br>
+  Thanks to @ClaudioBull for the PR
+* Issue #733: Spring mapping issue fixed<br>
+  Thanks to @bogdanlupashko for the hint
+* Issue #735: Webhook "mention" ChangeValue added<br> 
+  Thanks to @torbenw for the hint
+* Issue #736: `X-Page-Usage` and `X-App-Usage` return JSON instead of percentage `String`
+* Issue #738: `PersistentMenu` Invalid keys `callToActions`<br>
+  Thanks to @thienit5 for the hint
+
 ## 1.41.0 (May 17, 2017)
 
 * Issue #723: `AdReportRunFields` type added<br>
