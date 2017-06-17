@@ -28,7 +28,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Change value describing a reaction to a post.
+ * Change value describing a reaction to a post/comment/reply.
  */
 public class FeedReactionValue extends AbstractFeedPostValue {
 
@@ -41,5 +41,38 @@ public class FeedReactionValue extends AbstractFeedPostValue {
   @Setter
   @Facebook("reaction_type")
   private String reactionType;
+
+  @Getter
+  @Setter
+  @Facebook("comment_id")
+  private String commentId;
+
+  /**
+   * returns <code>true</code> if the reaction was made on a Post
+   * 
+   * @return <code>true</code> if the reaction was made on a Post
+   */
+  public boolean isPostReaction() {
+    return commentId == null;
+  }
+
+  /**
+   * returns <code>true</code> if the reaction was made on a Comment, <code>false</code> if the reaction was made on a
+   * post
+   * 
+   * @return <code>true</code> if the reaction was made on a Comment
+   */
+  public boolean isCommentReaction() {
+    return commentId != null;
+  }
+
+  /**
+   * returns <code>true</code> if the reaction was made on a Reply (comment of a comment),
+   * 
+   * @return <code>true</code> if the reaction was made on a Reply
+   */
+  public boolean isReplyReaction() {
+    return commentId != null && !getPostId().equals(parentId);
+  }
 
 }

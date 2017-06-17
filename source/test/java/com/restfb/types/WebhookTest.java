@@ -236,6 +236,37 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_901097836652708", value.getParentId());
     assertEquals("1234567890321", value.getSenderId());
     assertEquals("love", value.getReactionType());
+    assertTrue(value.isPostReaction());
+    assertFalse(value.isCommentReaction());
+    assertFalse(value.isReplyReaction());
+  }
+
+  @Test
+  public void feedReactionCommentAdd() {
+    FeedReactionValue value =
+            openAndCheckFeedPostBasics("feed-reaction-add-comment", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.ADD);
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321_98735342324352", value.getParentId());
+    assertEquals("1234567890321_1264545546974600", value.getCommentId());
+    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("love", value.getReactionType());
+    assertFalse(value.isPostReaction());
+    assertTrue(value.isCommentReaction());
+    assertFalse(value.isReplyReaction());
+  }
+
+  @Test
+  public void feedReactionReplyAdd() {
+    FeedReactionValue value =
+            openAndCheckFeedPostBasics("feed-reaction-add-reply", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.ADD);
+    assertEquals("1234567890321_98735342324352", value.getPostId());
+    assertEquals("1234567890321_1264545546974600", value.getParentId());
+    assertEquals("1234567890321_1357555177673636", value.getCommentId());
+    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("like", value.getReactionType());
+    assertFalse(value.isPostReaction());
+    assertTrue(value.isCommentReaction());
+    assertTrue(value.isReplyReaction());
   }
 
   @Test
