@@ -22,6 +22,7 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,31 @@ public class TargetingSentenceLine extends BaseAdsObject {
   @Facebook
   private Targeting params;
 
+  /**
+   * check {@link #getTargetingsentencelinesAsObjectList()} to fetch the items as objects
+   */
   @Getter
   @Setter
   @Facebook
   private List<String> targetingsentencelines = new ArrayList<String>();
+
+  @Getter
+  @Setter
+  @Facebook("targetingsentencelines")
+  private List<TargetingSentenceLineItem> targetingsentencelinesAsObjectList =
+      new ArrayList<TargetingSentenceLineItem>();
+
+  public static class TargetingSentenceLineItem extends AbstractFacebookType {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String content;
+
+    @Getter
+    @Setter
+    @Facebook
+    private List<String> children = new ArrayList<String>();
+
+  }
 }

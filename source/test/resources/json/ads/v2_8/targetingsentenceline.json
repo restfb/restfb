@@ -1,0 +1,23 @@
+{
+  "id": "/targetingsentencelines",
+  "targetingsentencelines": [
+    {
+      "content": "Location:",
+      "children": [
+        "United States"
+      ]
+    },
+    {
+      "content": "Age:",
+      "children": [
+        "18 - 65+"
+      ]
+    },
+    {
+      "content": "Placements:",
+      "children": [
+        "News Feed on desktop computers, Instagram Feed or News Feed on mobile devices"
+      ]
+    }
+  ]
+}
