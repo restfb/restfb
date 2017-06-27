@@ -507,6 +507,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   public void ratingsCommentAdd() {
     RatingsCommentValue value = openAndCheckBasics("ratings-comment-add-25", RatingsCommentValue.class, FIELD_RATINGS,
       ITEM_COMMENT, ChangeValue.Verb.ADD);
+    assertEquals("6767676767", value.getOpenGraphStoryId());
   }
 
   @Test

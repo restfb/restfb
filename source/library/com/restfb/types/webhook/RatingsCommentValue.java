@@ -42,6 +42,11 @@ public class RatingsCommentValue extends AbstractFeedPostValue {
   @Facebook("comment_id")
   private String commentId;
 
+  @Getter
+  @Setter
+  @Facebook("open_graph_story_id")
+  private String openGraphStoryId;
+
   /**
    * returns {@code true} if the added comment is a reply (a comment to a comment), {@code false} otherwise
    *
