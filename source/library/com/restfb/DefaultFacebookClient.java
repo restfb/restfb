@@ -593,7 +593,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     if (accessToken == null) {
-      new IllegalStateException("access token is required to fetch a device access token");
+      throw new IllegalStateException("access token is required to fetch a device access token");
     }
 
     String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),
@@ -633,7 +633,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     if (accessToken == null) {
-      new IllegalStateException("access token is required to fetch a device access token");
+      throw new IllegalStateException("access token is required to fetch a device access token");
     }
 
     try {

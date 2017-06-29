@@ -36,6 +36,9 @@ import javax.crypto.spec.SecretKeySpec;
  * @since 1.6.13
  */
 public final class EncodingUtils {
+
+  public static final String UTF_8 = "UTF-8";
+
   /**
    * Prevents instantiation.
    */
@@ -95,7 +98,7 @@ public final class EncodingUtils {
       out[j++] = toDigits[0x0F & data[i]];
     }
 
-    return new String(out).getBytes(Charset.forName("UTF-8"));
+    return new String(out).getBytes(Charset.forName(UTF_8));
   }
 
   /**
@@ -111,13 +114,13 @@ public final class EncodingUtils {
    */
   public static String encodeAppSecretProof(String appSecret, String accessToken) {
     try {
-      byte[] key = appSecret.getBytes(Charset.forName("UTF-8"));
+      byte[] key = appSecret.getBytes(Charset.forName(UTF_8));
       SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA256");
       Mac mac = Mac.getInstance("HmacSHA256");
       mac.init(signingKey);
       byte[] raw = mac.doFinal(accessToken.getBytes());
       byte[] hex = encodeHex(raw);
-      return new String(hex, "UTF-8");
+      return new String(hex, UTF_8);
     } catch (Exception e) {
       throw new IllegalStateException("Creation of appsecret_proof has failed", e);
     }
