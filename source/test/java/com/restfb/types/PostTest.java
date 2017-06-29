@@ -373,6 +373,13 @@ public class PostTest extends AbstractJsonMapperTests {
     assertEquals("1251316078294833", child3.getId());
   }
 
+  @Test
+  public void checkV2_9_noLikes() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/post-no-likes"), Post.class);
+    assertNotNull(examplePost);
+    assertEquals(0L, examplePost.getLikesCount().longValue());
+  }
+
   private void verifyFeedTargeting(String exampleFile) {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath(exampleFile), Post.class);
     assertNotNull(examplePost);
