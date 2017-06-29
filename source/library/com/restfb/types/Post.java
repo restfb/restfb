@@ -260,7 +260,7 @@ public class Post extends NamedFacebookType {
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
    */
   @Facebook("likes")
-  private Long likesCount;
+  private Long likesCount = 0L;
 
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
