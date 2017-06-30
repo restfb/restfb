@@ -210,6 +210,16 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedPostEdit() {
+    FeedPostValue value =
+            openAndCheckFeedPostBasics("feed-post-edit", FeedPostValue.class, ITEM_POST, ChangeValue.Verb.EDIT);
+    assertEquals("1234567890321_7293787835232", value.getPostId());
+    assertEquals("8423678347823", value.getSenderId());
+    assertEquals("Let's check this", value.getMessage());
+    assertEquals("753215778164799", value.getRecipientId());
+  }
+
+  @Test
   public void feedPostRemove() {
     FeedPostValue value =
         openAndCheckFeedPostBasics("feed-post-remove-25", FeedPostValue.class, ITEM_POST, ChangeValue.Verb.REMOVE);

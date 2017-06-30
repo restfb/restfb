@@ -91,6 +91,7 @@ public class ChangeValueFactory {
     FEED_STATUS_UNHIDE(FeedStatusValue.class), //
     FEED_POST_ADD(FeedPostValue.class), //
     FEED_POST_EDITED(FeedPostValue.class), //
+    FEED_POST_EDIT(FeedPostValue.class), //
     FEED_POST_HIDE(FeedPostValue.class), //
     FEED_POST_REMOVE(FeedPostValue.class), //
     FEED_POST_UNHIDE(FeedPostValue.class), //
