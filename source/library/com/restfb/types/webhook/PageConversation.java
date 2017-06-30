@@ -41,4 +41,9 @@ public class PageConversation extends ChangeValue {
   @Facebook("thread_id")
   private String threadId;
 
+  @Getter
+  @Setter
+  @Facebook("thread_key")
+  private String threadKey;
+
 }

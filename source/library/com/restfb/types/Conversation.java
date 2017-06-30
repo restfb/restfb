@@ -73,6 +73,16 @@ public class Conversation extends FacebookType {
   @Facebook
   private String snippet;
 
+  /**
+   * The new identifier for threads effective after September 24, 2017
+   *
+   * @return The new identifier for threads effective after September 24, 2017
+   */
+  @Getter
+  @Setter
+  @Facebook("thread_key")
+  private String threadKey;
+
   @Facebook("updated_time")
   private String rawUpdatedTime;
 
@@ -117,6 +127,16 @@ public class Conversation extends FacebookType {
   @Setter
   @Facebook("unread_count")
   private Long unreadCount = 0L;
+
+  /**
+   * Wallpaper to display as a background for the thread
+   *
+   * @return Wallpaper to display as a background for the thread
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String wallpaper;
 
   @Facebook
   private List<Tag> tags = new ArrayList<Tag>();
