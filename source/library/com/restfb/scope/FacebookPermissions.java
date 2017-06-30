@@ -21,7 +21,7 @@
  */
 package com.restfb.scope;
 
-enum FacebookPermissions {
+public enum FacebookPermissions {
   /**
    * Provides access to a subset of items that are part of a person's public profile.
    * 
