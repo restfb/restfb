@@ -1,5 +1,19 @@
 # RestFB Changelog
 
+## 1.43.0 (July 2, 2017)
+
+* Issue #741: `commentId` field added to `FeedReactionValue`<br>
+  Thanks to @thienit5 for the hint
+* Issue #742: `TargetingSentenceLine` improved<br>
+  Thanks to @eipark for the hint
+* Issue #744: add `open_graph_story_id` to ratings comment<br>
+  Thanks to @abid76 for the hint
+* Issue #745: `Post.getLikesCount` should return 0 if no likes field is found<br>
+  Thanks to @bogdanlupashko for the hint
+* Issue #748: Add missing `thread_key` to `PageConversation` webhook type
+* Issue #749: Webhook from editing a visitors post maps to `FallBackChangeValue`<br>
+  Thanks to @CrWEE for the hint
+
 ## 1.42.0 (June 9, 2017)
 
 * Issue #730: Add `permalink_url` to `Comment`<br>
