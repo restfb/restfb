@@ -86,6 +86,18 @@ public class AdCreativeLinkData extends AbstractFacebookType {
   private String brandedContentSponsorPageId;
 
   /**
+   * The branded content sponsor relationship option.
+   *
+   * -- GETTER --
+   *
+   * @return The branded content sponsor relationship option.
+   */
+  @Getter
+  @Setter
+  @Facebook("branded_content_sponsor_relationship")
+  private String brandedContentSponsorRelationship;
+
+  /**
    * An optional call to action button. If not specified, on Instagram, a default CTA would be used,
    * <code>{"type":"LEARN_MORE","value": {"link":<LINK VALUE OF LINK_DATA>,}}</code>.
    *
@@ -255,6 +267,30 @@ public class AdCreativeLinkData extends AbstractFacebookType {
   private String name;
 
   /**
+   * The id of a Facebook native offer.
+   *
+   * -- GETTER --
+   *
+   * @return The id of a Facebook native offer.
+   */
+  @Getter
+  @Setter
+  @Facebook("offer_id")
+  private String offerId;
+
+  /**
+   * A welcome text from page to user on Messenger once a user performs send message action on an ad.
+   *
+   * -- GETTER --
+   *
+   * @return A welcome text from page to user on Messenger once a user performs send message action on an ad.
+   */
+  @Getter
+  @Setter
+  @Facebook("page_welcome_message")
+  private String pageWelcomeMessage;
+
+  /**
    * URL of a picture to use in the post. Specify this field or image_hash but not both. See post for more info. The
    * image specified at the URL will be saved into the ad accounts image library
    *
@@ -266,4 +302,16 @@ public class AdCreativeLinkData extends AbstractFacebookType {
   @Setter
   @Facebook
   private String picture;
+
+  /**
+   * List of product IDs provided by the advertiser for Collections
+   *
+   * -- GETTER --
+   *
+   * @return List of product IDs provided by the advertiser for Collections
+   */
+  @Getter
+  @Setter
+  @Facebook("retailer_item_ids")
+  private List<String> retailerItemIds;
 }
