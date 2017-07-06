@@ -21,6 +21,8 @@
  */
 package com.restfb.types.ads;
 
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
@@ -31,8 +33,18 @@ public class AdCreativeVideoData extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("additional_image_index")
+  private Long additionalImageIndex;
+
+  @Getter
+  @Setter
   @Facebook("branded_content_sponsor_page_id")
   private String brandedContentSponsorPageId;
+
+  @Getter
+  @Setter
+  @Facebook("branded_content_sponsor_relationship")
+  private String brandedContentSponsorRelationship;
 
   @Getter
   @Setter
@@ -63,6 +75,21 @@ public class AdCreativeVideoData extends AbstractFacebookType {
   @Setter
   @Facebook("image_url")
   private String imageUrl;
+
+  @Getter
+  @Setter
+  @Facebook("offer_id")
+  private String offerId;
+
+  @Getter
+  @Setter
+  @Facebook("page_welcome_message")
+  private String pageWelcomeMessage;
+
+  @Getter
+  @Setter
+  @Facebook("retailer_item_ids")
+  private List<String> retailerItemIds;
 
   @Getter
   @Setter
