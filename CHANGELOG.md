@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2.0.0-rc.3 (July 13, 2017)
+
+* Issue #746: Make `FacebookPermission` enum public
+
 ## 2.0.0-rc.2 (March 28, 2017)
 
 * Issue #577: Move permissions in one class
