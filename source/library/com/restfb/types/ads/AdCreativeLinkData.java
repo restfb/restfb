@@ -303,6 +303,11 @@ public class AdCreativeLinkData extends AbstractFacebookType {
   @Facebook
   private String picture;
 
+  @Getter
+  @Setter
+  @Facebook("post_click_configuration")
+  private AdCreativePostClickConfiguration postClickConfiguration;
+
   /**
    * List of product IDs provided by the advertiser for Collections
    *

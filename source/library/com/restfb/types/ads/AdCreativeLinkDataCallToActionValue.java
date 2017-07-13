@@ -35,6 +35,18 @@ import lombok.Setter;
 public class AdCreativeLinkDataCallToActionValue extends AbstractFacebookType {
 
   /**
+   * The app destination type.
+   *
+   * -- GETTER --
+   *
+   * @return The app destination type.
+   */
+  @Getter
+  @Setter
+  @Facebook("app_destination")
+  private String appDestination;
+
+  /**
    * Deep link to the app.
    *
    * -- GETTER --
@@ -117,6 +129,18 @@ public class AdCreativeLinkDataCallToActionValue extends AbstractFacebookType {
   @Setter
   @Facebook("link_description")
   private String linkDescription;
+
+  /**
+   * Link format of video.
+   *
+   * -- GETTER --
+   *
+   * @return Link format of video.
+   */
+  @Getter
+  @Setter
+  @Facebook("link_format")
+  private String linkFormat;
 
   /**
    * Title of the link shown in the attachment.
