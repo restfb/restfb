@@ -88,6 +88,11 @@ public class AdCreativeVideoData extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("post_click_configuration")
+  private AdCreativePostClickConfiguration postClickConfiguration;
+
+  @Getter
+  @Setter
   @Facebook("retailer_item_ids")
   private List<String> retailerItemIds;
 
