@@ -253,6 +253,29 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messageButtonsAttachmentNonSharable() {
+
+    WebButton button = new WebButton("Check this", "http://www.google.com");
+    PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
+    CallButton callButton = new CallButton("Call Support", "+1234567890");
+    GenericTemplatePayload payload = new GenericTemplatePayload();
+    payload.setSharable(false);
+    Bubble bubble = new Bubble("My Bubble");
+    bubble.addButton(button);
+    bubble.addButton(postbackButton);
+    bubble.addButton(callButton);
+    payload.addBubble(bubble);
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"elements\":[{\"title\":\"My Bubble\",\"buttons\":[{\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}]}],\"sharable\":false,\"template_type\":\"generic\"},\"type\":\"template\"}}",
+            recipientJsonString);
+  }
+
+  @Test
   public void messageListTemplatePayload() {
     ListViewElement element1 = getListViewElement(100, "Classic White T-Shirt");
     ListViewElement element2 = getListViewElement(101, "Classic Blue T-Shirt");

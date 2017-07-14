@@ -31,7 +31,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ListTemplatePayload extends TemplatePayload {
+public class ListTemplatePayload extends SharableTemplatePayload {
 
   @Facebook
   private List<ListViewElement> elements;
