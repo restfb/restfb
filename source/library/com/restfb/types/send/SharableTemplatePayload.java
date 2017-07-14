@@ -23,33 +23,19 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Abstract class to provide access to the sharable field.
+ */
+abstract public class SharableTemplatePayload extends TemplatePayload {
 
-import lombok.Getter;
-import lombok.Setter;
-
-public class GenericTemplatePayload extends SharableTemplatePayload {
-
-  @Getter
   @Facebook
-  private List<Bubble> elements;
+  private Boolean sharable;
 
-  @Getter
-  @Setter
-  @Facebook("image_aspect_ratio")
-  private ImageAspectRatioEnum imageAspectRatio;
-
-  public GenericTemplatePayload() {
-    setTemplateType("generic");
+  public void setSharable(boolean sharable) {
+    this.sharable = sharable;
   }
 
-  public boolean addBubble(Bubble bubble) {
-    if (elements == null) {
-      elements = new ArrayList<Bubble>();
-    }
-
-    return elements.add(bubble);
+  public boolean isSharable() {
+    return null == sharable || sharable;
   }
-
 }

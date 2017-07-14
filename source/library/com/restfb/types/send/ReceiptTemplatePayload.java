@@ -35,7 +35,7 @@ import lombok.Setter;
  * <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference/receipt-template">Receipt
  * Template Payload</a> type
  */
-public class ReceiptTemplatePayload extends TemplatePayload {
+public class ReceiptTemplatePayload extends SharableTemplatePayload {
 
   @Getter
   @Facebook("recipient_name")
@@ -48,6 +48,11 @@ public class ReceiptTemplatePayload extends TemplatePayload {
   @Getter
   @Facebook
   private String currency;
+
+  @Getter
+  @Setter
+  @Facebook("merchant_name")
+  private String merchantName;
 
   @Getter
   @Facebook("payment_method")
