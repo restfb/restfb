@@ -56,4 +56,9 @@ public class RatingsRatingValue extends BaseChangeValue {
   @Setter
   @Facebook("review_text")
   private String reviewText;
+
+  @Getter
+  @Setter
+  @Facebook("comment_id")
+  private String commentId;
 }
