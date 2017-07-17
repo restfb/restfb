@@ -514,6 +514,13 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedVideoRemove() {
+    FeedVideoRemoveValue value = openAndCheckFeedPostBasics("feed-video-remove-25", FeedVideoRemoveValue.class,
+            ITEM_VIDEO, ChangeValue.Verb.REMOVE);
+    assertEquals("1234567890321", value.getRecipientId());
+  }
+
+  @Test
   public void ratingsCommentAdd() {
     RatingsCommentValue value = openAndCheckBasics("ratings-comment-add-25", RatingsCommentValue.class, FIELD_RATINGS,
       ITEM_COMMENT, ChangeValue.Verb.ADD);
