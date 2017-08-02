@@ -220,6 +220,22 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messagingPolicyCallback() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    PolicyEnforcementItem item = messagingItem.getPolicyEnforcement();
+    assertEquals(item, messagingItem.getItem());
+    assertNotNull(item);
+    assertEquals("block", item.getAction());
+    assertNotNull(item.getReason());
+  }
+
+  @Test
   public void messagingPostbackBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-basic"), WebhookObject.class);

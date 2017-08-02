@@ -95,6 +95,11 @@ public class MessagingItem {
   @Facebook
   private ReferralItem referral;
 
+  @Getter
+  @Setter
+  @Facebook("policy-enforcement")
+  private PolicyEnforcementItem policyEnforcement;
+
   /**
    * generic access to the inner item.
    * 
@@ -138,6 +143,10 @@ public class MessagingItem {
 
     if (referral != null) {
       return referral;
+    }
+
+    if (policyEnforcement != null) {
+      return policyEnforcement;
     }
 
     return null;
