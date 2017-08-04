@@ -27,7 +27,9 @@ import static java.lang.String.format;
 import com.restfb.util.ReflectionUtils;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLConnection;
 
 import lombok.Getter;
 
@@ -49,8 +51,10 @@ public class BinaryAttachment {
 
   private InputStream dataStream;
 
-  @Getter
   private String contentType;
+
+  @Getter
+  private String fieldName;
 
   /**
    * Creates a new binary attachment.
@@ -74,6 +78,29 @@ public class BinaryAttachment {
 
     this.filename = filename;
     this.dataStream = data;
+  }
+
+  /**
+   * Creates a new binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   * @deprecated use the stream-less API passing a {@code byte[]} for data
+   */
+  @Deprecated
+  protected BinaryAttachment(String fieldName, String filename, InputStream data) {
+    this(filename, data);
+    if (isBlank(fieldName)) {
+      throw new IllegalArgumentException("Field name cannot be null.");
+    }
+
+    this.fieldName = fieldName;
   }
 
   /**
@@ -108,6 +135,33 @@ public class BinaryAttachment {
    *          The attachment's filename.
    * @param data
    *          The attachment's data.
+   * @param contentType
+   *          The attachment's contentType.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null}, {@code filename} is {@code null} or blank, or {@code contentType} is
+   *           {@code null} or blank.
+   * @deprecated use the stream-less API passing a {@code byte[]} for data
+   * @since 1.6.13
+   */
+  @Deprecated
+  protected BinaryAttachment(String fieldName, String filename, InputStream data, String contentType) {
+    this(filename, data, contentType);
+    if (isBlank(fieldName)) {
+      throw new IllegalArgumentException("Field name cannot be null.");
+    }
+
+    this.fieldName = fieldName;
+  }
+
+  /**
+   * Creates a new binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
    * @throws IllegalArgumentException
    *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
    * @since 1.6.17
@@ -122,6 +176,28 @@ public class BinaryAttachment {
 
     this.filename = filename;
     this.data = data;
+  }
+
+  /**
+   * Creates a new binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   * @since 1.6.17
+   */
+  protected BinaryAttachment(String fieldName, String filename, byte[] data) {
+    this(filename, data);
+    if (isBlank(fieldName)) {
+      throw new IllegalArgumentException("Field name cannot be null.");
+    }
+
+    this.fieldName = fieldName;
   }
 
   /**
@@ -148,6 +224,31 @@ public class BinaryAttachment {
   }
 
   /**
+   * Creates a new binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param contentType
+   *          The attachment's contentType.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null}, {@code filename} is {@code null} or blank, or {@code contentType} is
+   *           {@code null} or blank.
+   * @since 1.6.17
+   */
+  protected BinaryAttachment(String fieldName, String filename, byte[] data, String contentType) {
+    this(filename, data, contentType);
+    if (isBlank(fieldName)) {
+      throw new IllegalArgumentException("Field name cannot be null.");
+    }
+
+    this.fieldName = fieldName;
+  }
+
+  /**
    * Creates a binary attachment.
    * 
    * @param filename
@@ -162,6 +263,25 @@ public class BinaryAttachment {
   @Deprecated
   public static BinaryAttachment with(String filename, InputStream data) {
     return new BinaryAttachment(filename, data);
+  }
+
+  /**
+   * Creates a binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @return A binary attachment.
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   * @deprecated use the stream-less API passing a {@code byte[]} for data
+   */
+  @Deprecated
+  public static BinaryAttachment with(String fieldName, String filename, InputStream data) {
+    return new BinaryAttachment(fieldName, filename, data);
   }
 
   /**
@@ -185,7 +305,26 @@ public class BinaryAttachment {
 
   /**
    * Creates a binary attachment.
-   * 
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @return A binary attachment.
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   * @deprecated use the stream-less API passing a {@code byte[]} for data
+   */
+  @Deprecated
+  public static BinaryAttachment with(String fieldName, String filename, InputStream data, String contentType) {
+    return new BinaryAttachment(fieldName, filename, data, contentType);
+  }
+
+  /**
+   * Creates a binary attachment.
+   *
    * @param filename
    *          The attachment's filename.
    * @param data
@@ -197,6 +336,24 @@ public class BinaryAttachment {
    */
   public static BinaryAttachment with(String filename, byte[] data) {
     return new BinaryAttachment(filename, data);
+  }
+
+  /**
+   * Creates a binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @return A binary attachment.
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   * @since 1.6.17
+   */
+  public static BinaryAttachment with(String fieldName, String filename, byte[] data) {
+    return new BinaryAttachment(fieldName, filename, data);
   }
 
   /**
@@ -215,6 +372,26 @@ public class BinaryAttachment {
    */
   public static BinaryAttachment with(String filename, byte[] data, String contentType) {
     return new BinaryAttachment(filename, data, contentType);
+  }
+
+  /**
+   * Creates a binary attachment.
+   *
+   * @param filename
+   *          The attachment's filename.
+   * @param data
+   *          The attachment's data.
+   * @param contentType
+   *          The attachment's contentType.
+   * @param fieldName
+   *          The field name the binary belongs to
+   * @return A binary attachment.
+   * @throws IllegalArgumentException
+   *           If {@code data} is {@code null} or {@code filename} is {@code null} or blank.
+   * @since 1.6.17
+   */
+  public static BinaryAttachment with(String fieldName, String filename, byte[] data, String contentType) {
+    return new BinaryAttachment(fieldName, filename, data, contentType);
   }
 
   @Override
@@ -245,5 +422,35 @@ public class BinaryAttachment {
     } else {
       throw new IllegalStateException("Either the byte[] or the stream mustn't be null at this point.");
     }
+  }
+
+  /**
+   * return the given content type or try to guess from stream or file name. Depending of the available data.
+   * 
+   * @return the content type
+   */
+  public String getContentType() {
+    if (contentType != null) {
+      return contentType;
+    }
+
+    if (dataStream != null) {
+      try {
+        contentType = URLConnection.guessContentTypeFromStream(dataStream);
+      } catch (IOException ioe) {
+        // ignore exception
+      }
+    }
+
+    if (data != null) {
+      contentType = URLConnection.guessContentTypeFromName(filename);
+    }
+
+    // fallback - if we have no contenttype and cannot detect one, use 'application/octet-stream'
+    if (contentType == null) {
+      contentType = "application/octet-stream";
+    }
+
+    return contentType;
   }
 }

@@ -45,4 +45,14 @@ public class BinaryAttachmentAssert extends AbstractAssert<BinaryAttachmentAsser
 
     return this;
   }
+
+  public BinaryAttachmentAssert hasContentType(String contentType) {
+    isNotNull();
+
+    if (!Objects.areEqual(actual.getContentType(), contentType)) {
+      failWithMessage("Expected content type should be <%s> but was <%s>", contentType, actual.getContentType());
+    }
+
+    return this;
+  }
 }
