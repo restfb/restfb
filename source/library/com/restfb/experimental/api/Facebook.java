@@ -56,4 +56,5 @@ public class Facebook {
   public Applications apps() {
     return ApiFactory.createApplications(facebookClient);
   }
+
 }

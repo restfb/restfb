@@ -59,4 +59,39 @@ public class BinaryAttachmentTest {
   public void checkInpuStreamNull() {
     BinaryAttachment.with("filename", (InputStream) null);
   }
+
+  @Test
+  public void checkContentTypeStream() {
+    InputStream stream = getClass().getResourceAsStream("/binary/fruits.png");
+    BinaryAttachment att = BinaryAttachment.with("example.png", stream);
+    assertEquals("image/png", att.getContentType());
+  }
+
+  @Test
+  public void checkContentTypeBytes_imagePng() {
+    String attachmentData = "this is a short string";
+    BinaryAttachment att = BinaryAttachment.with("example.png", attachmentData.getBytes());
+    assertEquals("image/png", att.getContentType());
+  }
+
+  @Test
+  public void checkContentTypeBytes_html() {
+    String attachmentData = "this is a short string";
+    BinaryAttachment att = BinaryAttachment.with("example.html", attachmentData.getBytes());
+    assertEquals("text/html", att.getContentType());
+  }
+
+  @Test
+  public void checkContentTypeBytes_fallback() {
+    String attachmentData = "this is a short string";
+    BinaryAttachment att = BinaryAttachment.with("example.json", attachmentData.getBytes());
+    assertEquals("application/octet-stream", att.getContentType());
+  }
+
+  @Test
+  public void checkContentTypeBytes_manual() {
+    String attachmentData = "this is a short string";
+    BinaryAttachment att = BinaryAttachment.with("example.json", attachmentData.getBytes(), "application/json");
+    assertEquals("application/json", att.getContentType());
+  }
 }
