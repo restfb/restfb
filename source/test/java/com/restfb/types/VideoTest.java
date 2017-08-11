@@ -144,4 +144,23 @@ public class VideoTest extends AbstractJsonMapperTests {
     assertEquals("987654321", exampleVideo.getFrom().getId());
   }
 
+  @Test
+  public void checkV2_9_captions() {
+    Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/video-captions"), Video.class);
+    assertNotNull(exampleVideo);
+    assertNotNull(exampleVideo.getCaptions());
+    List<VideoCaption> captions = exampleVideo.getCaptions();
+    assertNotNull(captions.get(0));
+    VideoCaption firstCaption = captions.get(0);
+    assertEquals("en_US", firstCaption.getLocale());
+    assertEquals(1501879203000l, firstCaption.getCreateTime().getTime());
+    assertTrue(firstCaption.getUri().contains("example1"));
+    assertTrue(firstCaption.getIsDefault().booleanValue());
+    VideoCaption secondCaption = captions.get(1);
+    assertEquals("de_DE", secondCaption.getLocale());
+    assertEquals(1501875685000L, secondCaption.getCreateTime().getTime());
+    assertTrue(secondCaption.getUri().contains("example2"));
+    assertFalse(secondCaption.getIsDefault().booleanValue());
+  }
+
 }

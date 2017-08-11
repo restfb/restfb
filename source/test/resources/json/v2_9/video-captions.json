@@ -1,0 +1,23 @@
+{
+  "captions": {
+    "data": [
+      {
+        "create_time": 1501879203,
+        "locale": "en_US",
+        "locale_name": "English (US)",
+        "uri": "https://scontent.xx.fbcdn.net/example1.jpg",
+        "is_default": true,
+        "is_auto_generated": false
+      },
+      {
+        "create_time": 1501875685,
+        "locale": "de_DE",
+        "locale_name": "German",
+        "uri": "https://scontent.xx.fbcdn.net/example2.jpg",
+        "is_default": false,
+        "is_auto_generated": false
+      }
+    ]
+  },
+  "id": "1234567898765"
+}
