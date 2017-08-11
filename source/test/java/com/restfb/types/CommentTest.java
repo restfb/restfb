@@ -149,4 +149,15 @@ public class CommentTest extends AbstractJsonMapperTests {
     assertNotNull(exampleComment.getPermalinkUrl());
   }
 
+  @Test
+  public void checkV2_9_Issue768() {
+    Comment exampleComment =
+            createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-messagetags"), Comment.class);
+    assertNotNull(exampleComment);
+    assertNotNull(exampleComment.getMessageTags());
+    assertEquals(1, exampleComment.getMessageTags().size());
+    MessageTag tag = exampleComment.getMessageTags().get(0);
+    assertEquals(13, tag.getLength().intValue());
+  }
+
 }
