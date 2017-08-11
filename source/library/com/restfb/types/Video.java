@@ -35,7 +35,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="http://developers.facebook.com/docs/reference/api/video">Video Graph API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/reference/api/video">Video Graph API type</a>.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
@@ -387,9 +387,24 @@ public class Video extends NamedFacebookType {
   private Date scheduledPublishTime;
 
   @Facebook
+  private List<VideoCaption> captions;
+
+  @Facebook
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
 
   private static final long serialVersionUID = 1L;
+
+  public List<VideoCaption> getCaptions() {
+    return unmodifiableList(captions);
+  }
+
+  public boolean addCaption(VideoCaption caption) {
+    return captions.add(caption);
+  }
+
+  public boolean removeCaption(VideoCaption caption) {
+    return captions.remove(caption);
+  }
 
   /**
    * The different formats of the video.
