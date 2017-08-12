@@ -78,6 +78,7 @@ public class ChangeValueFactory {
     FEED_COMMENT_REMOVE(FeedCommentValue.class), //
     FEED_COMMENT_HIDE(FeedCommentValue.class), //
     FEED_COMMENT_UNHIDE(FeedCommentValue.class), //
+    FEED_EVENT_ADD(FeedEventValue.class), //
     FEED_PHOTO_ADD(FeedPhotoAddValue.class), //
     FEED_PHOTO_REMOVE(FeedPhotoRemoveValue.class), //
     FEED_PHOTO_EDITED(FeedPhotoAddValue.class), //

@@ -628,6 +628,18 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedEventAdd() {
+    WebhookObject webhookObject = openJson("feed-event-add");
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertEquals("change field", "feed" , change.getField());
+    assertEquals("change value class", change.getValue().getClass(), FeedEventValue.class);
+    FeedEventValue value = (FeedEventValue) change.getValue();
+    assertEquals("change event id", "1944041199140689", value.getEventId());
+    assertEquals("change post id", "1234567890321_1944041199140689", value.getPostId());
+    assertEquals("change story", "Page added an event.", value.getStory());
+  }
+
+  @Test
   public void pageLeadgen() {
     WebhookObject webhookObject = openJson("leadgen");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);

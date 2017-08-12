@@ -1,0 +1,22 @@
+{
+  "entry": [
+    {
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "story": "Page added an event.",
+            "item": "event",
+            "event_id": "1944041199140689",
+            "post_id": "1234567890321_1944041199140689",
+            "verb": "add",
+            "created_time": 1502232487
+          }
+        }
+      ],
+      "id": "1234567890321",
+      "time": 1502233204
+    }
+  ],
+  "object": "page"
+}
