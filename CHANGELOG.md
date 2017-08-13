@@ -1,5 +1,24 @@
 # RestFB Changelog
 
+## 1.44.0 (August 13, 2017)
+
+* Graph API 2.10 support
+  * Issue #760 and #773: basic support added<br>
+  Thanks to @jcdavidconde for the hint
+  * Issue #763: Webhook updates for `event` added to factory
+* Messenger Platform:
+  * Issue #757: shareable option is missing in Send API
+  * Issue #766 : Policy Enforcement Callback
+* Issue #753: Bugfix for uploading video captions<br>
+  Thanks to @frank72833 for the hint  
+* Issue #769: `VideoCaption` type added
+* Issue #758: `RATINGS_RATING_EDIT` added to Webhook types
+* Issue #759: `FEED_VIDEO_REMOVE` added to Webhook types
+* Issue #752: Add fields missing from `AdCreativeLinkData` and `AdCreativeVideoData`<br>
+  Thanks to @pkoivisto for the PR 
+* Issue #756: Add missing fields for `AdCreativeLinkDataCallToActionValue`<br>
+  Thanks to @pkoivisto for the PR
+
 ## 1.43.0 (July 2, 2017)
 
 * Issue #741: `commentId` field added to `FeedReactionValue`<br>
