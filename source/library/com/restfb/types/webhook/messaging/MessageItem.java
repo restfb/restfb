@@ -109,6 +109,10 @@ public class MessageItem implements InnerMessagingItem {
   @Facebook
   private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
 
+  @Getter
+  @Facebook
+  private NlpResult nlp;
+
   /**
    * The user may send a like and this method can be used to discover the three know versions of the sticker
    *

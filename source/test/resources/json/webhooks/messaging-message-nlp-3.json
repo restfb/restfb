@@ -1,0 +1,37 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "349489628480201",
+      "time": 1501622334099,
+      "messaging": [
+        {
+          "sender": {
+            "id": "968155906638513"
+          },
+          "recipient": {
+            "id": "349489628480201"
+          },
+          "timestamp": 1501622332197,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0O-zJVdn6pqZyS3S",
+            "seq": 2425,
+            "text": "hallo!",
+            "nlp": {
+              "entities": {
+                "reminder": [
+                  {
+                    "suggested": true,
+                    "confidence": 0.95058024208635,
+                    "value": "hallo!",
+                    "type": "value"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
