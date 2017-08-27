@@ -1,0 +1,52 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "349489628480201",
+      "time": 1501622663393,
+      "messaging": [
+        {
+          "sender": {
+            "id": "968155906638513"
+          },
+          "recipient": {
+            "id": "349489628480201"
+          },
+          "timestamp": 1501622663106,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0PS_wldn693MxNiW",
+            "seq": 2431,
+            "text": "Was gibt es morgen zu Essen?",
+            "nlp": {
+              "entities": {
+                "datetime": [
+                  {
+                    "confidence": 0.99557711676036,
+                    "values": [
+                      {
+                        "value": "2017-08-02T00:00:00.000+02:00",
+                        "grain": "day",
+                        "type": "value"
+                      }
+                    ],
+                    "value": "2017-08-02T00:00:00.000+02:00",
+                    "grain": "day",
+                    "type": "value"
+                  }
+                ],
+                "reminder": [
+                  {
+                    "suggested": true,
+                    "confidence": 0.87795302281932,
+                    "value": "zu Essen?",
+                    "type": "value"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1501623673034,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1501623672530,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0QQm0ldn77eaCVEy",
+            "seq": 2435,
+            "text": "How is it going?",
+            "nlp": {
+              "entities": {
+                "foobar": [
+                  {
+                    "confidence": 0.61518204777792,
+                    "value": "true"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

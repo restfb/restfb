@@ -1,0 +1,52 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "349489628480201",
+      "time": 1501622492414,
+      "messaging": [
+        {
+          "sender": {
+            "id": "968155906638513"
+          },
+          "recipient": {
+            "id": "349489628480201"
+          },
+          "timestamp": 1501622491358,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0PIg3ldn6zYeydjN",
+            "seq": 2429,
+            "text": "wie geht es dir heute?",
+            "nlp": {
+              "entities": {
+                "reminder": [
+                  {
+                    "suggested": true,
+                    "confidence": 0.83214039754226,
+                    "value": "wie geht es dir",
+                    "type": "value"
+                  }
+                ],
+                "datetime": [
+                  {
+                    "confidence": 0.9997399540153,
+                    "values": [
+                      {
+                        "value": "2017-08-01T00:00:00.000+02:00",
+                        "grain": "day",
+                        "type": "value"
+                      }
+                    ],
+                    "value": "2017-08-01T00:00:00.000+02:00",
+                    "grain": "day",
+                    "type": "value"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

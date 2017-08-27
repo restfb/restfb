@@ -29,6 +29,10 @@ import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
 import com.restfb.types.webhook.messaging.airline.PassengerInfoItem;
 import com.restfb.types.webhook.messaging.airline.PassengerSegmentInfoItem;
+import com.restfb.types.webhook.messaging.nlp.NlpDatetime;
+import com.restfb.types.webhook.messaging.nlp.NlpGreetings;
+import com.restfb.types.webhook.messaging.nlp.NlpIntend;
+import com.restfb.types.webhook.messaging.nlp.NlpReminder;
 
 import org.junit.Test;
 
@@ -360,5 +364,92 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("12A", passengerSegmentInfoItem.getSeat());
     assertEquals("Business", passengerSegmentInfoItem.getSeatType());
     assertEquals("USD", attachment.getPayload().getPriceInfoItems().get(0).getCurrency());
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_noNlpContent() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-7"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertNotNull(nlp.getEntities());
+    assertEquals(0, nlp.getEntities().size());
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_singleEntityIntend() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-6"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertNotNull(nlp.getEntities());
+    assertEquals(1, nlp.getEntities().size());
+    NlpIntend intend = nlp.getEntities().get(0).as(NlpIntend.class);
+    NlpIntend intendByClass = nlp.getEntities(NlpIntend.class).get(0);
+    assertEquals(intend, intendByClass);
+    assertEquals("value", intend.getType());
+    assertEquals(0.91431927422157D, intend.getConfidence().doubleValue(), 0.01);
+    assertEquals("weather", intend.getValue());
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_twoEntitiesReminderDate() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-5"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(2, nlp.getEntities().size());
+    assertEquals(1, nlp.getEntities(NlpDatetime.class).size());
+    assertEquals(1, nlp.getEntities(NlpReminder.class).size());
+    NlpDatetime datetime = nlp.getEntities(NlpDatetime.class).get(0);
+    assertEquals("day", datetime.getGrain());
+    assertEquals("value", datetime.getType());
+    assertEquals("2017-08-02T00:00:00.000+02:00", datetime.getValue());
+    assertEquals(0.99557711676036D, datetime.getConfidence().doubleValue(), 0.01);
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_singleEntityReminder() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-3"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(1, nlp.getEntities().size());
+    NlpReminder reminder = nlp.getEntities().get(0).as(NlpReminder.class);
+    assertEquals(true, reminder.getSuggested());
+    assertEquals("value", reminder.getType());
+    assertEquals("hallo!", reminder.getValue());
+    assertEquals(0.95058024208635D, reminder.getConfidence().doubleValue(), 0.01);
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_singleEntityGreetings() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-2"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(1, nlp.getEntities().size());
+    NlpGreetings greetings = nlp.getEntities().get(0).as(NlpGreetings.class);
+    assertEquals("true", greetings.getValue());
+    assertEquals(0.99982774257166D, greetings.getConfidence().doubleValue(), 0.01);
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_unknownEntity() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-8"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(0, nlp.getEntities().size());
+    assertTrue(nlp.hasUnknownEntity());
+  }
+
+  private NlpResult getNlpResultFromWebhookObject(WebhookObject webhookObject) {
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    MessageItem messageItem = messagingItem.getMessage();
+    assertNotNull(messageItem.getNlp());
+    return messageItem.getNlp();
   }
 }
