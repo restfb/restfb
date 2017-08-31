@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 1.45.0 (September 1, 2017)
+
+* Issue #765: Messenger Platform 2.1: support NLP on messages
+* Issue #779: Ads: Reach Frequency Prediction type is missing
+
 ## 1.44.0 (August 13, 2017)
 
 * Graph API 2.10 support
