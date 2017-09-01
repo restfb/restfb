@@ -37,16 +37,11 @@ public class NlpResult {
   @Facebook("entities")
   private JsonObject rawEntities;
 
-  private boolean hasUnknownEntity = false;
-
   @JsonMapper.JsonMappingCompleted
   public void convertRawEntites(JsonMapper mapper) {
     List<String> names = rawEntities.names();
     for (String key : names) {
-      if ("intend".equals(key)) {
-        List<NlpIntend> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpIntend.class);
-        convertedEntities.addAll(list);
-      } else if ("datetime".equals(key)) {
+      if ("datetime".equals(key)) {
         List<NlpDatetime> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpDatetime.class);
         convertedEntities.addAll(list);
       } else if ("bye".equals(key)) {
@@ -59,10 +54,11 @@ public class NlpResult {
         List<NlpGreetings> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpGreetings.class);
         convertedEntities.addAll(list);
       } else {
-        hasUnknownEntity = true;
-        RestFBLogger.VALUE_FACTORY_LOGGER
-          .warn("Unknown entity found '" + key + "'. Please contact the RestFB team and send this information:\nKey: "
-              + key + "\nData: " + rawEntities.get(key).toString());
+        List<NlpCustomWitAi> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpCustomWitAi.class);
+        for (NlpCustomWitAi customNlp : list) {
+          customNlp.setWitAiKey(key);
+        }
+        convertedEntities.addAll(list);
       }
     }
   }
@@ -93,16 +89,5 @@ public class NlpResult {
       }
     }
     return (List<T>) resultList;
-  }
-
-  /**
-   * returns true if there is a entity that cannot be converted by RestFB.
-   *
-   * Please check your logfile for this and open an issue at Github. We will add the entity then.
-   * 
-   * @return <code>true</code> if a unknown entity if detected, <code>false</code> otherwise
-   */
-  public boolean hasUnknownEntity() {
-    return hasUnknownEntity;
   }
 }

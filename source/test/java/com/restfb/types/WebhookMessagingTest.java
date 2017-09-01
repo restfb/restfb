@@ -27,9 +27,11 @@ import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
+import com.restfb.types.webhook.messaging.airline.PassengerInfoItem;
+import com.restfb.types.webhook.messaging.airline.PassengerSegmentInfoItem;
 import com.restfb.types.webhook.messaging.nlp.NlpDatetime;
 import com.restfb.types.webhook.messaging.nlp.NlpGreetings;
-import com.restfb.types.webhook.messaging.nlp.NlpIntend;
+import com.restfb.types.webhook.messaging.nlp.NlpCustomWitAi;
 import com.restfb.types.webhook.messaging.nlp.NlpReminder;
 
 import org.junit.Test;
@@ -343,16 +345,24 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("airline_itinerary", attachment.getPayload().getTemplateType());
     assertEquals("Here's your flight itinerary.", attachment.getPayload().getIntroMessage());
     assertEquals("en_US", attachment.getPayload().getLocale());
+    assertNull(attachment.getPayload().getThemeColor());
     assertEquals("ABCDEF", attachment.getPayload().getPnrNumber());
     assertEquals(12206, attachment.getPayload().getBasePrice(), 0);
     assertEquals(200, attachment.getPayload().getTax(), 0);
     assertEquals(14003, attachment.getPayload().getTotalPrice(), 0);
-    assertEquals("Farbound Smith Jr", attachment.getPayload().getPassengerInfoItems().get(0).getName());
+
+    PassengerInfoItem passengerInfoItem = attachment.getPayload().getPassengerInfoItems().get(0);
+    assertEquals("Farbound Smith Jr", passengerInfoItem.getName());
+    assertEquals("p001",passengerInfoItem.getPassengerId());
+    assertEquals("0741234567890",passengerInfoItem.getTicketNumber());
+
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
     assertEquals(1451763900000L,
       attachment.getPayload().getFlightInfoItems().get(0).getFlightSchedule().getDepartureTime().getTime());
-    assertEquals("12A", attachment.getPayload().getPassengerSegmentInfoItems().get(0).getSeat());
+    PassengerSegmentInfoItem passengerSegmentInfoItem = attachment.getPayload().getPassengerSegmentInfoItems().get(0);
+    assertEquals("12A", passengerSegmentInfoItem.getSeat());
+    assertEquals("Business", passengerSegmentInfoItem.getSeatType());
     assertEquals("USD", attachment.getPayload().getPriceInfoItems().get(0).getCurrency());
   }
 
@@ -374,12 +384,13 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
     assertNotNull(nlp.getEntities());
     assertEquals(1, nlp.getEntities().size());
-    NlpIntend intend = nlp.getEntities().get(0).as(NlpIntend.class);
-    NlpIntend intendByClass = nlp.getEntities(NlpIntend.class).get(0);
+    NlpCustomWitAi intend = nlp.getEntities().get(0).as(NlpCustomWitAi.class);
+    NlpCustomWitAi intendByClass = nlp.getEntities(NlpCustomWitAi.class).get(0);
     assertEquals(intend, intendByClass);
     assertEquals("value", intend.getType());
     assertEquals(0.91431927422157D, intend.getConfidence().doubleValue(), 0.01);
     assertEquals("weather", intend.getValue());
+    assertEquals("intend", nlp.getEntities(NlpCustomWitAi.class).get(0).getWitAiKey());
   }
 
   @Test
@@ -430,8 +441,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-8"), WebhookObject.class);
     assertNotNull(webhookObject);
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
-    assertEquals(0, nlp.getEntities().size());
-    assertTrue(nlp.hasUnknownEntity());
+    assertEquals(1, nlp.getEntities().size());
+    assertEquals("foobar", nlp.getEntities(NlpCustomWitAi.class).get(0).getWitAiKey());
   }
 
   private NlpResult getNlpResultFromWebhookObject(WebhookObject webhookObject) {
