@@ -26,10 +26,14 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NlpIntend extends BaseNlpEntity {
+public class NlpCustomWitAi extends BaseNlpEntity {
 
   @Getter
   @Setter
   @Facebook
   private String type;
+
+  @Getter
+  @Setter
+  private String witAiKey;
 }

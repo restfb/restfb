@@ -31,7 +31,7 @@ import com.restfb.types.webhook.messaging.airline.PassengerInfoItem;
 import com.restfb.types.webhook.messaging.airline.PassengerSegmentInfoItem;
 import com.restfb.types.webhook.messaging.nlp.NlpDatetime;
 import com.restfb.types.webhook.messaging.nlp.NlpGreetings;
-import com.restfb.types.webhook.messaging.nlp.NlpIntend;
+import com.restfb.types.webhook.messaging.nlp.NlpCustomWitAi;
 import com.restfb.types.webhook.messaging.nlp.NlpReminder;
 
 import org.junit.Test;
@@ -384,12 +384,13 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
     assertNotNull(nlp.getEntities());
     assertEquals(1, nlp.getEntities().size());
-    NlpIntend intend = nlp.getEntities().get(0).as(NlpIntend.class);
-    NlpIntend intendByClass = nlp.getEntities(NlpIntend.class).get(0);
+    NlpCustomWitAi intend = nlp.getEntities().get(0).as(NlpCustomWitAi.class);
+    NlpCustomWitAi intendByClass = nlp.getEntities(NlpCustomWitAi.class).get(0);
     assertEquals(intend, intendByClass);
     assertEquals("value", intend.getType());
     assertEquals(0.91431927422157D, intend.getConfidence().doubleValue(), 0.01);
     assertEquals("weather", intend.getValue());
+    assertEquals("intend", nlp.getEntities(NlpCustomWitAi.class).get(0).getWitAiKey());
   }
 
   @Test
@@ -440,8 +441,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-8"), WebhookObject.class);
     assertNotNull(webhookObject);
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
-    assertEquals(0, nlp.getEntities().size());
-    assertTrue(nlp.hasUnknownEntity());
+    assertEquals(1, nlp.getEntities().size());
+    assertEquals("foobar", nlp.getEntities(NlpCustomWitAi.class).get(0).getWitAiKey());
   }
 
   private NlpResult getNlpResultFromWebhookObject(WebhookObject webhookObject) {
