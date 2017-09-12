@@ -221,7 +221,9 @@ public class DefaultWebRequestor implements WebRequestor {
    * @param connection
    *          The connection to customize.
    */
-  protected void customizeConnection(HttpURLConnection connection) {}
+  protected void customizeConnection(HttpURLConnection connection) {
+    // This implementation is a no-op
+  }
 
   /**
    * Attempts to cleanly close a resource, swallowing any exceptions that might occur since there's no way to recover
