@@ -44,6 +44,8 @@ import lombok.Getter;
  */
 public class BinaryAttachment {
 
+  private static final String FIELD_NAME_CANNOT_BE_NULL = "Field name cannot be null.";
+
   @Getter
   private String filename;
 
@@ -149,7 +151,7 @@ public class BinaryAttachment {
   protected BinaryAttachment(String fieldName, String filename, InputStream data, String contentType) {
     this(filename, data, contentType);
     if (isBlank(fieldName)) {
-      throw new IllegalArgumentException("Field name cannot be null.");
+      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
     }
 
     this.fieldName = fieldName;
