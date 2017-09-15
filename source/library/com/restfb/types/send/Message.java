@@ -95,6 +95,9 @@ public class Message extends AbstractFacebookType {
   }
 
   public List<QuickReply> getQuickReplies() {
+    if(quickReplies == null) {
+      return Collections.emptyList();
+    }
     return Collections.unmodifiableList(quickReplies);
   }
 

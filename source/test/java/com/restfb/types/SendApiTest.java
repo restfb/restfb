@@ -35,6 +35,7 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SendApiTest extends AbstractJsonMapperTests {
@@ -400,6 +401,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
         new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
+    recipient.getQuickReplies().equals(Collections.<QuickReply>emptyList());
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
@@ -439,6 +441,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title2", "payload 2"));
     Message message = new Message("message text");
     message.addQuickReplies(quickReplyList);
+    message.getQuickReplies().equals(quickReplyList);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
