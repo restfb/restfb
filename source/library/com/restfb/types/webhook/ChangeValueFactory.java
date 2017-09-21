@@ -26,6 +26,7 @@ import static com.restfb.logging.RestFBLogger.VALUE_FACTORY_LOGGER;
 import com.restfb.JsonMapper;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
 
 /**
  * Factory to convert the value field of the change into a class with special fields
@@ -34,7 +35,7 @@ public class ChangeValueFactory {
 
   private String field;
 
-  private JsonObject value;
+  private JsonValue value;
 
   public ChangeValueFactory setField(String field) {
     this.field = field;
@@ -42,29 +43,46 @@ public class ChangeValueFactory {
   }
 
   public ChangeValueFactory setValue(String value) {
-    this.value = Json.parse(value).asObject();
+    if (value != null && (value.startsWith("{") || value.startsWith("["))) {
+      this.value = Json.parse(value);
+    } else {
+      this.value = Json.value(value);
+    }
+
     return this;
   }
 
   public ChangeValue buildWithMapper(JsonMapper mapper) {
 
-    String classDefinition;
-    if (value != null && field != null) {
-      classDefinition = field.toUpperCase();
-      if (value.get("item") != null) {
-        classDefinition += "_" + value.get("item").asString().toUpperCase();
-      }
-      if (value.get("verb") != null) {
-        classDefinition += "_" + value.get("verb").asString().toUpperCase();
-      }
+    if (value.isString()) {
+      return new SimpleStringChangeValue(value.asString());
+    }
 
-      try {
-        ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
-        return mapper.toJavaObject(value.toString(), changeValueEnum.getValueClass());
-      } catch (IllegalArgumentException iae) {
-        VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);
-        VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + value.toString());
-        return new FallBackChangeValue(value);
+    if (value.isArray()) {
+      return new ListJsonChangeValue(value.asArray().values());
+    }
+
+    if (value.isObject()) {
+
+      JsonObject objValue = value.asObject();
+      String classDefinition;
+      if (objValue != null && field != null) {
+        classDefinition = field.toUpperCase();
+        if (objValue.get("item") != null) {
+          classDefinition += "_" + objValue.get("item").asString().toUpperCase();
+        }
+        if (objValue.get("verb") != null) {
+          classDefinition += "_" + objValue.get("verb").asString().toUpperCase();
+        }
+
+        try {
+          ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
+          return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());
+        } catch (IllegalArgumentException iae) {
+          VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);
+          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + objValue.toString());
+          return new FallBackChangeValue(objValue);
+        }
       }
     }
 

@@ -1,0 +1,24 @@
+{
+  "entry": [
+    {
+      "time": 1505862235,
+      "changes": [
+        {
+          "field": "work_history",
+          "value": [
+            {
+              "id": "4444444444",
+              "employer": {
+                "id": "44444444444444",
+                "name": "Example Employer"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "0",
+      "uid": "0"
+    }
+  ],
+  "object": "user"
+}
