@@ -24,6 +24,7 @@ package com.restfb.types.webhook;
 import static com.restfb.logging.RestFBLogger.VALUE_FACTORY_LOGGER;
 
 import com.restfb.JsonMapper;
+import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 
 /**
@@ -33,7 +34,7 @@ public class ChangeValueFactory {
 
   private String field;
 
-  private JsonObject value;
+  private String value;
 
   public ChangeValueFactory setField(String field) {
     this.field = field;
@@ -41,33 +42,48 @@ public class ChangeValueFactory {
   }
 
   public ChangeValueFactory setValue(String value) {
-    this.value = new JsonObject(value);
+    this.value = value;
+
     return this;
   }
 
   public ChangeValue buildWithMapper(JsonMapper mapper) {
 
-    String classDefinition;
-    if (value != null && field != null) {
-      classDefinition = field.toUpperCase();
-      if (value.has("item")) {
-        classDefinition += "_" + value.getString("item").toUpperCase();
-      }
-      if (value.has("verb")) {
-        classDefinition += "_" + value.getString("verb").toUpperCase();
-      }
+    if (value == null) {
+      return null;
+    }
 
-      try {
-        ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
-        return mapper.toJavaObject(value.toString(), changeValueEnum.getValueClass());
-      } catch (IllegalArgumentException iae) {
-        VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);
-        VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + value.toString());
-        return new FallBackChangeValue(value);
+    if (value.startsWith("{")) {
+
+      JsonObject valueObj = new JsonObject(value);
+
+      String classDefinition;
+      if (valueObj != null && field != null) {
+        classDefinition = field.toUpperCase();
+        if (valueObj.has("item")) {
+          classDefinition += "_" + valueObj.getString("item").toUpperCase();
+        }
+        if (valueObj.has("verb")) {
+          classDefinition += "_" + valueObj.getString("verb").toUpperCase();
+        }
+
+        try {
+          ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
+          return mapper.toJavaObject(value, changeValueEnum.getValueClass());
+        } catch (IllegalArgumentException iae) {
+          VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);
+          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + value);
+          return new FallBackChangeValue(valueObj);
+        }
       }
     }
 
-    return null;
+    if (value.startsWith("[")) {
+      return new ListJsonChangeValue(new JsonArray(value));
+    }
+
+    return new SimpleStringChangeValue(value);
+
   }
 
   enum ChangeValueEnumeration {

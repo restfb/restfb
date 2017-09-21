@@ -24,6 +24,11 @@ package com.restfb.types;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
+import com.restfb.json.JsonObject;
+import org.junit.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.Parameter;
 import com.restfb.types.send.SenderActionEnum;
@@ -35,10 +40,6 @@ import com.restfb.types.webhook.messaging.payment.Amount;
 import com.restfb.types.webhook.messaging.payment.PaymentCredential;
 import com.restfb.types.webhook.messaging.payment.ReuqestedUserInfo;
 import com.restfb.types.webhook.messaging.payment.ShippingAddress;
-
-import org.junit.Test;
-
-import java.util.Arrays;
 
 public class WebhookTest extends AbstractJsonMapperTests {
 
@@ -212,7 +213,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedPostEdit() {
     FeedPostValue value =
-            openAndCheckFeedPostBasics("feed-post-edit", FeedPostValue.class, ITEM_POST, ChangeValue.Verb.EDIT);
+        openAndCheckFeedPostBasics("feed-post-edit", FeedPostValue.class, ITEM_POST, ChangeValue.Verb.EDIT);
     assertEquals("1234567890321_7293787835232", value.getPostId());
     assertEquals("8423678347823", value.getSenderId());
     assertEquals("Let's check this", value.getMessage());
@@ -253,8 +254,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedReactionCommentAdd() {
-    FeedReactionValue value =
-            openAndCheckFeedPostBasics("feed-reaction-add-comment", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.ADD);
+    FeedReactionValue value = openAndCheckFeedPostBasics("feed-reaction-add-comment", FeedReactionValue.class,
+      ITEM_REACTION, ChangeValue.Verb.ADD);
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_98735342324352", value.getParentId());
     assertEquals("1234567890321_1264545546974600", value.getCommentId());
@@ -267,8 +268,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedReactionReplyAdd() {
-    FeedReactionValue value =
-            openAndCheckFeedPostBasics("feed-reaction-add-reply", FeedReactionValue.class, ITEM_REACTION, ChangeValue.Verb.ADD);
+    FeedReactionValue value = openAndCheckFeedPostBasics("feed-reaction-add-reply", FeedReactionValue.class,
+      ITEM_REACTION, ChangeValue.Verb.ADD);
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_1264545546974600", value.getParentId());
     assertEquals("1234567890321_1357555177673636", value.getCommentId());
@@ -516,7 +517,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedVideoRemove() {
     FeedVideoRemoveValue value = openAndCheckFeedPostBasics("feed-video-remove-25", FeedVideoRemoveValue.class,
-            ITEM_VIDEO, ChangeValue.Verb.REMOVE);
+      ITEM_VIDEO, ChangeValue.Verb.REMOVE);
     assertEquals("1234567890321", value.getRecipientId());
   }
 
@@ -556,7 +557,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void ratingsRatingEdit() {
     RatingsRatingValue value = openAndCheckBasics("ratings-rating-edit-25", RatingsRatingValue.class, FIELD_RATINGS,
-            ITEM_RATING, ChangeValue.Verb.EDIT);
+      ITEM_RATING, ChangeValue.Verb.EDIT);
     assertEquals(3L, value.getRating().longValue());
     assertEquals("Tester", value.getReviewerName());
     assertEquals("Ja ziemlich coole Sache", value.getReviewText());
@@ -631,7 +632,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   public void feedEventAdd() {
     WebhookObject webhookObject = openJson("feed-event-add");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("change field", "feed" , change.getField());
+    assertEquals("change field", "feed", change.getField());
     assertEquals("change value class", change.getValue().getClass(), FeedEventValue.class);
     FeedEventValue value = (FeedEventValue) change.getValue();
     assertEquals("change event id", "1944041199140689", value.getEventId());
@@ -659,6 +660,29 @@ public class WebhookTest extends AbstractJsonMapperTests {
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
     assertEquals("change value class", change.getValue().getClass(), FallBackChangeValue.class);
     assertNotNull(((FallBackChangeValue) change.getValue()).getRawJson());
+  }
+
+  @Test
+  public void userWorkHistoryChange() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/user-workhistory"), WebhookObject.class);
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertNotNull(change.getValue());
+    assertEquals(ListJsonChangeValue.class, change.getValue().getClass());
+    ListJsonChangeValue changeValue = (ListJsonChangeValue) change.getValue();
+    assertEquals(1, changeValue.getValue().size());
+    assertEquals(JsonObject.class, changeValue.getValue().get(0).getClass());
+  }
+
+  @Test
+  public void userEmailChange() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/user-email"), WebhookObject.class);
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertNotNull(change.getValue());
+    assertEquals(SimpleStringChangeValue.class, change.getValue().getClass());
+    SimpleStringChangeValue changeValue = (SimpleStringChangeValue) change.getValue();
+    assertEquals("example_email@facebook.com", changeValue.getValue());
   }
 
   @Test

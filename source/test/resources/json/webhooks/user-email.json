@@ -1,0 +1,17 @@
+{
+  "entry": [
+    {
+      "time": 1505485762,
+      "changes": [
+        {
+          "field": "email",
+          "value": "example_email@facebook.com"
+        }
+      ],
+      "id": "0",
+      "uid": "0"
+    }
+  ],
+  "object": "user"
+}
+
