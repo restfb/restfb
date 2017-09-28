@@ -53,6 +53,16 @@
   * Issue #467: Use `Comments` and `Likes` in `Photo` type
   * Issue #452: fix bug from #448
 
+## 1.46.0 (September 28, 2017)
+
+* Issue #782: Support custom wit.ai NLP in Messenger
+* Issue #781: Fix Java 7 built on Travis CI
+* Issue #787: Let Travis CI built RestFB with Java 9
+* Issue #784: Prevent nullpointer when null quickReplies in `Message`<br />
+  Thanks to @SijmenHuizenga for the PR
+* Issue #785: `ChangeValueFactory` tries to convert a string to `JsonObject` and throws exception<br />
+  Thanks to @maurocanuto for the hint and the example JSON
+
 ## 1.45.0 (September 1, 2017)
 
 * Issue #765: Messenger Platform 2.1: support NLP on messages
