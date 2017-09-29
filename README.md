@@ -26,179 +26,30 @@ Just type
 
     ant dist
     
-...and you're done.
+...and you're done. 
 
-## Usage examples
+For the maven users, you can simply type
 
-The following paragraphs show only a subset of the possibilities you have, if you use RestFB. To get a complete 
-overview you should check the examples in the [documentation](http://restfb.com/documentation/). The code samples there
-are commented and have a lot of additional information that are very useful.
+    maven package
+    
+and the jars will be built. 
 
-### Initialization 
-`DefaultFacebookClient` is the `FacebookClient` implementation
-that ships with RestFB. You can customize it by passing in
-custom `JsonMapper` and `WebRequestor` implementations, or simply
-write your own `FacebookClient` instead for maximum control.
+## Usage and examples
 
-```java
-FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, Version.LATEST);
+We provide a well curated [documentation](http://restfb.com/documentation/) with many code samples and examples. These 
+are all commented and give a good overview of the possibilities RestFB provides.
 
-// Get added security by using your app secret:
-FacebookClient facebookClient = 
-       new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_APP_SECRET, Version.VERSION_2_8);
-```
+Additionally you can check the integration tests here on GitHub. Some use cases are handeled there and you
+can get a good idea of the different methods that are provided by RestFB.
 
-### Fetching Single Objects
+And there is the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains of different tools
+that can be triggered with some maven calls. Additional to the fetch and publish example, you can find
+an JavaFX example that shows how an embedded browser is used to fetch an user access token.
 
-[see RestFB documentation](http://restfb.com/documentation/#fetching-single-objects)
+## Getting in touch
 
-For all API calls, you need to tell RestFB how to turn the JSON
-returned by Facebook into Java objects. In this case, the data
-we get back should be mapped to the `User` and `Page` types, respectively.
-You can write your own types too!
-
-```java
-User user = facebookClient.fetchObject("me", User.class);
-Page page = facebookClient.fetchObject("cocacola", Page.class, Parameter.with("fields", "fan_count"));
-
-out.println("User name: " + user.getName());
-out.println("Page likes: " + page.getFanCount());
-```
-
-### Fetching Connections
-[see RestFB documentation](http://restfb.com/documentation/#fetching-connections)
-
-Connection is the name of an object list. You'll get a connection if you
-try to fetch your feed for example. As you can see in this example, you can
-simple iterate over the elements or access the contained data directly.
-
-```java
-Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
-
-out.println("First item in my feed: " + myFeed.getData().get(0));
-
-// Connections support paging and are iterable
-for (List<Post> myFeedConnectionPage : myFeed)
-  for (Post post : myFeedConnectionPage)
-    out.println("Post: " + post);
-```
-
-### Passing Parameters
-[see RestFB documentation](http://restfb.com/documentation/#advanced-usage-passing-parameters)
-
-You can pass along any parameters you'd like to the Facebook endpoint. 
-
-```java
-Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
-
-Connection<Post> filteredFeed = facebookClient.fetchConnection("me/feed", Post.class,
-  Parameter.with("limit", 3), Parameter.with("until", "yesterday"),
-    Parameter.with("since", oneWeekAgo));
-
-out.println("Filtered feed count: " + filteredFeed.getData().size());
-```
-
-### Selecting Specific Fields
-[see RestFB documentation](http://restfb.com/documentation/#advanced-usage-selecting-fields)
-
-With Graph API 2.4 you only get a subset of the possible fields prefilled. But you may
-define which fields you really need.
-
-```java
-User user = facebookClient.fetchObject("me", User.class,
-  Parameter.with("fields", "id,name,last_name"));
-
-out.println("User name: " + user.getName());
-```
-
-### Getting Any Kind of Data as a JSON Object
-[see RestFB documentation](http://restfb.com/documentation/#creating-json-objects)
-
-Sometimes you can't know field names at compile time
-so the `@Facebook` annotation can't be used.
-Or maybe you'd like full control over the data that gets returned.
-Either way, RestFB has you covered. Just map any API call to `JsonObject`.
-
-```java
-// Here's how to fetch a single object
-
-JsonObject btaylor = facebookClient.fetchObject("btaylor", JsonObject.class);
-out.println(btaylor.getString("name"));
-
-// Here's how to fetch a connection
-
-JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject.class);
-String firstPhotoUrl = photosConnection.getJsonArray("data").getJsonObject(0).getString("source");
-out.println(firstPhotoUrl);
-```
-
-### Publishing a Message
-[see RestFB documentation](http://restfb.com/documentation/#publishing-message-event)
-
-```java
-// Publishing a simple message.
-// FacebookType represents any Facebook Graph Object that has an ID property.
-
-FacebookType publishMessageResponse =
-  facebookClient.publish("me/feed", FacebookType.class,
-    Parameter.with("message", "RestFB test"));
-
-out.println("Published message ID: " + publishMessageResponse.getId());
-```
-
-### Publishing a Photo
-[see RestFB documentation](http://restfb.com/documentation/#publishing-photo)
-
-```java
-// Publishing an image to a photo album is easy!
-// Just specify the image you'd like to upload and RestFB will handle it from there.
-
-FacebookType publishPhotoResponse = facebookClient.publish("me/photos", FacebookType.class,
-  BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/cat.png")),
-  Parameter.with("message", "Test cat"));
-
-out.println("Published photo ID: " + publishPhotoResponse.getId());
-
-// Publishing a video works the same way.
-
-facebookClient.publish("me/videos", FacebookType.class,
-  BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
-  Parameter.with("message", "Test cat"));
-```
-
-### Deleting
-[see RestFB documentation](http://restfb.com/documentation/#deleting)
-
-```java
-Boolean deleted = facebookClient.deleteObject("some object ID");
-out.println("Deleted object? " + deleted);
-```
-
-### Map Your Own Types
-[see RestFB documentation](http://restfb.com/documentation/#json-mapping-rules)
-
-```java
-public class MyClass {
-  @Facebook
-  String name;
-
-  @Facebook
-  BigDecimal value;
-
-  // If a Facebook field doesn't match your field's name, specify it explicitly
-
-  @Facebook("lots_of_numbers")
-  List<Integer> lotsOfNumbers;
-  
-  // You can annotate methods with @JsonMappingCompleted to perform
-  // post-mapping operations.
-  //
-  // This is useful if you want to massage the data FB returns.
-  
-  @JsonMappingCompleted
-  void allDone(JsonMapper jsonMapper) {   
-    if(lotsOfNumbers.size() == 0)
-      throw new IllegalStateException("I was expecting more numbers!");
-  }
-}
-```
+* **[GitHub Issues](https://github.com/restfb/restfb/issues/new)**: new ideas, bugs, problems with RestFB. Just open a new issue.
+* **[Facebook Page](https://www.facebook.com/Restfb-909653922461664)**: Like our Facebook page to get the newest updates
+* **[Facebook Messenger](https://fb.com/msg/Restfb-909653922461664)**: Contact us via the Facebook Messenger and we help to solve your RestFB problem.
+* **[Stackoverflow](http://stackoverflow.com/questions/tagged/restfb)**: Question about RestFB are answered on Stackoverflow. We help you there, too.
+* **[Google Groups](http://groups.google.com/group/restfb)**: You like to talk to other RestFB users, just write a message to our Google Group  
