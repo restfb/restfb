@@ -36,20 +36,18 @@ and the jars will be built.
 
 ## Usage and examples
 
-We provide a well curated [documentation](http://restfb.com/documentation/) with many code samples and examples. These 
-are all commented and give a good overview of the possibilities RestFB provides.
+We provide well-curated [documentation](http://restfb.com/documentation/) with many code examples. These 
+are all clearly commented and give a good overview of the functionality RestFB provides.
 
-Additionally you can check the integration tests here on GitHub. Some use cases are handeled there and you
-can get a good idea of the different methods that are provided by RestFB.
+Additionally, you can take a look at the integration tests here on GitHub. Some interesting use cases are exercised there and you can get a good idea of the different features that are provided by RestFB.
 
-And there is the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains of different tools
-that can be triggered with some maven calls. Additional to the fetch and publish example, you can find
-an JavaFX example that shows how an embedded browser is used to fetch an user access token.
+There is also the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains a suite of tools that can be triggered via Maven calls. Additionally, for the fetch and publish example, you can find
+a JavaFX code sample that shows how an embedded browser is used to fetch a user access token.
 
 ## Getting in touch
 
 * **[GitHub Issues](https://github.com/restfb/restfb/issues/new)**: new ideas, bugs, problems with RestFB. Just open a new issue.
 * **[Facebook Page](https://www.facebook.com/Restfb-909653922461664)**: Like our Facebook page to get the newest updates
-* **[Facebook Messenger](https://fb.com/msg/Restfb-909653922461664)**: Contact us via the Facebook Messenger and we help to solve your RestFB problem.
-* **[Stackoverflow](http://stackoverflow.com/questions/tagged/restfb)**: Question about RestFB are answered on Stackoverflow. We help you there, too.
-* **[Google Groups](http://groups.google.com/group/restfb)**: You like to talk to other RestFB users, just write a message to our Google Group  
+* **[Facebook Messenger](https://fb.com/msg/Restfb-909653922461664)**: Contact us via Facebook Messenger and we will help to solve your RestFB problem.
+* **[Stackoverflow](http://stackoverflow.com/questions/tagged/restfb)**: Questions about RestFB are answered on Stackoverflow. We'll help you there, too.
+* **[Google Groups](http://groups.google.com/group/restfb)**: If you'd like to talk to other RestFB users, just send a message to our Google Group!
