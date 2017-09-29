@@ -46,8 +46,8 @@ a JavaFX code sample that shows how an embedded browser is used to fetch a user 
 
 ## Getting in touch
 
-* **[GitHub Issues](https://github.com/restfb/restfb/issues/new)**: new ideas, bugs, problems with RestFB. Just open a new issue.
-* **[Facebook Page](https://www.facebook.com/Restfb-909653922461664)**: Like our Facebook page to get the newest updates
+* **[GitHub Issues](https://github.com/restfb/restfb/issues/new)**: If you have ideas, bugs, or problems with RestFB, just open a new issue.
+* **[Facebook Page](https://www.facebook.com/Restfb-909653922461664)**: Like our Facebook page to get the latest updates.
 * **[Facebook Messenger](https://fb.com/msg/Restfb-909653922461664)**: Contact us via Facebook Messenger and we will help to solve your RestFB problem.
 * **[Stackoverflow](http://stackoverflow.com/questions/tagged/restfb)**: Questions about RestFB are answered on Stackoverflow. We'll help you there, too.
 * **[Google Groups](http://groups.google.com/group/restfb)**: If you'd like to talk to other RestFB users, just send a message to our Google Group!
