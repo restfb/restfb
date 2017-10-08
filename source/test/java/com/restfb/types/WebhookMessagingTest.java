@@ -88,6 +88,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("image", attachment.getType());
+    assertTrue(attachment.isImage());
     assertEquals("IMAGE_URL", attachment.getPayload().getUrl());
   }
 
@@ -108,6 +109,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("location", attachment.getType());
+    assertTrue(attachment.isLocation());
     assertEquals(12.34, attachment.getPayload().getCoordinates().getLat(), 0);
     assertEquals(43.21, attachment.getPayload().getCoordinates().getLongVal(), 0);
   }
@@ -129,6 +131,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("fallback", attachment.getType());
+    assertTrue(attachment.isFallback());
     assertEquals("Legacy Attachment", attachment.getTitle());
     assertEquals("BLOB_BLOB_BLOB", attachment.getPayload().getFallback());
   }
@@ -224,9 +227,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingPolicyCallback() {
+  public void messagingPolicyCallbackBlock() {
     WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-block"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -236,6 +239,26 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertEquals("block", item.getAction());
+    assertTrue(item.isBlock());
+    assertFalse(item.isUnblock());
+    assertNotNull(item.getReason());
+  }
+
+  @Test
+  public void messagingPolicyCallbackUnblock() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-unblock"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    PolicyEnforcementItem item = messagingItem.getPolicyEnforcement();
+    assertEquals(item, messagingItem.getItem());
+    assertNotNull(item);
+    assertEquals("unblock", item.getAction());
+    assertFalse(item.isBlock());
+    assertTrue(item.isUnblock());
     assertNotNull(item.getReason());
   }
 
@@ -287,6 +310,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertTrue(item.isLinked());
+    assertFalse(item.isUnlinked());
     assertEquals("linked", item.getStatus());
     assertEquals("PASS_THROUGH_AUTHORIZATION_CODE", item.getAuthorizationCode());
   }
@@ -304,6 +328,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
     assertFalse(item.isLinked());
+    assertTrue(item.isUnlinked());
     assertEquals("unlinked", item.getStatus());
   }
 

@@ -33,6 +33,21 @@ import lombok.ToString;
 public class PaymentCredential implements Serializable {
 
   /**
+   * The "stripe" provider type.
+   */
+  public static final String STRIPE = "stripe";
+
+  /**
+   * The "paypal" provider type.
+   */
+  public static final String PAYPAL = "paypal";
+
+  /**
+   * The "token" provider type.
+   */
+  public static final String TOKEN = "token";
+
+  /**
    * Payment provider type
    */
   @Getter
@@ -47,4 +62,31 @@ public class PaymentCredential implements Serializable {
   @Setter
   @Facebook("charge_id")
   private String chargeId;
+
+  /**
+   * convenience method to check if the provider type is stripe
+   *
+   * @return {@code true} if stripe, {@code false} if not stripe
+   */
+  public boolean isStripe() {
+    return STRIPE.equals(providerType);
+  }
+
+  /**
+   * convenience method to check if the provider type is paypal
+   *
+   * @return {@code true} if paypal, {@code false} if not paypal
+   */
+  public boolean isPaypal() {
+    return PAYPAL.equals(providerType);
+  }
+
+  /**
+   * convenience method to check if the provider type is token
+   *
+   * @return {@code true} if token, {@code false} if not token
+   */
+  public boolean isToken() {
+    return TOKEN.equals(providerType);
+  }
 }
