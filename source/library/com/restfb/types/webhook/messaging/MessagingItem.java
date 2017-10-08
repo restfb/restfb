@@ -100,6 +100,16 @@ public class MessagingItem {
   @Facebook("policy-enforcement")
   private PolicyEnforcementItem policyEnforcement;
 
+  @Getter
+  @Setter
+  @Facebook("pass_thread_control")
+  private PassThreadControlItem passThreadControl;
+
+  @Getter
+  @Setter
+  @Facebook("take_thread_control")
+  private TakeThreadControlItem takeThreadControl;
+
   /**
    * generic access to the inner item.
    * 
@@ -147,6 +157,14 @@ public class MessagingItem {
 
     if (policyEnforcement != null) {
       return policyEnforcement;
+    }
+
+    if (passThreadControl != null) {
+      return passThreadControl;
+    }
+
+    if (takeThreadControl != null) {
+      return takeThreadControl;
     }
 
     return null;
