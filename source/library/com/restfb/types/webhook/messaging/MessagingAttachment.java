@@ -31,6 +31,36 @@ import lombok.ToString;
 @ToString
 public class MessagingAttachment {
 
+  /**
+   * The "audio" attachment type.
+   */
+  public static final String AUDIO = "audio";
+
+  /**
+   * The "fallback" attachment type.
+   */
+  public static final String FALLBACK = "fallback";
+
+  /**
+   * The "file" attachment type.
+   */
+  public static final String FILE = "file";
+
+  /**
+   * The "image" attachment type.
+   */
+  public static final String IMAGE = "image";
+
+  /**
+   * The "location" attachment type.
+   */
+  public static final String LOCATION = "location";
+
+  /**
+   * The "video" attachment type.
+   */
+  public static final String VIDEO = "video";
+
   @Getter
   @Setter
   @Facebook
@@ -60,5 +90,59 @@ public class MessagingAttachment {
       payload = new MessagingPayload();
       payload.setFallback(fallbackPayload);
     }
+  }
+
+  /**
+   * convenience method to check if the attachment type is audio
+   *
+   * @return {@code true} if audio, {@code false} if not audio
+   */
+  public boolean isAudio() {
+    return AUDIO.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is fallback
+   *
+   * @return {@code true} if fallback, {@code false} if not fallback
+   */
+  public boolean isFallback() {
+    return FALLBACK.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is file
+   *
+   * @return {@code true} if file, {@code false} if not file
+   */
+  public boolean isFile() {
+    return FILE.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is image
+   *
+   * @return {@code true} if image, {@code false} if not image
+   */
+  public boolean isImage() {
+    return IMAGE.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is location
+   *
+   * @return {@code true} if location, {@code false} if not location
+   */
+  public boolean isLocation() {
+    return LOCATION.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is video
+   *
+   * @return {@code true} if video, {@code false} if not video
+   */
+  public boolean isVideo() {
+    return VIDEO.equals(type);
   }
 }

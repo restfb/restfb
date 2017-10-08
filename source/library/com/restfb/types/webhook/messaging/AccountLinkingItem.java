@@ -31,6 +31,16 @@ import lombok.ToString;
 public class AccountLinkingItem implements InnerMessagingItem {
 
   /**
+   * The "linked" account linking status.
+   */
+  public static final String LINKED = "linked";
+
+  /**
+   * The "unlinked" account linking status.
+   */
+  public static final String UNLINKED = "unlinked";
+
+  /**
    * {@code linked} or {@code unlinked}
    */
   @Getter
@@ -52,6 +62,15 @@ public class AccountLinkingItem implements InnerMessagingItem {
    * @return {@code true} if linked, {@code false} if unlinked
    */
   public boolean isLinked() {
-    return "linked".equals(status);
+    return LINKED.equals(status);
+  }
+
+  /**
+   * convenience method to check the status of the account linking
+   *
+   * @return {@code true} if unlinked, {@code false} if linked
+   */
+  public boolean isUnlinked() {
+    return UNLINKED.equals(status);
   }
 }
