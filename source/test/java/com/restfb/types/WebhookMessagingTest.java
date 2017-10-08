@@ -478,4 +478,36 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertNotNull(messageItem.getNlp());
     return messageItem.getNlp();
   }
+
+  @Test
+  public void passThreadControl() {
+    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-pass-thread-control"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertNotNull(item);
+    assertFalse(item.isTakeThreadControl());
+    assertTrue(item.isPassThreadControl());
+    assertEquals("USER_ID", item.getSender().getId());
+    assertEquals("PAGE_ID", item.getRecipient().getId());
+    PassThreadControlItem passThreadControlItem = (PassThreadControlItem) item.getItem();
+    assertNotNull(passThreadControlItem);
+    assertEquals("NEW_OWNER_APP_ID", passThreadControlItem.getNewOwnerAppId());
+    assertEquals("METADATA", passThreadControlItem.getMetadata());
+  }
+
+  @Test
+  public void takeThreadControl() {
+    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-take-thread-control"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertNotNull(item);
+    assertTrue(item.isTakeThreadControl());
+    assertFalse(item.isPassThreadControl());
+    assertEquals("USER_ID", item.getSender().getId());
+    assertEquals("PAGE_ID", item.getRecipient().getId());
+    TakeThreadControlItem takeThreadControlItem = (TakeThreadControlItem) item.getItem();
+    assertNotNull(takeThreadControlItem);
+    assertEquals("PREVIOUS_OWNER_APP_ID", takeThreadControlItem.getPreviousOwnerAppId());
+    assertEquals("METADATA", takeThreadControlItem.getMetadata());
+  }
 }
