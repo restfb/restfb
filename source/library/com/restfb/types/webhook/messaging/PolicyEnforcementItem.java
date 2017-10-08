@@ -32,6 +32,16 @@ import lombok.Setter;
  */
 public class PolicyEnforcementItem implements InnerMessagingItem {
 
+  /**
+   * The "block" action.
+   */
+  public static final String BLOCK = "block";
+
+  /**
+   * The "unblock" action.
+   */
+  public static final String UNBLOCK = "unblock";
+
   @Getter
   @Setter
   @Facebook
@@ -41,4 +51,22 @@ public class PolicyEnforcementItem implements InnerMessagingItem {
   @Setter
   @Facebook
   private String reason;
+
+  /**
+   * convenience method to check the action of the policy enforcement
+   *
+   * @return {@code true} if block, {@code false} if unblock
+   */
+  public boolean isBlock() {
+    return BLOCK.equals(action);
+  }
+
+  /**
+   * convenience method to check the action of the policy enforcement
+   *
+   * @return {@code true} if unblock, {@code false} if block
+   */
+  public boolean isUnblock() {
+    return UNBLOCK.equals(action);
+  }
 }
