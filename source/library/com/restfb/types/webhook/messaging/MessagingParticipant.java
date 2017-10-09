@@ -23,6 +23,7 @@ package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.send.IdMessageRecipient;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,4 +35,8 @@ public class MessagingParticipant {
   @Setter
   @Facebook
   private String id;
+
+  public IdMessageRecipient toIdMessageRecipient() {
+    return new IdMessageRecipient(id);
+  }
 }
