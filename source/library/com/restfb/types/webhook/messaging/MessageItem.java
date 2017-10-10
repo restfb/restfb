@@ -123,4 +123,31 @@ public class MessageItem implements InnerMessagingItem {
         || "369239343222814".equals(stickerId) // medium size sticker
         || "369239383222810".equals(stickerId); // large size sticker
   }
+
+  /**
+   * Returns whether the message contains an attachment.
+   *
+   * @return {@code true} if the message contains a attachment, {@code false} otherwise
+   */
+  public boolean hasAttachment() {
+    return attachments != null && attachments.size() > 0;
+  }
+
+  /**
+   * Returns whether the message contains a quick reply.
+   *
+   * @return {@code true} if the message contains a quick reply, {@code false} otherwise
+   */
+  public boolean hasQuickReply() {
+    return quickReply != null;
+  }
+
+  /**
+   * Returns whether the message contains a NLP result.
+   *
+   * @return {@code true} if the message contains a NLP result, {@code false} otherwise
+   */
+  public boolean hasNlp() {
+    return nlp != null;
+  }
 }
