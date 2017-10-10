@@ -170,6 +170,14 @@ public class MessagingItem {
     return null;
   }
 
+  public boolean isPassThreadControl() {
+    return getItem() instanceof PassThreadControlItem;
+  }
+
+  public boolean isTakeThreadControl() {
+    return getItem() instanceof TakeThreadControlItem;
+  }
+
   @JsonMapper.JsonMappingCompleted
   private void convertDate() {
     if (rawTimestamp != null) {

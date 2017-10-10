@@ -813,34 +813,6 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("mark_seen", val3);
   }
 
-  @Test
-  public void passThreadControl() {
-    WebhookObject webhookObject = openMessagingJson("messaging-pass-thread-control");
-    assertNotNull(webhookObject);
-    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
-    assertNotNull(item);
-    assertEquals("USER_ID", item.getSender().getId());
-    assertEquals("PAGE_ID", item.getRecipient().getId());
-    PassThreadControlItem passThreadControlItem = (PassThreadControlItem) item.getItem();
-    assertNotNull(passThreadControlItem);
-    assertEquals("NEW_OWNER_APP_ID", passThreadControlItem.getNewOwnerAppId());
-    assertEquals("METADATA", passThreadControlItem.getMetadata());
-  }
-
-  @Test
-  public void takeThreadControl() {
-    WebhookObject webhookObject = openMessagingJson("messaging-take-thread-control");
-    assertNotNull(webhookObject);
-    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
-    assertNotNull(item);
-    assertEquals("USER_ID", item.getSender().getId());
-    assertEquals("PAGE_ID", item.getRecipient().getId());
-    TakeThreadControlItem takeThreadControlItem = (TakeThreadControlItem) item.getItem();
-    assertNotNull(takeThreadControlItem);
-    assertEquals("PREVIOUS_OWNER_APP_ID", takeThreadControlItem.getPreviousOwnerAppId());
-    assertEquals("METADATA", takeThreadControlItem.getMetadata());
-  }
-
   private <T extends AbstractFeedPostValue> T openAndCheckFeedPostBasics(String jsonName, Class<T> changeValueClass,
       String expectedItem, ChangeValue.Verb expectedVerb) {
     return openAndCheckBasics(jsonName, changeValueClass, FIELD_FEED, expectedItem, expectedVerb);
