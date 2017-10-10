@@ -761,8 +761,10 @@ public class WebhookTest extends AbstractJsonMapperTests {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-quickreply"), WebhookObject.class);
     assertNotNull(webhookObject);
-    MessagingItem messageItem = webhookObject.getEntryList().get(0).getMessaging().get(0);
-    QuickReplyItem qrItem = messageItem.getMessage().getQuickReply();
+    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    MessageItem messageItem = item.getMessage();
+    assertTrue(messageItem.hasQuickReply());
+    QuickReplyItem qrItem = messageItem.getQuickReply();
     assertNotNull(qrItem);
     assertEquals("PAYLOAD_QUICK_REPLY", qrItem.getPayload());
   }
