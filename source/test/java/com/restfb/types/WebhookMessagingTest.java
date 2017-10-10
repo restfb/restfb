@@ -49,6 +49,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isDelivery());
     DeliveryItem item = messagingItem.getDelivery();
     assertNotNull(item);
     assertFalse(item.getMids().isEmpty());
@@ -65,6 +66,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isRead());
     ReadItem item = messagingItem.getRead();
     assertNotNull(item);
     assertEquals("1458668856253", item.getWatermark());
@@ -80,6 +82,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertNotNull(item);
     assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
@@ -100,6 +103,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertNotNull(item);
     assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
@@ -121,6 +125,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertNotNull(item);
     assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
@@ -142,6 +147,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertEquals(item, messagingItem.getItem());
     assertFalse(item.isEcho());
@@ -161,6 +167,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isReferral());
     ReferralItem referral = messagingItem.getReferral();
     assertEquals(referral, messagingItem.getItem());
     assertNotNull(referral);
@@ -178,6 +185,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertTrue(item.isEcho());
     assertNotNull(item);
@@ -198,6 +206,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isOptin());
     OptinItem item = messagingItem.getOptin();
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
@@ -215,6 +224,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isOptin());
     OptinItem item = messagingItem.getOptin();
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
@@ -232,6 +242,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isPolicyEnforcement());
     PolicyEnforcementItem item = messagingItem.getPolicyEnforcement();
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
@@ -248,6 +259,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isPostback());
     PostbackItem item = messagingItem.getPostback();
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
@@ -264,6 +276,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isPostback());
     PostbackItem item = messagingItem.getPostback();
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
@@ -283,6 +296,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isAccountLinking());
     AccountLinkingItem item = messagingItem.getAccountLinking();
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
@@ -300,6 +314,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isAccountLinking());
     AccountLinkingItem item = messagingItem.getAccountLinking();
     assertEquals(item, messagingItem.getItem());
     assertNotNull(item);
@@ -316,6 +331,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
@@ -336,6 +352,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     assertNotNull(messagingItem.getTimestamp());
     assertEquals(1458692752478L, messagingItem.getTimestamp().getTime());
     MessageItem item = messagingItem.getMessage();
@@ -449,6 +466,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
     MessageItem messageItem = messagingItem.getMessage();
     assertNotNull(messageItem.getNlp());
     return messageItem.getNlp();
