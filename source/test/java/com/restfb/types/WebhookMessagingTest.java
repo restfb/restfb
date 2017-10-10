@@ -88,6 +88,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
     assertNull(item.getText());
     assertEquals(51L, item.getSeq().longValue());
+    assertFalse(item.hasQuickReply());
+    assertFalse(item.hasNlp());
+    assertTrue(item.hasAttachment());
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("image", attachment.getType());
@@ -110,6 +113,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
     assertNull(item.getText());
     assertEquals(51L, item.getSeq().longValue());
+    assertFalse(item.hasQuickReply());
+    assertFalse(item.hasNlp());
+    assertTrue(item.hasAttachment());
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("location", attachment.getType());
@@ -133,6 +139,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("mid.1458696618141:b4ef9d19ec21086067", item.getMid());
     assertNull(item.getText());
     assertEquals(51L, item.getSeq().longValue());
+    assertFalse(item.hasQuickReply());
+    assertFalse(item.hasNlp());
+    assertTrue(item.hasAttachment());
     assertFalse(item.getAttachments().isEmpty());
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("fallback", attachment.getType());
@@ -153,6 +162,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertEquals(item, messagingItem.getItem());
+    assertFalse(item.hasQuickReply());
+    assertFalse(item.hasNlp());
+    assertFalse(item.hasAttachment());
     assertFalse(item.isEcho());
     assertNotNull(item);
     assertEquals("mid.1457764197618:41d102a3e1ae206a38", item.getMid());
@@ -494,6 +506,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertTrue(messagingItem.isMessage());
     MessageItem messageItem = messagingItem.getMessage();
     assertNotNull(messageItem.getNlp());
+    assertTrue(messageItem.hasNlp());
     return messageItem.getNlp();
   }
 
