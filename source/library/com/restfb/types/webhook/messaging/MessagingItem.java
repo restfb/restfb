@@ -170,6 +170,46 @@ public class MessagingItem {
     return null;
   }
 
+  public boolean isDelivery() {
+    return getItem() instanceof DeliveryItem;
+  }
+
+  public boolean isRead() {
+    return getItem() instanceof ReadItem;
+  }
+
+  public boolean isMessage() {
+    return getItem() instanceof MessageItem;
+  }
+
+  public boolean isPostback() {
+    return getItem() instanceof PostbackItem;
+  }
+
+  public boolean isOptin() {
+    return getItem() instanceof OptinItem;
+  }
+
+  public boolean isAccountLinking() {
+    return getItem() instanceof AccountLinkingItem;
+  }
+
+  public boolean isCheckoutUpdate() {
+    return getItem() instanceof CheckoutUpdateItem;
+  }
+
+  public boolean isPayment() {
+    return getItem() instanceof PaymentItem;
+  }
+
+  public boolean isReferral() {
+    return getItem() instanceof ReferralItem;
+  }
+
+  public boolean isPolicyEnforcement() {
+    return getItem() instanceof PolicyEnforcementItem;
+  }
+
   public boolean isPassThreadControl() {
     return getItem() instanceof PassThreadControlItem;
   }
