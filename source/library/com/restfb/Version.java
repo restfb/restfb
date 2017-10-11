@@ -32,7 +32,7 @@ public enum Version {
    * <tt>Graph API 1.0</tt>, available until April 30, 2015
    * 
    * @since April 21, 2010
-   * @deprecated use {@link Version#VERSION_2_3} instead
+   * @deprecated use {@link Version#VERSION_2_5} instead
    */
   @Deprecated
   VERSION_1_0("v1.0", false),
@@ -41,7 +41,7 @@ public enum Version {
    * <tt>Graph API 2.0</tt>, available until August 7, 2016
    *
    * @since April 30, 2014
-   * @deprecated use {@link Version#VERSION_2_3} instead
+   * @deprecated use {@link Version#VERSION_2_5} instead
    */
   @Deprecated
   VERSION_2_0("v2.0", false),
@@ -50,7 +50,7 @@ public enum Version {
    * <tt>Graph API 2.1</tt>, available until October 30, 2016
    *
    * @since August 7, 2014
-   * @deprecated use {@link Version#VERSION_2_3} instead
+   * @deprecated use {@link Version#VERSION_2_5} instead
    */
   @Deprecated
   VERSION_2_1("v2.1", false),
@@ -59,7 +59,7 @@ public enum Version {
    * <tt>Graph API 2.2</tt>, available until March 25, 2017
    *
    * @since October 30, 2014
-   * @deprecated use {@link Version#VERSION_2_3} instead
+   * @deprecated use {@link Version#VERSION_2_5} instead
    */
   @Deprecated
   VERSION_2_2("v2.2", false),
@@ -68,14 +68,18 @@ public enum Version {
    * <tt>Graph API 2.3</tt>, available until July 8, 2017
    *
    * @since March 25, 2015
+   * @deprecated use {@link Version#VERSION_2_5} instead
    */
+  @Deprecated
   VERSION_2_3("v2.3", false),
 
   /**
    * <tt>Graph API 2.4</tt>, available until October 7, 2017
    *
    * @since July 8, 2015
+   * @deprecated use {@link Version#VERSION_2_5} instead
    */
+  @Deprecated
   VERSION_2_4("v2.4", false),
 
   /**
