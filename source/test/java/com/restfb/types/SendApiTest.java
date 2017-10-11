@@ -23,6 +23,12 @@ package com.restfb.types;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.exception.FacebookPreconditionException;
@@ -30,12 +36,6 @@ import com.restfb.testutils.AssertJson;
 import com.restfb.types.send.*;
 import com.restfb.types.send.Message;
 import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
-
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class SendApiTest extends AbstractJsonMapperTests {
 
@@ -175,6 +175,36 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messageOpenGraphTemplate() {
+    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload("some url");
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"url\":\"some url\", \"template_type\":\"open_graph\"},\"type\":\"template\"}}",
+      recipientJsonString);
+  }
+
+  @Test
+  public void messageOpenGraphTemplateWithButton() {
+    WebButton button = new WebButton("Check this", "http://www.google.com");
+    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload("some url");
+    payload.addButton(button);
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"url\":\"some url\",\"template_type\":\"open_graph\",\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"}]},\"type\":\"template\"}}",
+      recipientJsonString);
+  }
+
+  @Test
   public void messageGenericAttachment() {
 
     ButtonTemplatePayload payload = new ButtonTemplatePayload("TITLE");
@@ -272,8 +302,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"elements\":[{\"title\":\"My Bubble\",\"buttons\":[{\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}]}],\"sharable\":false,\"template_type\":\"generic\"},\"type\":\"template\"}}",
-            recipientJsonString);
+    AssertJson.assertEquals(
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"title\":\"My Bubble\",\"buttons\":[{\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}]}],\"sharable\":false,\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      recipientJsonString);
   }
 
   @Test
@@ -401,7 +432,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
         new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
-    recipient.getQuickReplies().equals(Collections.<QuickReply>emptyList());
+    recipient.getQuickReplies().equals(Collections.<QuickReply> emptyList());
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
