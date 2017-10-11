@@ -23,6 +23,12 @@ package com.restfb.types;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.exception.FacebookPreconditionException;
@@ -172,6 +178,36 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
     JSONAssert.assertEquals(
       "{\"attachment\":{\"payload\":{\"coordinates\":{\"lat\":20, \"long\":30}},\"type\":\"location\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
+  public void messageOpenGraphTemplate() throws JSONException {
+    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload("some url");
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"url\":\"some url\", \"template_type\":\"open_graph\"},\"type\":\"template\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
+  public void messageOpenGraphTemplateWithButton() throws JSONException {
+    WebButton button = new WebButton("Check this", "http://www.google.com");
+    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload("some url");
+    payload.addButton(button);
+    TemplateAttachment attachment = new TemplateAttachment(payload);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"url\":\"some url\",\"template_type\":\"open_graph\",\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"}]},\"type\":\"template\"}}",
       recipientJsonString, false);
   }
 
@@ -401,7 +437,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
         new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
-    recipient.getQuickReplies().equals(Collections.<QuickReply>emptyList());
+    recipient.getQuickReplies().equals(Collections.<QuickReply> emptyList());
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
