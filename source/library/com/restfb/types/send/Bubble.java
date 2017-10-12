@@ -21,11 +21,11 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +50,11 @@ public class Bubble extends AbstractFacebookType {
   @Setter
   @Facebook
   private String subtitle;
+
+  @Getter
+  @Setter
+  @Facebook("default_action")
+  private DefaultAction defaultAction;
 
   @Getter
   @Facebook
