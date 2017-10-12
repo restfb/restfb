@@ -44,6 +44,11 @@ public class PaymentSummary extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("is_test_payment")
+  private boolean testPayment = false;
+
+  @Getter
+  @Setter
   @Facebook("merchant_name")
   private String merchant_name;
 
