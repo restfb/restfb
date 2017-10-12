@@ -375,14 +375,14 @@ public class FacebookClientTest {
 
   @Test
   public void checkLogoutUrl() {
-    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_2);
+    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_5);
     String logoutUrl = client.getLogoutUrl(null);
     assertThat(logoutUrl).isEqualTo("https://www.facebook.com/logout.php?access_token=123456");
   }
 
   @Test
   public void checkLogoutUrlWithNext() {
-    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_2);
+    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_2_5);
     String logoutUrl = client.getLogoutUrl("http://www.example.com");
     assertThat(logoutUrl)
       .isEqualTo("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456");
@@ -390,7 +390,7 @@ public class FacebookClientTest {
 
   @Test
   public void checkLoginDialogURL() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_5);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder());
     assertThat(loginDialogUrlString).isEqualTo(
       "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile");
@@ -398,7 +398,7 @@ public class FacebookClientTest {
 
   @Test
   public void checkLoginDialogURLAdditionalParameters() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_2);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_2_5);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
       Parameter.with("auth_type", "reauthenticate"));
     assertThat(loginDialogUrlString).isEqualTo(

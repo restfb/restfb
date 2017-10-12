@@ -37,7 +37,7 @@ public class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void fetchMeWithCache() throws IOException {
-    String requestUrl = "https://graph.facebook.com/v2.2/me?format=json&access_token=";
+    String requestUrl = "https://graph.facebook.com/v2.5/me?format=json&access_token=";
     requestUrl += getTestSettings().getUserAccessToken();
     ETagWebRequestor webRequest = new ETagWebRequestor();
     Response resp1 = webRequest.executeGet(requestUrl);
@@ -51,7 +51,7 @@ public class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void fetchMeWithoutCache() throws IOException {
-    String requestUrl = "https://graph.facebook.com/v2.2/me?format=json&access_token=";
+    String requestUrl = "https://graph.facebook.com/v2.5/me?format=json&access_token=";
     requestUrl += getTestSettings().getUserAccessToken();
     ETagWebRequestor webRequest = new ETagWebRequestor();
     webRequest.setUseCache(false);

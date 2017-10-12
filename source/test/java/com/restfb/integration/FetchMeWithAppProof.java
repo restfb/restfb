@@ -34,7 +34,7 @@ public class FetchMeWithAppProof extends RestFbIntegrationTestBase {
   @Test
   public void fetchWithProof() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
-      getTestSettings().getAppSecret(), Version.VERSION_2_3);
+      getTestSettings().getAppSecret(), Version.VERSION_2_5);
     User me = client.fetchObject("/me", User.class);
     Assert.assertNotNull(me);
   }

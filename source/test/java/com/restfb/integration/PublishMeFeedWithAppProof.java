@@ -37,7 +37,7 @@ public class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
   @Test
   public void publishWithProof() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
-      getTestSettings().getAppSecret(), Version.VERSION_2_3);
+      getTestSettings().getAppSecret(), Version.VERSION_2_5);
     JsonObject me = client.publish("/me/feed", JsonObject.class, Parameter.with("message", "Test publish"),
       Parameter.with("privacy", "{\"value\": \"SELF\"}"));
     Assert.assertNotNull(me);

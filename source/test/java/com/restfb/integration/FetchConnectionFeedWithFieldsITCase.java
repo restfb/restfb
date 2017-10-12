@@ -24,6 +24,10 @@ package com.restfb.integration;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.junit.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -32,16 +36,12 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
 import com.restfb.util.StringUtils;
 
-import org.junit.Test;
-
-import java.util.List;
-
 public class FetchConnectionFeedWithFieldsITCase extends RestFbIntegrationTestBase {
 
   @Test
   public void checkConnection() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_4);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_5);
     Connection<Post> connection =
         client.fetchConnection("/cocacola/feed", Post.class, Parameter.with("fields", "id,from,full_picture"));
     assertNotNull(connection);

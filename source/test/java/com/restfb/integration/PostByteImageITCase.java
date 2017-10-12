@@ -40,7 +40,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   public void postImageToPagePhotosWithMessage() {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
+        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_5);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
       BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"),
       Parameter.with("no_story", "true"));
@@ -62,7 +62,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   @Test
   public void postLinkToPageFeedWithMessage() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
+        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_5);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
       Parameter.with("message", "Just a test url"), Parameter.with("link", "http://www.restfb.com"));
     assertNotNull(obj);
@@ -72,7 +72,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   public void postImageToPhotosAndFeedWithMessage() {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
+        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_5);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
       BinaryAttachment.with("test.png", imageAsBytes, "image/png"), Parameter.with("message", "TestImage"));
     assertNotNull(obj);
@@ -82,7 +82,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   public void postImageToPhotos() {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_2);
+        new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.VERSION_2_5);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
       BinaryAttachment.with("test.png", imageAsBytes, "image/png"));
     assertNotNull(obj);

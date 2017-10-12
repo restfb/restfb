@@ -38,7 +38,7 @@ public class FetchGroupITCase extends RestFbIntegrationTestBase {
   @Test
   public void fetchGroup() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_3);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_5);
     Connection<Group> connection = client.fetchConnection("/me/groups", Group.class);
     for (List<Group> groupList : connection) {
       for (Group group : groupList) {

@@ -38,7 +38,7 @@ public class FetchMyLikesITCase extends RestFbIntegrationTestBase {
   @Test
   public void fetchGroup() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_3);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_5);
     Connection<NamedFacebookType> connection = client.fetchConnection("/me/likes", NamedFacebookType.class);
     for (List<NamedFacebookType> groupList : connection) {
       for (NamedFacebookType group : groupList) {
