@@ -199,7 +199,31 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
+    assertFalse(entry.hasStandby());
     MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
+    MessageItem item = messagingItem.getMessage();
+    assertTrue(item.isEcho());
+    assertNotNull(item);
+    assertEquals("mid.1457764197618:41d102a3e1ae206a38", item.getMid());
+    assertEquals("hello, world!", item.getText());
+    assertEquals("1517776481860111", item.getAppId());
+    assertEquals("DEVELOPER_DEFINED_METADATA_STRING", item.getMetadata());
+    assertEquals(73L, item.getSeq().longValue());
+    assertTrue(item.getAttachments().isEmpty());
+  }
+
+  @Test
+  public void standbyMessageBasicIsEcho() {
+    WebhookObject webhookObject = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("webhooks/standby-message-basic-echo"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertTrue(entry.getMessaging().isEmpty());
+    assertFalse(entry.getStandby().isEmpty());
+    assertTrue(entry.hasStandby());
+    MessagingItem messagingItem = entry.getStandby().get(0);
     assertTrue(messagingItem.isMessage());
     MessageItem item = messagingItem.getMessage();
     assertTrue(item.isEcho());
