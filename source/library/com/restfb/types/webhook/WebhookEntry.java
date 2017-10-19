@@ -68,6 +68,15 @@ public class WebhookEntry {
   @Facebook
   private List<MessagingItem> messaging = new ArrayList<MessagingItem>();
 
+  @Getter
+  @Setter
+  @Facebook
+  private List<MessagingItem> standby = new ArrayList<MessagingItem>();
+
+  public boolean hasStandby() {
+    return !standby.isEmpty();
+  }
+
   @JsonMappingCompleted
   private void convertDate() {
     if (rawTime != null) {
