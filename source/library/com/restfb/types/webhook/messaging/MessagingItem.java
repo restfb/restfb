@@ -21,10 +21,14 @@
  */
 package com.restfb.types.webhook.messaging;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
-
-import java.util.Date;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -109,6 +113,13 @@ public class MessagingItem {
   @Setter
   @Facebook("take_thread_control")
   private TakeThreadControlItem takeThreadControl;
+
+  @Getter
+  @Setter
+  private AppRoles appRoles;
+
+  @Facebook("app_roles")
+  private JsonObject rawAppRoles;
 
   /**
    * generic access to the inner item.
@@ -222,6 +233,22 @@ public class MessagingItem {
   private void convertDate() {
     if (rawTimestamp != null) {
       timestamp = new Date(rawTimestamp);
+    }
+  }
+
+  @JsonMapper.JsonMappingCompleted
+  private void convertAppRoles() {
+    if (rawAppRoles != null) {
+      AppRoles appRoles = new AppRoles();
+      for (String appId : JsonObject.getNames(rawAppRoles)) {
+        JsonArray rawRoles = rawAppRoles.getJsonArray(appId);
+        List<String> roles = new ArrayList<String>();
+        for (int i = 0; i<rawRoles.length();i++) {
+          roles.add(rawRoles.getString(i));
+        }
+        appRoles.addRoles(appId, roles);
+      }
+      this.appRoles = appRoles;
     }
   }
 }
