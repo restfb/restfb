@@ -174,6 +174,23 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messagingAppRoles() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-approles"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertNotNull(messagingItem.getAppRoles());
+    AppRoles roles = messagingItem.getAppRoles();
+    assertFalse(roles.getAppIds().isEmpty());
+    assertEquals("123456789", roles.getAppIds().iterator().next());
+    assertFalse(roles.getRoles("123456789").isEmpty());
+    assertEquals("primary_receiver", roles.getRoles("123456789").get(0));
+  }
+
+  @Test
   public void messagingReferralBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-referral-basic"), WebhookObject.class);
