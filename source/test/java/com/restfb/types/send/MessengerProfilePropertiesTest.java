@@ -21,18 +21,23 @@
  */
 package com.restfb.types.send;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class MessengerProfileSettingsTest extends AbstractJsonMapperTests {
+public class MessengerProfilePropertiesTest extends AbstractJsonMapperTests {
 
   @Test
   public void checkSettingsExample() {
     MessengerProfileProperties exampleSettings = createJsonMapper()
       .toJavaObject(jsonFromClasspath("send/messenger-profile-settings"), MessengerProfileProperties.class);
     assertNotNull(exampleSettings);
+    assertNotNull(exampleSettings.getGreeting());
+    assertEquals(2, exampleSettings.getGreeting().size());
+    assertNotNull(exampleSettings.getWhitelistedDomains());
+    assertEquals(1, exampleSettings.getWhitelistedDomains().size());
   }
 }
