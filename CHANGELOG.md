@@ -1,5 +1,22 @@
 # RestFB Changelog
 
+## 1.47.0 (October 29, 2017)
+
+* Issue #793: Added convenience constants and methods
+* Issue #794: Added pass/take thread control callbacks
+* Issue #797: Convenience messaging item methods
+* Issue #798: Add more is* methods in InnerMessagingItem
+* Issue #796: Added convenient has* methods to MessageItem
+* Issue #803: Set old version values to deprecated
+* Issue #801: Add Open Graph Template to Send API types
+* Issue #800: Support default_action in Generic Template element
+* Issue #799: Add is_test_payment to PaymentSummary
+* Issue #810: Add Stand By webhook callback
+* Issue #809: Add App Roles webhook callback
+* Issue #805: Add object for Messenger Code API
+* Issue #811: Add UserProfile for fetching user information in messenger context
+* Issue #804: Add object representing Messenger Profile API data 
+
 ## 1.46.0 (September 28, 2017)
 
 * Issue #782: Support custom wit.ai NLP in Messenger
