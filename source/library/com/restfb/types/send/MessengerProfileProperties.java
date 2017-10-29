@@ -21,10 +21,14 @@
  */
 package com.restfb.types.send;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the
@@ -33,27 +37,43 @@ import com.restfb.types.AbstractFacebookType;
  */
 public class MessengerProfileProperties extends AbstractFacebookType {
 
+  @Getter
+  @Setter
   @Facebook("account_linking_url")
   private String accountLinkingUrl;
 
+  @Getter
+  @Setter
   @Facebook("persistent_menu")
   private PersistentMenu persistentMenu;
 
+  @Getter
+  @Setter
   @Facebook("get_started")
   private CallToAction getStarted;
 
+  @Getter
+  @Setter
   @Facebook("greeting")
-  private List<Greeting> greeting;
+  private List<Greeting> greeting = new ArrayList<Greeting>();
 
+  @Getter
+  @Setter
   @Facebook("whitelisted_domains")
-  private List<String> whitelistedDomains;
+  private List<String> whitelistedDomains = new ArrayList<String>();
 
+  @Getter
+  @Setter
   @Facebook("payment_settings")
   private PaymentSettings payment_settings;
 
+  @Getter
+  @Setter
   @Facebook("target_audience")
   private TargetAudience targetAudience;
 
+  @Getter
+  @Setter
   @Facebook("home_url")
   private HomeUrl homeUrl;
 }
