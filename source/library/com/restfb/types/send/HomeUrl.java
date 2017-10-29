@@ -24,46 +24,48 @@ package com.restfb.types.send;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.Locale;
-
 import lombok.Getter;
+import lombok.Setter;
 
-public class Greeting extends AbstractFacebookType {
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/home-url">Messenger
+ * Profile Home Url</a>
+ */
+public class HomeUrl extends AbstractFacebookType {
 
   /**
-   * The greeting text for the specific locale.
+   * The URL to be invoked from drawer. Must be whitelisted. Must use https.
    */
   @Getter
+  @Setter
   @Facebook
-  private String text;
+  private String url;
 
   /**
-   * Locale of the greeting text.
-   *
-   * Facebook will show this greeting text when user locale matches the provided locale. You must at least specify
-   * greeting text for the default locale. This is the text Facebook will fall back to if they don't find another
-   * matching the user's locale. See the list of
-   * <a href="https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales">supported
-   * locales</a>.
+   * Controls the height of webview. Only allowed value is tall.
    */
   @Getter
-  @Facebook
-  private String locale;
+  @Setter
+  @Facebook("webview_height_ratio")
+  private String webviewHeightRatio;
 
-  private Greeting() {
-    // used for json mapping only
-  }
+  /**
+   * Controls whether the share button in the webview is enabled. Either show or hide, defaults to "hide"
+   */
+  @Getter
+  @Setter
+  @Facebook("webview_share_button")
+  private String webviewShareButton;
 
-  public Greeting(String text) {
-    this("default", text);
-  }
+  /**
+   * Controls whether users not assigned a role for your bot or its Facebook page can see the Chat Extension.
+   * 
+   * This should be set to true until the Chat Extension is ready to be used by others.
+   */
+  @Getter
+  @Setter
+  @Facebook("in_test")
+  private Boolean inTest;
 
-  public Greeting(String locale, String text) {
-    this.text = text;
-    this.locale = locale;
-  }
-
-  public Greeting(Locale locale, String text) {
-    this(locale.toString().toLowerCase(), text);
-  }
 }

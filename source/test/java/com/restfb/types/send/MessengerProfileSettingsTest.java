@@ -21,49 +21,18 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.Locale;
+import org.junit.Test;
 
-import lombok.Getter;
+import com.restfb.AbstractJsonMapperTests;
 
-public class Greeting extends AbstractFacebookType {
+public class MessengerProfileSettingsTest extends AbstractJsonMapperTests {
 
-  /**
-   * The greeting text for the specific locale.
-   */
-  @Getter
-  @Facebook
-  private String text;
-
-  /**
-   * Locale of the greeting text.
-   *
-   * Facebook will show this greeting text when user locale matches the provided locale. You must at least specify
-   * greeting text for the default locale. This is the text Facebook will fall back to if they don't find another
-   * matching the user's locale. See the list of
-   * <a href="https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales">supported
-   * locales</a>.
-   */
-  @Getter
-  @Facebook
-  private String locale;
-
-  private Greeting() {
-    // used for json mapping only
-  }
-
-  public Greeting(String text) {
-    this("default", text);
-  }
-
-  public Greeting(String locale, String text) {
-    this.text = text;
-    this.locale = locale;
-  }
-
-  public Greeting(Locale locale, String text) {
-    this(locale.toString().toLowerCase(), text);
+  @Test
+  public void checkSettingsExample() {
+    MessengerProfileProperties exampleSettings = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("send/messenger-profile-settings"), MessengerProfileProperties.class);
+    assertNotNull(exampleSettings);
   }
 }

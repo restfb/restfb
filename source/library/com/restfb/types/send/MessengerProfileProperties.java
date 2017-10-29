@@ -21,49 +21,39 @@
  */
 package com.restfb.types.send;
 
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.Locale;
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api">Messenger
+ * Profile</a>
+ */
+public class MessengerProfileProperties extends AbstractFacebookType {
 
-import lombok.Getter;
+  @Facebook("account_linking_url")
+  private String accountLinkingUrl;
 
-public class Greeting extends AbstractFacebookType {
+  @Facebook("persistent_menu")
+  private PersistentMenu persistentMenu;
 
-  /**
-   * The greeting text for the specific locale.
-   */
-  @Getter
-  @Facebook
-  private String text;
+  @Facebook("get_started")
+  private CallToAction getStarted;
 
-  /**
-   * Locale of the greeting text.
-   *
-   * Facebook will show this greeting text when user locale matches the provided locale. You must at least specify
-   * greeting text for the default locale. This is the text Facebook will fall back to if they don't find another
-   * matching the user's locale. See the list of
-   * <a href="https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales">supported
-   * locales</a>.
-   */
-  @Getter
-  @Facebook
-  private String locale;
+  @Facebook("greeting")
+  private List<Greeting> greeting;
 
-  private Greeting() {
-    // used for json mapping only
-  }
+  @Facebook("whitelisted_domains")
+  private List<String> whitelistedDomains;
 
-  public Greeting(String text) {
-    this("default", text);
-  }
+  @Facebook("payment_settings")
+  private PaymentSettings payment_settings;
 
-  public Greeting(String locale, String text) {
-    this.text = text;
-    this.locale = locale;
-  }
+  @Facebook("target_audience")
+  private TargetAudience targetAudience;
 
-  public Greeting(Locale locale, String text) {
-    this(locale.toString().toLowerCase(), text);
-  }
+  @Facebook("home_url")
+  private HomeUrl homeUrl;
 }
