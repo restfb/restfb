@@ -21,49 +21,58 @@
  */
 package com.restfb.types.send;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.Locale;
-
 import lombok.Getter;
+import lombok.Setter;
 
-public class Greeting extends AbstractFacebookType {
+/**
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/target-audience">Messenger
+ * Profile Target Audience</a>
+ */
+public class TargetAudience extends AbstractFacebookType {
 
   /**
-   * The greeting text for the specific locale.
+   * Audience type. Valid values include all, custom, or none.
    */
   @Getter
-  @Facebook
-  private String text;
+  @Setter
+  @Facebook("audience_type")
+  private String audienceType;
 
   /**
-   * Locale of the greeting text.
-   *
-   * Facebook will show this greeting text when user locale matches the provided locale. You must at least specify
-   * greeting text for the default locale. This is the text Facebook will fall back to if they don't find another
-   * matching the user's locale. See the list of
-   * <a href="https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales">supported
-   * locales</a>.
+   * country object. Needs to be specified only when audience_type is custom.
    */
   @Getter
+  @Setter
   @Facebook
-  private String locale;
+  private Countries countries;
 
-  private Greeting() {
-    // used for json mapping only
-  }
+  public static class Countries {
 
-  public Greeting(String text) {
-    this("default", text);
-  }
+    /**
+     * List of ISO 3166 Alpha-2 codes.
+     *
+     * Users in any of the whitelist countries will see your bot on discovery surfaces on Messenger Platform.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private List<String> whitelist = new ArrayList<String>();
 
-  public Greeting(String locale, String text) {
-    this.text = text;
-    this.locale = locale;
-  }
-
-  public Greeting(Locale locale, String text) {
-    this(locale.toString().toLowerCase(), text);
+    /**
+     * List of ISO 3166 Alpha-2 codes.
+     *
+     * Users in any of the blacklist countries won't see your bot on discovery surfaces on Messenger Platform.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private List<String> blacklist = new ArrayList<String>();
   }
 }

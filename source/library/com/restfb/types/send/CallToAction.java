@@ -42,6 +42,10 @@ public class CallToAction extends AbstractFacebookType {
   @Facebook
   private String payload;
 
+  private CallToAction() {
+    // ony used for mapping
+  }
+
   public CallToAction(String payload) {
     this.payload = payload;
   }

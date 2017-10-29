@@ -21,49 +21,44 @@
  */
 package com.restfb.types.send;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
-import java.util.Locale;
-
 import lombok.Getter;
+import lombok.Setter;
 
-public class Greeting extends AbstractFacebookType {
+/**
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/payment-settings">Messenger
+ * Profile Payment Settings</a>
+ */
+public class PaymentSettings extends AbstractFacebookType {
 
   /**
-   * The greeting text for the specific locale.
+   * The URL of the privacy policy for your bot. Required for buy button payments.
    */
   @Getter
-  @Facebook
-  private String text;
+  @Setter
+  @Facebook("privacy_url")
+  private String privacyUrl;
 
   /**
-   * Locale of the greeting text.
-   *
-   * Facebook will show this greeting text when user locale matches the provided locale. You must at least specify
-   * greeting text for the default locale. This is the text Facebook will fall back to if they don't find another
-   * matching the user's locale. See the list of
-   * <a href="https://developers.facebook.com/docs/messenger-platform/messenger-profile/supported-locales">supported
-   * locales</a>.
+   * Your public key. Used to encrypt all webview payments, and buy button implementations that use tokenized payments.
    */
   @Getter
+  @Setter
+  @Facebook("public_key")
+  private String publicKey;
+
+  /**
+   * A list of IDs for people that will test payments in your bot. These people will send a mock payment when they tap
+   * the buy button.
+   */
+  @Getter
+  @Setter
   @Facebook
-  private String locale;
-
-  private Greeting() {
-    // used for json mapping only
-  }
-
-  public Greeting(String text) {
-    this("default", text);
-  }
-
-  public Greeting(String locale, String text) {
-    this.text = text;
-    this.locale = locale;
-  }
-
-  public Greeting(Locale locale, String text) {
-    this(locale.toString().toLowerCase(), text);
-  }
+  private List<String> testers = new ArrayList<String>();
 }
