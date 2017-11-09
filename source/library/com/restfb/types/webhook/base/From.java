@@ -22,68 +22,35 @@
 package com.restfb.types.webhook.base;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-abstract public class AbstractFeedPostValue extends BaseChangeValue {
+/**
+ * The From object of the Webhhok Value.
+ *
+ * Formerly this was sender_name and sender_id
+ */
+public class From extends AbstractFacebookType {
+
+  public From() {
+
+  }
+
+  public From(String id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 
   @Getter
   @Setter
-  @Facebook("post_id")
-  private String postId;
-
-  @Setter
-  @Facebook("sender_id")
-  private String senderId;
-
-  @Setter
-  @Facebook("sender_name")
-  private String senderName;
-
   @Facebook
-  private From from;
+  private String name;
 
-  /**
-   * returns the {@code sender_id}.
-   *
-   * Use {@see AbstractFeedPostValue#getFrom} instead, because with Graph API 2.11 sender_id is deprecated
-   * 
-   * @return the sender id
-   */
-  public String getSenderId() {
-    if (from != null) {
-      return from.getId();
-    }
-    return senderId;
-  }
-
-  /**
-   * returns the {@code sender_name}.
-   *
-   * Use {@see AbstractFeedPostValue#getFrom} instead, because with Graph API 2.11 sender_name is deprecated
-   *
-   * @return the sender name
-   */
-  public String getSenderName() {
-    if (from != null) {
-      return from.getName();
-    }
-    return senderName;
-  }
-
-  /**
-   * returns the sender (from) of the feed value
-   * 
-   * @return from of the feed value
-   */
-  public From getFrom() {
-    if (from != null) {
-      return from;
-    } else {
-      return new From(senderId, senderName);
-    }
-
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private String id;
 
 }

@@ -86,6 +86,31 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_901097836652708", value.getParentId());
     assertEquals("901097836652708_903438993085259", value.getCommentId());
     assertEquals(1449135003000L, value.getCreatedTime().getTime());
+
+    assertEquals("Tester", value.getFrom().getName());
+    assertEquals("1234567890321", value.getFrom().getId());
+    assertEquals("Tester", value.getSenderName());
+    assertEquals("1234567890321", value.getSenderId());
+
+    assertNull(value.getPhoto());
+  }
+
+  @Test
+  public void feedCommentAdd_v2_11() {
+    FeedCommentValue value =
+            openAndCheckFeedPostBasics("feed-comment-add-211", FeedCommentValue.class, ITEM_COMMENT, ChangeValue.Verb.ADD);
+    assertFalse(value.isReply());
+    assertEquals("and the next one", value.getMessage());
+    assertEquals("1234567890321_901097836652708", value.getPostId());
+    assertEquals("1234567890321_901097836652708", value.getParentId());
+    assertEquals("901097836652708_903438993085259", value.getCommentId());
+
+    assertEquals("Tester", value.getFrom().getName());
+    assertEquals("1234567890321", value.getFrom().getId());
+    assertEquals("Tester", value.getSenderName());
+    assertEquals("1234567890321", value.getSenderId());
+
+    assertEquals(1449135003000L, value.getCreatedTime().getTime());
     assertNull(value.getPhoto());
   }
 
