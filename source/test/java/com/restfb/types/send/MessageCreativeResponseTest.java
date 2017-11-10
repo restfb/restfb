@@ -21,33 +21,18 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
+import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.Test;
 
-import lombok.Getter;
+import com.restfb.AbstractJsonMapperTests;
 
-public class ButtonTemplatePayload extends TemplatePayload implements IsBroadcastPayload {
+public class MessageCreativeResponseTest extends AbstractJsonMapperTests {
 
-  @Getter
-  @Facebook
-  private String text;
-
-  @Getter
-  @Facebook
-  private List<AbstractButton> buttons;
-
-  public ButtonTemplatePayload(String titleText) {
-    this.text = titleText;
-    setTemplateType("button");
-  }
-
-  public boolean addButton(AbstractButton button) {
-    if (buttons == null) {
-      buttons = new ArrayList<AbstractButton>();
-    }
-
-    return buttons.add(button);
+  @Test
+  public void exampleJSONcheck() {
+    String json = "{\"message_creative_id\": 938461089}";
+    MessageCreativeResponse resp = createJsonMapper().toJavaObject(json, MessageCreativeResponse.class);
+    assertEquals("938461089", resp.getMessageCreativeId());
   }
 }

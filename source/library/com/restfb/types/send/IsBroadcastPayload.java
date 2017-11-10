@@ -21,33 +21,8 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import lombok.Getter;
-
-public class ButtonTemplatePayload extends TemplatePayload implements IsBroadcastPayload {
-
-  @Getter
-  @Facebook
-  private String text;
-
-  @Getter
-  @Facebook
-  private List<AbstractButton> buttons;
-
-  public ButtonTemplatePayload(String titleText) {
-    this.text = titleText;
-    setTemplateType("button");
-  }
-
-  public boolean addButton(AbstractButton button) {
-    if (buttons == null) {
-      buttons = new ArrayList<AbstractButton>();
-    }
-
-    return buttons.add(button);
-  }
-}
+/**
+ * Marker interface for all Payloads, that are allowed to be used in the Broadcast API, see <a href=
+ * "https://developers.facebook.com/docs/messenger-platform/send-messages/broadcast-messages/#supported_templates">here</a>.
+ */
+public interface IsBroadcastPayload {}
