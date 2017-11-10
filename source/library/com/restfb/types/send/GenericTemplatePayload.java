@@ -21,15 +21,15 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class GenericTemplatePayload extends SharableTemplatePayload {
+public class GenericTemplatePayload extends SharableTemplatePayload implements IsBroadcastPayload {
 
   @Getter
   @Facebook

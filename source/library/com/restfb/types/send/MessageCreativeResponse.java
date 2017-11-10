@@ -22,32 +22,20 @@
 package com.restfb.types.send;
 
 import com.restfb.Facebook;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
+import lombok.Setter;
 
-public class ButtonTemplatePayload extends TemplatePayload implements IsBroadcastPayload {
+/**
+ * Represents the
+ * <a href="https://developers.facebook.com/docs/messenger-platform/reference/broadcast-api#response">Message Creative
+ * Response</a>
+ */
+public class MessageCreativeResponse extends AbstractFacebookType {
 
   @Getter
-  @Facebook
-  private String text;
-
-  @Getter
-  @Facebook
-  private List<AbstractButton> buttons;
-
-  public ButtonTemplatePayload(String titleText) {
-    this.text = titleText;
-    setTemplateType("button");
-  }
-
-  public boolean addButton(AbstractButton button) {
-    if (buttons == null) {
-      buttons = new ArrayList<AbstractButton>();
-    }
-
-    return buttons.add(button);
-  }
+  @Setter
+  @Facebook("message_creative_id")
+  private String messageCreativeId;
 }
