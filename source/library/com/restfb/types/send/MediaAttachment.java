@@ -21,10 +21,11 @@
  */
 package com.restfb.types.send;
 
+import java.io.Serializable;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
-import java.io.Serializable;
 
 import lombok.Getter;
 
@@ -41,6 +42,11 @@ public class MediaAttachment extends MessageAttachment {
     } else {
       payload = new UrlPayload(imageUrl);
     }
+  }
+
+  public MediaAttachment(List<MediaTemplateElement> elements) {
+    setType(Type.TEMPLATE.toString().toLowerCase());
+    payload = new MediaTemplatePayload(elements);
   }
 
   public void setIsReusable(boolean isReusable) {
@@ -84,11 +90,40 @@ public class MediaAttachment extends MessageAttachment {
     }
   }
 
+  private static class MediaTemplatePayload extends AbstractFacebookType implements MediaAttachmentPayload {
+
+    @Getter
+    @Facebook("template_type")
+    private String templateType = "media";
+
+    @Facebook
+    private List<MediaTemplateElement> elements;
+
+    public MediaTemplatePayload(List<MediaTemplateElement> elements) {
+      this.elements = elements;
+    }
+
+    @Override
+    public void setIsReusable(boolean isReusable) {
+      // ignore this here
+    }
+  }
+
   private interface MediaAttachmentPayload extends Serializable {
     void setIsReusable(boolean isReusable);
   }
 
+  public interface MediaTemplateElement extends Serializable {
+
+    void addButton(WebButton button);
+
+  }
+
   public enum Type {
-    IMAGE, VIDEO, AUDIO, FILE
+    IMAGE, VIDEO, AUDIO, FILE, TEMPLATE
+  }
+
+  public enum MediaType {
+    IMAGE, VIDEO;
   }
 }
