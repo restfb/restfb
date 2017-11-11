@@ -27,7 +27,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
@@ -35,14 +37,8 @@ import com.restfb.exception.FacebookPreconditionException;
 import com.restfb.types.send.*;
 import com.restfb.types.send.Message;
 import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
-
-import org.json.JSONException;
-import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.restfb.types.send.media.MediaTemplateAttachmentElement;
+import com.restfb.types.send.media.MediaTemplateUrlElement;
 
 public class SendApiTest extends AbstractJsonMapperTests {
 
@@ -127,6 +123,88 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"url\":\"VIDEO_URL\"},\"type\":\"video\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
+  public void messageMediaAttachment_imageURL() throws JSONException {
+    MediaAttachment.MediaTemplateElement mediaTemplateElement =
+        new MediaTemplateUrlElement("https://business.facebook.com/<PAGE_NAME>/photos/<NUMERIC_ID>");
+    MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
+
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"template_type\":\"media\",\"elements\":[{\"media_type\":\"image\",\"url\":\"https://business.facebook.com/<PAGE_NAME>/photos/<NUMERIC_ID>\"}]},\"type\":\"template\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
+  public void messageMediaAttachment_videoURL() throws JSONException {
+    MediaAttachment.MediaTemplateElement mediaTemplateElement =
+        new MediaTemplateUrlElement("https://business.facebook.com/<PAGE_NAME>/videos/<NUMERIC_ID>");
+    MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
+
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"template_type\":\"media\",\"elements\":[{\"media_type\":\"video\",\"url\":\"https://business.facebook.com/<PAGE_NAME>/videos/<NUMERIC_ID>\"}]},\"type\":\"template\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
+  public void messageMediaAttachment_imageAttachment() throws JSONException {
+    MediaAttachment.MediaTemplateElement mediaTemplateElement =
+        new MediaTemplateAttachmentElement(MediaAttachment.MediaType.IMAGE, "<ATTACHMENT_ID>");
+    MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
+
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"template_type\":\"media\",\"elements\":[{\"media_type\":\"image\",\"attachment_id\":\"<ATTACHMENT_ID>\"}]},\"type\":\"template\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
+  public void messageMediaAttachment_imageAttachmentWithButton() throws JSONException {
+    WebButton button = new WebButton("Title", "<WEB_URL>");
+    MediaAttachment.MediaTemplateElement mediaTemplateElement =
+        new MediaTemplateAttachmentElement(MediaAttachment.MediaType.IMAGE, "<ATTACHMENT_ID>");
+    mediaTemplateElement.addButton(button);
+    MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
+
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"template_type\":\"media\",\"elements\":[{\"media_type\":\"image\",\"attachment_id\":\"<ATTACHMENT_ID>\",\"buttons\":[{\"url\":\"<WEB_URL>\",\"type\":\"web_url\",\"title\":\"Title\"}]}]},\"type\":\"template\"}}",
+      recipientJsonString, false);
+  }
+
+  @Test
+  public void messageMediaAttachment_videoAttachment() throws JSONException {
+    MediaAttachment.MediaTemplateElement mediaTemplateElement =
+        new MediaTemplateAttachmentElement(MediaAttachment.MediaType.VIDEO, "<ATTACHMENT_ID>");
+    MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
+
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"template_type\":\"media\",\"elements\":[{\"media_type\":\"video\",\"attachment_id\":\"<ATTACHMENT_ID>\"}]},\"type\":\"template\"}}",
       recipientJsonString, false);
   }
 
@@ -221,7 +299,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"text\":\"TITLE\", \"template_type\":\"button\"},\"type\":\"template\"}}",
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"text\":\"TITLE\", \"template_type\":\"button\"},\"type\":\"template\"}}",
       recipientJsonString, false);
   }
 
@@ -308,8 +387,9 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    JSONAssert.assertEquals("{\"attachment\":{\"payload\":{\"elements\":[{\"title\":\"My Bubble\",\"buttons\":[{\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}]}],\"sharable\":false,\"template_type\":\"generic\"},\"type\":\"template\"}}",
-            recipientJsonString, false);
+    JSONAssert.assertEquals(
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"title\":\"My Bubble\",\"buttons\":[{\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"},{\"payload\":\"POSTBACK\",\"type\":\"postback\",\"title\":\"My Postback\"},{\"payload\":\"+1234567890\",\"type\":\"phone_number\",\"title\":\"Call Support\"}]}],\"sharable\":false,\"template_type\":\"generic\"},\"type\":\"template\"}}",
+      recipientJsonString, false);
   }
 
   @Test
