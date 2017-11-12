@@ -53,6 +53,16 @@
   * Issue #467: Use `Comments` and `Likes` in `Photo` type
   * Issue #452: fix bug from #448
 
+## 1.48.0 (November 12, 2017)
+
+* Graph API 2.11
+  * Issue #816: 2.11 Version added
+  * Issue #817: Webhook sender_name and sender_id is from now
+* Messenger Platform 2.2
+  * Issue #819: messaging_type enum added
+  * Issue #820: Broadcast API
+  * Issue #818: Add media template
+
 ## 1.47.0 (October 29, 2017)
 
 * Issue #793: Added convenience constants and methods
