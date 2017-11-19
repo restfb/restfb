@@ -91,6 +91,16 @@ public class Message extends FacebookType {
   @Facebook
   private String message;
 
+  /**
+   * Sticker contained in the message.
+   *
+   * @return The Sticker in that message
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String sticker;
+
   @Facebook
   private List<Attachment> attachments = new ArrayList<Attachment>();
 
@@ -458,7 +468,7 @@ public class Message extends FacebookType {
   }
 
   /**
-   * A list of the message recipients
+   * A list of recipients of the message.
    *
    * @return A list of the message recipients
    */
