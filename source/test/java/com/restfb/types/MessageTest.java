@@ -23,12 +23,12 @@ package com.restfb.types;
 
 import static org.junit.Assert.*;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.hamcrest.core.StringContains;
 import org.junit.Test;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
 public class MessageTest extends AbstractJsonMapperTests {
 
@@ -59,7 +59,7 @@ public class MessageTest extends AbstractJsonMapperTests {
         Message.VideoData videoData = attachment.getVideoData();
         assertThat(videoData.getUrl(), new StringContains("examplevideo.mp4"));
         assertThat(videoData.getPreviewUrl(), new StringContains("example_preview.jpg"));
-        assertEquals(0,videoData.getRotation());
+        assertEquals(0, videoData.getRotation());
         Message.ImageData imageData = attachment.getImageData();
         assertEquals(1280, imageData.getWidth());
         assertEquals(720, imageData.getHeight());
@@ -77,5 +77,13 @@ public class MessageTest extends AbstractJsonMapperTests {
     assertEquals(1, exampleMessage.getShares().size());
     Message.Share exampleShare = exampleMessage.getShares().get(0);
     assertEquals("https://example.org/sample.png", exampleShare.getLink());
+  }
+
+  @Test
+  public void messagesWithSticker() {
+    Message exampleMessage =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/message-with-sticker"), Message.class);
+    assertNotNull(exampleMessage);
+    assertEquals("https://scontent.xx.fbcdn.net/sticker.png", exampleMessage.getSticker());
   }
 }
