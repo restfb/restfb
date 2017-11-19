@@ -178,6 +178,10 @@ public class MessagingItem {
       return takeThreadControl;
     }
 
+    if (appRoles != null) {
+      return appRoles;
+    }
+
     return null;
   }
 
@@ -227,6 +231,10 @@ public class MessagingItem {
 
   public boolean isTakeThreadControl() {
     return getItem() instanceof TakeThreadControlItem;
+  }
+
+  public boolean isAppRoles() {
+    return getItem() instanceof AppRoles;
   }
 
   @JsonMapper.JsonMappingCompleted

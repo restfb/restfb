@@ -183,6 +183,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     assertNotNull(messagingItem.getAppRoles());
+    assertTrue(messagingItem.isAppRoles());
     AppRoles roles = messagingItem.getAppRoles();
     assertFalse(roles.getAppIds().isEmpty());
     assertEquals("123456789", roles.getAppIds().iterator().next());

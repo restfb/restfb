@@ -28,7 +28,7 @@ import java.util.*;
  * <a href="https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/app_role">App Roles on
  * Facebook</a>
  */
-public class AppRoles {
+public class AppRoles implements InnerMessagingItem {
 
   private Map<String, List<String>> roles = new HashMap<String, List<String>>();
 
