@@ -261,7 +261,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
   public void messageOpenGraphTemplate() throws JSONException {
-    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload("some url");
+    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload();
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
 
@@ -269,15 +269,17 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals(
-      "{\"attachment\":{\"payload\":{\"url\":\"some url\", \"template_type\":\"open_graph\"},\"type\":\"template\"}}",
+      "{\"attachment\":{\"payload\":{\"template_type\":\"open_graph\"},\"type\":\"template\"}}",
       recipientJsonString, false);
   }
 
   @Test
   public void messageOpenGraphTemplateWithButton() throws JSONException {
     WebButton button = new WebButton("Check this", "http://www.google.com");
-    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload("some url");
-    payload.addButton(button);
+    OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload();
+    OpenGraphTemplatePayload.Element element = new OpenGraphTemplatePayload.Element("some url");
+    element.addButton(button);
+    payload.addElement(element);
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
 
@@ -285,7 +287,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     JSONAssert.assertEquals(
-      "{\"attachment\":{\"payload\":{\"url\":\"some url\",\"template_type\":\"open_graph\",\"buttons\":[{\"type\":\"web_url\",\"title\":\"Check this\",\"url\":\"http://www.google.com\"}]},\"type\":\"template\"}}",
+      "{\"attachment\":{\"payload\":{\"elements\":[{\"url\":\"some url\",\"buttons\":[{\"url\":\"http://www.google.com\",\"type\":\"web_url\",\"title\":\"Check this\"}]}],\"template_type\":\"open_graph\"},\"type\":\"template\"}}",
       recipientJsonString, false);
   }
 

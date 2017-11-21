@@ -36,22 +36,40 @@ public class OpenGraphTemplatePayload extends TemplatePayload {
 
   @Getter
   @Facebook
-  private String url;
+  private List<Element> elements;
 
-  @Getter
-  @Facebook
-  private List<AbstractButton> buttons;
-
-  public OpenGraphTemplatePayload(String url) {
-    this.url = url;
+  public OpenGraphTemplatePayload() {
     setTemplateType("open_graph");
   }
 
-  public boolean addButton(WebButton button) {
-    if (buttons == null) {
-      buttons = new ArrayList<AbstractButton>();
+  public boolean addElement(Element element) {
+    if (elements == null) {
+      elements = new ArrayList<Element>();
     }
 
-    return buttons.add(button);
+    return elements.add(element);
+  }
+
+  public static class Element {
+
+    public Element(String url) {
+      this.url = url;
+    }
+
+    @Getter
+    @Facebook
+    private String url;
+
+    @Getter
+    @Facebook
+    private List<AbstractButton> buttons;
+
+    public boolean addButton(WebButton button) {
+      if (buttons == null) {
+        buttons = new ArrayList<AbstractButton>();
+      }
+
+      return buttons.add(button);
+    }
   }
 }
