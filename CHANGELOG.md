@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 1.49.0 (December 1, 2017)
+
+* Issue #824: Sticker field missing from messages<br />
+  Thanks to @CrWEE for the hint
+* Issue #825: Add `MessagingItem.isAppRoles()`<br />
+  Thanks to @marceloverdijk for the hint
+* Issue #826: Should the `OpenGraphTemplatePayload` have elements instead of buttons?<br />
+  Thanks to @marceloverdijk for the hint
+
 ## 1.48.0 (November 12, 2017)
 
 * Graph API 2.11
