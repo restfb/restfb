@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2.0.0-rc.4 (December 2, 2017)
+
+* Issue #791: README.md cleanup
+* Issue #802: Old Version enum values removed
+
 ## 2.0.0-rc.3 (July 13, 2017)
 
 * Issue #746: Make `FacebookPermission` enum public
