@@ -29,12 +29,6 @@ import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.*;
-import com.restfb.types.Comments;
-import com.restfb.util.DateUtils;
-import com.restfb.util.ReflectionUtils.*;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -43,6 +37,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.Map.Entry;
+
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.*;
+import com.restfb.types.Comments;
+import com.restfb.util.DateUtils;
+import com.restfb.util.ReflectionUtils.*;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -687,14 +687,12 @@ public class DefaultJsonMapper implements JsonMapper {
        * Per Antonello Naccarato, sometimes FB will return an empty JSON array instead of an empty string. Look for that
        * here.
        */
-      if (rawValue.isArray()) {
-        if (rawValue.asArray().size() == 0) {
-          if (MAPPER_LOGGER.isTraceEnabled()) {
-            MAPPER_LOGGER.trace(format("Coercing an empty JSON array to an empty string for %s", fieldWithAnnotation));
-          }
-
-          return "";
+      if (rawValue.isArray() && rawValue.asArray().isEmpty()) {
+        if (MAPPER_LOGGER.isTraceEnabled()) {
+          MAPPER_LOGGER.trace(format("Coercing an empty JSON array to an empty string for %s", fieldWithAnnotation));
         }
+
+        return "";
       }
 
       /*

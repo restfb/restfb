@@ -99,7 +99,7 @@ public class BinaryAttachment {
   protected BinaryAttachment(String fieldName, String filename, InputStream data) {
     this(filename, data);
     if (isBlank(fieldName)) {
-      throw new IllegalArgumentException("Field name cannot be null.");
+      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
     }
 
     this.fieldName = fieldName;
@@ -196,7 +196,7 @@ public class BinaryAttachment {
   protected BinaryAttachment(String fieldName, String filename, byte[] data) {
     this(filename, data);
     if (isBlank(fieldName)) {
-      throw new IllegalArgumentException("Field name cannot be null.");
+      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
     }
 
     this.fieldName = fieldName;
@@ -244,7 +244,7 @@ public class BinaryAttachment {
   protected BinaryAttachment(String fieldName, String filename, byte[] data, String contentType) {
     this(filename, data, contentType);
     if (isBlank(fieldName)) {
-      throw new IllegalArgumentException("Field name cannot be null.");
+      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
     }
 
     this.fieldName = fieldName;

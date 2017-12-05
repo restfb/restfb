@@ -27,6 +27,7 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonValue;
 
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,7 +38,7 @@ import lombok.Setter;
  *
  * Every field is following the crops specification, in the format of [[{left},{top}],[{right},{bottom}]].
  */
-public class AdsImageCrops {
+public class AdsImageCrops extends AbstractFacebookType {
 
   @Getter
   @Setter

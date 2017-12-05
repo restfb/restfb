@@ -27,10 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class PersistentMenu {
+public class PersistentMenu extends AbstractFacebookType {
 
   /**
    * Locale of the menu.

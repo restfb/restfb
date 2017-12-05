@@ -305,7 +305,7 @@ public class DefaultWebRequestor implements WebRequestor {
     }
 
     String name = binaryAttachment.getFilename();
-    int fileExtensionIndex = name.lastIndexOf(".");
+    int fileExtensionIndex = name.lastIndexOf('.');
     return fileExtensionIndex > 0 ? name.substring(0, fileExtensionIndex) : name;
   }
 

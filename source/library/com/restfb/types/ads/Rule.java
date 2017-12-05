@@ -21,6 +21,8 @@
  */
 package com.restfb.types.ads;
 
-public abstract class Rule {
+import com.restfb.types.AbstractFacebookType;
+
+public abstract class Rule extends AbstractFacebookType {
 
 }

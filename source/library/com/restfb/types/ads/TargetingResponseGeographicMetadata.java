@@ -75,7 +75,7 @@ public class TargetingResponseGeographicMetadata extends AbstractFacebookType {
     metaData = mapper.toJavaObject(data.toString(), MetaData.class);
   }
 
-  private static class MetaData {
+  private static class MetaData extends AbstractFacebookType {
 
     @Getter
     @Facebook

@@ -53,7 +53,7 @@ public class TargetAudience extends AbstractFacebookType {
   @Facebook
   private Countries countries;
 
-  public static class Countries {
+  public static class Countries extends AbstractFacebookType {
 
     /**
      * List of ISO 3166 Alpha-2 codes.

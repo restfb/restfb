@@ -32,6 +32,7 @@ import java.util.List;
  * 
  * @deprecated with Marketing API version 2.4 use {@link AdLabel} instead
  */
+@Deprecated
 public class AdTag extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;

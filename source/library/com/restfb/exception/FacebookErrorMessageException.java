@@ -28,7 +28,7 @@ import com.restfb.json.JsonObject;
  *
  * Sometime a developer needs to access the plain error to get a more in depth view to the error.
  */
-abstract public class FacebookErrorMessageException extends FacebookException {
+public abstract class FacebookErrorMessageException extends FacebookException {
 
   private JsonObject rawErrorJson;
 
