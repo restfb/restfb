@@ -53,6 +53,30 @@ public class NlpResult {
       } else if ("greetings".equals(key)) {
         List<NlpGreetings> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpGreetings.class);
         convertedEntities.addAll(list);
+      } else if ("amount_of_money".equals(key)) {
+        List<NlpAmountOfMoney> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpAmountOfMoney.class);
+        convertedEntities.addAll(list);
+      } else if ("phone_number".equals(key)) {
+        List<NlpPhoneNumber> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpPhoneNumber.class);
+        convertedEntities.addAll(list);
+      } else if ("email".equals(key)) {
+        List<NlpEmail> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpEmail.class);
+        convertedEntities.addAll(list);
+      } else if ("distance".equals(key)) {
+        List<NlpDistance> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpDistance.class);
+        convertedEntities.addAll(list);
+      } else if ("volume".equals(key)) {
+        List<NlpVolume> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpVolume.class);
+        convertedEntities.addAll(list);
+      } else if ("temperature".equals(key)) {
+        List<NlpTemperature> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpTemperature.class);
+        convertedEntities.addAll(list);
+      } else if ("quantity".equals(key)) {
+        List<NlpQuantity> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpQuantity.class);
+        convertedEntities.addAll(list);
+      } else if ("duration".equals(key)) {
+        List<NlpDuration> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpDuration.class);
+        convertedEntities.addAll(list);
       } else {
         List<NlpCustomWitAi> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpCustomWitAi.class);
         for (NlpCustomWitAi customNlp : list) {
