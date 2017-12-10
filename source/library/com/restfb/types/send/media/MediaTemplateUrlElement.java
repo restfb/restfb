@@ -47,15 +47,15 @@ public class MediaTemplateUrlElement extends AbstractFacebookType implements Med
 
   @Getter
   @Facebook("media_type")
-  public String mediaType;
+  private String mediaType;
 
   @Getter
   @Facebook
-  public String url;
+  private String url;
 
   @Getter
   @Facebook
-  public List<WebButton> buttons;
+  private List<WebButton> buttons;
 
   public MediaTemplateUrlElement(String url) {
     if (!validUrl(url)) {

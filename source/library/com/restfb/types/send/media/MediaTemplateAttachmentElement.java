@@ -40,15 +40,15 @@ public class MediaTemplateAttachmentElement extends AbstractFacebookType
 
   @Getter
   @Facebook("media_type")
-  public String mediaType;
+  private String mediaType;
 
   @Getter
   @Facebook("attachment_id")
-  public String attachmentId;
+  private String attachmentId;
 
   @Getter
   @Facebook
-  public List<WebButton> buttons;
+  private List<WebButton> buttons;
 
   public MediaTemplateAttachmentElement(MediaAttachment.MediaType mediaType, String attachmentId) {
     this.mediaType = mediaType.name().toLowerCase();

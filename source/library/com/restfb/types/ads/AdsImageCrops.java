@@ -75,7 +75,7 @@ public class AdsImageCrops extends AbstractFacebookType {
   @Facebook("600x360")
   private String thumb600x360String;
 
-  public static class AdsImageCropsSpec {
+  public static class AdsImageCropsSpec extends AbstractFacebookType {
 
     @Getter
     @Setter

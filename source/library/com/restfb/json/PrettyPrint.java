@@ -105,10 +105,7 @@ public class PrettyPrint extends WriterConfig {
 
     @Override
     protected void writeArraySeparator() throws IOException {
-      writer.write(',');
-      if (!writeNewLine()) {
-        writer.write(' ');
-      }
+      writeCommaSeparator();
     }
 
     @Override
@@ -133,6 +130,10 @@ public class PrettyPrint extends WriterConfig {
 
     @Override
     protected void writeObjectSeparator() throws IOException {
+      writeCommaSeparator();
+    }
+
+    protected void writeCommaSeparator() throws IOException {
       writer.write(',');
       if (!writeNewLine()) {
         writer.write(' ');
