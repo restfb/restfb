@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.0.0 (December 11, 2017)
+
+* Issue #833: Facebook Messenger - builtin NLP entities added<br />
+  Thanks to @RedEagle for the hint
+* Issue #830: Git branches reorganized
+
 ## 2.0.0-rc.4 (December 2, 2017)
 
 * Issue #791: README.md cleanup
