@@ -9,8 +9,8 @@
   <property name="libraryVersion" value="${restfbpom.version}"/>
 
   <!-- Directories -->
-  <property name="sourceDir" value="source"/>
-  <property name="librarySourceDir" value="${sourceDir}/library"/>
+  <property name="sourceDir" value="src"/>
+  <property name="librarySourceDir" value="${sourceDir}/main/java"/>
   <property name="testSourceDir" value="${sourceDir}/test/java"/>
   <property name="buildDir" value="build"/>
   <property name="classesDir" value="${buildDir}/classes"/>

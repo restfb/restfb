@@ -109,13 +109,6 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>source/library</sourceDirectory>
-    <testSourceDirectory>source/test/java</testSourceDirectory>
-    <testResources>
-      <testResource>
-        <directory>source/test/resources</directory>
-      </testResource>
-    </testResources>
     <plugins>
       <plugin>
         <groupId>org.eclipse.virgo.bundlor</groupId>
@@ -181,9 +174,9 @@
             <exclude>target/**</exclude>
             <exclude>LICENSE**</exclude>
             <exclude>build/**</exclude>
-            <exclude>source/library/com/restfb/json/**</exclude>
-            <exclude>source/test/java/com/restfb/json/**</exclude>
-            <exclude>source/test/resources/**</exclude>
+	    <exclude>src/main/java/com/restfb/json/**</exclude>
+            <exclude>src/test/java/com/restfb/json/**</exclude>
+            <exclude>src/test/resources/**</exclude>
           </excludes>
         </configuration>
         <executions>
