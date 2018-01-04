@@ -226,6 +226,17 @@ public class Post extends NamedFacebookType {
   private FeedTargeting feedTargeting;
 
   /**
+   * Whether the viewer can send a private reply to this post (Page viewers only)
+   *
+   * @RestFB.GraphApi.Since 2.5
+   * @return Whether the viewer can send a private reply to this post
+   */
+  @Getter
+  @Setter
+  @Facebook("can_reply_privately")
+  private Boolean canReplyPrivately;
+
+  /**
    * The profile this was posted on if different from the author.
    *
    * @RestFB.GraphApi.Since 2.5
