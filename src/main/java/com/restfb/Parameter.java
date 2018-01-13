@@ -141,11 +141,8 @@ public final class Parameter {
     if (this.name != other.name && !this.name.equals(other.name)) {
       return false;
     }
-    if (this.value != other.value && !this.value.equals(other.value)) {
-      return false;
-    }
 
-    return true;
+    return !(this.value != other.value && !this.value.equals(other.value));
   }
 
   @Override

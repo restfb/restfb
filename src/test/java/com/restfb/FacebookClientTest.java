@@ -33,6 +33,7 @@ import com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
+import com.restfb.json.JsonArray;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
 import com.restfb.types.send.IdMessageRecipient;
@@ -42,6 +43,8 @@ import com.restfb.types.send.SendResponse;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -198,7 +201,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void checkfetchObjects() {
+  public void checkfetchObjects() throws URISyntaxException {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
@@ -211,6 +214,11 @@ public class FacebookClientTest {
     fbc.fetchObjects(idList, String.class);
 
     assertThat(requestor.getSavedUrl()).contains("123456789", "abcdefghijkl", "m_mid%3A35723r72%24bfehZFDEBDET");
+    assertThat(requestor.getSavedUrl()).contains("ids=%5B", "%5D&");
+    URI savedURL = new URI(requestor.getSavedUrl());
+    for (String id : idList) {
+      assertThat(savedURL.getQuery()).contains('"' + id.trim() + '"');
+    }
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -417,6 +425,15 @@ public class FacebookClientTest {
     String queryString = "access_token=<access-token>&expires=5184000";
     FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
     assertThat(token.getExpires()).isAfter(new Date(1468096359099L));
+  }
+
+  @Test
+  public void createJsonArray() {
+    JsonArray array = new JsonArray();
+    array.add("123");
+    array.add("456");
+
+    assertThat(array.toString()).contains("\"123\"").contains("\"456\"");
   }
 
   /**

@@ -37,10 +37,7 @@ import com.restfb.exception.*;
 import com.restfb.exception.devicetoken.*;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.exception.generator.FacebookExceptionGenerator;
-import com.restfb.json.Json;
-import com.restfb.json.JsonObject;
-import com.restfb.json.JsonValue;
-import com.restfb.json.ParseException;
+import com.restfb.json.*;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.EncodingUtils;
@@ -428,19 +425,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       }
     }
 
+    JsonArray idArray = new JsonArray();
     // Normalize the IDs
-    for (int i = 0; i < ids.size(); i++) {
-      String id = ids.get(i).trim();
-      if ("".equals(id)) {
+    for (String id : ids) {
+      if (StringUtils.isBlank(id)) {
         throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
       }
-
-      ids.set(i, id);
+      idArray.add(id.trim());
     }
 
     try {
       String jsonString =
-          makeRequest("", parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, join(ids)), parameters));
+          makeRequest("", parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, idArray.toString()), parameters));
 
       return jsonMapper.toJavaObject(jsonString, objectType);
     } catch (ParseException e) {

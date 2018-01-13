@@ -49,10 +49,6 @@ import java.util.Map;
 /**
  * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client must operate.
  * <p>
- * Projects that need to access the <a href="http://developers.facebook.com/docs/reference/rest/">old REST API</a>
- * should use {@link LegacyFacebookClient} instead. You might choose to do this because you have a legacy codebase or
- * you need functionality that is not yet available in the Graph API.
- * <p>
  * If you'd like to...
  * 
  * <ul>
