@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2.1.1 (January 28, 2018)
+
+* Issue #844: fix "bundlor" problem
+
 ## 2.1.0 (January 28, 2018)
 
 * Issue #834: directories restructured
