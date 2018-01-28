@@ -106,6 +106,7 @@
       <version>2.6.0</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -113,7 +114,7 @@
       <plugin>
         <groupId>org.eclipse.virgo.bundlor</groupId>
         <artifactId>org.eclipse.virgo.bundlor.maven</artifactId>
-        <version>1.1.0.M05</version>
+        <version>1.1.2.RELEASE</version>
         <executions>
           <execution>
             <id>bundlor</id>
@@ -122,6 +123,18 @@
             </goals>
           </execution>
         </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.eclipse.virgo.bundlor</groupId>
+            <artifactId>org.eclipse.virgo.bundlor</artifactId>
+            <version>1.1.2.RELEASE</version>
+          </dependency>
+          <dependency>
+            <groupId>org.eclipse.virgo.bundlor</groupId>
+            <artifactId>org.eclipse.virgo.bundlor.blint</artifactId>
+            <version>1.1.2.RELEASE</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -174,8 +187,8 @@
             <exclude>target/**</exclude>
             <exclude>LICENSE**</exclude>
             <exclude>build/**</exclude>
-	    <exclude>template.mf</exclude>
-	    <exclude>src/main/java/com/restfb/json/**</exclude>
+            <exclude>template.mf</exclude>
+            <exclude>src/main/java/com/restfb/json/**</exclude>
             <exclude>src/test/java/com/restfb/json/**</exclude>
             <exclude>src/test/resources/**</exclude>
           </excludes>
@@ -191,21 +204,6 @@
     </plugins>
   </build>
   <pluginRepositories>
-    <pluginRepository>
-      <id>eclipse.virgo.build.bundles.snapshot</id>
-      <name>Eclipse Virgo Build</name>
-      <url>http://build.eclipse.org/rt/virgo/maven/bundles/snapshot</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>eclipse.virgo.build.bundles.milestone</id>
-      <name>Eclipse Virgo Build</name>
-      <url>http://build.eclipse.org/rt/virgo/maven/bundles/milestone</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>eclipse.virgo.build.bundles.release</id>
-      <name>Eclipse Virgo Build</name>
-      <url>http://build.eclipse.org/rt/virgo/maven/bundles/release</url>
-    </pluginRepository>
     <pluginRepository>
       <id>com.springsource.repository.bundles.external</id>
       <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
