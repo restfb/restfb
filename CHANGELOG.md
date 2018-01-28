@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 2.1.0 (January 28, 2018)
+
+* Issue #834: directories restructured
+* Issue #836: Copyright year changed to 2018
+* Issue #837: `canReplyPrivately` added to `Post` type<br />
+  Thanks to @dmtar for the hint
+* Issue #838: `DefaultFacebookClient.fetchObjects()` uses Json array<br />
+  Thanks to @grumseren for the hint and analysis
+
 ## 2.0.0 (December 11, 2017)
 
 * Issue #833: Facebook Messenger - builtin NLP entities added<br />
