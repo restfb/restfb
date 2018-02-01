@@ -202,10 +202,13 @@ public class Event extends NamedFacebookType {
   /**
    * Whether the viewer is admin or not.
    *
+   * @deprecated since January 30, 2018
+   *
    * @return Whether the viewer is admin or not
    */
   @Getter
   @Setter
+  @Deprecated
   @Facebook("is_viewer_admin")
   private Boolean isViewerAdmin;
 
