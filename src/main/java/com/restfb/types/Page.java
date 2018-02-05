@@ -23,6 +23,10 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
@@ -30,10 +34,6 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.types.ads.Business;
 import com.restfb.util.DateUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -1186,11 +1186,29 @@ public class Page extends CategorizedFacebookType {
   @Facebook("food_styles")
   private List<String> foodStyles = new ArrayList<String>();
 
+  @Facebook("screennames")
+  private List<ScreenName> screenNames = new ArrayList<ScreenName>();
+
   private static final long serialVersionUID = 2L;
 
   @JsonMappingCompleted
   protected void fillDates(JsonMapper jsonMapper) {
     lastUsedTime = DateUtils.toDateFromLongFormat(rawLastUsedTime);
+  }
+
+  public static class ScreenName extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook("service_name")
+    private String serviceName;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String value;
   }
 
   /**
@@ -1658,6 +1676,23 @@ public class Page extends CategorizedFacebookType {
     public JsonObject getValueAsJsonObject() {
       return Json.parse(value).asObject();
     }
+  }
+
+  /**
+   * External accounts. Applicable to Pages representing people
+   *
+   * @return the list of screen names
+   */
+  public List<ScreenName> getScreenNames() {
+    return unmodifiableList(screenNames);
+  }
+
+  public boolean addScreenName(ScreenName screenName) {
+    return screenNames.add(screenName);
+  }
+
+  public boolean removeScreenName(ScreenName screenName) {
+    return screenNames.remove(screenName);
   }
 
   /**

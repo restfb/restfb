@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static org.junit.Assert.*;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.junit.Test;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
 public class PageTest extends AbstractJsonMapperTests {
 
@@ -183,6 +183,14 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals("3 people like this.", engagement.getSocialSentence());
     assertEquals("You and 3 others like this.", engagement.getSocialSentenceWithLike());
     assertEquals("3 people like this.", engagement.getSocialSentenceWithoutLike());
+  }
+
+  @Test
+  public void checkV2_11_screennames() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/page-with-screennames"), Page.class);
+    assertNotNull(page);
+    assertNotNull(page.getScreenNames());
+    assertEquals(2, page.getScreenNames().size());
   }
 
 }
