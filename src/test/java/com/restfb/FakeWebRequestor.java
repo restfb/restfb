@@ -23,9 +23,9 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
-import com.restfb.DefaultWebRequestor.HttpMethod;
-
 import java.io.IOException;
+
+import com.restfb.DefaultWebRequestor.HttpMethod;
 
 /**
  * Fake Web Requestor for unit tests.
@@ -38,11 +38,21 @@ public class FakeWebRequestor implements WebRequestor {
 
   private String parameters;
 
+  private Response predefinedResponse;
+
+  public FakeWebRequestor() {
+    this(null);
+  }
+
+  public FakeWebRequestor(Response predefinedResponse) {
+    this.predefinedResponse = predefinedResponse;
+  }
+
   @Override
   public Response executeGet(String url) throws IOException {
     this.savedUrl = url;
     this.method = HttpMethod.GET;
-    return new Response(HTTP_OK, url);
+    return createInternalResponse();
   }
 
   @Override
@@ -50,7 +60,7 @@ public class FakeWebRequestor implements WebRequestor {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
     this.parameters = parameters;
-    return new Response(HTTP_OK, url);
+    return createInternalResponse();
   }
 
   @Override
@@ -58,14 +68,22 @@ public class FakeWebRequestor implements WebRequestor {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
     this.parameters = parameters;
-    return new Response(HTTP_OK, url);
+    return createInternalResponse();
   }
 
   @Override
   public Response executeDelete(String url) throws IOException {
     this.savedUrl = url;
     this.method = HttpMethod.DELETE;
-    return new Response(HTTP_OK, url);
+    return createInternalResponse();
+  }
+
+  private Response createInternalResponse() {
+    if (predefinedResponse != null) {
+      return predefinedResponse;
+    } else {
+      return new Response(HTTP_OK, getSavedUrl());
+    }
   }
 
   @Override

@@ -119,10 +119,8 @@ public class DefaultJsonMapper implements JsonMapper {
       // affiliations - it's a list except when there are none, then it turns
       // into an object). Check for that special case here.
       if (isEmptyObject(json)) {
-        if (MAPPER_LOGGER.isTraceEnabled()) {
-          MAPPER_LOGGER
-            .trace("Encountered {} when we should've seen []. Mapping the {} as an empty list and moving on...");
-        }
+        MAPPER_LOGGER
+          .trace("Encountered {} when we should've seen []. Mapping the {} as an empty list and moving on...");
 
         return new ArrayList<T>();
       }

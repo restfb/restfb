@@ -25,6 +25,16 @@ import static com.restfb.testutils.RestfbAssertions.assertThat;
 import static com.restfb.util.StringUtils.fromInputStream;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Test;
+
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookOAuthException;
@@ -39,16 +49,6 @@ import com.restfb.types.User;
 import com.restfb.types.send.IdMessageRecipient;
 import com.restfb.types.send.Message;
 import com.restfb.types.send.SendResponse;
-
-import org.junit.Test;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -331,13 +331,7 @@ public class FacebookClientTest {
   public void testDebugToken() throws IOException {
     final String returnJson = fromInputStream(getClass().getResourceAsStream("/json/data-debug-token-info.json"));
 
-    FakeWebRequestor requestor = new FakeWebRequestor() {
-      @Override
-      public Response executeGet(String url) throws IOException {
-        super.executeGet(url);
-        return new Response(200, returnJson);
-      }
-    };
+    FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, returnJson));
 
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
@@ -349,14 +343,7 @@ public class FacebookClientTest {
 
   @Test(expected = FacebookResponseContentException.class)
   public void testDebugTokenException() throws IOException {
-    FakeWebRequestor requestor = new FakeWebRequestor() {
-      @Override
-      public Response executeGet(String url) throws IOException {
-        super.executeGet(url);
-        return new Response(200, null);
-      }
-    };
-
+    FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, null));
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
     fbc.debugToken("myToken");
@@ -445,28 +432,6 @@ public class FacebookClientTest {
    * @return A {@code FacebookClient} for testing.
    */
   protected FacebookClient facebookClientWithResponse(final Response response) {
-    return new DefaultFacebookClient(null, new DefaultWebRequestor() {
-      @Override
-      public Response executeGet(String url) throws IOException {
-        return response;
-      }
-
-      @Override
-      public Response executePost(String url, String parameters) throws IOException {
-        return response;
-      }
-
-      @Override
-      public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments)
-          throws IOException {
-        return response;
-      }
-
-      @Override
-      public Response executeDelete(String url) throws IOException {
-        return response;
-      }
-
-    }, new DefaultJsonMapper(), Version.LATEST);
+    return new DefaultFacebookClient(null, new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
   }
 }

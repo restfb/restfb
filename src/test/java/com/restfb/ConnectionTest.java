@@ -25,16 +25,16 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.types.FacebookType;
-import com.restfb.types.User;
-
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import org.junit.Test;
+
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.types.FacebookType;
+import com.restfb.types.User;
 
 public class ConnectionTest extends AbstractJsonMapperTests {
 
@@ -147,14 +147,11 @@ public class ConnectionTest extends AbstractJsonMapperTests {
   }
 
   private Connection<FacebookType> createCursorConnection() {
-    FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
-      @Override
-      public Response executeGet(String url) throws IOException {
-        return new Response(HTTP_OK, jsonFromClasspath("connection-with-cursor"));
-      }
-    };
-    DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_8);
+    WebRequestor.Response dummyResponse =
+        new WebRequestor.Response(HTTP_OK, jsonFromClasspath("connection-with-cursor"));
+
+    DefaultFacebookClient facebookClient = new DefaultFacebookClient("token", new FakeWebRequestor(dummyResponse),
+      new DefaultJsonMapper(), Version.VERSION_2_8);
     return facebookClient.fetchConnection("/cursor", FacebookType.class);
   }
 

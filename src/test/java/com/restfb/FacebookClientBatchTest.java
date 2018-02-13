@@ -86,16 +86,8 @@ public class FacebookClientBatchTest extends AbstractJsonMapperTests {
   }
 
   private FacebookClient createFacebookClient(final String batchJson) {
-    WebRequestor requestor = new FakeWebRequestor() {
-
-      @Override
-      public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments)
-          throws IOException {
-        return new Response(200, jsonFromClasspath("batch/" + batchJson));
-      }
-    };
-
-    return new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.LATEST);
+    WebRequestor.Response response = new WebRequestor.Response(200, jsonFromClasspath("batch/" + batchJson));
+    return new DefaultFacebookClient("accesstoken", new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
   }
 
 }
