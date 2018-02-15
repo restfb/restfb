@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static org.junit.Assert.*;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.junit.Test;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
 public class UserTest extends AbstractJsonMapperTests {
 
@@ -117,6 +117,18 @@ public class UserTest extends AbstractJsonMapperTests {
     assertNotNull(exampleUser);
     assertNotNull(exampleUser.getShortName());
     assertEquals("Tester", exampleUser.getShortName());
+  }
+
+  @Test
+  public void checkV2_11_additionalIds() {
+    User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/user-with-additional-ids"), User.class);
+    assertNotNull(exampleUser);
+    assertEquals(1, exampleUser.getIdsForApps().size());
+    assertNotNull(exampleUser.getIdsForApps().get(0).getApp());
+    assertEquals(1, exampleUser.getIdsForBusiness().size());
+    assertNotNull(exampleUser.getIdsForBusiness().get(0).getApp());
+    assertEquals(1, exampleUser.getIdsForPages().size());
+    assertNotNull(exampleUser.getIdsForPages().get(0).getPage());
   }
 
 }

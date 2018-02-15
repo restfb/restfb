@@ -26,15 +26,15 @@ import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.json.JsonObject;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -554,6 +554,15 @@ public class User extends NamedFacebookType {
   @Facebook
   private List<PageLabel> labels = new ArrayList<PageLabel>();
 
+  @Facebook("ids_for_apps")
+  private List<UserIDForApp> idsForApps = new ArrayList<UserIDForApp>();
+
+  @Facebook("ids_for_business")
+  private List<UserIDForApp> idsForBusiness = new ArrayList<UserIDForApp>();
+
+  @Facebook("ids_for_pages")
+  private List<UserIDForPage> idsForPages = new ArrayList<UserIDForPage>();
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -901,6 +910,63 @@ public class User extends NamedFacebookType {
       return getHometown().getName();
 
     return hometownAsString;
+  }
+
+  /**
+   * Businesses can claim ownership of multiple apps using Business Manager.
+   *
+   * This method returns the list of IDs that this user has in any of those other apps
+   * 
+   * @return list of ids a user has in other apps
+   */
+  public List<UserIDForApp> getIdsForApps() {
+    return unmodifiableList(idsForApps);
+  }
+
+  public boolean addIdsForApps(UserIDForApp userId) {
+    return idsForApps.add(userId);
+  }
+
+  public boolean removeIdsForApps(UserIDForApp userId) {
+    return idsForApps.remove(userId);
+  }
+
+  /**
+   * Businesses can claim ownership of multiple apps using Business Manager.
+   *
+   * This edge returns the list of IDs that this user has in any of those other apps
+   *
+   * @return list of ids a user has in other apps
+   */
+  public List<UserIDForApp> getIdsForBusiness() {
+    return unmodifiableList(idsForBusiness);
+  }
+
+  public boolean addIdsForBusiness(UserIDForApp userId) {
+    return idsForBusiness.add(userId);
+  }
+
+  public boolean removeIdsForBusiness(UserIDForApp userId) {
+    return idsForBusiness.remove(userId);
+  }
+
+  /**
+   * Businesses can claim ownership of apps and pages using Business Manager.
+   *
+   * This edge returns the list of IDs that this user has in any of the pages owned by this business.
+   *
+   * @return list of ids a user has in other pages
+   */
+  public List<UserIDForPage> getIdsForPages() {
+    return unmodifiableList(idsForPages);
+  }
+
+  public boolean addIdsForPages(UserIDForPage userId) {
+    return idsForPages.add(userId);
+  }
+
+  public boolean removeIdsForPages(UserIDForPage userId) {
+    return idsForPages.remove(userId);
   }
 
   /**
