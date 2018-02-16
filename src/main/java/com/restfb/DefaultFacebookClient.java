@@ -859,7 +859,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         }
 
         if (executeAsPost) {
-          BinaryAttachment attachmentArray[] = null;
+          BinaryAttachment[] attachmentArray = null;
           if (binaryAttachments != null) {
             attachmentArray = binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()]);
           }
