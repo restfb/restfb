@@ -73,24 +73,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   private FacebookExceptionGenerator graphFacebookExceptionGenerator;
 
-  protected String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
-
   /**
-   * API endpoint URL.
+   * holds the Facebook endpoint urls
    */
-  protected String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
-
-  /**
-   * Read-only API endpoint URL.
-   */
-  protected String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
-
-  /**
-   * Video Upload API endpoint URL.
-   * 
-   * @since 1.6.5
-   */
-  protected String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
+  private FacebookEndpoints facebookEndpointUrls = new DefaultFacebookEndpoints();
 
   /**
    * Reserved method override parameter name.
@@ -286,46 +272,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   public FacebookExceptionGenerator getFacebookExceptionGenerator() {
     return graphFacebookExceptionGenerator;
-  }
-
-  /**
-   * Redirect the Facebook endpoint URL. This is useful when testing with virtual/mock services.
-   *
-   * @param url
-   *          The new URL for the Facebook endpoint
-   */
-  public void setFacebookEndpointUrl(String url) {
-    this.FACEBOOK_ENDPOINT_URL = url;
-  }
-
-  /**
-   * Redirect the Facebook graph endpoint URL. This is useful when testing with virtual/mock services.
-   *
-   * @param url
-   *          The new URL for the Facebook graph endpoint
-   */
-  public void setFacebookGraphEndpointUrl(String url) {
-    this.FACEBOOK_GRAPH_ENDPOINT_URL = url;
-  }
-
-  /**
-   * Redirect the Facebook read only endpoint URL. This is useful when testing with virtual/mock services.
-   *
-   * @param url
-   *          The new URL for the Facebook read only endpoint
-   */
-  public void setFacebookReadOnlyEndpointUrl(String url) {
-    this.FACEBOOK_READ_ONLY_ENDPOINT_URL = url;
-  }
-
-  /**
-   * Redirect the Facebook graph video endpoint URL. This is useful when testing with virtual/mock services.
-   *
-   * @param url
-   *          The new URL for the Facebook graph video endpoint
-   */
-  public void setFacebookGraphVideoEndpointUrl(String url) {
-    this.FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = url;
   }
 
   /**
@@ -768,7 +714,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("redirectUri", redirectUri);
     verifyParameterPresence("scope", scope);
 
-    String dialogUrl = FACEBOOK_ENDPOINT_URL + "/dialog/oauth";
+    String dialogUrl = getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth";
 
     ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
     parameterList.add(Parameter.with("client_id", appId));
@@ -1066,7 +1012,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
       baseUrl = getFacebookGraphVideoEndpointUrl();
     } else if (apiCall.endsWith("logout.php")) {
-      baseUrl = FACEBOOK_ENDPOINT_URL;
+      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();
     }
 
     return format("%s/%s", baseUrl, apiCall);
@@ -1079,9 +1025,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected String getFacebookGraphEndpointUrl() {
     if (apiVersion.isUrlElementRequired()) {
-      return FACEBOOK_GRAPH_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+      return getFacebookEndpointUrls().getGraphEndpoint() + '/' + apiVersion.getUrlElement();
     } else {
-      return FACEBOOK_GRAPH_ENDPOINT_URL;
+      return getFacebookEndpointUrls().getGraphEndpoint();
     }
   }
 
@@ -1093,18 +1039,26 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected String getFacebookGraphVideoEndpointUrl() {
     if (apiVersion.isUrlElementRequired()) {
-      return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+      return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();
     } else {
-      return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+      return getFacebookEndpointUrls().getGraphVideoEndpoint();
     }
   }
 
   @Override
   protected String getFacebookReadOnlyEndpointUrl() {
     if (apiVersion.isUrlElementRequired()) {
-      return FACEBOOK_READ_ONLY_ENDPOINT_URL + '/' + apiVersion.getUrlElement();
+      return getFacebookEndpointUrls().getReadOnlyEndpoint() + '/' + apiVersion.getUrlElement();
     } else {
-      return FACEBOOK_READ_ONLY_ENDPOINT_URL;
+      return getFacebookEndpointUrls().getReadOnlyEndpoint();
     }
+  }
+
+  public FacebookEndpoints getFacebookEndpointUrls() {
+    return facebookEndpointUrls;
+  }
+
+  public void setFacebookEndpointUrls(FacebookEndpoints facebookEndpointUrls) {
+    this.facebookEndpointUrls = facebookEndpointUrls;
   }
 }
