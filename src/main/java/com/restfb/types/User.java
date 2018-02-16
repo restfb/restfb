@@ -563,6 +563,9 @@ public class User extends NamedFacebookType {
   @Facebook("ids_for_pages")
   private List<UserIDForPage> idsForPages = new ArrayList<UserIDForPage>();
 
+  @Facebook("invitable_friends")
+  private List<UserInvitableFriend> invitableFriends = new ArrayList<UserInvitableFriend>();
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -1157,6 +1160,23 @@ public class User extends NamedFacebookType {
 
   public boolean removeLabels(PageLabel label) {
     return labels.remove(label);
+  }
+
+  /**
+   * A list of friends that can be invited to install a Facebook Canvas app
+   * 
+   * @return A list of friends that can be invited to install a Facebook Canvas app
+   */
+  public List<UserInvitableFriend> getInvitableFriends() {
+    return unmodifiableList(invitableFriends);
+  }
+
+  public boolean addInvitableFriend(UserInvitableFriend friend) {
+    return invitableFriends.add(friend);
+  }
+
+  public boolean removeInvitableFriend(UserInvitableFriend friend) {
+    return invitableFriends.remove(friend);
   }
 
   /**
