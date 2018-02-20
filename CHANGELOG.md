@@ -1,5 +1,19 @@
 # RestFB Changelog
 
+## 2.2.0 (February 20, 2018)
+
+* Issue #845: Graph API 2.12 enum added
+* Issue #846: Graph API 2.12 - marked field in `Event` type as deprecated
+* Issue #847: `screennames` added to `Page` type<br />
+  Thanks to @joelforessottile for the hint
+* Issue #848: old eclipse stuff removed<br />
+  Thanks to @ghost for the hint
+* Issue #849: missing id lists added to `User` type<br />
+  Thanks to @JB4GH for the hint
+* Issue #701: Solution for integration testing without make the endpoint urls changeable
+* Issue #850: Add invitable friends to `User` type
+* Issue #852: Add instagram permissions  
+
 ## 2.1.1 (January 28, 2018)
 
 * Issue #844: fix "bundlor" problem
