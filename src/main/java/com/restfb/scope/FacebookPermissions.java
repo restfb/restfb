@@ -823,7 +823,63 @@ public enum FacebookPermissions {
    * @RestFB.GraphApi.Since 2.6
    * @since Graph API 2.6
    */
-  PAGES_MESSAGING_PAYMENTS("pages_messaging_payments", Category.MESSAGING);
+  PAGES_MESSAGING_PAYMENTS("pages_messaging_payments", Category.MESSAGING),
+
+  // Instagram Platform permissions
+
+  /**
+   * Provides the ability to read Instagram accounts you have access to.
+   *
+   * <p>
+   * Please see <a href="https://developers.facebook.com/docs/instagram-api/getting-started">Instagram's Getting Started
+   * Guide</a> for details.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 2.5
+   * @since Graph API 2.5
+   */
+  INSTAGRAM_BASIC("instagram_basic", Category.INSTAGRAM),
+
+  /**
+   * Provides the ability to read Instagram accounts you have access to.
+   *
+   * <p>
+   * Please see <a href="https://developers.facebook.com/docs/instagram-api/getting-started">Instagram's Getting Started
+   * Guide</a> for details.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 2.5
+   * @since Graph API 2.5
+   */
+  INSTAGRAM_MANAGE_COMMENTS("instagram_manage_comments", Category.INSTAGRAM),
+
+  /**
+   * Provides the ability to read insights of Instagram account you have access to.
+   *
+   * <p>
+   * Please see <a href="https://developers.facebook.com/docs/instagram-api/getting-started">Instagram's Getting Started
+   * Guide</a> for details.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 2.5
+   * @since Graph API 2.5
+   */
+  INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM);
 
   private final String permissionString;
 
@@ -843,6 +899,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING;
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM;
   }
 }
