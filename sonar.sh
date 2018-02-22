@@ -22,7 +22,7 @@
 #
 
 if ([ "$TRAVIS_BRANCH" == "$RESTFB_BRANCH" ] || [ ! -z "$TRAVIS_TAG" ]) && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then
-  mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.branch.name=$TRAVIS_BRANCH -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+  mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 else
   mvn test -B
 fi
