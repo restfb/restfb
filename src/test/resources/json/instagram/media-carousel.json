@@ -1,0 +1,44 @@
+{
+  "id": "123456789",
+  "caption": "Great carousel",
+  "comments_count": 0,
+  "ig_id": "123456789777",
+  "is_comment_enabled": true,
+  "like_count": 0,
+  "media_type": "CAROUSEL_ALBUM",
+  "media_url": "<image url>",
+  "owner": {
+    "id": "987654321"
+  },
+  "permalink": "https://www.instagram.com/permalink",
+  "shortcode": "shortcode",
+  "timestamp": "2018-02-22T10:40:45+0000",
+  "children": {
+    "data": [
+      {
+        "id": "1234567891",
+        "ig_id": "1234567897771",
+        "media_type": "IMAGE",
+        "media_url": "<media url 1>",
+        "owner": {
+          "id": "987654321"
+        },
+        "permalink": "https://www.instagram.com/permalink1",
+        "shortcode": "shortcode1",
+        "timestamp": "2018-02-22T10:40:32+0000"
+      },
+      {
+        "id": "1234567892",
+        "ig_id": "1234567897772",
+        "media_type": "IMAGE",
+        "media_url": "<media url 2>",
+        "owner": {
+          "id": "987654321"
+        },
+        "permalink": "https://www.instagram.com/permalink2",
+        "shortcode": "shortcode2",
+        "timestamp": "2018-02-22T10:40:32+0000"
+      }
+    ]
+  }
+}
