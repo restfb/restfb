@@ -193,4 +193,14 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals(2, page.getScreenNames().size());
   }
 
+  @Test
+  public void checkV2_11_instagram() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/page-with-instagram"), Page.class);
+    assertNotNull(page);
+    assertNotNull(page.getConnectedInstagramAccount());
+    assertEquals("987654321", page.getConnectedInstagramAccount().getId());
+    assertNotNull(page.getInstagramBusinessAccount());
+    assertEquals("987654321", page.getInstagramBusinessAccount().getId());
+  }
+
 }

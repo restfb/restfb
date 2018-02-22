@@ -33,6 +33,7 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.types.ads.Business;
+import com.restfb.types.instagram.IgUser;
 import com.restfb.util.DateUtils;
 
 import lombok.Getter;
@@ -1167,6 +1168,22 @@ public class Page extends CategorizedFacebookType {
 
   @Facebook("last_used_time")
   private String rawLastUsedTime;
+
+  /**
+   * Instagram account connected to page via page settings
+   */
+  @Getter
+  @Setter
+  @Facebook("connected_instagram_account")
+  private IgUser connectedInstagramAccount;
+
+  /**
+   * Instagram account linked to page during Instagram business conversion flow
+   */
+  @Getter
+  @Setter
+  @Facebook("instagram_business_account")
+  private IgUser instagramBusinessAccount;
 
   /**
    * last used time of this object by the current viewer
