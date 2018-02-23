@@ -27,6 +27,9 @@ import com.restfb.JsonMapper;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
+import com.restfb.types.webhook.instagram.InstagramCommentsValue;
+import com.restfb.types.webhook.instagram.InstagramMentionsValue;
+import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
 
 /**
  * Factory to convert the value field of the change into a class with special fields
@@ -139,7 +142,11 @@ public class ChangeValueFactory {
     RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //
     RATINGS_REACTION_EDIT(RatingsReactionValue.class), //
     CONVERSATIONS(PageConversation.class), //
-    LEADGEN(PageLeadgen.class);
+    LEADGEN(PageLeadgen.class), //
+    // Instagram
+    STORY_INSIGHTS(InstagramStoryInsightsValue.class), //
+    MENTIONS(InstagramMentionsValue.class), //
+    COMMENTS(InstagramCommentsValue.class);
 
     private Class<ChangeValue> valueClass;
 
