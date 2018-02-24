@@ -21,7 +21,12 @@
  */
 package com.restfb.types.instagram;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.restfb.Facebook;
+import com.restfb.types.Insight;
 import com.restfb.types.NamedFacebookType;
 
 import lombok.Getter;
@@ -106,4 +111,34 @@ public class IgUser extends NamedFacebookType {
   @Setter
   @Facebook
   private String website;
+
+  @Facebook
+  private List<Insight> insights = new ArrayList<Insight>();
+
+  @Facebook
+  private List<IgMedia> media = new ArrayList<IgMedia>();
+
+  public List<Insight> getInsights() {
+    return Collections.unmodifiableList(insights);
+  }
+
+  public boolean addChild(Insight insight) {
+    return insights.add(insight);
+  }
+
+  public boolean removeChild(Insight insight) {
+    return insights.remove(insight);
+  }
+
+  public List<IgMedia> getMedia() {
+    return Collections.unmodifiableList(media);
+  }
+
+  public boolean addMedia(IgMedia media) {
+    return this.media.add(media);
+  }
+
+  public boolean removeMedia(IgMedia media) {
+    return this.media.remove(media);
+  }
 }

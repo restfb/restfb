@@ -64,6 +64,9 @@ public class IgMedia extends IgMediaChild {
   @Facebook
   private List<Insight> insights = new ArrayList<Insight>();
 
+  @Facebook
+  private List<IgComment> comments = new ArrayList<IgComment>();
+
   /**
    * returns the list of child media objects, only available if the media_type is a carousal
    * 
@@ -105,5 +108,22 @@ public class IgMedia extends IgMediaChild {
 
   public boolean removeChild(Insight insight) {
     return insights.remove(insight);
+  }
+
+  /**
+   * returns the comments of this media
+   * 
+   * @return the comments of this media
+   */
+  public List<IgComment> getComments() {
+    return Collections.unmodifiableList(comments);
+  }
+
+  public boolean addComment(IgComment comment) {
+    return comments.add(comment);
+  }
+
+  public boolean removeComment(IgComment comment) {
+    return comments.remove(comment);
   }
 }
