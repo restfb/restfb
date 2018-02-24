@@ -21,65 +21,32 @@
  */
 package com.restfb.types.instagram;
 
-import java.util.Date;
+import static org.junit.Assert.*;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.types.FacebookType;
-import com.restfb.util.DateUtils;
+import org.junit.Test;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.restfb.AbstractJsonMapperTests;
 
-public class IgMediaChild extends FacebookType {
+public class IgCommentTest extends AbstractJsonMapperTests {
 
-  private static final long serialVersionUID = 1L;
+  @Test
+  public void checkComment() {
+    IgComment igComment = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/comment"), IgComment.class);
+    assertNotNull(igComment);
+    assertNotNull(igComment.getMedia());
+    assertNotNull(igComment.getUser());
+    assertEquals("123456789", igComment.getId());
+    assertEquals("Great!", igComment.getText());
+    assertFalse(igComment.getHidden().booleanValue());
+    assertEquals(1519421536000l, igComment.getTimestamp().getTime());
+    assertEquals(0l, igComment.getLikeCount().longValue());
 
-  @Getter
-  @Setter
-  @Facebook("ig_id")
-  private String igId;
-
-  @Getter
-  @Setter
-  @Facebook("media_type")
-  private String mediaType;
-
-  @Getter
-  @Setter
-  @Facebook("media_url")
-  private String mediaUrl;
-
-  @Getter
-  @Setter
-  @Facebook
-  private IgUser owner;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String permalink;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String shortcode;
-
-  @Getter
-  @Setter
-  @Facebook("thumbnail_url")
-  private String thumbnailUrl;
-
-  @Facebook("timestamp")
-  private String rawTimestamp;
-
-  @Getter
-  @Setter
-  private Date timestamp;
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertTimestamp() {
-    timestamp = DateUtils.toDateFromLongFormat(rawTimestamp);
+    assertEquals(1, igComment.getReplies().size());
+    int i = 0;
+    for (IgComment reply : igComment.getReplies()) {
+      i++;
+      assertEquals(igComment.getId() + i, reply.getId());
+      assertEquals("yeah", reply.getText());
+    }
   }
-
 }

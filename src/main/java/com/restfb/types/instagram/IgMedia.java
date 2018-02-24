@@ -36,6 +36,8 @@ import lombok.Setter;
  */
 public class IgMedia extends IgMediaChild {
 
+  private static final long serialVersionUID = 1L;
+
   @Getter
   @Setter
   @Facebook

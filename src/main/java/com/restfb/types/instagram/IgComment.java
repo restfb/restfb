@@ -21,7 +21,10 @@
  */
 package com.restfb.types.instagram;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
@@ -31,55 +34,80 @@ import com.restfb.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
-public class IgMediaChild extends FacebookType {
+/**
+ * Represents a <a href="https://developers.facebook.com/docs/instagram-api/reference/comment">Instagram Comment</a>
+ * object
+ */
+public class IgComment extends FacebookType {
 
   private static final long serialVersionUID = 1L;
-
-  @Getter
-  @Setter
-  @Facebook("ig_id")
-  private String igId;
-
-  @Getter
-  @Setter
-  @Facebook("media_type")
-  private String mediaType;
-
-  @Getter
-  @Setter
-  @Facebook("media_url")
-  private String mediaUrl;
-
+  /**
+   * Whether the comment is hidden
+   */
   @Getter
   @Setter
   @Facebook
-  private IgUser owner;
+  private Boolean hidden;
 
+  /**
+   * Number of likes on the comment
+   */
+  @Getter
+  @Setter
+  @Facebook("like_count")
+  private Long likeCount;
+
+  /**
+   * Media on which the comment is made
+   */
   @Getter
   @Setter
   @Facebook
-  private String permalink;
+  private IgMedia media;
 
+  /**
+   * Text of the comment
+   */
   @Getter
   @Setter
   @Facebook
-  private String shortcode;
-
-  @Getter
-  @Setter
-  @Facebook("thumbnail_url")
-  private String thumbnailUrl;
+  private String text;
 
   @Facebook("timestamp")
   private String rawTimestamp;
 
+  /**
+   * Timestamp of comment
+   */
   @Getter
   @Setter
   private Date timestamp;
+
+  /**
+   * User who made the comment
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private IgUser user;
 
   @JsonMapper.JsonMappingCompleted
   private void convertTimestamp() {
     timestamp = DateUtils.toDateFromLongFormat(rawTimestamp);
   }
 
+  @Facebook
+  private List<IgComment> replies = new ArrayList<IgComment>();
+
+  public List<IgComment> getReplies() {
+    return Collections.unmodifiableList(replies);
+  }
+
+  public boolean addReply(IgComment reply) {
+    return replies.add(reply);
+  }
+
+  public boolean removeReply(IgComment reply) {
+    return replies.remove(reply);
+  }
 }
