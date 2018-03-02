@@ -493,4 +493,21 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("PREVIOUS_OWNER_APP_ID", takeThreadControlItem.getPreviousOwnerAppId());
     assertEquals("METADATA", takeThreadControlItem.getMetadata());
   }
+
+  @Test
+  public void requestThreadControl() {
+    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-request-thread-control"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertNotNull(item);
+    assertFalse(item.isTakeThreadControl());
+    assertFalse(item.isPassThreadControl());
+    assertTrue(item.isRequestThreadControl());
+    assertEquals("USER_ID", item.getSender().getId());
+    assertEquals("PAGE_ID", item.getRecipient().getId());
+    RequestThreadControlItem requestThreadControlItem = (RequestThreadControlItem) item.getItem();
+    assertNotNull(requestThreadControlItem);
+    assertEquals("REQUESTED_OWNER_APP_ID", requestThreadControlItem.getRequestedOwnerAppId());
+    assertEquals("METADATA", requestThreadControlItem.getMetadata());
+  }
 }

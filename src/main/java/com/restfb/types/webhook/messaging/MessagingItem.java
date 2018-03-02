@@ -116,6 +116,11 @@ public class MessagingItem {
 
   @Getter
   @Setter
+  @Facebook("request_thread_control")
+  private RequestThreadControlItem requestThreadControl;
+
+  @Getter
+  @Setter
   private AppRoles appRoles;
 
   @Facebook("app_roles")
@@ -178,6 +183,10 @@ public class MessagingItem {
       return takeThreadControl;
     }
 
+    if (requestThreadControl != null) {
+      return requestThreadControl;
+    }
+
     if (appRoles != null) {
       return appRoles;
     }
@@ -232,6 +241,8 @@ public class MessagingItem {
   public boolean isTakeThreadControl() {
     return getItem() instanceof TakeThreadControlItem;
   }
+
+  public boolean isRequestThreadControl() { return getItem() instanceof RequestThreadControlItem; }
 
   public boolean isAppRoles() {
     return getItem() instanceof AppRoles;

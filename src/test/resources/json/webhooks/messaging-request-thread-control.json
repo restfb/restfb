@@ -1,0 +1,24 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1473204787206,
+      "messaging": [
+        {
+          "recipient": {
+            "id": "PAGE_ID"
+          },
+          "timestamp": 1473204787206,
+          "sender": {
+            "id": "USER_ID"
+          },
+          "request_thread_control": {
+            "requested_owner_app_id": "REQUESTED_OWNER_APP_ID",
+            "metadata": "METADATA"
+          }
+        }
+      ]
+    }
+  ]
+}
