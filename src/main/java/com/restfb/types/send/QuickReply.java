@@ -57,9 +57,8 @@ public class QuickReply extends AbstractFacebookType {
    */
   @Deprecated
   public QuickReply(String contentType, String title, String payload) {
+    this(title, payload);
     this.contentType = contentType;
-    this.title = title;
-    this.payload = payload;
   }
 
   public QuickReply(String title, String payload) {
@@ -68,7 +67,23 @@ public class QuickReply extends AbstractFacebookType {
     this.payload = payload;
   }
 
+  /**
+   * @deprecated use {@see QuickReply(QuickReplyType)} with {@see QuickReplyType.LOCATION} as parameter instead
+   */
+  @Deprecated
   public QuickReply() {
-    this.contentType = "location";
+    this(QuickReplyType.LOCATION);
+  }
+
+  public QuickReply(QuickReplyType quickReplyType) {
+    this.contentType = quickReplyType.getContentType();
+  }
+
+  public enum QuickReplyType {
+    USER_EMAIL, USER_PHONE_NUMBER, LOCATION;
+
+    public String getContentType() {
+      return name().toLowerCase();
+    }
   }
 }

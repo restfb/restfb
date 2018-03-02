@@ -267,8 +267,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    AssertJson.assertEquals(
-      "{\"attachment\":{\"payload\":{\"template_type\":\"open_graph\"},\"type\":\"template\"}}",
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"template_type\":\"open_graph\"},\"type\":\"template\"}}",
       recipientJsonString);
   }
 
@@ -533,21 +532,25 @@ public class SendApiTest extends AbstractJsonMapperTests {
     QuickReply quickReply1 = new QuickReply("title 1", "payload 1");
     QuickReply quickReply2 = new QuickReply("title 2", "payload 2");
     quickReply2.setImageUrl("http://example.org/test.jpg");
-    QuickReply quickReply3 = new QuickReply();
-    QuickReply quickReply4 = new QuickReply();
+    QuickReply quickReply3 = new QuickReply(QuickReply.QuickReplyType.LOCATION);
+    QuickReply quickReply4 = new QuickReply(QuickReply.QuickReplyType.LOCATION);
     quickReply4.setImageUrl("http://example.org/test2.jpg");
+    QuickReply quickReply5 = new QuickReply(QuickReply.QuickReplyType.USER_EMAIL);
+    QuickReply quickReply6 = new QuickReply(QuickReply.QuickReplyType.USER_PHONE_NUMBER);
     Message message = new Message("message text");
     message.setMetadata("metadata payload");
     message.addQuickReply(quickReply1);
     message.addQuickReply(quickReply2);
     message.addQuickReply(quickReply3);
     message.addQuickReply(quickReply4);
+    message.addQuickReply(quickReply5);
+    message.addQuickReply(quickReply6);
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
 
     AssertJson.assertEquals(
-      "{\"quick_replies\":[{\"payload\":\"payload 1\",\"title\":\"title 1\",\"content_type\":\"text\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"}],\"metadata\":\"metadata payload\",\"text\":\"message text\"}",
+      "{\"text\":\"message text\",\"quick_replies\":[{\"content_type\":\"text\",\"title\":\"title 1\",\"payload\":\"payload 1\"},{\"content_type\":\"text\",\"title\":\"title 2\",\"payload\":\"payload 2\",\"image_url\":\"http://example.org/test.jpg\"},{\"content_type\":\"location\"},{\"content_type\":\"location\",\"image_url\":\"http://example.org/test2.jpg\"},{\"content_type\":\"user_email\"},{\"content_type\":\"user_phone_number\"}],\"metadata\":\"metadata payload\"}",
       messageJsonString);
   }
 
