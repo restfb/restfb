@@ -1,5 +1,21 @@
 # RestFB Changelog
 
+## 2.3.0 (March 4, 2018)
+
+* Instagram support
+  * Issue #854: add `instagram_business_account` to Page type
+  * Issue #855: create `IgUser` type
+  * Issue #856: `IgMedia` type
+  * Issue #859: webhook objects
+  * Issue #857: `IgComment` type
+  * Issue #858: missing connections added
+  * Issue #851: Request for support of Facebook Instagram API<br />
+    Thanks to @martinmalek for the hint
+
+* Messenger Platform 2.3 changes
+  * Issue #861: Phone and email quick replies
+  * Issue #862: Request thread control for the Handover Protocol
+
 ## 2.2.0 (February 20, 2018)
 
 * Issue #845: Graph API 2.12 enum added
