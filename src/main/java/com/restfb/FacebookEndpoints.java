@@ -39,26 +39,6 @@ package com.restfb;
 public interface FacebookEndpoints {
 
   /**
-   * General Facebook endpoint URL.
-   */
-  String FACEBOOK_ENDPOINT_URL = "https://www.facebook.com";
-
-  /**
-   * Graph API endpoint URL.
-   */
-  String FACEBOOK_GRAPH_ENDPOINT_URL = "https://graph.facebook.com";
-
-  /**
-   * Read-only API endpoint URL.
-   */
-  String FACEBOOK_READ_ONLY_ENDPOINT_URL = "https://api-read.facebook.com/method";
-
-  /**
-   * Video Upload API endpoint URL.
-   */
-  String FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL = "https://graph-video.facebook.com";
-
-  /**
    * returns the Facebook URL
    * 
    * @return the Facebook URL
@@ -85,4 +65,36 @@ public interface FacebookEndpoints {
    * @return the Facebook Graph API Video endpoint URL
    */
   String getGraphVideoEndpoint();
+
+  enum Endpoint {
+    /**
+     * General Facebook endpoint URL.
+     */
+    SERVER("https://www.facebook.com"),
+
+    /**
+     * Graph API endpoint URL.
+     */
+    GRAPH("https://graph.facebook.com"),
+
+    /**
+     * Read-only API endpoint URL.
+     */
+    READ_ONLY("https://api-read.facebook.com/method"),
+
+    /**
+     * Video Upload API endpoint URL.
+     */
+    GRAPH_VIDEO("https://graph-video.facebook.com");
+
+    private String url;
+
+    Endpoint(String url) {
+      this.url = url;
+    }
+
+    public String getUrl() {
+      return url;
+    }
+  }
 }

@@ -28,21 +28,21 @@ public class DefaultFacebookEndpoints implements FacebookEndpoints {
 
   @Override
   public String getFacebookEndpoint() {
-    return FACEBOOK_ENDPOINT_URL;
+    return Endpoint.SERVER.getUrl();
   }
 
   @Override
   public String getGraphEndpoint() {
-    return FACEBOOK_GRAPH_ENDPOINT_URL;
+    return Endpoint.GRAPH.getUrl();
   }
 
   @Override
   public String getReadOnlyEndpoint() {
-    return FACEBOOK_READ_ONLY_ENDPOINT_URL;
+    return Endpoint.READ_ONLY.getUrl();
   }
 
   @Override
   public String getGraphVideoEndpoint() {
-    return FACEBOOK_GRAPH_VIDEO_ENDPOINT_URL;
+    return Endpoint.GRAPH_VIDEO.getUrl();
   }
 }
