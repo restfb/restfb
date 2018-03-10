@@ -27,5 +27,5 @@ package com.restfb.types.send;
  * whitelisting</a> action type
  */
 public enum DomainActionTypeEnum {
-  add, remove
+  add, remove //NOSONAR
 }

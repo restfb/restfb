@@ -82,6 +82,6 @@ public class ListTemplatePayload extends SharableTemplatePayload implements IsBr
   }
 
   public enum TopElementStyleEnum {
-    large, compact;
+    large, compact //NOSONAR
   }
 }

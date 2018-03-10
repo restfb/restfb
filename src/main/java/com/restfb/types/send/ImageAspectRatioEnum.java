@@ -22,5 +22,5 @@
 package com.restfb.types.send;
 
 public enum ImageAspectRatioEnum {
-  horizontal, square
+  horizontal, square //NOSONAR
 }
