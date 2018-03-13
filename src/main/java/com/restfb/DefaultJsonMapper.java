@@ -135,7 +135,7 @@ public class DefaultJsonMapper implements JsonMapper {
         JsonObject jsonObject = Json.parse(json).asObject();
         List<String> fieldNames = jsonObject.names();
 
-        if (fieldNames != null && !fieldNames.isEmpty()) {
+        if (!fieldNames.isEmpty()) {
           boolean hasSingleDataProperty = fieldNames.size() == 1 && "data".equals(fieldNames.get(0));
           Object jsonDataObject = jsonObject.get("data");
 
@@ -640,7 +640,7 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     throw new FacebookJsonMappingException("Don't know how to map JSON to " + type
-        + ". Are you sure you're mapping to the right class? " + "Offending JSON is '" + json + "'.");
+        + ". Are you sure you're mapping to the right class?\nOffending JSON is '" + json + "'.");
   }
 
   /**
@@ -750,7 +750,7 @@ public class DefaultJsonMapper implements JsonMapper {
     if (Comments.class.isAssignableFrom(type) && rawValue instanceof JsonArray) {
       if (MAPPER_LOGGER.isDebugEnabled()) {
         MAPPER_LOGGER.debug("Encountered comment array '" + rawValueAsString + "' but expected a "
-            + Comments.class.getSimpleName() + " object instead.  Working around that " + "by coercing into an empty "
+            + Comments.class.getSimpleName() + " object instead.  Working around that by coercing into an empty "
             + Comments.class.getSimpleName() + " instance...");
       }
 
