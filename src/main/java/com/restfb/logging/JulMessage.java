@@ -35,6 +35,10 @@ final class JulMessage {
 
   private static final char ESCAPE_SIGN = '\\';
 
+  private JulMessage() {
+    throw new IllegalStateException("JulMessage is a utility class");
+  }
+
   /**
    * convert the message and the arguments and convert everything in a {@code MessageTuple}. The {@code MessageTuple}
    * contains the message and the optional throwable.

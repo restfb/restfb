@@ -94,15 +94,9 @@ public class JulLogger extends RestFBLogger {
   private void createLogMessage(Level level, String msg, Object[] args) {
     if (logger.isLoggable(level)) {
       JulMessage.MessageTuple tuple = JulMessage.convertMessageString(msg, args);
-      logger.log(level, tuple.getMessage(), tuple.getThrowable());
-    }
-  }
-
-  private void log(Level level, Object msg, Throwable thrown) {
-    if (logger.isLoggable(level)) {
-      LogRecord logRecord = new LogRecord(level, String.valueOf(msg));
-      if (thrown != null) {
-        logRecord.setThrown(thrown);
+      LogRecord logRecord = new LogRecord(level, tuple.getMessage());
+      if (tuple.getThrowable() != null) {
+        logRecord.setThrown(tuple.getThrowable());
       }
       logRecord.setSourceClassName(null);
       logRecord.setSourceMethodName(null);
@@ -110,5 +104,4 @@ public class JulLogger extends RestFBLogger {
       logger.log(logRecord);
     }
   }
-
 }
