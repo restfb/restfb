@@ -82,8 +82,8 @@ public class ChangeValueFactory {
           ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
           return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());
         } catch (IllegalArgumentException iae) {
-          VALUE_FACTORY_LOGGER.warn("undefined change value detected: " + classDefinition);
-          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: " + objValue.toString());
+          VALUE_FACTORY_LOGGER.warn("undefined change value detected: {}", classDefinition);
+          VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: {}", objValue.toString());
           return new FallBackChangeValue(objValue);
         }
       }

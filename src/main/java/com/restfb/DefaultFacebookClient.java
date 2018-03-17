@@ -298,9 +298,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       }
       return success;
     } catch (ParseException jex) {
-      if (CLIENT_LOGGER.isTraceEnabled()) {
-        CLIENT_LOGGER.trace("no valid JSON returned while deleting a object, using returned String instead", jex);
-      }
+      CLIENT_LOGGER.trace("no valid JSON returned while deleting a object, using returned String instead", jex);
       return "true".equals(responseString);
     }
   }
@@ -648,9 +646,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getJsonMapper().toJavaObject(response, AccessToken.class);
     } catch (FacebookJsonMappingException fjme) {
-      if (CLIENT_LOGGER.isTraceEnabled()) {
-        CLIENT_LOGGER.trace("could not map response to access token class try to fetch directly from String", fjme);
-      }
+      CLIENT_LOGGER.trace("could not map response to access token class try to fetch directly from String", fjme);
       return AccessToken.fromQueryString(response);
     }
   }

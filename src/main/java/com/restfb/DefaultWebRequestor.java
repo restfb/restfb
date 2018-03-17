@@ -169,9 +169,7 @@ public class DefaultWebRequestor implements WebRequestor {
         outputStream.write(parameters.getBytes(StringUtils.ENCODING_CHARSET));
       }
 
-      if (HTTP_LOGGER.isDebugEnabled()) {
-        HTTP_LOGGER.debug(format("Response headers: %s", httpUrlConnection.getHeaderFields()));
-      }
+      HTTP_LOGGER.debug("Response headers: {}", httpUrlConnection.getHeaderFields());
 
       fillHeaderAndDebugInfo(httpUrlConnection);
 
@@ -179,7 +177,7 @@ public class DefaultWebRequestor implements WebRequestor {
         inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
             ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
       } catch (IOException e) {
-        HTTP_LOGGER.warn(format("An error occurred while POSTing to %s:", url), e);
+        HTTP_LOGGER.warn("An error occurred while POSTing to {}:", url, e);
       }
 
       return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
@@ -241,7 +239,7 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       closeable.close();
     } catch (Exception t) {
-      HTTP_LOGGER.warn(format("Unable to close %s: ", closeable), t);
+      HTTP_LOGGER.warn("Unable to close {}: ", closeable, t);
     }
   }
 
@@ -261,7 +259,7 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       httpUrlConnection.disconnect();
     } catch (Exception t) {
-      HTTP_LOGGER.warn(format("Unable to disconnect %s: ", httpUrlConnection), t);
+      HTTP_LOGGER.warn("Unable to disconnect {}: ", httpUrlConnection, t);
     }
   }
 
@@ -349,9 +347,7 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   private Response execute(String url, HttpMethod httpMethod) throws IOException {
-    if (HTTP_LOGGER.isDebugEnabled()) {
-      HTTP_LOGGER.debug(format("Making a %s request to %s", httpMethod.name(), url));
-    }
+    HTTP_LOGGER.debug("Making a {} request to {}", httpMethod.name(), url);
 
     HttpURLConnection httpUrlConnection = null;
 
@@ -367,17 +363,13 @@ public class DefaultWebRequestor implements WebRequestor {
 
       httpUrlConnection.connect();
 
-      if (HTTP_LOGGER.isTraceEnabled()) {
-        HTTP_LOGGER.trace(format("Response headers: %s", httpUrlConnection.getHeaderFields()));
-      }
+      HTTP_LOGGER.trace("Response headers: {}", httpUrlConnection.getHeaderFields());
 
       fillHeaderAndDebugInfo(httpUrlConnection);
 
       Response response = fetchResponse(httpUrlConnection);
 
-      if (HTTP_LOGGER.isDebugEnabled()) {
-        HTTP_LOGGER.debug(format("Facebook responded with %s", response));
-      }
+      HTTP_LOGGER.debug("Facebook responded with {}", response);
 
       return response;
     } finally {
@@ -389,9 +381,7 @@ public class DefaultWebRequestor implements WebRequestor {
     currentHeaders = Collections.unmodifiableMap(httpUrlConnection.getHeaderFields());
 
     String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
-    if (HTTP_LOGGER.isDebugEnabled()) {
-      HTTP_LOGGER.debug(format("Facebook used the API %s to answer your request", usedApiVersion));
-    }
+    HTTP_LOGGER.debug("Facebook used the API {} to answer your request", usedApiVersion);
 
     String fbTraceId = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-trace-id"));
     String fbRev = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-rev"));
@@ -408,8 +398,8 @@ public class DefaultWebRequestor implements WebRequestor {
       inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
           ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
     } catch (IOException e) {
-      HTTP_LOGGER.warn(format("An error occurred while making a %s request to %s:",
-        httpUrlConnection.getRequestMethod(), httpUrlConnection.getURL()), e);
+      HTTP_LOGGER.warn("An error occurred while making a {} request to {}:",
+        httpUrlConnection.getRequestMethod(), httpUrlConnection.getURL(), e);
     }
 
     return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));

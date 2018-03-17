@@ -186,9 +186,7 @@ public final class DateUtils {
     try {
       return strategy.formatFor(format).parse(date);
     } catch (ParseException e) {
-      if (UTILS_LOGGER.isTraceEnabled()) {
-        UTILS_LOGGER.trace(format("Unable to parse date '%s' using format string '%s': %s", date, format, e));
-      }
+      UTILS_LOGGER.trace("Unable to parse date '{}' using format string '{}': {}", date, format, e);
 
       return null;
     }

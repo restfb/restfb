@@ -47,63 +47,33 @@ public class JulLogger extends RestFBLogger {
   }
 
   @Override
-  public void trace(Object msg) {
-    log(Level.FINER, msg, null);
+  public void trace(String msg, Object... args) {
+    createLogMessage(Level.FINER, msg, args);
   }
 
   @Override
-  public void trace(Object msg, Throwable thr) {
-    log(Level.FINER, msg, thr);
+  public void debug(String msg, Object... args) {
+    createLogMessage(Level.FINE, msg, args);
   }
 
   @Override
-  public void debug(Object msg) {
-    log(Level.FINE, msg, null);
+  public void info(String msg, Object... args) {
+    createLogMessage(Level.INFO, msg, args);
   }
 
   @Override
-  public void debug(Object msg, Throwable thr) {
-    log(Level.FINE, msg, thr);
+  public void warn(String msg, Object... args) {
+    createLogMessage(Level.WARNING, msg, args);
   }
 
   @Override
-  public void info(Object msg) {
-    log(Level.INFO, msg, null);
+  public void error(String msg, Object... args) {
+    createLogMessage(Level.SEVERE, msg, args);
   }
 
   @Override
-  public void info(Object msg, Throwable thr) {
-    log(Level.INFO, msg, thr);
-  }
-
-  @Override
-  public void warn(Object msg) {
-    log(Level.WARNING, msg, null);
-  }
-
-  @Override
-  public void warn(Object msg, Throwable thr) {
-    log(Level.WARNING, msg, thr);
-  }
-
-  @Override
-  public void error(Object msg) {
-    log(Level.SEVERE, msg, null);
-  }
-
-  @Override
-  public void error(Object msg, Throwable thr) {
-    log(Level.SEVERE, msg, thr);
-  }
-
-  @Override
-  public void fatal(Object msg) {
-    log(Level.SEVERE, msg, null);
-  }
-
-  @Override
-  public void fatal(Object msg, Throwable thr) {
-    log(Level.SEVERE, msg, thr);
+  public void fatal(String msg, Object... args) {
+    createLogMessage(Level.SEVERE, msg, args);
   }
 
   @Override
@@ -119,6 +89,13 @@ public class JulLogger extends RestFBLogger {
   @Override
   public boolean isTraceEnabled() {
     return logger.isLoggable(Level.FINER);
+  }
+
+  private void createLogMessage(Level level, String msg, Object[] args) {
+    if (logger.isLoggable(level)) {
+      JulMessage.MessageTuple tuple = JulMessage.convertMessageString(msg, args);
+      logger.log(level, tuple.getMessage(), tuple.getThrowable());
+    }
   }
 
   private void log(Level level, Object msg, Throwable thrown) {

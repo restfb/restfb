@@ -46,87 +46,33 @@ public class SLF4JLogger extends RestFBLogger {
   }
 
   @Override
-  public void trace(Object msg) {
-    if (logger.isTraceEnabled()) {
-      logger.trace(String.valueOf(msg));
-    }
+  public void trace(String msg, Object... args) {
+    logger.trace(msg, args);
   }
 
   @Override
-  public void trace(Object msg, Throwable thr) {
-    if (logger.isTraceEnabled()) {
-      logger.trace(String.valueOf(msg), thr);
-    }
+  public void debug(String msg, Object... args) {
+    logger.debug(msg, args);
   }
 
   @Override
-  public void debug(Object msg) {
-    if (logger.isDebugEnabled()) {
-      logger.debug(String.valueOf(msg));
-    }
+  public void info(String msg, Object... args) {
+    logger.info(msg, args);
   }
 
   @Override
-  public void debug(Object msg, Throwable thr) {
-    if (logger.isDebugEnabled()) {
-      logger.debug(String.valueOf(msg), thr);
-    }
+  public void warn(String msg, Object... args) {
+    logger.warn(msg, args);
   }
 
   @Override
-  public void info(Object msg) {
-    if (logger.isInfoEnabled()) {
-      logger.info(String.valueOf(msg));
-    }
+  public void error(String msg, Object... args) {
+    logger.error(msg, args);
   }
 
   @Override
-  public void info(Object msg, Throwable thr) {
-    if (logger.isInfoEnabled()) {
-      logger.info(String.valueOf(msg), thr);
-    }
-  }
-
-  @Override
-  public void warn(Object msg) {
-    if (logger.isWarnEnabled()) {
-      logger.warn(String.valueOf(msg));
-    }
-  }
-
-  @Override
-  public void warn(Object msg, Throwable thr) {
-    if (logger.isWarnEnabled()) {
-      logger.warn(String.valueOf(msg), thr);
-    }
-  }
-
-  @Override
-  public void error(Object msg) {
-    if (logger.isErrorEnabled()) {
-      logger.error(String.valueOf(msg));
-    }
-  }
-
-  @Override
-  public void error(Object msg, Throwable thr) {
-    if (logger.isErrorEnabled()) {
-      logger.error(String.valueOf(msg), thr);
-    }
-  }
-
-  @Override
-  public void fatal(Object msg) {
-    if (logger.isErrorEnabled()) {
-      logger.error(String.valueOf(msg));
-    }
-  }
-
-  @Override
-  public void fatal(Object msg, Throwable thr) {
-    if (logger.isErrorEnabled()) {
-      logger.error(String.valueOf(msg), thr);
-    }
+  public void fatal(String msg, Object... args) {
+    logger.error(msg, args);
   }
 
   @Override

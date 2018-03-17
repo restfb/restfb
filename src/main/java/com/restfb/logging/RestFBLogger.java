@@ -21,12 +21,22 @@
  */
 package com.restfb.logging;
 
-import com.restfb.exception.FacebookLoggerException;
-
 import java.lang.reflect.Constructor;
 
+import com.restfb.exception.FacebookLoggerException;
+
 /**
- *
+ * Abstract class that is the parent of all our logger implementations.
+ * <p>
+ * Normally RestFB uses java.util.logging for logging messages. But as soon as slf4j is found on the class path RestFB
+ * switches to this logger. With the slf4j facade more logger implementations are supported and the quasi standard for
+ * java logging is used.
+ * <p>
+ * In the rare case you have to switch to java.util.logging although slf4j is present on the class path we provide a
+ * system property to force java.util.logging to be used.
+ * <p>
+ * The system property is called <code>com.restfb.forceJUL</code> and can be set to {@code true} if jul should be
+ * forced.
  */
 public abstract class RestFBLogger {
 
@@ -43,7 +53,6 @@ public abstract class RestFBLogger {
   public static final RestFBLogger VALUE_FACTORY_LOGGER;
 
   static {
-
     Class loggerClass = null;
 
     String forceJUL = System.getProperty("com.restfb.forceJUL", "false");
@@ -69,6 +78,13 @@ public abstract class RestFBLogger {
     VALUE_FACTORY_LOGGER = getLoggerInstance("com.restfb.types.CHANGE_VALUE_FACTORY");
   }
 
+  /**
+   * returns the instance of the logger that belongs to the category.
+   * 
+   * @param logCategory
+   *          the category of the logger
+   * @return a instance of the logger
+   */
   public static RestFBLogger getLoggerInstance(String logCategory) {
     Object obj;
     Class[] ctrTypes = new Class[] { String.class };
@@ -83,33 +99,84 @@ public abstract class RestFBLogger {
     return (RestFBLogger) obj;
   }
 
-  public abstract void trace(Object msg);
+  /**
+   * Log a message at the TRACE level according to the specified format and arguments.
+   *
+   * @param msg
+   *          the log message
+   * @param args
+   *          optional arguments, the last argument may be an exception
+   */
+  public abstract void trace(String msg, Object... args);
 
-  public abstract void trace(Object msg, Throwable thr);
+  /**
+   * Log a message at the DEBUG level according to the specified format and arguments.
+   *
+   * @param msg
+   *          the log message
+   * @param args
+   *          optional arguments, the last argument may be an exception
+   */
+  public abstract void debug(String msg, Object... args);
 
-  public abstract void debug(Object msg);
+  /**
+   * Log a message at the INFO level according to the specified format and arguments.
+   *
+   * @param msg
+   *          the log message
+   * @param args
+   *          optional arguments, the last argument may be an exception
+   */
+  public abstract void info(String msg, Object... args);
 
-  public abstract void debug(Object msg, Throwable thr);
+  /**
+   * Log a message at the WARN level according to the specified format and arguments.
+   *
+   * @param msg
+   *          the log message
+   * @param args
+   *          optional arguments, the last argument may be an exception
+   */
+  public abstract void warn(String msg, Object... args);
 
-  public abstract void info(Object msg);
+  /**
+   * Log a message at the ERROR level according to the specified format and arguments.
+   *
+   * @param msg
+   *          the log message
+   * @param args
+   *          optional arguments, the last argument may be an exception
+   */
+  public abstract void error(String msg, Object... args);
 
-  public abstract void info(Object msg, Throwable thr);
+  /**
+   * Log a message at the FATAL level according to the specified format and arguments.
+   *
+   * @param msg
+   *          the log message
+   * @param args
+   *          optional arguments, the last argument may be an exception
+   */
+  public abstract void fatal(String msg, Object... args);
 
-  public abstract void warn(Object msg);
-
-  public abstract void warn(Object msg, Throwable thr);
-
-  public abstract void error(Object msg);
-
-  public abstract void error(Object msg, Throwable thr);
-
-  public abstract void fatal(Object msg);
-
-  public abstract void fatal(Object msg, Throwable thr);
-
+  /**
+   * Is the logger instance enabled for the DEBUG level?
+   * 
+   * @return {@code true} if it is enabled, {@code false} otherwise
+   */
   public abstract boolean isDebugEnabled();
 
+  /**
+   * Is the logger instance enabled for the INFO level?
+   * 
+   * @return {@code true} if it is enabled, {@code false} otherwise
+   */
   public abstract boolean isInfoEnabled();
 
+  /**
+   * Is the logger instance enabled for the TRACE level?
+   * 
+   * @return {@code true} if it is enabled, {@code false} otherwise
+   */
   public abstract boolean isTraceEnabled();
 }
