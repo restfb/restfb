@@ -39,7 +39,7 @@ import lombok.Setter;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
- * @Deprecated removed after Graph API 2.0
+ * @deprecated removed after Graph API 2.0
  */
 @Deprecated
 public class StatusMessage extends NamedFacebookType {

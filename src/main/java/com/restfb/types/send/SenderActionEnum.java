@@ -27,5 +27,5 @@ package com.restfb.types.send;
  * indicator
  */
 public enum SenderActionEnum {
-  mark_seen, typing_on, typing_off
+  mark_seen, typing_on, typing_off //NOSONAR
 }

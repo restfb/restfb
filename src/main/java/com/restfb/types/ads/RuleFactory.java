@@ -21,11 +21,11 @@
  */
 package com.restfb.types.ads;
 
+import java.util.List;
+
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
-
-import java.util.List;
 
 public class RuleFactory {
 
@@ -99,54 +99,12 @@ public class RuleFactory {
     String key = ruleJson.names().get(0);
 
     // create data
-    if ("url".equals(key)) {
-      return createRuleData(ruleJson, key);
-    }
-    if ("event".equals(key)) {
-      return createRuleData(ruleJson, key);
-    }
-    if ("path".equals(key)) {
-      return createRuleData(ruleJson, key);
-    }
-    if ("domain".equals(key)) {
-      return createRuleData(ruleJson, key);
-    }
-    if ("device_type".equals(key)) {
+    if (isCreateData(key)) {
       return createRuleData(ruleJson, key);
     }
 
     // create "simple" operator
-    if ("i_contains".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("contains".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("i_not_contains".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("not_contains".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("gte".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("gt".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("lte".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("lt".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("neq".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("eq".equals(key)) {
-      return createRuleOperator(ruleJson, key);
-    }
-    if ("regex_match".equals(key)) {
+    if (isCreateSimpleOperator(key)) {
       return createRuleOperator(ruleJson, key);
     }
 
@@ -176,6 +134,28 @@ public class RuleFactory {
 
     // fallback is the custom data object
     return createRuleData(ruleJson, key);
+  }
+
+  private static boolean isCreateData(String key) {
+    return "url".equals(key) || //
+        "event".equals(key) || //
+        "path".equals(key) || //
+        "domain".equals(key) || //
+        "device_type".equals(key);
+  }
+
+  private static boolean isCreateSimpleOperator(String key) {
+    return "i_contains".equals(key) || //
+        "contains".equals(key) || //
+        "i_not_contains".equals(key) || //
+        "not_contains".equals(key) || //
+        "gte".equals(key) || //
+        "gt".equals(key) || //
+        "lte".equals(key) || //
+        "lt".equals(key) || //
+        "neq".equals(key) || //
+        "eq".equals(key) || //
+        "regex_match".equals(key);
   }
 
   private static Rule createRuleData(JsonObject ruleJson, String key) {
