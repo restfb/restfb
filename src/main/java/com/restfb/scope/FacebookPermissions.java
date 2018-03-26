@@ -879,7 +879,25 @@ public enum FacebookPermissions {
    * @RestFB.GraphApi.Since 2.5
    * @since Graph API 2.5
    */
-  INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM);
+  INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM),
+
+  /**
+   * Provides the ability to publish content to Instagram account you have access to.
+   *
+   * <p>
+   * Please see <a href="https://developers.facebook.com/docs/instagram-api/reference/user/media_publish">Instagram's
+   * reference</a> for details.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 2.5
+   * @since Graph API 2.5
+   */
+  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM);
 
   private final String permissionString;
 
