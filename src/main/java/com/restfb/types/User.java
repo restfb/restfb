@@ -34,8 +34,10 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
+import com.restfb.json.JsonValue;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -343,7 +345,7 @@ public class User extends NamedFacebookType {
   private Likes likes;
 
   @Facebook("picture")
-  private JsonObject rawPicture;
+  private String rawPicture;
 
   /**
    * The user's picture, if provided.
@@ -896,10 +898,16 @@ public class User extends NamedFacebookType {
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
     picture = null;
 
-    if (rawPicture == null)
+    if (rawPicture == null) {
       return;
+    }
 
-    String picJson = rawPicture.get("data").toString();
+    JsonValue jsonValue = Json.parse(rawPicture);
+    if (!jsonValue.isObject()) {
+      return;
+    }
+
+    String picJson = jsonValue.asObject().get("data").toString();
     picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
   }
 
