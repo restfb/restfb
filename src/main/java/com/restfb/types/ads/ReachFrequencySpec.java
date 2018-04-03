@@ -21,11 +21,12 @@
  */
 package com.restfb.types.ads;
 
+import java.util.List;
+
 import com.restfb.Facebook;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
-
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,24 +42,79 @@ public class ReachFrequencySpec extends AbstractFacebookType {
   @Facebook
   private List<String> countries;
 
-  @Getter
-  @Setter
   @Facebook("min_campaign_duration")
-  private JsonObject minCampaignDuration;
+  private String minCampaignDuration;
 
-  @Getter
-  @Setter
   @Facebook("max_campaign_duration")
-  private JsonObject maxCampaignDuration;
+  private String maxCampaignDuration;
 
-  @Getter
-  @Setter
   @Facebook("max_days_to_finish")
-  private JsonObject maxDaysToFinish;
+  private String maxDaysToFinish;
 
-  @Getter
-  @Setter
   @Facebook("min_reach_limits")
-  private JsonObject minReachLimits;
+  private String minReachLimits;
 
+  public JsonObject getMinCampaignDuration() {
+    if (minCampaignDuration != null) {
+      return Json.parse(minCampaignDuration).asObject();
+    } else {
+      return null;
+    }
+  }
+
+  public void setMinCampaignDuration(JsonObject minCampaignDuration) {
+    if (minCampaignDuration != null) {
+      this.minCampaignDuration = minCampaignDuration.toString();
+    } else {
+      this.minCampaignDuration = null;
+    }
+  }
+
+  public JsonObject getMaxCampaignDuration() {
+    if (maxCampaignDuration != null) {
+      return Json.parse(maxCampaignDuration).asObject();
+    } else {
+      return null;
+    }
+  }
+
+  public void setMaxCampaignDuration(JsonObject maxCampaignDuration) {
+    if (maxCampaignDuration != null) {
+      this.maxCampaignDuration = maxCampaignDuration.toString();
+    } else {
+      this.maxCampaignDuration = null;
+    }
+  }
+
+  public JsonObject getMaxDaysToFinish() {
+    if (maxDaysToFinish != null) {
+      return Json.parse(maxDaysToFinish).asObject();
+    } else {
+      return null;
+    }
+  }
+
+  public void setMaxDaysToFinish(JsonObject maxDaysToFinish) {
+    if (maxDaysToFinish != null) {
+      this.maxDaysToFinish = maxDaysToFinish.toString();
+    } else {
+      this.maxDaysToFinish = null;
+    }
+  }
+
+  public JsonObject getMinReachLimits() {
+    if (minReachLimits != null) {
+      return Json.parse(minReachLimits).asObject();
+    } else {
+      return null;
+    }
+  }
+
+  public void setMinReachLimits(JsonObject minReachLimits) {
+    if (minReachLimits != null) {
+      this.minReachLimits = minReachLimits.toString();
+    } else {
+      this.minReachLimits = null;
+    }
+  }
 }

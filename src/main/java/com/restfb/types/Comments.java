@@ -23,12 +23,13 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.json.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
+import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -102,7 +103,7 @@ public class Comments extends AbstractFacebookType {
   private Long count = 0L;
 
   @Facebook
-  private JsonObject summary = null;
+  private String summary = null;
 
   @Facebook
   private List<Comment> data = new ArrayList<Comment>();
@@ -126,11 +127,21 @@ public class Comments extends AbstractFacebookType {
     return data.remove(comment);
   }
 
+  @JsonMappingCompleted
+  private void fillFields() {
+    JsonObject summaryObject = null;
+    if (summary != null) {
+      summaryObject = Json.parse(summary).asObject();
+    }
+    fillTotalCount(summaryObject);
+    fillOrder(summaryObject);
+    fillCanComment(summaryObject);
+  }
+
   /**
    * set total count if summary is present
    */
-  @JsonMappingCompleted
-  private void fillTotalCount() {
+  private void fillTotalCount(JsonObject summary) {
     if (totalCount == 0 && summary != null && summary.get("total_count") != null) {
       totalCount = summary.getLong("total_count", totalCount);
     }
@@ -143,8 +154,7 @@ public class Comments extends AbstractFacebookType {
   /**
    * set the order the comments are sorted
    */
-  @JsonMappingCompleted
-  private void fillOrder() {
+  private void fillOrder(JsonObject summary) {
     if (summary != null) {
       order = summary.getString("order", order);
     }
@@ -157,8 +167,7 @@ public class Comments extends AbstractFacebookType {
   /**
    * set the can_comment
    */
-  @JsonMappingCompleted
-  private void fillCanComment() {
+  private void fillCanComment(JsonObject summary) {
     if (summary != null && summary.get("can_comment") != null) {
       canComment = summary.get("can_comment").asBoolean();
     }

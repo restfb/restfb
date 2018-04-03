@@ -23,12 +23,13 @@ package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.types.ads.AppLinks;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -65,11 +66,11 @@ public class Url extends FacebookType {
   @Facebook("app_links")
   private AppLinks appLinks;
 
-  @Facebook
-  private JsonObject share;
+  @Facebook("share")
+  private String share;
 
-  @Facebook
-  private JsonObject engagement;
+  @Facebook("engagement")
+  private String engagement;
 
   /**
    * The sum of comments on posts containing this URL on Facebook.
@@ -113,11 +114,13 @@ public class Url extends FacebookType {
 
   @JsonMappingCompleted
   void fillCounts() {
-    if (share != null) {
+    if (this.share != null) {
+      JsonObject share = Json.parse(this.share).asObject();
       commentCount = share.getInt("comment_count", commentCount);
       shareCount = share.getInt("share_count", shareCount);
     }
-    if (engagement != null) {
+    if (this.engagement != null) {
+      JsonObject engagement = Json.parse(this.engagement).asObject();
       commentCount = engagement.getInt("comment_count", commentCount);
       shareCount = engagement.getInt("share_count", shareCount);
       reactionCount = engagement.getInt("reaction_count", reactionCount);

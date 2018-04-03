@@ -33,6 +33,8 @@ public class UserPermissionTest extends SetterGetterTestBase {
     UserPermission object = new UserPermission();
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawUpdatedTime");
+    addIgnoredField("pagePermissions");
+    addIgnoredField("adaccountPermissions");
     testInstance(object);
   }
 }

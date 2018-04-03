@@ -32,6 +32,7 @@ import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
 import com.restfb.types.ads.Business;
 import com.restfb.types.instagram.IgUser;
 import com.restfb.util.DateUtils;
@@ -48,7 +49,7 @@ import lombok.Setter;
 public class Page extends CategorizedFacebookType {
 
   @Facebook("picture")
-  private JsonObject rawPicture;
+  private String rawPicture;
 
   /**
    * The pages's profile picture, if provided.
@@ -372,7 +373,7 @@ public class Page extends CategorizedFacebookType {
   private Business ownerBusiness;
 
   @Facebook("labels")
-  private JsonObject rawLabels;
+  private String rawLabels;
 
   /**
    * Personal information. Applicable to Pages representing People
@@ -1804,6 +1805,14 @@ public class Page extends CategorizedFacebookType {
 
   @JsonMappingCompleted
   protected void convertLabels(JsonMapper jsonMapper) {
+    JsonObject rawLabels = null;
+    if (this.rawLabels != null) {
+      JsonValue jsonValue = Json.parse(this.rawLabels);
+      if (jsonValue.isObject()) {
+        rawLabels = jsonValue.asObject();
+      }
+    }
+
     if (rawLabels != null && rawLabels.isObject()) {
       String innerLabelsString = rawLabels.get("data").toString();
       labels = jsonMapper.toJavaList(innerLabelsString, PageLabel.class);
@@ -1814,10 +1823,16 @@ public class Page extends CategorizedFacebookType {
   protected void fillProfilePicture(JsonMapper jsonMapper) {
     picture = null;
 
-    if (rawPicture == null)
+    if (rawPicture == null) {
       return;
+    }
 
-    String picJson = rawPicture.get("data").toString();
+    JsonValue jsonValue = Json.parse(rawPicture);
+    if (!jsonValue.isObject()) {
+      return;
+    }
+
+    String picJson = jsonValue.asObject().get("data").toString();
     picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
   }
 

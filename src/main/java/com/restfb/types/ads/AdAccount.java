@@ -25,6 +25,7 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
 import java.util.ArrayList;
@@ -237,10 +238,8 @@ public class AdAccount extends NamedAdsObject {
   @Facebook("rf_spec")
   private ReachFrequencySpec rfSpec;
 
-  @Getter
-  @Setter
   @Facebook("tos_accepted")
-  private JsonObject tosAccepted;
+  private String tosAccepted;
 
   @Getter
   @Setter
@@ -283,6 +282,20 @@ public class AdAccount extends NamedAdsObject {
   @Getter
   @Setter
   private Date lastUsedTime;
+
+  public JsonObject getTosAccepted() {
+    if (tosAccepted != null) {
+      return Json.parse(tosAccepted).asObject();
+    } else {
+      return null;
+    }
+  }
+
+  public void setTosAccepted(JsonObject tosAccepted) {
+    if (tosAccepted != null) {
+      this.tosAccepted = tosAccepted.toString();
+    }
+  }
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

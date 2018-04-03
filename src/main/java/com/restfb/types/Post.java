@@ -24,16 +24,18 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
 import com.restfb.util.DateUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -741,14 +743,18 @@ public class Post extends NamedFacebookType {
     protected List<KeyedType> regions = new ArrayList<KeyedType>();
 
     @Facebook("regions")
-    private JsonObject rawRegions;
+    private String rawRegionsString;
 
     @JsonMappingCompleted
     private void convertList(JsonMapper mapper) {
-      if (rawRegions != null) {
-        for (String key : rawRegions.names()) {
-          String region = rawRegions.get(key).toString();
-          regions.add(mapper.toJavaObject(region, KeyedType.class));
+      if (rawRegionsString != null) {
+        JsonValue jsonValue = Json.parse(rawRegionsString);
+        if (jsonValue.isObject()) {
+          JsonObject rawRegions = jsonValue.asObject();
+          for (String key : rawRegions.names()) {
+            String region = rawRegions.get(key).toString();
+            regions.add(mapper.toJavaObject(region, KeyedType.class));
+          }
         }
       }
     }

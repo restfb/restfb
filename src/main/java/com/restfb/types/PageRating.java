@@ -26,6 +26,7 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
 import java.util.Date;
@@ -105,7 +106,7 @@ public class PageRating extends FacebookType {
   private Likes likes;
 
   @Facebook
-  private JsonObject data;
+  private String data;
 
   @Getter
   @Setter
@@ -139,7 +140,8 @@ public class PageRating extends FacebookType {
 
   @JsonMappingCompleted
   void fillAdditionalValues(JsonMapper mapper) {
-    if (data != null) {
+    if (this.data != null) {
+      JsonObject data = Json.parse(this.data).asObject();
       if (data.get("rating") != null) {
         JsonObject rating = data.get("rating").asObject();
         if (rating != null) {

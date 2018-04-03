@@ -24,13 +24,14 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.json.JsonObject;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
+import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -82,7 +83,7 @@ public class Likes extends AbstractFacebookType {
   private Long openGraphCount = 0L;
 
   @Facebook
-  private JsonObject summary;
+  private String summary;
 
   @Facebook
   private List<LikeItem> data = new ArrayList<LikeItem>();
@@ -106,11 +107,21 @@ public class Likes extends AbstractFacebookType {
     return data.remove(like);
   }
 
+  @JsonMappingCompleted
+  private void fillFields() {
+    JsonObject summaryObject = null;
+    if (summary != null) {
+      summaryObject = Json.parse(summary).asObject();
+    }
+    fillTotalCount(summaryObject);
+    fillHasLiked(summaryObject);
+    fillCanLike(summaryObject);
+  }
+
   /**
    * add change count value, if summary is set and count is empty
    */
-  @JsonMappingCompleted
-  private void fillTotalCount() {
+  private void fillTotalCount(JsonObject summary) {
     if (totalCount == 0 && summary != null && summary.get("total_count") != null) {
       totalCount = summary.getLong("total_count", totalCount);
     }
@@ -123,8 +134,7 @@ public class Likes extends AbstractFacebookType {
   /**
    * fill <code>has_liked</code> from summary, in case of open graph object use user_likes instead
    */
-  @JsonMappingCompleted
-  private void fillHasLiked() {
+  private void fillHasLiked(JsonObject summary) {
     if (summary != null && summary.get("has_liked") != null) {
       hasLiked = summary.get("has_liked").asBoolean();
     }
@@ -134,8 +144,7 @@ public class Likes extends AbstractFacebookType {
     }
   }
 
-  @JsonMappingCompleted
-  private void fillCanLike() {
+  private void fillCanLike(JsonObject summary) {
     if (summary != null && summary.get("can_like") != null) {
       canLike = summary.get("can_like").asBoolean();
     }

@@ -28,12 +28,14 @@ import static java.util.Collections.unmodifiableList;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.restfb.json.JsonValue;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -257,7 +259,7 @@ public class Event extends NamedFacebookType {
   private ProfilePictureSource picture;
 
   @Facebook("picture")
-  private JsonObject rawPicture;
+  private String rawPicture;
 
   /**
    * The group the event belongs to, if any.
@@ -466,10 +468,16 @@ public class Event extends NamedFacebookType {
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
     picture = null;
 
-    if (rawPicture == null)
+    if (rawPicture == null) {
       return;
+    }
 
-    JsonObject picData = rawPicture.get("data").asObject();
+    JsonValue jsonValue = Json.parse(rawPicture);
+    if (!jsonValue.isObject()) {
+      return;
+    }
+
+    JsonObject picData = jsonValue.asObject().get("data").asObject();
     if (picData != null) {
       picture = jsonMapper.toJavaObject(picData.toString(), ProfilePictureSource.class);
     }

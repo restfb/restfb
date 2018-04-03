@@ -23,12 +23,13 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.json.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.json.Json;
+import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -58,7 +59,7 @@ public class Reactions extends AbstractFacebookType {
   private String viewerReaction;
 
   @Facebook
-  private JsonObject summary;
+  private String summary;
 
   @Facebook
   private List<ReactionItem> data = new ArrayList<ReactionItem>();
@@ -83,7 +84,16 @@ public class Reactions extends AbstractFacebookType {
   }
 
   @JsonMapper.JsonMappingCompleted
-  private void fillViewerReaction() {
+  private void fillFields() {
+    JsonObject summaryObject = null;
+    if (summary != null) {
+      summaryObject = Json.parse(summary).asObject();
+    }
+    fillViewerReaction(summaryObject);
+    fillTotalCount(summaryObject);
+  }
+
+  private void fillViewerReaction(JsonObject summary) {
     if (summary != null && summary.get("viewer_reaction") != null) {
       viewerReaction = summary.get("viewer_reaction").asString();
     }
@@ -92,8 +102,7 @@ public class Reactions extends AbstractFacebookType {
   /**
    * add change count value, if summary is set and count is empty
    */
-  @JsonMapper.JsonMappingCompleted
-  private void fillTotalCount() {
+  private void fillTotalCount(JsonObject summary) {
     if (totalCount == 0 && summary != null && summary.get("total_count") != null) {
       totalCount = summary.getLong("total_count", totalCount);
     }

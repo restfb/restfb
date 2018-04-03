@@ -21,20 +21,19 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.json.JsonObject;
-import com.restfb.types.AbstractFacebookType;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 
 public class TargetingResponseGeographicMetadata extends AbstractFacebookType {
 
   @Facebook
-  private JsonObject data;
+  private String data;
 
   private MetaData metaData;
 
@@ -72,7 +71,9 @@ public class TargetingResponseGeographicMetadata extends AbstractFacebookType {
 
   @JsonMapper.JsonMappingCompleted
   void convertData(JsonMapper mapper) {
-    metaData = mapper.toJavaObject(data.toString(), MetaData.class);
+    if (data != null) {
+      metaData = mapper.toJavaObject(data, MetaData.class);
+    }
   }
 
   private static class MetaData extends AbstractFacebookType {

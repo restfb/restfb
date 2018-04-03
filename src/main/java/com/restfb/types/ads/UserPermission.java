@@ -23,12 +23,13 @@ package com.restfb.types.ads;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -65,15 +66,11 @@ public class UserPermission extends AbstractFacebookType {
   @Facebook("updated_by")
   private String updatedBy;
 
-  @Getter
-  @Setter
   @Facebook("page_permissions")
-  private JsonObject pagePermissions;
+  private String pagePermissions;
 
-  @Getter
-  @Setter
   @Facebook("adaccount_permissions")
-  private JsonObject adaccountPermissions;
+  private String adaccountPermissions;
 
   @Getter
   @Setter
@@ -93,6 +90,38 @@ public class UserPermission extends AbstractFacebookType {
   @Getter
   @Setter
   private Date updatedTime;
+
+  public JsonObject getPagePermissions() {
+    if (pagePermissions != null) {
+      return Json.parse(pagePermissions).asObject();
+    } else {
+      return null;
+    }
+  }
+
+  public void setPagePermissions(JsonObject pagePermissions) {
+    if (pagePermissions != null) {
+      this.pagePermissions = pagePermissions.toString();
+    } else {
+      this.pagePermissions = null;
+    }
+  }
+
+  public JsonObject getAdaccountPermissions() {
+    if (adaccountPermissions != null) {
+      return Json.parse(adaccountPermissions).asObject();
+    } else {
+      return null;
+    }
+  }
+
+  public void setAdaccountPermissions(JsonObject adaccountPermissions) {
+    if (adaccountPermissions != null) {
+      this.adaccountPermissions = adaccountPermissions.toString();
+    } else {
+      this.adaccountPermissions = null;
+    }
+  }
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

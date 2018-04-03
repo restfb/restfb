@@ -26,10 +26,12 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
 import java.util.Date;
 
+import com.restfb.json.JsonValue;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -173,7 +175,7 @@ public class Album extends NamedFacebookType {
   private Comments comments;
 
   @Facebook("picture")
-  private JsonObject rawPicture;
+  private String rawPicture;
 
   /**
    * The album's picture, if provided.
@@ -215,10 +217,16 @@ public class Album extends NamedFacebookType {
   protected void fillPicture(JsonMapper jsonMapper) {
     picture = null;
 
-    if (rawPicture == null)
+    if (rawPicture == null) {
       return;
+    }
 
-    String picJson = rawPicture.get("data").toString();
+    JsonValue jsonValue = Json.parse(rawPicture);
+    if (!jsonValue.isObject()) {
+      return;
+    }
+
+    String picJson = jsonValue.asObject().get("data").toString();
     picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
   }
 
