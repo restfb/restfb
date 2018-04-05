@@ -164,32 +164,39 @@ public class User extends NamedFacebookType {
 
   /**
    * The user's blurb that appears under their profile picture.
-   * 
+   *
+   * @deprecated since breaking change on 4 April, 2018
+   *
    * @return The user's blurb that appears under their profile picture.
    */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private String about;
 
   /**
    * The user's relationship status.
    * 
    * @return The user's relationship status.
+   * @deprecated since breaking change on 4 April, 2018
    */
   @Getter
   @Setter
   @Facebook("relationship_status")
+  @Deprecated
   private String relationshipStatus;
 
   /**
    * The user's religion.
    * 
    * @return The user's religion.
+   * @deprecated since breaking change on 4 April, 2018
    */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private String religion;
 
   /**
@@ -206,10 +213,12 @@ public class User extends NamedFacebookType {
    * A link to the user's personal website.
    * 
    * @return A link to the user's personal website.
+   * @deprecated since breaking change on 4 April, 2018
    */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private String website;
 
   /**
@@ -295,10 +304,12 @@ public class User extends NamedFacebookType {
    * The user's political affiliation.
    * 
    * @return The user's political affiliation.
+   * @deprecated since breaking change on 4 April, 2018
    */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private String political;
 
   /**
@@ -523,6 +534,7 @@ public class User extends NamedFacebookType {
   @Facebook("is_verified")
   private Boolean isVerified;
 
+  @Deprecated
   @Facebook("interested_in")
   private List<String> interestedIn = new ArrayList<String>();
 
@@ -533,9 +545,11 @@ public class User extends NamedFacebookType {
   private List<UserDevice> devices = new ArrayList<UserDevice>();
 
   @Facebook
+  @Deprecated
   private List<WorkExperience> work = new ArrayList<WorkExperience>();
 
   @Facebook
+  @Deprecated
   private List<Education> education = new ArrayList<Education>();
 
   @Facebook
@@ -575,7 +589,9 @@ public class User extends NamedFacebookType {
    * 
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Patrick Alberts
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   public static class Education extends AbstractFacebookType {
 
     /**
@@ -984,15 +1000,19 @@ public class User extends NamedFacebookType {
    * The genders the user is interested in.
    * 
    * @return The genders the user is interested in.
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   public List<String> getInterestedIn() {
     return unmodifiableList(interestedIn);
   }
 
+  @Deprecated
   public boolean addInterestedIn(String gender) {
     return interestedIn.add(gender);
   }
 
+  @Deprecated
   public boolean removeInterestedIn(String gender) {
     return interestedIn.remove(gender);
   }
@@ -1018,15 +1038,19 @@ public class User extends NamedFacebookType {
    * A list of the work history from the user's profile.
    * 
    * @return A list of the work history from the user's profile.
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   public List<WorkExperience> getWork() {
     return unmodifiableList(work);
   }
 
+  @Deprecated
   public boolean addWork(WorkExperience workHistoryItem) {
     return work.add(workHistoryItem);
   }
 
+  @Deprecated
   public boolean removeWork(WorkExperience workHistoryItem) {
     return work.remove(workHistoryItem);
   }
@@ -1054,15 +1078,19 @@ public class User extends NamedFacebookType {
    * A list of the education history from the user's profile.
    * 
    * @return A list of the education history from the user's profile.
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   public List<Education> getEducation() {
     return unmodifiableList(education);
   }
 
+  @Deprecated
   public boolean addEducation(Education educationHistoryItem) {
     return education.add(educationHistoryItem);
   }
 
+  @Deprecated
   public boolean removeEducation(Education educationHistoryItem) {
     return education.remove(educationHistoryItem);
   }

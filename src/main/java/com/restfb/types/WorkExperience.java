@@ -37,7 +37,9 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/work-experience/">Work
  * Experience</a> type
+ * @deprecated since breaking change on 4 April, 2018
  */
+@Deprecated
 public class WorkExperience extends FacebookType {
 
   private static final long serialVersionUID = 1L;
