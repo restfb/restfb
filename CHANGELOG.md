@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2.4.0 (April 6, 2018)
+
+* Issue #865: Add logging formatter for JUL
+* Issue #868: Support for Instagram Content Publish Scope<br />
+  Thanks to @AndreaFalcon for the hint
+* Issue #870: Deserialisation issue with JsonNumber<br />
+  Thanks to @ErfanMaybe for the hint
+* Issue #872: Improve deserialisation according to #870
+* Issue #873: Check April 2018 breaking changes
+
 ## 2.3.0 (March 4, 2018)
 
 * Instagram support
