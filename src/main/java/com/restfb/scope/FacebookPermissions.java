@@ -67,7 +67,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_ABOUT_ME("user_about_me", Category.USER_DATA), //
 
   /**
@@ -79,7 +82,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_ACTIONS_BOOKS("user_actions.books", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -91,7 +97,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_ACTIONS_FITNESS("user_actions.fitness", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -103,7 +112,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_ACTIONS_MUSIC("user_actions.music", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -115,7 +127,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_ACTIONS_NEWS("user_actions.news", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -127,7 +142,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_ACTIONS_VIDEO("user_actions.video", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -172,7 +190,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_EDUCATION_HISTORY("user_education_history", Category.USER_DATA), //
 
   /**
@@ -211,7 +232,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_GAMES_ACTIVITY("user_games_activity", Category.USER_DATA), //
 
   /**
@@ -340,7 +364,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_RELATIONSHIP_DETAILS("user_relationship_details", Category.USER_DATA), //
 
   /**
@@ -352,7 +379,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_RELATIONSHIPS("user_relationships", Category.USER_DATA), //
 
   /**
@@ -363,7 +393,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_RELIGION_POLITICS("user_religion_politics", Category.USER_DATA), //
 
   /**
@@ -414,7 +447,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_WEBSITE("user_website", Category.USER_DATA), //
 
   /**
@@ -426,7 +462,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   USER_WORK_HISTORY("user_work_history", Category.USER_DATA), //
 
   /**
@@ -683,7 +722,10 @@ public enum FacebookPermissions {
    *
    * @since Graph API 2.3
    * @RestFB.GraphApi.Since 2.3
+   *
+   * @deprecated since breaking change on 4 April, 2018
    */
+  @Deprecated
   READ_CUSTOM_FRIENDLISTS("read_custom_friendlists", Category.OTHER), //
 
   /**
