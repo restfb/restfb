@@ -37,11 +37,6 @@ public class DefaultFacebookEndpoints implements FacebookEndpoints {
   }
 
   @Override
-  public String getReadOnlyEndpoint() {
-    return Endpoint.READ_ONLY.getUrl();
-  }
-
-  @Override
   public String getGraphVideoEndpoint() {
     return Endpoint.GRAPH_VIDEO.getUrl();
   }

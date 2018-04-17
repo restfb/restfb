@@ -21,17 +21,9 @@
  */
 package com.restfb;
 
-import static com.restfb.util.StringUtils.isBlank;
-import static com.restfb.util.StringUtils.trimToEmpty;
 import static com.restfb.util.UrlUtils.urlEncode;
-import static java.util.Arrays.asList;
-
-import com.restfb.json.JsonObject;
-import com.restfb.json.ParseException;
 
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -54,12 +46,7 @@ abstract class BaseFacebookClient {
   /**
    * Set of parameter names that user must not specify themselves, since we use these parameters internally.
    */
-  protected final Set<String> illegalParamNames = new HashSet<String>();
-
-  /**
-   * Set of API calls that can use the read-only endpoint for a performance boost.
-   */
-  protected final Set<String> readOnlyApiCalls = new HashSet<String>();
+  private final Set<String> illegalParamNames = new HashSet<String>();
 
   /**
    * Reserved access token parameter name.
@@ -70,39 +57,6 @@ abstract class BaseFacebookClient {
    * Reserved application secret proof parameter name.
    */
   protected static final String APP_SECRET_PROOF_PARAM_NAME = "appsecret_proof";
-
-  /**
-   * Initializes this Facebook client.
-   */
-  public BaseFacebookClient() {
-    initializeReadOnlyApiCalls();
-  }
-
-  /**
-   * Stores off the set of API calls that support the read-only endpoint.
-   * <p>
-   * This list was cribbed from the
-   * <a href="https://github.com/facebook/php-sdk/blob/master/src/facebook.php" target="_blank">Official PHP Facebook
-   * API client</a>.
-   * 
-   * @since 1.6.3
-   */
-  protected void initializeReadOnlyApiCalls() {
-    readOnlyApiCalls.addAll(asList("admin.getallocation", "admin.getappproperties", "admin.getbannedusers",
-      "admin.getlivestreamvialink", "admin.getmetrics", "admin.getrestrictioninfo", "application.getpublicinfo",
-      "auth.getapppublickey", "auth.getsession", "auth.getsignedpublicsessiondata", "comments.get",
-      "connect.getunconnectedfriendscount", "dashboard.getactivity", "dashboard.getcount", "dashboard.getglobalnews",
-      "dashboard.getnews", "dashboard.multigetcount", "dashboard.multigetnews", "data.getcookies", "events.get",
-      "events.getmembers", "fbml.getcustomtags", "feed.getappfriendstories", "feed.getregisteredtemplatebundlebyid",
-      "feed.getregisteredtemplatebundles", "fql.multiquery", "fql.query", "friends.arefriends", "friends.get",
-      "friends.getappusers", "friends.getlists", "friends.getmutualfriends", "gifts.get", "groups.get",
-      "groups.getmembers", "intl.gettranslations", "links.get", "notes.get", "notifications.get", "pages.getinfo",
-      "pages.isadmin", "pages.isappadded", "pages.isfan", "permissions.checkavailableapiaccess",
-      "permissions.checkgrantedapiaccess", "photos.get", "photos.getalbums", "photos.gettags", "profile.getinfo",
-      "profile.getinfooptions", "stream.get", "stream.getcomments", "stream.getfilters", "users.getinfo",
-      "users.getloggedinuser", "users.getstandardinfo", "users.hasapppermission", "users.isappuser", "users.isverified",
-      "video.getuploadlimits"));
-  }
 
   /**
    * Appends the given {@code parameter} to the given {@code parameters} array.
@@ -118,41 +72,6 @@ abstract class BaseFacebookClient {
     System.arraycopy(parameters, 0, updatedParameters, 0, parameters.length);
     updatedParameters[parameters.length] = parameter;
     return updatedParameters;
-  }
-
-  /**
-   * Given a map of query names to queries, verify that it contains valid data and convert it to a JSON object string.
-   * 
-   * @param queries
-   *          The query map to convert.
-   * @return The {@code queries} in JSON string format.
-   * @throws IllegalArgumentException
-   *           If the provided {@code queries} are invalid.
-   */
-  protected String queriesToJson(Map<String, String> queries) {
-    verifyParameterPresence("queries", queries);
-
-    if (queries.keySet().isEmpty()) {
-      throw new IllegalArgumentException("You must specify at least one query.");
-    }
-
-    JsonObject jsonObject = new JsonObject();
-
-    for (Entry<String, String> entry : queries.entrySet()) {
-      if (isBlank(entry.getKey()) || isBlank(entry.getValue())) {
-        throw new IllegalArgumentException(
-          "Provided queries must have non-blank keys and values. You provided: " + queries);
-      }
-
-      try {
-        jsonObject.add(trimToEmpty(entry.getKey()), trimToEmpty(entry.getValue()));
-      } catch (ParseException e) {
-        // Shouldn't happen unless bizarre input is provided
-        throw new IllegalArgumentException("Unable to convert " + queries + " to JSON.", e);
-      }
-    }
-
-    return jsonObject.toString();
   }
 
   /**
@@ -190,14 +109,6 @@ abstract class BaseFacebookClient {
   protected abstract String createEndpointForApiCall(String apiCall, boolean hasAttachment);
 
   /**
-   * Returns the base read-only endpoint URL.
-   * 
-   * @return The base read-only endpoint URL.
-   * @since 1.6.3
-   */
-  protected abstract String getFacebookReadOnlyEndpointUrl();
-
-  /**
    * Verifies that the provided parameter names don't collide with the ones we internally pass along to Facebook.
    * 
    * @param parameters
@@ -209,7 +120,7 @@ abstract class BaseFacebookClient {
     for (Parameter parameter : parameters)
       if (illegalParamNames.contains(parameter.name)) {
         throw new IllegalArgumentException(
-          "Parameter '" + parameter.name + "' is reserved for RestFB use - " + "you cannot specify it yourself.");
+          "Parameter '" + parameter.name + "' is reserved for RestFB use - you cannot specify it yourself.");
       }
   }
 
@@ -244,5 +155,15 @@ abstract class BaseFacebookClient {
     if (parameter == null) {
       throw new NullPointerException("The '" + parameterName + "' parameter cannot be null.");
     }
+  }
+
+  /**
+   * Add parameter name to illegal parameter names list
+   *
+   * @param parameterName
+   *          The name of the parameter
+   */
+  protected void addIllegalParameterNames(String parameterName) {
+    this.illegalParamNames.add(parameterName);
   }
 }

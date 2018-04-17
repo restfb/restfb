@@ -252,7 +252,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
     graphFacebookExceptionGenerator = new DefaultFacebookExceptionGenerator();
 
-    illegalParamNames.addAll(Arrays.asList(ACCESS_TOKEN_PARAM_NAME, METHOD_PARAM_NAME, FORMAT_PARAM_NAME));
+    addIllegalParameterNames(ACCESS_TOKEN_PARAM_NAME);
+    addIllegalParameterNames(METHOD_PARAM_NAME);
+    addIllegalParameterNames(FORMAT_PARAM_NAME);
   }
 
   /**
@@ -1003,9 +1005,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String baseUrl = getFacebookGraphEndpointUrl();
 
-    if (readOnlyApiCalls.contains(apiCall)) {
-      baseUrl = getFacebookReadOnlyEndpointUrl();
-    } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
+    if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
       baseUrl = getFacebookGraphVideoEndpointUrl();
     } else if (apiCall.endsWith("logout.php")) {
       baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();
@@ -1038,15 +1038,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();
     } else {
       return getFacebookEndpointUrls().getGraphVideoEndpoint();
-    }
-  }
-
-  @Override
-  protected String getFacebookReadOnlyEndpointUrl() {
-    if (apiVersion.isUrlElementRequired()) {
-      return getFacebookEndpointUrls().getReadOnlyEndpoint() + '/' + apiVersion.getUrlElement();
-    } else {
-      return getFacebookEndpointUrls().getReadOnlyEndpoint();
     }
   }
 

@@ -53,13 +53,6 @@ public interface FacebookEndpoints {
   String getGraphEndpoint();
 
   /**
-   * returns the Facebook read only API endpoint URL
-   * 
-   * @return the Facebook read only API endpoint URL
-   */
-  String getReadOnlyEndpoint();
-
-  /**
    * returns the Facebook Graph API Video endpoint URL
    * 
    * @return the Facebook Graph API Video endpoint URL
@@ -76,11 +69,6 @@ public interface FacebookEndpoints {
      * Graph API endpoint URL.
      */
     GRAPH("https://graph.facebook.com"),
-
-    /**
-     * Read-only API endpoint URL.
-     */
-    READ_ONLY("https://api-read.facebook.com/method"),
 
     /**
      * Video Upload API endpoint URL.
