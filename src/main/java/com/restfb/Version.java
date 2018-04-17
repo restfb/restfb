@@ -32,7 +32,9 @@ public enum Version {
    * <tt>Graph API 2.5</tt>, available until April 12, 2018
    *
    * @since October 7, 2015
+   * @deprecated since April 12, 2018
    */
+  @Deprecated
   VERSION_2_5("v2.5", false),
 
   /**
