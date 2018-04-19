@@ -23,13 +23,13 @@ package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -151,13 +151,13 @@ public class PageRating extends FacebookType {
       }
 
       if (data.get("language") != null) {
-        language = data.get("language").toString();
+        language = data.get("language").asString();
       }
       if (data.get("is_draft") != null) {
         isDraft = data.get("is_draft").asBoolean();
       }
       if (data.get("review_text") != null) {
-        reviewText = data.get("review_text").toString();
+        reviewText = data.get("review_text").asString();
       }
       if (data.get("generic_place") != null) {
         place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);

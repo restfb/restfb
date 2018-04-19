@@ -23,9 +23,9 @@ package com.restfb.types;
 
 import static org.junit.Assert.*;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class OpenGraphRatingTest extends AbstractJsonMapperTests {
 
@@ -46,7 +46,21 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
   @Test
   public void check_2_5_simple() {
     OpenGraphRating exampleRating =
-            createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/open-graph-rating-simple"), OpenGraphRating.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/open-graph-rating-simple"), OpenGraphRating.class);
     assertNotNull(exampleRating);
+  }
+
+  @Test
+  public void check_issue878() {
+    OpenGraphRating exampleRating =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/opengraphrating-issue878"), OpenGraphRating.class);
+    assertNotNull(exampleRating);
+    assertNotNull(exampleRating.getOpenGraphStory());
+    PageRating rating = exampleRating.getOpenGraphStory();
+    assertEquals("AAAAA", rating.getReviewText());
+    assertEquals("hu", rating.getLanguage());
+    assertEquals(5l, rating.getRatingScale().longValue());
+    assertEquals(5, rating.getRatingValue().intValue());
+    assertNotNull(rating.getPlace());
   }
 }
