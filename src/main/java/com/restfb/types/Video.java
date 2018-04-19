@@ -387,7 +387,7 @@ public class Video extends NamedFacebookType {
   private Date scheduledPublishTime;
 
   @Facebook
-  private List<VideoCaption> captions;
+  private List<VideoCaption> captions = new ArrayList<VideoCaption>();
 
   @Facebook
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();

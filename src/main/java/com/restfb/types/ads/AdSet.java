@@ -74,7 +74,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("bid_info")
-  private Map<String, Long> bidInfo;
+  private Map<String, Long> bidInfo = new HashMap<String, Long>();
 
   @Getter
   @Setter
@@ -111,7 +111,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("creative_sequence")
-  private List<String> creativeSequence;
+  private List<String> creativeSequence = new ArrayList<String>();
 
   @Getter
   @Setter
@@ -143,7 +143,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("frequency_control_specs")
-  private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs;
+  private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs = new ArrayList<AdCampaignFrequencyControlSpecs>();
 
   @Getter
   @Setter
@@ -173,7 +173,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("pacing_type")
-  private List<String> pacingType;
+  private List<String> pacingType = new ArrayList<String>();
 
   @Getter
   @Setter
@@ -183,7 +183,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("recommendations")
-  private List<AdRecommendation> recommendations;
+  private List<AdRecommendation> recommendations = new ArrayList<AdRecommendation>();
 
   @Getter
   @Setter

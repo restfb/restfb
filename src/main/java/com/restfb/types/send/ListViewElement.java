@@ -73,6 +73,9 @@ public class ListViewElement extends AbstractFacebookType {
   }
 
   public List<AbstractButton> getButtons() {
+    if (buttons == null) {
+      return Collections.emptyList();
+    }
     return Collections.unmodifiableList(buttons);
   }
 }
