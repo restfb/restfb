@@ -911,7 +911,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       response = requestor.makeRequest();
     } catch (Exception t) {
-      throw new FacebookNetworkException("Facebook request failed", t);
+      throw new FacebookNetworkException(t);
     }
 
     // If we get any HTTP response code other than a 200 OK or 400 Bad Request
@@ -922,7 +922,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         && HTTP_UNAUTHORIZED != response.getStatusCode() && HTTP_NOT_FOUND != response.getStatusCode()
         && HTTP_INTERNAL_ERROR != response.getStatusCode() && HTTP_FORBIDDEN != response.getStatusCode()
         && HTTP_NOT_MODIFIED != response.getStatusCode()) {
-      throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
+      throw new FacebookNetworkException(response.getStatusCode());
     }
 
     String json = response.getBody();
@@ -933,7 +933,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // If there was no response error information and this was a 500 or 401
     // error, something weird happened on Facebook's end. Bail.
     if (HTTP_INTERNAL_ERROR == response.getStatusCode() || HTTP_UNAUTHORIZED == response.getStatusCode()) {
-      throw new FacebookNetworkException("Facebook request failed", response.getStatusCode());
+      throw new FacebookNetworkException(response.getStatusCode());
     }
 
     return json;

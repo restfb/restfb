@@ -38,43 +38,39 @@ public class FacebookNetworkException extends FacebookException {
 
   private static final long serialVersionUID = 1L;
 
+  private final static String MESSAGE = "Facebook request failed";
+
   /**
    * Creates an exception with the given message and cause.
    * 
-   * @param message
-   *          A message describing this exception.
    * @param cause
    *          The exception that caused this exception to be thrown.
    */
-  public FacebookNetworkException(String message, Throwable cause) {
-    this(message, cause, null);
+  public FacebookNetworkException(Throwable cause) {
+    this(cause, null);
   }
 
   /**
    * Creates an exception with the given message and HTTP status code.
    * 
-   * @param message
-   *          A message describing this exception.
    * @param httpStatusCode
    *          The HTTP response status code.
    */
-  public FacebookNetworkException(String message, Integer httpStatusCode) {
-    this(message, null, httpStatusCode);
+  public FacebookNetworkException(Integer httpStatusCode) {
+    this(null, httpStatusCode);
   }
 
   /**
    * Creates an exception with the given message, cause, and HTTP status code.
    * 
-   * @param message
-   *          A message describing this exception.
    * @param cause
    *          The exception that caused this exception to be thrown.
    * @param httpStatusCode
    *          The HTTP response status code.
    */
-  public FacebookNetworkException(String message, Throwable cause, Integer httpStatusCode) {
+  public FacebookNetworkException(Throwable cause, Integer httpStatusCode) {
     super(format("A network error occurred while trying to communicate with Facebook: %s (HTTP status code %d)",
-      message, httpStatusCode), cause);
+      MESSAGE, httpStatusCode), cause);
     this.httpStatusCode = httpStatusCode;
   }
 
