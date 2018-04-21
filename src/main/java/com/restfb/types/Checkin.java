@@ -24,12 +24,12 @@ package com.restfb.types;
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -83,7 +83,7 @@ public class Checkin extends FacebookType {
   private Place place;
 
   @Facebook("created_time")
-  transient private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The time the check-in was created.

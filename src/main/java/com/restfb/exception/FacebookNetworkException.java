@@ -34,11 +34,11 @@ public class FacebookNetworkException extends FacebookException {
   /**
    * The HTTP response status code.
    */
-  private Integer httpStatusCode;
+  private final Integer httpStatusCode;
 
   private static final long serialVersionUID = 1L;
 
-  private final static String MESSAGE = "Facebook request failed";
+  private static final String MESSAGE = "Facebook request failed";
 
   /**
    * Creates an exception with the given message and cause.

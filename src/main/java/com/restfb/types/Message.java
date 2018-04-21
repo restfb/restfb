@@ -47,7 +47,7 @@ import lombok.Setter;
 public class Message extends FacebookType {
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The time the message was initially created.
@@ -108,7 +108,7 @@ public class Message extends FacebookType {
   private List<Share> shares = new ArrayList<Share>();
 
   @Facebook("updated_time")
-  transient private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The time of the last update to this message.
@@ -356,7 +356,7 @@ public class Message extends FacebookType {
     private int rotation;
   }
 
-  public static abstract class AttachmentData extends AbstractFacebookType {
+  public abstract static class AttachmentData extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 

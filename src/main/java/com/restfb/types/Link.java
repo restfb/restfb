@@ -101,7 +101,7 @@ public class Link extends NamedFacebookType {
   private String icon;
 
   @Facebook("created_time")
-  transient private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The time at which this object was created, if available.
