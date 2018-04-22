@@ -121,7 +121,7 @@ public class Payment extends FacebookType {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * Exchange rate used to calculate payout amount which is remitted in USD.
@@ -253,7 +253,7 @@ public class Payment extends FacebookType {
     private Date timeCreated;
 
     @Facebook("time_created")
-    private String rawTimeCreated;
+    private transient String rawTimeCreated;
 
     /**
      * When this action was last updated.
@@ -263,7 +263,7 @@ public class Payment extends FacebookType {
     private Date timeUpdated;
 
     @Facebook("time_updated")
-    private String rawTimeUpdated;
+    private transient String rawTimeUpdated;
 
     /**
      * The amount reduced from your payout for any taxes remitted by Facebook. If {@code tax} is equal to
@@ -312,7 +312,7 @@ public class Payment extends FacebookType {
     private Date timeCreated;
 
     @Facebook("time_created")
-    private String rawTimeCreated;
+    private transient String rawTimeCreated;
 
     /**
      * Current status of the dispute.

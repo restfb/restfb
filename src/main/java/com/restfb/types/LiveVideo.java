@@ -37,14 +37,14 @@ import lombok.Setter;
 public class LiveVideo extends FacebookType {
 
   @Facebook("broadcast_start_time")
-  private String rawBroadcastStartTime;
+  private transient String rawBroadcastStartTime;
 
   @Getter
   @Setter
   private Date broadcastStartTime;
 
   @Facebook("creation_time")
-  private String rawCreationTime;
+  private transient String rawCreationTime;
 
   @Getter
   @Setter
@@ -81,7 +81,7 @@ public class LiveVideo extends FacebookType {
   private String permalinkUrl;
 
   @Facebook("planned_start_time")
-  private String rawPlannedStartTime;
+  private transient String rawPlannedStartTime;
 
   @Getter
   @Setter

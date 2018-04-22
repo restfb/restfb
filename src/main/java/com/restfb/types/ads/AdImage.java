@@ -122,7 +122,7 @@ public class AdImage extends NamedAdsObject {
   private String status;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * Time the image was created
@@ -132,7 +132,7 @@ public class AdImage extends NamedAdsObject {
   private Date createdTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * Time the image was updated

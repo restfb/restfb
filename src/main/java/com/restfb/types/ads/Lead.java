@@ -67,7 +67,7 @@ public class Lead extends BaseAdsObject {
   private String campaignName;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   @Setter

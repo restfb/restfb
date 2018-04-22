@@ -42,7 +42,7 @@ public class Review extends FacebookType {
   private static final long serialVersionUID = 1L;
   
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * When the review was created.

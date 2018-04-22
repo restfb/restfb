@@ -138,7 +138,7 @@ public class Group extends NamedFacebookType {
   private String privacy;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The last time the group was updated.

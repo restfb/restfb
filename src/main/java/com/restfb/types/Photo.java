@@ -183,10 +183,10 @@ public class Photo extends NamedFacebookType {
   private Integer position;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * If this object has a place, the event associated with the place
@@ -241,7 +241,7 @@ public class Photo extends NamedFacebookType {
   private List<Image> images = new ArrayList<Image>();
 
   @Facebook("name_tags")
-  private String rawNameTags;
+  private transient String rawNameTags;
 
   private List<EntityAtTextRange> nameTags = new ArrayList<EntityAtTextRange>();
 
@@ -257,7 +257,7 @@ public class Photo extends NamedFacebookType {
   private Place place;
 
   @Facebook("backdated_time")
-  private String rawBackdatedTime;
+  private transient String rawBackdatedTime;
 
   /**
    * Back dated time
@@ -311,7 +311,7 @@ public class Photo extends NamedFacebookType {
     private Double y;
 
     @Facebook("created_time")
-    private String rawCreatedTime;
+    private transient String rawCreatedTime;
 
     /**
      * Date this tag was created.

@@ -67,7 +67,7 @@ public class VideoCaption extends AbstractFacebookType {
   private Date createTime;
 
   @Facebook("create_time")
-  private String rawCreateTime;
+  private transient String rawCreateTime;
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

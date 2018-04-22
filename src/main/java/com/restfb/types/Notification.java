@@ -111,7 +111,7 @@ public class Notification extends FacebookType {
   private NamedFacebookType object;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * When the notification was last updated. When the notification was created.
@@ -123,7 +123,7 @@ public class Notification extends FacebookType {
   private Date updatedTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * When the notification was created.

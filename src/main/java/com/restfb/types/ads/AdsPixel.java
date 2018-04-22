@@ -51,14 +51,14 @@ public class AdsPixel extends NamedAdsObject {
   private String rules;
 
   @Facebook("creation_time")
-  private String rawCreationTime;
+  private transient String rawCreationTime;
 
   @Getter
   @Setter
   private Date creationTime;
 
   @Facebook("last_fired_time")
-  private String rawLastFiredTime;
+  private transient String rawLastFiredTime;
 
   @Getter
   @Setter

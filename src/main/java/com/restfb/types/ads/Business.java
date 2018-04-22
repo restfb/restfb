@@ -40,7 +40,7 @@ public class Business extends NamedAdsObject {
   private static final long serialVersionUID = 1L;
 
   @Facebook("creation_time")
-  private String rawCreationTime;
+  private transient String rawCreationTime;
 
   @Getter
   @Setter
@@ -62,7 +62,7 @@ public class Business extends NamedAdsObject {
   private Integer timezoneId;
 
   @Facebook("update_time")
-  private String rawUpdateTime;
+  private transient String rawUpdateTime;
 
   @Getter
   @Setter

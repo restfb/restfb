@@ -140,7 +140,7 @@ public class Message extends FacebookType {
   private Boolean unseen;
 
   @Facebook("tags")
-  private String rawTags;
+  private transient String rawTags;
 
   private List<String> tags = new ArrayList<String>();
 

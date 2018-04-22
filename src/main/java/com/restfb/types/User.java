@@ -356,7 +356,7 @@ public class User extends NamedFacebookType {
   private Likes likes;
 
   @Facebook("picture")
-  private String rawPicture;
+  private transient String rawPicture;
 
   /**
    * The user's picture, if provided.
@@ -421,7 +421,7 @@ public class User extends NamedFacebookType {
   private Date sharedLoginUpgradeRequiredBy;
 
   @Facebook("shared_login_upgrade_required_by")
-  private String rawSharedLoginUpgradeRequiredBy;
+  private transient String rawSharedLoginUpgradeRequiredBy;
 
   /**
    * The user's significant other.
@@ -444,7 +444,7 @@ public class User extends NamedFacebookType {
   private Long testGroup;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * Date the user's profile was updated.

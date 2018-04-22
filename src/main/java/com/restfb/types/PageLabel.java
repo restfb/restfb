@@ -41,7 +41,7 @@ public class PageLabel extends NamedFacebookType {
   private Date creationTime;
 
   @Facebook("creation_time")
-  private String rawCreationTime;
+  private transient String rawCreationTime;
 
   @Getter
   @Setter

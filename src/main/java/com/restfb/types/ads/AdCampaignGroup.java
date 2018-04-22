@@ -81,28 +81,28 @@ public class AdCampaignGroup extends NamedAdsObject {
   private List<AdLabel> adlabels;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   @Setter
   private Date createdTime;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   @Getter
   @Setter
   private Date startTime;
 
   @Facebook("stop_time")
-  private String rawStopTime;
+  private transient String rawStopTime;
 
   @Getter
   @Setter
   private Date stopTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   @Getter
   @Setter

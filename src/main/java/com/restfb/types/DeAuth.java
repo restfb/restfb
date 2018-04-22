@@ -46,7 +46,7 @@ public class DeAuth extends AbstractFacebookType {
   private String algorithm;
 
   @Facebook("issued_at")
-  private String rawIssuedAt;
+  private transient String rawIssuedAt;
 
   @Getter
   @Setter

@@ -106,7 +106,7 @@ public class AdSet extends NamedAdsObject {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   @Setter
@@ -128,7 +128,7 @@ public class AdSet extends NamedAdsObject {
   private Date endTime;
 
   @Facebook("end_time")
-  private String rawEndTime;
+  private transient String rawEndTime;
 
   @Getter
   @Setter
@@ -196,7 +196,7 @@ public class AdSet extends NamedAdsObject {
   private Boolean rtbFlag;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   @Getter
   @Setter
@@ -217,7 +217,7 @@ public class AdSet extends NamedAdsObject {
   private Date updatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   @Getter
   @Setter

@@ -106,7 +106,7 @@ public class AdAccount extends NamedAdsObject {
   private List<String> capabilities = new ArrayList<String>();
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   @Setter
@@ -277,7 +277,7 @@ public class AdAccount extends NamedAdsObject {
   private Business ownerBusiness;
 
   @Facebook("last_used_time")
-  private String rawLastUsedTime;
+  private transient String rawLastUsedTime;
 
   @Getter
   @Setter

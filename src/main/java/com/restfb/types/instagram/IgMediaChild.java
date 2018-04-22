@@ -71,7 +71,7 @@ public class IgMediaChild extends FacebookType {
   private String thumbnailUrl;
 
   @Facebook("timestamp")
-  private String rawTimestamp;
+  private transient String rawTimestamp;
 
   @Getter
   @Setter

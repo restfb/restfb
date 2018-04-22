@@ -174,7 +174,7 @@ public class Album extends NamedFacebookType {
   private Comments comments;
 
   @Facebook("picture")
-  private String rawPicture;
+  private transient String rawPicture;
 
   /**
    * The album's picture, if provided.
@@ -201,10 +201,10 @@ public class Album extends NamedFacebookType {
   private static final long serialVersionUID = 1L;
 
   @Facebook("created_time")
-  transient private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Facebook("updated_time")
-  transient private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   @JsonMappingCompleted
   void convertTime() {

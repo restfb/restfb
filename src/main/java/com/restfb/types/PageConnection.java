@@ -23,24 +23,24 @@ package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromLongFormat;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a Connection to a <a href="https://developers.facebook.com/docs/graph-api/reference/page/">Page Graph API type</a>
- * , for example the Pages returned from {@code me/music}.
+ * Represents a Connection to a <a href="https://developers.facebook.com/docs/graph-api/reference/page/">Page Graph API
+ * type</a> , for example the Pages returned from {@code me/music}.
  * 
  * @author Patrick Alberts
  * @since 1.6.3
  */
 public class PageConnection extends CategorizedFacebookType {
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The time the connection was initially created.

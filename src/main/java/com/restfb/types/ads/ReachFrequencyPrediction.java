@@ -71,7 +71,7 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
   private Date campaignTimeStart;
 
   @Facebook("campaign_time_start")
-  private String rawCampaignTimeStart;
+  private transient String rawCampaignTimeStart;
 
   /**
    * Unix timestamp of the ad set stop time
@@ -81,7 +81,7 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
   private Date campaignTimeStop;
 
   @Facebook("campaign_time_stop")
-  private String rawCampaignTimeStop;
+  private transient String rawCampaignTimeStop;
 
   /**
    * The curve for budget and reach.
@@ -127,7 +127,7 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
   private Date expirationTime;
 
   @Facebook("expiration_time")
-  private String rawexpirationTime;
+  private transient String rawexpirationTime;
 
   /**
    * Predicted budget in cents for the ad set, relevant if prediction mode is 0
@@ -346,7 +346,7 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
   private Date timeCreated;
 
   @Facebook("time_created")
-  private String rawTimeCreated;
+  private transient String rawTimeCreated;
 
   /**
    * Unix timestamp when the row is updated
@@ -356,7 +356,7 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
   private Date timeUpdated;
 
   @Facebook("time_updated")
-  private String rawTimeUpdated;
+  private transient String rawTimeUpdated;
 
   @JsonMapper.JsonMappingCompleted
   private void convertTime() {

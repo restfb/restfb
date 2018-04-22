@@ -37,7 +37,7 @@ import lombok.Setter;
 public class LeadgenForm extends NamedAdsObject {
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   @Setter

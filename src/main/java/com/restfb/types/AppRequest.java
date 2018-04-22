@@ -101,7 +101,7 @@ public class AppRequest extends FacebookType {
   private String message;
 
   @Facebook("created_time")
-  transient private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * Timestamp when the request was created.

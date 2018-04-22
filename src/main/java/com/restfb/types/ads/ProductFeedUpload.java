@@ -38,7 +38,7 @@ import lombok.Setter;
 public class ProductFeedUpload extends BaseAdsObject {
 
   @Facebook("end_time")
-  private String rawEndTime;
+  private transient String rawEndTime;
 
   /**
    * The time the upload was completed
@@ -77,7 +77,7 @@ public class ProductFeedUpload extends BaseAdsObject {
   private Date startTime;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   /**
    * The url to fetch the products from

@@ -48,7 +48,7 @@ public class PageCallToAction extends FacebookType {
   private Application androidApp;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * Time when the call-to-action was created.
@@ -120,7 +120,7 @@ public class PageCallToAction extends FacebookType {
   private String status;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * Time when the call-to-action was last updated.

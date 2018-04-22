@@ -84,7 +84,7 @@ public class Conversation extends FacebookType {
   private String threadKey;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * Last update time of the conversation

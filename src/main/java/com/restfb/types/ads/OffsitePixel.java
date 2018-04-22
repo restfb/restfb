@@ -61,7 +61,7 @@ public class OffsitePixel extends BaseAdsObject {
   private Date lastFiringTime;
 
   @Facebook("last_firing_time")
-  private String rawLastFiringTime;
+  private transient String rawLastFiringTime;
 
   /**
    * One of: {@code checkout}, {@code registration}, {@code lead}, {@code key_page_view}, {@code add_to_cart},

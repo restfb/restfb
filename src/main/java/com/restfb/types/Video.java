@@ -345,16 +345,16 @@ public class Video extends NamedFacebookType {
   private String backdatedTimeGranularity;
 
   @Facebook("backdated_time")
-  private String rawBackdatedTime;
+  private transient String rawBackdatedTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   @Facebook("scheduled_publish_time")
-  private String rawScheduledPublishTime;
+  private transient String rawScheduledPublishTime;
 
   /**
    * The time the video was initially published.

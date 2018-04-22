@@ -70,7 +70,7 @@ public class Thread extends FacebookType {
   private Integer unseen;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The time of the last comment on this post.

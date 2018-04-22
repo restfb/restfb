@@ -59,7 +59,7 @@ public class WorkExperience extends FacebookType {
   private Date endDate;
 
   @Facebook("end_date")
-  private String rawEndDate;
+  private transient String rawEndDate;
 
   @Getter
   @Setter
@@ -84,7 +84,7 @@ public class WorkExperience extends FacebookType {
   private Date startDate;
 
   @Facebook("start_date")
-  private String rawStartDate;
+  private transient String rawStartDate;
 
   @Facebook
   private List<User> with = new ArrayList<User>();

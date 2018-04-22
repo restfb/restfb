@@ -43,7 +43,7 @@ public class OpenGraphRating extends FacebookType {
   @Getter
   @Setter
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * When the reviewer rated this object.

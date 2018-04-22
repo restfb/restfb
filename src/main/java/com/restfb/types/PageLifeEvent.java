@@ -43,7 +43,7 @@ public class PageLifeEvent extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The time when this milestone was published
@@ -65,7 +65,7 @@ public class PageLifeEvent extends FacebookType {
   private String description;
 
   @Facebook("end_time")
-  private String rawEndTime;
+  private transient String rawEndTime;
 
   /**
    * The time when this milestone came to an end.
@@ -97,7 +97,7 @@ public class PageLifeEvent extends FacebookType {
   private Boolean isHidden;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   /**
    * The time when this milestone was started.
@@ -119,7 +119,7 @@ public class PageLifeEvent extends FacebookType {
   private String title;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The time when this milestone was updated.

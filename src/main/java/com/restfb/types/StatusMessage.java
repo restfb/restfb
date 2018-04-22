@@ -86,7 +86,7 @@ public class StatusMessage extends NamedFacebookType {
   private String type;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The time the message was published.

@@ -78,14 +78,14 @@ public class UserPermission extends AbstractFacebookType {
   private NamedAdsObject user;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   @Setter
   private Date createdTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   @Getter
   @Setter

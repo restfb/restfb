@@ -47,7 +47,7 @@ public class PlaceTag extends FacebookType {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The place that was visited

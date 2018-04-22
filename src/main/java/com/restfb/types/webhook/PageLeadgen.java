@@ -44,7 +44,7 @@ public class PageLeadgen extends ChangeValue {
   private String leadgenId;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   private Date createdTime;

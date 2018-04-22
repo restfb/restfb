@@ -54,7 +54,7 @@ public class Change {
   private ChangeValue value = null;
 
   @Facebook("value")
-  private String rawValue;
+  private transient String rawValue;
 
   @JsonMapper.JsonMappingCompleted
   private void convertChangeValue(JsonMapper mapper) {

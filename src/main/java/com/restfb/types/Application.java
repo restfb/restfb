@@ -257,7 +257,7 @@ public class Application extends CategorizedFacebookType {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * User ID of the creator of this app
@@ -713,7 +713,7 @@ public class Application extends CategorizedFacebookType {
   private Date lastUsedTime;
 
   @Facebook("last_used_time")
-  private String rawLastUsedTime;
+  private transient String rawLastUsedTime;
 
   /**
    * relevance score of an asset.
@@ -919,7 +919,7 @@ public class Application extends CategorizedFacebookType {
     private Date lastIosInstall;
 
     @Facebook("last_ios_install")
-    private String rawLastIosInstall;
+    private transient String rawLastIosInstall;
 
     /**
      * Timestamp of most recent install event reported by Android SDK.
@@ -931,7 +931,7 @@ public class Application extends CategorizedFacebookType {
     private Date lastAndroidInstall;
 
     @Facebook("last_android_install")
-    private String rawLastAndroidInstall;
+    private transient String rawLastAndroidInstall;
 
     /**
      * Status of iOS app ad support for this application.
@@ -983,7 +983,7 @@ public class Application extends CategorizedFacebookType {
     private Date lastIosDeferredDeepLinkCall;
 
     @Facebook("last_ios_deferred_deep_link_call")
-    private String rawLastIosDeferredDeepLinkCall;
+    private transient String rawLastIosDeferredDeepLinkCall;
 
     /**
      * Timestamp of most recent Android deferred deep link request.
@@ -995,7 +995,7 @@ public class Application extends CategorizedFacebookType {
     private Date lastAndroidDeferredDeepLinkCall;
 
     @Facebook("last_android_deferred_deep_link_call")
-    private String rawLastAndroidDeferredDeepLinkCall;
+    private transient String rawLastAndroidDeferredDeepLinkCall;
 
     @Facebook("ios_install_invalidation_schemes")
     private List<String> iosInstallInvalidationSchemes = new ArrayList<String>();

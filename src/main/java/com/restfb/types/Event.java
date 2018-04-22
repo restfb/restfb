@@ -99,10 +99,10 @@ public class Event extends NamedFacebookType {
   private String description;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   @Facebook("end_time")
-  private String rawEndTime;
+  private transient String rawEndTime;
 
   /**
    * The start time of the event.
@@ -225,7 +225,7 @@ public class Event extends NamedFacebookType {
   private String privacy;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The last time the event was updated.
@@ -259,7 +259,7 @@ public class Event extends NamedFacebookType {
   private ProfilePictureSource picture;
 
   @Facebook("picture")
-  private String rawPicture;
+  private transient String rawPicture;
 
   /**
    * The group the event belongs to, if any.

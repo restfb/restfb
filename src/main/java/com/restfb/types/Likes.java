@@ -166,7 +166,7 @@ public class Likes extends AbstractFacebookType {
     private Date createdTime;
 
     @Facebook("created_time")
-    private String rawCreatedTime;
+    private transient String rawCreatedTime;
 
     @JsonMappingCompleted
     void convertTime() {

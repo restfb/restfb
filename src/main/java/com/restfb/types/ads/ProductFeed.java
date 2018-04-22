@@ -61,7 +61,7 @@ public class ProductFeed extends BaseAdsObject {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * Default currency for products.

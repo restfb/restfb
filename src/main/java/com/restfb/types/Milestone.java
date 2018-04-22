@@ -77,7 +77,7 @@ public class Milestone extends FacebookType {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The update time of the milestone.
@@ -89,7 +89,7 @@ public class Milestone extends FacebookType {
   private Date updatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The start time of the milestone.
@@ -101,7 +101,7 @@ public class Milestone extends FacebookType {
   private Date startTime;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   /**
    * The end time of the milestone. Page milestones have the same start and end time.
@@ -113,7 +113,7 @@ public class Milestone extends FacebookType {
   private Date endTime;
 
   @Facebook("end_time")
-  private String rawEndTime;
+  private transient String rawEndTime;
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

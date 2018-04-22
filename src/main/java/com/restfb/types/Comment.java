@@ -66,7 +66,7 @@ public class Comment extends FacebookType {
   private String message;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * Date on which the comment was created.
@@ -267,7 +267,7 @@ public class Comment extends FacebookType {
   private StoryAttachment attachment;
 
   @Facebook("message_tags")
-  private String rawMessageTags;
+  private transient String rawMessageTags;
 
   private List<MessageTag> messageTags = new ArrayList<MessageTag>();
 

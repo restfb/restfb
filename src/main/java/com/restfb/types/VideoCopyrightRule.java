@@ -47,7 +47,7 @@ public class VideoCopyrightRule extends NamedFacebookType {
   private List<String> copyrights;
 
   @Facebook("created_date")
-  private String rawCreatedDate;
+  private transient String rawCreatedDate;
 
   /**
    * The date on which the rule was created

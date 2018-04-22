@@ -291,7 +291,7 @@ public class Post extends NamedFacebookType {
   private Likes likes;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The time the post was initially published.
@@ -303,7 +303,7 @@ public class Post extends NamedFacebookType {
   private Date createdTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The time of the last comment on this post.
@@ -391,12 +391,12 @@ public class Post extends NamedFacebookType {
   private List<NamedFacebookType> withTags = new ArrayList<NamedFacebookType>();
 
   @Facebook("message_tags")
-  private String rawMessageTags;
+  private transient String rawMessageTags;
 
   private List<MessageTag> messageTags = new ArrayList<MessageTag>();
 
   @Facebook("story_tags")
-  private String rawStoryTags;
+  private transient String rawStoryTags;
 
   private List<MessageTag> storyTags = new ArrayList<MessageTag>();
 
@@ -406,7 +406,7 @@ public class Post extends NamedFacebookType {
    * @return UNIX timestamp of the scheduled publish time for the post
    */
   @Facebook("scheduled_publish_time")
-  private String rawScheduledPublishTime;
+  private transient String rawScheduledPublishTime;
 
   /**
    * UNIX timestamp of the scheduled publish time for the post.
@@ -743,7 +743,7 @@ public class Post extends NamedFacebookType {
     protected List<KeyedType> regions = new ArrayList<KeyedType>();
 
     @Facebook("regions")
-    private String rawRegionsString;
+    private transient String rawRegionsString;
 
     @JsonMappingCompleted
     private void convertList(JsonMapper mapper) {
@@ -909,7 +909,7 @@ public class Post extends NamedFacebookType {
     private Date relevantUntilTs;
 
     @Facebook("relevant_until_ts")
-    private String rawRelevantUntilTs;
+    private transient String rawRelevantUntilTs;
 
     @Facebook("college_majors")
     private List<String> collegeMajors = new ArrayList<String>();

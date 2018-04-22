@@ -74,7 +74,7 @@ public class IgComment extends FacebookType {
   private String text;
 
   @Facebook("timestamp")
-  private String rawTimestamp;
+  private transient String rawTimestamp;
 
   /**
    * Timestamp of comment

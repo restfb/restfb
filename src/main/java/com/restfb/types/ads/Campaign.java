@@ -118,7 +118,7 @@ public class Campaign extends NamedAdsObject {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * The effective status of this campaign.
@@ -184,7 +184,7 @@ public class Campaign extends NamedAdsObject {
   private Date startTime;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   /**
    * If this status is PAUSED, all its active ad sets and ads will be paused and have an effective status
@@ -211,7 +211,7 @@ public class Campaign extends NamedAdsObject {
   private Date stopTime;
 
   @Facebook("stop_time")
-  private String rawStopTime;
+  private transient String rawStopTime;
 
   /**
    * Updated Time
@@ -225,7 +225,7 @@ public class Campaign extends NamedAdsObject {
   private Date updatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

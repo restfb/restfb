@@ -83,10 +83,10 @@ public class Note extends FacebookType {
   private String icon;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * The time the note was initially published.

@@ -67,7 +67,7 @@ public class VideoList extends FacebookType {
   private CategorizedFacebookType owner;
 
   @Facebook("creation_time")
-  private String rawCreationTime;
+  private transient String rawCreationTime;
 
   /**
    * The time when the playlist was created
@@ -77,7 +77,7 @@ public class VideoList extends FacebookType {
   private Date creationTime;
 
   @Facebook("last_modified")
-  private String rawLastModified;
+  private transient String rawLastModified;
 
   /**
    * The time when the contents of the playlist was last changed

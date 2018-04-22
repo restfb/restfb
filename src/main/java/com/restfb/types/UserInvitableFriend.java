@@ -54,7 +54,7 @@ public class UserInvitableFriend extends NamedFacebookType {
   private String middleName;
 
   @Facebook("picture")
-  private String rawPicture;
+  private transient String rawPicture;
 
   @Getter
   @Setter

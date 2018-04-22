@@ -106,7 +106,7 @@ public class AdGroup extends NamedAdsObject {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * This field is required for create. The ID of the ad creative to be used by this ad.
@@ -149,7 +149,7 @@ public class AdGroup extends NamedAdsObject {
   private Date updatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * Review feedback for this ad. Look here for more information:

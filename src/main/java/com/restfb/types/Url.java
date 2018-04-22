@@ -178,7 +178,7 @@ public class Url extends FacebookType {
     private String url;
 
     @Facebook("updated_time")
-    private String rawUpdatedTime;
+    private transient String rawUpdatedTime;
 
     /**
      * When the object was last updated.

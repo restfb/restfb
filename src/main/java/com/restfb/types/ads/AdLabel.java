@@ -48,7 +48,7 @@ public class AdLabel extends NamedAdsObject {
   private AdAccount account;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   /**
    * Created time
@@ -58,7 +58,7 @@ public class AdLabel extends NamedAdsObject {
   private Date createdTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   /**
    * Updated time

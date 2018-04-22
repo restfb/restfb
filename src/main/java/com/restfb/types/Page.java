@@ -49,7 +49,7 @@ import lombok.Setter;
 public class Page extends CategorizedFacebookType {
 
   @Facebook("picture")
-  private String rawPicture;
+  private transient String rawPicture;
 
   /**
    * The pages's profile picture, if provided.
@@ -373,7 +373,7 @@ public class Page extends CategorizedFacebookType {
   private Business ownerBusiness;
 
   @Facebook("labels")
-  private String rawLabels;
+  private transient String rawLabels;
 
   /**
    * Personal information. Applicable to Pages representing People
@@ -1168,7 +1168,7 @@ public class Page extends CategorizedFacebookType {
   private String pressContact;
 
   @Facebook("last_used_time")
-  private String rawLastUsedTime;
+  private transient String rawLastUsedTime;
 
   /**
    * Instagram account connected to page via page settings

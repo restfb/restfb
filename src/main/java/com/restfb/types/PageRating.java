@@ -47,7 +47,7 @@ public class PageRating extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   @Facebook("start_time")
-  private String rawStartTime;
+  private transient String rawStartTime;
 
   /**
    * Time the rating took place
@@ -59,7 +59,7 @@ public class PageRating extends FacebookType {
   private Date startTime;
 
   @Facebook("publish_time")
-  private String rawPublishTime;
+  private transient String rawPublishTime;
 
   /**
    * Time the rating took place

@@ -94,7 +94,7 @@ public class Ad extends NamedAdsObject {
   private Date createdTime;
 
   @Facebook("created_time")
-  private String rawCreatedTime;
+  private transient String rawCreatedTime;
 
   @Getter
   @Setter
@@ -127,7 +127,7 @@ public class Ad extends NamedAdsObject {
   private Date updatedTime;
 
   @Facebook("updated_time")
-  private String rawUpdatedTime;
+  private transient String rawUpdatedTime;
 
   @Facebook
   private List<TargetingSentenceLine> targetingsentencelines = new ArrayList<TargetingSentenceLine>();
