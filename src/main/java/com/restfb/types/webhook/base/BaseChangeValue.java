@@ -21,11 +21,11 @@
  */
 package com.restfb.types.webhook.base;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.types.webhook.ChangeValue;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;

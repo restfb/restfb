@@ -21,11 +21,11 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adtag/">AdGroup Tag type</a>.

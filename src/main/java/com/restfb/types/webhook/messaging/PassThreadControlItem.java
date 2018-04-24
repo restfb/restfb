@@ -22,13 +22,14 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents the
- * <a href="https://developers.facebook.com/docs/messenger-platform/handover-protocol/pass-thread-control">Pass Thread Control</a>
- * Callback
+ * <a href="https://developers.facebook.com/docs/messenger-platform/handover-protocol/pass-thread-control">Pass Thread
+ * Control</a> Callback
  */
 public class PassThreadControlItem implements InnerMessagingItem {
 

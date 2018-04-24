@@ -21,18 +21,17 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -65,9 +64,6 @@ public class Comment extends FacebookType {
   @Facebook
   private String message;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * Date on which the comment was created.
    *
@@ -75,6 +71,7 @@ public class Comment extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -272,11 +269,6 @@ public class Comment extends FacebookType {
   private List<MessageTag> messageTags = new ArrayList<MessageTag>();
 
   private static final long serialVersionUID = 2L;
-
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 
   /**
    * Post-JSON-mapping operation that populates the {@code messageTags} field "by hand".

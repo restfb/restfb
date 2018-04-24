@@ -21,15 +21,13 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -332,6 +330,7 @@ public class Video extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("backdated_time")
   private Date backdatedTime;
 
   /**
@@ -344,18 +343,6 @@ public class Video extends NamedFacebookType {
   @Facebook("backdated_time_granularity")
   private String backdatedTimeGranularity;
 
-  @Facebook("backdated_time")
-  private transient String rawBackdatedTime;
-
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
-  @Facebook("scheduled_publish_time")
-  private transient String rawScheduledPublishTime;
-
   /**
    * The time the video was initially published.
    * 
@@ -363,6 +350,7 @@ public class Video extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -372,6 +360,7 @@ public class Video extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -384,6 +373,7 @@ public class Video extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("scheduled_publish_time")
   private Date scheduledPublishTime;
 
   @Facebook
@@ -505,14 +495,6 @@ public class Video extends NamedFacebookType {
       return getComments().getTotalCount();
     }
     return 0L;
-  }
-
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    backdatedTime = toDateFromLongFormat(rawBackdatedTime);
-    scheduledPublishTime = toDateFromLongFormat(rawScheduledPublishTime);
   }
 
   /**

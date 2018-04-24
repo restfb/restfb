@@ -21,12 +21,9 @@
  */
 package com.restfb.types.webhook.messaging.airline;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.util.DateUtils;
-
-import java.text.ParseException;
 import java.util.Date;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,9 +32,6 @@ import lombok.ToString;
 @ToString
 public class FlightScheduleItem {
 
-  @Facebook("boarding_time")
-  private transient String rawBoardingTime;
-
   /**
    * Timestamp for boarding time.
    *
@@ -45,10 +39,8 @@ public class FlightScheduleItem {
    */
   @Getter
   @Setter
+  @Facebook("boarding_time")
   private Date boardingTime;
-
-  @Facebook("departure_time")
-  private transient String rawDepartureTime;
 
   /**
    * Timestamp for departure time.
@@ -57,10 +49,8 @@ public class FlightScheduleItem {
    */
   @Getter
   @Setter
+  @Facebook("departure_time")
   private Date departureTime;
-
-  @Facebook("arrival_time")
-  private transient String rawArrivalTime;
 
   /**
    * Timestamp for arrival time.
@@ -69,18 +59,7 @@ public class FlightScheduleItem {
    */
   @Getter
   @Setter
+  @Facebook("arrival_time")
   private Date arrivalTime;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTimes() throws ParseException {
-    if (rawBoardingTime != null) {
-      boardingTime = DateUtils.toDateFromLongFormat(rawBoardingTime);
-    }
-    if (rawDepartureTime != null) {
-      departureTime = DateUtils.toDateFromLongFormat(rawDepartureTime);
-    }
-    if (rawArrivalTime != null) {
-      arrivalTime = DateUtils.toDateFromLongFormat(rawArrivalTime);
-    }
-  }
 }

@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,11 +37,6 @@ import lombok.Setter;
  */
 public class OpenGraphRating extends FacebookType {
 
-  @Getter
-  @Setter
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * When the reviewer rated this object.
    *
@@ -52,6 +44,7 @@ public class OpenGraphRating extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -114,8 +107,4 @@ public class OpenGraphRating extends FacebookType {
   @Facebook("open_graph_story")
   private PageRating openGraphStory;
 
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

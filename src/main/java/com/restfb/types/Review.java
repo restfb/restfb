@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,9 +37,6 @@ import lombok.Setter;
 public class Review extends FacebookType {
 
   private static final long serialVersionUID = 1L;
-  
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
 
   /**
    * When the review was created.
@@ -52,6 +46,7 @@ public class Review extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -98,8 +93,4 @@ public class Review extends FacebookType {
   @Facebook
   private NamedFacebookType to;
 
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

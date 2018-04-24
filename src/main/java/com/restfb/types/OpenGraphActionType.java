@@ -21,9 +21,9 @@
  */
 package com.restfb.types;
 
-import com.restfb.Facebook;
-
 import java.util.*;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;

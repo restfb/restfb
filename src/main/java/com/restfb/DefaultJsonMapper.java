@@ -729,6 +729,10 @@ public class DefaultJsonMapper implements JsonMapper {
       }
     }
 
+    if (Date.class.equals(type)) {
+      return DateUtils.toDateFromLongFormat(jsonHelper.getStringFrom(rawValue));
+    }
+
     String rawValueAsString = jsonHelper.getStringFrom(rawValue);
 
     // Hack for issue #76 where FB will sometimes return a Post's Comments as

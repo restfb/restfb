@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,10 +41,8 @@ public class PlaceTag extends FacebookType {
    */
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   /**
    * The place that was visited
@@ -59,8 +54,4 @@ public class PlaceTag extends FacebookType {
   @Facebook
   private Page place;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

@@ -21,15 +21,12 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -103,10 +100,8 @@ public class AdGroup extends NamedAdsObject {
    */
   @Setter
   @Getter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   /**
    * This field is required for create. The ID of the ad creative to be used by this ad.
@@ -146,10 +141,8 @@ public class AdGroup extends NamedAdsObject {
    */
   @Getter
   @Setter
-  private Date updatedTime;
-
   @Facebook("updated_time")
-  private transient String rawUpdatedTime;
+  private Date updatedTime;
 
   /**
    * Review feedback for this ad. Look here for more information:
@@ -205,9 +198,4 @@ public class AdGroup extends NamedAdsObject {
     return adlabels.remove(action);
   }
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

@@ -21,17 +21,17 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-import com.restfb.exception.FacebookPreconditionException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.restfb.Facebook;
+import com.restfb.exception.FacebookPreconditionException;
+
 import lombok.Getter;
 import lombok.Setter;
 
-public class ListTemplatePayload extends SharableTemplatePayload implements IsBroadcastPayload{
+public class ListTemplatePayload extends SharableTemplatePayload implements IsBroadcastPayload {
 
   @Facebook
   private List<ListViewElement> elements;
@@ -82,6 +82,6 @@ public class ListTemplatePayload extends SharableTemplatePayload implements IsBr
   }
 
   public enum TopElementStyleEnum {
-    large, compact //NOSONAR
+    large, compact // NOSONAR
   }
 }

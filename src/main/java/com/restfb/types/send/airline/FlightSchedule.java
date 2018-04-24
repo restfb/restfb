@@ -21,10 +21,10 @@
  */
 package com.restfb.types.send.airline;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;

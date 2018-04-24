@@ -21,12 +21,9 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -47,29 +44,20 @@ public class AdLabel extends NamedAdsObject {
   @Facebook
   private AdAccount account;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * Created time
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
-
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
 
   /**
    * Updated time
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

@@ -21,15 +21,12 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -118,10 +115,8 @@ public class Payment extends FacebookType {
    */
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   /**
    * Exchange rate used to calculate payout amount which is remitted in USD.
@@ -142,11 +137,6 @@ public class Payment extends FacebookType {
   @Setter
   @Facebook
   private Boolean test;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 
   /**
    * The items associated with the payment.
@@ -250,20 +240,16 @@ public class Payment extends FacebookType {
      */
     @Getter
     @Setter
-    private Date timeCreated;
-
     @Facebook("time_created")
-    private transient String rawTimeCreated;
+    private Date timeCreated;
 
     /**
      * When this action was last updated.
      */
     @Getter
     @Setter
-    private Date timeUpdated;
-
     @Facebook("time_updated")
-    private transient String rawTimeUpdated;
+    private Date timeUpdated;
 
     /**
      * The amount reduced from your payout for any taxes remitted by Facebook. If {@code tax} is equal to
@@ -274,11 +260,6 @@ public class Payment extends FacebookType {
     @Facebook("tax_amount")
     private String taxAmount;
 
-    @JsonMapper.JsonMappingCompleted
-    void convertTime() {
-      timeUpdated = toDateFromLongFormat(rawTimeUpdated);
-      timeCreated = toDateFromLongFormat(rawTimeCreated);
-    }
   }
 
   /**
@@ -309,10 +290,8 @@ public class Payment extends FacebookType {
      */
     @Getter
     @Setter
-    private Date timeCreated;
-
     @Facebook("time_created")
-    private transient String rawTimeCreated;
+    private Date timeCreated;
 
     /**
      * Current status of the dispute.
@@ -330,10 +309,6 @@ public class Payment extends FacebookType {
     @Facebook
     private String reason;
 
-    @JsonMapper.JsonMappingCompleted
-    void convertTime() {
-      timeCreated = toDateFromLongFormat(rawTimeCreated);
-    }
   }
 
   /**
@@ -371,9 +346,9 @@ public class Payment extends FacebookType {
   }
 
   /**
-   * Contains the information related to a dispute, including the {@code user_comment} and {@code user_email} which is provided by the
-   * consumer when the dispute is initiated. Additionally contains the current status of the dispute, the time the
-   * dispute was created an an resolution reason, if available.
+   * Contains the information related to a dispute, including the {@code user_comment} and {@code user_email} which is
+   * provided by the consumer when the dispute is initiated. Additionally contains the current status of the dispute,
+   * the time the dispute was created an an resolution reason, if available.
    * 
    * @return list of disputes
    */

@@ -23,10 +23,10 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.

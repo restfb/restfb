@@ -21,8 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import java.util.Date;
 
 import com.restfb.Facebook;
@@ -132,6 +130,7 @@ public class Album extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -141,6 +140,7 @@ public class Album extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -199,18 +199,6 @@ public class Album extends NamedFacebookType {
   private Likes likes;
 
   private static final long serialVersionUID = 1L;
-
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 
   @JsonMappingCompleted
   protected void fillPicture(JsonMapper jsonMapper) {

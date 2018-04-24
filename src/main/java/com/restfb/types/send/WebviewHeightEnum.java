@@ -22,5 +22,5 @@
 package com.restfb.types.send;
 
 public enum WebviewHeightEnum {
-  compact, tall, full //NOSONAR
+  compact, tall, full // NOSONAR
 }

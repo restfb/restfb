@@ -21,12 +21,9 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -58,10 +55,8 @@ public class ProductFeed extends BaseAdsObject {
    */
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   /**
    * Default currency for products.
@@ -179,8 +174,4 @@ public class ProductFeed extends BaseAdsObject {
   @Facebook
   private ProductFeedSchedule schedule;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

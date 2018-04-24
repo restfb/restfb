@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static com.restfb.util.StringUtils.isBlank;
 
-import com.restfb.Facebook;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -21,11 +21,9 @@
  */
 package com.restfb.types.webhook;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.util.DateUtils;
-
 import java.util.Date;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 
@@ -43,10 +41,8 @@ public class PageLeadgen extends ChangeValue {
   @Facebook("leadgen_id")
   private String leadgenId;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   @Getter
+  @Facebook("created_time")
   private Date createdTime;
 
   @Getter
@@ -56,10 +52,5 @@ public class PageLeadgen extends ChangeValue {
   @Getter
   @Facebook("adgroup_id")
   private String adgroupId;
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertTime() {
-    createdTime = DateUtils.toDateFromLongFormat(rawCreatedTime);
-  }
 
 }

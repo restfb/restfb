@@ -21,13 +21,10 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.types.Page;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -39,11 +36,9 @@ public class Business extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
 
-  @Facebook("creation_time")
-  private transient String rawCreationTime;
-
   @Getter
   @Setter
+  @Facebook("creation_time")
   private Date creationTime;
 
   @Getter
@@ -61,11 +56,9 @@ public class Business extends NamedAdsObject {
   @Facebook("timezone_id")
   private Integer timezoneId;
 
-  @Facebook("update_time")
-  private transient String rawUpdateTime;
-
   @Getter
   @Setter
+  @Facebook("update_time")
   private Date updateTime;
 
   @Getter
@@ -77,11 +70,5 @@ public class Business extends NamedAdsObject {
   @Setter
   @Facebook("vertical_id")
   private Integer verticalId;
-
-  @JsonMappingCompleted
-  void convertTime() {
-    updateTime = toDateFromLongFormat(rawUpdateTime);
-    creationTime = toDateFromLongFormat(rawCreationTime);
-  }
 
 }

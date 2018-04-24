@@ -21,9 +21,9 @@
  */
 package com.restfb.types.webhook.messaging.airline;
 
-import com.restfb.Facebook;
-
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;

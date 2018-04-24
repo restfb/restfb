@@ -22,5 +22,5 @@
 package com.restfb.types.send.buybutton;
 
 public enum RequestedUserInfoEnum {
-  shipping_address, contact_name, contact_phone, contact_email //NOSONAR
+  shipping_address, contact_name, contact_phone, contact_email // NOSONAR
 }

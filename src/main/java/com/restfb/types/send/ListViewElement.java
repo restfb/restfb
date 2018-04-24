@@ -21,13 +21,13 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-import com.restfb.exception.FacebookPreconditionException;
-import com.restfb.types.AbstractFacebookType;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.exception.FacebookPreconditionException;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;

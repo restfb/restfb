@@ -23,10 +23,10 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -183,7 +183,7 @@ public class StoryAttachment extends FacebookType {
   public static class Target extends FacebookType {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     @Facebook

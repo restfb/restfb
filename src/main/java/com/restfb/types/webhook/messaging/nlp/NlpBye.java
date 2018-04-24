@@ -21,5 +21,4 @@
  */
 package com.restfb.types.webhook.messaging.nlp;
 
-public class NlpBye extends BaseNlpEntity {
-}
+public class NlpBye extends BaseNlpEntity {}

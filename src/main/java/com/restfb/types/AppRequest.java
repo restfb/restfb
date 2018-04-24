@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -100,9 +97,6 @@ public class AppRequest extends FacebookType {
   @Facebook
   private String message;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * Timestamp when the request was created.
    * 
@@ -110,6 +104,7 @@ public class AppRequest extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   private static final long serialVersionUID = 1L;
@@ -145,8 +140,4 @@ public class AppRequest extends FacebookType {
     private static final long serialVersionUID = 1L;
   }
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

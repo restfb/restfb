@@ -21,14 +21,11 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.*;
 
+import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -103,10 +100,8 @@ public class AdSet extends NamedAdsObject {
 
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   @Getter
   @Setter
@@ -125,10 +120,8 @@ public class AdSet extends NamedAdsObject {
 
   @Getter
   @Setter
-  private Date endTime;
-
   @Facebook("end_time")
-  private transient String rawEndTime;
+  private Date endTime;
 
   @Getter
   @Setter
@@ -143,7 +136,8 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("frequency_control_specs")
-  private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs = new ArrayList<AdCampaignFrequencyControlSpecs>();
+  private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs =
+      new ArrayList<AdCampaignFrequencyControlSpecs>();
 
   @Getter
   @Setter
@@ -195,11 +189,9 @@ public class AdSet extends NamedAdsObject {
   @Facebook("rtb_flag")
   private Boolean rtbFlag;
 
-  @Facebook("start_time")
-  private transient String rawStartTime;
-
   @Getter
   @Setter
+  @Facebook("start_time")
   private Date startTime;
 
   @Getter
@@ -214,10 +206,8 @@ public class AdSet extends NamedAdsObject {
 
   @Getter
   @Setter
-  private Date updatedTime;
-
   @Facebook("updated_time")
-  private transient String rawUpdatedTime;
+  private Date updatedTime;
 
   @Getter
   @Setter
@@ -236,11 +226,4 @@ public class AdSet extends NamedAdsObject {
     return Collections.unmodifiableList(adLabels);
   }
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    startTime = toDateFromLongFormat(rawStartTime);
-    endTime = toDateFromLongFormat(rawEndTime);
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

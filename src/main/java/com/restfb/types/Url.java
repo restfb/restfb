@@ -21,8 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import java.util.Date;
 
 import com.restfb.Facebook;
@@ -177,9 +175,6 @@ public class Url extends FacebookType {
     @Facebook
     private String url;
 
-    @Facebook("updated_time")
-    private transient String rawUpdatedTime;
-
     /**
      * When the object was last updated.
      * 
@@ -187,6 +182,7 @@ public class Url extends FacebookType {
      */
     @Getter
     @Setter
+    @Facebook("updated_time")
     private Date updatedTime;
 
     /**
@@ -199,9 +195,5 @@ public class Url extends FacebookType {
     @Facebook
     private String image;
 
-    @JsonMappingCompleted
-    void convertTime() {
-      updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    }
   }
 }

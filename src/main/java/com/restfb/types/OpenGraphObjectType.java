@@ -21,10 +21,10 @@
  */
 package com.restfb.types;
 
-import com.restfb.Facebook;
-
 import java.util.Collections;
 import java.util.Map;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;

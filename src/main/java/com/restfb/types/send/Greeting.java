@@ -21,10 +21,10 @@
  */
 package com.restfb.types.send;
 
+import java.util.Locale;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
-import java.util.Locale;
 
 import lombok.Getter;
 

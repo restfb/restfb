@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -39,17 +36,15 @@ import lombok.Setter;
 public class DeAuth extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Getter
   @Setter
   @Facebook
   private String algorithm;
 
-  @Facebook("issued_at")
-  private transient String rawIssuedAt;
-
   @Getter
   @Setter
+  @Facebook("issued_at")
   private Date issuedAt;
 
   @Getter
@@ -62,8 +57,4 @@ public class DeAuth extends AbstractFacebookType {
   @Facebook("user_id")
   private String userId;
 
-  @JsonMappingCompleted
-  void convertTime() {
-    issuedAt = toDateFromLongFormat(rawIssuedAt);
-  }
 }

@@ -22,8 +22,8 @@
 package com.restfb.types.webhook.instagram;
 
 import com.restfb.Facebook;
-
 import com.restfb.types.webhook.ChangeValue;
+
 import lombok.Getter;
 import lombok.Setter;
 

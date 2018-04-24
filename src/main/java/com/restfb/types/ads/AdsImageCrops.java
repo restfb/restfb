@@ -26,8 +26,8 @@ import com.restfb.JsonMapper;
 import com.restfb.json.Json;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonValue;
-
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -110,9 +107,6 @@ public class Notification extends FacebookType {
   @Facebook
   private NamedFacebookType object;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * When the notification was last updated. When the notification was created.
    *
@@ -120,10 +114,8 @@ public class Notification extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
-
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
 
   /**
    * When the notification was created.
@@ -132,11 +124,7 @@ public class Notification extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

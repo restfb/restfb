@@ -37,10 +37,10 @@ import lombok.Getter;
  *
  * Allowed urls are:
  * <ul>
- *  <li>https://business.facebook.com/<PAGE_NAME>/videos/<NUMERIC_ID></li>
- *  <li>https://www.facebook.com/<USERNAME>/videos/<NUMERIC_ID>/</li>
- *  <li>https://business.facebook.com/<PAGE_NAME>/photos/<NUMERIC_ID></li>
- *  <li>https://www.facebook.com/photo.php?fbid=<NUMERIC_ID></li>
+ * <li>https://business.facebook.com/<PAGE_NAME>/videos/<NUMERIC_ID></li>
+ * <li>https://www.facebook.com/<USERNAME>/videos/<NUMERIC_ID>/</li>
+ * <li>https://business.facebook.com/<PAGE_NAME>/photos/<NUMERIC_ID></li>
+ * <li>https://www.facebook.com/photo.php?fbid=<NUMERIC_ID></li>
  * </ul>
  */
 public class MediaTemplateUrlElement extends AbstractFacebookType implements MediaAttachment.MediaTemplateElement {

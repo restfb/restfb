@@ -21,15 +21,12 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.types.Post;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.Post;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -66,11 +63,9 @@ public class Lead extends BaseAdsObject {
   @Facebook("campaign_name")
   private String campaignName;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   @Getter
@@ -105,8 +100,4 @@ public class Lead extends BaseAdsObject {
   @Facebook
   private Post post;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

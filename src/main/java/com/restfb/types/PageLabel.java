@@ -21,15 +21,13 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -38,10 +36,8 @@ public class PageLabel extends NamedFacebookType {
 
   @Getter
   @Setter
-  private Date creationTime;
-
   @Facebook("creation_time")
-  private transient String rawCreationTime;
+  private Date creationTime;
 
   @Getter
   @Setter
@@ -55,11 +51,6 @@ public class PageLabel extends NamedFacebookType {
 
   @Facebook
   private List<User> users = new ArrayList<User>();
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    creationTime = toDateFromLongFormat(rawCreationTime);
-  }
 
   public List<User> getUsers() {
     return unmodifiableList(users);

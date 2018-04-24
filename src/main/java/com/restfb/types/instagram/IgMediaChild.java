@@ -24,9 +24,7 @@ package com.restfb.types.instagram;
 import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 import com.restfb.types.FacebookType;
-import com.restfb.util.DateUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -70,16 +68,9 @@ public class IgMediaChild extends FacebookType {
   @Facebook("thumbnail_url")
   private String thumbnailUrl;
 
-  @Facebook("timestamp")
-  private transient String rawTimestamp;
-
   @Getter
   @Setter
+  @Facebook
   private Date timestamp;
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertTimestamp() {
-    timestamp = DateUtils.toDateFromLongFormat(rawTimestamp);
-  }
 
 }

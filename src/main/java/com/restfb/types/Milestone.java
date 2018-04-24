@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -74,10 +71,8 @@ public class Milestone extends FacebookType {
    */
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   /**
    * The update time of the milestone.
@@ -86,10 +81,8 @@ public class Milestone extends FacebookType {
    */
   @Getter
   @Setter
-  private Date updatedTime;
-
   @Facebook("updated_time")
-  private transient String rawUpdatedTime;
+  private Date updatedTime;
 
   /**
    * The start time of the milestone.
@@ -98,10 +91,8 @@ public class Milestone extends FacebookType {
    */
   @Getter
   @Setter
-  private Date startTime;
-
   @Facebook("start_time")
-  private transient String rawStartTime;
+  private Date startTime;
 
   /**
    * The end time of the milestone. Page milestones have the same start and end time.
@@ -110,17 +101,7 @@ public class Milestone extends FacebookType {
    */
   @Getter
   @Setter
-  private Date endTime;
-
   @Facebook("end_time")
-  private transient String rawEndTime;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    startTime = toDateFromLongFormat(rawStartTime);
-    endTime = toDateFromLongFormat(rawEndTime);
-  }
+  private Date endTime;
 
 }

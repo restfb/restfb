@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -39,8 +36,8 @@ import lombok.Setter;
  * @since 1.6.3
  */
 public class PageConnection extends CategorizedFacebookType {
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * The time the connection was initially created.
@@ -49,12 +46,7 @@ public class PageConnection extends CategorizedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
-  private static final long serialVersionUID = 1L;
-
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

@@ -21,15 +21,12 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -254,10 +251,8 @@ public class Application extends CategorizedFacebookType {
    */
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   /**
    * User ID of the creator of this app
@@ -710,10 +705,8 @@ public class Application extends CategorizedFacebookType {
    */
   @Getter
   @Setter
-  private Date lastUsedTime;
-
   @Facebook("last_used_time")
-  private transient String rawLastUsedTime;
+  private Date lastUsedTime;
 
   /**
    * relevance score of an asset.
@@ -846,12 +839,6 @@ public class Application extends CategorizedFacebookType {
 
   private static final long serialVersionUID = 1L;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    lastUsedTime = toDateFromLongFormat(rawLastUsedTime);
-  }
-
   /**
    * Represents the
    * <a href="https://developers.facebook.com/docs/graph-api/reference/mobile-sdk-error-category/" >Application Mobile
@@ -916,10 +903,8 @@ public class Application extends CategorizedFacebookType {
      */
     @Getter
     @Setter
-    private Date lastIosInstall;
-
     @Facebook("last_ios_install")
-    private transient String rawLastIosInstall;
+    private Date lastIosInstall;
 
     /**
      * Timestamp of most recent install event reported by Android SDK.
@@ -928,10 +913,8 @@ public class Application extends CategorizedFacebookType {
      */
     @Getter
     @Setter
-    private Date lastAndroidInstall;
-
     @Facebook("last_android_install")
-    private transient String rawLastAndroidInstall;
+    private Date lastAndroidInstall;
 
     /**
      * Status of iOS app ad support for this application.
@@ -980,10 +963,8 @@ public class Application extends CategorizedFacebookType {
      */
     @Getter
     @Setter
-    private Date lastIosDeferredDeepLinkCall;
-
     @Facebook("last_ios_deferred_deep_link_call")
-    private transient String rawLastIosDeferredDeepLinkCall;
+    private Date lastIosDeferredDeepLinkCall;
 
     /**
      * Timestamp of most recent Android deferred deep link request.
@@ -992,10 +973,8 @@ public class Application extends CategorizedFacebookType {
      */
     @Getter
     @Setter
-    private Date lastAndroidDeferredDeepLinkCall;
-
     @Facebook("last_android_deferred_deep_link_call")
-    private transient String rawLastAndroidDeferredDeepLinkCall;
+    private Date lastAndroidDeferredDeepLinkCall;
 
     @Facebook("ios_install_invalidation_schemes")
     private List<String> iosInstallInvalidationSchemes = new ArrayList<String>();
@@ -1107,13 +1086,6 @@ public class Application extends CategorizedFacebookType {
       return iosInstallInvalidationSchemes.remove(iosInstallInvalidationScheme);
     }
 
-    @JsonMapper.JsonMappingCompleted
-    void convertTime() {
-      lastIosInstall = toDateFromLongFormat(rawLastIosInstall);
-      lastAndroidInstall = toDateFromLongFormat(rawLastAndroidInstall);
-      lastIosDeferredDeepLinkCall = toDateFromLongFormat(rawLastIosDeferredDeepLinkCall);
-      lastAndroidDeferredDeepLinkCall = toDateFromLongFormat(rawLastAndroidDeferredDeepLinkCall);
-    }
   }
 
   /**

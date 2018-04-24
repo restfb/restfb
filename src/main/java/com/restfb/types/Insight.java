@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-import com.restfb.json.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;

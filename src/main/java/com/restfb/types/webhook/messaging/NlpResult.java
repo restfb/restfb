@@ -21,14 +21,13 @@
  */
 package com.restfb.types.webhook.messaging;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.json.JsonObject;
-import com.restfb.logging.RestFBLogger;
 import com.restfb.types.webhook.messaging.nlp.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NlpResult {
 

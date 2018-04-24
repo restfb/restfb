@@ -24,9 +24,8 @@ package com.restfb.types;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.json.Json;
-import com.restfb.json.JsonObject;
-
 import com.restfb.json.JsonValue;
+
 import lombok.Getter;
 import lombok.Setter;
 

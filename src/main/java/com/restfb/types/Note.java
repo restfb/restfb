@@ -21,15 +21,13 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -82,12 +80,6 @@ public class Note extends FacebookType {
   @Facebook
   private String icon;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * The time the note was initially published.
    * 
@@ -95,6 +87,7 @@ public class Note extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -104,6 +97,7 @@ public class Note extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   @Facebook("comments")
@@ -137,9 +131,4 @@ public class Note extends FacebookType {
     return comments.remove(comment);
   }
 
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

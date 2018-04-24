@@ -26,5 +26,5 @@ package com.restfb.types.send;
  * thread state
  */
 public enum ThreadStateEnum {
-  new_thread, existing_thread //NOSONAR
+  new_thread, existing_thread // NOSONAR
 }

@@ -22,18 +22,19 @@
 package com.restfb.types.webhook.messaging.nlp;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class NlpReminder extends BaseNlpEntity {
 
-    @Getter
-    @Setter
-    @Facebook
-    private Boolean suggested;
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean suggested;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String type;
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
 }

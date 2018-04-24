@@ -21,11 +21,11 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -21,15 +21,13 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +40,7 @@ import lombok.Setter;
 public class Thread extends FacebookType {
 
   private static final long serialVersionUID = 1L;
-  
+
   @Facebook
   private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
 
@@ -69,9 +67,6 @@ public class Thread extends FacebookType {
   @Facebook
   private Integer unseen;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * The time of the last comment on this post.
    * 
@@ -79,6 +74,7 @@ public class Thread extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -115,8 +111,4 @@ public class Thread extends FacebookType {
     return to.remove(subscriber);
   }
 
-  @JsonMappingCompleted
-  void convertTime() {
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

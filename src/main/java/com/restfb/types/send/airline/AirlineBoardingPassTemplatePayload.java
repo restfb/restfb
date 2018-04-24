@@ -21,11 +21,11 @@
  */
 package com.restfb.types.send.airline;
 
-import com.restfb.Facebook;
-import com.restfb.types.send.TemplatePayload;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.send.TemplatePayload;
 
 import lombok.Getter;
 import lombok.Setter;

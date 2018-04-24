@@ -35,7 +35,6 @@ import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 import com.restfb.types.ads.Business;
 import com.restfb.types.instagram.IgUser;
-import com.restfb.util.DateUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -1167,9 +1166,6 @@ public class Page extends CategorizedFacebookType {
   @Facebook("press_contact")
   private String pressContact;
 
-  @Facebook("last_used_time")
-  private transient String rawLastUsedTime;
-
   /**
    * Instagram account connected to page via page settings
    */
@@ -1193,6 +1189,7 @@ public class Page extends CategorizedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("last_used_time")
   private Date lastUsedTime;
 
   @Facebook("category_list")
@@ -1208,11 +1205,6 @@ public class Page extends CategorizedFacebookType {
   private List<ScreenName> screenNames = new ArrayList<ScreenName>();
 
   private static final long serialVersionUID = 2L;
-
-  @JsonMappingCompleted
-  protected void fillDates(JsonMapper jsonMapper) {
-    lastUsedTime = DateUtils.toDateFromLongFormat(rawLastUsedTime);
-  }
 
   public static class ScreenName extends AbstractFacebookType {
 

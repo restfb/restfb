@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -137,9 +134,6 @@ public class Group extends NamedFacebookType {
   @Facebook
   private String privacy;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * The last time the group was updated.
    * 
@@ -147,6 +141,7 @@ public class Group extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -161,10 +156,5 @@ public class Group extends NamedFacebookType {
   private String icon;
 
   private static final long serialVersionUID = 1L;
-
-  @JsonMappingCompleted
-  void convertTime() {
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 
 }

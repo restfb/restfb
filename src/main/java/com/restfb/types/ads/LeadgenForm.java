@@ -21,26 +21,21 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.types.Page;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.Page;
 
 import lombok.Getter;
 import lombok.Setter;
 
 public class LeadgenForm extends NamedAdsObject {
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   @Getter
@@ -136,8 +131,4 @@ public class LeadgenForm extends NamedAdsObject {
   @Facebook("tcpa_compliance")
   private Boolean tcpaCompliance;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

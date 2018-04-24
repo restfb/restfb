@@ -21,13 +21,13 @@
  */
 package com.restfb.types.send;
 
-import com.restfb.Facebook;
-import com.restfb.exception.FacebookPreconditionException;
-import com.restfb.types.AbstractFacebookType;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.exception.FacebookPreconditionException;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -95,7 +95,7 @@ public class Message extends AbstractFacebookType {
   }
 
   public List<QuickReply> getQuickReplies() {
-    if(quickReplies == null) {
+    if (quickReplies == null) {
       return Collections.emptyList();
     }
     return Collections.unmodifiableList(quickReplies);
@@ -103,8 +103,8 @@ public class Message extends AbstractFacebookType {
 
   private void checkPrecondition(int addingRepliesSize) {
     if (quickReplies.size() + addingRepliesSize > QUICK_REPLY_ITEM_LIMIT) {
-      String message = "You cannot have more than " + QUICK_REPLY_ITEM_LIMIT + " replies in one message, current size/try adding: "
-          + quickReplies.size() + "/" + addingRepliesSize;
+      String message = "You cannot have more than " + QUICK_REPLY_ITEM_LIMIT
+          + " replies in one message, current size/try adding: " + quickReplies.size() + "/" + addingRepliesSize;
       throw new FacebookPreconditionException(message);
     }
   }

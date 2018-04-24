@@ -21,9 +21,9 @@
  */
 package com.restfb.types;
 
-import com.restfb.util.ReflectionUtils;
-
 import java.io.Serializable;
+
+import com.restfb.util.ReflectionUtils;
 
 public abstract class AbstractFacebookType implements Serializable {
 

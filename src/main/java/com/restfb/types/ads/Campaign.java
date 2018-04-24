@@ -21,14 +21,11 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -115,10 +112,8 @@ public class Campaign extends NamedAdsObject {
    */
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   /**
    * The effective status of this campaign.
@@ -181,10 +176,8 @@ public class Campaign extends NamedAdsObject {
    */
   @Getter
   @Setter
-  private Date startTime;
-
   @Facebook("start_time")
-  private transient String rawStartTime;
+  private Date startTime;
 
   /**
    * If this status is PAUSED, all its active ad sets and ads will be paused and have an effective status
@@ -208,10 +201,8 @@ public class Campaign extends NamedAdsObject {
    */
   @Getter
   @Setter
-  private Date stopTime;
-
   @Facebook("stop_time")
-  private transient String rawStopTime;
+  private Date stopTime;
 
   /**
    * Updated Time
@@ -222,16 +213,7 @@ public class Campaign extends NamedAdsObject {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    startTime = toDateFromLongFormat(rawStartTime);
-    stopTime = toDateFromLongFormat(rawStopTime);
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

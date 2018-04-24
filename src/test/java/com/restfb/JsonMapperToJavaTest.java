@@ -338,6 +338,13 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void dateType() {
+    JsonMapper jsonMapper = createJsonMapper();
+    Post postObj = jsonMapper.toJavaObject("{\"created_time\": \"2014-08-26T20:55:07+0000\"}", Post.class);
+    assertThat(postObj.getCreatedTime()).hasTime(1409086507000L);
+  }
+
+  @Test
   public void jsonMappingCompleted() {
     JsonMapper jsonMapper = createJsonMapper();
 

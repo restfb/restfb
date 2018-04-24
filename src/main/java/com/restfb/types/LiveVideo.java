@@ -21,33 +21,27 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/live-video/">Live Video API type</a>.
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/live-video/">Live Video API
+ * type</a>.
  */
 public class LiveVideo extends FacebookType {
 
-  @Facebook("broadcast_start_time")
-  private transient String rawBroadcastStartTime;
-
   @Getter
   @Setter
+  @Facebook("broadcast_start_time")
   private Date broadcastStartTime;
 
-  @Facebook("creation_time")
-  private transient String rawCreationTime;
-
   @Getter
   @Setter
+  @Facebook("creation_time")
   private Date creationTime;
 
   @Facebook
@@ -80,11 +74,9 @@ public class LiveVideo extends FacebookType {
   @Facebook("permalink_url")
   private String permalinkUrl;
 
-  @Facebook("planned_start_time")
-  private transient String rawPlannedStartTime;
-
   @Getter
   @Setter
+  @Facebook("planned_start_time")
   private Date plannedStartTime;
 
   @Getter
@@ -122,10 +114,4 @@ public class LiveVideo extends FacebookType {
   @Facebook
   private Video video;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    broadcastStartTime = toDateFromLongFormat(rawBroadcastStartTime);
-    creationTime = toDateFromLongFormat(rawCreationTime);
-    plannedStartTime = toDateFromLongFormat(rawPlannedStartTime);
-  }
 }

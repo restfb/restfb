@@ -21,7 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
-import com.restfb.util.DateUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -290,9 +288,6 @@ public class Post extends NamedFacebookType {
   @Facebook
   private Likes likes;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * The time the post was initially published.
    *
@@ -300,10 +295,8 @@ public class Post extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
-
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
 
   /**
    * The time of the last comment on this post.
@@ -312,6 +305,7 @@ public class Post extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -405,16 +399,9 @@ public class Post extends NamedFacebookType {
    *
    * @return UNIX timestamp of the scheduled publish time for the post
    */
-  @Facebook("scheduled_publish_time")
-  private transient String rawScheduledPublishTime;
-
-  /**
-   * UNIX timestamp of the scheduled publish time for the post.
-   *
-   * @return UNIX timestamp of the scheduled publish time for the post
-   */
   @Getter
   @Setter
+  @Facebook("scheduled_publish_time")
   private Date scheduledPublishTime;
 
   /**
@@ -906,10 +893,8 @@ public class Post extends NamedFacebookType {
 
     @Getter
     @Setter
-    private Date relevantUntilTs;
-
     @Facebook("relevant_until_ts")
-    private transient String rawRelevantUntilTs;
+    private Date relevantUntilTs;
 
     @Facebook("college_majors")
     private List<String> collegeMajors = new ArrayList<String>();
@@ -1134,10 +1119,6 @@ public class Post extends NamedFacebookType {
       return workNetworks.remove(workNetwork);
     }
 
-    @JsonMappingCompleted
-    private void createTimeStamp() {
-      relevantUntilTs = DateUtils.toDateFromLongFormat(rawRelevantUntilTs);
-    }
   }
 
   /**
@@ -1248,13 +1229,6 @@ public class Post extends NamedFacebookType {
       return comments.getTotalCount();
     }
     return 0L;
-  }
-
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    scheduledPublishTime = toDateFromLongFormat(rawScheduledPublishTime);
   }
 
   /**

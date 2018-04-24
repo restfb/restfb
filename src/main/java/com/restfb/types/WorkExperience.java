@@ -23,13 +23,13 @@ package com.restfb.types;
 
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +37,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/work-experience/">Work
  * Experience</a> type
+ * 
  * @deprecated since breaking change on 4 April, 2018
  */
 @Deprecated

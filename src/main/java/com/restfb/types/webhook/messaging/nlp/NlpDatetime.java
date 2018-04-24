@@ -22,19 +22,20 @@
 package com.restfb.types.webhook.messaging.nlp;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class NlpDatetime extends BaseNlpEntity {
 
-    @Getter
-    @Setter
-    @Facebook
-    private String grain;
+  @Getter
+  @Setter
+  @Facebook
+  private String grain;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String type;
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
 
 }

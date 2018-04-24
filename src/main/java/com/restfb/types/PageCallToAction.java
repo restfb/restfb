@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -47,9 +44,6 @@ public class PageCallToAction extends FacebookType {
   @Facebook("android_app")
   private Application androidApp;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * Time when the call-to-action was created.
    *
@@ -57,6 +51,7 @@ public class PageCallToAction extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -119,9 +114,6 @@ public class PageCallToAction extends FacebookType {
   @Facebook
   private String status;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * Time when the call-to-action was last updated.
    *
@@ -129,6 +121,7 @@ public class PageCallToAction extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -245,9 +238,4 @@ public class PageCallToAction extends FacebookType {
   @Facebook("iphoneUrl")
   private String iphone_url;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

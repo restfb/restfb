@@ -21,12 +21,9 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,9 +34,6 @@ import lombok.Setter;
  */
 public class ProductFeedUpload extends BaseAdsObject {
 
-  @Facebook("end_time")
-  private transient String rawEndTime;
-
   /**
    * The time the upload was completed
    *
@@ -49,6 +43,7 @@ public class ProductFeedUpload extends BaseAdsObject {
    */
   @Getter
   @Setter
+  @Facebook("end_time")
   private Date endTime;
 
   /**
@@ -74,10 +69,8 @@ public class ProductFeedUpload extends BaseAdsObject {
    */
   @Getter
   @Setter
-  private Date startTime;
-
   @Facebook("start_time")
-  private transient String rawStartTime;
+  private Date startTime;
 
   /**
    * The url to fetch the products from
@@ -90,11 +83,5 @@ public class ProductFeedUpload extends BaseAdsObject {
   @Setter
   @Facebook("url")
   private String url;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    startTime = toDateFromLongFormat(rawStartTime);
-    endTime = toDateFromLongFormat(rawEndTime);
-  }
 
 }

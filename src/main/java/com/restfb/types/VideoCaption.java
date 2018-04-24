@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -64,13 +61,7 @@ public class VideoCaption extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("create_time")
   private Date createTime;
 
-  @Facebook("create_time")
-  private transient String rawCreateTime;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createTime = toDateFromLongFormat(rawCreateTime);
-  }
 }

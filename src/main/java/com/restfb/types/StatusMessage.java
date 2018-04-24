@@ -21,15 +21,13 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -85,9 +83,6 @@ public class StatusMessage extends NamedFacebookType {
   @Facebook
   private String type;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * The time the message was published.
    * 
@@ -95,6 +90,7 @@ public class StatusMessage extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   @Facebook
@@ -143,11 +139,6 @@ public class StatusMessage extends NamedFacebookType {
     private Long count;
 
     private static final long serialVersionUID = 1L;
-  }
-
-  @JsonMappingCompleted
-  void convertTime() {
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   /**

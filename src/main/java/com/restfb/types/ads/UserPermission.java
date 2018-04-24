@@ -21,12 +21,9 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
@@ -77,18 +74,14 @@ public class UserPermission extends AbstractFacebookType {
   @Facebook
   private NamedAdsObject user;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   public JsonObject getPagePermissions() {
@@ -123,9 +116,4 @@ public class UserPermission extends AbstractFacebookType {
     }
   }
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

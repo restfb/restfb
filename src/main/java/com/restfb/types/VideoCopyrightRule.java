@@ -21,13 +21,10 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,14 +43,12 @@ public class VideoCopyrightRule extends NamedFacebookType {
   @Facebook
   private List<String> copyrights;
 
-  @Facebook("created_date")
-  private transient String rawCreatedDate;
-
   /**
    * The date on which the rule was created
    */
   @Getter
   @Setter
+  @Facebook("created_date")
   private Date createdDate;
 
   /**
@@ -64,8 +59,4 @@ public class VideoCopyrightRule extends NamedFacebookType {
   @Facebook
   private User creator;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdDate = toDateFromLongFormat(rawCreatedDate);
-  }
 }

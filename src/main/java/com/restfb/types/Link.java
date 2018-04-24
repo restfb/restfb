@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -100,9 +97,6 @@ public class Link extends NamedFacebookType {
   @Facebook
   private String icon;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * The time at which this object was created, if available.
    * 
@@ -111,12 +105,9 @@ public class Link extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   private static final long serialVersionUID = 1L;
 
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 }

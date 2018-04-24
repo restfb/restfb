@@ -21,7 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
@@ -163,15 +162,8 @@ public class Likes extends AbstractFacebookType {
      */
     @Getter
     @Setter
-    private Date createdTime;
-
     @Facebook("created_time")
-    private transient String rawCreatedTime;
-
-    @JsonMappingCompleted
-    void convertTime() {
-      createdTime = toDateFromLongFormat(rawCreatedTime);
-    }
+    private Date createdTime;
 
   }
 }

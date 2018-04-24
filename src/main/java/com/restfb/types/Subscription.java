@@ -21,12 +21,12 @@
  */
 package com.restfb.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.Version;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;

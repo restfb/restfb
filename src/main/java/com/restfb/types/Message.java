@@ -21,17 +21,16 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,9 +45,6 @@ import lombok.Setter;
  */
 public class Message extends FacebookType {
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * The time the message was initially created.
    *
@@ -56,6 +52,7 @@ public class Message extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -107,9 +104,6 @@ public class Message extends FacebookType {
   @Facebook
   private List<Share> shares = new ArrayList<Share>();
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * The time of the last update to this message.
    *
@@ -117,6 +111,7 @@ public class Message extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -400,12 +395,6 @@ public class Message extends FacebookType {
     @Facebook("preview_url")
     private String previewUrl;
 
-  }
-
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   @JsonMappingCompleted

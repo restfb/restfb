@@ -21,15 +21,12 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -121,31 +118,21 @@ public class AdImage extends NamedAdsObject {
   @Facebook
   private String status;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * Time the image was created
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
-
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
 
   /**
    * Time the image was updated
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 
   private final List<AdCreative> creatives = new ArrayList<AdCreative>();
 

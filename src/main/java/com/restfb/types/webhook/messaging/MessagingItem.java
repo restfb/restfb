@@ -242,7 +242,9 @@ public class MessagingItem {
     return getItem() instanceof TakeThreadControlItem;
   }
 
-  public boolean isRequestThreadControl() { return getItem() instanceof RequestThreadControlItem; }
+  public boolean isRequestThreadControl() {
+    return getItem() instanceof RequestThreadControlItem;
+  }
 
   public boolean isAppRoles() {
     return getItem() instanceof AppRoles;

@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +38,7 @@ import lombok.Setter;
 public class VideoList extends FacebookType {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * Description of the playlist
    */
@@ -66,29 +63,20 @@ public class VideoList extends FacebookType {
   @Facebook
   private CategorizedFacebookType owner;
 
-  @Facebook("creation_time")
-  private transient String rawCreationTime;
-
   /**
    * The time when the playlist was created
    */
   @Getter
   @Setter
+  @Facebook("creation_time")
   private Date creationTime;
-
-  @Facebook("last_modified")
-  private transient String rawLastModified;
 
   /**
    * The time when the contents of the playlist was last changed
    */
   @Getter
   @Setter
+  @Facebook("last_modified")
   private Date lastModified;
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    lastModified = toDateFromLongFormat(rawLastModified);
-    creationTime = toDateFromLongFormat(rawCreationTime);
-  }
 }

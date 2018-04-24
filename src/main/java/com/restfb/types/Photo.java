@@ -21,18 +21,17 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -182,12 +181,6 @@ public class Photo extends NamedFacebookType {
   @Facebook
   private Integer position;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * If this object has a place, the event associated with the place
    *
@@ -207,6 +200,7 @@ public class Photo extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -216,6 +210,7 @@ public class Photo extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -256,9 +251,6 @@ public class Photo extends NamedFacebookType {
   @Facebook
   private Place place;
 
-  @Facebook("backdated_time")
-  private transient String rawBackdatedTime;
-
   /**
    * Back dated time
    * 
@@ -267,6 +259,7 @@ public class Photo extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("backdated_time")
   private Date backdatedTime;
 
   /**
@@ -310,9 +303,6 @@ public class Photo extends NamedFacebookType {
     @Facebook
     private Double y;
 
-    @Facebook("created_time")
-    private transient String rawCreatedTime;
-
     /**
      * Date this tag was created.
      * 
@@ -320,14 +310,11 @@ public class Photo extends NamedFacebookType {
      */
     @Getter
     @Setter
+    @Facebook("created_time")
     private Date createdTime;
 
     private static final long serialVersionUID = 1L;
 
-    @JsonMappingCompleted
-    void convertTime() {
-      createdTime = toDateFromLongFormat(rawCreatedTime);
-    }
   }
 
   /**
@@ -418,13 +405,6 @@ public class Photo extends NamedFacebookType {
 
   public boolean removeImage(Image image) {
     return images.remove(image);
-  }
-
-  @JsonMappingCompleted
-  void convertTime() {
-    backdatedTime = toDateFromLongFormat(rawBackdatedTime);
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
   }
 
   /**

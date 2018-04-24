@@ -28,7 +28,7 @@ package com.restfb.types;
  * @since 1.6.15
  */
 public class Category extends NamedFacebookType {
-  
+
   private static final long serialVersionUID = 1L;
-  
+
 }

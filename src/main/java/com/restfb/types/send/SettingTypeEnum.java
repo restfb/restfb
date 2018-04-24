@@ -26,5 +26,5 @@ package com.restfb.types.send;
  * setting type
  */
 public enum SettingTypeEnum {
-  greeting, call_to_actions, account_linking, domain_whitelisting, payment //NOSONAR
+  greeting, call_to_actions, account_linking, domain_whitelisting, payment // NOSONAR
 }

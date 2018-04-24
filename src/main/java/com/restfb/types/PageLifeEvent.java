@@ -21,12 +21,9 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,9 +39,6 @@ public class PageLifeEvent extends FacebookType {
 
   private static final long serialVersionUID = 1L;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * The time when this milestone was published
    * 
@@ -52,6 +46,7 @@ public class PageLifeEvent extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   /**
@@ -64,9 +59,6 @@ public class PageLifeEvent extends FacebookType {
   @Facebook
   private String description;
 
-  @Facebook("end_time")
-  private transient String rawEndTime;
-
   /**
    * The time when this milestone came to an end.
    * 
@@ -74,6 +66,7 @@ public class PageLifeEvent extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("end_time")
   private Date endTime;
 
   /**
@@ -96,9 +89,6 @@ public class PageLifeEvent extends FacebookType {
   @Facebook("is_hidden")
   private Boolean isHidden;
 
-  @Facebook("start_time")
-  private transient String rawStartTime;
-
   /**
    * The time when this milestone was started.
    * 
@@ -106,6 +96,7 @@ public class PageLifeEvent extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("start_time")
   private Date startTime;
 
   /**
@@ -118,9 +109,6 @@ public class PageLifeEvent extends FacebookType {
   @Facebook
   private String title;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * The time when this milestone was updated.
    * 
@@ -128,14 +116,7 @@ public class PageLifeEvent extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
-
-  @JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    endTime = toDateFromLongFormat(rawEndTime);
-    startTime = toDateFromLongFormat(rawStartTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 
 }

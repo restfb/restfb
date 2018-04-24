@@ -21,13 +21,10 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 import com.restfb.types.User;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -39,11 +36,9 @@ public class AdStudy extends NamedAdsObject {
   @Facebook
   private Business business;
 
-  @Facebook("canceled_time")
-  private transient String rawCanceledTime;
-
   @Getter
   @Setter
+  @Facebook("canceled_time")
   private Date canceledTime;
 
   @Getter
@@ -51,11 +46,9 @@ public class AdStudy extends NamedAdsObject {
   @Facebook("created_by")
   private User createdBy;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   @Getter
@@ -63,18 +56,14 @@ public class AdStudy extends NamedAdsObject {
   @Facebook
   private String description;
 
-  @Facebook("end_time")
-  private transient String rawEndTime;
-
   @Getter
   @Setter
+  @Facebook("end_time")
   private Date endTime;
 
-  @Facebook("cooldown_start_time")
-  private transient String rawCooldownStartTime;
-
   @Getter
   @Setter
+  @Facebook("cooldown_start_time")
   private Date cooldownStartTime;
 
   @Getter
@@ -82,18 +71,14 @@ public class AdStudy extends NamedAdsObject {
   @Facebook
   private String type;
 
-  @Facebook("observation_end_time")
-  private transient String rawObservationEndTime;
-
   @Getter
   @Setter
+  @Facebook("observation_end_time")
   private Date observationEndTime;
 
-  @Facebook("start_time")
-  private transient String rawStartTime;
-
   @Getter
   @Setter
+  @Facebook("start_time")
   private Date startTime;
 
   @Getter
@@ -101,21 +86,9 @@ public class AdStudy extends NamedAdsObject {
   @Facebook("updated_by")
   private User updatedBy;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    startTime = toDateFromLongFormat(rawStartTime);
-    endTime = toDateFromLongFormat(rawEndTime);
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    observationEndTime = toDateFromLongFormat(rawObservationEndTime);
-    cooldownStartTime = toDateFromLongFormat(rawCooldownStartTime);
-  }
 
 }

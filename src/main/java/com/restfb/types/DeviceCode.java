@@ -29,7 +29,7 @@ import lombok.Setter;
 public class DeviceCode extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * Code used in the authorization poll
    */

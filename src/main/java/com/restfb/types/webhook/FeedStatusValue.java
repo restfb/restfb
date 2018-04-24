@@ -21,14 +21,14 @@
  */
 package com.restfb.types.webhook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.webhook.base.AbstractFeedPostValue;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Change value for feed status

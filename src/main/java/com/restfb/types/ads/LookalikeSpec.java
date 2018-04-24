@@ -21,12 +21,12 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;

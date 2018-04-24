@@ -27,9 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 import com.restfb.types.FacebookType;
-import com.restfb.util.DateUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -73,14 +71,12 @@ public class IgComment extends FacebookType {
   @Facebook
   private String text;
 
-  @Facebook("timestamp")
-  private transient String rawTimestamp;
-
   /**
    * Timestamp of comment
    */
   @Getter
   @Setter
+  @Facebook
   private Date timestamp;
 
   /**
@@ -90,11 +86,6 @@ public class IgComment extends FacebookType {
   @Setter
   @Facebook
   private IgUser user;
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertTimestamp() {
-    timestamp = DateUtils.toDateFromLongFormat(rawTimestamp);
-  }
 
   @Facebook
   private List<IgComment> replies = new ArrayList<IgComment>();

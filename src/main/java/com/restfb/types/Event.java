@@ -25,17 +25,17 @@ import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.restfb.json.JsonValue;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -224,9 +224,6 @@ public class Event extends NamedFacebookType {
   @Facebook
   private String privacy;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * The last time the event was updated.
    * 
@@ -234,6 +231,7 @@ public class Event extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -453,8 +451,6 @@ public class Event extends NamedFacebookType {
 
   @JsonMappingCompleted
   void convertTime() {
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-
     // Sometimes the date comes back in short form - if long form parsing
     // failed, try short instead
     Date dateEnd = toDateFromLongFormat(rawEndTime);

@@ -21,8 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
 import java.util.Date;
 
 import com.restfb.Facebook;
@@ -46,9 +44,6 @@ public class PageRating extends FacebookType {
 
   private static final long serialVersionUID = 1L;
 
-  @Facebook("start_time")
-  private transient String rawStartTime;
-
   /**
    * Time the rating took place
    * 
@@ -56,10 +51,8 @@ public class PageRating extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("start_time")
   private Date startTime;
-
-  @Facebook("publish_time")
-  private transient String rawPublishTime;
 
   /**
    * Time the rating took place
@@ -68,6 +61,7 @@ public class PageRating extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("publish_time")
   private Date publishTime;
 
   /**
@@ -131,12 +125,6 @@ public class PageRating extends FacebookType {
   @Getter
   @Setter
   private Place place;
-
-  @JsonMappingCompleted
-  void convertTime() {
-    publishTime = toDateFromLongFormat(rawPublishTime);
-    startTime = toDateFromLongFormat(rawStartTime);
-  }
 
   @JsonMappingCompleted
   void fillAdditionalValues(JsonMapper mapper) {

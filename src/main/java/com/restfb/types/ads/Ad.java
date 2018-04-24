@@ -21,12 +21,9 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.*;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -91,10 +88,8 @@ public class Ad extends NamedAdsObject {
 
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private transient String rawCreatedTime;
+  private Date createdTime;
 
   @Getter
   @Setter
@@ -124,10 +119,8 @@ public class Ad extends NamedAdsObject {
 
   @Getter
   @Setter
-  private Date updatedTime;
-
   @Facebook("updated_time")
-  private transient String rawUpdatedTime;
+  private Date updatedTime;
 
   @Facebook
   private List<TargetingSentenceLine> targetingsentencelines = new ArrayList<TargetingSentenceLine>();
@@ -192,9 +185,4 @@ public class Ad extends NamedAdsObject {
     return Collections.unmodifiableList(targetingsentencelines);
   }
 
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-  }
 }

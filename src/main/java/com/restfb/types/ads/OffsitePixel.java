@@ -21,12 +21,9 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
+import java.util.Date;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -58,10 +55,8 @@ public class OffsitePixel extends BaseAdsObject {
    */
   @Getter
   @Setter
-  private Date lastFiringTime;
-
   @Facebook("last_firing_time")
-  private transient String rawLastFiringTime;
+  private Date lastFiringTime;
 
   /**
    * One of: {@code checkout}, {@code registration}, {@code lead}, {@code key_page_view}, {@code add_to_cart},
@@ -71,10 +66,5 @@ public class OffsitePixel extends BaseAdsObject {
   @Setter
   @Facebook
   private String tag;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    lastFiringTime = toDateFromLongFormat(rawLastFiringTime);
-  }
 
 }

@@ -21,7 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static com.restfb.util.DateUtils.toDateFromShortFormat;
 import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
@@ -35,9 +34,8 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
-import com.restfb.json.JsonObject;
-
 import com.restfb.json.JsonValue;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -418,10 +416,8 @@ public class User extends NamedFacebookType {
    */
   @Getter
   @Setter
-  private Date sharedLoginUpgradeRequiredBy;
-
   @Facebook("shared_login_upgrade_required_by")
-  private transient String rawSharedLoginUpgradeRequiredBy;
+  private Date sharedLoginUpgradeRequiredBy;
 
   /**
    * The user's significant other.
@@ -443,9 +439,6 @@ public class User extends NamedFacebookType {
   @Facebook("test_group")
   private Long testGroup;
 
-  @Facebook("updated_time")
-  private transient String rawUpdatedTime;
-
   /**
    * Date the user's profile was updated.
    * 
@@ -453,6 +446,7 @@ public class User extends NamedFacebookType {
    */
   @Getter
   @Setter
+  @Facebook("updated_time")
   private Date updatedTime;
 
   /**
@@ -902,12 +896,6 @@ public class User extends NamedFacebookType {
     }
 
     return toDateFromShortFormat(birthday);
-  }
-
-  @JsonMappingCompleted
-  void convertTime() {
-    updatedTime = toDateFromLongFormat(rawUpdatedTime);
-    sharedLoginUpgradeRequiredBy = toDateFromLongFormat(rawSharedLoginUpgradeRequiredBy);
   }
 
   @JsonMappingCompleted

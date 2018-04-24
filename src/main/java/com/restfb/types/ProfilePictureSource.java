@@ -35,7 +35,7 @@ import lombok.Setter;
 public class ProfilePictureSource extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * URL of the profile picture
    * 

@@ -21,7 +21,6 @@
  */
 package com.restfb.types;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -82,9 +80,6 @@ public class Checkin extends FacebookType {
   @Facebook
   private Place place;
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   /**
    * The time the check-in was created.
    * 
@@ -92,6 +87,7 @@ public class Checkin extends FacebookType {
    */
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   @Facebook
@@ -101,11 +97,6 @@ public class Checkin extends FacebookType {
   private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
 
   private static final long serialVersionUID = 2L;
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    createdTime = toDateFromLongFormat(rawCreatedTime);
-  }
 
   /**
    * The comments for the check-in.

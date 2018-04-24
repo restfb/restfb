@@ -21,13 +21,11 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.util.DateUtils;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -68,20 +66,16 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
    */
   @Getter
   @Setter
-  private Date campaignTimeStart;
-
   @Facebook("campaign_time_start")
-  private transient String rawCampaignTimeStart;
+  private Date campaignTimeStart;
 
   /**
    * Unix timestamp of the ad set stop time
    */
   @Getter
   @Setter
-  private Date campaignTimeStop;
-
   @Facebook("campaign_time_stop")
-  private transient String rawCampaignTimeStop;
+  private Date campaignTimeStop;
 
   /**
    * The curve for budget and reach.
@@ -124,10 +118,8 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
    */
   @Getter
   @Setter
-  private Date expirationTime;
-
   @Facebook("expiration_time")
-  private transient String rawexpirationTime;
+  private Date expirationTime;
 
   /**
    * Predicted budget in cents for the ad set, relevant if prediction mode is 0
@@ -343,27 +335,15 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
    */
   @Getter
   @Setter
-  private Date timeCreated;
-
   @Facebook("time_created")
-  private transient String rawTimeCreated;
+  private Date timeCreated;
 
   /**
    * Unix timestamp when the row is updated
    */
   @Getter
   @Setter
+  @Facebook("time_updated")
   private Date timeUpdated;
 
-  @Facebook("time_updated")
-  private transient String rawTimeUpdated;
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertTime() {
-    campaignTimeStart = DateUtils.toDateFromLongFormat(rawCampaignTimeStart);
-    campaignTimeStop = DateUtils.toDateFromLongFormat(rawCampaignTimeStop);
-    expirationTime = DateUtils.toDateFromLongFormat(rawexpirationTime);
-    timeUpdated = DateUtils.toDateFromLongFormat(rawTimeUpdated);
-    timeCreated = DateUtils.toDateFromLongFormat(rawTimeCreated);
-  }
 }

@@ -21,13 +21,13 @@
  */
 package com.restfb.types.webhook;
 
-import com.restfb.Facebook;
-import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.types.webhook.messaging.MessagingItem;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.types.webhook.messaging.MessagingItem;
 
 import lombok.Getter;
 import lombok.Setter;

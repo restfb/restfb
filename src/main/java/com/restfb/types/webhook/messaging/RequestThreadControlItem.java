@@ -22,18 +22,19 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class RequestThreadControlItem implements InnerMessagingItem {
 
-    @Getter
-    @Setter
-    @Facebook("requested_owner_app_id")
-    private String requestedOwnerAppId;
+  @Getter
+  @Setter
+  @Facebook("requested_owner_app_id")
+  private String requestedOwnerAppId;
 
-    @Getter
-    @Setter
-    @Facebook
-    private String metadata;
+  @Getter
+  @Setter
+  @Facebook
+  private String metadata;
 }

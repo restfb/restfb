@@ -21,17 +21,14 @@
  */
 package com.restfb.types.ads;
 
-import static com.restfb.util.DateUtils.toDateFromLongFormat;
-
-import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.json.Json;
-import com.restfb.json.JsonObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.json.Json;
+import com.restfb.json.JsonObject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -105,11 +102,9 @@ public class AdAccount extends NamedAdsObject {
   @Facebook
   private List<String> capabilities = new ArrayList<String>();
 
-  @Facebook("created_time")
-  private transient String rawCreatedTime;
-
   @Getter
   @Setter
+  @Facebook("created_time")
   private Date createdTime;
 
   @Getter
@@ -276,11 +271,9 @@ public class AdAccount extends NamedAdsObject {
   @Facebook("owner_business")
   private Business ownerBusiness;
 
-  @Facebook("last_used_time")
-  private transient String rawLastUsedTime;
-
   @Getter
   @Setter
+  @Facebook("last_used_time")
   private Date lastUsedTime;
 
   public JsonObject getTosAccepted() {
@@ -295,12 +288,6 @@ public class AdAccount extends NamedAdsObject {
     if (tosAccepted != null) {
       this.tosAccepted = tosAccepted.toString();
     }
-  }
-
-  @JsonMapper.JsonMappingCompleted
-  void convertTime() {
-    lastUsedTime = toDateFromLongFormat(rawLastUsedTime);
-    createdTime = toDateFromLongFormat(rawCreatedTime);
   }
 
   public boolean addAdAccountGroup(AdAccountGroup adAccountGroup) {
