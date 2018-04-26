@@ -33,8 +33,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.json.Json;
-import com.restfb.json.JsonValue;
+import com.restfb.util.MappingUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -900,19 +899,8 @@ public class User extends NamedFacebookType {
 
   @JsonMappingCompleted
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
-    picture = null;
-
-    if (rawPicture == null) {
-      return;
-    }
-
-    JsonValue jsonValue = Json.parse(rawPicture);
-    if (!jsonValue.isObject()) {
-      return;
-    }
-
-    String picJson = jsonValue.asObject().get("data").toString();
-    picture = jsonMapper.toJavaObject(picJson, ProfilePictureSource.class);
+    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
+    picture = mappingUtils.convertPicture(rawPicture);
   }
 
   /**

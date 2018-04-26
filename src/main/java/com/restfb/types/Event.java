@@ -36,6 +36,7 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 
+import com.restfb.util.MappingUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -461,22 +462,9 @@ public class Event extends NamedFacebookType {
   }
 
   @JsonMappingCompleted
-  protected void jsonMappingCompleted(JsonMapper jsonMapper) {
-    picture = null;
-
-    if (rawPicture == null) {
-      return;
-    }
-
-    JsonValue jsonValue = Json.parse(rawPicture);
-    if (!jsonValue.isObject()) {
-      return;
-    }
-
-    JsonObject picData = jsonValue.asObject().get("data").asObject();
-    if (picData != null) {
-      picture = jsonMapper.toJavaObject(picData.toString(), ProfilePictureSource.class);
-    }
+  protected void convertPicture(JsonMapper jsonMapper) {
+    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
+    picture = mappingUtils.convertPicture(rawPicture);
   }
 
 }

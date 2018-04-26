@@ -19,48 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types;
+package com.restfb.util;
 
-import com.restfb.Facebook;
 import com.restfb.JsonMapper;
-import com.restfb.util.MappingUtils;
-
-import lombok.Getter;
-import lombok.Setter;
+import com.restfb.json.Json;
+import com.restfb.json.JsonValue;
+import com.restfb.json.ParseException;
+import com.restfb.types.ProfilePictureSource;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user-invitable-friend/">User
- * Invitable Friend</a> Graph API type.
+ * Utility class for often used mapping methods
  */
-public class UserInvitableFriend extends NamedFacebookType {
+public class MappingUtils {
 
-  private static final long serialVersionUID = 1L;
+  private JsonMapper mapper;
 
-  @Getter
-  @Setter
-  @Facebook("first_name")
-  private String firstName;
+  public MappingUtils(JsonMapper mapper) {
+    this.mapper = mapper;
+  }
 
-  @Getter
-  @Setter
-  @Facebook("last_name")
-  private String lastName;
+  public ProfilePictureSource convertPicture(String rawPicture) {
+    if (rawPicture == null) {
+      return null;
+    }
 
-  @Getter
-  @Setter
-  @Facebook("middle_name")
-  private String middleName;
+    try {
+      JsonValue jsonValue = Json.parse(rawPicture);
 
-  @Facebook("picture")
-  private transient String rawPicture;
+      if (!jsonValue.isObject()) {
+        return null;
+      }
 
-  @Getter
-  @Setter
-  private ProfilePictureSource picture;
+      String picJson = jsonValue.asObject().get("data").toString();
+      return this.mapper.toJavaObject(picJson, ProfilePictureSource.class);
+    } catch (ParseException pe) {
+      return null;
+    }
 
-  @JsonMapper.JsonMappingCompleted
-  protected void convertPicture(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
   }
 }
