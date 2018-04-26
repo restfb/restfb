@@ -32,11 +32,8 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.json.Json;
-import com.restfb.json.JsonObject;
-import com.restfb.json.JsonValue;
-
 import com.restfb.util.MappingUtils;
+
 import lombok.Getter;
 import lombok.Setter;
 
