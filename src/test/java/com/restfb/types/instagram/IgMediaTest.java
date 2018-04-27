@@ -45,6 +45,7 @@ public class IgMediaTest extends AbstractJsonMapperTests {
     assertEquals(1519293629000l, igMedia.getTimestamp().getTime());
     assertEquals(1l, igMedia.getCommentsCount().longValue());
     assertEquals(0l, igMedia.getLikeCount().longValue());
+    assertEquals("fake_username", igMedia.getUsername());
   }
 
   @Test

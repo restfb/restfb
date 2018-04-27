@@ -73,4 +73,8 @@ public class IgMediaChild extends FacebookType {
   @Facebook
   private Date timestamp;
 
+  @Getter
+  @Setter
+  @Facebook
+  private String username;
 }

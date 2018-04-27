@@ -49,4 +49,21 @@ public class IgCommentTest extends AbstractJsonMapperTests {
       assertEquals("yeah", reply.getText());
     }
   }
+
+  @Test
+  public void checkCommentWithoutUser() {
+    IgComment igComment =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/comment_missing_user"), IgComment.class);
+    assertNotNull(igComment);
+    assertNotNull(igComment.getMedia());
+    assertNull(igComment.getUser());
+    assertEquals(igComment.getUsername(), "bincyshiona");
+    assertEquals("17916477187142401", igComment.getId());
+    assertEquals("Nice", igComment.getText());
+    assertFalse(igComment.getHidden().booleanValue());
+    assertEquals(1524557652000l, igComment.getTimestamp().getTime());
+    assertEquals(0l, igComment.getLikeCount().longValue());
+
+    assertEquals(0, igComment.getReplies().size());
+  }
 }
