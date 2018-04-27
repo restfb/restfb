@@ -87,6 +87,15 @@ public class IgComment extends FacebookType {
   @Facebook
   private IgUser user;
 
+  /**
+   * User will only be returned when queried by owner of comment. Otherwise, username is the only
+   * field that will be returned.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String username;
+
   @Facebook
   private List<IgComment> replies = new ArrayList<IgComment>();
 
