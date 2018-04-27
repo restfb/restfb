@@ -21,13 +21,12 @@
  */
 package com.restfb.types.instagram;
 
-import java.util.Date;
-
 import com.restfb.Facebook;
 import com.restfb.types.FacebookType;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 public class IgMediaChild extends FacebookType {
 
@@ -73,4 +72,8 @@ public class IgMediaChild extends FacebookType {
   @Facebook
   private Date timestamp;
 
+  @Getter
+  @Setter
+  @Facebook
+  private String username;
 }
