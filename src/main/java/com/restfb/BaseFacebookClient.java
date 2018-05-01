@@ -44,9 +44,25 @@ abstract class BaseFacebookClient {
   protected JsonMapper jsonMapper;
 
   /**
+   * Reserved method override parameter name.
+   */
+  protected static final String METHOD_PARAM_NAME = "method";
+
+  /**
+   * Reserved "result format" parameter name.
+   */
+  protected static final String FORMAT_PARAM_NAME = "format";
+
+  /**
    * Set of parameter names that user must not specify themselves, since we use these parameters internally.
    */
-  private final Set<String> illegalParamNames = new HashSet<String>();
+  private final Set<String> illegalParamNames = new HashSet<String>() {
+    {
+      add(ACCESS_TOKEN_PARAM_NAME);
+      add(METHOD_PARAM_NAME);
+      add(FORMAT_PARAM_NAME);
+    }
+  };
 
   /**
    * Reserved access token parameter name.
@@ -155,15 +171,5 @@ abstract class BaseFacebookClient {
     if (parameter == null) {
       throw new NullPointerException("The '" + parameterName + "' parameter cannot be null.");
     }
-  }
-
-  /**
-   * Add parameter name to illegal parameter names list
-   *
-   * @param parameterName
-   *          The name of the parameter
-   */
-  protected void addIllegalParameterNames(String parameterName) {
-    this.illegalParamNames.add(parameterName);
   }
 }

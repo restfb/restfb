@@ -79,19 +79,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   private FacebookEndpoints facebookEndpointUrls = new DefaultFacebookEndpoints();
 
   /**
-   * Reserved method override parameter name.
-   */
-  protected static final String METHOD_PARAM_NAME = "method";
-
-  /**
    * Reserved "multiple IDs" parameter name.
    */
   protected static final String IDS_PARAM_NAME = "ids";
-
-  /**
-   * Reserved "result format" parameter name.
-   */
-  protected static final String FORMAT_PARAM_NAME = "format";
 
   /**
    * Version of API endpoint.
@@ -251,10 +241,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.jsonMapper = jsonMapper;
     this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
     graphFacebookExceptionGenerator = new DefaultFacebookExceptionGenerator();
-
-    addIllegalParameterNames(ACCESS_TOKEN_PARAM_NAME);
-    addIllegalParameterNames(METHOD_PARAM_NAME);
-    addIllegalParameterNames(FORMAT_PARAM_NAME);
   }
 
   /**
