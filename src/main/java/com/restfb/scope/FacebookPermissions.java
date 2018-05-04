@@ -149,9 +149,7 @@ public enum FacebookPermissions {
   USER_ACTIONS_VIDEO("user_actions.video", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * Provides access to a person's list of activities as listed on their Profile. This is a subset of the pages they
-   * have liked, where those pages represent particular interests. This information is accessed through the activities
-   * connection on the user node.
+   * Provides access to a person's age range.
    *
    * <p>
    * <strong>Review</strong>
@@ -159,13 +157,9 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
-   * @RestFB.GraphApi.Until 2.2
-   *
-   * @Deprecated removed Not usable since Graph API 2.3. If you use the Graph API before 2.3 ignore the deprecation
-   *             warning
+   * @RestFB.GraphApi.Since 3.0
    */
-  @Deprecated
-  USER_ACTIVITIES("user_activities", Category.USER_DATA), //
+  USER_AGE_RANGE("user_age_range", Category.USER_DATA), //
 
   /**
    * Access the date and month of a person's birthday. This may or may not include the person's year of birth, dependent
@@ -239,11 +233,7 @@ public enum FacebookPermissions {
   USER_GAMES_ACTIVITY("user_games_activity", Category.USER_DATA), //
 
   /**
-   * Enables your app to read the Groups a person is a member of through the groups edge on the User object.
-   *
-   * <p>
-   * This permission does not allow you to create groups on behalf of a person. It is not possible to create groups via
-   * the Graph API.
+   * Provides access to a person's gender.
    *
    * <p>
    * <strong>Review</strong>
@@ -251,10 +241,9 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
-   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
+   * @RestFB.GraphApi.Since 3.0
    */
-  @Deprecated
-  USER_GROUPS("user_groups", Category.EVENTS_GROUPS_PAGES), //
+  USER_GENDER("user_gender", Category.USER_DATA), //
 
   /**
    * Provides access to a person's hometown location through the hometown field on the User object. This is set by the
@@ -269,24 +258,6 @@ public enum FacebookPermissions {
   USER_HOMETOWN("user_hometown", Category.USER_DATA), //
 
   /**
-   * Provides access to the list of interests in a person's Profile. This is a subset of the pages they have liked which
-   * represent particular interests.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Until 2.2
-   *
-   * @Deprecated removed Not usable since Graph API 2.3. If you use the Graph API before 2.3 ignore the deprecation
-   *             warning
-   */
-  @Deprecated
-  USER_INTERESTS("user_interests", Category.USER_DATA), //
-
-  /**
    * Provides access to the list of all Facebook Pages and Open Graph objects that a person has liked. This list is
    * available through the likes edge on the User object.
    *
@@ -297,6 +268,19 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   USER_LIKES("user_likes", Category.USER_DATA), //
+
+  /**
+   * Provides access to the Facebook profile URL for another user of the app.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 3.0
+   */
+  USER_LINK("user_link", Category.USER_DATA), //
 
   /**
    * Provides access to a person's current city through the location field on the User object. The current city is set
@@ -321,10 +305,12 @@ public enum FacebookPermissions {
    * the Graph API. This does not let you read the groups a user is just a member of.
    *
    * <p>
-   * <strong>Review</strong>
+   * This permission is being deprecated as Groups is moving to a new permission model for apps. Please continue to use
+   * {@code user_managed_groups} for testing your apps in dev mode. However, when submitting for review, please select
+   * the reviewable feature Groups API, and do not submit this {@code user_managed_groups} in your review.
    *
    * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
+   * <b>Limited use: for testing only</b>
    */
   USER_MANAGED_GROUPS("user_managed_groups", Category.EVENTS_GROUPS_PAGES), //
 
@@ -398,24 +384,6 @@ public enum FacebookPermissions {
    */
   @Deprecated
   USER_RELIGION_POLITICS("user_religion_politics", Category.USER_DATA), //
-
-  /**
-   * Provides access to a person's statuses. These are posts on Facebook which don't include links, videos or photos.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Until 2.3
-   *
-   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning. If
-   *             you are calling the endpoint <code>/{user-id}/posts</code> or <code>/{user-id}/feed</code>, ask for the
-   *             <code>user_posts</code> permission instead (only v2.3 or older).
-   */
-  @Deprecated
-  USER_STATUS("user_status", Category.USER_DATA), //
 
   /**
    * Provides access to the Places a person has been tagged at in photos, videos, statuses and links.
@@ -497,24 +465,6 @@ public enum FacebookPermissions {
    * Your app may use this permission without review from Facebook.
    */
   EMAIL("email", Category.USER_DATA), //
-
-  /**
-   * Enables your app to read a person's notifications and mark them as read.
-   *
-   * <p>
-   * This permission does not let you send notifications to a person.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.3
-   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
-   */
-  @Deprecated
-  MANAGE_NOTIFICATIONS("manage_notifications", Category.OTHER), //
 
   /**
    * Enables your app to retrieve Page Access Tokens for the Pages and Apps that the person administrates.
@@ -639,7 +589,11 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @deprecated this permission is deprecated and it is not possible to publish anything to the user feed via Graph API
+   *             since April 2018
    */
+  @Deprecated
   PUBLISH_ACTIONS("publish_actions", Category.USER_DATA), //
 
   /**
@@ -659,6 +613,33 @@ public enum FacebookPermissions {
    * @RestFB.GraphApi.Since 2.3
    */
   PUBLISH_PAGES("publish_pages", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * Gives an app the ability to post content into a group on behalf of a user who has granted the app this permission.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 3.0
+   */
+  PUBLISH_TO_GROUPS("publish_to_groups", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * Gives your app the ability to receive member-related data on group content when a member has granted the app
+   * permission to do so.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 3.0
+   */
+  GROUPS_ACCESS_MEMBER_INFO("groups_access_member_info", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Provides read-only access to the Audience Network Insights data for Apps the person owns.
@@ -740,36 +721,6 @@ public enum FacebookPermissions {
   READ_INSIGHTS("read_insights", Category.OTHER), //
 
   /**
-   * Facebook has not yet officially documented this permission, but it is necessary for certain integrations with the
-   * new Messenger Platform.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * Your app will need to be approved and whitelisted by Facebook to use of this permission.
-   *
-   * @since Graph API 2.5
-   * @RestFB.GraphApi.Until 2.5
-   */
-  XMPP_LOGIN("xmpp_login", Category.OTHER), //
-
-  /**
-   * Provides the ability to read the messages in a person's Facebook Inbox through the inbox edge and the thread node.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
-   * @RestFB.GraphApi.Until 2.3
-   */
-  @Deprecated
-  READ_MAILBOX("read_mailbox", Category.OTHER), //
-
-  /**
    * Provides the ability to read from the Page Inboxes of the Pages managed by a person. This permission is often used
    * alongside the manage_pages permission.
    *
@@ -783,23 +734,6 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   READ_PAGE_MAILBOXES("read_page_mailboxes", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
-   * Provides access to read the posts in a person's News Feed, or the posts on their Profile.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * <p>
-   *
-   * @deprecated Not usable since Graph API 2.4. If you use the Graph API before 2.4 ignore the deprecation warning
-   * @RestFB.GraphApi.Until 2.3
-   */
-  @Deprecated
-  READ_STREAM("read_stream", Category.OTHER), //
 
   /**
    * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).
