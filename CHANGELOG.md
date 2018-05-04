@@ -1,5 +1,22 @@
 # RestFB Changelog
 
+## 2.5.0 (May 4, 2018)
+
+* Graph API 3.0
+  * Issue #885: Basic support
+  * Issue #886: Permissions added and cleanup
+* Issue #882: new field to instagram comments/replies<br />
+  Thanks to @amanduggal for the hint and PR
+* Cleanup:
+  * Issue #881: picture conversion helper added 
+  * Issue #880: `Date` mapping added
+  * Issue #877: old readonly API removed
+* Issue #876: version 2.5 is deprecated now
+* Issue #879: `getCaptions()` method throws NPE in `Video` object when `captions` is null<br />
+  Thanks to @CrWEE for the hint
+* Issue #878: Some `OpenGraphRating` fields mapped with extra quotation marks<br />
+  Thanks to @CrWEE for the hint
+
 ## 2.4.0 (April 6, 2018)
 
 * Issue #865: Add logging formatter for JUL
