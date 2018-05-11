@@ -22,6 +22,7 @@
 package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,8 +59,12 @@ public class EncodingUtilsRfcTest {
 
   @Test
   public void base64Decode() {
-    byte[] decoded = EncodingUtils.decodeBase64(base64EncodedString);
-    assertThat(decoded).isEqualTo(decodedString.getBytes());
+    try {
+      byte[] decoded = EncodingUtils.decodeBase64(base64EncodedString);
+      assertThat(decoded).isEqualTo(decodedString.getBytes());
+    } catch (IllegalArgumentException iae) {
+      fail("Cannot decode string: " + base64EncodedString);
+    }
   }
 
 }
