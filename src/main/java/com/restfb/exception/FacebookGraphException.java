@@ -106,8 +106,8 @@ public class FacebookGraphException extends FacebookErrorMessageException {
   public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
       Integer httpStatusCode, String errorUserTitle, String errorUserMessage, Boolean isTransient,
       JsonObject rawError) {
-    super(format("Received Facebook error response of type %s: %s (code %s, subcode %s)", errorType, errorMessage,
-      errorCode, errorSubcode));
+    super(format("Received Facebook error response of type %s: %s (code %s, subcode %s) '%s - %s'", errorType,
+      errorMessage, errorCode, errorSubcode, errorUserTitle, errorUserMessage));
     this.errorType = errorType;
     this.errorMessage = errorMessage;
     this.errorCode = errorCode;
