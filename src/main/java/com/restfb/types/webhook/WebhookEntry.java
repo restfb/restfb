@@ -56,22 +56,22 @@ public class WebhookEntry {
   @Getter
   @Setter
   @Facebook("changed_fields")
-  private List<String> changedFields = new ArrayList<String>();
+  private List<String> changedFields = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook
-  private List<Change> changes = new ArrayList<Change>();
+  private List<Change> changes = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook
-  private List<MessagingItem> messaging = new ArrayList<MessagingItem>();
+  private List<MessagingItem> messaging = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook
-  private List<MessagingItem> standby = new ArrayList<MessagingItem>();
+  private List<MessagingItem> standby = new ArrayList<>();
 
   public boolean hasStandby() {
     return !standby.isEmpty();

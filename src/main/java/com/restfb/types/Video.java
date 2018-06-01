@@ -156,7 +156,7 @@ public class Video extends NamedFacebookType {
   private Boolean embeddable;
 
   @Facebook("content_tags")
-  private List<String> contentTags = new ArrayList<String>();
+  private List<String> contentTags = new ArrayList<>();
 
   /**
    * If this object has a place, the event associated with the place.
@@ -180,7 +180,7 @@ public class Video extends NamedFacebookType {
   private String feedType;
 
   @Facebook
-  private List<VideoFormat> format = new ArrayList<VideoFormat>();
+  private List<VideoFormat> format = new ArrayList<>();
 
   /**
    * People who like this.
@@ -377,10 +377,10 @@ public class Video extends NamedFacebookType {
   private Date scheduledPublishTime;
 
   @Facebook
-  private List<VideoCaption> captions = new ArrayList<VideoCaption>();
+  private List<VideoCaption> captions = new ArrayList<>();
 
   @Facebook
-  private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> tags = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 
@@ -448,6 +448,12 @@ public class Video extends NamedFacebookType {
     return contentTags.remove(contentTag);
   }
 
+  /**
+   * Adds a comment
+   * @param comment the comment that should be added
+   * @return true if the comment was added, false otherwise
+   * @deprecated work on the {@code Comments} object directly instead of using this method
+   */
   @Deprecated
   public boolean addComment(Comment comment) {
     if (getComments() != null) {
@@ -456,6 +462,12 @@ public class Video extends NamedFacebookType {
     return false;
   }
 
+  /**
+   * Adds a comment
+   * @param comment the comment that should be added
+   * @return true if the comment was added, false otherwise
+   * @deprecated work on the {@code Comments} object directly instead of using this method
+   */
   @Deprecated
   public boolean removeComment(Comment comment) {
     if (getComments() != null) {

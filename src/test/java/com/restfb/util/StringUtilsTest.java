@@ -57,7 +57,7 @@ public class StringUtilsTest {
 
   @Test
   public void joinListTest_List() {
-    ArrayList<String> myStrings = new ArrayList<String>();
+    List<String> myStrings = new ArrayList<>();
     myStrings.add("foo");
     myStrings.add("bar");
     assertThat(StringUtils.join(myStrings)).isEqualTo("foo,bar");

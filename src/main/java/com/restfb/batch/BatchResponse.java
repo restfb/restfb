@@ -44,7 +44,7 @@ public class BatchResponse {
   private String body;
 
   @Facebook
-  private List<BatchHeader> headers = new ArrayList<BatchHeader>();
+  private List<BatchHeader> headers = new ArrayList<>();
 
   /**
    * "Magic" no-argument constructor so we can reflectively make instances of this class with DefaultJsonMapper, but

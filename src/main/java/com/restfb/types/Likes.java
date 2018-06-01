@@ -85,7 +85,7 @@ public class Likes extends AbstractFacebookType {
   private String summary;
 
   @Facebook
-  private List<LikeItem> data = new ArrayList<LikeItem>();
+  private List<LikeItem> data = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 

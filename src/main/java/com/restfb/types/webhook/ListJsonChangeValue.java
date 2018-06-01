@@ -40,7 +40,7 @@ public class ListJsonChangeValue extends ChangeValue {
   private List<JsonObject> value;
 
   public ListJsonChangeValue(List<JsonValue> values) {
-    value = new ArrayList<JsonObject>();
+    value = new ArrayList<>();
     for (JsonValue jsonValue : values) {
       value.add(jsonValue.asObject());
     }

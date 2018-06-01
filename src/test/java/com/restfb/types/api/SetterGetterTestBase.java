@@ -31,7 +31,7 @@ import java.util.*;
 
 public class SetterGetterTestBase {
 
-  private final List<String> ignoredFields = new ArrayList<String>();
+  private final List<String> ignoredFields = new ArrayList<>();
   private final HashMap<Class, Object> defaultInstances;
 
   public void addIgnoredField(String fieldName) {
@@ -39,7 +39,7 @@ public class SetterGetterTestBase {
   }
 
   public SetterGetterTestBase() {
-    defaultInstances = new HashMap<Class, Object>();
+    defaultInstances = new HashMap<>();
     defaultInstances.put(boolean.class, Boolean.TRUE);
     defaultInstances.put(byte.class, Byte.valueOf((byte) 0));
     defaultInstances.put(char.class, Character.valueOf('0'));

@@ -113,10 +113,10 @@ public class IgUser extends NamedFacebookType {
   private String website;
 
   @Facebook
-  private List<Insight> insights = new ArrayList<Insight>();
+  private List<Insight> insights = new ArrayList<>();
 
   @Facebook
-  private List<IgMedia> media = new ArrayList<IgMedia>();
+  private List<IgMedia> media = new ArrayList<>();
 
   public List<Insight> getInsights() {
     return Collections.unmodifiableList(insights);

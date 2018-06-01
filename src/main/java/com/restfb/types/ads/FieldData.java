@@ -40,6 +40,6 @@ public class FieldData extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> values = new ArrayList<String>();
+  private List<String> values = new ArrayList<>();
 
 }

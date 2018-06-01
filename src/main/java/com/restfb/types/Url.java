@@ -113,16 +113,16 @@ public class Url extends FacebookType {
   @JsonMappingCompleted
   void fillCounts() {
     if (this.share != null) {
-      JsonObject share = Json.parse(this.share).asObject();
-      commentCount = share.getInt("comment_count", commentCount);
-      shareCount = share.getInt("share_count", shareCount);
+      JsonObject shareObject = Json.parse(this.share).asObject();
+      commentCount = shareObject.getInt("comment_count", commentCount);
+      shareCount = shareObject.getInt("share_count", shareCount);
     }
     if (this.engagement != null) {
-      JsonObject engagement = Json.parse(this.engagement).asObject();
-      commentCount = engagement.getInt("comment_count", commentCount);
-      shareCount = engagement.getInt("share_count", shareCount);
-      reactionCount = engagement.getInt("reaction_count", reactionCount);
-      commentPluginCount = engagement.getInt("comment_plugin_count", commentPluginCount);
+      JsonObject engagementObject = Json.parse(this.engagement).asObject();
+      commentCount = engagementObject.getInt("comment_count", commentCount);
+      shareCount = engagementObject.getInt("share_count", shareCount);
+      reactionCount = engagementObject.getInt("reaction_count", reactionCount);
+      commentPluginCount = engagementObject.getInt("comment_plugin_count", commentPluginCount);
     }
   }
 

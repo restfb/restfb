@@ -44,7 +44,7 @@ public class NestedButton extends AbstractButton implements MenuItem {
 
   public void addCallToAction(MenuItem item) {
     if (callToActions == null) {
-      callToActions = new ArrayList<MenuItem>();
+      callToActions = new ArrayList<>();
     }
 
     callToActions.add(item);

@@ -50,7 +50,7 @@ public class ProductVariant extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("options")
-  private List<String> options = new ArrayList<String>();
+  private List<String> options = new ArrayList<>();
 
   /**
    * Name of the first-class or custom-data product item field describing a variant of the product.

@@ -36,7 +36,7 @@ public class AdStudyObjective extends NamedAdsObject {
    * Detected custom attributes for this objective
    */
   @Facebook("custom_attributes")
-  private List<String> customAttributes = new ArrayList<String>();
+  private List<String> customAttributes = new ArrayList<>();
 
   /**
    * Is this the primary objective of the study
@@ -50,7 +50,7 @@ public class AdStudyObjective extends NamedAdsObject {
    * Results of the study for this objective
    */
   @Facebook
-  private List<String> results = new ArrayList<String>();
+  private List<String> results = new ArrayList<>();
 
   /**
    * The type of the objective

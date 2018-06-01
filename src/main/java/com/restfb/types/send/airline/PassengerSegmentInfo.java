@@ -60,7 +60,7 @@ public class PassengerSegmentInfo extends AbstractFacebookType {
 
   public boolean addProductInfo(ProductInfo productInfo) {
     if (productInfoList == null) {
-      productInfoList = new ArrayList<ProductInfo>();
+      productInfoList = new ArrayList<>();
     }
 
     return productInfoList.add(productInfo);

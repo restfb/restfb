@@ -76,7 +76,7 @@ public class Message extends FacebookType {
   private NamedFacebookType from;
 
   @Facebook
-  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> to = new ArrayList<>();
 
   /**
    * The text of the message
@@ -99,10 +99,10 @@ public class Message extends FacebookType {
   private String sticker;
 
   @Facebook
-  private List<Attachment> attachments = new ArrayList<Attachment>();
+  private List<Attachment> attachments = new ArrayList<>();
 
   @Facebook
-  private List<Share> shares = new ArrayList<Share>();
+  private List<Share> shares = new ArrayList<>();
 
   /**
    * The time of the last update to this message.
@@ -137,7 +137,7 @@ public class Message extends FacebookType {
   @Facebook("tags")
   private transient String rawTags;
 
-  private List<String> tags = new ArrayList<String>();
+  private List<String> tags = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 

@@ -152,7 +152,7 @@ public class Campaign extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook
-  private List<AdRecommendation> recommendations = new ArrayList<AdRecommendation>();
+  private List<AdRecommendation> recommendations = new ArrayList<>();
 
   /**
    * A spend cap for the campaign, such that it will not spend more than this cap. Expressed as integer value of the

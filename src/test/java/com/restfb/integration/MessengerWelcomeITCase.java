@@ -62,7 +62,7 @@ public class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
 
     CallToAction welcome = new CallToAction("GETTING_STARTED_BUTTON");
 
-    List<CallToAction> actionList = new ArrayList<CallToAction>();
+    List<CallToAction> actionList = new ArrayList<>();
     actionList.add(welcome);
 
     JsonObject response = client.publish(getTestSettings().getPageId() + "/thread_settings", JsonObject.class,

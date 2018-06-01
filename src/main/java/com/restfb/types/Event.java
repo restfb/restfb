@@ -392,7 +392,7 @@ public class Event extends NamedFacebookType {
     private String category;
 
     @Facebook("category_list")
-    private List<Category> categoryList = new ArrayList<Category>();
+    private List<Category> categoryList = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 

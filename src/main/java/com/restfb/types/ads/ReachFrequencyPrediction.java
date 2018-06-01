@@ -103,7 +103,7 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("daily_impression_curve")
-  private List<Double> dailyImpressionCurve = new ArrayList<Double>();
+  private List<Double> dailyImpressionCurve = new ArrayList<>();
 
   /**
    * The ID of the Page or the ID of the app which the ad promotes.

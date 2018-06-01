@@ -113,7 +113,7 @@ public class StoryAttachment extends FacebookType {
   public static class Attachments extends AbstractFacebookType {
 
     @Facebook
-    private List<StoryAttachment> data = new ArrayList<StoryAttachment>();
+    private List<StoryAttachment> data = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 

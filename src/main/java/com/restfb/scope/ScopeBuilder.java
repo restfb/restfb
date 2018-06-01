@@ -29,7 +29,7 @@ public class ScopeBuilder {
   private final List<FacebookPermissions> permissions;
 
   public ScopeBuilder(boolean withoutPublicProfile) {
-    this.permissions = new ArrayList<FacebookPermissions>();
+    this.permissions = new ArrayList<>();
     if (!withoutPublicProfile) {
       permissions.add(FacebookPermissions.PUBLIC_PROFILE);
     }

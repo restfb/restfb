@@ -41,7 +41,7 @@ public class Ad extends NamedAdsObject {
   private AdgroupReviewFeedback adReviewFeedback;
 
   @Facebook("adlabels")
-  private List<AdLabel> adlabels = new ArrayList<AdLabel>();
+  private List<AdLabel> adlabels = new ArrayList<>();
 
   @Getter
   @Setter
@@ -84,7 +84,7 @@ public class Ad extends NamedAdsObject {
   private String configuredStatus;
 
   @Facebook("conversion_specs")
-  private List<ConversionActionQuery> conversionSpecs = new ArrayList<ConversionActionQuery>();
+  private List<ConversionActionQuery> conversionSpecs = new ArrayList<>();
 
   @Getter
   @Setter
@@ -107,7 +107,7 @@ public class Ad extends NamedAdsObject {
   private String lastUpdatedByAppId;
 
   @Facebook("recommendations")
-  private List<AdRecommendation> recommendations = new ArrayList<AdRecommendation>();
+  private List<AdRecommendation> recommendations = new ArrayList<>();
 
   @Getter
   @Setter
@@ -115,7 +115,7 @@ public class Ad extends NamedAdsObject {
   private String status;
 
   @Facebook("tracking_specs")
-  private List<ConversionActionQuery> trackingSpecs = new ArrayList<ConversionActionQuery>();
+  private List<ConversionActionQuery> trackingSpecs = new ArrayList<>();
 
   @Getter
   @Setter
@@ -123,7 +123,7 @@ public class Ad extends NamedAdsObject {
   private Date updatedTime;
 
   @Facebook
-  private List<TargetingSentenceLine> targetingsentencelines = new ArrayList<TargetingSentenceLine>();
+  private List<TargetingSentenceLine> targetingsentencelines = new ArrayList<>();
 
   public boolean addConversionSpec(ConversionActionQuery conversionSpec) {
     return conversionSpecs.add(conversionSpec);

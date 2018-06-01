@@ -65,7 +65,7 @@ public class Post extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook("allowed_advertising_objectives")
-  private List<String> allowedAdvertisingObjectives = new ArrayList<String>();
+  private List<String> allowedAdvertisingObjectives = new ArrayList<>();
 
   /**
    * The call to action type used in any Page posts for mobile app engagement ads
@@ -76,7 +76,7 @@ public class Post extends NamedFacebookType {
   private PostCallToAction callToAction;
 
   @Facebook("child_attachments")
-  private List<Post> childAttachments = new ArrayList<Post>();
+  private List<Post> childAttachments = new ArrayList<>();
 
   /**
    * If comments are being mirrored to an external site, this function returns the domain of that external site.
@@ -373,26 +373,26 @@ public class Post extends NamedFacebookType {
   private com.restfb.types.Place place;
 
   @Facebook
-  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> to = new ArrayList<>();
 
   @Facebook
-  private List<Action> actions = new ArrayList<Action>();
+  private List<Action> actions = new ArrayList<>();
 
   @Facebook
-  private List<Property> properties = new ArrayList<Property>();
+  private List<Property> properties = new ArrayList<>();
 
   @Facebook("with_tags")
-  private List<NamedFacebookType> withTags = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> withTags = new ArrayList<>();
 
   @Facebook("message_tags")
   private transient String rawMessageTags;
 
-  private List<MessageTag> messageTags = new ArrayList<MessageTag>();
+  private List<MessageTag> messageTags = new ArrayList<>();
 
   @Facebook("story_tags")
   private transient String rawStoryTags;
 
-  private List<MessageTag> storyTags = new ArrayList<MessageTag>();
+  private List<MessageTag> storyTags = new ArrayList<>();
 
   /**
    * UNIX timestamp of the scheduled publish time for the post.
@@ -602,7 +602,7 @@ public class Post extends NamedFacebookType {
     }
 
     try {
-      List<MessageTag> resultList = new ArrayList<MessageTag>();
+      List<MessageTag> resultList = new ArrayList<>();
       JsonObject rawMessageTagsObject = jsonMapper.toJavaObject(rawTags, JsonObject.class);
       for (String key : rawMessageTagsObject.names()) {
         String tagArrayString = rawMessageTagsObject.get(key).toString();
@@ -610,7 +610,7 @@ public class Post extends NamedFacebookType {
       }
       return resultList;
     } catch (FacebookJsonMappingException je) {
-      return new ArrayList<MessageTag>();
+      return new ArrayList<>();
     }
   }
 
@@ -722,12 +722,12 @@ public class Post extends NamedFacebookType {
     FeedTargeting geoLocations;
 
     @Facebook
-    protected List<KeyedType> cities = new ArrayList<KeyedType>();
+    protected List<KeyedType> cities = new ArrayList<>();
     @Facebook
-    protected List<String> countries = new ArrayList<String>();
+    protected List<String> countries = new ArrayList<>();
 
     @Facebook
-    protected List<KeyedType> regions = new ArrayList<KeyedType>();
+    protected List<KeyedType> regions = new ArrayList<>();
 
     @Facebook("regions")
     private transient String rawRegionsString;
@@ -747,7 +747,7 @@ public class Post extends NamedFacebookType {
     }
 
     @Facebook
-    protected List<Integer> locales = new ArrayList<Integer>();
+    protected List<Integer> locales = new ArrayList<>();
 
     public boolean addCity(KeyedType city) {
       if (geoLocations != null) {
@@ -897,34 +897,34 @@ public class Post extends NamedFacebookType {
     private Date relevantUntilTs;
 
     @Facebook("college_majors")
-    private List<String> collegeMajors = new ArrayList<String>();
+    private List<String> collegeMajors = new ArrayList<>();
 
     @Facebook("college_networks")
-    private List<FacebookType> collegeNetworks = new ArrayList<FacebookType>();
+    private List<FacebookType> collegeNetworks = new ArrayList<>();
 
     @Facebook("college_years")
-    private List<Integer> collegeYears = new ArrayList<Integer>();
+    private List<Integer> collegeYears = new ArrayList<>();
 
     @Facebook("education_statuses")
-    private List<Integer> educationStatuses = new ArrayList<Integer>();
+    private List<Integer> educationStatuses = new ArrayList<>();
 
     @Facebook("fan_of")
-    private List<String> fanOf = new ArrayList<String>();
+    private List<String> fanOf = new ArrayList<>();
 
     @Facebook
-    private List<Integer> genders = new ArrayList<Integer>();
+    private List<Integer> genders = new ArrayList<>();
 
     @Facebook("interested_in")
-    private List<Integer> interestedIn = new ArrayList<Integer>();
+    private List<Integer> interestedIn = new ArrayList<>();
 
     @Facebook
-    private List<String> interests = new ArrayList<String>();
+    private List<String> interests = new ArrayList<>();
 
     @Facebook("relationship_statuses")
-    private List<Integer> relationshipStatuses = new ArrayList<Integer>();
+    private List<Integer> relationshipStatuses = new ArrayList<>();
 
     @Facebook("work_networks")
-    private List<NamedFacebookType> workNetworks = new ArrayList<NamedFacebookType>();
+    private List<NamedFacebookType> workNetworks = new ArrayList<>();
 
     /**
      * Target people who majored in these college subjects.
@@ -1158,7 +1158,7 @@ public class Post extends NamedFacebookType {
      * @return All media attachments associated with this post.
      */
     @Facebook
-    private List<StoryAttachment> data = new ArrayList<StoryAttachment>();
+    private List<StoryAttachment> data = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 

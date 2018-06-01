@@ -107,7 +107,7 @@ public class MessageItem implements InnerMessagingItem {
   @Getter
   @Setter
   @Facebook
-  private List<MessagingAttachment> attachments = new ArrayList<MessagingAttachment>();
+  private List<MessagingAttachment> attachments = new ArrayList<>();
 
   @Getter
   @Facebook

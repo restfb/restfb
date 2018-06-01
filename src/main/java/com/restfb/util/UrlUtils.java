@@ -153,7 +153,7 @@ public final class UrlUtils {
         List<String> values = parameters.get(key);
 
         if (values == null) {
-          values = new ArrayList<String>();
+          values = new ArrayList<>();
           parameters.put(key, values);
         }
 

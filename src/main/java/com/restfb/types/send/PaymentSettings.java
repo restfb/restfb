@@ -60,5 +60,5 @@ public class PaymentSettings extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> testers = new ArrayList<String>();
+  private List<String> testers = new ArrayList<>();
 }

@@ -94,7 +94,7 @@ public class StatusMessage extends NamedFacebookType {
   private Date updatedTime;
 
   @Facebook
-  private List<NamedFacebookType> likes = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> likes = new ArrayList<>();
 
   /**
    * Hack so JSON mapping won't fail when FB returns inconsistent JSON when there are 0 likes.
@@ -103,7 +103,7 @@ public class StatusMessage extends NamedFacebookType {
   private EmptyLikes emptyLikes;
 
   @Facebook
-  private List<Comment> comments = new ArrayList<Comment>();
+  private List<Comment> comments = new ArrayList<>();
 
   /**
    * Hack so JSON mapping won't fail when FB returns inconsistent JSON when there are 0 comments.

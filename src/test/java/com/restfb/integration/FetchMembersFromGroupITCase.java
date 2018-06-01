@@ -46,7 +46,7 @@ public class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
       NamedFacebookType.class, Parameter.with("limit", 100));
 
     int i = 1;
-    ArrayList<NamedFacebookType> memberList = new ArrayList<NamedFacebookType>();
+    List<NamedFacebookType> memberList = new ArrayList<>();
     for (List<NamedFacebookType> memberPage : connection) {
       for (NamedFacebookType member : memberPage) {
         memberList.add(member);

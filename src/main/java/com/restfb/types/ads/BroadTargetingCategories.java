@@ -44,7 +44,7 @@ public class BroadTargetingCategories extends BaseAdsObject {
   @Getter
   @Setter
   @Facebook
-  private List<String> path = new ArrayList<String>();
+  private List<String> path = new ArrayList<>();
 
   @Getter
   @Setter

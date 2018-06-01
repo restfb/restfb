@@ -46,7 +46,7 @@ public class GenericTemplatePayload extends SharableTemplatePayload implements I
 
   public boolean addBubble(Bubble bubble) {
     if (elements == null) {
-      elements = new ArrayList<Bubble>();
+      elements = new ArrayList<>();
     }
 
     return elements.add(bubble);

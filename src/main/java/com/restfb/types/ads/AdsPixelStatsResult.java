@@ -40,7 +40,7 @@ public class AdsPixelStatsResult extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<AdsPixelStats> data = new ArrayList<AdsPixelStats>();
+  private List<AdsPixelStats> data = new ArrayList<>();
 
   @Getter
   @Setter

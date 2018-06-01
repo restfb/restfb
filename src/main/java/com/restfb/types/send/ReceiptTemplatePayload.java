@@ -95,7 +95,7 @@ public class ReceiptTemplatePayload extends SharableTemplatePayload {
 
   public boolean addElement(ReceiptElement element) {
     if (elements == null) {
-      elements = new ArrayList<ReceiptElement>();
+      elements = new ArrayList<>();
     }
 
     return elements.add(element);
@@ -103,7 +103,7 @@ public class ReceiptTemplatePayload extends SharableTemplatePayload {
 
   public boolean addAdjustment(ReceiptAdjustment adjustment) {
     if (adjustments == null) {
-      adjustments = new ArrayList<ReceiptAdjustment>();
+      adjustments = new ArrayList<>();
     }
 
     return adjustments.add(adjustment);

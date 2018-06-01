@@ -48,5 +48,5 @@ public class FeedAlbumAddValue extends AbstractFeedPostValue {
   @Getter
   @Setter
   @Facebook("photo_ids")
-  private List<String> photoIds = new ArrayList<String>();
+  private List<String> photoIds = new ArrayList<>();
 }

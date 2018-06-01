@@ -206,7 +206,7 @@ public class FacebookClientTest {
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
 
-    List<String> idList = new ArrayList<String>();
+    List<String> idList = new ArrayList<>();
     idList.add("123456789  ");
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
@@ -227,7 +227,7 @@ public class FacebookClientTest {
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
 
-    List<String> idList = new ArrayList<String>();
+    List<String> idList = new ArrayList<>();
     idList.add("  ");
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
@@ -241,7 +241,7 @@ public class FacebookClientTest {
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_2_6);
 
-    List<String> idList = new ArrayList<String>();
+    List<String> idList = new ArrayList<>();
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 

@@ -31,7 +31,7 @@ import com.restfb.types.webhook.messaging.nlp.*;
 
 public class NlpResult {
 
-  private List<BaseNlpEntity> convertedEntities = new ArrayList<BaseNlpEntity>();
+  private List<BaseNlpEntity> convertedEntities = new ArrayList<>();
 
   @Facebook("entities")
   private JsonObject rawEntities;
@@ -105,7 +105,7 @@ public class NlpResult {
    * @return List of entites, only the filtered elements are returned.
    */
   public <T extends BaseNlpEntity> List<T> getEntities(Class<T> clazz) {
-    List<BaseNlpEntity> resultList = new ArrayList<BaseNlpEntity>();
+    List<BaseNlpEntity> resultList = new ArrayList<>();
     for (BaseNlpEntity item : getEntities()) {
       if (item.getClass().equals(clazz)) {
         resultList.add(item);

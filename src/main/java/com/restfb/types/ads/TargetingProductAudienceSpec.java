@@ -34,10 +34,10 @@ import lombok.Setter;
 public class TargetingProductAudienceSpec extends AbstractFacebookType {
 
   @Facebook("exclusions")
-  private List<TargetingProductAudienceSubSpec> exclusions = new ArrayList<TargetingProductAudienceSubSpec>();
+  private List<TargetingProductAudienceSubSpec> exclusions = new ArrayList<>();
 
   @Facebook("inclusions")
-  private List<TargetingProductAudienceSubSpec> inclusions = new ArrayList<TargetingProductAudienceSubSpec>();
+  private List<TargetingProductAudienceSubSpec> inclusions = new ArrayList<>();
 
   @Getter
   @Setter

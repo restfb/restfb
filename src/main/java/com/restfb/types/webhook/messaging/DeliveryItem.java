@@ -36,7 +36,7 @@ public class DeliveryItem implements InnerMessagingItem {
   @Getter
   @Setter
   @Facebook
-  private List<String> mids = new ArrayList<String>();
+  private List<String> mids = new ArrayList<>();
 
   @Getter
   @Setter

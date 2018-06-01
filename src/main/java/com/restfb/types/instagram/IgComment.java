@@ -97,7 +97,7 @@ public class IgComment extends FacebookType {
   private String username;
 
   @Facebook
-  private List<IgComment> replies = new ArrayList<IgComment>();
+  private List<IgComment> replies = new ArrayList<>();
 
   public List<IgComment> getReplies() {
     return Collections.unmodifiableList(replies);

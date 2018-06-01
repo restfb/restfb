@@ -53,7 +53,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    */
   @Test
   public void emptyList() {
-    String json = createJsonMapper().toJson(new ArrayList<Object>());
+    String json = createJsonMapper().toJson(new ArrayList<>());
     assertThat(json).isEqualTo("[]");
   }
 
@@ -123,7 +123,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     UserWithPhotos userWithPhotos = new UserWithPhotos();
     userWithPhotos.uid = 12345L;
     userWithPhotos.name = null;
-    userWithPhotos.photos = new ArrayList<Photo>();
+    userWithPhotos.photos = new ArrayList<>();
     userWithPhotos.photos.add(new Photo());
     Photo photo = new Photo();
     photo.photoId = 5678L;
@@ -157,7 +157,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
         "http://icanhascheezburger.files.wordpress.com/2009/03/funny-pictures-your-cat-is-bursting-with-joy1.jpg";
     medium.type = "image";
 
-    List<Medium> media = new ArrayList<Medium>();
+    List<Medium> media = new ArrayList<>();
     media.add(medium);
 
     Attachment attachment = new Attachment();
@@ -272,7 +272,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     Long id = 12345L;
 
     @Facebook
-    List<Integer> list = new ArrayList<Integer>();
+    List<Integer> list = new ArrayList<>();
 
   }
 
@@ -282,7 +282,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     Long id = 12345L;
 
     @Facebook
-    Map<Integer, Integer> list = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> list = new HashMap<>();
 
   }
 

@@ -44,7 +44,7 @@ public class LookalikeSpec extends AbstractFacebookType {
   private Boolean isFinancialService;
 
   @Facebook("origin")
-  private List<Origin> origin = new ArrayList<Origin>();
+  private List<Origin> origin = new ArrayList<>();
 
   @Getter
   @Setter
@@ -62,7 +62,7 @@ public class LookalikeSpec extends AbstractFacebookType {
   private String type;
 
   @Facebook("target_countries")
-  private List<String> targetCountries = new ArrayList<String>();
+  private List<String> targetCountries = new ArrayList<>();
 
   public boolean addOrigin(Origin object) {
     return origin.add(object);

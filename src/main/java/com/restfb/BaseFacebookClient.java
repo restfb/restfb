@@ -56,13 +56,7 @@ abstract class BaseFacebookClient {
   /**
    * Set of parameter names that user must not specify themselves, since we use these parameters internally.
    */
-  private final Set<String> illegalParamNames = new HashSet<String>() {
-    {
-      add(ACCESS_TOKEN_PARAM_NAME);
-      add(METHOD_PARAM_NAME);
-      add(FORMAT_PARAM_NAME);
-    }
-  };
+  private final Set<String> illegalParamNames;
 
   /**
    * Reserved access token parameter name.
@@ -73,6 +67,13 @@ abstract class BaseFacebookClient {
    * Reserved application secret proof parameter name.
    */
   protected static final String APP_SECRET_PROOF_PARAM_NAME = "appsecret_proof";
+
+  BaseFacebookClient() {
+    illegalParamNames = new HashSet<>();
+    illegalParamNames.add(ACCESS_TOKEN_PARAM_NAME);
+    illegalParamNames.add(METHOD_PARAM_NAME);
+    illegalParamNames.add(FORMAT_PARAM_NAME);
+  }
 
   /**
    * Appends the given {@code parameter} to the given {@code parameters} array.

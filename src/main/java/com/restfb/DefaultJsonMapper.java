@@ -122,7 +122,7 @@ public class DefaultJsonMapper implements JsonMapper {
         MAPPER_LOGGER
           .trace("Encountered \\{} when we should've seen []. Mapping the \\{} as an empty list and moving on...");
 
-        return new ArrayList<T>();
+        return new ArrayList<>();
       }
 
       // Special case: if the only element of this object is an array called
@@ -164,7 +164,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
     try {
       JsonArray jsonArray = Json.parse(json).asArray();
-      List<T> list = new ArrayList<T>(jsonArray.size());
+      List<T> list = new ArrayList<>(jsonArray.size());
       for (int i = 0; i < jsonArray.size(); i++) {
         String innerJson = jsonHelper.getStringFrom(jsonArray.get(i));
         // the inner JSON starts with square brackets but the parser don't think this is a JSON array

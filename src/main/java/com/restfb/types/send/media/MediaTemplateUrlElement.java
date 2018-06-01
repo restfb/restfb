@@ -72,7 +72,7 @@ public class MediaTemplateUrlElement extends AbstractFacebookType implements Med
   @Override
   public void addButton(WebButton button) {
     if (buttons == null) {
-      buttons = new ArrayList<WebButton>();
+      buttons = new ArrayList<>();
     }
     buttons.add(button);
   }

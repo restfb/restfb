@@ -782,7 +782,7 @@ public interface FacebookClient {
     private DebugTokenError error;
 
     @Facebook
-    private List<String> scopes = new ArrayList<String>();
+    private List<String> scopes = new ArrayList<>();
 
     // FIXME let's read 'metadata' if it exist. It's a nested structure...
 

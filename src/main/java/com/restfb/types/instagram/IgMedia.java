@@ -59,13 +59,13 @@ public class IgMedia extends IgMediaChild {
   private Long likeCount;
 
   @Facebook
-  private List<IgMediaChild> children = new ArrayList<IgMediaChild>();
+  private List<IgMediaChild> children = new ArrayList<>();
 
   @Facebook
-  private List<Insight> insights = new ArrayList<Insight>();
+  private List<Insight> insights = new ArrayList<>();
 
   @Facebook
-  private List<IgComment> comments = new ArrayList<IgComment>();
+  private List<IgComment> comments = new ArrayList<>();
 
   /**
    * returns the list of child media objects, only available if the media_type is a carousal

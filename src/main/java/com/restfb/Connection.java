@@ -24,17 +24,16 @@ package com.restfb;
 import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.Json;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.json.ParseException;
 import com.restfb.util.ReflectionUtils;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Represents a <a href="http://developers.facebook.com/docs/api">Graph API Connection type</a>.
@@ -59,7 +58,7 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   @Override
   public ConnectionIterator<T> iterator() {
-    return new Itr<T>(this);
+    return new Itr<>(this);
   }
 
   /**
@@ -159,7 +158,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
     // Pull out data
     JsonArray jsonData = jsonObject.get("data").asArray();
-    List<T> dataItem = new ArrayList<T>(jsonData.size());
+    List<T> dataItem = new ArrayList<>(jsonData.size());
     for (int i = 0; i < jsonData.size(); i++) {
       dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
           : facebookClient.getJsonMapper().toJavaObject(jsonData.get(i).toString(), connectionType));

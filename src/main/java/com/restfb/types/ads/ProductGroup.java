@@ -57,5 +57,5 @@ public class ProductGroup extends BaseAdsObject {
   @Getter
   @Setter
   @Facebook("variants")
-  private List<ProductVariant> variants = new ArrayList<ProductVariant>();
+  private List<ProductVariant> variants = new ArrayList<>();
 }

@@ -78,7 +78,7 @@ public class WorkExperience extends FacebookType {
   private Page position;
 
   @Facebook
-  private List<ProjectExperience> projects = new ArrayList<ProjectExperience>();
+  private List<ProjectExperience> projects = new ArrayList<>();
 
   @Getter
   @Setter
@@ -88,7 +88,7 @@ public class WorkExperience extends FacebookType {
   private transient String rawStartDate;
 
   @Facebook
-  private List<User> with = new ArrayList<User>();
+  private List<User> with = new ArrayList<>();
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

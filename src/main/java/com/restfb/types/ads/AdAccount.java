@@ -42,7 +42,7 @@ public class AdAccount extends NamedAdsObject {
   private static final long serialVersionUID = 1L;
 
   @Facebook("account_groups")
-  private List<AdAccountGroup> accountGroups = new ArrayList<AdAccountGroup>();
+  private List<AdAccountGroup> accountGroups = new ArrayList<>();
 
   @Getter
   @Setter
@@ -100,7 +100,7 @@ public class AdAccount extends NamedAdsObject {
   private String businessZip;
 
   @Facebook
-  private List<String> capabilities = new ArrayList<String>();
+  private List<String> capabilities = new ArrayList<>();
 
   @Getter
   @Setter
@@ -128,7 +128,7 @@ public class AdAccount extends NamedAdsObject {
   private String endAdvertiserName;
 
   @Facebook("failed_delivery_checks")
-  private List<AdDeliveryCheck> failedDeliveryChecks = new ArrayList<AdDeliveryCheck>();
+  private List<AdDeliveryCheck> failedDeliveryChecks = new ArrayList<>();
 
   @Getter
   @Setter
@@ -166,7 +166,7 @@ public class AdAccount extends NamedAdsObject {
   private Boolean isTaxIdRequired;
 
   @Facebook("line_numbers")
-  private List<Integer> lineNumbers = new ArrayList<Integer>();
+  private List<Integer> lineNumbers = new ArrayList<>();
 
   @Getter
   @Setter

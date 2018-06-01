@@ -80,7 +80,7 @@ public class Place extends NamedFacebookType {
   private String locationAsString;
 
   @Facebook("category_list")
-  private List<Category> categoryList = new ArrayList<Category>();
+  private List<Category> categoryList = new ArrayList<>();
 
   /**
    * List of other categories for this place.

@@ -53,15 +53,15 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("attribution_spec")
-  private List<JsonObject> attributionSpec = new ArrayList<JsonObject>();
+  private List<JsonObject> attributionSpec = new ArrayList<>();
 
   @Facebook("adlabels")
-  private List<AdLabel> adLabels = new ArrayList<AdLabel>();
+  private List<AdLabel> adLabels = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook("adset_schedule")
-  private List<DayPart> adsetSchedule = new ArrayList<DayPart>();
+  private List<DayPart> adsetSchedule = new ArrayList<>();
 
   @Getter
   @Setter
@@ -106,7 +106,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("creative_sequence")
-  private List<String> creativeSequence = new ArrayList<String>();
+  private List<String> creativeSequence = new ArrayList<>();
 
   @Getter
   @Setter
@@ -137,7 +137,7 @@ public class AdSet extends NamedAdsObject {
   @Setter
   @Facebook("frequency_control_specs")
   private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs =
-      new ArrayList<AdCampaignFrequencyControlSpecs>();
+      new ArrayList<>();
 
   @Getter
   @Setter
@@ -167,7 +167,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("pacing_type")
-  private List<String> pacingType = new ArrayList<String>();
+  private List<String> pacingType = new ArrayList<>();
 
   @Getter
   @Setter
@@ -177,7 +177,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("recommendations")
-  private List<AdRecommendation> recommendations = new ArrayList<AdRecommendation>();
+  private List<AdRecommendation> recommendations = new ArrayList<>();
 
   @Getter
   @Setter

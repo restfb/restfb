@@ -66,7 +66,7 @@ public class BatchRequest {
   private boolean omitResponseOnSuccess;
 
   @Facebook
-  private List<BatchHeader> headers = new ArrayList<BatchHeader>();
+  private List<BatchHeader> headers;
 
   /**
    * Designed to be invoked by instances of <tt>{@link BatchRequestBuilder}</tt> .
@@ -129,9 +129,9 @@ public class BatchRequest {
   public static class BatchRequestBuilder {
     private String method = "GET";
     private String relativeUrl;
-    private List<Parameter> parameters = new ArrayList<Parameter>();
-    private List<BatchHeader> headers = new ArrayList<BatchHeader>();
-    private List<Parameter> bodyParameters = new ArrayList<Parameter>();
+    private List<Parameter> parameters = new ArrayList<>();
+    private List<BatchHeader> headers = new ArrayList<>();
+    private List<Parameter> bodyParameters = new ArrayList<>();
     private String attachedFiles;
     private String dependsOn;
     private String name;

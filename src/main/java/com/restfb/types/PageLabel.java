@@ -50,7 +50,7 @@ public class PageLabel extends NamedFacebookType {
   private Page from;
 
   @Facebook
-  private List<User> users = new ArrayList<User>();
+  private List<User> users = new ArrayList<>();
 
   public List<User> getUsers() {
     return unmodifiableList(users);

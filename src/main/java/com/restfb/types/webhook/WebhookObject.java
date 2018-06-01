@@ -47,5 +47,5 @@ public class WebhookObject {
   @Facebook("entry")
   @Getter
   @Setter
-  private List<WebhookEntry> entryList = new ArrayList<WebhookEntry>();
+  private List<WebhookEntry> entryList = new ArrayList<>();
 }

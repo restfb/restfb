@@ -64,7 +64,7 @@ public class Page extends CategorizedFacebookType {
   private ProfilePictureSource picture;
 
   @Facebook("admin_notes")
-  private List<PageAdminNote> adminNotes = new ArrayList<PageAdminNote>();
+  private List<PageAdminNote> adminNotes = new ArrayList<>();
 
   /**
    * Affiliation of this person. Applicable to Pages representing people
@@ -360,7 +360,7 @@ public class Page extends CategorizedFacebookType {
   @Facebook("is_permanently_closed")
   private Boolean isPermanentlyClosed;
 
-  private List<PageLabel> labels = new ArrayList<PageLabel>();
+  private List<PageLabel> labels = new ArrayList<>();
 
   /**
    * owner business of this object
@@ -1194,16 +1194,16 @@ public class Page extends CategorizedFacebookType {
   private Date lastUsedTime;
 
   @Facebook("category_list")
-  private List<Category> categoryList = new ArrayList<Category>();
+  private List<Category> categoryList = new ArrayList<>();
 
   @Facebook
-  private List<String> emails = new ArrayList<String>();
+  private List<String> emails = new ArrayList<>();
 
   @Facebook("food_styles")
-  private List<String> foodStyles = new ArrayList<String>();
+  private List<String> foodStyles = new ArrayList<>();
 
   @Facebook("screennames")
-  private List<ScreenName> screenNames = new ArrayList<ScreenName>();
+  private List<ScreenName> screenNames = new ArrayList<>();
 
   private static final long serialVersionUID = 2L;
 

@@ -35,7 +35,7 @@ import lombok.Setter;
 public class OpenGraphPropertyConfig {
 
   @Facebook("allowed_values")
-  private List<String> allowedValues = new ArrayList<String>();
+  private List<String> allowedValues = new ArrayList<>();
 
   /**
    * For string properties, whether the value is always lowercase

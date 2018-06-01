@@ -62,7 +62,7 @@ public class PaymentSummary extends AbstractFacebookType {
 
   public boolean addRequestedUserInfo(RequestedUserInfoEnum requestedUserInfoItem) {
     if (requestedUserInfo == null) {
-      requestedUserInfo = new ArrayList<RequestedUserInfoEnum>();
+      requestedUserInfo = new ArrayList<>();
     }
 
     return requestedUserInfo.add(requestedUserInfoItem);
@@ -70,7 +70,7 @@ public class PaymentSummary extends AbstractFacebookType {
 
   public boolean addPriceListItem(PriceListItem item) {
     if (priceList == null) {
-      priceList = new ArrayList<PriceListItem>();
+      priceList = new ArrayList<>();
     }
 
     return priceList.add(item);

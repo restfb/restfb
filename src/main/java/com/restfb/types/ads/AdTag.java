@@ -38,13 +38,13 @@ public class AdTag extends NamedAdsObject {
   private static final long serialVersionUID = 1L;
 
   @Facebook("adgroups")
-  private List<BaseAdsObject> adGroups = new ArrayList<BaseAdsObject>();
+  private List<BaseAdsObject> adGroups = new ArrayList<>();
 
   @Facebook("adcampaigns")
-  private List<BaseAdsObject> adCampaigns = new ArrayList<BaseAdsObject>();
+  private List<BaseAdsObject> adCampaigns = new ArrayList<>();
 
   @Facebook("adcampaign_groups")
-  private List<BaseAdsObject> adCampaignGroups = new ArrayList<BaseAdsObject>();
+  private List<BaseAdsObject> adCampaignGroups = new ArrayList<>();
 
   public boolean addAdGroup(BaseAdsObject baseAdsObject) {
     return adGroups.add(baseAdsObject);

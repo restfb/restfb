@@ -99,7 +99,7 @@ public class FacebookType extends AbstractFacebookType {
     private String type;
 
     @Facebook
-    private List<NamedFacebookType> fields = new ArrayList<NamedFacebookType>();
+    private List<NamedFacebookType> fields = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 

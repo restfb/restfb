@@ -52,13 +52,13 @@ public class AdAccountGroup extends NamedAdsObject {
    * The users who own the ad account group.
    */
   @Facebook
-  private final List<AdAccountGroupUser> users = new ArrayList<AdAccountGroupUser>();
+  private final List<AdAccountGroupUser> users = new ArrayList<>();
 
   /**
    * The AdGroup Accounts in the ad account group.
    */
   @Facebook
-  private final List<AdAccountGroupAccount> accounts = new ArrayList<AdAccountGroupAccount>();
+  private final List<AdAccountGroupAccount> accounts = new ArrayList<>();
 
   public boolean addUser(AdAccountGroupUser user) {
     return users.add(user);

@@ -31,7 +31,7 @@ public class RuleOpOr extends RuleOp {
 
   @Getter
   @Setter
-  private List<Rule> ruleList = new ArrayList<Rule>();
+  private List<Rule> ruleList = new ArrayList<>();
 
   public RuleOpOr(String type) {
     super(type);

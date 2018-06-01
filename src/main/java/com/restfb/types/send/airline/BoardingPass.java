@@ -103,7 +103,7 @@ public class BoardingPass extends AbstractFacebookType {
 
   public boolean addAuxiliaryField(AirlineField auxiliaryField) {
     if (auxiliaryFields == null) {
-      auxiliaryFields = new ArrayList<AirlineField>();
+      auxiliaryFields = new ArrayList<>();
     }
 
     return auxiliaryFields.add(auxiliaryField);
@@ -111,7 +111,7 @@ public class BoardingPass extends AbstractFacebookType {
 
   public boolean addSecondaryField(AirlineField secondaryField) {
     if (secondaryFields == null) {
-      secondaryFields = new ArrayList<AirlineField>();
+      secondaryFields = new ArrayList<>();
     }
 
     return secondaryFields.add(secondaryField);

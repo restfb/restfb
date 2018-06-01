@@ -280,7 +280,7 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   protected void write(InputStream source, OutputStream destination, int bufferSize) throws IOException {
     if (source == null || destination == null) {
-      throw new NullPointerException("Must provide non-null source and destination streams.");
+      throw new IllegalArgumentException("Must provide non-null source and destination streams.");
     }
 
     int read;

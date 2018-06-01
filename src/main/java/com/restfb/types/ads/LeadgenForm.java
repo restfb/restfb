@@ -124,7 +124,7 @@ public class LeadgenForm extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook
-  private List<LeadGenQualifier> qualifiers = new ArrayList<LeadGenQualifier>();
+  private List<LeadGenQualifier> qualifiers = new ArrayList<>();
 
   @Getter
   @Setter

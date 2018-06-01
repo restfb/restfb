@@ -34,6 +34,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RunWith(Parameterized.class)
 public class EndpointBuilderParamTest {
@@ -43,7 +44,7 @@ public class EndpointBuilderParamTest {
   @Parameterized.Parameters
   public static Collection versionGenerator() {
 
-    ArrayList<Object[]> versions = new ArrayList<Object[]>();
+    List<Object[]> versions = new ArrayList<>();
     for (Version v : Version.values()) {
       Object[] obj = new Object[] { v };
       versions.add(obj);

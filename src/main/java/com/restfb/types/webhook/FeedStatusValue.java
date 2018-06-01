@@ -48,5 +48,5 @@ public class FeedStatusValue extends AbstractFeedPostValue {
   @Getter
   @Setter
   @Facebook
-  private List<String> photos = new ArrayList<String>();
+  private List<String> photos = new ArrayList<>();
 }

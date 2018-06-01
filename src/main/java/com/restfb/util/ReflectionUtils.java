@@ -106,7 +106,7 @@ public final class ReflectionUtils {
       return cachedResults;
     }
 
-    List<FieldWithAnnotation<T>> fieldsWithAnnotation = new ArrayList<FieldWithAnnotation<T>>();
+    List<FieldWithAnnotation<T>> fieldsWithAnnotation = new ArrayList<>();
 
     // Walk all superclasses looking for annotated fields until we hit Object
     while (!Object.class.equals(type) && type != null) {
@@ -149,7 +149,7 @@ public final class ReflectionUtils {
       return cachedResults;
     }
 
-    List<Method> methodsWithAnnotation = new ArrayList<Method>();
+    List<Method> methodsWithAnnotation = new ArrayList<>();
 
     // Walk all superclasses looking for annotated methods until we hit Object
     while (!Object.class.equals(type)) {
@@ -220,7 +220,7 @@ public final class ReflectionUtils {
       throw new IllegalArgumentException("The 'clazz' parameter cannot be null.");
     }
 
-    List<Method> methods = new ArrayList<Method>();
+    List<Method> methods = new ArrayList<>();
     for (Method method : clazz.getMethods()) {
       String methodName = method.getName();
       if (!"getClass".equals(methodName) && !"hashCode".equals(methodName) && method.getReturnType() != null

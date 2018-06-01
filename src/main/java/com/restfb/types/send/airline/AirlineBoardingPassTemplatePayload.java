@@ -63,7 +63,7 @@ public class AirlineBoardingPassTemplatePayload extends TemplatePayload {
 
   public boolean addBoardingPass(BoardingPass boardingPass) {
     if (boardingPassList == null) {
-      boardingPassList = new ArrayList<BoardingPass>();
+      boardingPassList = new ArrayList<>();
     }
 
     return boardingPassList.add(boardingPass);

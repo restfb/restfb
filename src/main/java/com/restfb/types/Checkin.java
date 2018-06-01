@@ -91,10 +91,10 @@ public class Checkin extends FacebookType {
   private Date createdTime;
 
   @Facebook
-  private List<Comment> comments = new ArrayList<Comment>();
+  private List<Comment> comments = new ArrayList<>();
 
   @Facebook
-  private List<NamedFacebookType> tags = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> tags = new ArrayList<>();
 
   private static final long serialVersionUID = 2L;
 

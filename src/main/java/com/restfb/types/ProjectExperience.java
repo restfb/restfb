@@ -67,7 +67,7 @@ public class ProjectExperience extends NamedFacebookType {
   private User from;
 
   @Facebook
-  private List<User> with = new ArrayList<User>();
+  private List<User> with = new ArrayList<>();
 
   @JsonMapper.JsonMappingCompleted
   void convertTime() {

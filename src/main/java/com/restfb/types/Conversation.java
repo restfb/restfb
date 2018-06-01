@@ -135,16 +135,16 @@ public class Conversation extends FacebookType {
   private String wallpaper;
 
   @Facebook
-  private List<Tag> tags = new ArrayList<Tag>();
+  private List<Tag> tags = new ArrayList<>();
 
   @Facebook
-  private List<NamedFacebookType> participants = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> participants = new ArrayList<>();
 
   @Facebook("former_participants")
-  private List<NamedFacebookType> formerParticipants = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> formerParticipants = new ArrayList<>();
 
   @Facebook
-  private List<NamedFacebookType> senders = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> senders = new ArrayList<>();
 
   /**
    * Whether The Page can reply to the conversation
@@ -167,7 +167,7 @@ public class Conversation extends FacebookType {
   private Boolean subscribed;
 
   @Facebook
-  private List<Message> messages = new ArrayList<Message>();
+  private List<Message> messages = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 

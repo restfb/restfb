@@ -69,10 +69,10 @@ public class Payment extends FacebookType {
   private Application application;
 
   @Facebook
-  private List<Action> actions = new ArrayList<Action>();
+  private List<Action> actions = new ArrayList<>();
 
   @Facebook
-  private List<Item> items = new ArrayList<Item>();
+  private List<Item> items = new ArrayList<>();
 
   /**
    * Buyer's ISO Country Code, for tax purposes.
@@ -127,7 +127,7 @@ public class Payment extends FacebookType {
   private Double payoutForeignExchangeRate;
 
   @Facebook
-  private List<Dispute> disputes = new ArrayList<Dispute>();
+  private List<Dispute> disputes = new ArrayList<>();
 
   /**
    * Optional parameter that shows up when a payment is made by a payment tester listed in the app's dashboard. This

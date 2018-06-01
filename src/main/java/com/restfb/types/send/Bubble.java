@@ -66,7 +66,7 @@ public class Bubble extends AbstractFacebookType {
 
   public boolean addButton(AbstractButton button) {
     if (buttons == null) {
-      buttons = new ArrayList<AbstractButton>();
+      buttons = new ArrayList<>();
     }
 
     return buttons.add(button);

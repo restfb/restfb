@@ -71,7 +71,7 @@ public class Insight extends NamedFacebookType {
   private String description;
 
   @Facebook
-  private List<JsonObject> values = new ArrayList<JsonObject>();
+  private List<JsonObject> values = new ArrayList<>();
 
   /**
    * Data for this Insight as a list of <tt>{@link com.restfb.json.JsonObject}</tt> because its structure can vary

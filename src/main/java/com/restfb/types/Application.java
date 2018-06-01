@@ -51,7 +51,7 @@ public class Application extends CategorizedFacebookType {
   private String androidKeyHash;
 
   @Facebook("android_sdk_error_categories")
-  private List<MobileSdkErrorCategory> androidSdkErrorCategories = new ArrayList<MobileSdkErrorCategory>();
+  private List<MobileSdkErrorCategory> androidSdkErrorCategories = new ArrayList<>();
 
   /**
    * App ad related information to help debugging.
@@ -64,7 +64,7 @@ public class Application extends CategorizedFacebookType {
   private ApplicationAppAdDebugInfo appAdDebugInfo;
 
   @Facebook("app_domains")
-  private List<String> appDomains = new ArrayList<String>();
+  private List<String> appDomains = new ArrayList<>();
 
   /**
    * Bitmask of on/off settings for various App Events related features.
@@ -158,10 +158,10 @@ public class Application extends CategorizedFacebookType {
   private Long authReferralEnabled;
 
   @Facebook("auth_referral_extended_perms")
-  private List<String> authReferralExtendedPerms = new ArrayList<String>();
+  private List<String> authReferralExtendedPerms = new ArrayList<>();
 
   @Facebook("auth_referral_friend_perms")
-  private List<String> authReferralFriendPerms = new ArrayList<String>();
+  private List<String> authReferralFriendPerms = new ArrayList<>();
 
   /**
    * The format that an app receives for the authentication token from the Login Dialog
@@ -172,7 +172,7 @@ public class Application extends CategorizedFacebookType {
   private String authReferralResponseType;
 
   @Facebook("auth_referral_user_perms")
-  private List<String> authReferralUserPerms = new ArrayList<String>();
+  private List<String> authReferralUserPerms = new ArrayList<>();
 
   /**
    * Indicates whether the app uses fluid or settable height values for Canvas.
@@ -333,10 +333,10 @@ public class Application extends CategorizedFacebookType {
   private String iconUrl;
 
   @Facebook("ios_bundle_id")
-  private List<String> iosBundleId = new ArrayList<String>();
+  private List<String> iosBundleId = new ArrayList<>();
 
   @Facebook("ios_sdk_error_categories")
-  private List<MobileSdkErrorCategory> iosSdkErrorCategories = new ArrayList<MobileSdkErrorCategory>();
+  private List<MobileSdkErrorCategory> iosSdkErrorCategories = new ArrayList<>();
 
   /**
    * Whether to support the iOS integrated Login Dialog.
@@ -870,7 +870,7 @@ public class Application extends CategorizedFacebookType {
      * The vector of user facing labels for recovery options.
      */
     @Facebook("recovery_options")
-    private List<String> recoveryOptions = new ArrayList<String>();
+    private List<String> recoveryOptions = new ArrayList<>();
 
     /**
      * @return The vector of user facing labels for recovery options.
@@ -977,7 +977,7 @@ public class Application extends CategorizedFacebookType {
     private Date lastAndroidDeferredDeepLinkCall;
 
     @Facebook("ios_install_invalidation_schemes")
-    private List<String> iosInstallInvalidationSchemes = new ArrayList<String>();
+    private List<String> iosInstallInvalidationSchemes = new ArrayList<>();
 
     /**
      * Is the application allowed to use optimized CPM bidding.
@@ -1030,10 +1030,10 @@ public class Application extends CategorizedFacebookType {
     private Boolean isAppChildApp;
 
     @Facebook("ios_missing_settings")
-    private List<String> iosMissingSettings = new ArrayList<String>();
+    private List<String> iosMissingSettings = new ArrayList<>();
 
     @Facebook("android_missing_settings")
-    private List<String> androidMissingSettings = new ArrayList<String>();
+    private List<String> androidMissingSettings = new ArrayList<>();
 
     /**
      * Settings that need to be fixed before serving app ads for iOS.
@@ -1104,7 +1104,7 @@ public class Application extends CategorizedFacebookType {
   private class ApplicationFastAppSwitch extends AbstractFacebookType {
 
     @Facebook("blocked_device_models")
-    private List<String> blockedDeviceModels = new ArrayList<String>();
+    private List<String> blockedDeviceModels = new ArrayList<>();
 
     /**
      * Is landscape orientation allowed?

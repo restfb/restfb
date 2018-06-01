@@ -75,7 +75,7 @@ public class OpenGraphActionType extends NamedFacebookType {
   private Boolean isAppSecretRequired;
 
   @Facebook("object_types")
-  private List<String> objectTypes = new ArrayList<String>();
+  private List<String> objectTypes = new ArrayList<>();
 
   /**
    * The plural past form of the action

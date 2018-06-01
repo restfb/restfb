@@ -45,7 +45,7 @@ public class ButtonTemplatePayload extends TemplatePayload implements IsBroadcas
 
   public boolean addButton(AbstractButton button) {
     if (buttons == null) {
-      buttons = new ArrayList<AbstractButton>();
+      buttons = new ArrayList<>();
     }
 
     return buttons.add(button);

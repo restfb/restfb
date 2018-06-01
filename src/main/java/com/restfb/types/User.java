@@ -529,51 +529,51 @@ public class User extends NamedFacebookType {
 
   @Deprecated
   @Facebook("interested_in")
-  private List<String> interestedIn = new ArrayList<String>();
+  private List<String> interestedIn = new ArrayList<>();
 
   @Facebook("meeting_for")
-  private List<String> meetingFor = new ArrayList<String>();
+  private List<String> meetingFor = new ArrayList<>();
 
   @Facebook
-  private List<UserDevice> devices = new ArrayList<UserDevice>();
-
-  @Facebook
-  @Deprecated
-  private List<WorkExperience> work = new ArrayList<WorkExperience>();
+  private List<UserDevice> devices = new ArrayList<>();
 
   @Facebook
   @Deprecated
-  private List<Education> education = new ArrayList<Education>();
+  private List<WorkExperience> work = new ArrayList<>();
 
   @Facebook
-  private List<Sport> sports = new ArrayList<Sport>();
+  @Deprecated
+  private List<Education> education = new ArrayList<>();
+
+  @Facebook
+  private List<Sport> sports = new ArrayList<>();
 
   @Facebook("favorite_teams")
-  private List<Experience> favoriteTeams = new ArrayList<Experience>();
+  private List<Experience> favoriteTeams = new ArrayList<>();
 
   @Facebook("favorite_athletes")
-  private List<Experience> favoriteAthletes = new ArrayList<Experience>();
+  private List<Experience> favoriteAthletes = new ArrayList<>();
 
   @Facebook("inspirational_people")
-  private List<Experience> inspirationalPeople = new ArrayList<Experience>();
+  private List<Experience> inspirationalPeople = new ArrayList<>();
 
   @Facebook
-  private List<Experience> languages = new ArrayList<Experience>();
+  private List<Experience> languages = new ArrayList<>();
 
   @Facebook
-  private List<PageLabel> labels = new ArrayList<PageLabel>();
+  private List<PageLabel> labels = new ArrayList<>();
 
   @Facebook("ids_for_apps")
-  private List<UserIDForApp> idsForApps = new ArrayList<UserIDForApp>();
+  private List<UserIDForApp> idsForApps = new ArrayList<>();
 
   @Facebook("ids_for_business")
-  private List<UserIDForApp> idsForBusiness = new ArrayList<UserIDForApp>();
+  private List<UserIDForApp> idsForBusiness = new ArrayList<>();
 
   @Facebook("ids_for_pages")
-  private List<UserIDForPage> idsForPages = new ArrayList<UserIDForPage>();
+  private List<UserIDForPage> idsForPages = new ArrayList<>();
 
   @Facebook("invitable_friends")
-  private List<UserInvitableFriend> invitableFriends = new ArrayList<UserInvitableFriend>();
+  private List<UserInvitableFriend> invitableFriends = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 
@@ -642,13 +642,13 @@ public class User extends NamedFacebookType {
     private String type;
 
     @Facebook
-    private List<NamedFacebookType> concentration = new ArrayList<NamedFacebookType>();
+    private List<NamedFacebookType> concentration = new ArrayList<>();
 
     @Facebook
-    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+    private List<NamedFacebookType> with = new ArrayList<>();
 
     @Facebook
-    private List<EducationClass> classes = new ArrayList<EducationClass>();
+    private List<EducationClass> classes = new ArrayList<>();
 
     private static final long serialVersionUID = 2L;
 
@@ -714,7 +714,7 @@ public class User extends NamedFacebookType {
    */
   public static class EducationClass extends NamedFacebookType {
     @Facebook
-    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+    private List<NamedFacebookType> with = new ArrayList<>();
 
     /**
      * The description of this class.
@@ -756,7 +756,7 @@ public class User extends NamedFacebookType {
   public static class Sport extends NamedFacebookType {
 
     @Facebook
-    private List<NamedFacebookType> with = new ArrayList<NamedFacebookType>();
+    private List<NamedFacebookType> with = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 
@@ -1234,7 +1234,7 @@ public class User extends NamedFacebookType {
   public static class PaymentPricepoints extends AbstractFacebookType {
 
     @Facebook
-    private List<PaymentPricepoint> mobile = new ArrayList<PaymentPricepoint>();
+    private List<PaymentPricepoint> mobile = new ArrayList<>();
 
     /**
      * Mobile payment pricepoints
@@ -1307,7 +1307,7 @@ public class User extends NamedFacebookType {
     private User from;
 
     @Facebook
-    private List<User> with = new ArrayList<User>();
+    private List<User> with = new ArrayList<>();
 
     /**
      * Tagged users

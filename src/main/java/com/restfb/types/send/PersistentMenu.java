@@ -74,7 +74,7 @@ public class PersistentMenu extends AbstractFacebookType {
 
   public void addCallToAction(MenuItem item) {
     if (callToActions == null) {
-      callToActions = new ArrayList<MenuItem>();
+      callToActions = new ArrayList<>();
     }
 
     callToActions.add(item);

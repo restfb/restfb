@@ -63,7 +63,7 @@ public class TargetAudience extends AbstractFacebookType {
     @Getter
     @Setter
     @Facebook
-    private List<String> whitelist = new ArrayList<String>();
+    private List<String> whitelist = new ArrayList<>();
 
     /**
      * List of ISO 3166 Alpha-2 codes.
@@ -73,6 +73,6 @@ public class TargetAudience extends AbstractFacebookType {
     @Getter
     @Setter
     @Facebook
-    private List<String> blacklist = new ArrayList<String>();
+    private List<String> blacklist = new ArrayList<>();
   }
 }

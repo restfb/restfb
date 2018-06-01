@@ -103,7 +103,7 @@ public class CustomAudience extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("excluded_custom_audiences")
-  private List<CustomAudience> excludedCustomAudiences = new ArrayList<CustomAudience>();
+  private List<CustomAudience> excludedCustomAudiences = new ArrayList<>();
 
   /**
    * Read-only JSON dictionary with key id containing the pixel id whose traffic generated this custom audience
@@ -120,7 +120,7 @@ public class CustomAudience extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("included_custom_audiences")
-  private List<CustomAudience> includedCustomAudiences = new ArrayList<CustomAudience>();
+  private List<CustomAudience> includedCustomAudiences = new ArrayList<>();
 
   /**
    * last used time of this object by the current viewer
@@ -144,7 +144,7 @@ public class CustomAudience extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("lookalike_audience_ids")
-  private List<String> lookalikeAudienceIds = new ArrayList<String>();
+  private List<String> lookalikeAudienceIds = new ArrayList<>();
 
   /**
    * Generated only when the subtype is LOOKALIKE.

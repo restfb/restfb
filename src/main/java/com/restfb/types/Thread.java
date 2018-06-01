@@ -42,10 +42,10 @@ public class Thread extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   @Facebook
-  private List<NamedFacebookType> to = new ArrayList<NamedFacebookType>();
+  private List<NamedFacebookType> to = new ArrayList<>();
 
   @Facebook
-  private List<Message> comments = new ArrayList<Message>();
+  private List<Message> comments = new ArrayList<>();
 
   /**
    * The amount of messages that are unread by the session profile.

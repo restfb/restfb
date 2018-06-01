@@ -106,7 +106,7 @@ public class Comments extends AbstractFacebookType {
   private String summary = null;
 
   @Facebook
-  private List<Comment> data = new ArrayList<Comment>();
+  private List<Comment> data = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 

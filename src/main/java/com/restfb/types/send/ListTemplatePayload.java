@@ -63,7 +63,7 @@ public class ListTemplatePayload extends SharableTemplatePayload implements IsBr
 
   public boolean addButton(AbstractButton button) {
     if (buttons == null) {
-      buttons = new ArrayList<AbstractButton>();
+      buttons = new ArrayList<>();
     }
 
     if (buttons.size() == 1) {

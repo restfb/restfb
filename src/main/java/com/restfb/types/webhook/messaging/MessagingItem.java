@@ -263,7 +263,7 @@ public class MessagingItem {
       AppRoles appRoles = new AppRoles();
       for (String appId : rawAppRoles.names()) {
         List<JsonValue> rawRoles = rawAppRoles.get(appId).asArray().values();
-        List<String> roles = new ArrayList<String>();
+        List<String> roles = new ArrayList<>();
         for (JsonValue rawValue : rawRoles) {
           roles.add(rawValue.asString());
         }

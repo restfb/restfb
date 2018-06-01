@@ -328,7 +328,7 @@ public class Targeting extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("product_audience_specs")
-  private List<TargetingProductAudienceSpec> productAudienceSpecs = new ArrayList<TargetingProductAudienceSpec>();
+  private List<TargetingProductAudienceSpec> productAudienceSpecs = new ArrayList<>();
 
   @Getter
   @Setter

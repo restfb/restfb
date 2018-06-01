@@ -98,7 +98,7 @@ public class AirlineItineraryTemplatePayload extends TemplatePayload {
 
   public boolean addPassengerInfo(PassengerInfo passengerInfo) {
     if (passengerInfoList == null) {
-      passengerInfoList = new ArrayList<PassengerInfo>();
+      passengerInfoList = new ArrayList<>();
     }
 
     return passengerInfoList.add(passengerInfo);
@@ -106,7 +106,7 @@ public class AirlineItineraryTemplatePayload extends TemplatePayload {
 
   public boolean addFlightInfo(FlightInfo flightInfo) {
     if (flightInfoList == null) {
-      flightInfoList = new ArrayList<FlightInfo>();
+      flightInfoList = new ArrayList<>();
     }
 
     return flightInfoList.add(flightInfo);
@@ -114,7 +114,7 @@ public class AirlineItineraryTemplatePayload extends TemplatePayload {
 
   public boolean addPassengerSegmentInfo(PassengerSegmentInfo passengerSegmentInfo) {
     if (passengerSegmentInfoList == null) {
-      passengerSegmentInfoList = new ArrayList<PassengerSegmentInfo>();
+      passengerSegmentInfoList = new ArrayList<>();
     }
 
     return passengerSegmentInfoList.add(passengerSegmentInfo);
@@ -122,7 +122,7 @@ public class AirlineItineraryTemplatePayload extends TemplatePayload {
 
   public boolean addPriceInfo(PriceInfo priceInfo) {
     if (priceInfoList == null) {
-      priceInfoList = new ArrayList<PriceInfo>();
+      priceInfoList = new ArrayList<>();
     }
 
     return priceInfoList.add(priceInfo);

@@ -399,7 +399,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
     PostbackButton postbackButton = new PostbackButton("View More", "payload");
 
-    List<ListViewElement> listViewElementList = new ArrayList<ListViewElement>();
+    List<ListViewElement> listViewElementList = new ArrayList<>();
     listViewElementList.add(element1);
     listViewElementList.add(element2);
     ListTemplatePayload payload = new ListTemplatePayload(listViewElementList);
@@ -556,7 +556,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
   public void messageWithMultipleQuickRepliesAddedAtOnce() {
-    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
     quickReplyList.add(new QuickReply("title2", "payload 2"));
     Message message = new Message("message text");
@@ -574,7 +574,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   @Test(expected = FacebookPreconditionException.class)
   public void messageWithTooManyReplies_elevenPresentOneAdded() {
     Message message = new Message("message text");
-    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
     quickReplyList.add(new QuickReply("title2", "payload 2"));
     quickReplyList.add(new QuickReply("title3", "payload 3"));
@@ -593,7 +593,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   @Test(expected = FacebookPreconditionException.class)
   public void messageWithTooManyReplies_EightPresentFourAdded() {
     Message message = new Message("message text");
-    List<QuickReply> quickReplyList = new ArrayList<QuickReply>();
+    List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
     quickReplyList.add(new QuickReply("title2", "payload 2"));
     quickReplyList.add(new QuickReply("title3", "payload 3"));
@@ -603,7 +603,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title7", "payload 7"));
     quickReplyList.add(new QuickReply("title8", "payload 8"));
 
-    List<QuickReply> quickReplyListAdded = new ArrayList<QuickReply>();
+    List<QuickReply> quickReplyListAdded = new ArrayList<>();
     quickReplyListAdded.add(new QuickReply("title1a", "payload 1a"));
     quickReplyListAdded.add(new QuickReply("title2a", "payload 2a"));
     quickReplyListAdded.add(new QuickReply("title3a", "payload 3a"));

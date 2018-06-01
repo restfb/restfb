@@ -69,7 +69,7 @@ public class Message extends AbstractFacebookType {
    */
   public boolean addQuickReply(QuickReply quickReply) {
     if (quickReplies == null) {
-      quickReplies = new ArrayList<QuickReply>();
+      quickReplies = new ArrayList<>();
     }
 
     checkPrecondition(1);
@@ -86,7 +86,7 @@ public class Message extends AbstractFacebookType {
    */
   public boolean addQuickReplies(List<QuickReply> quickReplyList) {
     if (quickReplies == null) {
-      quickReplies = new ArrayList<QuickReply>();
+      quickReplies = new ArrayList<>();
     }
 
     checkPrecondition(quickReplyList.size());

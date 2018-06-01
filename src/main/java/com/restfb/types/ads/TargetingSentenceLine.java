@@ -48,13 +48,13 @@ public class TargetingSentenceLine extends BaseAdsObject {
   @Getter
   @Setter
   @Facebook
-  private List<String> targetingsentencelines = new ArrayList<String>();
+  private List<String> targetingsentencelines = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook("targetingsentencelines")
   private List<TargetingSentenceLineItem> targetingsentencelinesAsObjectList =
-      new ArrayList<TargetingSentenceLineItem>();
+      new ArrayList<>();
 
   public static class TargetingSentenceLineItem extends AbstractFacebookType {
 
@@ -66,7 +66,7 @@ public class TargetingSentenceLine extends BaseAdsObject {
     @Getter
     @Setter
     @Facebook
-    private List<String> children = new ArrayList<String>();
+    private List<String> children = new ArrayList<>();
 
   }
 }

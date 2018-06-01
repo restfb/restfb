@@ -38,7 +38,7 @@ public class Account extends Page {
   private static final long serialVersionUID = 1L;
 
   @Facebook("perms")
-  private List<String> perms = new ArrayList<String>();
+  private List<String> perms = new ArrayList<>();
 
   /**
    * A list of permissions the user has for this page.

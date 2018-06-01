@@ -225,7 +225,7 @@ public class Photo extends NamedFacebookType {
   private Comments comments;
 
   @Facebook
-  private List<Tag> tags = new ArrayList<Tag>();
+  private List<Tag> tags = new ArrayList<>();
 
   @Getter
   @Setter
@@ -233,12 +233,12 @@ public class Photo extends NamedFacebookType {
   private Likes likes;
 
   @Facebook
-  private List<Image> images = new ArrayList<Image>();
+  private List<Image> images = new ArrayList<>();
 
   @Facebook("name_tags")
   private transient String rawNameTags;
 
-  private List<EntityAtTextRange> nameTags = new ArrayList<EntityAtTextRange>();
+  private List<EntityAtTextRange> nameTags = new ArrayList<>();
 
   /**
    * The location associated with this photo, if any.

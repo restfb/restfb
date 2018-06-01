@@ -44,7 +44,7 @@ public class OpenGraphTemplatePayload extends TemplatePayload {
 
   public boolean addElement(Element element) {
     if (elements == null) {
-      elements = new ArrayList<Element>();
+      elements = new ArrayList<>();
     }
 
     return elements.add(element);
@@ -66,7 +66,7 @@ public class OpenGraphTemplatePayload extends TemplatePayload {
 
     public boolean addButton(WebButton button) {
       if (buttons == null) {
-        buttons = new ArrayList<AbstractButton>();
+        buttons = new ArrayList<>();
       }
 
       return buttons.add(button);

@@ -64,7 +64,7 @@ public class DateUtilsMultiThreadedTest {
     // create thread pool and calc dates
     ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
     List<Future<Long>> futures = executorService.invokeAll(tasks);
-    List<Long> resultList = new ArrayList<Long>(futures.size());
+    List<Long> resultList = new ArrayList<>(futures.size());
     for (Future<Long> future : futures) {
       resultList.add(future.get());
     }
@@ -73,7 +73,7 @@ public class DateUtilsMultiThreadedTest {
     assertThat(futures).hasSize(threadCount);
 
     // generate list with expected values
-    List<Long> expectedList = new ArrayList<Long>(threadCount);
+    List<Long> expectedList = new ArrayList<>(threadCount);
     for (long i = 1; i <= threadCount; i++) {
       long yearIncrement = 1900 + i;
       String date = "30/01/" + yearIncrement;

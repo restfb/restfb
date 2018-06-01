@@ -38,7 +38,7 @@ public class TargetingResponseDemographic extends NamedAdsObject {
   private String type;
 
   @Facebook
-  private List<String> path = new ArrayList<String>();
+  private List<String> path = new ArrayList<>();
 
   @Getter
   @Setter

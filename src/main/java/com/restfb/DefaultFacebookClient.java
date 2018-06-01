@@ -398,7 +398,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     List<BinaryAttachment> attachments = null;
     if (binaryAttachment != null) {
-      attachments = new ArrayList<BinaryAttachment>();
+      attachments = new ArrayList<>();
       attachments.add(binaryAttachment);
     }
 
@@ -700,7 +700,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String dialogUrl = getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth";
 
-    ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+    List<Parameter> parameterList = new ArrayList<>();
     parameterList.add(Parameter.with("client_id", appId));
     parameterList.add(Parameter.with("redirect_uri", redirectUri));
     parameterList.add(Parameter.with("scope", scope.toString()));

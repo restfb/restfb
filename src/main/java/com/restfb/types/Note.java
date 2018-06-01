@@ -109,7 +109,7 @@ public class Note extends FacebookType {
   private String commentsAsObject;
 
   @Facebook("comments")
-  private List<Comment> comments = new ArrayList<Comment>();
+  private List<Comment> comments = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 

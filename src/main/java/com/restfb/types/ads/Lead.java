@@ -71,12 +71,12 @@ public class Lead extends BaseAdsObject {
   @Getter
   @Setter
   @Facebook("custom_disclaimer_responses")
-  private List<String> customDisclaimerResponses = new ArrayList<String>();
+  private List<String> customDisclaimerResponses = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook("field_data")
-  private List<FieldData> fieldData = new ArrayList<FieldData>();
+  private List<FieldData> fieldData = new ArrayList<>();
 
   /**
    * The ID of the form.

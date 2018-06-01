@@ -62,7 +62,7 @@ public class Reactions extends AbstractFacebookType {
   private String summary;
 
   @Facebook
-  private List<ReactionItem> data = new ArrayList<ReactionItem>();
+  private List<ReactionItem> data = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 

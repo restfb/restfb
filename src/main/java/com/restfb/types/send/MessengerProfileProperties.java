@@ -55,12 +55,12 @@ public class MessengerProfileProperties extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("greeting")
-  private List<Greeting> greeting = new ArrayList<Greeting>();
+  private List<Greeting> greeting = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook("whitelisted_domains")
-  private List<String> whitelistedDomains = new ArrayList<String>();
+  private List<String> whitelistedDomains = new ArrayList<>();
 
   @Getter
   @Setter

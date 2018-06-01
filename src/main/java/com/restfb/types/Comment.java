@@ -266,7 +266,7 @@ public class Comment extends FacebookType {
   @Facebook("message_tags")
   private transient String rawMessageTags;
 
-  private List<MessageTag> messageTags = new ArrayList<MessageTag>();
+  private List<MessageTag> messageTags = new ArrayList<>();
 
   private static final long serialVersionUID = 2L;
 

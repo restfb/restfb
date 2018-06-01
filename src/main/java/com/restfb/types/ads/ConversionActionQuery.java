@@ -43,7 +43,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("action.type")
-  private List<String> actionType = new ArrayList<String>();
+  private List<String> actionType = new ArrayList<>();
 
   /**
    * Application
@@ -51,7 +51,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> application = new ArrayList<String>();
+  private List<String> application = new ArrayList<>();
 
   /**
    * Rule based offsite conversion
@@ -59,7 +59,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("conversion_id")
-  private List<String> conversionId = new ArrayList<String>();
+  private List<String> conversionId = new ArrayList<>();
 
   /**
    * Event Type
@@ -67,7 +67,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("event_type")
-  private List<String> eventType = new ArrayList<String>();
+  private List<String> eventType = new ArrayList<>();
 
   /**
    * Event
@@ -75,7 +75,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> event = new ArrayList<String>();
+  private List<String> event = new ArrayList<>();
 
   /**
    * Event creator
@@ -83,7 +83,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("event.creator")
-  private List<String> eventCreator = new ArrayList<String>();
+  private List<String> eventCreator = new ArrayList<>();
 
   /**
    * Facebook pixel id
@@ -91,7 +91,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("fb_pixel")
-  private List<String> fbPixel = new ArrayList<String>();
+  private List<String> fbPixel = new ArrayList<>();
 
   /**
    * Facebook pixel event
@@ -99,7 +99,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("fb_pixel_event")
-  private List<String> fbPixelEvent = new ArrayList<String>();
+  private List<String> fbPixelEvent = new ArrayList<>();
 
   /**
    * Object
@@ -107,7 +107,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> object = new ArrayList<String>();
+  private List<String> object = new ArrayList<>();
 
   /**
    * Object domain
@@ -115,7 +115,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("object.domain")
-  private List<String> objectDomain = new ArrayList<String>();
+  private List<String> objectDomain = new ArrayList<>();
 
   /**
    * Offer
@@ -123,7 +123,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> offer = new ArrayList<String>();
+  private List<String> offer = new ArrayList<>();
 
   /**
    * Offer creator
@@ -131,7 +131,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("offer.creator")
-  private List<String> offerCreator = new ArrayList<String>();
+  private List<String> offerCreator = new ArrayList<>();
 
   /**
    * Offsite pixel
@@ -139,7 +139,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("offsite_pixel")
-  private List<String> offsitePixel = new ArrayList<String>();
+  private List<String> offsitePixel = new ArrayList<>();
 
   /**
    * Page
@@ -147,7 +147,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> page = new ArrayList<String>();
+  private List<String> page = new ArrayList<>();
 
   /**
    * Page parent
@@ -155,7 +155,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("page.parent")
-  private List<String> pageParent = new ArrayList<String>();
+  private List<String> pageParent = new ArrayList<>();
 
   /**
    * Post
@@ -163,7 +163,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> post = new ArrayList<String>();
+  private List<String> post = new ArrayList<>();
 
   /**
    * Post object
@@ -171,7 +171,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("post.object")
-  private List<String> postObject = new ArrayList<String>();
+  private List<String> postObject = new ArrayList<>();
 
   /**
    * Post object wall
@@ -179,7 +179,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("post.object.wall")
-  private List<String> postObjectWall = new ArrayList<String>();
+  private List<String> postObjectWall = new ArrayList<>();
 
   /**
    * Post wall
@@ -187,7 +187,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("post.wall")
-  private List<String> postWall = new ArrayList<String>();
+  private List<String> postWall = new ArrayList<>();
 
   /**
    * Product set id
@@ -195,7 +195,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("product_set_id")
-  private List<String> productSetId = new ArrayList<String>();
+  private List<String> productSetId = new ArrayList<>();
 
   /**
    * Question
@@ -203,7 +203,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> question = new ArrayList<String>();
+  private List<String> question = new ArrayList<>();
 
   /**
    * Question creator
@@ -211,7 +211,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("question.creator")
-  private List<String> questionCreator = new ArrayList<String>();
+  private List<String> questionCreator = new ArrayList<>();
 
   /**
    * Response
@@ -219,7 +219,7 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> response = new ArrayList<String>();
+  private List<String> response = new ArrayList<>();
 
   /**
    * Subtype
@@ -227,6 +227,6 @@ public class ConversionActionQuery extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<String> subtype = new ArrayList<String>();
+  private List<String> subtype = new ArrayList<>();
 
 }

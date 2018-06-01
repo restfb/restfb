@@ -72,7 +72,7 @@ public class AirlineCheckinTemplatePayload extends TemplatePayload {
 
   public boolean addFlightInfo(FlightInfo flightInfo) {
     if (flightInfoList == null) {
-      flightInfoList = new ArrayList<FlightInfo>();
+      flightInfoList = new ArrayList<>();
     }
 
     return flightInfoList.add(flightInfo);

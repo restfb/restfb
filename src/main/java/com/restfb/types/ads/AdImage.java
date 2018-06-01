@@ -134,7 +134,7 @@ public class AdImage extends NamedAdsObject {
   @Facebook("updated_time")
   private Date updatedTime;
 
-  private final List<AdCreative> creatives = new ArrayList<AdCreative>();
+  private final List<AdCreative> creatives = new ArrayList<>();
 
   public boolean addCreative(AdCreative creative) {
     return creatives.add(creative);

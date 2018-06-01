@@ -93,7 +93,7 @@ public class Subscription extends AbstractFacebookType {
   @JsonMapper.JsonMappingCompleted
   private void convertCompatFields() {
     if (compatFields != null && fields == null) {
-      fields = new ArrayList<SubscriptionField>();
+      fields = new ArrayList<>();
       for (String field : compatFields) {
         fields.add(new SubscriptionField(field));
       }
