@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.6.0 (June 1, 2018)
+
+* Issue #889 - switch to java 7
+* Issue #890 - replace old custom base 64 implementation
+* Issue #888 - improved exception logging
+
 ## 2.5.0 (May 4, 2018)
 
 * Graph API 3.0
