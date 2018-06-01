@@ -22,7 +22,7 @@
   <property name="websiteDir" value="website"/>
 
   <!-- Java switches -->
-  <property name="javaVersion" value="1.6"/>
+  <property name="javaVersion" value="1.7"/>
   <property name="javaDebug" value="true"/>
   <property name="javaDebugLevel" value="lines,source"/>
 
