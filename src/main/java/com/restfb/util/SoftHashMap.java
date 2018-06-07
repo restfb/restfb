@@ -36,12 +36,12 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable 
   private static final long serialVersionUID = 1L;
   
   /** The internal HashMap that will hold the SoftReference. */
-  private final Map<K, SoftReference<V>> hash = new HashMap<K, SoftReference<V>>();
+  private final Map<K, SoftReference<V>> hash = new HashMap<>();
 
-  private final Map<SoftReference<V>, K> reverseLookup = new HashMap<SoftReference<V>, K>();
+  private final Map<SoftReference<V>, K> reverseLookup = new HashMap<>();
 
   /** Reference queue for cleared SoftReference objects. */
-  private final ReferenceQueue<V> queue = new ReferenceQueue<V>();
+  private final ReferenceQueue<V> queue = new ReferenceQueue<>();
 
   @Override
   public V get(Object key) {
@@ -112,7 +112,7 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable 
   @Override
   public Set<Entry<K, V>> entrySet() {
     expungeStaleEntries();
-    Set<Entry<K, V>> result = new LinkedHashSet<Entry<K, V>>();
+    Set<Entry<K, V>> result = new LinkedHashSet<>();
     for (final Entry<K, SoftReference<V>> entry : hash.entrySet()) {
       final V value = entry.getValue().get();
       if (value != null) {

@@ -84,7 +84,7 @@ public class ProductItem extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("custom_data")
-  private Map<String, String> customData = new HashMap<String, String>();
+  private Map<String, String> customData = new HashMap<>();
 
   @Getter
   @Setter

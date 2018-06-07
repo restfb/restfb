@@ -23,6 +23,7 @@ package com.restfb;
 
 import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.EncodingUtils.decodeBase64;
+import static com.restfb.util.ObjectUtil.verifyParameterPresence;
 import static com.restfb.util.StringUtils.*;
 import static com.restfb.util.UrlUtils.urlEncode;
 import static java.lang.String.format;

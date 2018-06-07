@@ -291,11 +291,7 @@ public class DefaultJsonMapper implements JsonMapper {
           try {
             fieldWithAnnotation.getField().set(instance,
               toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
-          } catch (FacebookJsonMappingException e) {
-            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
-          } catch (ParseException e) {
-            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
-          } catch (UnsupportedOperationException uoe) {
+          } catch (FacebookJsonMappingException|ParseException|UnsupportedOperationException e) {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
           }
         } else {
@@ -414,8 +410,8 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   protected Set<String> facebookFieldNamesWithMultipleMappings(
       List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
-    Map<String, Integer> facebookFieldsNamesWithOccurrenceCount = new HashMap<String, Integer>();
-    Set<String> facebookFieldNamesWithMultipleMappings = new HashSet<String>();
+    Map<String, Integer> facebookFieldsNamesWithOccurrenceCount = new HashMap<>();
+    Set<String> facebookFieldNamesWithMultipleMappings = new HashSet<>();
 
     // Get a count of Facebook field name occurrences for each
     // @Facebook-annotated field

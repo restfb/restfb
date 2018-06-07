@@ -71,7 +71,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("bid_info")
-  private Map<String, Long> bidInfo = new HashMap<String, Long>();
+  private Map<String, Long> bidInfo = new HashMap<>();
 
   @Getter
   @Setter

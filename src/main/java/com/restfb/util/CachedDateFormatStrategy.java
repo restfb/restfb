@@ -65,7 +65,7 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
       SoftReference<Map> ref = THREADLOCAL_FORMATTER_MAP.get();
       Map<String, SimpleDateFormat> formatterMap = ref.get();
       if (formatterMap == null) {
-        formatterMap = new HashMap<String, SimpleDateFormat>();
+        formatterMap = new HashMap<>();
         THREADLOCAL_FORMATTER_MAP.set(new SoftReference<Map>(formatterMap));
       }
 

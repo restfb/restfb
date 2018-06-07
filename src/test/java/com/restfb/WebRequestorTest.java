@@ -44,7 +44,7 @@ public class WebRequestorTest {
     String appUsage = "{ \"call_count\": 10, \"total_time\": 20, \"total_cputime\": 30 }";
     String pageUsage = "{ \"call_count\": 20, \"total_time\": 40, \"total_cputime\": 60 }";
 
-    final Map<String, String> headerFields = new HashMap<String, String>();
+    final Map<String, String> headerFields = new HashMap<>();
     headerFields.put("x-app-usage", appUsage);
     headerFields.put("x-page-usage", pageUsage);
 

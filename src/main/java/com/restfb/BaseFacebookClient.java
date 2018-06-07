@@ -21,6 +21,8 @@
  */
 package com.restfb;
 
+import com.restfb.util.ObjectUtil;
+
 import static com.restfb.util.UrlUtils.urlEncode;
 
 import java.util.HashSet;
@@ -127,7 +129,7 @@ abstract class BaseFacebookClient {
 
   /**
    * Verifies that the provided parameter names don't collide with the ones we internally pass along to Facebook.
-   * 
+   *
    * @param parameters
    *          The parameters to check.
    * @throws IllegalArgumentException
@@ -137,40 +139,7 @@ abstract class BaseFacebookClient {
     for (Parameter parameter : parameters)
       if (illegalParamNames.contains(parameter.name)) {
         throw new IllegalArgumentException(
-          "Parameter '" + parameter.name + "' is reserved for RestFB use - you cannot specify it yourself.");
+                "Parameter '" + parameter.name + "' is reserved for RestFB use - you cannot specify it yourself.");
       }
-  }
-
-  /**
-   * Ensures that {@code parameter} isn't {@code null} or an empty string.
-   * 
-   * @param parameterName
-   *          The name of the parameter (to be used in exception message).
-   * @param parameter
-   *          The parameter to check.
-   * @throws IllegalArgumentException
-   *           If {@code parameter} is {@code null} or an empty string.
-   */
-  protected void verifyParameterPresence(String parameterName, String parameter) {
-    verifyParameterPresence(parameterName, (Object) parameter);
-    if (parameter.trim().length() == 0) {
-      throw new IllegalArgumentException("The '" + parameterName + "' parameter cannot be an empty string.");
-    }
-  }
-
-  /**
-   * Ensures that {@code parameter} isn't {@code null}.
-   * 
-   * @param parameterName
-   *          The name of the parameter (to be used in exception message).
-   * @param parameter
-   *          The parameter to check.
-   * @throws NullPointerException
-   *           If {@code parameter} is {@code null}.
-   */
-  protected void verifyParameterPresence(String parameterName, Object parameter) {
-    if (parameter == null) {
-      throw new NullPointerException("The '" + parameterName + "' parameter cannot be null.");
-    }
   }
 }

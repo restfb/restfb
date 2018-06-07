@@ -35,10 +35,10 @@ public class AdgroupPlacementSpecificReviewFeedback extends AbstractFacebookType
   @Getter
   @Setter
   @Facebook("facebook")
-  private Map<String, String> facebook = new HashMap<String, String>();
+  private Map<String, String> facebook = new HashMap<>();
 
   @Getter
   @Setter
   @Facebook("instagram")
-  private Map<String, String> instagram = new HashMap<String, String>();
+  private Map<String, String> instagram = new HashMap<>();
 }

@@ -142,7 +142,7 @@ public class OpenGraphPropertyConfig {
   private String requiredGroup;
 
   @Facebook("struct_config")
-  private Map<String, OpenGraphPropertyConfig> structConfig = new HashMap<String, OpenGraphPropertyConfig>();
+  private Map<String, OpenGraphPropertyConfig> structConfig = new HashMap<>();
 
   /**
    * Type of the property

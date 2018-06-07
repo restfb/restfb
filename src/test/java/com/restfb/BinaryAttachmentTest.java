@@ -39,7 +39,7 @@ public class BinaryAttachmentTest {
     assertThat(att.getData()).isInstanceOf(ByteArrayInputStream.class);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test(expected = NullPointerException.class)
   public void checkByteArrayNull() {
     BinaryAttachment.with("filename", (byte[]) null);
   }
@@ -52,8 +52,8 @@ public class BinaryAttachmentTest {
     assertThat(att.getData()).isInstanceOf(BufferedInputStream.class);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void checkInpuStreamNull() {
+  @Test(expected = NullPointerException.class)
+  public void checkInputStreamNull() {
     BinaryAttachment.with("filename", (InputStream) null);
   }
 

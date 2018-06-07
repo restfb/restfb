@@ -204,7 +204,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
 
-    Map<String, Object> map = new HashMap<String, Object>();
+    Map<String, Object> map = new HashMap<>();
     map.put("testId", new BigInteger("412"));
     map.put("floatId", 123.45F);
     map.put("basicUser", basicUser);
@@ -217,7 +217,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
   @Test
   public void mapWithNoStringKey() {
-    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> map = new HashMap<>();
     map.put(1, 3);
     map.put(2, 1);
     try {
@@ -230,7 +230,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
   @Test
   public void mapWithInfiniteFloatValueKey() {
-    Map<String, Float> map = new HashMap<String, Float>();
+    Map<String, Float> map = new HashMap<>();
     map.put("test", Float.POSITIVE_INFINITY);
     try {
       String json = createJsonMapper().toJson(map);

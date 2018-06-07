@@ -21,15 +21,15 @@
  */
 package com.restfb;
 
-import static com.restfb.util.StringUtils.isBlank;
 import static java.lang.String.format;
-
-import com.restfb.util.ReflectionUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
+
+import com.restfb.util.ObjectUtil;
+import com.restfb.util.ReflectionUtils;
 
 import lombok.Getter;
 
@@ -71,13 +71,8 @@ public class BinaryAttachment {
    */
   @Deprecated
   protected BinaryAttachment(String filename, InputStream data) {
-    if (isBlank(filename)) {
-      throw new IllegalArgumentException("Binary attachment filename cannot be blank.");
-    }
-    if (data == null) {
-      throw new IllegalArgumentException("Binary attachment data cannot be null.");
-    }
-
+    ObjectUtil.requireNotEmpty(filename, "Binary attachment filename cannot be blank.");
+    ObjectUtil.verifyParameterPresence("data", data);
     this.filename = filename;
     this.dataStream = data;
   }
@@ -98,9 +93,7 @@ public class BinaryAttachment {
   @Deprecated
   protected BinaryAttachment(String fieldName, String filename, InputStream data) {
     this(filename, data);
-    if (isBlank(fieldName)) {
-      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
-    }
+    ObjectUtil.requireNotEmpty(fieldName, FIELD_NAME_CANNOT_BE_NULL);
 
     this.fieldName = fieldName;
   }
@@ -123,9 +116,7 @@ public class BinaryAttachment {
   @Deprecated
   protected BinaryAttachment(String filename, InputStream data, String contentType) {
     this(filename, data);
-    if (isBlank(contentType)) {
-      throw new IllegalArgumentException("ContentType cannot be null.");
-    }
+    ObjectUtil.requireNotEmpty(contentType, "ContentType cannot be null.");
 
     this.contentType = contentType;
   }
@@ -150,9 +141,7 @@ public class BinaryAttachment {
   @Deprecated
   protected BinaryAttachment(String fieldName, String filename, InputStream data, String contentType) {
     this(filename, data, contentType);
-    if (isBlank(fieldName)) {
-      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
-    }
+    ObjectUtil.requireNotEmpty(fieldName, FIELD_NAME_CANNOT_BE_NULL);
 
     this.fieldName = fieldName;
   }
@@ -169,12 +158,8 @@ public class BinaryAttachment {
    * @since 1.6.17
    */
   protected BinaryAttachment(String filename, byte[] data) {
-    if (isBlank(filename)) {
-      throw new IllegalArgumentException("Binary attachment filename cannot be blank.");
-    }
-    if (data == null) {
-      throw new IllegalArgumentException("Binary attachment data cannot be null.");
-    }
+    ObjectUtil.requireNotEmpty(filename, "Binary attachment filename cannot be blank.");
+    ObjectUtil.verifyParameterPresence("data", data);
 
     this.filename = filename;
     this.data = data;
@@ -195,9 +180,7 @@ public class BinaryAttachment {
    */
   protected BinaryAttachment(String fieldName, String filename, byte[] data) {
     this(filename, data);
-    if (isBlank(fieldName)) {
-      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
-    }
+    ObjectUtil.requireNotEmpty(fieldName, FIELD_NAME_CANNOT_BE_NULL);
 
     this.fieldName = fieldName;
   }
@@ -218,9 +201,7 @@ public class BinaryAttachment {
    */
   protected BinaryAttachment(String filename, byte[] data, String contentType) {
     this(filename, data);
-    if (isBlank(contentType)) {
-      throw new IllegalArgumentException("ContentType cannot be null.");
-    }
+    ObjectUtil.requireNotEmpty(contentType, "ContentType cannot be null.");
 
     this.contentType = contentType;
   }
@@ -243,9 +224,7 @@ public class BinaryAttachment {
    */
   protected BinaryAttachment(String fieldName, String filename, byte[] data, String contentType) {
     this(filename, data, contentType);
-    if (isBlank(fieldName)) {
-      throw new IllegalArgumentException(FIELD_NAME_CANNOT_BE_NULL);
-    }
+    ObjectUtil.requireNotEmpty(fieldName, FIELD_NAME_CANNOT_BE_NULL);
 
     this.fieldName = fieldName;
   }

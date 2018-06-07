@@ -32,7 +32,7 @@ public class SoftHashMapTest {
 
   @Test
   public void checkSimpleSize() {
-    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     assertThat(hashMap).isEmpty();
     hashMap.put("test", 1);
     assertThat(hashMap).hasSize(1);
@@ -40,7 +40,7 @@ public class SoftHashMapTest {
 
   @Test
   public void checkSimpleClear() {
-    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("test", 1);
     assertThat(hashMap).hasSize(1);
     hashMap.clear();
@@ -49,14 +49,14 @@ public class SoftHashMapTest {
 
   @Test
   public void checkSimpleGet() {
-    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("test", 1);
     assertThat(hashMap.get("test")).isEqualTo(1);
   }
 
   @Test
   public void checkSimpleRemove() {
-    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("test", 1);
     assertThat(hashMap).hasSize(1);
     hashMap.remove("test");
@@ -65,7 +65,7 @@ public class SoftHashMapTest {
 
   @Test
   public void checkSimpleEntrySet() {
-    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("one", 1);
     hashMap.put("two", 2);
     assertThat(hashMap).hasSize(2);
@@ -75,7 +75,7 @@ public class SoftHashMapTest {
 
   @Test
   public void checkSimpleEntrySet2() {
-    SoftHashMap<String, Integer> hashMap = new SoftHashMap<String, Integer>();
+    SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("one", 1);
     hashMap.put("two", 2);
     Set<Map.Entry<String, Integer>> copySet = hashMap.entrySet();

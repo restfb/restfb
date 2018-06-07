@@ -29,7 +29,7 @@ public class BaseTestCheck {
 
   protected Set<String> fetchMethodsFromClass(Class clazz) {
     Method[] methods = clazz.getMethods();
-    Set<String> methodList = new HashSet<String>();
+    Set<String> methodList = new HashSet<>();
     for (Method method : methods) {
       methodList.add(method.getName());
     }

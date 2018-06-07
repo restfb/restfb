@@ -134,7 +134,7 @@ public final class UrlUtils {
       return emptyMap();
     }
 
-    Map<String, List<String>> parameters = new HashMap<String, List<String>>();
+    Map<String, List<String>> parameters = new HashMap<>();
 
     String[] urlParts = url.split("\\?");
 

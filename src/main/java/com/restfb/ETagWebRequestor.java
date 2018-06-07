@@ -61,7 +61,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
 
   private final Map<String, ETagResponse> etagCache =
       Collections.synchronizedMap(new SoftHashMap<String, ETagResponse>());
-  private final ThreadLocal<ETagResponse> currentETagRespThreadLocal = new ThreadLocal<ETagResponse>();
+  private final ThreadLocal<ETagResponse> currentETagRespThreadLocal = new ThreadLocal<>();
   private volatile boolean useCache = true;
 
   @Override

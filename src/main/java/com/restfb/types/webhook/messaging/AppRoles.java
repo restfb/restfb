@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class AppRoles implements InnerMessagingItem {
 
-  private Map<String, List<String>> roles = new HashMap<String, List<String>>();
+  private Map<String, List<String>> roles = new HashMap<>();
 
   /**
    * Get a set of app ids

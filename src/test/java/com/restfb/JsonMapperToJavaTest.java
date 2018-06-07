@@ -303,7 +303,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    */
   @Test
   public void story() {
-    Set<String> actualStoryTagIds = new HashSet<String>();
+    Set<String> actualStoryTagIds = new HashSet<>();
     Set<String> expectedStoryTagIds = new HashSet<String>() {
       {
         add("123");

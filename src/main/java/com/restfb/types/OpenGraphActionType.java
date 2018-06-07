@@ -94,7 +94,7 @@ public class OpenGraphActionType extends NamedFacebookType {
   private String pluralPresent;
 
   @Facebook("property_config")
-  private Map<String, OpenGraphPropertyConfig> propertyConfig = new HashMap<String, OpenGraphPropertyConfig>();
+  private Map<String, OpenGraphPropertyConfig> propertyConfig = new HashMap<>();
 
   /**
    * The singular past form of the action

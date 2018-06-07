@@ -80,32 +80,32 @@ public class TargetingResponseGeographicMetadata extends AbstractFacebookType {
 
     @Getter
     @Facebook
-    private Map<String, TargetingResponseGeographic> countries = new HashMap<String, TargetingResponseGeographic>();
+    private Map<String, TargetingResponseGeographic> countries = new HashMap<>();
 
     @Getter
     @Facebook
-    private Map<String, TargetingResponseGeographic> regions = new HashMap<String, TargetingResponseGeographic>();
+    private Map<String, TargetingResponseGeographic> regions = new HashMap<>();
 
     @Getter
     @Facebook
-    private Map<String, TargetingResponseGeographic> cities = new HashMap<String, TargetingResponseGeographic>();
+    private Map<String, TargetingResponseGeographic> cities = new HashMap<>();
 
     @Getter
     @Facebook
-    private Map<String, TargetingResponseGeographic> zips = new HashMap<String, TargetingResponseGeographic>();
+    private Map<String, TargetingResponseGeographic> zips = new HashMap<>();
 
     @Getter
     @Facebook
-    private Map<String, TargetingResponseGeographic> places = new HashMap<String, TargetingResponseGeographic>();
+    private Map<String, TargetingResponseGeographic> places = new HashMap<>();
 
     @Getter
     @Facebook("custom_locations")
     private Map<String, TargetingResponseGeographic> customLocations =
-        new HashMap<String, TargetingResponseGeographic>();
+        new HashMap<>();
 
     @Getter
     @Facebook("geo_markets")
-    private Map<String, TargetingResponseGeographic> geoMarkets = new HashMap<String, TargetingResponseGeographic>();
+    private Map<String, TargetingResponseGeographic> geoMarkets = new HashMap<>();
 
     @Getter
     @Facebook("electoral_districts")

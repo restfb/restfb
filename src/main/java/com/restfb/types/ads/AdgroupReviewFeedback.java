@@ -35,7 +35,7 @@ public class AdgroupReviewFeedback extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private Map<String, String> global = new HashMap<String, String>();
+  private Map<String, String> global = new HashMap<>();
 
   @Getter
   @Setter

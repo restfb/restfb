@@ -42,10 +42,10 @@ public class ApiCheckTest extends BaseTestCheck {
       Class c = Class.forName("com.restfb.types." + key.replace(".methods", "").replace(".", "$"));
       Set<String> currentMethods = fetchMethodsFromClass(c);
 
-      Set<String> expectedMethods = new HashSet<String>();
+      Set<String> expectedMethods = new HashSet<>();
       if (value != null && !value.isEmpty()) {
         String[] methods = value.split(",");
-        expectedMethods = new HashSet<String>(Arrays.asList(methods));
+        expectedMethods = new HashSet<>(Arrays.asList(methods));
       }
       if (!expectedMethods.isEmpty()) {
         for (Iterator<String> expIterator = expectedMethods.iterator(); expIterator.hasNext();) {
