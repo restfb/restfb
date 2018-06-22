@@ -46,12 +46,6 @@ public class ResumableUploadTransferResponse extends AbstractFacebookType {
    * @return if the transfer is the last one and the file upload is finished
    */
   public boolean isFinished() {
-    if (startOffset != null && endOffset != null) {
-      if (startOffset.longValue() == endOffset.longValue()) {
-        return true;
-      }
-    }
-    return false;
+    return startOffset != null && endOffset != null && startOffset.longValue() == endOffset.longValue();
   }
-
 }

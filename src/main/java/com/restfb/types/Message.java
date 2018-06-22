@@ -401,11 +401,9 @@ public class Message extends FacebookType {
   void convertTags() {
     if (rawTags != null) {
       JsonValue parsedObject = Json.parse(rawTags);
-      if (parsedObject.isObject()) {
-        if (parsedObject.asObject().get("data").isArray()) {
-          for (JsonValue tagObject : parsedObject.asObject().get("data").asArray()) {
-            tags.add(tagObject.asObject().get("name").asString());
-          }
+      if (parsedObject.isObject() && parsedObject.asObject().get("data").isArray()) {
+        for (JsonValue tagObject : parsedObject.asObject().get("data").asArray()) {
+          tags.add(tagObject.asObject().get("name").asString());
         }
       }
     }

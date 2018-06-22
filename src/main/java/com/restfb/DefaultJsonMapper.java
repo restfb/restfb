@@ -291,7 +291,7 @@ public class DefaultJsonMapper implements JsonMapper {
           try {
             fieldWithAnnotation.getField().set(instance,
               toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
-          } catch (FacebookJsonMappingException|ParseException|UnsupportedOperationException e) {
+          } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
           }
         } else {
@@ -416,7 +416,8 @@ public class DefaultJsonMapper implements JsonMapper {
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
       String fieldName = getFacebookFieldName(fieldWithAnnotation);
       int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.containsKey(fieldName)
-          ? facebookFieldsNamesWithOccurrenceCount.get(fieldName) : 0;
+          ? facebookFieldsNamesWithOccurrenceCount.get(fieldName)
+          : 0;
       facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
     }
 
@@ -661,7 +662,7 @@ public class DefaultJsonMapper implements JsonMapper {
        * the marshaled type and bail if needed. For example, calling {@code JsonObject.getString("results")} on the
        * below JSON...
        *
-       * {@code {"results":[{"name":"Mark Allen"}]}}
+       * <code> { "results":[ {"name":"Mark Allen"} ] } </code>
        *
        * ... would return the string {@code "[{"name":"Mark Allen"}]"} instead of throwing an error. So we throw the
        * error ourselves.
@@ -734,7 +735,7 @@ public class DefaultJsonMapper implements JsonMapper {
     if (Comments.class.isAssignableFrom(type) && rawValue instanceof JsonArray) {
       MAPPER_LOGGER.debug(
         "Encountered comment array '{}' but expected a {} object instead.  Working around that by coercing "
-              + "into an empty {} instance...",
+            + "into an empty {} instance...",
         rawValueAsString, Comments.class.getSimpleName(), Comments.class.getSimpleName());
 
       JsonObject workaroundJsonObject = new JsonObject();

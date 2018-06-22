@@ -129,28 +129,28 @@ public class PageRating extends FacebookType {
   @JsonMappingCompleted
   void fillAdditionalValues(JsonMapper mapper) {
     if (this.data != null) {
-      JsonObject data = Json.parse(this.data).asObject();
-      if (data.get("rating") != null) {
-        JsonObject rating = data.get("rating").asObject();
+      JsonObject dataObject = Json.parse(this.data).asObject();
+      if (dataObject.get("rating") != null) {
+        JsonObject rating = dataObject.get("rating").asObject();
         if (rating != null) {
           ratingValue = rating.get("value").asDouble();
           ratingScale = rating.get("scale").asLong();
         }
       }
 
-      if (data.get("language") != null) {
-        language = data.get("language").asString();
+      if (dataObject.get("language") != null) {
+        language = dataObject.get("language").asString();
       }
-      if (data.get("is_draft") != null) {
-        isDraft = data.get("is_draft").asBoolean();
+      if (dataObject.get("is_draft") != null) {
+        isDraft = dataObject.get("is_draft").asBoolean();
       }
-      if (data.get("review_text") != null) {
-        reviewText = data.get("review_text").asString();
+      if (dataObject.get("review_text") != null) {
+        reviewText = dataObject.get("review_text").asString();
       }
-      if (data.get("generic_place") != null) {
-        place = mapper.toJavaObject(data.get("generic_place").toString(), Place.class);
-      } else if (data.get("seller") != null) {
-        place = mapper.toJavaObject(data.get("seller").toString(), Place.class);
+      if (dataObject.get("generic_place") != null) {
+        place = mapper.toJavaObject(dataObject.get("generic_place").toString(), Place.class);
+      } else if (dataObject.get("seller") != null) {
+        place = mapper.toJavaObject(dataObject.get("seller").toString(), Place.class);
       }
     }
   }

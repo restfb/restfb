@@ -433,9 +433,8 @@ public class Photo extends NamedFacebookType {
         String tagArrayString = rawMessageTagsObject.get(key).toString();
         nameTags.addAll(jsonMapper.toJavaList(tagArrayString, EntityAtTextRange.class));
       }
-      return;
     } catch (FacebookJsonMappingException je) {
-
+      // cannot parse message tags, but don't break the flow here
     }
   }
 }
