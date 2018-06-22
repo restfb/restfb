@@ -296,9 +296,8 @@ public class Comment extends FacebookType {
         String tagArrayString = rawMessageTagsObject.get(key).toString();
         messageTags.addAll(jsonMapper.toJavaList(tagArrayString, MessageTag.class));
       }
-      return;
     } catch (FacebookJsonMappingException je) {
-
+      // cannot parse message tags, but don't break the flow here
     }
   }
 
