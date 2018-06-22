@@ -21,8 +21,6 @@
  */
 package com.restfb;
 
-import com.restfb.util.ObjectUtil;
-
 import static com.restfb.util.UrlUtils.urlEncode;
 
 import java.util.HashSet;

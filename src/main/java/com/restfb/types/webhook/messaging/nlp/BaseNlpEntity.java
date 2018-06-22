@@ -26,7 +26,7 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract public class BaseNlpEntity {
+public abstract class BaseNlpEntity {
 
   @Getter
   @Setter

@@ -65,7 +65,7 @@ public class MessengerProfileProperties extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("payment_settings")
-  private PaymentSettings payment_settings;
+  private PaymentSettings paymentSettings;
 
   @Getter
   @Setter

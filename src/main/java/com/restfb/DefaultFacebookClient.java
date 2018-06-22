@@ -299,7 +299,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
-    return new Connection<T>(this, makeRequest(connection, parameters), connectionType);
+    return new Connection<>(this, makeRequest(connection, parameters), connectionType);
   }
 
   /**
@@ -325,7 +325,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       });
     }
 
-    return new Connection<T>(this, connectionJson, connectionType);
+    return new Connection<>(this, connectionJson, connectionType);
   }
 
   /**

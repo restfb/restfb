@@ -27,6 +27,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
+import com.restfb.types.send.media.MediaTemplateUrlElement;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,7 +51,7 @@ public class PaymentSummary extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook("merchant_name")
-  private String merchant_name;
+  private String merchantName;
 
   @Getter
   @Facebook("requested_user_info")

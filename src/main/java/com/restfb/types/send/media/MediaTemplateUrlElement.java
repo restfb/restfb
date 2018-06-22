@@ -86,10 +86,6 @@ public class MediaTemplateUrlElement extends AbstractFacebookType implements Med
       return true;
     }
 
-    if (url.startsWith("https://www.facebook.com/")) {
-      return true;
-    }
-
-    return false;
+    return url.startsWith("https://www.facebook.com/");
   }
 }

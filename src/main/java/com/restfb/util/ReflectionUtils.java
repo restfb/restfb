@@ -342,7 +342,7 @@ public final class ReflectionUtils {
     }
 
     // Only compare accessors that are present in both classes
-    Set<Method> accessorMethodsIntersection = new HashSet<Method>(getAccessors(object1.getClass()));
+    Set<Method> accessorMethodsIntersection = new HashSet<>(getAccessors(object1.getClass()));
     accessorMethodsIntersection.retainAll(getAccessors(object2.getClass()));
 
     for (Method method : accessorMethodsIntersection) {

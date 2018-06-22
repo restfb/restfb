@@ -130,7 +130,7 @@ public class MessageItem implements InnerMessagingItem {
    * @return {@code true} if the message contains a attachment, {@code false} otherwise
    */
   public boolean hasAttachment() {
-    return attachments != null && attachments.size() > 0;
+    return attachments != null && !attachments.isEmpty();
   }
 
   /**

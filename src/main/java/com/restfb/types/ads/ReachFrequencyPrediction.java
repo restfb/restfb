@@ -204,7 +204,10 @@ public class ReachFrequencyPrediction extends NamedAdsObject {
   /**
    * GRP: Audience size within DMAs based on Nielsen definition
    */
-  private Double grp_dmas_audience_size;
+  @Getter
+  @Setter
+  @Facebook("grp_dmas_audience_size")
+  private Double grpDmasAudienceSize;
 
   /**
    * Percent of users in holdout

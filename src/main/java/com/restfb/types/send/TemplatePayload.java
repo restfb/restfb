@@ -26,7 +26,7 @@ import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 
-abstract public class TemplatePayload extends AbstractFacebookType {
+public abstract class TemplatePayload extends AbstractFacebookType {
 
   @Getter
   @Facebook("template_type")

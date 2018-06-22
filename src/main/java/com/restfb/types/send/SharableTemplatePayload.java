@@ -26,7 +26,7 @@ import com.restfb.Facebook;
 /**
  * Abstract class to provide access to the sharable field.
  */
-abstract public class SharableTemplatePayload extends TemplatePayload {
+public abstract class SharableTemplatePayload extends TemplatePayload {
 
   @Facebook
   private Boolean sharable;

@@ -99,16 +99,16 @@ public class AdImage extends NamedAdsObject {
    */
   @Getter
   @Setter
-  @Facebook
-  private String original_width;
+  @Facebook("original_width")
+  private String originalWidth;
 
   /**
    * The height of the image that was originally uploaded.
    */
   @Getter
   @Setter
-  @Facebook
-  private String original_height;
+  @Facebook("original_height")
+  private String originalHeight;
 
   /**
    * Status of the image

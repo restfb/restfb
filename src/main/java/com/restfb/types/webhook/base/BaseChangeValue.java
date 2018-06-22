@@ -30,7 +30,7 @@ import com.restfb.types.webhook.ChangeValue;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract public class BaseChangeValue extends ChangeValue {
+public abstract class BaseChangeValue extends ChangeValue {
 
   @Getter
   @Setter

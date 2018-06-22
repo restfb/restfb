@@ -73,9 +73,9 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable 
   @Override
   public V put(K key, V value) {
     expungeStaleEntries();
-    SoftReference<V> soft_ref = new SoftReference<V>(value, queue);
-    reverseLookup.put(soft_ref, key);
-    SoftReference<V> result = hash.put(key, soft_ref);
+    SoftReference<V> softRef = new SoftReference<>(value, queue);
+    reverseLookup.put(softRef, key);
+    SoftReference<V> result = hash.put(key, softRef);
     if (result == null) {
       return null;
     }
@@ -129,7 +129,7 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable 
 
           @Override
           public V setValue(V v) {
-            entry.setValue(new SoftReference<V>(v, queue));
+            entry.setValue(new SoftReference<>(v, queue));
             return value;
           }
         });

@@ -222,20 +222,4 @@ public class PageCallToAction extends FacebookType {
   @Facebook("iphone_app_id")
   private String iphoneAppId;
 
-  /**
-   * Destination deeplink for the call-to-action on iPhone
-   */
-  @Getter
-  @Setter
-  @Facebook("iphoneDeeplink")
-  private String iphone_deeplink;
-
-  /**
-   * Destination url for the call-to-action on iPhone
-   */
-  @Getter
-  @Setter
-  @Facebook("iphoneUrl")
-  private String iphone_url;
-
 }
