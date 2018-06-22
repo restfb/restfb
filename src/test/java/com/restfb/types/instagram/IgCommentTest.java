@@ -57,7 +57,7 @@ public class IgCommentTest extends AbstractJsonMapperTests {
     assertNotNull(igComment);
     assertNotNull(igComment.getMedia());
     assertNull(igComment.getUser());
-    assertEquals(igComment.getUsername(), "bincyshiona");
+    assertEquals("bincyshiona", igComment.getUsername());
     assertEquals("17916477187142401", igComment.getId());
     assertEquals("Nice", igComment.getText());
     assertFalse(igComment.getHidden().booleanValue());

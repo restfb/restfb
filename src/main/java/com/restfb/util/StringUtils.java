@@ -155,10 +155,7 @@ public final class StringUtils {
       return null;
     }
 
-    BufferedReader reader = null;
-
-    try {
-      reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET));
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET))) {
       StringBuilder response = new StringBuilder();
 
       String line;
@@ -167,15 +164,6 @@ public final class StringUtils {
       }
 
       return response.toString();
-    } finally {
-      if (reader != null) {
-        try {
-          reader.close();
-        } catch (Exception t) {
-          // Really nothing we can do but log the error
-          UTILS_LOGGER.warn("Unable to close stream, continuing on: ", t);
-        }
-      }
     }
   }
 

@@ -34,7 +34,7 @@ public class PageTest extends AbstractJsonMapperTests {
   @Test
   public void checkV1_0() {
     Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/page"), Page.class);
-    assertEquals(examplePage.getWebsite(), "http://www.coca-cola.com");
+    assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
     assertEquals(1, examplePage.getCategoryList().size());
     Category cat = examplePage.getCategoryList().get(0);
     assertEquals("Company", cat.getName());
@@ -44,7 +44,7 @@ public class PageTest extends AbstractJsonMapperTests {
   @Test
   public void checkV2_0() {
     Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/page"), Page.class);
-    assertEquals(examplePage.getWebsite(), "http://www.coca-cola.com");
+    assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
     assertEquals(1, examplePage.getCategoryList().size());
     Category cat = examplePage.getCategoryList().get(0);
     assertEquals("Company", cat.getName());
@@ -54,7 +54,7 @@ public class PageTest extends AbstractJsonMapperTests {
   @Test
   public void checkV2_1() {
     Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/page"), Page.class);
-    assertEquals(examplePage.getWebsite(), "http://www.coca-cola.com");
+    assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
     assertEquals(1, examplePage.getCategoryList().size());
     Category cat = examplePage.getCategoryList().get(0);
     assertEquals("Company", cat.getName());

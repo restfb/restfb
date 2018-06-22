@@ -329,15 +329,13 @@ public class DefaultJsonMapper implements JsonMapper {
    * 
    * @param object
    *          The object on which to invoke the method.
-   * @throws IllegalArgumentException
-   *           If unable to invoke the method.
    * @throws IllegalAccessException
    *           If unable to invoke the method.
    * @throws InvocationTargetException
    *           If unable to invoke the method.
    */
   protected void invokeJsonMappingCompletedMethods(Object object)
-      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+      throws IllegalAccessException, InvocationTargetException {
     for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {
       method.setAccessible(true);
 

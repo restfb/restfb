@@ -40,7 +40,7 @@ public class MappingUtilsTest {
         "    }\n" + "  }";
     ProfilePictureSource profilePicture = utils.convertPicture(jsonString);
     assertFalse(profilePicture.getIsSilhouette());
-    assertEquals(profilePicture.getUrl(), "https://fbcdn-profile-a.akamaihd.net/testpicture.jpg");
+    assertEquals("https://fbcdn-profile-a.akamaihd.net/testpicture.jpg", profilePicture.getUrl());
   }
 
   @Test
