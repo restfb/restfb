@@ -22,54 +22,14 @@
 package com.restfb.types.webhook;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-/**
- * The transferred change containing the field and the value
- */
-@ToString
-public class Change {
+public class UserPageValue extends ChangeValue {
 
-  /**
-   * the subscribed field.
-   */
+  @Getter
+  @Setter
   @Facebook
-  @Getter
-  @Setter
-  private String field;
-
-  /**
-   * value of this change.
-   *
-   * You have to check the current class implementation because the value depends on the change Facebook sends to you.
-   *
-   * @return the current changed value, may be {@code null}
-   */
-  @Getter
-  @Setter
-  private ChangeValue value = null;
-
-  /**
-   * The user object has a different structure and the verb is on another level than in all other elements, so we have
-   * to save it here and use it in the factory afterwards. With this the json is normalized in RestFB.
-   */
-  @Facebook("verb")
-  private String userObjectVerb = null;
-
-  @Facebook("value")
-  private String rawValue;
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertChangeValue(JsonMapper mapper) {
-
-    if (rawValue != null) {
-      ChangeValueFactory factory =
-          new ChangeValueFactory().setField(field).setUserObjectVerb(userObjectVerb).setValue(rawValue);
-      value = factory.buildWithMapper(mapper);
-    }
-  }
+  private String page;
 }

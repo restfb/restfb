@@ -26,11 +26,11 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
-import com.restfb.json.JsonObject;
 import org.junit.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.Parameter;
+import com.restfb.json.JsonObject;
 import com.restfb.types.send.SenderActionEnum;
 import com.restfb.types.webhook.*;
 import com.restfb.types.webhook.base.AbstractFeedPostValue;
@@ -98,7 +98,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedCommentAdd_v2_11() {
     FeedCommentValue value =
-            openAndCheckFeedPostBasics("feed-comment-add-211", FeedCommentValue.class, ITEM_COMMENT, ChangeValue.Verb.ADD);
+        openAndCheckFeedPostBasics("feed-comment-add-211", FeedCommentValue.class, ITEM_COMMENT, ChangeValue.Verb.ADD);
     assertFalse(value.isReply());
     assertEquals("and the next one", value.getMessage());
     assertEquals("1234567890321_901097836652708", value.getPostId());
@@ -702,7 +702,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void userEmailChange() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/user-email"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/user-email"), WebhookObject.class);
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
     assertNotNull(change.getValue());
     assertEquals(SimpleStringChangeValue.class, change.getValue().getClass());
@@ -838,6 +838,18 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("typing_on", val1);
     assertEquals("typing_off", val2);
     assertEquals("mark_seen", val3);
+  }
+
+  @Test
+  public void userAddsLike() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/user-likes-add"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertEquals("likes", change.getField());
+    assertEquals(UserPageValue.class, change.getValue().getClass());
+    UserPageValue userPageValue = (UserPageValue) change.getValue();
+    assertEquals("9988776655443322", userPageValue.getPage());
   }
 
   private <T extends AbstractFeedPostValue> T openAndCheckFeedPostBasics(String jsonName, Class<T> changeValueClass,

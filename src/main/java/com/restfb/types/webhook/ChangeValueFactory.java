@@ -40,6 +40,8 @@ public class ChangeValueFactory {
 
   private JsonValue value;
 
+  private String userObjectVerb;
+
   public ChangeValueFactory setField(String field) {
     this.field = field;
     return this;
@@ -52,6 +54,11 @@ public class ChangeValueFactory {
       this.value = Json.value(value);
     }
 
+    return this;
+  }
+
+  public ChangeValueFactory setUserObjectVerb(String userObjectVerb) {
+    this.userObjectVerb = userObjectVerb;
     return this;
   }
 
@@ -76,6 +83,9 @@ public class ChangeValueFactory {
         }
         if (objValue.get("verb") != null) {
           classDefinition += "_" + objValue.get("verb").asString().toUpperCase();
+        }
+        if (userObjectVerb != null) {
+          classDefinition += "_" + userObjectVerb.toUpperCase();
         }
 
         try {
@@ -146,7 +156,9 @@ public class ChangeValueFactory {
     // Instagram
     STORY_INSIGHTS(InstagramStoryInsightsValue.class), //
     MENTIONS(InstagramMentionsValue.class), //
-    COMMENTS(InstagramCommentsValue.class);
+    COMMENTS(InstagramCommentsValue.class), //
+    // User
+    LIKES_ADD(UserPageValue.class);
 
     private Class<ChangeValue> valueClass;
 
