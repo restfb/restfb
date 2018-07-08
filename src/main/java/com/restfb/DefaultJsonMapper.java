@@ -720,7 +720,12 @@ public class DefaultJsonMapper implements JsonMapper {
       try {
         return Enum.valueOf(enumType, rawValue.asString());
       } catch (IllegalArgumentException iae) {
-        MAPPER_LOGGER.debug("Cannot map string {} to enum {}", rawValue.asString(), enumType.getName());
+        MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(), enumType.getName());
+      }
+      try {
+        return Enum.valueOf(enumType, rawValue.asString().toUpperCase());
+      } catch (IllegalArgumentException iae) {
+        MAPPER_LOGGER.debug("Mapping string {} to enum {} not possible", rawValue.asString(), enumType.getName());
       }
     }
 

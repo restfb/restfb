@@ -841,15 +841,40 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void userAddsLocation() {
+    checkUserPageValueWithField("webhooks/user-location-add", "location");
+  }
+
+  @Test
+  public void userAddsHometown() {
+    checkUserPageValueWithField("webhooks/user-hometown-add", "hometown");
+  }
+
+  @Test
   public void userAddsLike() {
+    checkUserPageValueWithField("webhooks/user-likes-add", "likes");
+  }
+
+  @Test
+  public void userAddsTelevision() {
+    checkUserPageValueWithField("webhooks/user-television-add", "television");
+  }
+
+  @Test
+  public void userAddsMovies() {
+    checkUserPageValueWithField("webhooks/user-movies-add", "movies");
+  }
+
+  private void checkUserPageValueWithField(String s, String movies) {
     WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/user-likes-add"), WebhookObject.class);
+            createJsonMapper().toJavaObject(jsonFromClasspath(s), WebhookObject.class);
     assertNotNull(webhookObject);
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("likes", change.getField());
+    assertEquals(movies, change.getField());
     assertEquals(UserPageValue.class, change.getValue().getClass());
     UserPageValue userPageValue = (UserPageValue) change.getValue();
     assertEquals("9988776655443322", userPageValue.getPage());
+    assertEquals(ChangeValue.Verb.ADD, userPageValue.getVerb());
   }
 
   private <T extends AbstractFeedPostValue> T openAndCheckFeedPostBasics(String jsonName, Class<T> changeValueClass,

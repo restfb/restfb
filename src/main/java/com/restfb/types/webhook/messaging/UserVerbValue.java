@@ -19,18 +19,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook;
+package com.restfb.types.webhook.messaging;
 
-import com.restfb.Facebook;
-
-import com.restfb.types.webhook.messaging.UserVerbValue;
+import com.restfb.types.webhook.ChangeValue;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPageValue extends UserVerbValue {
+abstract public class UserVerbValue extends ChangeValue {
 
-  @Getter
-  @Setter
-  @Facebook
-  private String page;
+    @Getter
+    @Setter
+    private Verb verb;
 }

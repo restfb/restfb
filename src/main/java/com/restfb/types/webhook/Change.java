@@ -24,6 +24,7 @@ package com.restfb.types.webhook;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 
+import com.restfb.types.webhook.messaging.UserVerbValue;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -58,7 +59,7 @@ public class Change {
    * to save it here and use it in the factory afterwards. With this the json is normalized in RestFB.
    */
   @Facebook("verb")
-  private String userObjectVerb = null;
+  private ChangeValue.Verb userObjectVerb = null;
 
   @Facebook("value")
   private String rawValue;
@@ -70,6 +71,9 @@ public class Change {
       ChangeValueFactory factory =
           new ChangeValueFactory().setField(field).setUserObjectVerb(userObjectVerb).setValue(rawValue);
       value = factory.buildWithMapper(mapper);
+      if (value instanceof UserVerbValue && userObjectVerb != null) {
+        ((UserVerbValue) value).setVerb(userObjectVerb);
+      }
     }
   }
 }
