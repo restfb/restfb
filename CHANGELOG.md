@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.7.0 (July 8, 2018)
+
+* Issue #892 - `LIKES_ADD` missing for user object in webhook<br />
+  Thanks to Mikhail (Facebook DM) for the hint
+* Issue #893 - Add `user` webhook change value that contains a link to a page
+
 ## 2.6.0 (June 1, 2018)
 
 * Issue #889 - switch to java 7
