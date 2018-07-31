@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.JsonMapper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -97,6 +98,11 @@ public class LiveVideo extends FacebookType {
   @Getter
   @Setter
   @Facebook
+  private String source;
+
+  @Getter
+  @Setter
+  @Facebook
   private String status;
 
   @Getter
@@ -113,5 +119,16 @@ public class LiveVideo extends FacebookType {
   @Setter
   @Facebook
   private Video video;
+
+  @JsonMapper.JsonMappingCompleted
+  private void provideFallback() {
+    if (getType() == null && source != null) {
+      setType(source);
+    }
+
+    if (getType() != null && source == null) {
+      setSource(getType());
+    }
+  }
 
 }
