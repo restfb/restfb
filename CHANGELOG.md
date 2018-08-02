@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.8.0 (August 3, 2018)
+
+* Graph API 3.1
+  * Issue #899: basic support
+  * Issue #900: `LiveVideo` replace `type` with `source` field 
+
 ## 2.7.0 (July 8, 2018)
 
 * Issue #892 - `LIKES_ADD` missing for user object in webhook<br />
