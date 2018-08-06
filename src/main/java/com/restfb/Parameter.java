@@ -61,7 +61,8 @@ public final class Parameter {
    */
   private Parameter(String name, Object value, JsonMapper jsonMapper) {
     if (isBlank(name) || value == null) {
-      throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value.");
+      throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value."
+              + "Got instead name:" + name + ", value:" + value);
     }
 
     if (jsonMapper == null) {
