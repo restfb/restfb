@@ -56,11 +56,30 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/opengraphrating-issue878"), OpenGraphRating.class);
     assertNotNull(exampleRating);
     assertNotNull(exampleRating.getOpenGraphStory());
+    assertNull(exampleRating.getRecommendationType());
     PageRating rating = exampleRating.getOpenGraphStory();
     assertEquals("AAAAA", rating.getReviewText());
     assertEquals("hu", rating.getLanguage());
     assertEquals(5l, rating.getRatingScale().longValue());
     assertEquals(5, rating.getRatingValue().intValue());
     assertNotNull(rating.getPlace());
+  }
+
+  @Test
+  public void check_3_1_recommendation() {
+    OpenGraphRating exampleRating = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("v3_1/opengraphrating-recommendation"), OpenGraphRating.class);
+    assertNotNull(exampleRating);
+    assertEquals(OpenGraphRating.RecommendationType.positive, exampleRating.getRecommendationType());
+    assertFalse(exampleRating.isRecommendation());
+  }
+
+  @Test
+  public void check_3_1_realRecommendation() {
+    OpenGraphRating exampleRating = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("v3_1/opengraphrating-real-recommendation"), OpenGraphRating.class);
+    assertNotNull(exampleRating);
+    assertEquals(OpenGraphRating.RecommendationType.positive, exampleRating.getRecommendationType());
+    assertTrue(exampleRating.isRecommendation());
   }
 }
