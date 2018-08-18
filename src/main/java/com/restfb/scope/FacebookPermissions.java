@@ -628,6 +628,19 @@ public enum FacebookPermissions {
   PUBLISH_TO_GROUPS("publish_to_groups", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * Grants an app permission to publish live videos to the app User's timeline.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 3.1
+   */
+  PUBLISH_VIDEO("publish_video", Category.LIVE_VIDEO), //
+
+  /**
    * Gives your app the ability to receive member-related data on group content when a member has granted the app
    * permission to do so.
    *
@@ -893,6 +906,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM;
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO;
   }
 }
