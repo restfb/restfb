@@ -126,6 +126,14 @@ public class PageRating extends FacebookType {
   @Setter
   private Place place;
 
+  @Getter
+  @Setter
+  private OpenGraphRating.RecommendationType recommendationType;
+
+  public boolean isRecommendation() {
+    return ratingValue == null;
+  }
+
   @JsonMappingCompleted
   void fillAdditionalValues(JsonMapper mapper) {
     if (this.data != null) {
@@ -151,6 +159,15 @@ public class PageRating extends FacebookType {
         place = mapper.toJavaObject(dataObject.get("generic_place").toString(), Place.class);
       } else if (dataObject.get("seller") != null) {
         place = mapper.toJavaObject(dataObject.get("seller").toString(), Place.class);
+      }
+      if (dataObject.get("recommendation_type") != null) {
+        try {
+          String typeString = dataObject.get("recommendation_type").asString();
+          recommendationType =
+              OpenGraphRating.RecommendationType.valueOf(typeString.toUpperCase());
+        } catch (IllegalArgumentException iae) {
+          // no enum value found ignore this
+        }
       }
     }
   }

@@ -129,7 +129,7 @@ public class OpenGraphRating extends FacebookType {
   }
 
   public enum RecommendationType {
-    positive, negative
+    POSITIVE, NEGATIVE
   }
 
 }

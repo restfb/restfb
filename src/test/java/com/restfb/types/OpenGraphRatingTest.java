@@ -70,8 +70,10 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
     OpenGraphRating exampleRating = createJsonMapper()
       .toJavaObject(jsonFromClasspath("v3_1/opengraphrating-recommendation"), OpenGraphRating.class);
     assertNotNull(exampleRating);
-    assertEquals(OpenGraphRating.RecommendationType.positive, exampleRating.getRecommendationType());
+    assertEquals(OpenGraphRating.RecommendationType.POSITIVE, exampleRating.getRecommendationType());
     assertFalse(exampleRating.isRecommendation());
+    assertEquals(OpenGraphRating.RecommendationType.POSITIVE, exampleRating.getOpenGraphStory().getRecommendationType());
+    assertFalse(exampleRating.getOpenGraphStory().isRecommendation());
   }
 
   @Test
@@ -79,7 +81,9 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
     OpenGraphRating exampleRating = createJsonMapper()
             .toJavaObject(jsonFromClasspath("v3_1/opengraphrating-real-recommendation"), OpenGraphRating.class);
     assertNotNull(exampleRating);
-    assertEquals(OpenGraphRating.RecommendationType.positive, exampleRating.getRecommendationType());
+    assertEquals(OpenGraphRating.RecommendationType.POSITIVE, exampleRating.getRecommendationType());
     assertTrue(exampleRating.isRecommendation());
+    assertEquals(OpenGraphRating.RecommendationType.POSITIVE, exampleRating.getOpenGraphStory().getRecommendationType());
+    assertTrue(exampleRating.getOpenGraphStory().isRecommendation());
   }
 }
