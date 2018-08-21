@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2.9.0 (August 21, 2018)
+
+* Issue #902: Report parameter values when throwing<br />
+  Thanks to @pkoivisto for the PR 
+* Issue #905: `publish_video` permission added<br />
+  Thanks to @mekya for the hint 
+* Issue #904: Changes for the new "recommendations" feature
+
 ## 2.8.0 (August 3, 2018)
 
 * Graph API 3.1
