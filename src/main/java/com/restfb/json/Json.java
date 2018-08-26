@@ -54,6 +54,12 @@ import java.io.Reader;
  */
 public final class Json {
 
+  // String constants
+  private static final String VALUES_IS_NULL = "values is null";
+  private static final String STRING_IS_NULL = "string is null";
+  private static final String READER_IS_NULL = "reader is null";
+  private static final String INFINITE_AND_NAN = "Infinite and NaN values not permitted in JSON";
+
   private Json() {
     // not meant to be instantiated
   }
@@ -104,7 +110,7 @@ public final class Json {
    */
   public static JsonValue value(float value) {
     if (Float.isInfinite(value) || Float.isNaN(value)) {
-      throw new IllegalArgumentException("Infinite and NaN values not permitted in JSON");
+      throw new IllegalArgumentException(INFINITE_AND_NAN);
     }
     return new JsonNumber(cutOffPointZero(Float.toString(value)));
   }
@@ -118,7 +124,7 @@ public final class Json {
    */
   public static JsonValue value(double value) {
     if (Double.isInfinite(value) || Double.isNaN(value)) {
-      throw new IllegalArgumentException("Infinite and NaN values not permitted in JSON");
+      throw new IllegalArgumentException(INFINITE_AND_NAN);
     }
     return new JsonNumber(cutOffPointZero(Double.toString(value)));
   }
@@ -163,7 +169,7 @@ public final class Json {
    */
   public static JsonArray array(int... values) {
     if (values == null) {
-      throw new NullPointerException("values is null");
+      throw new NullPointerException(VALUES_IS_NULL);
     }
     JsonArray array = new JsonArray();
     for (int value : values) {
@@ -181,7 +187,7 @@ public final class Json {
    */
   public static JsonArray array(long... values) {
     if (values == null) {
-      throw new NullPointerException("values is null");
+      throw new NullPointerException(VALUES_IS_NULL);
     }
     JsonArray array = new JsonArray();
     for (long value : values) {
@@ -199,7 +205,7 @@ public final class Json {
    */
   public static JsonArray array(float... values) {
     if (values == null) {
-      throw new NullPointerException("values is null");
+      throw new NullPointerException(VALUES_IS_NULL);
     }
     JsonArray array = new JsonArray();
     for (float value : values) {
@@ -217,7 +223,7 @@ public final class Json {
    */
   public static JsonArray array(double... values) {
     if (values == null) {
-      throw new NullPointerException("values is null");
+      throw new NullPointerException(VALUES_IS_NULL);
     }
     JsonArray array = new JsonArray();
     for (double value : values) {
@@ -235,7 +241,7 @@ public final class Json {
    */
   public static JsonArray array(boolean... values) {
     if (values == null) {
-      throw new NullPointerException("values is null");
+      throw new NullPointerException(VALUES_IS_NULL);
     }
     JsonArray array = new JsonArray();
     for (boolean value : values) {
@@ -253,7 +259,7 @@ public final class Json {
    */
   public static JsonArray array(String... strings) {
     if (strings == null) {
-      throw new NullPointerException("values is null");
+      throw new NullPointerException(VALUES_IS_NULL);
     }
     JsonArray array = new JsonArray();
     for (String value : strings) {
@@ -283,7 +289,7 @@ public final class Json {
    */
   public static JsonValue parse(String string) {
     if (string == null) {
-      throw new NullPointerException("string is null");
+      throw new NullPointerException(STRING_IS_NULL);
     }
     try {
       return new JsonParser(string).parse();
@@ -311,7 +317,7 @@ public final class Json {
    */
   public static JsonValue parse(Reader reader) throws IOException {
     if (reader == null) {
-      throw new NullPointerException("reader is null");
+      throw new NullPointerException(READER_IS_NULL);
     }
     return new JsonParser(reader).parse();
   }

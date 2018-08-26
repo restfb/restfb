@@ -24,11 +24,11 @@ package com.restfb;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.restfb.exception.FacebookJsonMappingException;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.List;
+
+import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * Specifies how a Facebook JSON-to-Java (and vice-versa) mapper must operate.
