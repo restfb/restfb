@@ -370,7 +370,7 @@ public class Post extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook
-  private com.restfb.types.Place place;
+  private Place place;
 
   @Facebook
   private List<NamedFacebookType> to = new ArrayList<>();

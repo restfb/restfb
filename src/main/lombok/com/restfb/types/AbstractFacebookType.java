@@ -30,7 +30,7 @@ public abstract class AbstractFacebookType implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * @see java.lang.Object#hashCode()
+   * @see Object#hashCode()
    */
   @Override
   public int hashCode() {
@@ -38,7 +38,7 @@ public abstract class AbstractFacebookType implements Serializable {
   }
 
   /**
-   * @see java.lang.Object#equals(java.lang.Object)
+   * @see Object#equals(Object)
    */
   @Override
   public boolean equals(Object that) {
@@ -46,7 +46,7 @@ public abstract class AbstractFacebookType implements Serializable {
   }
 
   /**
-   * @see java.lang.Object#toString()
+   * @see Object#toString()
    */
   @Override
   public String toString() {

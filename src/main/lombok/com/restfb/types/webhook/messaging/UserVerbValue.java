@@ -19,61 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send.buybutton;
+package com.restfb.types.webhook.messaging;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.restfb.types.webhook.ChangeValue;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-
-import com.restfb.types.send.media.MediaTemplateUrlElement;
 import lombok.Getter;
 import lombok.Setter;
 
-public class PaymentSummary extends AbstractFacebookType {
+abstract public class UserVerbValue extends ChangeValue {
 
-  @Getter
-  @Setter
-  @Facebook
-  private String currency;
-
-  @Getter
-  @Setter
-  @Facebook("payment_type")
-  private PaymentTypeEnum paymentType;
-
-  @Getter
-  @Setter
-  @Facebook("is_test_payment")
-  private boolean testPayment = false;
-
-  @Getter
-  @Setter
-  @Facebook("merchant_name")
-  private String merchantName;
-
-  @Getter
-  @Facebook("requested_user_info")
-  private List<RequestedUserInfoEnum> requestedUserInfo;
-
-  @Getter
-  @Facebook("price_list")
-  private List<PriceListItem> priceList;
-
-  public boolean addRequestedUserInfo(RequestedUserInfoEnum requestedUserInfoItem) {
-    if (requestedUserInfo == null) {
-      requestedUserInfo = new ArrayList<>();
-    }
-
-    return requestedUserInfo.add(requestedUserInfoItem);
-  }
-
-  public boolean addPriceListItem(PriceListItem item) {
-    if (priceList == null) {
-      priceList = new ArrayList<>();
-    }
-
-    return priceList.add(item);
-  }
+    @Getter
+    @Setter
+    private Verb verb;
 }

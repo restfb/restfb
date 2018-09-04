@@ -23,8 +23,8 @@ package com.restfb.types.webhook;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
-
 import com.restfb.types.webhook.messaging.UserVerbValue;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
