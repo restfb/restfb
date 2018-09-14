@@ -243,6 +243,15 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   /**
+   * overrides the "previous page" URL with the given value
+   * 
+   * @param previousPageUrl
+   */
+  protected void setPreviousPageUrl(String previousPageUrl) {
+    this.previousPageUrl = previousPageUrl;
+  }
+
+  /**
    * This connection's "next page of data" URL.
    * 
    * @return This connection's "next page of data" URL, or {@code null} if there is no next page.
@@ -250,6 +259,15 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   public String getNextPageUrl() {
     return nextPageUrl;
+  }
+
+  /**
+   * overrides the "next page" URL with the given value
+   * 
+   * @param nextPageUrl
+   */
+  protected void setNextPageUrl(String nextPageUrl) {
+    this.nextPageUrl = nextPageUrl;
   }
 
   /**

@@ -141,14 +141,58 @@ public class ConnectionTest extends AbstractJsonMapperTests {
 
   @Test
   public void checkIterator_withCursor() {
-    Connection<FacebookType> connection = createCursorConnection();
+    Connection<FacebookType> connection = createCursorConnection(false);
     assertThat(connection.getAfterCursor()).isEqualTo("NzU1MjI1MjU0");
     assertThat(connection.getBeforeCursor()).isEqualTo("MTY1MTAyNjUxNg==");
   }
 
-  private Connection<FacebookType> createCursorConnection() {
+  @Test
+  public void checkIterator_withCursorOnly() {
+    Connection<FacebookType> connection = createCursorConnection(true);
+    assertThat(connection.getAfterCursor()).isEqualTo("NzU1MjI1MjU0");
+    assertThat(connection.getBeforeCursor()).isEqualTo("MTY1MTAyNjUxNg==");
+    assertThat(connection.hasNext()).isTrue();
+    assertThat(connection.hasPrevious()).isTrue();
+    assertThat(connection.getNextPageUrl()).isNotNull().contains("cursor").contains("&after=NzU1MjI1MjU0");
+    assertThat(connection.getPreviousPageUrl()).isNotNull().contains("cursor").contains("&before=MTY1MTAyNjUxNg==");
+  }
+
+  @Test
+  public void checkIteration_withCursorOnly() {
+    Connection<FacebookType> connection = create3PageConnectionWithCursorOnly();
+
+    assertThat(connection.getAfterCursor()).isEqualTo("cursor-p1-after");
+    assertThat(connection.getBeforeCursor()).isNull();
+    assertThat(connection.getNextPageUrl()).isNotNull().contains("page1");
+    assertThat(connection.getPreviousPageUrl()).isNull();
+    System.out.println(connection.getNextPageUrl());
+
+    connection = connection.fetchNextPage();
+
+    assertThat(connection.getAfterCursor()).isEqualTo("cursor-p2-after");
+    assertThat(connection.getBeforeCursor()).isEqualTo("cursor-p2-before");
+    assertThat(connection.getNextPageUrl()).isNotNull().contains("page1");
+    assertThat(connection.getPreviousPageUrl()).isNotNull().contains("page1");
+    System.out.println(connection.getNextPageUrl());
+
+    connection = connection.fetchNextPage();
+
+    assertThat(connection.getAfterCursor()).isNull();
+    assertThat(connection.getBeforeCursor()).isEqualTo("cursor-p3-before");
+    assertThat(connection.getNextPageUrl()).isNull();
+    assertThat(connection.getPreviousPageUrl()).isNotNull().contains("page1");
+    System.out.println(connection.getPreviousPageUrl());
+
+    assertThat(connection.hasNext()).isFalse();
+  }
+
+  private Connection<FacebookType> createCursorConnection(boolean cursorOnly) {
+    String connectionWithCursorTestFile = "connection-with-cursor";
+    if (cursorOnly) {
+      connectionWithCursorTestFile += "-only";
+    }
     WebRequestor.Response dummyResponse =
-        new WebRequestor.Response(HTTP_OK, jsonFromClasspath("connection-with-cursor"));
+        new WebRequestor.Response(HTTP_OK, jsonFromClasspath(connectionWithCursorTestFile));
 
     DefaultFacebookClient facebookClient = new DefaultFacebookClient("token", new FakeWebRequestor(dummyResponse),
       new DefaultJsonMapper(), Version.VERSION_2_8);
@@ -170,6 +214,32 @@ public class ConnectionTest extends AbstractJsonMapperTests {
 
         if (url.equals("https://graph.facebook.com/v2.8/page3?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p3"));
+        }
+
+        return new Response(HTTP_OK, url);
+
+      }
+    };
+    DefaultFacebookClient facebookClient =
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_8);
+    return facebookClient.fetchConnection("/page1", FacebookType.class);
+  }
+
+  private Connection<FacebookType> create3PageConnectionWithCursorOnly() {
+    FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
+      @Override
+      public Response executeGet(String url) throws IOException {
+
+        if (url.equals("https://graph.facebook.com/v2.8/page1?access_token=token&format=json")) {
+          return new Response(HTTP_OK, jsonFromClasspath("connection-p1-cursor-only"));
+        }
+
+        if (url.equals("https://graph.facebook.com/v2.8/page1?access_token=token&format=json&after=cursor-p1-after")) {
+          return new Response(HTTP_OK, jsonFromClasspath("connection-p2-cursor-only"));
+        }
+
+        if (url.equals("https://graph.facebook.com/v2.8/page1?access_token=token&format=json&after=cursor-p2-after")) {
+          return new Response(HTTP_OK, jsonFromClasspath("connection-p3-cursor-only"));
         }
 
         return new Response(HTTP_OK, url);

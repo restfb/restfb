@@ -164,6 +164,19 @@ public final class UrlUtils {
     return parameters;
   }
 
+  /**
+   * Modify the query string in the given {@code url} and return the new url as String.
+   * <p>
+   * The given key/value pair is added to the url. If the key is already present, it is replaced with the new value.
+   *
+   * @param url
+   *          The URL which parameters should be modified.
+   * @param key
+   *          the key, that should be modified or added
+   * @param value
+   *          the value of the key/value pair
+   * @return the modified URL as String
+   */
   public static String replaceOrAddQueryParameter(String url, String key, String value) {
     String[] urlParts = url.split("\\?");
     String qParameter = key + "=" + value;
@@ -180,5 +193,35 @@ public final class UrlUtils {
     } else {
       return url + "?" + qParameter;
     }
+  }
+
+  /**
+   * Remove the given key from the url query string and return the new URL as String.
+   *
+   * @param url
+   *          The URL from which parameters are extracted.
+   * @param key
+   *          the key, that should be removed
+   * @return the modified URL as String
+   */
+  public static String removeQueryParameter(String url, String key) {
+    String[] urlParts = url.split("\\?");
+
+    if (urlParts.length == 2) {
+      Map<String, List<String>> paramMap = extractParametersFromQueryString(urlParts[1]);
+      if (paramMap.containsKey(key)) {
+        String queryValue = paramMap.get(key).get(0);
+        String result = url.replace(key + "=" + queryValue, "");
+        // improper separators have to be fixed
+        // @TODO find a better way to solve this
+        result = result.replace("?&", "?").replace("&&", "&");
+        if (result.endsWith("&")) {
+          return result.substring(0, result.length() - 1);
+        } else {
+          return result;
+        }
+      }
+    }
+    return url;
   }
 }

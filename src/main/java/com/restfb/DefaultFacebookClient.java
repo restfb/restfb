@@ -31,6 +31,15 @@ import static java.net.HttpURLConnection.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 import com.restfb.WebRequestor.Response;
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
@@ -43,15 +52,7 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.EncodingUtils;
 import com.restfb.util.StringUtils;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import com.restfb.util.UrlUtils;
 
 /**
  * Default implementation of a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client.
@@ -299,7 +300,23 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
-    return new Connection<>(this, makeRequest(connection, parameters), connectionType);
+    Connection<T> conn = new Connection<>(this, makeRequest(connection, parameters), connectionType);
+
+    if (conn.getNextPageUrl() == null && conn.getAfterCursor() != null) {
+      String fullUrl = createEndpointForApiCall(connection, false);
+      String paramString = toParameterString(parameters);
+      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl + "?" + paramString, "after", conn.getAfterCursor());
+      conn.setNextPageUrl(fullUrl);
+    }
+
+    if (conn.getPreviousPageUrl() == null && conn.getBeforeCursor() != null) {
+      String fullUrl = createEndpointForApiCall(connection, false);
+      String paramString = toParameterString(parameters);
+      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl + "?" + paramString, "before", conn.getBeforeCursor());
+      conn.setPreviousPageUrl(fullUrl);
+    }
+
+    return conn;
   }
 
   /**
@@ -325,7 +342,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       });
     }
 
-    return new Connection<>(this, connectionJson, connectionType);
+    Connection<T> conn = new Connection<>(this, connectionJson, connectionType);
+
+    if (conn.getNextPageUrl() == null && conn.getAfterCursor() != null) {
+      String fullUrl = UrlUtils.removeQueryParameter(connectionPageUrl, "before");
+      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl, "after", conn.getAfterCursor());
+      conn.setNextPageUrl(fullUrl);
+    }
+
+    if (conn.getPreviousPageUrl() == null && conn.getBeforeCursor() != null) {
+      String fullUrl = UrlUtils.removeQueryParameter(connectionPageUrl, "after");
+      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl, "before", conn.getBeforeCursor());
+      conn.setPreviousPageUrl(fullUrl);
+    }
+
+    return conn;
   }
 
   /**
@@ -368,8 +399,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     try {
-      String jsonString =
-          makeRequest("", parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, idArray.toString()), parameters));
+      String jsonString = makeRequest("",
+        parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, idArray.toString()), parameters));
 
       return jsonMapper.toJavaObject(jsonString, objectType);
     } catch (ParseException e) {
