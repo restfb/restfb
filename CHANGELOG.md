@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.10.0 (September 15, 2018)
+
+* Issue #908: Deployment improved
+* Issue #909: Connection should construct next & prev page URLs from cursors as a fallback<br />
+  Thanks to @mrhota for the hint
+
 ## 2.9.0 (August 21, 2018)
 
 * Issue #902: Report parameter values when throwing<br />
