@@ -24,22 +24,16 @@ RestFB is a single JAR - just drop it into your app and you're ready to go. Down
 
 Just type
 
-    ant dist
+    mvn package
     
-...and you're done. 
-
-For the maven users, you can simply type
-
-    maven package
-    
-and the jars will be built. 
+and the jars will be built and can be found in the `target` folder. 
 
 ## Usage and examples
 
 We provide well-curated [documentation](http://restfb.com/documentation/) with many code examples. These 
 are all clearly commented and give a good overview of the functionality RestFB provides.
 
-Additionally, you can take a look at the integration tests here on GitHub. Some interesting use cases are exercised there and you can get a good idea of the different features that are provided by RestFB.
+Additionally, you can take a look at the integration tests [here](https://github.com/restfb/restfb/tree/master/src/test/java/com/restfb/integration) on GitHub. Some interesting use cases are exercised there and you can get a good idea of the different features that are provided by RestFB.
 
 There is also the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains a suite of tools that can be triggered via Maven calls. Additionally, for the fetch and publish example, you can find
 a JavaFX code sample that shows how an embedded browser is used to fetch a user access token.
