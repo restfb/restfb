@@ -27,6 +27,7 @@
     <!-- additional configuration -->
     <year.current>2018</year.current>
     <javadoc.options>-Xdoclint:none</javadoc.options>
+    <skipTests>true</skipTests>
   </properties>
 
   <licenses>
@@ -204,7 +205,8 @@
             <link>https://docs.oracle.com/javase/7/docs/api/</link>
           </links>
           <doctitle><![CDATA[<h1>RestFB ${project.version}</h1>]]></doctitle>
-          <bottom><![CDATA[<i>RestFB ${project.version}. Copyright &#169; ${project.inceptionYear}-${year.current} Mark Allen. All Rights Reserved.</i>]]></bottom>
+          <bottom>
+            <![CDATA[<i>RestFB ${project.version}. Copyright &#169; ${project.inceptionYear}-${year.current} Mark Allen. All Rights Reserved.</i>]]></bottom>
           <overview>${project.basedir}/misc/javadoc/overview.html</overview>
         </configuration>
         <executions>
@@ -233,6 +235,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>2.22.0</version>
+        <configuration>
+          <skipITs>${skipTests}</skipITs>
+        </configuration>
         <executions>
           <execution>
             <goals>
@@ -291,6 +296,20 @@
             <phase>generate-sources</phase>
             <goals>
               <goal>delombok</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
             </goals>
           </execution>
         </executions>
