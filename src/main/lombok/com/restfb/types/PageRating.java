@@ -128,7 +128,7 @@ public class PageRating extends FacebookType {
 
   @Getter
   @Setter
-  private OpenGraphRating.RecommendationType recommendationType;
+  private RecommendationType recommendationType;
 
   public boolean isRecommendation() {
     return ratingValue == null;
@@ -163,8 +163,7 @@ public class PageRating extends FacebookType {
       if (dataObject.get("recommendation_type") != null) {
         try {
           String typeString = dataObject.get("recommendation_type").asString();
-          recommendationType =
-              OpenGraphRating.RecommendationType.valueOf(typeString.toUpperCase());
+          recommendationType = RecommendationType.valueOf(typeString.toUpperCase());
         } catch (IllegalArgumentException iae) {
           // no enum value found ignore this
         }

@@ -580,6 +580,16 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void ratingsRatingAddWithRecommendation() {
+    RatingsRatingValue value = openAndCheckBasics("ratings-rating-add-31", RatingsRatingValue.class, FIELD_RATINGS,
+            ITEM_RATING, ChangeValue.Verb.ADD);
+    assertEquals(3L, value.getRating().longValue());
+    assertEquals("Tester", value.getReviewerName());
+    assertEquals("Ja ziemlich coole Sache", value.getReviewText());
+    assertEquals(RecommendationType.POSITIVE, value.getRecommendationType());
+  }
+
+  @Test
   public void ratingsRatingEdit() {
     RatingsRatingValue value = openAndCheckBasics("ratings-rating-edit-25", RatingsRatingValue.class, FIELD_RATINGS,
       ITEM_RATING, ChangeValue.Verb.EDIT);

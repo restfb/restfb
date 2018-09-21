@@ -19,52 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook;
+package com.restfb.types;
 
-import com.restfb.Facebook;
-import com.restfb.types.RecommendationType;
-import com.restfb.types.webhook.base.BaseChangeValue;
-
-import lombok.Getter;
-import lombok.Setter;
-
-/**
- * change value of the ratings rating
- */
-public class RatingsRatingValue extends BaseChangeValue {
-
-  @Getter
-  @Setter
-  @Facebook("open_graph_story_id")
-  private String openGraphStoryId;
-
-  @Getter
-  @Setter
-  @Facebook("reviewer_id")
-  private String reviewerId;
-
-  @Getter
-  @Setter
-  @Facebook("reviewer_name")
-  private String reviewerName;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Long rating;
-
-  @Getter
-  @Setter
-  @Facebook("review_text")
-  private String reviewText;
-
-  @Getter
-  @Setter
-  @Facebook("comment_id")
-  private String commentId;
-
-  @Getter
-  @Setter
-  @Facebook("recommendation_type")
-  private RecommendationType recommendationType;
+public enum RecommendationType {
+    POSITIVE, NEGATIVE
 }
