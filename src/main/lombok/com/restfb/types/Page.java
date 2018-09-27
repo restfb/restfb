@@ -187,6 +187,16 @@ public class Page extends CategorizedFacebookType {
   private Integer countryPageLikes;
 
   /**
+   * The Page's category. e.g. Product/Service, Computers/Technology
+   *
+   * @return The Page's category. e.g. Product/Service, Computers/Technology
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String category;
+
+  /**
    * Biography of the band. Applicable to Bands
    * 
    * @since 1.10.0
@@ -305,6 +315,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("has_added_app")
   private Boolean hasAddedApp;
+
+  /**
+   * has whatsapp number
+   *
+   * @return has whatsapp number
+   */
+  @Getter
+  @Setter
+  @Facebook("has_whatsapp_number")
+  private Boolean hasWhatsappNumber;
 
   /**
    * Hometown of the band. Applicable to Bands
@@ -791,6 +811,16 @@ public class Page extends CategorizedFacebookType {
   private String writtenBy;
 
   /**
+   * whatsapp number
+   *
+   * @return whatsapp number
+   */
+  @Getter
+  @Setter
+  @Facebook("whatsapp_number")
+  private String whatsappNumber;
+
+  /**
    * The page's link.
    * 
    * @return The page's link.
@@ -907,6 +937,16 @@ public class Page extends CategorizedFacebookType {
   private Boolean isAlwaysOpen;
 
   /**
+   * Indicates whether location is part of a chain
+   *
+   * @return Indicates whether location is part of a chain
+   */
+  @Getter
+  @Setter
+  @Facebook("is_chain")
+  private Boolean isChain;
+
+  /**
    * Is this a community page?
    * 
    * @return Is this a community page?
@@ -956,6 +996,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook
   private String phone;
+
+  /**
+   * Parking information. Applicable to Businesses and Places
+   *
+   * @return Parking information. Applicable to Businesses and Places
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private PageParking parking;
 
   /**
    * An admin {@code access_token} for this page.
@@ -1182,6 +1232,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("instagram_business_account")
   private IgUser instagramBusinessAccount;
+
+  /**
+   * Indicates the current Instant Articles review status for this page
+   *
+   * @return Indicates the current Instant Articles review status for this page
+   */
+  @Getter
+  @Setter
+  @Facebook("instant_articles_review_status")
+  private String instantArticlesReviewStatus;
 
   /**
    * last used time of this object by the current viewer
@@ -1644,6 +1704,39 @@ public class Page extends CategorizedFacebookType {
     @Setter
     @Facebook
     private Boolean lunch;
+  }
+
+  /**
+   * Parking options for a Page. Useful for Facebook Pages that have a business with parking.
+   */
+  public static class PageParking extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Whether lot parking is available
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Boolean lot;
+
+    /**
+     * Whether street parking is available
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Boolean street;
+
+    /**
+     * Whether valet parking is available
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Boolean valet;
+
   }
 
   /**

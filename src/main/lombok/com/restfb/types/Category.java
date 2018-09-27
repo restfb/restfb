@@ -21,6 +21,16 @@
  */
 package com.restfb.types;
 
+import static java.util.Collections.unmodifiableList;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.restfb.Facebook;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Represents an category element used by place and page
  * 
@@ -31,4 +41,23 @@ public class Category extends NamedFacebookType {
 
   private static final long serialVersionUID = 1L;
 
+  @Getter
+  @Setter
+  @Facebook("api_enum")
+  private String apiEnum;
+
+  @Facebook("fb_page_categories")
+  private List<Category> fbPageCategories = new ArrayList<>();
+
+  public List<Category> getFbPageCategories() {
+    return unmodifiableList(fbPageCategories);
+  }
+
+  public boolean addFbPageCategory(Category category) {
+    return fbPageCategories.add(category);
+  }
+
+  public boolean removeFbPageCategory(Category category) {
+    return fbPageCategories.remove(category);
+  }
 }
