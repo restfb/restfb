@@ -285,7 +285,7 @@ public class Connection<T> implements Iterable<List<T>> {
    * @return {@code true} if there is a next page of data for this connection, {@code false} otherwise.
    */
   public boolean hasNext() {
-    return !isBlank(getNextPageUrl());
+    return !isBlank(getNextPageUrl()) && !getData().isEmpty();
   }
 
   /**

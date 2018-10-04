@@ -23,6 +23,7 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.restfb.json.JsonObject;
 import org.junit.Test;
 
 import com.restfb.exception.FacebookJsonMappingException;
@@ -59,6 +61,18 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     Connection<User> con = new Connection<User>(new DefaultFacebookClient(Version.LATEST),
       jsonFromClasspath("v2_1/connection-user-friends"), User.class);
     assertThat(con.getTotalCount()).isEqualTo(99);
+  }
+
+  @Test
+  public void checkNoData() {
+    Connection<JsonObject> con = new Connection<JsonObject>(new DefaultFacebookClient(Version.LATEST),
+            jsonFromClasspath("connection-nodata"), JsonObject.class);
+    assertThat(con.getData()).isEmpty();
+    assertThat(con.hasNext()).isFalse();
+
+    for (List<JsonObject> objects : con) {
+      assertThat(objects).isEmpty();
+    }
   }
 
   @Test(expected = FacebookJsonMappingException.class)

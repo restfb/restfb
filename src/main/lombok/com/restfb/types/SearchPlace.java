@@ -59,13 +59,6 @@ public class SearchPlace extends NamedFacebookType {
   @Facebook("app_links")
   private AppLinks appLinks;
 
-  /**
-   * The Place's categories.
-   *
-   * @return The Place's categories.
-   */
-  @Getter
-  @Setter
   @Facebook("category_list")
   private List<Category> categoryList = new ArrayList<>();
 
@@ -324,6 +317,11 @@ public class SearchPlace extends NamedFacebookType {
     picture = mappingUtils.convertPicture(rawPicture);
   }
 
+  /**
+   * The Place's categories.
+   *
+   * @return The Place's categories.
+   */
   public List<Category> getCategoryList() {
     return unmodifiableList(categoryList);
   }
