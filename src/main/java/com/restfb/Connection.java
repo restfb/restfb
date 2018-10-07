@@ -167,23 +167,18 @@ public class Connection<T> implements Iterable<List<T>> {
     // Pull out paging info, if present
     if (jsonObject.get("paging") != null) {
       JsonObject jsonPaging = jsonObject.get("paging").asObject();
-      previousPageUrl = jsonPaging.getString("previous", null);
-      nextPageUrl = jsonPaging.getString("next", null);
-      if (null != previousPageUrl && previousPageUrl.startsWith("http://")) {
-        previousPageUrl = previousPageUrl.replaceFirst("http://", "https://");
-      }
-      if (null != nextPageUrl && nextPageUrl.startsWith("http://")) {
-        nextPageUrl = nextPageUrl.replaceFirst("http://", "https://");
+      previousPageUrl = fixProtocol(jsonPaging.getString("previous", null));
+      nextPageUrl = fixProtocol(jsonPaging.getString("next", null));
+
+      // handle cursors
+      if (jsonPaging.get("cursors") != null) {
+        JsonObject jsonCursors = jsonPaging.get("cursors").asObject();
+        beforeCursor = jsonCursors.getString("before", null);
+        afterCursor = jsonCursors.getString("after", null);
       }
     } else {
       previousPageUrl = null;
       nextPageUrl = null;
-    }
-
-    if (jsonObject.get("paging") != null && jsonObject.get("paging").asObject().get("cursors") != null) {
-      JsonObject jsonCursors = jsonObject.get("paging").asObject().get("cursors").asObject();
-      beforeCursor = jsonCursors.getString("before", null);
-      afterCursor = jsonCursors.getString("after", null);
     }
 
     if (jsonObject.get("summary") != null) {
@@ -304,5 +299,13 @@ public class Connection<T> implements Iterable<List<T>> {
 
   public String getAfterCursor() {
     return afterCursor;
+  }
+
+  private String fixProtocol(String pageUrl) {
+    if (null != pageUrl && pageUrl.startsWith("http://")) {
+      return pageUrl.replaceFirst("http://", "https://");
+    } else {
+      return pageUrl;
+    }
   }
 }

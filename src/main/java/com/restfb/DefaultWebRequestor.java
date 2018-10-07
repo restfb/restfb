@@ -22,10 +22,6 @@
 package com.restfb;
 
 import static com.restfb.logging.RestFBLogger.HTTP_LOGGER;
-import static java.lang.String.format;
-
-import com.restfb.util.StringUtils;
-import com.restfb.util.UrlUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -36,6 +32,9 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import com.restfb.util.StringUtils;
+import com.restfb.util.UrlUtils;
 
 /**
  * Default implementation of a service that sends HTTP requests to the Facebook API endpoint.
@@ -151,10 +150,8 @@ public class DefaultWebRequestor implements WebRequestor {
             .append(createFormFieldName(binaryAttachment)).append("\"; filename=\"")
             .append(binaryAttachment.getFilename()).append("\"");
 
-          if (binaryAttachment.getContentType() != null && binaryAttachment.getContentType().length() > 0) {
-            stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Type: ")
-              .append(binaryAttachment.getContentType());
-          }
+          stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Type: ")
+            .append(binaryAttachment.getContentType());
 
           stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE);
 
@@ -174,8 +171,9 @@ public class DefaultWebRequestor implements WebRequestor {
       fillHeaderAndDebugInfo(httpUrlConnection);
 
       try {
-        inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
-            ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
+        inputStream =
+            httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK ? httpUrlConnection.getErrorStream()
+                : httpUrlConnection.getInputStream();
       } catch (IOException e) {
         HTTP_LOGGER.warn("An error occurred while POSTing to {}:", url, e);
       }
@@ -395,11 +393,12 @@ public class DefaultWebRequestor implements WebRequestor {
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
     InputStream inputStream = null;
     try {
-      inputStream = httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK
-          ? httpUrlConnection.getErrorStream() : httpUrlConnection.getInputStream();
+      inputStream =
+          httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK ? httpUrlConnection.getErrorStream()
+              : httpUrlConnection.getInputStream();
     } catch (IOException e) {
-      HTTP_LOGGER.warn("An error occurred while making a {} request to {}:",
-        httpUrlConnection.getRequestMethod(), httpUrlConnection.getURL(), e);
+      HTTP_LOGGER.warn("An error occurred while making a {} request to {}:", httpUrlConnection.getRequestMethod(),
+        httpUrlConnection.getURL(), e);
     }
 
     return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
