@@ -37,15 +37,21 @@ public class Account extends Page {
 
   private static final long serialVersionUID = 1L;
 
+  @Deprecated
   @Facebook("perms")
   private List<String> perms = new ArrayList<>();
+
+  @Facebook("tasks")
+  private List<String> tasks = new ArrayList<>();
 
   /**
    * A list of permissions the user has for this page.
    * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">See roles list here</a>
    * 
    * @return A list of permissions the user has for this page.
+   * @deprecated since graph api v3.1, use getTasks() instead
    */
+  @Deprecated
   public List<String> getPerms() {
     return unmodifiableList(perms);
   }
@@ -55,6 +61,7 @@ public class Account extends Page {
    * 
    * @param permission
    */
+  @Deprecated
   public void addPerm(String permission) {
     perms.add(permission);
   }
@@ -65,8 +72,38 @@ public class Account extends Page {
    * @param permission
    * @return
    */
+  @Deprecated
   public boolean removePerm(String permission) {
     return perms.remove(permission);
+  }
+
+  /**
+   * A list of tasks allowed to perform for this page.
+   * <a href="https://developers.facebook.com/docs/pages/access-tokens#page-tasks">See tasks list here</a>
+   *
+   * @return A list of allowed tasks
+   */
+  public List<String> getTasks() {
+    return unmodifiableList(tasks);
+  }
+
+  /**
+   * Add a task to the task list.
+   *
+   * @param task
+   */
+  public void addTask(String task) {
+    tasks.add(task);
+  }
+
+  /**
+   * Remove the task from the task list.
+   *
+   * @param task
+   * @return
+   */
+  public boolean removeTask(String task) {
+    return tasks.remove(task);
   }
 
 }
