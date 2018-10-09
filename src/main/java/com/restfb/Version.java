@@ -50,6 +50,7 @@ public enum Version {
    *
    * @since July 13, 2016
    */
+  @Deprecated
   VERSION_2_7("v2.7", true),
 
   /**
