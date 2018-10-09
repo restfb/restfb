@@ -43,19 +43,19 @@ public class EndpointBuilderTest {
   @Test
   public void deleteObjectDELETETest() {
     FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_5);
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_8);
     client.deleteObject("comment");
     assertThat(wr.getMethod()).isEqualTo("DELETE");
-    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.5/comment?access_token=12345&format=json");
+    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.8/comment?access_token=12345&format=json");
   }
 
   @Test
   public void deleteObjectPOSTTest() {
     FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_5);
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_8);
     client.setHttpDeleteFallback(true);
     client.deleteObject("comment");
     assertThat(wr.getMethod()).isEqualTo("POST");
-    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.5/comment");
+    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.8/comment");
   }
 }

@@ -34,8 +34,8 @@ import java.io.IOException;
 public class WebRequestorDebugInfoITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchMe() throws IOException {
-    FacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_5);
+  public void fetchMe() {
+    FacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     client.fetchObject("/me", User.class, Parameter.with("fields", "id,name"));
 
     WebRequestor wr = client.getWebRequestor();

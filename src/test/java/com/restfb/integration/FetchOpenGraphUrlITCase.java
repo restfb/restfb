@@ -38,7 +38,7 @@ public class FetchOpenGraphUrlITCase extends RestFbIntegrationTestBase {
   public void imdbUrlCheck() {
 
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_5);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Url objectUrl = client.fetchObject("/", Url.class, Parameter.with("id", "http://www.imdb.com/title/tt2015381/"));
     assertNotNull(objectUrl);
     assertEquals("http://www.imdb.com/title/tt2015381/", objectUrl.getId());

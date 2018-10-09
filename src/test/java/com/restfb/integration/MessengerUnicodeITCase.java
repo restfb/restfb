@@ -40,7 +40,7 @@ public class MessengerUnicodeITCase extends RestFbIntegrationTestBase {
   public void sendUnicodeMessage() {
     String pageAccessToken = getTestSettings().getPageAccessToken();
 
-    FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_6);
+    FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.LATEST);
 
     Message simpleTextMessage = new Message("That's funny \uD83D\uDE03");
     IdMessageRecipient recipient = new IdMessageRecipient(getTestSettings().getRecipientId());

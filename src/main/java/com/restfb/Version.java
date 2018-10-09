@@ -26,24 +26,7 @@ public enum Version {
   /**
    * unversiond api
    */
-  UNVERSIONED(null, false),
-
-  /**
-   * <tt>Graph API 2.5</tt>, available until April 12, 2018
-   *
-   * @since October 7, 2015
-   * @deprecated since April 12, 2018
-   */
-  @Deprecated
-  VERSION_2_5("v2.5", false),
-
-  /**
-   * <tt>Graph API 2.6</tt>, available until July 13, 2018
-   *
-   * @since April 12, 2016
-   */
-  @Deprecated
-  VERSION_2_6("v2.6", true),
+  UNVERSIONED(null),
 
   /**
    * <tt>Graph API 2.7</tt>, available until October 5, 2018
@@ -51,56 +34,56 @@ public enum Version {
    * @since July 13, 2016
    */
   @Deprecated
-  VERSION_2_7("v2.7", true),
+  VERSION_2_7("v2.7"),
 
   /**
    * <tt>Graph API 2.8</tt>, available until April 18th, 2019
    *
    * @since October 5th, 2016
    */
-  VERSION_2_8("v2.8", true),
+  VERSION_2_8("v2.8"),
 
   /**
    * <tt>Graph API 2.9</tt>, available until July 18th, 2019
    *
    * @since April 18th, 2017
    */
-  VERSION_2_9("v2.9", true),
+  VERSION_2_9("v2.9"),
 
   /**
    * <tt>Graph API 2.10</tt>, available until November 7, 2019
    *
    * @since July 18th, 2017
    */
-  VERSION_2_10("v2.10", true),
+  VERSION_2_10("v2.10"),
 
   /**
    * <tt>Graph API 2.11</tt>, available until January 30, 2020
    *
    * @since November 7, 2017
    */
-  VERSION_2_11("v2.11", true),
+  VERSION_2_11("v2.11"),
 
   /**
    * <tt>Graph API 2.12</tt>, available at least until May 1, 2020
    *
    * @since January 30, 2018
    */
-  VERSION_2_12("v2.12", true),
+  VERSION_2_12("v2.12"),
 
   /**
    * <tt>Graph API 3.0</tt>, available at least until July 26, 2020
    *
    * @since May 1, 2018
    */
-  VERSION_3_0("v3.0", true),
+  VERSION_3_0("v3.0"),
 
   /**
    * <tt>Graph API 3.1</tt>, available at least until July, 2020
    *
    * @since July 26, 2018
    */
-  VERSION_3_1("v3.1", true),
+  VERSION_3_1("v3.1"),
 
   /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
@@ -108,23 +91,16 @@ public enum Version {
    * the current version is <tt>Graph API 3.1</tt>
    * </p>
    */
-  LATEST("v3.1", true);
+  LATEST("v3.1");
 
   private final String urlElement;
 
-  private final boolean newDeviceTokenMethod;
-
-  Version(String urlElement, boolean newDeviceTokenMethod) {
+  Version(String urlElement) {
     this.urlElement = urlElement;
-    this.newDeviceTokenMethod = newDeviceTokenMethod;
   }
 
   public String getUrlElement() {
     return this.urlElement;
-  }
-
-  public boolean isNewDeviceTokenMethod() {
-    return this.newDeviceTokenMethod;
   }
 
   public boolean isUrlElementRequired() {

@@ -36,7 +36,7 @@ public class PostWithTotalCountITCase extends RestFbIntegrationTestBase {
   @Test
   public void checkPostWithCommentsAndLikes() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_5);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Post gotPost = client.fetchObject("74133697733_10152424266332734", Post.class,
       Parameter.with("fields", "from,to,likes.summary(true),comments.summary(true)"));
     assertNotNull(gotPost);

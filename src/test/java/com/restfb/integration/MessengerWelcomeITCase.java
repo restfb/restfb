@@ -44,7 +44,7 @@ public class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
   public void setGreeting() {
     String pageAccessToken = getTestSettings().getPageAccessToken();
 
-    FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_6);
+    FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.LATEST);
 
     Greeting greeting = new Greeting("Welcome and chat with the Testbot");
 
@@ -58,7 +58,7 @@ public class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
   public void setWelcomeMessage() {
     String pageAccessToken = getTestSettings().getPageAccessToken();
 
-    FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_6);
+    FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.LATEST);
 
     CallToAction welcome = new CallToAction("GETTING_STARTED_BUTTON");
 
