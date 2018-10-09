@@ -1,5 +1,17 @@
 # RestFB Changelog
 
+## 2.11.0 (October 9, 2018)
+
+* Issue #911: remove ant description from readme
+* Issue #912: Webhook JSON for new recommendation
+* Issue #915: Place.class improvement with new fields<br />
+  Thanks to @egemenozkan for the hint
+* Issue #916: Infinite loop while fetching next page<br />
+  Thanks to @CrWEE for the hint the analysis
+* Issue #920: Set Graph API version 2.7 to deprecated
+* Issue #919: Added tasks field to Account<br />
+  Thanks to @juvirez for the PR
+
 ## 2.10.0 (September 15, 2018)
 
 * Issue #908: Deployment improved
