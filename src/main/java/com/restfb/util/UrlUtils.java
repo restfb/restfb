@@ -27,6 +27,7 @@ import static java.net.URLEncoder.encode;
 import static java.util.Collections.emptyMap;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +38,6 @@ import java.util.Map;
  * @since 1.6.10
  */
 public final class UrlUtils {
-  /**
-   * Default charset to use for encoding/decoding strings.
-   */
-  public static final String ENCODING_CHARSET = "UTF-8";
 
   /**
    * Prevents instantiation.
@@ -52,35 +49,35 @@ public final class UrlUtils {
   /**
    * URL-encodes a string.
    * <p>
-   * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
+   * Assumes {@code string} is in {@link StandardCharsets#UTF_8} format.
    * 
    * @param string
    *          The string to URL-encode.
    * @return The URL-encoded version of the input string, or {@code null} if {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to URL-encode because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   *           If unable to URL-encode because the JVM doesn't support {@link StandardCharsets#UTF_8}.
    */
   public static String urlEncode(String string) {
     if (string == null) {
       return null;
     }
     try {
-      return encode(string, ENCODING_CHARSET);
+      return encode(string, StandardCharsets.UTF_8.name());
     } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
+      throw new IllegalStateException("Platform doesn't support " + StandardCharsets.UTF_8.name(), e);
     }
   }
 
   /**
    * URL-decodes a string.
    * <p>
-   * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
+   * Assumes {@code string} is in {@link StandardCharsets#UTF_8} format.
    * 
    * @param string
    *          The string to URL-decode.
    * @return The URL-decoded version of the input string, or {@code null} if {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   *           If unable to URL-decode because the JVM doesn't support {@link StandardCharsets#UTF_8}.
    * @since 1.6.5
    */
   public static String urlDecode(String string) {
@@ -88,9 +85,9 @@ public final class UrlUtils {
       return null;
     }
     try {
-      return decode(string, ENCODING_CHARSET);
+      return decode(string, StandardCharsets.UTF_8.name());
     } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
+      throw new IllegalStateException("Platform doesn't support " + StandardCharsets.UTF_8.name(), e);
     }
   }
 
@@ -104,7 +101,7 @@ public final class UrlUtils {
    * @return A mapping of query string parameter names to values. If {@code queryString} is {@code null}, an empty
    *         {@code Map} is returned.
    * @throws IllegalStateException
-   *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   *           If unable to URL-decode because the JVM doesn't support {@link StandardCharsets#UTF_8}.
    */
   public static Map<String, List<String>> extractParametersFromQueryString(String queryString) {
     if (queryString == null) {
@@ -127,7 +124,7 @@ public final class UrlUtils {
    * @return A mapping of query string parameter names to values. If {@code url} is {@code null}, an empty {@code Map}
    *         is returned.
    * @throws IllegalStateException
-   *           If unable to URL-decode because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   *           If unable to URL-decode because the JVM doesn't support {@link StandardCharsets#UTF_8}.
    */
   public static Map<String, List<String>> extractParametersFromUrl(String url) {
     if (url == null) {

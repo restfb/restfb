@@ -320,6 +320,7 @@ public class DefaultWebRequestor implements WebRequestor {
    * 
    * @since 1.7.0
    * @param autocloseBinaryAttachmentStream
+   *          {@code true} if the {@link BinaryAttachment} stream should be closed automatically, {@code false} otherwise
    */
   public void setAutocloseBinaryAttachmentStream(boolean autocloseBinaryAttachmentStream) {
     this.autocloseBinaryAttachmentStream = autocloseBinaryAttachmentStream;

@@ -21,7 +21,6 @@
  */
 package com.restfb.util;
 
-import static com.restfb.logging.RestFBLogger.UTILS_LOGGER;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 
