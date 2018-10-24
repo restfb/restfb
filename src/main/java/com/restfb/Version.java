@@ -79,19 +79,26 @@ public enum Version {
   VERSION_3_0("v3.0"),
 
   /**
-   * <tt>Graph API 3.1</tt>, available at least until July, 2020
+   * <tt>Graph API 3.1</tt>, available at least until October 23, 2020
    *
    * @since July 26, 2018
    */
   VERSION_3_1("v3.1"),
 
   /**
+   * <tt>Graph API 3.2</tt>, available at least until October, 2020
+   *
+   * @since October 23, 2018
+   */
+  VERSION_3_2("v3.2"),
+
+  /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
    * <p>
-   * the current version is <tt>Graph API 3.1</tt>
+   * the current version is <tt>Graph API 3.2</tt>
    * </p>
    */
-  LATEST("v3.1");
+  LATEST("v3.2");
 
   private final String urlElement;
 
