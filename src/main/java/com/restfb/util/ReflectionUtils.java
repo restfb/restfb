@@ -21,14 +21,13 @@
  */
 package com.restfb.util;
 
+import com.restfb.exception.FacebookJsonMappingException;
+
 import static java.lang.String.format;
 import static java.util.Collections.*;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.*;
 
 /**
@@ -113,7 +112,7 @@ public final class ReflectionUtils {
       for (Field field : type.getDeclaredFields()) {
         T annotation = field.getAnnotation(annotationType);
         if (annotation != null) {
-          fieldsWithAnnotation.add(new FieldWithAnnotation<T>(field, annotation));
+          fieldsWithAnnotation.add(new FieldWithAnnotation<>(field, annotation));
         }
 
       }
@@ -364,6 +363,41 @@ public final class ReflectionUtils {
     }
 
     return true;
+  }
+
+  /**
+   * Creates a new instance of the given {@code type}.
+   * <p>
+   *
+   *
+   * @param <T>
+   *          Java type to map to.
+   * @param type
+   *          Type token.
+   * @return A new instance of {@code type}.
+   * @throws FacebookJsonMappingException
+   *           If an error occurs when creating a new instance ({@code type} is inaccessible, doesn't have a no-arg
+   *           constructor, etc.)
+   */
+  public static <T> T createInstance(Class<T> type) {
+    String errorMessage = "Unable to create an instance of " + type
+            + ". Please make sure that if it's a nested class, is marked 'static'. "
+            + "It should have a no-argument constructor.";
+
+    try {
+      Constructor<T> defaultConstructor = type.getDeclaredConstructor();
+
+      if (defaultConstructor == null) {
+        throw new FacebookJsonMappingException("Unable to find a default constructor for " + type);
+      }
+
+      // Allows protected, private, and package-private constructors to be
+      // invoked
+      defaultConstructor.setAccessible(true);
+      return defaultConstructor.newInstance();
+    } catch (Exception e) {
+      throw new FacebookJsonMappingException(errorMessage, e);
+    }
   }
 
   /**

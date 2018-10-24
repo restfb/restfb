@@ -22,6 +22,7 @@
 package com.restfb;
 
 import static com.restfb.logging.RestFBLogger.MAPPER_LOGGER;
+import static com.restfb.util.ObjectUtil.isEmptyCollectionOrMap;
 import static com.restfb.util.ReflectionUtils.*;
 import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
@@ -29,7 +30,6 @@ import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -561,14 +561,6 @@ public class DefaultJsonMapper implements JsonMapper {
     return jsonObject;
   }
 
-  private boolean isEmptyCollectionOrMap(Object fieldValue) {
-    if (fieldValue instanceof Collection) {
-      return ((Collection) fieldValue).isEmpty();
-    }
-
-    return (fieldValue instanceof Map && ((Map) fieldValue).isEmpty());
-  }
-
   /**
    * Given a {@code json} value of something like {@code MyValue} or {@code 123} , return a representation of that value
    * of type {@code type}.
@@ -781,41 +773,6 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   /**
-   * Creates a new instance of the given {@code type}.
-   * <p>
-   * 
-   * 
-   * @param <T>
-   *          Java type to map to.
-   * @param type
-   *          Type token.
-   * @return A new instance of {@code type}.
-   * @throws FacebookJsonMappingException
-   *           If an error occurs when creating a new instance ({@code type} is inaccessible, doesn't have a no-arg
-   *           constructor, etc.)
-   */
-  protected <T> T createInstance(Class<T> type) {
-    String errorMessage = "Unable to create an instance of " + type
-        + ". Please make sure that if it's a nested class, is marked 'static'. "
-        + "It should have a no-argument constructor.";
-
-    try {
-      Constructor<T> defaultConstructor = type.getDeclaredConstructor();
-
-      if (defaultConstructor == null) {
-        throw new FacebookJsonMappingException("Unable to find a default constructor for " + type);
-      }
-
-      // Allows protected, private, and package-private constructors to be
-      // invoked
-      defaultConstructor.setAccessible(true);
-      return defaultConstructor.newInstance();
-    } catch (Exception e) {
-      throw new FacebookJsonMappingException(errorMessage, e);
-    }
-  }
-
-  /**
    * Is the given JSON equivalent to the empty object (<code>{}</code>)?
    * 
    * @param json
@@ -828,7 +785,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
   private JsonValue primitiveToJsonValue(Object object) {
     if (object == null) {
-      return Json.value("null");
+      return Json.NULL;
     }
 
     Class<?> type = object.getClass();
