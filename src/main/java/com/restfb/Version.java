@@ -101,14 +101,21 @@ public enum Version {
    * @since July 26, 2018
    */
   VERSION_3_1("v3.1", true),
+  
+  /**
+   * <tt>Graph API 3.2</tt>, available at least until (TBD)
+   *
+   * @since Oct 23, 2018
+   */
+  VERSION_3_2("v3.2", true),
 
   /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
    * <p>
-   * the current version is <tt>Graph API 3.1</tt>
+   * the current version is <tt>Graph API 3.2</tt>
    * </p>
    */
-  LATEST("v3.1", true);
+  LATEST("v3.2", true);
 
   private final String urlElement;
 
