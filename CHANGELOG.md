@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.12.0 (October 25, 2018)
+
+* Issue #922: Cleanup old Graph API versions
+* Issue #924: Graph API 3.2: add version to enum<br />
+  Thanks to @pcornelissen for the PR
+
 ## 2.11.0 (October 9, 2018)
 
 * Issue #911: remove ant description from readme
