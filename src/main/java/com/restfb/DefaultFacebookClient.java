@@ -96,30 +96,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected boolean httpDeleteFallback;
 
   /**
-   * Creates a Facebook Graph API client with no access token.
-   * <p>
-   * Without an access token, you can view and search public graph data but can't do much else.
-   * 
-   * @deprecated As of release 1.7.1, replaced by {@link #DefaultFacebookClient(com.restfb.Version) }
-   */
-  @Deprecated
-  public DefaultFacebookClient() {
-    this((String) null);
-  }
-
-  /**
-   * Creates a Facebook Graph API client with the given {@code accessToken}.
-   * 
-   * @param accessToken
-   *          A Facebook OAuth access token.
-   * @deprecated As of release 1.7.1 replaced by {@link #DefaultFacebookClient(java.lang.String, com.restfb.Version) }
-   */
-  @Deprecated
-  public DefaultFacebookClient(String accessToken) {
-    this(accessToken, null, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
-  }
-
-  /**
    * Creates a Facebook Graph API client with the given {@code apiVersion}.
    * 
    * @param apiVersion
@@ -149,47 +125,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *          A Facebook OAuth access token.
    * @param appSecret
    *          A Facebook application secret.
-   * @since 1.6.13
-   * @deprecated As of release 1.7.1, replaced by
-   *             {@link #DefaultFacebookClient(java.lang.String, java.lang.String, com.restfb.Version) }
-   */
-  @Deprecated
-  public DefaultFacebookClient(String accessToken, String appSecret) {
-    this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), null);
-  }
-
-  /**
-   * Creates a Facebook Graph API client with the given {@code accessToken}.
-   * 
-   * @param accessToken
-   *          A Facebook OAuth access token.
-   * @param appSecret
-   *          A Facebook application secret.
    * @param apiVersion
    *          Version of the api endpoint
    * @since 1.6.14
    */
   public DefaultFacebookClient(String accessToken, String appSecret, Version apiVersion) {
     this(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(), apiVersion);
-  }
-
-  /**
-   * Creates a Facebook Graph API client with the given {@code accessToken}.
-   * 
-   * @param accessToken
-   *          A Facebook OAuth access token.
-   * @param webRequestor
-   *          The {@link WebRequestor} implementation to use for sending requests to the API endpoint.
-   * @param jsonMapper
-   *          The {@link JsonMapper} implementation to use for mapping API response JSON to Java objects.
-   * @throws NullPointerException
-   *           If {@code jsonMapper} or {@code webRequestor} is {@code null}.
-   * @deprecated As of release 1.7.1, replaced by
-   *             {@link #DefaultFacebookClient(java.lang.String, com.restfb.WebRequestor, com.restfb.JsonMapper, com.restfb.Version) }
-   */
-  @Deprecated
-  public DefaultFacebookClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper) {
-    this(accessToken, null, webRequestor, jsonMapper, null);
   }
 
   /**

@@ -23,22 +23,14 @@ package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.FakeWebRequestor;
 import com.restfb.Version;
 
-import org.junit.Test;
-
 public class EndpointBuilderTest {
-
-  @Test
-  public void unversionedNoVersionTest() {
-    FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper());
-    String respstring = client.fetchObject("/me", String.class);
-    assertThat(respstring).isEqualTo("https://graph.facebook.com/me?access_token=12345&format=json");
-  }
 
   @Test
   public void deleteObjectDELETETest() {
