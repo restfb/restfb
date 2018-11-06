@@ -394,6 +394,9 @@ public class Post extends NamedFacebookType {
 
   private List<MessageTag> storyTags = new ArrayList<>();
 
+  @Facebook("sponsor_tags")
+  private List<NamedFacebookType> sponsorTags = new ArrayList<>();
+
   /**
    * UNIX timestamp of the scheduled publish time for the post.
    *
@@ -1354,5 +1357,22 @@ public class Post extends NamedFacebookType {
 
   public void removeChildAttachment(Post childAttachment) {
     childAttachments.remove(childAttachment);
+  }
+
+  /**
+   * A sponsor tag points to a Facebook Page.
+   *
+   * (Page owners can allow their business partners to directly boost their posts.)
+   */
+  public List<NamedFacebookType> getSponsorTags() {
+    return unmodifiableList(sponsorTags);
+  }
+
+  public boolean addSponsorTag(NamedFacebookType sponsorTag) {
+    return sponsorTags.add(sponsorTag);
+  }
+
+  public boolean removeSponsorTag(NamedFacebookType sponsorTag) {
+    return sponsorTags.remove(sponsorTag);
   }
 }

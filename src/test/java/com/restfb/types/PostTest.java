@@ -369,6 +369,17 @@ public class PostTest extends AbstractJsonMapperTests {
     assertEquals(0L, examplePost.getLikesCount().longValue());
   }
 
+  @Test
+  public void checkV3_2_sponsortags() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/post-sponsortags"), Post.class);
+    assertNotNull(examplePost);
+    assertEquals(1, examplePost.getSponsorTags().size());
+    NamedFacebookType sponsorTag = examplePost.getSponsorTags().get(0);
+    assertNotNull(sponsorTag);
+    assertEquals("Example", sponsorTag.getName());
+    assertEquals("111111111", sponsorTag.getId());
+  }
+
   private void verifyFeedTargeting(String exampleFile) {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath(exampleFile), Post.class);
     assertNotNull(examplePost);
