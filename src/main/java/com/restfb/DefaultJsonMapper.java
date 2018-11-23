@@ -43,6 +43,7 @@ import com.restfb.json.*;
 import com.restfb.types.Comments;
 import com.restfb.util.DateUtils;
 import com.restfb.util.ReflectionUtils.*;
+import com.restfb.util.StringJsonUtils;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -113,12 +114,12 @@ public class DefaultJsonMapper implements JsonMapper {
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
     }
 
-    if (json.startsWith("{")) {
+    if (StringJsonUtils.isObject(json)) {
       // Sometimes Facebook returns the empty object {} when it really should be
       // returning an empty list [] (example: do an FQL query for a user's
       // affiliations - it's a list except when there are none, then it turns
       // into an object). Check for that special case here.
-      if (isEmptyObject(json)) {
+      if (StringJsonUtils.isEmptyObject(json)) {
         MAPPER_LOGGER
           .trace("Encountered \\{} when we should've seen []. Mapping the \\{} as an empty list and moving on...");
 
@@ -194,8 +195,8 @@ public class DefaultJsonMapper implements JsonMapper {
   @Override
   @SuppressWarnings("unchecked")
   public <T> T toJavaObject(String json, Class<T> type) {
-    if ("[]".equals(json)) {
-      return toJavaObject("{}", type);
+    if (StringJsonUtils.isEmptyList(json)) {
+      return toJavaObject(StringJsonUtils.EMPTY_OBJECT, type);
     }
 
     if (isBlank(json)) {
@@ -206,7 +207,7 @@ public class DefaultJsonMapper implements JsonMapper {
       }
     }
 
-    if (json.startsWith("[")) {
+    if (StringJsonUtils.isList(json)) {
       if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {
         return null;
       } else {
@@ -228,7 +229,7 @@ public class DefaultJsonMapper implements JsonMapper {
       // type. If this is actually the empty object, just return a new instance
       // of the corresponding Java type.
       if (fieldsWithAnnotation.isEmpty()) {
-        if (isEmptyObject(json)) {
+        if (StringJsonUtils.isEmptyObject(json)) {
           T instance = createInstance(type);
 
           // If there are any methods annotated with @JsonMappingCompleted,
@@ -243,13 +244,13 @@ public class DefaultJsonMapper implements JsonMapper {
 
       // Facebook will sometimes return the string "null".
       // Check for that and bail early if we find it.
-      if ("null".equals(json)) {
+      if (StringJsonUtils.isNull(json)) {
         return null;
       }
 
       // Facebook will sometimes return the string "false" to mean null.
       // Check for that and bail early if we find it.
-      if ("false".equals(json)) {
+      if (StringJsonUtils.isFalse(json)) {
         MAPPER_LOGGER.debug("Encountered 'false' from Facebook when trying to map to {} - mapping null instead.",
           type.getSimpleName());
         return null;
@@ -770,17 +771,6 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     return null;
-  }
-
-  /**
-   * Is the given JSON equivalent to the empty object (<code>{}</code>)?
-   * 
-   * @param json
-   *          The JSON to check.
-   * @return {@code true} if the JSON is equivalent to the empty object, {@code false} otherwise.
-   */
-  protected boolean isEmptyObject(String json) {
-    return "{}".equals(json);
   }
 
   private JsonValue primitiveToJsonValue(Object object) {
