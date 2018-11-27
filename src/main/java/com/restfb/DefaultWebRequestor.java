@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -95,23 +96,23 @@ public class DefaultWebRequestor implements WebRequestor {
    */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
-    return executePost(url, parameters, (BinaryAttachment[]) null);
+    return executePost(url, parameters, null);
   }
 
   /**
    * @throws java.io.IOException
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, com.restfb.BinaryAttachment[])
+   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, java.util.List<com.restfb.BinaryAttachment>)
    */
   @Override
-  public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
     if (binaryAttachments == null) {
-      binaryAttachments = new BinaryAttachment[0];
+      binaryAttachments = new ArrayList<>();
     }
 
     if (HTTP_LOGGER.isDebugEnabled()) {
       HTTP_LOGGER.debug("Executing a POST to " + url + " with parameters "
-          + (binaryAttachments.length > 0 ? "" : "(sent in request body): ") + UrlUtils.urlDecode(parameters)
-          + (binaryAttachments.length > 0 ? " and " + binaryAttachments.length + " binary attachment[s]." : ""));
+          + (!binaryAttachments.isEmpty() ? "" : "(sent in request body): ") + UrlUtils.urlDecode(parameters)
+          + (!binaryAttachments.isEmpty() ? " and " + binaryAttachments.size() + " binary attachment[s]." : ""));
     }
 
     HttpURLConnection httpUrlConnection = null;
@@ -119,18 +120,18 @@ public class DefaultWebRequestor implements WebRequestor {
     InputStream inputStream = null;
 
     try {
-      httpUrlConnection = openConnection(new URL(url + (binaryAttachments.length > 0 ? "?" + parameters : "")));
+      httpUrlConnection = openConnection(new URL(url + (!binaryAttachments.isEmpty() ? "?" + parameters : "")));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
 
       // Allow subclasses to customize the connection if they'd like to - set
       // their own headers, timeouts, etc.
       customizeConnection(httpUrlConnection);
 
-      httpUrlConnection.setRequestMethod("POST");
+      httpUrlConnection.setRequestMethod(HttpMethod.POST.name());
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
 
-      if (binaryAttachments.length > 0) {
+      if (!binaryAttachments.isEmpty()) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
         httpUrlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + MULTIPART_BOUNDARY);
       }
@@ -141,7 +142,7 @@ public class DefaultWebRequestor implements WebRequestor {
       // If we have binary attachments, the body is just the attachments and the
       // other parameters are passed in via the URL.
       // Otherwise the body is the URL parameter string.
-      if (binaryAttachments.length > 0) {
+      if (!binaryAttachments.isEmpty()) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
           StringBuilder stringBuilder = new StringBuilder();
 
@@ -180,7 +181,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
       return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
     } finally {
-      if (autocloseBinaryAttachmentStream && binaryAttachments.length > 0) {
+      if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
           closeQuietly(binaryAttachment.getData());
         }

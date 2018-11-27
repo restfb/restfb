@@ -756,7 +756,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
     if (json.startsWith("{")) {
       JsonObject jsonObject = Json.parse(json).asObject();
-      Map map = new HashMap();
+      Map<String, Object> map = new HashMap();
       for (String key : jsonObject.names()) {
         String value;
         if (jsonObject.get(key).isString()) {

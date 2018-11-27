@@ -26,6 +26,7 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Specifies how a class that sends {@code HTTP} requests to the Facebook API endpoint must operate.
@@ -130,7 +131,7 @@ public interface WebRequestor {
    * @throws IOException
    *           If an error occurs while performing the {@code POST}.
    */
-  Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException;
+  Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException;
 
   /**
    * Given a Facebook API endpoint URL and parameter string, execute a {@code DELETE} to the endpoint URL.

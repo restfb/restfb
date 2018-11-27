@@ -24,6 +24,7 @@ package com.restfb;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.restfb.DefaultWebRequestor.HttpMethod;
 
@@ -64,7 +65,7 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executePost(String url, String parameters, BinaryAttachment... binaryAttachments) throws IOException {
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
     this.parameters = parameters;

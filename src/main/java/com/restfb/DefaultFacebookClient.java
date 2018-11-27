@@ -633,9 +633,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     parameterList.add(Parameter.with("scope", scope.toString()));
 
     // add optional parameters
-    for (Parameter p : parameters) {
-      parameterList.add(p);
-    }
+    Collections.addAll(parameterList, parameters);
 
     return dialogUrl + "?" + toParameterString(false, parameterList.toArray(new Parameter[parameterList.size()]));
   }
@@ -770,11 +768,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         }
 
         if (executeAsPost) {
-          BinaryAttachment[] attachmentArray = null;
-          if (binaryAttachments != null) {
-            attachmentArray = binaryAttachments.toArray(new BinaryAttachment[binaryAttachments.size()]);
-          }
-          return webRequestor.executePost(fullEndpoint, parameterString, attachmentArray);
+          return webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments);
         }
 
         return webRequestor.executeGet(fullEndpoint + "?" + parameterString);
