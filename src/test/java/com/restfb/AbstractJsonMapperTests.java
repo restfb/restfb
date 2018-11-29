@@ -21,9 +21,13 @@
  */
 package com.restfb;
 
+import static com.restfb.logging.RestFBLogger.getLoggerInstance;
 import static com.restfb.util.StringUtils.fromInputStream;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -31,6 +35,33 @@ import java.io.IOException;
 public abstract class AbstractJsonMapperTests {
   protected JsonMapper createJsonMapper() {
     return new DefaultJsonMapper();
+  }
+
+  protected JsonMapper createSwallowingJsonMapper() {
+    return new DefaultJsonMapper() {
+
+      @Override
+      public <T> T toJavaObject(String json, Class<T> type) {
+        try {
+          return super.toJavaObject(json, type);
+        } catch (FacebookJsonMappingException ex) {
+          getLoggerInstance("ErrorSwallowingJsonMapper")
+            .info("Ignored failed mapping to {}. Bad JSON was '{}' and exception was '{}'", type, json, ex.getMessage());
+          return null;
+        }
+      }
+
+      @Override
+      public <T> List<T> toJavaList(String json, Class<T> type) {
+        try {
+          return super.toJavaList(json, type);
+        } catch (FacebookJsonMappingException ex) {
+          getLoggerInstance("ErrorSwallowingJsonMapper")
+            .info("Ignored failed mapping to {}. Bad JSON was '{}' and exception was '{}'", type, json, ex.getMessage());
+          return null;
+        }
+      }
+    };
   }
 
   protected String jsonFromClasspath(String pathToJson) {

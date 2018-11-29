@@ -22,13 +22,11 @@
 package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
 
@@ -37,49 +35,29 @@ import com.restfb.types.User;
  */
 public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
 
-  /**
-   * Does the mapper return null for empty strings?
-   */
   @Test
   public void emptyStrings() {
-    try {
-      assertThat(createJsonMapper().toJavaObject("", Integer.class));
-      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
-    } catch (FacebookJsonMappingException ex) {
-      assertThat(ex).hasMessageContaining("JSON is an empty string");
-    }
-    try {
-      assertThat(createJsonMapper().toJavaObject("", String.class));
-      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
-    } catch (FacebookJsonMappingException ex) {
-      assertThat(ex).hasMessageContaining("JSON is an empty string");
-    }
-    try {
-      assertThat(createJsonMapper().toJavaList("", String.class));
-      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
-    } catch (FacebookJsonMappingException ex) {
-      assertThat(ex).hasMessageContaining("JSON is an empty string");
-    }
+    assertThat(createSwallowingJsonMapper().toJavaObject("", Integer.class)).isNull();
+    assertThat(createSwallowingJsonMapper().toJavaObject("", String.class)).isNull();
+    assertThat(createSwallowingJsonMapper().toJavaList("", String.class)).isNull();
   }
 
   @Test
   public void objectWithIncorrectFields() {
-    try {
-      createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
-      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
-    } catch (FacebookJsonMappingException ex) {
-      assertThat(ex).hasMessageContaining("Unable to map JSON");
-    }
+    MostlyIncorrectUser mostlyIncorrectUser =
+        createSwallowingJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
+
+    assertThat(mostlyIncorrectUser).isNull();
   }
 
   @Test
   public void listWithIncorrectObject() {
-    try {
-      createJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
-      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
-    } catch (FacebookJsonMappingException ex) {
-      assertThat(ex).hasMessageContaining("Unable to map JSON");
-    }
+    List<User> users = createSwallowingJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
+
+    assertThat(users.get(0).getId()).isEqualTo("123");
+    assertThat(users.get(1)).isNull();
+    assertThat(users.get(2).getId()).isEqualTo("456");
+    assertThat(users).hasSize(3);
   }
 
   static class MostlyIncorrectUser {
