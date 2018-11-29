@@ -22,10 +22,6 @@
 package com.restfb;
 
 import static com.restfb.util.StringUtils.fromInputStream;
-import static java.lang.String.format;
-import static java.util.logging.Logger.getLogger;
-
-import com.restfb.DefaultJsonMapper.JsonMappingErrorHandler;
 
 import java.io.IOException;
 
@@ -35,17 +31,6 @@ import java.io.IOException;
 public abstract class AbstractJsonMapperTests {
   protected JsonMapper createJsonMapper() {
     return new DefaultJsonMapper();
-  }
-
-  protected JsonMapper createErrorSwallowingJsonMapper() {
-    return new DefaultJsonMapper(new JsonMappingErrorHandler() {
-      @Override
-      public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {
-        getLogger("ErrorSwallowingJsonMapper").info(format(
-          "Ignored failed mapping to %s. " + "Bad JSON was '%s' and exception was %s", targetType, unmappableJson, e));
-        return true;
-      }
-    });
   }
 
   protected String jsonFromClasspath(String pathToJson) {

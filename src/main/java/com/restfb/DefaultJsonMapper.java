@@ -42,8 +42,8 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
 import com.restfb.types.Comments;
 import com.restfb.util.DateUtils;
-import com.restfb.util.ReflectionUtils.*;
 import com.restfb.util.StringJsonUtils;
+import com.restfb.util.ReflectionUtils.*;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -51,49 +51,18 @@ import com.restfb.util.StringJsonUtils;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class DefaultJsonMapper implements JsonMapper {
-  /**
-   * We call this instance's {@link JsonMappingErrorHandler#handleMappingError(String, Class, Exception)} method on
-   * mapping failure so client code can decide how to handle the problem.
-   */
-  protected JsonMappingErrorHandler jsonMappingErrorHandler;
 
   /**
    * Helper to convert {@see JsonValue} into a given type
    */
-  private JsonHelper jsonHelper = new JsonHelper();
+  private final JsonHelper jsonHelper;
 
   /**
    * Creates a JSON mapper which will throw {@link com.restfb.exception.FacebookJsonMappingException} whenever an error
    * occurs when mapping JSON data to Java objects.
    */
   public DefaultJsonMapper() {
-    this(new JsonMappingErrorHandler() {
-      /**
-       * @see com.restfb.DefaultJsonMapper.JsonMappingErrorHandler#handleMappingError(java.lang.String, java.lang.Class,
-       *      java.lang.Exception)
-       */
-      @Override
-      public boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e) {
-        return false;
-      }
-    });
-  }
-
-  /**
-   * Creates a JSON mapper which delegates to the provided {@code jsonMappingErrorHandler} for handling mapping errors.
-   * 
-   * @param jsonMappingErrorHandler
-   *          The JSON mapping error handler to use.
-   * @throws IllegalArgumentException
-   *           If {@code jsonMappingErrorHandler} is {@code null}.
-   * @since 1.6.2
-   */
-  public DefaultJsonMapper(JsonMappingErrorHandler jsonMappingErrorHandler) {
-    if (jsonMappingErrorHandler == null) {
-      throw new IllegalArgumentException("The jsonMappingErrorHandler parameter cannot be null.");
-    }
-
-    this.jsonMappingErrorHandler = jsonMappingErrorHandler;
+    jsonHelper = new JsonHelper();
   }
 
   /**
@@ -108,9 +77,6 @@ public class DefaultJsonMapper implements JsonMapper {
     json = trimToEmpty(json);
 
     if (isBlank(json)) {
-      if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {
-        return null;
-      }
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
     }
 
@@ -141,25 +107,17 @@ public class DefaultJsonMapper implements JsonMapper {
           Object jsonDataObject = jsonObject.get("data");
 
           if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray)) {
-            if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {
-              return null;
-            } else {
-              throw new FacebookJsonMappingException(
-                "JSON is an object but is being mapped as a list instead. Offending JSON is '" + json + "'.");
-            }
+            throw new FacebookJsonMappingException(
+              "JSON is an object but is being mapped as a list instead. Offending JSON is '" + json + "'.");
           }
 
           json = jsonDataObject.toString();
         }
       } catch (ParseException e) {
         // Should never get here, but just in case...
-        if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {
-          return null;
-        } else {
-          throw new FacebookJsonMappingException("Unable to convert Facebook response JSON to a list of "
-              + type.getName() + " instances.  Offending JSON is " + json,
-            e);
-        }
+        throw new FacebookJsonMappingException("Unable to convert Facebook response JSON to a list of " + type.getName()
+            + " instances.  Offending JSON is " + json,
+          e);
       }
     }
 
@@ -180,12 +138,8 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {
-        return null;
-      } else {
-        throw new FacebookJsonMappingException(
-          "Unable to convert Facebook response JSON to a list of " + type.getName() + " instances", e);
-      }
+      throw new FacebookJsonMappingException(
+        "Unable to convert Facebook response JSON to a list of " + type.getName() + " instances", e);
     }
   }
 
@@ -200,20 +154,12 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (isBlank(json)) {
-      if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {
-        return null;
-      } else {
-        throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
-      }
+      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
     }
 
     if (StringJsonUtils.isList(json)) {
-      if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {
-        return null;
-      } else {
-        throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
-            + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
-      }
+      throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
+          + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
     }
 
     try {
@@ -300,9 +246,7 @@ public class DefaultJsonMapper implements JsonMapper {
             fieldWithAnnotation.getField().set(instance,
               toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
           } catch (Exception e) {
-            if (!jsonMappingErrorHandler.handleMappingError(json, type, e)) {
-              throw e;
-            }
+            throw e;
           }
         }
       }
@@ -315,11 +259,7 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      if (jsonMappingErrorHandler.handleMappingError(json, type, e)) {
-        return null;
-      } else {
-        throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
-      }
+      throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
     }
   }
 
@@ -490,12 +430,9 @@ public class DefaultJsonMapper implements JsonMapper {
 
         try {
           jsonObject.add((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
-        } catch (ParseException e) {
+        } catch (ParseException | IllegalArgumentException e) {
           throw new FacebookJsonMappingException(
             "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, e);
-        } catch (IllegalArgumentException ie) {
-          throw new FacebookJsonMappingException(
-            "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, ie);
         }
       }
 
@@ -613,10 +550,6 @@ public class DefaultJsonMapper implements JsonMapper {
       return (T) new BigDecimal(json);
     }
 
-    if (jsonMappingErrorHandler.handleMappingError(json, type, null)) {
-      return null;
-    }
-
     throw new FacebookJsonMappingException("Don't know how to map JSON to " + type
         + ". Are you sure you're mapping to the right class?\nOffending JSON is '" + json + "'.");
   }
@@ -713,7 +646,8 @@ public class DefaultJsonMapper implements JsonMapper {
       try {
         return Enum.valueOf(enumType, rawValue.asString());
       } catch (IllegalArgumentException iae) {
-        MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(), enumType.getName());
+        MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(),
+          enumType.getName());
       }
       try {
         return Enum.valueOf(enumType, rawValue.asString().toUpperCase());
@@ -817,35 +751,5 @@ public class DefaultJsonMapper implements JsonMapper {
 
     return Json.NULL;
 
-  }
-
-  /**
-   * Callback interface which allows client code to specify how JSON mapping errors should be handled.
-   * 
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @since 1.6.2
-   */
-  public interface JsonMappingErrorHandler {
-    /**
-     * This method will be called by {@code DefaultJsonMapper} if it encounters an error while attempting to map JSON to
-     * a Java object.
-     * <p>
-     * You may perform any behavior you'd like here in response to an error, e.g. logging it.
-     * <p>
-     * If the mapper should continue processing, return {@code true} and {@code null} will be mapped to the target type.
-     * If you would like the mapper to stop processing and throw
-     * {@link com.restfb.exception.FacebookJsonMappingException}, return {@code false}.
-     * 
-     * @param unmappableJson
-     *          The JSON that couldn't be mapped to a Java type.
-     * @param targetType
-     *          The Java type we were attempting to map to.
-     * @param e
-     *          The exception that occurred while performing the mapping operation, or {@code null} if there was no
-     *          exception.
-     * @return {@code true} to continue processing, {@code false} to throw a
-     *         {@link com.restfb.exception.FacebookJsonMappingException}.
-     */
-    boolean handleMappingError(String unmappableJson, Class<?> targetType, Exception e);
   }
 }

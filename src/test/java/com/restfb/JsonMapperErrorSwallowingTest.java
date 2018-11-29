@@ -22,59 +22,64 @@
 package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
-import com.restfb.types.FacebookType;
-import com.restfb.types.User;
+import java.util.List;
 
 import org.junit.Test;
 
-import java.util.List;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.types.FacebookType;
+import com.restfb.types.User;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
 
-  @Test(expected = IllegalArgumentException.class)
-  public void NullJsonMappingErrorHandler() {
-    new DefaultJsonMapper(null);
-  }
-
   /**
    * Does the mapper return null for empty strings?
    */
   @Test
   public void emptyStrings() {
-    assertThat(createErrorSwallowingJsonMapper().toJavaObject("", Integer.class)).isNull();
-    assertThat(createErrorSwallowingJsonMapper().toJavaObject("", String.class)).isNull();
-    assertThat(createErrorSwallowingJsonMapper().toJavaList("", String.class)).isNull();
+    try {
+      assertThat(createJsonMapper().toJavaObject("", Integer.class));
+      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    } catch (FacebookJsonMappingException ex) {
+      assertThat(ex).hasMessageContaining("JSON is an empty string");
+    }
+    try {
+      assertThat(createJsonMapper().toJavaObject("", String.class));
+      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    } catch (FacebookJsonMappingException ex) {
+      assertThat(ex).hasMessageContaining("JSON is an empty string");
+    }
+    try {
+      assertThat(createJsonMapper().toJavaList("", String.class));
+      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    } catch (FacebookJsonMappingException ex) {
+      assertThat(ex).hasMessageContaining("JSON is an empty string");
+    }
   }
 
-  /**
-   * Does the mapper return null for only those fields that are mis-mapped?
-   */
   @Test
   public void objectWithIncorrectFields() {
-    MostlyIncorrectUser mostlyIncorrectUser = createErrorSwallowingJsonMapper()
-      .toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
-
-    assertThat(mostlyIncorrectUser.uid).isNull();
-    assertThat(mostlyIncorrectUser.name).isNull();
-    assertThat(mostlyIncorrectUser.photos.get(0).getId()).isEqualTo("1");
+    try {
+      createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
+      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    } catch (FacebookJsonMappingException ex) {
+      assertThat(ex).hasMessageContaining("Unable to map JSON");
+    }
   }
 
-  /**
-   * Does the mapper return null for only those list elements that are mis-mapped?
-   */
   @Test
   public void listWithIncorrectObject() {
-    List<User> users =
-        createErrorSwallowingJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
-
-    assertThat(users.get(0).getId()).isEqualTo("123");
-    assertThat(users.get(1)).isNull();
-    assertThat(users.get(2).getId()).isEqualTo("456");
-    assertThat(users).hasSize(3);
+    try {
+      createJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
+      failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    } catch (FacebookJsonMappingException ex) {
+      assertThat(ex).hasMessageContaining("Unable to map JSON");
+    }
   }
 
   static class MostlyIncorrectUser {
