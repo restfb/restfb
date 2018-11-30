@@ -116,7 +116,7 @@ public class DefaultJsonMapper implements JsonMapper {
       } catch (ParseException e) {
         // Should never get here, but just in case...
         throw new FacebookJsonMappingException("Unable to convert Facebook response JSON to a list of " + type.getName()
-            + " instances.  Offending JSON is " + json,
+            + " instances.  Offending JSON is '" + json + "'.",
           e);
       }
     }
