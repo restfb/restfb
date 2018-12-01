@@ -5,19 +5,19 @@
   "fields": [
     {
       "name": "feed",
-      "version": "v2.6"
+      "version": "v3.0"
     },
     {
       "name": "messages",
-      "version": "v2.6"
+      "version": "v3.0"
     },
     {
       "name": "messaging_postbacks",
-      "version": "v2.6"
+      "version": "v3.0"
     },
     {
       "name": "ratings",
-      "version": "v2.6"
+      "version": "v3.0"
     }
   ]
 }

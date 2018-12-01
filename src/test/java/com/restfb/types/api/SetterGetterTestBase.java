@@ -113,14 +113,8 @@ public class SetterGetterTestBase {
 
       assertEquals(testText, o, getter.invoke(instance));
 
-    } catch (NoSuchMethodException ex) {
-      fail("NoSuchMethodException: " + testText);
-    } catch (SecurityException ex) {
-      fail("SecurityException: " + testText);
-    } catch (IllegalAccessException ex) {
-      fail("IllegalAccessException: " + testText);
-    } catch (InvocationTargetException ex) {
-      fail("InvocationTargetException: " + testText);
+    } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException ex) {
+      fail(ex.getClass().getName() + ": " + testText);
     }
   }
 
@@ -166,12 +160,8 @@ public class SetterGetterTestBase {
         assertTrue(true);
       }
 
-    } catch (SecurityException ex) {
-      fail("SecurityException: " + testText);
-    } catch (IllegalAccessException ex) {
-      fail("IllegalAccessException: " + testText);
-    } catch (InvocationTargetException ex) {
-      fail("InvocationTargetException: " + testText);
+    } catch (SecurityException | IllegalAccessException | InvocationTargetException ex) {
+      fail(ex.getClass().getName() + ": " + testText);
     }
   }
 

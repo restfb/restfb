@@ -176,7 +176,7 @@ public class FacebookClientTest {
     } catch (FacebookJsonMappingException je) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v2.6/device/login");
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/device/login");
     assertThat(requestor)
       .isParametersEqualTo("type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }

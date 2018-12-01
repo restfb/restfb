@@ -17,17 +17,17 @@
     <project.build.target>1.7</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>4.11</version.junit>
-    <version.lombok>1.18.2</version.lombok>
+    <version.junit>4.12</version.junit>
+    <version.lombok>1.18.4</version.lombok>
     <version.mockito>1.10.19</version.mockito>
-    <version.assertj>2.6.0</version.assertj>
-    <version.slf4j>1.7.21</version.slf4j>
+    <version.assertj>2.9.1</version.assertj>
+    <version.slf4j>1.7.25</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
     <!-- additional configuration -->
     <year.current>2018</year.current>
     <javadoc.options>-Xdoclint:none</javadoc.options>
-    <skipTests>true</skipTests>
+    <skipTests>false</skipTests>
   </properties>
 
   <licenses>
@@ -290,7 +290,7 @@
       <plugin>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok-maven-plugin</artifactId>
-        <version>1.18.0.0</version>
+        <version>1.18.4.0</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
