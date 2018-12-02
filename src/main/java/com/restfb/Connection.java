@@ -29,10 +29,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.Json;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
-import com.restfb.json.ParseException;
+import com.restfb.json.*;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -159,9 +156,9 @@ public class Connection<T> implements Iterable<List<T>> {
     // Pull out data
     JsonArray jsonData = jsonObject.get("data").asArray();
     List<T> dataItem = new ArrayList<>(jsonData.size());
-    for (int i = 0; i < jsonData.size(); i++) {
-      dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonData.get(i)
-          : facebookClient.getJsonMapper().toJavaObject(jsonData.get(i).toString(), connectionType));
+    for (JsonValue jsonValue: jsonData) {
+      dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonValue
+          : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType));
     }
 
     // Pull out paging info, if present

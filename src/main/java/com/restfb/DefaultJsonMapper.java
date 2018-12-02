@@ -124,12 +124,12 @@ public class DefaultJsonMapper implements JsonMapper {
     try {
       JsonArray jsonArray = Json.parse(json).asArray();
       List<T> list = new ArrayList<>(jsonArray.size());
-      for (int i = 0; i < jsonArray.size(); i++) {
-        String innerJson = jsonHelper.getStringFrom(jsonArray.get(i));
+      for (JsonValue jsonValue: jsonArray) {
+        String innerJson = jsonHelper.getStringFrom(jsonValue);
         // the inner JSON starts with square brackets but the parser don't think this is a JSON array
         // so we think the parser is right and add quotes around the string
         // solves Issue #719
-        if (jsonArray.get(i).isString() && innerJson.startsWith("[")) {
+        if (jsonValue.isString() && innerJson.startsWith("[")) {
           innerJson = '"' + innerJson + '"';
         }
         list.add(toJavaObject(innerJson, type));
@@ -687,13 +687,7 @@ public class DefaultJsonMapper implements JsonMapper {
       JsonObject jsonObject = Json.parse(json).asObject();
       Map<String, Object> map = new HashMap();
       for (String key : jsonObject.names()) {
-        String value;
-        if (jsonObject.get(key).isString()) {
-          value = jsonObject.get(key).asString();
-        } else {
-          value = jsonObject.get(key).toString();
-        }
-
+        String value = jsonHelper.getStringFrom(jsonObject.get(key));
         map.put(key, toJavaObject(value, secondParam));
       }
       return map;

@@ -71,9 +71,8 @@ public final class Parameter {
 
     this.name = trimToEmpty(name);
 
-    // Special handling for Date types - turn them into Facebook date strings.
-    // Otherwise, use the JSON value of the type.
-    this.value = value instanceof Date ? DateUtils.toLongFormatFromDate((Date) value) : jsonMapper.toJson(value, true);
+    // Use the JSON value of the type.
+    this.value = jsonMapper.toJson(value, true);
   }
 
   /**
