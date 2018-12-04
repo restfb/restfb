@@ -67,9 +67,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
-    if (type == null) {
-      throw new FacebookJsonMappingException("You must specify the Java type to map to.");
-    }
+    Optional.ofNullable(type)
+      .orElseThrow(() -> new FacebookJsonMappingException("You must specify the Java type to map to."));
 
     json = trimToEmpty(json);
 
@@ -121,7 +120,7 @@ public class DefaultJsonMapper implements JsonMapper {
     try {
       JsonArray jsonArray = Json.parse(json).asArray();
       List<T> list = new ArrayList<>(jsonArray.size());
-      for (JsonValue jsonValue: jsonArray) {
+      for (JsonValue jsonValue : jsonArray) {
         String innerJson = jsonHelper.getStringFrom(jsonValue);
         // the inner JSON starts with square brackets but the parser don't think this is a JSON array
         // so we think the parser is right and add quotes around the string
@@ -349,9 +348,7 @@ public class DefaultJsonMapper implements JsonMapper {
     // @Facebook-annotated field
     for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
       String fieldName = getFacebookFieldName(fieldWithAnnotation);
-      int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.containsKey(fieldName)
-          ? facebookFieldsNamesWithOccurrenceCount.get(fieldName)
-          : 0;
+      int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);
       facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
     }
 

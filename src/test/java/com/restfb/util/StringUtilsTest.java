@@ -49,12 +49,7 @@ public class StringUtilsTest {
 
   @Test
   public void joinArrayTest() {
-    assertThat(StringUtils.join(new String[] { "foo", "bar" })).isEqualTo("foo,bar");
-  }
-
-  @Test
-  public void joinListTest_null() {
-    assertThat(StringUtils.join((List) null)).isNull();
+    assertThat(String.join(",", new String[] { "foo", "bar" })).isEqualTo("foo,bar");
   }
 
   @Test
@@ -62,7 +57,7 @@ public class StringUtilsTest {
     List<String> myStrings = new ArrayList<>();
     myStrings.add("foo");
     myStrings.add("bar");
-    assertThat(StringUtils.join(myStrings)).isEqualTo("foo,bar");
+    assertThat(String.join(",", myStrings)).isEqualTo("foo,bar");
   }
 
   @Test
@@ -71,7 +66,7 @@ public class StringUtilsTest {
       StringUtils.toString(null);
       fail("NullPointerException expected");
     } catch (NullPointerException npe) {
-      assertThat(npe).hasMessage("The 'data' parameter cannot be null.");
+      assertThat(npe).hasMessage("Parameter 'data' cannot be null.");
     }
   }
 
@@ -86,7 +81,7 @@ public class StringUtilsTest {
       StringUtils.toBytes(null);
       fail("NullPointerException expected");
     } catch (NullPointerException npe) {
-      assertThat(npe).hasMessage("The 'string' parameter cannot be null.");
+      assertThat(npe).hasMessage("Parameter 'string' cannot be null.");
     }
   }
 

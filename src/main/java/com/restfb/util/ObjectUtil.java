@@ -25,6 +25,7 @@ import static com.restfb.util.StringUtils.isBlank;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class ObjectUtil {
 
@@ -76,9 +77,7 @@ public class ObjectUtil {
    */
   public static void verifyParameterPresence(String parameterName, String parameter) {
     verifyParameterPresence(parameterName, (Object) parameter);
-    if (parameter.trim().length() == 0) {
-      throw new IllegalArgumentException("The '" + parameterName + "' parameter cannot be an empty string.");
-    }
+    requireNotEmpty(parameter, "The '" + parameterName + "' parameter cannot be an empty string.");
   }
 
   /**
@@ -92,8 +91,6 @@ public class ObjectUtil {
    *           If {@code parameter} is {@code null}.
    */
   public static void verifyParameterPresence(String parameterName, Object parameter) {
-    if (parameter == null) {
-      throw new NullPointerException("The '" + parameterName + "' parameter cannot be null.");
-    }
+    Objects.requireNonNull(parameter, "The '" + parameterName + "' parameter cannot be null.");
   }
 }
