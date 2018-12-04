@@ -26,9 +26,6 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.util.DateUtils;
-
-import java.util.Date;
 
 /**
  * Representation of a Facebook API request parameter.

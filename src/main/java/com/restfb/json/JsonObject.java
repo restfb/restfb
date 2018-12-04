@@ -690,16 +690,19 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
     final Iterator<JsonValue> valuesIterator = values.iterator();
     return new Iterator<JsonObject.Member>() {
 
+      @Override
       public boolean hasNext() {
         return namesIterator.hasNext();
       }
 
+      @Override
       public Member next() {
         String name = namesIterator.next();
         JsonValue value = valuesIterator.next();
         return new Member(name, value);
       }
 
+      @Override
       public void remove() {
         throw new UnsupportedOperationException();
       }
