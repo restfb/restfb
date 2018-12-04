@@ -22,7 +22,6 @@
 package com.restfb.util;
 
 import static java.lang.Integer.parseInt;
-import static java.util.Arrays.asList;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * A collection of string-handling utility methods.
@@ -109,7 +108,7 @@ public final class StringUtils {
    *           If unable to convert because the JVM doesn't support {@link StringUtils#ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
-    ObjectUtil.verifyParameterPresence("string", string);
+    Optional.ofNullable(string).orElseThrow(() -> new NullPointerException("Parameter 'string' cannot be null."));
     return string.getBytes(ENCODING_CHARSET);
   }
 
@@ -127,7 +126,7 @@ public final class StringUtils {
    * @since 1.6.13
    */
   public static String toString(byte[] data) {
-    ObjectUtil.verifyParameterPresence("data", data);
+    Optional.ofNullable(data).orElseThrow(() -> new NullPointerException("Parameter 'data' cannot be null."));
     return new String(data, ENCODING_CHARSET);
   }
 
@@ -156,44 +155,6 @@ public final class StringUtils {
 
       return response.toString();
     }
-  }
-
-  /**
-   * Joins the given {@code array} into a comma-separated string.
-   *
-   * @param array
-   *          The array to join.
-   * @return A comma-separated string representation of the given {@code array}.
-   */
-  public static String join(String[] array) {
-    return array == null ? null : join(asList(array));
-  }
-
-  /**
-   * Joins the given {@code list} into a comma-separated string.
-   *
-   * @param list
-   *          The list to join.
-   * @return A comma-separated string representation of the given {@code list}.
-   */
-  public static String join(List<String> list) {
-    if (list == null) {
-      return null;
-    }
-
-    StringBuilder joined = new StringBuilder();
-    boolean first = true;
-
-    for (String element : list) {
-      if (first) {
-        first = false;
-      } else {
-        joined.append(",");
-      }
-      joined.append(element);
-    }
-
-    return joined.toString();
   }
 
   /**
