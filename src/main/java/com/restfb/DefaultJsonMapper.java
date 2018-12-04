@@ -153,14 +153,7 @@ public class DefaultJsonMapper implements JsonMapper {
       return toJavaObject(StringJsonUtils.EMPTY_OBJECT, type);
     }
 
-    if (isBlank(json)) {
-      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
-    }
-
-    if (StringJsonUtils.isList(json)) {
-      throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
-          + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
-    }
+    basicJsonStringChecks(json);
 
     try {
       // Are we asked to map to JsonObject? If so, short-circuit right away.
@@ -255,6 +248,17 @@ public class DefaultJsonMapper implements JsonMapper {
       throw e;
     } catch (Exception e) {
       throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
+    }
+  }
+
+  private void basicJsonStringChecks(String json) {
+    if (isBlank(json)) {
+      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
+    }
+
+    if (StringJsonUtils.isList(json)) {
+      throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
+          + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
     }
   }
 
