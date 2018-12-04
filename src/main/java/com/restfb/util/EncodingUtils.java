@@ -22,6 +22,8 @@
 package com.restfb.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Optional;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -51,9 +53,7 @@ public final class EncodingUtils {
    *           If {@code base64} is {@code null}.
    */
   public static byte[] decodeBase64(String base64) {
-    if (base64 == null)
-      throw new NullPointerException("Parameter 'base64' cannot be null.");
-
+    Optional.ofNullable(base64).orElseThrow(() -> new NullPointerException("Parameter 'base64' cannot be null."));
     String fixedBase64 = padBase64(base64);
     return Base64.getDecoder().decode(fixedBase64);
   }

@@ -448,7 +448,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     String json = makeRequest("/oauth/exchange_sessions", true, false, null, Parameter.with("client_id", appId),
-      Parameter.with("client_secret", secretKey), Parameter.with("sessions", join(sessionKeys)));
+      Parameter.with("client_secret", secretKey), Parameter.with("sessions", String.join(",",sessionKeys)));
 
     return jsonMapper.toJavaList(json, AccessToken.class);
   }
