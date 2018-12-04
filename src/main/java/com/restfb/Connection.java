@@ -27,6 +27,7 @@ import static java.util.Collections.unmodifiableList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
@@ -141,9 +142,7 @@ public class Connection<T> implements Iterable<List<T>> {
   @SuppressWarnings("unchecked")
   public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
 
-    if (json == null) {
-      throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
-    }
+    Optional.ofNullable(json).orElseThrow(() -> new FacebookJsonMappingException("You must supply non-null connection JSON."));
 
     JsonObject jsonObject;
 

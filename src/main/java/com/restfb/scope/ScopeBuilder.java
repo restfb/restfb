@@ -23,6 +23,7 @@ package com.restfb.scope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ScopeBuilder {
 
@@ -46,15 +47,7 @@ public class ScopeBuilder {
 
   @Override
   public String toString() {
-    StringBuilder scopeString = new StringBuilder();
-    for (FacebookPermissions permission : permissions) {
-      scopeString.append(permission.getPermissionString()).append(",");
-    }
-    if (scopeString.length() > 0 && scopeString.lastIndexOf(",") == (scopeString.length() - 1)) {
-      scopeString.deleteCharAt(scopeString.length() - 1);
-    }
-
-    return scopeString.toString();
+    return permissions.stream().map(FacebookPermissions::getPermissionString).collect(Collectors.joining(","));
   }
 
 }

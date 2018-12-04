@@ -21,6 +21,7 @@
  */
 package com.restfb.logging;
 
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -95,9 +96,7 @@ public class JulLogger extends RestFBLogger {
     if (logger.isLoggable(level)) {
       JulMessage.MessageTuple tuple = JulMessage.convertMessageString(msg, args);
       LogRecord logRecord = new LogRecord(level, tuple.getMessage());
-      if (tuple.getThrowable() != null) {
-        logRecord.setThrown(tuple.getThrowable());
-      }
+      Optional.ofNullable(tuple.getThrowable()).ifPresent(x -> logRecord.setThrown(x));
       logRecord.setSourceClassName(null);
       logRecord.setSourceMethodName(null);
       logRecord.setLoggerName(logger.getName());

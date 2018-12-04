@@ -13,14 +13,14 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <project.build.source>1.7</project.build.source>
-    <project.build.target>1.7</project.build.target>
+    <project.build.source>1.8</project.build.source>
+    <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
     <version.junit>4.12</version.junit>
     <version.lombok>1.18.4</version.lombok>
-    <version.mockito>1.10.19</version.mockito>
-    <version.assertj>2.9.1</version.assertj>
+    <version.mockito>2.23.4</version.mockito>
+    <version.assertj>3.11.1</version.assertj>
     <version.slf4j>1.7.25</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
