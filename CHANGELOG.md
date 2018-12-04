@@ -1,5 +1,18 @@
 # RestFB Changelog
 
+## 2.13.0 (December 4, 2018)
+
+* Documentation improvement
+  * Issue #936 - Improve "Setting persistent menu" section<br />
+  Thanks to @eximius313 for the hints
+  * Issue #935 - Improve "Setting a Welcome Message" section<br />
+  Thanks to @eximius313 for the hints
+* `DefaulJsonMapper` improved
+  * Issue #938 - extract short circuit methods
+  * Issue #939 - remove the `JsonMappingErrorHandler`
+* Issue #930 - Post `sponsor_tags` field missing
+* Issue #928 - unversioned constructors removed from `DefaultFacebookClient`  
+
 ## 2.12.0 (October 25, 2018)
 
 * Issue #922: Cleanup old Graph API versions
