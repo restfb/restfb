@@ -24,17 +24,18 @@ package com.restfb;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.util.*;
+
+import org.junit.Test;
+
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 import com.restfb.types.*;
-
-import org.junit.Test;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
@@ -213,6 +214,20 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     List<Long> friendUids = createJsonMapper().toJavaList(jsonFromClasspath("api/friends.get"), Long.class);
     assertThat(friendUids).hasSize(2);
     assertThat(friendUids).containsExactly(222333L, 1240079L);
+  }
+
+  @Test
+  public void unicodeGet() {
+    User user = createJsonMapper().toJavaObject(jsonFromClasspath("api/unicode"), User.class);
+    assertThat(user).isNotNull();
+
+    User user2 = new DefaultFacebookClient("blub", new DefaultWebRequestor() {
+      @Override
+      public Response executeGet(final String url) {
+        return new Response(HttpURLConnection.HTTP_OK, "{\"id\":\"b4TUmsLXoK\",\"name\":\"ⲉ鯨ɯ摓㻦恛҉祐\\f፲\"}");
+      }
+    }, new DefaultJsonMapper(), Version.LATEST).fetchObject("me", User.class);
+    assertThat(user2).isNotNull();
   }
 
   /**
