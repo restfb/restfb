@@ -289,7 +289,7 @@ public final class Json {
    */
   public static JsonValue parse(String string) {
     if (string == null) {
-      throw new NullPointerException("string is null");
+      throw new NullPointerException(STRING_IS_NULL);
     }
     DefaultHandler handler = new DefaultHandler();
     new JsonParser(handler).parse(string);
@@ -314,7 +314,7 @@ public final class Json {
    */
   public static JsonValue parse(Reader reader) throws IOException {
     if (reader == null) {
-      throw new NullPointerException("reader is null");
+      throw new NullPointerException(READER_IS_NULL);
     }
     DefaultHandler handler = new DefaultHandler();
     new JsonParser(handler).parse(reader);

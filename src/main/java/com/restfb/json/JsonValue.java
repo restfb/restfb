@@ -55,6 +55,11 @@ import java.io.*;
 @SuppressWarnings("serial") // use default serial UID
 public abstract class JsonValue implements Serializable {
 
+  // String constants
+  private static final String NOT_A_NUMBER = "Not a number: ";
+  private static final String NOT_A_STRING = "Not a string: ";
+  private static final String NOT_A_BOOLEAN = "Not a boolean: ";
+
   /**
    * Represents the JSON literal <code>true</code>.
    * @deprecated Use <code>Json.TRUE</code> instead
@@ -307,7 +312,7 @@ public abstract class JsonValue implements Serializable {
    *           if this JSON number can not be interpreted as <code>int</code> value
    */
   public int asInt() {
-    throw new UnsupportedOperationException("Not a number: " + toString());
+    throw new UnsupportedOperationException(NOT_A_NUMBER + toString());
   }
 
   /**
@@ -325,7 +330,7 @@ public abstract class JsonValue implements Serializable {
    *           if this JSON number can not be interpreted as <code>long</code> value
    */
   public long asLong() {
-    throw new UnsupportedOperationException("Not a number: " + toString());
+    throw new UnsupportedOperationException(NOT_A_NUMBER + toString());
   }
 
   /**
@@ -341,7 +346,7 @@ public abstract class JsonValue implements Serializable {
    *           if this value is not a JSON number
    */
   public float asFloat() {
-    throw new UnsupportedOperationException("Not a number: " + toString());
+    throw new UnsupportedOperationException(NOT_A_NUMBER + toString());
   }
 
   /**
@@ -357,7 +362,7 @@ public abstract class JsonValue implements Serializable {
    *           if this value is not a JSON number
    */
   public double asDouble() {
-    throw new UnsupportedOperationException("Not a number: " + toString());
+    throw new UnsupportedOperationException(NOT_A_NUMBER + toString());
   }
 
   /**
@@ -369,7 +374,7 @@ public abstract class JsonValue implements Serializable {
    *           if this value is not a JSON string
    */
   public String asString() {
-    throw new UnsupportedOperationException("Not a string: " + toString());
+    throw new UnsupportedOperationException(NOT_A_STRING + toString());
   }
 
   /**
@@ -381,7 +386,7 @@ public abstract class JsonValue implements Serializable {
    *           if this value is neither <code>true</code> or <code>false</code>
    */
   public boolean asBoolean() {
-    throw new UnsupportedOperationException("Not a boolean: " + toString());
+    throw new UnsupportedOperationException(NOT_A_BOOLEAN + toString());
   }
 
   /**

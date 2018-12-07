@@ -61,6 +61,9 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
 
   private final List<JsonValue> values;
 
+  // String constants
+  private static final String ARRAY_IS_NULL = "array is null";
+
   /**
    * Creates a new empty JsonArray.
    */
@@ -80,7 +83,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
 
   private JsonArray(JsonArray array, boolean unmodifiable) {
     if (array == null) {
-      throw new NullPointerException("array is null");
+      throw new NullPointerException(ARRAY_IS_NULL);
     }
     if (unmodifiable) {
       values = Collections.unmodifiableList(array.values);
