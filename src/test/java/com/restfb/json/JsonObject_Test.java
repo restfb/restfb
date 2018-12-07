@@ -154,6 +154,37 @@ public class JsonObject_Test {
   }
 
   @Test
+  public void keyRepetition_allowsMultipleEntries() {
+    object.add("a", true);
+    object.add("a", "value");
+
+    assertEquals(2, object.size());
+  }
+
+  @Test
+  public void keyRepetition_getsLastEntry() {
+    object.add("a", true);
+    object.add("a", "value");
+
+    assertEquals("value", object.getString("a", "missing"));
+  }
+
+  @Test
+  public void keyRepetition_equalityConsidersRepetitions() {
+    object.add("a", true);
+    object.add("a", "value");
+
+    JsonObject onlyFirstProperty = new JsonObject();
+    onlyFirstProperty.add("a", true);
+    assertNotEquals(onlyFirstProperty, object);
+
+    JsonObject bothProperties = new JsonObject();
+    bothProperties.add("a", true);
+    bothProperties.add("a", "value");
+    assertEquals(bothProperties, object);
+  }
+
+  @Test
   public void names_emptyAfterCreation() {
     assertTrue(object.names().isEmpty());
   }
@@ -684,6 +715,27 @@ public class JsonObject_Test {
     object.remove("b");
 
     assertEquals("{\"a\":23}", object.toString());
+  }
+
+  @Test
+  public void contains_findsAddedMembers(){
+    object.add("f", 15f);
+
+    assertTrue(object.contains("f"));
+  }
+
+  @Test
+  public void contains_doesNotFindAbsentMembers(){
+    assertFalse(object.contains("a"));
+  }
+
+  @Test
+  public void contains_doesNotFindDeletedMembers(){
+    object.add("a", "foo");
+
+    object.remove("a");
+
+    assertFalse(object.contains("a"));
   }
 
   @Test

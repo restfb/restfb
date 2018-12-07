@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2015 EclipseSource.
+ * Copyright (c) 2013, 2016 EclipseSource.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,57 +21,186 @@
  ******************************************************************************/
 package com.restfb.json;
 
+import static com.restfb.json.Json.parse;
 import static com.restfb.json.TestUtil.assertException;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.*;
 
-import org.hamcrest.core.StringStartsWith;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+
+import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.StringReader;
+import com.restfb.json.Json.DefaultHandler;
+import com.restfb.json.TestUtil.RunnableEx;
 
 
 public class JsonParser_Test {
 
+  private TestHandler handler;
+  private JsonParser parser;
+
+  @Before
+  public void setUp() {
+    handler = new TestHandler();
+    parser = new JsonParser(handler);
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void constructor_rejectsNullHandler() {
+    new JsonParser(null);
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void parse_string_rejectsNull() {
+    parser.parse((String)null);
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void parse_reader_rejectsNull() throws IOException {
+    parser.parse((Reader)null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void parse_reader_rejectsNegativeBufferSize() throws IOException {
+    parser.parse(new StringReader("[]"), -1);
+  }
+
   @Test
-  public void parse_rejectsEmptyString() {
+  public void parse_string_rejectsEmpty() {
     assertParseException(0, "Unexpected end of input", "");
   }
 
   @Test
-  public void parse_rejectsEmptyReader() {
-    ParseException exception = assertException(ParseException.class, new Runnable() {
-      public void run() {
-        try {
-          new JsonParser(new StringReader("")).parse();
-        } catch (IOException exception) {
-          throw new RuntimeException(exception);
-        }
+  public void parse_reader_rejectsEmpty() {
+    ParseException exception = assertException(ParseException.class, new RunnableEx() {
+      public void run() throws IOException {
+        parser.parse(new StringReader(""));
       }
     });
 
-    assertEquals(0, exception.getOffset());
-    assertThat(exception.getMessage(), StringStartsWith.startsWith("Unexpected end of input at"));
+    assertEquals(0, exception.getLocation().offset);
+    assertThat(exception.getMessage(), startsWith("Unexpected end of input at"));
   }
 
   @Test
-  public void parse_acceptsArrays() {
-    assertEquals(new JsonArray(), parse("[]"));
+  public void parse_null() {
+    parser.parse("null");
+
+    assertEquals(join("startNull 0",
+                      "endNull 4"),
+                 handler.getLog());
   }
 
   @Test
-  public void parse_acceptsObjects() {
-    assertEquals(new JsonObject(), parse("{}"));
+  public void parse_true() {
+    parser.parse("true");
+
+    assertEquals(join("startBoolean 0",
+                      "endBoolean true 4"),
+                 handler.getLog());
   }
 
   @Test
-  public void parse_acceptsStrings() {
-    assertEquals(new JsonString(""), parse("\"\""));
+  public void parse_false() {
+    parser.parse("false");
+
+    assertEquals(join("startBoolean 0",
+                      "endBoolean false 5"),
+                 handler.getLog());
   }
 
   @Test
-  public void parse_acceptsLiterals() {
-    assertSame(Json.NULL, parse("null"));
+  public void parse_string() {
+    parser.parse("\"foo\"");
+
+    assertEquals(join("startString 0",
+                      "endString foo 5"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_string_empty() {
+    parser.parse("\"\"");
+
+    assertEquals(join("startString 0",
+                      "endString  2"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_number() {
+    parser.parse("23");
+
+    assertEquals(join("startNumber 0",
+                      "endNumber 23 2"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_number_negative() {
+    parser.parse("-23");
+
+    assertEquals(join("startNumber 0",
+        "endNumber -23 3"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_number_negative_exponent() {
+    parser.parse("-2.3e-12");
+
+    assertEquals(join("startNumber 0",
+        "endNumber -2.3e-12 8"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_array() {
+    parser.parse("[23]");
+
+    assertEquals(join("startArray 0",
+                      "startArrayValue a1 1",
+                      "startNumber 1",
+                      "endNumber 23 3",
+                      "endArrayValue a1 3",
+                      "endArray a1 4"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_array_empty() {
+    parser.parse("[]");
+
+    assertEquals(join("startArray 0",
+                      "endArray a1 2"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_object() {
+    parser.parse("{\"foo\": 23}");
+
+    assertEquals(join("startObject 0",
+                      "startObjectName o1 1",
+                      "endObjectName o1 foo 6",
+                      "startObjectValue o1 foo 8",
+                      "startNumber 8",
+                      "endNumber 23 10",
+                      "endObjectValue o1 foo 10",
+                      "endObject o1 11"),
+                 handler.getLog());
+  }
+
+  @Test
+  public void parse_object_empty() {
+    parser.parse("{}");
+
+    assertEquals(join("startObject 0",
+                      "endObject o1 2"),
+                 handler.getLog());
   }
 
   @Test
@@ -90,57 +219,203 @@ public class JsonParser_Test {
   }
 
   @Test
-  public void parse_handlesLineBreaksAndColumnsCorrectly() {
-    assertParseException(0, 1, 0, "!");
-    assertParseException(2, 2, 0, "[\n!");
-    assertParseException(3, 2, 0, "[\r\n!");
-    assertParseException(6, 3, 1, "[ \n \n !");
-    assertParseException(7, 2, 3, "[ \r\n \r !");
+  public void parse_lineAndColumn_onFirstLine() {
+    parser.parse("[]");
+
+    assertEquals("1:3", handler.lastLocation.toString());
+  }
+
+  @Test
+  public void parse_lineAndColumn_afterLF() {
+    parser.parse("[\n]");
+
+    assertEquals("2:2", handler.lastLocation.toString());
+  }
+
+  @Test
+  public void parse_lineAndColumn_afterCRLF() {
+    parser.parse("[\r\n]");
+
+    assertEquals("2:2", handler.lastLocation.toString());
+  }
+
+  @Test
+  public void parse_lineAndColumn_afterCR() {
+    parser.parse("[\r]");
+
+    assertEquals("1:4", handler.lastLocation.toString());
   }
 
   @Test
   public void parse_handlesInputsThatExceedBufferSize() throws IOException {
+    DefaultHandler defHandler = new DefaultHandler();
+    parser = new JsonParser(defHandler);
     String input = "[ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47 ]";
 
-    JsonValue value = new JsonParser(new StringReader(input), 3).parse();
+    parser.parse(new StringReader(input), 3);
 
-    assertEquals("[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]", value.toString());
+    assertEquals("[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]", defHandler.getValue().toString());
   }
 
   @Test
   public void parse_handlesStringsThatExceedBufferSize() throws IOException {
+    DefaultHandler defHandler = new DefaultHandler();
+    parser = new JsonParser(defHandler);
     String input = "[ \"lorem ipsum dolor sit amet\" ]";
 
-    JsonValue value = new JsonParser(new StringReader(input), 3).parse();
+    parser.parse(new StringReader(input), 3);
 
-    assertEquals("[\"lorem ipsum dolor sit amet\"]", value.toString());
+    assertEquals("[\"lorem ipsum dolor sit amet\"]", defHandler.getValue().toString());
   }
 
   @Test
   public void parse_handlesNumbersThatExceedBufferSize() throws IOException {
+    DefaultHandler defHandler = new DefaultHandler();
+    parser = new JsonParser(defHandler);
     String input = "[ 3.141592653589 ]";
 
-    JsonValue value = new JsonParser(new StringReader(input), 3).parse();
+    parser.parse(new StringReader(input), 3);
 
-    assertEquals("[3.141592653589]", value.toString());
+    assertEquals("[3.141592653589]", defHandler.getValue().toString());
   }
 
   @Test
   public void parse_handlesPositionsCorrectlyWhenInputExceedsBufferSize() {
     final String input = "{\n  \"a\": 23,\n  \"b\": 42,\n}";
 
-    ParseException exception = assertException(ParseException.class, new Runnable() {
-      public void run() {
-        try {
-          new JsonParser(new StringReader(input), 3).parse();
-        } catch (IOException e) {
-        }
+    ParseException exception = assertException(ParseException.class, new RunnableEx() {
+      public void run() throws IOException {
+        parser.parse(new StringReader(input), 3);
       }
     });
 
-    assertEquals(4, exception.getLine());
-    assertEquals(0, exception.getColumn());
-    assertEquals(24, exception.getOffset());
+    assertEquals(new Location(24, 4, 1), exception.getLocation());
+  }
+
+  @Test
+  public void parse_failsOnTooDeeplyNestedArray() {
+    JsonArray array = new JsonArray();
+    for (int i = 0; i < 1001; i++) {
+      array = new JsonArray().add(array);
+    }
+    final String input = array.toString();
+
+    ParseException exception = assertException(ParseException.class, new RunnableEx() {
+      public void run() throws IOException {
+        parser.parse(input);
+      }
+    });
+
+    assertEquals("Nesting too deep at 1:1002", exception.getMessage());
+  }
+
+  @Test
+  public void parse_failsOnTooDeeplyNestedObject() {
+    JsonObject object = new JsonObject();
+    for (int i = 0; i < 1001; i++) {
+      object = new JsonObject().add("foo", object);
+    }
+    final String input = object.toString();
+
+    ParseException exception = assertException(ParseException.class, new RunnableEx() {
+      public void run() throws IOException {
+        parser.parse(input);
+      }
+    });
+
+    assertEquals("Nesting too deep at 1:7002", exception.getMessage());
+  }
+
+  @Test
+  public void parse_failsOnTooDeeplyNestedMixedObject() {
+    JsonValue value = new JsonObject();
+    for (int i = 0; i < 1001; i++) {
+      value = i % 2 == 0 ? new JsonArray().add(value) : new JsonObject().add("foo", value);
+    }
+    final String input = value.toString();
+
+    ParseException exception = assertException(ParseException.class, new RunnableEx() {
+      public void run() throws IOException {
+        parser.parse(input);
+      }
+    });
+
+    assertEquals("Nesting too deep at 1:4002", exception.getMessage());
+  }
+
+  @Test
+  public void parse_doesNotFailWithManyArrays() {
+    JsonArray array = new JsonArray();
+    for (int i = 0; i < 1001; i++) {
+      array.add(new JsonArray().add(7));
+    }
+    final String input = array.toString();
+
+    JsonValue result = parse(input);
+
+    assertTrue(result.isArray());
+  }
+
+  @Test
+  public void parse_doesNotFailWithManyEmptyArrays() {
+    JsonArray array = new JsonArray();
+    for (int i = 0; i < 1001; i++) {
+      array.add(new JsonArray());
+    }
+    final String input = array.toString();
+
+    JsonValue result = parse(input);
+
+    assertTrue(result.isArray());
+  }
+
+  @Test
+  public void parse_doesNotFailWithManyObjects() {
+    JsonArray array = new JsonArray();
+    for (int i = 0; i < 1001; i++) {
+      array.add(new JsonObject().add("a", 7));
+    }
+    final String input = array.toString();
+
+    JsonValue result = parse(input);
+
+    assertTrue(result.isArray());
+  }
+
+  @Test
+  public void parse_doesNotFailWithManyEmptyObjects() {
+    JsonArray array = new JsonArray();
+    for (int i = 0; i < 1001; i++) {
+      array.add(new JsonObject());
+    }
+    final String input = array.toString();
+
+    JsonValue result = parse(input);
+
+    assertTrue(result.isArray());
+  }
+
+  @Test
+  public void parse_canBeCalledTwice() {
+    parser.parse("[23]");
+
+    parser.parse("[42]");
+
+    assertEquals(join(// first run
+                      "startArray 0",
+                      "startArrayValue a1 1",
+                      "startNumber 1",
+                      "endNumber 23 3",
+                      "endArrayValue a1 3",
+                      "endArray a1 4",
+                      // second run
+                      "startArray 0",
+                      "startArrayValue a2 1",
+                      "startNumber 1",
+                      "endNumber 42 3",
+                      "endArrayValue a2 3",
+                      "endArray a2 4"),
+                 handler.getLog());
   }
 
   @Test
@@ -165,7 +440,13 @@ public class JsonParser_Test {
 
   @Test
   public void arrays_nested() {
+    assertEquals("[[23]]", parse("[[23]]").toString());
+    assertEquals("[[[]]]", parse("[[[]]]").toString());
     assertEquals("[[23],42]", parse("[[23],42]").toString());
+    assertEquals("[[23],[42]]", parse("[[23],[42]]").toString());
+    assertEquals("[[23],[42]]", parse("[[23],[42]]").toString());
+    assertEquals("[{\"foo\":[23]},{\"bar\":[42]}]",
+                 parse("[{\"foo\":[23]},{\"bar\":[42]}]").toString());
   }
 
   @Test
@@ -207,7 +488,12 @@ public class JsonParser_Test {
 
   @Test
   public void objects_nested() {
-    assertEquals("{\"foo\":{\"bar\":42}}", parse("{\"foo\":{\"bar\":42}}").toString());
+    assertEquals("{\"foo\":{}}", parse("{\"foo\":{}}").toString());
+    assertEquals("{\"foo\":{\"bar\":42}}", parse("{\"foo\":{\"bar\": 42}}").toString());
+    assertEquals("{\"foo\":{\"bar\":{\"baz\":42}}}",
+                 parse("{\"foo\":{\"bar\": {\"baz\": 42}}}").toString());
+    assertEquals("{\"foo\":[{\"bar\":{\"baz\":[[42]]}}]}",
+                 parse("{\"foo\":[{\"bar\": {\"baz\": [[42]]}}]}").toString());
   }
 
   @Test
@@ -451,33 +737,135 @@ public class JsonParser_Test {
     assertParseException(5, "Unexpected character", "falsex");
   }
 
-  private static void assertParseException(int offset, String message, final String json) {
+  private void assertParseException(int offset, String message, final String json) {
     ParseException exception = assertException(ParseException.class, new Runnable() {
       public void run() {
-        parse(json);
+        parser.parse(json);
       }
     });
-    assertEquals(offset, exception.getOffset());
-    assertThat(exception.getMessage(), StringStartsWith.startsWith(message + " at"));
+    assertEquals(offset, exception.getLocation().offset);
+    assertThat(exception.getMessage(), startsWith(message + " at"));
   }
 
-  private static void assertParseException(int offset, int line, int column, final String json) {
-    ParseException exception = assertException(ParseException.class, new Runnable() {
-      public void run() {
-        parse(json);
-      }
-    });
-    assertEquals("offset", offset, exception.getOffset());
-    assertEquals("line", line, exception.getLine());
-    assertEquals("column", column, exception.getColumn());
-  }
-
-  private static JsonValue parse(String json) {
-    try {
-      return new JsonParser(json).parse();
-    } catch (IOException exception) {
-      throw new RuntimeException(exception);
+  private static String join(String... strings) {
+    StringBuilder builder = new StringBuilder();
+    for (String string : strings) {
+      builder.append(string).append('\n');
     }
+    return builder.toString();
+  }
+
+  static class TestHandler extends JsonHandler<Object, Object> {
+
+    Location lastLocation;
+    StringBuilder log = new StringBuilder();
+    int sequence = 0;
+
+    @Override
+    public void startNull() {
+      record("startNull");
+    }
+
+    @Override
+    public void endNull() {
+      record("endNull");
+    }
+
+    @Override
+    public void startBoolean() {
+      record("startBoolean");
+    }
+
+    @Override
+    public void endBoolean(boolean value) {
+      record("endBoolean", Boolean.valueOf(value));
+    }
+
+    @Override
+    public void startString() {
+      record("startString");
+    }
+
+    @Override
+    public void endString(String string) {
+      record("endString", string);
+    }
+
+    @Override
+    public void startNumber() {
+      record("startNumber");
+    }
+
+    @Override
+    public void endNumber(String string) {
+      record("endNumber", string);
+    }
+
+    @Override
+    public Object startArray() {
+      record("startArray");
+      return "a" + ++sequence;
+    }
+
+    @Override
+    public void endArray(Object array) {
+      record("endArray", array);
+    }
+
+    @Override
+    public void startArrayValue(Object array) {
+      record("startArrayValue", array);
+    }
+
+    @Override
+    public void endArrayValue(Object array) {
+      record("endArrayValue", array);
+    }
+
+    @Override
+    public Object startObject() {
+      record("startObject");
+      return "o" + ++sequence;
+    }
+
+    @Override
+    public void endObject(Object object) {
+      record("endObject", object);
+    }
+
+    @Override
+    public void startObjectName(Object object) {
+      record("startObjectName", object);
+    }
+
+    @Override
+    public void endObjectName(Object object, String name) {
+      record("endObjectName", object, name);
+    }
+
+    @Override
+    public void startObjectValue(Object object, String name) {
+      record("startObjectValue", object, name);
+    }
+
+    @Override
+    public void endObjectValue(Object object, String name) {
+      record("endObjectValue", object, name);
+    }
+
+    private void record(String event, Object... args) {
+      lastLocation = getLocation();
+      log.append(event);
+      for (Object arg : args) {
+        log.append(' ').append(arg);
+      }
+      log.append(' ').append(lastLocation.offset).append('\n');
+    }
+
+    String getLog() {
+      return log.toString();
+    }
+
   }
 
 }

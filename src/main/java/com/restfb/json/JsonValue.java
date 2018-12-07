@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2015 EclipseSource.
+ * Copyright (c) 2013, 2017 EclipseSource.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,24 +25,24 @@ import java.io.*;
 
 /**
  * Represents a JSON value. This can be a JSON <strong>object</strong>, an <strong> array</strong>, a
- * <strong>number</strong>, a <strong>string</strong>, or one of the literals <strong>true</strong>,
- * <strong>false</strong>, and <strong>null</strong>.
+ * <strong>number</strong>, a <strong>string</strong>, or one of the literals
+ * <strong>true</strong>, <strong>false</strong>, and <strong>null</strong>.
  * <p>
- * The literals <strong>true</strong>, <strong>false</strong>, and <strong>null</strong> are represented by the
- * constants {@link #TRUE}, {@link #FALSE}, and {@link #NULL}.
+ * The literals <strong>true</strong>, <strong>false</strong>, and <strong>null</strong> are
+ * represented by the constants {@link Json#TRUE}, {@link Json#FALSE}, and {@link Json#NULL}.
  * </p>
  * <p>
- * JSON <strong>objects</strong> and <strong>arrays</strong> are represented by the subtypes {@link JsonObject} and
- * {@link JsonArray}. Instances of these types can be created using the public constructors of these classes.
+ * JSON <strong>objects</strong> and <strong>arrays</strong> are represented by the subtypes
+ * {@link JsonObject} and {@link JsonArray}. Instances of these types can be created using the public constructors of these classes.
  * </p>
  * <p>
- * Instances that represent JSON <strong>numbers</strong>, <strong>strings</strong> and <strong>boolean</strong> values
- * can be created using the static factory methods {@link #valueOf(String)}, {@link #valueOf(long)},
- * {@link #valueOf(double)}, etc.
+ * Instances that represent JSON <strong>numbers</strong>, <strong>strings</strong> and
+ * <strong>boolean</strong> values can be created using the static factory methods
+ * {@link Json#value(String)}, {@link Json#value(long)}, {@link Json#value(double)}, etc.
  * </p>
  * <p>
- * In order to find out whether an instance of this class is of a certain type, the methods {@link #isObject()},
- * {@link #isArray()}, {@link #isString()}, {@link #isNumber()} etc. can be used.
+ * In order to find out whether an instance of this class is of a certain type, the methods
+ * {@link #isObject()}, {@link #isArray()}, {@link #isString()}, {@link #isNumber()} etc. can be used.
  * </p>
  * <p>
  * If the type of a JSON value is known, the methods {@link #asObject()}, {@link #asArray()}, {@link #asString()},
@@ -57,7 +57,6 @@ public abstract class JsonValue implements Serializable {
 
   /**
    * Represents the JSON literal <code>true</code>.
-   * 
    * @deprecated Use <code>Json.TRUE</code> instead
    */
   @Deprecated
@@ -65,7 +64,6 @@ public abstract class JsonValue implements Serializable {
 
   /**
    * Represents the JSON literal <code>false</code>.
-   * 
    * @deprecated Use <code>Json.FALSE</code> instead
    */
   @Deprecated
@@ -73,7 +71,6 @@ public abstract class JsonValue implements Serializable {
 
   /**
    * Represents the JSON literal <code>null</code>.
-   * 
    * @deprecated Use <code>Json.NULL</code> instead
    */
   @Deprecated
@@ -101,7 +98,7 @@ public abstract class JsonValue implements Serializable {
    */
   @Deprecated
   public static JsonValue readFrom(Reader reader) throws IOException {
-    return new JsonParser(reader).parse();
+    return Json.parse(reader);
   }
 
   /**
@@ -116,12 +113,7 @@ public abstract class JsonValue implements Serializable {
    */
   @Deprecated
   public static JsonValue readFrom(String text) {
-    try {
-      return new JsonParser(text).parse();
-    } catch (IOException exception) {
-      // JsonParser does not throw IOException for String
-      throw new RuntimeException(exception);
-    }
+    return Json.parse(text);
   }
 
   /**
@@ -434,9 +426,9 @@ public abstract class JsonValue implements Serializable {
   }
 
   /**
-   * Returns the JSON string for this value in its minimal form, without any additional whitespace. The result is
-   * guaranteed to be a valid input for the method {@link #readFrom(String)} and to create a value that is
-   * <em>equal</em> to this object.
+   * Returns the JSON string for this value in its minimal form, without any additional whitespace.
+   * The result is guaranteed to be a valid input for the method {@link Json#parse(String)} and to
+   * create a value that is <em>equal</em> to this object.
    *
    * @return a JSON string that represents this value
    */

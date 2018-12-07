@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2015 EclipseSource.
+ * Copyright (c) 2013, 2016 EclipseSource.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,13 +25,19 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-class JsonParser {
 
+/**
+ * A streaming parser for JSON text. The parser reports all events to a given handler.
+ */
+public class JsonParser {
+
+  private static final int MAX_NESTING_LEVEL = 1000;
   private static final int MIN_BUFFER_SIZE = 10;
   private static final int DEFAULT_BUFFER_SIZE = 1024;
 
-  private final Reader reader;
-  private final char[] buffer;
+  private final JsonHandler<Object, Object> handler;
+  private Reader reader;
+  private char[] buffer;
   private int bufferOffset;
   private int index;
   private int fill;
@@ -40,109 +46,212 @@ class JsonParser {
   private int current;
   private StringBuilder captureBuffer;
   private int captureStart;
+  private int nestingLevel;
 
   /*
-   * | bufferOffset v [a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t] < input [l|m|n|o|p|q|r|s|t|?|?] < buffer ^ ^ | index
-   * fill
+   * |                      bufferOffset
+   *                        v
+   * [a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t]        < input
+   *                       [l|m|n|o|p|q|r|s|t|?|?]    < buffer
+   *                          ^               ^
+   *                       |  index           fill
    */
 
-  JsonParser(String string) {
-    this(new StringReader(string), Math.max(MIN_BUFFER_SIZE, Math.min(DEFAULT_BUFFER_SIZE, string.length())));
+  /**
+   * Creates a new JsonParser with the given handler. The parser will report all parser events to
+   * this handler.
+   *
+   * @param handler
+   *          the handler to process parser events
+   */
+  @SuppressWarnings("unchecked")
+  public JsonParser(JsonHandler<?, ?> handler) {
+    if (handler == null) {
+      throw new NullPointerException("handler is null");
+    }
+    this.handler = (JsonHandler<Object, Object>)handler;
+    handler.parser = this;
   }
 
-  JsonParser(Reader reader) {
-    this(reader, DEFAULT_BUFFER_SIZE);
+  /**
+   * Parses the given input string. The input must contain a valid JSON value, optionally padded
+   * with whitespace.
+   *
+   * @param string
+   *          the input string, must be valid JSON
+   * @throws ParseException
+   *           if the input is not valid JSON
+   */
+  public void parse(String string) {
+    if (string == null) {
+      throw new NullPointerException("string is null");
+    }
+    int bufferSize = Math.max(MIN_BUFFER_SIZE, Math.min(DEFAULT_BUFFER_SIZE, string.length()));
+    try {
+      parse(new StringReader(string), bufferSize);
+    } catch (IOException exception) {
+      // StringReader does not throw IOException
+      throw new RuntimeException(exception);
+    }
   }
 
-  JsonParser(Reader reader, int buffersize) {
+  /**
+   * Reads the entire input from the given reader and parses it as JSON. The input must contain a
+   * valid JSON value, optionally padded with whitespace.
+   * <p>
+   * Characters are read in chunks into a default-sized input buffer. Hence, wrapping a reader in an
+   * additional <code>BufferedReader</code> likely won't improve reading performance.
+   * </p>
+   *
+   * @param reader
+   *          the reader to read the input from
+   * @throws IOException
+   *           if an I/O error occurs in the reader
+   * @throws ParseException
+   *           if the input is not valid JSON
+   */
+  public void parse(Reader reader) throws IOException {
+    parse(reader, DEFAULT_BUFFER_SIZE);
+  }
+
+  /**
+   * Reads the entire input from the given reader and parses it as JSON. The input must contain a
+   * valid JSON value, optionally padded with whitespace.
+   * <p>
+   * Characters are read in chunks into an input buffer of the given size. Hence, wrapping a reader
+   * in an additional <code>BufferedReader</code> likely won't improve reading performance.
+   * </p>
+   *
+   * @param reader
+   *          the reader to read the input from
+   * @param buffersize
+   *          the size of the input buffer in chars
+   * @throws IOException
+   *           if an I/O error occurs in the reader
+   * @throws ParseException
+   *           if the input is not valid JSON
+   */
+  public void parse(Reader reader, int buffersize) throws IOException {
+    if (reader == null) {
+      throw new NullPointerException("reader is null");
+    }
+    if (buffersize <= 0) {
+      throw new IllegalArgumentException("buffersize is zero or negative");
+    }
     this.reader = reader;
     buffer = new char[buffersize];
+    bufferOffset = 0;
+    index = 0;
+    fill = 0;
     line = 1;
+    lineOffset = 0;
+    current = 0;
     captureStart = -1;
-  }
-
-  JsonValue parse() throws IOException {
     read();
     skipWhiteSpace();
-    JsonValue result = readValue();
+    readValue();
     skipWhiteSpace();
     if (!isEndOfText()) {
       throw error("Unexpected character");
     }
-    return result;
   }
 
-  private JsonValue readValue() throws IOException {
+  private void readValue() throws IOException {
     switch (current) {
-    case 'n':
-      return readNull();
-    case 't':
-      return readTrue();
-    case 'f':
-      return readFalse();
-    case '"':
-      return readString();
-    case '[':
-      return readArray();
-    case '{':
-      return readObject();
-    case '-':
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-      return readNumber();
-    default:
-      throw expected("value");
+      case 'n':
+        readNull();
+        break;
+      case 't':
+        readTrue();
+        break;
+      case 'f':
+        readFalse();
+        break;
+      case '"':
+        readString();
+        break;
+      case '[':
+        readArray();
+        break;
+      case '{':
+        readObject();
+        break;
+      case '-':
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        readNumber();
+        break;
+      default:
+        throw expected("value");
     }
   }
 
-  private JsonArray readArray() throws IOException {
+  private void readArray() throws IOException {
+    Object array = handler.startArray();
     read();
-    JsonArray array = new JsonArray();
+    if (++nestingLevel > MAX_NESTING_LEVEL) {
+      throw error("Nesting too deep");
+    }
     skipWhiteSpace();
     if (readChar(']')) {
-      return array;
+      nestingLevel--;
+      handler.endArray(array);
+      return;
     }
     do {
       skipWhiteSpace();
-      array.add(readValue());
+      handler.startArrayValue(array);
+      readValue();
+      handler.endArrayValue(array);
       skipWhiteSpace();
     } while (readChar(','));
     if (!readChar(']')) {
       throw expected("',' or ']'");
     }
-    return array;
+    nestingLevel--;
+    handler.endArray(array);
   }
 
-  private JsonObject readObject() throws IOException {
+  private void readObject() throws IOException {
+    Object object = handler.startObject();
     read();
-    JsonObject object = new JsonObject();
+    if (++nestingLevel > MAX_NESTING_LEVEL) {
+      throw error("Nesting too deep");
+    }
     skipWhiteSpace();
     if (readChar('}')) {
-      return object;
+      nestingLevel--;
+      handler.endObject(object);
+      return;
     }
     do {
       skipWhiteSpace();
+      handler.startObjectName(object);
       String name = readName();
+      handler.endObjectName(object, name);
       skipWhiteSpace();
       if (!readChar(':')) {
         throw expected("':'");
       }
       skipWhiteSpace();
-      object.add(name, readValue());
+      handler.startObjectValue(object, name);
+      readValue();
+      handler.endObjectValue(object, name);
       skipWhiteSpace();
     } while (readChar(','));
     if (!readChar('}')) {
       throw expected("',' or '}'");
     }
-    return object;
+    nestingLevel--;
+    handler.endObject(object);
   }
 
   private String readName() throws IOException {
@@ -152,29 +261,32 @@ class JsonParser {
     return readStringInternal();
   }
 
-  private JsonValue readNull() throws IOException {
+  private void readNull() throws IOException {
+    handler.startNull();
     read();
     readRequiredChar('u');
     readRequiredChar('l');
     readRequiredChar('l');
-    return Json.NULL;
+    handler.endNull();
   }
 
-  private JsonValue readTrue() throws IOException {
+  private void readTrue() throws IOException {
+    handler.startBoolean();
     read();
     readRequiredChar('r');
     readRequiredChar('u');
     readRequiredChar('e');
-    return Json.TRUE;
+    handler.endBoolean(true);
   }
 
-  private JsonValue readFalse() throws IOException {
+  private void readFalse() throws IOException {
+    handler.startBoolean();
     read();
     readRequiredChar('a');
     readRequiredChar('l');
     readRequiredChar('s');
     readRequiredChar('e');
-    return Json.FALSE;
+    handler.endBoolean(false);
   }
 
   private void readRequiredChar(char ch) throws IOException {
@@ -183,8 +295,9 @@ class JsonParser {
     }
   }
 
-  private JsonValue readString() throws IOException {
-    return new JsonString(readStringInternal());
+  private void readString() throws IOException {
+    handler.startString();
+    handler.endString(readStringInternal());
   }
 
   private String readStringInternal() throws IOException {
@@ -246,7 +359,8 @@ class JsonParser {
     read();
   }
 
-  private JsonValue readNumber() throws IOException {
+  private void readNumber() throws IOException {
+    handler.startNumber();
     startCapture();
     readChar('-');
     int firstDigit = current;
@@ -258,7 +372,7 @@ class JsonParser {
     }
     readFraction();
     readExponent();
-    return new JsonNumber(endCapture());
+    handler.endNumber(endCapture());
   }
 
   private boolean readFraction() throws IOException {
@@ -319,6 +433,7 @@ class JsonParser {
       index = 0;
       if (fill == -1) {
         current = -1;
+        index++;
         return;
       }
     }
@@ -343,17 +458,22 @@ class JsonParser {
   }
 
   private String endCapture() {
-    int end = current == -1 ? index : index - 1;
-    String captured;
-    if (captureBuffer.length() > 0) {
-      captureBuffer.append(buffer, captureStart, end - captureStart);
-      captured = captureBuffer.toString();
-      captureBuffer.setLength(0);
-    } else {
-      captured = new String(buffer, captureStart, end - captureStart);
-    }
+    int start = captureStart;
+    int end = index - 1;
     captureStart = -1;
-    return captured;
+    if (captureBuffer.length() > 0) {
+      captureBuffer.append(buffer, start, end - start);
+      String captured = captureBuffer.toString();
+      captureBuffer.setLength(0);
+      return captured;
+    }
+    return new String(buffer, start, end - start);
+  }
+
+  Location getLocation() {
+    int offset = bufferOffset + index - 1;
+    int column = offset - lineOffset + 1;
+    return new Location(offset, line, column);
   }
 
   private ParseException expected(String expected) {
@@ -364,10 +484,7 @@ class JsonParser {
   }
 
   private ParseException error(String message) {
-    int absIndex = bufferOffset + index;
-    int column = absIndex - lineOffset;
-    int offset = isEndOfText() ? absIndex : absIndex - 1;
-    return new ParseException(message, offset, line, column - 1);
+    return new ParseException(message, getLocation());
   }
 
   private boolean isWhiteSpace() {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2016 EclipseSource.
+ * Copyright (c) 2016 EclipseSource.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,44 +21,56 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
-import org.junit.Before;
-import org.junit.Test;
+/**
+ * An immutable object that represents a location in the parsed text.
+ */
+public class Location {
 
+  /**
+   * The absolute character index, starting at 0.
+   */
+  public final int offset;
 
-public class ParseException_Test {
+  /**
+   * The line number, starting at 1.
+   */
+  public final int line;
 
-  private Location location;
+  /**
+   * The column number, starting at 1.
+   */
+  public final int column;
 
-  @Before
-  public void setUp() {
-    location = new Location(4711, 23, 42);
+  Location(int offset, int line, int column) {
+    this.offset = offset;
+    this.column = column;
+    this.line = line;
   }
 
-  @Test
-  public void location() {
-    ParseException exception = new ParseException("Foo", location);
-
-    assertSame(location, exception.getLocation());
+  @Override
+  public String toString() {
+    return line + ":" + column;
   }
 
-  @Test
-  @SuppressWarnings("deprecation")
-  public void position() {
-    ParseException exception = new ParseException("Foo", location);
-
-    assertEquals(location.offset, exception.getOffset());
-    assertEquals(location.line, exception.getLine());
-    assertEquals(location.column, exception.getColumn());
+  @Override
+  public int hashCode() {
+    return offset;
   }
 
-  @Test
-  public void message() {
-    ParseException exception = new ParseException("Foo", location);
-
-    assertEquals("Foo at 23:42", exception.getMessage());
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Location other = (Location)obj;
+    return offset == other.offset && column == other.column && line == other.line;
   }
 
 }

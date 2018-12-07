@@ -507,9 +507,22 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
   }
 
   /**
-   * Copies all members of the specified object into this object. When the specified object contains members with names
-   * that also exist in this object, the existing values in this object will be replaced by the corresponding values in
-   * the specified object.
+   * Checks if a specified member is present as a child of this object. This will not test if
+   * this object contains the literal <code>null</code>, {@link JsonValue#isNull()} should be used
+   * for this purpose.
+   *
+   * @param name
+   *          the name of the member to check for
+   * @return whether or not the member is present
+   */
+  public boolean contains(String name) {
+    return names.contains(name);
+  }
+
+  /**
+   * Copies all members of the specified object into this object. When the specified object contains
+   * members with names that also exist in this object, the existing values in this object will be
+   * replaced by the corresponding values in the specified object.
    *
    * @param object
    *          the object to merge
@@ -715,15 +728,16 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
     writer.writeObjectOpen();
     Iterator<String> namesIterator = names.iterator();
     Iterator<JsonValue> valuesIterator = values.iterator();
-    boolean first = true;
-    while (namesIterator.hasNext()) {
-      if (!first) {
-        writer.writeObjectSeparator();
-      }
+    if (namesIterator.hasNext()) {
       writer.writeMemberName(namesIterator.next());
       writer.writeMemberSeparator();
       valuesIterator.next().write(writer);
-      first = false;
+      while (namesIterator.hasNext()) {
+        writer.writeObjectSeparator();
+        writer.writeMemberName(namesIterator.next());
+        writer.writeMemberSeparator();
+        valuesIterator.next().write(writer);
+      }
     }
     writer.writeObjectClose();
   }
@@ -821,18 +835,31 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
       return result;
     }
 
+    /**
+     * Indicates whether a given object is "equal to" this JsonObject. An object is considered equal
+     * if it is also a <code>JsonObject</code> and both objects contain the same members <em>in
+     * the same order</em>.
+     * <p>
+     * If two JsonObjects are equal, they will also produce the same JSON output.
+     * </p>
+     *
+     * @param object
+     *          the object to be compared with this JsonObject
+     * @return <tt>true</tt> if the specified object is equal to this JsonObject, <code>false</code>
+     *         otherwise
+     */
     @Override
-    public boolean equals(Object obj) {
-      if (this == obj) {
+    public boolean equals(Object object) {
+      if (this == object) {
         return true;
       }
-      if (obj == null) {
+      if (object == null) {
         return false;
       }
-      if (getClass() != obj.getClass()) {
+      if (getClass() != object.getClass()) {
         return false;
       }
-      Member other = (Member) obj;
+      Member other = (Member)object;
       return name.equals(other.name) && value.equals(other.value);
     }
 
