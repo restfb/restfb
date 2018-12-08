@@ -874,7 +874,9 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
 
     private final byte[] hashTable = new byte[32]; // must be a power of two
 
-    public HashIndexTable() {}
+    public HashIndexTable() {
+        // nothing to do here
+    }
 
     public HashIndexTable(HashIndexTable original) {
       System.arraycopy(original.hashTable, 0, hashTable, 0, hashTable.length);

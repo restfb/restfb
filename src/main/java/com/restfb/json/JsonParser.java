@@ -368,7 +368,9 @@ public class JsonParser {
       throw expected("digit");
     }
     if (firstDigit != '0') {
-      while (readDigit()) {}
+      while (readDigit()) {
+        // nothing to do here
+      }
     }
     readFraction();
     readExponent();
@@ -382,7 +384,9 @@ public class JsonParser {
     if (!readDigit()) {
       throw expected("digit");
     }
-    while (readDigit()) {}
+    while (readDigit()) {
+      // nothing to do here
+    }
     return true;
   }
 
@@ -396,7 +400,9 @@ public class JsonParser {
     if (!readDigit()) {
       throw expected("digit");
     }
-    while (readDigit()) {}
+    while (readDigit()) {
+      // nothing to do here
+    }
     return true;
   }
 

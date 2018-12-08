@@ -91,6 +91,8 @@ class WritingBuffer extends Writer {
    * Does not close or flush the wrapped writer.
    */
   @Override
-  public void close() throws IOException {}
+  public void close() throws IOException {
+    // nothing to do here
+  }
 
 }

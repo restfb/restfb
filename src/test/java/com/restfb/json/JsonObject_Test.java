@@ -658,6 +658,24 @@ public class JsonObject_Test {
   }
 
   @Test
+  public void set_json_failsWithNull() {
+    assertException(NullPointerException.class, "value is null", new Runnable() {
+      public void run() {
+        object.set("a", (JsonValue)null);
+      }
+    });
+  }
+
+  @Test
+  public void set_failsWithNullName() {
+    assertException(NullPointerException.class, "name is null", new Runnable() {
+      public void run() {
+        object.set(null, 23);
+      }
+    });
+  }
+
+  @Test
   public void remove_failsWithNullName() {
     assertException(NullPointerException.class, "name is null", new Runnable() {
       public void run() {
