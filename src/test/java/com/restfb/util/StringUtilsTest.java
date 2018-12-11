@@ -22,11 +22,13 @@
 package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Fail.fail;
 
-import org.junit.Test;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
 
 public class StringUtilsTest {
 
@@ -61,5 +63,40 @@ public class StringUtilsTest {
     myStrings.add("foo");
     myStrings.add("bar");
     assertThat(StringUtils.join(myStrings)).isEqualTo("foo,bar");
+  }
+
+  @Test
+  public void toString_null() {
+    try {
+      StringUtils.toString(null);
+      fail("NullPointerException expected");
+    } catch (NullPointerException npe) {
+      assertThat(npe).hasMessage("The 'data' parameter cannot be null.");
+    }
+  }
+
+  @Test
+  public void toString_array() {
+    assertThat(StringUtils.toString("abc".getBytes())).contains("abc");
+  }
+
+  @Test
+  public void toBytes_null() {
+    try {
+      StringUtils.toBytes(null);
+      fail("NullPointerException expected");
+    } catch (NullPointerException npe) {
+      assertThat(npe).hasMessage("The 'string' parameter cannot be null.");
+    }
+  }
+
+  @Test
+  public void toBytes_String() {
+    assertThat(StringUtils.toBytes("abc")).contains('a', 'b', 'c');
+  }
+
+  @Test
+  public void fromInputStream_null() throws IOException {
+    assertThat(StringUtils.fromInputStream(null)).isNull();
   }
 }

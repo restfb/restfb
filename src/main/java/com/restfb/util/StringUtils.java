@@ -103,9 +103,7 @@ public final class StringUtils {
    *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
-    if (string == null) {
-      throw new NullPointerException("Parameter 'string' cannot be null.");
-    }
+    ObjectUtil.verifyParameterPresence("string", string);
 
     try {
       return string.getBytes(ENCODING_CHARSET);
@@ -128,9 +126,7 @@ public final class StringUtils {
    * @since 1.6.13
    */
   public static String toString(byte[] data) {
-    if (data == null) {
-      throw new NullPointerException("Parameter 'data' cannot be null.");
-    }
+    ObjectUtil.verifyParameterPresence("data", data);
 
     try {
       return new String(data, ENCODING_CHARSET);
