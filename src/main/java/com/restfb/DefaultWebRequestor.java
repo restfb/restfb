@@ -171,15 +171,10 @@ public class DefaultWebRequestor implements WebRequestor {
 
       fillHeaderAndDebugInfo(httpUrlConnection);
 
-      try {
-        inputStream =
-            httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK ? httpUrlConnection.getErrorStream()
-                : httpUrlConnection.getInputStream();
-      } catch (IOException e) {
-        HTTP_LOGGER.warn("An error occurred while POSTing to {}:", url, e);
-      }
+      Response response = fetchResponse(httpUrlConnection);
 
-      return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+      HTTP_LOGGER.debug("Facebook responded with {}", response);
+      return response;
     } finally {
       if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
@@ -370,7 +365,6 @@ public class DefaultWebRequestor implements WebRequestor {
       Response response = fetchResponse(httpUrlConnection);
 
       HTTP_LOGGER.debug("Facebook responded with {}", response);
-
       return response;
     } finally {
       closeQuietly(httpUrlConnection);
