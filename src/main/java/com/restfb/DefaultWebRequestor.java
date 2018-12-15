@@ -117,7 +117,6 @@ public class DefaultWebRequestor implements WebRequestor {
 
     HttpURLConnection httpUrlConnection = null;
     OutputStream outputStream = null;
-    InputStream inputStream = null;
 
     try {
       httpUrlConnection = openConnection(new URL(url + (!binaryAttachments.isEmpty() ? "?" + parameters : "")));

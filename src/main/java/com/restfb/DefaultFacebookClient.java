@@ -95,6 +95,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected boolean httpDeleteFallback;
 
+
+  protected DefaultFacebookClient() {
+    this(Version.LATEST);
+  }
+
   /**
    * Creates a Facebook Graph API client with the given {@code apiVersion}.
    * 
@@ -591,7 +596,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // Convert payload to a JsonObject so we can pull algorithm data out of it
     JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);
 
-    if (payloadObject.get("algorithm") == null) {
+    if (!payloadObject.contains("algorithm")) {
       throw new FacebookSignedRequestParsingException("Unable to detect algorithm used for signed request");
     }
 
