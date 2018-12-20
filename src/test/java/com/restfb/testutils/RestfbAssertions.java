@@ -21,11 +21,12 @@
  */
 package com.restfb.testutils;
 
+import org.assertj.core.api.Assertions;
+
 import com.restfb.BinaryAttachment;
 import com.restfb.FakeWebRequestor;
 import com.restfb.Parameter;
-
-import org.assertj.core.api.Assertions;
+import com.restfb.batch.BatchRequest;
 
 public class RestfbAssertions extends Assertions {
 
@@ -39,5 +40,9 @@ public class RestfbAssertions extends Assertions {
 
   public static FakeWebRequestorAssert assertThat(FakeWebRequestor actual) {
     return FakeWebRequestorAssert.assertThat(actual);
+  }
+
+  public static BatchRequestAssert assertThat(BatchRequest actual) {
+    return BatchRequestAssert.assertThat(actual);
   }
 }
