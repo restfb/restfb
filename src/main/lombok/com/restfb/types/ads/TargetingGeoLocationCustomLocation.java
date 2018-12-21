@@ -37,21 +37,6 @@ public class TargetingGeoLocationCustomLocation extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
-  private String country;
-
-  @Getter
-  @Setter
-  @Facebook("distance_unit")
-  private String distanceUnit;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String key;
-
-  @Getter
-  @Setter
-  @Facebook
   private Double latitude;
 
   @Getter
@@ -61,13 +46,18 @@ public class TargetingGeoLocationCustomLocation extends AbstractFacebookType {
 
   @Getter
   @Setter
-  @Facebook
-  private String name;
+  @Facebook("primary_city_id")
+  private Long primaryCityId;
 
   @Getter
   @Setter
-  @Facebook("primary_city_id")
-  private Long primaryCityId;
+  @Facebook("max_population")
+  private Long maxPopulation;
+
+  @Getter
+  @Setter
+  @Facebook("min_population")
+  private Long minPopulation;
 
   @Getter
   @Setter

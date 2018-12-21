@@ -27,20 +27,25 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TargetingGeoLocationCity extends AbstractTargetingGeoLocation {
+public abstract class AbstractTargetingGeoLocation extends AbstractFacebookType {
 
   @Getter
   @Setter
   @Facebook
-  private Long radius;
+  private String country;
+
+  @Getter
+  @Setter
+  @Facebook("distance_unit")
+  private String distanceUnit;
 
   @Getter
   @Setter
   @Facebook
-  private String region;
+  private String key;
 
   @Getter
   @Setter
-  @Facebook("region_id")
-  private String regionId;
+  @Facebook
+  private String name;
 }
