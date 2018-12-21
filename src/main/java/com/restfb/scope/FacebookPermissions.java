@@ -781,6 +781,20 @@ public enum FacebookPermissions {
   BUSINESS_MANAGEMENT("business_management", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * Grants your app permission to retrieve all the information captured within a
+   * <a href="https://developers.facebook.com/docs/marketing-api/guides/lead-ads/">lead.</a>
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @RestFB.GraphApi.Since 3.1
+   */
+  LEADS_RETRIEVAL("leads_retrieval", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
    * This allows you to send and receive messages through a Facebook Page out of the 24h window opened by a user action.
    *
    * <p>
