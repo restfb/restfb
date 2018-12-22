@@ -21,17 +21,10 @@
  */
 package com.restfb.types.webhook.messaging.nlp;
 
-import com.restfb.Facebook;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class NlpCustomWitAi extends BaseNlpEntity {
-
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
+public class NlpCustomWitAi extends BaseTypeNlpEntity {
 
   @Getter
   @Setter

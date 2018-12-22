@@ -21,6 +21,15 @@
  */
 package com.restfb.types.webhook.messaging.nlp;
 
-public class NlpAmountOfMoney extends BaseUnitNlpEntity {
+import com.restfb.Facebook;
 
+import lombok.Getter;
+import lombok.Setter;
+
+abstract class BaseTypeNlpEntity extends BaseNlpEntity {
+
+  @Getter
+  @Setter
+  @Facebook
+  private String type;
 }

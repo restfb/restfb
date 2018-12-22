@@ -26,16 +26,11 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NlpDatetime extends BaseNlpEntity {
+public class NlpDatetime extends BaseTypeNlpEntity {
 
   @Getter
   @Setter
   @Facebook
   private String grain;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
 
 }

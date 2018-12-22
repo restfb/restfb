@@ -21,20 +21,6 @@
  */
 package com.restfb.types.webhook.messaging.nlp;
 
-import com.restfb.Facebook;
+public class NlpDistance extends BaseUnitNlpEntity {
 
-import lombok.Getter;
-import lombok.Setter;
-
-public class NlpDistance extends BaseNlpEntity {
-
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String unit;
 }

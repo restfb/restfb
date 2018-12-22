@@ -26,15 +26,11 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NlpReminder extends BaseNlpEntity {
+public class NlpReminder extends BaseTypeNlpEntity {
 
   @Getter
   @Setter
   @Facebook
   private Boolean suggested;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
 }
