@@ -22,25 +22,15 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class WindowsPhoneAppLink extends AbstractFacebookType {
+public class WindowsPhoneAppLink extends AbstractMobileAppLink {
 
   @Getter
   @Setter
   @Facebook("app_id")
   private String appId;
 
-  @Getter
-  @Setter
-  @Facebook("app_name")
-  private String appName;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String url;
 }

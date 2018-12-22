@@ -22,17 +22,11 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class AndroidAppLink extends AbstractFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook("app_name")
-  private String appName;
+public class AndroidAppLink extends AbstractMobileAppLink {
 
   @Getter
   @Setter
@@ -41,11 +35,6 @@ public class AndroidAppLink extends AbstractFacebookType {
 
   @Facebook("package")
   private String aPackage;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String url;
 
   public String getPackage() {
     return aPackage;

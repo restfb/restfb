@@ -22,27 +22,11 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class TargetingGeoLocationPlace extends AbstractFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook
-  private String country;
-
-  @Getter
-  @Setter
-  @Facebook("distance_unit")
-  private String distanceUnit;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String key;
+public class TargetingGeoLocationPlace extends AbstractTargetingGeoLocation {
 
   @Getter
   @Setter
@@ -53,11 +37,6 @@ public class TargetingGeoLocationPlace extends AbstractFacebookType {
   @Setter
   @Facebook
   private Double longitude;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String name;
 
   @Getter
   @Setter

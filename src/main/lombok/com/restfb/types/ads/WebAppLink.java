@@ -27,15 +27,11 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class WebAppLink extends AbstractFacebookType {
+public class WebAppLink extends AbstractUrlAppLink {
 
   @Getter
   @Setter
   @Facebook("should_fallback")
   private Boolean shouldFallback;
 
-  @Getter
-  @Setter
-  @Facebook("url")
-  private String url;
 }

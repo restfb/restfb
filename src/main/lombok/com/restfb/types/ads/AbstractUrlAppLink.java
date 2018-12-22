@@ -22,15 +22,15 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class IosAppLink extends AbstractMobileAppLink {
+abstract class AbstractUrlAppLink extends AbstractFacebookType {
 
   @Getter
   @Setter
-  @Facebook("app_store_id")
-  private String appStoreId;
-
+  @Facebook
+  private String url;
 }

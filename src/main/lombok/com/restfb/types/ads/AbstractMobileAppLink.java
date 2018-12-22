@@ -26,11 +26,11 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-public class IosAppLink extends AbstractMobileAppLink {
+abstract class AbstractMobileAppLink extends AbstractUrlAppLink {
 
   @Getter
   @Setter
-  @Facebook("app_store_id")
-  private String appStoreId;
+  @Facebook("app_name")
+  private String appName;
 
 }
