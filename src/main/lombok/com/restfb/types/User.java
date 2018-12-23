@@ -983,11 +983,27 @@ public class User extends NamedFacebookType {
     return unmodifiableList(interestedIn);
   }
 
+  /**
+   * Add a gender the user is interested in.
+   *
+   * @param gender
+   *          the gender that should be added
+   * @deprecated since breaking change on 4 April, 2018
+   * @return {@code true} if the gender could be added
+   */
   @Deprecated
   public boolean addInterestedIn(String gender) {
     return interestedIn.add(gender);
   }
 
+  /**
+   * Remove a gender the user is interested in.
+   *
+   * @param gender
+   *          the gender that should be removed
+   * @deprecated since breaking change on 4 April, 2018
+   * @return {@code true} if the gender could be removed
+   */
   @Deprecated
   public boolean removeInterestedIn(String gender) {
     return interestedIn.remove(gender);
@@ -1021,11 +1037,27 @@ public class User extends NamedFacebookType {
     return unmodifiableList(work);
   }
 
+  /**
+   * Adds the {@see WorkExperience} from the work experience list
+   *
+   * @param workHistoryItem
+   *          the WorkExperience that should be added
+   * @deprecated since breaking change on 4 April, 2018
+   * @return {@code true} if the {@see WorkExperience} could be added
+   */
   @Deprecated
   public boolean addWork(WorkExperience workHistoryItem) {
     return work.add(workHistoryItem);
   }
 
+  /**
+   * Removes the {@see WorkExperience} from the work experience list
+   *
+   * @param workHistoryItem
+   *          the WorkExperience that should be removed
+   * @deprecated since breaking change on 4 April, 2018
+   * @return {@code true} if the {@see WorkExperience} could be removed
+   */
   @Deprecated
   public boolean removeWork(WorkExperience workHistoryItem) {
     return work.remove(workHistoryItem);
@@ -1061,11 +1093,27 @@ public class User extends NamedFacebookType {
     return unmodifiableList(education);
   }
 
+  /**
+   * Adds the {@see Education} from the education list
+   *
+   * @param educationHistoryItem
+   *          the Education that should be added
+   * @deprecated since breaking change on 4 April, 2018
+   * @return {@code true} if the {@see Education} could be added
+   */
   @Deprecated
   public boolean addEducation(Education educationHistoryItem) {
     return education.add(educationHistoryItem);
   }
 
+  /**
+   * Removes the {@see Education} from the education list
+   *
+   * @param educationHistoryItem
+   *          the Education that should be removed
+   * @deprecated since breaking change on 4 April, 2018
+   * @return {@code true} if the {@see Education} could be removed
+   */
   @Deprecated
   public boolean removeEducation(Education educationHistoryItem) {
     return education.remove(educationHistoryItem);

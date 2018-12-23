@@ -60,17 +60,22 @@ public class Account extends Page {
    * add a permission to the permission list.
    * 
    * @param permission
+   *          the permission that should be added
+   * @return {@code true} if the permission could be added
+   * @deprecated since graph api v3.1, use {@see Account#addTask} instead
    */
   @Deprecated
-  public void addPerm(String permission) {
-    perms.add(permission);
+  public boolean addPerm(String permission) {
+    return perms.add(permission);
   }
 
   /**
    * remove the permission from the permission list.
    * 
    * @param permission
-   * @return
+   *          the permission that should be removed
+   * @return {@code true} if the permission could be removed
+   * @deprecated since graph api v3.1, use {@see Account#removeTask} instead
    */
   @Deprecated
   public boolean removePerm(String permission) {
@@ -92,8 +97,8 @@ public class Account extends Page {
    *
    * @param task
    */
-  public void addTask(String task) {
-    tasks.add(task);
+  public boolean addTask(String task) {
+    return tasks.add(task);
   }
 
   /**

@@ -42,6 +42,7 @@ public class CoverPhoto extends FacebookType {
   @Getter
   @Setter
   @Facebook("cover_id")
+  @Deprecated
   String coverId;
 
   /**
