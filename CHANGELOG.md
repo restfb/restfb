@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.14.0 (December 24, 2018)
+
+* Issue #944: minimal-json updated to latest code
+* Issue #948: lead_retrieval permission added
+* Issue #945: unit test coverage improved
+
 ## 2.13.0 (December 4, 2018)
 
 * Documentation improvement
