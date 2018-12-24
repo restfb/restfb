@@ -37,7 +37,7 @@ public class CoverPhoto extends FacebookType {
   /**
    * Deprecated. Please use the {@see CoverPhoto#id} field instead
    * 
-   * @Deprecated use {@see CoverPhoto#id} instead
+   * @deprecated use {@see CoverPhoto#id} instead
    */
   @Getter
   @Setter

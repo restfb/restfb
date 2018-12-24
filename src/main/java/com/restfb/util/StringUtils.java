@@ -24,7 +24,12 @@ package com.restfb.util;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -34,10 +39,11 @@ import java.util.List;
  * @since 1.6
  */
 public final class StringUtils {
+
   /**
    * Default charset to use for encoding/decoding strings.
    */
-  public static final String ENCODING_CHARSET = "UTF-8";
+  public static final Charset ENCODING_CHARSET = StandardCharsets.UTF_8;
 
   /**
    * Prevents instantiation.
@@ -92,7 +98,7 @@ public final class StringUtils {
   /**
    * Converts {@code string} to a byte array.
    * <p>
-   * Assumes {@code string} is in {@value #ENCODING_CHARSET} format.
+   * Assumes {@code string} is in {@see #ENCODING_CHARSET} format.
    *
    * @param string
    *          The string to convert to a byte array.
@@ -100,20 +106,15 @@ public final class StringUtils {
    * @throws NullPointerException
    *           If {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   *           If unable to convert because the JVM doesn't support {@see #ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
     ObjectUtil.verifyParameterPresence("string", string);
-
-    try {
-      return string.getBytes(ENCODING_CHARSET);
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
-    }
+    return string.getBytes(ENCODING_CHARSET);
   }
 
   /**
-   * Converts {@code data} to a string in {@value #ENCODING_CHARSET} format.
+   * Converts {@code data} to a string in {@see #ENCODING_CHARSET} format.
    *
    * @param data
    *          The data to convert to a string.
@@ -122,17 +123,12 @@ public final class StringUtils {
    * @throws NullPointerException
    *           If {@code data} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to convert because the JVM doesn't support {@value #ENCODING_CHARSET}.
+   *           If unable to convert because the JVM doesn't support {@see #ENCODING_CHARSET}.
    * @since 1.6.13
    */
   public static String toString(byte[] data) {
     ObjectUtil.verifyParameterPresence("data", data);
-
-    try {
-      return new String(data, ENCODING_CHARSET);
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Platform doesn't support " + ENCODING_CHARSET, e);
-    }
+    return new String(data, ENCODING_CHARSET);
   }
 
   /**
