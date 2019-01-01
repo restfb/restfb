@@ -22,10 +22,11 @@
 package com.restfb;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.testutils.AssertJson;
-
-import org.junit.Test;
 
 public class ParameterTest {
 
@@ -63,24 +64,32 @@ public class ParameterTest {
     assertThat(testParam).hasValue(val);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void nullKeyCheck() {
-    Parameter.with(null, "val");
+    assertThrows(IllegalArgumentException.class, () -> {
+      Parameter.with(null, "val");
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void emptyKeyCheck() {
-    Parameter.with("", "val");
+    assertThrows(IllegalArgumentException.class, () -> {
+      Parameter.with("", "val");
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void nullValueCheck() {
-    Parameter.with("key", null);
+    assertThrows(IllegalArgumentException.class, () -> {
+      Parameter.with("key", null);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void nullJsonMapper() {
-    Parameter.with("key", "value", null);
+    assertThrows(IllegalArgumentException.class, () -> {
+      Parameter.with("key", "value", null);
+    });
   }
 
   @Test

@@ -21,14 +21,13 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
+import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
@@ -202,12 +201,9 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
     assertEquals(7, nlp.getEntities().size());
 
-    List<NlpSentiment> sentiments = new ArrayList<>();
-    for (BaseNlpEntity entity : nlp.getEntities()) {
-      if (entity instanceof NlpSentiment) {
-        sentiments.add(entity.as(NlpSentiment.class));
-      }
-    }
+    List<NlpSentiment> sentiments = nlp.getEntities() //
+      .stream().filter(NlpSentiment.class::isInstance) //
+      .map(entity -> entity.as(NlpSentiment.class)).collect(Collectors.toList());
 
     assertEquals(3, sentiments.size());
     for (NlpSentiment sentiment : sentiments) {
@@ -333,7 +329,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   @Test
   public void messagingMessageWithNlpField_location() {
     WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-location"), WebhookObject.class);
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-location"), WebhookObject.class);
     assertNotNull(webhookObject);
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
     assertEquals(7, nlp.getEntities().size());
@@ -350,8 +346,8 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals("Pacific Standard Time", place.getTimeZone().getDisplayName(Locale.US));
 
     NlpLocation.Coords coords = place.getCoords();
-    assertEquals(34.052230834961, coords.getLatitude().doubleValue(),0.0);
-    assertEquals(-118.24368286133, coords.getLongitude().doubleValue(), 0.0);
+    assertEquals(34.052230834961, coords.getLatitude().doubleValue());
+    assertEquals(-118.24368286133, coords.getLongitude().doubleValue());
 
     NlpLocation.External external = place.getExternal();
     assertEquals("5368361", external.getGeonames());

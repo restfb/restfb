@@ -21,15 +21,16 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.GraphResponse;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 @NeedFacebookWriteAccess
 public class PublishMessageToGroupITCase extends RestFbIntegrationTestBase {
@@ -44,6 +45,6 @@ public class PublishMessageToGroupITCase extends RestFbIntegrationTestBase {
     GraphResponse result = client.publish(getTestSettings().getGroupId() + "/feed", GraphResponse.class,
       Parameter.with("message", "This is a great test message"));
 
-    Assert.assertTrue(result.isSuccess());
+    assertTrue(result.isSuccess());
   }
 }

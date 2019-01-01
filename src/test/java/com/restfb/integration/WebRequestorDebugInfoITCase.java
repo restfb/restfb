@@ -21,13 +21,13 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.restfb.*;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 

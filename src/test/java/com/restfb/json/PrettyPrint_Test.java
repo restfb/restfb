@@ -23,22 +23,22 @@ package com.restfb.json;
 
 import static com.restfb.json.PrettyPrint.*;
 import static java.util.Locale.US;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class PrettyPrint_Test {
 
   private StringWriter output;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     output = new StringWriter();
   }

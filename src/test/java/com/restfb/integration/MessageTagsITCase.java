@@ -21,16 +21,16 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.*;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Comment;
 import com.restfb.types.MessageTag;
-
-import org.junit.Test;
-
-import java.util.List;
-
-import static org.junit.Assert.assertNotNull;
 
 public class MessageTagsITCase extends RestFbIntegrationTestBase {
 

@@ -24,14 +24,14 @@ package com.restfb;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.testutils.AssertJson;
-
-import org.junit.Test;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+
+import org.junit.jupiter.api.Test;
+
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.testutils.AssertJson;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.

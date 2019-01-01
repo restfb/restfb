@@ -23,7 +23,7 @@ package com.restfb.batch;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Parameter;
 

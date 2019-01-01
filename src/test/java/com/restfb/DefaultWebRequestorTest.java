@@ -34,14 +34,14 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DefaultWebRequestorTest {
 
   @Mock
@@ -55,10 +55,9 @@ public class DefaultWebRequestorTest {
 
   private static final String exampleUrl = "http://www.example.org";
 
-  @Before
+  @BeforeEach
   public void setup() throws IOException {
     doReturn(mockUrlConnection).when(requestor).openConnection(any(URL.class));
-    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
   }
 
   @Test
@@ -87,6 +86,7 @@ public class DefaultWebRequestorTest {
 
   @Test
   public void checkPost_NoBinary() throws IOException {
+    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
     String resultString = "This is just a simple Test";
     when(mockUrlConnection.getResponseCode()).thenReturn(200);
     InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
@@ -112,6 +112,7 @@ public class DefaultWebRequestorTest {
 
   @Test
   public void checkPost_WithBinary() throws IOException {
+    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
     BinaryAttachment mockAttachment = mock(BinaryAttachment.class);
     InputStream mockBinaryInputStream = mock(InputStream.class);
     when(mockAttachment.getFilename()).thenReturn("exampleFile.png");

@@ -21,17 +21,17 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Account;
-
-import static org.junit.Assert.assertNotNull;
 
 public class FetchAllPageAccessTokensITCase extends RestFbIntegrationTestBase {
 

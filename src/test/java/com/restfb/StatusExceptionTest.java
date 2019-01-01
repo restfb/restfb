@@ -24,11 +24,11 @@ package com.restfb;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.exception.FacebookGraphException;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.testutils.AssertJson;
-
-import org.junit.Test;
 
 public class StatusExceptionTest extends AbstractJsonMapperTests {
 

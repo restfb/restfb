@@ -21,13 +21,13 @@
  */
 package com.restfb.types.ads;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
 import com.restfb.testutils.AssertJson;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests {
 

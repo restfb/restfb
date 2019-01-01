@@ -21,13 +21,14 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class FetchMeWithAppProof extends RestFbIntegrationTestBase {
 
@@ -36,7 +37,7 @@ public class FetchMeWithAppProof extends RestFbIntegrationTestBase {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
       getTestSettings().getAppSecret(), Version.LATEST);
     User me = client.fetchObject("/me", User.class);
-    Assert.assertNotNull(me);
+    assertNotNull(me);
   }
 
 }

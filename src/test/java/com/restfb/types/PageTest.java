@@ -21,11 +21,11 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
@@ -226,7 +226,7 @@ public class PageTest extends AbstractJsonMapperTests {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-ratings"), Page.class);
     assertNotNull(page);
     assertEquals(2, page.getRatingCount().intValue());
-    assertEquals(2.5, page.getOverallStarRating().doubleValue(), 0.0);
+    assertEquals(2.5, page.getOverallStarRating().doubleValue());
   }
 
 }
