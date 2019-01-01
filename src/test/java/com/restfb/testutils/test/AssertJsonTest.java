@@ -21,11 +21,13 @@
  */
 package com.restfb.testutils.test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
 import com.restfb.testutils.AssertJson;
-
-import org.junit.Test;
 
 public class AssertJsonTest {
 
@@ -37,12 +39,13 @@ public class AssertJsonTest {
     AssertJson.assertEquals(expectedFalseValue.toString(), actualFalseValue.toString());
   }
 
-  @Test(expected = AssertionError.class)
+  @Test
   public void check_Boolean_differentBoolean() {
     JsonValue expectedFalseValue = Json.FALSE;
     JsonValue actualFalseValue = Json.TRUE;
 
-    AssertJson.assertEquals(expectedFalseValue.toString(), actualFalseValue.toString());
+    assertThrows(AssertionError.class, () ->
+    AssertJson.assertEquals(expectedFalseValue.toString(), actualFalseValue.toString()));
   }
 
   @Test
@@ -69,12 +72,12 @@ public class AssertJsonTest {
     AssertJson.assertEquals(expectedString, actualString);
   }
 
-  @Test(expected = AssertionError.class)
+  @Test
   public void check_Array_differentOrder() {
     String expectedString = "[\"String1\",\"String2\",\"String3\"]";
     String actualString = "[\"String2\",\"String3\",\"String1\"]";
 
-    AssertJson.assertEquals(expectedString, actualString);
+    assertThrows(AssertionError.class, () -> AssertJson.assertEquals(expectedString, actualString));
   }
 
   @Test
@@ -93,19 +96,19 @@ public class AssertJsonTest {
     AssertJson.assertEquals(expectedString, actualString);
   }
 
-  @Test(expected = AssertionError.class)
+  @Test
   public void check_Object_differentFields() {
     String expectedString = "{}";
     String actualString = "{\"id\":345}";
 
-    AssertJson.assertEquals(expectedString, actualString);
+    assertThrows(AssertionError.class, () -> AssertJson.assertEquals(expectedString, actualString));
   }
 
-  @Test(expected = AssertionError.class)
+  @Test
   public void check_Object_Array() {
     String expectedString = "{}";
     String actualString = "[]";
 
-    AssertJson.assertEquals(expectedString, actualString);
+    assertThrows(AssertionError.class, () -> AssertJson.assertEquals(expectedString, actualString));
   }
 }

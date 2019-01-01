@@ -22,12 +22,13 @@
 package com.restfb;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+
+import org.junit.jupiter.api.Test;
 
 public class BinaryAttachmentTest {
 
@@ -39,9 +40,11 @@ public class BinaryAttachmentTest {
     assertThat(att.getData()).isInstanceOf(ByteArrayInputStream.class);
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test
   public void checkByteArrayNull() {
-    BinaryAttachment.with("filename", (byte[]) null);
+    assertThrows(NullPointerException.class, () -> {
+      BinaryAttachment.with("filename", (byte[]) null);
+    });
   }
 
   @Test
@@ -52,9 +55,11 @@ public class BinaryAttachmentTest {
     assertThat(att.getData()).isInstanceOf(BufferedInputStream.class);
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test
   public void checkInputStreamNull() {
-    BinaryAttachment.with("filename", (InputStream) null);
+    assertThrows(NullPointerException.class, () -> {
+      BinaryAttachment.with("filename", (InputStream) null);
+    });
   }
 
   @Test

@@ -26,7 +26,7 @@ import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 

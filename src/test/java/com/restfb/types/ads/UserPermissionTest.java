@@ -21,15 +21,13 @@
  */
 package com.restfb.types.ads;
 
-import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import com.restfb.AbstractJsonMapperTests;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class UserPermissionTest extends AbstractJsonMapperTests {
 

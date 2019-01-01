@@ -23,13 +23,13 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.types.Comments;
 import com.restfb.types.Likes;
 import com.restfb.types.Post;
-
-import org.junit.Test;
-
-import java.util.List;
 
 public class ConnectionGOTTest extends AbstractJsonMapperTests {
 

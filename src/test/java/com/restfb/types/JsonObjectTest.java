@@ -21,13 +21,13 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
-
-import org.junit.Test;
 
 public class JsonObjectTest extends AbstractJsonMapperTests {
 

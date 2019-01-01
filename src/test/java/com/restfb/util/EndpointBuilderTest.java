@@ -23,7 +23,7 @@ package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;

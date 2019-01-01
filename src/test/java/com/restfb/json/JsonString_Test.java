@@ -21,23 +21,21 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class JsonString_Test {
 
   private StringWriter stringWriter;
   private JsonWriter jsonWriter;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     stringWriter = new StringWriter();
     jsonWriter = new JsonWriter(stringWriter);
@@ -45,11 +43,7 @@ public class JsonString_Test {
 
   @Test
   public void constructor_failsWithNull() {
-    assertException(NullPointerException.class, "string is null", new Runnable() {
-      public void run() {
-        new JsonString(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> new JsonString(null), "string is null");
   }
 
   @Test

@@ -21,14 +21,14 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class WritingBuffer_Test {
@@ -37,7 +37,7 @@ public class WritingBuffer_Test {
   private StringWriter wrapped;
   private WritingBuffer writer;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     wrapped = new StringWriter();
     writer = new WritingBuffer(wrapped, BUFFER_SIZE);

@@ -17,7 +17,7 @@
     <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>4.12</version.junit>
+    <version.junit>5.3.2</version.junit>
     <version.lombok>1.18.4</version.lombok>
     <version.mockito>2.23.4</version.mockito>
     <version.assertj>3.11.1</version.assertj>
@@ -94,8 +94,20 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
       <version>${version.junit}</version>
       <scope>test</scope>
     </dependency>
@@ -107,7 +119,7 @@
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
+      <artifactId>mockito-junit-jupiter</artifactId>
       <version>${version.mockito}</version>
       <scope>test</scope>
     </dependency>
@@ -223,6 +235,11 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.1</version>
       </plugin>
       <plugin>
         <groupId>com.mycila</groupId>

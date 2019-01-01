@@ -21,13 +21,13 @@
  */
 package com.restfb.types.ads;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
 import com.restfb.testutils.AssertJson;
-
-import org.junit.Test;
 
 public class RuleTest extends AbstractJsonMapperTests {
 
@@ -127,10 +127,12 @@ public class RuleTest extends AbstractJsonMapperTests {
     assertNull(RuleFactory.createRuleFromJson(null));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void checkBadJson() {
-    JsonObject ruleJson = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_bad"), JsonObject.class);
-    RuleFactory.createRuleFromJson(ruleJson);
+    assertThrows(IllegalArgumentException.class, () -> {
+      JsonObject ruleJson = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_bad"), JsonObject.class);
+      RuleFactory.createRuleFromJson(ruleJson);
+    });
   }
 
   @Test

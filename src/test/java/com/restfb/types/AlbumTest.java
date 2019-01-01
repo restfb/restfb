@@ -21,14 +21,14 @@
  */
 package com.restfb.types;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import com.restfb.AbstractJsonMapperTests;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class AlbumTest extends AbstractJsonMapperTests {
 

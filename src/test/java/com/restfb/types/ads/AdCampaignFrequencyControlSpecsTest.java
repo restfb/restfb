@@ -21,12 +21,12 @@
  */
 package com.restfb.types.ads;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
-
-import org.junit.Test;
 
 public class AdCampaignFrequencyControlSpecsTest extends AbstractJsonMapperTests {
 

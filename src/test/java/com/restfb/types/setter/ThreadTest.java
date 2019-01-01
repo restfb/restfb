@@ -23,7 +23,7 @@ package com.restfb.types.setter;
 
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ThreadTest extends SetterGetterTestBase {
 

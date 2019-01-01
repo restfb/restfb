@@ -21,7 +21,7 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
@@ -34,7 +34,7 @@ import com.restfb.types.webhook.messaging.nlp.NlpGreetings;
 import com.restfb.types.webhook.messaging.nlp.NlpCustomWitAi;
 import com.restfb.types.webhook.messaging.nlp.NlpReminder;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 
@@ -120,8 +120,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("location", attachment.getType());
     assertTrue(attachment.isLocation());
-    assertEquals(12.34, attachment.getPayload().getCoordinates().getLat(), 0);
-    assertEquals(43.21, attachment.getPayload().getCoordinates().getLongVal(), 0);
+    assertEquals(12.34, attachment.getPayload().getCoordinates().getLat().doubleValue());
+    assertEquals(43.21, attachment.getPayload().getCoordinates().getLongVal().doubleValue());
   }
 
   @Test
@@ -471,9 +471,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("en_US", attachment.getPayload().getLocale());
     assertNull(attachment.getPayload().getThemeColor());
     assertEquals("ABCDEF", attachment.getPayload().getPnrNumber());
-    assertEquals(12206, attachment.getPayload().getBasePrice(), 0);
-    assertEquals(200, attachment.getPayload().getTax(), 0);
-    assertEquals(14003, attachment.getPayload().getTotalPrice(), 0);
+    assertEquals(12206d, attachment.getPayload().getBasePrice().doubleValue());
+    assertEquals(200d, attachment.getPayload().getTax().doubleValue());
+    assertEquals(14003d, attachment.getPayload().getTotalPrice().doubleValue());
 
     PassengerInfoItem passengerInfoItem = attachment.getPayload().getPassengerInfoItems().get(0);
     assertEquals("Farbound Smith Jr", passengerInfoItem.getName());

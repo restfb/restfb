@@ -25,7 +25,7 @@ import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static com.restfb.util.UrlUtils.extractParametersFromUrl;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.UrlUtils}.

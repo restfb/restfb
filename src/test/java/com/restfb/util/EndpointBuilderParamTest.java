@@ -23,42 +23,19 @@ package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.FakeWebRequestor;
 import com.restfb.Version;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-@RunWith(Parameterized.class)
 public class EndpointBuilderParamTest {
 
-  private Version currentVersion;
-
-  @Parameterized.Parameters
-  public static Collection versionGenerator() {
-
-    List<Object[]> versions = new ArrayList<>();
-    for (Version v : Version.values()) {
-      Object[] obj = new Object[] { v };
-      versions.add(obj);
-    }
-
-    return versions;
-  }
-
-  public EndpointBuilderParamTest(Version version) {
-    currentVersion = version;
-  }
-
-  @Test
-  public void versionTest() {
+  @ParameterizedTest
+  @EnumSource(Version.class)
+  public void versionTest(Version currentVersion) {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), currentVersion);
     String respString = client.fetchObject("/me", String.class);

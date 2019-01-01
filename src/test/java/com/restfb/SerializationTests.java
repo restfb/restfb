@@ -23,20 +23,21 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
-
-import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.junit.jupiter.api.Test;
+
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
+
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class SerializationTests {
+
   @Test
   public void jsonArray() throws Exception {
     JsonArray arrayToSerialize = new JsonArray();

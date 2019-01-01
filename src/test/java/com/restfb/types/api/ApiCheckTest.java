@@ -21,12 +21,12 @@
  */
 package com.restfb.types.api;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.*;
+
+import org.junit.jupiter.api.Test;
 
 public class ApiCheckTest extends BaseTestCheck {
 
@@ -50,7 +50,7 @@ public class ApiCheckTest extends BaseTestCheck {
       if (!expectedMethods.isEmpty()) {
         for (Iterator<String> expIterator = expectedMethods.iterator(); expIterator.hasNext();) {
           String expMethod = expIterator.next();
-          assertTrue(key + " method not found " + expMethod, currentMethods.contains(expMethod));
+          assertTrue(currentMethods.contains(expMethod), key + " method not found " + expMethod);
         }
       }
     }

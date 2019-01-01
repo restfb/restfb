@@ -21,16 +21,12 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-import com.restfb.json.TestUtil.RunnableEx;
-
-import org.junit.Test;
 
 import java.io.*;
 
+import org.junit.jupiter.api.Test;
 
 public class JsonValue_Test {
 
@@ -47,34 +43,19 @@ public class JsonValue_Test {
   @Test
   public void writeTo_failsWithNullWriter() {
     final JsonValue value = new JsonObject();
-
-    assertException(NullPointerException.class, "writer is null", new RunnableEx() {
-      public void run() throws IOException {
-        value.writeTo(null, WriterConfig.MINIMAL);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> value.writeTo(null, WriterConfig.MINIMAL), "writer is null");
   }
 
   @Test
   public void writeTo_failsWithNullConfig() {
     final JsonValue value = new JsonObject();
-
-    assertException(NullPointerException.class, "config is null", new RunnableEx() {
-      public void run() throws IOException {
-        value.writeTo(new StringWriter(), null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> value.writeTo(new StringWriter(), null), "config is null");
   }
 
   @Test
   public void toString_failsWithNullConfig() {
     final JsonValue value = new JsonObject();
-
-    assertException(NullPointerException.class, "config is null", new RunnableEx() {
-      public void run() throws IOException {
-        value.toString(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> value.toString(null), "config is null");
   }
 
   @Test
@@ -89,82 +70,49 @@ public class JsonValue_Test {
 
   @Test
   public void asObject_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not an object: null", new Runnable() {
-      public void run() {
-        Json.NULL.asObject();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asObject(), "Not an object: null");
   }
 
   @Test
   public void asArray_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not an array: null", new Runnable() {
-      public void run() {
-        Json.NULL.asArray();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asArray(), "Not an array: null");
   }
 
   @Test
   public void asString_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a string: null", new Runnable() {
-      public void run() {
-        Json.NULL.asString();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asString(), "Not a string: null");
   }
 
   @Test
   public void asInt_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asInt();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asInt(), "Not a number: null");
   }
 
   @Test
   public void asLong_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asLong();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asLong(), "Not a number: null");
   }
 
   @Test
   public void asFloat_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asFloat();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asFloat(), "Not a number: null");
   }
 
   @Test
   public void asDouble_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asDouble();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asDouble(), "Not a number: null");
   }
 
   @Test
   public void asBoolean_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a boolean: null", new Runnable() {
-      public void run() {
-        Json.NULL.asBoolean();
-      }
-    });
+    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asBoolean(), "Not a boolean: null");
   }
 
   @Test
   public void isXxx_returnsFalseForIncompatibleType() {
     JsonValue jsonValue = new JsonValue() {
       @Override
-      void write(JsonWriter writer) throws IOException {
-      }
+      void write(JsonWriter writer) throws IOException {}
     };
 
     assertFalse(jsonValue.isArray());
