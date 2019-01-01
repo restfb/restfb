@@ -21,17 +21,17 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
-
-import org.junit.Test;
-
-import java.util.List;
 
 public class FetchInboxITCase extends RestFbIntegrationTestBase {
 

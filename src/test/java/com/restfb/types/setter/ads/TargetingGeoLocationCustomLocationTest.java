@@ -24,7 +24,7 @@ package com.restfb.types.setter.ads;
 import com.restfb.types.ads.TargetingGeoLocationCustomLocation;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TargetingGeoLocationCustomLocationTest extends SetterGetterTestBase {
 

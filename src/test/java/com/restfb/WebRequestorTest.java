@@ -23,12 +23,12 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.jupiter.api.Test;
 
 public class WebRequestorTest {
 

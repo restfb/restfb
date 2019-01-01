@@ -21,15 +21,16 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 @NeedFacebookWriteAccess
 public class PublishImageToGroupITCase extends RestFbIntegrationTestBase {
@@ -42,6 +43,6 @@ public class PublishImageToGroupITCase extends RestFbIntegrationTestBase {
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     JsonObject result = client.publish(getTestSettings().getGroupId() + "/photos", JsonObject.class,
       Parameter.with("message", "This is a cool test image"), Parameter.with("url", imageUrl));
-    Assert.assertNotNull(result);
+    assertNotNull(result);
   }
 }

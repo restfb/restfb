@@ -21,12 +21,11 @@
  */
 package com.restfb.types;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.Parameter;
@@ -697,44 +696,44 @@ public class WebhookTest extends AbstractJsonMapperTests {
   public void pageConversations() {
     WebhookObject webhookObject = openJson("page-conversations-25");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("change field", FIELD_CONVERSATIONS, change.getField());
-    assertEquals("change value class", change.getValue().getClass(), PageConversation.class);
+    assertEquals(FIELD_CONVERSATIONS, change.getField(), "change field");
+    assertEquals(change.getValue().getClass(), PageConversation.class, "change value class");
     PageConversation value = (PageConversation) change.getValue();
-    assertEquals("change page id", "1234567890321", value.getPageId());
-    assertEquals("change thread id", "t_id.171899099639713", value.getThreadId());
+    assertEquals("1234567890321", value.getPageId(), "change page id");
+    assertEquals("t_id.171899099639713", value.getThreadId(), "change thread id");
   }
 
   @Test
   public void feedEventAdd() {
     WebhookObject webhookObject = openJson("feed-event-add");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("change field", "feed", change.getField());
-    assertEquals("change value class", change.getValue().getClass(), FeedEventValue.class);
+    assertEquals("feed", change.getField(), "change field");
+    assertEquals(change.getValue().getClass(), FeedEventValue.class, "change value class");
     FeedEventValue value = (FeedEventValue) change.getValue();
-    assertEquals("change event id", "1944041199140689", value.getEventId());
-    assertEquals("change post id", "1234567890321_1944041199140689", value.getPostId());
-    assertEquals("change story", "Page added an event.", value.getStory());
+    assertEquals("1944041199140689", value.getEventId(), "change event id");
+    assertEquals("1234567890321_1944041199140689", value.getPostId(), "change post id");
+    assertEquals("Page added an event.", value.getStory(), "change story");
   }
 
   @Test
   public void pageLeadgen() {
     WebhookObject webhookObject = openJson("leadgen");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("change value class", change.getValue().getClass(), PageLeadgen.class);
+    assertEquals(change.getValue().getClass(), PageLeadgen.class, "change value class");
     PageLeadgen pageLeadgen = (PageLeadgen) change.getValue();
-    assertEquals("leadgen adgroup id", "0", pageLeadgen.getAdgroupId());
-    assertEquals("leadgen ad id", "0", pageLeadgen.getAdId());
-    assertEquals("leadgen form id", "12345", pageLeadgen.getFormId());
-    assertEquals("leadgen leadgen id", "1636129430026801", pageLeadgen.getLeadgenId());
-    assertEquals("leadgen page id", "12345", pageLeadgen.getPageId());
-    assertEquals("leadgen created time", 1485964825000L, pageLeadgen.getCreatedTime().getTime());
+    assertEquals("0", pageLeadgen.getAdgroupId(), "leadgen adgroup id");
+    assertEquals("0", pageLeadgen.getAdId(), "leadgen ad id");
+    assertEquals("12345", pageLeadgen.getFormId(), "leadgen form id");
+    assertEquals("1636129430026801", pageLeadgen.getLeadgenId(), "leadgen leadgen id");
+    assertEquals("12345", pageLeadgen.getPageId(), "leadgen page id");
+    assertEquals(1485964825000L, pageLeadgen.getCreatedTime().getTime(), "leadgen created time");
   }
 
   @Test
   public void unknownChangeValue() {
     WebhookObject webhookObject = openJson("unknown-change-value");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("change value class", change.getValue().getClass(), FallBackChangeValue.class);
+    assertEquals(change.getValue().getClass(), FallBackChangeValue.class, "change value class");
     assertNotNull(((FallBackChangeValue) change.getValue()).getRawJson());
   }
 
@@ -765,7 +764,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   public void mentionPostAdd() {
     WebhookObject webhookObject = openJson("mention-post-add");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("change value class", change.getValue().getClass(), MentionPostAddValue.class);
+    assertEquals(change.getValue().getClass(), MentionPostAddValue.class, "change value class");
     MentionPostAddValue mentionPostAddValue = (MentionPostAddValue) change.getValue();
     assertNotNull(mentionPostAddValue);
     assertEquals("44444444_444444444", mentionPostAddValue.getPostId());
@@ -778,10 +777,10 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void feedTwoEntries() {
     WebhookObject webhookObject = openJson("feed-two-entries-25");
-    assertEquals("entry count", 2, webhookObject.getEntryList().size());
-    assertEquals("change[0] field", "parking", webhookObject.getEntryList().get(0).getChanges().get(0).getField());
-    assertEquals("change[1] field", "payment_options",
-      webhookObject.getEntryList().get(1).getChanges().get(0).getField());
+    assertEquals(2, webhookObject.getEntryList().size(), "entry count");
+    assertEquals("parking", webhookObject.getEntryList().get(0).getChanges().get(0).getField(), "change[0] field");
+    assertEquals("payment_options", webhookObject.getEntryList().get(1).getChanges().get(0).getField(),
+      "change[1] field");
   }
 
   @Test
@@ -936,35 +935,35 @@ public class WebhookTest extends AbstractJsonMapperTests {
       String expectedField, String expectedItem, ChangeValue.Verb expectedVerb) {
     WebhookObject webhookObject = openJson(jsonName);
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals("change field", expectedField, change.getField());
-    assertEquals("change value class", change.getValue().getClass(), changeValueClass);
-    assertEquals("change item", expectedItem, ((T) change.getValue()).getItem());
-    assertEquals("change verb", expectedVerb, ((T) change.getValue()).getVerb());
+    assertEquals(expectedField, change.getField(), "change field");
+    assertEquals(change.getValue().getClass(), changeValueClass, "change value class");
+    assertEquals(expectedItem, ((T) change.getValue()).getItem(), "change item");
+    assertEquals(expectedVerb, ((T) change.getValue()).getVerb(), "change verb");
     return (T) change.getValue();
   }
 
   private WebhookObject openJson(String jsonName) {
     WebhookObject webhookObject = getWHObjectFromJson(jsonName);
-    assertFalse("webhookObject.entryList[0].changes not empty",
-      webhookObject.getEntryList().get(0).getChanges().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getChanges().isEmpty(),
+      "webhookObject.entryList[0].changes not empty");
     return webhookObject;
   }
 
   private WebhookObject openMessagingJson(String jsonName) {
     WebhookObject webhookObject = getWHObjectFromJson(jsonName);
-    assertFalse("webhookObject.entryList[0].messaging not empty",
-      webhookObject.getEntryList().get(0).getMessaging().isEmpty());
+    assertFalse(webhookObject.getEntryList().get(0).getMessaging().isEmpty(),
+      "webhookObject.entryList[0].messaging not empty");
     return webhookObject;
   }
 
   private WebhookObject getWHObjectFromJson(String jsonName) {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/" + jsonName), WebhookObject.class);
-    assertNotNull("webhookObject not null", webhookObject);
-    assertEquals("webhookObject.object", "page", webhookObject.getObject());
-    assertFalse("webhookObject.entryList not empty", webhookObject.getEntryList().isEmpty());
-    assertEquals("page id", "1234567890321", webhookObject.getEntryList().get(0).getId());
-    assertTrue("update time", 1445000000000L < webhookObject.getEntryList().get(0).getTime().getTime());
+    assertNotNull(webhookObject, "webhookObject not null");
+    assertEquals("page", webhookObject.getObject(), "webhookObject.object");
+    assertFalse(webhookObject.getEntryList().isEmpty(), "webhookObject.entryList not empty");
+    assertEquals("1234567890321", webhookObject.getEntryList().get(0).getId(), "page id");
+    assertTrue(1445000000000L < webhookObject.getEntryList().get(0).getTime().getTime(), "update time");
     return webhookObject;
   }
 

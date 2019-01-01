@@ -21,7 +21,7 @@
  */
 package com.restfb.integration.base;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

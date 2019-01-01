@@ -21,18 +21,10 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-
-import com.restfb.json.JsonObject.HashIndexTable;
-import com.restfb.json.JsonObject.Member;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InOrder;
 
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
@@ -40,23 +32,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
+
+import com.restfb.json.JsonObject.HashIndexTable;
+import com.restfb.json.JsonObject.Member;
 
 public class JsonObject_Test {
 
   private JsonObject object;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     object = new JsonObject();
   }
 
   @Test
   public void copyConstructor_failsWithNull() {
-    assertException(NullPointerException.class, "object is null", new Runnable() {
-      public void run() {
-        new JsonObject(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> new JsonObject(null), "object is null");
   }
 
   @Test
@@ -94,11 +88,11 @@ public class JsonObject_Test {
     assertSame(object.get("foo"), unmodifiableObject.get("foo"));
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void unmodifiableObject_preventsModification() {
     JsonObject unmodifiableObject = JsonObject.unmodifiableObject(object);
 
-    unmodifiableObject.add("foo", 23);
+    assertThrows(UnsupportedOperationException.class, () -> unmodifiableObject.add("foo", 23));
   }
 
   @Test
@@ -180,11 +174,11 @@ public class JsonObject_Test {
     assertEquals("foo", names.get(0));
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void names_preventsModification() {
     List<String> names = object.names();
 
-    names.add("foo");
+    assertThrows(UnsupportedOperationException.class, () -> names.add("foo"));
   }
 
   @Test
@@ -219,36 +213,32 @@ public class JsonObject_Test {
     assertEquals(new Member("b", Json.FALSE), iterator.next());
   }
 
-  @Test(expected = NoSuchElementException.class)
+  @Test
   public void iterator_nextFailsAtEnd() {
     Iterator<Member> iterator = object.iterator();
 
-    iterator.next();
+    assertThrows(NoSuchElementException.class, () -> iterator.next());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void iterator_doesNotAllowModification() {
     object.add("a", 23);
     Iterator<Member> iterator = object.iterator();
     iterator.next();
 
-    iterator.remove();
+    assertThrows(UnsupportedOperationException.class, () -> iterator.remove());
   }
 
-  @Test(expected = ConcurrentModificationException.class)
+  @Test
   public void iterator_detectsConcurrentModification() {
     Iterator<Member> iterator = object.iterator();
     object.add("a", 23);
-    iterator.next();
+    assertThrows(ConcurrentModificationException.class, () -> iterator.next());
   }
 
   @Test
   public void get_failsWithNullName() {
-    assertException(NullPointerException.class, "name is null", new Runnable() {
-      public void run() {
-        object.get(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> object.get(null), "name is null");
   }
 
   @Test
@@ -298,24 +288,24 @@ public class JsonObject_Test {
   public void get_float_returnsValueFromMember() {
     object.add("foo", 3.14f);
 
-    assertEquals(3.14f, object.getFloat("foo", 1.41f), 0);
+    assertEquals(3.14f, object.getFloat("foo", 1.41f));
   }
 
   @Test
   public void get_float_returnsDefaultForMissingMember() {
-    assertEquals(3.14f, object.getFloat("foo", 3.14f), 0);
+    assertEquals(3.14f, object.getFloat("foo", 3.14f));
   }
 
   @Test
   public void get_double_returnsValueFromMember() {
     object.add("foo", 3.14);
 
-    assertEquals(3.14, object.getDouble("foo", 1.41), 0);
+    assertEquals(3.14, object.getDouble("foo", 1.41));
   }
 
   @Test
   public void get_double_returnsDefaultForMissingMember() {
-    assertEquals(3.14, object.getDouble("foo", 3.14), 0);
+    assertEquals(3.14, object.getDouble("foo", 3.14));
   }
 
   @Test
@@ -344,11 +334,7 @@ public class JsonObject_Test {
 
   @Test
   public void add_failsWithNullName() {
-    assertException(NullPointerException.class, "name is null", new Runnable() {
-      public void run() {
-        object.add(null, 23);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> object.add(null, 23), "name is null");
   }
 
   @Test
@@ -420,7 +406,7 @@ public class JsonObject_Test {
 
   @Test
   public void add_string_toleratesNull() {
-    object.add("a", (String)null);
+    object.add("a", (String) null);
 
     assertEquals("{\"a\":null}", object.toString());
   }
@@ -458,11 +444,7 @@ public class JsonObject_Test {
 
   @Test
   public void add_json_failsWithNull() {
-    assertException(NullPointerException.class, "value is null", new Runnable() {
-      public void run() {
-        object.add("a", (JsonValue)null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> object.add("a", (JsonValue) null), "value is null");
   }
 
   @Test
@@ -631,29 +613,17 @@ public class JsonObject_Test {
 
   @Test
   public void set_json_failsWithNull() {
-    assertException(NullPointerException.class, "value is null", new Runnable() {
-      public void run() {
-        object.set("a", (JsonValue)null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> object.set("a", (JsonValue) null), "value is null");
   }
 
   @Test
   public void set_failsWithNullName() {
-    assertException(NullPointerException.class, "name is null", new Runnable() {
-      public void run() {
-        object.set(null, 23);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> object.set(null, 23), "name is null");
   }
 
   @Test
   public void remove_failsWithNullName() {
-    assertException(NullPointerException.class, "name is null", new Runnable() {
-      public void run() {
-        object.remove(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> object.remove(null), "name is null");
   }
 
   @Test
@@ -708,19 +678,19 @@ public class JsonObject_Test {
   }
 
   @Test
-  public void contains_findsAddedMembers(){
+  public void contains_findsAddedMembers() {
     object.add("f", 15f);
 
     assertTrue(object.contains("f"));
   }
 
   @Test
-  public void contains_doesNotFindAbsentMembers(){
+  public void contains_doesNotFindAbsentMembers() {
     assertFalse(object.contains("a"));
   }
 
   @Test
-  public void contains_doesNotFindDeletedMembers(){
+  public void contains_doesNotFindDeletedMembers() {
     object.add("a", "foo");
 
     object.remove("a");
@@ -730,11 +700,7 @@ public class JsonObject_Test {
 
   @Test
   public void merge_failsWithNull() {
-    assertException(NullPointerException.class, "object is null", new Runnable() {
-      public void run() {
-        object.merge(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> object.merge(null), "object is null");
   }
 
   @Test
@@ -787,7 +753,7 @@ public class JsonObject_Test {
     object.add("b", 3.14f);
     object.add("c", "foo");
     object.add("d", true);
-    object.add("e", (String)null);
+    object.add("e", (String) null);
 
     object.write(writer);
 

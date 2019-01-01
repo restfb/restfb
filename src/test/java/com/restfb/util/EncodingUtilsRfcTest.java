@@ -22,43 +22,31 @@
 package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
 
-import java.util.Arrays;
-import java.util.Collection;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class EncodingUtilsRfcTest {
 
-  private String base64EncodedString;
-
-  private String decodedString;
-
-  @Parameterized.Parameters
-  public static Collection testData() {
-    return Arrays.asList(new Object[][] { //
-        { "", "" }, //
-        { "Zg==", "f" }, //
-        { "Zg", "f" }, //
-        { "Zg=", "f" }, //
-        { "Zm8=", "fo" }, //
-        { "Zm9v", "foo" }, //
-        { "Zm9vYg==", "foob" }, //
-        { "Zm9vYmE=", "fooba" }, //
-        { "Zm9vYmFy", "foobar" } });
+  private static Stream<Arguments> testData() {
+    return Stream.of(Arguments.of("", ""), //
+      Arguments.of("Zg==", "f"), //
+      Arguments.of("Zg", "f"), //
+      Arguments.of("Zg=", "f"), //
+      Arguments.of("Zm8=", "fo"), //
+      Arguments.of("Zm9v", "foo"), //
+      Arguments.of("Zm9vYg==", "foob"), //
+      Arguments.of("Zm9vYmE=", "fooba"), //
+      Arguments.of("Zm9vYmFy", "foobar"));
   }
 
-  public EncodingUtilsRfcTest(String encodedString, String expectedString) {
-    base64EncodedString = encodedString;
-    decodedString = expectedString;
-  }
-
-  @Test
-  public void base64Decode() {
+  @ParameterizedTest
+  @MethodSource("testData")
+  public void base64Decode(String base64EncodedString, String decodedString) {
     try {
       byte[] decoded = EncodingUtils.decodeBase64(base64EncodedString);
       assertThat(decoded).isEqualTo(decodedString.getBytes());

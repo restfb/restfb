@@ -23,10 +23,10 @@ package com.restfb.json;
 
 import static com.restfb.json.Json.*;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 

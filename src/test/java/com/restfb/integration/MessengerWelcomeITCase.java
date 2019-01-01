@@ -21,7 +21,7 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
@@ -33,7 +33,7 @@ import com.restfb.types.send.CallToAction;
 import com.restfb.types.send.Greeting;
 import com.restfb.types.send.Message;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

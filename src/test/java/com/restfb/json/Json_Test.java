@@ -21,17 +21,13 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
-import static org.junit.Assert.*;
-
-import com.restfb.json.TestUtil.RunnableEx;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
+import org.junit.jupiter.api.Test;
 
 public class Json_Test {
 
@@ -76,21 +72,13 @@ public class Json_Test {
   @Test
   public void value_float_failsWithInfinity() {
     String message = "Infinite and NaN values not permitted in JSON";
-    assertException(IllegalArgumentException.class, message, new Runnable() {
-      public void run() {
-        Json.value(Float.POSITIVE_INFINITY);
-      }
-    });
+    assertThrows(IllegalArgumentException.class, () -> Json.value(Float.POSITIVE_INFINITY), message);
   }
 
   @Test
   public void value_float_failsWithNaN() {
     String message = "Infinite and NaN values not permitted in JSON";
-    assertException(IllegalArgumentException.class, message, new Runnable() {
-      public void run() {
-        Json.value(Float.NaN);
-      }
-    });
+    assertThrows(IllegalArgumentException.class, () -> Json.value(Float.NaN), message);
   }
 
   @Test
@@ -111,21 +99,13 @@ public class Json_Test {
   @Test
   public void value_double_failsWithInfinity() {
     String message = "Infinite and NaN values not permitted in JSON";
-    assertException(IllegalArgumentException.class, message, new Runnable() {
-      public void run() {
-        Json.value(Double.POSITIVE_INFINITY);
-      }
-    });
+    assertThrows(IllegalArgumentException.class, () -> Json.value(Double.POSITIVE_INFINITY), message);
   }
 
   @Test
   public void value_double_failsWithNaN() {
     String message = "Infinite and NaN values not permitted in JSON";
-    assertException(IllegalArgumentException.class, message, new Runnable() {
-      public void run() {
-        Json.value(Double.NaN);
-      }
-    });
+    assertThrows(IllegalArgumentException.class, () -> Json.value(Double.NaN), message);
   }
 
   @Test
@@ -159,11 +139,7 @@ public class Json_Test {
 
   @Test
   public void array_int_failsWithNull() {
-    assertException(NullPointerException.class, "values is null", new Runnable() {
-      public void run() {
-        Json.array((int[]) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.array((int[]) null), "values is null");
   }
 
   @Test
@@ -174,11 +150,7 @@ public class Json_Test {
 
   @Test
   public void array_long_failsWithNull() {
-    assertException(NullPointerException.class, "values is null", new Runnable() {
-      public void run() {
-        Json.array((long[]) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.array((long[]) null), "values is null");
   }
 
   @Test
@@ -189,11 +161,7 @@ public class Json_Test {
 
   @Test
   public void array_float_failsWithNull() {
-    assertException(NullPointerException.class, "values is null", new Runnable() {
-      public void run() {
-        Json.array((float[]) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.array((float[]) null), "values is null");
   }
 
   @Test
@@ -204,11 +172,7 @@ public class Json_Test {
 
   @Test
   public void array_double_failsWithNull() {
-    assertException(NullPointerException.class, "values is null", new Runnable() {
-      public void run() {
-        Json.array((double[]) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.array((double[]) null), "values is null");
   }
 
   @Test
@@ -219,11 +183,7 @@ public class Json_Test {
 
   @Test
   public void array_boolean_failsWithNull() {
-    assertException(NullPointerException.class, "values is null", new Runnable() {
-      public void run() {
-        Json.array((boolean[]) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.array((boolean[]) null), "values is null");
   }
 
   @Test
@@ -234,11 +194,7 @@ public class Json_Test {
 
   @Test
   public void array_string_failsWithNull() {
-    assertException(NullPointerException.class, "values is null", new Runnable() {
-      public void run() {
-        Json.array((String[]) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.array((String[]) null), "values is null");
   }
 
   @Test
@@ -253,11 +209,7 @@ public class Json_Test {
 
   @Test
   public void parse_string_failsWithNull() {
-    assertException(NullPointerException.class, "string is null", new Runnable() {
-      public void run() {
-        Json.parse((String) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.parse((String) null), "string is null");
   }
 
   @Test
@@ -269,11 +221,7 @@ public class Json_Test {
 
   @Test
   public void parse_reader_failsWithNull() {
-    assertException(NullPointerException.class, "reader is null", new RunnableEx() {
-      public void run() throws IOException {
-        Json.parse((Reader) null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> Json.parse((Reader) null), "reader is null");
   }
 
 }

@@ -21,38 +21,32 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InOrder;
 
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
 public class JsonArray_Test {
 
   private JsonArray array;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     array = new JsonArray();
   }
 
   @Test
   public void copyConstructor_failsWithNull() {
-    assertException(NullPointerException.class, "array is null", new Runnable() {
-      public void run() {
-        new JsonArray(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> new JsonArray(null), "array is null");
   }
 
   @Test
@@ -87,11 +81,13 @@ public class JsonArray_Test {
     assertEquals(array.values(), unmodifiableArray.values());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void unmodifiableArray_preventsModification() {
     JsonArray unmodifiableArray = JsonArray.unmodifiableArray(array);
 
-    unmodifiableArray.add(23);
+    assertThrows(UnsupportedOperationException.class, () -> {
+      unmodifiableArray.add(23);
+    });
   }
 
   @Test
@@ -133,19 +129,23 @@ public class JsonArray_Test {
     assertFalse(iterator.hasNext());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void iterator_doesNotAllowModification() {
-    array.add(23);
-    Iterator<JsonValue> iterator = array.iterator();
-    iterator.next();
-    iterator.remove();
+    assertThrows(UnsupportedOperationException.class, () -> {
+      array.add(23);
+      Iterator<JsonValue> iterator = array.iterator();
+      iterator.next();
+      iterator.remove();
+    });
   }
 
-  @Test(expected = ConcurrentModificationException.class)
+  @Test
   public void iterator_detectsConcurrentModification() {
-    Iterator<JsonValue> iterator = array.iterator();
-    array.add(23);
-    iterator.next();
+    assertThrows(ConcurrentModificationException.class, () -> {
+      Iterator<JsonValue> iterator = array.iterator();
+      array.add(23);
+      iterator.next();
+    });
   }
 
   @Test
@@ -170,11 +170,13 @@ public class JsonArray_Test {
     assertEquals(array.values(), values);
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void values_preventsModification() {
     List<JsonValue> values = array.values();
 
-    values.add(Json.TRUE);
+    assertThrows(UnsupportedOperationException.class, () -> {
+      values.add(Json.TRUE);
+    });
   }
 
   @Test
@@ -186,9 +188,11 @@ public class JsonArray_Test {
     assertEquals(Json.value(23), value);
   }
 
-  @Test(expected = IndexOutOfBoundsException.class)
+  @Test
   public void get_failsWithInvalidIndex() {
-    array.get(0);
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      array.get(0);
+    });
   }
 
   @Test
@@ -265,7 +269,7 @@ public class JsonArray_Test {
 
   @Test
   public void add_string_toleratesNull() {
-    array.add((String)null);
+    array.add((String) null);
 
     assertEquals("[null]", array.toString());
   }
@@ -298,11 +302,7 @@ public class JsonArray_Test {
 
   @Test
   public void add_json_failsWithNull() {
-    assertException(NullPointerException.class, "value is null", new Runnable() {
-      public void run() {
-        array.add((JsonValue)null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> array.add((JsonValue) null), "value is null");
   }
 
   @Test
@@ -471,16 +471,16 @@ public class JsonArray_Test {
   public void set_json_failsWithNull() {
     array.add(false);
 
-    assertException(NullPointerException.class, "value is null", new Runnable() {
-      public void run() {
-        array.set(0, (JsonValue)null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> {
+      array.set(0, (JsonValue) null);
+    }, "value is null");
   }
 
-  @Test(expected = IndexOutOfBoundsException.class)
+  @Test
   public void set_json_failsWithInvalidIndex() {
-    array.set(0, Json.NULL);
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      array.set(0, Json.NULL);
+    });
   }
 
   @Test
@@ -499,9 +499,11 @@ public class JsonArray_Test {
     assertEquals("[3,4,5]", array.toString());
   }
 
-  @Test(expected = IndexOutOfBoundsException.class)
+  @Test
   public void remove_failsWithInvalidIndex() {
-    array.remove(0);
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      array.remove(0);
+    });
   }
 
   @Test

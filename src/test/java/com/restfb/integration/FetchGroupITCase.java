@@ -21,7 +21,7 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
@@ -29,7 +29,7 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Group;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

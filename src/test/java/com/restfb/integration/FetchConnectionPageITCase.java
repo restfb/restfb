@@ -21,16 +21,16 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
-
-import org.junit.Test;
 
 public class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
 

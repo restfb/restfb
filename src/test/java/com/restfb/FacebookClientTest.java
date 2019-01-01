@@ -24,6 +24,7 @@ package com.restfb;
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 import static com.restfb.util.StringUtils.fromInputStream;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.net.URI;
@@ -33,7 +34,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.WebRequestor.Response;
 import com.restfb.exception.FacebookJsonMappingException;
@@ -221,7 +222,7 @@ public class FacebookClientTest {
     }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void checkfetchObjects_withEmptyId() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
@@ -232,10 +233,12 @@ public class FacebookClientTest {
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 
-    fbc.fetchObjects(idList, String.class);
+    assertThrows(IllegalArgumentException.class, () -> {
+      fbc.fetchObjects(idList, String.class);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void checkfetchObjects_idsAsParameter() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
@@ -245,16 +248,20 @@ public class FacebookClientTest {
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 
-    fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something"));
+    assertThrows(IllegalArgumentException.class, () -> {
+      fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something"));
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void checkfetchObjects_emptyList() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
 
-    fbc.fetchObjects(Collections.EMPTY_LIST, String.class);
+    assertThrows(IllegalArgumentException.class, () -> {
+      fbc.fetchObjects(Collections.EMPTY_LIST, String.class);
+    });
   }
 
   @Test
@@ -313,12 +320,14 @@ public class FacebookClientTest {
     assertThat(debugTokenInfo).isNotNull();
   }
 
-  @Test(expected = FacebookResponseContentException.class)
+  @Test
   public void testDebugTokenException() throws IOException {
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, null));
-    FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
-    fbc.debugToken("myToken");
+    assertThrows(FacebookResponseContentException.class, () -> {
+      FacebookClient fbc =
+              new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+      fbc.debugToken("myToken");
+    });
   }
 
   @Test
