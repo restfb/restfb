@@ -22,17 +22,18 @@
 package com.restfb.types;
 
 import static java.net.HttpURLConnection.HTTP_OK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import com.restfb.*;
-import com.restfb.json.JsonObject;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.junit.jupiter.api.Test;
+
+import com.restfb.*;
+import com.restfb.json.JsonObject;
 
 public class InsightTest extends AbstractJsonMapperTests {
 

@@ -21,13 +21,13 @@
  */
 package com.restfb.types.api;
 
-import static org.junit.Assert.*;
-
-import com.restfb.types.Message;
-import com.restfb.types.NamedFacebookType;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.*;
 import java.util.*;
+
+import com.restfb.types.Message;
+import com.restfb.types.NamedFacebookType;
 
 public class SetterGetterTestBase {
 
@@ -111,7 +111,7 @@ public class SetterGetterTestBase {
       Object o = getExampleValueByType(field.getType());
       setter.invoke(instance, o);
 
-      assertEquals(testText, o, getter.invoke(instance));
+      assertEquals(o, getter.invoke(instance), testText);
 
     } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException ex) {
       fail(ex.getClass().getName() + ": " + testText);
@@ -147,11 +147,11 @@ public class SetterGetterTestBase {
       }
 
       Object o = getExampleValueByType(adder.getParameterTypes()[0]);
-      assertEquals(testText, 0, ((List) getter.invoke(instance)).size());
+      assertEquals( 0, ((List) getter.invoke(instance)).size(), testText);
       adder.invoke(instance, o);
-      assertEquals(testText, 1, ((List) getter.invoke(instance)).size());
+      assertEquals( 1, ((List) getter.invoke(instance)).size(), testText);
       remover.invoke(instance, o);
-      assertEquals(testText, 0, ((List) getter.invoke(instance)).size());
+      assertEquals(0, ((List) getter.invoke(instance)).size(), testText);
       try {
         ((List) getter.invoke(instance)).add(o);
         fail("should not be possible");

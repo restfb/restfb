@@ -21,15 +21,15 @@
  */
 package com.restfb.integration;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 @NeedFacebookWriteAccess
 public class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
@@ -40,7 +40,7 @@ public class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
       getTestSettings().getAppSecret(), Version.LATEST);
     JsonObject me = client.publish("/me/feed", JsonObject.class, Parameter.with("message", "Test publish"),
       Parameter.with("privacy", "{\"value\": \"SELF\"}"));
-    Assert.assertNotNull(me);
+    Assertions.assertNotNull(me);
   }
 
 }

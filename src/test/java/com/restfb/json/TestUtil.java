@@ -21,24 +21,18 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.*;
 
-
 public class TestUtil {
 
-  public static <T extends Exception> T assertException(Class<T> type,
-                                                        String message,
-                                                        Runnable runnable)
-  {
+  public static <T extends Exception> T assertException(Class<T> type, String message, Runnable runnable) {
     return assertException(type, message, adapt(runnable));
   }
 
-  public static <T extends Exception> T assertException(Class<T> type,
-                                                        String message,
-                                                        RunnableEx runnable)
+  public static <T extends Exception> T assertException(Class<T> type, String message, RunnableEx runnable)
 
   {
     T exception = assertException(type, runnable);
@@ -52,7 +46,7 @@ public class TestUtil {
 
   public static <T extends Exception> T assertException(Class<T> type, RunnableEx runnable) {
     T exception = catchException(runnable, type);
-    assertNotNull("Expected exception: " + type.getName(), exception);
+    assertNotNull(exception, "Expected exception: " + type.getName());
     return exception;
   }
 
@@ -63,7 +57,7 @@ public class TestUtil {
       return null;
     } catch (Exception exception) {
       if (type.isAssignableFrom(exception.getClass())) {
-        return (T)exception;
+        return (T) exception;
       }
       String message = "Unexpected exception: " + exception.getMessage();
       throw new RuntimeException(message, exception);
@@ -72,7 +66,7 @@ public class TestUtil {
 
   @SuppressWarnings("unchecked")
   public static <T> T serializeAndDeserialize(T instance) throws Exception {
-    return (T)deserialize(serialize(instance));
+    return (T) deserialize(serialize(instance));
   }
 
   public static byte[] serialize(Object object) throws IOException {

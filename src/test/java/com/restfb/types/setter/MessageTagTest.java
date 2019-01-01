@@ -24,7 +24,7 @@ package com.restfb.types.setter;
 import com.restfb.types.MessageTag;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MessageTagTest extends SetterGetterTestBase {
 

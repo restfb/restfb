@@ -21,68 +21,67 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.AggregateWith;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
+import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
-@RunWith(Parameterized.class)
 public class PhotoBackdateTest extends AbstractJsonMapperTests {
 
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][] { //
-        { "v1_0/photo-day", "day", 1408302000000L }, //
-        { "v1_0/photo-year", "year", 1408302000000L }, //
-        { "v1_0/photo-month", "month", 1408302000000L }, //
-        { "v1_0/photo-hour", "hour", 1408302000000L }, //
-        { "v1_0/photo-min", "min", 1408302720000L }, //
-        { "v1_0/photo-nobackdate", null, null }, //
-        { "v2_0/photo-day", "day", 1408302000000L }, //
-        { "v2_0/photo-year", "year", 1408302000000L }, //
-        { "v2_0/photo-month", "month", 1408302000000L }, //
-        { "v2_0/photo-hour", "hour", 1408302000000L }, //
-        { "v2_0/photo-min", "min", 1408302720000L }, //
-        { "v2_0/photo-nobackdate", null, null }, //
-        { "v2_1/photo-day", "day", 1408302000000L }, //
-        { "v2_1/photo-year", "year", 1408302000000L }, //
-        { "v2_1/photo-month", "month", 1408302000000L }, //
-        { "v2_1/photo-hour", "hour", 1408302000000L }, //
-        { "v2_1/photo-min", "min", 1408302720000L }, //
-        { "v2_1/photo-nobackdate", null, null }, //
-
-    });
+  public static Stream<Arguments> backdateData() {
+    return Stream.of(Arguments.of("v1_0/photo-day", "day", 1408302000000L), //
+      Arguments.of("v1_0/photo-year", "year", 1408302000000L), //
+      Arguments.of("v1_0/photo-month", "month", 1408302000000L), //
+      Arguments.of("v1_0/photo-hour", "hour", 1408302000000L), //
+      Arguments.of("v1_0/photo-min", "min", 1408302720000L), //
+      Arguments.of("v1_0/photo-nobackdate", null, null), //
+      Arguments.of("v2_0/photo-day", "day", 1408302000000L), //
+      Arguments.of("v2_0/photo-year", "year", 1408302000000L), //
+      Arguments.of("v2_0/photo-month", "month", 1408302000000L), //
+      Arguments.of("v2_0/photo-hour", "hour", 1408302000000L), //
+      Arguments.of("v2_0/photo-min", "min", 1408302720000L), //
+      Arguments.of("v2_0/photo-nobackdate", null, null), //
+      Arguments.of("v2_1/photo-day", "day", 1408302000000L), //
+      Arguments.of("v2_1/photo-year", "year", 1408302000000L), //
+      Arguments.of("v2_1/photo-month", "month", 1408302000000L), //
+      Arguments.of("v2_1/photo-hour", "hour", 1408302000000L), //
+      Arguments.of("v2_1/photo-min", "min", 1408302720000L), //
+      Arguments.of("v2_1/photo-nobackdate", null, null) //
+    );
   }
 
-  private String fileName;
+  @ParameterizedTest
+  @MethodSource("backdateData")
+  public void checkBackDate(String fileName, String expectedGranularity,
+      @AggregateWith(DateAggregator.class) Date expectedTime) {
 
-  private String expectedGranularity;
-
-  private Date expectedTime;
-
-  public PhotoBackdateTest(String fileName, String granularity, Long time) {
-    this.fileName = fileName;
-    this.expectedGranularity = granularity;
-    if (time != null) {
-      expectedTime = new Date(time);
-    } else {
-      expectedTime = null;
-    }
-
-  }
-
-  @Test
-  public void checkBackDate() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath(fileName), Photo.class);
     assertEquals(expectedGranularity, examplePhoto.getBackdatedTimeGranularity());
     assertEquals(expectedTime, examplePhoto.getBackdatedTime());
+  }
+
+  static class DateAggregator implements ArgumentsAggregator {
+
+    @Override
+    public Object aggregateArguments(ArgumentsAccessor arguments, ParameterContext context)
+        throws ArgumentsAggregationException {
+      if (arguments.getLong(2) != null) {
+        return new Date(arguments.getLong(2));
+      } else {
+        return null;
+      }
+    }
   }
 
 }

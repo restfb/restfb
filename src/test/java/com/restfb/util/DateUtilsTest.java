@@ -24,39 +24,34 @@ package com.restfb.util;
 import static com.restfb.util.DateUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.DateUtils}.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-@RunWith(Parameterized.class)
 public class DateUtilsTest {
 
   private DateFormatStrategy expectedStrategy;
 
-  @Parameterized.Parameters
-  public static Collection strategies() {
-    return Arrays.asList(new Object[][] { { new CachedDateFormatStrategy() }, { new SimpleDateFormatStrategy() } });
-  }
-
-  public DateUtilsTest(DateFormatStrategy strategy) {
-    DateUtils.setDateFormatStrategy(strategy);
-    expectedStrategy = strategy;
+  private static Stream<DateFormatStrategy> strategies() {
+    return Stream.of(new CachedDateFormatStrategy(), new SimpleDateFormatStrategy());
+    // return Arrays.asList(new Object[][] { { new CachedDateFormatStrategy() }, { new SimpleDateFormatStrategy() } });
   }
 
   /**
    * Tests the "short" date format.
    */
-  @Test
-  public void shortDatesSimple() {
+  @ParameterizedTest
+  @MethodSource("strategies")
+  public void shortDatesSimple(DateFormatStrategy expectedStrategy) {
+    DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toDateFromShortFormat("04/15/1984")).isNotNull();
     assertThat(toDateFromShortFormat("01/01/1970")).isNotNull();
     assertThat(toDateFromShortFormat("1970-09-15")).isNotNull();
@@ -67,8 +62,10 @@ public class DateUtilsTest {
   /**
    * FB uses "long" date formats with and without timezones. Make sure we handle both gracefully.
    */
-  @Test
-  public void longDatesSimple() {
+  @ParameterizedTest
+  @MethodSource("strategies")
+  public void longDatesSimple(DateFormatStrategy expectedStrategy) {
+    DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toDateFromLongFormat("2011-12-22T21:00:00+0000")).isNotNull();
     assertThat(toDateFromLongFormat("2011-12-22T21:00:00")).isNotNull();
     assertThat(toDateFromLongFormat("1331784257")).isNotNull();
@@ -79,8 +76,10 @@ public class DateUtilsTest {
   /**
    * Tests the "month and year" date format.
    */
-  @Test
-  public void monthYearDates() {
+  @ParameterizedTest
+  @MethodSource("strategies")
+  public void monthYearDates(DateFormatStrategy expectedStrategy) {
+    DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toDateFromMonthYearFormat("2007-03")).isNotNull();
     assertThat(toDateFromMonthYearFormat("2011-12")).isNotNull();
     assertThat(toDateFromMonthYearFormat("0000-00")).isNull();
@@ -88,16 +87,20 @@ public class DateUtilsTest {
     assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
   }
 
-  @Test
-  public void dateToString() {
+  @ParameterizedTest
+  @MethodSource("strategies")
+  public void dateToString(DateFormatStrategy expectedStrategy) {
+    DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toLongFormatFromDate(null)).isNull();
     assertThat(toLongFormatFromDate(new Date())).isNotNull();
     assertThat(toLongFormatFromDate(new Date(1474559324000L))).isEqualTo("2016-09-22T15:48:44");
     assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
   }
 
-  @Test
-  public void dateToShortString() {
+  @ParameterizedTest
+  @MethodSource("strategies")
+  public void dateToShortString(DateFormatStrategy expectedStrategy) {
+    DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toShortFormatFromDate(null)).isNull();
     assertThat(toShortFormatFromDate(new Date())).isNotNull();
     assertThat(toShortFormatFromDate(new Date(1474559324000L))).isEqualTo("2016-09-22");

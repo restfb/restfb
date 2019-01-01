@@ -21,8 +21,9 @@
  */
 package com.restfb.integration;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -36,8 +37,8 @@ public class FetchMeWithEmail extends RestFbIntegrationTestBase {
   public void fetchWithEmail() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     User me = client.fetchObject("me", User.class, Parameter.with("fields", "id,email"));
-    Assert.assertNotNull(me);
-    Assert.assertNotNull(me.getEmail());
+    assertNotNull(me);
+    assertNotNull(me.getEmail());
   }
 
 }

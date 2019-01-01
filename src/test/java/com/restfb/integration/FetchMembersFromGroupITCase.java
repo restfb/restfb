@@ -21,18 +21,19 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
 
@@ -54,6 +55,6 @@ public class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
       System.out.println("Page: " + (i++) + " size: " + memberList.size());
     }
 
-    Assert.assertTrue(memberList.size() > 0);
+    assertTrue(memberList.size() > 0);
   }
 }

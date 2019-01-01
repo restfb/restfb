@@ -21,12 +21,11 @@
  */
 package com.restfb.logging;
 
-import static junit.framework.TestCase.*;
-
-import org.junit.Test;
-import org.mockito.internal.matchers.Null;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
+
+import org.junit.jupiter.api.Test;
 
 public class JulMessageTest {
 
@@ -108,24 +107,30 @@ public class JulMessageTest {
     assertEquals("Simple BigDecimal 100", convertedText);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void simpleMessage_withPlaceholder_argumentCountMismatch() {
-    JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2);
-    assertEquals("2Simple text 3", tuple.getMessage());
-    assertNotNull(tuple.getThrowable());
+    assertThrows(IllegalArgumentException.class, () -> {
+      JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2);
+      assertEquals("2Simple text 3", tuple.getMessage());
+      assertNotNull(tuple.getThrowable());
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void simpleMessage_withPlaceholder_argumentCountMismatch_withException() {
-    JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2, new NullPointerException());
-    assertEquals("2Simple text 3", tuple.getMessage());
-    assertNotNull(tuple.getThrowable());
+    assertThrows(IllegalArgumentException.class, () -> {
+      JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2, new NullPointerException());
+      assertEquals("2Simple text 3", tuple.getMessage());
+      assertNotNull(tuple.getThrowable());
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void simpleMessage_withPlaceholder_argumentCountMismatch2() {
-    JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text", 2, 3);
-    assertEquals("2Simple text 3", tuple.getMessage());
-    assertNotNull(tuple.getThrowable());
+    assertThrows(IllegalArgumentException.class, () -> {
+      JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text", 2, 3);
+      assertEquals("2Simple text 3", tuple.getMessage());
+      assertNotNull(tuple.getThrowable());
+    });
   }
 }

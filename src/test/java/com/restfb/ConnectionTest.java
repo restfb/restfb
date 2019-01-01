@@ -23,14 +23,14 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
@@ -74,16 +74,16 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     }
   }
 
-  @Test(expected = FacebookJsonMappingException.class)
+  @Test
   public void checkNullJson() {
-    new Connection<User>(new DefaultFacebookClient(Version.LATEST), null, User.class);
-    failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    assertThrows(FacebookJsonMappingException.class,
+      () -> new Connection<>(new DefaultFacebookClient(Version.LATEST), null, User.class));
   }
 
-  @Test(expected = FacebookJsonMappingException.class)
+  @Test
   public void checkInvalidJson() {
-    new Connection<User>(new DefaultFacebookClient(Version.LATEST), "{", User.class);
-    failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    assertThrows(FacebookJsonMappingException.class,
+      () -> new Connection<>(new DefaultFacebookClient(Version.LATEST), "{", User.class));
   }
 
   @Test
@@ -139,7 +139,7 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     assertThat(it.snapshot().getNextPageUrl()).isNotNull().contains("page3");
   }
 
-  @Test(expected = NoSuchElementException.class)
+  @Test
   public void checkIterator_lastThrowsException() {
     Connection<FacebookType> connection = create3PageConnection();
     ConnectionIterator<FacebookType> it = connection.iterator();
@@ -148,8 +148,7 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     it.next(); // third and last page
 
     assertThat(it.hasNext()).isFalse();
-    it.next();
-    failBecauseExceptionWasNotThrown(NoSuchElementException.class);
+    assertThrows(NoSuchElementException.class, () -> it.next());
   }
 
   @Test
@@ -178,7 +177,6 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     assertThat(connection.getBeforeCursor()).isNull();
     assertThat(connection.getNextPageUrl()).isNotNull().contains("page1");
     assertThat(connection.getPreviousPageUrl()).isNull();
-    System.out.println(connection.getNextPageUrl());
 
     connection = connection.fetchNextPage();
 
@@ -186,7 +184,6 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     assertThat(connection.getBeforeCursor()).isEqualTo("cursor-p2-before");
     assertThat(connection.getNextPageUrl()).isNotNull().contains("page1");
     assertThat(connection.getPreviousPageUrl()).isNotNull().contains("page1");
-    System.out.println(connection.getNextPageUrl());
 
     connection = connection.fetchNextPage();
 
@@ -194,7 +191,6 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     assertThat(connection.getBeforeCursor()).isEqualTo("cursor-p3-before");
     assertThat(connection.getNextPageUrl()).isNull();
     assertThat(connection.getPreviousPageUrl()).isNotNull().contains("page1");
-    System.out.println(connection.getPreviousPageUrl());
 
     assertThat(connection.hasNext()).isFalse();
   }

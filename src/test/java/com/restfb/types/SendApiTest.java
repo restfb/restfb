@@ -21,13 +21,14 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
@@ -571,7 +572,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
       messageJsonString);
   }
 
-  @Test(expected = FacebookPreconditionException.class)
+  @Test
   public void messageWithTooManyReplies_thirdteenPresentOneAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
@@ -589,10 +590,11 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title12", "payload 12"));
     quickReplyList.add(new QuickReply("title13", "payload 13"));
     message.addQuickReplies(quickReplyList);
-    message.addQuickReply(new QuickReply("last", "payload_last"));
+    assertThrows(FacebookPreconditionException.class,
+      () -> message.addQuickReply(new QuickReply("last", "payload_last")));
   }
 
-  @Test(expected = FacebookPreconditionException.class)
+  @Test
   public void messageWithTooManyReplies_TenPresentFourAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
@@ -613,6 +615,6 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyListAdded.add(new QuickReply("title3a", "payload 3a"));
     quickReplyListAdded.add(new QuickReply("title3a", "payload 4a"));
     message.addQuickReplies(quickReplyList);
-    message.addQuickReplies(quickReplyListAdded);
+    assertThrows(FacebookPreconditionException.class, () -> message.addQuickReplies(quickReplyListAdded));
   }
 }

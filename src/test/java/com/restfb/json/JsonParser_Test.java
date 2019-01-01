@@ -23,49 +23,48 @@ package com.restfb.json;
 
 import static com.restfb.json.Json.parse;
 import static com.restfb.json.TestUtil.assertException;
-import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.junit.Assert.*;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.json.Json.DefaultHandler;
 import com.restfb.json.TestUtil.RunnableEx;
-
 
 public class JsonParser_Test {
 
   private TestHandler handler;
   private JsonParser parser;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     handler = new TestHandler();
     parser = new JsonParser(handler);
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test
   public void constructor_rejectsNullHandler() {
-    new JsonParser(null);
+    assertThrows(NullPointerException.class, () -> new JsonParser(null));
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test
   public void parse_string_rejectsNull() {
-    parser.parse((String)null);
+    assertThrows(NullPointerException.class, () -> parser.parse((String) null));
   }
 
-  @Test(expected = NullPointerException.class)
-  public void parse_reader_rejectsNull() throws IOException {
-    parser.parse((Reader)null);
+  @Test
+  public void parse_reader_rejectsNull() {
+    assertThrows(NullPointerException.class, () -> parser.parse((Reader) null));
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void parse_reader_rejectsNegativeBufferSize() throws IOException {
-    parser.parse(new StringReader("[]"), -1);
+  @Test
+  public void parse_reader_rejectsNegativeBufferSize() {
+    assertThrows(IllegalArgumentException.class, () -> parser.parse(new StringReader("[]"), -1));
   }
 
   @Test
@@ -82,125 +81,93 @@ public class JsonParser_Test {
     });
 
     assertEquals(0, exception.getLocation().offset);
-    assertThat(exception.getMessage(), startsWith("Unexpected end of input at"));
+    assertThat(exception.getMessage()).startsWith("Unexpected end of input at");
   }
 
   @Test
   public void parse_null() {
     parser.parse("null");
 
-    assertEquals(join("startNull 0",
-                      "endNull 4"),
-                 handler.getLog());
+    assertEquals(join("startNull 0", "endNull 4"), handler.getLog());
   }
 
   @Test
   public void parse_true() {
     parser.parse("true");
 
-    assertEquals(join("startBoolean 0",
-                      "endBoolean true 4"),
-                 handler.getLog());
+    assertEquals(join("startBoolean 0", "endBoolean true 4"), handler.getLog());
   }
 
   @Test
   public void parse_false() {
     parser.parse("false");
 
-    assertEquals(join("startBoolean 0",
-                      "endBoolean false 5"),
-                 handler.getLog());
+    assertEquals(join("startBoolean 0", "endBoolean false 5"), handler.getLog());
   }
 
   @Test
   public void parse_string() {
     parser.parse("\"foo\"");
 
-    assertEquals(join("startString 0",
-                      "endString foo 5"),
-                 handler.getLog());
+    assertEquals(join("startString 0", "endString foo 5"), handler.getLog());
   }
 
   @Test
   public void parse_string_empty() {
     parser.parse("\"\"");
 
-    assertEquals(join("startString 0",
-                      "endString  2"),
-                 handler.getLog());
+    assertEquals(join("startString 0", "endString  2"), handler.getLog());
   }
 
   @Test
   public void parse_number() {
     parser.parse("23");
 
-    assertEquals(join("startNumber 0",
-                      "endNumber 23 2"),
-                 handler.getLog());
+    assertEquals(join("startNumber 0", "endNumber 23 2"), handler.getLog());
   }
 
   @Test
   public void parse_number_negative() {
     parser.parse("-23");
 
-    assertEquals(join("startNumber 0",
-        "endNumber -23 3"),
-                 handler.getLog());
+    assertEquals(join("startNumber 0", "endNumber -23 3"), handler.getLog());
   }
 
   @Test
   public void parse_number_negative_exponent() {
     parser.parse("-2.3e-12");
 
-    assertEquals(join("startNumber 0",
-        "endNumber -2.3e-12 8"),
-                 handler.getLog());
+    assertEquals(join("startNumber 0", "endNumber -2.3e-12 8"), handler.getLog());
   }
 
   @Test
   public void parse_array() {
     parser.parse("[23]");
 
-    assertEquals(join("startArray 0",
-                      "startArrayValue a1 1",
-                      "startNumber 1",
-                      "endNumber 23 3",
-                      "endArrayValue a1 3",
-                      "endArray a1 4"),
-                 handler.getLog());
+    assertEquals(join("startArray 0", "startArrayValue a1 1", "startNumber 1", "endNumber 23 3", "endArrayValue a1 3",
+      "endArray a1 4"), handler.getLog());
   }
 
   @Test
   public void parse_array_empty() {
     parser.parse("[]");
 
-    assertEquals(join("startArray 0",
-                      "endArray a1 2"),
-                 handler.getLog());
+    assertEquals(join("startArray 0", "endArray a1 2"), handler.getLog());
   }
 
   @Test
   public void parse_object() {
     parser.parse("{\"foo\": 23}");
 
-    assertEquals(join("startObject 0",
-                      "startObjectName o1 1",
-                      "endObjectName o1 foo 6",
-                      "startObjectValue o1 foo 8",
-                      "startNumber 8",
-                      "endNumber 23 10",
-                      "endObjectValue o1 foo 10",
-                      "endObject o1 11"),
-                 handler.getLog());
+    assertEquals(join("startObject 0", "startObjectName o1 1", "endObjectName o1 foo 6", "startObjectValue o1 foo 8",
+      "startNumber 8", "endNumber 23 10", "endObjectValue o1 foo 10", "endObject o1 11"), handler.getLog());
   }
 
   @Test
   public void parse_object_empty() {
     parser.parse("{}");
 
-    assertEquals(join("startObject 0",
-                      "endObject o1 2"),
-                 handler.getLog());
+    assertEquals(join("startObject 0", "endObject o1 2"), handler.getLog());
   }
 
   @Test
@@ -402,20 +369,10 @@ public class JsonParser_Test {
     parser.parse("[42]");
 
     assertEquals(join(// first run
-                      "startArray 0",
-                      "startArrayValue a1 1",
-                      "startNumber 1",
-                      "endNumber 23 3",
-                      "endArrayValue a1 3",
-                      "endArray a1 4",
-                      // second run
-                      "startArray 0",
-                      "startArrayValue a2 1",
-                      "startNumber 1",
-                      "endNumber 42 3",
-                      "endArrayValue a2 3",
-                      "endArray a2 4"),
-                 handler.getLog());
+      "startArray 0", "startArrayValue a1 1", "startNumber 1", "endNumber 23 3", "endArrayValue a1 3", "endArray a1 4",
+      // second run
+      "startArray 0", "startArrayValue a2 1", "startNumber 1", "endNumber 42 3", "endArrayValue a2 3", "endArray a2 4"),
+      handler.getLog());
   }
 
   @Test
@@ -445,8 +402,7 @@ public class JsonParser_Test {
     assertEquals("[[23],42]", parse("[[23],42]").toString());
     assertEquals("[[23],[42]]", parse("[[23],[42]]").toString());
     assertEquals("[[23],[42]]", parse("[[23],[42]]").toString());
-    assertEquals("[{\"foo\":[23]},{\"bar\":[42]}]",
-                 parse("[{\"foo\":[23]},{\"bar\":[42]}]").toString());
+    assertEquals("[{\"foo\":[23]},{\"bar\":[42]}]", parse("[{\"foo\":[23]},{\"bar\":[42]}]").toString());
   }
 
   @Test
@@ -490,10 +446,9 @@ public class JsonParser_Test {
   public void objects_nested() {
     assertEquals("{\"foo\":{}}", parse("{\"foo\":{}}").toString());
     assertEquals("{\"foo\":{\"bar\":42}}", parse("{\"foo\":{\"bar\": 42}}").toString());
-    assertEquals("{\"foo\":{\"bar\":{\"baz\":42}}}",
-                 parse("{\"foo\":{\"bar\": {\"baz\": 42}}}").toString());
+    assertEquals("{\"foo\":{\"bar\":{\"baz\":42}}}", parse("{\"foo\":{\"bar\": {\"baz\": 42}}}").toString());
     assertEquals("{\"foo\":[{\"bar\":{\"baz\":[[42]]}}]}",
-                 parse("{\"foo\":[{\"bar\": {\"baz\": [[42]]}}]}").toString());
+      parse("{\"foo\":[{\"bar\": {\"baz\": [[42]]}}]}").toString());
   }
 
   @Test
@@ -621,8 +576,7 @@ public class JsonParser_Test {
     assertEquals(new JsonNumber("23"), parse("23"));
     assertEquals(new JsonNumber("-23"), parse("-23"));
     assertEquals(new JsonNumber("1234567890"), parse("1234567890"));
-    assertEquals(new JsonNumber("123456789012345678901234567890"),
-                 parse("123456789012345678901234567890"));
+    assertEquals(new JsonNumber("123456789012345678901234567890"), parse("123456789012345678901234567890"));
   }
 
   @Test
@@ -632,16 +586,15 @@ public class JsonParser_Test {
 
     assertEquals(0, value.asInt());
     assertEquals(0l, value.asLong());
-    assertEquals(0f, value.asFloat(), 0);
-    assertEquals(0d, value.asDouble(), 0);
+    assertEquals(-0f, value.asFloat());
+    assertEquals(-0d, value.asDouble());
   }
 
   @Test
   public void numbers_decimal() {
     assertEquals(new JsonNumber("0.23"), parse("0.23"));
     assertEquals(new JsonNumber("-0.23"), parse("-0.23"));
-    assertEquals(new JsonNumber("1234567890.12345678901234567890"),
-                 parse("1234567890.12345678901234567890"));
+    assertEquals(new JsonNumber("1234567890.12345678901234567890"), parse("1234567890.12345678901234567890"));
   }
 
   @Test
@@ -744,7 +697,7 @@ public class JsonParser_Test {
       }
     });
     assertEquals(offset, exception.getLocation().offset);
-    assertThat(exception.getMessage(), startsWith(message + " at"));
+    assertThat(exception.getMessage()).startsWith(message + " at");
   }
 
   private static String join(String... strings) {

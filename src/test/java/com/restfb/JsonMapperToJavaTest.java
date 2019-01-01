@@ -23,13 +23,14 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.util.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
@@ -47,10 +48,9 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   /**
    * check type == null is handled correct
    */
-  @Test(expected = FacebookJsonMappingException.class)
+  @Test
   public void nullAsList() {
-    createJsonMapper().toJavaList("[]", null);
-    failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+    assertThrows(FacebookJsonMappingException.class, () -> createJsonMapper().toJavaList("[]", null));
   }
 
   /**
@@ -459,10 +459,12 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertThat(object.myMap.get("key2")).isEqualTo(2L);
   }
 
-  @Test(expected = FacebookJsonMappingException.class)
+  @Test
   public void jsonObjectToBadMap() {
     String jsonString = "{ \"my_map\": { \"key1\": 1, \"key2\": 2}}";
-    createJsonMapper().toJavaObject(jsonString, BadMapTestType.class);
+    assertThrows(FacebookJsonMappingException.class, () -> {
+      createJsonMapper().toJavaObject(jsonString, BadMapTestType.class);
+    });
   }
 
   static class MapTestType {

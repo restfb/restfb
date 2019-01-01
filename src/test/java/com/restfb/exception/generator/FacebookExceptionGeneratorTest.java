@@ -21,14 +21,12 @@
  */
 package com.restfb.exception.generator;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.assertj.core.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.ResponseErrorJsonParsingException;
-
-import org.junit.Test;
 
 public class FacebookExceptionGeneratorTest {
 

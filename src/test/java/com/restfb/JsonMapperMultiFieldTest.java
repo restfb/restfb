@@ -23,9 +23,9 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.restfb.json.JsonObject;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import com.restfb.json.JsonObject;
 
 public class JsonMapperMultiFieldTest {
 

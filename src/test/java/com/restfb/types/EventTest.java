@@ -21,13 +21,12 @@
  */
 package com.restfb.types;
 
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeThat;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
-
-import org.junit.Test;
 
 public class EventTest extends AbstractJsonMapperTests {
 
@@ -92,8 +91,8 @@ public class EventTest extends AbstractJsonMapperTests {
   public void checkV2_0() {
     Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/event"), Event.class);
     assertNotNull(event);
-    assumeThat(event.getDescription(), containsString("chocolate event"));
-    assumeThat(event.getName(), containsString("Chocolate Festival"));
+    assertThat(event.getDescription()).contains("chocolate event");
+    assertThat(event.getName()).contains("Chocolate Festival");
     assertEquals("Africa/Johannesburg", event.getTimezone());
     assertEquals("300473363410132", event.getId());
     assertEquals("OPEN", event.getPrivacy());
@@ -112,8 +111,8 @@ public class EventTest extends AbstractJsonMapperTests {
   public void checkV2_5() {
     Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/event-location"), Event.class);
     assertNotNull(event);
-    assumeThat(event.getDescription(), containsString("chocolate event"));
-    assumeThat(event.getName(), containsString("Chocolate Festival"));
+    assertThat(event.getDescription()).contains("chocolate event");
+    assertThat(event.getName()).contains("Chocolate Festival");
     assertEquals("Africa/Johannesburg", event.getTimezone());
     assertEquals("300473363410132", event.getId());
     assertNotNull(event.getCover());
