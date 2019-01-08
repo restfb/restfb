@@ -22,6 +22,7 @@
 package com.restfb.types.webhook.messaging;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.restfb.Facebook;
@@ -36,9 +37,12 @@ public class NlpResult {
   @Facebook("entities")
   private JsonObject rawEntities;
 
+  @Facebook
+  private List<NlpError> errors = new ArrayList<>();
+
   @JsonMapper.JsonMappingCompleted
   public void convertRawEntites(JsonMapper mapper) {
-    List<String> names = rawEntities.names();
+    List<String> names = (rawEntities != null) ? rawEntities.names() : Collections.<String>emptyList();
     for (String key : names) {
       if ("datetime".equals(key)) {
         List<NlpDatetime> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpDatetime.class);
@@ -93,6 +97,24 @@ public class NlpResult {
    */
   public List<BaseNlpEntity> getEntities() {
     return convertedEntities;
+  }
+
+  /**
+   * returns the complete list of all found errors
+   *
+   * @return the complete list of all found errors
+   */
+  public List<NlpError> getErrors() {
+    return errors;
+  }
+
+  /**
+   * checks if the returned JSON contains the error field
+   *
+   * @return {@code true} if the NLP result found errors, {@code false} otherwise
+   */
+  public boolean hasErrors() {
+    return !errors.isEmpty();
   }
 
   /**

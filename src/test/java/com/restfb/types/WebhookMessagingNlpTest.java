@@ -68,6 +68,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-5"), WebhookObject.class);
     assertNotNull(webhookObject);
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertFalse(nlp.hasErrors());
     assertEquals(2, nlp.getEntities().size());
     assertEquals(1, nlp.getEntities(NlpDatetime.class).size());
     assertEquals(1, nlp.getEntities(NlpReminder.class).size());
@@ -258,6 +259,18 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals(1D, volume.getConfidence(), 0.01);
     assertEquals("value", volume.getType());
     assertEquals("litre", volume.getUnit());
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_error() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-error"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+
+    assertTrue(nlp.hasErrors());
+    assertEquals(1, nlp.getErrors().size());
+    assertEquals("msg-invalid", nlp.getErrors().get(0).getCode());
   }
 
   private NlpResult getNlpResultFromWebhookObject(WebhookObject webhookObject) {
