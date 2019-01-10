@@ -103,8 +103,8 @@ public class DefaultJsonMapper implements JsonMapper {
         List<String> fieldNames = jsonObject.names();
 
         if (!fieldNames.isEmpty()) {
-          boolean hasSingleDataProperty = fieldNames.size() == 1 && "data".equals(fieldNames.get(0));
-          Object jsonDataObject = jsonObject.get("data");
+          boolean hasSingleDataProperty = fieldNames.size() == 1;
+          Object jsonDataObject = jsonObject.get(fieldNames.get(0));
 
           if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray)) {
             throw new FacebookJsonMappingException(

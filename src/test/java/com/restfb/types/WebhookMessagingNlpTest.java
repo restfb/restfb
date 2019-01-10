@@ -23,6 +23,11 @@ package com.restfb.types;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import org.junit.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -157,6 +162,64 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void messagingMessageWithNlpField_url() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-url"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(7, nlp.getEntities().size());
+    NlpUrl url = nlp.getEntities().get(0).as(NlpUrl.class);
+
+    assertEquals("https://restfb.com/documentation/#using-webhooks", url.getValue());
+    assertEquals(1.0D, url.getConfidence(), 0.01);
+    assertEquals("restfb.com", url.getDomain());
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_url_plainHost() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-url-2"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(7, nlp.getEntities().size());
+    NlpUrl url = nlp.getEntities().get(0).as(NlpUrl.class);
+
+    assertEquals("http://www.google.com", url.getValue());
+    assertEquals(0.966434D, url.getConfidence(), 0.01);
+    assertEquals("google.com", url.getDomain());
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_sentiment() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-email-2"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(7, nlp.getEntities().size());
+
+    List<NlpSentiment> sentiments = new ArrayList<>();
+    for (BaseNlpEntity entity : nlp.getEntities()) {
+      if (entity instanceof NlpSentiment) {
+        sentiments.add(entity.as(NlpSentiment.class));
+      }
+    }
+
+    assertEquals(3, sentiments.size());
+    for (NlpSentiment sentiment : sentiments) {
+      if ("negative".equals(sentiment.getValue())) {
+        continue;
+      }
+      if ("positive".equals(sentiment.getValue())) {
+        continue;
+      }
+      if ("neutral".equals(sentiment.getValue())) {
+        continue;
+      }
+      fail("unknown sentiment value found" + sentiment.getValue());
+    }
+  }
+
+  @Test
   public void messagingMessageWithNlpField_distance() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-distance"), WebhookObject.class);
@@ -259,6 +322,35 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals(1D, volume.getConfidence(), 0.01);
     assertEquals("value", volume.getType());
     assertEquals("litre", volume.getUnit());
+  }
+
+  @Test
+  public void messagingMessageWithNlpField_location() {
+    WebhookObject webhookObject = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-location"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
+    assertEquals(7, nlp.getEntities().size());
+    NlpLocation nlpLocation = nlp.getEntities().get(0).as(NlpLocation.class);
+    assertEquals("Los Angeles", nlpLocation.getValue());
+    assertEquals(3, nlpLocation.getResolved().size());
+    NlpLocation.Place place = nlpLocation.getResolved().get(0);
+    assertNotNull(place);
+
+    assertEquals("locality", place.getGrain());
+    assertEquals("Los Angeles", place.getName());
+    assertEquals("resolved", place.getType());
+    assertEquals("America/Los_Angeles", place.getTimezoneAsString());
+    assertEquals("Pacific Standard Time", place.getTimeZone().getDisplayName(Locale.US));
+
+    NlpLocation.Coords coords = place.getCoords();
+    assertEquals(34.052230834961, coords.getLatitude().doubleValue(),0.0);
+    assertEquals(-118.24368286133, coords.getLongitude().doubleValue(), 0.0);
+
+    NlpLocation.External external = place.getExternal();
+    assertEquals("5368361", external.getGeonames());
+    assertEquals("Q65", external.getWikidata());
+    assertEquals("Los Angeles", external.getWikipedia());
   }
 
   @Test

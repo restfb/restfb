@@ -42,7 +42,7 @@ public class NlpResult {
 
   @JsonMapper.JsonMappingCompleted
   public void convertRawEntites(JsonMapper mapper) {
-    List<String> names = (rawEntities != null) ? rawEntities.names() : Collections.<String>emptyList();
+    List<String> names = (rawEntities != null) ? rawEntities.names() : Collections.<String> emptyList();
     for (String key : names) {
       if ("datetime".equals(key)) {
         List<NlpDatetime> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpDatetime.class);
@@ -79,6 +79,15 @@ public class NlpResult {
         convertedEntities.addAll(list);
       } else if ("duration".equals(key)) {
         List<NlpDuration> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpDuration.class);
+        convertedEntities.addAll(list);
+      } else if ("sentiment".equals(key)) {
+        List<NlpSentiment> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpSentiment.class);
+        convertedEntities.addAll(list);
+      } else if ("url".equals(key)) {
+        List<NlpUrl> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpUrl.class);
+        convertedEntities.addAll(list);
+      } else if ("location".equals(key)) {
+        List<NlpLocation> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpLocation.class);
         convertedEntities.addAll(list);
       } else {
         List<NlpCustomWitAi> list = mapper.toJavaList(rawEntities.get(key).toString(), NlpCustomWitAi.class);
