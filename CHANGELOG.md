@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2.15.0 (January 11, 2019)
+
+* Issue #950: osgi bundlor replaced
+* Issue #952: missing NLP entities added
+* Issue #951: error field added to `NlpResult`<br />
+  Thanks to @RedEagle for the hint and the example
+
 ## 2.14.0 (December 24, 2018)
 
 * Issue #944: minimal-json updated to latest code
