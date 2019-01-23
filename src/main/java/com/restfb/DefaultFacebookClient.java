@@ -78,7 +78,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * holds the Facebook endpoint urls
    */
-  private FacebookEndpoints facebookEndpointUrls = new DefaultFacebookEndpoints();
+  private FacebookEndpoints facebookEndpointUrls = new FacebookEndpoints() {};
 
   /**
    * Reserved "multiple IDs" parameter name.
@@ -94,7 +94,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * By default this is <code>false</code>, so real http DELETE is used
    */
   protected boolean httpDeleteFallback;
-
 
   protected DefaultFacebookClient() {
     this(Version.LATEST);
@@ -448,7 +447,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     String json = makeRequest("/oauth/exchange_sessions", true, false, null, Parameter.with("client_id", appId),
-      Parameter.with("client_secret", secretKey), Parameter.with("sessions", String.join(",",sessionKeys)));
+      Parameter.with("client_secret", secretKey), Parameter.with("sessions", String.join(",", sessionKeys)));
 
     return jsonMapper.toJavaList(json, AccessToken.class);
   }
