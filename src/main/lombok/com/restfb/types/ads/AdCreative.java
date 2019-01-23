@@ -426,4 +426,18 @@ public class AdCreative extends NamedAdsObject {
   @Facebook("url_tags")
   private String urlTags;
 
+  @Getter
+  @Setter
+  @Facebook("use_page_actor_override")
+  private Boolean usePageActorOverride;
+
+  @Getter
+  @Setter
+  @Facebook("video_id")
+  private String videoId;
+
+  @Getter
+  @Setter
+  @Facebook("creative_id")
+  private String creativeId;
 }

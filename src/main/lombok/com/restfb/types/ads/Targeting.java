@@ -34,6 +34,11 @@ public class Targeting extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook
+  private String id;
+
+  @Getter
+  @Setter
   @Facebook("adgroup_id")
   private String adgroupId;
 
@@ -124,6 +129,11 @@ public class Targeting extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("effective_audience_network_positions")
+  private List<String> effectiveAudienceNetworkPositions;
+
+  @Getter
+  @Setter
   @Facebook("effective_device_platforms")
   private List<String> effectiveDevicePlatforms;
 
@@ -131,6 +141,21 @@ public class Targeting extends AbstractFacebookType {
   @Setter
   @Facebook("effective_facebook_positions")
   private List<String> effectiveFacebookPositions;
+
+  @Getter
+  @Setter
+  @Facebook("effective_instagram_positions")
+  private List<String> effectiveInstagramPositions;
+
+  @Getter
+  @Setter
+  @Facebook("effective_messenger_positions")
+  private List<String> effectiveMessengerPositions;
+
+  @Getter
+  @Setter
+  @Facebook("effective_publisher_platforms")
+  private List<String> effectivePublisherPlatforms;
 
   @Getter
   @Setter
@@ -261,6 +286,16 @@ public class Targeting extends AbstractFacebookType {
   @Setter
   @Facebook
   private List<IDName> industries;
+
+  @Getter
+  @Setter
+  @Facebook("instagram_positions")
+  private List<String> instagramPositions;
+
+  @Getter
+  @Setter
+  @Facebook("instream_video_sponsorship_placements")
+  private List<String> instreamVideoSponsorshipPlacements;
 
   @Getter
   @Setter
