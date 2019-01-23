@@ -23,6 +23,7 @@ package com.restfb.json;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Collections;
 
 /**
  * This class serves as the entry point to the minimal-json API.
@@ -207,6 +208,7 @@ public final class Json {
     if (values == null) {
       throw new NullPointerException(VALUES_IS_NULL);
     }
+
     JsonArray array = new JsonArray();
     for (float value : values) {
       array.add(value);
