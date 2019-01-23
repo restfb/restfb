@@ -22,7 +22,6 @@
 package com.restfb;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
