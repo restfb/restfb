@@ -275,6 +275,10 @@ public final class ReflectionUtils {
         buffer.append(methodName);
         buffer.append("=");
 
+        if (!method.isAccessible()) {
+          method.setAccessible(true);
+        }
+
         // Accessors are guaranteed to take no parameters and return a value
         buffer.append(method.invoke(object));
       } catch (Exception e) {
@@ -304,6 +308,10 @@ public final class ReflectionUtils {
 
     for (Method method : getAccessors(object.getClass())) {
       try {
+        if (!method.isAccessible()) {
+          method.setAccessible(true);
+        }
+
         Object result = method.invoke(object);
         if (result != null) {
           hashCode = hashCode * 31 + result.hashCode();
@@ -346,6 +354,10 @@ public final class ReflectionUtils {
 
     for (Method method : accessorMethodsIntersection) {
       try {
+        if (!method.isAccessible()) {
+          method.setAccessible(true);
+        }
+
         Object result1 = method.invoke(object1);
         Object result2 = method.invoke(object2);
         if (result1 == null && result2 == null) {
