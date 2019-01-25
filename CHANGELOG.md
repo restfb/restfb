@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2.16.0 (January 25, 2019)
+
+* Issue #956: Some missing fields added to ads classes<br />
+  Thanks to @AndreaFalcon for the hint
+* Issue #957: `UrlPayload` crash for building image attachment<br />
+  Thanks to @nitrag for the hint and the tests
+
 ## 2.15.0 (January 11, 2019)
 
 * Issue #950: osgi bundlor replaced
