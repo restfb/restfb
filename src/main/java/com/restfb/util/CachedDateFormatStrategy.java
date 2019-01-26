@@ -50,7 +50,7 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
     SimpleDateFormatHolder.clearThreadLocal();
   }
 
-  final static class SimpleDateFormatHolder {
+  private static final class SimpleDateFormatHolder {
 
     private static final ThreadLocal<SoftReference> THREADLOCAL_FORMATTER_MAP = new ThreadLocal<SoftReference>() {
 
@@ -61,7 +61,7 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
 
     };
 
-    public static SimpleDateFormat formatFor(String pattern) {
+    private static SimpleDateFormat formatFor(String pattern) {
       SoftReference<Map> ref = THREADLOCAL_FORMATTER_MAP.get();
       Map<String, SimpleDateFormat> formatterMap = ref.get();
       if (formatterMap == null) {
@@ -79,7 +79,7 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
       return formatter;
     }
 
-    public static void clearThreadLocal() {
+    private static void clearThreadLocal() {
       THREADLOCAL_FORMATTER_MAP.remove();
     }
   }
