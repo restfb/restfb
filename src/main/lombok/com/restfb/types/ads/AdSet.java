@@ -47,13 +47,13 @@ public class AdSet extends NamedAdsObject {
 
   @Getter
   @Setter
-  @Facebook("adcampaign_group")
-  private AdCampaignGroup adcampaignGroup;
+  @Facebook("ad_keywords")
+  private AdKeywords adKeywords;
 
   @Getter
   @Setter
-  @Facebook("attribution_spec")
-  private List<JsonObject> attributionSpec = new ArrayList<>();
+  @Facebook("adcampaign_group")
+  private AdCampaignGroup adcampaignGroup;
 
   @Facebook("adlabels")
   private List<AdLabel> adLabels = new ArrayList<>();
@@ -65,6 +65,26 @@ public class AdSet extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("asset_feed_id")
+  private String assetFeedId;
+
+  @Getter
+  @Setter
+  @Facebook("attribution_spec")
+  private List<JsonObject> attributionSpec = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("best_creative")
+  private AdDynamicCreative bestCreative;
+
+  @Getter
+  @Setter
+  @Facebook("bid_adjustments")
+  private AdBidAdjustments bidAdjustments;
+
+  @Getter
+  @Setter
   @Facebook("bid_amount")
   private Long bidAmount;
 
@@ -72,6 +92,21 @@ public class AdSet extends NamedAdsObject {
   @Setter
   @Facebook("bid_info")
   private Map<String, Long> bidInfo = new HashMap<>();
+
+  @Getter
+  @Setter
+  @Facebook("bid_constraints")
+  private AdCampaignBidConstraint bidConstraints;
+
+  @Getter
+  @Setter
+  @Facebook("bid_info")
+  private Map<String, Long> mBidInfo = new HashMap<>();
+
+  @Getter
+  @Setter
+  @Facebook("bid_strategy")
+  private BidStrategyEnum bidStrategy;
 
   @Getter
   @Setter
@@ -115,6 +150,20 @@ public class AdSet extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("daily_min_spend_target")
+  private String dailyMinSpendTarget;
+
+  @Getter
+  @Setter
+  @Facebook("daily_spend_cap")
+  private String dailySpendCap;
+  @Getter
+  @Setter
+  @Facebook("destination_type")
+  private String destinationType;
+
+  @Getter
+  @Setter
   @Facebook("effective_status")
   private String effectiveStatus;
 
@@ -136,8 +185,7 @@ public class AdSet extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("frequency_control_specs")
-  private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs =
-      new ArrayList<>();
+  private List<AdCampaignFrequencyControlSpecs> frequencyControlSpecs = new ArrayList<>();
 
   @Getter
   @Setter

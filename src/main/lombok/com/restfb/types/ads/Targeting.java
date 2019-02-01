@@ -309,6 +309,11 @@ public class Targeting extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("is_whatsapp_destination_ad")
+  private Boolean isWhatsappDestinationAd;
+
+  @Getter
+  @Setter
   @Facebook
   private List<String> keywords;
 
@@ -324,18 +329,28 @@ public class Targeting extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("messenger_positions")
+  private List<String> messengerPositions = new ArrayList<>();
+
+  @Getter
+  @Setter
   @Facebook
-  private List<IDName> moms;
+  private List<IDName> moms = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook("net_worth")
-  private List<IDName> netWorth;
+  private List<IDName> netWorth = new ArrayList<>();
 
   @Getter
   @Setter
   @Facebook("office_type")
-  private List<IDName> officeType;
+  private List<IDName> officeType = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("place_page_set_ids")
+  private List<String> placePageSetIds = new ArrayList<>();
 
   /**
    * @RestFB.GraphApi.Until 2.7
@@ -367,8 +382,18 @@ public class Targeting extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("prospecting_audience")
+  private TargetingProspectingAudience mProspectingAudience;
+
+  @Getter
+  @Setter
   @Facebook("publisher_platforms")
   private List<String> publisherPlatforms;
+
+  @Getter
+  @Setter
+  @Facebook("publisher_visibility_categories")
+  private List<String> mPublisherVisibilityCategories = new ArrayList<>();
 
   @Getter
   @Setter
