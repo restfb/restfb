@@ -19,22 +19,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.setter.ads;
+package com.restfb.types.ads;
 
-import com.restfb.types.ads.Ad;
-import com.restfb.types.api.SetterGetterTestBase;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.Test;
+import com.restfb.Facebook;
 
-public class AdTest extends SetterGetterTestBase {
+import lombok.Getter;
+import lombok.Setter;
 
-  @Test
-  public void test() {
-    Ad object = new Ad();
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("failedDeliveryChecks");
-    addIgnoredField("issuesInfo");
-    testInstance(object);
-  }
+public class AdAccountPromotableObjects extends BaseAdsObject {
+
+  @Getter
+  @Setter
+  @Facebook("promotable_app_ids")
+  private List<String> mPromotableAppIds = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("promotable_page_ids")
+  private List<String> mPromotablePageIds = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("promotable_urls")
+  private List<String> mPromotableUrls = new ArrayList<>();
 }

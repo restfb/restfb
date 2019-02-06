@@ -19,22 +19,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.setter.ads;
+package com.restfb.types.ads;
 
-import com.restfb.types.ads.Ad;
-import com.restfb.types.api.SetterGetterTestBase;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.Test;
+import com.restfb.Facebook;
+import com.restfb.json.JsonObject;
 
-public class AdTest extends SetterGetterTestBase {
+import lombok.Getter;
+import lombok.Setter;
 
-  @Test
-  public void test() {
-    Ad object = new Ad();
-    addIgnoredField("rawCreatedTime");
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("failedDeliveryChecks");
-    addIgnoredField("issuesInfo");
-    testInstance(object);
-  }
+public class TrackingAndConversionWithDefaults extends BaseAdsObject {
+
+  @Getter
+  @Setter
+  @Facebook("custom_conversion")
+  private List<JsonObject> customConversion = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("custom_tracking")
+  private List<JsonObject> customTracking = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("default_conversion")
+  private List<JsonObject> defaultConversion = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("default_tracking")
+  private List<JsonObject> defaultTracking = new ArrayList<>();
 }

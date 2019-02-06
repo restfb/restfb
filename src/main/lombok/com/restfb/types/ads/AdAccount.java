@@ -41,6 +41,16 @@ public class AdAccount extends NamedAdsObject {
 
   private static final long serialVersionUID = 1L;
 
+  @Getter
+  @Setter
+  @Facebook("ad_account_creation_request")
+  private AdAccountCreationRequest adAccountCreationRequest;
+
+  @Getter
+  @Setter
+  @Facebook("ad_account_promotable_objects")
+  private AdAccountPromotableObjects adAccountPromotableObjects;
+
   @Facebook("account_groups")
   private List<AdAccountGroup> accountGroups = new ArrayList<>();
 

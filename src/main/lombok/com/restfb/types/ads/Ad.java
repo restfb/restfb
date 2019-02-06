@@ -98,8 +98,53 @@ public class Ad extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("demolink_hash")
+  private String demolinkHash;
+
+  @Getter
+  @Setter
+  @Facebook("display_sequence")
+  private Long displaySequence;
+
+  @Getter
+  @Setter
   @Facebook("effective_status")
   private String effectiveStatus;
+
+  @Getter
+  @Setter
+  @Facebook("engagement_audience")
+  private Boolean engagementAudience;
+
+  @Getter
+  @Setter
+  @Facebook("failed_delivery_checks")
+  private List<DeliveryCheck> failedDeliveryChecks = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("issues_info")
+  private List<AdgroupIssuesInfo> issuesInfo = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private Long priority;
+
+  @Getter
+  @Setter
+  @Facebook("source_ad")
+  private Ad sourceAd;
+
+  @Getter
+  @Setter
+  @Facebook("source_ad_id")
+  private String sourceAdId;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Targeting targeting;
 
   @Getter
   @Setter
@@ -113,6 +158,11 @@ public class Ad extends NamedAdsObject {
   @Setter
   @Facebook("status")
   private String status;
+
+  @Getter
+  @Setter
+  @Facebook("tracking_and_conversion_with_defaults")
+  private TrackingAndConversionWithDefaults trackingAndConversionWithDefaults;
 
   @Facebook("tracking_specs")
   private List<ConversionActionQuery> trackingSpecs = new ArrayList<>();
