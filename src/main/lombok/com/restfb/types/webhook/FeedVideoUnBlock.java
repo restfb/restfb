@@ -21,40 +21,19 @@
  */
 package com.restfb.types.webhook;
 
-import com.restfb.util.ReflectionUtils;
+import com.restfb.Facebook;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Basic ChangeValue
- *
- * provides a enum for the {@code Verb}
+ * change value of the feed video if a video is blocked/unblocked
  */
-public class ChangeValue {
+public class FeedVideoUnBlock extends FeedVideoValue {
 
-  public enum Verb {
-    REMOVE, ADD, EDITED, HIDE, UNHIDE, EDIT, UNBLOCK, BLOCK
-  }
+  @Getter
+  @Setter
+  @Facebook("video_flag_reason")
+  private Integer videoFlagReason;
 
-  /**
-   * @see Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
-
-  /**
-   * @see Object#equals(Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
 }

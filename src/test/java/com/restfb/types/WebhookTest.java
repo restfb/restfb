@@ -530,6 +530,26 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void feedVideoUnblock() {
+    FeedVideoUnBlock value =
+        openAndCheckFeedPostBasics("feed-video-unblock", FeedVideoUnBlock.class, ITEM_VIDEO, ChangeValue.Verb.UNBLOCK);
+    assertEquals("https://www.example.org/test.mp4", value.getLink());
+    assertEquals("900767076685784", value.getVideoId());
+    assertNotNull(value.getMessage());
+    assertEquals(1, value.getVideoFlagReason().intValue());
+  }
+
+  @Test
+  public void feedVideoBlock() {
+    FeedVideoUnBlock value =
+            openAndCheckFeedPostBasics("feed-video-block", FeedVideoUnBlock.class, ITEM_VIDEO, ChangeValue.Verb.BLOCK);
+    assertEquals("https://www.example.org/test.mp4", value.getLink());
+    assertEquals("900767076685784", value.getVideoId());
+    assertNotNull(value.getMessage());
+    assertEquals(1, value.getVideoFlagReason().intValue());
+  }
+
+  @Test
   public void feedVideoEdited() {
     FeedVideoValue value =
         openAndCheckFeedPostBasics("feed-video-edited", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.EDITED);
@@ -582,7 +602,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   @Test
   public void ratingsRatingAddWithRecommendation() {
     RatingsRatingValue value = openAndCheckBasics("ratings-rating-add-31", RatingsRatingValue.class, FIELD_RATINGS,
-            ITEM_RATING, ChangeValue.Verb.ADD);
+      ITEM_RATING, ChangeValue.Verb.ADD);
     assertEquals(3L, value.getRating().longValue());
     assertEquals("Tester", value.getReviewerName());
     assertEquals("Ja ziemlich coole Sache", value.getReviewText());
@@ -876,8 +896,7 @@ public class WebhookTest extends AbstractJsonMapperTests {
   }
 
   private void checkUserPageValueWithField(String s, String movies) {
-    WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath(s), WebhookObject.class);
+    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath(s), WebhookObject.class);
     assertNotNull(webhookObject);
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
     assertEquals(movies, change.getField());

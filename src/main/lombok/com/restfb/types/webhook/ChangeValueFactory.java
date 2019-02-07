@@ -119,6 +119,8 @@ public class ChangeValueFactory {
     FEED_VIDEO_ADD(FeedVideoValue.class), //
     FEED_VIDEO_EDITED(FeedVideoValue.class), //
     FEED_VIDEO_REMOVE(FeedVideoRemoveValue.class), //
+    FEED_VIDEO_UNBLOCK(FeedVideoUnBlock.class), //
+    FEED_VIDEO_BLOCK(FeedVideoUnBlock.class), //
     FEED_STATUS_ADD(FeedStatusValue.class), //
     FEED_STATUS_EDITED(FeedStatusValue.class), //
     FEED_STATUS_HIDE(FeedStatusValue.class), //
