@@ -27,12 +27,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * Helper class to convert {@see JsonValue} to a given type
+ * Helper class to convert {@link JsonValue} to a given type
  */
 class JsonHelper {
 
   /**
-   * convert {@see JsonValue} into Boolean.
+   * convert {@link JsonValue} into Boolean.
    *
    * if the gven type is a boolean the json internal conversion is used. 0 or 1 are converted to False or True
    *

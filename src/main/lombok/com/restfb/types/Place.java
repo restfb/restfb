@@ -28,6 +28,7 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.annotation.GraphAPI;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -56,13 +57,12 @@ public class Place extends NamedFacebookType {
   /**
    * Overall Rating of Place, on a 5-star scale. 0 means not enough data to get a combined rating.
    *
-   * @since Graph API 2.5
-   *
    * @return Overall Rating of Place, on a 5-star scale.
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("overall_rating")
+  @GraphAPI(since = "2.5")
   private Double overallRating;
 
   /**

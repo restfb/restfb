@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
@@ -352,12 +353,10 @@ public class Targeting extends AbstractFacebookType {
   @Facebook("place_page_set_ids")
   private List<String> placePageSetIds = new ArrayList<>();
 
-  /**
-   * @RestFB.GraphApi.Until 2.7
-   */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(until = "2.7")))
   @Setter
   @Facebook("page_types")
+  @GraphAPI(until = "2.7")
   private List<String> pageTypes;
 
   @Getter

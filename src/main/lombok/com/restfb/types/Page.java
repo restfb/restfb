@@ -30,6 +30,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
@@ -893,37 +894,37 @@ public class Page extends CategorizedFacebookType {
   /**
    * The number of likes the page has.
    *
-   * Since Graph 2.6 you should use {@see Page#fanCount} instead
+   * Since Graph 2.6 you should use {@link Page#fanCount} instead
    *
-   * @RestFB.GraphApi.Until 2.5
    * @return The number of likes the page has
    * @since 1.6.5
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(until = "2.5")))
   @Setter
   @Facebook("likes")
+  @GraphAPI(until = "2.5")
   private Long likesCount;
 
   /**
    * The Pages that this Page Likes.
    *
-   * @RestFB.GraphApi.Since 2.6
    * @return The Pages that this Page Likes.
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.6")
   private Likes likes;
 
   /**
    * The number of likes the page has.
    *
    * @return The number of likes the page has
-   * @RestFB.GraphApi.Since 2.6
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("fan_count")
+  @GraphAPI(since = "2.6")
   private Long fanCount;
 
   /**
@@ -1101,12 +1102,12 @@ public class Page extends CategorizedFacebookType {
   /**
    * Indicates whether the application is subscribed for real time updates from this page
    *
-   * @RestFB.GraphApi.Since 2.7
    * @return Indicates whether the application is subscribed for real time updates from this page
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.7")))
   @Setter
   @Facebook("is_webhooks_subscribed")
+  @GraphAPI(since = "2.7")
   private Boolean isWebhooksSubscribed;
 
   /**
@@ -1857,8 +1858,8 @@ public class Page extends CategorizedFacebookType {
    * Notes of this page
    *
    * @return Notes of this page
-   * @RestFB.GraphApi.Since 2.6
    */
+  @GraphAPI(since = "2.6")
   public List<PageAdminNote> getAdminNotes() {
     return unmodifiableList(adminNotes);
   }
@@ -1875,8 +1876,8 @@ public class Page extends CategorizedFacebookType {
    * Page labels of this page
    *
    * @return labels of this page
-   * @RestFB.GraphApi.Since 2.6
    */
+  @GraphAPI(since = "2.6")
   public List<PageLabel> getLabels() {
     return unmodifiableList(labels);
   }

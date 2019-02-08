@@ -129,7 +129,7 @@ public class NlpResult {
   /**
    * returns a subset of the found entities.
    *
-   * Only entities that are of type <code>T</code> are returned. T needs to extend the {@see BaseNlpEntity}.
+   * Only entities that are of type <code>T</code> are returned. T needs to extend the {@link BaseNlpEntity}.
    *
    * @param clazz
    *          the filter class

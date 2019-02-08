@@ -35,9 +35,9 @@ public class CoverPhoto extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Deprecated. Please use the {@see CoverPhoto#id} field instead
+   * Deprecated. Please use the {@link CoverPhoto#getId()} field instead
    * 
-   * @deprecated use {@see CoverPhoto#id} instead
+   * @deprecated use {@link CoverPhoto#getId()} instead
    */
   @Getter
   @Setter

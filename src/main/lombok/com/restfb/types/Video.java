@@ -29,6 +29,7 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.annotation.GraphAPI;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -95,23 +96,23 @@ public class Video extends NamedFacebookType {
   /**
    * The video title or caption
    *
-   * @RestFB.GraphApi.Since 2.5
    * @return the video title or caption
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("title")
+  @GraphAPI(since = "2.5")
   private String title;
 
   /**
    * Specifies if the video is eligible for crossposting.
    *
-   * @RestFB.GraphApi.Since 2.6
    * @return Specifies if the video is eligible for crossposting
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("is_crossposting_eligible")
+  @GraphAPI(since = "2.6")
   private Boolean isCrosspostingEligible;
 
   /**
@@ -147,12 +148,12 @@ public class Video extends NamedFacebookType {
   /**
    * Whether the video is embeddable.
    *
-   * @RestFB.GraphApi.Since 2.4
    * @return Whether the video is embeddable.
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.4")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.4")
   private Boolean embeddable;
 
   @Facebook("content_tags")
@@ -171,12 +172,12 @@ public class Video extends NamedFacebookType {
   /**
    * Whether or not the video is highlighted in Video Channel.
    *
-   * @RestFB.GraphApi.Since 2.7
    * @return Whether or not the video is highlighted in Video Channel.
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.7")))
   @Setter
   @Facebook("feed_type")
+  @GraphAPI(since = "2.7")
   private String feedType;
 
   @Facebook
@@ -268,12 +269,12 @@ public class Video extends NamedFacebookType {
   /**
    * Number of unique people who watched the video broadcast when it was live.
    *
-   * @RestFB.GraphApi.Since 2.6
    * @return Number of unique people who watched the video broadcast when it was live.
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("live_audience_count")
+  @GraphAPI(since = "2.6")
   private Integer liveAudienceCount;
 
   /**
@@ -281,12 +282,12 @@ public class Video extends NamedFacebookType {
    *
    * Possible values contain LIVE, LIVE_STOPPED, VOD
    *
-   * @RestFB.GraphApi.Since 2.6
    * @return The live status of the video
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("live_status")
+  @GraphAPI(since = "2.6")
   private String liveStatus;
 
   /**
@@ -314,13 +315,13 @@ public class Video extends NamedFacebookType {
    * 
    * This field is only accessible in Graph API 2.3 or later.
    *
-   * @RestFB.GraphApi.Since 2.3
    * @return whether a post about this video is published.
    * @since 1.10.0
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.3")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.3")
   private Boolean published;
 
   /**

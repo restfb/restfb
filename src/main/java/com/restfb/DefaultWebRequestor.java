@@ -81,28 +81,16 @@ public class DefaultWebRequestor implements WebRequestor {
     GET, DELETE, POST
   }
 
-  /**
-   * @throws java.io.IOException
-   * @see com.restfb.WebRequestor#executeGet(java.lang.String)
-   */
   @Override
   public Response executeGet(String url) throws IOException {
     return execute(url, HttpMethod.GET);
   }
 
-  /**
-   * @throws java.io.IOException
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String)
-   */
   @Override
   public Response executePost(String url, String parameters) throws IOException {
     return executePost(url, parameters, null);
   }
 
-  /**
-   * @throws java.io.IOException
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, java.util.List<com.restfb.BinaryAttachment>)
-   */
   @Override
   public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
     if (binaryAttachments == null) {
@@ -304,7 +292,7 @@ public class DefaultWebRequestor implements WebRequestor {
    * returns if the binary attachment stream is closed automatically
    * 
    * @since 1.7.0
-   * @return
+   * @return {@code true} if the binary stream should be closed automatically, {@code false} otherwise
    */
   public boolean isAutocloseBinaryAttachmentStream() {
     return autocloseBinaryAttachmentStream;

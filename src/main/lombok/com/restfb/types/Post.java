@@ -30,6 +30,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
@@ -228,23 +229,23 @@ public class Post extends NamedFacebookType {
   /**
    * Whether the viewer can send a private reply to this post (Page viewers only)
    *
-   * @RestFB.GraphApi.Since 2.5
    * @return Whether the viewer can send a private reply to this post
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("can_reply_privately")
+  @GraphAPI(since = "2.5")
   private Boolean canReplyPrivately;
 
   /**
    * The profile this was posted on if different from the author.
    *
-   * @RestFB.GraphApi.Since 2.5
    * @return The profile this was posted on if different from the author
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.5")
   private NamedFacebookType target;
 
   /**
@@ -716,12 +717,10 @@ public class Post extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @RestFB.GraphApi.Since 2.8
-     */
-    @Getter
+    @Getter(onMethod=@__(@GraphAPI(since = "2.8")))
     @Setter
     @Facebook("geo_locations")
+            @GraphAPI(since = "2.8")
     FeedTargeting geoLocations;
 
     @Facebook

@@ -207,7 +207,7 @@ public final class DateUtils {
    * default value: {@link SimpleDateFormatStrategy}
    * 
    * @param dateFormatStrategy
-   *          the used {@see DateFormatStrategy}
+   *          the used {@link DateFormatStrategy}
    * 
    */
   public static void setDateFormatStrategy(DateFormatStrategy dateFormatStrategy) {

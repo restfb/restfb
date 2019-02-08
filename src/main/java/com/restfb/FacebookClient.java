@@ -537,7 +537,7 @@ public interface FacebookClient {
    * @param additionalParameters
    *          List of additional parameters
    * @since 1.9.0
-   * @return
+   * @return the login dialog url
    */
   String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... additionalParameters);
 

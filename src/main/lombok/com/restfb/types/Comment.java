@@ -30,6 +30,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 
@@ -178,23 +179,23 @@ public class Comment extends FacebookType {
   /**
    * Whether the viewer can send a private reply to this comment (Page viewers only)
    *
-   * @RestFB.GraphApi.Since 2.5
    * @return Whether the viewer can send a private reply to this comment
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("can_reply_privately")
+  @GraphAPI(since = "2.5")
   private Boolean canReplyPrivately;
 
   /**
    * For comments with private replies, gets conversation between the Page and author of the comment (Page viewers only)
    *
-   * @RestFB.GraphApi.Since 2.5
    * @return conversation between Page and author of the comment
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("private_reply_conversation")
+  @GraphAPI(since = "2.5")
   private Conversation privateReplyConversation;
 
   /**

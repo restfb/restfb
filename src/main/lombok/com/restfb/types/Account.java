@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.
@@ -52,6 +53,7 @@ public class Account extends Page {
    * @deprecated since graph api v3.1, use getTasks() instead
    */
   @Deprecated
+  @GraphAPI(until = "3.0")
   public List<String> getPerms() {
     return unmodifiableList(perms);
   }
@@ -62,9 +64,10 @@ public class Account extends Page {
    * @param permission
    *          the permission that should be added
    * @return {@code true} if the permission could be added
-   * @deprecated since graph api v3.1, use {@see Account#addTask} instead
+   * @deprecated since graph api v3.1, use {@link Account#addTask} instead
    */
   @Deprecated
+  @GraphAPI(until = "3.0")
   public boolean addPerm(String permission) {
     return perms.add(permission);
   }
@@ -75,9 +78,10 @@ public class Account extends Page {
    * @param permission
    *          the permission that should be removed
    * @return {@code true} if the permission could be removed
-   * @deprecated since graph api v3.1, use {@see Account#removeTask} instead
+   * @deprecated since graph api v3.1, use {@link Account#removeTask} instead
    */
   @Deprecated
+  @GraphAPI(until = "3.0")
   public boolean removePerm(String permission) {
     return perms.remove(permission);
   }

@@ -32,6 +32,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.util.MappingUtils;
 
 import lombok.Getter;
@@ -58,12 +59,12 @@ public class Event extends NamedFacebookType {
   /**
    * The category of the event.
    *
-   * @since Graph API 2.4
    * @return The category of the event
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.4")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.4")
   private String category;
 
   /**
@@ -123,13 +124,15 @@ public class Event extends NamedFacebookType {
   /**
    * The location for this event, a string name.
    * 
-   * Deprecated with API version 2.3, use <code>place</code> field instead
+   * @deprecated with API version 2.3, use <code>place</code> field instead
    * 
    * @return The location for this event, a string name.
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "2.2")))
   @Setter
   @Facebook
+  @GraphAPI(until = "2.2")
+  @Deprecated
   private String location;
 
   /**
@@ -157,36 +160,37 @@ public class Event extends NamedFacebookType {
    *
    * This may happen in some strange case - see issue #XXX on GitHub
    *
-   * Deprecated with API version 2.3, use <code>place</code> field instead
-   *
+   * @deprecated with API version 2.3, use {@link Event#getPlace()} instead
    * @return A list of locations of the event.
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "2.2")))
   @Setter
   @Facebook("venue")
+  @Deprecated
+  @GraphAPI(until = "2.2")
   private List<Location> venueList;
 
   /**
    * The location of this event, a structured address object.
    * 
-   * Deprecated with API version 2.3, use <code>place</code> field instead
-   * 
+   * @deprecated with API version 2.3, use {@link Event#getPlace()} field instead
    * @return The location of this event, a structured address object.
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "2.2")))
   @Setter
   @Facebook
+  @GraphAPI(until = "2.2")
   private Location venue;
 
   /**
    * Number of people interested in the event.
    *
-   * @since Graph API 2.1
    * @return Number of people interested in the event
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
   @Setter
   @Facebook("interested_count")
+  @GraphAPI(since = "2.1")
   private Long interestedCount;
 
   /**
@@ -270,12 +274,12 @@ public class Event extends NamedFacebookType {
   /**
    * Location associated with the event, if any.
    *
-   * @since Graph API 2.3
    * @return Location associated with the event, if any
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.3")
   private Place place;
 
   /**
@@ -310,45 +314,45 @@ public class Event extends NamedFacebookType {
   /**
    * Number of people attending the event
    *
-   * @since Graph API 2.1
    * @return Number of people attending the event
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
   @Setter
   @Facebook("attending_count")
+  @GraphAPI(since = "2.1")
   private Integer attendingCount;
 
   /**
    * Number of people who declined the event
    *
-   * @since Graph API 2.1
    * @return Number of people who declined the event
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
   @Setter
   @Facebook("declined_count")
+  @GraphAPI(since = "2.1")
   private Integer declinedCount;
 
   /**
    * Number of people who maybe going to the event
    *
-   * @since Graph API 2.1
    * @return Number of people who maybe going to the event
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
   @Setter
   @Facebook("maybe_count")
+  @GraphAPI(since = "2.1")
   private Integer maybeCount;
 
   /**
    * Number of people who did not reply to the event
    *
-   * @since Graph API 2.1
    * @return Number of people who did not reply to the event
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
   @Setter
   @Facebook("noreply_count")
+  @GraphAPI(since = "2.1")
   private Integer noreplyCount;
 
   private static final long serialVersionUID = 2L;

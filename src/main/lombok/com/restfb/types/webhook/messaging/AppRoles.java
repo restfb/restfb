@@ -35,7 +35,7 @@ public class AppRoles implements InnerMessagingItem {
   /**
    * Get a set of app ids
    * 
-   * @return
+   * @return set of app ids
    */
   public Set<String> getAppIds() {
     return Collections.unmodifiableSet(roles.keySet());

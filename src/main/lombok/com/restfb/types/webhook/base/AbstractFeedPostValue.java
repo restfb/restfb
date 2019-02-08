@@ -47,7 +47,7 @@ abstract public class AbstractFeedPostValue extends BaseChangeValue {
   /**
    * returns the {@code sender_id}.
    *
-   * Use {@see AbstractFeedPostValue#getFrom} instead, because with Graph API 2.11 sender_id is deprecated
+   * Use {@link AbstractFeedPostValue#getFrom()} instead, because with Graph API 2.11 sender_id is deprecated
    * 
    * @return the sender id
    */
@@ -61,7 +61,7 @@ abstract public class AbstractFeedPostValue extends BaseChangeValue {
   /**
    * returns the {@code sender_name}.
    *
-   * Use {@see AbstractFeedPostValue#getFrom} instead, because with Graph API 2.11 sender_name is deprecated
+   * Use {@link AbstractFeedPostValue#getFrom()} instead, because with Graph API 2.11 sender_name is deprecated
    *
    * @return the sender name
    */

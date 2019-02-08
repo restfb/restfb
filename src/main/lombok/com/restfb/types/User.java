@@ -33,6 +33,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.util.MappingUtils;
 
 import lombok.Getter;
@@ -110,12 +111,12 @@ public class User extends NamedFacebookType {
   /**
    * Shortened, locale-aware name for the person.
    *
-   * @RestFB.GraphApi.Since 2.9
    * @return Shortened, locale-aware name for the person
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.9")))
   @Setter
   @Facebook("short_name")
+  @GraphAPI(since = "2.9")
   private String shortName;
 
   /**
@@ -141,12 +142,12 @@ public class User extends NamedFacebookType {
   /**
    * The user's biographical snippet.
    *
-   * @RestFB.GraphApi.Until 2.7
    * @return The user's biographical snippet.
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(until = "2.7")))
   @Setter
   @Facebook
+  @GraphAPI(until = "2.7")
   private String bio;
 
   /**
@@ -1038,12 +1039,12 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * Adds the {@see WorkExperience} from the work experience list
+   * Adds the {@link WorkExperience} from the work experience list
    *
    * @param workHistoryItem
    *          the WorkExperience that should be added
    * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@see WorkExperience} could be added
+   * @return {@code true} if the {@link WorkExperience} could be added
    */
   @Deprecated
   public boolean addWork(WorkExperience workHistoryItem) {
@@ -1051,12 +1052,12 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * Removes the {@see WorkExperience} from the work experience list
+   * Removes the {@link WorkExperience} from the work experience list
    *
    * @param workHistoryItem
    *          the WorkExperience that should be removed
    * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@see WorkExperience} could be removed
+   * @return {@code true} if the {@link WorkExperience} could be removed
    */
   @Deprecated
   public boolean removeWork(WorkExperience workHistoryItem) {
@@ -1094,12 +1095,12 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * Adds the {@see Education} from the education list
+   * Adds the {@link Education} from the education list
    *
    * @param educationHistoryItem
    *          the Education that should be added
    * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@see Education} could be added
+   * @return {@code true} if the {@link Education} could be added
    */
   @Deprecated
   public boolean addEducation(Education educationHistoryItem) {
@@ -1107,12 +1108,12 @@ public class User extends NamedFacebookType {
   }
 
   /**
-   * Removes the {@see Education} from the education list
+   * Removes the {@link Education} from the education list
    *
    * @param educationHistoryItem
    *          the Education that should be removed
    * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@see Education} could be removed
+   * @return {@code true} if the {@link Education} could be removed
    */
   @Deprecated
   public boolean removeEducation(Education educationHistoryItem) {
@@ -1208,8 +1209,8 @@ public class User extends NamedFacebookType {
    * Page labels of this user
    *
    * @return labels of this user
-   * @RestFB.GraphApi.Since 2.6
    */
+  @GraphAPI(since = "2.6")
   public List<PageLabel> getLabels() {
     return unmodifiableList(labels);
   }

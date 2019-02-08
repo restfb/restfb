@@ -34,7 +34,7 @@ import java.util.Map;
  * WebRequestor with ETag-support.
  *
  * <p>
- * The {@see ETagWebRequestor} caches all <tt>GET</tt>-requests with an ETag header field in a {@see SoftHashMap} and
+ * The {@link ETagWebRequestor} caches all <tt>GET</tt>-requests with an ETag header field in a {@link SoftHashMap} and
  * uses the ETag on the next request as <code>If-None-Match</code> header field if the same URL is requested.
  * </p>
  *
@@ -53,7 +53,7 @@ import java.util.Map;
  * </p>
  *
  * <p>
- * <strong>Attention 2</strong>: If excessively used with a lot of URLs, the {@see SoftHashMap} can lead to a
+ * <strong>Attention 2</strong>: If excessively used with a lot of URLs, the {@link SoftHashMap} can lead to a
  * performance degradation
  * </p>
  */

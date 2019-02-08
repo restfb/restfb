@@ -134,7 +134,7 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
   }
 
   /**
-   * create a {@see JsonObject} from String and swallow possible {@see JsonException}
+   * create a {@link JsonObject} from String and swallow possible JsonException
    *
    * @param json
    *          the string representation of the json
@@ -157,7 +157,7 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
   }
 
   /**
-   * A canned implementation of {@code FacebookExceptionMapper} that maps Graph API exceptions.
+   * A canned implementation of {@link FacebookExceptionMapper} that maps Graph API exceptions.
    * <p>
    * Thanks to BatchFB's Jeff Schnitzer for doing some of the legwork to find these exception type names.
    *

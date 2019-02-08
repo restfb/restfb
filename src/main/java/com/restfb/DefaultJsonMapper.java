@@ -53,7 +53,7 @@ import com.restfb.util.ReflectionUtils.*;
 public class DefaultJsonMapper implements JsonMapper {
 
   /**
-   * Helper to convert {@see JsonValue} into a given type
+   * Helper to convert {@link JsonValue} into a given type
    */
   private final JsonHelper jsonHelper;
 
@@ -65,9 +65,6 @@ public class DefaultJsonMapper implements JsonMapper {
     jsonHelper = new JsonHelper();
   }
 
-  /**
-   * @see com.restfb.JsonMapper#toJavaList(java.lang.String, java.lang.Class)
-   */
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
     if (type == null) {
@@ -143,9 +140,6 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
-  /**
-   * @see com.restfb.JsonMapper#toJavaObject(java.lang.String, java.lang.Class)
-   */
   @Override
   @SuppressWarnings("unchecked")
   public <T> T toJavaObject(String json, Class<T> type) {
@@ -371,17 +365,11 @@ public class DefaultJsonMapper implements JsonMapper {
     return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
   }
 
-  /**
-   * @see com.restfb.JsonMapper#toJson(java.lang.Object)
-   */
   @Override
   public String toJson(Object object) {
     return toJson(object, false);
   }
 
-  /**
-   * @see com.restfb.JsonMapper#toJson(java.lang.Object, boolean)
-   */
   @Override
   public String toJson(Object object, boolean ignoreNullValuedProperties) {
     JsonValue jsonObj = toJsonInternal(object, ignoreNullValuedProperties);

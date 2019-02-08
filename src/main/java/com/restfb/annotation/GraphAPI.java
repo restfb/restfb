@@ -19,23 +19,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.exception;
+package com.restfb.annotation;
 
-/**
- * Specifies a method for mapping Graph and Old REST API exceptions to corresponding instances of
- * {@code FacebookException}.
- * 
- * @author <a href="http://restfb.com">Mark Allen</a>
- * @since 1.6
- */
-public interface FacebookExceptionMapper {
-  /**
-   * Given a Facebook API exception type and message, generates an instance of the corresponding
-   * {@code FacebookGraphException} or one of its subclasses.
-   * 
-   * @param container
-   *          container for all data needed to create the associated {@link FacebookException}
-   * @return An appropriate {@code FacebookException} subclass.
-   */
-  FacebookException exceptionForTypeAndMessage(ExceptionInformation container);
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Target({ TYPE, METHOD, CONSTRUCTOR, FIELD,  })
+@Retention(RUNTIME)
+@Documented
+public @interface GraphAPI {
+
+    String since() default "";
+
+    String until() default "";
 }

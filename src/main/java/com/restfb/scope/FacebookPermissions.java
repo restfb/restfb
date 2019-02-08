@@ -21,6 +21,8 @@
  */
 package com.restfb.scope;
 
+import com.restfb.annotation.GraphAPI;
+
 public enum FacebookPermissions {
   /**
    * Provides access to a subset of items that are part of a person's public profile.
@@ -156,9 +158,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 3.0
    */
+  @GraphAPI(since = "3.0")
   USER_AGE_RANGE("user_age_range", Category.USER_DATA), //
 
   /**
@@ -240,9 +241,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 3.0
    */
+  @GraphAPI(since = "3.0")
   USER_GENDER("user_gender", Category.USER_DATA), //
 
   /**
@@ -277,9 +277,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 3.0
    */
+  @GraphAPI(since = "3.0")
   USER_LINK("user_link", Category.USER_DATA), //
 
   /**
@@ -486,10 +485,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @since Graph API 2.5
-   * @RestFB.GraphApi.Since 2.5
    */
+  @GraphAPI(since = "2.5")
   PAGES_MANAGE_CTA("pages_manage_cta", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -500,10 +497,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.5
-   * @since Graph API 2.5
    */
+  @GraphAPI(since = "2.5")
   PAGES_MANAGE_INSTANT_ARTICLES("pages_manage_instant_articles", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -514,10 +509,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.3
-   * @since Graph API 2.3
    */
+  @GraphAPI(since = "2.3")
   PAGES_MANAGE_LEADS("pages_manage_leads", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -533,10 +526,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.6
-   * @since Graph API 2.6
    */
+  @GraphAPI(since = "2.6")
   PAGES_MESSAGING("pages_messaging", Category.MESSAGING), //
 
   /**
@@ -552,10 +543,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.6
-   * @since Graph API 2.6
    */
+  @GraphAPI(since = "2.6")
   PAGES_MESSAGING_PHONE_NUMBER("pages_messaging_phone_number", Category.MESSAGING), //
 
   /**
@@ -566,10 +555,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @since Graph API 2.5
-   * @RestFB.GraphApi.Since 2.5
    */
+  @GraphAPI(since = "2.5")
   PAGES_SHOW_LIST("pages_show_list", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -608,10 +595,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @since Graph API 2.3
-   * @RestFB.GraphApi.Since 2.3
    */
+  @GraphAPI(since = "2.3")
   PUBLISH_PAGES("publish_pages", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -622,9 +607,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 3.0
    */
+  @GraphAPI(since = "3.0")
   PUBLISH_TO_GROUPS("publish_to_groups", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -635,9 +619,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 3.1
    */
+  @GraphAPI(since = "3.1")
   PUBLISH_VIDEO("publish_video", Category.LIVE_VIDEO), //
 
   /**
@@ -649,9 +632,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 3.0
    */
+  @GraphAPI(since = "3.0")
   GROUPS_ACCESS_MEMBER_INFO("groups_access_member_info", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -662,10 +644,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @since Graph API 2.4
-   * @RestFB.GraphApi.Since 2.4
    */
+  @GraphAPI(since = "2.4")
   READ_AUDIENCE_NETWORK_INSIGHTS("read_audience_network_insights", Category.OTHER), //
 
   /**
@@ -687,9 +667,9 @@ public enum FacebookPermissions {
    *
    * @deprecated not usable since Graph API 2.3, use <code>READ_CUSTOM_FRIENDLISTS</code> instead. If you use the Graph
    *             API before 2.3 ignore the deprecation warning
-   * @RestFB.GraphApi.Until 2.2
    */
   @Deprecated
+  @GraphAPI(until = "2.2")
   READ_FRIENDLISTS("read_friendlists", Category.OTHER), //
 
   /**
@@ -714,12 +694,10 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    *
-   * @since Graph API 2.3
-   * @RestFB.GraphApi.Since 2.3
-   *
    * @deprecated since breaking change on 4 April, 2018
    */
   @Deprecated
+  @GraphAPI(since = "2.3")
   READ_CUSTOM_FRIENDLISTS("read_custom_friendlists", Category.OTHER), //
 
   /**
@@ -789,9 +767,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 3.1
    */
+  @GraphAPI(since = "3.1")
   LEADS_RETRIEVAL("leads_retrieval", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -805,10 +782,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.6
-   * @since Graph API 2.6
    */
+  @GraphAPI(since = "2.6")
   PAGES_MESSAGING_SUBSCRPTIONS("pages_messaging_subscriptions", Category.MESSAGING), //
 
   /**
@@ -822,10 +797,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.6
-   * @since Graph API 2.6
    */
+  @GraphAPI(since = "2.6")
   PAGES_MESSAGING_PAYMENTS("pages_messaging_payments", Category.MESSAGING),
 
   // Instagram Platform permissions
@@ -842,10 +815,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.5
-   * @since Graph API 2.5
    */
+  @GraphAPI(since = "2.5")
   INSTAGRAM_BASIC("instagram_basic", Category.INSTAGRAM),
 
   /**
@@ -860,10 +831,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.5
-   * @since Graph API 2.5
    */
+  @GraphAPI(since = "2.5")
   INSTAGRAM_MANAGE_COMMENTS("instagram_manage_comments", Category.INSTAGRAM),
 
   /**
@@ -878,10 +847,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.5
-   * @since Graph API 2.5
    */
+  @GraphAPI(since = "2.5")
   INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM),
 
   /**
@@ -896,10 +863,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @RestFB.GraphApi.Since 2.5
-   * @since Graph API 2.5
    */
+  @GraphAPI(since = "2.5")
   INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM);
 
   private final String permissionString;

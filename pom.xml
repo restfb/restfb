@@ -203,16 +203,8 @@
         <configuration>
           <linksource>true</linksource>
           <additionalOptions>${javadoc.options}</additionalOptions>
+          <additionalJOption>${javadoc.options}</additionalJOption>
           <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
-          <taglets>
-            <taglet>
-              <tagletClass>com.restfb.taglets.GraphApiSince</tagletClass>
-            </taglet>
-            <taglet>
-              <tagletClass>com.restfb.taglets.GraphApiUntil</tagletClass>
-            </taglet>
-          </taglets>
-          <tagletpath>${project.basedir}/lib/restfb-taglets-1.0.jar</tagletpath>
           <links>
             <link>https://docs.oracle.com/javase/7/docs/api/</link>
           </links>

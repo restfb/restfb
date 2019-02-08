@@ -98,7 +98,7 @@ public final class StringUtils {
   /**
    * Converts {@code string} to a byte array.
    * <p>
-   * Assumes {@code string} is in {@see #ENCODING_CHARSET} format.
+   * Assumes {@code string} is in {@link StringUtils#ENCODING_CHARSET} format.
    *
    * @param string
    *          The string to convert to a byte array.
@@ -106,7 +106,7 @@ public final class StringUtils {
    * @throws NullPointerException
    *           If {@code string} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to convert because the JVM doesn't support {@see #ENCODING_CHARSET}.
+   *           If unable to convert because the JVM doesn't support {@link StringUtils#ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
     ObjectUtil.verifyParameterPresence("string", string);
@@ -114,7 +114,7 @@ public final class StringUtils {
   }
 
   /**
-   * Converts {@code data} to a string in {@see #ENCODING_CHARSET} format.
+   * Converts {@code data} to a string in {@link #ENCODING_CHARSET} format.
    *
    * @param data
    *          The data to convert to a string.
@@ -123,7 +123,7 @@ public final class StringUtils {
    * @throws NullPointerException
    *           If {@code data} is {@code null}.
    * @throws IllegalStateException
-   *           If unable to convert because the JVM doesn't support {@see #ENCODING_CHARSET}.
+   *           If unable to convert because the JVM doesn't support {@link StringUtils#ENCODING_CHARSET}.
    * @since 1.6.13
    */
   public static String toString(byte[] data) {

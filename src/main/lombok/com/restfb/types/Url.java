@@ -57,6 +57,7 @@ public class Url extends FacebookType {
   /**
    * AppLinks data associated with this URL.
    *
+   * -- GETTER --
    * @return AppLinks data associated with this URL.
    */
   @Getter
@@ -72,7 +73,8 @@ public class Url extends FacebookType {
 
   /**
    * The sum of comments on posts containing this URL on Facebook.
-   * 
+   *
+   * -- GETTER --
    * @return The sum of comments on posts containing this URL on Facebook.
    */
   @Getter
@@ -83,7 +85,8 @@ public class Url extends FacebookType {
    * The total shares of this URL all over Facebook.
    * 
    * is set <code>0</code> if the share count is not present
-   * 
+   *
+   * -- GETTER --
    * @return The total shares of this URL all over Facebook.
    */
   @Getter
@@ -93,6 +96,7 @@ public class Url extends FacebookType {
   /**
    * The sum of reactions across all posts containing the URL on Facebook.
    *
+   * -- GETTER --
    * @return The sum of reactions across all posts containing the URL on Facebook.
    */
   @Getter
@@ -103,6 +107,7 @@ public class Url extends FacebookType {
    * The number shown in the comments plugin associated with the URL. This number does not include comments made on
    * posts on Facebook.
    *
+   * -- GETTER --
    * @return The number shown in the comments plugin associated with the URL. This number does not include comments made
    *         on posts on Facebook.
    */
@@ -137,7 +142,8 @@ public class Url extends FacebookType {
 
     /**
      * The description of the object.
-     * 
+     *
+     * -- GETTER --
      * @return The description of the object
      */
     @Getter
@@ -147,7 +153,8 @@ public class Url extends FacebookType {
 
     /**
      * The title of the object.
-     * 
+     *
+     * -- GETTER --
      * @return The title of the object
      */
     @Getter
@@ -157,7 +164,8 @@ public class Url extends FacebookType {
 
     /**
      * The object type.
-     * 
+     *
+     * -- GETTER --
      * @return The object type as String
      */
     @Getter
@@ -167,7 +175,8 @@ public class Url extends FacebookType {
 
     /**
      * This URL.
-     * 
+     *
+     * -- GETTER --
      * @return This URL
      */
     @Getter
@@ -177,7 +186,8 @@ public class Url extends FacebookType {
 
     /**
      * When the object was last updated.
-     * 
+     *
+     * -- GETTER --
      * @return date when the object was last updated.
      */
     @Getter
@@ -188,6 +198,7 @@ public class Url extends FacebookType {
     /**
      * The image url
      *
+     * -- GETTER --
      * @return image url
      */
     @Getter

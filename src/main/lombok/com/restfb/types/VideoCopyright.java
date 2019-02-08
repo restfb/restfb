@@ -25,6 +25,7 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.annotation.GraphAPI;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,12 +55,11 @@ public class VideoCopyright extends FacebookType {
    * Whether the video is monitored successfully for copyright.
    *
    * The status could be {@code NOT_EXAMED}, {@code COPYRIGHTED} and {@code ERROR}.
-   *
-   * @RestFB.GraphApi.Since 2.5
    */
-  @Getter
+  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("monitoring_status")
+  @GraphAPI(since = "2.5")
   private String monitoringStatus;
 
   /**

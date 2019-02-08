@@ -195,14 +195,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * override the default facebook exception generator to provide a custom handling for the facebook error objects
    * 
    * @param exceptionGenerator
-   *          the custom exception generator implementing the {@see FacebookExceptionGenerator} interface
+   *          the custom exception generator implementing the {@link FacebookExceptionGenerator} interface
    */
   public void setFacebookExceptionGenerator(FacebookExceptionGenerator exceptionGenerator) {
     graphFacebookExceptionGenerator = exceptionGenerator;
   }
 
   /**
-   * fetch the current facebook exception generator implementing the {@see FacebookExceptionGenerator} interface
+   * fetch the current facebook exception generator implementing the {@link FacebookExceptionGenerator} interface
    * 
    * @return the current facebook exception generator
    */
@@ -210,9 +210,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return graphFacebookExceptionGenerator;
   }
 
-  /**
-   * @see com.restfb.FacebookClient#deleteObject(java.lang.String, com.restfb.Parameter[])
-   */
   @Override
   public boolean deleteObject(String object, Parameter... parameters) {
     verifyParameterPresence("object", object);

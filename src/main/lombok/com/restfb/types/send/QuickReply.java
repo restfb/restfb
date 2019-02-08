@@ -53,7 +53,7 @@ public class QuickReply extends AbstractFacebookType {
   /**
    *
    * @deprecated use constructor without contenttype instead. If using content type 'text' use
-   *             {@link QuickReply(String,String)} for 'location' use {@link QuickReply()}
+   *             {@link QuickReply#QuickReply(String,String)} for 'location' use {@link QuickReply#QuickReply()}
    */
   @Deprecated
   public QuickReply(String contentType, String title, String payload) {
@@ -68,7 +68,7 @@ public class QuickReply extends AbstractFacebookType {
   }
 
   /**
-   * @deprecated use {@see QuickReply(QuickReplyType)} with {@see QuickReplyType.LOCATION} as parameter instead
+   * @deprecated use {@link QuickReply#QuickReply(QuickReplyType)} with {@link QuickReplyType#LOCATION} as parameter instead
    */
   @Deprecated
   public QuickReply() {

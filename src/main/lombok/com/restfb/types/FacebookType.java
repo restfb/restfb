@@ -53,7 +53,7 @@ public class FacebookType extends AbstractFacebookType {
 
   /**
    * This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   * 
+   * -- GETTER --
    * @return This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
    */
   @Getter
@@ -79,7 +79,7 @@ public class FacebookType extends AbstractFacebookType {
 
     /**
      * The available connections for this object.
-     * 
+     * -- GETTER --
      * @return The available connections for this object.
      */
     @Getter
@@ -89,7 +89,7 @@ public class FacebookType extends AbstractFacebookType {
 
     /**
      * The metadata type of the object
-     * 
+     * -- GETTER --
      * @return the metadata type
      * @since 1.6.16
      */
@@ -114,7 +114,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'home' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'home' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -124,7 +124,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'feed' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'feed' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -134,7 +134,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'friends' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'friends' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -144,7 +144,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'family' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'family' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -154,7 +154,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'activities' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'activities' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -164,7 +164,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'interests' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'interests' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -174,7 +174,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'music' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'music' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -184,7 +184,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'books' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'books' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -194,7 +194,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'movies' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'movies' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -204,7 +204,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'television' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'television' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -214,7 +214,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'likes' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'likes' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -224,7 +224,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'posts' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'posts' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -234,7 +234,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'tagged' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'tagged' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -244,7 +244,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'statuses' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'statuses' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -254,7 +254,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'links' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'links' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -264,7 +264,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'notes' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'notes' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -274,7 +274,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'photos' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'photos' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -284,7 +284,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'albums' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'albums' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -294,7 +294,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'events' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'events' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -304,7 +304,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'groups' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'groups' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -314,7 +314,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'videos' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'videos' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -324,7 +324,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'picture' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'picture' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -334,7 +334,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'inbox' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'inbox' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -344,7 +344,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'outbox' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'outbox' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -354,7 +354,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * This object's 'updates' connection URL.
-       * 
+       * -- GETTER --
        * @return This object's 'updates' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter

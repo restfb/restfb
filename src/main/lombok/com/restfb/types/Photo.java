@@ -30,6 +30,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 
@@ -184,13 +185,12 @@ public class Photo extends NamedFacebookType {
   /**
    * If this object has a place, the event associated with the place
    *
-   * @since Graph API 2.3
-   *
    * @return If this object has a place, the event associated with the place
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.3")
   private Event event;
 
   /**
