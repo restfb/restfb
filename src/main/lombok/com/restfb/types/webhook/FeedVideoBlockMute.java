@@ -29,7 +29,7 @@ import lombok.Setter;
 /**
  * change value of the feed video if a video is blocked/unblocked
  */
-public class FeedVideoUnBlock extends FeedVideoValue {
+public class FeedVideoBlockMute extends FeedVideoValue {
 
   @Getter
   @Setter

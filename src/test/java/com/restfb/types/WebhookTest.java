@@ -531,8 +531,8 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedVideoUnblock() {
-    FeedVideoUnBlock value =
-        openAndCheckFeedPostBasics("feed-video-unblock", FeedVideoUnBlock.class, ITEM_VIDEO, ChangeValue.Verb.UNBLOCK);
+    FeedVideoBlockMute value =
+        openAndCheckFeedPostBasics("feed-video-unblock", FeedVideoBlockMute.class, ITEM_VIDEO, ChangeValue.Verb.UNBLOCK);
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
     assertNotNull(value.getMessage());
@@ -541,8 +541,18 @@ public class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   public void feedVideoBlock() {
-    FeedVideoUnBlock value =
-            openAndCheckFeedPostBasics("feed-video-block", FeedVideoUnBlock.class, ITEM_VIDEO, ChangeValue.Verb.BLOCK);
+    FeedVideoBlockMute value =
+            openAndCheckFeedPostBasics("feed-video-block", FeedVideoBlockMute.class, ITEM_VIDEO, ChangeValue.Verb.BLOCK);
+    assertEquals("https://www.example.org/test.mp4", value.getLink());
+    assertEquals("900767076685784", value.getVideoId());
+    assertNotNull(value.getMessage());
+    assertEquals(1, value.getVideoFlagReason().intValue());
+  }
+
+  @Test
+  public void feedVideoMute() {
+    FeedVideoBlockMute value =
+            openAndCheckFeedPostBasics("feed-video-mute", FeedVideoBlockMute.class, ITEM_VIDEO, ChangeValue.Verb.MUTE);
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
     assertNotNull(value.getMessage());
@@ -557,6 +567,17 @@ public class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("900767076685784", value.getVideoId());
     assertTrue(value.getPublished().booleanValue());
     assertNotNull(value.getMessage());
+  }
+
+  @Test
+  public void feedVideoHide() {
+    FeedVideoValue value =
+            openAndCheckFeedPostBasics("feed-video-hide", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.HIDE);
+    assertEquals("https://www.example.org/test.mp4", value.getLink());
+    assertEquals("900767076685784", value.getVideoId());
+    assertTrue(value.getPublished().booleanValue());
+    assertNull(value.getMessage());
+    assertEquals(1549019010000l, value.getCreatedTime().getTime());
   }
 
   @Test

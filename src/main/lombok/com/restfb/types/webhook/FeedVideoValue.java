@@ -27,6 +27,8 @@ import com.restfb.types.webhook.base.AbstractFeedPostValue;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * change value of the feed video
  */
@@ -51,5 +53,10 @@ public class FeedVideoValue extends AbstractFeedPostValue {
   @Setter
   @Facebook
   private String message;
+
+  @Getter
+  @Setter
+  @Facebook("created_time")
+  private Date createdTime;
 
 }
