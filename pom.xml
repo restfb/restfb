@@ -25,7 +25,7 @@
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
     <!-- additional configuration -->
-    <year.current>2018</year.current>
+    <year.current>2019</year.current>
     <javadoc.options>-Xdoclint:none</javadoc.options>
     <skipTests>false</skipTests>
   </properties>
