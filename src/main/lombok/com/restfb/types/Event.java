@@ -180,6 +180,7 @@ public class Event extends NamedFacebookType {
   @Setter
   @Facebook
   @GraphAPI(until = "2.2")
+  @Deprecated
   private Location venue;
 
   /**
