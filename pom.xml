@@ -197,32 +197,6 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.0.1</version>
-        <configuration>
-          <linksource>true</linksource>
-          <doclint>none</doclint>
-          <source>8</source>
-          <additionalOptions>--no-module-directories</additionalOptions>
-          <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
-          <links>
-            <link>https://docs.oracle.com/javase/7/docs/api/</link>
-          </links>
-          <doctitle><![CDATA[<h1>RestFB ${project.version}</h1>]]></doctitle>
-          <bottom>
-            <![CDATA[<i>RestFB ${project.version}. Copyright &#169; ${project.inceptionYear}-${year.current} Mark Allen, Norbert Bartels. All Rights Reserved.</i>]]></bottom>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>3.0.1</version>
         <executions>
@@ -334,6 +308,75 @@
                 <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>jdk-9-javadoc</id>
+      <activation>
+        <jdk>[1.9,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.0.1</version>
+            <configuration>
+              <linksource>true</linksource>
+              <doclint>none</doclint>
+              <source>8</source>
+              <additionalOptions>--no-module-directories</additionalOptions>
+              <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
+              <links>
+                <link>https://docs.oracle.com/javase/7/docs/api/</link>
+              </links>
+              <doctitle><![CDATA[<h1>RestFB ${project.version}</h1>]]></doctitle>
+              <bottom>
+                <![CDATA[<i>RestFB ${project.version}. Copyright &#169; ${project.inceptionYear}-${year.current} Mark Allen, Norbert Bartels. All Rights Reserved.</i>]]></bottom>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>jdk-8-javadoc</id>
+      <activation>
+        <jdk>(,1.8]</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.0.1</version>
+            <configuration>
+              <linksource>true</linksource>
+              <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
+              <links>
+                <link>https://docs.oracle.com/javase/7/docs/api/</link>
+              </links>
+              <doctitle><![CDATA[<h1>RestFB ${project.version}</h1>]]></doctitle>
+              <bottom>
+                <![CDATA[<i>RestFB ${project.version}. Copyright &#169; ${project.inceptionYear}-${year.current} Mark Allen, Norbert Bartels. All Rights Reserved.</i>]]></bottom>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
                 </goals>
               </execution>
             </executions>
