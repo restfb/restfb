@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2.17.0 (February 10, 2019)
+
+* Issue #959: Missing AdSet Targeting field added<br />
+  Thanks to @AndreaFalcon for the hint
+* Issue #960: More Ad types added and some fixed
+* Issue #961: API version annotation added
+* Issue #962: undefined change values added<br />
+  Thanks to @thevietto for the hint and the JSONs
+* Issue #963: licence information changed to 2019
+
 ## 2.16.0 (January 25, 2019)
 
 * Issue #956: Some missing fields added to ads classes<br />
