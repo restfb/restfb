@@ -203,6 +203,7 @@
           <linksource>true</linksource>
           <doclint>none</doclint>
           <source>8</source>
+          <additionalOptions>--no-module-directories</additionalOptions>
           <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
           <links>
             <link>https://docs.oracle.com/javase/7/docs/api/</link>
