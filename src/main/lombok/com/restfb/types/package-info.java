@@ -26,7 +26,7 @@
  * These are provided for your convenience. You are free to write your own classes with {@link com.restfb.Facebook}
  * -annotated fields and use them instead.
  * <p>
- * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
+ * For full documentation and sample code, please see <a href="https://restfb.com">the RestFB website</a>.
  * 
  * @since 1.5
  */

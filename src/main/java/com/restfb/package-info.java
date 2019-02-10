@@ -21,9 +21,8 @@
  */
 /**
  * Contains types used to interact with the <a href="http://developers.facebook.com/docs/api" target="_blank">Facebook
- * Graph API</a> and the <a href="http://wiki.developers.facebook.com/index.php/API" target="_blank">Legacy Facebook
- * REST API</a>.
+ * Graph API</a>.
  * <p>
- * For full documentation and sample code, please see <a href="http://restfb.com">the RestFB website</a>.
+ * For full documentation and sample code, please see the <a href="https://restfb.com/documentation/">RestFB documentation</a>.
  */
 package com.restfb;

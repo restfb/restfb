@@ -26,7 +26,6 @@
 
     <!-- additional configuration -->
     <year.current>2019</year.current>
-    <javadoc.options>-Xdoclint:none</javadoc.options>
     <skipTests>false</skipTests>
   </properties>
 
@@ -202,16 +201,15 @@
         <version>3.0.1</version>
         <configuration>
           <linksource>true</linksource>
-          <additionalOptions>${javadoc.options}</additionalOptions>
-          <additionalJOption>${javadoc.options}</additionalJOption>
+          <doclint>none</doclint>
+          <source>8</source>
           <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
           <links>
             <link>https://docs.oracle.com/javase/7/docs/api/</link>
           </links>
           <doctitle><![CDATA[<h1>RestFB ${project.version}</h1>]]></doctitle>
           <bottom>
-            <![CDATA[<i>RestFB ${project.version}. Copyright &#169; ${project.inceptionYear}-${year.current} Mark Allen. All Rights Reserved.</i>]]></bottom>
-          <overview>${project.basedir}/misc/javadoc/overview.html</overview>
+            <![CDATA[<i>RestFB ${project.version}. Copyright &#169; ${project.inceptionYear}-${year.current} Mark Allen, Norbert Bartels. All Rights Reserved.</i>]]></bottom>
         </configuration>
         <executions>
           <execution>
