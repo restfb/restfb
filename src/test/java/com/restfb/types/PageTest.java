@@ -203,4 +203,13 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals("987654321", page.getInstagramBusinessAccount().getId());
   }
 
+  @Test
+  public void checkV3_2_hours() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-hours"), Page.class);
+    assertNotNull(page);
+    Hours hours = page.getHours();
+    assertEquals(2, hours.getHours(Hours.DayOfWeek.MON).size());
+    assertEquals(7, hours.getHours().size());
+  }
+
 }

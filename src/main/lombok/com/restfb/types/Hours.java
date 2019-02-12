@@ -21,152 +21,89 @@
  */
 package com.restfb.types;
 
-import com.restfb.Facebook;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class Hours extends NamedFacebookType {
+public class Hours extends AbstractFacebookType {
 
-  @Getter
-  @Setter
-  @Facebook("mon_1_open")
-  private String monday1open;
+  private Map<DayOfWeek, Map<Integer, Hour>> hours = new HashMap<>();
 
-  @Getter
-  @Setter
-  @Facebook("mon_1_close")
-  private String monday1close;
+  /**
+   * Returns a map of indices and {@link Hour} objects with the open and close time
+   * 
+   * @param day
+   *          the day the map should be returned for
+   * @return the map containing the index and the {@link Hour} object
+   */
+  public Map<Integer, Hour> getHours(DayOfWeek day) {
+    if (hours.get(day) == null) {
+      return null;
+    }
 
-  @Getter
-  @Setter
-  @Facebook("tue_1_open")
-  private String tuesday1open;
+    return Collections.unmodifiableMap(hours.get(day));
+  }
 
-  @Getter
-  @Setter
-  @Facebook("tue_1_close")
-  private String tuesday1close;
+  /**
+   * returns the complete overview, with the day as key and a map as value
+   * 
+   * @return the complete overview
+   */
+  public Map<DayOfWeek, Map<Integer, Hour>> getHours() {
+    return hours;
+  }
 
-  @Getter
-  @Setter
-  @Facebook("wed_1_open")
-  private String wednesday1open;
+  public boolean addHour(String key, String value) {
+    String dayStr = key.substring(0, 3);
 
-  @Getter
-  @Setter
-  @Facebook("wed_1_close")
-  private String wednesday1close;
+    DayOfWeek day = DayOfWeek.valueOf(dayStr.toUpperCase());
 
-  @Getter
-  @Setter
-  @Facebook("thu_1_open")
-  private String thursday1open;
+    if (!hours.containsKey(day)) {
+      hours.put(day, new HashMap<Integer, Hour>());
+    }
 
-  @Getter
-  @Setter
-  @Facebook("thu_1_close")
-  private String thursday1close;
+    if (key.endsWith("open")) {
+      String indexStr = key.substring(4).replace("_open", "");
+      hours.get(day).get(createIndex(day, indexStr)).setOpen(value);
+      return true;
+    }
 
-  @Getter
-  @Setter
-  @Facebook("fri_1_open")
-  private String friday1open;
+    if (key.endsWith("close")) {
+      String indexStr = key.substring(4).replace("_close", "");
+      hours.get(day).get(createIndex(day, indexStr)).setClose(value);
+      return true;
+    }
 
-  @Getter
-  @Setter
-  @Facebook("fri_1_close")
-  private String friday1close;
+    return false;
+  }
 
-  @Getter
-  @Setter
-  @Facebook("sat_1_open")
-  private String saturday1open;
+  private Integer createIndex(DayOfWeek day, String indexStr) {
+    Integer index = Integer.valueOf(indexStr);
+    if (hours.get(day).get(index) == null) {
+      hours.get(day).put(index, new Hour());
+    }
+    return index;
+  }
 
-  @Getter
-  @Setter
-  @Facebook("sat_1_close")
-  private String saturday1close;
+  public static class Hour extends AbstractFacebookType {
 
-  @Getter
-  @Setter
-  @Facebook("sun_1_open")
-  private String sunday1open;
+    private static final long serialVersionUID = 1L;
 
-  @Getter
-  @Setter
-  @Facebook("sun_1_close")
-  private String sunday1close;
+    @Getter
+    @Setter
+    private String open;
 
-  @Getter
-  @Setter
-  @Facebook("mon_2_open")
-  private String monday2open;
+    @Getter
+    @Setter
+    private String close;
+  }
 
-  @Getter
-  @Setter
-  @Facebook("mon_2_close")
-  private String monday2close;
-
-  @Getter
-  @Setter
-  @Facebook("tue_2_open")
-  private String tuesday2open;
-
-  @Getter
-  @Setter
-  @Facebook("tue_2_close")
-  private String tuesday2close;
-
-  @Getter
-  @Setter
-  @Facebook("wed_2_open")
-  private String wednesday2open;
-
-  @Getter
-  @Setter
-  @Facebook("wed_2_close")
-  private String wednesday2close;
-
-  @Getter
-  @Setter
-  @Facebook("thu_2_open")
-  private String thursday2open;
-
-  @Getter
-  @Setter
-  @Facebook("thu_2_close")
-  private String thursday2close;
-
-  @Getter
-  @Setter
-  @Facebook("fri_2_open")
-  private String friday2open;
-
-  @Getter
-  @Setter
-  @Facebook("fri_2_close")
-  private String friday2close;
-
-  @Getter
-  @Setter
-  @Facebook("sat_2_open")
-  private String saturday2open;
-
-  @Getter
-  @Setter
-  @Facebook("sat_2_close")
-  private String saturday2close;
-
-  @Getter
-  @Setter
-  @Facebook("sun_2_open")
-  private String sunday2open;
-
-  @Getter
-  @Setter
-  @Facebook("sun_2_close")
-  private String sunday2close;
+  public enum DayOfWeek {
+    MON, TUE, WED, THU, FRI, SAT, SUN
+  }
 
   private static final long serialVersionUID = 1L;
 }

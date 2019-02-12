@@ -23,9 +23,7 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
@@ -338,6 +336,9 @@ public class Page extends CategorizedFacebookType {
   @Facebook
   private String hometown;
 
+  @Facebook("hours")
+  private List<JsonObject> rawHours = new ArrayList<>();
+
   /**
    * Opening hours
    *
@@ -345,7 +346,6 @@ public class Page extends CategorizedFacebookType {
    */
   @Getter
   @Setter
-  @Facebook
   private Hours hours;
 
   /**
@@ -899,7 +899,7 @@ public class Page extends CategorizedFacebookType {
    * @return The number of likes the page has
    * @since 1.6.5
    */
-  @Getter(onMethod=@__(@GraphAPI(until = "2.5")))
+  @Getter(onMethod = @__(@GraphAPI(until = "2.5")))
   @Setter
   @Facebook("likes")
   @GraphAPI(until = "2.5")
@@ -910,7 +910,7 @@ public class Page extends CategorizedFacebookType {
    *
    * @return The Pages that this Page Likes.
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook
   @GraphAPI(since = "2.6")
@@ -921,7 +921,7 @@ public class Page extends CategorizedFacebookType {
    *
    * @return The number of likes the page has
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("fan_count")
   @GraphAPI(since = "2.6")
@@ -1104,7 +1104,7 @@ public class Page extends CategorizedFacebookType {
    *
    * @return Indicates whether the application is subscribed for real time updates from this page
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.7")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.7")))
   @Setter
   @Facebook("is_webhooks_subscribed")
   @GraphAPI(since = "2.7")
@@ -1920,6 +1920,18 @@ public class Page extends CategorizedFacebookType {
 
     if (getFanCount() == null && getLikesCount() != null) {
       fanCount = likesCount;
+    }
+  }
+
+  @JsonMappingCompleted
+  protected void convertHours() {
+    if (!rawHours.isEmpty()) {
+      Hours hoursObj = new Hours();
+      for (JsonObject entry : rawHours) {
+        hoursObj.addHour(entry.getString("key",""), entry.getString("value",""));
+      }
+
+      hours = hoursObj;
     }
   }
 }
