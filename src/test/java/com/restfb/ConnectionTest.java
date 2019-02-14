@@ -23,7 +23,6 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import java.io.IOException;
@@ -31,10 +30,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.restfb.json.JsonObject;
 import org.junit.Test;
 
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonObject;
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
 
@@ -66,7 +65,7 @@ public class ConnectionTest extends AbstractJsonMapperTests {
   @Test
   public void checkNoData() {
     Connection<JsonObject> con = new Connection<JsonObject>(new DefaultFacebookClient(Version.LATEST),
-            jsonFromClasspath("connection-nodata"), JsonObject.class);
+      jsonFromClasspath("connection-nodata"), JsonObject.class);
     assertThat(con.getData()).isEmpty();
     assertThat(con.hasNext()).isFalse();
 
@@ -198,6 +197,36 @@ public class ConnectionTest extends AbstractJsonMapperTests {
     System.out.println(connection.getPreviousPageUrl());
 
     assertThat(connection.hasNext()).isFalse();
+  }
+
+  @Test
+  public void checkIteration_withSameCursor() {
+    ConnectionIterator<JsonObject> con = new Connection<>(new DefaultFacebookClient(Version.LATEST),
+      jsonFromClasspath("connection-same-cursor"), JsonObject.class).iterator();
+    assertThat(con.hasNext()).isTrue();
+    con.next();
+    assertThat(con.hasNext()).isFalse();
+  }
+
+  @Test
+  public void checkIteration_withSameCursorAndClient() {
+    FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
+      @Override
+      public Response executeGet(String url) throws IOException {
+        if (url.equals("https://graph.facebook.com/v3.2/me/adaccounts?access_token=token&format=json")) {
+          return new Response(HTTP_OK, jsonFromClasspath("connection-same-cursor"));
+        }
+
+        return new Response(HTTP_OK, url);
+      }
+    };
+    DefaultFacebookClient facebookClient = new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_2);
+
+    ConnectionIterator<JsonObject> it = facebookClient.fetchConnection("/me/adaccounts", JsonObject.class).iterator();
+    assertThat(it).isNotNull();
+    assertThat(it.hasNext()).isTrue();
+    it.next();
+    assertThat(it.hasNext()).isFalse();
   }
 
   private Connection<FacebookType> createCursorConnection(boolean cursorOnly) {

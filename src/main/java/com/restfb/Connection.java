@@ -156,7 +156,7 @@ public class Connection<T> implements Iterable<List<T>> {
     // Pull out data
     JsonArray jsonData = jsonObject.get("data").asArray();
     List<T> dataItem = new ArrayList<>(jsonData.size());
-    for (JsonValue jsonValue: jsonData) {
+    for (JsonValue jsonValue : jsonData) {
       dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonValue
           : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType));
     }
@@ -268,7 +268,7 @@ public class Connection<T> implements Iterable<List<T>> {
    * @return {@code true} if there is a previous page of data for this connection, {@code false} otherwise.
    */
   public boolean hasPrevious() {
-    return !isBlank(getPreviousPageUrl());
+    return !isBlank(getPreviousPageUrl()) && !isSameCursor();
   }
 
   /**
@@ -277,7 +277,7 @@ public class Connection<T> implements Iterable<List<T>> {
    * @return {@code true} if there is a next page of data for this connection, {@code false} otherwise.
    */
   public boolean hasNext() {
-    return !isBlank(getNextPageUrl()) && !getData().isEmpty();
+    return !isBlank(getNextPageUrl()) && !getData().isEmpty() && !isSameCursor();
   }
 
   /**
@@ -304,5 +304,13 @@ public class Connection<T> implements Iterable<List<T>> {
     } else {
       return pageUrl;
     }
+  }
+
+  /**
+   * checks the cursors (if present) for equality
+   * @return {@code true} if both cursor value are equal, {@code false} otherwise
+   */
+  private boolean isSameCursor() {
+    return getBeforeCursor() != null && getAfterCursor() != null && getBeforeCursor().equals(getAfterCursor());
   }
 }
