@@ -173,6 +173,11 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals("https://restfb.com/documentation/#using-webhooks", url.getValue());
     assertEquals(1.0D, url.getConfidence(), 0.01);
     assertEquals("restfb.com", url.getDomain());
+    assertFalse(url.isEntityOnly());
+    assertEquals("url", url.getEntity());
+    assertEquals("https://restfb.com/documentation/#using-webhooks", url.getBody());
+    assertEquals(0, url.getStart().intValue());
+    assertEquals(48, url.getEnd().intValue());
   }
 
   @Test
@@ -206,6 +211,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
 
     assertEquals(3, sentiments.size());
     for (NlpSentiment sentiment : sentiments) {
+      assertTrue(sentiment.isEntityOnly());
       if ("negative".equals(sentiment.getValue())) {
         continue;
       }

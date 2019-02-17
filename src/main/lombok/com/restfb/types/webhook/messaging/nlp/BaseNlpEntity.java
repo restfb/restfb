@@ -38,6 +38,45 @@ public abstract class BaseNlpEntity {
   @Facebook
   private String value;
 
+  @Getter
+  @Setter
+  @Facebook("_entity")
+  private String entity;
+
+  /**
+   * body of this entity.
+   */
+  @Getter
+  @Setter
+  @Facebook("_body")
+  private String body;
+
+  /**
+   * start position of the entity in the message
+   */
+  @Getter
+  @Setter
+  @Facebook("_start")
+  private Integer start;
+
+  /**
+   * end position of the entity in the message
+   */
+  @Getter
+  @Setter
+  @Facebook("_end")
+  private Integer end;
+
+  /**
+   * returns if the object contains only a nlp entity or if the nlp object contains body, start and end fields, too.
+   * @return {@code true} if the nlp object contains also body, start and end fields, {@code false} otherwise
+   */
+  public boolean isEntityOnly() {
+    return body == null;
+  }
+
+
+
   public <T extends BaseNlpEntity> T as(Class<T> clazz) {
     return (T) this;
   }
