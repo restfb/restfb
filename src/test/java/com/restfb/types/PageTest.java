@@ -212,4 +212,12 @@ public class PageTest extends AbstractJsonMapperTests {
     assertEquals(7, hours.getHours().size());
   }
 
+  @Test
+  public void checkV3_2_rating() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-ratings"), Page.class);
+    assertNotNull(page);
+    assertEquals(2, page.getRatingCount().intValue());
+    assertEquals(2.5, page.getOverallStarRating().doubleValue(), 0.0);
+  }
+
 }

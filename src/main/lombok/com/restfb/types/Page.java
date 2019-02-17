@@ -23,7 +23,9 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
@@ -393,6 +395,24 @@ public class Page extends CategorizedFacebookType {
   @Facebook("owner_business")
   private Business ownerBusiness;
 
+  /**
+   * Overall page rating based on rating survey from users on a scale of 1-5. This value is normalized and is not
+   * guaranteed to be a strict average of user ratings. If there are 0 or a small number of ratings, this field will not
+   * be returned.
+   */
+  @Getter
+  @Setter
+  @Facebook("overall_star_rating")
+  private Double overallStarRating;
+
+  /**
+   * Number of ratings for the page (limited to ratings that are publicly accessible
+   */
+  @Getter
+  @Setter
+  @Facebook("rating_count")
+  private Integer ratingCount;
+
   @Facebook("labels")
   private transient String rawLabels;
 
@@ -559,6 +579,24 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("restaurant_specialties")
   private PageRestaurantSpecialties restaurantSpecialties;
+
+  /**
+   * Unique store code for this location Page
+   */
+  @Getter
+  @Setter
+  @Facebook("store_code")
+  private String storeCode;
+
+  /**
+   * Location Page's store location descriptor
+   */
+  @Getter
+  @Setter
+  @Facebook("store_location_descriptor")
+  @GraphAPI(since = "2.5")
+  private String storeLocationDescriptor;
+
   /**
    * The genre of the film. Applicable to Films
    * 
@@ -1928,7 +1966,7 @@ public class Page extends CategorizedFacebookType {
     if (!rawHours.isEmpty()) {
       Hours hoursObj = new Hours();
       for (JsonObject entry : rawHours) {
-        hoursObj.addHour(entry.getString("key",""), entry.getString("value",""));
+        hoursObj.addHour(entry.getString("key", ""), entry.getString("value", ""));
       }
 
       hours = hoursObj;
