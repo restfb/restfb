@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2.18.0 (February 19, 2019)
+
+* Issue #953: underscore fields added to NLP entity types
+* Issue #967: `overall_star_rating` and `rating_count` fields added to `Page` type<br />
+  Thanks to @AvielNiego for the hint
+* Issue #965: `FacebookJsonMappingException` when fetching page object hours<br />
+  Thanks to @AvielNiego for the hint
+* Issue #966: connection iterator fixed<br />
+  Thanks to @amanduggal for the hint
+
 ## 2.17.0 (February 10, 2019)
 
 * Issue #959: Missing AdSet Targeting field added<br />
