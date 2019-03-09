@@ -37,6 +37,7 @@ public class PageTest extends SetterGetterTestBase {
     addIgnoredField("rawLastUsedTime");
     addIgnoredField("rawLabels");
     addIgnoredField("rawHours");
+    addIgnoredField("rawHoursMap");
     testInstance(obj);
   }
 

@@ -213,6 +213,15 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  public void checkV3_2_hours_alternative() {
+    Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-hours2"), Page.class);
+    assertNotNull(page);
+    Hours hours = page.getHours();
+    assertEquals(1, hours.getHours(Hours.DayOfWeek.MON).size());
+    assertEquals(5, hours.getHours().size());
+  }
+
+  @Test
   public void checkV3_2_rating() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-ratings"), Page.class);
     assertNotNull(page);

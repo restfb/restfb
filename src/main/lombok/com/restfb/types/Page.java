@@ -23,9 +23,7 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
@@ -340,6 +338,9 @@ public class Page extends CategorizedFacebookType {
 
   @Facebook("hours")
   private List<JsonObject> rawHours = new ArrayList<>();
+
+  @Facebook("hours")
+  private Map<String, String> rawHoursMap = new HashMap<>();
 
   /**
    * Opening hours
@@ -1963,10 +1964,18 @@ public class Page extends CategorizedFacebookType {
 
   @JsonMappingCompleted
   protected void convertHours() {
-    if (!rawHours.isEmpty()) {
+    if (rawHours != null && !rawHours.isEmpty()) {
       Hours hoursObj = new Hours();
       for (JsonObject entry : rawHours) {
         hoursObj.addHour(entry.getString("key", ""), entry.getString("value", ""));
+      }
+
+      hours = hoursObj;
+    }
+    if (rawHoursMap != null && !rawHoursMap.isEmpty()) {
+      Hours hoursObj = new Hours();
+      for (Map.Entry<String, String> entry : rawHoursMap.entrySet()) {
+        hoursObj.addHour(entry.getKey(), entry.getValue());
       }
 
       hours = hoursObj;
