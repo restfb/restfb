@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2.18.1 (March 9, 2019)
+
+* Issue #970: `FacebookJsonMappingException` when fetching `Hours` object of a childpage<br />
+  Thanks to @mknoebel for the hint and the example JSON
+
 ## 2.18.0 (February 19, 2019)
 
 * Issue #953: underscore fields added to NLP entity types
