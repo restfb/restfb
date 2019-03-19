@@ -83,7 +83,6 @@ abstract public class AbstractFeedPostValue extends BaseChangeValue {
     } else {
       return new From(senderId, senderName);
     }
-
   }
 
 }

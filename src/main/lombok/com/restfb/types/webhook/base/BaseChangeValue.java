@@ -48,18 +48,8 @@ public abstract class BaseChangeValue extends ChangeValue {
 
   @Getter
   @Setter
-  private Date createdTime;
-
   @Facebook("created_time")
-  private Long rawCreatedTime;
-
-  @JsonMapper.JsonMappingCompleted
-  private void convertTime() {
-    if (rawCreatedTime != null) {
-      createdTime = new Date();
-      createdTime.setTime(rawCreatedTime * 1000);
-    }
-  }
+  private Date createdTime;
 
   @JsonMapper.JsonMappingCompleted
   private void convertVerb() {

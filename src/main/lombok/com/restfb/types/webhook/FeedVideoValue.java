@@ -54,9 +54,4 @@ public class FeedVideoValue extends AbstractFeedPostValue {
   @Facebook
   private String message;
 
-  @Getter
-  @Setter
-  @Facebook("created_time")
-  private Date createdTime;
-
 }
