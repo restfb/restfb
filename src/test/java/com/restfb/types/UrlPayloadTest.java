@@ -21,8 +21,7 @@
  */
 package com.restfb.types;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,20 +33,20 @@ public class UrlPayloadTest {
   public void checkToString() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     String toStringAttachment = "MediaAttachment[payload=UrlPayload[isReusable=null url=exampleUrl] type=image]";
-    assertEquals(toStringAttachment, attachment.toString());
+    assertThat(attachment.toString()).isEqualTo(toStringAttachment);
   }
 
   @Test
   public void checkHashcode() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
-    assertEquals(-1842490888, attachment.hashCode());
+    assertThat(attachment.hashCode()).isEqualTo(-1842490888);
   }
 
   @Test
   public void checkEquals() {
     MediaAttachment attachment1 = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     MediaAttachment attachment2 = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
-    assertTrue(attachment1.equals(attachment2));
+    assertThat(attachment1).isEqualTo(attachment2);
     // equals is used here, because this is the test
   }
 
