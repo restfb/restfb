@@ -28,10 +28,10 @@ import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.jupiter.api.Test;
 
-public class MilestoneTest extends AbstractJsonMapperTests {
+class MilestoneTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_V2_5() {
+  void check_V2_5() {
     Milestone milestone = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/milestone"), Milestone.class);
     assertNotNull(milestone);
     assertEquals(1454189125000L, milestone.getCreatedTime().getTime());

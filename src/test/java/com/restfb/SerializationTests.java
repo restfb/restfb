@@ -36,10 +36,10 @@ import com.restfb.json.JsonObject;
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class SerializationTests {
+class SerializationTests {
 
   @Test
-  public void jsonArray() throws Exception {
+  void jsonArray() throws Exception {
     JsonArray arrayToSerialize = new JsonArray();
     arrayToSerialize.add(123);
     arrayToSerialize.add("test");
@@ -51,7 +51,7 @@ public class SerializationTests {
   }
 
   @Test
-  public void jsonObject() throws Exception {
+  void jsonObject() throws Exception {
     JsonObject objectToSerialize = new JsonObject();
     objectToSerialize.add("one", 123);
     objectToSerialize.add("two", "test");

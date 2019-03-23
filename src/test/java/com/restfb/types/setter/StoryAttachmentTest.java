@@ -26,38 +26,38 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class StoryAttachmentTest extends SetterGetterTestBase {
+class StoryAttachmentTest extends SetterGetterTestBase {
 
   @Test
-  public void testAttachment() {
+  void testAttachment() {
     StoryAttachment obj = new StoryAttachment();
     addIgnoredField("rawCreatedTime");
     testInstance(obj);
   }
 
   @Test
-  public void testAttachments() {
+  void testAttachments() {
     StoryAttachment.Attachments obj = new StoryAttachment.Attachments();
     addIgnoredField("rawCreatedTime");
     testInstance(obj);
   }
 
   @Test
-  public void testImage() {
+  void testImage() {
     StoryAttachment.Image obj = new StoryAttachment.Image();
     addIgnoredField("rawCreatedTime");
     testInstance(obj);
   }
 
   @Test
-  public void testMedia() {
+  void testMedia() {
     StoryAttachment.Media obj = new StoryAttachment.Media();
     addIgnoredField("rawCreatedTime");
     testInstance(obj);
   }
 
   @Test
-  public void testTarget() {
+  void testTarget() {
     StoryAttachment.Target obj = new StoryAttachment.Target();
     addIgnoredField("rawCreatedTime");
     testInstance(obj);

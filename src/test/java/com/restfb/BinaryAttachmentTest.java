@@ -30,10 +30,10 @@ import java.io.InputStream;
 
 import org.junit.jupiter.api.Test;
 
-public class BinaryAttachmentTest {
+class BinaryAttachmentTest {
 
   @Test
-  public void checkByteArray() {
+  void checkByteArray() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("myfile.jpg", attachmentData.getBytes());
     assertThat(att).hasFileName("myfile.jpg");
@@ -41,14 +41,14 @@ public class BinaryAttachmentTest {
   }
 
   @Test
-  public void checkByteArrayNull() {
+  void checkByteArrayNull() {
     assertThrows(NullPointerException.class, () -> {
       BinaryAttachment.with("filename", (byte[]) null);
     });
   }
 
   @Test
-  public void checkInputStream() {
+  void checkInputStream() {
     InputStream stream = this.getClass().getClassLoader().getResourceAsStream("json/account.json");
     BinaryAttachment att = BinaryAttachment.with("myfile.jpg", stream);
     assertThat(att).hasFileName("myfile.jpg");
@@ -56,42 +56,42 @@ public class BinaryAttachmentTest {
   }
 
   @Test
-  public void checkInputStreamNull() {
+  void checkInputStreamNull() {
     assertThrows(NullPointerException.class, () -> {
       BinaryAttachment.with("filename", (InputStream) null);
     });
   }
 
   @Test
-  public void checkContentTypeStream() {
+  void checkContentTypeStream() {
     InputStream stream = getClass().getResourceAsStream("/binary/fruits.png");
     BinaryAttachment att = BinaryAttachment.with("example.png", stream);
     assertThat(att).hasContentType("image/png");
   }
 
   @Test
-  public void checkContentTypeBytes_imagePng() {
+  void checkContentTypeBytes_imagePng() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.png", attachmentData.getBytes());
     assertThat(att).hasContentType("image/png");
   }
 
   @Test
-  public void checkContentTypeBytes_html() {
+  void checkContentTypeBytes_html() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.html", attachmentData.getBytes());
     assertThat(att).hasContentType("text/html");
   }
 
   @Test
-  public void checkContentTypeBytes_fallback() {
+  void checkContentTypeBytes_fallback() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.json", attachmentData.getBytes());
     assertThat(att).hasContentType("application/octet-stream");
   }
 
   @Test
-  public void checkContentTypeBytes_manual() {
+  void checkContentTypeBytes_manual() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.json", attachmentData.getBytes(), "application/json");
     assertThat(att).hasContentType("application/json");

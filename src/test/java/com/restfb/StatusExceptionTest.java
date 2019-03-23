@@ -30,10 +30,10 @@ import com.restfb.exception.FacebookGraphException;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.testutils.AssertJson;
 
-public class StatusExceptionTest extends AbstractJsonMapperTests {
+class StatusExceptionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void statusException() {
+  void statusException() {
     String jsonErrorString = jsonFromClasspath("exampleError");
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {
@@ -52,7 +52,7 @@ public class StatusExceptionTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void statusExceptionWithFbtraceId() {
+  void statusExceptionWithFbtraceId() {
     String jsonErrorString = jsonFromClasspath("exampleErrorNew");
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {

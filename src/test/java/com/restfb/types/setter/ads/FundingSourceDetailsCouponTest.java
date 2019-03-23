@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class FundingSourceDetailsCouponTest extends SetterGetterTestBase {
+class FundingSourceDetailsCouponTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     FundingSourceDetailsCoupon object = new FundingSourceDetailsCoupon();
     testInstance(object);
   }

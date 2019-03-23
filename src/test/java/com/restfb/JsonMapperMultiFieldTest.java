@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.json.JsonObject;
 
-public class JsonMapperMultiFieldTest {
+class JsonMapperMultiFieldTest {
 
   @Test
-  public void check1_object() {
+  void check1_object() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass1 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass1.class);
@@ -41,7 +41,7 @@ public class JsonMapperMultiFieldTest {
   }
 
   @Test
-  public void check1_string() {
+  void check1_string() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass1 test1 = mapper.toJavaObject("{\"mydata\":123}", TestClass1.class);
@@ -51,7 +51,7 @@ public class JsonMapperMultiFieldTest {
   }
 
   @Test
-  public void check2_object() {
+  void check2_object() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass2 test2 = mapper.toJavaObject("{\"mydata\":{}}", TestClass2.class);
@@ -62,7 +62,7 @@ public class JsonMapperMultiFieldTest {
   }
 
   @Test
-  public void check2_string() {
+  void check2_string() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass2 test2 = mapper.toJavaObject("{\"mydata\":123}", TestClass2.class);
@@ -72,7 +72,7 @@ public class JsonMapperMultiFieldTest {
   }
 
   @Test
-  public void check3_object() {
+  void check3_object() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass3 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass3.class);

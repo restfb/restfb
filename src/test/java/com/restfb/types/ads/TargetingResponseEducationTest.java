@@ -24,14 +24,14 @@ package com.restfb.types.ads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class TargetingResponseEducationTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class TargetingResponseEducationTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_6() {
+  void checkV2_6() {
     TargetingResponseEducation radiusSuggestion = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responseeducation"), TargetingResponseEducation.class);
     assertNotNull(radiusSuggestion);

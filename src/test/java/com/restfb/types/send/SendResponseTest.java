@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class SendResponseTest extends AbstractJsonMapperTests {
+class SendResponseTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkJson() {
+  void checkJson() {
     SendResponse exampleResponse =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/sendresponse"), SendResponse.class);
     assertEquals("mid.1456970487936:c34767dfe57ee6e339", exampleResponse.getMessageId());
@@ -40,7 +40,7 @@ public class SendResponseTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkJson_result() {
+  void checkJson_result() {
     SendResponse exampleResponse =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/sendresponse_result"), SendResponse.class);
     assertEquals("Successfully added new_thread's CTAs", exampleResponse.getResult());

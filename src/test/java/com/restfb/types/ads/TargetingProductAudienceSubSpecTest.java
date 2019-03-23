@@ -23,16 +23,16 @@ package com.restfb.types.ads;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
 import com.restfb.testutils.AssertJson;
 
-import org.junit.jupiter.api.Test;
-
-public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests {
+class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests {
 
   @Test
-  public void test() {
+  void test() {
     TargetingProductAudienceSubSpec subSpec = createJsonMapper().toJavaObject(
       jsonFromClasspath("ads/v2_6/targetingproductaudiencesubspec"), TargetingProductAudienceSubSpec.class);
     assertNotNull(subSpec);
@@ -45,7 +45,7 @@ public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests
   }
 
   @Test
-  public void testReverse() {
+  void testReverse() {
     JsonObject ruleJson =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example1"), JsonObject.class);
     Rule rule = RuleFactory.createRuleFromJson(ruleJson);
@@ -58,9 +58,9 @@ public class TargetingProductAudienceSubSpecTest extends AbstractJsonMapperTests
   }
 
   @Test
-  public void testStringExample() {
-    TargetingProductAudienceSubSpec ruleJson =
-            createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_7/subspec_example"), TargetingProductAudienceSubSpec.class);
+  void testStringExample() {
+    TargetingProductAudienceSubSpec ruleJson = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("ads/v2_7/subspec_example"), TargetingProductAudienceSubSpec.class);
     assertNotNull(ruleJson);
     Rule rule = ruleJson.getRule();
     assertNotNull(rule);

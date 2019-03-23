@@ -31,11 +31,11 @@ import com.restfb.DefaultJsonMapper;
 import com.restfb.FakeWebRequestor;
 import com.restfb.Version;
 
-public class EndpointBuilderParamTest {
+class EndpointBuilderParamTest {
 
   @ParameterizedTest
   @EnumSource(Version.class)
-  public void versionTest(Version currentVersion) {
+  void versionTest(Version currentVersion) {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), currentVersion);
     String respString = client.fetchObject("/me", String.class);

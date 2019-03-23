@@ -24,14 +24,14 @@ package com.restfb.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class DeviceCodeTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class DeviceCodeTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_v23_deviceCode() {
+  void check_v23_deviceCode() {
     DeviceCode deviceCodeInfo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/devicecode"), DeviceCode.class);
     assertNotNull(deviceCodeInfo);
     assertEquals("26743274374324753466371", deviceCodeInfo.getCode());

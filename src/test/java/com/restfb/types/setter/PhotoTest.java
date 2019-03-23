@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class PhotoTest extends SetterGetterTestBase {
+class PhotoTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Photo obj = new Photo();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -39,7 +39,7 @@ public class PhotoTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testImage() {
+  void testImage() {
     Photo.Image obj = new Photo.Image();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -47,7 +47,7 @@ public class PhotoTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testTags() {
+  void testTags() {
     Photo.Tag obj = new Photo.Tag();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");

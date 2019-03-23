@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class AlbumTest extends AbstractJsonMapperTests {
+class AlbumTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_5_comments() {
+  void checkV2_5_comments() {
     Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/album-with-comments"), Album.class);
     assertNotNull(exampleAlbum);
     assertNotNull(exampleAlbum.getComments());
@@ -45,14 +45,14 @@ public class AlbumTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_type() {
+  void checkV2_5_type() {
     Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/album-with-comments"), Album.class);
     assertNotNull(exampleAlbum);
     assertEquals("wall", exampleAlbum.getType());
   }
 
   @Test
-  public void checkV2_3_cover() {
+  void checkV2_3_cover() {
     Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/album-coverphoto"), Album.class);
     assertNotNull(exampleAlbum);
     assertNotNull(exampleAlbum.getCoverPhoto());
@@ -61,7 +61,7 @@ public class AlbumTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_cover() {
+  void checkV2_4_cover() {
     Album exampleAlbum = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/album-coverphoto"), Album.class);
     assertNotNull(exampleAlbum);
     assertNotNull(exampleAlbum.getCoverPhoto());

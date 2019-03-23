@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class DeAuthTest extends SetterGetterTestBase {
+class DeAuthTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     DeAuth obj = new DeAuth();
     addIgnoredField("rawIssuedAt");
     testInstance(obj);

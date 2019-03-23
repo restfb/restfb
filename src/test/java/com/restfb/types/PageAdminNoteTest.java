@@ -24,14 +24,14 @@ package com.restfb.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class PageAdminNoteTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class PageAdminNoteTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_V2_6() {
+  void check_V2_6() {
     PageAdminNote pageAdminNote =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-admin-note"), PageAdminNote.class);
     assertNotNull(pageAdminNote);

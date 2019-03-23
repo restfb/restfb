@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class PlaceTagTest extends SetterGetterTestBase {
+class PlaceTagTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     PlaceTag obj = new PlaceTag();
     addIgnoredField("rawCreatedTime");
     testInstance(obj);

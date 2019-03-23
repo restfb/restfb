@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class UrlTest extends AbstractJsonMapperTests {
+class UrlTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkURL_v2_1() {
+  void checkURL_v2_1() {
     Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/url-gotg"), Url.class);
     assertNotNull(exampleUrl);
     assertEquals("http://www.imdb.com/title/tt2015381/", exampleUrl.getId());
@@ -47,7 +47,7 @@ public class UrlTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkURL_v2_8() {
+  void checkURL_v2_8() {
     Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/url-with-share"), Url.class);
     assertNotNull(exampleUrl);
     assertEquals(5871, exampleUrl.getCommentCount());
@@ -61,7 +61,7 @@ public class UrlTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkURL_v2_9() {
+  void checkURL_v2_9() {
     Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/url-with-engagement"), Url.class);
     assertNotNull(exampleUrl);
     assertEquals(13809962, exampleUrl.getCommentCount());

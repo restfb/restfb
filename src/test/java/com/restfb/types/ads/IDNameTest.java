@@ -28,10 +28,10 @@ import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.jupiter.api.Test;
 
-public class IDNameTest extends AbstractJsonMapperTests {
+class IDNameTest extends AbstractJsonMapperTests {
 
   @Test
-  public void test() {
+  void test() {
     IDName idname = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/idname"), IDName.class);
     assertNotNull(idname);
     assertEquals("123123", idname.getId());
@@ -39,7 +39,7 @@ public class IDNameTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkConstructor() {
+  void checkConstructor() {
     IDName idname = new IDName("3456", "foobar");
     assertEquals("3456", idname.getId());
     assertEquals("foobar", idname.getName());

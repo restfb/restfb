@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class WebAppLinkTest extends SetterGetterTestBase {
+class WebAppLinkTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     WebAppLink object = new WebAppLink();
     testInstance(object);
   }

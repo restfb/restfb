@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class GroupTest extends SetterGetterTestBase {
+class GroupTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Group obj = new Group();
     addIgnoredField("rawUpdatedTime");
     testInstance(obj);

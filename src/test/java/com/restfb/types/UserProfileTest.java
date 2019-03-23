@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class UserProfileTest extends AbstractJsonMapperTests {
+class UserProfileTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check() {
+  void check() {
     UserProfile exampleUserProfile =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/userprofile"), UserProfile.class);
     assertNotNull(exampleUserProfile);

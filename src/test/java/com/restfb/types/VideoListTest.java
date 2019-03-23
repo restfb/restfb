@@ -23,14 +23,14 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class VideoListTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class VideoListTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_3_basic() {
+  void checkV2_3_basic() {
     VideoList videoList = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/videolist"), VideoList.class);
     assertNotNull(videoList);
     assertEquals(1434661578000L, videoList.getCreationTime().getTime());

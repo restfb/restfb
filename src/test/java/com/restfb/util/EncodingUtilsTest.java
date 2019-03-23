@@ -26,10 +26,10 @@ import static org.assertj.core.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-public class EncodingUtilsTest {
+class EncodingUtilsTest {
 
   @Test
-  public void encodeAppSecretProof() {
+  void encodeAppSecretProof() {
     String message = "Just a short Test message";
     String secret = "342314a43e";
     String expected = "322db18096e205ee3b3fef0a540e5566ac41f7631d5b84add759081814583897";

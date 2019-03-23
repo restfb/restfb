@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class FriendListTest extends SetterGetterTestBase {
+class FriendListTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     FriendList obj = new FriendList();
     testInstance(obj);
   }

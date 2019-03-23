@@ -23,28 +23,28 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class GroupTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class GroupTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV1_0() {
+  void checkV1_0() {
     Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/group"), Group.class);
     assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
     assertEquals("123456789", examplegroup.getOwner().getId());
   }
 
   @Test
-  public void checkV2_0() {
+  void checkV2_0() {
     Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/group"), Group.class);
     assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
     assertEquals("123456789", examplegroup.getOwner().getId());
   }
 
   @Test
-  public void checkV2_1() {
+  void checkV2_1() {
     Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/group"), Group.class);
     assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
     assertEquals("123456789", examplegroup.getOwner().getId());

@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class MinimumBudgetTest extends SetterGetterTestBase {
+class MinimumBudgetTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     MinimumBudget object = new MinimumBudget();
     testInstance(object);
   }

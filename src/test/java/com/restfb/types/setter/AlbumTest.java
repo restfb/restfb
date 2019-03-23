@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class AlbumTest extends SetterGetterTestBase {
+class AlbumTest extends SetterGetterTestBase {
 
   @Test
-  public void checkAlbumSetterCanUpload() {
+  void checkAlbumSetterCanUpload() {
     Album obj = new Album();
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawUpdatedTime");

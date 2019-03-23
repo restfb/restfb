@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class TranslationTest extends SetterGetterTestBase {
+class TranslationTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Translation obj = new Translation();
     testInstance(obj);
   }

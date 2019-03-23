@@ -30,7 +30,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class EncodingUtilsRfcTest {
+class EncodingUtilsRfcTest {
 
   private static Stream<Arguments> testData() {
     return Stream.of(Arguments.of("", ""), //
@@ -46,7 +46,7 @@ public class EncodingUtilsRfcTest {
 
   @ParameterizedTest
   @MethodSource("testData")
-  public void base64Decode(String base64EncodedString, String decodedString) {
+  void base64Decode(String base64EncodedString, String decodedString) {
     try {
       byte[] decoded = EncodingUtils.decodeBase64(base64EncodedString);
       assertThat(decoded).isEqualTo(decodedString.getBytes());

@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class CustomAudienceStatusTest extends SetterGetterTestBase {
+class CustomAudienceStatusTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     CustomAudienceStatus object = new CustomAudienceStatus();
     testInstance(object);
   }

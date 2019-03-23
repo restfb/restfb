@@ -30,16 +30,16 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-public class WebRequestorTest {
+class WebRequestorTest {
 
   @Test
-  public void enumChecker() {
+  void enumChecker() {
     assertThat(DefaultWebRequestor.HttpMethod.GET.name()).isEqualTo("GET");
     assertThat(DefaultWebRequestor.HttpMethod.DELETE.name()).isEqualTo("DELETE");
   }
 
   @Test
-  public void testFillHeaderAndDebugInfo() {
+  void testFillHeaderAndDebugInfo() {
 
     String appUsage = "{ \"call_count\": 10, \"total_time\": 20, \"total_cputime\": 30 }";
     String pageUsage = "{ \"call_count\": 20, \"total_time\": 40, \"total_cputime\": 60 }";

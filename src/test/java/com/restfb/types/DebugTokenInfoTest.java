@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.FacebookClient;
 import com.restfb.json.JsonObject;
-
-import org.junit.jupiter.api.Test;
 
 public class DebugTokenInfoTest extends AbstractJsonMapperTests {
 
