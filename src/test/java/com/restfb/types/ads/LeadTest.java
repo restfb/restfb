@@ -24,23 +24,23 @@ package com.restfb.types.ads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
-public class LeadTest extends AbstractJsonMapperTests {
+class LeadTest extends AbstractJsonMapperTests {
 
   @Test
-  public void leadtest() {
+  void leadtest() {
     Lead lead = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/lead"), Lead.class);
     assertNotNull(lead);
     List<FieldData> fieldDataList = lead.getFieldData();
     assertNotNull(fieldDataList);
-    for (FieldData data : fieldDataList) {
+    fieldDataList.forEach((data) -> {
       assertNotNull(data.getName());
       assertEquals(1, data.getValues().size());
-    }
+    });
   }
 }

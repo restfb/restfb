@@ -24,14 +24,14 @@ package com.restfb.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class ThreadTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class ThreadTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV1_0() {
+  void checkV1_0() {
     Thread exampleThread = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/thread"), Thread.class);
     assertNotNull(exampleThread);
     assertEquals(1408358805000L, exampleThread.getUpdatedTime().getTime());

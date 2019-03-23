@@ -45,7 +45,7 @@ public class FakeWebRequestor implements WebRequestor {
     this(null);
   }
 
-  public FakeWebRequestor(Response predefinedResponse) {
+  FakeWebRequestor(Response predefinedResponse) {
     this.predefinedResponse = predefinedResponse;
   }
 
@@ -57,7 +57,7 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executePost(String url, String parameters) throws IOException {
+  public Response executePost(String url, String parameters) {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
     this.parameters = parameters;
@@ -65,7 +65,7 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
     this.parameters = parameters;
@@ -73,7 +73,7 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executeDelete(String url) throws IOException {
+  public Response executeDelete(String url) {
     this.savedUrl = url;
     this.method = HttpMethod.DELETE;
     return createInternalResponse();

@@ -30,10 +30,10 @@ import com.restfb.DefaultJsonMapper;
 import com.restfb.FakeWebRequestor;
 import com.restfb.Version;
 
-public class EndpointBuilderTest {
+class EndpointBuilderTest {
 
   @Test
-  public void deleteObjectDELETETest() {
+  void deleteObjectDELETETest() {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_8);
     client.deleteObject("comment");
@@ -42,7 +42,7 @@ public class EndpointBuilderTest {
   }
 
   @Test
-  public void deleteObjectPOSTTest() {
+  void deleteObjectPOSTTest() {
     FakeWebRequestor wr = new FakeWebRequestor();
     DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_8);
     client.setHttpDeleteFallback(true);

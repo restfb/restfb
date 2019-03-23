@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class ProductCatalogTest extends SetterGetterTestBase {
+class ProductCatalogTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     ProductCatalog object = new ProductCatalog();
     testInstance(object);
   }

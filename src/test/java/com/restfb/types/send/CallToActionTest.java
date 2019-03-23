@@ -23,14 +23,14 @@ package com.restfb.types.send;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class CallToActionTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class CallToActionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkJson() {
+  void checkJson() {
     CallToAction action = new CallToAction("EXAMPLE_PAYLOAD");
 
     String json = createJsonMapper().toJson(action, true);

@@ -23,9 +23,9 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class CommentTest extends AbstractJsonMapperTests {
 
@@ -113,7 +113,7 @@ public class CommentTest extends AbstractJsonMapperTests {
   @Test
   public void checkV2_9_Issue768() {
     Comment exampleComment =
-            createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-messagetags"), Comment.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-messagetags"), Comment.class);
     assertNotNull(exampleComment);
     assertNotNull(exampleComment.getMessageTags());
     assertEquals(1, exampleComment.getMessageTags().size());

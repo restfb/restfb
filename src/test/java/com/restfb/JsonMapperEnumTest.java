@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.testutils.AssertJson;
 
-public class JsonMapperEnumTest {
+class JsonMapperEnumTest {
 
   @Test
-  public void createWithEnum() {
+  void createWithEnum() {
     String simpleJson = "{\"id\": 12345, \"test_enum\": \"FOO\"}";
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
@@ -40,7 +40,7 @@ public class JsonMapperEnumTest {
   }
 
   @Test
-  public void createWithNonExistingEnumValue() {
+  void createWithNonExistingEnumValue() {
     String simpleJson = "{\"id\": 12345, \"test_enum\": \"BAZ\"}";
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
@@ -50,7 +50,7 @@ public class JsonMapperEnumTest {
   }
 
   @Test
-  public void createJsonFromObject() {
+  void createJsonFromObject() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestTypeSimple testType = new EnumTestTypeSimple();
     testType.testEnum = EnumTestEnum.BAR;

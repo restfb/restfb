@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class PartnerCategoryTest extends SetterGetterTestBase {
+class PartnerCategoryTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     PartnerCategory object = new PartnerCategory();
     testInstance(object);
   }

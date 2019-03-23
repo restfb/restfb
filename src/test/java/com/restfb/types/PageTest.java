@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class PageTest extends AbstractJsonMapperTests {
+class PageTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV1_0() {
+  void checkV1_0() {
     Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/page"), Page.class);
     assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
     assertEquals(1, examplePage.getCategoryList().size());
@@ -42,7 +42,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_0() {
+  void checkV2_0() {
     Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/page"), Page.class);
     assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
     assertEquals(1, examplePage.getCategoryList().size());
@@ -52,7 +52,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_1() {
+  void checkV2_1() {
     Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/page"), Page.class);
     assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
     assertEquals(1, examplePage.getCategoryList().size());
@@ -62,7 +62,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_settings() {
+  void checkV2_3_settings() {
     List<Page.Settings> pageSettingList =
         createJsonMapper().toJavaList(jsonFromClasspath("v2_3/page-settings"), Page.Settings.class);
     assertEquals(11, pageSettingList.size());
@@ -73,7 +73,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_engagement() {
+  void checkV2_3_engagement() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/page-engagement"), Page.class);
     assertNotNull(page);
     assertEquals("1234567890", page.getId());
@@ -83,7 +83,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_voipinfo() {
+  void checkV2_3_voipinfo() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/page-voipinfo"), Page.class);
     assertNotNull(page);
     assertEquals("1234567890", page.getId());
@@ -98,7 +98,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_picture() {
+  void checkV2_4_picture() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/page-picture"), Page.class);
     assertNotNull(page);
     assertNotNull(page.getPicture());
@@ -107,14 +107,14 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_lastusedtime() {
+  void checkV2_5_lastusedtime() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-lastusedtime"), Page.class);
     assertNotNull(page);
     assertEquals(1413059309000L, page.getLastUsedTime().getTime());
   }
 
   @Test
-  public void checkV2_5_moreFields() {
+  void checkV2_5_moreFields() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-morefields"), Page.class);
     assertNotNull(page);
     assertEquals(0.12, page.getAssetScore(), 0.001);
@@ -127,7 +127,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_fanCount() {
+  void checkV2_6_fanCount() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-fancount"), Page.class);
     assertNotNull(page);
     assertEquals(3L, page.getFanCount().longValue());
@@ -135,7 +135,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_fanCount() {
+  void checkV2_5_fanCount() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-with-likes"), Page.class);
     assertNotNull(page);
     assertEquals(3L, page.getFanCount().longValue());
@@ -143,7 +143,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_adminNotes() {
+  void checkV2_6_adminNotes() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-admin_notes"), Page.class);
     assertNotNull(page);
     assertNotNull(page.getAdminNotes());
@@ -151,7 +151,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_label() {
+  void checkV2_6_label() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-labels"), Page.class);
     assertNotNull(page);
     assertNotNull(page.getLabels());
@@ -159,7 +159,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_likes() {
+  void checkV2_6_likes() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-with-likes"), Page.class);
     assertNotNull(page);
     assertNotNull(page.getLikes());
@@ -170,7 +170,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_7_webhook_subscribed() {
+  void checkV2_7_webhook_subscribed() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_7/page-with-whsub"), Page.class);
     assertNotNull(page);
     assertTrue(page.getIsWebhooksSubscribed());
@@ -186,7 +186,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_11_screennames() {
+  void checkV2_11_screennames() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/page-with-screennames"), Page.class);
     assertNotNull(page);
     assertNotNull(page.getScreenNames());
@@ -194,7 +194,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_11_instagram() {
+  void checkV2_11_instagram() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/page-with-instagram"), Page.class);
     assertNotNull(page);
     assertNotNull(page.getConnectedInstagramAccount());
@@ -204,7 +204,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV3_2_hours() {
+  void checkV3_2_hours() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-hours"), Page.class);
     assertNotNull(page);
     Hours hours = page.getHours();
@@ -213,7 +213,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV3_2_hours_alternative() {
+  void checkV3_2_hours_alternative() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-hours2"), Page.class);
     assertNotNull(page);
     Hours hours = page.getHours();
@@ -222,7 +222,7 @@ public class PageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV3_2_rating() {
+  void checkV3_2_rating() {
     Page page = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/page-with-ratings"), Page.class);
     assertNotNull(page);
     assertEquals(2, page.getRatingCount().intValue());

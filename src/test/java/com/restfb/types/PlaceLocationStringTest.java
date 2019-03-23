@@ -23,14 +23,14 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class PlaceLocationStringTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class PlaceLocationStringTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV1_0() {
+  void checkV1_0() {
     Place examplePlace = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/place-locationstring"), Place.class);
     assertEquals("Skill Idiomas - Unidade Itaquera", examplePlace.getLocationAsString());
   }

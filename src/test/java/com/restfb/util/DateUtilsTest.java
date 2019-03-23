@@ -36,7 +36,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class DateUtilsTest {
+class DateUtilsTest {
 
   private DateFormatStrategy expectedStrategy;
 
@@ -50,7 +50,7 @@ public class DateUtilsTest {
    */
   @ParameterizedTest
   @MethodSource("strategies")
-  public void shortDatesSimple(DateFormatStrategy expectedStrategy) {
+  void shortDatesSimple(DateFormatStrategy expectedStrategy) {
     DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toDateFromShortFormat("04/15/1984")).isNotNull();
     assertThat(toDateFromShortFormat("01/01/1970")).isNotNull();
@@ -64,7 +64,7 @@ public class DateUtilsTest {
    */
   @ParameterizedTest
   @MethodSource("strategies")
-  public void longDatesSimple(DateFormatStrategy expectedStrategy) {
+  void longDatesSimple(DateFormatStrategy expectedStrategy) {
     DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toDateFromLongFormat("2011-12-22T21:00:00+0000")).isNotNull();
     assertThat(toDateFromLongFormat("2011-12-22T21:00:00")).isNotNull();
@@ -78,7 +78,7 @@ public class DateUtilsTest {
    */
   @ParameterizedTest
   @MethodSource("strategies")
-  public void monthYearDates(DateFormatStrategy expectedStrategy) {
+  void monthYearDates(DateFormatStrategy expectedStrategy) {
     DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toDateFromMonthYearFormat("2007-03")).isNotNull();
     assertThat(toDateFromMonthYearFormat("2011-12")).isNotNull();
@@ -89,7 +89,7 @@ public class DateUtilsTest {
 
   @ParameterizedTest
   @MethodSource("strategies")
-  public void dateToString(DateFormatStrategy expectedStrategy) {
+  void dateToString(DateFormatStrategy expectedStrategy) {
     DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toLongFormatFromDate(null)).isNull();
     assertThat(toLongFormatFromDate(new Date())).isNotNull();

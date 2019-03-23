@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class UserPermissionTest extends SetterGetterTestBase {
+class UserPermissionTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     UserPermission object = new UserPermission();
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawUpdatedTime");

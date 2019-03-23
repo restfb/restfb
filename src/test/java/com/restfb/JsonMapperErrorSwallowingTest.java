@@ -33,17 +33,17 @@ import com.restfb.types.User;
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
+class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
 
   @Test
-  public void emptyStrings() {
+  void emptyStrings() {
     assertThat(createSwallowingJsonMapper().toJavaObject("", Integer.class)).isNull();
     assertThat(createSwallowingJsonMapper().toJavaObject("", String.class)).isNull();
     assertThat(createSwallowingJsonMapper().toJavaList("", String.class)).isNull();
   }
 
   @Test
-  public void objectWithIncorrectFields() {
+  void objectWithIncorrectFields() {
     MostlyIncorrectUser mostlyIncorrectUser =
         createSwallowingJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
 
@@ -51,7 +51,7 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void listWithIncorrectObject() {
+  void listWithIncorrectObject() {
     List<User> users = createSwallowingJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
 
     assertThat(users.get(0).getId()).isEqualTo("123");

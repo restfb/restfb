@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class OpenGraphRatingTest extends SetterGetterTestBase {
+class OpenGraphRatingTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     OpenGraphRating obj = new OpenGraphRating();
     testInstance(obj);
   }

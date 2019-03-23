@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
 
-public class JsonObjectTest extends AbstractJsonMapperTests {
+class JsonObjectTest extends AbstractJsonMapperTests {
 
   @Test
-  public void issue327Test() {
+  void issue327Test() {
     JsonObject json = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/issue-327"), JsonObject.class);
     assertNotNull(json);
     JsonObject picData = json.get("data").asObject();

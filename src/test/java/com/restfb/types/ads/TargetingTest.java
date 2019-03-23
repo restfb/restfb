@@ -24,16 +24,16 @@ package com.restfb.types.ads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
-public class TargetingTest extends AbstractJsonMapperTests {
+class TargetingTest extends AbstractJsonMapperTests {
 
   @Test
-  public void test_issue531() {
+  void test_issue531() {
     Targeting ruleJson = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_7/issue531"), Targeting.class);
     assertNotNull(ruleJson);
     assertNotNull(ruleJson.getPublisherPlatforms());

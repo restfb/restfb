@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class FacebookTypeTest extends SetterGetterTestBase {
+class FacebookTypeTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     FacebookType obj = new FacebookType();
     addIgnoredField("rawIssuedAt");
     testInstance(obj);

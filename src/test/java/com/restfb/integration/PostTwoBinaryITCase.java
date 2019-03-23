@@ -40,7 +40,7 @@ import com.restfb.types.GraphResponse;
 public class PostTwoBinaryITCase extends RestFbImageIntegrationTestBase {
 
   @Test
-  public void postTwoBinarysAtOnce() {
+  void postTwoBinarysAtOnce() {
     InputStream thumbnailIs = getClass().getResourceAsStream("/binary/video/thumb.png");
     InputStream videoIs = getClass().getResourceAsStream("/binary/video/small.mp4");
 

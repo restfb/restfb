@@ -35,10 +35,11 @@ import org.junit.jupiter.api.Test;
 import com.restfb.*;
 import com.restfb.json.JsonObject;
 
+
 public class InsightTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_4_insight() {
+  void checkV2_4_insight() {
     Insight exampleInsight = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/insight"), Insight.class);
     assertEquals("Lifetime: The number of stories created about your Page post, by action type. (Total Count)",
       exampleInsight.getDescription());

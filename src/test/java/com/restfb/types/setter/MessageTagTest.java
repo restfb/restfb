@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class MessageTagTest extends SetterGetterTestBase {
+class MessageTagTest extends SetterGetterTestBase {
 
     @Test
-    public void testMessageTag() {
+    void testMessageTag() {
         MessageTag obj = new MessageTag();
         addIgnoredField("rawUpdatedTime");
         addIgnoredField("rawCreatedTime");

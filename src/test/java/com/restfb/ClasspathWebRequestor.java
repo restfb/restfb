@@ -70,7 +70,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, com.restfb.BinaryAttachment[])
+   * @see com.restfb.WebRequestor#executePost(String, String, List<BinaryAttachment>)
    */
   @Override
   public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {

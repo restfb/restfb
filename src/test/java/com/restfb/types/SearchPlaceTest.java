@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class SearchPlaceTest extends AbstractJsonMapperTests {
+class SearchPlaceTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkPhotos() {
+  void checkPhotos() {
     SearchPlace examplesearch =
         createJsonMapper().toJavaObject(jsonFromClasspath("v3_1/searchplace-photos"), SearchPlace.class);
     assertNotNull(examplesearch);
@@ -42,7 +42,7 @@ public class SearchPlaceTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkDefault() {
+  void checkDefault() {
     SearchPlace examplesearch =
         createJsonMapper().toJavaObject(jsonFromClasspath("v3_1/searchplace-default"), SearchPlace.class);
     assertNotNull(examplesearch);
@@ -51,7 +51,7 @@ public class SearchPlaceTest extends AbstractJsonMapperTests {
     assertEquals(6345L, examplesearch.getCheckins().longValue());
     assertNotNull(examplesearch.getPicture());
     assertEquals("(212) 253-1046", examplesearch.getPhone());
-    assertEquals(4.3, examplesearch.getOverallStarRating().doubleValue(), 0.01);
+    assertEquals(4.3, examplesearch.getOverallStarRating().doubleValue());
     assertEquals("$$", examplesearch.getPriceRange());
     assertNotNull(examplesearch.getRestaurantServices());
   }

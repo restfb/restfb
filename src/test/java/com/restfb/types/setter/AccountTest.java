@@ -21,15 +21,15 @@
  */
 package com.restfb.types.setter;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.types.Account;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.jupiter.api.Test;
-
-public class AccountTest extends SetterGetterTestBase {
+class AccountTest extends SetterGetterTestBase {
 
   @Test
-  public void checkAccessTokenSetter() {
+  void checkAccessTokenSetter() {
     Account obj = new Account();
     testInstance(obj);
   }

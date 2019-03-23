@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class AdCampaignFrequencyControlSpecsTest extends AbstractJsonMapperTests {
+class AdCampaignFrequencyControlSpecsTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check() {
+  void check() {
     AdCampaignFrequencyControlSpecs adCreative = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_7/campaignfreqcontrolspecs"), AdCampaignFrequencyControlSpecs.class);
     assertNotNull(adCreative);

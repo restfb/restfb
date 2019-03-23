@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+import com.restfb.AbstractJsonMapperTests;
 
 public class DeAuthTest extends AbstractJsonMapperTests {
 

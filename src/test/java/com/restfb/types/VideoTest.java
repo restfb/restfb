@@ -23,11 +23,11 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
 public class VideoTest extends AbstractJsonMapperTests {
 
@@ -36,14 +36,14 @@ public class VideoTest extends AbstractJsonMapperTests {
     List<Video.Thumbnail> thumbnailList =
         createJsonMapper().toJavaList(jsonFromClasspath("v2_3/video-thumbnails"), Video.Thumbnail.class);
     assertEquals(10, thumbnailList.size());
-    for (Video.Thumbnail thumbnail : thumbnailList) {
-      assertEquals(null, thumbnail.getName());
+    thumbnailList.forEach(thumbnail -> {
+      assertNull(thumbnail.getName());
       assertEquals(302, thumbnail.getHeight().intValue());
       assertEquals(403, thumbnail.getWidth().intValue());
       assertEquals(1, thumbnail.getScale().intValue());
       assertTrue(thumbnail.getUri().contains("akamaihd.net"));
       assertNotNull(thumbnail.getIsPreferred());
-    }
+    });
   }
 
   @Test
@@ -138,7 +138,7 @@ public class VideoTest extends AbstractJsonMapperTests {
     assertTrue(exampleVideo.getIsCrosspostingEligible());
     assertTrue(exampleVideo.getIsInstagramEligible());
     assertTrue(exampleVideo.getEmbeddable());
-    assertEquals(5.461D, exampleVideo.getLength().doubleValue(), 0.01);
+    assertEquals(5.461D, exampleVideo.getLength().doubleValue());
     assertEquals("ready", exampleVideo.getStatus().getVideoStatus());
     assertEquals("Test Sender", exampleVideo.getFrom().getName());
     assertEquals("987654321", exampleVideo.getFrom().getId());
@@ -155,12 +155,12 @@ public class VideoTest extends AbstractJsonMapperTests {
     assertEquals("en_US", firstCaption.getLocale());
     assertEquals(1501879203000l, firstCaption.getCreateTime().getTime());
     assertTrue(firstCaption.getUri().contains("example1"));
-    assertTrue(firstCaption.getIsDefault().booleanValue());
+    assertTrue(firstCaption.getIsDefault());
     VideoCaption secondCaption = captions.get(1);
     assertEquals("de_DE", secondCaption.getLocale());
     assertEquals(1501875685000L, secondCaption.getCreateTime().getTime());
     assertTrue(secondCaption.getUri().contains("example2"));
-    assertFalse(secondCaption.getIsDefault().booleanValue());
+    assertFalse(secondCaption.getIsDefault());
   }
 
 }

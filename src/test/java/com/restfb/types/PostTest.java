@@ -23,16 +23,16 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+import com.restfb.AbstractJsonMapperTests;
 
-public class PostTest extends AbstractJsonMapperTests {
+class PostTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_1() {
+  void checkV2_1() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-story"), Post.class);
     assertEquals("Tester shared a link.", examplePost.getStory());
     Privacy priv = examplePost.getPrivacy();
@@ -40,7 +40,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_1_emptyArrayPost() {
+  void checkV2_1_emptyArrayPost() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-emptyarray"), Post.class);
     assertNotNull(examplePost.getProperties().get(0));
     assertNull(examplePost.getProperties().get(0).getName());
@@ -54,13 +54,13 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_1_noMessageTags() {
+  void checkV2_1_noMessageTags() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-messagetags"), Post.class);
     assertEquals(0, examplePost.getMessageTags().size());
   }
 
   @Test
-  public void checkV2_1_groupPost() {
+  void checkV2_1_groupPost() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-group"), Post.class);
 
     assertNotNull(examplePost.getTo());
@@ -68,27 +68,27 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_1_Likes() {
+  void checkV2_1_Likes() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-messagetags"), Post.class);
     assertEquals(1L, examplePost.getLikes().getData().size());
   }
 
   @Test
-  public void checkV2_1_LikesWithTotalCount() {
+  void checkV2_1_LikesWithTotalCount() {
     Post examplePost =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-with-likes-totalcount"), Post.class);
     assertEquals(33L, examplePost.getLikes().getTotalCount().longValue());
   }
 
   @Test
-  public void checkV2_1_PortogueseText() {
+  void checkV2_1_PortogueseText() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/post-portoguese"), Post.class);
     String message = "Esse carro \u00e9 maravilhoso.Deus n\u00e3o nos desampara.Obrigada Senhor.";
     assertEquals(message, examplePost.getMessage());
   }
 
   @Test
-  public void checkV2_3_AdminCreator() {
+  void checkV2_3_AdminCreator() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-admin-creator"), Post.class);
     assertNotNull(examplePost.getAdminCreator());
     assertEquals("Graph API Explorer", examplePost.getAdminCreator().getName());
@@ -96,7 +96,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_FeedTargeting() {
+  void checkV2_3_FeedTargeting() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-feedtargeting"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getFeedTargeting());
@@ -106,7 +106,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_FeedTargeting_Issue262() {
+  void checkV2_3_FeedTargeting_Issue262() {
     Post examplePost =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-feedtargeting-issue262"), Post.class);
     assertNotNull(examplePost);
@@ -117,7 +117,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_Targeting() {
+  void checkV2_3_Targeting() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-targeting"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getTargeting());
@@ -127,7 +127,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_FeedTargeting_Region() {
+  void checkV2_3_FeedTargeting_Region() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-feedtargeting-region"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getFeedTargeting());
@@ -137,21 +137,21 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_IsHidden() {
+  void checkV2_3_IsHidden() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-ishidden"), Post.class);
     assertNotNull(examplePost);
     assertTrue(examplePost.getIsHidden());
   }
 
   @Test
-  public void checkV2_3_FullPicture() {
+  void checkV2_3_FullPicture() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-fullpicture"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getFullPicture());
   }
 
   @Test
-  public void checkV2_3_Attachments() {
+  void checkV2_3_Attachments() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-attachments"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getAttachments());
@@ -164,7 +164,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_messageTags() {
+  void checkV2_4_messageTags() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/message-tags"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getMessageTags());
@@ -178,7 +178,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_messageTags() {
+  void checkV2_5_messageTags() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message-tags"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getMessageTags());
@@ -192,7 +192,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_emptyMessageTags() {
+  void checkV2_5_emptyMessageTags() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/empty-message-tags"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getMessageTags());
@@ -200,7 +200,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_storyTags() {
+  void checkV2_6_storyTags() {
     Post examplePost =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/post-with-storyAndMessageTags"), Post.class);
     assertNotNull(examplePost);
@@ -213,7 +213,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_likesSummary_canHasLike() {
+  void checkV2_5_likesSummary_canHasLike() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-likes-summary"), Post.class);
     assertNotNull(examplePost);
     Likes likesWithSummary = examplePost.getLikes();
@@ -224,7 +224,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_3_likesSummary_canHasLike() {
+  void checkV2_3_likesSummary_canHasLike() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/post-likes-summary"), Post.class);
     assertNotNull(examplePost);
     Likes likesWithSummary = examplePost.getLikes();
@@ -235,7 +235,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_scheduled() {
+  void checkV2_5_scheduled() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-scheduled"), Post.class);
     assertNotNull(examplePost);
     assertEquals(1459416660000L, examplePost.getScheduledPublishTime().getTime());
@@ -249,7 +249,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_parentField() {
+  void checkV2_5_parentField() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-parent"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getParentId());
@@ -257,7 +257,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_reactions() {
+  void checkV2_6_reactions() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/post-with-reactions"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getReactions());
@@ -273,7 +273,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_8_feedTargeting() {
+  void checkV2_8_feedTargeting() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting"), Post.class);
     assertNotNull(examplePost);
     assertNotNull(examplePost.getFeedTargeting());
@@ -285,7 +285,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_8_feedTargetingScheduleUntil() {
+  void checkV2_8_feedTargetingScheduleUntil() {
     Post examplePost =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-feedtargeting-schedule"), Post.class);
     assertNotNull(examplePost);
@@ -296,17 +296,17 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_feedTargetingWithRegions() {
+  void checkV2_5_feedTargetingWithRegions() {
     verifyFeedTargeting("v2_5/post-with-feedtargeting-regions");
   }
 
   @Test
-  public void checkV2_8_feedTargetingWithRegions() {
+  void checkV2_8_feedTargetingWithRegions() {
     verifyFeedTargeting("v2_8/post-with-feedtargeting-regions");
   }
 
   @Test
-  public void checkV2_8_calltoaction_contactUs() {
+  void checkV2_8_calltoaction_contactUs() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-calltoaction"), Post.class);
     assertEquals("link", examplePost.getType());
     assertNotNull(examplePost.getCallToAction());
@@ -317,7 +317,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_8_calltoaction_getQuote() {
+  void checkV2_8_calltoaction_getQuote() {
     Post examplePost =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-calltoaction-getquote"), Post.class);
     assertNotNull(examplePost.getCallToAction());
@@ -332,7 +332,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_8_calltoaction_installMobileApp() {
+  void checkV2_8_calltoaction_installMobileApp() {
     Post examplePost =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-with-calltoaction-installmobileapp"), Post.class);
     assertNotNull(examplePost.getCallToAction());
@@ -345,7 +345,7 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_8_multishare() {
+  void checkV2_8_multishare() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/post-multishare"), Post.class);
     assertNotNull(examplePost);
     assertTrue(examplePost.getMultiShareEndCard());
@@ -363,14 +363,14 @@ public class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_9_noLikes() {
+  void checkV2_9_noLikes() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/post-no-likes"), Post.class);
     assertNotNull(examplePost);
     assertEquals(0L, examplePost.getLikesCount().longValue());
   }
 
   @Test
-  public void checkV3_2_sponsortags() {
+  void checkV3_2_sponsortags() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v3_2/post-sponsortags"), Post.class);
     assertNotNull(examplePost);
     assertEquals(1, examplePost.getSponsorTags().size());

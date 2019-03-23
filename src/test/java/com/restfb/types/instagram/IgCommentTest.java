@@ -27,19 +27,19 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class IgCommentTest extends AbstractJsonMapperTests {
+class IgCommentTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkComment() {
+  void checkComment() {
     IgComment igComment = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/comment"), IgComment.class);
     assertNotNull(igComment);
     assertNotNull(igComment.getMedia());
     assertNotNull(igComment.getUser());
     assertEquals("123456789", igComment.getId());
     assertEquals("Great!", igComment.getText());
-    assertFalse(igComment.getHidden().booleanValue());
-    assertEquals(1519421536000l, igComment.getTimestamp().getTime());
-    assertEquals(0l, igComment.getLikeCount().longValue());
+    assertFalse(igComment.getHidden());
+    assertEquals(1519421536000L, igComment.getTimestamp().getTime());
+    assertEquals(0L, igComment.getLikeCount().longValue());
 
     assertEquals(1, igComment.getReplies().size());
     int i = 0;
@@ -51,7 +51,7 @@ public class IgCommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkCommentWithoutUser() {
+  void checkCommentWithoutUser() {
     IgComment igComment =
         createJsonMapper().toJavaObject(jsonFromClasspath("instagram/comment_missing_user"), IgComment.class);
     assertNotNull(igComment);
@@ -60,9 +60,9 @@ public class IgCommentTest extends AbstractJsonMapperTests {
     assertEquals("bincyshiona", igComment.getUsername());
     assertEquals("17916477187142401", igComment.getId());
     assertEquals("Nice", igComment.getText());
-    assertFalse(igComment.getHidden().booleanValue());
-    assertEquals(1524557652000l, igComment.getTimestamp().getTime());
-    assertEquals(0l, igComment.getLikeCount().longValue());
+    assertFalse(igComment.getHidden());
+    assertEquals(1524557652000L, igComment.getTimestamp().getTime());
+    assertEquals(0L, igComment.getLikeCount().longValue());
 
     assertEquals(0, igComment.getReplies().size());
   }

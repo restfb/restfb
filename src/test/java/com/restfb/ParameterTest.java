@@ -28,17 +28,17 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.testutils.AssertJson;
 
-public class ParameterTest {
+class ParameterTest {
 
   @Test
-  public void emptyFacebookList() {
+  void emptyFacebookList() {
     JsonMapperToJsonTest.ListObject obj = new JsonMapperToJsonTest.ListObject();
     String val = Parameter.with("key", obj).value;
     AssertJson.assertEquals("{\"id\": 12345}", val);
   }
 
   @Test
-  public void correctKeyCheck() {
+  void correctKeyCheck() {
     String key = "tHiSAtEsT";
     String val = "sOmEVaLue";
 
@@ -49,12 +49,12 @@ public class ParameterTest {
   }
 
   @Test
-  public void useEnumAsValue() {
+  void useEnumAsValue() {
     assertThat(Parameter.with("key", EnumTestEnum.FOO)).hasValue("FOO");
   }
 
   @Test
-  public void correctKeyWithWsCheck() {
+  void correctKeyWithWsCheck() {
     String key = "\n\ntHiSAtEsT\n\t";
     String val = "sOmEVaLue";
 
@@ -65,60 +65,52 @@ public class ParameterTest {
   }
 
   @Test
-  public void nullKeyCheck() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      Parameter.with(null, "val");
-    });
+  void nullKeyCheck() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with(null, "val"));
   }
 
   @Test
-  public void emptyKeyCheck() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      Parameter.with("", "val");
-    });
+  void emptyKeyCheck() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with("", "val"));
   }
 
   @Test
-  public void nullValueCheck() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      Parameter.with("key", null);
-    });
+  void nullValueCheck() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with("key", null));
   }
 
   @Test
-  public void nullJsonMapper() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      Parameter.with("key", "value", null);
-    });
+  void nullJsonMapper() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with("key", "value", null));
   }
 
   @Test
-  public void equalsCheck_null() {
+  void equalsCheck_null() {
     assertThat(Parameter.with("name", "value")).isNotNull();
   }
 
   @Test
-  public void equalsCheck_differentClass() {
+  void equalsCheck_differentClass() {
     Parameter obj = Parameter.with("name", "value");
     assertThat(obj).isNotEqualTo(new Object());
   }
 
   @Test
-  public void equalsCheck_differentName() {
+  void equalsCheck_differentName() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name1", "value");
     assertThat(obj1).isNotEqualTo(obj2);
   }
 
   @Test
-  public void equalsCheck_differentValue() {
+  void equalsCheck_differentValue() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name", "value1");
     assertThat(obj1).isNotEqualTo(obj2);
   }
 
   @Test
-  public void equalsCheck_equals() {
+  void equalsCheck_equals() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name", "value");
     assertThat(obj1).isEqualTo(obj2);

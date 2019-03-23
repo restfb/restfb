@@ -23,25 +23,21 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.ParseException;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
 import com.restfb.types.webhook.messaging.airline.PassengerInfoItem;
 import com.restfb.types.webhook.messaging.airline.PassengerSegmentInfoItem;
-import com.restfb.types.webhook.messaging.nlp.NlpDatetime;
-import com.restfb.types.webhook.messaging.nlp.NlpGreetings;
-import com.restfb.types.webhook.messaging.nlp.NlpCustomWitAi;
-import com.restfb.types.webhook.messaging.nlp.NlpReminder;
 
-import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-
-public class WebhookMessagingTest extends AbstractJsonMapperTests {
+class WebhookMessagingTest extends AbstractJsonMapperTests {
 
   @Test
-  public void messagingDelivery() {
+  void messagingDelivery() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-delivery-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -58,7 +54,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingRead() {
+  void messagingRead() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-read-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -74,7 +70,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageMediaAttachment() {
+  void messagingMessageMediaAttachment() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-media-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -99,7 +95,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageLocationAttachment() {
+  void messagingMessageLocationAttachment() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-location-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -125,7 +121,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageLegacyFallbackAttachment() {
+  void messagingMessageLegacyFallbackAttachment() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-fallback-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -151,7 +147,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageBasic() {
+  void messagingMessageBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -175,9 +171,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessagePrior() {
+  void messagingMessagePrior() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-prior"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-prior"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -202,9 +198,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingAppRoles() {
+  void messagingAppRoles() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-approles"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-approles"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -220,7 +216,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingReferralBasic() {
+  void messagingReferralBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-referral-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -238,7 +234,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageBasicIsEcho() {
+  void messagingMessageBasicIsEcho() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-basic-echo"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -260,9 +256,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void standbyMessageBasicIsEcho() {
-    WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/standby-message-basic-echo"), WebhookObject.class);
+  void standbyMessageBasicIsEcho() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/standby-message-basic-echo"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -283,7 +279,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingOptinBasic() {
+  void messagingOptinBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-optin-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -301,7 +297,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingOptinUserRef() {
+  void messagingOptinUserRef() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-optin-userref"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -319,9 +315,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingPolicyCallbackBlock() {
-    WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-block"), WebhookObject.class);
+  void messagingPolicyCallbackBlock() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-block"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -338,9 +334,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingPolicyCallbackUnblock() {
-    WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-unblock"), WebhookObject.class);
+  void messagingPolicyCallbackUnblock() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-unblock"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -356,7 +352,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingPostbackBasic() {
+  void messagingPostbackBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -373,7 +369,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingPostbackWithReferral() {
+  void messagingPostbackWithReferral() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-referral"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -393,7 +389,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingAccountLinkingLinked() {
+  void messagingAccountLinkingLinked() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-accountlinking-linked"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -412,7 +408,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingAccountLinkingUnlinked() {
+  void messagingAccountLinkingUnlinked() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-accountlinking-unlinked"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -430,7 +426,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingButtonTemplate() {
+  void messagingButtonTemplate() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-button-template"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -451,7 +447,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingAirlineItineraryTemplate() throws ParseException {
+  void messagingAirlineItineraryTemplate() throws ParseException {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-airline-itinerary-template"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -477,8 +473,8 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
 
     PassengerInfoItem passengerInfoItem = attachment.getPayload().getPassengerInfoItems().get(0);
     assertEquals("Farbound Smith Jr", passengerInfoItem.getName());
-    assertEquals("p001",passengerInfoItem.getPassengerId());
-    assertEquals("0741234567890",passengerInfoItem.getTicketNumber());
+    assertEquals("p001", passengerInfoItem.getPassengerId());
+    assertEquals("0741234567890", passengerInfoItem.getTicketNumber());
 
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
@@ -491,8 +487,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void passThreadControl() {
-    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-pass-thread-control"), WebhookObject.class);
+  void passThreadControl() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-pass-thread-control"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(item);
@@ -507,8 +504,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void takeThreadControl() {
-    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-take-thread-control"), WebhookObject.class);
+  void takeThreadControl() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-take-thread-control"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(item);
@@ -523,8 +521,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void requestThreadControl() {
-    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-request-thread-control"), WebhookObject.class);
+  void requestThreadControl() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-request-thread-control"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(item);

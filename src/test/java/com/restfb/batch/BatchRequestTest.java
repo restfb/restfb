@@ -27,17 +27,17 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.Parameter;
 
-public class BatchRequestTest {
+class BatchRequestTest {
 
   @Test
-  public void checkBatchRequest_me() {
+  void checkBatchRequest_me() {
     BatchRequest meRequest = new BatchRequest.BatchRequestBuilder("me").build();
     assertThat(meRequest).hasMethod("GET");
     assertThat(meRequest).hasRelativeUrl("me");
   }
 
   @Test
-  public void checkBatchRequest_withHeader() {
+  void checkBatchRequest_withHeader() {
     BatchHeader header = new BatchHeader("If-None-Match", "478fb2358f700");
     BatchRequest meRequest = new BatchRequest.BatchRequestBuilder("me").headers(header).build();
     assertThat(meRequest).hasMethod("GET");
@@ -46,7 +46,7 @@ public class BatchRequestTest {
   }
 
   @Test
-  public void checkBatchRequest_withName() {
+  void checkBatchRequest_withName() {
     BatchRequest meRequest = new BatchRequest.BatchRequestBuilder("me").name("req1").build();
     assertThat(meRequest).hasMethod("GET");
     assertThat(meRequest).hasRelativeUrl("me");
@@ -54,7 +54,7 @@ public class BatchRequestTest {
   }
 
   @Test
-  public void checkBatchRequest_withParams() {
+  void checkBatchRequest_withParams() {
     BatchRequest m83musicRequest =
         new BatchRequest.BatchRequestBuilder("m83music/feed").parameters(Parameter.with("limit", 5)).build();
     assertThat(m83musicRequest).hasMethod("GET");
@@ -62,7 +62,7 @@ public class BatchRequestTest {
   }
 
   @Test
-  public void checkBatchRequest_withFiles() {
+  void checkBatchRequest_withFiles() {
     BatchRequest withFiles = new BatchRequest.BatchRequestBuilder("me/photos").attachedFiles("cat-pic").build();
     assertThat(withFiles).hasMethod("GET");
     assertThat(withFiles).hasRelativeUrl("me/photos");
@@ -70,7 +70,7 @@ public class BatchRequestTest {
   }
 
   @Test
-  public void checkBatchRequest_post() {
+  void checkBatchRequest_post() {
     BatchRequest postRequest = new BatchRequest.BatchRequestBuilder("me/feed").method("POST")
       .body(Parameter.with("message", "Testing!")).build();
     assertThat(postRequest).hasMethod("POST");
@@ -79,7 +79,7 @@ public class BatchRequestTest {
   }
 
   @Test
-  public void checkBatchRequest_post_omitResponse() {
+  void checkBatchRequest_post_omitResponse() {
     BatchRequest postRequest = new BatchRequest.BatchRequestBuilder("me/feed").method("POST")
       .body(Parameter.with("message", "Testing!")).omitResponseOnSuccess(true).build();
     assertThat(postRequest).hasMethod("POST");

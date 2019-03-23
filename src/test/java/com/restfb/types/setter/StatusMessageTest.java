@@ -27,10 +27,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 import org.junit.jupiter.api.Test;
 
 @Deprecated
-public class StatusMessageTest extends SetterGetterTestBase {
+class StatusMessageTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     StatusMessage obj = new StatusMessage();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");

@@ -21,18 +21,18 @@
  */
 package com.restfb.types.setter;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.types.WorkExperience;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.jupiter.api.Test;
+class WorkExperienceTest extends SetterGetterTestBase {
 
-public class WorkExperienceTest extends SetterGetterTestBase {
-
-    @Test
-    public void test() {
-        WorkExperience obj = new WorkExperience();
-        addIgnoredField("rawStartDate");
-        addIgnoredField("rawEndDate");
-        testInstance(obj);
-    }
+  @Test
+  void test() {
+    WorkExperience obj = new WorkExperience();
+    addIgnoredField("rawStartDate");
+    addIgnoredField("rawEndDate");
+    testInstance(obj);
+  }
 }

@@ -28,10 +28,10 @@ import com.restfb.types.send.PageMessageTag;
 
 import org.junit.jupiter.api.Test;
 
-public class PageMessageTagTest extends AbstractJsonMapperTests {
+class PageMessageTagTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check() {
+  void check() {
     PageMessageTag pageLabel =
         createJsonMapper().toJavaObject(jsonFromClasspath("send/page-message-tag"), PageMessageTag.class);
     assertNotNull(pageLabel);

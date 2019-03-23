@@ -27,27 +27,26 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.types.send.MediaAttachment;
 
-public class UrlPayloadTest {
+class UrlPayloadTest {
 
   @Test
-  public void checkToString() {
+  void checkToString() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     String toStringAttachment = "MediaAttachment[payload=UrlPayload[isReusable=null url=exampleUrl] type=image]";
     assertThat(attachment.toString()).isEqualTo(toStringAttachment);
   }
 
   @Test
-  public void checkHashcode() {
+  void checkHashcode() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     assertThat(attachment.hashCode()).isEqualTo(-1842490888);
   }
 
   @Test
-  public void checkEquals() {
+  void checkEquals() {
     MediaAttachment attachment1 = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     MediaAttachment attachment2 = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     assertThat(attachment1).isEqualTo(attachment2);
-    // equals is used here, because this is the test
   }
 
 }

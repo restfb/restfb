@@ -23,9 +23,9 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 public class AccountTest extends AbstractJsonMapperTests {
 
