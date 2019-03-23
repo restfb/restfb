@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class AdTest extends AbstractJsonMapperTests {
+class AdTest extends AbstractJsonMapperTests {
 
   @Test
-  public void test() {
+  void test() {
     Ad adObj = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/ad"), Ad.class);
     assertNotNull(adObj);
     assertEquals("123123", adObj.getId());

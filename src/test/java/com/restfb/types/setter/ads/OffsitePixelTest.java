@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class OffsitePixelTest extends SetterGetterTestBase {
+class OffsitePixelTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     OffsitePixel object = new OffsitePixel();
     addIgnoredField("rawLastFiringTime");
     testInstance(object);

@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class UserPermissionTest extends AbstractJsonMapperTests {
+class UserPermissionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkMultipleUserPermission() {
+  void checkMultipleUserPermission() {
     List<UserPermission> permissionList =
         createJsonMapper().toJavaList(jsonFromClasspath("ads/v2_6/userpermissionslist"), UserPermission.class);
     assertNotNull(permissionList);

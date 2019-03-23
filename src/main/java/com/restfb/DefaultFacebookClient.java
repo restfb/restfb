@@ -406,7 +406,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public List<BatchResponse> executeBatch(BatchRequest... batchRequests) {
-    return executeBatch(asList(batchRequests), Collections.<BinaryAttachment> emptyList());
+    return executeBatch(asList(batchRequests), Collections.emptyList());
   }
 
   /**
@@ -414,7 +414,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public List<BatchResponse> executeBatch(List<BatchRequest> batchRequests) {
-    return executeBatch(batchRequests, Collections.<BinaryAttachment> emptyList());
+    return executeBatch(batchRequests, Collections.emptyList());
   }
 
   /**
@@ -636,7 +636,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // add optional parameters
     Collections.addAll(parameterList, parameters);
 
-    return dialogUrl + "?" + toParameterString(false, parameterList.toArray(new Parameter[parameterList.size()]));
+    return dialogUrl + "?" + toParameterString(false, parameterList.stream().toArray(Parameter[]::new));
   }
 
   /**

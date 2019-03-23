@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class UrlTest extends SetterGetterTestBase {
+class UrlTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Url obj = new Url();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");

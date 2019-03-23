@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.types.ProfilePictureSource;
 
-public class MappingUtilsTest {
+class MappingUtilsTest {
 
   @Test
-  public void convertRawPicture_complete() {
+  void convertRawPicture_complete() {
     MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
     String jsonString = "{\n" + //
         "    \"data\": {\n" + //
@@ -44,19 +44,19 @@ public class MappingUtilsTest {
   }
 
   @Test
-  public void convertRawPicture_nullInput() {
+  void convertRawPicture_nullInput() {
     MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
     assertNull(utils.convertPicture(null));
   }
 
   @Test
-  public void convertRawPicture_brokenJson() {
+  void convertRawPicture_brokenJson() {
     MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
     assertNull(utils.convertPicture("\"picture\":{}"));
   }
 
   @Test
-  public void convertRawPicture_jsonNoObject() {
+  void convertRawPicture_jsonNoObject() {
     MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
     assertNull(utils.convertPicture("12345"));
   }

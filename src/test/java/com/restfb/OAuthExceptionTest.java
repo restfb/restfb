@@ -30,10 +30,10 @@ import com.restfb.exception.FacebookGraphException;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.testutils.AssertJson;
 
-public class OAuthExceptionTest extends AbstractJsonMapperTests {
+class OAuthExceptionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void exception() {
+  void exception() {
     String jsonErrorString = jsonFromClasspath("oauthExampleError");
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {
@@ -45,7 +45,8 @@ public class OAuthExceptionTest extends AbstractJsonMapperTests {
       assertThat(fe.getErrorCode()).isEqualTo(1);
       assertThat(fe.getErrorSubcode()).isEqualTo(1965014);
       assertThat(fe.getErrorMessage()).isEqualTo("An unknown error occurred");
-      assertThat(fe.getMessage()).isEqualTo("Received Facebook error response of type OAuthException: An unknown error occurred (code 1, subcode 1965014) 'Fundraisers Have a 90 Day Limit - Please choose another end date.'");
+      assertThat(fe.getMessage()).isEqualTo(
+        "Received Facebook error response of type OAuthException: An unknown error occurred (code 1, subcode 1965014) 'Fundraisers Have a 90 Day Limit - Please choose another end date.'");
       assertThat(fe.getRawErrorJson()).isNotNull();
       AssertJson.assertEquals(jsonErrorString, fe.getRawErrorJson().toString());
       assertThat(fe.getFbtraceId()).isEqualTo("EmOAvxDPlF2");

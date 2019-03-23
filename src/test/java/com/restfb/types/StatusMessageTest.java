@@ -29,10 +29,10 @@ import com.restfb.AbstractJsonMapperTests;
 import org.junit.jupiter.api.Test;
 
 @Deprecated
-public class StatusMessageTest extends AbstractJsonMapperTests {
+class StatusMessageTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkPlaceV1_0() {
+  void checkPlaceV1_0() {
     StatusMessage examplePlace =
         createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/status-message"), StatusMessage.class);
     assertNotNull(examplePlace.getPlace());

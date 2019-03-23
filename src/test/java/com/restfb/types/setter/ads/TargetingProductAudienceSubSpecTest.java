@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class TargetingProductAudienceSubSpecTest extends SetterGetterTestBase {
+class TargetingProductAudienceSubSpecTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     TargetingProductAudienceSubSpec object = new TargetingProductAudienceSubSpec();
     addIgnoredField("ruleJson");
     addIgnoredField("rule");

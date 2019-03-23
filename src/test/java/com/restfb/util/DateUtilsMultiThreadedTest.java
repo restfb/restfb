@@ -23,23 +23,25 @@ package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.IntStream;
 
-public class DateUtilsMultiThreadedTest {
+import org.junit.jupiter.api.Test;
+
+class DateUtilsMultiThreadedTest {
 
   static class DateAsLongGenerator {
     private final AtomicLong counter = new AtomicLong();
 
-    public long getLongDate() throws InterruptedException {
+    long getLongDate() throws InterruptedException {
       long res = 0L;
       long yearIncrement = 1900 + counter.incrementAndGet();
-      for (int day = 10; day <= 30; day++) {
+
+      for (int day : IntStream.range(10, 31).toArray()) {
         Thread.sleep(10);
         String date = day + "/01/" + yearIncrement;
         res = DateUtils.toDateFromShortFormat(date).getTime();
@@ -52,14 +54,7 @@ public class DateUtilsMultiThreadedTest {
     DateUtils.setDateFormatStrategy(new CachedDateFormatStrategy());
     final DateAsLongGenerator domainObject = new DateAsLongGenerator();
 
-    Callable<Long> task = new Callable<Long>() {
-      @Override
-      public Long call() throws InterruptedException {
-        return domainObject.getLongDate();
-      }
-    };
-
-    List<Callable<Long>> tasks = Collections.nCopies(threadCount, task);
+    List<Callable<Long>> tasks = Collections.nCopies(threadCount, () -> domainObject.getLongDate());
 
     // create thread pool and calc dates
     ExecutorService executorService = Executors.newFixedThreadPool(threadCount);

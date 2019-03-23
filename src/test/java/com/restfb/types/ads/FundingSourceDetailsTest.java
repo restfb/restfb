@@ -28,10 +28,10 @@ import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.jupiter.api.Test;
 
-public class FundingSourceDetailsTest extends AbstractJsonMapperTests {
+class FundingSourceDetailsTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkFundingDetails() {
+  void checkFundingDetails() {
     FundingSourceDetails details =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_3/fundingSourceDetails"), FundingSourceDetails.class);
     assertNotNull(details);

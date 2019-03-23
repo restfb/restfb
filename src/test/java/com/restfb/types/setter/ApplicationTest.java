@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class ApplicationTest extends SetterGetterTestBase {
+class ApplicationTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Application obj = new Application();
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawLastUsedTime");

@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class LookalikeSpecTest extends AbstractJsonMapperTests {
+class LookalikeSpecTest extends AbstractJsonMapperTests {
 
   @Test
-  public void issue518() {
+  void issue518() {
     LookalikeSpec lead =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/lookalike-issue518"), LookalikeSpec.class);
     assertNotNull(lead);

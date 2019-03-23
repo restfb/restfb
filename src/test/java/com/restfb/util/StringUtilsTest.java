@@ -30,30 +30,30 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class StringUtilsTest {
+class StringUtilsTest {
 
   @Test
-  public void integerParseTest_null() {
+  void integerParseTest_null() {
     assertThat(StringUtils.toInteger(null)).isNull();
   }
 
   @Test
-  public void integerParseTest_number() {
+  void integerParseTest_number() {
     assertThat(StringUtils.toInteger("23")).isEqualTo(23);
   }
 
   @Test
-  public void integerParseTest_String() {
+  void integerParseTest_String() {
     assertThat(StringUtils.toInteger("bla")).isNull();
   }
 
   @Test
-  public void joinArrayTest() {
+  void joinArrayTest() {
     assertThat(String.join(",", new String[] { "foo", "bar" })).isEqualTo("foo,bar");
   }
 
   @Test
-  public void joinListTest_List() {
+  void joinListTest_List() {
     List<String> myStrings = new ArrayList<>();
     myStrings.add("foo");
     myStrings.add("bar");
@@ -61,7 +61,7 @@ public class StringUtilsTest {
   }
 
   @Test
-  public void toString_null() {
+  void toString_null() {
     try {
       StringUtils.toString(null);
       fail("NullPointerException expected");
@@ -71,12 +71,12 @@ public class StringUtilsTest {
   }
 
   @Test
-  public void toString_array() {
+  void toString_array() {
     assertThat(StringUtils.toString("abc".getBytes())).contains("abc");
   }
 
   @Test
-  public void toBytes_null() {
+  void toBytes_null() {
     try {
       StringUtils.toBytes(null);
       fail("NullPointerException expected");
@@ -86,12 +86,12 @@ public class StringUtilsTest {
   }
 
   @Test
-  public void toBytes_String() {
+  void toBytes_String() {
     assertThat(StringUtils.toBytes("abc")).contains('a', 'b', 'c');
   }
 
   @Test
-  public void fromInputStream_null() throws IOException {
+  void fromInputStream_null() throws IOException {
     assertThat(StringUtils.fromInputStream(null)).isNull();
   }
 }

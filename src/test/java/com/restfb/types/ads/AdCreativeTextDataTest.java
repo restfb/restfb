@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class AdCreativeTextDataTest extends AbstractJsonMapperTests {
+class AdCreativeTextDataTest extends AbstractJsonMapperTests {
 
   @Test
-  public void test() {
+  void test() {
     AdCreativeTextData adObj =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/adCreativeTextData"), AdCreativeTextData.class);
     assertEquals("test message", adObj.getMessage());

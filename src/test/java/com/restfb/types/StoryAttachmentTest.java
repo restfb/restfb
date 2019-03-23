@@ -31,10 +31,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class StoryAttachmentTest extends AbstractJsonMapperTests {
+class StoryAttachmentTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkImage() {
+  void checkImage() {
     StoryAttachment attachment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/story-attachment"), StoryAttachment.class);
     assertNotNull(attachment.getMedia());
@@ -44,7 +44,7 @@ public class StoryAttachmentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkSubAttachments() {
+  void checkSubAttachments() {
     StoryAttachment attachment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/story-attachment"), StoryAttachment.class);
     assertNotNull(attachment.getSubAttachments());

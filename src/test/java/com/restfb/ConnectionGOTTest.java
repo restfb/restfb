@@ -31,16 +31,16 @@ import com.restfb.types.Comments;
 import com.restfb.types.Likes;
 import com.restfb.types.Post;
 
-public class ConnectionGOTTest extends AbstractJsonMapperTests {
+class ConnectionGOTTest extends AbstractJsonMapperTests {
 
   /**
    * we check the likes and the comments count if some likes or comments are present, we fill the count/total count
    * (summary needs to be set to true)
    */
   @Test
-  public void check_2_1_comments_likes_count() {
+  void check_2_1_comments_likes_count() {
     Connection<Post> con =
-        new Connection<Post>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("v2_1/feed-got"), Post.class);
+        new Connection<>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("v2_1/feed-got"), Post.class);
     List<Post> postPage = con.getData();
     for (Post post : postPage) {
       Comments cs = post.getComments();

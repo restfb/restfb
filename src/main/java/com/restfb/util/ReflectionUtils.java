@@ -43,13 +43,13 @@ public final class ReflectionUtils {
    * In-memory shared cache of reflection data for {@link #findFieldsWithAnnotation(Class, Class)}.
    */
   private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
-      synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
+      synchronizedMap(new HashMap<>());
 
   /**
    * In-memory shared cache of reflection data for {@link #findMethodsWithAnnotation(Class, Class)}.
    */
   private static final Map<ClassAnnotationCacheKey, List<Method>> METHODS_WITH_ANNOTATION_CACHE =
-      synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<Method>>());
+      synchronizedMap(new HashMap<>());
 
   /**
    * Prevents instantiation.

@@ -23,14 +23,14 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class LikesTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class LikesTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkLikesObject() {
+  void checkLikesObject() {
     Likes likes = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/likes"), Likes.class);
     assertNotNull(likes);
   }

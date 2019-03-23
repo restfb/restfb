@@ -28,18 +28,18 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class IgUserTest extends AbstractJsonMapperTests {
+class IgUserTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkUser() {
+  void checkUser() {
     IgUser igUser = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/user"), IgUser.class);
     assertNull(igUser.getBiography());
     assertEquals("tester2018", igUser.getUsername());
     assertNull(igUser.getWebsite());
     assertEquals(9876543L, igUser.getIgId().longValue());
-    assertEquals(10l, igUser.getFollowersCount().longValue());
-    assertEquals(15l, igUser.getFollowsCount().longValue());
-    assertEquals(2l, igUser.getMediaCount().longValue());
+    assertEquals(10L, igUser.getFollowersCount().longValue());
+    assertEquals(15L, igUser.getFollowsCount().longValue());
+    assertEquals(2L, igUser.getMediaCount().longValue());
     assertEquals("Tester Test", igUser.getName());
   }
 }

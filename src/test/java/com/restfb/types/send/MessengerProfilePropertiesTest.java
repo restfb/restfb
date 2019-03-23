@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class MessengerProfilePropertiesTest extends AbstractJsonMapperTests {
+class MessengerProfilePropertiesTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkSettingsExample() {
+  void checkSettingsExample() {
     MessengerProfileProperties exampleSettings = createJsonMapper()
       .toJavaObject(jsonFromClasspath("send/messenger-profile-settings"), MessengerProfileProperties.class);
     assertNotNull(exampleSettings);

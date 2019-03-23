@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class UserTest extends SetterGetterTestBase {
+class UserTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     User obj = new User();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -40,7 +40,7 @@ public class UserTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testCurrency() {
+  void testCurrency() {
     User.Currency obj = new User.Currency();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -48,7 +48,7 @@ public class UserTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testEducation() {
+  void testEducation() {
     User.Education obj = new User.Education();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -56,7 +56,7 @@ public class UserTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testEducationClass() {
+  void testEducationClass() {
     User.EducationClass obj = new User.EducationClass();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -64,7 +64,7 @@ public class UserTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testSport() {
+  void testSport() {
     User.Sport obj = new User.Sport();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");

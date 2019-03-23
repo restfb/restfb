@@ -32,10 +32,10 @@ import com.restfb.batch.BatchHeader;
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 
-public class FacebookClientBatchTest extends AbstractJsonMapperTests {
+class FacebookClientBatchTest extends AbstractJsonMapperTests {
 
   @Test
-  public void batchtest() {
+  void batchtest() {
     FacebookClient client = createFacebookClient("batch-simple");
 
     BatchRequest exampleRequest = new BatchRequest.BatchRequestBuilder("").build();
@@ -52,7 +52,7 @@ public class FacebookClientBatchTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void batchFirst() {
+  void batchFirst() {
     FacebookClient client = createFacebookClient("batch-first-error");
 
     BatchRequest exampleRequest = new BatchRequest.BatchRequestBuilder("").build();
@@ -65,7 +65,7 @@ public class FacebookClientBatchTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void batchSecond() {
+  void batchSecond() {
     FacebookClient client = createFacebookClient("batch-second-error");
 
     BatchRequest exampleRequest = new BatchRequest.BatchRequestBuilder("").build();
@@ -86,7 +86,8 @@ public class FacebookClientBatchTest extends AbstractJsonMapperTests {
 
   private FacebookClient createFacebookClient(final String batchJson) {
     WebRequestor.Response response = new WebRequestor.Response(200, jsonFromClasspath("batch/" + batchJson));
-    return new DefaultFacebookClient("accesstoken", new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
+    return new DefaultFacebookClient("accesstoken", new FakeWebRequestor(response), new DefaultJsonMapper(),
+      Version.LATEST);
   }
 
 }

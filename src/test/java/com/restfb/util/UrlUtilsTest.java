@@ -32,10 +32,10 @@ import org.junit.jupiter.api.Test;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class UrlUtilsTest {
+class UrlUtilsTest {
 
   @Test
-  public void queryString() {
+  void queryString() {
     assertThat(extractParametersFromQueryString(null)).isEmpty();
     assertThat(extractParametersFromQueryString("")).isEmpty();
     assertThat(extractParametersFromQueryString("access_token=123")).hasSize(1);
@@ -43,7 +43,7 @@ public class UrlUtilsTest {
   }
 
   @Test
-  public void urlParameters() {
+  void urlParameters() {
     assertThat(extractParametersFromUrl(null)).isEmpty();
     assertThat(extractParametersFromUrl("")).isEmpty();
     assertThat(extractParametersFromUrl("access_token=123")).isEmpty();
@@ -52,7 +52,7 @@ public class UrlUtilsTest {
   }
 
   @Test
-  public void replaceParameter() {
+  void replaceParameter() {
     String exampleUrl = "http://www.example.com?access_token=123&before=1234";
     String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
     String expectedURL = "http://www.example.com?access_token=123&before=56789";
@@ -60,7 +60,7 @@ public class UrlUtilsTest {
   }
 
   @Test
-  public void addParameterNoParameter() {
+  void addParameterNoParameter() {
     String exampleUrl = "http://www.example.com";
     String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
     String expectedURL = "http://www.example.com?before=56789";
@@ -68,7 +68,7 @@ public class UrlUtilsTest {
   }
 
   @Test
-  public void addParameter() {
+  void addParameter() {
     String exampleUrl = "http://www.example.com?access_token=123";
     String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
     String expectedURL = "http://www.example.com?access_token=123&before=56789";

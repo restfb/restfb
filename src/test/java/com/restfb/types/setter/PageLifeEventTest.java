@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class PageLifeEventTest extends SetterGetterTestBase {
+class PageLifeEventTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     PageLifeEvent obj = new PageLifeEvent();
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawEndTime");

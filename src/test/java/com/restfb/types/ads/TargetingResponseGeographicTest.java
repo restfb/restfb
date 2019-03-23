@@ -23,14 +23,14 @@ package com.restfb.types.ads;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_6_city() {
+  void checkV2_6_city() {
     TargetingResponseGeographic geographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsegeographic_city"), TargetingResponseGeographic.class);
     assertNotNull(geographic);
@@ -41,14 +41,14 @@ public class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
     assertEquals("France", geographic.getCountryName());
     assertEquals("Lorraine", geographic.getRegion());
     assertEquals(1081L, geographic.getRegionId().longValue());
-    assertTrue(geographic.getSupportsRegion().booleanValue());
-    assertTrue(geographic.getSupportsCity().booleanValue());
+    assertTrue(geographic.getSupportsRegion());
+    assertTrue(geographic.getSupportsCity());
     assertNull(geographic.getPrimaryCity());
     assertNull(geographic.getPrimaryCityId());
   }
 
   @Test
-  public void checkV2_6_region() {
+  void checkV2_6_region() {
     TargetingResponseGeographic geographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsegeographic_region"), TargetingResponseGeographic.class);
     assertNotNull(geographic);
@@ -59,14 +59,14 @@ public class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
     assertEquals("Andorra", geographic.getCountryName());
     assertNull(geographic.getRegion());
     assertNull(geographic.getRegionId());
-    assertTrue(geographic.getSupportsRegion().booleanValue());
-    assertTrue(geographic.getSupportsCity().booleanValue());
+    assertTrue(geographic.getSupportsRegion());
+    assertTrue(geographic.getSupportsCity());
     assertNull(geographic.getPrimaryCity());
     assertNull(geographic.getPrimaryCityId());
   }
 
   @Test
-  public void checkV2_6_country() {
+  void checkV2_6_country() {
     TargetingResponseGeographic geographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsegeographic_country"), TargetingResponseGeographic.class);
     assertNotNull(geographic);
@@ -77,14 +77,14 @@ public class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
     assertNull(geographic.getCountryName());
     assertNull(geographic.getRegion());
     assertNull(geographic.getRegionId());
-    assertTrue(geographic.getSupportsRegion().booleanValue());
-    assertTrue(geographic.getSupportsCity().booleanValue());
+    assertTrue(geographic.getSupportsRegion());
+    assertTrue(geographic.getSupportsCity());
     assertNull(geographic.getPrimaryCity());
     assertNull(geographic.getPrimaryCityId());
   }
 
   @Test
-  public void checkV2_6_zip() {
+  void checkV2_6_zip() {
     TargetingResponseGeographic geographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsegeographic_zip"), TargetingResponseGeographic.class);
     assertNotNull(geographic);
@@ -95,14 +95,14 @@ public class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
     assertEquals("France", geographic.getCountryName());
     assertEquals("Languedoc-Roussillon", geographic.getRegion());
     assertEquals(1079L, geographic.getRegionId().longValue());
-    assertTrue(geographic.getSupportsRegion().booleanValue());
-    assertTrue(geographic.getSupportsCity().booleanValue());
+    assertTrue(geographic.getSupportsRegion());
+    assertTrue(geographic.getSupportsCity());
     assertEquals("Villelongue-dels-Monts", geographic.getPrimaryCity());
     assertEquals(796803L, geographic.getPrimaryCityId().longValue());
   }
 
   @Test
-  public void checkV2_6_market() {
+  void checkV2_6_market() {
     TargetingResponseGeographic geographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsegeographic_market"), TargetingResponseGeographic.class);
     assertNotNull(geographic);
@@ -113,14 +113,14 @@ public class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
     assertNull(geographic.getCountryName());
     assertNull(geographic.getRegion());
     assertNull(geographic.getRegionId());
-    assertTrue(geographic.getSupportsRegion().booleanValue());
-    assertTrue(geographic.getSupportsCity().booleanValue());
+    assertTrue(geographic.getSupportsRegion());
+    assertTrue(geographic.getSupportsCity());
     assertNull(geographic.getPrimaryCity());
     assertNull(geographic.getPrimaryCityId());
   }
 
   @Test
-  public void checkV2_6_electoral_district() {
+  void checkV2_6_electoral_district() {
     TargetingResponseGeographic geographic = createJsonMapper().toJavaObject(
       jsonFromClasspath("ads/v2_6/responsegeographic_electoraldistrict"), TargetingResponseGeographic.class);
     assertNotNull(geographic);
@@ -131,8 +131,8 @@ public class TargetingResponseGeographicTest extends AbstractJsonMapperTests {
     assertNull(geographic.getCountryName());
     assertNull(geographic.getRegion());
     assertNull(geographic.getRegionId());
-    assertTrue(geographic.getSupportsRegion().booleanValue());
-    assertTrue(geographic.getSupportsCity().booleanValue());
+    assertTrue(geographic.getSupportsRegion());
+    assertTrue(geographic.getSupportsCity());
     assertNull(geographic.getPrimaryCity());
     assertNull(geographic.getPrimaryCityId());
   }

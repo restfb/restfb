@@ -26,9 +26,9 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class CategorizedFacebookTypeTest extends SetterGetterTestBase {
+class CategorizedFacebookTypeTest extends SetterGetterTestBase {
   @Test
-  public void test() {
+  void test() {
     CategorizedFacebookType obj = new CategorizedFacebookType();
     testInstance(obj);
   }

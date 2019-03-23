@@ -24,20 +24,20 @@ package com.restfb.types.ads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class AndroidAppLinkTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class AndroidAppLinkTest extends AbstractJsonMapperTests {
 
   @Test
-  public void test() {
+  void test() {
     AndroidAppLink adObj =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/androidAppLink"), AndroidAppLink.class);
+    assertNotNull(adObj);
     assertEquals("test app name", adObj.getAppName());
     assertEquals("example class", adObj.getClazz());
     assertEquals("example package", adObj.getPackage());
     assertEquals("http://example.org", adObj.getUrl());
-    assertNotNull(adObj);
   }
 }

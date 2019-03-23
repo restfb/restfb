@@ -23,14 +23,14 @@ package com.restfb.types.ads;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class TargetingSentenceLineTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class TargetingSentenceLineTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkStringAndObject() {
+  void checkStringAndObject() {
     TargetingSentenceLine ruleJson = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_8/targetingsentenceline"), TargetingSentenceLine.class);
     assertNotNull(ruleJson);
@@ -42,7 +42,7 @@ public class TargetingSentenceLineTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkStringOnly() {
+  void checkStringOnly() {
     TargetingSentenceLine ruleJson = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_8/targetingsentencelinefallback"), TargetingSentenceLine.class);
     assertNotNull(ruleJson);

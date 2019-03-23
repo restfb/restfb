@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class ReviewTest extends SetterGetterTestBase {
+class ReviewTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Review obj = new Review();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
