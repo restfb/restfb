@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class WorkExperienceTest extends AbstractJsonMapperTests {
+class WorkExperienceTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_8_workexperience() {
+  void checkV2_8_workexperience() {
     WorkExperience experience =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/work-experience"), WorkExperience.class);
 

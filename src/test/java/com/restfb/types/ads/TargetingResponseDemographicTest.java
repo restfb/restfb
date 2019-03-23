@@ -23,14 +23,14 @@ package com.restfb.types.ads;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class TargetingResponseDemographicTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class TargetingResponseDemographicTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_6_interest1() {
+  void checkV2_6_interest1() {
     TargetingResponseDemographic demographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsedemographic_interest1"), TargetingResponseDemographic.class);
     assertNotNull(demographic);
@@ -44,7 +44,7 @@ public class TargetingResponseDemographicTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_interest2() {
+  void checkV2_6_interest2() {
     TargetingResponseDemographic demographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsedemographic_interest2"), TargetingResponseDemographic.class);
     assertNotNull(demographic);
@@ -58,7 +58,7 @@ public class TargetingResponseDemographicTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_category1() {
+  void checkV2_6_category1() {
     TargetingResponseDemographic demographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsedemographic_category1"), TargetingResponseDemographic.class);
     assertNotNull(demographic);
@@ -72,7 +72,7 @@ public class TargetingResponseDemographicTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_category2() {
+  void checkV2_6_category2() {
     TargetingResponseDemographic demographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_6/responsedemographic_category2"), TargetingResponseDemographic.class);
     assertNotNull(demographic);
@@ -86,7 +86,7 @@ public class TargetingResponseDemographicTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_8_squareBracketInString() {
+  void checkV2_8_squareBracketInString() {
     TargetingResponseDemographic demographic = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_8/responsedemographic_brackets"), TargetingResponseDemographic.class);
     assertEquals("[dunkelbunt]", demographic.getName());

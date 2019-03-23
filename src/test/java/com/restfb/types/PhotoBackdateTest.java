@@ -37,9 +37,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class PhotoBackdateTest extends AbstractJsonMapperTests {
+class PhotoBackdateTest extends AbstractJsonMapperTests {
 
-  public static Stream<Arguments> backdateData() {
+  static Stream<Arguments> backdateData() {
     return Stream.of(Arguments.of("v1_0/photo-day", "day", 1408302000000L), //
       Arguments.of("v1_0/photo-year", "year", 1408302000000L), //
       Arguments.of("v1_0/photo-month", "month", 1408302000000L), //
@@ -63,7 +63,7 @@ public class PhotoBackdateTest extends AbstractJsonMapperTests {
 
   @ParameterizedTest
   @MethodSource("backdateData")
-  public void checkBackDate(String fileName, String expectedGranularity,
+  void checkBackDate(String fileName, String expectedGranularity,
       @AggregateWith(DateAggregator.class) Date expectedTime) {
 
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath(fileName), Photo.class);

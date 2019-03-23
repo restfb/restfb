@@ -25,10 +25,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class ThreadTest extends SetterGetterTestBase {
+class ThreadTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     com.restfb.types.Thread obj = new com.restfb.types.Thread();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");

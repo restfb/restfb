@@ -27,10 +27,10 @@ import com.restfb.AbstractJsonMapperTests;
 
 import org.junit.jupiter.api.Test;
 
-public class ResumableUploadTest extends AbstractJsonMapperTests {
+class ResumableUploadTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkTransfer() {
+  void checkTransfer() {
     ResumableUploadTransferResponse exampleResponse = createJsonMapper()
       .toJavaObject(jsonFromClasspath("v2_5/resumable-transfer"), ResumableUploadTransferResponse.class);
     assertNotNull(exampleResponse);
@@ -40,7 +40,7 @@ public class ResumableUploadTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkTransferFinished() {
+  void checkTransferFinished() {
     ResumableUploadTransferResponse exampleResponse = createJsonMapper()
       .toJavaObject(jsonFromClasspath("v2_5/resumable-transfer-finished"), ResumableUploadTransferResponse.class);
     assertNotNull(exampleResponse);
@@ -50,7 +50,7 @@ public class ResumableUploadTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkStart() {
+  void checkStart() {
     ResumableUploadStartResponse exampleResponse =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/resumable-start"), ResumableUploadStartResponse.class);
     assertNotNull(exampleResponse);

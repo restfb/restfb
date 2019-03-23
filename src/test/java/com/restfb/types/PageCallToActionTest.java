@@ -23,14 +23,14 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class PageCallToActionTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class PageCallToActionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_5() {
+  void checkV2_5() {
     PageCallToAction callToAction =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-callToActions"), PageCallToAction.class);
     assertEquals("CONTACT_US", callToAction.getType());

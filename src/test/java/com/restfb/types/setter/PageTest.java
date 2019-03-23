@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class PageTest extends SetterGetterTestBase {
+class PageTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Page obj = new Page();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -42,7 +42,7 @@ public class PageTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testCover() {
+  void testCover() {
     Page.Cover obj = new Page.Cover();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -50,55 +50,55 @@ public class PageTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testEngagement() {
+  void testEngagement() {
     Page.Engagement obj = new Page.Engagement();
     testInstance(obj);
   }
 
   @Test
-  public void testMailingAddress() {
+  void testMailingAddress() {
     Page.MailingAddress obj = new Page.MailingAddress();
     testInstance(obj);
   }
 
   @Test
-  public void testPagePaymentOptions() {
+  void testPagePaymentOptions() {
     Page.PagePaymentOptions obj = new Page.PagePaymentOptions();
     testInstance(obj);
   }
 
   @Test
-  public void testPageRestaurantServices() {
+  void testPageRestaurantServices() {
     Page.PageRestaurantServices obj = new Page.PageRestaurantServices();
     testInstance(obj);
   }
 
   @Test
-  public void testPageRestaurantSpecialties() {
+  void testPageRestaurantSpecialties() {
     Page.PageRestaurantSpecialties obj = new Page.PageRestaurantSpecialties();
     testInstance(obj);
   }
 
   @Test
-  public void testPageStartDate() {
+  void testPageStartDate() {
     Page.PageStartDate obj = new Page.PageStartDate();
     testInstance(obj);
   }
 
   @Test
-  public void testPageStartInfo() {
+  void testPageStartInfo() {
     Page.PageStartInfo obj = new Page.PageStartInfo();
     testInstance(obj);
   }
 
   @Test
-  public void testSettings() {
+  void testSettings() {
     Page.Settings obj = new Page.Settings();
     testInstance(obj);
   }
 
   @Test
-  public void testVoipInfo() {
+  void testVoipInfo() {
     Page.VoipInfo obj = new Page.VoipInfo();
     testInstance(obj);
   }

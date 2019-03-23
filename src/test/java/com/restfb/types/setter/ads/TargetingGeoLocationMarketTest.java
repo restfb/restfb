@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class TargetingGeoLocationMarketTest extends SetterGetterTestBase {
+class TargetingGeoLocationMarketTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     TargetingGeoLocationMarket object = new TargetingGeoLocationMarket();
     testInstance(object);
   }

@@ -41,7 +41,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultWebRequestorTest {
+class DefaultWebRequestorTest {
 
   @Mock
   private HttpURLConnection mockUrlConnection;
@@ -55,12 +55,12 @@ public class DefaultWebRequestorTest {
   private static final String exampleUrl = "http://www.example.org";
 
   @BeforeEach
-  public void setup() throws IOException {
+  void setup() throws IOException {
     doReturn(mockUrlConnection).when(requestor).openConnection(any(URL.class));
   }
 
   @Test
-  public void checkGet() throws IOException {
+  void checkGet() throws IOException {
     String resultString = "This is just a simple Test";
     when(mockUrlConnection.getResponseCode()).thenReturn(200);
     InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
@@ -84,7 +84,7 @@ public class DefaultWebRequestorTest {
   }
 
   @Test
-  public void checkPost_NoBinary() throws IOException {
+  void checkPost_NoBinary() throws IOException {
     when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
     String resultString = "This is just a simple Test";
     when(mockUrlConnection.getResponseCode()).thenReturn(200);
@@ -110,7 +110,7 @@ public class DefaultWebRequestorTest {
   }
 
   @Test
-  public void checkPost_WithBinary() throws IOException {
+  void checkPost_WithBinary() throws IOException {
     when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
     BinaryAttachment mockAttachment = mock(BinaryAttachment.class);
     InputStream mockBinaryInputStream = mock(InputStream.class);

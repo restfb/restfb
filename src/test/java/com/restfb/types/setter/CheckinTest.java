@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class CheckinTest extends SetterGetterTestBase {
+class CheckinTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Checkin obj = new Checkin();
     addIgnoredField("rawCreatedTime");
     testInstance(obj);

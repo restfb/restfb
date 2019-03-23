@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class NamedFacebookTypeTest extends SetterGetterTestBase {
+class NamedFacebookTypeTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     NamedFacebookType obj = new NamedFacebookType();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");

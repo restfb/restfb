@@ -31,10 +31,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class MessageTest extends AbstractJsonMapperTests {
+class MessageTest extends AbstractJsonMapperTests {
 
   @Test
-  public void photoTags_V2_5() {
+  void photoTags_V2_5() {
     Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message"), Message.class);
     assertNotNull(exampleMessage);
     List<String> tags = exampleMessage.getTags();
@@ -45,7 +45,7 @@ public class MessageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagesWithAttachment() {
+  void messagesWithAttachment() {
     List<Message> messageList =
         createJsonMapper().toJavaList(jsonFromClasspath("v2_5/messages-with-attachments"), Message.class);
     for (Message message : messageList) {
@@ -71,7 +71,7 @@ public class MessageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagesWithShares() {
+  void messagesWithShares() {
     Message exampleMessage =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message-with-share"), Message.class);
     assertNotNull(exampleMessage);
@@ -81,7 +81,7 @@ public class MessageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagesWithSticker() {
+  void messagesWithSticker() {
     Message exampleMessage =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/message-with-sticker"), Message.class);
     assertNotNull(exampleMessage);

@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class MessageCreativeResponseTest extends AbstractJsonMapperTests {
+class MessageCreativeResponseTest extends AbstractJsonMapperTests {
 
   @Test
-  public void exampleJSONcheck() {
+  void exampleJSONcheck() {
     String json = "{\"message_creative_id\": 938461089}";
     MessageCreativeResponse resp = createJsonMapper().toJavaObject(json, MessageCreativeResponse.class);
     assertEquals("938461089", resp.getMessageCreativeId());

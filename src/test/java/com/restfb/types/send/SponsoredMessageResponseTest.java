@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class SponsoredMessageResponseTest extends AbstractJsonMapperTests {
+class SponsoredMessageResponseTest extends AbstractJsonMapperTests {
 
   @Test
-  public void exampleJSONcheck() {
+  void exampleJSONcheck() {
     String json = "{\"broadcast_id\": 827}";
     SponsoredMessageResponse resp = createJsonMapper().toJavaObject(json, SponsoredMessageResponse.class);
     assertEquals("827", resp.getBroadcastId());

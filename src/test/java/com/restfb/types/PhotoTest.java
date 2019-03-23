@@ -23,17 +23,16 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
-public class PhotoTest extends AbstractJsonMapperTests {
+class PhotoTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkWithAlbum_V2_5() {
+  void checkWithAlbum_V2_5() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
     assertNotNull(examplePhoto.getAlbum());
     Album album = examplePhoto.getAlbum();
@@ -43,15 +42,15 @@ public class PhotoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkWithFlag_V2_5() {
+  void checkWithFlag_V2_5() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
     assertNotNull(examplePhoto.getAlbum());
-    assertTrue(examplePhoto.getCanDelete().booleanValue());
-    assertTrue(examplePhoto.getCanTag().booleanValue());
+    assertTrue(examplePhoto.getCanDelete());
+    assertTrue(examplePhoto.getCanTag());
   }
 
   @Test
-  public void checkImages_V2_5() {
+  void checkImages_V2_5() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
     assertNotNull(examplePhoto.getAlbum());
     assertNotNull(examplePhoto.getImages());
@@ -68,14 +67,14 @@ public class PhotoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkFrom_V2_5() {
+  void checkFrom_V2_5() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
     assertNotNull(examplePhoto.getAlbum());
     assertEquals("1234567890", examplePhoto.getFrom().getId());
   }
 
   @Test
-  public void checkNameTags_V2_5() {
+  void checkNameTags_V2_5() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-withAlbum"), Photo.class);
     assertNotNull(examplePhoto.getNameTags());
     List<EntityAtTextRange> nameTags = examplePhoto.getNameTags();
@@ -84,7 +83,7 @@ public class PhotoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void photoComments_V2_5() {
+  void photoComments_V2_5() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-comments"), Photo.class);
     assertNotNull(examplePhoto.getNameTags());
     Comments comments = examplePhoto.getComments();
@@ -96,7 +95,7 @@ public class PhotoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void photoLikes_V2_5() {
+  void photoLikes_V2_5() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/photo-comments"), Photo.class);
     assertNotNull(examplePhoto.getLikes());
     Likes likes = examplePhoto.getLikes();

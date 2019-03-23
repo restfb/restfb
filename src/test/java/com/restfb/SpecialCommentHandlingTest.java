@@ -34,12 +34,12 @@ import com.restfb.types.Post;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5.4
  */
-public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
+class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   /**
    * Can we handle comments that are empty arrays?
    */
   @Test
-  public void emptyArrayTest() {
+  void emptyArrayTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-empty-comments"), Post.class);
     assertThat(post.getComments().getTotalCount()).isEqualTo(0);
     assertThat(post.getComments().getData()).isEmpty();
@@ -49,7 +49,7 @@ public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
    * Can we handle comments that are objects with only a count and no data?
    */
   @Test
-  public void onlyCountTest() {
+  void onlyCountTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-comment-count-only"), Post.class);
     assertThat(post.getComments().getTotalCount()).isEqualTo(3);
   }
@@ -58,7 +58,7 @@ public class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
    * Can we handle comments that are objects with only a count and no data?
    */
   @Test
-  public void normalTest() {
+  void normalTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-normal-comments"), Post.class);
     assertThat(post.getComments().getData()).hasSize(1);
   }

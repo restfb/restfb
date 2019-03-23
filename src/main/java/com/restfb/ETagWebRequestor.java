@@ -60,7 +60,7 @@ import java.util.Map;
 public class ETagWebRequestor extends DefaultWebRequestor {
 
   private final Map<String, ETagResponse> etagCache =
-      Collections.synchronizedMap(new SoftHashMap<String, ETagResponse>());
+      Collections.synchronizedMap(new SoftHashMap<>());
   private final ThreadLocal<ETagResponse> currentETagRespThreadLocal = new ThreadLocal<>();
   private volatile boolean useCache = true;
 

@@ -26,10 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class StringJsonUtilsTest {
+class StringJsonUtilsTest {
 
   @Test
-  public void checkIsEmptyList() {
+  void checkIsEmptyList() {
     assertTrue(StringJsonUtils.isEmptyList("[]"));
     assertFalse(StringJsonUtils.isEmptyList("["));
     assertFalse(StringJsonUtils.isEmptyList("test"));
@@ -37,7 +37,7 @@ public class StringJsonUtilsTest {
   }
 
   @Test
-  public void checkIsList() {
+  void checkIsList() {
     assertTrue(StringJsonUtils.isList("[]"));
     assertTrue(StringJsonUtils.isList("["));
     assertFalse(StringJsonUtils.isList("test"));
@@ -45,7 +45,7 @@ public class StringJsonUtilsTest {
   }
 
   @Test
-  public void checkIsEmptyObject() {
+  void checkIsEmptyObject() {
     assertTrue(StringJsonUtils.isEmptyObject("{}"));
     assertFalse(StringJsonUtils.isEmptyObject("{"));
     assertFalse(StringJsonUtils.isEmptyObject("test"));
@@ -53,7 +53,7 @@ public class StringJsonUtilsTest {
   }
 
   @Test
-  public void checkIsObject() {
+  void checkIsObject() {
     assertTrue(StringJsonUtils.isObject("{}"));
     assertTrue(StringJsonUtils.isObject("{"));
     assertFalse(StringJsonUtils.isObject("test"));
@@ -61,14 +61,14 @@ public class StringJsonUtilsTest {
   }
 
   @Test
-  public void checkIsNull() {
+  void checkIsNull() {
     assertTrue(StringJsonUtils.isNull("null"));
     assertFalse(StringJsonUtils.isNull("test"));
     assertFalse(StringJsonUtils.isNull(null));
   }
 
   @Test
-  public void checkIsFalse() {
+  void checkIsFalse() {
     assertTrue(StringJsonUtils.isFalse("false"));
     assertFalse(StringJsonUtils.isFalse("test"));
     assertFalse(StringJsonUtils.isFalse(null));

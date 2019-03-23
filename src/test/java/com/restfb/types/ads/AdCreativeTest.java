@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class AdCreativeTest extends AbstractJsonMapperTests {
+class AdCreativeTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_6() {
+  void checkV2_6() {
     AdCreative adCreative =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/adCreative-issue507"), AdCreative.class);
     assertNotNull(adCreative);
@@ -67,7 +67,7 @@ public class AdCreativeTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_issue523() {
+  void checkV2_6_issue523() {
     AdCreative adCreative =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/adCreative-issue523"), AdCreative.class);
     assertNotNull(adCreative);

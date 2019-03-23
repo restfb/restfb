@@ -25,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class IdMessageRecipientTest {
+class IdMessageRecipientTest {
 
   @Test
-  public void checkEquals() {
+  void checkEquals() {
     IdMessageRecipient recipient1 = new IdMessageRecipient("123");
     IdMessageRecipient recipient2 = new IdMessageRecipient("123");
 

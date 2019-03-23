@@ -47,7 +47,7 @@ public class DebugHeaderInfoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void usageHeader_EmptyString() {
+  void usageHeader_EmptyString() {
     DebugHeaderInfo headerInfo = buildHeader("", "", "");
     assertNotNull(headerInfo);
     assertNull(headerInfo.getAppUsage());
@@ -56,7 +56,7 @@ public class DebugHeaderInfoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void usageHeader_percentageString() {
+  void usageHeader_percentageString() {
     DebugHeaderInfo headerInfo = buildHeader("17%", "28%", "20%");
     assertNotNull(headerInfo);
     assertNotNull(headerInfo.getAppUsage());
@@ -76,7 +76,7 @@ public class DebugHeaderInfoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void usageHeader_json() {
+  void usageHeader_json() {
     DebugHeaderInfo headerInfo = buildHeader("{\"call_count\":144,\"total_cputime\":73,\"total_time\":44}",
       "{\"call_count\":144,\"total_cputime\":73,\"total_time\":44}", "{\"acc_id_util_pct\":9.67}");
     assertNotNull(headerInfo);

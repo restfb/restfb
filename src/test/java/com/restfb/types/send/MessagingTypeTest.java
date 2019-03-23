@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class MessagingTypeTest extends AbstractJsonMapperTests {
+class MessagingTypeTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkEnum() {
+  void checkEnum() {
     assertEquals("MESSAGE_TAG", createJsonMapper().toJson(MessagingType.MESSAGE_TAG));
   }
 }

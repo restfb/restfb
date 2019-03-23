@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class UserTest extends AbstractJsonMapperTests {
+class UserTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkUserPicture() {
+  void checkUserPicture() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/user-picture"), User.class);
     assertEquals("Tester", exampleUser.getName());
     assertEquals("123456789", exampleUser.getId());
@@ -43,7 +43,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkUserNoPicture() {
+  void checkUserNoPicture() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/user-no-picture"), User.class);
     assertEquals("Tester", exampleUser.getName());
     assertEquals("123456789", exampleUser.getId());
@@ -51,7 +51,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkAgeRangeNoUpper() {
+  void checkAgeRangeNoUpper() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/age_range_no_upper"), User.class);
     assertEquals("Test Benutzer", exampleUser.getName());
     assertEquals("123456789", exampleUser.getId());
@@ -60,7 +60,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkAgeRange() {
+  void checkAgeRange() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/age_range"), User.class);
     assertEquals("Test Benutzer", exampleUser.getName());
     assertEquals("123456789", exampleUser.getId());
@@ -69,7 +69,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkCoverPhoto() {
+  void checkCoverPhoto() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/cover_photo"), User.class);
     assertEquals("Test Benutzer", exampleUser.getName());
     assertEquals("123456789", exampleUser.getId());
@@ -81,7 +81,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void userWorkDates() {
+  void userWorkDates() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/user-work"), User.class);
     assertNotNull(exampleUser);
     List<WorkExperience> workList = exampleUser.getWork();
@@ -94,7 +94,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void userLikes() {
+  void userLikes() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/user-likes"), User.class);
     assertNotNull(exampleUser);
     Likes likes = exampleUser.getLikes();
@@ -104,7 +104,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_label() {
+  void checkV2_6_label() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/user-with-labels"), User.class);
     assertNotNull(exampleUser);
     assertNotNull(exampleUser.getLabels());
@@ -112,7 +112,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_9_shortName() {
+  void checkV2_9_shortName() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/user-with-short"), User.class);
     assertNotNull(exampleUser);
     assertNotNull(exampleUser.getShortName());
@@ -120,7 +120,7 @@ public class UserTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_11_additionalIds() {
+  void checkV2_11_additionalIds() {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/user-with-additional-ids"), User.class);
     assertNotNull(exampleUser);
     assertEquals(1, exampleUser.getIdsForApps().size());

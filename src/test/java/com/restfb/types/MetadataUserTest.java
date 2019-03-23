@@ -23,14 +23,14 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
 
-public class MetadataUserTest extends AbstractJsonMapperTests {
+import com.restfb.AbstractJsonMapperTests;
+
+class MetadataUserTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_1() {
+  void checkV2_1() {
     FacebookType.Metadata exampleUserMetadata =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/metadata-user"), FacebookType.Metadata.class);
     assertEquals("user", exampleUserMetadata.getType());

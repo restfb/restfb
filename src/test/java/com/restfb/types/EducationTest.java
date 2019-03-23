@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class EducationTest extends AbstractJsonMapperTests {
+class EducationTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_2_StringYear() {
+  void checkV2_2_StringYear() {
     User.Education exampleEducation =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education"), User.Education.class);
 
@@ -41,7 +41,7 @@ public class EducationTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_2_NamedYear() {
+  void checkV2_2_NamedYear() {
     User.Education exampleEducation =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education-year-named"), User.Education.class);
 

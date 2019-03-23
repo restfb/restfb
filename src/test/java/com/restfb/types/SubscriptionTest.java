@@ -23,19 +23,19 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.Version;
 
-import org.junit.jupiter.api.Test;
-
-public class SubscriptionTest extends AbstractJsonMapperTests {
+class SubscriptionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check2_8() {
+  void check2_8() {
     Subscription subscription =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/subscription"), Subscription.class);
     assertNotNull(subscription);
-    assertTrue(subscription.getActive().booleanValue());
+    assertTrue(subscription.getActive());
     assertEquals("https://www.example.org/endpoint/callback", subscription.getCallbackUrl());
     assertEquals("page", subscription.getObject());
     assertEquals(4, subscription.getFields().size());
@@ -45,11 +45,11 @@ public class SubscriptionTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void check2_9() {
+  void check2_9() {
     Subscription subscription =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/subscription"), Subscription.class);
     assertNotNull(subscription);
-    assertTrue(subscription.getActive().booleanValue());
+    assertTrue(subscription.getActive());
     assertEquals("https://www.example.org/endpoint/callback", subscription.getCallbackUrl());
     assertEquals("page", subscription.getObject());
     assertEquals(4, subscription.getFields().size());

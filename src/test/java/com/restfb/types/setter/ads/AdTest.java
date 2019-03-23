@@ -26,10 +26,10 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 import org.junit.jupiter.api.Test;
 
-public class AdTest extends SetterGetterTestBase {
+class AdTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Ad object = new Ad();
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawUpdatedTime");

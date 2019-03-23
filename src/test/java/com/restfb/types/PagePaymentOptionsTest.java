@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class PagePaymentOptionsTest extends AbstractJsonMapperTests {
+class PagePaymentOptionsTest extends AbstractJsonMapperTests {
 
   @Test
-  public void convertPaymentOptions() {
+  void convertPaymentOptions() {
     Page.PagePaymentOptions paymentOptions =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/page-paymentoptions"), Page.PagePaymentOptions.class);
     assertFalse(paymentOptions.getAmex());

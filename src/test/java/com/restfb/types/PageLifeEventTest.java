@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class PageLifeEventTest extends AbstractJsonMapperTests {
+class PageLifeEventTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_7() {
+  void checkV2_7() {
     PageLifeEvent pageLifeEvent =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_7/page-life-event"), PageLifeEvent.class);
     assertEquals("493557264005313", pageLifeEvent.getId());

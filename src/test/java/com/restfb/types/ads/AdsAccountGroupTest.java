@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class AdsAccountGroupTest extends AbstractJsonMapperTests {
+class AdsAccountGroupTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_3() {
+  void checkV2_3() {
     AdAccountGroup accGroup =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_3/adsAccountGroup"), AdAccountGroup.class);
     assertNotNull(accGroup);

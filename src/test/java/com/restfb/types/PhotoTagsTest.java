@@ -22,35 +22,34 @@
 package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class PhotoTagsTest extends AbstractJsonMapperTests {
+class PhotoTagsTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkNoBackdateV1_0() {
+  void checkNoBackdateV1_0() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-nobackdate"), Photo.class);
-    assertTrue(examplePhoto.getTags().size() == 1);
-    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX(), 0.00001);
-    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY(), 0.00001);
+    assertEquals(1, examplePhoto.getTags().size());
+    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX().doubleValue());
+    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY().doubleValue());
   }
 
   @Test
-  public void checkNoBackdateV2_0() {
+  void checkNoBackdateV2_0() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-nobackdate"), Photo.class);
-    assertTrue(examplePhoto.getTags().size() == 1);
-    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX(), 0.00001);
-    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY(), 0.00001);
+    assertEquals(1, examplePhoto.getTags().size());
+    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX().doubleValue());
+    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY().doubleValue());
   }
 
   @Test
-  public void checkNoBackdateV2_1() {
+  void checkNoBackdateV2_1() {
     Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-nobackdate"), Photo.class);
-    assertTrue(examplePhoto.getTags().size() == 1);
-    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX(), 0.00001);
-    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY(), 0.00001);
+    assertEquals(1, examplePhoto.getTags().size());
+    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX().doubleValue());
+    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY().doubleValue());
   }
 }

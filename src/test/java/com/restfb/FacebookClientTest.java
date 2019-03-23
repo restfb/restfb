@@ -294,13 +294,10 @@ public class FacebookClientTest {
       fbc.obtainDeviceAccessToken("DevCode1234");
     } catch (IllegalArgumentException je) {
       // exception can be ignored, the url is important
-    } catch (FacebookDeviceTokenCodeExpiredException e) {
-      // never reached
-    } catch (FacebookDeviceTokenPendingException e) {
-      // never reached
-    } catch (FacebookDeviceTokenSlowdownException e) {
-      // never reached
-    } catch (FacebookDeviceTokenDeclinedException e) {
+    } catch (FacebookDeviceTokenCodeExpiredException //
+        | FacebookDeviceTokenPendingException //
+        | FacebookDeviceTokenSlowdownException //
+        | FacebookDeviceTokenDeclinedException e) {
       // never reached
     }
     return requestor;
@@ -325,7 +322,7 @@ public class FacebookClientTest {
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, null));
     assertThrows(FacebookResponseContentException.class, () -> {
       FacebookClient fbc =
-              new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+          new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
       fbc.debugToken("myToken");
     });
   }

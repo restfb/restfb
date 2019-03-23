@@ -27,24 +27,24 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class GraphResponseTest extends AbstractJsonMapperTests {
+class GraphResponseTest extends AbstractJsonMapperTests {
 
   @Test
-  public void successExample() {
+  void successExample() {
     GraphResponse result =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_success"), GraphResponse.class);
     assertTrue(result.isSuccess());
   }
 
   @Test
-  public void successNotExample() {
+  void successNotExample() {
     GraphResponse result =
-            createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_success_not"), GraphResponse.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_success_not"), GraphResponse.class);
     assertFalse(result.isSuccess());
   }
 
   @Test
-  public void idExample() {
+  void idExample() {
     GraphResponse result =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_id"), GraphResponse.class);
     assertTrue(result.isSuccess());
@@ -53,7 +53,7 @@ public class GraphResponseTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void imageExample() {
+  void imageExample() {
     GraphResponse result =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_image"), GraphResponse.class);
     assertTrue(result.isSuccess());
