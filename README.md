@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/restfb/restfb.png?label=ready&title=Ready)](https://waffle.io/restfb/restfb)
 [![Build Status](https://travis-ci.org/restfb/restfb.svg)](https://travis-ci.org/restfb/restfb)
 [![Join the chat at https://gitter.im/restfb/restfb](https://badges.gitter.im/restfb/restfb.svg)](https://gitter.im/restfb/restfb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
