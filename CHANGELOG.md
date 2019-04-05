@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2.19.0 (April 5, 2019)
+
+* Issue #972: code of conduct added
+* Issue #975: waffle.io badge removed
+* Issue #973: multiple JSON fields with same name fixed<br />
+  Thanks to @thevietto for the hint
+
 ## 2.18.1 (March 9, 2019)
 
 * Issue #970: `FacebookJsonMappingException` when fetching `Hours` object of a childpage<br />
