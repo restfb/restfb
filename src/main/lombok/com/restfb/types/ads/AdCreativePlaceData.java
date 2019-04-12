@@ -27,55 +27,36 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdCreativeLinkDataChildAttachment extends AbstractFacebookType {
+public class AdCreativePlaceData extends AbstractFacebookType {
 
   @Getter
   @Setter
-  @Facebook("call_to_action")
-  private AdCreativeLinkDataCallToAction callToAction;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String description;
-
-  @Getter
-  @Setter
-  @Facebook("image_crops")
-  private AdsImageCrops imageCrops;
-
-  @Getter
-  @Setter
-  @Facebook("image_hash")
-  private String imageHash;
+  @Facebook("address_string")
+  private String addressString;
 
   @Getter
   @Setter
   @Facebook
-  private String link;
+  private String label;
 
   @Getter
   @Setter
   @Facebook
-  private String name;
+  private Double latitude;
+
+  @Getter
+  @Setter
+  @Facebook("location_source_id")
+  private String locationSourceId;
 
   @Getter
   @Setter
   @Facebook
-  private String picture;
+  private Double longitude;
 
   @Getter
   @Setter
-  @Facebook("place_data")
-  private AdCreativePlaceData placeData;
+  @Facebook
+  private String type;
 
-  @Getter
-  @Setter
-  @Facebook("static_card")
-  private Boolean staticCard;
-
-  @Getter
-  @Setter
-  @Facebook("video_id")
-  private String videoId;
 }
