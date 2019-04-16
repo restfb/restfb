@@ -23,13 +23,11 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.restfb.Facebook;
-
 import com.restfb.annotation.GraphAPI;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -98,22 +96,37 @@ public class Video extends NamedFacebookType {
    *
    * @return the video title or caption
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("title")
   @GraphAPI(since = "2.5")
   private String title;
+
+  @Getter
+  @Setter
+  @Facebook("is_crosspost_video")
+  private Boolean isCrosspostVideo;
 
   /**
    * Specifies if the video is eligible for crossposting.
    *
    * @return Specifies if the video is eligible for crossposting
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("is_crossposting_eligible")
   @GraphAPI(since = "2.6")
   private Boolean isCrosspostingEligible;
+
+  /**
+   * Whether this video is episode or not.
+   *
+   * @return Whether this video is episode or not.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_episode")
+  private Boolean isEpisode;
 
   /**
    * Whether the video is eligible to be promoted on Instagram
@@ -136,6 +149,16 @@ public class Video extends NamedFacebookType {
   private Boolean isReferenceOnly;
 
   /**
+   * The music video copyright of this video
+   *
+   * because of a missing object description in the graph reference, we use a Map here
+   */
+  @Getter
+  @Setter
+  @Facebook("music_video_copyright")
+  private Map<String, String> musicVideoCopyright = new HashMap<>();
+
+  /**
    * The reactions for this video.
    *
    * @return The reactions for this video.
@@ -150,7 +173,7 @@ public class Video extends NamedFacebookType {
    *
    * @return Whether the video is embeddable.
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.4")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.4")))
   @Setter
   @Facebook
   @GraphAPI(since = "2.4")
@@ -164,9 +187,10 @@ public class Video extends NamedFacebookType {
    * 
    * @return the event associated with the place
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
   @Setter
   @Facebook
+  @GraphAPI(since = "2.3")
   private Event event;
 
   /**
@@ -174,11 +198,19 @@ public class Video extends NamedFacebookType {
    *
    * @return Whether or not the video is highlighted in Video Channel.
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.7")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.7")))
   @Setter
   @Facebook("feed_type")
   @GraphAPI(since = "2.7")
   private String feedType;
+
+  /**
+   * The publishers asset management code for this video.
+   */
+  @Getter
+  @Setter
+  @Facebook("universal_video_id")
+  private String universalVideoId;
 
   @Facebook
   private List<VideoFormat> format = new ArrayList<>();
@@ -210,9 +242,10 @@ public class Video extends NamedFacebookType {
    * 
    * @return The content category of this video.
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.4")))
   @Setter
   @Facebook("content_category")
+  @GraphAPI(since = "2.4")
   private String contentCategory;
 
   /**
@@ -271,7 +304,7 @@ public class Video extends NamedFacebookType {
    *
    * @return Number of unique people who watched the video broadcast when it was live.
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("live_audience_count")
   @GraphAPI(since = "2.6")
@@ -284,7 +317,7 @@ public class Video extends NamedFacebookType {
    *
    * @return The live status of the video
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
   @Setter
   @Facebook("live_status")
   @GraphAPI(since = "2.6")
@@ -299,6 +332,14 @@ public class Video extends NamedFacebookType {
   @Setter
   @Facebook
   private Privacy privacy;
+
+  /**
+   * The status of the Premiere Watch Party, if any
+   */
+  @Getter
+  @Setter
+  @Facebook("premiere_living_room_status")
+  private String premiereLivingRoomStatus;
 
   /**
    * Object describing the status attributes of a video.
@@ -318,7 +359,7 @@ public class Video extends NamedFacebookType {
    * @return whether a post about this video is published.
    * @since 1.10.0
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.3")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
   @Setter
   @Facebook
   @GraphAPI(since = "2.3")
@@ -372,9 +413,10 @@ public class Video extends NamedFacebookType {
    * @return The time that the video is scheduled to be published.
    * @since 1.10.0
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
   @Setter
   @Facebook("scheduled_publish_time")
+  @GraphAPI(since = "2.3")
   private Date scheduledPublishTime;
 
   @Facebook
@@ -382,6 +424,12 @@ public class Video extends NamedFacebookType {
 
   @Facebook
   private List<NamedFacebookType> tags = new ArrayList<>();
+
+  @Facebook("ad_breaks")
+  private List<Integer> adBreaks = new ArrayList<>();
+
+  @Facebook("custom_labels")
+  private List<String> customLabels = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
 
@@ -450,8 +498,46 @@ public class Video extends NamedFacebookType {
   }
 
   /**
+   * Time offsets of ad breaks in milliseconds. Ad breaks are short ads that play within a video.
+   *
+   * @return Time offsets of ad breaks in milliseconds. Ad breaks are short ads that play within a video.
+   */
+  public List<Integer> getAdBreaks() {
+    return unmodifiableList(adBreaks);
+  }
+
+  public boolean addAdBreak(Integer adBreak) {
+    return adBreaks.add(adBreak);
+  }
+
+  public boolean removeAdBreak(Integer adBreak) {
+    return adBreaks.remove(adBreak);
+  }
+
+  /**
+   * Labels used to describe the video.
+   *
+   * Unlike content tags, custom labels are not published and only appear in insights data.
+   *
+   * @return Labels used to describe the video.
+   */
+  public List<String> getCustomLabels() {
+    return unmodifiableList(customLabels);
+  }
+
+  public boolean addCustomLabel(String customLabel) {
+    return customLabels.add(customLabel);
+  }
+
+  public boolean removeCustomLabel(String customLabel) {
+    return customLabels.remove(customLabel);
+  }
+
+  /**
    * Adds a comment
-   * @param comment the comment that should be added
+   * 
+   * @param comment
+   *          the comment that should be added
    * @return true if the comment was added, false otherwise
    * @deprecated work on the {@code Comments} object directly instead of using this method
    */
@@ -465,7 +551,9 @@ public class Video extends NamedFacebookType {
 
   /**
    * Adds a comment
-   * @param comment the comment that should be added
+   * 
+   * @param comment
+   *          the comment that should be added
    * @return true if the comment was added, false otherwise
    * @deprecated work on the {@code Comments} object directly instead of using this method
    */
