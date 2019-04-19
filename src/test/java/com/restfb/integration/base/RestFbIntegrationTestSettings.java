@@ -48,6 +48,8 @@ public class RestFbIntegrationTestSettings {
 
   private String recipientId = "";
 
+  private String pageAlbumId = "";
+
   public RestFbIntegrationTestSettings(Properties settings) {
     writeToFacebook = Boolean.parseBoolean(settings.getProperty("writeToFacebook", "false"));
     userAccessToken = settings.getProperty("user.accessToken", "");
@@ -58,6 +60,7 @@ public class RestFbIntegrationTestSettings {
     appSecret = settings.getProperty("app.secret", "");
     appId = settings.getProperty("app.id", "");
     recipientId = settings.getProperty("messenger.recipient", "");
+    pageAlbumId = settings.getProperty("page.album.id", "");
   }
 
   public boolean writeAccessAllowed() {
@@ -102,5 +105,10 @@ public class RestFbIntegrationTestSettings {
   public String getRecipientId() {
     Assume.assumeFalse(recipientId.isEmpty());
     return recipientId;
+  }
+
+  public String getPageAlbumId() {
+    Assume.assumeFalse(pageAlbumId.isEmpty());
+    return pageAlbumId;
   }
 }

@@ -83,4 +83,13 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
     assertNotNull(obj);
   }
 
+  @Test
+  public void postImageToAlbumPhotos() {
+    byte[] imageAsBytes = fetchBytesFromImage();
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
+    JsonObject obj = client.publish(getTestSettings().getPageAlbumId() + "/photos", JsonObject.class,
+            BinaryAttachment.with("test.png", imageAsBytes, "image/png"));
+    assertNotNull(obj);
+  }
+
 }
