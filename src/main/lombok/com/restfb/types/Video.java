@@ -156,7 +156,7 @@ public class Video extends NamedFacebookType {
   @Getter
   @Setter
   @Facebook("music_video_copyright")
-  private Map<String, String> musicVideoCopyright = new HashMap<>();
+  private MusicVideoCopyright musicVideoCopyright;
 
   /**
    * The reactions for this video.
