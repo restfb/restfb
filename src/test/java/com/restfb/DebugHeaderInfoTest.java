@@ -29,30 +29,37 @@ public class DebugHeaderInfoTest {
 
   @Test
   public void usageHeader_EmptyString() {
-    DebugHeaderInfo headerInfo = buildHeader("", "");
+    DebugHeaderInfo headerInfo = buildHeader("", "", "");
     assertNotNull(headerInfo);
     assertNull(headerInfo.getAppUsage());
     assertNull(headerInfo.getPageUsage());
+    assertNull(headerInfo.getAdAccountUsage());
   }
 
   @Test
   public void usageHeader_percentageString() {
-    DebugHeaderInfo headerInfo = buildHeader("17%", "28%");
+    DebugHeaderInfo headerInfo = buildHeader("17%", "28%", "20%");
     assertNotNull(headerInfo);
     assertNotNull(headerInfo.getAppUsage());
     DebugHeaderInfo.HeaderUsage appUsage = headerInfo.getAppUsage();
     assertTrue(appUsage.isPercentageOnly());
     assertNotNull(appUsage.getPercentage());
     assertNotNull(headerInfo.getPageUsage());
+    assertFalse(appUsage.isAdAccountHeader());
     DebugHeaderInfo.HeaderUsage pageUsage = headerInfo.getPageUsage();
     assertTrue(pageUsage.isPercentageOnly());
     assertNotNull(pageUsage.getPercentage());
+    assertFalse(pageUsage.isAdAccountHeader());
+    DebugHeaderInfo.HeaderUsage adAccountUsage = headerInfo.getAdAccountUsage();
+    assertTrue(adAccountUsage.isPercentageOnly());
+    assertNotNull(adAccountUsage.getPercentage());
+    assertFalse(adAccountUsage.isAdAccountHeader());
   }
 
   @Test
   public void usageHeader_json() {
     DebugHeaderInfo headerInfo = buildHeader("{\"call_count\":144,\"total_cputime\":73,\"total_time\":44}",
-      "{\"call_count\":144,\"total_cputime\":73,\"total_time\":44}");
+      "{\"call_count\":144,\"total_cputime\":73,\"total_time\":44}", "{\"acc_id_util_pct\":9.67}");
     assertNotNull(headerInfo);
     assertNotNull(headerInfo.getAppUsage());
     DebugHeaderInfo.HeaderUsage appUsage = headerInfo.getAppUsage();
@@ -62,20 +69,36 @@ public class DebugHeaderInfoTest {
     assertNotNull(appUsage.getTotalCputime());
     assertNotNull(appUsage.getTotalTime());
     assertNotNull(headerInfo.getPageUsage());
+    assertFalse(appUsage.isAdAccountHeader());
     DebugHeaderInfo.HeaderUsage pageUsage = headerInfo.getPageUsage();
     assertFalse(pageUsage.isPercentageOnly());
-    assertNull(appUsage.getPercentage());
-    assertNotNull(appUsage.getCallCount());
-    assertNotNull(appUsage.getTotalCputime());
-    assertNotNull(appUsage.getTotalTime());
+    assertNull(pageUsage.getPercentage());
+    assertNotNull(pageUsage.getCallCount());
+    assertNotNull(pageUsage.getTotalCputime());
+    assertNotNull(pageUsage.getTotalTime());
     assertNotNull(headerInfo.getPageUsage());
+    assertFalse(pageUsage.isAdAccountHeader());
+    DebugHeaderInfo.HeaderUsage adAccountUsage = headerInfo.getAdAccountUsage();
+    assertFalse(adAccountUsage.isPercentageOnly());
+    assertNull(adAccountUsage.getPercentage());
+    assertTrue(adAccountUsage.isAdAccountHeader());
+    assertEquals(9.67, adAccountUsage.getAccIdUtilPct(), 0.01);
   }
 
-  private DebugHeaderInfo buildHeader(String appUsage, String pageUsage) {
+  private DebugHeaderInfo buildHeader(String appUsage, String pageUsage, String adAccountUsage) {
     String debug = "QeodrDSB0AN6qqY1eWNkPlsB93xSMEWg80qsyfUAMqzlB0AOvmMR6mypF0HHkoSiGP8k54AHwDrn5aQfMLvZrg";
     String rev = "3057133";
     String traceId = "HiH1euz4Umo";
 
-    return new DebugHeaderInfo(debug, rev, traceId, Version.VERSION_2_9, appUsage, pageUsage);
+    return DebugHeaderInfo.DebugHeaderInfoFactory.create() //
+      .setDebug(debug) //
+      .setRev(rev) //
+      .setTraceId(traceId) //
+      .setVersion(Version.LATEST) //
+      .setAppUsage(appUsage) //
+      .setPageUsage(pageUsage) //
+      .setAdAccountUsage(adAccountUsage) //
+      .build();
+
   }
 }
