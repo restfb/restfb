@@ -154,6 +154,11 @@ public class Campaign extends NamedAdsObject {
   @Facebook
   private List<AdRecommendation> recommendations = new ArrayList<>();
 
+  @Getter
+  @Setter
+  @Facebook("source_campaign")
+  private Campaign sourceCampaign;
+
   /**
    * A spend cap for the campaign, such that it will not spend more than this cap. Expressed as integer value of the
    * subunit in your currency.

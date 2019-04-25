@@ -217,6 +217,11 @@ public class AdCreative extends NamedAdsObject {
   @Facebook("instagram_story_id")
   private String instagramStoryId;
 
+  @Getter
+  @Setter
+  @Facebook("interactive_components_spec")
+  private AdCreativeInteractiveComponentsSpec interactiveComponentsSpec;
+
   /**
    * The Open Graph (OG) ID for the link in this creative if the landing page has OG tags
    *

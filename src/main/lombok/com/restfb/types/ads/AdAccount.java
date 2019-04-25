@@ -137,6 +137,11 @@ public class AdAccount extends NamedAdsObject {
   @Facebook("end_advertiser_name")
   private String endAdvertiserName;
 
+  @Getter
+  @Setter
+  @Facebook("extended_credit_invoice_group")
+  private ExtendedCreditInvoiceGroup extendedCreditInvoiceGroup;
+
   @Facebook("failed_delivery_checks")
   private List<AdDeliveryCheck> failedDeliveryChecks = new ArrayList<>();
 

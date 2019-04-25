@@ -455,6 +455,11 @@ public class Post extends NamedFacebookType {
   @Facebook("is_app_share")
   private Boolean isAppShare;
 
+  @Getter
+  @Setter
+  @Facebook("is_eligible_for_promotion")
+  private Boolean isEligibleForPromotion;
+
   /**
    * Whether the post has expiration time that has passed
    *
