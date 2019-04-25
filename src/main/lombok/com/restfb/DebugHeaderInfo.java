@@ -59,13 +59,20 @@ public class DebugHeaderInfo {
    */
   private final HeaderUsage pageUsage;
 
-  public DebugHeaderInfo(String debug, String rev, String traceId, Version version, String appUsage, String pageUsage) {
+  /**
+   * x-ad-account-usage
+   */
+  private final HeaderUsage adAccountUsage;
+
+  private DebugHeaderInfo(String debug, String rev, String traceId, Version version, String appUsage, String pageUsage,
+      String adAccountUsage) {
     this.debug = debug;
     this.rev = rev;
     this.traceId = traceId;
     this.usedVersion = version;
     this.appUsage = createUsage(appUsage);
     this.pageUsage = createUsage(pageUsage);
+    this.adAccountUsage = createUsage(adAccountUsage);
   }
 
   /**
@@ -98,7 +105,7 @@ public class DebugHeaderInfo {
   /**
    * get the version, facebook used internally to fulfill the request
    * 
-   * @return
+   * @return the version, facebook used internally to fulfill the request
    */
   public Version getUsedVersion() {
     return usedVersion;
@@ -122,6 +129,15 @@ public class DebugHeaderInfo {
     return pageUsage;
   }
 
+  /**
+   * get Facebook response header field <code>x-ad-account-usage</code>
+   * 
+   * @return the Facebook response header field x-ad-account-usage
+   */
+  public HeaderUsage getAdAccountUsage() {
+    return adAccountUsage;
+  }
+
   private HeaderUsage createUsage(String usageInformation) {
     if (StringUtils.isBlank(usageInformation)) {
       return null;
@@ -129,6 +145,10 @@ public class DebugHeaderInfo {
 
     try {
       JsonObject jsonValue = Json.parse(usageInformation).asObject();
+      if (jsonValue.names().size() == 1 && jsonValue.contains("acc_id_util_pct")) {
+        return new HeaderUsage(jsonValue.getDouble("acc_id_util_pct", 0.0));
+      }
+
       return new HeaderUsage(jsonValue.getInt("call_count", -1), jsonValue.getInt("total_time", -1),
         jsonValue.getInt("total_cputime", -1));
     } catch (Exception e) {
@@ -141,6 +161,7 @@ public class DebugHeaderInfo {
     HeaderUsage(String percentage) {
       this.percentage = percentage;
       this.percentageOnly = true;
+      this.adAccountHeader = false;
     }
 
     HeaderUsage(Integer callCount, Integer totalTime, Integer totalCputime) {
@@ -148,10 +169,20 @@ public class DebugHeaderInfo {
       this.totalTime = totalTime;
       this.totalCputime = totalCputime;
       this.percentageOnly = false;
+      this.adAccountHeader = false;
+    }
+
+    HeaderUsage(Double percentage) {
+      this.accIdUtilPct = percentage;
+      this.percentageOnly = false;
+      this.adAccountHeader = true;
     }
 
     @Getter
     private final boolean percentageOnly;
+
+    @Getter
+    private final boolean adAccountHeader;
 
     @Getter
     private String percentage;
@@ -164,6 +195,65 @@ public class DebugHeaderInfo {
 
     @Getter
     private Integer totalCputime;
+
+    @Getter
+    private Double accIdUtilPct;
+
+  }
+
+  public static class DebugHeaderInfoFactory {
+
+    private String debug;
+    private String rev;
+    private String traceId;
+    private Version version;
+    private String appUsage;
+    private String pageUsage;
+    private String adAccountUsage;
+
+    public static DebugHeaderInfoFactory create() {
+      return new DebugHeaderInfoFactory();
+    }
+
+    public DebugHeaderInfoFactory setVersion(Version version) {
+      this.version = version;
+      return this;
+    }
+
+    public DebugHeaderInfoFactory setDebug(String debug) {
+      this.debug = debug;
+      return this;
+    }
+
+    public DebugHeaderInfoFactory setRev(String rev) {
+      this.rev = rev;
+      return this;
+    }
+
+    public DebugHeaderInfoFactory setTraceId(String traceId) {
+      this.traceId = traceId;
+      return this;
+    }
+
+    public DebugHeaderInfoFactory setAppUsage(String appUsage) {
+      this.appUsage = appUsage;
+      return this;
+    }
+
+    public DebugHeaderInfoFactory setPageUsage(String pageUsage) {
+      this.pageUsage = pageUsage;
+      return this;
+    }
+
+    public DebugHeaderInfoFactory setAdAccountUsage(String adAccountUsage) {
+      this.adAccountUsage = adAccountUsage;
+      return this;
+    }
+
+    public DebugHeaderInfo build() {
+      return new DebugHeaderInfo(this.debug, this.rev, this.traceId, this.version, this.appUsage, this.pageUsage,
+        this.adAccountUsage);
+    }
 
   }
 }
