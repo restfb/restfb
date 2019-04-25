@@ -92,7 +92,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments)
+      throws IOException {
     if (binaryAttachments == null) {
       binaryAttachments = new ArrayList<>();
     }
@@ -303,7 +304,8 @@ public class DefaultWebRequestor implements WebRequestor {
    * 
    * @since 1.7.0
    * @param autocloseBinaryAttachmentStream
-   *          {@code true} if the {@link BinaryAttachment} stream should be closed automatically, {@code false} otherwise
+   *          {@code true} if the {@link BinaryAttachment} stream should be closed automatically, {@code false}
+   *          otherwise
    */
   public void setAutocloseBinaryAttachmentStream(boolean autocloseBinaryAttachmentStream) {
     this.autocloseBinaryAttachmentStream = autocloseBinaryAttachmentStream;
@@ -369,8 +371,17 @@ public class DefaultWebRequestor implements WebRequestor {
     String fbDebug = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-debug"));
     String fbAppUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-app-usage"));
     String fbPageUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-page-usage"));
+    String fbAdAccountUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-ad-account-usage"));
+
     Version usedVersion = Version.getVersionFromString(usedApiVersion);
-    debugHeaderInfo = new DebugHeaderInfo(fbDebug, fbRev, fbTraceId, usedVersion, fbAppUsage, fbPageUsage);
+    debugHeaderInfo = DebugHeaderInfo.DebugHeaderInfoFactory.create().setVersion(usedVersion) // set the version
+      .setTraceId(fbTraceId) // set the Trace ID
+      .setDebug(fbDebug) // set the debug id
+      .setRev(fbRev) // set the rev field
+      .setAppUsage(fbAppUsage) // set the app usage
+      .setPageUsage(fbPageUsage) // set the page usage
+      .setAdAccountUsage(fbAdAccountUsage) // set the ad account usage
+      .build();
   }
 
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
