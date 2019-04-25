@@ -194,6 +194,11 @@ public class AdSet extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("issues_info")
+  private List<AdCampaignIssuesInfo> issuesInfo = new ArrayList<>();
+
+  @Getter
+  @Setter
   @Facebook("lifetime_budget")
   private String lifetimeBudget;
 
