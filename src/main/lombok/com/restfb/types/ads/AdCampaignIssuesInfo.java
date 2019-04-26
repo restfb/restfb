@@ -27,7 +27,7 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdgroupIssuesInfo extends AbstractFacebookType {
+public class AdCampaignIssuesInfo extends AbstractFacebookType {
 
   @Getter
   @Setter

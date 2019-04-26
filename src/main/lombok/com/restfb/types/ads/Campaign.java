@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -129,6 +130,19 @@ public class Campaign extends NamedAdsObject {
   @Setter
   @Facebook("effective_status")
   private String effectiveStatus;
+
+  /**
+   * Issues for this campaign that prevented it from deliverying.
+   *
+   * -- GETTER --
+   *
+   * @return List of issues for this campaign that prevented it from deliverying.
+   */
+  @Getter(onMethod = @__(@GraphAPI(since = "3.2")))
+  @Setter
+  @Facebook("issues_info")
+  @GraphAPI(since = "3.2")
+  private List<AdCampaignIssuesInfo> issuesInfo = new ArrayList<>();
 
   /**
    * Campaign's objective

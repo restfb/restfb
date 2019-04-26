@@ -24,6 +24,7 @@ package com.restfb.types.ads;
 import java.util.*;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.json.JsonObject;
 
 import lombok.Getter;
@@ -191,6 +192,12 @@ public class AdSet extends NamedAdsObject {
   @Setter
   @Facebook("is_autobid")
   private Boolean isAutobid;
+
+  @Getter(onMethod = @__(@GraphAPI(since = "3.2")))
+  @Setter
+  @Facebook("issues_info")
+  @GraphAPI(since = "3.2")
+  private List<AdCampaignIssuesInfo> issuesInfo = new ArrayList<>();
 
   @Getter
   @Setter
