@@ -131,6 +131,19 @@ public class Campaign extends NamedAdsObject {
   private String effectiveStatus;
 
   /**
+   * Issues for this campaign that prevented it from deliverying.
+   *
+   * -- GETTER --
+   *
+   * @return List of issues for this campaign that prevented it from deliverying.
+   */
+  @Getter(onMethod = @__(@GraphAPI(since = "3.2")))
+  @Setter
+  @Facebook("issues_info")
+  @GraphAPI(since = "3.2")
+  private List<AdCampaignIssuesInfo> issuesInfo = new ArrayList<>();
+
+  /**
    * Campaign's objective
    *
    * -- GETTER --
