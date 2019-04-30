@@ -46,7 +46,7 @@ import lombok.Setter;
  * @since 1.5
  */
 @SuppressWarnings("deprecation")
-public class Post extends NamedFacebookType {
+public class Post extends FacebookType {
 
   /**
    * An object containing the ID and name of the user who posted the message.
@@ -57,6 +57,16 @@ public class Post extends NamedFacebookType {
   @Setter
   @Facebook
   private CategorizedFacebookType from;
+
+  /**
+   * Objectives under which this post can be advertised
+   *
+   * @return Objectives under which this post can be advertised
+   */
+  @Getter
+  @Setter
+  @Facebook("allowed_advertising_objects")
+  private String allowedAdvertisingObjects;
 
   /**
    * Objectives under which this post can be advertised
@@ -135,41 +145,66 @@ public class Post extends NamedFacebookType {
   /**
    * The link attached to this post.
    *
+   * Hint for Graph API 3.3: Use <code>attachment/url_unshimmed</code> instead
+   *
    * @return The link attached to this post.
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
   @Setter
   @Facebook
+  @GraphAPI(until = "3.2")
   private String link;
+
+  /**
+   * The name of the link.
+   *
+   * Hint for Graph API 3.3: Use <code>attachment/title</code> instead
+   *
+   * @return The name of the link.
+   */
+  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Setter
+  @Facebook
+  @GraphAPI(until = "3.2")
+  private String name;
 
   /**
    * The caption of the link (appears beneath the link name).
    *
+   * Hint for Graph API 3.3: Use <code>attachment/title</code> instead
+   *
    * @return The caption of the link (appears beneath the link name).
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
   @Setter
   @Facebook
+  @GraphAPI(until = "3.2")
   private String caption;
 
   /**
    * A description of the link (appears beneath the link caption).
    *
+   * Hint for Graph API 3.3: Use <code>attachment/description</code> instead
+   *
    * @return A description of the link (appears beneath the link caption).
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
   @Setter
   @Facebook
+  @GraphAPI(until = "3.2")
   private String description;
 
   /**
    * If available, the source link attached to this post (for example, a flash or video file).
    *
+   * Hint for Graph API 3.3: Use <code>attachment/media/source</code> instead
+   *
    * @return If available, the source link attached to this post (for example, a flash or video file).
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
   @Setter
   @Facebook
+  @GraphAPI(until = "3.2")
   private String source;
 
   /**
@@ -231,7 +266,7 @@ public class Post extends NamedFacebookType {
    *
    * @return Whether the viewer can send a private reply to this post
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook("can_reply_privately")
   @GraphAPI(since = "2.5")
@@ -242,7 +277,7 @@ public class Post extends NamedFacebookType {
    *
    * @return The profile this was posted on if different from the author
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
   @Setter
   @Facebook
   @GraphAPI(since = "2.5")
@@ -312,12 +347,15 @@ public class Post extends NamedFacebookType {
   /**
    * The Facebook object id for an uploaded photo or video.
    *
+   * Hint for Graph API 3.3: Use <code>attachment/target/id</code> instead
+   *
    * @return The Facebook object id for an uploaded photo or video.
    * @since 1.6.5
    */
-  @Getter
+  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
   @Setter
   @Facebook("object_id")
+  @GraphAPI(until = "3.2")
   private String objectId;
 
   /**
@@ -577,6 +615,20 @@ public class Post extends NamedFacebookType {
   @Facebook
   private String via;
 
+  /**
+   * A string indicating the object type of this post.
+   *
+   * Hint for Graph API 3.3: <code>attachment/media_type</code> If there is no <code>attachment</code> or <code>media_type=link</code>, the
+   * value is the same as <code>type=status</code>.
+   *
+   * @return A string indicating the object type of this post.
+   */
+  @Override
+  @GraphAPI(until = "3.2")
+  public String getType() {
+    return super.getType();
+  }
+
   private static final long serialVersionUID = 3L;
 
   /**
@@ -722,10 +774,10 @@ public class Post extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    @Getter(onMethod=@__(@GraphAPI(since = "2.8")))
+    @Getter(onMethod = @__(@GraphAPI(since = "2.8")))
     @Setter
     @Facebook("geo_locations")
-            @GraphAPI(since = "2.8")
+    @GraphAPI(since = "2.8")
     FeedTargeting geoLocations;
 
     @Facebook
