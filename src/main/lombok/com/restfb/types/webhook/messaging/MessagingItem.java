@@ -123,6 +123,11 @@ public class MessagingItem {
   @Setter
   private AppRoles appRoles;
 
+  @Getter
+  @Setter
+  @Facebook("prior_message")
+  private PriorMessage priorMessage;
+
   @Facebook("app_roles")
   private JsonObject rawAppRoles;
 
@@ -248,6 +253,10 @@ public class MessagingItem {
 
   public boolean isAppRoles() {
     return getItem() instanceof AppRoles;
+  }
+
+  public boolean hasPriorMessage() {
+    return priorMessage != null;
   }
 
   @JsonMapper.JsonMappingCompleted

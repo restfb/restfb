@@ -160,6 +160,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(entry.getMessaging().isEmpty());
     MessagingItem messagingItem = entry.getMessaging().get(0);
     assertTrue(messagingItem.isMessage());
+    assertFalse(messagingItem.hasPriorMessage());
     MessageItem item = messagingItem.getMessage();
     assertEquals(item, messagingItem.getItem());
     assertFalse(item.hasQuickReply());
@@ -171,6 +172,33 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("hello, world!", item.getText());
     assertEquals(73L, item.getSeq().longValue());
     assertTrue(item.getAttachments().isEmpty());
+  }
+
+  @Test
+  public void messagingMessagePrior() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-prior"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
+    assertNotNull(messagingItem.getPriorMessage());
+    assertTrue(messagingItem.hasPriorMessage());
+    assertEquals("checkbox_plugin", messagingItem.getPriorMessage().getSource());
+    assertEquals("<USER_REF>", messagingItem.getPriorMessage().getIdentifier());
+    MessageItem item = messagingItem.getMessage();
+    assertEquals(item, messagingItem.getItem());
+    assertFalse(item.hasQuickReply());
+    assertFalse(item.hasNlp());
+    assertFalse(item.hasAttachment());
+    assertFalse(item.isEcho());
+    assertNotNull(item);
+    assertEquals("mid.1457744567618:41d102a3e1ae206a38", item.getMid());
+    assertEquals("Thanks for messaging me!", item.getText());
+    assertTrue(item.getAttachments().isEmpty());
+
   }
 
   @Test
