@@ -1,5 +1,24 @@
 # RestFB Changelog
 
+## 2.20.0 (May 1, 2019)
+
+* Graph API 3.3:
+   * Issue #989: Version enum changed
+   * Issue #990: deprecated fields in `Post` type
+   * Issue #991: conversation webhook is deprecated now
+* Issue #987: Graph API 2.8 marked as deprecated
+* Issue #988: `priorMessage` field added to `MessagingItem`<br />
+  Thanks to @chaas for the hint
+* Issue #983: Facebook Marketing API rate limitation (Ad Account Level Limits)<br />
+  Thanks to @mikron for the hint
+* Issue #980 and #981: Video type checked and missing fields added
+* Issue #979: `AdCreativeLinkDataChildAttachment.place_data` should be an Object<br />
+  Thanks to @AdrianMF for the hint
+* Issue #982: correct bid strategy enum names<br />
+  Thanks to @Vanley for the PR
+* Issue #986: introduce `issues_info` field on `ad-set` and `campaign`<br />
+  Thanks to @Vanley for the PR
+
 ## 2.19.0 (April 5, 2019)
 
 * Issue #972: code of conduct added
