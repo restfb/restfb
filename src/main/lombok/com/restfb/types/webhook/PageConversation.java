@@ -22,13 +22,20 @@
 package com.restfb.types.webhook;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * change value of the page conversation
+ * Change value of the page conversation.
+ *
+ * Hint for Graph API 3.3: The <code>conversations</code> field is deprecated. Use the existing Messenger Webhooks
+ * <code>messages</code> field instead.
+ * @deprecated for 3.3+ directly and for all other versions on December 31, 2019. Use the Messenger Webhook instead
  */
+@Deprecated
+@GraphAPI(until = "3.2")
 public class PageConversation extends ChangeValue {
 
   @Getter
