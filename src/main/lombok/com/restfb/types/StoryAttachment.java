@@ -121,6 +121,7 @@ public class StoryAttachment extends FacebookType {
   @Facebook("subattachments")
   private Attachments subAttachments;
 
+  @Facebook("description_tags")
   private List<EntityAtTextRange> descriptionTags = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
