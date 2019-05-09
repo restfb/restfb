@@ -52,4 +52,13 @@ public class StoryAttachmentTest extends AbstractJsonMapperTests {
     assertEquals(3, subAttachments.size());
   }
 
+  @Test
+  public void moreFieldsAttachments() {
+    StoryAttachment attachment =
+            createJsonMapper().toJavaObject(jsonFromClasspath("v3_3/story-attachment"), StoryAttachment.class);
+    assertNotNull(attachment);
+    assertEquals("link", attachment.getMediaType());
+    assertEquals("https://translate.google.de/", attachment.getUnshimmedUrl());
+  }
+
 }

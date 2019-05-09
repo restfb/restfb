@@ -24,6 +24,7 @@ package com.restfb.types;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.restfb.Facebook;
@@ -61,6 +62,16 @@ public class StoryAttachment extends FacebookType {
   private Media media;
 
   /**
+   * Type of the media such as (photo, video, link etc)
+   *
+   * @return Type of the media such as (photo, video, link etc)
+   */
+  @Getter
+  @Setter
+  @Facebook("media_type")
+  private String mediaType;
+
+  /**
    * Returns object that the attachment links to.
    *
    * @return Object that the attachment links to.
@@ -91,6 +102,16 @@ public class StoryAttachment extends FacebookType {
   private String url;
 
   /**
+   * Unshimmed URL of the attachment.
+   *
+   * @return Unshimmed URL of the attachment
+   */
+  @Getter
+  @Setter
+  @Facebook("unshimmed_url")
+  private String unshimmedUrl;
+
+  /**
    * Returns list of subattachments that are associated with this attachment.
    *
    * @return List of subattachments that are associated with this attachment.
@@ -100,7 +121,26 @@ public class StoryAttachment extends FacebookType {
   @Facebook("subattachments")
   private Attachments subAttachments;
 
+  private List<EntityAtTextRange> descriptionTags = new ArrayList<>();
+
   private static final long serialVersionUID = 1L;
+
+  /**
+   * Profiles tagged in the text accompanying the attachment
+   *
+   * @return Profiles tagged in the text accompanying the attachment
+   */
+  public List<EntityAtTextRange> getDescriptionTags() {
+    return Collections.unmodifiableList(descriptionTags);
+  }
+
+  public boolean addDescriptionTag(EntityAtTextRange entityAtTextRange) {
+    return descriptionTags.add(entityAtTextRange);
+  }
+
+  public boolean removeDescriptionTag(EntityAtTextRange entityAtTextRange) {
+    return descriptionTags.remove(entityAtTextRange);
+  }
 
   /**
    * Represents the list of subattachments that are associated with this attachment. This will have data if the parent
@@ -148,6 +188,11 @@ public class StoryAttachment extends FacebookType {
     @Facebook
     private Image image;
 
+    @Getter
+    @Setter
+    @Facebook
+    private String source;
+
   }
 
   /**
@@ -188,6 +233,11 @@ public class StoryAttachment extends FacebookType {
     @Setter
     @Facebook
     private String url;
+
+    @Getter
+    @Setter
+    @Facebook("unshimmed_url")
+    private String unshimmedUrl;
 
   }
 
