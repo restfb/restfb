@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2.21.0 (May 9, 2019)
+
+* Issue #993: Missing fields added to `StoryAttachment`
+* Issue #994: `VideoPoll` type added
+
 ## 2.20.0 (May 1, 2019)
 
 * Graph API 3.3:
