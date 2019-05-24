@@ -37,6 +37,14 @@ Additionally, you can take a look at the integration tests [here](https://github
 There is also the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains a suite of tools that can be triggered via Maven calls. Additionally, for the fetch and publish example, you can find
 a JavaFX code sample that shows how an embedded browser is used to fetch a user access token.
 
+## Sponsors and Backers
+
+You like RestFB and you like to support the development, but you cannot contribute any code? Then we have good news for 
+you. We started an [OpenCollective](https://opencollective.com/restfb) page and you or your company can be a RestFB backer or sponsor. You even get a little 
+space on the official RestFB website with your name, company logo, link and more.
+
+[Please check this new way to contribute](https://opencollective.com/restfb) 
+
 ## Getting in touch
 
 * **[GitHub Issues](https://github.com/restfb/restfb/issues/new)**: If you have ideas, bugs, or problems with RestFB, just open a new issue.
