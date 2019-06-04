@@ -1,4 +1,6 @@
 [![Travis (.org)](https://img.shields.io/travis/restfb/restfb.svg?style=for-the-badge)](https://travis-ci.org/restfb/restfb)
+[![Backers on Open Collective](https://img.shields.io/opencollective/backers/restfb.svg?style=for-the-badge)](https://opencollective.com/restfb)
+[![Sponsors on Open Collective](https://img.shields.io/opencollective/sponsors/restfb.svg?style=for-the-badge)](https://opencollective.com/restfb)
 
 
 # RestFB (http://restfb.com)
@@ -40,8 +42,8 @@ a JavaFX code sample that shows how an embedded browser is used to fetch a user 
 ## Sponsors and Backers
 
 You like RestFB and you like to support the development, but you cannot contribute any code? Then we have good news for 
-you. We started an [OpenCollective](https://opencollective.com/restfb) page and you or your company can be a RestFB backer or sponsor. You even get a little 
-space on the official RestFB website with your name, company logo, link and more.
+you. We started an [OpenCollective](https://opencollective.com/restfb) page and you or your company can be a RestFB backer or sponsor. You even get a place 
+on the official RestFB website with your name, company logo, link and more.
 
 [Please check this new way to contribute](https://opencollective.com/restfb) 
 
