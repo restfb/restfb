@@ -138,7 +138,7 @@ public class Campaign extends NamedAdsObject {
    *
    * @return List of issues for this campaign that prevented it from deliverying.
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(since = "3.2"))
   @Setter
   @Facebook("issues_info")
   @GraphAPI(since = "3.2")
