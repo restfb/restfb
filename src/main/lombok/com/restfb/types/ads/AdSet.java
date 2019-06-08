@@ -193,7 +193,7 @@ public class AdSet extends NamedAdsObject {
   @Facebook("is_autobid")
   private Boolean isAutobid;
 
-  @Getter(onMethod = @__(@GraphAPI(since = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(since = "3.2"))
   @Setter
   @Facebook("issues_info")
   @GraphAPI(since = "3.2")
