@@ -17,8 +17,8 @@
     <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>5.3.2</version.junit>
-    <version.lombok>1.18.4</version.lombok>
+    <version.junit>5.4.2</version.junit>
+    <version.lombok>1.18.8</version.lombok>
     <version.mockito>2.23.4</version.mockito>
     <version.assertj>3.11.1</version.assertj>
     <version.slf4j>1.7.25</version.slf4j>
@@ -285,7 +285,7 @@
       <plugin>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok-maven-plugin</artifactId>
-        <version>1.18.4.0</version>
+        <version>1.18.6.0</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
