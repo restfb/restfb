@@ -149,7 +149,7 @@ public class Post extends FacebookType {
    *
    * @return The link attached to this post.
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -162,7 +162,7 @@ public class Post extends FacebookType {
    *
    * @return The name of the link.
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -175,7 +175,7 @@ public class Post extends FacebookType {
    *
    * @return The caption of the link (appears beneath the link name).
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -188,7 +188,7 @@ public class Post extends FacebookType {
    *
    * @return A description of the link (appears beneath the link caption).
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -201,7 +201,7 @@ public class Post extends FacebookType {
    *
    * @return If available, the source link attached to this post (for example, a flash or video file).
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -266,7 +266,7 @@ public class Post extends FacebookType {
    *
    * @return Whether the viewer can send a private reply to this post
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook("can_reply_privately")
   @GraphAPI(since = "2.5")
@@ -277,7 +277,7 @@ public class Post extends FacebookType {
    *
    * @return The profile this was posted on if different from the author
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.5")
@@ -352,7 +352,7 @@ public class Post extends FacebookType {
    * @return The Facebook object id for an uploaded photo or video.
    * @since 1.6.5
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook("object_id")
   @GraphAPI(until = "3.2")
@@ -774,7 +774,7 @@ public class Post extends FacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    @Getter(onMethod = @__(@GraphAPI(since = "2.8")))
+    @Getter(onMethod_ = @GraphAPI(since = "2.8"))
     @Setter
     @Facebook("geo_locations")
     @GraphAPI(since = "2.8")

@@ -59,7 +59,7 @@ public class Place extends NamedFacebookType {
    *
    * @return Overall Rating of Place, on a 5-star scale.
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook("overall_rating")
   @GraphAPI(since = "2.5")
