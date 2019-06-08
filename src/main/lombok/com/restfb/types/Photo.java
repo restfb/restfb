@@ -187,7 +187,7 @@ public class Photo extends NamedFacebookType {
    *
    * @return If this object has a place, the event associated with the place
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.3"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.3")

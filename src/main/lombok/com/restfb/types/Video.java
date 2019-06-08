@@ -96,7 +96,7 @@ public class Video extends NamedFacebookType {
    *
    * @return the video title or caption
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook("title")
   @GraphAPI(since = "2.5")
@@ -112,7 +112,7 @@ public class Video extends NamedFacebookType {
    *
    * @return Specifies if the video is eligible for crossposting
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.6"))
   @Setter
   @Facebook("is_crossposting_eligible")
   @GraphAPI(since = "2.6")
@@ -173,7 +173,7 @@ public class Video extends NamedFacebookType {
    *
    * @return Whether the video is embeddable.
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.4")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.4"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.4")
@@ -187,7 +187,7 @@ public class Video extends NamedFacebookType {
    * 
    * @return the event associated with the place
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.3"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.3")
@@ -198,7 +198,7 @@ public class Video extends NamedFacebookType {
    *
    * @return Whether or not the video is highlighted in Video Channel.
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.7")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.7"))
   @Setter
   @Facebook("feed_type")
   @GraphAPI(since = "2.7")
@@ -242,7 +242,7 @@ public class Video extends NamedFacebookType {
    * 
    * @return The content category of this video.
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.4")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.4"))
   @Setter
   @Facebook("content_category")
   @GraphAPI(since = "2.4")
@@ -304,7 +304,7 @@ public class Video extends NamedFacebookType {
    *
    * @return Number of unique people who watched the video broadcast when it was live.
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.6"))
   @Setter
   @Facebook("live_audience_count")
   @GraphAPI(since = "2.6")
@@ -317,7 +317,7 @@ public class Video extends NamedFacebookType {
    *
    * @return The live status of the video
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.6")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.6"))
   @Setter
   @Facebook("live_status")
   @GraphAPI(since = "2.6")
@@ -359,7 +359,7 @@ public class Video extends NamedFacebookType {
    * @return whether a post about this video is published.
    * @since 1.10.0
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.3"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.3")
@@ -413,7 +413,7 @@ public class Video extends NamedFacebookType {
    * @return The time that the video is scheduled to be published.
    * @since 1.10.0
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.3"))
   @Setter
   @Facebook("scheduled_publish_time")
   @GraphAPI(since = "2.3")
