@@ -30,6 +30,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
+
 public class MessageTagsITCase extends RestFbIntegrationTestBase {
 
   @Test
@@ -41,6 +43,8 @@ public class MessageTagsITCase extends RestFbIntegrationTestBase {
     String postId = "162523134477_10156566664184478";
     Connection<Comment> postComments = facebookClient.fetchConnection(postId + "/comments", Comment.class,
       Parameter.with("fields", "id, permalink_url, from, created_time, message, message_tags, attachment"));
+
+    assertNotNull(postComments);
 
     for (List<Comment> commts : postComments) {
       for (Comment comm : commts) {

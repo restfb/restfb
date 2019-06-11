@@ -23,15 +23,13 @@ package com.restfb.json.mocking;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Test;
+import org.mockito.Mockito;
+
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 import com.restfb.json.ParseException;
-
-import org.junit.Test;
-import org.mockito.Mockito;
-
-
 
 /**
  * Make sure types do not prevent mocking by final or visibility constructs.
@@ -61,7 +59,9 @@ public class Mocking_Test {
 
   @Test
   public void mockParseException() {
-    Mockito.mock(ParseException.class);
+    ParseException parseException = Mockito.mock(ParseException.class);
+
+    assertNotNull(parseException);
   }
 
 }

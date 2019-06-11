@@ -31,6 +31,8 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Account;
 
+import static org.junit.Assert.assertNotNull;
+
 public class FetchAllPageAccessTokensITCase extends RestFbIntegrationTestBase {
 
   @Test
@@ -38,8 +40,11 @@ public class FetchAllPageAccessTokensITCase extends RestFbIntegrationTestBase {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<Account> connection = client.fetchConnection("/me/accounts", Account.class);
 
+    assertNotNull(connection);
+
     for (List<Account> accountList : connection) {
       for (Account account : accountList) {
+        assertNotNull(account);
         System.out.println("Page Access Token for page " + account.getName() + " : " + account.getAccessToken());
       }
     }
