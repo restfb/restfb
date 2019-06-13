@@ -1351,14 +1351,20 @@ public class Post extends FacebookType {
    *         Facebook).
    * @since 1.6.10
    */
+  @GraphAPI(until = "3.2")
+  @Deprecated
   public List<NamedFacebookType> getWithTags() {
     return unmodifiableList(withTags);
   }
 
+  @GraphAPI(until = "3.2")
+  @Deprecated
   public boolean addWithTag(NamedFacebookType withTag) {
     return withTags.add(withTag);
   }
 
+  @GraphAPI(until = "3.2")
+  @Deprecated
   public boolean removeWithTag(NamedFacebookType withTag) {
     return withTags.remove(withTag);
   }
