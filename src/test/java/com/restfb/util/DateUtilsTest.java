@@ -24,13 +24,13 @@ package com.restfb.util;
 import static com.restfb.util.DateUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.DateUtils}.
@@ -93,6 +93,14 @@ public class DateUtilsTest {
     assertThat(toLongFormatFromDate(null)).isNull();
     assertThat(toLongFormatFromDate(new Date())).isNotNull();
     assertThat(toLongFormatFromDate(new Date(1474559324000L))).isEqualTo("2016-09-22T15:48:44");
+    assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
+  }
+
+  @Test
+  public void dateToShortString() {
+    assertThat(toShortFormatFromDate(null)).isNull();
+    assertThat(toShortFormatFromDate(new Date())).isNotNull();
+    assertThat(toShortFormatFromDate(new Date(1474559324000L))).isEqualTo("2016-09-22");
     assertThat(DateUtils.getDateFormatStrategy()).isEqualTo(expectedStrategy);
   }
 }
