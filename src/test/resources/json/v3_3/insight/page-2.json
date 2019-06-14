@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "name": "page_fans_city",
+      "period": "day",
+      "values": [
+        {
+          "value": {
+            "Udipi, India": 1,
+            "Adelaide, SA, Australia": 1,
+            "Lisbon, Portugal": 1,
+            "Iasi, Romania": 1,
+            "Além Paraíba, MG, Brazil": 1,
+            "Sunnyvale, CA": 1,
+            "Aracaju, SE, Brazil": 1,
+            "Avaré, SP, Brazil": 1,
+            "Belém, PA, Brazil": 2,
+            "Campinas, SP, Brazil": 33,
+            "Campo Grande, MS, Brazil": 2,
+            "Cascavel, CE, Brazil": 1,
+            "Cosmópolis, SP, Brazil": 2,
+            "Fortaleza, CE, Brazil": 2,
+            "Franca, SP, Brazil": 1,
+            "Frei Paulo, SE, Brazil": 1,
+            "Hortolândia, SP, Brazil": 2,
+            "Itapecuru-Mirim, MA, Brazil": 1,
+            "Londrina, PR, Brazil": 1,
+            "Monte Alto, SP, Brazil": 1,
+            "Natal, RN, Brazil": 2,
+            "Nobres, MT, Brazil": 1,
+            "Olímpia, SP, Brazil": 1,
+            "Poço Fundo, MG, Brazil": 1,
+            "Porto Alegre, RS, Brazil": 1,
+            "Recife, PE, Brazil": 3,
+            "Rio de Janeiro, RJ, Brazil": 3,
+            "Rio Grande, RS, Brazil": 2,
+            "Rio Tinto, PB, Brazil": 1,
+            "Santa Cruz da Baixa Verde, PE, Brazil": 1,
+            "Santa Juliana, MG, Brazil": 1,
+            "Itinga do Maranhão, MA, Brazil": 1,
+            "Santos, SP, Brazil": 1,
+            "Pingo-d'Água, MG, Brazil": 1,
+            "São Paulo, SP, Brazil": 16,
+            "Sorocaba, SP, Brazil": 2,
+            "Uberlândia, MG, Brazil": 1,
+            "Vinhedo, SP, Brazil": 6,
+            "Baie-Comeau, QC, Canada": 1,
+            "Calgary, AB, Canada": 1,
+            "Sainte-Croix, QC, Canada": 1,
+            "Saint John, NB, Canada": 1,
+            "Saskatoon, SK, Canada": 1,
+            "Athens, Greece": 1,
+            "Catalao, GO, Brazil": 1
+          },
+          "end_time": "2019-06-12T07:00:00+0000"
+        }
+      ],
+      "title": "Lifetime Likes by City",
+      "description": "Lifetime: Aggregated Facebook location data, sorted by city (top 50), about the people who like your Page. (Unique Users)",
+      "id": "<page-id>/insights/page_fans_city/day"
+    }
+  ],
+  "paging": {
+    "previous": "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&since=1560063600&until=1560236400&metric=page_fans_city",
+    "next": "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&since=1560409200&until=1560582000&metric=page_fans_city"
+  }
+}

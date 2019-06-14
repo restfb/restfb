@@ -1,0 +1,7 @@
+{
+  "data": [
+  ],
+  "paging": {
+    "previous": "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&since=1560236400&until=1560409200&metric=page_fans_city"
+  }
+}
