@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2.22.0 (June 15, 2019)
+
+* Issue #1003: cleanup internal json implementation
+* Issue #1005: `with_tags` is deprecated in Graph API 3.3
+* Issue #1004: `DateUtils` fix for `page_fans_city` metric<br />
+  Thanks to @rberga for the analysis
+
 ## 2.21.0 (May 9, 2019)
 
 * Issue #993: Missing fields added to `StoryAttachment`
