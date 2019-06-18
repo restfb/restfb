@@ -21,6 +21,11 @@
  */
 package com.restfb;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.util.StringUtils;
@@ -64,8 +69,10 @@ public class DebugHeaderInfo {
    */
   private final HeaderUsage adAccountUsage;
 
+  private final BusinessUseCaseUsage businessUseCaseUsage;
+
   private DebugHeaderInfo(String debug, String rev, String traceId, Version version, String appUsage, String pageUsage,
-      String adAccountUsage) {
+      String adAccountUsage, String businessUsage) {
     this.debug = debug;
     this.rev = rev;
     this.traceId = traceId;
@@ -73,6 +80,7 @@ public class DebugHeaderInfo {
     this.appUsage = createUsage(appUsage);
     this.pageUsage = createUsage(pageUsage);
     this.adAccountUsage = createUsage(adAccountUsage);
+    this.businessUseCaseUsage = createBusinessUsage(businessUsage);
   }
 
   /**
@@ -138,6 +146,30 @@ public class DebugHeaderInfo {
     return adAccountUsage;
   }
 
+  public BusinessUseCaseUsage getBusinessUseCaseUsage() {
+    return businessUseCaseUsage;
+  }
+
+  private BusinessUseCaseUsage createBusinessUsage(String businessUsageInformation) {
+    if (StringUtils.isBlank(businessUsageInformation)) {
+      return null;
+    }
+
+    try {
+      DefaultJsonMapper jsonMapper = new DefaultJsonMapper();
+      JsonObject jsonObject = Json.parse(businessUsageInformation).asObject();
+
+      BusinessUseCaseUsage usage = new BusinessUseCaseUsage();
+      for (String key : jsonObject.names()) {
+        usage.put(key, jsonMapper.toJavaList(jsonObject.get(key).toString(), InnerBusinessUseCaseUsage.class));
+      }
+
+      return usage;
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
   private HeaderUsage createUsage(String usageInformation) {
     if (StringUtils.isBlank(usageInformation)) {
       return null;
@@ -154,6 +186,88 @@ public class DebugHeaderInfo {
     } catch (Exception e) {
       return new HeaderUsage(usageInformation);
     }
+  }
+
+  /**
+   * business use case based usage object.
+   *
+   * This usage object is used in Graph API 3.3+ and provides access to the complete set of inner objects.
+   */
+  public static class BusinessUseCaseUsage {
+
+    private Map<String, List<InnerBusinessUseCaseUsage>> usageMap = new HashMap<>();
+
+    /**
+     * add a new list of usages that belongs to the business id to the outer object
+     *
+     * @param key
+     *          the business id the list of usages is connected with
+     * @param businessUseCaseUsageList
+     *          the list of usages
+     */
+    void put(String key, List<InnerBusinessUseCaseUsage> businessUseCaseUsageList) {
+      usageMap.put(key, businessUseCaseUsageList);
+    }
+
+    /**
+     * returns the usage list that belongs to the given business id
+     *
+     * @param businessId
+     *          the business ids you like to fetch the usage list for
+     * @return the list of usages
+     */
+    public List<InnerBusinessUseCaseUsage> get(String businessId) {
+      return usageMap.get(businessId);
+    }
+
+    /**
+     * returns the list of Business Ids that are provided in the the business use case usage header
+     * 
+     * @return list of business ids
+     */
+    public List<String> getBusinessIds() {
+      return new ArrayList<>(usageMap.keySet());
+    }
+
+  }
+
+  public static class InnerBusinessUseCaseUsage {
+
+    /**
+     * Percentage of calls made for this business id/business ad account
+     */
+    @Getter
+    @Facebook("call_count")
+    private Integer callCount;
+
+    /**
+     * Percentage of the total CPU time that has been used
+     */
+    @Getter
+    @Facebook("total_cputime")
+    private Integer totalCputime;
+
+    /**
+     * Percentage of the total time that has been used
+     */
+    @Getter
+    @Facebook("total_time")
+    private Integer totalTime;
+
+    /**
+     * Type of rate limit logic being applied
+     */
+    @Getter
+    @Facebook
+    private String type;
+
+    /**
+     * Time in minutes to resume calls
+     */
+    @Getter
+    @Facebook("estimated_time_to_regain_access")
+    private Integer estimatedTimeToRegainAccess;
+
   }
 
   public static class HeaderUsage {
@@ -210,6 +324,7 @@ public class DebugHeaderInfo {
     private String appUsage;
     private String pageUsage;
     private String adAccountUsage;
+    private String businessUseCaseUsage;
 
     public static DebugHeaderInfoFactory create() {
       return new DebugHeaderInfoFactory();
@@ -250,9 +365,14 @@ public class DebugHeaderInfo {
       return this;
     }
 
+    public DebugHeaderInfoFactory setBusinessUseCaseUsage(String businessUseCaseUsage) {
+      this.businessUseCaseUsage = businessUseCaseUsage;
+      return this;
+    }
+
     public DebugHeaderInfo build() {
       return new DebugHeaderInfo(this.debug, this.rev, this.traceId, this.version, this.appUsage, this.pageUsage,
-        this.adAccountUsage);
+        this.adAccountUsage, this.businessUseCaseUsage);
     }
 
   }

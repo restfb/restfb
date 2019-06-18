@@ -372,6 +372,8 @@ public class DefaultWebRequestor implements WebRequestor {
     String fbAppUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-app-usage"));
     String fbPageUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-page-usage"));
     String fbAdAccountUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-ad-account-usage"));
+    String fbBusinessUseCaseUsage =
+        StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-business-use-case-usage"));
 
     Version usedVersion = Version.getVersionFromString(usedApiVersion);
     debugHeaderInfo = DebugHeaderInfo.DebugHeaderInfoFactory.create().setVersion(usedVersion) // set the version
@@ -381,6 +383,7 @@ public class DefaultWebRequestor implements WebRequestor {
       .setAppUsage(fbAppUsage) // set the app usage
       .setPageUsage(fbPageUsage) // set the page usage
       .setAdAccountUsage(fbAdAccountUsage) // set the ad account usage
+      .setBusinessUseCaseUsage(fbBusinessUseCaseUsage) // set the business use case Usage
       .build();
   }
 

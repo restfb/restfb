@@ -25,7 +25,26 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class DebugHeaderInfoTest {
+public class DebugHeaderInfoTest extends AbstractJsonMapperTests {
+
+  @Test
+  public void usageHeader_business() {
+    String header = jsonFromClasspath("api/header-business");
+    DebugHeaderInfo.DebugHeaderInfoFactory factory = new DebugHeaderInfo.DebugHeaderInfoFactory();
+    DebugHeaderInfo headerInfo = factory.setBusinessUseCaseUsage(header).build();
+    DebugHeaderInfo.BusinessUseCaseUsage usage = headerInfo.getBusinessUseCaseUsage();
+    assertNotNull(usage);
+    assertEquals(1, usage.getBusinessIds().size());
+    assertNotNull(usage.get("{business-id}"));
+    assertEquals(1, usage.get("{business-id}").size());
+    assertNotNull(usage.get("{business-id}").get(0));
+    DebugHeaderInfo.InnerBusinessUseCaseUsage innerUsage = usage.get("{business-id}").get(0);
+    assertEquals(100, innerUsage.getCallCount().intValue());
+    assertEquals(16, innerUsage.getTotalCputime().intValue());
+    assertEquals(45, innerUsage.getTotalTime().intValue());
+    assertEquals("ads_insights", innerUsage.getType());
+    assertEquals(10, innerUsage.getEstimatedTimeToRegainAccess().intValue());
+  }
 
   @Test
   public void usageHeader_EmptyString() {
