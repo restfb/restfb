@@ -45,16 +45,6 @@ public class ParseException_Test {
   }
 
   @Test
-  @SuppressWarnings("deprecation")
-  public void position() {
-    ParseException exception = new ParseException("Foo", location);
-
-    assertEquals(location.offset, exception.getOffset());
-    assertEquals(location.line, exception.getLine());
-    assertEquals(location.column, exception.getColumn());
-  }
-
-  @Test
   public void message() {
     ParseException exception = new ParseException("Foo", location);
 

@@ -5,6 +5,7 @@ import java.io.Writer;
 
 public class UnicodeJsonWriter extends JsonWriter {
 
+  private static final char[] NO_CHARS = {};
   private static final char[] QUOT_CHARS = { '\\', '"' };
   private static final char[] BS_CHARS = { '\\', '\\' };
   private static final char[] LF_CHARS = { '\\', 'n' };
@@ -24,7 +25,7 @@ public class UnicodeJsonWriter extends JsonWriter {
     int start = 0;
     for (int index = 0; index < length; index++) {
       char[] replacement = getReplacementChars(string.charAt(index));
-      if (replacement != null) {
+      if (replacement.length > 0) {
         writer.write(string, start, index - start);
         writer.write(replacement);
         start = index + 1;
@@ -54,7 +55,7 @@ public class UnicodeJsonWriter extends JsonWriter {
       return new char[] { '\\', 'u', HEX_DIGITS[ch >> 12 & 0x000f], HEX_DIGITS[ch >> 8 & 0x000f],
           HEX_DIGITS[ch >> 4 & 0x000f], HEX_DIGITS[ch & 0x000f] };
     } else {
-      return null;
+      return NO_CHARS;
     }
   }
 }

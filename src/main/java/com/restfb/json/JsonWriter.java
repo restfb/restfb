@@ -28,6 +28,7 @@ class JsonWriter {
 
   private static final int CONTROL_CHARACTERS_END = 0x001f;
 
+  private static final char[] NO_CHARS = {};
   private static final char[] QUOT_CHARS = { '\\', '"' };
   private static final char[] BS_CHARS = { '\\', '\\' };
   private static final char[] LF_CHARS = { '\\', 'n' };
@@ -99,7 +100,7 @@ class JsonWriter {
     int start = 0;
     for (int index = 0; index < length; index++) {
       char[] replacement = getReplacementChars(string.charAt(index));
-      if (replacement != null) {
+      if (replacement.length > 0) {
         writer.write(string, start, index - start);
         writer.write(replacement);
         start = index + 1;
@@ -112,7 +113,7 @@ class JsonWriter {
     if (ch > '\\') {
       if (ch < '\u2028' || ch > '\u2029') {
         // The lower range contains 'a' .. 'z'. Only 2 checks required.
-        return null;
+        return NO_CHARS;
       }
       return ch == '\u2028' ? UNICODE_2028_CHARS : UNICODE_2029_CHARS;
     }
@@ -121,13 +122,13 @@ class JsonWriter {
     }
     if (ch > '"') {
       // This range contains '0' .. '9' and 'A' .. 'Z'. Need 3 checks to get here.
-      return null;
+      return NO_CHARS;
     }
     if (ch == '"') {
       return QUOT_CHARS;
     }
     if (ch > CONTROL_CHARACTERS_END) {
-      return null;
+      return NO_CHARS;
     }
     if (ch == '\n') {
       return LF_CHARS;
