@@ -715,19 +715,19 @@ public interface FacebookClient {
      * Timestamp when this access token expires.
      */
     @Facebook("expires_at")
-    private Long expiresAt;
+    private Date expiresAt;
 
     /**
      * Timestamp when app's access to user data expires.
      */
     @Facebook("data_access_expires_at")
-    private Long dataAccessExpiresAt;
+    private Date dataAccessExpiresAt;
 
     /**
      * Timestamp when this access token was issued.
      */
     @Facebook("issued_at")
-    private Long issuedAt;
+    private Date issuedAt;
 
     /**
      * Whether the access token is still valid or not.
@@ -792,8 +792,7 @@ public interface FacebookClient {
      * @return The date on which the access token expires.
      */
     public Date getExpiresAt() {
-      // note that the expire timestamp is in *seconds*, not milliseconds
-      return expiresAt == null ? null : new Date(expiresAt * 1000L);
+      return expiresAt;
     }
 
     /**
@@ -802,7 +801,7 @@ public interface FacebookClient {
      * @return The date when app's access to user data expires.
      */
     public Date getDataAccessExpiresAt() {
-      return dataAccessExpiresAt == null ? null : new Date(dataAccessExpiresAt * 1000L);
+      return dataAccessExpiresAt;
     }
 
     /**
@@ -811,8 +810,7 @@ public interface FacebookClient {
      * @return The date on which the access token was issued.
      */
     public Date getIssuedAt() {
-      // note that the issue timestamp is in *seconds*, not milliseconds
-      return issuedAt == null ? null : new Date(issuedAt * 1000L);
+      return issuedAt;
     }
 
     /**
