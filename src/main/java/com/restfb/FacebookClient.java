@@ -25,6 +25,11 @@ import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
@@ -40,11 +45,6 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.ReflectionUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client must operate.
@@ -699,37 +699,74 @@ public interface FacebookClient {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The ID of the application this access token is for.
+     */
     @Facebook("app_id")
     private String appId;
 
+    /**
+     * Name of the application this access token is for.
+     */
     @Facebook
     private String application;
 
+    /**
+     * Timestamp when this access token expires.
+     */
     @Facebook("expires_at")
     private Long expiresAt;
 
+    /**
+     * Timestamp when app's access to user data expires.
+     */
+    @Facebook("data_access_expires_at")
+    private Long dataAccessExpiresAt;
+
+    /**
+     * Timestamp when this access token was issued.
+     */
     @Facebook("issued_at")
     private Long issuedAt;
 
+    /**
+     * Whether the access token is still valid or not.
+     */
     @Facebook("is_valid")
     private Boolean isValid;
 
+    /**
+     * The ID of the user this access token is for.
+     */
     @Facebook("user_id")
     private String userId;
 
+    /**
+     * For impersonated access tokens, the ID of the page this token contains.
+     */
     @Facebook("profile_id")
     private String profileId;
 
+    /**
+     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'
+     */
     @Facebook
     private JsonObject metadata;
 
+    /**
+     * Any error that a request to the graph api would return due to the access token.
+     */
     @Facebook
     private DebugTokenError error;
 
+    /**
+     * List of permissions that the user has granted for the app in this access token.
+     */
     @Facebook
     private List<String> scopes = new ArrayList<>();
 
-    // FIXME let's read 'metadata' if it exist. It's a nested structure...
+    @Facebook
+    private String type;
 
     /**
      * The application id.
@@ -757,6 +794,15 @@ public interface FacebookClient {
     public Date getExpiresAt() {
       // note that the expire timestamp is in *seconds*, not milliseconds
       return expiresAt == null ? null : new Date(expiresAt * 1000L);
+    }
+
+    /**
+     * Timestamp when app's access to user data expires.
+     *
+     * @return The date when app's access to user data expires.
+     */
+    public Date getDataAccessExpiresAt() {
+      return dataAccessExpiresAt == null ? null : new Date(dataAccessExpiresAt * 1000L);
     }
 
     /**
@@ -804,8 +850,8 @@ public interface FacebookClient {
     public JsonObject getMetaData() {
       return metadata;
     }
-    
-     /**
+
+    /**
      * All Error data associated with access token debug.
      * 
      * @return debug token error
@@ -814,18 +860,30 @@ public interface FacebookClient {
       return error;
     }
 
+    public String getType() {
+      return type;
+    }
   }
 
   class DebugTokenError extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The error code for the error.
+     */
     @Facebook
     private Integer code;
 
+    /**
+     * The error message for the error.
+     */
     @Facebook
     private String message;
 
+    /**
+     * The error subcode for the error.
+     */
     @Facebook
     private Integer subcode;
 

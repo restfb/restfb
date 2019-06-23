@@ -50,4 +50,17 @@ public class DebugTokenInfoTest extends AbstractJsonMapperTests {
     assertNotNull(metaData.get("sso"));
     assertEquals("iphone-safari", metaData.get("sso").asString());
   }
+
+  @Test
+  public void withExpires() {
+    FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
+            createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-2"), FacebookClient.DebugTokenInfo.class);
+    assertNotNull(exampleDebugTokenInfo);
+    assertEquals(8, exampleDebugTokenInfo.getScopes().size());
+    assertEquals(1563217616000L, exampleDebugTokenInfo.getDataAccessExpiresAt().getTime());
+    assertEquals("USER", exampleDebugTokenInfo.getType());
+    assertTrue(exampleDebugTokenInfo.isValid());
+    assertEquals("1234567890", exampleDebugTokenInfo.getAppId());
+    assertEquals(1561330800000l, exampleDebugTokenInfo.getExpiresAt().getTime());
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "app_id": "1234567890",
+  "type": "USER",
+  "application": "Example App",
+  "data_access_expires_at": 1563217616,
+  "expires_at": 1561330800,
+  "is_valid": true,
+  "scopes": [
+    "user_location",
+    "user_photos",
+    "email",
+    "manage_pages",
+    "pages_show_list",
+    "publish_pages",
+    "business_management",
+    "public_profile"
+  ],
+  "user_id": "9876543212345"
+}
