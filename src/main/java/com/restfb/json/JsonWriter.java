@@ -28,18 +28,19 @@ class JsonWriter {
 
   private static final int CONTROL_CHARACTERS_END = 0x001f;
 
-  private static final char[] NO_CHARS = {};
-  private static final char[] QUOT_CHARS = { '\\', '"' };
-  private static final char[] BS_CHARS = { '\\', '\\' };
-  private static final char[] LF_CHARS = { '\\', 'n' };
-  private static final char[] CR_CHARS = { '\\', 'r' };
-  private static final char[] TAB_CHARS = { '\\', 't' };
+  protected static final char[] NO_CHARS = {};
+  protected static final char[] QUOT_CHARS = { '\\', '"' };
+  protected static final char[] BS_CHARS = { '\\', '\\' };
+  protected static final char[] LF_CHARS = { '\\', 'n' };
+  protected static final char[] CR_CHARS = { '\\', 'r' };
+  protected static final char[] TAB_CHARS = { '\\', 't' };
+  protected static final char[] HEX_DIGITS =
+      { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
   // In JavaScript, U+2028 and U+2029 characters count as line endings and must be encoded.
   // http://stackoverflow.com/questions/2965293/javascript-parse-error-on-u2028-unicode-character
   private static final char[] UNICODE_2028_CHARS = { '\\', 'u', '2', '0', '2', '8' };
   private static final char[] UNICODE_2029_CHARS = { '\\', 'u', '2', '0', '2', '9' };
-  private static final char[] HEX_DIGITS =
-      { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
   protected final Writer writer;
 
@@ -109,7 +110,7 @@ class JsonWriter {
     writer.write(string, start, length - start);
   }
 
-  private static char[] getReplacementChars(char ch) {
+  protected char[] getReplacementChars(char ch) {
     if (ch > '\\') {
       if (ch < '\u2028' || ch > '\u2029') {
         // The lower range contains 'a' .. 'z'. Only 2 checks required.
