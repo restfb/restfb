@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2.23.0 (June 29, 2019)
+
+* Issue #1008: Rate limit for graph api 3.3<br />
+  Thanks to @santinomazzocchi for the hint
+* without issue: more cleanup, especially in the JSON section
+
 ## 2.22.0 (June 15, 2019)
 
 * Issue #1003: cleanup internal json implementation
