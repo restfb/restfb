@@ -34,7 +34,7 @@ import lombok.Setter;
 
 public class Message extends AbstractFacebookType {
 
-  private static final int QUICK_REPLY_ITEM_LIMIT = 11;
+  private static final int QUICK_REPLY_ITEM_LIMIT = 13;
 
   @Getter
   @Facebook

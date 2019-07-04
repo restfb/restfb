@@ -572,7 +572,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test(expected = FacebookPreconditionException.class)
-  public void messageWithTooManyReplies_elevenPresentOneAdded() {
+  public void messageWithTooManyReplies_thirdteenPresentOneAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
@@ -585,13 +585,15 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title8", "payload 8"));
     quickReplyList.add(new QuickReply("title9", "payload 9"));
     quickReplyList.add(new QuickReply("title10", "payload 10"));
-    quickReplyList.add(new QuickReply("title10", "payload 11"));
+    quickReplyList.add(new QuickReply("title11", "payload 11"));
+    quickReplyList.add(new QuickReply("title12", "payload 12"));
+    quickReplyList.add(new QuickReply("title13", "payload 13"));
     message.addQuickReplies(quickReplyList);
     message.addQuickReply(new QuickReply("last", "payload_last"));
   }
 
   @Test(expected = FacebookPreconditionException.class)
-  public void messageWithTooManyReplies_EightPresentFourAdded() {
+  public void messageWithTooManyReplies_TenPresentFourAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
@@ -602,6 +604,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title6", "payload 6"));
     quickReplyList.add(new QuickReply("title7", "payload 7"));
     quickReplyList.add(new QuickReply("title8", "payload 8"));
+    quickReplyList.add(new QuickReply("title9", "payload 9"));
+    quickReplyList.add(new QuickReply("title10", "payload 10"));
 
     List<QuickReply> quickReplyListAdded = new ArrayList<>();
     quickReplyListAdded.add(new QuickReply("title1a", "payload 1a"));
