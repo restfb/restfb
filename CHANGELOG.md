@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2.23.1 (July 7, 2019)
+
+* Issue #1010: Quickreplies limit increased to 13<br />
+  Thanks to @andrey-popovich for the hint
+
 ## 2.23.0 (June 29, 2019)
 
 * Issue #1008: Rate limit for graph api 3.3<br />
