@@ -938,7 +938,7 @@ public class Page extends CategorizedFacebookType {
    * @return The number of likes the page has
    * @since 1.6.5
    */
-  @Getter(onMethod_ = @GraphAPI(until = "2.5"))
+  @Getter(onMethod_ = {@GraphAPI(until = "2.5")})
   @Setter
   @Facebook("likes")
   @GraphAPI(until = "2.5")
@@ -949,7 +949,7 @@ public class Page extends CategorizedFacebookType {
    *
    * @return The Pages that this Page Likes.
    */
-  @Getter(onMethod_ = @GraphAPI(since = "2.6"))
+  @Getter(onMethod_ = {@GraphAPI(since = "2.6")})
   @Setter
   @Facebook
   @GraphAPI(since = "2.6")
@@ -960,7 +960,7 @@ public class Page extends CategorizedFacebookType {
    *
    * @return The number of likes the page has
    */
-  @Getter(onMethod_ = @GraphAPI(since = "2.6"))
+  @Getter(onMethod_ = {@GraphAPI(since = "2.6")})
   @Setter
   @Facebook("fan_count")
   @GraphAPI(since = "2.6")
@@ -1143,7 +1143,7 @@ public class Page extends CategorizedFacebookType {
    *
    * @return Indicates whether the application is subscribed for real time updates from this page
    */
-  @Getter(onMethod_ = @GraphAPI(since = "2.7"))
+  @Getter(onMethod_ = {@GraphAPI(since = "2.7")})
   @Setter
   @Facebook("is_webhooks_subscribed")
   @GraphAPI(since = "2.7")

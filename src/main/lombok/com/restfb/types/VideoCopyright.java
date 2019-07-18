@@ -56,7 +56,7 @@ public class VideoCopyright extends FacebookType {
    *
    * The status could be {@code NOT_EXAMED}, {@code COPYRIGHTED} and {@code ERROR}.
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook("monitoring_status")
   @GraphAPI(since = "2.5")

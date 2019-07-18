@@ -181,7 +181,7 @@ public class Comment extends FacebookType {
    *
    * @return Whether the viewer can send a private reply to this comment
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_=@GraphAPI(since = "2.5"))
   @Setter
   @Facebook("can_reply_privately")
   @GraphAPI(since = "2.5")
@@ -192,7 +192,7 @@ public class Comment extends FacebookType {
    *
    * @return conversation between Page and author of the comment
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_=@GraphAPI(since = "2.5"))
   @Setter
   @Facebook("private_reply_conversation")
   @GraphAPI(since = "2.5")

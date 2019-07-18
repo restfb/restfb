@@ -113,7 +113,7 @@ public class User extends NamedFacebookType {
    *
    * @return Shortened, locale-aware name for the person
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.9")))
+  @Getter(onMethod_ = {@GraphAPI(since = "2.9")})
   @Setter
   @Facebook("short_name")
   @GraphAPI(since = "2.9")
@@ -144,7 +144,7 @@ public class User extends NamedFacebookType {
    *
    * @return The user's biographical snippet.
    */
-  @Getter(onMethod=@__(@GraphAPI(until = "2.7")))
+  @Getter(onMethod_ = {@GraphAPI(until = "2.7")})
   @Setter
   @Facebook
   @GraphAPI(until = "2.7")
