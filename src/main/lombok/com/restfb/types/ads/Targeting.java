@@ -353,7 +353,7 @@ public class Targeting extends AbstractFacebookType {
   @Facebook("place_page_set_ids")
   private List<String> placePageSetIds = new ArrayList<>();
 
-  @Getter(onMethod=@__(@GraphAPI(until = "2.7")))
+  @Getter(onMethod_=@GraphAPI(until = "2.7"))
   @Setter
   @Facebook("page_types")
   @GraphAPI(until = "2.7")
