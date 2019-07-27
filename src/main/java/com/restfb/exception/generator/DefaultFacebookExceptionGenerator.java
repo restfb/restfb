@@ -28,6 +28,8 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.ParseException;
 
+import java.util.Optional;
+
 public class DefaultFacebookExceptionGenerator implements FacebookExceptionGenerator {
 
   /**
@@ -50,7 +52,7 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
 
       JsonObject errorObject = Json.parse(json).asObject();
 
-      if (errorObject.get(ERROR_ATTRIBUTE_NAME) == null) {
+      if (!errorObject.contains(ERROR_ATTRIBUTE_NAME)) {
         return;
       }
 
@@ -69,10 +71,8 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
     JsonObject innerErrorObject = errorObject.get(ERROR_ATTRIBUTE_NAME).asObject();
 
     // If there's an Integer error code, pluck it out.
-    Integer errorCode = innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME) != null
-        ? toInteger(innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME).toString()) : null;
-    Integer errorSubcode = innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME) != null
-        ? toInteger(innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME).toString()) : null;
+    Integer errorCode = Optional.ofNullable(innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME)).map(obj -> toInteger(obj.toString())).orElse(null);
+    Integer errorSubcode = Optional.ofNullable(innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME)).map(obj -> toInteger(obj.toString())).orElse(null);
 
     return new ExceptionInformation(errorCode, errorSubcode, httpStatusCode,
       innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME, null),

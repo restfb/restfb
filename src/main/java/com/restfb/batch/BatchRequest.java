@@ -26,12 +26,14 @@ import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import com.restfb.Facebook;
 import com.restfb.Parameter;
 import com.restfb.util.ReflectionUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Encapsulates a discrete part of an entire
@@ -97,11 +99,9 @@ public class BatchRequest {
   protected BatchRequest(String relativeUrl, List<Parameter> parameters, String method, List<BatchHeader> headers,
       List<Parameter> bodyParameters, String attachedFiles, String dependsOn, String name,
       boolean omitResponseOnSuccess) {
-    if (relativeUrl == null) {
-      throw new IllegalArgumentException("The 'relativeUrl' parameter is required.");
-    }
 
-    this.relativeUrl = relativeUrl;
+    this.relativeUrl = Optional.ofNullable(relativeUrl)
+      .orElseThrow(() -> new IllegalArgumentException("The 'relativeUrl' parameter is required."));
     this.method = method;
     this.headers = headers;
     this.attachedFiles = attachedFiles;
@@ -280,22 +280,7 @@ public class BatchRequest {
       return "";
     }
 
-    StringBuilder parameterStringBuilder = new StringBuilder();
-    boolean first = true;
-
-    for (Parameter parameter : parameters) {
-      if (first) {
-        first = false;
-      } else {
-        parameterStringBuilder.append("&");
-      }
-
-      parameterStringBuilder.append(urlEncode(parameter.name));
-      parameterStringBuilder.append("=");
-      parameterStringBuilder.append(urlEncode(parameter.value));
-    }
-
-    return parameterStringBuilder.toString();
+    return parameters.stream().map(p -> urlEncode(p.name) + "=" + urlEncode(p.value)).collect(Collectors.joining("&"));
   }
 
   @Override

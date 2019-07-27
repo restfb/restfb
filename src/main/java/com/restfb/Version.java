@@ -21,36 +21,14 @@
  */
 package com.restfb;
 
+import java.util.stream.Stream;
+
 public enum Version {
 
   /**
    * unversiond api
    */
   UNVERSIONED(null),
-
-  /**
-   * <tt>Graph API 2.7</tt>, available until October 5, 2018
-   *
-   * @since July 13, 2016
-   */
-  @Deprecated
-  VERSION_2_7("v2.7"),
-
-  /**
-   * <tt>Graph API 2.8</tt>, available until April 18th, 2019
-   *
-   * @since October 5th, 2016
-   */
-  @Deprecated
-  VERSION_2_8("v2.8"),
-
-  /**
-   * <tt>Graph API 2.9</tt>, available until July 18th, 2019
-   *
-   * @since April 18th, 2017
-   */
-  @Deprecated
-  VERSION_2_9("v2.9"),
 
   /**
    * <tt>Graph API 2.10</tt>, available until November 7, 2019
@@ -146,11 +124,7 @@ public enum Version {
    */
   public static Version getVersionFromString(String urlElement) {
     if (urlElement != null) {
-      for (Version v : Version.values()) {
-        if (urlElement.equals(v.getUrlElement())) {
-          return v;
-        }
-      }
+      return Stream.of(Version.values()).filter(v -> urlElement.equals(v.getUrlElement())).findFirst().orElse(UNVERSIONED);
     }
     return UNVERSIONED;
   }

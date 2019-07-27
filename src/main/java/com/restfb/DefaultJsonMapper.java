@@ -37,6 +37,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
@@ -67,7 +68,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
-    Optional.ofNullable(type)
+    type = Optional.ofNullable(type)
       .orElseThrow(() -> new FacebookJsonMappingException("You must specify the Java type to map to."));
 
     json = trimToEmpty(json);
@@ -353,11 +354,8 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     // Pull out only those field names with multiple mappings
-    for (Entry<String, Integer> entry : facebookFieldsNamesWithOccurrenceCount.entrySet()) {
-      if (entry.getValue() > 1) {
-        facebookFieldNamesWithMultipleMappings.add(entry.getKey());
-      }
-    }
+    facebookFieldNamesWithMultipleMappings.addAll(facebookFieldsNamesWithOccurrenceCount.entrySet().stream()
+      .filter(entry -> entry.getValue() > 1).map(Entry::getKey).collect(Collectors.toList()));
 
     return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
   }
@@ -672,9 +670,9 @@ public class DefaultJsonMapper implements JsonMapper {
 
     Class<?> secondParam = getSecondParameterizedTypeArgument(field);
 
-    if (json.startsWith("{")) {
+    if (StringJsonUtils.isObject(json)) {
       JsonObject jsonObject = Json.parse(json).asObject();
-      Map<String, Object> map = new HashMap();
+      Map<String, Object> map = new HashMap<>();
       for (String key : jsonObject.names()) {
         String value = jsonHelper.getStringFrom(jsonObject.get(key));
         map.put(key, toJavaObject(value, secondParam));

@@ -40,7 +40,7 @@ public class SimpleBatchITCase extends RestFbIntegrationTestBase {
   @Test
   public void check_meAndZuck() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_10);
     BatchRequest meRequest =
         new BatchRequest.BatchRequestBuilder("me").parameters(Parameter.with("fields", "id,name")).build();
     BatchRequest zuckRequest =
@@ -59,7 +59,7 @@ public class SimpleBatchITCase extends RestFbIntegrationTestBase {
   @Test
   public void check_meAndNotWorking() {
     DefaultFacebookClient client =
-            new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+            new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_10);
     BatchRequest meRequest =
             new BatchRequest.BatchRequestBuilder("me").parameters(Parameter.with("fields", "id,name")).build();
     BatchRequest nwRequest =
@@ -78,7 +78,7 @@ public class SimpleBatchITCase extends RestFbIntegrationTestBase {
   @Test
   public void check_NotWorkingAndMe() {
     DefaultFacebookClient client =
-            new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+            new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_10);
     BatchRequest meRequest =
             new BatchRequest.BatchRequestBuilder("me").parameters(Parameter.with("fields", "id,name")).build();
     BatchRequest nwRequest =

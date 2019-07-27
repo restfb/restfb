@@ -30,6 +30,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A collection of string-handling utility methods.
@@ -108,8 +109,7 @@ public final class StringUtils {
    *           If unable to convert because the JVM doesn't support {@link StringUtils#ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
-    Optional.ofNullable(string).orElseThrow(() -> new NullPointerException("Parameter 'string' cannot be null."));
-    return string.getBytes(ENCODING_CHARSET);
+    return Optional.ofNullable(string).orElseThrow(() -> new NullPointerException("Parameter 'string' cannot be null.")).getBytes(ENCODING_CHARSET);
   }
 
   /**
@@ -126,8 +126,7 @@ public final class StringUtils {
    * @since 1.6.13
    */
   public static String toString(byte[] data) {
-    Optional.ofNullable(data).orElseThrow(() -> new NullPointerException("Parameter 'data' cannot be null."));
-    return new String(data, ENCODING_CHARSET);
+    return new String(Optional.ofNullable(data).orElseThrow(() -> new NullPointerException("Parameter 'data' cannot be null.")), ENCODING_CHARSET);
   }
 
   /**
@@ -146,14 +145,7 @@ public final class StringUtils {
     }
 
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET))) {
-      StringBuilder response = new StringBuilder();
-
-      String line;
-      while ((line = reader.readLine()) != null) {
-        response.append(line);
-      }
-
-      return response.toString();
+      return reader.lines().collect(Collectors.joining("\n"));
     }
   }
 
@@ -167,12 +159,8 @@ public final class StringUtils {
    *         not a valid {@code Integer}.
    */
   public static Integer toInteger(String string) {
-    if (string == null) {
-      return null;
-    }
-
     try {
-      return parseInt(string);
+      return Optional.ofNullable(string).map(Integer::parseInt).orElse(null);
     } catch (Exception e) {
       return null;
     }

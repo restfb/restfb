@@ -22,10 +22,8 @@
 package com.restfb.json;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Represents a JSON array, an ordered collection of JSON values.
@@ -60,9 +58,6 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
 
   private final List<JsonValue> values;
 
-  // String constants
-  private static final String ARRAY_IS_NULL = "array is null";
-
   /**
    * Creates a new empty JsonArray.
    */
@@ -81,9 +76,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
   }
 
   private JsonArray(JsonArray array, boolean unmodifiable) {
-    if (array == null) {
-      throw new NullPointerException(ARRAY_IS_NULL);
-    }
+    Objects.requireNonNull(array, ARRAY_IS_NULL);
     if (unmodifiable) {
       values = Collections.unmodifiableList(array.values);
     } else {
@@ -187,9 +180,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    * @return the array itself, to enable method chaining
    */
   public JsonArray add(JsonValue value) {
-    if (value == null) {
-      throw new NullPointerException("value is null");
-    }
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     values.add(value);
     return this;
   }
@@ -307,9 +298,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    *           if the index is out of range, i.e. <code>index &lt; 0</code> or <code>index &gt;= size</code>
    */
   public JsonArray set(int index, JsonValue value) {
-    if (value == null) {
-      throw new NullPointerException("value is null");
-    }
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     values.set(index, value);
     return this;
   }
@@ -368,6 +357,10 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    */
   public List<JsonValue> values() {
     return Collections.unmodifiableList(values);
+  }
+
+  public Stream<JsonValue> valueStream() {
+    return values().stream();
   }
 
   /**

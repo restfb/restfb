@@ -23,10 +23,7 @@ package com.restfb.json;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import com.restfb.json.JsonObject.Member;
 
@@ -72,11 +69,6 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
   private final List<JsonValue> values;
   private transient HashIndexTable table;
 
-  // String constants
-  private static final String OBJECT_IS_NULL = "object is null";
-  private static final String NAME_IS_NULL = "name is null";
-  private static final String VALUE_IS_NULL = "value is null";
-
   /**
    * Creates a new empty JsonObject.
    */
@@ -97,9 +89,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
   }
 
   private JsonObject(JsonObject object, boolean unmodifiable) {
-    if (object == null) {
-      throw new NullPointerException(OBJECT_IS_NULL);
-    }
+    Objects.requireNonNull(object, OBJECT_IS_NULL);
     if (unmodifiable) {
       names = Collections.unmodifiableList(object.names);
       values = Collections.unmodifiableList(object.values);
@@ -276,12 +266,8 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject add(String name, JsonValue value) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
-    if (value == null) {
-      throw new NullPointerException(VALUE_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     table.add(name, names.size());
     names.add(name);
     values.add(value);
@@ -431,12 +417,8 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject set(String name, JsonValue value) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
-    if (value == null) {
-      throw new NullPointerException(VALUE_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     int index = indexOf(name);
     if (index != -1) {
       values.set(index, value);
@@ -458,9 +440,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject remove(String name) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
     int index = indexOf(name);
     if (index != -1) {
       table.remove(index);
@@ -493,9 +473,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject merge(JsonObject object) {
-    if (object == null) {
-      throw new NullPointerException(OBJECT_IS_NULL);
-    }
+    Objects.requireNonNull(object, OBJECT_IS_NULL);
     for (Member member : object) {
       this.set(member.name, member.value);
     }
@@ -512,9 +490,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    *         a member with that name
    */
   public JsonValue get(String name) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
     int index = indexOf(name);
     return index != -1 ? values.get(index) : null;
   }

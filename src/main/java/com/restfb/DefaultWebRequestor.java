@@ -29,11 +29,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.util.*;
 
+import com.restfb.util.ObjectUtil;
 import com.restfb.util.StringUtils;
 import com.restfb.util.UrlUtils;
 
@@ -94,9 +94,8 @@ public class DefaultWebRequestor implements WebRequestor {
   @Override
   public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments)
       throws IOException {
-    if (binaryAttachments == null) {
-      binaryAttachments = new ArrayList<>();
-    }
+
+    binaryAttachments = Optional.ofNullable(binaryAttachments).orElse(new ArrayList<>());
 
     if (HTTP_LOGGER.isDebugEnabled()) {
       HTTP_LOGGER.debug("Executing a POST to " + url + " with parameters "
@@ -165,9 +164,7 @@ public class DefaultWebRequestor implements WebRequestor {
       return response;
     } finally {
       if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
-        for (BinaryAttachment binaryAttachment : binaryAttachments) {
-          closeQuietly(binaryAttachment.getData());
-        }
+        binaryAttachments.forEach(binaryAttachment -> closeQuietly(binaryAttachment.getData()));
       }
 
       closeQuietly(outputStream);
