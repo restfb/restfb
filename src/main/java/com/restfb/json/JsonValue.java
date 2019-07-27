@@ -22,6 +22,7 @@
 package com.restfb.json;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * Represents a JSON value. This can be a JSON <strong>object</strong>, an <strong> array</strong>, a
@@ -284,12 +285,8 @@ public abstract class JsonValue implements Serializable {
    *           if an I/O error occurs in the writer
    */
   public void writeTo(Writer writer, WriterConfig config) throws IOException {
-    if (writer == null) {
-      throw new NullPointerException("writer is null");
-    }
-    if (config == null) {
-      throw new NullPointerException("config is null");
-    }
+    Objects.requireNonNull(writer, "writer is null");
+    Objects.requireNonNull(config, "config is null");
     WritingBuffer buffer = new WritingBuffer(writer, 128);
     write(config.createWriter(buffer));
     buffer.flush();
