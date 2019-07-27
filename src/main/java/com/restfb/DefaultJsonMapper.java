@@ -37,6 +37,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
@@ -353,11 +354,8 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     // Pull out only those field names with multiple mappings
-    for (Entry<String, Integer> entry : facebookFieldsNamesWithOccurrenceCount.entrySet()) {
-      if (entry.getValue() > 1) {
-        facebookFieldNamesWithMultipleMappings.add(entry.getKey());
-      }
-    }
+    facebookFieldNamesWithMultipleMappings.addAll(facebookFieldsNamesWithOccurrenceCount.entrySet().stream()
+      .filter(entry -> entry.getValue() > 1).map(Entry::getKey).collect(Collectors.toList()));
 
     return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
   }

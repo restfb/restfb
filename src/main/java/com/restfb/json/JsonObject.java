@@ -23,10 +23,7 @@ package com.restfb.json;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import com.restfb.json.JsonObject.Member;
 
@@ -97,9 +94,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
   }
 
   private JsonObject(JsonObject object, boolean unmodifiable) {
-    if (object == null) {
-      throw new NullPointerException(OBJECT_IS_NULL);
-    }
+    Objects.requireNonNull(object, OBJECT_IS_NULL);
     if (unmodifiable) {
       names = Collections.unmodifiableList(object.names);
       values = Collections.unmodifiableList(object.values);
@@ -431,12 +426,8 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject set(String name, JsonValue value) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
-    if (value == null) {
-      throw new NullPointerException(VALUE_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     int index = indexOf(name);
     if (index != -1) {
       values.set(index, value);
@@ -458,9 +449,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject remove(String name) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
     int index = indexOf(name);
     if (index != -1) {
       table.remove(index);
@@ -493,9 +482,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject merge(JsonObject object) {
-    if (object == null) {
-      throw new NullPointerException(OBJECT_IS_NULL);
-    }
+    Objects.requireNonNull(object, OBJECT_IS_NULL);
     for (Member member : object) {
       this.set(member.name, member.value);
     }

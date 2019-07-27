@@ -24,6 +24,7 @@ package com.restfb.json;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Objects;
 
 
 /**
@@ -66,9 +67,7 @@ public class JsonParser {
    */
   @SuppressWarnings("unchecked")
   public JsonParser(JsonHandler<?, ?> handler) {
-    if (handler == null) {
-      throw new NullPointerException("handler is null");
-    }
+    Objects.requireNonNull(handler, "handler is null");
     this.handler = (JsonHandler<Object, Object>)handler;
     handler.parser = this;
   }
@@ -83,9 +82,7 @@ public class JsonParser {
    *           if the input is not valid JSON
    */
   public void parse(String string) {
-    if (string == null) {
-      throw new NullPointerException("string is null");
-    }
+    Objects.requireNonNull(string, "string is null");
     int bufferSize = Math.max(MIN_BUFFER_SIZE, Math.min(DEFAULT_BUFFER_SIZE, string.length()));
     try {
       parse(new StringReader(string), bufferSize);
@@ -132,9 +129,7 @@ public class JsonParser {
    *           if the input is not valid JSON
    */
   public void parse(Reader reader, int buffersize) throws IOException {
-    if (reader == null) {
-      throw new NullPointerException("reader is null");
-    }
+    Objects.requireNonNull(reader, "reader is null");
     if (buffersize <= 0) {
       throw new IllegalArgumentException("buffersize is zero or negative");
     }

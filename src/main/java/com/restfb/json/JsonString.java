@@ -22,6 +22,7 @@
 package com.restfb.json;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @SuppressWarnings("serial") // use default serial UID
 class JsonString extends JsonValue {
@@ -29,9 +30,7 @@ class JsonString extends JsonValue {
   private final String string;
 
   JsonString(String string) {
-    if (string == null) {
-      throw new NullPointerException("string is null");
-    }
+    Objects.requireNonNull(string, "string is null");
     this.string = string;
   }
 

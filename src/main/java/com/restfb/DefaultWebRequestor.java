@@ -29,10 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.restfb.util.StringUtils;
 import com.restfb.util.UrlUtils;
@@ -165,9 +162,7 @@ public class DefaultWebRequestor implements WebRequestor {
       return response;
     } finally {
       if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
-        for (BinaryAttachment binaryAttachment : binaryAttachments) {
-          closeQuietly(binaryAttachment.getData());
-        }
+        binaryAttachments.forEach(binaryAttachment -> closeQuietly(binaryAttachment.getData()));
       }
 
       closeQuietly(outputStream);

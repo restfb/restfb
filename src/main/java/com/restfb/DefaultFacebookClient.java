@@ -32,10 +32,8 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -324,11 +322,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw new IllegalArgumentException("The list of IDs cannot be empty.");
     }
 
-    for (Parameter parameter : parameters) {
-      if (IDS_PARAM_NAME.equals(parameter.name)) {
-        throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
-            + "RestFB will populate this for you with " + "the list of IDs you passed to this method.");
-      }
+    if (Stream.of(parameters).filter(parameter -> IDS_PARAM_NAME.equals(parameter.name)).findFirst().isPresent()) {
+      throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
+              + "RestFB will populate this for you with the list of IDs you passed to this method.");
     }
 
     JsonArray idArray = new JsonArray();
@@ -474,9 +470,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public DeviceCode fetchDeviceCode(ScopeBuilder scope) {
     verifyParameterPresence("scope", scope);
 
-    if (accessToken == null) {
-      throw new IllegalStateException("access token is required to fetch a device access token");
-    }
+    Optional.ofNullable(accessToken).orElseThrow(() -> new IllegalStateException("access token is required to fetch a device access token"));
 
     String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),
       Parameter.with("scope", scope.toString()));
