@@ -154,6 +154,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
     // Pull out data
     JsonArray jsonData = jsonObject.get("data").asArray();
+
     List<T> dataItem = new ArrayList<>(jsonData.size());
     for (JsonValue jsonValue : jsonData) {
       dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonValue
@@ -161,13 +162,13 @@ public class Connection<T> implements Iterable<List<T>> {
     }
 
     // Pull out paging info, if present
-    if (jsonObject.get("paging") != null) {
+    if (jsonObject.contains("paging")) {
       JsonObject jsonPaging = jsonObject.get("paging").asObject();
       previousPageUrl = fixProtocol(jsonPaging.getString("previous", null));
       nextPageUrl = fixProtocol(jsonPaging.getString("next", null));
 
       // handle cursors
-      if (jsonPaging.get("cursors") != null) {
+      if (jsonPaging.contains("cursors")) {
         JsonObject jsonCursors = jsonPaging.get("cursors").asObject();
         beforeCursor = jsonCursors.getString("before", null);
         afterCursor = jsonCursors.getString("after", null);
@@ -177,9 +178,9 @@ public class Connection<T> implements Iterable<List<T>> {
       nextPageUrl = null;
     }
 
-    if (jsonObject.get("summary") != null) {
+    if (jsonObject.contains("summary")) {
       JsonObject jsonSummary = jsonObject.get("summary").asObject();
-      totalCount = jsonSummary.get("total_count") != null ? jsonSummary.getLong("total_count", 0L) : null;
+      totalCount = jsonSummary.contains("total_count") ? jsonSummary.getLong("total_count", 0L) : null;
     } else {
       totalCount = null;
     }

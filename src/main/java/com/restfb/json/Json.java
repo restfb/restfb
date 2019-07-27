@@ -24,6 +24,7 @@ package com.restfb.json;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * This class serves as the entry point to the minimal-json API.
@@ -187,9 +188,7 @@ public final class Json {
    * @return a new JSON array that contains the given values
    */
   public static JsonArray array(long... values) {
-    if (values == null) {
-      throw new NullPointerException(VALUES_IS_NULL);
-    }
+    Objects.requireNonNull(values, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
     for (long value : values) {
       array.add(value);
@@ -205,10 +204,7 @@ public final class Json {
    * @return a new JSON array that contains the given values
    */
   public static JsonArray array(float... values) {
-    if (values == null) {
-      throw new NullPointerException(VALUES_IS_NULL);
-    }
-
+    Objects.requireNonNull(values, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
     for (float value : values) {
       array.add(value);
@@ -224,9 +220,7 @@ public final class Json {
    * @return a new JSON array that contains the given values
    */
   public static JsonArray array(double... values) {
-    if (values == null) {
-      throw new NullPointerException(VALUES_IS_NULL);
-    }
+    Objects.requireNonNull(values, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
     for (double value : values) {
       array.add(value);
@@ -242,9 +236,7 @@ public final class Json {
    * @return a new JSON array that contains the given values
    */
   public static JsonArray array(boolean... values) {
-    if (values == null) {
-      throw new NullPointerException(VALUES_IS_NULL);
-    }
+    Objects.requireNonNull(values, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
     for (boolean value : values) {
       array.add(value);
@@ -260,9 +252,7 @@ public final class Json {
    * @return a new JSON array that contains the given strings
    */
   public static JsonArray array(String... strings) {
-    if (strings == null) {
-      throw new NullPointerException(VALUES_IS_NULL);
-    }
+    Objects.requireNonNull(strings, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
     for (String value : strings) {
       array.add(value);
@@ -290,9 +280,7 @@ public final class Json {
    *           if the input is not valid JSON
    */
   public static JsonValue parse(String string) {
-    if (string == null) {
-      throw new NullPointerException(STRING_IS_NULL);
-    }
+    Objects.requireNonNull(string, STRING_IS_NULL);
     DefaultHandler handler = new DefaultHandler();
     new JsonParser(handler).parse(string);
     return handler.getValue();
@@ -315,9 +303,7 @@ public final class Json {
    *           if the input is not valid JSON
    */
   public static JsonValue parse(Reader reader) throws IOException {
-    if (reader == null) {
-      throw new NullPointerException(READER_IS_NULL);
-    }
+    Objects.requireNonNull(reader, READER_IS_NULL);
     DefaultHandler handler = new DefaultHandler();
     new JsonParser(handler).parse(reader);
     return handler.getValue();

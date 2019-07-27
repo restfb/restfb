@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Represents a JSON array, an ordered collection of JSON values.
@@ -368,6 +369,10 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    */
   public List<JsonValue> values() {
     return Collections.unmodifiableList(values);
+  }
+
+  public Stream<JsonValue> valueStream() {
+    return values().stream();
   }
 
   /**
