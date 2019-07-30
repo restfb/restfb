@@ -80,7 +80,11 @@ public class QuickReply extends AbstractFacebookType {
   }
 
   public enum QuickReplyType {
-    USER_EMAIL, USER_PHONE_NUMBER, LOCATION;
+    USER_EMAIL, USER_PHONE_NUMBER,
+    /**
+     * @TODO: remove after October 29th, 2019
+     */
+    @Deprecated LOCATION;
 
     public String getContentType() {
       return name().toLowerCase();
