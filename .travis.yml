@@ -1,8 +1,9 @@
 language: java
 jdk:
- - oraclejdk9
+ - openjdk12
  - openjdk11
  - openjdk10
+ - openjdk9
  - openjdk8
  - openjdk7
 cache:
