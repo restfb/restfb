@@ -26,12 +26,17 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.annotation.GraphAPI;
 import lombok.Getter;
 
 /**
  * implementation of the Open Graph Template
  * (https://developers.facebook.com/docs/messenger-platform/send-messages/template/open-graph)
+ *
+ * @deprecated with Graph API 4.0 this is no longer supported
  */
+@Deprecated
+@GraphAPI(until = "4.0")
 public class OpenGraphTemplatePayload extends TemplatePayload {
 
   @Getter

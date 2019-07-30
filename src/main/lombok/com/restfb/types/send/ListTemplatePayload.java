@@ -26,11 +26,19 @@ import java.util.Collections;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookPreconditionException;
 
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Implementation of <a href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/list/">Vertical List View</a>
+ *
+ * @deprecated with Graph API 4.0 this is no longer supported
+ */
+@Deprecated
+@GraphAPI(until = "4.0")
 public class ListTemplatePayload extends SharableTemplatePayload implements IsBroadcastPayload {
 
   @Facebook
