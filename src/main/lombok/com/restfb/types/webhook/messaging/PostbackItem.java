@@ -35,6 +35,18 @@ import lombok.ToString;
 public class PostbackItem implements InnerMessagingItem {
 
   /**
+   * Title for the CTA that was clicked on. This is sent to all apps subscribed to the page.
+   *
+   * For apps other than the original CTA sender, the postback event will be delivered via the
+   * <a href="https://developers.facebook.com/docs/messenger-platform/webhook-reference/standby-channel"
+   * target="_self">standby channel</a>.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String title;
+
+  /**
    * payload parameter that was defined with the button
    */
   @Getter
