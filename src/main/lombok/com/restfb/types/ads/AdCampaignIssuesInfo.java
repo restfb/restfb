@@ -46,6 +46,11 @@ public class AdCampaignIssuesInfo extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("error_type")
+  private String errorType;
+
+  @Getter
+  @Setter
   @Facebook
   private String level;
 }

@@ -41,6 +41,11 @@ public class AdgroupIssuesInfo extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("error_type")
+  private String errorType;
+
+  @Getter
+  @Setter
   @Facebook("error_summary")
   private String errorSummary;
 
