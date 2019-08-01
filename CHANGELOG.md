@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 2.24.0 (August 1, 2019)
+
+* Graph API 4.0 support
+  * Issue #1013: basic support
+  * Issue #1015: Messenger templates marked as deprecated
+  * Issue #1014: Location quick reply is deprecated
+* Issue #1012: Postback object is missing "title" field<br />
+  Thanks to @andrey-popovich for the hint
+
 ## 2.23.1 (July 7, 2019)
 
 * Issue #1010: Quickreplies limit increased to 13<br />
