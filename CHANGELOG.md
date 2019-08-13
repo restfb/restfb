@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2.24.1 (August 13, 2019)
+
+* Issue #1017: Missing value `LOWEST_COST_WITH_MIN_ROAS` in `BidStrategy` enum<br />
+  Thanks to @saurabhnmishra for the hint
+
 ## 2.24.0 (August 1, 2019)
 
 * Graph API 4.0 support
