@@ -27,6 +27,8 @@ import static java.lang.String.format;
 
 import com.restfb.exception.FacebookJsonMappingException;
 
+import java.util.Optional;
+
 /**
  * Representation of a Facebook API request parameter.
  * 
@@ -62,9 +64,7 @@ public final class Parameter {
               + " Got instead name:" + name + ", value:" + value);
     }
 
-    if (jsonMapper == null) {
-      throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");
-    }
+    Optional.ofNullable(jsonMapper).orElseThrow(() -> new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null."));
 
     this.name = trimToEmpty(name);
 
