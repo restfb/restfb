@@ -25,6 +25,7 @@ import static com.restfb.util.UrlUtils.urlEncode;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Base class that contains data and functionality from {@link DefaultFacebookClient}
@@ -134,10 +135,9 @@ abstract class BaseFacebookClient {
    *           If there's a parameter name collision.
    */
   protected void verifyParameterLegality(Parameter... parameters) {
-    for (Parameter parameter : parameters)
-      if (illegalParamNames.contains(parameter.name)) {
-        throw new IllegalArgumentException(
-                "Parameter '" + parameter.name + "' is reserved for RestFB use - you cannot specify it yourself.");
-      }
+    Stream.of(parameters).map(parameter -> parameter.name)
+            .filter(name -> illegalParamNames.contains(name))
+            .findAny().ifPresent(name -> new IllegalArgumentException(
+        "Parameter '" + name + "' is reserved for RestFB use - you cannot specify it yourself."));
   }
 }
