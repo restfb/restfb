@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.0.0 RC1 (August 14, 2019)
+
+* Issue #940: moved source level to java 8
+* Issue #1000: moved to junit 5
+
 ## 2.26.0 (October 11, 2019)
 
 * Issue #1025: `instagram_accounts` field added to `Page` type<br />
