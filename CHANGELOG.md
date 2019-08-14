@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.0.0 RC1 (August 14, 2019)
+
+* Issue #940: moved source level to java 8
+* Issue #1000: moved to junit 5
+
 ## 2.27.0 (November 6, 2019)
 
 * Graph API 5.0 support added
