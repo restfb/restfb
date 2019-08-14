@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.0.0 RC1 (August 14, 2019)
+
+* Issue #940: moved source level to java 8
+* Issue #1000: moved to junit 5
+
 ## 2.24.1 (August 13, 2019)
 
 * Issue #1017: Missing value `LOWEST_COST_WITH_MIN_ROAS` in `BidStrategy` enum<br />
