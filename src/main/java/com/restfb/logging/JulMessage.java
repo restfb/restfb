@@ -21,8 +21,6 @@
  */
 package com.restfb.logging;
 
-import java.util.Optional;
-
 /**
  * Java util logging message format helper class.
  *

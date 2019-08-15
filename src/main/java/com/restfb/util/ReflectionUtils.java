@@ -231,16 +231,7 @@ public final class ReflectionUtils {
       }
     }
 
-    // Order the methods alphabetically by name
-    sort(methods, new Comparator<Method>() {
-      /**
-       * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-       */
-      @Override
-      public int compare(Method method1, Method method2) {
-        return method1.getName().compareTo(method2.getName());
-      }
-    });
+    methods.sort(Comparator.comparing(Method::getName));
 
     return unmodifiableList(methods);
   }

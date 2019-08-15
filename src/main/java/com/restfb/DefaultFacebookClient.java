@@ -323,7 +323,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       throw new IllegalArgumentException("The list of IDs cannot be empty.");
     }
 
-    if (Stream.of(parameters).filter(parameter -> IDS_PARAM_NAME.equals(parameter.name)).findFirst().isPresent()) {
+    if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
       throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
               + "RestFB will populate this for you with the list of IDs you passed to this method.");
     }

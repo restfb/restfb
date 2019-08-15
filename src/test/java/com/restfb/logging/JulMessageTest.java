@@ -32,21 +32,21 @@ class JulMessageTest {
   @Test
   void simpleMessage_escapedPlaceholder_noException() {
     JulMessage.MessageTuple tuple = JulMessage.convertMessageString("Simple\\{} text");
-    assertEquals(tuple.getMessage(), "Simple\\{} text");
+    assertEquals("Simple\\{} text", tuple.getMessage());
     assertNull(tuple.getThrowable());
   }
 
   @Test
   void simpleMessage_escapedPlaceholderAtBeginning_noException() {
     JulMessage.MessageTuple tuple = JulMessage.convertMessageString("\\{}Simple text");
-    assertEquals(tuple.getMessage(), "\\{}Simple text");
+    assertEquals("\\{}Simple text", tuple.getMessage());
     assertNull(tuple.getThrowable());
   }
 
   @Test
   void simpleMessage_noPlaceholder_withException() {
     JulMessage.MessageTuple tuple = JulMessage.convertMessageString("Simple text", new NullPointerException());
-    assertEquals(tuple.getMessage(), "Simple text");
+    assertEquals("Simple text", tuple.getMessage());
     assertNotNull(tuple.getThrowable());
   }
 
