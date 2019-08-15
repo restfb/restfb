@@ -33,6 +33,7 @@ import static java.util.Collections.emptyList;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.crypto.Mac;
@@ -879,22 +880,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
     }
 
-    StringBuilder parameterStringBuilder = new StringBuilder();
-    boolean first = true;
-
-    for (Parameter parameter : parameters) {
-      if (first) {
-        first = false;
-      } else {
-        parameterStringBuilder.append("&");
-      }
-
-      parameterStringBuilder.append(urlEncode(parameter.name));
-      parameterStringBuilder.append("=");
-      parameterStringBuilder.append(urlEncodedValueForParameterName(parameter.name, parameter.value));
-    }
-
-    return parameterStringBuilder.toString();
+    return Stream.of(parameters).map(p -> urlEncode(p.name) + "=" + urlEncodedValueForParameterName(p.name, p.value)).collect(Collectors.joining("&"));
   }
 
   /**

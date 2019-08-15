@@ -25,6 +25,7 @@ import com.restfb.json.JsonValue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Optional;
 
 /**
  * Helper class to convert {@link JsonValue} to a given type

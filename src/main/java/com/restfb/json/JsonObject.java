@@ -271,12 +271,8 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    * @return the object itself, to enable method chaining
    */
   public JsonObject add(String name, JsonValue value) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
-    if (value == null) {
-      throw new NullPointerException(VALUE_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     table.add(name, names.size());
     names.add(name);
     values.add(value);

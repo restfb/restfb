@@ -64,12 +64,8 @@ public final class Parameter {
               + " Got instead name:" + name + ", value:" + value);
     }
 
-    Optional.ofNullable(jsonMapper).orElseThrow(() -> new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null."));
-
+    this.value = Optional.ofNullable(jsonMapper).orElseThrow(() -> new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.")).toJson(value, true);
     this.name = trimToEmpty(name);
-
-    // Use the JSON value of the type.
-    this.value = jsonMapper.toJson(value, true);
   }
 
   /**

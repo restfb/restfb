@@ -22,10 +22,7 @@
 package com.restfb.json;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -82,9 +79,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
   }
 
   private JsonArray(JsonArray array, boolean unmodifiable) {
-    if (array == null) {
-      throw new NullPointerException(ARRAY_IS_NULL);
-    }
+    Objects.requireNonNull(array, ARRAY_IS_NULL);
     if (unmodifiable) {
       values = Collections.unmodifiableList(array.values);
     } else {
@@ -188,9 +183,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    * @return the array itself, to enable method chaining
    */
   public JsonArray add(JsonValue value) {
-    if (value == null) {
-      throw new NullPointerException("value is null");
-    }
+    Objects.requireNonNull(value, "value is null");
     values.add(value);
     return this;
   }
@@ -308,9 +301,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    *           if the index is out of range, i.e. <code>index &lt; 0</code> or <code>index &gt;= size</code>
    */
   public JsonArray set(int index, JsonValue value) {
-    if (value == null) {
-      throw new NullPointerException("value is null");
-    }
+    Objects.requireNonNull(value, "value is null");
     values.set(index, value);
     return this;
   }

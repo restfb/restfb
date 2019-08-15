@@ -23,13 +23,13 @@ package com.restfb.integration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Event;
-
-import org.junit.jupiter.api.Test;
 
 public class FetchEventsIssue252 extends RestFbIntegrationTestBase {
 
@@ -37,9 +37,9 @@ public class FetchEventsIssue252 extends RestFbIntegrationTestBase {
       "id,name,place,owner,description,timezone,ticket_uri,cover,start_time,end_time,updated_time,is_date_only";
 
   @Test
-  public void fetchEvent_1() {
+  void fetchEvent_1() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_10);
     Event event = client.fetchObject("1074127502604196", Event.class, Parameter.with("fields", SELECTED_FIELDS));
     assertNotNull(event);
     assertNotNull(event.getPlace());
@@ -47,9 +47,9 @@ public class FetchEventsIssue252 extends RestFbIntegrationTestBase {
   }
 
   @Test
-  public void fetchEvent_2() {
+  void fetchEvent_2() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_10);
     Event event = client.fetchObject("300473363410132", Event.class, Parameter.with("fields", SELECTED_FIELDS));
     assertNotNull(event);
     assertNotNull(event.getPlace());
