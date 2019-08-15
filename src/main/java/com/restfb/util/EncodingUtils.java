@@ -53,9 +53,7 @@ public final class EncodingUtils {
    *           If {@code base64} is {@code null}.
    */
   public static byte[] decodeBase64(String base64) {
-    Optional.ofNullable(base64).orElseThrow(() -> new NullPointerException("Parameter 'base64' cannot be null."));
-    String fixedBase64 = padBase64(base64);
-    return Base64.getDecoder().decode(fixedBase64);
+    return Base64.getDecoder().decode(Optional.ofNullable(base64).map(EncodingUtils::padBase64).orElseThrow(() -> new NullPointerException("Parameter 'base64' cannot be null.")));
   }
 
   private static String padBase64(String base64) {

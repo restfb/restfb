@@ -68,7 +68,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
-    Optional.ofNullable(type)
+    type = Optional.ofNullable(type)
       .orElseThrow(() -> new FacebookJsonMappingException("You must specify the Java type to map to."));
 
     json = trimToEmpty(json);

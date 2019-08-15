@@ -32,7 +32,7 @@ import java.util.Arrays;
  * jsonValue.writeTo(writer, PrettyPrint.singleLine());
  * </pre>
  */
-public class PrettyPrint extends WriterConfig {
+public class PrettyPrint implements WriterConfig {
 
   private final char[] indentChars;
 
@@ -75,7 +75,7 @@ public class PrettyPrint extends WriterConfig {
   }
 
   @Override
-  protected JsonWriter createWriter(Writer writer) {
+  public JsonWriter createWriter(Writer writer) {
     return new PrettyPrintWriter(writer, indentChars);
   }
 

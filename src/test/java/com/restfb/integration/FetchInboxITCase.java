@@ -38,7 +38,7 @@ public class FetchInboxITCase extends RestFbIntegrationTestBase {
   @Test
   public void fetchInboxThread() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<com.restfb.types.Thread> connection =
         client.fetchConnection("/" + getTestSettings().getUserId() + "/inbox", com.restfb.types.Thread.class);
     assertNotNull(connection.getData());

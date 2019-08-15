@@ -26,28 +26,18 @@ import java.io.Writer;
 /**
  * Controls the formatting of the JSON output. Use one of the available constants.
  */
-public abstract class WriterConfig {
+public interface WriterConfig {
 
   /**
    * Write JSON in its minimal form, without any additional whitespace. This is the default.
    */
-  public static final WriterConfig MINIMAL = new WriterConfig() {
-    @Override
-    JsonWriter createWriter(Writer writer) {
-      return new JsonWriter(writer);
-    }
-  };
+  WriterConfig MINIMAL = JsonWriter::new;
 
   /**
    * Write JSON in its minimal form, but escape almost all unicode signs; umlauts, smileys and more are escaped
    */
-  public static final WriterConfig UNICODE = new WriterConfig() {
-    @Override
-    JsonWriter createWriter(Writer writer) {
-      return new UnicodeJsonWriter(writer);
-    }
-  };
+  WriterConfig UNICODE = UnicodeJsonWriter::new;
 
-  abstract JsonWriter createWriter(Writer writer);
+  JsonWriter createWriter(Writer writer);
 
 }
