@@ -147,14 +147,10 @@ public final class UrlUtils {
           value = urlDecode(pair[1]);
         }
 
-        List<String> values = parameters.get(key);
-
-        if (values == null) {
-          values = new ArrayList<>();
-          parameters.put(key, values);
-        }
-
-        values.add(value);
+        parameters.computeIfAbsent(key, k -> {
+          ArrayList<String> list = new ArrayList<>();
+          return list;
+        }).add(value);
       }
     }
 

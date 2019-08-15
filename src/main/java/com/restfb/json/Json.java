@@ -23,7 +23,6 @@ package com.restfb.json;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Collections;
 import java.util.Objects;
 
 /**

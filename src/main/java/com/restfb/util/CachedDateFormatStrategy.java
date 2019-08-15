@@ -63,14 +63,13 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
         THREADLOCAL_FORMATTER_MAP.set(new SoftReference<Map>(formatterMap));
       }
 
-      SimpleDateFormat formatter = formatterMap.get(pattern);
-      if (formatter == null) {
-        formatter = new SimpleDateFormat(pattern);
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        formatterMap.put(pattern, formatter);
-      }
+      return formatterMap.computeIfAbsent(pattern, key -> createSDF(key));
+    }
 
-      return formatter;
+    private static SimpleDateFormat createSDF(String pattern) {
+      SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+      sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+      return sdf;
     }
 
     private static void clearThreadLocal() {

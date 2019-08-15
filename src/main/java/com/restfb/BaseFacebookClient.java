@@ -135,9 +135,12 @@ abstract class BaseFacebookClient {
    *           If there's a parameter name collision.
    */
   protected void verifyParameterLegality(Parameter... parameters) {
-    Stream.of(parameters).map(parameter -> parameter.name)
-            .filter(name -> illegalParamNames.contains(name))
-            .findAny().ifPresent(name -> new IllegalArgumentException(
-        "Parameter '" + name + "' is reserved for RestFB use - you cannot specify it yourself."));
+    Stream.of(parameters).map(parameter -> parameter.name).filter(illegalParamNames::contains).findAny()
+      .ifPresent(this::throwIAE);
+  }
+
+  private void throwIAE(String name) {
+    throw new IllegalArgumentException(
+      "Parameter '" + name + "' is reserved for RestFB use - you cannot specify it yourself.");
   }
 }

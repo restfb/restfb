@@ -293,7 +293,7 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   private String fixProtocol(String pageUrl) {
-    return Optional.ofNullable(pageUrl).filter( s -> s.startsWith("http://")).map(s -> s.replaceFirst("http://", "https://")).orElse(pageUrl);
+    return Optional.ofNullable(pageUrl).filter(s -> s.startsWith("http://")).map(s -> s.replaceFirst("http://", "https://")).orElse(pageUrl);
   }
 
   /**

@@ -95,6 +95,6 @@ public class StringJsonUtils {
    * @return {@code true} if the JSON is equivalent to the empty object, {@code false} otherwise.
    */
   public static boolean isEmptyObject(String jsonString) {
-    return "{}".equals(jsonString);
+    return EMPTY_OBJECT.equals(jsonString);
   }
 }
