@@ -69,11 +69,6 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
   private final List<JsonValue> values;
   private transient HashIndexTable table;
 
-  // String constants
-  private static final String OBJECT_IS_NULL = "object is null";
-  private static final String NAME_IS_NULL = "name is null";
-  private static final String VALUE_IS_NULL = "value is null";
-
   /**
    * Creates a new empty JsonObject.
    */

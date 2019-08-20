@@ -58,9 +58,6 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
 
   private final List<JsonValue> values;
 
-  // String constants
-  private static final String ARRAY_IS_NULL = "array is null";
-
   /**
    * Creates a new empty JsonArray.
    */
@@ -183,7 +180,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    * @return the array itself, to enable method chaining
    */
   public JsonArray add(JsonValue value) {
-    Objects.requireNonNull(value, "value is null");
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     values.add(value);
     return this;
   }
@@ -301,7 +298,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    *           if the index is out of range, i.e. <code>index &lt; 0</code> or <code>index &gt;= size</code>
    */
   public JsonArray set(int index, JsonValue value) {
-    Objects.requireNonNull(value, "value is null");
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     values.set(index, value);
     return this;
   }

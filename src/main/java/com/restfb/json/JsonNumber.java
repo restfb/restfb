@@ -30,7 +30,7 @@ class JsonNumber extends JsonValue {
   private final String string;
 
   JsonNumber(String string) {
-    Objects.requireNonNull(string, "string is null");
+    Objects.requireNonNull(string, STRING_IS_NULL);
     this.string = string;
   }
 
