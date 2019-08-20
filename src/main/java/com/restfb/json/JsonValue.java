@@ -60,6 +60,12 @@ public abstract class JsonValue implements Serializable {
   private static final String NOT_A_NUMBER = "Not a number: ";
   private static final String NOT_A_STRING = "Not a string: ";
   private static final String NOT_A_BOOLEAN = "Not a boolean: ";
+  // String constants
+  protected static final String STRING_IS_NULL = "string is null";
+  protected static final String OBJECT_IS_NULL = "object is null";
+  protected static final String NAME_IS_NULL = "name is null";
+  protected static final String VALUE_IS_NULL = "value is null";
+  protected static final String ARRAY_IS_NULL = "array is null";
 
   JsonValue() {
     // prevent subclasses outside of this package
