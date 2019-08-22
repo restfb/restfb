@@ -21,6 +21,8 @@
  */
 package com.restfb;
 
+import java.util.stream.Stream;
+
 public enum Version {
 
   /**
@@ -115,11 +117,7 @@ public enum Version {
    */
   public static Version getVersionFromString(String urlElement) {
     if (urlElement != null) {
-      for (Version v : Version.values()) {
-        if (urlElement.equals(v.getUrlElement())) {
-          return v;
-        }
-      }
+      return Stream.of(Version.values()).filter(v -> urlElement.equals(v.getUrlElement())).findFirst().orElse(UNVERSIONED);
     }
     return UNVERSIONED;
   }

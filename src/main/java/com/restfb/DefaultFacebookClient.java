@@ -325,10 +325,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
       throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
-              + "RestFB will populate this for you with the list of IDs you passed to this method.");
+          + "RestFB will populate this for you with the list of IDs you passed to this method.");
     }
 
     JsonArray idArray = new JsonArray();
+
     // Normalize the IDs
     for (String id : ids) {
       if (StringUtils.isBlank(id)) {
@@ -471,7 +472,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public DeviceCode fetchDeviceCode(ScopeBuilder scope) {
     verifyParameterPresence("scope", scope);
 
-    Optional.ofNullable(accessToken).orElseThrow(() -> new IllegalStateException("access token is required to fetch a device access token"));
+    Optional.ofNullable(accessToken)
+      .orElseThrow(() -> new IllegalStateException("access token is required to fetch a device access token"));
 
     String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),
       Parameter.with("scope", scope.toString()));
@@ -483,9 +485,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
     verifyParameterPresence("code", code);
 
-    if (accessToken == null) {
-      throw new IllegalStateException("access token is required to fetch a device access token");
-    }
+    Optional.ofNullable(accessToken).orElseThrow(() -> new IllegalStateException("access token is required to fetch a device access token"));
 
     try {
       String response = makeRequest("device/login_status", true, false, null, Parameter.with("type", "device_token"),
@@ -880,7 +880,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       parameters = parametersWithAdditionalParameter(Parameter.with(FORMAT_PARAM_NAME, "json"), parameters);
     }
 
-    return Stream.of(parameters).map(p -> urlEncode(p.name) + "=" + urlEncodedValueForParameterName(p.name, p.value)).collect(Collectors.joining("&"));
+    return Stream.of(parameters).map(p -> urlEncode(p.name) + "=" + urlEncodedValueForParameterName(p.name, p.value))
+      .collect(Collectors.joining("&"));
   }
 
   /**
