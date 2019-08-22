@@ -132,7 +132,6 @@ public final class UrlUtils {
     }
 
     Map<String, List<String>> parameters = new HashMap<>();
-
     String[] urlParts = url.split("\\?");
 
     if (urlParts.length > 1) {
@@ -147,10 +146,7 @@ public final class UrlUtils {
           value = urlDecode(pair[1]);
         }
 
-        parameters.computeIfAbsent(key, k -> {
-          ArrayList<String> list = new ArrayList<>();
-          return list;
-        }).add(value);
+        parameters.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
       }
     }
 

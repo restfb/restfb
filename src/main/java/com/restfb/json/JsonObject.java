@@ -490,9 +490,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
    *         a member with that name
    */
   public JsonValue get(String name) {
-    if (name == null) {
-      throw new NullPointerException(NAME_IS_NULL);
-    }
+    Objects.requireNonNull(name, NAME_IS_NULL);
     int index = indexOf(name);
     return index != -1 ? values.get(index) : null;
   }

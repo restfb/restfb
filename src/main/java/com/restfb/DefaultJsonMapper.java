@@ -670,7 +670,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
     Class<?> secondParam = getSecondParameterizedTypeArgument(field);
 
-    if (json.startsWith("{")) {
+    if (StringJsonUtils.isObject(json)) {
       JsonObject jsonObject = Json.parse(json).asObject();
       Map<String, Object> map = new HashMap<>();
       for (String key : jsonObject.names()) {
