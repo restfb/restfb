@@ -88,6 +88,12 @@ public class ChangeValueFactory {
           classDefinition += "_" + userObjectVerb.name();
         }
 
+        // special handling for permissions
+        String verbString = (objValue.get("verb") != null && objValue.get("verb").isString()) ? objValue.get("verb").asString() : "";
+        if (verbString.equals("granted") || verbString.equals("revoked")) {
+          classDefinition = verbString.toUpperCase();
+        }
+
         try {
           ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
           return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());
@@ -167,7 +173,9 @@ public class ChangeValueFactory {
     MOVIES_ADD(UserPageValue.class),
     LIKES_ADD(UserPageValue.class),
     LOCATION_ADD(UserPageValue.class),
-    TELEVISION_ADD(UserPageValue.class);
+    TELEVISION_ADD(UserPageValue.class),
+    GRANTED(PermissionChangeValue.class),
+    REVOKED(PermissionChangeValue.class);
 
     private Class<ChangeValue> valueClass;
 

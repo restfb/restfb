@@ -21,40 +21,18 @@
  */
 package com.restfb.types.webhook;
 
-import com.restfb.util.ReflectionUtils;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Basic ChangeValue
- *
- * provides a enum for the {@code Verb}
- */
-public class ChangeValue {
+import com.restfb.Facebook;
+import com.restfb.types.webhook.base.BaseChangeValue;
 
-  public enum Verb {
-    REMOVE, ADD, EDITED, HIDE, UNHIDE, EDIT, UNBLOCK, BLOCK, MUTE, GRANTED, REVOKED
-  }
+import lombok.Getter;
 
-  /**
-   * @see Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
+public class PermissionChangeValue extends BaseChangeValue {
 
-  /**
-   * @see Object#equals(Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
+  @Getter
+  @Facebook("target_ids")
+  private List<String> targetIds = new ArrayList<>();
 
-  /**
-   * @see Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
 }

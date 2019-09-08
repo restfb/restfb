@@ -74,6 +74,11 @@ public class Change {
       if (value instanceof UserVerbValue && userObjectVerb != null) {
         ((UserVerbValue) value).setVerb(userObjectVerb);
       }
+    } else if (userObjectVerb == ChangeValue.Verb.GRANTED || userObjectVerb == ChangeValue.Verb.REVOKED) {
+      PermissionChangeValue pcv = new PermissionChangeValue();
+      pcv.setVerb(userObjectVerb);
+      pcv.setVerbAsString(userObjectVerb.name().toLowerCase());
+      value = pcv;
     }
   }
 }
