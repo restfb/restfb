@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2.25.0 (September 12, 2019)
+
+* Issue #1020: Add support for permissions webhooks<br />
+  Thanks to @Alexalex1432 for the information and JSON
+
 ## 2.24.1 (August 13, 2019)
 
 * Issue #1017: Missing value `LOWEST_COST_WITH_MIN_ROAS` in `BidStrategy` enum<br />
