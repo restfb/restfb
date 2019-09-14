@@ -231,6 +231,7 @@
         <configuration>
           <header>LICENSE</header>
           <excludes>
+            <exclude>.github/**</exclude>
             <exclude>**/*.xml</exclude>
             <exclude>**/README.md</exclude>
             <exclude>**/CHANGELOG</exclude>
