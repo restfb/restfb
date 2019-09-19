@@ -21,20 +21,19 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.Change;
 import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.PermissionChangeValue;
 import com.restfb.types.webhook.WebhookObject;
+import org.junit.jupiter.api.Test;
 
-public class WebhookPermissionTest extends AbstractJsonMapperTests {
+class WebhookPermissionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void manageFundraisers() {
+  void manageFundraisers() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/permission-granted.wh-2"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -48,7 +47,7 @@ public class WebhookPermissionTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void connected() {
+  void connected() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/permission-granted.wh-1"), WebhookObject.class);
     assertNotNull(webhookObject);
