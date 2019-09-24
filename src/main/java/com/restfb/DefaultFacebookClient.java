@@ -310,6 +310,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return jsonMapper.toJavaObject(makeRequest(object, parameters), objectType);
   }
 
+  @Override
+  public FacebookClient createClientWithAccessToken(String accessToken) {
+    return new DefaultFacebookClient(accessToken, this.appSecret, this.apiVersion);
+  }
+
   /**
    * @see com.restfb.FacebookClient#fetchObjects(java.util.List, java.lang.Class, com.restfb.Parameter[])
    */
@@ -554,12 +559,15 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   private AccessToken getAccessTokenFromResponse(String response) {
+    AccessToken token;
     try {
-      return getJsonMapper().toJavaObject(response, AccessToken.class);
+      token = getJsonMapper().toJavaObject(response, AccessToken.class);
     } catch (FacebookJsonMappingException fjme) {
       CLIENT_LOGGER.trace("could not map response to access token class try to fetch directly from String", fjme);
-      return AccessToken.fromQueryString(response);
+      token = AccessToken.fromQueryString(response);
     }
+    token.setClient(createClientWithAccessToken(token.getAccessToken()));
+    return token;
   }
 
   @Override
