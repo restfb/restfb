@@ -136,6 +136,7 @@ public class FacebookClientTest {
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
     assertThat(at.getTokenType()).isEqualTo("tokentype");
     assertThat(at.getExpires()).isAfter(new Date());
+    assertThat(at.getClient()).isNotNull();
   }
 
   @Test
@@ -146,6 +147,7 @@ public class FacebookClientTest {
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
     assertThat(at.getTokenType()).isEqualTo("tokentype");
     assertThat(at.getExpires()).isNull();
+    assertThat(at.getClient()).isNotNull();
   }
 
   @Test
@@ -165,6 +167,7 @@ public class FacebookClientTest {
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
     assertThat(at.getTokenType()).isNull();
     assertThat(at.getExpires()).isAfter(new Date());
+    assertThat(at.getClient()).isNotNull();
   }
 
   @Test

@@ -25,10 +25,7 @@ import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
@@ -98,6 +95,17 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    */
   <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters);
+
+  /**
+   * creates a new <code>FacebookClient</code> from a old one.
+   * 
+   * App secret and and api version are taken from the original client.
+   *
+   * @param accessToken
+   *          this accesstoken is used for the new client
+   * @return a new Facebookclient
+   */
+  FacebookClient createClientWithAccessToken(String accessToken);
 
   /**
    * Fetches multiple <a href="http://developers.facebook.com/docs/reference/api/">Graph API objects</a> in a single
@@ -562,6 +570,16 @@ public interface FacebookClient {
 
     @Facebook("token_type")
     private String tokenType;
+
+    private transient FacebookClient client;
+
+    public void setClient(FacebookClient client) {
+      this.client = client;
+    }
+
+    public FacebookClient getClient() {
+      return Optional.ofNullable(client).orElse(null);
+    }
 
     /**
      * Given a query string of the form {@code access_token=XXX} or {@code access_token=XXX&expires=YYY}, return an
