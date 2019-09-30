@@ -1274,6 +1274,14 @@ public class Page extends CategorizedFacebookType {
   private IgUser instagramBusinessAccount;
 
   /**
+   * Linked Instagram accounts for this Page
+   */
+  @Getter
+  @Setter
+  @Facebook("instagram_accounts")
+  private List<InstagramUser> instagramAccounts;
+
+  /**
    * Indicates the current Instant Articles review status for this page
    *
    * @return Indicates the current Instant Articles review status for this page
