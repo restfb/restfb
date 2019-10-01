@@ -1273,13 +1273,8 @@ public class Page extends CategorizedFacebookType {
   @Facebook("instagram_business_account")
   private IgUser instagramBusinessAccount;
 
-  /**
-   * Linked Instagram accounts for this Page
-   */
-  @Getter
-  @Setter
   @Facebook("instagram_accounts")
-  private List<InstagramUser> instagramAccounts;
+  private List<InstagramUser> instagramAccounts = new ArrayList<>();
 
   /**
    * Indicates the current Instant Articles review status for this page
@@ -1935,6 +1930,21 @@ public class Page extends CategorizedFacebookType {
 
   public boolean removeLabels(PageLabel label) {
     return labels.remove(label);
+  }
+
+  /**
+   * Linked Instagram accounts for this Page
+   */
+  public List<InstagramUser> getInstagramAccounts() {
+    return unmodifiableList(instagramAccounts);
+  }
+
+  public boolean addInstagramAccount(InstagramUser igUser) {
+    return instagramAccounts.add(igUser);
+  }
+
+  public boolean removeInstagramAccount(InstagramUser igUser) {
+    return instagramAccounts.remove(igUser);
   }
 
   @JsonMappingCompleted
