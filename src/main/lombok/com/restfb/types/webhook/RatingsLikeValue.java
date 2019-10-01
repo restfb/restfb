@@ -37,4 +37,14 @@ public class RatingsLikeValue extends AbstractFeedPostValue {
   @Facebook("parent_id")
   private String parentId;
 
+  @Getter
+  @Setter
+  @Facebook("open_graph_story_id")
+  private String openGraphStoryId;
+
+  @Getter
+  @Setter
+  @Facebook("review_text")
+  private String reviewText;
+
 }
