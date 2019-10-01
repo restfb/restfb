@@ -326,6 +326,16 @@ public class Page extends CategorizedFacebookType {
   private Boolean hasWhatsappNumber;
 
   /**
+   * Indicates whether WhatsApp number connected to this page is a WhatsApp business number
+   *
+   * @return Whatsapp business number
+   */
+  @Getter
+  @Setter
+  @Facebook("has_whatsapp_business_number")
+  private Boolean hasWhatsappBusinessNumber;
+
+  /**
    * Hometown of the band. Applicable to Bands
    * 
    * @since 1.10.0
@@ -413,6 +423,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("rating_count")
   private Integer ratingCount;
+
+  /**
+   * Messenger page scope id associated with page and a user using account_linking_token
+   *
+   * @return Messenger page scope id associated with page and a user using account_linking_token
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String recipient;
 
   @Facebook("labels")
   private transient String rawLabels;
@@ -920,6 +940,27 @@ public class Page extends CategorizedFacebookType {
   @Facebook
   private String products;
 
+  @Getter
+  @Setter
+  @Facebook("page_token")
+  private String pageToken;
+
+  /**
+   * Parent Page of this Page.
+   *
+   * If the Page is part of a Global Root Structure and you have permission to the Global Root,
+   * the Global Root Parent Page is returned. If you do not have Global Root permission,
+   * the Market Page for your current region is returned as the Parent Page.
+   *
+   * If your Page is not part of a Global Root Structure, the Parent Page is returned.
+   *
+   * @return parent page of this page
+   */
+  @Getter
+  @Setter
+  @Facebook("parent_page")
+  private Page parentPage;
+
   /**
    * Indicates whether a user has accepted the TOS for running LeadGen Ads on the Page.
    * 
@@ -995,6 +1036,48 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook("is_community_page")
   private Boolean isCommunityPage;
+
+  /**
+   * Indicates whether the page is eligible for the branded content tool
+   *
+   * @return is eligible for the branded content tool
+   */
+  @Getter
+  @Setter
+  @Facebook("is_eligible_for_branded_content")
+  private Boolean isEligibleForBrandedContent;
+
+  /**
+   * Indicates whether the page is a Messenger Platform Bot with Get Started button enabled
+   *
+   * @return is a Messenger Platform Bot with Get Started button enabled
+   */
+  @Getter
+  @Setter
+  @Facebook("is_messenger_bot_get_started_enabled")
+  private Boolean isMessengerBotGetStartedEnabled;
+
+  /**
+   * Indicates whether the page is a Messenger Platform Bot
+   *
+   * @return Indicates whether the page is a Messenger Platform Bot
+   */
+  @Getter
+  @Setter
+  @Facebook("is_messenger_platform_bot")
+  private Boolean isMessengerPlatformBot;
+
+  /**
+   * Indicates whether page is owned
+   *
+   * @return Indicates whether page is owned
+   */
+  @Getter
+  @Setter
+  @Facebook("is_owned")
+  private Boolean isOwned;
+
+
 
   /**
    * A description of this page.
@@ -1132,7 +1215,9 @@ public class Page extends CategorizedFacebookType {
    * 
    * @since 1.10.0
    * @return Indicates whether the Page is verified
+   * @deprecated use <code>verificationStatus</code> instead
    */
+  @Deprecated
   @Getter
   @Setter
   @Facebook("is_verified")
@@ -1171,6 +1256,16 @@ public class Page extends CategorizedFacebookType {
   private String displaySubtext;
 
   /**
+   * Page estimated message response time displayed to user
+   *
+   * @return Page estimated message response time displayed to user
+   */
+  @Getter
+  @Setter
+  @Facebook("displayed_message_response_time")
+  private String displayedMessageResponseTime;
+
+  /**
    * General manager of the business. Applicable to Restaurants or Nightlife.
    * 
    * @return General manager of the business.
@@ -1201,6 +1296,16 @@ public class Page extends CategorizedFacebookType {
   @Setter
   @Facebook
   private Location location;
+
+  /**
+   * The instant workflow merchant id associated with the Page
+   *
+   * @return The instant workflow merchant id associated with the Page
+   */
+  @Getter
+  @Setter
+  @Facebook("merchant_id")
+  private String merchantId;
 
   /**
    * The cover photo.
