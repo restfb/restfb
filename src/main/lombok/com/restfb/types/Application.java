@@ -718,6 +718,26 @@ public class Application extends CategorizedFacebookType {
   @Facebook("asset_score")
   private Double assetScore;
 
+  @Facebook("supported_platforms")
+  private List<String> supportedPlatforms = new ArrayList<>();
+
+  /**
+   * All the platform the app supports
+   *
+   * @return All the platform the app supports
+   */
+  public List<String> getSupportedPlatforms() {
+    return Collections.unmodifiableList(supportedPlatforms);
+  }
+
+  public boolean addSupportedPlatform(String platform) {
+    return supportedPlatforms.add(platform);
+  }
+
+  public boolean removeSupportedPlatform(String platform) {
+    return supportedPlatforms.remove(platform);
+  }
+
   /**
    * Error configuration for Android SDK.
    * 
