@@ -672,6 +672,22 @@ public class WebhookTest extends AbstractJsonMapperTests {
   public void ratingsLikeRemove() {
     RatingsLikeValue value = openAndCheckBasics("ratings-like-remove-25", RatingsLikeValue.class, FIELD_RATINGS,
       ITEM_LIKE, ChangeValue.Verb.REMOVE);
+    assertNotNull(value);
+    assertEquals(1451775365000L, value.getCreatedTime().getTime());
+    assertEquals("100002241334695_904801129604590", value.getParentId());
+    assertNull(value.getReviewText());
+  }
+
+  @Test
+  public void ratingsLikeRemove40() {
+    RatingsLikeValue value = openAndCheckBasics("ratings-like-remove-40", RatingsLikeValue.class, FIELD_RATINGS,
+            ITEM_LIKE, ChangeValue.Verb.REMOVE);
+    assertNotNull(value);
+    assertEquals(1451775296000L, value.getCreatedTime().getTime());
+    assertEquals("Tester", value.getSenderName());
+    assertEquals("100002241334695_904801129604590", value.getParentId());
+    assertNull(value.getReviewText());
+    assertEquals("2782258465134925", value.getOpenGraphStoryId());
   }
 
   @Test
