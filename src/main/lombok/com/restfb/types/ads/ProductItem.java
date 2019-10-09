@@ -83,6 +83,11 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook
+  private String currency;
+
+  @Getter
+  @Setter
   @Facebook("custom_data")
   private Map<String, String> customData = new HashMap<>();
 
@@ -135,6 +140,11 @@ public class ProductItem extends NamedAdsObject {
   @Setter
   @Facebook("image_url")
   private String imageUrl;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Integer inventory;
 
   @Getter
   @Setter
