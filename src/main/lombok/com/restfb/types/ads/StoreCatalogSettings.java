@@ -22,42 +22,19 @@
 package com.restfb.types.ads;
 
 import com.restfb.Facebook;
+import com.restfb.types.Page;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ProductCatalog extends NamedAdsObject {
-
-  @Getter
-  @Setter
-  @Facebook
-  private Business business;
-
-  @Getter
-  @Setter
-  @Facebook("fallback_image_url")
-  private List<String> fallbackImageUrl = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook("feed_count")
-  private Long feedCount;
-
-  @Getter
-  @Setter
-  @Facebook("product_count")
-  private Long productCount;
-
-  @Getter
-  @Setter
-  @Facebook("store_catalog_settings")
-  private StoreCatalogSettings storeCatalogSettings;
+/**
+ * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/store-catalog-settings/">Store
+ * Catalog Settings type</a>
+ */
+public class StoreCatalogSettings extends BaseAdsObject {
 
   @Getter
   @Setter
   @Facebook
-  private String vertical;
+  private Page page;
 }

@@ -73,6 +73,11 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("commerce_tax_category")
+  private String commerceTaxCategory;
+
+  @Getter
+  @Setter
   @Facebook("commerce_insights")
   private ProductItemCommerceInsights commerceInsights;
 
