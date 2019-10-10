@@ -31,6 +31,7 @@ public class ProductCatalogTest extends SetterGetterTestBase {
   @Test
   public void test() {
     ProductCatalog object = new ProductCatalog();
+    addIgnoredField("fallbackImageUrl");
     testInstance(object);
   }
 }
