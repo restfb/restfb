@@ -148,6 +148,11 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("mobile_link")
+  private String mobileLink;
+
+  @Getter
+  @Setter
   @Facebook("ordering_index")
   private Long orderingIndex;
 
@@ -163,8 +168,18 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("product_catalog")
+  private ProductCatalog productCatalog;
+
+  @Getter
+  @Setter
   @Facebook("product_feed")
   private ProductFeed productFeed;
+
+  @Getter
+  @Setter
+  @Facebook("product_group")
+  private ProductGroup productGroup;
 
   @Getter
   @Setter
@@ -215,6 +230,11 @@ public class ProductItem extends NamedAdsObject {
   @Setter
   @Facebook("shipping_weight_value")
   private Double shippingWeightValue;
+
+  @Getter
+  @Setter
+  @Facebook("short_description")
+  private String shortDescription;
 
   @Getter
   @Setter
