@@ -21,11 +21,10 @@
  */
 package com.restfb;
 
-import com.restfb.json.JsonValue;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Optional;
+
+import com.restfb.json.JsonValue;
 
 /**
  * Helper class to convert {@link JsonValue} to a given type
