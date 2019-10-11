@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 3.0.0 RC2 (October 12, 2019)
+
+* some cleanup
+
 ## 3.0.0 RC1 (August 14, 2019)
 
 * Issue #940: moved source level to java 8
