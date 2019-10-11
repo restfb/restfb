@@ -33,11 +33,11 @@ import com.restfb.types.DeviceCode;
 
 import org.junit.jupiter.api.Test;
 
-public class DeviceCodeITCase extends RestFbIntegrationTestBase {
+class DeviceCodeITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchDeviceCode() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppId(), Version.VERSION_2_10);
+  void fetchDeviceCode() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppId(), Version.VERSION_2_11);
     ScopeBuilder scope = new ScopeBuilder();
     DeviceCode deviceCode = client.fetchDeviceCode(scope);
     assertNotNull(deviceCode);
@@ -54,10 +54,10 @@ public class DeviceCodeITCase extends RestFbIntegrationTestBase {
         System.out.println("Subcode: " + e.getErrorCode());
         System.out.println(e.getErrorMessage());
       } catch (Exception e) {
-        System.out.println(e);
+        e.printStackTrace();
       }
       try {
-        Thread.sleep(10000l);
+        Thread.sleep(10000L);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }

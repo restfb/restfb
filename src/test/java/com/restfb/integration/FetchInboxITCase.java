@@ -32,13 +32,13 @@ import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
+import com.restfb.types.Thread;
 
-public class FetchInboxITCase extends RestFbIntegrationTestBase {
+class FetchInboxITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchInboxThread() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+  void fetchInboxThread() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<com.restfb.types.Thread> connection =
         client.fetchConnection("/" + getTestSettings().getUserId() + "/inbox", com.restfb.types.Thread.class);
     assertNotNull(connection.getData());
@@ -47,12 +47,14 @@ public class FetchInboxITCase extends RestFbIntegrationTestBase {
     assertFalse(threadList.isEmpty());
     assertFalse(threadList.get(0).getComments().isEmpty());
 
-    for (com.restfb.types.Thread thread : threadList) {
-      assertNotNull(thread.getId());
-      assertNotNull(thread.getUpdatedTime());
-      assertNotNull(thread.getUnread());
-      assertNotNull(thread.getUnseen());
-    }
+    threadList.forEach(this::checkThread);
+  }
+
+  private void checkThread(Thread thread) {
+    assertNotNull(thread.getId());
+    assertNotNull(thread.getUpdatedTime());
+    assertNotNull(thread.getUnread());
+    assertNotNull(thread.getUnseen());
   }
 
 }

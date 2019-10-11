@@ -36,22 +36,24 @@ class UserPermissionTest extends AbstractJsonMapperTests {
     List<UserPermission> permissionList =
         createJsonMapper().toJavaList(jsonFromClasspath("ads/v2_6/userpermissionslist"), UserPermission.class);
     assertNotNull(permissionList);
-    for (UserPermission permission : permissionList) {
-      assertNotNull(permission);
-      assertNotNull(permission.getStatus());
-      if ("INVITED".equals(permission.getStatus())) {
-        assertNull(permission.getBusinessPersona());
-        assertNull(permission.getUser());
-      } else {
-        assertNotNull(permission.getBusinessPersona());
-        assertNotNull(permission.getUser());
-      }
-      assertNotNull(permission.getRole());
+    permissionList.forEach(this::checkPermission);
+  }
 
-      if (permission.getUpdatedTime() != null) {
-        assertEquals(1453390430000L, permission.getCreatedTime().getTime());
-        assertEquals(1453390430000L, permission.getUpdatedTime().getTime());
-      }
+  private void checkPermission(UserPermission permission) {
+    assertNotNull(permission);
+    assertNotNull(permission.getStatus());
+    if ("INVITED".equals(permission.getStatus())) {
+      assertNull(permission.getBusinessPersona());
+      assertNull(permission.getUser());
+    } else {
+      assertNotNull(permission.getBusinessPersona());
+      assertNotNull(permission.getUser());
+    }
+    assertNotNull(permission.getRole());
+
+    if (permission.getUpdatedTime() != null) {
+      assertEquals(1453390430000L, permission.getCreatedTime().getTime());
+      assertEquals(1453390430000L, permission.getUpdatedTime().getTime());
     }
   }
 }

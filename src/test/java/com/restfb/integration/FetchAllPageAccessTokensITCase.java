@@ -33,10 +33,10 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Account;
 
-public class FetchAllPageAccessTokensITCase extends RestFbIntegrationTestBase {
+class FetchAllPageAccessTokensITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchTokens() {
+  void fetchTokens() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<Account> connection = client.fetchConnection("/me/accounts", Account.class);
 

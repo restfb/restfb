@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 
@@ -91,14 +93,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
     Connection<FacebookType> connection = create3PageConnection();
 
     assertThat(connection).isNotNull();
-
-    int counter = 0;
-    for (List<FacebookType> page : connection) {
-      for (FacebookType type : page) {
-        counter++;
-      }
-    }
-
+    long counter = StreamSupport.stream(connection.spliterator(), false).mapToLong(List::size).sum();
     assertThat(counter).isEqualTo(18);
   }
 
@@ -234,7 +229,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
         new WebRequestor.Response(HTTP_OK, jsonFromClasspath(connectionWithCursorTestFile));
 
     DefaultFacebookClient facebookClient = new DefaultFacebookClient("token", new FakeWebRequestor(dummyResponse),
-      new DefaultJsonMapper(), Version.VERSION_2_10);
+      new DefaultJsonMapper(), Version.VERSION_2_11);
     return facebookClient.fetchConnection("/cursor", FacebookType.class);
   }
 
@@ -243,15 +238,15 @@ class ConnectionTest extends AbstractJsonMapperTests {
       @Override
       public Response executeGet(String url) throws IOException {
 
-        if (url.equals("https://graph.facebook.com/v2.10/page1?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v2.11/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p1"));
         }
 
-        if (url.equals("https://graph.facebook.com/v2.10/page2?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v2.11/page2?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p2"));
         }
 
-        if (url.equals("https://graph.facebook.com/v2.10/page3?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v2.11/page3?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p3"));
         }
 
@@ -260,7 +255,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
       }
     };
     DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_10);
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_11);
     return facebookClient.fetchConnection("/page1", FacebookType.class);
   }
 
@@ -269,15 +264,15 @@ class ConnectionTest extends AbstractJsonMapperTests {
       @Override
       public Response executeGet(String url) throws IOException {
 
-        if (url.equals("https://graph.facebook.com/v2.10/page1?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v2.11/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p1-cursor-only"));
         }
 
-        if (url.equals("https://graph.facebook.com/v2.10/page1?access_token=token&format=json&after=cursor-p1-after")) {
+        if (url.equals("https://graph.facebook.com/v2.11/page1?access_token=token&format=json&after=cursor-p1-after")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p2-cursor-only"));
         }
 
-        if (url.equals("https://graph.facebook.com/v2.10/page1?access_token=token&format=json&after=cursor-p2-after")) {
+        if (url.equals("https://graph.facebook.com/v2.11/page1?access_token=token&format=json&after=cursor-p2-after")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p3-cursor-only"));
         }
 
@@ -286,7 +281,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
       }
     };
     DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_10);
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_2_11);
     return facebookClient.fetchConnection("/page1", FacebookType.class);
   }
 }

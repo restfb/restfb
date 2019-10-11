@@ -171,7 +171,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageReply() {
+  void messagingMessageReply() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-reply-1"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -186,7 +186,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingReactionREACT() {
+  void messagingReactionREACT() {
     WebhookObject webhookObject =
             createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-reaction-1"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -202,7 +202,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingReactionUNREACT() {
+  void messagingReactionUNREACT() {
     WebhookObject webhookObject =
             createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-reaction-2"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -216,6 +216,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void messagingReactionPrior() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-prior"), WebhookObject.class);
     assertNotNull(webhookObject);

@@ -34,31 +34,31 @@ import com.restfb.json.ParseException;
 /**
  * Make sure types do not prevent mocking by final or visibility constructs.
  */
-public class Mocking_Test {
+class Mocking_Test {
 
   @Test
-  public void mockValue() {
+  void mockValue() {
     JsonValue jsonValue = Mockito.mock(JsonValue.class);
 
     assertNotNull(jsonValue);
   }
 
   @Test
-  public void mockObject() {
+  void mockObject() {
     JsonObject jsonObject = Mockito.mock(JsonObject.class);
 
     assertNotNull(jsonObject);
   }
 
   @Test
-  public void mockArray() {
+  void mockArray() {
     JsonArray jsonArray = Mockito.mock(JsonArray.class);
 
     assertNotNull(jsonArray);
   }
 
   @Test
-  public void mockParseException() {
+  void mockParseException() {
     ParseException parseException = Mockito.mock(ParseException.class);
 
     assertNotNull(parseException);

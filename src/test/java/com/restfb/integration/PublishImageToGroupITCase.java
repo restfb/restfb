@@ -33,12 +33,12 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
 
 @NeedFacebookWriteAccess
-public class PublishImageToGroupITCase extends RestFbIntegrationTestBase {
+class PublishImageToGroupITCase extends RestFbIntegrationTestBase {
 
   private String imageUrl = "https://placeholdit.imgix.net/~text?txtsize=33&txt=Testimage&w=350&h=150";
 
   @Test
-  public void publishImageToGroup() {
+  void publishImageToGroup() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     JsonObject result = client.publish(getTestSettings().getGroupId() + "/photos", JsonObject.class,

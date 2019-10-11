@@ -207,7 +207,7 @@ public class DefaultJsonMapper implements JsonMapper {
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
         String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
 
-        if (jsonObject.get(facebookFieldName) == null) {
+        if (!jsonObject.contains(facebookFieldName)) {
           MAPPER_LOGGER.trace("No JSON value present for '{}', skipping. JSON is '{}'.", facebookFieldName, json);
           continue;
         }

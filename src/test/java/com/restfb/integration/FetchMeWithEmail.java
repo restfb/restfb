@@ -31,10 +31,10 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
 
-public class FetchMeWithEmail extends RestFbIntegrationTestBase {
+class FetchMeWithEmail extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchWithEmail() {
+  void fetchWithEmail() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     User me = client.fetchObject("me", User.class, Parameter.with("fields", "id,email"));
     assertNotNull(me);

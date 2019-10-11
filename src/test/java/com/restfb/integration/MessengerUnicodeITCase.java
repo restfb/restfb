@@ -34,10 +34,10 @@ import com.restfb.types.send.SendResponse;
 
 import org.junit.jupiter.api.Test;
 
-public class MessengerUnicodeITCase extends RestFbIntegrationTestBase {
+class MessengerUnicodeITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void sendUnicodeMessage() {
+  void sendUnicodeMessage() {
     String pageAccessToken = getTestSettings().getPageAccessToken();
 
     FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.LATEST);

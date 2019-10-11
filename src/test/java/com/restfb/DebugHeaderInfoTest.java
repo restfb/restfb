@@ -25,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-public class DebugHeaderInfoTest extends AbstractJsonMapperTests {
+class DebugHeaderInfoTest extends AbstractJsonMapperTests {
 
   @Test
-  public void usageHeader_business() {
+  void usageHeader_business() {
     String header = jsonFromClasspath("api/header-business");
     DebugHeaderInfo.DebugHeaderInfoFactory factory = new DebugHeaderInfo.DebugHeaderInfoFactory();
     DebugHeaderInfo headerInfo = factory.setBusinessUseCaseUsage(header).build();
@@ -118,6 +118,5 @@ public class DebugHeaderInfoTest extends AbstractJsonMapperTests {
       .setPageUsage(pageUsage) //
       .setAdAccountUsage(adAccountUsage) //
       .build();
-
   }
 }

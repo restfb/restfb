@@ -23,6 +23,7 @@ package com.restfb.types;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
@@ -93,10 +94,7 @@ public class Subscription extends AbstractFacebookType {
   @JsonMapper.JsonMappingCompleted
   private void convertCompatFields() {
     if (compatFields != null && fields == null) {
-      fields = new ArrayList<>();
-      for (String field : compatFields) {
-        fields.add(new SubscriptionField(field));
-      }
+      fields = compatFields.stream().map(SubscriptionField::new).collect(Collectors.toList());
     }
   }
 

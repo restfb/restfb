@@ -30,27 +30,27 @@ import org.junit.jupiter.api.Assumptions;
  */
 public class RestFbIntegrationTestSettings {
 
-  private boolean writeToFacebook = false;
+  private boolean writeToFacebook;
 
-  private String userAccessToken = "";
+  private String userAccessToken;
 
-  private String userId = "";
+  private String userId;
 
-  private String pageAccessToken = "";
+  private String pageAccessToken;
 
-  private String pageId = "";
+  private String pageId;
 
-  private String userGroupId = "";
+  private String userGroupId;
 
-  private String appSecret = "";
+  private String appSecret;
 
-  private String appId = "";
+  private String appId;
 
-  private String recipientId = "";
+  private String recipientId;
 
-  private String pageAlbumId = "";
+  private String pageAlbumId;
 
-  public RestFbIntegrationTestSettings(Properties settings) {
+  RestFbIntegrationTestSettings(Properties settings) {
     writeToFacebook = Boolean.parseBoolean(settings.getProperty("writeToFacebook", "false"));
     userAccessToken = settings.getProperty("user.accessToken", "");
     pageAccessToken = settings.getProperty("page.accessToken", "");

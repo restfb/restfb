@@ -42,16 +42,18 @@ class ConnectionGOTTest extends AbstractJsonMapperTests {
     Connection<Post> con =
         new Connection<>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("v2_1/feed-got"), Post.class);
     List<Post> postPage = con.getData();
-    for (Post post : postPage) {
-      Comments cs = post.getComments();
-      if (null != cs && !cs.getData().isEmpty()) {
-        assertThat(cs.getTotalCount()).isGreaterThan(0);
-      }
-      Likes ls = post.getLikes();
-      if (null != ls && !ls.getData().isEmpty()) {
-        assertThat(ls.getTotalCount()).isGreaterThan(0);
-      }
-    }
+    postPage.forEach(this::checkPost);
     assertThat(postPage).hasSize(25);
+  }
+
+  private void checkPost(Post post) {
+    Comments cs = post.getComments();
+    if (null != cs && !cs.getData().isEmpty()) {
+      assertThat(cs.getTotalCount()).isGreaterThan(0);
+    }
+    Likes ls = post.getLikes();
+    if (null != ls && !ls.getData().isEmpty()) {
+      assertThat(ls.getTotalCount()).isGreaterThan(0);
+    }
   }
 }

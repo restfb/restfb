@@ -37,7 +37,7 @@ import com.restfb.integration.base.RestFbImageIntegrationTestBase;
 import com.restfb.types.GraphResponse;
 
 @NeedFacebookWriteAccess
-public class PostTwoBinaryITCase extends RestFbImageIntegrationTestBase {
+class PostTwoBinaryITCase extends RestFbImageIntegrationTestBase {
 
   @Test
   void postTwoBinarysAtOnce() {

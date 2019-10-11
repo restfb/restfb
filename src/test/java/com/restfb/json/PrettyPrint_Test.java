@@ -34,38 +34,38 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-public class PrettyPrint_Test {
+class PrettyPrint_Test {
 
   private StringWriter output;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     output = new StringWriter();
   }
 
   @Test
-  public void testIndentWithSpaces_emptyArray() throws IOException {
+  void testIndentWithSpaces_emptyArray() throws IOException {
     new JsonArray().writeTo(output, indentWithSpaces(2));
 
     assertEquals("[\n  \n]", output.toString());
   }
 
   @Test
-  public void testIndentWithSpaces_emptyObject() throws IOException {
+  void testIndentWithSpaces_emptyObject() throws IOException {
     new JsonObject().writeTo(output, indentWithSpaces(2));
 
     assertEquals("{\n  \n}", output.toString());
   }
 
   @Test
-  public void testIndentWithSpaces_array() throws IOException {
+  void testIndentWithSpaces_array() throws IOException {
     new JsonArray().add(23).add(42).writeTo(output, indentWithSpaces(2));
 
     assertEquals("[\n  23,\n  42\n]", output.toString());
   }
 
   @Test
-  public void testIndentWithSpaces_nestedArray() throws IOException {
+  void testIndentWithSpaces_nestedArray() throws IOException {
     new JsonArray().add(23)
                    .add(new JsonArray().add(42))
                    .writeTo(output, indentWithSpaces(2));
@@ -74,14 +74,14 @@ public class PrettyPrint_Test {
   }
 
   @Test
-  public void testIndentWithSpaces_object() throws IOException {
+  void testIndentWithSpaces_object() throws IOException {
     new JsonObject().add("a", 23).add("b", 42).writeTo(output, indentWithSpaces(2));
 
     assertEquals("{\n  \"a\": 23,\n  \"b\": 42\n}", output.toString());
   }
 
   @Test
-  public void testIndentWithSpaces_nestedObject() throws IOException {
+  void testIndentWithSpaces_nestedObject() throws IOException {
     new JsonObject().add("a", 23)
                     .add("b", new JsonObject().add("c", 42))
                     .writeTo(output, indentWithSpaces(2));
@@ -90,21 +90,21 @@ public class PrettyPrint_Test {
   }
 
   @Test
-  public void testIndentWithSpaces_zero() throws IOException {
+  void testIndentWithSpaces_zero() throws IOException {
     new JsonArray().add(23).add(42).writeTo(output, indentWithSpaces(0));
 
     assertEquals("[\n23,\n42\n]", output.toString());
   }
 
   @Test
-  public void testIndentWithSpaces_one() throws IOException {
+  void testIndentWithSpaces_one() throws IOException {
     new JsonArray().add(23).add(42).writeTo(output, indentWithSpaces(1));
 
     assertEquals("[\n 23,\n 42\n]", output.toString());
   }
 
   @Test
-  public void testIndentWithSpaces_failsWithNegativeValues() {
+  void testIndentWithSpaces_failsWithNegativeValues() {
     try {
       indentWithSpaces(-1);
       fail();
@@ -114,7 +114,7 @@ public class PrettyPrint_Test {
   }
 
   @Test
-  public void testIndentWithSpaces_createsIndependentInstances() {
+  void testIndentWithSpaces_createsIndependentInstances() {
     Writer writer = mock(Writer.class);
 
     WriterConfig config = indentWithSpaces(1);
@@ -125,14 +125,14 @@ public class PrettyPrint_Test {
   }
 
   @Test
-  public void testIndentWithTabs() throws IOException {
+  void testIndentWithTabs() throws IOException {
     new JsonArray().add(23).add(42).writeTo(output, indentWithTabs());
 
     assertEquals("[\n\t23,\n\t42\n]", output.toString());
   }
 
   @Test
-  public void testIndentWithTabs_createsIndependentInstances() {
+  void testIndentWithTabs_createsIndependentInstances() {
     Writer writer = mock(Writer.class);
 
     WriterConfig config = indentWithTabs();
@@ -143,14 +143,14 @@ public class PrettyPrint_Test {
   }
 
   @Test
-  public void testSingleLine_nestedArray() throws IOException {
+  void testSingleLine_nestedArray() throws IOException {
     new JsonArray().add(23).add(new JsonArray().add(42)).writeTo(output, singleLine());
 
     assertEquals("[23, [42]]", output.toString());
   }
 
   @Test
-  public void testSingleLine_nestedObject() throws IOException {
+  void testSingleLine_nestedObject() throws IOException {
     new JsonObject().add("a", 23)
                     .add("b", new JsonObject().add("c", 42))
                     .writeTo(output, singleLine());
@@ -159,7 +159,7 @@ public class PrettyPrint_Test {
   }
 
   @Test
-  public void testSingleLine_createsIndependentInstances() {
+  void testSingleLine_createsIndependentInstances() {
     Writer writer = mock(Writer.class);
 
     WriterConfig config = singleLine();

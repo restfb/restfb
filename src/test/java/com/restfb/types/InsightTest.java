@@ -36,7 +36,7 @@ import com.restfb.*;
 import com.restfb.json.JsonObject;
 
 
-public class InsightTest extends AbstractJsonMapperTests {
+class InsightTest extends AbstractJsonMapperTests {
 
   @Test
   void checkV2_4_insight() {
@@ -51,7 +51,7 @@ public class InsightTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV3_3_insight_1() {
+  void checkV3_3_insight_1() {
     Insight exampleInsight = createJsonMapper().toJavaObject(jsonFromClasspath("v3_3/insight-1"), Insight.class);
     assertNotNull(exampleInsight);
     JsonObject obj = exampleInsight.getValues().get(0);
@@ -59,21 +59,20 @@ public class InsightTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV3_3_connection() {
+  void checkV3_3_connection() {
     TreeMap<String, Integer> vals = new TreeMap<>();
     Connection<Insight> conn =  create3PageInsightConnection();
     for (List<Insight> insightList : conn) {
       for (Insight insight : insightList) {
         assertNotNull(insight);
         JsonObject object = insight.getValues().get(0).get("value").asObject();
-        // System.out.println(object);
         for (String name: object.names()) {
           vals.put(name, object.get(name).asInt());
         }
       }
     }
 
-    while (vals.size() > 0) {
+    while (!vals.isEmpty()) {
       Map.Entry<String, Integer> entry = vals.pollFirstEntry();
       System.out.println(entry.getKey() + ": " + entry.getValue());
     }

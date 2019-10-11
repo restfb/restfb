@@ -28,10 +28,10 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-public class ApiCheckTest extends BaseTestCheck {
+class ApiCheckTest extends BaseTestCheck {
 
   @Test
-  public void check() throws IOException, ClassNotFoundException {
+  void check() throws IOException, ClassNotFoundException {
     Properties props;
     props = new Properties();
     props.load(getClass().getResourceAsStream("/pre-1.7-api.properties"));

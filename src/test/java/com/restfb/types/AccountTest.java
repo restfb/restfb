@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class AccountTest extends AbstractJsonMapperTests {
+class AccountTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV1_0() {
+  void checkV1_0() {
     Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/account"), Account.class);
     assertEquals("testtoken", exampleAccount.getAccessToken());
     assertEquals("123456789", exampleAccount.getId());
@@ -39,7 +39,7 @@ public class AccountTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_0() {
+  void checkV2_0() {
     Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/account"), Account.class);
     assertEquals("testtoken", exampleAccount.getAccessToken());
     assertEquals("123456789", exampleAccount.getId());
@@ -48,7 +48,7 @@ public class AccountTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_1() {
+  void checkV2_1() {
     Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/account"), Account.class);
     assertEquals("testtoken", exampleAccount.getAccessToken());
     assertEquals("123456789", exampleAccount.getId());
@@ -57,7 +57,7 @@ public class AccountTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6() {
+  void checkV2_6() {
     Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/account"), Account.class);
     assertEquals("123123123123", exampleAccount.getId());
     assertNotNull(exampleAccount.getOwnerBusiness());

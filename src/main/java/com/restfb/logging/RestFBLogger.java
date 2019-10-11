@@ -53,7 +53,7 @@ public abstract class RestFBLogger {
   public static final RestFBLogger VALUE_FACTORY_LOGGER;
 
   static {
-    Class loggerClass = null;
+    Class loggerClass;
 
     String forceJUL = System.getProperty("com.restfb.forceJUL", "false");
     if (!Boolean.parseBoolean(forceJUL)) {

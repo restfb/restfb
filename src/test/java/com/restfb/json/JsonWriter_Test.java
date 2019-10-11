@@ -30,47 +30,47 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-public class JsonWriter_Test {
+class JsonWriter_Test {
 
   private StringWriter output;
   private JsonWriter writer;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     output = new StringWriter();
     writer = new JsonWriter(output);
   }
 
   @Test
-  public void writeLiteral() throws IOException {
+  void writeLiteral() throws IOException {
     writer.writeLiteral("foo");
 
     assertEquals("foo", output.toString());
   }
 
   @Test
-  public void writeNumber() throws IOException {
+  void writeNumber() throws IOException {
     writer.writeNumber("23");
 
     assertEquals("23", output.toString());
   }
 
   @Test
-  public void writeString_empty() throws IOException {
+  void writeString_empty() throws IOException {
     writer.writeString("");
 
     assertEquals("\"\"", output.toString());
   }
 
   @Test
-  public void writeSting_escapesBackslashes() throws IOException {
+  void writeSting_escapesBackslashes() throws IOException {
     writer.writeString("foo\\bar");
 
     assertEquals("\"foo\\\\bar\"", output.toString());
   }
 
   @Test
-  public void writeArrayParts() throws IOException {
+  void writeArrayParts() throws IOException {
     writer.writeArrayOpen();
     writer.writeArraySeparator();
     writer.writeArrayClose();
@@ -79,7 +79,7 @@ public class JsonWriter_Test {
   }
 
   @Test
-  public void writeObjectParts() throws IOException {
+  void writeObjectParts() throws IOException {
     writer.writeObjectOpen();
     writer.writeMemberSeparator();
     writer.writeObjectSeparator();
@@ -89,91 +89,91 @@ public class JsonWriter_Test {
   }
 
   @Test
-  public void writeMemberName_empty() throws IOException {
+  void writeMemberName_empty() throws IOException {
     writer.writeMemberName("");
 
     assertEquals("\"\"", output.toString());
   }
 
   @Test
-  public void writeMemberName_escapesBackslashes() throws IOException {
+  void writeMemberName_escapesBackslashes() throws IOException {
     writer.writeMemberName("foo\\bar");
 
     assertEquals("\"foo\\\\bar\"", output.toString());
   }
 
   @Test
-  public void escapesQuotes() throws IOException {
+  void escapesQuotes() throws IOException {
     writer.writeString("a\"b");
 
     assertEquals("\"a\\\"b\"", output.toString());
   }
 
   @Test
-  public void escapesEscapedQuotes() throws IOException {
+  void escapesEscapedQuotes() throws IOException {
     writer.writeString("foo\\\"bar");
 
     assertEquals("\"foo\\\\\\\"bar\"", output.toString());
   }
 
   @Test
-  public void escapesNewLine() throws IOException {
+  void escapesNewLine() throws IOException {
     writer.writeString("foo\nbar");
 
     assertEquals("\"foo\\nbar\"", output.toString());
   }
 
   @Test
-  public void escapesWindowsNewLine() throws IOException {
+  void escapesWindowsNewLine() throws IOException {
     writer.writeString("foo\r\nbar");
 
     assertEquals("\"foo\\r\\nbar\"", output.toString());
   }
 
   @Test
-  public void escapesTabs() throws IOException {
+  void escapesTabs() throws IOException {
     writer.writeString("foo\tbar");
 
     assertEquals("\"foo\\tbar\"", output.toString());
   }
 
   @Test
-  public void escapesSpecialCharacters() throws IOException {
+  void escapesSpecialCharacters() throws IOException {
     writer.writeString("foo\u2028bar\u2029");
 
     assertEquals("\"foo\\u2028bar\\u2029\"", output.toString());
   }
 
   @Test
-  public void escapesZeroCharacter() throws IOException {
+  void escapesZeroCharacter() throws IOException {
     writer.writeString(string('f', 'o', 'o', (char)0, 'b', 'a', 'r'));
 
     assertEquals("\"foo\\u0000bar\"", output.toString());
   }
 
   @Test
-  public void escapesEscapeCharacter() throws IOException {
+  void escapesEscapeCharacter() throws IOException {
     writer.writeString(string('f', 'o', 'o', (char)27, 'b', 'a', 'r'));
 
     assertEquals("\"foo\\u001bbar\"", output.toString());
   }
 
   @Test
-  public void escapesControlCharacters() throws IOException {
+  void escapesControlCharacters() throws IOException {
     writer.writeString(string((char)1, (char)8, (char)15, (char)16, (char)31));
 
     assertEquals("\"\\u0001\\u0008\\u000f\\u0010\\u001f\"", output.toString());
   }
 
   @Test
-  public void escapesFirstChar() throws IOException {
+  void escapesFirstChar() throws IOException {
     writer.writeString(string('\\', 'x'));
 
     assertEquals("\"\\\\x\"", output.toString());
   }
 
   @Test
-  public void escapesLastChar() throws IOException {
+  void escapesLastChar() throws IOException {
     writer.writeString(string('x', '\\'));
 
     assertEquals("\"x\\\\\"", output.toString());

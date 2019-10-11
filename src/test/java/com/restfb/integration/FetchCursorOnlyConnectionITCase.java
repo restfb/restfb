@@ -31,15 +31,15 @@ import com.restfb.types.NamedFacebookType;
 
 import org.junit.jupiter.api.Test;
 
-public class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
+class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchLikes() {
+  void fetchLikes() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_10);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
     Connection<NamedFacebookType> con =
         client.fetchConnection("40796308305_1565015867092106/likes", NamedFacebookType.class);
-    assertEquals("https://graph.facebook.com/v2.10/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==",
+    assertEquals("https://graph.facebook.com/v2.11/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==",
       con.getNextPageUrl());
   }
 

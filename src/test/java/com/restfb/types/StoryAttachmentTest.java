@@ -53,7 +53,7 @@ class StoryAttachmentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void moreFieldsAttachments() {
+  void moreFieldsAttachments() {
     StoryAttachment attachment =
             createJsonMapper().toJavaObject(jsonFromClasspath("v3_3/story-attachment"), StoryAttachment.class);
     assertNotNull(attachment);

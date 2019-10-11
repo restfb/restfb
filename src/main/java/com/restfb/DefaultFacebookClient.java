@@ -218,10 +218,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       JsonValue jObj = Json.parse(responseString);
       boolean success = false;
       if (jObj.isObject()) {
-        if (jObj.asObject().get("success") != null) {
+        if (jObj.asObject().contains("success")) {
           success = jObj.asObject().get("success").asBoolean();
         }
-        if (jObj.asObject().get("result") != null) {
+        if (jObj.asObject().contains("result")) {
           success = jObj.asObject().get("result").asString().contains("Successfully deleted");
         }
       } else {
@@ -267,20 +267,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
-      connectionJson = makeRequestAndProcessResponse(new Requestor() {
-        @Override
-        public Response makeRequest() throws IOException {
-          return webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
-            urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)));
-        }
-      });
+      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
+        urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret))));
     } else {
-      connectionJson = makeRequestAndProcessResponse(new Requestor() {
-        @Override
-        public Response makeRequest() throws IOException {
-          return webRequestor.executeGet(connectionPageUrl);
-        }
-      });
+      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(connectionPageUrl));
     }
 
     Connection<T> conn = new Connection<>(this, connectionJson, connectionType);

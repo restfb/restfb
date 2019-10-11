@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class VideoTest extends AbstractJsonMapperTests {
+class VideoTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_3_ThumbnailList() {
+  void checkV2_3_ThumbnailList() {
     List<Video.Thumbnail> thumbnailList =
         createJsonMapper().toJavaList(jsonFromClasspath("v2_3/video-thumbnails"), Video.Thumbnail.class);
     assertEquals(10, thumbnailList.size());
@@ -47,7 +47,7 @@ public class VideoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_Privacy() {
+  void checkV2_4_Privacy() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
     assertNotNull(exampleVideo.getPrivacy());
     Privacy privacy = exampleVideo.getPrivacy();
@@ -57,7 +57,7 @@ public class VideoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_Formats() {
+  void checkV2_4_Formats() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
     assertNotNull(exampleVideo.getFormat());
     assertEquals(3, exampleVideo.getFormat().size());
@@ -76,26 +76,26 @@ public class VideoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_Embeddable() {
+  void checkV2_4_Embeddable() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
     assertTrue(exampleVideo.getEmbeddable());
   }
 
   @Test
-  public void checkV2_4_Status() {
+  void checkV2_4_Status() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-newfields"), Video.class);
     assertNotNull(exampleVideo.getStatus());
     assertEquals("ready", exampleVideo.getStatus().getVideoStatus());
   }
 
   @Test
-  public void checkV2_4_LikesCount() {
+  void checkV2_4_LikesCount() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-likescount"), Video.class);
     assertEquals(10566L, exampleVideo.getLikesCount().longValue());
   }
 
   @Test
-  public void checkV2_4_Likes() {
+  void checkV2_4_Likes() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-likescount"), Video.class);
     assertNotNull(exampleVideo.getLikes());
     Likes likes = exampleVideo.getLikes();
@@ -107,13 +107,13 @@ public class VideoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_CommentsCount() {
+  void checkV2_4_CommentsCount() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-commentcount"), Video.class);
     assertEquals(231L, exampleVideo.getCommentsCount().longValue());
   }
 
   @Test
-  public void checkV2_4_Comments() {
+  void checkV2_4_Comments() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/video-commentcount"), Video.class);
     assertNotNull(exampleVideo.getComments());
     Comments comments = exampleVideo.getComments();
@@ -125,7 +125,7 @@ public class VideoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_7_feedType() {
+  void checkV2_7_feedType() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_7/video-feedtype"), Video.class);
     assertNotNull(exampleVideo);
     assertEquals("NOT_HIGHLIGHTED", exampleVideo.getFeedType());
@@ -145,7 +145,7 @@ public class VideoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_9_captions() {
+  void checkV2_9_captions() {
     Video exampleVideo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/video-captions"), Video.class);
     assertNotNull(exampleVideo);
     assertNotNull(exampleVideo.getCaptions());
@@ -153,7 +153,7 @@ public class VideoTest extends AbstractJsonMapperTests {
     assertNotNull(captions.get(0));
     VideoCaption firstCaption = captions.get(0);
     assertEquals("en_US", firstCaption.getLocale());
-    assertEquals(1501879203000l, firstCaption.getCreateTime().getTime());
+    assertEquals(1501879203000L, firstCaption.getCreateTime().getTime());
     assertTrue(firstCaption.getUri().contains("example1"));
     assertTrue(firstCaption.getIsDefault());
     VideoCaption secondCaption = captions.get(1);

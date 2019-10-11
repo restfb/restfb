@@ -28,10 +28,10 @@ import java.io.*;
 
 import org.junit.jupiter.api.Test;
 
-public class JsonValue_Test {
+class JsonValue_Test {
 
   @Test
-  public void writeTo() throws IOException {
+  void writeTo() throws IOException {
     JsonValue value = new JsonObject();
     Writer writer = new StringWriter();
 
@@ -41,25 +41,25 @@ public class JsonValue_Test {
   }
 
   @Test
-  public void writeTo_failsWithNullWriter() {
+  void writeTo_failsWithNullWriter() {
     final JsonValue value = new JsonObject();
     assertThrows(NullPointerException.class, () -> value.writeTo(null, WriterConfig.MINIMAL), "writer is null");
   }
 
   @Test
-  public void writeTo_failsWithNullConfig() {
+  void writeTo_failsWithNullConfig() {
     final JsonValue value = new JsonObject();
     assertThrows(NullPointerException.class, () -> value.writeTo(new StringWriter(), null), "config is null");
   }
 
   @Test
-  public void toString_failsWithNullConfig() {
+  void toString_failsWithNullConfig() {
     final JsonValue value = new JsonObject();
     assertThrows(NullPointerException.class, () -> value.toString(null), "config is null");
   }
 
   @Test
-  public void writeTo_doesNotCloseWriter() throws IOException {
+  void writeTo_doesNotCloseWriter() throws IOException {
     JsonValue value = new JsonObject();
     Writer writer = spy(new StringWriter());
 
@@ -69,47 +69,47 @@ public class JsonValue_Test {
   }
 
   @Test
-  public void asObject_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asObject(), "Not an object: null");
+  void asObject_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asObject, "Not an object: null");
   }
 
   @Test
-  public void asArray_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asArray(), "Not an array: null");
+  void asArray_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asArray, "Not an array: null");
   }
 
   @Test
-  public void asString_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asString(), "Not a string: null");
+  void asString_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asString, "Not a string: null");
   }
 
   @Test
-  public void asInt_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asInt(), "Not a number: null");
+  void asInt_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asInt, "Not a number: null");
   }
 
   @Test
-  public void asLong_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asLong(), "Not a number: null");
+  void asLong_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asLong, "Not a number: null");
   }
 
   @Test
-  public void asFloat_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asFloat(), "Not a number: null");
+  void asFloat_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asFloat, "Not a number: null");
   }
 
   @Test
-  public void asDouble_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asDouble(), "Not a number: null");
+  void asDouble_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asDouble, "Not a number: null");
   }
 
   @Test
-  public void asBoolean_failsOnIncompatibleType() {
-    assertThrows(UnsupportedOperationException.class, () -> Json.NULL.asBoolean(), "Not a boolean: null");
+  void asBoolean_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asBoolean, "Not a boolean: null");
   }
 
   @Test
-  public void isXxx_returnsFalseForIncompatibleType() {
+  void isXxx_returnsFalseForIncompatibleType() {
     JsonValue jsonValue = new JsonValue() {
       @Override
       void write(JsonWriter writer) throws IOException {}

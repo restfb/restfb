@@ -45,13 +45,13 @@ public enum FacebookPermissions {
    * declare it. On iOS and Android, you must manually request it as part of your login flow.<br />
    * <br />
    * 
-   * gender & locale can only be accessed if:
+   * gender &amp; locale can only be accessed if:
    * 
    * <ul>
    * <li>The person queried is the person using the app.</li>
    * <li>The person queried is using the app, and is a friend of the person using the app.</li>
    * <li>The person queried is using the app, is not a friend of the person using the app, but the app includes either
-   * an app access token or an appsecret_proof argument with the call.</li> <br />
+   * an app access token or an <code>appsecret_proof</code> argument with the call.</li> <br />
    * <strong>Review</strong> Your app may use this permission without review from Facebook.
    */
   PUBLIC_PROFILE("public_profile", Category.PUBLIC), //
@@ -865,7 +865,26 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   @GraphAPI(since = "2.5")
-  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM);
+  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM),
+
+  /**
+   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other
+   * businesses through this permission.
+   *
+   * These business assets include WhatsApp business accounts, phone numbers, and message templates.
+   *
+   * <p>
+   * Please see <a href=
+   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management">Whatsapps's
+   * reference</a> for details.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP);
 
   private final String permissionString;
 
@@ -885,6 +904,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO;
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP;
   }
 }

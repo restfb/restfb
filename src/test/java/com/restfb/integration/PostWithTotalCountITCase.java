@@ -31,10 +31,10 @@ import com.restfb.types.Post;
 
 import org.junit.jupiter.api.Test;
 
-public class PostWithTotalCountITCase extends RestFbIntegrationTestBase {
+class PostWithTotalCountITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void checkPostWithCommentsAndLikes() {
+  void checkPostWithCommentsAndLikes() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Post gotPost = client.fetchObject("74133697733_10152424266332734", Post.class,

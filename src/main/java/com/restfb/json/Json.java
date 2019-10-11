@@ -23,6 +23,7 @@ package com.restfb.json;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -169,13 +170,9 @@ public final class Json {
    * @return a new JSON array that contains the given values
    */
   public static JsonArray array(int... values) {
-    if (values == null) {
-      throw new NullPointerException(VALUES_IS_NULL);
-    }
+    Objects.requireNonNull(values, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
-    for (int value : values) {
-      array.add(value);
-    }
+    Arrays.stream(values).forEach(array::add);
     return array;
   }
 
@@ -189,9 +186,7 @@ public final class Json {
   public static JsonArray array(long... values) {
     Objects.requireNonNull(values, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
-    for (long value : values) {
-      array.add(value);
-    }
+    Arrays.stream(values).forEach(array::add);
     return array;
   }
 
@@ -221,9 +216,7 @@ public final class Json {
   public static JsonArray array(double... values) {
     Objects.requireNonNull(values, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
-    for (double value : values) {
-      array.add(value);
-    }
+    Arrays.stream(values).forEach(array::add);
     return array;
   }
 
@@ -253,9 +246,7 @@ public final class Json {
   public static JsonArray array(String... strings) {
     Objects.requireNonNull(strings, VALUES_IS_NULL);
     JsonArray array = new JsonArray();
-    for (String value : strings) {
-      array.add(value);
-    }
+    Arrays.stream(strings).forEach(array::add);
     return array;
   }
 

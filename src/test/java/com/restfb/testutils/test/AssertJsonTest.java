@@ -29,10 +29,10 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
 import com.restfb.testutils.AssertJson;
 
-public class AssertJsonTest {
+class AssertJsonTest {
 
   @Test
-  public void check_Boolean_bothFalse() {
+  void check_Boolean_bothFalse() {
     JsonValue expectedFalseValue = Json.FALSE;
     JsonValue actualFalseValue = Json.FALSE;
 
@@ -40,7 +40,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Boolean_differentBoolean() {
+  void check_Boolean_differentBoolean() {
     JsonValue expectedFalseValue = Json.FALSE;
     JsonValue actualFalseValue = Json.TRUE;
 
@@ -49,7 +49,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Double_both() {
+  void check_Double_both() {
     JsonValue expectedFalseValue = Json.parse("1.0");
     JsonValue actualFalseValue = Json.parse("1.0");
 
@@ -57,7 +57,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_String_both() {
+  void check_String_both() {
     JsonValue expectedFalseValue = Json.value("Test");
     JsonValue actualFalseValue = Json.value("Test");
 
@@ -65,7 +65,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Array_both() {
+  void check_Array_both() {
     String expectedString = "[\"String1\",\"String2\",\"String3\"]";
     String actualString = "[\"String1\",\"String2\",\"String3\"]";
 
@@ -73,7 +73,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Array_differentOrder() {
+  void check_Array_differentOrder() {
     String expectedString = "[\"String1\",\"String2\",\"String3\"]";
     String actualString = "[\"String2\",\"String3\",\"String1\"]";
 
@@ -81,7 +81,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Object_both() {
+  void check_Object_both() {
     String expectedString = "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}";
     String actualString = "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}";
 
@@ -89,7 +89,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Object_differentOrder() {
+  void check_Object_differentOrder() {
     String expectedString = "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}";
     String actualString = "{\"id\":345,\"name\":\"test\",\"blub\":\"bla\"}";
 
@@ -97,7 +97,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Object_differentFields() {
+  void check_Object_differentFields() {
     String expectedString = "{}";
     String actualString = "{\"id\":345}";
 
@@ -105,7 +105,7 @@ public class AssertJsonTest {
   }
 
   @Test
-  public void check_Object_Array() {
+  void check_Object_Array() {
     String expectedString = "{}";
     String actualString = "[]";
 

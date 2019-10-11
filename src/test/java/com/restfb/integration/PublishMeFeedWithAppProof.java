@@ -32,10 +32,10 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
 
 @NeedFacebookWriteAccess
-public class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
+class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
 
   @Test
-  public void publishWithProof() {
+  void publishWithProof() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
       getTestSettings().getAppSecret(), Version.LATEST);
     JsonObject me = client.publish("/me/feed", JsonObject.class, Parameter.with("message", "Test publish"),

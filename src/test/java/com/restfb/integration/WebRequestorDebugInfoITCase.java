@@ -31,10 +31,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class WebRequestorDebugInfoITCase extends RestFbIntegrationTestBase {
+class WebRequestorDebugInfoITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchMe() {
+  void fetchMe() {
     FacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     client.fetchObject("/me", User.class, Parameter.with("fields", "id,name"));
 

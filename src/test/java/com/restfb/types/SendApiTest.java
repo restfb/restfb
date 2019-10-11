@@ -574,7 +574,7 @@ class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageWithTooManyReplies_thirdteenPresentOneAdded() {
+  void messageWithTooManyReplies_thirdteenPresentOneAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
@@ -596,7 +596,7 @@ class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageWithTooManyReplies_TenPresentFourAdded() {
+  void messageWithTooManyReplies_TenPresentFourAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));

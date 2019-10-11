@@ -27,24 +27,24 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ParseException_Test {
+class ParseException_Test {
 
   private Location location;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     location = new Location(4711, 23, 42);
   }
 
   @Test
-  public void location() {
+  void location() {
     ParseException exception = new ParseException("Foo", location);
 
     assertSame(location, exception.getLocation());
   }
 
   @Test
-  public void message() {
+  void message() {
     ParseException exception = new ParseException("Foo", location);
 
     assertEquals("Foo at 23:42", exception.getMessage());

@@ -30,10 +30,10 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
 
-public class FetchMeWithAppProof extends RestFbIntegrationTestBase {
+class FetchMeWithAppProof extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchWithProof() {
+  void fetchWithProof() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
       getTestSettings().getAppSecret(), Version.LATEST);
     User me = client.fetchObject("/me", User.class);

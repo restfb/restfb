@@ -24,14 +24,16 @@ package com.restfb;
 import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.*;
+import com.restfb.json.Json;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
+import com.restfb.json.ParseException;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -275,7 +277,7 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   /**
-   * provides the total count of elements, if FB provides them (API >= v2.0)
+   * provides the total count of elements, if FB provides them (API &ge; v2.0)
    *
    * @return the total count of elements if present
    * @since 1.6.16

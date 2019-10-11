@@ -21,9 +21,6 @@
  */
 package com.restfb.integration;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -36,10 +33,12 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
 import com.restfb.util.StringUtils;
 
-public class FetchConnectionFeedWithFieldsITCase extends RestFbIntegrationTestBase {
+import static org.junit.jupiter.api.Assertions.*;
+
+class FetchConnectionFeedWithFieldsITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void checkConnection() {
+  void checkConnection() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<Post> connection =
@@ -47,7 +46,7 @@ public class FetchConnectionFeedWithFieldsITCase extends RestFbIntegrationTestBa
     assertNotNull(connection);
     for (List<Post> postList : connection) {
       for (Post post : postList) {
-        assertTrue(!StringUtils.isBlank(post.getFullPicture()));
+        assertFalse(StringUtils.isBlank(post.getFullPicture()));
         break;
       }
       break;

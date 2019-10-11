@@ -330,7 +330,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         openAndCheckFeedPostBasics("feed-share-add-25", FeedShareValue.class, ITEM_SHARE, ChangeValue.Verb.ADD);
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321", value.getSenderId());
-    assertTrue(value.getPublished().booleanValue());
+    assertTrue(value.getPublished());
     assertNotNull(value.getMessage());
     assertEquals("http://www.google.com/", value.getLink());
     assertEquals("98735342324352", value.getShareId());
@@ -389,7 +389,7 @@ class WebhookTest extends AbstractJsonMapperTests {
   void feedStatusAdd() {
     FeedStatusValue value =
         openAndCheckFeedPostBasics("feed-status-add-25", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.ADD);
-    assertTrue(value.getPublished().booleanValue());
+    assertTrue(value.getPublished());
     assertEquals("1234567890321_930145403745849", value.getPostId());
     assertEquals("Tester", value.getSenderName());
     assertEquals(1448633038000L, value.getCreatedTime().getTime());
@@ -400,7 +400,7 @@ class WebhookTest extends AbstractJsonMapperTests {
   void feedStatusAdd_withPhotos() {
     FeedStatusValue value =
         openAndCheckFeedPostBasics("feed-status-add-photos", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.ADD);
-    assertTrue(value.getPublished().booleanValue());
+    assertTrue(value.getPublished());
     assertEquals("1234567890321_930145403745849", value.getPostId());
     assertEquals("Tester", value.getSenderName());
     assertEquals(1448633038000L, value.getCreatedTime().getTime());
@@ -564,7 +564,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         openAndCheckFeedPostBasics("feed-video-edited", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.EDITED);
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
-    assertTrue(value.getPublished().booleanValue());
+    assertTrue(value.getPublished());
     assertNotNull(value.getMessage());
   }
 
@@ -574,9 +574,9 @@ class WebhookTest extends AbstractJsonMapperTests {
         openAndCheckFeedPostBasics("feed-video-hide", FeedVideoValue.class, ITEM_VIDEO, ChangeValue.Verb.HIDE);
     assertEquals("https://www.example.org/test.mp4", value.getLink());
     assertEquals("900767076685784", value.getVideoId());
-    assertTrue(value.getPublished().booleanValue());
+    assertTrue(value.getPublished());
     assertNull(value.getMessage());
-    assertEquals(1549019010000l, value.getCreatedTime().getTime());
+    assertEquals(1549019010000L, value.getCreatedTime().getTime());
   }
 
   @Test

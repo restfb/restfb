@@ -81,14 +81,10 @@ public class TestUtil {
   }
 
   private static RunnableEx adapt(final Runnable runnable) {
-    return new RunnableEx() {
-      public void run() {
-        runnable.run();
-      }
-    };
+    return () -> runnable.run();
   }
 
-  public static interface RunnableEx {
+  public interface RunnableEx {
     void run() throws Exception;
   }
 

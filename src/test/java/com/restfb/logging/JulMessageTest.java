@@ -90,7 +90,7 @@ class JulMessageTest {
 
   @Test
   void simpleMessage_withPlaceholder_long() {
-    String convertedText = JulMessage.convertMessageString("Simple long {}", 3l).getMessage();
+    String convertedText = JulMessage.convertMessageString("Simple long {}", 3L).getMessage();
     assertEquals("Simple long 3", convertedText);
   }
 
