@@ -27,6 +27,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
+import java.util.Optional;
 
 import com.restfb.util.ObjectUtil;
 import com.restfb.util.ReflectionUtils;
