@@ -1,5 +1,21 @@
 # RestFB Changelog
 
+## 2.26.0 (October 11, 2019)
+
+* Issue #1025: `instagram_accounts` field added to `Page` type<br />
+  Thanks to @juvirez for the PR
+* Issue #1026: more missing fields added to `Page` type
+* Issue #1023: Support the new private replies on Posts and Comments
+* Issue #1024: Missing `open_graph_story_id` in `RatingsLikeValue` added<br />
+  Thanks to @CrWEE for the hint and the JSON
+* Issue #1027: Changed Page.business field type<br />
+  Thanks to @juvirez for the PR
+* Issue #1028: Added `PageTab` type<br />
+  Thanks to @juvirez for the PR
+* Issue #1029: Added missed required `ProductItem` fields<br />
+  Thanks to @juvirez for the PR
+* Issue #1030: Whatsapp business account types added
+
 ## 2.25.0 (September 12, 2019)
 
 * Issue #1020: Add support for permissions webhooks<br />
