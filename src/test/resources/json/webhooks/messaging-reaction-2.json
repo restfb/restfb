@@ -1,0 +1,24 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "1234567890321",
+      "time": 1572466511366,
+      "messaging": [
+        {
+          "sender": {
+            "id": "USER_ID"
+          },
+          "recipient": {
+            "id": "PAGE_ID"
+          },
+          "timestamp": 1572466511366,
+          "reaction": {
+            "mid": "original_message_id",
+            "action": "unreact"
+          }
+        }
+      ]
+    }
+  ]
+}
