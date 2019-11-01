@@ -254,6 +254,7 @@ public class AdAccount extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("user_role")
+  @Deprecated
   private String userRole;
 
   @Getter
@@ -291,6 +292,9 @@ public class AdAccount extends NamedAdsObject {
   @Facebook("last_used_time")
   private Date lastUsedTime;
 
+  @Facebook("user_tasks")
+  private List<String> userTasks = new ArrayList<>();
+
   public JsonObject getTosAccepted() {
     if (tosAccepted != null) {
       return Json.parse(tosAccepted).asObject();
@@ -303,6 +307,18 @@ public class AdAccount extends NamedAdsObject {
     if (tosAccepted != null) {
       this.tosAccepted = tosAccepted.toString();
     }
+  }
+
+  public boolean addUserTask(String userTask) {
+    return userTasks.add(userTask);
+  }
+
+  public boolean removeUserTask(String userTask) {
+    return userTasks.remove(userTask);
+  }
+
+  public List<String> getUserTasks() {
+    return Collections.unmodifiableList(userTasks);
   }
 
   public boolean addAdAccountGroup(AdAccountGroup adAccountGroup) {
