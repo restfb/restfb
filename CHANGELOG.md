@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2.27.0 (November 6, 2019)
+
+* Graph API 5.0 support added
+   * Issue #1033: Version enum added
+   * Issue #1036: `IceBreaker` object added
+   * Issue #1034: `Reply` and `Reaction` support added to messenger webhook
+   * Issue #1038: Ads - `user_tasks` instead of `user_role`
+
 ## 2.26.0 (October 11, 2019)
 
 * Issue #1025: `instagram_accounts` field added to `Page` type<br />
