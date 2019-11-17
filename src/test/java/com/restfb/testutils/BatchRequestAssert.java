@@ -28,7 +28,7 @@ import com.restfb.batch.BatchRequest;
 
 public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, BatchRequest> {
 
-  public BatchRequestAssert(BatchRequest batchRequest) {
+  private BatchRequestAssert(BatchRequest batchRequest) {
     super(batchRequest, BatchRequestAssert.class);
   }
 

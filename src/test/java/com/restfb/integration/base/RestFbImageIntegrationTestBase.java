@@ -30,7 +30,7 @@ import java.util.Random;
 
 abstract public class RestFbImageIntegrationTestBase extends RestFbIntegrationTestBase {
 
-  String[] testImages = { "fruits.png", "lena.png", "tulips.png", "watch.png" };
+  private String[] testImages = { "fruits.png", "lena.png", "tulips.png", "watch.png" };
 
   protected byte[] fetchBytesFromImage() {
     int idx = new Random().nextInt(testImages.length);

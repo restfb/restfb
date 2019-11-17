@@ -27,7 +27,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Date;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -38,11 +37,8 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 class DateUtilsTest {
 
-  private DateFormatStrategy expectedStrategy;
-
   private static Stream<DateFormatStrategy> strategies() {
     return Stream.of(new CachedDateFormatStrategy(), new SimpleDateFormatStrategy());
-    // return Arrays.asList(new Object[][] { { new CachedDateFormatStrategy() }, { new SimpleDateFormatStrategy() } });
   }
 
   /**
@@ -99,7 +95,7 @@ class DateUtilsTest {
 
   @ParameterizedTest
   @MethodSource("strategies")
-  public void dateToShortString(DateFormatStrategy expectedStrategy) {
+  void dateToShortString(DateFormatStrategy expectedStrategy) {
     DateUtils.setDateFormatStrategy(expectedStrategy);
     assertThat(toShortFormatFromDate(null)).isNull();
     assertThat(toShortFormatFromDate(new Date())).isNotNull();

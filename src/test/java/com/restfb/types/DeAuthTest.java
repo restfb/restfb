@@ -22,6 +22,7 @@
 package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Date;
 
@@ -29,23 +30,23 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class DeAuthTest extends AbstractJsonMapperTests {
+class DeAuthTest extends AbstractJsonMapperTests {
 
   @Test
-  public void userIdCheck() {
+  void userIdCheck() {
     DeAuth exampleDeAuth = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/deauth-user"), DeAuth.class);
     assertEquals("HMAC-SHA256", exampleDeAuth.getAlgorithm());
-    assertEquals(null, exampleDeAuth.getProfileId());
+    assertNull(exampleDeAuth.getProfileId());
     assertEquals("12345678", exampleDeAuth.getUserId());
     assertEquals(new Date(1411072285000L), exampleDeAuth.getIssuedAt());
   }
 
   @Test
-  public void pageIdCheck() {
+  void pageIdCheck() {
     DeAuth exampleDeAuth = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/deauth-fanpage"), DeAuth.class);
     assertEquals("HMAC-SHA256", exampleDeAuth.getAlgorithm());
     assertEquals("324556365474", exampleDeAuth.getProfileId());
-    assertEquals(null, exampleDeAuth.getUserId());
+    assertNull(exampleDeAuth.getUserId());
     assertEquals(new Date(1411072285000L), exampleDeAuth.getIssuedAt());
   }
 

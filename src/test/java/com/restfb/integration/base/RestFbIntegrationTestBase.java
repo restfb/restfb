@@ -32,7 +32,7 @@ abstract public class RestFbIntegrationTestBase {
   private RestFbIntegrationTestSettings testSettings = null;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
 
     InputStream propertyStream = getClass().getClassLoader().getResourceAsStream("integration-test.properties");
     Assumptions.assumeTrue(propertyStream != null);

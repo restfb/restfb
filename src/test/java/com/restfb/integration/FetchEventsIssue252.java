@@ -31,9 +31,9 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Event;
 
-public class FetchEventsIssue252 extends RestFbIntegrationTestBase {
+class FetchEventsIssue252 extends RestFbIntegrationTestBase {
 
-  protected final String SELECTED_FIELDS =
+  private final String SELECTED_FIELDS =
       "id,name,place,owner,description,timezone,ticket_uri,cover,start_time,end_time,updated_time,is_date_only";
 
   @Test

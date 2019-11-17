@@ -32,10 +32,10 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
 
-public class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
+class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void checkConnectionPage() {
+  void checkConnectionPage() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
     Connection<Post> connection = client.fetchConnection("/cocacola/feed", Post.class);

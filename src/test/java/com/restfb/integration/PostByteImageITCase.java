@@ -34,10 +34,10 @@ import com.restfb.integration.base.RestFbImageIntegrationTestBase;
 import com.restfb.json.JsonObject;
 
 @NeedFacebookWriteAccess
-public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
+class PostByteImageITCase extends RestFbImageIntegrationTestBase {
 
   @Test
-  public void postImageToPagePhotosWithMessage() {
+  void postImageToPagePhotosWithMessage() {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
@@ -47,7 +47,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   }
 
   @Test
-  public void postImageToUserFeedWithMessageAndPrivacy() {
+  void postImageToUserFeedWithMessageAndPrivacy() {
     byte[] imageAsBytes = fetchBytesFromImage();
     JsonObject privacy = new JsonObject();
     privacy.add("value", "SELF");
@@ -58,7 +58,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   }
 
   @Test
-  public void postLinkToPageFeedWithMessage() {
+  void postLinkToPageFeedWithMessage() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/feed", JsonObject.class,
       Parameter.with("message", "Just a test url"), Parameter.with("link", "http://www.restfb.com"));
@@ -66,7 +66,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   }
 
   @Test
-  public void postImageToPhotosAndFeedWithMessage() {
+  void postImageToPhotosAndFeedWithMessage() {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
@@ -75,7 +75,7 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   }
 
   @Test
-  public void postImageToPhotos() {
+  void postImageToPhotos() {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
     JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
@@ -84,11 +84,11 @@ public class PostByteImageITCase extends RestFbImageIntegrationTestBase {
   }
 
   @Test
-  public void postImageToAlbumPhotos() {
+  void postImageToAlbumPhotos() {
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
     JsonObject obj = client.publish(getTestSettings().getPageAlbumId() + "/photos", JsonObject.class,
-            BinaryAttachment.with("test.png", imageAsBytes, "image/png"));
+      BinaryAttachment.with("test.png", imageAsBytes, "image/png"));
     assertNotNull(obj);
   }
 

@@ -32,19 +32,20 @@ import com.restfb.types.NamedFacebookType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
-public class FetchMyLikesITCase extends RestFbIntegrationTestBase {
+class FetchMyLikesITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchGroup() {
+  void fetchGroup() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<NamedFacebookType> connection = client.fetchConnection("/me/likes", NamedFacebookType.class);
-    for (List<NamedFacebookType> groupList : connection) {
-      for (NamedFacebookType group : groupList) {
-        assertNotNull(group.getId());
-        assertNotNull(group.getName());
-      }
-    }
+    StreamSupport.stream(connection.spliterator(), false).flatMap(List::stream).forEach(this::checkGroup);
+  }
+
+  private void checkGroup(NamedFacebookType group) {
+    assertNotNull(group.getId());
+    assertNotNull(group.getName());
   }
 }

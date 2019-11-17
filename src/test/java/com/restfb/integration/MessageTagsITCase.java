@@ -32,10 +32,10 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Comment;
 import com.restfb.types.MessageTag;
 
-public class MessageTagsITCase extends RestFbIntegrationTestBase {
+class MessageTagsITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchComments() {
+  void fetchComments() {
     // get FacebookClient
     FacebookClient facebookClient = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
 

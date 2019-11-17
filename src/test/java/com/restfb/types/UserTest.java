@@ -47,7 +47,7 @@ class UserTest extends AbstractJsonMapperTests {
     User exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/user-no-picture"), User.class);
     assertEquals("Tester", exampleUser.getName());
     assertEquals("123456789", exampleUser.getId());
-    assertTrue(null == exampleUser.getPicture());
+    assertNull(exampleUser.getPicture());
   }
 
   @Test

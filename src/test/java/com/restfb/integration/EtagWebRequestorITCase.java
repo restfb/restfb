@@ -24,19 +24,19 @@ package com.restfb.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.ETagWebRequestor;
 import com.restfb.WebRequestor.Response;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-
-public class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
+class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchMeWithCache() throws IOException {
+  void fetchMeWithCache() throws IOException {
     String requestUrl = "https://graph.facebook.com/v2.5/me?format=json&access_token=";
     requestUrl += getTestSettings().getUserAccessToken();
     ETagWebRequestor webRequest = new ETagWebRequestor();
@@ -50,7 +50,7 @@ public class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
   }
 
   @Test
-  public void fetchMeWithoutCache() throws IOException {
+  void fetchMeWithoutCache() throws IOException {
     String requestUrl = "https://graph.facebook.com/v2.5/me?format=json&access_token=";
     requestUrl += getTestSettings().getUserAccessToken();
     ETagWebRequestor webRequest = new ETagWebRequestor();

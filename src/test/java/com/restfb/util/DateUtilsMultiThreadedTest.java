@@ -54,7 +54,7 @@ class DateUtilsMultiThreadedTest {
     DateUtils.setDateFormatStrategy(new CachedDateFormatStrategy());
     final DateAsLongGenerator domainObject = new DateAsLongGenerator();
 
-    List<Callable<Long>> tasks = Collections.nCopies(threadCount, () -> domainObject.getLongDate());
+    List<Callable<Long>> tasks = Collections.nCopies(threadCount, domainObject::getLongDate);
 
     // create thread pool and calc dates
     ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
@@ -81,37 +81,37 @@ class DateUtilsMultiThreadedTest {
   }
 
   @Test
-  public void test01() throws InterruptedException, ExecutionException {
+  void test01() throws InterruptedException, ExecutionException {
     test(1);
   }
 
   @Test
-  public void test02() throws InterruptedException, ExecutionException {
+  void test02() throws InterruptedException, ExecutionException {
     test(2);
   }
 
   @Test
-  public void test04() throws InterruptedException, ExecutionException {
+  void test04() throws InterruptedException, ExecutionException {
     test(4);
   }
 
   @Test
-  public void test08() throws InterruptedException, ExecutionException {
+  void test08() throws InterruptedException, ExecutionException {
     test(8);
   }
 
   @Test
-  public void test16() throws InterruptedException, ExecutionException {
+  void test16() throws InterruptedException, ExecutionException {
     test(16);
   }
 
   @Test
-  public void test32() throws InterruptedException, ExecutionException {
+  void test32() throws InterruptedException, ExecutionException {
     test(32);
   }
 
   @Test
-  public void test64() throws InterruptedException, ExecutionException {
+  void test64() throws InterruptedException, ExecutionException {
     test(64);
   }
 }

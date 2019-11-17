@@ -24,6 +24,7 @@ package com.restfb.types.api;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BaseTestCheck {
 
@@ -51,15 +52,6 @@ public class BaseTestCheck {
   }
 
   protected String joinMethods(Set<String> methodList) {
-    String result = "";
-    for (String methodName : methodList) {
-      result += methodName + ",";
-    }
-
-    if (!methodList.isEmpty()) {
-      return result.substring(0, result.length() - 1);
-    } else {
-      return result;
-    }
+    return methodList.stream().collect(Collectors.joining(","));
   }
 }

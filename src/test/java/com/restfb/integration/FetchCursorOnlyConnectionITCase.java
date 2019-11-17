@@ -31,10 +31,10 @@ import com.restfb.types.NamedFacebookType;
 
 import org.junit.jupiter.api.Test;
 
-public class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
+class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchLikes() {
+  void fetchLikes() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
     Connection<NamedFacebookType> con =

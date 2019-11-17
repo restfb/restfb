@@ -29,17 +29,17 @@ import java.io.StringReader;
 
 import org.junit.jupiter.api.Test;
 
-public class Json_Test {
+class Json_Test {
 
   @Test
-  public void literalConstants() {
+  void literalConstants() {
     assertTrue(Json.NULL.isNull());
     assertTrue(Json.TRUE.isTrue());
     assertTrue(Json.FALSE.isFalse());
   }
 
   @Test
-  public void value_int() {
+  void value_int() {
     assertEquals("0", Json.value(0).toString());
     assertEquals("23", Json.value(23).toString());
     assertEquals("-1", Json.value(-1).toString());
@@ -48,14 +48,14 @@ public class Json_Test {
   }
 
   @Test
-  public void value_long() {
-    assertEquals("0", Json.value(0l).toString());
+  void value_long() {
+    assertEquals("0", Json.value(0L).toString());
     assertEquals("9223372036854775807", Json.value(Long.MAX_VALUE).toString());
     assertEquals("-9223372036854775808", Json.value(Long.MIN_VALUE).toString());
   }
 
   @Test
-  public void value_float() {
+  void value_float() {
     assertEquals("23.5", Json.value(23.5f).toString());
     assertEquals("-3.1416", Json.value(-3.1416f).toString());
     assertEquals("1.23E-6", Json.value(0.00000123f).toString());
@@ -63,26 +63,26 @@ public class Json_Test {
   }
 
   @Test
-  public void value_float_cutsOffPointZero() {
+  void value_float_cutsOffPointZero() {
     assertEquals("0", Json.value(0f).toString());
     assertEquals("-1", Json.value(-1f).toString());
     assertEquals("10", Json.value(10f).toString());
   }
 
   @Test
-  public void value_float_failsWithInfinity() {
+  void value_float_failsWithInfinity() {
     String message = "Infinite and NaN values not permitted in JSON";
     assertThrows(IllegalArgumentException.class, () -> Json.value(Float.POSITIVE_INFINITY), message);
   }
 
   @Test
-  public void value_float_failsWithNaN() {
+  void value_float_failsWithNaN() {
     String message = "Infinite and NaN values not permitted in JSON";
     assertThrows(IllegalArgumentException.class, () -> Json.value(Float.NaN), message);
   }
 
   @Test
-  public void value_double() {
+  void value_double() {
     assertEquals("23.5", Json.value(23.5d).toString());
     assertEquals("3.1416", Json.value(3.1416d).toString());
     assertEquals("1.23E-6", Json.value(0.00000123d).toString());
@@ -90,137 +90,137 @@ public class Json_Test {
   }
 
   @Test
-  public void value_double_cutsOffPointZero() {
+  void value_double_cutsOffPointZero() {
     assertEquals("0", Json.value(0d).toString());
     assertEquals("-1", Json.value(-1d).toString());
     assertEquals("10", Json.value(10d).toString());
   }
 
   @Test
-  public void value_double_failsWithInfinity() {
+  void value_double_failsWithInfinity() {
     String message = "Infinite and NaN values not permitted in JSON";
     assertThrows(IllegalArgumentException.class, () -> Json.value(Double.POSITIVE_INFINITY), message);
   }
 
   @Test
-  public void value_double_failsWithNaN() {
+  void value_double_failsWithNaN() {
     String message = "Infinite and NaN values not permitted in JSON";
     assertThrows(IllegalArgumentException.class, () -> Json.value(Double.NaN), message);
   }
 
   @Test
-  public void value_boolean() {
+  void value_boolean() {
     assertSame(Json.TRUE, Json.value(true));
     assertSame(Json.FALSE, Json.value(false));
   }
 
   @Test
-  public void value_string() {
+  void value_string() {
     assertEquals("", Json.value("").asString());
     assertEquals("Hello", Json.value("Hello").asString());
     assertEquals("\"Hello\"", Json.value("\"Hello\"").asString());
   }
 
   @Test
-  public void value_string_toleratesNull() {
+  void value_string_toleratesNull() {
     assertSame(Json.NULL, Json.value(null));
   }
 
   @Test
-  public void array() {
+  void array() {
     assertEquals(new JsonArray(), Json.array());
   }
 
   @Test
-  public void array_int() {
+  void array_int() {
     assertEquals(new JsonArray().add(23), Json.array(23));
     assertEquals(new JsonArray().add(23).add(42), Json.array(23, 42));
   }
 
   @Test
-  public void array_int_failsWithNull() {
+  void array_int_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.array((int[]) null), "values is null");
   }
 
   @Test
-  public void array_long() {
-    assertEquals(new JsonArray().add(23l), Json.array(23l));
-    assertEquals(new JsonArray().add(23l).add(42l), Json.array(23l, 42l));
+  void array_long() {
+    assertEquals(new JsonArray().add(23L), Json.array(23L));
+    assertEquals(new JsonArray().add(23L).add(42L), Json.array(23L, 42L));
   }
 
   @Test
-  public void array_long_failsWithNull() {
+  void array_long_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.array((long[]) null), "values is null");
   }
 
   @Test
-  public void array_float() {
+  void array_float() {
     assertEquals(new JsonArray().add(3.14f), Json.array(3.14f));
     assertEquals(new JsonArray().add(3.14f).add(1.41f), Json.array(3.14f, 1.41f));
   }
 
   @Test
-  public void array_float_failsWithNull() {
+  void array_float_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.array((float[]) null), "values is null");
   }
 
   @Test
-  public void array_double() {
+  void array_double() {
     assertEquals(new JsonArray().add(3.14d), Json.array(3.14d));
     assertEquals(new JsonArray().add(3.14d).add(1.41d), Json.array(3.14d, 1.41d));
   }
 
   @Test
-  public void array_double_failsWithNull() {
+  void array_double_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.array((double[]) null), "values is null");
   }
 
   @Test
-  public void array_boolean() {
+  void array_boolean() {
     assertEquals(new JsonArray().add(true), Json.array(true));
     assertEquals(new JsonArray().add(true).add(false), Json.array(true, false));
   }
 
   @Test
-  public void array_boolean_failsWithNull() {
+  void array_boolean_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.array((boolean[]) null), "values is null");
   }
 
   @Test
-  public void array_string() {
+  void array_string() {
     assertEquals(new JsonArray().add("foo"), Json.array("foo"));
     assertEquals(new JsonArray().add("foo").add("bar"), Json.array("foo", "bar"));
   }
 
   @Test
-  public void array_string_failsWithNull() {
+  void array_string_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.array((String[]) null), "values is null");
   }
 
   @Test
-  public void object() {
+  void object() {
     assertEquals(new JsonObject(), Json.object());
   }
 
   @Test
-  public void parse_string() {
+  void parse_string() {
     assertEquals(Json.value(23), Json.parse("23"));
   }
 
   @Test
-  public void parse_string_failsWithNull() {
+  void parse_string_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.parse((String) null), "string is null");
   }
 
   @Test
-  public void parse_reader() throws IOException {
+  void parse_reader() throws IOException {
     Reader reader = new StringReader("23");
 
     assertEquals(Json.value(23), Json.parse(reader));
   }
 
   @Test
-  public void parse_reader_failsWithNull() {
+  void parse_reader_failsWithNull() {
     assertThrows(NullPointerException.class, () -> Json.parse((Reader) null), "reader is null");
   }
 

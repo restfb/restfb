@@ -32,10 +32,10 @@ import com.restfb.types.Url;
 
 import org.junit.jupiter.api.Test;
 
-public class FetchOpenGraphUrlITCase extends RestFbIntegrationTestBase {
+class FetchOpenGraphUrlITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void imdbUrlCheck() {
+  void imdbUrlCheck() {
 
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);

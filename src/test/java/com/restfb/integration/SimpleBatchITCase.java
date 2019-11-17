@@ -21,6 +21,13 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
@@ -28,17 +35,10 @@ import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-public class SimpleBatchITCase extends RestFbIntegrationTestBase {
+class SimpleBatchITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void check_meAndZuck() {
+  void check_meAndZuck() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
     BatchRequest meRequest =
@@ -57,13 +57,13 @@ public class SimpleBatchITCase extends RestFbIntegrationTestBase {
   }
 
   @Test
-  public void check_meAndNotWorking() {
+  void check_meAndNotWorking() {
     DefaultFacebookClient client =
-            new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
     BatchRequest meRequest =
-            new BatchRequest.BatchRequestBuilder("me").parameters(Parameter.with("fields", "id,name")).build();
+        new BatchRequest.BatchRequestBuilder("me").parameters(Parameter.with("fields", "id,name")).build();
     BatchRequest nwRequest =
-            new BatchRequest.BatchRequestBuilder("2").parameters(Parameter.with("fields", "id,name")).build();
+        new BatchRequest.BatchRequestBuilder("2").parameters(Parameter.with("fields", "id,name")).build();
 
     List<BatchResponse> responseList = client.executeBatch(meRequest, nwRequest);
 
@@ -76,13 +76,13 @@ public class SimpleBatchITCase extends RestFbIntegrationTestBase {
   }
 
   @Test
-  public void check_NotWorkingAndMe() {
+  void check_NotWorkingAndMe() {
     DefaultFacebookClient client =
-            new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
     BatchRequest meRequest =
-            new BatchRequest.BatchRequestBuilder("me").parameters(Parameter.with("fields", "id,name")).build();
+        new BatchRequest.BatchRequestBuilder("me").parameters(Parameter.with("fields", "id,name")).build();
     BatchRequest nwRequest =
-            new BatchRequest.BatchRequestBuilder("2").parameters(Parameter.with("fields", "id,name")).build();
+        new BatchRequest.BatchRequestBuilder("2").parameters(Parameter.with("fields", "id,name")).build();
 
     List<BatchResponse> responseList = client.executeBatch(nwRequest, meRequest);
 

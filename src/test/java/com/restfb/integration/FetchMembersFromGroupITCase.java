@@ -35,10 +35,10 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
 
-public class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
+class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchMembers() {
+  void fetchMembers() {
 
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
@@ -49,9 +49,7 @@ public class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
     int i = 1;
     List<NamedFacebookType> memberList = new ArrayList<>();
     for (List<NamedFacebookType> memberPage : connection) {
-      for (NamedFacebookType member : memberPage) {
-        memberList.add(member);
-      }
+      memberList.addAll(memberPage);
       System.out.println("Page: " + (i++) + " size: " + memberList.size());
     }
 

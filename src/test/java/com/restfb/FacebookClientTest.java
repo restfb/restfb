@@ -54,13 +54,13 @@ import com.restfb.types.send.SendResponse;
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class FacebookClientTest {
+class FacebookClientTest {
 
   /**
    * Is the <code>appsecret_proof</code> hash function correct
    */
   @Test
-  public void testMakeAppSecretProof() {
+  void testMakeAppSecretProof() {
     DefaultFacebookClient facebookClient = new DefaultFacebookClient(Version.LATEST);
     String test = facebookClient.obtainAppSecretProof("test", "test");
     // obtained from running hash_hmac("sha256","test","test");
@@ -77,7 +77,7 @@ public class FacebookClientTest {
    * Do we correctly handle the case where FB returns an OAuthException with an error code?
    */
   @Test
-  public void oauthExceptionWithErrorCode() {
+  void oauthExceptionWithErrorCode() {
     FacebookClient facebookClient = facebookClientWithResponse(new Response(403,
       "{\"error\":{\"message\":\"(#210) User not visible\",\"type\":\"OAuthException\",\"code\":210}}"));
 
@@ -95,7 +95,7 @@ public class FacebookClientTest {
    * Do we correctly handle the case where FB returns an OAuthException with an error code and subcode?
    */
   @Test
-  public void oauthExceptionWithErrorSubcode() {
+  void oauthExceptionWithErrorSubcode() {
     FacebookClient facebookClient = facebookClientWithResponse(new Response(403,
       "{\"error\":{\"message\":\"App Not Installed\",\"type\":\"OAuthException\",\"code\":190,\"error_subcode\":458}}"));
 
@@ -114,7 +114,7 @@ public class FacebookClientTest {
    * Do we correctly handle the case where FB returns an OAuthException without an error code?
    */
   @Test
-  public void oauthExceptionWithoutErrorCode() {
+  void oauthExceptionWithoutErrorCode() {
     FacebookClient facebookClient = facebookClientWithResponse(
       new Response(403, "{\"error\":{\"message\":\"(#210) User not visible\",\"type\":\"OAuthException\"}}"));
 
@@ -129,7 +129,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void obtainExtendedAccessTokenV23() {
+  void obtainExtendedAccessTokenV23() {
     FacebookClient fbc = facebookClientWithResponse(
       new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\", \"expires_in\":132363}"));
     FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
@@ -140,7 +140,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void obtainExtendedAccessTokenV23WithoutExpiresIn() {
+  void obtainExtendedAccessTokenV23WithoutExpiresIn() {
     FacebookClient fbc = facebookClientWithResponse(
       new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\"}"));
     FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
@@ -151,7 +151,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void obtainExtendedAccessTokenV22() {
+  void obtainExtendedAccessTokenV22() {
     FacebookClient fbc =
         facebookClientWithResponse(new Response(200, "access_token=accesstoken&token_type=tokentype&expires=132363"));
     FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
@@ -161,7 +161,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void obtainExtendedAccessTokenV22WithoutTokenType() {
+  void obtainExtendedAccessTokenV22WithoutTokenType() {
     FacebookClient fbc = facebookClientWithResponse(new Response(200, "access_token=accesstoken&expires=132363"));
     FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
@@ -171,13 +171,13 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void fetchDeviceCodeLatest() {
+  void fetchDeviceCodeLatest() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
     try {
       fbc.fetchDeviceCode(new ScopeBuilder());
-    } catch (FacebookJsonMappingException je) {
+    } catch (FacebookJsonMappingException ignored) {
 
     }
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/device/login");
@@ -186,7 +186,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void sendTextMessage() {
+  void sendTextMessage() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
@@ -196,7 +196,7 @@ public class FacebookClientTest {
 
       SendResponse response = fbc.publish("me/messages", SendResponse.class, Parameter.with("recipient", recipient),
         Parameter.with("message", simpleTextMessage));
-    } catch (FacebookJsonMappingException je) {
+    } catch (FacebookJsonMappingException ignored) {
 
     }
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/me/messages");
@@ -205,7 +205,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void checkfetchObjects() throws URISyntaxException {
+  void checkfetchObjects() throws URISyntaxException {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
@@ -226,7 +226,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void checkfetchObjects_withEmptyId() {
+  void checkfetchObjects_withEmptyId() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
@@ -236,13 +236,11 @@ public class FacebookClientTest {
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 
-    assertThrows(IllegalArgumentException.class, () -> {
-      fbc.fetchObjects(idList, String.class);
-    });
+    assertThrows(IllegalArgumentException.class, () -> fbc.fetchObjects(idList, String.class));
   }
 
   @Test
-  public void checkfetchObjects_idsAsParameter() {
+  void checkfetchObjects_idsAsParameter() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
@@ -251,30 +249,26 @@ public class FacebookClientTest {
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 
-    assertThrows(IllegalArgumentException.class, () -> {
-      fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something"));
-    });
+    assertThrows(IllegalArgumentException.class, () -> fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something")));
   }
 
   @Test
-  public void checkfetchObjects_emptyList() {
+  void checkfetchObjects_emptyList() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
 
-    assertThrows(IllegalArgumentException.class, () -> {
-      fbc.fetchObjects(Collections.EMPTY_LIST, String.class);
-    });
+    assertThrows(IllegalArgumentException.class, () -> fbc.fetchObjects(Collections.EMPTY_LIST, String.class));
   }
 
   @Test
-  public void fetchDeviceCodeV26() {
+  void fetchDeviceCodeV26() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
     try {
       fbc.fetchDeviceCode(new ScopeBuilder());
-    } catch (FacebookJsonMappingException je) {
+    } catch (FacebookJsonMappingException ignored) {
 
     }
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/device/login");
@@ -283,7 +277,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void obtainDeviceAccessTokenCodeV26() {
+  void obtainDeviceAccessTokenCodeV26() {
     FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_3_0);
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/device/login_status");
     assertThat(requestor)
@@ -307,7 +301,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void testDebugToken() throws IOException {
+  void testDebugToken() throws IOException {
     final String returnJson = fromInputStream(getClass().getResourceAsStream("/json/data-debug-token-info.json"));
 
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, returnJson));
@@ -321,7 +315,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void testDebugTokenException() throws IOException {
+  void testDebugTokenException() throws IOException {
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, null));
     assertThrows(FacebookResponseContentException.class, () -> {
       FacebookClient fbc =
@@ -331,33 +325,33 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void deleteObjectReturnsJson() {
+  void deleteObjectReturnsJson() {
     FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "{\"success\":true}"));
     assertThat(facebookClient.deleteObject("12345")).isTrue();
   }
 
   @Test
-  public void deleteObjectReturnsJsonGreetingMessengerPlatform() {
+  void deleteObjectReturnsJsonGreetingMessengerPlatform() {
     FacebookClient facebookClient =
         facebookClientWithResponse(new Response(200, "{\"result\":\"Successfully deleted greeting\"}"));
     assertThat(facebookClient.deleteObject("12345")).isTrue();
   }
 
   @Test
-  public void deleteObjectReturnsText() {
+  void deleteObjectReturnsText() {
     FacebookClient facebookClient = facebookClientWithResponse(new Response(200, "true"));
     assertThat(facebookClient.deleteObject("12345")).isTrue();
   }
 
   @Test
-  public void checkLogoutUrl() {
+  void checkLogoutUrl() {
     FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_3_0);
     String logoutUrl = client.getLogoutUrl(null);
     assertThat(logoutUrl).isEqualTo("https://www.facebook.com/logout.php?access_token=123456");
   }
 
   @Test
-  public void checkLogoutUrlWithNext() {
+  void checkLogoutUrlWithNext() {
     FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_3_0);
     String logoutUrl = client.getLogoutUrl("http://www.example.com");
     assertThat(logoutUrl)
@@ -365,7 +359,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void checkLoginDialogURL() {
+  void checkLoginDialogURL() {
     FacebookClient client = new DefaultFacebookClient(Version.VERSION_3_0);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder());
     assertThat(loginDialogUrlString).isEqualTo(
@@ -373,7 +367,7 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void checkLoginDialogURLAdditionalParameters() {
+  void checkLoginDialogURLAdditionalParameters() {
     FacebookClient client = new DefaultFacebookClient(Version.VERSION_3_0);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
       Parameter.with("auth_type", "reauthenticate"));
@@ -382,21 +376,21 @@ public class FacebookClientTest {
   }
 
   @Test
-  public void checkUrlWithExpiresIn() {
+  void checkUrlWithExpiresIn() {
     String queryString = "access_token=<access-token>&expires_in=5184000";
     FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
     assertThat(token.getExpires()).isAfter(new Date(1468096359099L));
   }
 
   @Test
-  public void checkUrlWithExpires() {
+  void checkUrlWithExpires() {
     String queryString = "access_token=<access-token>&expires=5184000";
     FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
     assertThat(token.getExpires()).isAfter(new Date(1468096359099L));
   }
 
   @Test
-  public void createJsonArray() {
+  void createJsonArray() {
     JsonArray array = new JsonArray();
     array.add("123");
     array.add("456");

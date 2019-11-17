@@ -33,10 +33,10 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.GraphResponse;
 
 @NeedFacebookWriteAccess
-public class PublishMessageToGroupITCase extends RestFbIntegrationTestBase {
+class PublishMessageToGroupITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void publishMessageToGroup() {
+  void publishMessageToGroup() {
 
     // needed permissions: publish_actions, user_managed_groups
     DefaultFacebookClient client =

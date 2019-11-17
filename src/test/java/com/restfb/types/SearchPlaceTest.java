@@ -32,13 +32,13 @@ class SearchPlaceTest extends AbstractJsonMapperTests {
 
   @Test
   void checkPhotos() {
-    SearchPlace examplesearch =
+    SearchPlace exampleSearch =
         createJsonMapper().toJavaObject(jsonFromClasspath("v3_1/searchplace-photos"), SearchPlace.class);
-    assertNotNull(examplesearch);
-    assertNotNull(examplesearch.getPhotos());
-    assertEquals(4, examplesearch.getPhotos().size());
-    assertEquals(33597l, examplesearch.getCheckins().longValue());
-    assertNotNull(examplesearch.getPicture());
+    assertNotNull(exampleSearch);
+    assertNotNull(exampleSearch.getPhotos());
+    assertEquals(4, exampleSearch.getPhotos().size());
+    assertEquals(33597L, exampleSearch.getCheckins().longValue());
+    assertNotNull(exampleSearch.getPicture());
   }
 
   @Test

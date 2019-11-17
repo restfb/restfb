@@ -57,9 +57,7 @@ class BinaryAttachmentTest {
 
   @Test
   void checkInputStreamNull() {
-    assertThrows(NullPointerException.class, () -> {
-      BinaryAttachment.with("filename", (InputStream) null);
-    });
+    assertThrows(NullPointerException.class, () -> BinaryAttachment.with("filename", (InputStream) null));
   }
 
   @Test

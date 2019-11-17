@@ -32,17 +32,16 @@ import com.restfb.exception.FacebookOAuthException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
 
-public class PostSearchITCase extends RestFbIntegrationTestBase {
+class PostSearchITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void tesPostSearchV2_5() {
+  void tesPostSearchV2_5() {
     assertThrows(FacebookOAuthException.class, () -> {
       DefaultFacebookClient facebookClient =
-              new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+          new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
       facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
-              Parameter.with("type", "post"));
-    },
-      "facebook should not allow this public search");
+        Parameter.with("type", "post"));
+    }, "facebook should not allow this public search");
   }
 
 }

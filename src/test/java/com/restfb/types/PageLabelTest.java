@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class PageLabelTest extends AbstractJsonMapperTests {
+class PageLabelTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkBasic_V2_6() {
+  void checkBasic_V2_6() {
     PageLabel pageLabel = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/pagelabel-basic"), PageLabel.class);
     assertNotNull(pageLabel);
     assertEquals("833572353213", pageLabel.getId());
@@ -42,7 +42,7 @@ public class PageLabelTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkWithUsers_V2_6() {
+  void checkWithUsers_V2_6() {
     PageLabel pageLabel =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/pagelabel-with-users"), PageLabel.class);
     assertNotNull(pageLabel);

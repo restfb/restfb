@@ -267,20 +267,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
-      connectionJson = makeRequestAndProcessResponse(new Requestor() {
-        @Override
-        public Response makeRequest() throws IOException {
-          return webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
-            urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)));
-        }
-      });
+      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
+        urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret))));
     } else {
-      connectionJson = makeRequestAndProcessResponse(new Requestor() {
-        @Override
-        public Response makeRequest() throws IOException {
-          return webRequestor.executeGet(connectionPageUrl);
-        }
-      });
+      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(connectionPageUrl));
     }
 
     Connection<T> conn = new Connection<>(this, connectionJson, connectionType);

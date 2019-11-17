@@ -21,6 +21,7 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -34,21 +35,21 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Url;
 
-public class FetchIDs extends RestFbIntegrationTestBase {
+class FetchIDs extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchWithEmail() {
+  void fetchWithEmail() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     FetchObjectsResult me = client.fetchObjects(Arrays.asList("http://cnn.com", "http://abc.com"),
       FetchObjectsResult.class, Parameter.with("fields", "engagement"));
     assertTrue(me.abc.getReactionCount() > 0);
     assertTrue(me.abc.getCommentCount() > 0);
     assertTrue(me.abc.getShareCount() > 0);
-    assertTrue(me.abc.getCommentPluginCount() == 0);
+    assertEquals(0, me.abc.getCommentPluginCount());
     assertTrue(me.cnn.getReactionCount() > 0);
     assertTrue(me.cnn.getCommentCount() > 0);
     assertTrue(me.cnn.getShareCount() > 0);
-    assertTrue(me.cnn.getCommentPluginCount() == 0);
+    assertEquals(0, me.cnn.getCommentPluginCount());
   }
 
   static class FetchObjectsResult {

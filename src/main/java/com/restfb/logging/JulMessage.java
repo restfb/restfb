@@ -67,12 +67,12 @@ final class JulMessage {
     while (messagePattern.indexOf(PLACEHOLDER, k) != -1) {
       int l = messagePattern.indexOf(PLACEHOLDER, k);
       if (l == 0 || messagePattern.charAt(l - 1) != ESCAPE_SIGN) {
-        sb.append(messagePattern.substring(k, l));
+        sb.append(messagePattern, k, l);
         sb.append("%s");
         k = l + 2;
         placeholderCount++;
       } else {
-        sb.append(messagePattern.substring(k, l + 3));
+        sb.append(messagePattern, k, l + 3);
         k = l + 3;
       }
     }

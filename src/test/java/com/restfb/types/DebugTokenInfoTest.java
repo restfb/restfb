@@ -29,10 +29,10 @@ import com.restfb.AbstractJsonMapperTests;
 import com.restfb.FacebookClient;
 import com.restfb.json.JsonObject;
 
-public class DebugTokenInfoTest extends AbstractJsonMapperTests {
+class DebugTokenInfoTest extends AbstractJsonMapperTests {
 
   @Test
-  public void testJsonWithScopes() {
+  void testJsonWithScopes() {
     FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
         createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info"), FacebookClient.DebugTokenInfo.class);
     assertNotNull(exampleDebugTokenInfo);
@@ -41,7 +41,7 @@ public class DebugTokenInfoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void testJsonWithMetadata() {
+  void testJsonWithMetadata() {
     FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
         createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info"), FacebookClient.DebugTokenInfo.class);
     assertNotNull(exampleDebugTokenInfo);
@@ -52,15 +52,15 @@ public class DebugTokenInfoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void withExpires() {
+  void withExpires() {
     FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
-            createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-2"), FacebookClient.DebugTokenInfo.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-2"), FacebookClient.DebugTokenInfo.class);
     assertNotNull(exampleDebugTokenInfo);
     assertEquals(8, exampleDebugTokenInfo.getScopes().size());
     assertEquals(1563217616000L, exampleDebugTokenInfo.getDataAccessExpiresAt().getTime());
     assertEquals("USER", exampleDebugTokenInfo.getType());
     assertTrue(exampleDebugTokenInfo.isValid());
     assertEquals("1234567890", exampleDebugTokenInfo.getAppId());
-    assertEquals(1561330800000l, exampleDebugTokenInfo.getExpiresAt().getTime());
+    assertEquals(1561330800000L, exampleDebugTokenInfo.getExpiresAt().getTime());
   }
 }

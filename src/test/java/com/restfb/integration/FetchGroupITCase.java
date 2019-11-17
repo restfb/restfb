@@ -21,7 +21,11 @@
  */
 package com.restfb.integration;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+import java.util.stream.StreamSupport;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
@@ -29,21 +33,14 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Group;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-public class FetchGroupITCase extends RestFbIntegrationTestBase {
+class FetchGroupITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchGroup() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+  void fetchGroup() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<Group> connection = client.fetchConnection("/me/groups", Group.class);
-    for (List<Group> groupList : connection) {
-      for (Group group : groupList) {
-        assertNotNull(group.getName());
-      }
-    }
+
+    StreamSupport.stream(connection.spliterator(), false).flatMap(List::stream).map(Group::getName)
+      .forEach(Assertions::assertNotNull);
   }
 }

@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class ApplicationTest extends AbstractJsonMapperTests {
+class ApplicationTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_5_test() {
+  void checkV2_5_test() {
     Application exampleApplication =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/application"), Application.class);
     assertNotNull(exampleApplication);

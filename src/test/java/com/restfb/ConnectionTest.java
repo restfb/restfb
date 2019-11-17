@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 
@@ -91,14 +93,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
     Connection<FacebookType> connection = create3PageConnection();
 
     assertThat(connection).isNotNull();
-
-    int counter = 0;
-    for (List<FacebookType> page : connection) {
-      for (FacebookType type : page) {
-        counter++;
-      }
-    }
-
+    long counter = StreamSupport.stream(connection.spliterator(), false).mapToLong(List::size).sum();
     assertThat(counter).isEqualTo(18);
   }
 
