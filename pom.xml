@@ -27,6 +27,11 @@
     <!-- additional configuration -->
     <year.current>2019</year.current>
     <skipTests>false</skipTests>
+
+    <!-- sonar configuration -->
+    <sonar.projectKey>restfb_restfb</sonar.projectKey>
+    <sonar.organization>restfb</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
 
   <licenses>

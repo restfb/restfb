@@ -1,4 +1,4 @@
-[![Travis (.org)](https://img.shields.io/travis/restfb/restfb.svg?style=for-the-badge)](https://travis-ci.org/restfb/restfb)
+[![Restfb on Circle CI](https://img.shields.io/circleci/build/github/restfb/restfb?style=for-the-badge)](https://circleci.com/gh/restfb/restfb)
 [![Backers on Open Collective](https://img.shields.io/opencollective/backers/restfb.svg?style=for-the-badge)](https://opencollective.com/restfb)
 [![Sponsors on Open Collective](https://img.shields.io/opencollective/sponsors/restfb.svg?style=for-the-badge)](https://opencollective.com/restfb)
 
