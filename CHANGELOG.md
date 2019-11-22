@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2.27.1 (November 22, 2019)
+
+* Build moved to Circle CI
+* Instagram HashTag type added
+
 ## 2.27.0 (November 6, 2019)
 
 * Graph API 5.0 support added
