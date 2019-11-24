@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 3.0.0 (November 24, 2019)
+
+* Final Release - nothing new
+
 ## 3.0.0 RC2 (October 12, 2019)
 
 * some cleanup
