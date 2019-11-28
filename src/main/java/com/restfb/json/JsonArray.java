@@ -373,14 +373,17 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
     final Iterator<JsonValue> iterator = values.iterator();
     return new Iterator<JsonValue>() {
 
+      @Override
       public boolean hasNext() {
         return iterator.hasNext();
       }
 
+      @Override
       public JsonValue next() {
         return iterator.next();
       }
 
+      @Override
       public void remove() {
         throw new UnsupportedOperationException();
       }

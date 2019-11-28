@@ -27,6 +27,7 @@ import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
 import com.restfb.exception.FacebookOAuthException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
@@ -49,10 +50,8 @@ class DeviceCodeITCase extends RestFbIntegrationTestBase {
       System.out.print(count + ":");
       try {
         token = client.obtainDeviceAccessToken(deviceCode.getCode());
-      } catch (FacebookOAuthException e) {
-        System.out.println("Subcode: " + e.getErrorSubcode());
-        System.out.println("Subcode: " + e.getErrorCode());
-        System.out.println(e.getErrorMessage());
+      } catch (FacebookDeviceTokenException e) {
+        System.out.println(e.getClass());
       } catch (Exception e) {
         e.printStackTrace();
       }

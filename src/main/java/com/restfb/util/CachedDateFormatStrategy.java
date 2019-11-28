@@ -63,7 +63,7 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
         THREADLOCAL_FORMATTER_MAP.set(new SoftReference<Map>(formatterMap));
       }
 
-      return formatterMap.computeIfAbsent(pattern, key -> createSDF(key));
+      return formatterMap.computeIfAbsent(pattern, SimpleDateFormatHolder::createSDF);
     }
 
     private static SimpleDateFormat createSDF(String pattern) {
