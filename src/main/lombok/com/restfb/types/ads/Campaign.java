@@ -62,6 +62,46 @@ public class Campaign extends NamedAdsObject {
   private List<AdLabel> adlabels;
 
   /**
+   * Bid strategy for this campaign
+   */
+  @Getter
+  @Setter
+  @Facebook("bid_strategy")
+  private String bidStrategy;
+
+  /**
+   * The Boosted Object this campaign has associated, if any
+   */
+  @Getter
+  @Setter
+  @Facebook("boosted_object_id")
+  private String boostedObjectId;
+
+  /**
+   * Automated Brand Lift V2 studies for this ad set.
+   */
+  @Getter
+  @Setter
+  @Facebook("brand_lift_studies")
+  private List<AdStudy> brandLiftStudies = new ArrayList<>();
+
+  /**
+   * Whether to automatically rebalance budgets daily for all the adsets under this campaign.
+   */
+  @Getter
+  @Setter
+  @Facebook("budget_rebalance_flag")
+  private Boolean budgetRebalanceFlag;
+
+  /**
+   * Remaining budget
+   */
+  @Getter
+  @Setter
+  @Facebook("budget_remaining")
+  private String budgetRemaining;
+
+  /**
    * Buying type, possible values are:
    * <ul>
    * <li>AUCTION: default</li>
@@ -76,6 +116,14 @@ public class Campaign extends NamedAdsObject {
   @Setter
   @Facebook("buying_type")
   private String buyingType;
+
+  /**
+   * If we can create a new automated brand lift study for the ad set.
+   */
+  @Getter
+  @Setter
+  @Facebook("can_create_brand_lift_study")
+  private Boolean canCreateBrandLiftStudy;
 
   /**
    * Whether the campaign can set the spend cap
@@ -117,6 +165,14 @@ public class Campaign extends NamedAdsObject {
   private Date createdTime;
 
   /**
+   * The daily budget of the campaign
+   */
+  @Getter
+  @Setter
+  @Facebook("daily_budget")
+  private String dailyBudget;
+
+  /**
    * The effective status of this campaign.
    *
    * possible values: ACTIVE, PAUSED, DELETED, PENDING_REVIEW, DISAPPROVED, PREAPPROVED, PENDING_BILLING_INFO,
@@ -145,6 +201,22 @@ public class Campaign extends NamedAdsObject {
   private List<AdCampaignIssuesInfo> issuesInfo = new ArrayList<>();
 
   /**
+   * Last budget toggling time
+   */
+  @Getter
+  @Setter
+  @Facebook("last_budget_toggling_time")
+  private Date lastBudgetTogglingTime;
+
+  /**
+   * The lifetime budget of the campaign
+   */
+  @Getter
+  @Setter
+  @Facebook("lifetime_budget")
+  private String lifetimeBudget;
+
+  /**
    * Campaign's objective
    *
    * -- GETTER --
@@ -168,10 +240,29 @@ public class Campaign extends NamedAdsObject {
   @Facebook
   private List<AdRecommendation> recommendations = new ArrayList<>();
 
+  /**
+   * The source campaign that this campaign is copied from
+   */
   @Getter
   @Setter
   @Facebook("source_campaign")
   private Campaign sourceCampaign;
+
+  /**
+   * The source campaign id that this campaign is copied from
+   */
+  @Getter
+  @Setter
+  @Facebook("source_campaign_id")
+  private String sourceCampaignId;
+
+  /**
+   * The campaign's Special Ad Category. One of {@code HOUSING}, {@code EMPLOYMENT}, {@code CREDIT}, or {@code NONE}.
+   */
+  @Getter
+  @Setter
+  @Facebook("special_ad_category")
+  private String specialAdCategory;
 
   /**
    * A spend cap for the campaign, such that it will not spend more than this cap. Expressed as integer value of the
@@ -222,6 +313,14 @@ public class Campaign extends NamedAdsObject {
   @Setter
   @Facebook("stop_time")
   private Date stopTime;
+
+  /**
+   * Topline ID
+   */
+  @Getter
+  @Setter
+  @Facebook("topline_id")
+  private String toplineId;
 
   /**
    * Updated Time
