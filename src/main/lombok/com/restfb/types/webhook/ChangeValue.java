@@ -31,7 +31,7 @@ import com.restfb.util.ReflectionUtils;
 public class ChangeValue {
 
   public enum Verb {
-    REMOVE, ADD, EDITED, HIDE, UNHIDE, EDIT, UNBLOCK, BLOCK, MUTE, GRANTED, REVOKED
+    ADD, BLOCK, EDIT, EDITED, DELETE, FOLLOW, HIDE, MUTE, REMOVE, UNBLOCK, UNHIDE, UPDATE, GRANTED, REVOKED
   }
 
   /**

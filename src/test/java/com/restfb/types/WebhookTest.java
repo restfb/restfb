@@ -780,6 +780,8 @@ class WebhookTest extends AbstractJsonMapperTests {
   void userEmailChange() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/user-email"), WebhookObject.class);
+    assertTrue(webhookObject.isUser());
+    assertFalse(webhookObject.isPage());
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
     assertNotNull(change.getValue());
     assertEquals(SimpleStringChangeValue.class, change.getValue().getClass());
