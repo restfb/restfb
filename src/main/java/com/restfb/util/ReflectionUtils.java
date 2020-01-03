@@ -524,14 +524,8 @@ public final class ReflectionUtils {
       }
 
       if (clazz == null) {
-        if (other.clazz != null) {
-          return false;
-        }
-      } else if (!clazz.equals(other.clazz)) {
-        return false;
-      }
-
-      return true;
+        return other.clazz == null;
+      } else return clazz.equals(other.clazz);
     }
   }
 }

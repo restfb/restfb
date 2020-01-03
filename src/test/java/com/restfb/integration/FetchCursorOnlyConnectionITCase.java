@@ -36,10 +36,10 @@ class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
   @Test
   void fetchLikes() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_11);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_12);
     Connection<NamedFacebookType> con =
         client.fetchConnection("40796308305_1565015867092106/likes", NamedFacebookType.class);
-    assertEquals("https://graph.facebook.com/v2.11/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==",
+    assertEquals("https://graph.facebook.com/v2.12/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==",
       con.getNextPageUrl());
   }
 
