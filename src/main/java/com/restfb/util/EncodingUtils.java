@@ -23,6 +23,7 @@ package com.restfb.util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.crypto.Mac;
@@ -42,6 +43,8 @@ public final class EncodingUtils {
    * Prevents instantiation.
    */
   private EncodingUtils() {}
+
+  private static final char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
 
   /**
    * Decodes a base64-encoded string, padding out if necessary.
@@ -82,17 +85,13 @@ public final class EncodingUtils {
    *           If {@code data} is {@code null}.
    */
   public static byte[] encodeHex(final byte[] data) {
-    if (data == null)
-      throw new NullPointerException("Parameter 'data' cannot be null.");
-
-    final char[] toDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-    final int l = data.length;
-    final char[] out = new char[l << 1];
-    for (int i = 0, j = 0; i < l; i++) {
-      out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
-      out[j++] = toDigits[0x0F & data[i]];
+    Objects.requireNonNull(data, "Parameter 'data' cannot be null.");
+    char[] out = new char[data.length << 1];
+    for (int j = 0; j < data.length; j++) {
+      int v = data[j] & 0xFF;
+      out[j * 2] = HEX_ARRAY[v >>> 4];
+      out[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
     }
-
     return new String(out).getBytes(StandardCharsets.UTF_8);
   }
 

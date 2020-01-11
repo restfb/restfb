@@ -25,6 +25,7 @@ import static com.restfb.logging.RestFBLogger.UTILS_LOGGER;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * A collection of date-handling utility methods.
@@ -163,11 +164,7 @@ public final class DateUtils {
    * @return String representation of a {@code date} object. The String is in the form {@code 2010-02-28T16:11:08}
    */
   public static String toLongFormatFromDate(Date date) {
-    if (date == null) {
-      return null;
-    }
-
-    return strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE).format(date);
+    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE)::format).orElse(null);
   }
 
   /**
@@ -178,11 +175,7 @@ public final class DateUtils {
    * @return String representation of a {@code date} object. The String is in the form {@code 2019-06-14}
    */
   public static String toShortFormatFromDate(Date date) {
-    if (date == null) {
-      return null;
-    }
-
-    return strategy.formatFor(FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT).format(date);
+    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT)::format).orElse(null);
   }
 
   /**

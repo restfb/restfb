@@ -571,7 +571,7 @@ public interface FacebookClient {
     @Facebook("token_type")
     private String tokenType;
 
-    private transient FacebookClient client;
+    private FacebookClient client;
 
     public void setClient(FacebookClient client) {
       this.client = client;

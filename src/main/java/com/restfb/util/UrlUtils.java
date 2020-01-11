@@ -134,6 +134,8 @@ public final class UrlUtils {
     Map<String, List<String>> parameters = new HashMap<>();
     String[] urlParts = url.split("\\?");
 
+
+
     if (urlParts.length > 1) {
       String query = urlParts[1];
 

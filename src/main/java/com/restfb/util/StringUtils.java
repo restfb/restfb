@@ -21,8 +21,6 @@
  */
 package com.restfb.util;
 
-import static java.lang.Integer.parseInt;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

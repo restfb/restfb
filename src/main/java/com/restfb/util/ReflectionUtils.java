@@ -273,7 +273,7 @@ public final class ReflectionUtils {
         // Accessors are guaranteed to take no parameters and return a value
         buffer.append(method.invoke(object));
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object.getClass(), e);
+        throwStateException(method, object.getClass(), e);
       }
     }
 
@@ -308,7 +308,7 @@ public final class ReflectionUtils {
           hashCode = hashCode * 31 + result.hashCode();
         }
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object, e);
+        throwStateException(method, object, e);
       }
     }
 
@@ -361,7 +361,7 @@ public final class ReflectionUtils {
           return false;
         }
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke " + method, e);
+        throwStateException(method, null, e);
       }
     }
 
@@ -401,6 +401,10 @@ public final class ReflectionUtils {
     } catch (Exception e) {
       throw new FacebookJsonMappingException(errorMessage, e);
     }
+  }
+
+  private static void throwStateException(Method method, Object obj, Exception e) {
+    throw new IllegalStateException("Unable to reflectively invoke " + method + Optional.ofNullable(obj).map(o -> " on " + o).orElse(""), e);
   }
 
   /**
