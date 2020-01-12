@@ -207,7 +207,7 @@ public class DefaultJsonMapper implements JsonMapper {
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
         String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
 
-        if (!jsonObject.contains(facebookFieldName)) {
+        if (!jsonObject.contains(facebookFieldName) && !fieldWithAnnotation.getField().getType().equals(Optional.class)) {
           MAPPER_LOGGER.trace("No JSON value present for '{}', skipping. JSON is '{}'.", facebookFieldName, json);
           continue;
         }
@@ -425,6 +425,10 @@ public class DefaultJsonMapper implements JsonMapper {
       return primitiveToJsonValue(object);
     }
 
+    if (object instanceof Optional) {
+      return toJsonInternal(((Optional)object).orElse(null), ignoreNullValuedProperties);
+    }
+
     if (object instanceof BigInteger) {
       return Json.value(((BigInteger) object).longValue());
     }
@@ -469,7 +473,7 @@ public class DefaultJsonMapper implements JsonMapper {
       try {
         Object fieldValue = fieldWithAnnotation.getField().get(object);
 
-        if (!(ignoreNullValuedProperties && (fieldValue == null || isEmptyCollectionOrMap(fieldValue)))) {
+        if (!(ignoreNullValuedProperties && (fieldValue == null || (fieldValue instanceof Optional && !((Optional) fieldValue).isPresent()) || isEmptyCollectionOrMap(fieldValue)))) {
           jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
@@ -557,9 +561,13 @@ public class DefaultJsonMapper implements JsonMapper {
     Class<?> type = fieldWithAnnotation.getField().getType();
     JsonValue rawValue = jsonObject.get(facebookFieldName);
 
-    // Short-circuit right off the bat if we've got a null value.
-    if (rawValue.isNull()) {
-      return null;
+    // Short-circuit right off the bat if we've got a null value, but Optionals are created nevertheless.
+    if (rawValue == null || rawValue.isNull()) {
+      if (type.equals(Optional.class)) {
+        return Optional.empty();
+      } else {
+        return null;
+      }
     }
 
     if (String.class.equals(type)) {
@@ -621,6 +629,10 @@ public class DefaultJsonMapper implements JsonMapper {
     }
     if (Map.class.equals(type)) {
       return convertJsonObjectToMap(rawValue.toString(), fieldWithAnnotation.getField());
+    }
+
+    if (Optional.class.equals(type)) {
+      return Optional.ofNullable(toJavaObject(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));
     }
 
     if (type.isEnum()) {

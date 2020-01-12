@@ -260,10 +260,48 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void checkOptional() {
+    JavaTypeWithOptionalField type = new JavaTypeWithOptionalField();
+    type.text = Optional.of("justsometext");
+    type.number = Optional.of(123456);
+    type.emptyNumber = Optional.empty();
+    type.emptyNumberButNull = null;
+
+    String json = createJsonMapper().toJson(type);
+    AssertJson.assertEquals("{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumber\": null, \"emptyNumberButNull\": null}", json);
+  }
+
+  @Test
+  void checkOptionalNoNull() {
+    JavaTypeWithOptionalField type = new JavaTypeWithOptionalField();
+    type.text = Optional.of("justsometext");
+    type.number = Optional.of(123456);
+    type.emptyNumber = Optional.empty();
+
+    String json = createJsonMapper().toJson(type, true);
+    AssertJson.assertEquals("{ \"text\": \"justsometext\", \"number\": 123456}", json);
+  }
+
+  @Test
   void convertDate() {
     Date now = new Date(1474581731000L);
     String myDate = createJsonMapper().toJson(now);
     assertThat(myDate).isEqualTo("2016-09-22T22:02:11");
+  }
+
+  static class JavaTypeWithOptionalField {
+
+    @Facebook
+    Optional<String> text;
+
+    @Facebook
+    Optional<Integer> number;
+
+    @Facebook
+    Optional<Long> emptyNumber;
+
+    @Facebook
+    Optional<Float> emptyNumberButNull;
   }
 
   static class ListObject {

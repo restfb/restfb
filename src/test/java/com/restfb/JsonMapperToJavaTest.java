@@ -467,6 +467,20 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     });
   }
 
+  @Test
+  void jsonToObjectWithOptionals() {
+    String jsonString = "{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumberButNull\":null}";
+    JavaTypeWithOptionalField obj = createJsonMapper().toJavaObject(jsonString, JavaTypeWithOptionalField.class);
+    assertThat(obj.number).isInstanceOf(Optional.class);
+    assertThat(obj.number).hasValue(123456);
+    assertThat(obj.text).isInstanceOf(Optional.class);
+    assertThat(obj.text).hasValue("justsometext");
+    assertThat(obj.emptyNumber).isInstanceOf(Optional.class);
+    assertThat(obj.emptyNumber).isEmpty();
+    assertThat(obj.emptyNumberButNull).isInstanceOf(Optional.class);
+    assertThat(obj.emptyNumberButNull).isEmpty();
+  }
+
   static class MapTestType {
     @Facebook("my_map")
     Map<String, Long> myMap;
@@ -531,6 +545,21 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
     @Facebook
     List<Affiliation> affiliations;
+  }
+
+  static class JavaTypeWithOptionalField {
+
+    @Facebook
+    Optional<String> text;
+
+    @Facebook
+    Optional<Integer> number;
+
+    @Facebook
+    Optional<Long> emptyNumber;
+
+    @Facebook
+    Optional<Float> emptyNumberButNull;
   }
 
   static class SpecialJavaTypes {
