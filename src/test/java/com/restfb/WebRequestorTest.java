@@ -22,12 +22,15 @@
 package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.restfb.util.SoftHashMap;
 import org.junit.jupiter.api.Test;
 
 class WebRequestorTest {
@@ -80,4 +83,17 @@ class WebRequestorTest {
     assertThat(debugHeaderInfo.getPageUsage().getTotalTime()).isEqualTo(40);
     assertThat(debugHeaderInfo.getPageUsage().getTotalCputime()).isEqualTo(60);
   }
+
+  @Test
+  void checkMapSupplier() {
+    try {
+      ETagWebRequestor requestor = new ETagWebRequestor();
+      ETagWebRequestor.setMapSupplier(HashMap::new);
+      ETagWebRequestor requestor2 = new ETagWebRequestor();
+      ETagWebRequestor.setMapSupplier(SoftHashMap::new);
+    } catch (Exception e) {
+      fail("some exception occured during creating a web requestor");
+    }
+  }
+
 }
