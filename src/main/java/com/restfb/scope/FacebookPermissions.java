@@ -759,6 +759,19 @@ public enum FacebookPermissions {
   BUSINESS_MANAGEMENT("business_management", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * Grants your app the ability to create, read, update, and delete business owned product catalogs that the user is an
+   * admin of. This permission grants access to related endpoints. By default, your app may only access product catalogs
+   * that are owned by admins of the app when in developer mode.
+   * 
+   * <p>
+   * <strong>Review</strong>
+   * 
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  CATALOG_MANAGEMENT("business_management", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
    * Grants your app permission to retrieve all the information captured within a
    * <a href="https://developers.facebook.com/docs/marketing-api/guides/lead-ads/">lead.</a>
    *
