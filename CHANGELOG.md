@@ -1,5 +1,18 @@
 # RestFB Changelog
 
+## 3.1.0 (January 19, 2020)
+
+* Issue #1049: java Optional added as mapping type
+* Issue #1046 and #687: `Connection` object added as mapping field<br />
+  Thanks to @DerKeil and @StephenFlavin for the hints and the input
+* Issue #1050: `catalog_management` added to permissions 
+* Issue #422: user customized `EtagCache` can be used now
+* Issue #1044: Daily Budget field added to `AdCampaignGroup`<br />
+  Thanks to @tudorlesan for the hint
+* Issue #1045: convenience methods added to Webhook
+* Issue #1047: license info (year) updated
+* Issue #1048: version 2.11 removed from enum
+
 ## 3.0.0 (November 24, 2019)
 
 * Final Release - nothing new
