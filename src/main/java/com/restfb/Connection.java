@@ -52,6 +52,7 @@ public class Connection<T> implements Iterable<List<T>> {
   private Long totalCount;
   private String beforeCursor;
   private String afterCursor;
+  private String order;
 
   /**
    * @see java.lang.Iterable#iterator()
@@ -177,8 +178,10 @@ public class Connection<T> implements Iterable<List<T>> {
     if (jsonObject.contains("summary")) {
       JsonObject jsonSummary = jsonObject.get("summary").asObject();
       totalCount = jsonSummary.contains("total_count") ? jsonSummary.getLong("total_count", 0L) : null;
+      order = jsonSummary.getString("order","");
     } else {
       totalCount = null;
+      order = null;
     }
 
     this.data = unmodifiableList(dataItem);
@@ -284,6 +287,15 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   public Long getTotalCount() {
     return totalCount;
+  }
+
+  /**
+   * returns the order of the elements
+   *
+   * @return the order of the elements
+   */
+  public String getOrder() {
+    return order;
   }
 
   public String getBeforeCursor() {

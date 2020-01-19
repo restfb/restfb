@@ -185,6 +185,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
+    this.jsonMapper.setFacebookClient(this);
     this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
     graphFacebookExceptionGenerator = new DefaultFacebookExceptionGenerator();
   }

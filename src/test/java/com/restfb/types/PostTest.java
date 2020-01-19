@@ -22,12 +22,15 @@
 package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import com.restfb.AbstractJsonMapperTests;
+import com.restfb.*;
 
 class PostTest extends AbstractJsonMapperTests {
 
@@ -380,6 +383,25 @@ class PostTest extends AbstractJsonMapperTests {
     assertEquals("111111111", sponsorTag.getId());
   }
 
+  @Test
+  void checkNestedConnection() {
+    JsonMapper mapper = createJsonMapper();
+    FacebookClient mockClient = Mockito.mock(FacebookClient.class);
+    when(mockClient.getJsonMapper()).thenReturn(mapper);
+    mapper.setFacebookClient(mockClient);
+
+    ConnectionPost examplePost = mapper.toJavaObject(jsonFromClasspath("v5_0/post-with-comment"), ConnectionPost.class);
+    assertNotNull(examplePost);
+    assertNotNull(examplePost.getCommentsConnection());
+    assertNotNull(examplePost.getCommentsConnection().getData());
+    List<Comment> commentList = examplePost.getCommentsConnection().getData();
+    assertEquals(1, commentList.size());
+    Comment comment = commentList.get(0);
+    assertEquals("grandioses grau", comment.getMessage());
+    assertEquals(1, examplePost.getCommentsConnection().getTotalCount());
+    assertEquals("ranked", examplePost.getCommentsConnection().getOrder());
+  }
+
   private void verifyFeedTargeting(String exampleFile) {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath(exampleFile), Post.class);
     assertNotNull(examplePost);
@@ -405,5 +427,15 @@ class PostTest extends AbstractJsonMapperTests {
     assertNotNull(examplePost.getFeedTargeting().getLocales());
     assertFalse(examplePost.getFeedTargeting().getLocales().isEmpty());
     assertEquals(Integer.valueOf(23), examplePost.getFeedTargeting().getLocales().get(0));
+  }
+
+  private static class ConnectionPost extends Post {
+
+    @Facebook("comments")
+    private Connection<Comment> commentsCon;
+
+    public Connection<Comment> getCommentsConnection() {
+      return commentsCon;
+    }
   }
 }

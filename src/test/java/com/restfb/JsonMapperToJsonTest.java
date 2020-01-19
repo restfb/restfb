@@ -29,6 +29,7 @@ import java.math.BigInteger;
 import java.util.*;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.testutils.AssertJson;
@@ -283,6 +284,17 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void convertConnection() {
+    ConnectionFieldClass connectionClass = new ConnectionFieldClass();
+    connectionClass.number = 1234L;
+    connectionClass.text = "test";
+    connectionClass.myconnection = Mockito.mock(Connection.class);
+
+    String json = createJsonMapper().toJson(connectionClass, true);
+    AssertJson.assertEquals("{\"number\":1234,\"text\":\"test\"}", json);
+  }
+
+  @Test
   void convertDate() {
     Date now = new Date(1474581731000L);
     String myDate = createJsonMapper().toJson(now);
@@ -408,5 +420,17 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
     @Facebook
     BigInteger integer;
+  }
+
+  static class ConnectionFieldClass {
+
+    @Facebook
+    Connection<SpecialJavaTypes> myconnection;
+
+    @Facebook
+    Long number;
+
+    @Facebook
+    String text;
   }
 }

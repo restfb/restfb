@@ -53,6 +53,8 @@ import com.restfb.util.ReflectionUtils.*;
  */
 public class DefaultJsonMapper implements JsonMapper {
 
+  private FacebookClient facebookClient;
+
   /**
    * Helper to convert {@link JsonValue} into a given type
    */
@@ -64,6 +66,11 @@ public class DefaultJsonMapper implements JsonMapper {
    */
   public DefaultJsonMapper() {
     jsonHelper = new JsonHelper();
+  }
+
+  @Override
+  public void setFacebookClient(FacebookClient facebookClient) {
+    this.facebookClient = facebookClient;
   }
 
   @Override
@@ -207,7 +214,8 @@ public class DefaultJsonMapper implements JsonMapper {
       for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
         String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
 
-        if (!jsonObject.contains(facebookFieldName) && !fieldWithAnnotation.getField().getType().equals(Optional.class)) {
+        if (!jsonObject.contains(facebookFieldName)
+            && !fieldWithAnnotation.getField().getType().equals(Optional.class)) {
           MAPPER_LOGGER.trace("No JSON value present for '{}', skipping. JSON is '{}'.", facebookFieldName, json);
           continue;
         }
@@ -426,7 +434,7 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (object instanceof Optional) {
-      return toJsonInternal(((Optional)object).orElse(null), ignoreNullValuedProperties);
+      return toJsonInternal(((Optional) object).orElse(null), ignoreNullValuedProperties);
     }
 
     if (object instanceof BigInteger) {
@@ -473,7 +481,13 @@ public class DefaultJsonMapper implements JsonMapper {
       try {
         Object fieldValue = fieldWithAnnotation.getField().get(object);
 
-        if (!(ignoreNullValuedProperties && (fieldValue == null || (fieldValue instanceof Optional && !((Optional) fieldValue).isPresent()) || isEmptyCollectionOrMap(fieldValue)))) {
+        if (fieldValue instanceof Connection) {
+          continue;
+        }
+
+        if (!(ignoreNullValuedProperties
+            && (fieldValue == null || (fieldValue instanceof Optional && !((Optional) fieldValue).isPresent())
+                || isEmptyCollectionOrMap(fieldValue)))) {
           jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
@@ -632,7 +646,8 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (Optional.class.equals(type)) {
-      return Optional.ofNullable(toJavaObject(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));
+      return Optional.ofNullable(
+        toJavaObject(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));
     }
 
     if (type.isEnum()) {
@@ -652,6 +667,17 @@ public class DefaultJsonMapper implements JsonMapper {
 
     if (Date.class.equals(type)) {
       return DateUtils.toDateFromLongFormat(jsonHelper.getStringFrom(rawValue));
+    }
+
+    if (Connection.class.equals(type)) {
+      if (null != facebookClient) {
+        return new Connection(facebookClient, jsonHelper.getStringFrom(rawValue),
+          getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
+      } else {
+        MAPPER_LOGGER.warn(
+          "Skipping java field {}, because it has the type Connection, but the given facebook client is null",
+          fieldWithAnnotation.getField().getName());
+      }
     }
 
     String rawValueAsString = jsonHelper.getStringFrom(rawValue);

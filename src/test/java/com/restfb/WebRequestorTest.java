@@ -26,12 +26,12 @@ import static org.assertj.core.api.Assertions.fail;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.restfb.util.SoftHashMap;
 import org.junit.jupiter.api.Test;
+
+import com.restfb.util.SoftHashMap;
 
 class WebRequestorTest {
 
