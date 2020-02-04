@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.2.0 (February 5, 2020)
+
+* Issue #1055: Add One-time Notification to messenger API
+* Issue #1056: Graph API 6.0 added to `Version` enum
+
 ## 3.1.0 (January 19, 2020)
 
 * Issue #1049: java Optional added as mapping type
