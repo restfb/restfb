@@ -19,55 +19,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import com.restfb.JsonMapper;
-import com.restfb.types.send.UserRefMessageRecipient;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@ToString
-public class OptinItem implements InnerMessagingItem {
+public class OneTimeNotifMessageRecipient extends AbstractFacebookType implements MessageRecipient {
 
   @Getter
-  @Setter
-  @Facebook
-  private String ref;
-
-  @Getter
-  @Setter
-  @Facebook("user_ref")
-  private String userRef;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String payload;
-
-  @Getter
-  @Setter
   @Facebook("one_time_notif_token")
   private String oneTimeNotifToken;
 
-  @Getter
-  private UserRefMessageRecipient userRefMessageRecipient;
-
-  @JsonMapper.JsonMappingCompleted
-  private void provideRecipient() {
-    if (userRef != null) {
-      userRefMessageRecipient = new UserRefMessageRecipient(userRef);
-    }
-  }
-
-  public boolean isOneTimeNotif() {
-    return oneTimeNotifToken != null;
+  public OneTimeNotifMessageRecipient(String oneTimeNotifToken) {
+    this.oneTimeNotifToken = oneTimeNotifToken;
   }
 }
