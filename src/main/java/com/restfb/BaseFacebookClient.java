@@ -23,8 +23,7 @@ package com.restfb;
 
 import static com.restfb.util.UrlUtils.urlEncode;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -86,10 +85,9 @@ abstract class BaseFacebookClient {
    * @return A new array which contains both {@code parameter} and {@code parameters}.
    */
   protected Parameter[] parametersWithAdditionalParameter(Parameter parameter, Parameter... parameters) {
-    Parameter[] updatedParameters = new Parameter[parameters.length + 1];
-    System.arraycopy(parameters, 0, updatedParameters, 0, parameters.length);
-    updatedParameters[parameters.length] = parameter;
-    return updatedParameters;
+    Parameter[] parameterArray = Arrays.copyOf(parameters, parameters.length+1);
+    parameterArray[parameters.length] = parameter;
+    return parameterArray;
   }
 
   /**

@@ -52,15 +52,15 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
 
   private static final class SimpleDateFormatHolder {
 
-    private static final ThreadLocal<SoftReference> THREADLOCAL_FORMATTER_MAP =
-        ThreadLocal.withInitial(() -> new SoftReference<Map>(new HashMap<String, SimpleDateFormat>()));
+    private static final ThreadLocal<SoftReference<Map<String, SimpleDateFormat>>> THREADLOCAL_FORMATTER_MAP =
+        ThreadLocal.withInitial(() -> new SoftReference<>(new HashMap<>()));
 
     private static SimpleDateFormat formatFor(String pattern) {
-      SoftReference<Map> ref = THREADLOCAL_FORMATTER_MAP.get();
+      SoftReference<Map<String, SimpleDateFormat>> ref = THREADLOCAL_FORMATTER_MAP.get();
       Map<String, SimpleDateFormat> formatterMap = ref.get();
-      if (formatterMap == null) {
+      if (null == formatterMap) {
         formatterMap = new HashMap<>();
-        THREADLOCAL_FORMATTER_MAP.set(new SoftReference<Map>(formatterMap));
+        THREADLOCAL_FORMATTER_MAP.set(new SoftReference<>(formatterMap));
       }
 
       return formatterMap.computeIfAbsent(pattern, SimpleDateFormatHolder::createSDF);

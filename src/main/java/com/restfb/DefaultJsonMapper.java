@@ -351,19 +351,18 @@ public class DefaultJsonMapper implements JsonMapper {
   protected Set<String> facebookFieldNamesWithMultipleMappings(
       List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation) {
     Map<String, Integer> facebookFieldsNamesWithOccurrenceCount = new HashMap<>();
-    Set<String> facebookFieldNamesWithMultipleMappings = new HashSet<>();
 
     // Get a count of Facebook field name occurrences for each
     // @Facebook-annotated field
-    for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
-      String fieldName = getFacebookFieldName(fieldWithAnnotation);
+    fieldsWithAnnotation.forEach(field -> {
+      String fieldName = getFacebookFieldName(field);
       int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);
       facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
-    }
+    });
 
     // Pull out only those field names with multiple mappings
-    facebookFieldNamesWithMultipleMappings.addAll(facebookFieldsNamesWithOccurrenceCount.entrySet().stream()
-      .filter(entry -> entry.getValue() > 1).map(Entry::getKey).collect(Collectors.toList()));
+    Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldsNamesWithOccurrenceCount.entrySet().stream()
+      .filter(entry -> entry.getValue() > 1).map(Entry::getKey).collect(Collectors.toSet());
 
     return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
   }
@@ -521,8 +520,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
     // cleanup the json string
     if (json.length() > 1 && json.startsWith("\"") && json.endsWith("\"")) {
-      json = json.replaceFirst("\"", "");
-      json = json.substring(0, json.length() - 1);
+      json = json.substring(1, json.length() - 1);
     }
 
     if (String.class.equals(type)) {

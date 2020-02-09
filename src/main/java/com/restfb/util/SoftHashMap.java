@@ -86,11 +86,7 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable 
   @Override
   public V remove(Object key) {
     expungeStaleEntries();
-    SoftReference<V> result = hash.remove(key);
-    if (result == null) {
-      return null;
-    }
-    return result.get();
+    return Optional.ofNullable(hash.remove(key)).map(SoftReference::get).orElse(null);
   }
 
   @Override

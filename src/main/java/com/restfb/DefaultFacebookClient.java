@@ -366,8 +366,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     List<BinaryAttachment> attachments = null;
     if (binaryAttachment != null) {
-      attachments = new ArrayList<>();
-      attachments.add(binaryAttachment);
+      attachments = Collections.singletonList(binaryAttachment);
     }
 
     return publish(connection, objectType, attachments, parameters);

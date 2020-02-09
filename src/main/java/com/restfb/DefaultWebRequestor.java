@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 import com.restfb.util.StringUtils;
 import com.restfb.util.UrlUtils;
@@ -274,13 +275,13 @@ public class DefaultWebRequestor implements WebRequestor {
    * @return The form field name for the given binary attachment.
    */
   protected String createFormFieldName(BinaryAttachment binaryAttachment) {
+
     if (binaryAttachment.getFieldName() != null) {
       return binaryAttachment.getFieldName();
     }
 
     String name = binaryAttachment.getFilename();
-    int fileExtensionIndex = name.lastIndexOf('.');
-    return fileExtensionIndex > 0 ? name.substring(0, fileExtensionIndex) : name;
+    return Optional.ofNullable(name).filter(f -> f.contains(".")).map(f -> f.substring(0, f.lastIndexOf('.'))).orElse(name);
   }
 
   /**
@@ -360,25 +361,11 @@ public class DefaultWebRequestor implements WebRequestor {
     String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
     HTTP_LOGGER.debug("Facebook used the API {} to answer your request", usedApiVersion);
 
-    String fbTraceId = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-trace-id"));
-    String fbRev = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-rev"));
-    String fbDebug = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-debug"));
-    String fbAppUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-app-usage"));
-    String fbPageUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-page-usage"));
-    String fbAdAccountUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-ad-account-usage"));
-    String fbBusinessUseCaseUsage =
-        StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-business-use-case-usage"));
-
     Version usedVersion = Version.getVersionFromString(usedApiVersion);
-    debugHeaderInfo = DebugHeaderInfo.DebugHeaderInfoFactory.create().setVersion(usedVersion) // set the version
-      .setTraceId(fbTraceId) // set the Trace ID
-      .setDebug(fbDebug) // set the debug id
-      .setRev(fbRev) // set the rev field
-      .setAppUsage(fbAppUsage) // set the app usage
-      .setPageUsage(fbPageUsage) // set the page usage
-      .setAdAccountUsage(fbAdAccountUsage) // set the ad account usage
-      .setBusinessUseCaseUsage(fbBusinessUseCaseUsage) // set the business use case Usage
-      .build();
+    DebugHeaderInfo.DebugHeaderInfoFactory factory = DebugHeaderInfo.DebugHeaderInfoFactory.create().setVersion(usedVersion);
+
+    Arrays.stream(FbHeaderField.values()).forEach(f -> f.getPutHeader().accept(httpUrlConnection, factory));
+    debugHeaderInfo = factory.build();
   }
 
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
@@ -393,6 +380,31 @@ public class DefaultWebRequestor implements WebRequestor {
     }
 
     return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+  }
+
+  private enum FbHeaderField {
+    X_FB_TRACE_ID((c, f) -> f.setTraceId(getHeaderOrEmpty(c,"x-fb-trace-id"))), //
+    X_FB_REV((c, f) -> f.setRev(getHeaderOrEmpty(c,"x-fb-rev"))),
+    X_FB_DEBUG((c, f) -> f.setDebug(getHeaderOrEmpty(c,"x-fb-debug"))),
+    X_APP_USAGE((c, f) -> f.setAppUsage(getHeaderOrEmpty(c,"x-app-usage"))),
+    X_PAGE_USAGE((c, f) -> f.setPageUsage(getHeaderOrEmpty(c,"x-page-usage"))),
+    X_AD_ACCOUNT_USAGE((c, f) -> f.setAdAccountUsage(getHeaderOrEmpty(c,"x-ad-account-usage"))),
+    X_BUSINESS_USE_CASE_USAGE((c, f) -> f.setBusinessUseCaseUsage(getHeaderOrEmpty(c,"x-business-use-case-usage")));
+
+
+    private final BiConsumer<HttpURLConnection, DebugHeaderInfo.DebugHeaderInfoFactory> putHeader;
+
+    FbHeaderField(BiConsumer<HttpURLConnection, DebugHeaderInfo.DebugHeaderInfoFactory> headerFunction) {
+      this.putHeader = headerFunction;
+    }
+
+    public BiConsumer<HttpURLConnection, DebugHeaderInfo.DebugHeaderInfoFactory> getPutHeader() {
+      return putHeader;
+    }
+
+    private static String getHeaderOrEmpty(HttpURLConnection connection, String fieldName) {
+      return StringUtils.trimToEmpty(connection.getHeaderField(fieldName));
+    }
   }
 
 }

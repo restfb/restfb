@@ -109,16 +109,18 @@ public enum Version {
   }
 
   /**
-   * converts a String (for example the url paramter) into a Version object
+   * converts a String (for example the url parameter) into a Version object
    * 
-   * @param urlElement
+   * @param urlElementStr
    *          String that should
    * @return the generated version
    */
-  public static Version getVersionFromString(String urlElement) {
-    if (urlElement != null) {
-      return Stream.of(Version.values()).filter(v -> urlElement.equals(v.getUrlElement())).findFirst().orElse(UNVERSIONED);
+  public static Version getVersionFromString(String urlElementStr) {
+    if (urlElementStr != null) {
+      return Stream.of(Version.values()).filter(v -> urlElementStr.equals(v.getUrlElement())).findFirst()
+              .orElse(UNVERSIONED);
     }
+
     return UNVERSIONED;
   }
 }
