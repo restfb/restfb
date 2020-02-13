@@ -29,6 +29,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
@@ -319,21 +321,14 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   void story() {
     Set<String> actualStoryTagIds = new HashSet<>();
-    Set<String> expectedStoryTagIds = new HashSet<String>() {
-      {
-        add("123");
-        add("456");
-      }
-    };
+    Set<String> expectedStoryTagIds = Stream.of("123","456").collect(Collectors.toSet());
 
     JsonMapper jsonMapper = createJsonMapper();
     Story story = jsonMapper.toJavaObject(jsonFromClasspath("story"), Story.class);
 
     for (String fieldName : story.storyTags.names()) {
       List<StoryTag> storyTags = jsonMapper.toJavaList(story.storyTags.get(fieldName).toString(), StoryTag.class);
-
-      for (StoryTag storyTag : storyTags)
-        actualStoryTagIds.add(storyTag.id);
+      storyTags.stream().map(tag -> tag.id).forEach(actualStoryTagIds::add);
     }
 
     assertThat(actualStoryTagIds).containsExactlyElementsOf(expectedStoryTagIds);

@@ -25,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -63,12 +65,9 @@ public final class EncodingUtils {
     String padding = "";
     int remainder = base64.length() % 4;
 
-    if (remainder == 1)
-      padding = "===";
-    else if (remainder == 2)
-      padding = "==";
-    else if (remainder == 3)
-      padding = "=";
+    if (remainder > 0) {
+      padding = IntStream.range(0, 4 - remainder).mapToObj(i -> "=").collect(Collectors.joining());
+    }
 
     return base64 + padding;
   }

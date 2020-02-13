@@ -751,12 +751,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         createEndpointForApiCall(endpoint, binaryAttachments != null && !binaryAttachments.isEmpty());
     final String parameterString = toParameterString(parameters);
 
-    return makeRequestAndProcessResponse(new Requestor() {
-      /**
-       * @see com.restfb.DefaultFacebookClient.Requestor#makeRequest()
-       */
-      @Override
-      public Response makeRequest() throws IOException {
+    return makeRequestAndProcessResponse(() -> {
         if (executeAsDelete && !isHttpDeleteFallback()) {
           return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
         }
@@ -766,7 +761,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
         }
 
         return webRequestor.executeGet(fullEndpoint + "?" + parameterString);
-      }
     });
   }
 

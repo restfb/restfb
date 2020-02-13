@@ -246,12 +246,7 @@ class JsonParser_Test {
   void parse_handlesPositionsCorrectlyWhenInputExceedsBufferSize() {
     final String input = "{\n  \"a\": 23,\n  \"b\": 42,\n}";
 
-    ParseException exception = assertException(ParseException.class, new RunnableEx() {
-      public void run() throws IOException {
-        parser.parse(new StringReader(input), 3);
-      }
-    });
-
+    ParseException exception = assertException(ParseException.class, (RunnableEx) () -> parser.parse(new StringReader(input), 3));
     assertEquals(new Location(24, 4, 1), exception.getLocation());
   }
 
