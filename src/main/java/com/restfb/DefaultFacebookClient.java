@@ -242,23 +242,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
     verifyParameterPresence("connection", connection);
     verifyParameterPresence("connectionType", connectionType);
-    Connection<T> conn = new Connection<>(this, makeRequest(connection, parameters), connectionType);
-
-    if (conn.getNextPageUrl() == null && conn.getAfterCursor() != null) {
-      String fullUrl = createEndpointForApiCall(connection, false);
-      String paramString = toParameterString(parameters);
-      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl + "?" + paramString, "after", conn.getAfterCursor());
-      conn.setNextPageUrl(fullUrl);
-    }
-
-    if (conn.getPreviousPageUrl() == null && conn.getBeforeCursor() != null) {
-      String fullUrl = createEndpointForApiCall(connection, false);
-      String paramString = toParameterString(parameters);
-      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl + "?" + paramString, "before", conn.getBeforeCursor());
-      conn.setPreviousPageUrl(fullUrl);
-    }
-
-    return conn;
+    return new Connection<>(this, makeRequest(connection, parameters), connectionType);
   }
 
   /**
@@ -274,21 +258,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(connectionPageUrl));
     }
 
-    Connection<T> conn = new Connection<>(this, connectionJson, connectionType);
-
-    if (conn.getNextPageUrl() == null && conn.getAfterCursor() != null) {
-      String fullUrl = UrlUtils.removeQueryParameter(connectionPageUrl, "before");
-      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl, "after", conn.getAfterCursor());
-      conn.setNextPageUrl(fullUrl);
-    }
-
-    if (conn.getPreviousPageUrl() == null && conn.getBeforeCursor() != null) {
-      String fullUrl = UrlUtils.removeQueryParameter(connectionPageUrl, "after");
-      fullUrl = UrlUtils.replaceOrAddQueryParameter(fullUrl, "before", conn.getBeforeCursor());
-      conn.setPreviousPageUrl(fullUrl);
-    }
-
-    return conn;
+    return new Connection<>(this, connectionJson, connectionType);
   }
 
   /**

@@ -157,36 +157,10 @@ class ConnectionTest extends AbstractJsonMapperTests {
     Connection<FacebookType> connection = createCursorConnection(true);
     assertThat(connection.getAfterCursor()).isEqualTo("NzU1MjI1MjU0");
     assertThat(connection.getBeforeCursor()).isEqualTo("MTY1MTAyNjUxNg==");
-    assertThat(connection.hasNext()).isTrue();
-    assertThat(connection.hasPrevious()).isTrue();
-    assertThat(connection.getNextPageUrl()).isNotNull().contains("cursor").contains("&after=NzU1MjI1MjU0");
-    assertThat(connection.getPreviousPageUrl()).isNotNull().contains("cursor").contains("&before=MTY1MTAyNjUxNg==");
-  }
-
-  @Test
-  void checkIteration_withCursorOnly() {
-    Connection<FacebookType> connection = create3PageConnectionWithCursorOnly();
-
-    assertThat(connection.getAfterCursor()).isEqualTo("cursor-p1-after");
-    assertThat(connection.getBeforeCursor()).isNull();
-    assertThat(connection.getNextPageUrl()).isNotNull().contains("page1");
-    assertThat(connection.getPreviousPageUrl()).isNull();
-
-    connection = connection.fetchNextPage();
-
-    assertThat(connection.getAfterCursor()).isEqualTo("cursor-p2-after");
-    assertThat(connection.getBeforeCursor()).isEqualTo("cursor-p2-before");
-    assertThat(connection.getNextPageUrl()).isNotNull().contains("page1");
-    assertThat(connection.getPreviousPageUrl()).isNotNull().contains("page1");
-
-    connection = connection.fetchNextPage();
-
-    assertThat(connection.getAfterCursor()).isNull();
-    assertThat(connection.getBeforeCursor()).isEqualTo("cursor-p3-before");
-    assertThat(connection.getNextPageUrl()).isNull();
-    assertThat(connection.getPreviousPageUrl()).isNotNull().contains("page1");
-
     assertThat(connection.hasNext()).isFalse();
+    assertThat(connection.hasPrevious()).isFalse();
+    assertThat(connection.getNextPageUrl()).isNull();
+    assertThat(connection.getPreviousPageUrl()).isNull();
   }
 
   @Test

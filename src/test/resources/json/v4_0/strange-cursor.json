@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "name": "John Doe",
+      "id": "randomId"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "QVFIUlNEN1BWay1jWVVfN05JSUt2Ri1FVEJ5dXBYa2dBTVNlb2N6UDlxbDlSNXMxLUJIekVtVEd3TmhGQ2tKOXhRU3lfTTZAxNnAxMHJfME4xWlMyRHZAtekZAR",
+      "after": "QVFIUlNEN1BWay1jWVVfN05JSUt2Ri1FVEJ5dXBYa2dBTVNlb2N6UDlxbDlSNXMxLUJIekVtVEd3TmhGQ2tKOXhRU3lfTTZAxNnAxMHJfME4xWlMyRHZAtekZAR"
+    },
+    "next": "https://graph.facebook.com/v4.0/1332043400283557/friends?access_token=EAAG9BkJsduIBAJTdqdUJ4BYw9thbjDwGE30NbhMFHBBvxNAcOZAyRrzWwDohPfqEo8Iz55jt6zxfx4OJYu3wRZBxZADbg4t5e4GUJJ4eFiZCoZAPLhoHJQDP9RMnnq14y0nXFJz0ddwlh0udNzuhOMuUP7WWywOZCsr4rZBG7psD6HksNUNDdgjftZBc5T4A7LOeR0KCDZA7nbAZDZD&pretty=0&limit=1&after=QVFIUlNEN1BWay1jWVVfN05JSUt2Ri1FVEJ5dXBYa2dBTVNlb2N6UDlxbDlSNXMxLUJIekVtVEd3TmhGQ2tKOXhRU3lfTTZAxNnAxMHJfME4xWlMyRHZAtekZAR"
+  },
+  "summary": {
+    "total_count": 17
+  }
+}
