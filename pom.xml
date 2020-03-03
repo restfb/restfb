@@ -262,6 +262,7 @@
             <exclude>build/**</exclude>
             <exclude>template.mf</exclude>
             <exclude>pom.xml.asc</exclude>
+            <exclude>.github/**</exclude>
             <exclude>src/main/java/com/restfb/json/**</exclude>
             <exclude>src/test/java/com/restfb/json/**</exclude>
             <exclude>src/test/resources/**</exclude>
