@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.3.0 (March 3, 2020)
+
+* Issue #1059: Connection hasNext() returns false even if there is a next page<br />
+  Thanks to @ciprian197 for the bug report
+
 ## 3.2.0 (February 5, 2020)
 
 * Issue #1055: Add One-time Notification to messenger API
