@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.4.0 (March 8, 2020)
+
+* Issue #1062 and #1063: Provide way to send binary data with send api<br />
+  Thanks to @torbenw for the hint
+
 ## 3.3.0 (March 3, 2020)
 
 * Issue #1059: Connection hasNext() returns false even if there is a next page<br />
