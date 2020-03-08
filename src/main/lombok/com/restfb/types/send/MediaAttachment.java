@@ -44,6 +44,11 @@ public class MediaAttachment extends MessageAttachment {
     }
   }
 
+  public MediaAttachment(Type type) {
+    setType(type.toString().toLowerCase());
+    payload = new UploadPayload();
+  }
+
   public MediaAttachment(List<MediaTemplateElement> elements) {
     setType(Type.TEMPLATE.toString().toLowerCase());
     payload = new MediaTemplatePayload(elements);
@@ -65,6 +70,23 @@ public class MediaAttachment extends MessageAttachment {
 
     public UrlPayload(String urlString) {
       url = urlString;
+    }
+
+    @Override
+    public void setIsReusable(boolean isReusable) {
+      this.isReusable = isReusable;
+    }
+
+  }
+
+  private static class UploadPayload extends AbstractFacebookType implements MediaAttachmentPayload {
+
+    @Getter
+    @Facebook("is_reusable")
+    private Boolean isReusable;
+
+    public UploadPayload() {
+      // empty constructor
     }
 
     @Override

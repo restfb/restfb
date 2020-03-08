@@ -246,6 +246,31 @@ class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void messageUploadAttachment() {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{},\"type\":\"image\"}}",
+            recipientJsonString);
+  }
+
+  @Test
+  void messageUploadAttachmentReusable() {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE);
+    attachment.setIsReusable(true);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"is_reusable\":true},\"type\":\"image\"}}",
+            recipientJsonString);
+  }
+
+  @Test
   void messageLocationAttachment() {
     LocationAttachment attachment = new LocationAttachment(20, 30);
     Message recipient = new Message(attachment);
