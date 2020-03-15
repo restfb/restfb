@@ -116,6 +116,14 @@ public class AdCreative extends NamedAdsObject {
   private String applinkTreatment;
 
   /**
+   * Used for Dynamic Creative to automatically experiment and deliver different variations of an ad's creative.
+   */
+  @Getter
+  @Setter
+  @Facebook("asset_feed_spec")
+  private AdAssetFeedSpec assetFeedSpec;
+
+  /**
    * The body of the ad
    *
    * -- GETTER --
