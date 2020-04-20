@@ -21,6 +21,7 @@
  */
 package com.restfb.exception;
 
+import com.restfb.DebugHeaderInfo;
 import com.restfb.json.JsonObject;
 
 /**
@@ -31,6 +32,8 @@ import com.restfb.json.JsonObject;
 public abstract class FacebookErrorMessageException extends FacebookException {
 
   private JsonObject rawErrorJson;
+
+  private DebugHeaderInfo debugHeaderInfo;
 
   public FacebookErrorMessageException(String message) {
     super(message);
@@ -51,5 +54,20 @@ public abstract class FacebookErrorMessageException extends FacebookException {
 
   protected void setRawErrorJson(JsonObject rawError) {
     rawErrorJson = rawError;
+  }
+
+  /**
+   * returns the debug header info that is connected with this Facebook call.
+   *
+   * you can get information like trace ids, limits and more.
+   * 
+   * @return the DebugHeaderInfo or null
+   */
+  public DebugHeaderInfo getDebugHeaderInfo() {
+    return debugHeaderInfo;
+  }
+
+  public void setDebugHeaderInfo(DebugHeaderInfo debugHeaderInfo) {
+    this.debugHeaderInfo = debugHeaderInfo;
   }
 }

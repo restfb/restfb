@@ -51,7 +51,6 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.EncodingUtils;
 import com.restfb.util.StringUtils;
-import com.restfb.util.UrlUtils;
 
 /**
  * Default implementation of a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client.
@@ -792,8 +791,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String json = response.getBody();
 
-    // If the response contained an error code, throw an exception.
-    getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
+    try {
+      // If the response contained an error code, throw an exception.
+      getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(json, response.getStatusCode());
+    } catch (FacebookErrorMessageException feme) {
+      Optional.ofNullable(getWebRequestor()).map(WebRequestor::getDebugHeaderInfo).ifPresent(feme::setDebugHeaderInfo);
+      throw feme;
+    }
 
     // If there was no response error information and this was a 500 or 401
     // error, something weird happened on Facebook's end. Bail.

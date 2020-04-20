@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ import com.restfb.util.StringUtils;
 
 import lombok.Getter;
 
-public class DebugHeaderInfo {
+public class DebugHeaderInfo implements Serializable {
 
   /**
    * x-fb-debug
@@ -193,7 +194,7 @@ public class DebugHeaderInfo {
    *
    * This usage object is used in Graph API 3.3+ and provides access to the complete set of inner objects.
    */
-  public static class BusinessUseCaseUsage {
+  public static class BusinessUseCaseUsage implements Serializable {
 
     private Map<String, List<InnerBusinessUseCaseUsage>> usageMap = new HashMap<>();
 
@@ -231,7 +232,7 @@ public class DebugHeaderInfo {
 
   }
 
-  public static class InnerBusinessUseCaseUsage {
+  public static class InnerBusinessUseCaseUsage implements Serializable {
 
     /**
      * Percentage of calls made for this business id/business ad account
@@ -270,7 +271,7 @@ public class DebugHeaderInfo {
 
   }
 
-  public static class HeaderUsage {
+  public static class HeaderUsage implements Serializable {
 
     HeaderUsage(String percentage) {
       this.percentage = percentage;
@@ -315,7 +316,7 @@ public class DebugHeaderInfo {
 
   }
 
-  public static class DebugHeaderInfoFactory {
+  public static class DebugHeaderInfoFactory implements Serializable {
 
     private String debug;
     private String rev;
