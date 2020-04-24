@@ -52,7 +52,7 @@ jobs:
           key: circleci-restfb-{{ checksum "pom.xml" }}
       - run:
           name: Analyze on SonarCloud
-          command: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.sources=src/main/java,target/generated-sources/delombok
+          command: mvn -B verify sonar:sonar -Dsonar.sources=src/main/java,target/generated-sources/delombok
       - save_cache:
           paths:
             - ~/.m2

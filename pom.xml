@@ -301,6 +301,26 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.5</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <pluginRepositories>
@@ -354,7 +374,6 @@
               <linksource>true</linksource>
               <doclint>none</doclint>
               <source>8</source>
-              <additionalOptions>--no-module-directories</additionalOptions>
               <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
               <links>
                 <link>https://docs.oracle.com/javase/8/docs/api/</link>
