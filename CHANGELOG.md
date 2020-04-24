@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 3.5.0 (April 24, 2020)
+
+* Issue #1065: Asset Feed Spec (Ad Creative) support<br />
+  Thanks to @NenadP for the hint
+* Issue #1066: Add DebugHeaderInfo to all exception message when available<br />
+  Thanks to @StephenFlavin for the hint
+
 ## 3.4.0 (March 8, 2020)
 
 * Issue #1062 and #1063: Provide way to send binary data with send api<br />
