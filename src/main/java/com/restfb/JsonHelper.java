@@ -166,4 +166,19 @@ class JsonHelper {
       return new BigDecimal(json.toString());
     }
   }
+
+  /**
+   * removes starting and ending double quote from a input String
+   * 
+   * @param jsonInput
+   *          input JSON string
+   * @return the cleaned input string without leading and ending double quote
+   */
+  public String cleanString(String jsonInput) {
+    if (jsonInput.length() > 1 && jsonInput.startsWith("\"") && jsonInput.endsWith("\"")) {
+      return jsonInput.substring(1, jsonInput.length() - 1);
+    }
+
+    return jsonInput;
+  }
 }

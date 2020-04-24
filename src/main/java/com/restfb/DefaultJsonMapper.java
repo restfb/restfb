@@ -403,6 +403,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
     if (object instanceof List<?>) {
       JsonArray jsonArray = new JsonArray();
+
       for (Object o : (List<?>) object)
         jsonArray.add(toJsonInternal(o, ignoreNullValuedProperties));
 
@@ -519,9 +520,7 @@ public class DefaultJsonMapper implements JsonMapper {
   protected <T> T toPrimitiveJavaType(String json, Class<T> type) {
 
     // cleanup the json string
-    if (json.length() > 1 && json.startsWith("\"") && json.endsWith("\"")) {
-      json = json.substring(1, json.length() - 1);
-    }
+    json = jsonHelper.cleanString(json);
 
     if (String.class.equals(type)) {
       return (T) json;
