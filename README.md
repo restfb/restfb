@@ -42,10 +42,10 @@ a JavaFX code sample that shows how an embedded browser is used to fetch a user 
 ## Sponsors and Backers
 
 You like RestFB and you like to support the development, but you cannot contribute any code? Then we have good news for 
-you. We started an [OpenCollective](https://opencollective.com/restfb) page and you or your company can be a RestFB backer or sponsor. You even get a place 
-on the official RestFB website with your name, company logo, link and more.
+you. We added the *sponsor* button to this repository and you can join the list of sponsors with a simple click.
 
-[Please check this new way to contribute](https://opencollective.com/restfb) 
+Please check the different tiers. We have a suitable for everyone. Depending on the tier, you even get a place 
+on the official [RestFB](https://restfb.com) website with your name, company logo, link and more. 
 
 ## Getting in touch
 
