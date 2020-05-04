@@ -31,13 +31,6 @@ public enum Version {
   UNVERSIONED(null),
 
   /**
-   * <tt>Graph API 2.12</tt>, available until May 1, 2020
-   *
-   * @since January 30, 2018
-   */
-  VERSION_2_12("v2.12"),
-
-  /**
    * <tt>Graph API 3.0</tt>, available until July 26, 2020
    *
    * @since May 1, 2018

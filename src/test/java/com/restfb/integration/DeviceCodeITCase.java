@@ -37,7 +37,7 @@ class DeviceCodeITCase extends RestFbIntegrationTestBase {
 
   @Test
   void fetchDeviceCode() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppId(), Version.VERSION_2_12);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppId(), Version.VERSION_3_0);
     ScopeBuilder scope = new ScopeBuilder();
     DeviceCode deviceCode = client.fetchDeviceCode(scope);
     assertNotNull(deviceCode);
@@ -62,6 +62,5 @@ class DeviceCodeITCase extends RestFbIntegrationTestBase {
       count--;
     } while (count > 0 && token == null);
     assertNotNull(token);
-
   }
 }

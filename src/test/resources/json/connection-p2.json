@@ -26,8 +26,8 @@
     }
   ],
   "paging": {
-    "previous": "https://graph.facebook.com/v2.12/page1?access_token=token&format=json",
-    "next": "https://graph.facebook.com/v2.12/page3?access_token=token&format=json"
+    "previous": "https://graph.facebook.com/v3.0/page1?access_token=token&format=json",
+    "next": "https://graph.facebook.com/v3.0/page3?access_token=token&format=json"
   },
   "summary": {
     "total_count": 18
