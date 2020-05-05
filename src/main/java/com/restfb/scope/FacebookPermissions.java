@@ -23,6 +23,10 @@ package com.restfb.scope;
 
 import com.restfb.annotation.GraphAPI;
 
+/**
+ * Please check the permission dependencies
+ * <a href="https://developers.facebook.com/docs/pages/overview-1#permission-dependencies">here</a>
+ */
 public enum FacebookPermissions {
   /**
    * Provides access to a subset of items that are part of a person's public profile.
@@ -475,7 +479,72 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it. You can grant this
    * permission on behalf of people listed within the Roles section of your App's Dashboard without review by Facebook.
    */
+  @Deprecated
   MANAGE_PAGES("manage_pages", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_ads} permission allows your app the ability to manage ads associated with the Page.
+   * 
+   * <p>
+   * You can use this permission to create and manage ads for the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_ADS("pages_manage_ads", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_metadata} permission allows you to subscribe and receive webhooks about activity on the
+   * Page, and to update settings on the Page.
+   * 
+   * <p>
+   * You can use this permission if you need it to help the Page Admin administer and manage the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_METADATA("pages_manage_metadata", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_read_engagement} permission allows your app the ability to read content (posts, photos, videos,
+   * events) posted by the Page, read followers data including name, PSID, and profile picture, and read metadata and
+   * other insights about the Page.
+   * 
+   * <p>
+   * You can use this permission if you need it to help the Page Admin administer and manage the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_READ_ENGAGEMENT("pages_read_engagement", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_read_user_content} permission allows your app the ability to read User generated content on the
+   * Page, such as posts, comments, and ratings by Users or other Pages, and to delete User comments on Page posts.
+   *
+   * <p>
+   * It also allows your app to read posts that the Page is tagged in.
+   *
+   * <p>
+   * You can use this permission to read Users and other Page’s content posted on the Page if you need it to help manage
+   * the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_READ_USER_CONTENT("pages_read_user_content", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Provides the access to manage call to actions of the Pages that you manage.
@@ -597,7 +666,48 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   @GraphAPI(since = "2.3")
+  @Deprecated
   PUBLISH_PAGES("publish_pages", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_posts} permission allows your app the ability to create, edit, and delete your Page posts.
+   *
+   * <p>
+   * If you have access to {@code pages_read_user_content}, you can also use {@code pages_manage_posts} to delete Page
+   * posts created by a User.
+   *
+   * <p>
+   * You can use this permission to create and delete content on the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_POSTS("pages_manage_posts", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_engagement} permission allows your app the ability to create, edit, and delete comments
+   * posted on the Page.
+   *
+   * <p>
+   * If you have access to {@code pages_read_user_content}, you can also use {@code pages_manage_engagement} to delete
+   * comments posted by other Pages.
+   *
+   * <p>
+   * It also allows your app the ability to create and delete your own Page's likes to Page content.
+   *
+   * <p>
+   * You can use this permission if you need it to help manage and moderate content on the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_ENGAGEMENT("pages_manage_engagement", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Gives an app the ability to post content into a group on behalf of a user who has granted the app this permission.
