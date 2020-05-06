@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 3.6.0 (May 6, 2020)
+
+* Graph API 7.0:
+  * Issue #1071: version added to `Version` enum
+  * Issue #1072: new permissions added, old ones marked as deprecated
+* Issue #1070: deprecated version 2.12 remove from `Version` enum
+
 ## 3.5.0 (April 24, 2020)
 
 * Issue #1065: Asset Feed Spec (Ad Creative) support<br />
