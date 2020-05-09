@@ -336,12 +336,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
       Parameter... parameters) {
-
-    List<BinaryAttachment> attachments = null;
-    if (binaryAttachment != null) {
-      attachments = Collections.singletonList(binaryAttachment);
-    }
-
+    List<BinaryAttachment> attachments = Optional.ofNullable(binaryAttachment).map(Collections::singletonList).orElse(null);
     return publish(connection, objectType, attachments, parameters);
   }
 
