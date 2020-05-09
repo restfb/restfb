@@ -58,6 +58,10 @@ import com.restfb.util.StringUtils;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class DefaultFacebookClient extends BaseFacebookClient implements FacebookClient {
+  public static final String CLIENT_ID = "client_id";
+  public static final String APP_ID = "appId";
+  public static final String APP_SECRET = "appSecret";
+  public static final String SCOPE = "scope";
   /**
    * Graph API access token.
    */
@@ -185,7 +189,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.webRequestor = webRequestor;
     this.jsonMapper = jsonMapper;
     this.jsonMapper.setFacebookClient(this);
-    this.apiVersion = (null == apiVersion) ? Version.UNVERSIONED : apiVersion;
+    this.apiVersion = Optional.ofNullable(apiVersion).orElse(Version.UNVERSIONED);
     graphFacebookExceptionGenerator = new DefaultFacebookExceptionGenerator();
   }
 
@@ -401,14 +405,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public List<AccessToken> convertSessionKeysToAccessTokens(String appId, String secretKey, String... sessionKeys) {
-    verifyParameterPresence("appId", appId);
+    verifyParameterPresence(APP_ID, appId);
     verifyParameterPresence("secretKey", secretKey);
 
     if (sessionKeys == null || sessionKeys.length == 0) {
       return emptyList();
     }
 
-    String json = makeRequest("/oauth/exchange_sessions", true, false, null, Parameter.with("client_id", appId),
+    String json = makeRequest("/oauth/exchange_sessions", true, false, null, Parameter.with(CLIENT_ID, appId),
       Parameter.with("client_secret", secretKey), Parameter.with("sessions", String.join(",", sessionKeys)));
 
     return jsonMapper.toJavaList(json, AccessToken.class);
@@ -419,11 +423,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public AccessToken obtainAppAccessToken(String appId, String appSecret) {
-    verifyParameterPresence("appId", appId);
-    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence(APP_ID, appId);
+    verifyParameterPresence(APP_SECRET, appSecret);
 
     String response = makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
-      Parameter.with("client_id", appId), Parameter.with("client_secret", appSecret));
+      Parameter.with(CLIENT_ID, appId), Parameter.with("client_secret", appSecret));
 
     try {
       return getAccessTokenFromResponse(response);
@@ -434,13 +438,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public DeviceCode fetchDeviceCode(ScopeBuilder scope) {
-    verifyParameterPresence("scope", scope);
+    verifyParameterPresence(SCOPE, scope);
 
     Optional.ofNullable(accessToken)
       .orElseThrow(() -> new IllegalStateException("access token is required to fetch a device access token"));
 
     String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),
-      Parameter.with("scope", scope.toString()));
+      Parameter.with(SCOPE, scope.toString()));
     return jsonMapper.toJavaObject(response, DeviceCode.class);
   }
 
@@ -468,11 +472,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public AccessToken obtainUserAccessToken(String appId, String appSecret, String redirectUri,
       String verificationCode) {
-    verifyParameterPresence("appId", appId);
-    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence(APP_ID, appId);
+    verifyParameterPresence(APP_SECRET, appSecret);
     verifyParameterPresence("verificationCode", verificationCode);
 
-    String response = makeRequest("oauth/access_token", Parameter.with("client_id", appId),
+    String response = makeRequest("oauth/access_token", Parameter.with(CLIENT_ID, appId),
       Parameter.with("client_secret", appSecret), Parameter.with("code", verificationCode),
       Parameter.with("redirect_uri", redirectUri));
 
@@ -488,11 +492,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {
-    if (accessToken == null) {
-      throw new IllegalStateException(
+    Optional.ofNullable(accessToken)
+      .orElseThrow(() -> new IllegalStateException(
         format("You cannot call this method because you did not construct this instance of %s with an access token.",
-          getClass().getSimpleName()));
-    }
+          getClass().getSimpleName())));
 
     return obtainExtendedAccessToken(appId, appSecret, accessToken);
   }
@@ -502,11 +505,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken) {
-    verifyParameterPresence("appId", appId);
-    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence(APP_ID, appId);
+    verifyParameterPresence(APP_SECRET, appSecret);
     verifyParameterPresence("accessToken", accessToken);
 
-    String response = makeRequest("/oauth/access_token", false, false, null, Parameter.with("client_id", appId),
+    String response = makeRequest("/oauth/access_token", false, false, null, Parameter.with(CLIENT_ID, appId),
       Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),
       Parameter.with("fb_exchange_token", accessToken));
 
@@ -533,7 +536,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @SuppressWarnings("unchecked")
   public <T> T parseSignedRequest(String signedRequest, String appSecret, Class<T> objectType) {
     verifyParameterPresence("signedRequest", signedRequest);
-    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence(APP_SECRET, appSecret);
     verifyParameterPresence("objectType", objectType);
 
     String[] signedRequestTokens = signedRequest.split("[.]");
@@ -584,16 +587,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
-    verifyParameterPresence("appId", appId);
+    verifyParameterPresence(APP_ID, appId);
     verifyParameterPresence("redirectUri", redirectUri);
-    verifyParameterPresence("scope", scope);
+    verifyParameterPresence(SCOPE, scope);
 
     String dialogUrl = getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth";
 
     List<Parameter> parameterList = new ArrayList<>();
-    parameterList.add(Parameter.with("client_id", appId));
+    parameterList.add(Parameter.with(CLIENT_ID, appId));
     parameterList.add(Parameter.with("redirect_uri", redirectUri));
-    parameterList.add(Parameter.with("scope", scope.toString()));
+    parameterList.add(Parameter.with(SCOPE, scope.toString()));
 
     // add optional parameters
     Collections.addAll(parameterList, parameters);
@@ -616,7 +619,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @return {@code true} if the signed request is verified, {@code false} if not.
    */
   protected boolean verifySignedRequest(String appSecret, String algorithm, String encodedPayload, byte[] signature) {
-    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence(APP_SECRET, appSecret);
     verifyParameterPresence("algorithm", algorithm);
     verifyParameterPresence("encodedPayload", encodedPayload);
     verifyParameterPresence("signature", signature);
@@ -739,7 +742,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public String obtainAppSecretProof(String accessToken, String appSecret) {
     verifyParameterPresence("accessToken", accessToken);
-    verifyParameterPresence("appSecret", appSecret);
+    verifyParameterPresence(APP_SECRET, appSecret);
     return EncodingUtils.encodeAppSecretProof(appSecret, accessToken);
   }
 

@@ -35,6 +35,26 @@ import org.junit.jupiter.api.Test;
 class UrlUtilsTest {
 
   @Test
+  void urlEncode_null() {
+    assertThat(UrlUtils.urlEncode(null)).isNull();
+  }
+
+  @Test
+  void urlEncode_string() {
+    assertThat(UrlUtils.urlEncode("This is a string")).isEqualTo("This+is+a+string");
+  }
+
+  @Test
+  void urlDecode_null() {
+    assertThat(UrlUtils.urlDecode(null)).isNull();
+  }
+
+  @Test
+  void urlDecode_string() {
+    assertThat(UrlUtils.urlDecode("This+is+a+string")).isEqualTo("This is a string");
+  }
+
+  @Test
   void queryString() {
     assertThat(extractParametersFromQueryString(null)).isEmpty();
     assertThat(extractParametersFromQueryString("")).isEmpty();
@@ -56,6 +76,30 @@ class UrlUtilsTest {
     String exampleUrl = "http://www.example.com?access_token=123&before=1234";
     String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
     String expectedURL = "http://www.example.com?access_token=123&before=56789";
+    assertThat(resultURL).isEqualTo(expectedURL);
+  }
+
+  @Test
+  void removeParameter_lastParameter() {
+    String exampleUrl = "http://www.example.com?access_token=123&before=1234";
+    String resultURL = UrlUtils.removeQueryParameter(exampleUrl, "before");
+    String expectedURL = "http://www.example.com?access_token=123";
+    assertThat(resultURL).isEqualTo(expectedURL);
+  }
+
+  @Test
+  void removeParameter_firstParameter() {
+    String exampleUrl = "http://www.example.com?access_token=123&before=1234";
+    String resultURL = UrlUtils.removeQueryParameter(exampleUrl, "access_token");
+    String expectedURL = "http://www.example.com?before=1234";
+    assertThat(resultURL).isEqualTo(expectedURL);
+  }
+
+  @Test
+  void removeParameter_middleParameter() {
+    String exampleUrl = "http://www.example.com?access_token=123&first=6543&before=1234";
+    String resultURL = UrlUtils.removeQueryParameter(exampleUrl, "first");
+    String expectedURL = "http://www.example.com?access_token=123&before=1234";
     assertThat(resultURL).isEqualTo(expectedURL);
   }
 
