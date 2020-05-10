@@ -40,7 +40,7 @@ import com.restfb.exception.FacebookLoggerException;
  */
 public abstract class RestFBLogger {
 
-  private static Class usedLoggerClass = null;
+  private static Class<? extends RestFBLogger> usedLoggerClass = null;
 
   public static final RestFBLogger HTTP_LOGGER;
 
@@ -53,7 +53,7 @@ public abstract class RestFBLogger {
   public static final RestFBLogger VALUE_FACTORY_LOGGER;
 
   static {
-    Class loggerClass;
+    Class<? extends RestFBLogger> loggerClass;
 
     String forceJUL = System.getProperty("com.restfb.forceJUL", "false");
     if (!Boolean.parseBoolean(forceJUL)) {
@@ -90,7 +90,7 @@ public abstract class RestFBLogger {
     Class[] ctrTypes = new Class[] { String.class };
     Object[] ctrArgs = new Object[] { logCategory };
     try {
-      Constructor loggerClassConstructor = usedLoggerClass.getConstructor(ctrTypes);
+      Constructor<? extends RestFBLogger> loggerClassConstructor = usedLoggerClass.getConstructor(ctrTypes);
       obj = loggerClassConstructor.newInstance(ctrArgs);
     } catch (Exception e) {
       throw new FacebookLoggerException("cannot create logger: " + logCategory);
