@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 3.6.1 (May 17, 2020)
+
+* many cleanups without special issues
+
 ## 3.6.0 (May 6, 2020)
 
 * Graph API 7.0:
