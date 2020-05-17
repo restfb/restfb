@@ -215,9 +215,7 @@ public final class ReflectionUtils {
    * @return All accessor methods for the given {@code clazz}.
    */
   public static List<Method> getAccessors(Class<?> clazz) {
-    if (clazz == null) {
-      throw new IllegalArgumentException("The 'clazz' parameter cannot be null.");
-    }
+    ObjectUtil.requireNotNull(clazz, () -> new IllegalArgumentException("The 'clazz' parameter cannot be null."));
 
     List<Method> methods = new ArrayList<>();
     for (Method method : clazz.getMethods()) {
@@ -389,10 +387,7 @@ public final class ReflectionUtils {
 
     try {
       Constructor<T> defaultConstructor = type.getDeclaredConstructor();
-
-      if (defaultConstructor == null) {
-        throw new FacebookJsonMappingException("Unable to find a default constructor for " + type);
-      }
+      ObjectUtil.requireNotNull(defaultConstructor, () -> new FacebookJsonMappingException("Unable to find a default constructor for " + type));
 
       // Allows protected, private, and package-private constructors to be
       // invoked

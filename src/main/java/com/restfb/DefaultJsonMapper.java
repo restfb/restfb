@@ -43,6 +43,7 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
 import com.restfb.types.Comments;
 import com.restfb.util.DateUtils;
+import com.restfb.util.ObjectUtil;
 import com.restfb.util.StringJsonUtils;
 import com.restfb.util.ReflectionUtils.*;
 
@@ -75,9 +76,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
-    type = Optional.ofNullable(type)
-      .orElseThrow(() -> new FacebookJsonMappingException("You must specify the Java type to map to."));
-
+    ObjectUtil.requireNotNull(type, () -> new FacebookJsonMappingException("You must specify the Java type to map to."));
     json = trimToEmpty(json);
 
     if (isBlank(json)) {
@@ -229,15 +228,15 @@ public class DefaultJsonMapper implements JsonMapper {
         // when mapping to the Java field. This is because Facebook will
         // sometimes return data in different formats for the same field name.
         // See issues 56 and 90 for examples of this behavior and discussion.
-        if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
-          try {
-            fieldWithAnnotation.getField().set(instance,
-              toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
-          } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {
+        try {
+          fieldWithAnnotation.getField().set(instance,
+                  toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+        } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {
+          if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
+          } else {
+            throw e;
           }
-        } else {
-          fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
         }
       }
 

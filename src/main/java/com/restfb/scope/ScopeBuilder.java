@@ -27,10 +27,9 @@ import java.util.stream.Collectors;
 
 public class ScopeBuilder {
 
-  private final List<FacebookPermissions> permissions;
+  private final List<FacebookPermissions> permissions = new ArrayList<>();
 
   public ScopeBuilder(boolean withoutPublicProfile) {
-    this.permissions = new ArrayList<>();
     if (!withoutPublicProfile) {
       permissions.add(FacebookPermissions.PUBLIC_PROFILE);
     }

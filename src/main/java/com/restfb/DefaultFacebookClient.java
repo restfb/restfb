@@ -50,6 +50,7 @@ import com.restfb.json.*;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.EncodingUtils;
+import com.restfb.util.ObjectUtil;
 import com.restfb.util.StringUtils;
 
 /**
@@ -434,9 +435,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public DeviceCode fetchDeviceCode(ScopeBuilder scope) {
     verifyParameterPresence(SCOPE, scope);
-
-    Optional.ofNullable(accessToken)
-      .orElseThrow(() -> new IllegalStateException("access token is required to fetch a device access token"));
+    ObjectUtil.requireNotNull(accessToken, () -> new IllegalStateException("access token is required to fetch a device access token"));
 
     String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),
       Parameter.with(SCOPE, scope.toString()));
@@ -448,7 +447,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
     verifyParameterPresence("code", code);
 
-    Optional.ofNullable(accessToken).orElseThrow(() -> new IllegalStateException("access token is required to fetch a device access token"));
+    ObjectUtil.requireNotNull(accessToken, () -> new IllegalStateException("access token is required to fetch a device access token"));
 
     try {
       String response = makeRequest("device/login_status", true, false, null, Parameter.with("type", "device_token"),
@@ -487,8 +486,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {
-    Optional.ofNullable(accessToken)
-      .orElseThrow(() -> new IllegalStateException(
+    ObjectUtil.requireNotNull(accessToken,
+      () -> new IllegalStateException(
         format("You cannot call this method because you did not construct this instance of %s with an access token.",
           getClass().getSimpleName())));
 
