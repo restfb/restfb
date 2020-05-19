@@ -42,7 +42,7 @@ class DateUtilsMultiThreadedTest {
       long yearIncrement = 1900 + counter.incrementAndGet();
 
       for (int day : IntStream.range(10, 31).toArray()) {
-        Thread.sleep(10);
+        TimeUnit.MILLISECONDS.sleep(10);
         String date = day + "/01/" + yearIncrement;
         res = DateUtils.toDateFromShortFormat(date).getTime();
       }

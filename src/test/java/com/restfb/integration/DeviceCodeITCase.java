@@ -33,6 +33,8 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 
+import java.util.concurrent.TimeUnit;
+
 class DeviceCodeITCase extends RestFbIntegrationTestBase {
 
   @Test
@@ -55,7 +57,7 @@ class DeviceCodeITCase extends RestFbIntegrationTestBase {
         e.printStackTrace();
       }
       try {
-        Thread.sleep(10000L);
+        TimeUnit.SECONDS.sleep(10);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
