@@ -63,6 +63,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public static final String APP_ID = "appId";
   public static final String APP_SECRET = "appSecret";
   public static final String SCOPE = "scope";
+  public static final String CANNOT_EXTRACT_ACCESS_TOKEN_MESSAGE = "Unable to extract access token from response.";
   /**
    * Graph API access token.
    */
@@ -428,7 +429,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getAccessTokenFromResponse(response);
     } catch (Exception t) {
-      throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+      throw new FacebookResponseContentException(CANNOT_EXTRACT_ACCESS_TOKEN_MESSAGE, t);
     }
   }
 
@@ -477,7 +478,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getAccessTokenFromResponse(response);
     } catch (Exception t) {
-      throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+      throw new FacebookResponseContentException(CANNOT_EXTRACT_ACCESS_TOKEN_MESSAGE, t);
     }
   }
 
@@ -510,7 +511,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return getAccessTokenFromResponse(response);
     } catch (Exception t) {
-      throw new FacebookResponseContentException("Unable to extract access token from response.", t);
+      throw new FacebookResponseContentException(CANNOT_EXTRACT_ACCESS_TOKEN_MESSAGE, t);
     }
   }
 
