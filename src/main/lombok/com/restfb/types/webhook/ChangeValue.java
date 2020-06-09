@@ -57,4 +57,8 @@ public class ChangeValue {
   public String toString() {
     return ReflectionUtils.toString(this);
   }
+
+  public <T extends ChangeValue> T convertChangeValue(Class<T> clazz) {
+    return (T) this;
+  }
 }
