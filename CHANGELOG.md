@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 3.7.0 (June 11, 2020)
+
+* Issue #946: Use Listener pattern for incoming webhooks<br />
+  Thanks to @eximius313 for the hint and the examples
+* code smells removed
+
 ## 3.6.1 (May 17, 2020)
 
 * many cleanups without special issues
