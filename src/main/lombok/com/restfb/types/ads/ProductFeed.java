@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +33,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/product-feed/">Product Feed
  * type</a>
  */
-public class ProductFeed extends BaseAdsObject {
+public class ProductFeed extends BaseAdsObject implements HasCreatedTime {
 
   /**
    * An ISO 3166-1 Alpha 2 country code
@@ -53,7 +54,7 @@ public class ProductFeed extends BaseAdsObject {
    *
    * @return Creation time of the product feed
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

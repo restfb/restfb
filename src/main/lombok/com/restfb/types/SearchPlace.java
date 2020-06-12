@@ -29,15 +29,16 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.types.ads.AppLinks;
-import com.restfb.util.MappingUtils;
 
+import com.restfb.types.features.HasCover;
+import com.restfb.types.features.HasProfilePicture;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/places/fields">SearchPlace</a>
  */
-public class SearchPlace extends NamedFacebookType {
+public class SearchPlace extends NamedFacebookType implements HasProfilePicture, HasCover {
 
   /**
    * Information about the Place provided by the Page administrator.
@@ -77,7 +78,7 @@ public class SearchPlace extends NamedFacebookType {
    *
    * @return Information about the cover photo.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -220,7 +221,7 @@ public class SearchPlace extends NamedFacebookType {
    *
    * @return the page's profile picture as ProfilePictureSource object
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
@@ -313,8 +314,7 @@ public class SearchPlace extends NamedFacebookType {
 
   @JsonMapper.JsonMappingCompleted
   protected void fillProfilePicture(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+    picture = convertPicture(jsonMapper, rawPicture);
   }
 
   /**

@@ -26,10 +26,11 @@ import java.util.Date;
 import com.restfb.Facebook;
 import com.restfb.types.User;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdStudy extends NamedAdsObject {
+public class AdStudy extends NamedAdsObject implements HasCreatedTime {
 
   @Getter
   @Setter
@@ -46,7 +47,7 @@ public class AdStudy extends NamedAdsObject {
   @Facebook("created_by")
   private User createdBy;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

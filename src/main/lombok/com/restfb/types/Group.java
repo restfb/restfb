@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCover;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,14 +35,14 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Group extends NamedFacebookType {
+public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * Information about the group's cover photo.
    *
    * @return Information about the group's cover photo.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private CoverPhoto cover;

@@ -24,12 +24,13 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdCreativeTextData extends AbstractFacebookType {
+public class AdCreativeTextData extends AbstractFacebookType implements HasMessage {
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

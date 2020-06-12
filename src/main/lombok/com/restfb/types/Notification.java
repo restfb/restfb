@@ -25,6 +25,8 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,14 +34,14 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/notification">Notification Graph API
  * type</a>.
  */
-public class Notification extends FacebookType {
+public class Notification extends FacebookType implements HasCreatedTime, HasFrom {
 
   /**
    * The entity (user, page, app, etc.) that 'sent', or is the source of the notification.
    *
    * @return The entity that 'sent', or is the source of the notification.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -122,7 +124,7 @@ public class Notification extends FacebookType {
    *
    * @return When the notification was created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

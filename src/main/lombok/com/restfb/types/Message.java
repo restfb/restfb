@@ -32,6 +32,9 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,14 +46,14 @@ import lombok.Setter;
  * @author Felipe Kurkowski
  * @author alockhart
  */
-public class Message extends FacebookType {
+public class Message extends FacebookType implements HasCreatedTime, HasFrom, HasMessage {
 
   /**
    * The time the message was initially created.
    *
    * @return The time the message was initially created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -70,7 +73,7 @@ public class Message extends FacebookType {
    *
    * @return The sender of this message
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -83,7 +86,7 @@ public class Message extends FacebookType {
    *
    * @return The text of the message
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

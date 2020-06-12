@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +36,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Quang Pham Le Duy</a>
  * @since 2.0.0
  */
-public class PageLifeEvent extends FacebookType {
+public class PageLifeEvent extends FacebookType implements HasCreatedTime {
 
   private static final long serialVersionUID = 1L;
 
@@ -44,7 +45,7 @@ public class PageLifeEvent extends FacebookType {
    * 
    * @return The time when this milestone was published
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

@@ -19,42 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.util;
+package com.restfb.types.features;
 
-import com.restfb.JsonMapper;
-import com.restfb.json.Json;
-import com.restfb.json.JsonValue;
-import com.restfb.json.ParseException;
-import com.restfb.types.ProfilePictureSource;
+import com.restfb.types.NamedFacebookType;
 
-/**
- * Utility class for often used mapping methods
- */
-public class MappingUtils {
+public interface HasFrom {
 
-  private JsonMapper mapper;
-
-  public MappingUtils(JsonMapper mapper) {
-    this.mapper = mapper;
-  }
-
-  public ProfilePictureSource convertPicture(String rawPicture) {
-    if (rawPicture == null) {
-      return null;
-    }
-
-    try {
-      JsonValue jsonValue = Json.parse(rawPicture);
-
-      if (!jsonValue.isObject()) {
-        return null;
-      }
-
-      String picJson = jsonValue.asObject().get("data").toString();
-      return this.mapper.toJavaObject(picJson, ProfilePictureSource.class);
-    } catch (ParseException pe) {
-      return null;
-    }
-
-  }
+  NamedFacebookType getFrom();
 }

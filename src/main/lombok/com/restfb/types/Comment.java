@@ -34,6 +34,9 @@ import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +46,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Comment extends FacebookType {
+public class Comment extends FacebookType implements HasComments, HasCreatedTime, HasMessage {
 
   /**
    * User who posted the comment.
@@ -60,7 +63,7 @@ public class Comment extends FacebookType {
    *
    * @return Text contents of the comment.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -70,7 +73,7 @@ public class Comment extends FacebookType {
    *
    * @return Date on which the comment was created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -246,7 +249,7 @@ public class Comment extends FacebookType {
    *
    * @return replies
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("comments")
   private Comments comments;

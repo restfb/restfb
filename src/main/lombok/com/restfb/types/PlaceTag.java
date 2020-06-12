@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,14 +33,14 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/place-tag/">Place Tag Graph API
  * type</a>.
  */
-public class PlaceTag extends FacebookType {
+public class PlaceTag extends FacebookType implements HasCreatedTime {
 
   /**
    * Time when the place was visited
    *
    * @return Time when the place was visited
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

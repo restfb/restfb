@@ -28,10 +28,11 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.types.Post;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Lead extends BaseAdsObject {
+public class Lead extends BaseAdsObject implements HasCreatedTime {
 
   @Getter
   @Setter
@@ -63,7 +64,7 @@ public class Lead extends BaseAdsObject {
   @Facebook("campaign_name")
   private String campaignName;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

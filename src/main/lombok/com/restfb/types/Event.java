@@ -33,8 +33,9 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.annotation.GraphAPI;
-import com.restfb.util.MappingUtils;
 
+import com.restfb.types.features.HasCover;
+import com.restfb.types.features.HasProfilePicture;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,7 +45,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Event extends NamedFacebookType {
+public class Event extends NamedFacebookType implements HasProfilePicture, HasCover {
 
   /**
    * The user who owns the event.
@@ -255,7 +256,7 @@ public class Event extends NamedFacebookType {
    *         ?fields=id,name,picture)
    * @since 1.6.13
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
@@ -307,7 +308,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Cover picture
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -464,9 +465,8 @@ public class Event extends NamedFacebookType {
   }
 
   @JsonMappingCompleted
-  protected void convertPicture(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+  protected void fillProfilePicture(JsonMapper jsonMapper) {
+    picture = convertPicture(jsonMapper, rawPicture);
   }
 
 }

@@ -23,6 +23,7 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,7 @@ import lombok.Setter;
  * Respresents the <a href="https://developers.facebook.com/docs/graph-api/reference/saved-message-response/">Saved
  * Message Response</a> type
  */
-public class SavedMessageResponse extends FacebookType {
+public class SavedMessageResponse extends FacebookType implements HasMessage {
 
   /**
    * The message category of the saved response
@@ -59,7 +60,7 @@ public class SavedMessageResponse extends FacebookType {
   /**
    * The message body of the saved response
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

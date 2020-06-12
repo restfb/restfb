@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +33,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/milestone">Milestone Graph API
  * type</a>.
  */
-public class Milestone extends FacebookType {
+public class Milestone extends FacebookType implements HasCreatedTime {
 
   /**
    * The title of the milestone
@@ -69,7 +70,7 @@ public class Milestone extends FacebookType {
    *
    * @return The creation time of the milestone
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

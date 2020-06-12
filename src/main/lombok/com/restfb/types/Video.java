@@ -28,6 +28,9 @@ import java.util.*;
 import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
 
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,7 +40,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Video extends NamedFacebookType {
+public class Video extends NamedFacebookType implements HasComments, HasCreatedTime, HasMessage {
 
   /**
    * An object containing the name and ID of the user who posted the video.
@@ -55,7 +58,7 @@ public class Video extends NamedFacebookType {
    * @return The video title / caption.
    * @deprecated FB seems to have removed this field.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   @Deprecated
@@ -66,7 +69,7 @@ public class Video extends NamedFacebookType {
    *
    * @return The comments for this video.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private Comments comments;
@@ -390,7 +393,7 @@ public class Video extends NamedFacebookType {
    * 
    * @return The time the video was initially published.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

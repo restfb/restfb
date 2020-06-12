@@ -29,6 +29,9 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,14 +41,14 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Note extends FacebookType {
+public class Note extends FacebookType implements HasCreatedTime, HasFrom, HasMessage {
 
   /**
    * The ID of the user who posted the note.
    * 
    * @return The ID of the user who posted the note.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -65,7 +68,7 @@ public class Note extends FacebookType {
    * 
    * @return The note content, an HTML string.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -85,7 +88,7 @@ public class Note extends FacebookType {
    * 
    * @return The time the note was initially published.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

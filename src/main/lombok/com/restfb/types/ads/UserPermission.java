@@ -28,10 +28,11 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserPermission extends AbstractFacebookType {
+public class UserPermission extends AbstractFacebookType implements HasCreatedTime {
 
   @Getter
   @Setter
@@ -74,7 +75,7 @@ public class UserPermission extends AbstractFacebookType {
   @Facebook
   private NamedAdsObject user;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

@@ -30,6 +30,7 @@ import com.restfb.Facebook;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,7 +38,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account">AdGroup Account
  * Type</a>.
  */
-public class AdAccount extends NamedAdsObject {
+public class AdAccount extends NamedAdsObject implements HasCreatedTime {
 
   private static final long serialVersionUID = 1L;
 
@@ -112,7 +113,7 @@ public class AdAccount extends NamedAdsObject {
   @Facebook
   private List<String> capabilities = new ArrayList<>();
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

@@ -19,46 +19,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.features;
 
-import java.util.Date;
+import com.restfb.JsonMapper;
+import com.restfb.json.Json;
+import com.restfb.json.JsonValue;
+import com.restfb.json.ParseException;
+import com.restfb.types.ProfilePictureSource;
 
-import com.restfb.Facebook;
+public interface HasProfilePicture {
 
-import com.restfb.types.features.HasCreatedTime;
-import lombok.Getter;
-import lombok.Setter;
+  ProfilePictureSource getPicture();
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-label">AdGroup Label type</a>
- * .
- */
-public class AdLabel extends NamedAdsObject implements HasCreatedTime {
+  default ProfilePictureSource convertPicture(JsonMapper mapper, String rawPicture) {
+    if (rawPicture == null) {
+      return null;
+    }
 
-  private static final long serialVersionUID = 1L;
+    try {
+      JsonValue jsonValue = Json.parse(rawPicture);
 
-  /**
-   * AdGroup Account
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private AdAccount account;
+      if (!jsonValue.isObject()) {
+        return null;
+      }
 
-  /**
-   * Created time
-   */
-  @Getter(onMethod_ = {@Override})
-  @Setter
-  @Facebook("created_time")
-  private Date createdTime;
-
-  /**
-   * Updated time
-   */
-  @Getter
-  @Setter
-  @Facebook("updated_time")
-  private Date updatedTime;
-
+      String picJson = jsonValue.asObject().get("data").toString();
+      return mapper.toJavaObject(picJson, ProfilePictureSource.class);
+    } catch (ParseException pe) {
+      return null;
+    }
+  }
 }

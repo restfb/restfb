@@ -24,6 +24,7 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 

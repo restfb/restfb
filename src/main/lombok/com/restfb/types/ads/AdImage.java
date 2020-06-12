@@ -28,13 +28,14 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-image">AdGroup Image type</a>
  */
-public class AdImage extends NamedAdsObject {
+public class AdImage extends NamedAdsObject implements HasCreatedTime {
 
   private static final long serialVersionUID = 1L;
 
@@ -121,7 +122,7 @@ public class AdImage extends NamedAdsObject {
   /**
    * Time the image was created
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

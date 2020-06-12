@@ -28,12 +28,13 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.types.Page;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
-public class LeadgenForm extends NamedAdsObject {
+public class LeadgenForm extends NamedAdsObject implements HasCreatedTime {
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

@@ -28,6 +28,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +36,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">Campaign</a>
  * Marketing API type
  */
-public class Campaign extends NamedAdsObject {
+public class Campaign extends NamedAdsObject implements HasCreatedTime {
 
   /**
    * ID of the ad account that owns this campaign
@@ -159,7 +160,7 @@ public class Campaign extends NamedAdsObject {
    *
    * @return Created Time
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

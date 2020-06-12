@@ -27,6 +27,7 @@ import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,7 +38,7 @@ import lombok.Setter;
  * Note: AdGroup Set vs AdGroup Campaign Prior to July 2014 ad sets were referred to as 'campaigns'. When using ad sets
  * in API calls the parameter may be referred to as 'adcampaign'. A campaign contains one or more ad sets.
  */
-public class AdSet extends NamedAdsObject {
+public class AdSet extends NamedAdsObject implements HasCreatedTime {
 
   private static final long serialVersionUID = 1L;
 
@@ -134,7 +135,7 @@ public class AdSet extends NamedAdsObject {
   @Facebook("configured_status")
   private String configuredStatus;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

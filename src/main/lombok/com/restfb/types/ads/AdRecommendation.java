@@ -24,10 +24,11 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdRecommendation extends AbstractFacebookType {
+public class AdRecommendation extends AbstractFacebookType implements HasMessage {
 
   @Getter
   @Setter
@@ -49,7 +50,7 @@ public class AdRecommendation extends AbstractFacebookType {
   @Facebook
   private String importance;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

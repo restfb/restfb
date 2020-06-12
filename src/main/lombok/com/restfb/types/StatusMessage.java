@@ -29,6 +29,8 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,14 +42,14 @@ import lombok.Setter;
  * @deprecated removed after Graph API 2.0
  */
 @Deprecated
-public class StatusMessage extends NamedFacebookType {
+public class StatusMessage extends NamedFacebookType implements HasFrom, HasMessage {
 
   /**
    * The user who posted the message.
    * 
    * @return The user who posted the message.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -57,7 +59,7 @@ public class StatusMessage extends NamedFacebookType {
    * 
    * @return The status message content.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

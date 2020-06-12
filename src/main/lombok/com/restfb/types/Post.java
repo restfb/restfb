@@ -36,6 +36,9 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +49,7 @@ import lombok.Setter;
  * @since 1.5
  */
 @SuppressWarnings("deprecation")
-public class Post extends FacebookType {
+public class Post extends FacebookType implements HasComments, HasCreatedTime, HasMessage {
 
   /**
    * An object containing the ID and name of the user who posted the message.
@@ -104,7 +107,7 @@ public class Post extends FacebookType {
    *
    * @return The message.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -329,7 +332,7 @@ public class Post extends FacebookType {
    *
    * @return The time the post was initially published.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -385,7 +388,7 @@ public class Post extends FacebookType {
    *
    * @return The comments for this post.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private Comments comments;

@@ -33,8 +33,8 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 import com.restfb.types.ads.Business;
+import com.restfb.types.features.HasProfilePicture;
 import com.restfb.types.instagram.IgUser;
-import com.restfb.util.MappingUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -45,7 +45,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Page extends CategorizedFacebookType {
+public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   @Facebook("picture")
   private transient String rawPicture;
@@ -58,7 +58,7 @@ public class Page extends CategorizedFacebookType {
    * 
    * @return the page's profile picture as ProfilePictureSource object
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
@@ -2067,8 +2067,7 @@ public class Page extends CategorizedFacebookType {
 
   @JsonMappingCompleted
   protected void fillProfilePicture(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+    picture = convertPicture(jsonMapper,rawPicture);
   }
 
   @JsonMappingCompleted

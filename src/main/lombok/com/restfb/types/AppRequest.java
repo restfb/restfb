@@ -25,6 +25,9 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +38,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
  */
-public class AppRequest extends FacebookType {
+public class AppRequest extends FacebookType implements HasCreatedTime, HasFrom, HasMessage {
 
   /**
    * Request action type for structured request
@@ -82,7 +85,7 @@ public class AppRequest extends FacebookType {
    * 
    * @return The sender user associated with the request.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -92,7 +95,7 @@ public class AppRequest extends FacebookType {
    * 
    * @return A string describing the request.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -102,7 +105,7 @@ public class AppRequest extends FacebookType {
    * 
    * @return Timestamp when the request was created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

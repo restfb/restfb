@@ -28,6 +28,7 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +36,7 @@ import lombok.Setter;
  * @deprecated use {@link Ad} instead
  */
 @Deprecated
-public class AdGroup extends NamedAdsObject {
+public class AdGroup extends NamedAdsObject implements HasCreatedTime {
 
   private static final long serialVersionUID = 1L;
 
@@ -99,7 +100,7 @@ public class AdGroup extends NamedAdsObject {
    * Created time
    */
   @Setter
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Facebook("created_time")
   private Date createdTime;
 

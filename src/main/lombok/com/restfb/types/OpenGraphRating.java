@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,14 +36,14 @@ import lombok.Setter;
  * @author Alexander Nenkov
  * @since 1.20.0
  */
-public class OpenGraphRating extends FacebookType {
+public class OpenGraphRating extends FacebookType implements HasCreatedTime {
 
   /**
    * When the reviewer rated this object.
    *
    * @return When the reviewer rated this object.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

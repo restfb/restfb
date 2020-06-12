@@ -34,8 +34,9 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.annotation.GraphAPI;
-import com.restfb.util.MappingUtils;
 
+import com.restfb.types.features.HasCover;
+import com.restfb.types.features.HasProfilePicture;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +47,7 @@ import lombok.Setter;
  * @author Patrick Alberts
  * @since 1.5
  */
-public class User extends NamedFacebookType {
+public class User extends NamedFacebookType implements HasProfilePicture, HasCover {
 
   /**
    * Social context for this person
@@ -124,7 +125,7 @@ public class User extends NamedFacebookType {
    *
    * @return The person's cover photo
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -365,7 +366,7 @@ public class User extends NamedFacebookType {
    * @return the user's picture as ProfilePictureSource object
    * @since 1.6.16
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
@@ -900,8 +901,7 @@ public class User extends NamedFacebookType {
 
   @JsonMappingCompleted
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+    picture = convertPicture(jsonMapper, rawPicture);
   }
 
   /**

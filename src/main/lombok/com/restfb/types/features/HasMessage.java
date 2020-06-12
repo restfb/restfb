@@ -19,46 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.ads;
+package com.restfb.types.features;
 
-import java.util.Date;
+public interface HasMessage {
 
-import com.restfb.Facebook;
-
-import com.restfb.types.features.HasCreatedTime;
-import lombok.Getter;
-import lombok.Setter;
-
-/**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-label">AdGroup Label type</a>
- * .
- */
-public class AdLabel extends NamedAdsObject implements HasCreatedTime {
-
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * AdGroup Account
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private AdAccount account;
-
-  /**
-   * Created time
-   */
-  @Getter(onMethod_ = {@Override})
-  @Setter
-  @Facebook("created_time")
-  private Date createdTime;
-
-  /**
-   * Updated time
-   */
-  @Getter
-  @Setter
-  @Facebook("updated_time")
-  private Date updatedTime;
-
+  String getMessage();
 }

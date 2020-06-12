@@ -23,8 +23,8 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
-import com.restfb.util.MappingUtils;
 
+import com.restfb.types.features.HasProfilePicture;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +32,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user-invitable-friend/">User
  * Invitable Friend</a> Graph API type.
  */
-public class UserInvitableFriend extends NamedFacebookType {
+public class UserInvitableFriend extends NamedFacebookType implements HasProfilePicture {
 
   private static final long serialVersionUID = 1L;
 
@@ -54,13 +54,12 @@ public class UserInvitableFriend extends NamedFacebookType {
   @Facebook("picture")
   private transient String rawPicture;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
   @JsonMapper.JsonMappingCompleted
   protected void convertPicture(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+    picture = convertPicture(jsonMapper, rawPicture);
   }
 }

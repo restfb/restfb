@@ -26,10 +26,11 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdCreativeVideoData extends AbstractFacebookType {
+public class AdCreativeVideoData extends AbstractFacebookType implements HasMessage {
 
   @Getter
   @Setter
@@ -61,7 +62,7 @@ public class AdCreativeVideoData extends AbstractFacebookType {
   @Facebook("link_description")
   private String linkDescription;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

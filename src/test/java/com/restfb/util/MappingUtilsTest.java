@@ -23,6 +23,7 @@ package com.restfb.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.restfb.types.features.HasProfilePicture;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultJsonMapper;
@@ -30,34 +31,38 @@ import com.restfb.types.ProfilePictureSource;
 
 class MappingUtilsTest {
 
+  class FakeClass implements HasProfilePicture {
+
+    @Override
+    public ProfilePictureSource getPicture() {
+      return null;
+    }
+  }
+
   @Test
   void convertRawPicture_complete() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
     String jsonString = "{\n" + //
         "    \"data\": {\n" + //
         "      \"is_silhouette\": false,\n" + //
         "      \"url\": \"https://fbcdn-profile-a.akamaihd.net/testpicture.jpg\"\n" + //
         "    }\n" + "  }";
-    ProfilePictureSource profilePicture = utils.convertPicture(jsonString);
+    ProfilePictureSource profilePicture = new FakeClass().convertPicture(new DefaultJsonMapper(), jsonString);
     assertFalse(profilePicture.getIsSilhouette());
     assertEquals("https://fbcdn-profile-a.akamaihd.net/testpicture.jpg", profilePicture.getUrl());
   }
 
   @Test
   void convertRawPicture_nullInput() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
-    assertNull(utils.convertPicture(null));
+    assertNull(new FakeClass().convertPicture(new DefaultJsonMapper(), null));
   }
 
   @Test
   void convertRawPicture_brokenJson() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
-    assertNull(utils.convertPicture("\"picture\":{}"));
+    assertNull(new FakeClass().convertPicture(new DefaultJsonMapper(), "\"picture\":{}"));
   }
 
   @Test
   void convertRawPicture_jsonNoObject() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
-    assertNull(utils.convertPicture("12345"));
+    assertNull(new FakeClass().convertPicture(new DefaultJsonMapper(), "12345"));
   }
 }

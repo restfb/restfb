@@ -25,6 +25,9 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,14 +38,14 @@ import lombok.Setter;
  * @author Patrick Alberts
  * @since 1.5
  */
-public class Link extends NamedFacebookType {
+public class Link extends NamedFacebookType implements HasCreatedTime, HasFrom, HasMessage {
 
   /**
    * An object containing the name and ID of the user who posted the link.
    * 
    * @return An object containing the name and ID of the user who posted the link.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -52,7 +55,7 @@ public class Link extends NamedFacebookType {
    * 
    * @return The link message content.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -103,7 +106,7 @@ public class Link extends NamedFacebookType {
    * @return The time at which this object was created.
    * @since 1.6.3
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
