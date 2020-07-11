@@ -25,13 +25,16 @@ import static java.lang.String.format;
 import static java.net.URLDecoder.decode;
 import static java.net.URLEncoder.encode;
 import static java.util.Collections.emptyMap;
+import static java.util.stream.Collectors.toList;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -136,18 +139,9 @@ public final class UrlUtils {
 
     if (urlParts.length > 1) {
       String query = urlParts[1];
-
-      for (String param : query.split("&")) {
-        String[] pair = param.split("=");
-        String key = urlDecode(pair[0]);
-        String value = "";
-
-        if (pair.length > 1) {
-          value = urlDecode(pair[1]);
-        }
-
-        parameters.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
-      }
+      parameters = Pattern.compile("&").splitAsStream(query) //
+        .map(s -> Arrays.copyOf(s.split("="), 2))
+        .collect(Collectors.groupingBy(s -> urlDecode(s[0]), Collectors.mapping(s -> urlDecode(s[1]), toList())));
     }
 
     return parameters;
