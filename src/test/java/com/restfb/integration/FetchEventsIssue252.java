@@ -39,7 +39,7 @@ class FetchEventsIssue252 extends RestFbIntegrationTestBase {
   @Test
   void fetchEvent_1() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_0);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
     Event event = client.fetchObject("1074127502604196", Event.class, Parameter.with("fields", SELECTED_FIELDS));
     assertNotNull(event);
     assertNotNull(event.getPlace());
@@ -49,7 +49,7 @@ class FetchEventsIssue252 extends RestFbIntegrationTestBase {
   @Test
   void fetchEvent_2() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_0);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
     Event event = client.fetchObject("300473363410132", Event.class, Parameter.with("fields", SELECTED_FIELDS));
     assertNotNull(event);
     assertNotNull(event.getPlace());

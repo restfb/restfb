@@ -174,13 +174,13 @@ class FacebookClientTest {
   void fetchDeviceCodeLatest() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
     try {
       fbc.fetchDeviceCode(new ScopeBuilder());
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/device/login");
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login");
     assertThat(requestor)
       .isParametersEqualTo("type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }
@@ -189,7 +189,7 @@ class FacebookClientTest {
   void sendTextMessage() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
     try {
       Message simpleTextMessage = new Message("That's funny \uD83D\uDE03");
       IdMessageRecipient recipient = new IdMessageRecipient("968155906638513");
@@ -199,7 +199,7 @@ class FacebookClientTest {
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/me/messages");
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/me/messages");
     assertThat(requestor).isParametersEqualTo(
       "recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json");
   }
@@ -208,7 +208,7 @@ class FacebookClientTest {
   void checkfetchObjects() throws URISyntaxException {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
 
     List<String> idList = new ArrayList<>();
     idList.add("123456789  ");
@@ -229,7 +229,7 @@ class FacebookClientTest {
   void checkfetchObjects_withEmptyId() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
 
     List<String> idList = new ArrayList<>();
     idList.add("  ");
@@ -243,7 +243,7 @@ class FacebookClientTest {
   void checkfetchObjects_idsAsParameter() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
 
     List<String> idList = new ArrayList<>();
     idList.add("abcdefghijkl");
@@ -256,7 +256,7 @@ class FacebookClientTest {
   void checkfetchObjects_emptyList() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
 
     assertThrows(IllegalArgumentException.class, () -> fbc.fetchObjects(Collections.EMPTY_LIST, String.class));
   }
@@ -265,21 +265,21 @@ class FacebookClientTest {
   void fetchDeviceCodeV26() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
     try {
       fbc.fetchDeviceCode(new ScopeBuilder());
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/device/login");
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login");
     assertThat(requestor)
       .isParametersEqualTo("type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }
 
   @Test
   void obtainDeviceAccessTokenCodeV26() {
-    FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_3_0);
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.0/device/login_status");
+    FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_3_1);
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login_status");
     assertThat(requestor)
       .isParametersEqualTo("type=device_token&code=DevCode1234&access_token=accesstoken&format=json");
   }
@@ -307,10 +307,10 @@ class FacebookClientTest {
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, returnJson));
 
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
     FacebookClient.DebugTokenInfo debugTokenInfo = fbc.debugToken("myToken");
     assertThat(requestor).isSavedUrlEqualTo(
-      "https://graph.facebook.com/v3.0/debug_token?input_token=myToken&access_token=accesstoken&format=json");
+      "https://graph.facebook.com/v3.1/debug_token?input_token=myToken&access_token=accesstoken&format=json");
     assertThat(debugTokenInfo).isNotNull();
   }
 
@@ -319,7 +319,7 @@ class FacebookClientTest {
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, null));
     assertThrows(FacebookResponseContentException.class, () -> {
       FacebookClient fbc =
-          new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+          new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_3_1);
       fbc.debugToken("myToken");
     });
   }
@@ -345,14 +345,14 @@ class FacebookClientTest {
 
   @Test
   void checkLogoutUrl() {
-    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_3_0);
+    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_3_1);
     String logoutUrl = client.getLogoutUrl(null);
     assertThat(logoutUrl).isEqualTo("https://www.facebook.com/logout.php?access_token=123456");
   }
 
   @Test
   void checkLogoutUrlWithNext() {
-    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_3_0);
+    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_3_1);
     String logoutUrl = client.getLogoutUrl("http://www.example.com");
     assertThat(logoutUrl)
       .isEqualTo("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456");
@@ -360,7 +360,7 @@ class FacebookClientTest {
 
   @Test
   void checkLoginDialogURL() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_3_0);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_3_1);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder());
     assertThat(loginDialogUrlString).isEqualTo(
       "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile");
@@ -368,7 +368,7 @@ class FacebookClientTest {
 
   @Test
   void checkLoginDialogURLAdditionalParameters() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_3_0);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_3_1);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
       Parameter.with("auth_type", "reauthenticate"));
     assertThat(loginDialogUrlString).isEqualTo(

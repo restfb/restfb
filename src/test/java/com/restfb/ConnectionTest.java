@@ -202,7 +202,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
         new WebRequestor.Response(HTTP_OK, jsonFromClasspath(connectionWithCursorTestFile));
 
     DefaultFacebookClient facebookClient = new DefaultFacebookClient("token", new FakeWebRequestor(dummyResponse),
-      new DefaultJsonMapper(), Version.VERSION_3_0);
+      new DefaultJsonMapper(), Version.VERSION_3_1);
     return facebookClient.fetchConnection("/cursor", FacebookType.class);
   }
 
@@ -211,15 +211,15 @@ class ConnectionTest extends AbstractJsonMapperTests {
       @Override
       public Response executeGet(String url) throws IOException {
 
-        if (url.equals("https://graph.facebook.com/v3.0/page1?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v3.1/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p1"));
         }
 
-        if (url.equals("https://graph.facebook.com/v3.0/page2?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v3.1/page2?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p2"));
         }
 
-        if (url.equals("https://graph.facebook.com/v3.0/page3?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v3.1/page3?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p3"));
         }
 
@@ -228,7 +228,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
       }
     };
     DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_1);
     return facebookClient.fetchConnection("/page1", FacebookType.class);
   }
 
@@ -254,7 +254,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
       }
     };
     DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_0);
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_1);
     return facebookClient.fetchConnection("/page1", FacebookType.class);
   }
 }
