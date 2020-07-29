@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.8.0 (July 29, 2020)
+
+* Issue #416: Common methods should be defined via interface
+* Issue #1079: Remove Graph API 3.0 enum
+
 ## 3.7.0 (June 11, 2020)
 
 * Issue #946: Use Listener pattern for incoming webhooks<br />
