@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2010-2020 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
