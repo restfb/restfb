@@ -42,9 +42,7 @@ class BinaryAttachmentTest {
 
   @Test
   void checkByteArrayNull() {
-    assertThrows(NullPointerException.class, () -> {
-      BinaryAttachment.with("filename", (byte[]) null);
-    });
+    assertThrows(NullPointerException.class, () -> BinaryAttachment.with("filename", (byte[]) null));
   }
 
   @Test

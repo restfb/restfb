@@ -57,7 +57,7 @@ public class ClasspathWebRequestor implements WebRequestor {
    * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String)
    */
   @Override
-  public Response executePost(String url, String parameters) throws IOException {
+  public Response executePost(String url, String parameters) {
     return response;
   }
 
@@ -65,7 +65,7 @@ public class ClasspathWebRequestor implements WebRequestor {
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
   @Override
-  public Response executeGet(String url) throws IOException {
+  public Response executeGet(String url) {
     return response;
   }
 
@@ -78,7 +78,7 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executeDelete(String url) throws IOException {
+  public Response executeDelete(String url) {
     return response;
   }
 

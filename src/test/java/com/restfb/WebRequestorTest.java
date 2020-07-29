@@ -61,7 +61,7 @@ class WebRequestorTest {
       }
 
       @Override
-      public void connect() throws IOException {}
+      public void connect() {}
 
       @Override
       public String getHeaderField(String name) {
