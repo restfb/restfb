@@ -21,6 +21,7 @@
  */
 package com.restfb.types;
 
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.*;
@@ -76,7 +78,17 @@ class InsightTest extends AbstractJsonMapperTests {
       Map.Entry<String, Integer> entry = vals.pollFirstEntry();
       System.out.println(entry.getKey() + ": " + entry.getValue());
     }
+  }
 
+  @Test
+  void checkIssue1082() {
+    List<Insight> exampleInsight = createJsonMapper().toJavaList(jsonFromClasspath("v7_0/issue1082"), Insight.class);
+    assertNotNull(exampleInsight);
+    exampleInsight.stream().forEach(insight -> {
+      assertThat(insight.getValues()).isNotNull();
+      assertThat(insight.getValues()).hasSize(1);
+      assertThat(insight.getValues().get(0).get("value").asInt()).isGreaterThan(0);
+    });
   }
 
   private Connection<Insight> create3PageInsightConnection() {
