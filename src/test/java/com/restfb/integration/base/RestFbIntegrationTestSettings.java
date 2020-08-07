@@ -46,6 +46,8 @@ public class RestFbIntegrationTestSettings {
 
   private String appId;
 
+  private String appAccessToken;
+
   private String recipientId;
 
   private String pageAlbumId;
@@ -54,6 +56,7 @@ public class RestFbIntegrationTestSettings {
     writeToFacebook = Boolean.parseBoolean(settings.getProperty("writeToFacebook", "false"));
     userAccessToken = settings.getProperty("user.accessToken", "");
     pageAccessToken = settings.getProperty("page.accessToken", "");
+    appAccessToken = settings.getProperty("app.accessToken", "");
     userId = settings.getProperty("user.id", "");
     pageId = settings.getProperty("page.id", "");
     userGroupId = settings.getProperty("user.group.id", "");
@@ -110,5 +113,10 @@ public class RestFbIntegrationTestSettings {
   public String getPageAlbumId() {
     Assumptions.assumeFalse(pageAlbumId.isEmpty());
     return pageAlbumId;
+  }
+
+  public String getAppAccessToken() {
+    Assumptions.assumeFalse(appAccessToken.isEmpty());
+    return appAccessToken;
   }
 }

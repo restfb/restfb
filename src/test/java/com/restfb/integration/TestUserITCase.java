@@ -21,48 +21,29 @@
  */
 package com.restfb.integration;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.junit.jupiter.api.Test;
-
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.Parameter;
 import com.restfb.Version;
-import com.restfb.exception.devicetoken.FacebookDeviceTokenException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.scope.ScopeBuilder;
-import com.restfb.types.DeviceCode;
+import com.restfb.types.TestUser;
+import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.TimeUnit;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class DeviceCodeITCase extends RestFbIntegrationTestBase {
+public class TestUserITCase extends RestFbIntegrationTestBase {
 
   @Test
-  void fetchDeviceCode() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppAccessToken(), Version.VERSION_3_1);
-    ScopeBuilder scope = new ScopeBuilder();
-    DeviceCode deviceCode = client.fetchDeviceCode(scope);
-    assertNotNull(deviceCode);
-    FacebookClient.AccessToken token = null;
-    System.out.println("UserCode: " + deviceCode.getUserCode());
+  void createAndRemoveTestUser() {
+    //create test user
+    FacebookClient appClient = new DefaultFacebookClient(getTestSettings().getAppAccessToken(), Version.LATEST);
+    TestUser testUser = appClient.publish(getTestSettings().getAppId() + "/accounts/test-users", TestUser.class, Parameter.with("installed",true));
+    assertNotNull(testUser);
 
-    int count = 10;
-    do {
-      System.out.print(count + ":");
-      try {
-        token = client.obtainDeviceAccessToken(deviceCode.getCode());
-      } catch (FacebookDeviceTokenException e) {
-        System.out.println(e.getClass());
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-      try {
-        TimeUnit.SECONDS.sleep(10);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-      count--;
-    } while (count > 0 && token == null);
-    assertNotNull(token);
+    // delete test user
+    boolean success = appClient.deleteObject(testUser.getId());
+    assertTrue(success);
   }
+
 }
