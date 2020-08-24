@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 3.9.0 (August 24, 2020)
+
+* Issue #1081: "dangling comment" warnings solved
+* Issue #1083: Graph api 8.0 version added
+* Issue #1084: integration test for test user create/delete added<br />
+  Thanks to @zzvara for the question
+
 ## 3.8.0 (July 29, 2020)
 
 * Issue #416: Common methods should be defined via interface
