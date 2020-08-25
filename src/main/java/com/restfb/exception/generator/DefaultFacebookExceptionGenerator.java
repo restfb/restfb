@@ -90,7 +90,9 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
       JsonObject errorObject = silentlyCreateObjectFromString(json);
 
       if (errorObject == null || errorObject.contains(BATCH_ERROR_ATTRIBUTE_NAME)
-          || errorObject.contains(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME))
+          || errorObject.contains(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME)
+              // not a batch response, if data key is present
+              || errorObject.contains("data"))
         return;
 
       ExceptionInformation container = new ExceptionInformation(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME, 0),
