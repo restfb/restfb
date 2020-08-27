@@ -260,10 +260,18 @@ public class Campaign extends NamedAdsObject implements HasCreatedTime {
   /**
    * The campaign's Special Ad Category. One of {@code HOUSING}, {@code EMPLOYMENT}, {@code CREDIT}, or {@code NONE}.
    */
+  @Deprecated
   @Getter
   @Setter
+  @GraphAPI(until = "7.0")
   @Facebook("special_ad_category")
   private String specialAdCategory;
+
+  @Getter
+  @Setter
+  @GraphAPI(since = "7.0")
+  @Facebook("special_ad_categories")
+  private List<String> specialAdCategories = new ArrayList<>();
 
   /**
    * A spend cap for the campaign, such that it will not spend more than this cap. Expressed as integer value of the
