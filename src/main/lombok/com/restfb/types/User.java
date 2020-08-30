@@ -282,11 +282,13 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   /**
    * Can the viewer send a gift to this person?
    *
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    * @return Can the viewer send a gift to this person?
    */
   @Getter
   @Setter
   @Facebook("viewer_can_send_gift")
+  @Deprecated
   private Boolean viewerCanSendGift;
 
   /**
@@ -403,11 +405,13 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   /**
    * Security settings
    *
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    * @return Security settings
    */
   @Getter
   @Setter
   @Facebook("security_settings")
+  @Deprecated
   private SecuritySettings securitySettings;
 
   /**
@@ -434,10 +438,12 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
    * Platform test group
    *
    * @return Platform test group
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    */
   @Getter
   @Setter
   @Facebook("test_group")
+  @Deprecated
   private Long testGroup;
 
   /**
@@ -509,11 +515,13 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   /**
    * Is this a shared login (e.g. a gray user)
    *
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    * @return Is this a shared login (e.g. a gray user)
    */
   @Getter
   @Setter
   @Facebook("is_shared_login")
+  @Deprecated
   private Boolean isSharedLogin;
 
   /**
