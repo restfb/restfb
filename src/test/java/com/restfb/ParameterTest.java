@@ -44,8 +44,7 @@ class ParameterTest {
 
     Parameter testParam = Parameter.with(key, val);
 
-    assertThat(testParam).hasName(key);
-    assertThat(testParam).hasValue(val);
+    assertThat(testParam).hasName(key).hasValue(val);
   }
 
   @Test
@@ -60,8 +59,7 @@ class ParameterTest {
 
     Parameter testParam = Parameter.with(key, val);
 
-    assertThat(testParam).hasName(key.trim());
-    assertThat(testParam).hasValue(val);
+    assertThat(testParam).hasName(key.trim()).hasValue(val);
   }
 
   @Test

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class OembedTest extends AbstractJsonMapperTests {
+class OembedTest extends AbstractJsonMapperTests {
 
   @Test
   void oembedPage() {

@@ -36,8 +36,7 @@ class JsonMapperMultiFieldTest {
     TestClass1 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass1.class);
 
     assertThat(test1.dataString).isEqualTo("{}");
-    assertThat(test1.dataObject).isNotNull();
-    assertThat(test1.dataObject.toString()).isEqualTo("{}");
+    assertThat(test1.dataObject).isNotNull().hasToString("{}");
   }
 
   @Test
@@ -57,8 +56,7 @@ class JsonMapperMultiFieldTest {
     TestClass2 test2 = mapper.toJavaObject("{\"mydata\":{}}", TestClass2.class);
 
     assertThat(test2.dataString).isEqualTo("{}");
-    assertThat(test2.dataObject).isNotNull();
-    assertThat(test2.dataObject.toString()).isEqualTo("{}");
+    assertThat(test2.dataObject).isNotNull().hasToString("{}");
   }
 
   @Test
@@ -77,10 +75,8 @@ class JsonMapperMultiFieldTest {
 
     TestClass3 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass3.class);
 
-    assertThat(test1.dataObject1).isNotNull();
-    assertThat(test1.dataObject2).isNotNull();
-    assertThat(test1.dataObject1.toString()).isEqualTo("{}");
-    assertThat(test1.dataObject2.toString()).isEqualTo("{}");
+    assertThat(test1.dataObject1).isNotNull().hasToString("{}");
+    assertThat(test1.dataObject2).isNotNull().hasToString("{}");
   }
 
   private static class TestClass3 {

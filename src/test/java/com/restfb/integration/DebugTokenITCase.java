@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class DebugTokenITCase extends RestFbIntegrationTestBase {
+class DebugTokenITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void checkDebugToken() {
+  void checkDebugToken() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
     FacebookClient.DebugTokenInfo debugTokenInfo = client.debugToken("abc");
     assertNotNull(debugTokenInfo);

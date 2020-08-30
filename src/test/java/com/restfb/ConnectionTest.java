@@ -39,6 +39,14 @@ import com.restfb.types.User;
 
 class ConnectionTest extends AbstractJsonMapperTests {
 
+  private void createConnectionNull() {
+    new Connection<>(new DefaultFacebookClient(Version.LATEST), null, User.class);
+  }
+
+  private void createConnectionJson() {
+    new Connection<>(new DefaultFacebookClient(Version.LATEST), "{", User.class);
+  }
+
   @Test
   void checkV1_0() {
     Connection<User> con = new Connection<>(new DefaultFacebookClient(Version.LATEST),
@@ -76,14 +84,12 @@ class ConnectionTest extends AbstractJsonMapperTests {
 
   @Test
   void checkNullJson() {
-    assertThrows(FacebookJsonMappingException.class,
-      () -> new Connection<>(new DefaultFacebookClient(Version.LATEST), null, User.class));
+    assertThrows(FacebookJsonMappingException.class, this::createConnectionNull);
   }
 
   @Test
   void checkInvalidJson() {
-    assertThrows(FacebookJsonMappingException.class,
-      () -> new Connection<>(new DefaultFacebookClient(Version.LATEST), "{", User.class));
+    assertThrows(FacebookJsonMappingException.class, this::createConnectionJson);
   }
 
   @Test
@@ -183,7 +189,8 @@ class ConnectionTest extends AbstractJsonMapperTests {
         return new Response(HTTP_OK, url);
       }
     };
-    DefaultFacebookClient facebookClient = new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_2);
+    DefaultFacebookClient facebookClient =
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_2);
 
     ConnectionIterator<JsonObject> it = facebookClient.fetchConnection("/me/adaccounts", JsonObject.class).iterator();
     assertThat(it).isNotNull();

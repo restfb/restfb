@@ -87,7 +87,7 @@ class InsightTest extends AbstractJsonMapperTests {
     exampleInsight.stream().forEach(insight -> {
       assertThat(insight.getValues()).isNotNull();
       assertThat(insight.getValues()).hasSize(1);
-      assertThat(insight.getValues().get(0).get("value").asInt()).isGreaterThan(0);
+      assertThat(insight.getValues().get(0).get("value").asInt()).isPositive();
     });
   }
 

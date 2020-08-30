@@ -47,7 +47,7 @@ class StatusExceptionTest extends AbstractJsonMapperTests {
       assertThat(fe.getErrorMessage()).isEqualTo("Message describing the error");
       assertThat(fe.getRawErrorJson()).isNotNull();
       AssertJson.assertEquals(jsonErrorString, fe.getRawErrorJson().toString());
-      assertThat(fe.getFbtraceId()).isEqualTo("");
+      assertThat(fe.getFbtraceId()).isEmpty();
     }
   }
 

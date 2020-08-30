@@ -180,8 +180,7 @@ class FacebookClientTest {
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login");
-    assertThat(requestor)
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login")
       .isParametersEqualTo("type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }
 
@@ -199,8 +198,7 @@ class FacebookClientTest {
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/me/messages");
-    assertThat(requestor).isParametersEqualTo(
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/me/messages").isParametersEqualTo(
       "recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json");
   }
 
@@ -217,8 +215,8 @@ class FacebookClientTest {
 
     fbc.fetchObjects(idList, String.class);
 
-    assertThat(requestor.getSavedUrl()).contains("123456789", "abcdefghijkl", "m_mid%3A35723r72%24bfehZFDEBDET");
-    assertThat(requestor.getSavedUrl()).contains("ids=%5B", "%5D&");
+    assertThat(requestor.getSavedUrl()).contains("123456789", "abcdefghijkl", "m_mid%3A35723r72%24bfehZFDEBDET")
+      .contains("ids=%5B", "%5D&");
     URI savedURL = new URI(requestor.getSavedUrl());
     for (String id : idList) {
       assertThat(savedURL.getQuery()).contains('"' + id.trim() + '"');
@@ -249,7 +247,8 @@ class FacebookClientTest {
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 
-    assertThrows(IllegalArgumentException.class, () -> fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something")));
+    assertThrows(IllegalArgumentException.class,
+      () -> fbc.fetchObjects(idList, String.class, Parameter.with("ids", "something")));
   }
 
   @Test

@@ -32,60 +32,49 @@ class BatchRequestTest {
   @Test
   void checkBatchRequest_me() {
     BatchRequest meRequest = new BatchRequest.BatchRequestBuilder("me").build();
-    assertThat(meRequest).hasMethod("GET");
-    assertThat(meRequest).hasRelativeUrl("me");
+    assertThat(meRequest).hasMethod("GET").hasRelativeUrl("me");
   }
 
   @Test
   void checkBatchRequest_withHeader() {
     BatchHeader header = new BatchHeader("If-None-Match", "478fb2358f700");
     BatchRequest meRequest = new BatchRequest.BatchRequestBuilder("me").headers(header).build();
-    assertThat(meRequest).hasMethod("GET");
-    assertThat(meRequest).hasRelativeUrl("me");
+    assertThat(meRequest).hasMethod("GET").hasRelativeUrl("me");
     assertThat(meRequest.getHeaders()).containsExactly(header);
   }
 
   @Test
   void checkBatchRequest_withName() {
     BatchRequest meRequest = new BatchRequest.BatchRequestBuilder("me").name("req1").build();
-    assertThat(meRequest).hasMethod("GET");
-    assertThat(meRequest).hasRelativeUrl("me");
-    assertThat(meRequest).hasName("req1");
+    assertThat(meRequest).hasMethod("GET").hasRelativeUrl("me").hasName("req1");
   }
 
   @Test
   void checkBatchRequest_withParams() {
     BatchRequest m83musicRequest =
         new BatchRequest.BatchRequestBuilder("m83music/feed").parameters(Parameter.with("limit", 5)).build();
-    assertThat(m83musicRequest).hasMethod("GET");
-    assertThat(m83musicRequest).hasRelativeUrl("m83music/feed?limit=5");
+    assertThat(m83musicRequest).hasMethod("GET").hasRelativeUrl("m83music/feed?limit=5");
   }
 
   @Test
   void checkBatchRequest_withFiles() {
     BatchRequest withFiles = new BatchRequest.BatchRequestBuilder("me/photos").attachedFiles("cat-pic").build();
-    assertThat(withFiles).hasMethod("GET");
-    assertThat(withFiles).hasRelativeUrl("me/photos");
-    assertThat(withFiles).hasAttachedFiles("cat-pic");
+    assertThat(withFiles).hasMethod("GET").hasRelativeUrl("me/photos").hasAttachedFiles("cat-pic");
   }
 
   @Test
   void checkBatchRequest_post() {
     BatchRequest postRequest = new BatchRequest.BatchRequestBuilder("me/feed").method("POST")
       .body(Parameter.with("message", "Testing!")).build();
-    assertThat(postRequest).hasMethod("POST");
-    assertThat(postRequest).hasRelativeUrl("me/feed");
-    assertThat(postRequest).hasBody("message=Testing%21");
+    assertThat(postRequest).hasMethod("POST").hasRelativeUrl("me/feed").hasBody("message=Testing%21");
   }
 
   @Test
   void checkBatchRequest_post_omitResponse() {
     BatchRequest postRequest = new BatchRequest.BatchRequestBuilder("me/feed").method("POST")
       .body(Parameter.with("message", "Testing!")).omitResponseOnSuccess(true).build();
-    assertThat(postRequest).hasMethod("POST");
-    assertThat(postRequest).hasRelativeUrl("me/feed");
-    assertThat(postRequest).hasBody("message=Testing%21");
-    assertThat(postRequest).isOmitResponseOnSuccess();
+    assertThat(postRequest).hasMethod("POST").hasRelativeUrl("me/feed").hasBody("message=Testing%21")
+      .isOmitResponseOnSuccess();
   }
 
 }

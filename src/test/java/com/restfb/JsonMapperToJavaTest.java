@@ -97,8 +97,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   void simplePrimitiveList() {
     List<String> tags = createJsonMapper().toJavaList(jsonFromClasspath("tags"), String.class);
-    assertThat(tags).hasSize(3);
-    assertThat(tags).containsExactly("Good", "Better", "Best");
+    assertThat(tags).hasSize(3).containsExactly("Good", "Better", "Best");
   }
 
   /**
@@ -107,8 +106,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   void simplePrimitiveNumericList() {
     List<Integer> numbers = createJsonMapper().toJavaList(jsonFromClasspath("numbers"), Integer.class);
-    assertThat(numbers).hasSize(3);
-    assertThat(numbers).contains(1234, 5678, 9012);
+    assertThat(numbers).hasSize(3).contains(1234, 5678, 9012);
   }
 
   /**
@@ -255,7 +253,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   void emptyArray() {
     BasicUser user = createJsonMapper().toJavaObject(jsonFromClasspath("empty-array-as-string"), BasicUser.class);
-    assertThat(user.name).isEqualTo("");
+    assertThat(user.name).isEmpty();
   }
 
   /**
@@ -269,8 +267,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertThat(account.getAccessToken()).isEqualTo("{access-token}");
     assertThat(account.getId()).isEqualTo("1234567890");
     assertThat(account.getName()).isEqualTo("Sample Page");
-    assertThat(account.getPerms()).hasSize(6);
-    assertThat(account.getPerms()).contains("ADMINISTER", "EDIT_PROFILE", "CREATE_CONTENT", "MODERATE_CONTENT",
+    assertThat(account.getPerms()).hasSize(6).contains("ADMINISTER", "EDIT_PROFILE", "CREATE_CONTENT", "MODERATE_CONTENT",
       "CREATE_ADS", "BASIC_ADMIN");
   }
 
@@ -449,9 +446,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     String jsonString = "{ \"my_map\": { \"key1\": 1, \"key2\": 2}}";
     MapTestType object = createJsonMapper().toJavaObject(jsonString, MapTestType.class);
     assertThat(object).isNotNull();
-    assertThat(object.myMap).isNotNull();
-    assertThat(object.myMap.get("key1")).isEqualTo(1L);
-    assertThat(object.myMap.get("key2")).isEqualTo(2L);
+    assertThat(object.myMap).isNotNull().containsEntry("key1", 1L).containsEntry("key2", 2L);
   }
 
   @Test
@@ -466,14 +461,10 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   void jsonToObjectWithOptionals() {
     String jsonString = "{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumberButNull\":null}";
     JavaTypeWithOptionalField obj = createJsonMapper().toJavaObject(jsonString, JavaTypeWithOptionalField.class);
-    assertThat(obj.number).isInstanceOf(Optional.class);
-    assertThat(obj.number).hasValue(123456);
-    assertThat(obj.text).isInstanceOf(Optional.class);
-    assertThat(obj.text).hasValue("justsometext");
-    assertThat(obj.emptyNumber).isInstanceOf(Optional.class);
-    assertThat(obj.emptyNumber).isEmpty();
-    assertThat(obj.emptyNumberButNull).isInstanceOf(Optional.class);
-    assertThat(obj.emptyNumberButNull).isEmpty();
+    assertThat(obj.number).isInstanceOf(Optional.class).hasValue(123456);
+    assertThat(obj.text).isInstanceOf(Optional.class).hasValue("justsometext");
+    assertThat(obj.emptyNumber).isInstanceOf(Optional.class).isEmpty();
+    assertThat(obj.emptyNumberButNull).isInstanceOf(Optional.class).isEmpty();
   }
 
   static class MapTestType {

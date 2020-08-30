@@ -41,7 +41,7 @@ class SpecialCommentHandlingTest extends AbstractJsonMapperTests {
   @Test
   void emptyArrayTest() {
     Post post = createJsonMapper().toJavaObject(jsonFromClasspath("post-with-empty-comments"), Post.class);
-    assertThat(post.getComments().getTotalCount()).isEqualTo(0);
+    assertThat(post.getComments().getTotalCount()).isZero();
     assertThat(post.getComments().getData()).isEmpty();
   }
 
