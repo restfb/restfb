@@ -1,0 +1,10 @@
+{
+  "author_name": "Test Page",
+  "author_url": "https://www.facebook.com/123456789",
+  "provider_url": "https://www.facebook.com",
+  "provider_name": "Facebook",
+  "html": "<div id=\"fb-root\">SOME HTML STUFF</div>",
+  "type": "rich",
+  "version": "1.0",
+  "width": 552
+}

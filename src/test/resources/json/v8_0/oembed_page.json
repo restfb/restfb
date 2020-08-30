@@ -1,0 +1,9 @@
+{
+  "provider_url": "https://www.facebook.com",
+  "provider_name": "Facebook",
+  "height": 500,
+  "html": "<div id=\"fb-root\">SOME HTML STUFF</div>",
+  "type": "rich",
+  "version": "1.0",
+  "width": 340
+}
