@@ -879,7 +879,7 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
-  CATALOG_MANAGEMENT("business_management", Category.EVENTS_GROUPS_PAGES), //
+  CATALOG_MANAGEMENT("catalog_management", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Grants your app permission to retrieve all the information captured within a
@@ -907,7 +907,7 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   @GraphAPI(since = "2.6")
-  PAGES_MESSAGING_SUBSCRPTIONS("pages_messaging_subscriptions", Category.MESSAGING), //
+  PAGES_MESSAGING_SUBSCRIPTIONS("pages_messaging_subscriptions", Category.MESSAGING), //
 
   /**
    * This allows you to charge users in Messenger conversations on behalf of pages.
