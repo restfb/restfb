@@ -17,10 +17,10 @@
     <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>5.4.2</version.junit>
+    <version.junit>5.6.2</version.junit>
     <version.lombok>1.18.12</version.lombok>
-    <version.mockito>2.23.4</version.mockito>
-    <version.assertj>3.11.1</version.assertj>
+    <version.mockito>3.5.7</version.mockito>
+    <version.assertj>3.17.1</version.assertj>
     <version.slf4j>1.7.25</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
@@ -153,7 +153,7 @@
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-        <version>4.2.0</version>
+        <version>4.2.1</version>
         <extensions>true</extensions>
         <configuration>
           <supportedProjectTypes>
@@ -190,7 +190,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <manifestFile>
@@ -369,7 +369,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.1.1</version>
+            <version>3.2.0</version>
             <configuration>
               <linksource>true</linksource>
               <doclint>none</doclint>
@@ -404,7 +404,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.1.1</version>
+            <version>3.2.0</version>
             <configuration>
               <linksource>true</linksource>
               <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
