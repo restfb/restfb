@@ -1,5 +1,16 @@
 # RestFB Changelog
 
+## 3.10.0 (September 1, 2020)
+
+* Issue #1093: catalog_management permission fixed<br />
+  Thanks to @w00dg1n for the hint
+* Issue #1091: Graph API 8.0 - OEmbed support
+* Issue #1090: Graph API 8.0 - deprecated fields in `User` type
+* Issue #1089: Special Category Ads - new behaviour in 7.0<br />
+  Thanks to @NenadP for the hint
+* Issue #1088: fixed DefaultFacebookExceptionGenerator.skipResponseStatusExceptionParsing is too sloppy<br />
+  Thanks to @DerKeil for the hint 
+
 ## 3.9.0 (August 24, 2020)
 
 * Issue #1081: "dangling comment" warnings solved
