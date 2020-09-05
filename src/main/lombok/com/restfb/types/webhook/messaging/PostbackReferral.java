@@ -43,6 +43,14 @@ public class PostbackReferral {
   private String ref;
 
   /**
+   *
+   */
+  @Getter
+  @Setter
+  @Facebook("ad_id")
+  private String adId;
+
+  /**
    * The source of this referral. Currently, the only possible value is “SHORTLINK”.
    */
   @Getter
@@ -57,4 +65,20 @@ public class PostbackReferral {
   @Setter
   @Facebook
   private String type;
+
+  /**
+   * The URI of the site where the message was sent in the Facebook chat plugin.
+   */
+  @Getter
+  @Setter
+  @Facebook("referer_uri")
+  private String refererUri;
+
+  /**
+   * A flag indicating whether the user is a guest user from Facebook Chat Plugin
+   */
+  @Getter
+  @Setter
+  @Facebook("is_guest_user")
+  private String isGuestUser;
 }
