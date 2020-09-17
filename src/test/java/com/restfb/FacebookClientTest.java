@@ -270,16 +270,14 @@ class FacebookClientTest {
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login");
-    assertThat(requestor)
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login")
       .isParametersEqualTo("type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }
 
   @Test
   void obtainDeviceAccessTokenCodeV26() {
     FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_3_1);
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login_status");
-    assertThat(requestor)
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/device/login_status")
       .isParametersEqualTo("type=device_token&code=DevCode1234&access_token=accesstoken&format=json");
   }
 

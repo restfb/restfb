@@ -21,39 +21,23 @@
  */
 package com.restfb;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import com.restfb.types.Comments;
-import com.restfb.types.Likes;
-import com.restfb.types.Post;
+import com.restfb.exception.FacebookOAuthException;
 
-class ConnectionGOTTest extends AbstractJsonMapperTests {
+public class IssueErrorTest extends AbstractJsonMapperTests {
 
-  /**
-   * we check the likes and the comments count if some likes or comments are present, we fill the count/total count
-   * (summary needs to be set to true)
-   */
   @Test
-  void check_2_1_comments_likes_count() {
-    Connection<Post> con =
-        new Connection<>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("v2_1/feed-got"), Post.class);
-    List<Post> postPage = con.getData();
-    postPage.forEach(this::checkPost);
-    assertThat(postPage).hasSize(25);
+  public void checkIssue1095() {
+    String issueBody = jsonFromClasspath("Issue1095");
+
+    FacebookClient client = facebookClientWithResponse(new WebRequestor.Response(500, issueBody));
+    assertThrows(FacebookOAuthException.class, () -> client.fetchObject("1234", String.class));
   }
 
-  private void checkPost(Post post) {
-    Comments cs = post.getComments();
-    if (null != cs && !cs.getData().isEmpty()) {
-      assertThat(cs.getTotalCount()).isPositive();
-    }
-    Likes ls = post.getLikes();
-    if (null != ls && !ls.getData().isEmpty()) {
-      assertThat(ls.getTotalCount()).isPositive();
-    }
+  protected FacebookClient facebookClientWithResponse(final WebRequestor.Response response) {
+    return new DefaultFacebookClient(null, new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
   }
 }

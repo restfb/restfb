@@ -212,8 +212,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   void friendsGet() {
     List<Long> friendUids = createJsonMapper().toJavaList(jsonFromClasspath("api/friends.get"), Long.class);
-    assertThat(friendUids).hasSize(2);
-    assertThat(friendUids).containsExactly(222333L, 1240079L);
+    assertThat(friendUids).hasSize(2).containsExactly(222333L, 1240079L);
   }
 
   @Test

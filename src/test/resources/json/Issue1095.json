@@ -1,0 +1,12 @@
+{
+  "error": {
+    "message": "An unknown error occurred",
+    "type": "OAuthException",
+    "code": 1,
+    "error_subcode": 1446036,
+    "is_transient": false,
+    "error_user_title": "Duplicate Mark Spam Request",
+    "error_user_msg": "Comment is already marked as spam. Duplicate request to mark comment as spam.",
+    "fbtrace_id": "AXNSTEPpjX5zEG-g80nQydI"
+  }
+}
