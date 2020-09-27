@@ -23,6 +23,7 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Test;
@@ -55,16 +56,25 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.getMids().isEmpty());
     assertEquals("1458668856253", item.getWatermark());
     assertEquals(37L, item.getSeq().longValue());
+    AtomicBoolean foundDeprecated = new AtomicBoolean(false);
     AtomicBoolean found = new AtomicBoolean(false);
+
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
       @Override
       public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(delivery);
+        assertEquals("1458668856253", delivery.getWatermark());
+        foundDeprecated.set(true);
+      }
+      @Override
+      public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(delivery);
         assertEquals("1458668856253", delivery.getWatermark());
         found.set(true);
       }
     });
     webhookListener.process(webhookObject);
+    assertTrue(foundDeprecated.get());
     assertTrue(found.get());
   }
 

@@ -21,6 +21,8 @@
  */
 package com.restfb.webhook;
 
+import java.util.Date;
+
 import com.restfb.types.webhook.messaging.*;
 
 /**
@@ -29,54 +31,129 @@ import com.restfb.types.webhook.messaging.*;
  */
 public abstract class AbstractWebhookMessagingListener implements WebhookMessagingListener {
 
+  @Deprecated
   @Override
   public void accountLinking(final AccountLinkingItem item, MessagingParticipant recipient,
       MessagingParticipant sender) {}
 
   @Override
+  public void accountLinking(final AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void appRoles(final AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender) {}
 
+  @Override
+  public void appRoles(final AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
   @Override
   public void checkoutUpdate(final CheckoutUpdateItem checkoutUpdate, MessagingParticipant recipient,
       MessagingParticipant sender) {}
 
   @Override
+  public void checkoutUpdate(final CheckoutUpdateItem checkoutUpdate, MessagingParticipant recipient,
+      MessagingParticipant sender, Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void delivery(final DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender) {}
 
+  @Override
+  public void delivery(final DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
   @Override
   public void message(final MessageItem message, MessagingParticipant recipient, MessagingParticipant sender) {}
 
   @Override
+  public void message(final MessageItem message, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void optin(final OptinItem optin, MessagingParticipant recipient, MessagingParticipant sender) {}
 
+  @Override
+  public void optin(final OptinItem optin, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
   @Override
   public void passThreadControl(final PassThreadControlItem passThreadControl, MessagingParticipant recipient,
       MessagingParticipant sender) {}
 
   @Override
+  public void passThreadControl(final PassThreadControlItem passThreadControl, MessagingParticipant recipient,
+      MessagingParticipant sender, Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void payment(final PaymentItem payment, MessagingParticipant recipient, MessagingParticipant sender) {}
 
+  @Override
+  public void payment(final PaymentItem payment, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
   @Override
   public void policyEnforcement(final PolicyEnforcementItem policyEnforcement, MessagingParticipant recipient,
       MessagingParticipant sender) {}
 
   @Override
+  public void policyEnforcement(final PolicyEnforcementItem policyEnforcement, MessagingParticipant recipient,
+      MessagingParticipant sender, Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void postback(final PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender) {}
 
+  @Override
+  public void postback(final PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
   @Override
   public void reaction(final MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender) {}
 
   @Override
+  public void reaction(final MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void read(final ReadItem read, MessagingParticipant recipient, MessagingParticipant sender) {}
 
   @Override
+  public void read(final ReadItem read, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void referral(final ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender) {}
 
+  @Deprecated
+  @Override
+  public void referral(final ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender,
+      Date timestamp) {}
+
+  @Deprecated
   @Override
   public void requestThreadControl(final RequestThreadControlItem requestThreadControl, MessagingParticipant recipient,
       MessagingParticipant sender) {}
 
   @Override
+  public void requestThreadControl(final RequestThreadControlItem requestThreadControl, MessagingParticipant recipient,
+      MessagingParticipant sender, Date timestamp) {}
+
+  @Deprecated
+  @Override
   public void takeThreadControl(final TakeThreadControlItem takeThreadControl, MessagingParticipant recipient,
       MessagingParticipant sender) {}
+
+  @Override
+  public void takeThreadControl(final TakeThreadControlItem takeThreadControl, MessagingParticipant recipient,
+      MessagingParticipant sender, Date timestamp) {}
 }
