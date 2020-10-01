@@ -35,7 +35,7 @@ import com.restfb.json.JsonObject;
 import com.restfb.types.GraphResponse;
 
 @NeedFacebookWriteAccess
-public class PostMultiPhotoPostITCase extends RestFbImageIntegrationTestBase {
+class PostMultiPhotoPostITCase extends RestFbImageIntegrationTestBase {
 
   @Test
   void publishMultiImagePost() {

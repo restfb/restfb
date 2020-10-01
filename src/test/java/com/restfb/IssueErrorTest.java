@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.exception.FacebookOAuthException;
 
-public class IssueErrorTest extends AbstractJsonMapperTests {
+class IssueErrorTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkIssue1095() {
+  void checkIssue1095() {
     String issueBody = jsonFromClasspath("Issue1095");
 
     FacebookClient client = facebookClientWithResponse(new WebRequestor.Response(500, issueBody));
