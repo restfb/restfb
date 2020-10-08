@@ -22,5 +22,5 @@
 package com.restfb.types;
 
 public enum RecommendationType {
-    POSITIVE, NEGATIVE
+    POSITIVE, NEGATIVE, NEUTRAL
 }
