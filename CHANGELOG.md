@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 3.11.0 (October 9, 2020)
+
+* Issue #1096: missing ad_id property added<br />
+  Thanks to @seth-git for the hint
+* Issue #1097: timestamp added to webhook listener<br />
+  Thanks to @alex-lx for the hint
+* Issue #1098: NEUTRAL as a valid RecommendationType added<br />
+  Thanks to @jfposton for the PR
+
 ## 3.10.0 (September 1, 2020)
 
 * Issue #1093: catalog_management permission fixed<br />
