@@ -31,7 +31,7 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
 
-class FetchMeWithEmail extends RestFbIntegrationTestBase {
+class FetchMeWithEmailITCase extends RestFbIntegrationTestBase {
 
   @Test
   void fetchWithEmail() {

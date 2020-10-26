@@ -633,13 +633,8 @@ public interface FacebookClient {
       }
 
       if (rawExpires != null) {
-        try {
-          expires = Long.valueOf(rawExpires);
-        } catch (NumberFormatException e) {
-          // rawExpires is not a number, NumberFormatException ignored
-        }
-        if (expires != null) {
-          expires = new Date().getTime() + 1000L * expires;
+        if (rawExpires.trim().matches("\\d+")) {
+          expires = new Date().getTime() + Long.parseLong(rawExpires) * 1000L;
         }
       }
 

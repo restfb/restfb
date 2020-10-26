@@ -21,39 +21,44 @@
  */
 package com.restfb.integration;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
+import com.restfb.Facebook;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.types.Event;
+import com.restfb.types.Url;
 
-class FetchEventsIssue252 extends RestFbIntegrationTestBase {
-
-  private final String SELECTED_FIELDS =
-      "id,name,place,owner,description,timezone,ticket_uri,cover,start_time,end_time,updated_time,is_date_only";
+class FetchIDsITCase extends RestFbIntegrationTestBase {
 
   @Test
-  void fetchEvent_1() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
-    Event event = client.fetchObject("1074127502604196", Event.class, Parameter.with("fields", SELECTED_FIELDS));
-    assertNotNull(event);
-    assertNotNull(event.getPlace());
-    assertNotNull(event.getPlace().getLocation());
+  void fetchWithEmail() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+    FetchObjectsResult me = client.fetchObjects(Arrays.asList("http://cnn.com", "http://abc.com"),
+      FetchObjectsResult.class, Parameter.with("fields", "engagement"));
+    assertTrue(me.abc.getReactionCount() > 0);
+    assertTrue(me.abc.getCommentCount() > 0);
+    assertTrue(me.abc.getShareCount() > 0);
+    assertEquals(0, me.abc.getCommentPluginCount());
+    assertTrue(me.cnn.getReactionCount() > 0);
+    assertTrue(me.cnn.getCommentCount() > 0);
+    assertTrue(me.cnn.getShareCount() > 0);
+    assertEquals(0, me.cnn.getCommentPluginCount());
   }
 
-  @Test
-  void fetchEvent_2() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
-    Event event = client.fetchObject("300473363410132", Event.class, Parameter.with("fields", SELECTED_FIELDS));
-    assertNotNull(event);
-    assertNotNull(event.getPlace());
-    assertNotNull(event.getPlace().getLocation());
+  static class FetchObjectsResult {
+
+    @Facebook("http://cnn.com")
+    Url cnn;
+
+    @Facebook("http://abc.com")
+    Url abc;
   }
 
 }

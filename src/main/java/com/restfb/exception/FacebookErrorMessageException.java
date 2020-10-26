@@ -35,11 +35,11 @@ public abstract class FacebookErrorMessageException extends FacebookException {
 
   private DebugHeaderInfo debugHeaderInfo;
 
-  public FacebookErrorMessageException(String message) {
+  protected FacebookErrorMessageException(String message) {
     super(message);
   }
 
-  public FacebookErrorMessageException(String message, Throwable cause) {
+  protected FacebookErrorMessageException(String message, Throwable cause) {
     super(message, cause);
   }
 

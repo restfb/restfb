@@ -64,6 +64,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public static final String APP_SECRET = "appSecret";
   public static final String SCOPE = "scope";
   public static final String CANNOT_EXTRACT_ACCESS_TOKEN_MESSAGE = "Unable to extract access token from response.";
+  public static final String PARAM_CLIENT_SECRET = "client_secret";
   /**
    * Graph API access token.
    */
@@ -410,7 +411,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     String json = makeRequest("/oauth/exchange_sessions", true, false, null, Parameter.with(CLIENT_ID, appId),
-      Parameter.with("client_secret", secretKey), Parameter.with("sessions", String.join(",", sessionKeys)));
+      Parameter.with(PARAM_CLIENT_SECRET, secretKey), Parameter.with("sessions", String.join(",", sessionKeys)));
 
     return jsonMapper.toJavaList(json, AccessToken.class);
   }
@@ -424,7 +425,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence(APP_SECRET, appSecret);
 
     String response = makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
-      Parameter.with(CLIENT_ID, appId), Parameter.with("client_secret", appSecret));
+      Parameter.with(CLIENT_ID, appId), Parameter.with(PARAM_CLIENT_SECRET, appSecret));
 
     try {
       return getAccessTokenFromResponse(response);
@@ -472,7 +473,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("verificationCode", verificationCode);
 
     String response = makeRequest("oauth/access_token", Parameter.with(CLIENT_ID, appId),
-      Parameter.with("client_secret", appSecret), Parameter.with("code", verificationCode),
+      Parameter.with(PARAM_CLIENT_SECRET, appSecret), Parameter.with("code", verificationCode),
       Parameter.with("redirect_uri", redirectUri));
 
     try {
@@ -505,7 +506,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence("accessToken", accessToken);
 
     String response = makeRequest("/oauth/access_token", false, false, null, Parameter.with(CLIENT_ID, appId),
-      Parameter.with("client_secret", appSecret), Parameter.with("grant_type", "fb_exchange_token"),
+      Parameter.with(PARAM_CLIENT_SECRET, appSecret), Parameter.with("grant_type", "fb_exchange_token"),
       Parameter.with("fb_exchange_token", accessToken));
 
     try {

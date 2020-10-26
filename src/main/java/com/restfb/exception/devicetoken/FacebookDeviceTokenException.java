@@ -25,11 +25,11 @@ import com.restfb.exception.FacebookCheckedException;
 
 public abstract class FacebookDeviceTokenException extends FacebookCheckedException {
 
-  public FacebookDeviceTokenException(String message) {
+  protected FacebookDeviceTokenException(String message) {
     super(message);
   }
 
-  public FacebookDeviceTokenException(String message, Throwable cause) {
+  protected FacebookDeviceTokenException(String message, Throwable cause) {
     super(message, cause);
   }
 }

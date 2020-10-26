@@ -30,7 +30,7 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
 
-class FetchMeWithAppProof extends RestFbIntegrationTestBase {
+class FetchMeWithAppProofITCase extends RestFbIntegrationTestBase {
 
   @Test
   void fetchWithProof() {
