@@ -79,9 +79,7 @@ public class DefaultJsonMapper implements JsonMapper {
     ObjectUtil.requireNotNull(type, () -> new FacebookJsonMappingException("You must specify the Java type to map to."));
     json = trimToEmpty(json);
 
-    if (isBlank(json)) {
-      throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
-    }
+    checkBlankJson(json);
 
     if (StringJsonUtils.isObject(json)) {
       // Sometimes Facebook returns the empty object {} when it really should be
@@ -252,10 +250,14 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
-  private void basicJsonStringChecks(String json) {
+  private void checkBlankJson(String json) {
     if (isBlank(json)) {
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
     }
+  }
+
+  private void basicJsonStringChecks(String json) {
+    checkBlankJson(json);
 
     if (StringJsonUtils.isList(json)) {
       throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "

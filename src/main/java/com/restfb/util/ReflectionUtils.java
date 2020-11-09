@@ -21,14 +21,15 @@
  */
 package com.restfb.util;
 
-import com.restfb.exception.FacebookJsonMappingException;
-
 import static java.lang.String.format;
-import static java.util.Collections.*;
+import static java.util.Collections.synchronizedMap;
+import static java.util.Collections.unmodifiableList;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
+
+import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * A collection of reflection-related utility methods.
@@ -73,11 +74,14 @@ public final class ReflectionUtils {
 
     Class<?> type = object.getClass();
 
-    return object instanceof String || (object instanceof Integer || Integer.TYPE.equals(type))
-        || (object instanceof Boolean || Boolean.TYPE.equals(type))
-        || (object instanceof Long || Long.TYPE.equals(type)) || (object instanceof Double || Double.TYPE.equals(type))
-        || (object instanceof Float || Float.TYPE.equals(type)) || (object instanceof Byte || Byte.TYPE.equals(type))
-        || (object instanceof Short || Short.TYPE.equals(type))
+    return object instanceof String //
+        || (object instanceof Integer || Integer.TYPE.equals(type)) //
+        || (object instanceof Boolean || Boolean.TYPE.equals(type)) //
+        || (object instanceof Long || Long.TYPE.equals(type)) //
+        || (object instanceof Double || Double.TYPE.equals(type)) //
+        || (object instanceof Float || Float.TYPE.equals(type)) //
+        || (object instanceof Byte || Byte.TYPE.equals(type)) //
+        || (object instanceof Short || Short.TYPE.equals(type)) //
         || (object instanceof Character || Character.TYPE.equals(type));
   }
 
@@ -411,12 +415,12 @@ public final class ReflectionUtils {
     /**
      * A field.
      */
-    private Field field;
+    private final Field field;
 
     /**
      * An annotation on the field.
      */
-    private T annotation;
+    private final T annotation;
 
     /**
      * Creates a field/annotation pair.

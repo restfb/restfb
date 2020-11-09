@@ -597,7 +597,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // add optional parameters
     Collections.addAll(parameterList, parameters);
 
-    return dialogUrl + "?" + toParameterString(false, parameterList.stream().toArray(Parameter[]::new));
+    return dialogUrl + "?" + toParameterString(false, parameterList.toArray(new Parameter[0]));
   }
 
   /**
