@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 3.12.0 (November 11, 2020)
+
+* Issue #1101: Graph API 9.0 version added
+
 ## 3.11.0 (October 9, 2020)
 
 * Issue #1096: missing ad_id property added<br />
