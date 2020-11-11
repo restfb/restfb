@@ -80,19 +80,26 @@ public enum Version {
   VERSION_7_0("v7.0"),
 
   /**
-   * <tt>Graph API 7.0</tt>, available at least until May, 2022
+   * <tt>Graph API 8.0</tt>, available at least until November 10th, 2022
    *
    * @since August 4th, 2020
    */
   VERSION_8_0("v8.0"),
 
   /**
+   * <tt>Graph API 9.0</tt>, available at least until November 2022
+   *
+   * @since November 10th, 2020
+   */
+  VERSION_9_0("v9.0"),
+
+  /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
    * <p>
-   * the current version is <tt>Graph API 8.0</tt>
+   * the current version is <tt>Graph API 9.0</tt>
    * </p>
    */
-  LATEST("v8.0");
+  LATEST("v9.0");
 
   private final String urlElement;
 
