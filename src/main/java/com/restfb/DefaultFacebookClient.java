@@ -304,9 +304,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     // Normalize the IDs
     for (String id : ids) {
-      if (StringUtils.isBlank(id)) {
-        throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
-      }
+      throwIAEonBlankId(id);
       idArray.add(id.trim());
     }
 
@@ -317,6 +315,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       return jsonMapper.toJavaObject(jsonString, objectType);
     } catch (ParseException e) {
       throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
+    }
+  }
+
+  private void throwIAEonBlankId(String id) {
+    if (StringUtils.isBlank(id)) {
+      throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
     }
   }
 

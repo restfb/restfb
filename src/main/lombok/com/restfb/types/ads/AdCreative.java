@@ -227,6 +227,11 @@ public class AdCreative extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("instagram_user_id")
+  private String instagramUserId;
+
+  @Getter
+  @Setter
   @Facebook("interactive_components_spec")
   private AdCreativeInteractiveComponentsSpec interactiveComponentsSpec;
 
@@ -366,6 +371,11 @@ public class AdCreative extends NamedAdsObject {
   @Setter
   @Facebook("product_set_id")
   private String productSetId;
+
+  @Getter
+  @Setter
+  @Facebook("source_instagram_media_id")
+  private String sourceInstagramMediaId;
 
   /**
    * The run status of this creative.
