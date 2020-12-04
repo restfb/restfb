@@ -230,11 +230,8 @@ public class DefaultWebRequestor implements WebRequestor {
    *          The connection to close.
    */
   protected void closeQuietly(HttpURLConnection httpUrlConnection) {
-    if (httpUrlConnection == null) {
-      return;
-    }
     try {
-      httpUrlConnection.disconnect();
+      Optional.ofNullable(httpUrlConnection).ifPresent(HttpURLConnection::disconnect);
     } catch (Exception t) {
       HTTP_LOGGER.warn("Unable to disconnect {}: ", httpUrlConnection, t);
     }
