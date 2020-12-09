@@ -45,6 +45,14 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   @Facebook
   private String category;
 
+  /**
+   * Message template string with placeholders for parameters
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String content;
+
   // WhatsAppBusinessHSMWhatsAppHSMComponentGet is not defined in the reference
   // @Getter
   // @Setter
@@ -82,4 +90,12 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   @Setter
   @Facebook
   private String status;
+
+  /**
+   * String as a query parameter to filter message templates name or content containing this variable
+   */
+  @Getter
+  @Setter
+  @Facebook("name_or_content")
+  private String nameOrContent;
 }
