@@ -93,6 +93,8 @@ public interface WebRequestor {
     }
   }
 
+  void setAccessToken(String accessToken);
+
   /**
    * Given a Facebook API endpoint URL, execute a {@code GET} against it.
    * 

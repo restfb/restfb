@@ -93,12 +93,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * Version of API endpoint.
    */
-  protected Version apiVersion = Version.UNVERSIONED;
+  protected Version apiVersion;
 
   /**
    * By default this is <code>false</code>, so real http DELETE is used
    */
   protected boolean httpDeleteFallback;
+
+  protected boolean accessTokenInHeader;
 
   protected DefaultFacebookClient() {
     this(Version.LATEST);
@@ -197,6 +199,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
+   * Switch between access token in header and access token in query parameters (default)
+   * 
+   * @param accessTokenInHttpHeader
+   *          <code>true</code> use access token as header field, <code>false</code> use access token as query parameter
+   *          (default)
+   */
+  public void setHeaderAuthorization(boolean accessTokenInHttpHeader) {
+    this.accessTokenInHeader = accessTokenInHttpHeader;
+  }
+
+  /**
    * override the default facebook exception generator to provide a custom handling for the facebook error objects
    * 
    * @param exceptionGenerator
@@ -258,8 +271,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
-      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(String.format("%s&%s=%s", connectionPageUrl,
-        urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret))));
+      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(String.format("%s&%s=%s",
+        connectionPageUrl, urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret))));
     } else {
       connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(connectionPageUrl));
     }
@@ -343,7 +356,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment,
       Parameter... parameters) {
-    List<BinaryAttachment> attachments = Optional.ofNullable(binaryAttachment).map(Collections::singletonList).orElse(null);
+    List<BinaryAttachment> attachments =
+        Optional.ofNullable(binaryAttachment).map(Collections::singletonList).orElse(null);
     return publish(connection, objectType, attachments, parameters);
   }
 
@@ -441,7 +455,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public DeviceCode fetchDeviceCode(ScopeBuilder scope) {
     verifyParameterPresence(SCOPE, scope);
-    ObjectUtil.requireNotNull(accessToken, () -> new IllegalStateException("access token is required to fetch a device access token"));
+    ObjectUtil.requireNotNull(accessToken,
+      () -> new IllegalStateException("access token is required to fetch a device access token"));
 
     String response = makeRequest("device/login", true, false, null, Parameter.with("type", "device_code"),
       Parameter.with(SCOPE, scope.toString()));
@@ -453,7 +468,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
     verifyParameterPresence("code", code);
 
-    ObjectUtil.requireNotNull(accessToken, () -> new IllegalStateException("access token is required to fetch a device access token"));
+    ObjectUtil.requireNotNull(accessToken,
+      () -> new IllegalStateException("access token is required to fetch a device access token"));
 
     try {
       String response = makeRequest("device/login_status", true, false, null, Parameter.with("type", "device_token"),
@@ -724,15 +740,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(() -> {
-        if (executeAsDelete && !isHttpDeleteFallback()) {
-          return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
-        }
+      if (accessTokenInHeader) {
+        webRequestor.setAccessToken(this.accessToken);
+      }
 
-        if (executeAsPost) {
-          return webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments);
-        }
+      if (executeAsDelete && !isHttpDeleteFallback()) {
+        return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
+      }
 
-        return webRequestor.executeGet(fullEndpoint + "?" + parameterString);
+      if (executeAsPost) {
+        return webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments);
+      }
+
+      return webRequestor.executeGet(fullEndpoint + "?" + parameterString);
     });
   }
 
@@ -749,7 +769,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * returns if the fallback post method (<code>true</code>) is used or the http delete (<code>false</code>)
    * 
-   * @return
+   * @return {@code true} if POST is used instead of HTTP DELETE (default)
    */
   public boolean isHttpDeleteFallback() {
     return httpDeleteFallback;
@@ -836,7 +856,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs when building the parameter string.
    */
   protected String toParameterString(boolean withJsonParameter, Parameter... parameters) {
-    if (!isBlank(accessToken)) {
+    if (!isBlank(accessToken) && !accessTokenInHeader) {
       parameters = parametersWithAdditionalParameter(Parameter.with(ACCESS_TOKEN_PARAM_NAME, accessToken), parameters);
     }
 

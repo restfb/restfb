@@ -41,12 +41,19 @@ public class FakeWebRequestor implements WebRequestor {
 
   private Response predefinedResponse;
 
+  private String accessToken;
+
   public FakeWebRequestor() {
     this(null);
   }
 
   FakeWebRequestor(Response predefinedResponse) {
     this.predefinedResponse = predefinedResponse;
+  }
+
+  @Override
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
   }
 
   @Override

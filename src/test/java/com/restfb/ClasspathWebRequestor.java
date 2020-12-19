@@ -61,6 +61,11 @@ public class ClasspathWebRequestor implements WebRequestor {
     return response;
   }
 
+  @Override
+  public void setAccessToken(String accessToken) {
+
+  }
+
   /**
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */

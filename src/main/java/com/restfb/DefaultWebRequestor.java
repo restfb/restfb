@@ -70,6 +70,8 @@ public class DefaultWebRequestor implements WebRequestor {
 
   private DebugHeaderInfo debugHeaderInfo;
 
+  private ThreadLocal<String> accessToken = new ThreadLocal<>();
+
   /**
    * By default this is true, to prevent breaking existing usage
    */
@@ -77,6 +79,11 @@ public class DefaultWebRequestor implements WebRequestor {
 
   protected enum HttpMethod {
     GET, DELETE, POST
+  }
+
+  @Override
+  public void setAccessToken(final String accessToken) {
+    this.accessToken = ThreadLocal.withInitial(() -> accessToken);
   }
 
   @Override
@@ -115,6 +122,8 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setRequestMethod(HttpMethod.POST.name());
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
+
+      initHeaderAccessToken(httpUrlConnection);
 
       if (!binaryAttachments.isEmpty()) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
@@ -167,6 +176,12 @@ public class DefaultWebRequestor implements WebRequestor {
 
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
+    }
+  }
+
+  protected void initHeaderAccessToken(HttpURLConnection httpUrlConnection) {
+    if (accessToken.get() != null) {
+      httpUrlConnection.setRequestProperty("Authorization", "Bearer " + accessToken.get());
     }
   }
 
@@ -332,6 +347,8 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
       httpUrlConnection.setUseCaches(false);
       httpUrlConnection.setRequestMethod(httpMethod.name());
+
+      initHeaderAccessToken(httpUrlConnection);
 
       // Allow subclasses to customize the connection if they'd like to - set
       // their own headers, timeouts, etc.
