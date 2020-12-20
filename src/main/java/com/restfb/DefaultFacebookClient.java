@@ -274,7 +274,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(String.format("%s&%s=%s",
         connectionPageUrl, urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret))));
     } else {
-      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(connectionPageUrl));
+      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(connectionPageUrl, getHeaderAccessToken()));
     }
 
     return new Connection<>(this, connectionJson, connectionType);
@@ -740,20 +740,24 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(() -> {
-      if (accessTokenInHeader) {
-        webRequestor.setAccessToken(this.accessToken);
-      }
-
       if (executeAsDelete && !isHttpDeleteFallback()) {
-        return webRequestor.executeDelete(fullEndpoint + "?" + parameterString);
+        return webRequestor.executeDelete(fullEndpoint + "?" + parameterString, getHeaderAccessToken());
       }
 
       if (executeAsPost) {
-        return webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments);
+        return webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments, getHeaderAccessToken());
       }
 
-      return webRequestor.executeGet(fullEndpoint + "?" + parameterString);
+      return webRequestor.executeGet(fullEndpoint + "?" + parameterString, getHeaderAccessToken());
     });
+  }
+
+  private String getHeaderAccessToken() {
+    if (accessTokenInHeader) {
+      return this.accessToken;
+    }
+
+    return null;
   }
 
   /**

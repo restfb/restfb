@@ -25,6 +25,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -181,12 +182,17 @@ class ConnectionTest extends AbstractJsonMapperTests {
   void checkIteration_withSameCursorAndClient() {
     FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
       @Override
-      public Response executeGet(String url) {
+      public Response executeGet(String url, String headerAccessToken) {
         if (url.equals("https://graph.facebook.com/v3.2/me/adaccounts?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-same-cursor"));
         }
 
         return new Response(HTTP_OK, url);
+      }
+
+      @Override
+      public Response executeGet(String url) throws IOException {
+        return executeGet(url, null);
       }
     };
     DefaultFacebookClient facebookClient =
@@ -215,7 +221,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
   private Connection<FacebookType> create3PageConnection() {
     FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
       @Override
-      public Response executeGet(String url) {
+      public Response executeGet(String url, String headerAccessToken) {
 
         if (url.equals("https://graph.facebook.com/v3.1/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p1"));
@@ -231,6 +237,11 @@ class ConnectionTest extends AbstractJsonMapperTests {
 
         return new Response(HTTP_OK, url);
       }
+
+      @Override
+      public Response executeGet(String url) throws IOException {
+        return executeGet(url, null);
+      }
     };
     DefaultFacebookClient facebookClient =
         new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_1);
@@ -240,7 +251,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
   private Connection<FacebookType> create3PageConnectionWithCursorOnly() {
     FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
       @Override
-      public Response executeGet(String url) {
+      public Response executeGet(String url, String headerAccessToken) {
 
         if (url.equals("https://graph.facebook.com/v2.12/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-p1-cursor-only"));
@@ -256,6 +267,11 @@ class ConnectionTest extends AbstractJsonMapperTests {
 
         return new Response(HTTP_OK, url);
 
+      }
+
+      @Override
+      public Response executeGet(String url) throws IOException {
+        return executeGet(url, null);
       }
     };
     DefaultFacebookClient facebookClient =

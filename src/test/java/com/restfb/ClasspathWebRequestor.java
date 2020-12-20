@@ -54,16 +54,11 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String)
+   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Response executePost(String url, String parameters) {
+  public Response executePost(String url, String parameters, String headerAccessToken) {
     return response;
-  }
-
-  @Override
-  public void setAccessToken(String accessToken) {
-
   }
 
   /**
@@ -75,15 +70,23 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(String, String, List<BinaryAttachment>)
+   * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
+  public Response executeGet(String url, String headerAccessToken) {
+    return response;
+  }
+
+  /**
+   * @see com.restfb.WebRequestor#executePost(String, String, List, String)
+   */
+  @Override
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken) throws IOException {
     return response;
   }
 
   @Override
-  public Response executeDelete(String url) {
+  public Response executeDelete(String url, String headerAccessToken) {
     return response;
   }
 

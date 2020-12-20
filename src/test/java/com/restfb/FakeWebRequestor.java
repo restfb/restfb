@@ -52,11 +52,6 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public void setAccessToken(String accessToken) {
-    this.accessToken = accessToken;
-  }
-
-  @Override
   public Response executeGet(String url) throws IOException {
     this.savedUrl = url;
     this.method = HttpMethod.GET;
@@ -64,25 +59,36 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executePost(String url, String parameters) {
+  public Response executeGet(String url, String headerAccessToken) throws IOException {
     this.savedUrl = url;
-    this.method = HttpMethod.POST;
-    this.parameters = parameters;
+    this.method = HttpMethod.GET;
+    this.accessToken = headerAccessToken;
     return createInternalResponse();
   }
 
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) {
+  public Response executePost(String url, String parameters, String headerAccessToken) {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
     this.parameters = parameters;
+    this.accessToken = headerAccessToken;
     return createInternalResponse();
   }
 
   @Override
-  public Response executeDelete(String url) {
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken) {
+    this.savedUrl = url;
+    this.method = HttpMethod.POST;
+    this.parameters = parameters;
+    this.accessToken = headerAccessToken;
+    return createInternalResponse();
+  }
+
+  @Override
+  public Response executeDelete(String url, String headerAccessToken) {
     this.savedUrl = url;
     this.method = HttpMethod.DELETE;
+    this.accessToken = headerAccessToken;
     return createInternalResponse();
   }
 

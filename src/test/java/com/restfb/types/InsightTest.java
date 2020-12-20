@@ -94,7 +94,7 @@ class InsightTest extends AbstractJsonMapperTests {
   private Connection<Insight> create3PageInsightConnection() {
     FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
       @Override
-      public Response executeGet(String url) throws IOException {
+      public Response executeGet(String url, String headerAccessToken) throws IOException {
 
         if (url.equals("https://graph.facebook.com/v3.3/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-1"));
@@ -109,7 +109,11 @@ class InsightTest extends AbstractJsonMapperTests {
         }
 
         return new Response(HTTP_OK, url);
+      }
 
+      @Override
+      public Response executeGet(String url) throws IOException {
+        return executeGet(url, null);
       }
     };
     DefaultFacebookClient facebookClient =

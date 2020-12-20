@@ -93,18 +93,20 @@ public interface WebRequestor {
     }
   }
 
-  void setAccessToken(String accessToken);
-
   /**
    * Given a Facebook API endpoint URL, execute a {@code GET} against it.
    * 
    * @param url
    *          The URL to make a {@code GET} request for, including URL parameters.
+   * @param headerAccessToken
+   *          access token used in the header. May be {@code null}, if access token is already part of the query string
    * @return HTTP response data.
    * @throws IOException
    *           If an error occurs while performing the {@code GET} operation.
    * @since 1.5
    */
+  Response executeGet(String url, String headerAccessToken) throws IOException;
+
   Response executeGet(String url) throws IOException;
 
   /**
@@ -114,11 +116,13 @@ public interface WebRequestor {
    *          The URL to {@code POST} to.
    * @param parameters
    *          The parameters to be {@code POST}ed.
+   * @param headerAccessToken
+   *          access token used in the header. May be {@code null}, if access token is already part of the query string
    * @return HTTP response data.
    * @throws IOException
    *           If an error occurs while performing the {@code POST}.
    */
-  Response executePost(String url, String parameters) throws IOException;
+  Response executePost(String url, String parameters, String headerAccessToken) throws IOException;
 
   /**
    * Given a Facebook API endpoint URL and parameter string, execute a {@code POST} to the endpoint URL.
@@ -129,22 +133,26 @@ public interface WebRequestor {
    *          The parameters to be {@code POST}ed.
    * @param binaryAttachments
    *          Optional binary attachments to be included in the {@code POST} body (e.g. photos and videos).
+   * @param headerAccessToken
+   *          access token used in the header. May be {@code null}, if access token is already part of the query string
    * @return HTTP response data.
    * @throws IOException
    *           If an error occurs while performing the {@code POST}.
    */
-  Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException;
+  Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken) throws IOException;
 
   /**
    * Given a Facebook API endpoint URL and parameter string, execute a {@code DELETE} to the endpoint URL.
    * 
    * @param url
    *          The URL to submit the {@code DELETE} to.
+   * @param headerAccessToken
+   *          access token used in the header. May be {@code null}, if access token is already part of the query string
    * @return HTTP response data.
    * @throws IOException
    *           If an error occurs while performing the {@code DELETE}.
    */
-  Response executeDelete(String url) throws IOException;
+  Response executeDelete(String url,  String headerAccessToken) throws IOException;
 
   /**
    * Provides access to the facebook header information.

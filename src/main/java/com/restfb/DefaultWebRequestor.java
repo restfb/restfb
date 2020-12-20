@@ -70,8 +70,6 @@ public class DefaultWebRequestor implements WebRequestor {
 
   private DebugHeaderInfo debugHeaderInfo;
 
-  private ThreadLocal<String> accessToken = new ThreadLocal<>();
-
   /**
    * By default this is true, to prevent breaking existing usage
    */
@@ -82,22 +80,22 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   @Override
-  public void setAccessToken(final String accessToken) {
-    this.accessToken = ThreadLocal.withInitial(() -> accessToken);
+  public Response executeGet(String url, String headerAccessToken) throws IOException {
+    return execute(url, HttpMethod.GET, headerAccessToken);
   }
 
   @Override
   public Response executeGet(String url) throws IOException {
-    return execute(url, HttpMethod.GET);
+    return execute(url, HttpMethod.GET, null);
   }
 
   @Override
-  public Response executePost(String url, String parameters) throws IOException {
-    return executePost(url, parameters, null);
+  public Response executePost(String url, String parameters, String headerAccessToken) throws IOException {
+    return executePost(url, parameters, null, headerAccessToken);
   }
 
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments)
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken)
       throws IOException {
 
     binaryAttachments = Optional.ofNullable(binaryAttachments).orElse(new ArrayList<>());
@@ -123,7 +121,7 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
 
-      initHeaderAccessToken(httpUrlConnection);
+      initHeaderAccessToken(httpUrlConnection, headerAccessToken);
 
       if (!binaryAttachments.isEmpty()) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
@@ -179,9 +177,9 @@ public class DefaultWebRequestor implements WebRequestor {
     }
   }
 
-  protected void initHeaderAccessToken(HttpURLConnection httpUrlConnection) {
-    if (accessToken.get() != null) {
-      httpUrlConnection.setRequestProperty("Authorization", "Bearer " + accessToken.get());
+  protected void initHeaderAccessToken(HttpURLConnection httpUrlConnection, String headerAccessToken) {
+    if (headerAccessToken != null) {
+      httpUrlConnection.setRequestProperty("Authorization", "Bearer " + headerAccessToken);
     }
   }
 
@@ -203,7 +201,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
   /**
    * Hook method which allows subclasses to easily customize the {@code connection}s created by
-   * {@link #executeGet(String)} and {@link #executePost(String, String)} - for example, setting a custom read timeout
+   * {@link #executeGet(String)} and {@link #executePost(String, String, String)} - for example, setting a custom read timeout
    * or request header.
    * <p>
    * This implementation is a no-op.
@@ -328,8 +326,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executeDelete(String url) throws IOException {
-    return execute(url, HttpMethod.DELETE);
+  public Response executeDelete(String url, String headerAccessToken) throws IOException {
+    return execute(url, HttpMethod.DELETE, headerAccessToken);
   }
 
   @Override
@@ -337,7 +335,7 @@ public class DefaultWebRequestor implements WebRequestor {
     return debugHeaderInfo;
   }
 
-  private Response execute(String url, HttpMethod httpMethod) throws IOException {
+  private Response execute(String url, HttpMethod httpMethod, String headerAccessToken) throws IOException {
     HTTP_LOGGER.debug("Making a {} request to {}", httpMethod.name(), url);
 
     HttpURLConnection httpUrlConnection = null;
@@ -348,7 +346,7 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setUseCaches(false);
       httpUrlConnection.setRequestMethod(httpMethod.name());
 
-      initHeaderAccessToken(httpUrlConnection);
+      initHeaderAccessToken(httpUrlConnection, headerAccessToken);
 
       // Allow subclasses to customize the connection if they'd like to - set
       // their own headers, timeouts, etc.
