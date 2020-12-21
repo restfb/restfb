@@ -43,12 +43,12 @@ public interface WebRequestor {
     /**
      * HTTP response status code (e.g. 200).
      */
-    private Integer statusCode;
+    private final Integer statusCode;
 
     /**
      * HTTP response body as text.
      */
-    private String body;
+    private final String body;
 
     /**
      * Creates a response with the given HTTP status code and response body as text.
@@ -107,6 +107,16 @@ public interface WebRequestor {
    */
   Response executeGet(String url, String headerAccessToken) throws IOException;
 
+  /**
+   * Given a Facebook API endpoint URL, execute a {@code GET} against it.
+   *
+   * @param url
+   *          The URL to make a {@code GET} request for, including URL parameters.
+   * @return HTTP response data.
+   * @throws IOException
+   *           If an error occurs while performing the {@code GET} operation.
+   * @since 1.5
+   */
   Response executeGet(String url) throws IOException;
 
   /**
@@ -152,7 +162,7 @@ public interface WebRequestor {
    * @throws IOException
    *           If an error occurs while performing the {@code DELETE}.
    */
-  Response executeDelete(String url,  String headerAccessToken) throws IOException;
+  Response executeDelete(String url, String headerAccessToken) throws IOException;
 
   /**
    * Provides access to the facebook header information.
