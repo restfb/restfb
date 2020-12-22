@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 3.13.0 (December 22, 2020)
+
+* Issue #1107: use HTTP header field for access token<br />
+  Thanks to @StephenFlavin for the hint<br/>
+  Attention: this may be a breaking change if you have a custom `WebRequestor` implementation
+* Issue #1105: missing fields to `WhatsappMessageTemplate` added
+* Issue #1103: Graph API 9.0: missing fields added to `AdCreative`
+
 ## 3.12.0 (November 11, 2020)
 
 * Issue #1101: Graph API 9.0 version added
