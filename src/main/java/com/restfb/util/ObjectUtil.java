@@ -51,6 +51,12 @@ public class ObjectUtil {
     return obj;
   }
 
+  public static void requireNotEmpty(Collection<?> collection, String errorText) {
+    if (collection == null || collection.isEmpty()) {
+      throw new IllegalArgumentException(errorText);
+    }
+  }
+
   /**
    * Ensures that {@code obj} isn't {@code null}.
    *

@@ -36,7 +36,6 @@ import org.junit.jupiter.api.Test;
 import com.restfb.*;
 import com.restfb.json.JsonObject;
 
-
 class InsightTest extends AbstractJsonMapperTests {
 
   @Test
@@ -62,12 +61,12 @@ class InsightTest extends AbstractJsonMapperTests {
   @Test
   void checkV3_3_connection() {
     TreeMap<String, Integer> vals = new TreeMap<>();
-    Connection<Insight> conn =  create3PageInsightConnection();
+    Connection<Insight> conn = create3PageInsightConnection();
     for (List<Insight> insightList : conn) {
       for (Insight insight : insightList) {
         assertNotNull(insight);
         JsonObject object = insight.getValues().get(0).get("value").asObject();
-        for (String name: object.names()) {
+        for (String name : object.names()) {
           vals.put(name, object.get(name).asInt());
         }
       }
@@ -93,30 +92,29 @@ class InsightTest extends AbstractJsonMapperTests {
   private Connection<Insight> create3PageInsightConnection() {
     FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
       @Override
-      public Response executeGet(String url, String headerAccessToken) {
+      public Response executeGet(Request request) {
+
+        String url = request.getFullUrl();
 
         if (url.equals("https://graph.facebook.com/v3.3/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-1"));
         }
 
-        if (url.equals("https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1560236400&until=1560409200")) {
+        if (url.equals(
+          "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1560236400&until=1560409200")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-2"));
         }
 
-        if (url.equals("https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&since=1560409200&until=1560582000&metric=page_fans_city")) {
+        if (url.equals(
+          "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&since=1560409200&until=1560582000&metric=page_fans_city")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-3"));
         }
 
         return new Response(HTTP_OK, url);
       }
-
-      @Override
-      public Response executeGet(String url) throws IOException {
-        return executeGet(url, null);
-      }
     };
     DefaultFacebookClient facebookClient =
-            new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_3);
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_3);
     return facebookClient.fetchConnection("/page1", Insight.class);
   }
 }

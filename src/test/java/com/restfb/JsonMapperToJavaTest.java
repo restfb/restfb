@@ -226,13 +226,8 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
     User user2 = new DefaultFacebookClient("blub", new DefaultWebRequestor() {
       @Override
-      public Response executeGet(final String url, String headerAccessToken) {
+      public Response executeGet(Request request) {
         return new Response(HttpURLConnection.HTTP_OK, "{\"id\":\"b4TUmsLXoK\",\"name\":\"ⲉ鯨ɯ摓㻦恛҉祐\\f፲\"}");
-      }
-
-      @Override
-      public Response executeGet(String url) throws IOException {
-        return executeGet(url, null);
       }
     }, new DefaultJsonMapper(), Version.LATEST).fetchObject("me", User.class);
     assertThat(user2).isNotNull();

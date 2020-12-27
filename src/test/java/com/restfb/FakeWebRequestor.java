@@ -23,9 +23,6 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.restfb.DefaultWebRequestor.HttpMethod;
 
 /**
@@ -52,43 +49,27 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executeGet(String url) throws IOException {
-    this.savedUrl = url;
+  public Response executeGet(Request request) {
+    this.savedUrl = request.getFullUrl();
     this.method = HttpMethod.GET;
+    this.accessToken = request.getHeaderAccessToken();
     return createInternalResponse();
   }
 
   @Override
-  public Response executeGet(String url, String headerAccessToken) throws IOException {
-    this.savedUrl = url;
-    this.method = HttpMethod.GET;
-    this.accessToken = headerAccessToken;
-    return createInternalResponse();
-  }
-
-  @Override
-  public Response executePost(String url, String parameters, String headerAccessToken) {
-    this.savedUrl = url;
+  public Response executePost(Request request) {
+    this.savedUrl = request.getUrl();
     this.method = HttpMethod.POST;
-    this.parameters = parameters;
-    this.accessToken = headerAccessToken;
+    this.parameters = request.getParameters();
+    this.accessToken = request.getHeaderAccessToken();
     return createInternalResponse();
   }
 
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken) {
-    this.savedUrl = url;
-    this.method = HttpMethod.POST;
-    this.parameters = parameters;
-    this.accessToken = headerAccessToken;
-    return createInternalResponse();
-  }
-
-  @Override
-  public Response executeDelete(String url, String headerAccessToken) {
-    this.savedUrl = url;
+  public Response executeDelete(Request request) {
+    this.savedUrl = request.getFullUrl();
     this.method = HttpMethod.DELETE;
-    this.accessToken = headerAccessToken;
+    this.accessToken = request.getHeaderAccessToken();
     return createInternalResponse();
   }
 

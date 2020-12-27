@@ -25,7 +25,6 @@ import static com.restfb.util.StringUtils.fromInputStream;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * {@link WebRequestor} implementation that loads a file from the classpath instead of hitting the web. Useful for
@@ -54,39 +53,23 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, java.lang.String)
+   * @see com.restfb.WebRequestor#executeGet(com.restfb.WebRequestor.Request)
    */
   @Override
-  public Response executePost(String url, String parameters, String headerAccessToken) {
+  public Response executeGet(Request request) {
     return response;
   }
 
   /**
-   * @see com.restfb.WebRequestor#executeGet(java.lang.String)
+   * @see com.restfb.WebRequestor#executePost(com.restfb.WebRequestor.Request)
    */
   @Override
-  public Response executeGet(String url) {
-    return response;
-  }
-
-  /**
-   * @see com.restfb.WebRequestor#executeGet(java.lang.String)
-   */
-  @Override
-  public Response executeGet(String url, String headerAccessToken) {
-    return response;
-  }
-
-  /**
-   * @see com.restfb.WebRequestor#executePost(String, String, List, String)
-   */
-  @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken) throws IOException {
+  public Response executePost(Request request) {
     return response;
   }
 
   @Override
-  public Response executeDelete(String url, String headerAccessToken) {
+  public Response executeDelete(Request request) {
     return response;
   }
 

@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import com.restfb.WebRequestor;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.ETagWebRequestor;
@@ -40,10 +41,10 @@ class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
     String requestUrl = "https://graph.facebook.com/v2.5/me?format=json&access_token=";
     requestUrl += getTestSettings().getUserAccessToken();
     ETagWebRequestor webRequest = new ETagWebRequestor();
-    Response resp1 = webRequest.executeGet(requestUrl);
+    Response resp1 = webRequest.executeGet(new WebRequestor.Request(requestUrl, null));
     assertNotNull(resp1);
     assertEquals(HttpURLConnection.HTTP_OK, (int) resp1.getStatusCode());
-    Response resp2 = webRequest.executeGet(requestUrl);
+    Response resp2 = webRequest.executeGet(new WebRequestor.Request(requestUrl, null));
     assertNotNull(resp2);
     assertEquals(HttpURLConnection.HTTP_NOT_MODIFIED, (int) resp2.getStatusCode());
     assertEquals(resp1.getBody(), resp2.getBody());
@@ -55,10 +56,10 @@ class EtagWebRequestorITCase extends RestFbIntegrationTestBase {
     requestUrl += getTestSettings().getUserAccessToken();
     ETagWebRequestor webRequest = new ETagWebRequestor();
     webRequest.setUseCache(false);
-    Response resp1 = webRequest.executeGet(requestUrl);
+    Response resp1 = webRequest.executeGet(new WebRequestor.Request(requestUrl, null));
     assertNotNull(resp1);
     assertEquals(HttpURLConnection.HTTP_OK, (int) resp1.getStatusCode());
-    Response resp2 = webRequest.executeGet(requestUrl);
+    Response resp2 = webRequest.executeGet(new WebRequestor.Request(requestUrl, null));
     assertNotNull(resp2);
     assertEquals(HttpURLConnection.HTTP_OK, (int) resp2.getStatusCode());
     assertEquals(resp1.getBody(), resp2.getBody());

@@ -23,6 +23,7 @@ package com.restfb;
 
 import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.EncodingUtils.decodeBase64;
+import static com.restfb.util.ObjectUtil.requireNotEmpty;
 import static com.restfb.util.ObjectUtil.verifyParameterPresence;
 import static com.restfb.util.StringUtils.*;
 import static com.restfb.util.UrlUtils.urlEncode;
@@ -271,10 +272,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
-      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(String.format("%s&%s=%s",
-        connectionPageUrl, urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret))));
+      WebRequestor.Request request = new WebRequestor.Request(String.format("%s&%s=%s", connectionPageUrl,
+        urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)), null);
+      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(request));
     } else {
-      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(connectionPageUrl, getHeaderAccessToken()));
+      connectionJson = makeRequestAndProcessResponse(
+        () -> webRequestor.executeGet(new WebRequestor.Request(connectionPageUrl, getHeaderAccessToken())));
     }
 
     return new Connection<>(this, connectionJson, connectionType);
@@ -303,10 +306,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("ids", ids);
     verifyParameterPresence("connectionType", objectType);
-
-    if (ids.isEmpty()) {
-      throw new IllegalArgumentException("The list of IDs cannot be empty.");
-    }
+    requireNotEmpty(ids, "The list of IDs cannot be empty.");
 
     if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
       throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
@@ -405,10 +405,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public List<BatchResponse> executeBatch(List<BatchRequest> batchRequests, List<BinaryAttachment> binaryAttachments) {
     verifyParameterPresence("binaryAttachments", binaryAttachments);
-
-    if (batchRequests == null || batchRequests.isEmpty()) {
-      throw new IllegalArgumentException("You must specify at least one batch request.");
-    }
+    requireNotEmpty(batchRequests, "You must specify at least one batch request.");
 
     return jsonMapper.toJavaList(
       makeRequest("", true, false, binaryAttachments, Parameter.with("batch", jsonMapper.toJson(batchRequests, true))),
@@ -740,15 +737,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     final String parameterString = toParameterString(parameters);
 
     return makeRequestAndProcessResponse(() -> {
+      WebRequestor.Request request = new WebRequestor.Request(fullEndpoint, getHeaderAccessToken(), parameterString);
       if (executeAsDelete && !isHttpDeleteFallback()) {
-        return webRequestor.executeDelete(fullEndpoint + "?" + parameterString, getHeaderAccessToken());
+        return webRequestor.executeDelete(request);
       }
 
       if (executeAsPost) {
-        return webRequestor.executePost(fullEndpoint, parameterString, binaryAttachments, getHeaderAccessToken());
+        request.setBinaryAttachments(binaryAttachments);
+        return webRequestor.executePost(request);
       }
 
-      return webRequestor.executeGet(fullEndpoint + "?" + parameterString, getHeaderAccessToken());
+      return webRequestor.executeGet(request);
     });
   }
 
