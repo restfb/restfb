@@ -22,9 +22,10 @@
 package com.restfb.testutils;
 
 import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.util.Objects;
 
 import com.restfb.BinaryAttachment;
+
+import java.util.Objects;
 
 public class BinaryAttachmentAssert extends AbstractAssert<BinaryAttachmentAssert, BinaryAttachment> {
 
@@ -39,7 +40,7 @@ public class BinaryAttachmentAssert extends AbstractAssert<BinaryAttachmentAsser
   public BinaryAttachmentAssert hasFileName(String filename) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getFilename(), filename)) {
+    if (!Objects.deepEquals(actual.getFilename(), filename)) {
       failWithMessage("Expected filename should be <%s> but was <%s>", filename, actual.getFilename());
     }
 
@@ -49,7 +50,7 @@ public class BinaryAttachmentAssert extends AbstractAssert<BinaryAttachmentAsser
   public BinaryAttachmentAssert hasContentType(String contentType) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getContentType(), contentType)) {
+    if (!Objects.deepEquals(actual.getContentType(), contentType)) {
       failWithMessage("Expected content type should be <%s> but was <%s>", contentType, actual.getContentType());
     }
 

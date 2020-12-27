@@ -24,7 +24,8 @@ package com.restfb.testutils;
 import com.restfb.Parameter;
 
 import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.util.Objects;
+
+import java.util.Objects;
 
 public class ParameterAssert extends AbstractAssert<ParameterAssert, Parameter> {
 
@@ -39,7 +40,7 @@ public class ParameterAssert extends AbstractAssert<ParameterAssert, Parameter> 
   public ParameterAssert hasName(String name) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.name, name)) {
+    if (!Objects.deepEquals(actual.name, name)) {
       failWithMessage("Expected name should be <%s> but was <%s>", name, actual.name);
     }
 
@@ -49,7 +50,7 @@ public class ParameterAssert extends AbstractAssert<ParameterAssert, Parameter> 
   public ParameterAssert hasValue(Object value) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.value, value)) {
+    if (!Objects.deepEquals(actual.value, value)) {
       failWithMessage("Expected value should be <%s> but was <%s>", value, actual.value);
     }
 

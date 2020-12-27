@@ -22,9 +22,10 @@
 package com.restfb.testutils;
 
 import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.util.Objects;
 
 import com.restfb.batch.BatchRequest;
+
+import java.util.Objects;
 
 public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, BatchRequest> {
 
@@ -39,7 +40,7 @@ public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, Batch
   public BatchRequestAssert hasMethod(String method) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getMethod(), method)) {
+    if (!Objects.deepEquals(actual.getMethod(), method)) {
       failWithMessage("Expected http method should be <%s> but was <%s>", method, actual.getMethod());
     }
 
@@ -49,7 +50,7 @@ public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, Batch
   public BatchRequestAssert hasName(String name) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getName(), name)) {
+    if (!Objects.deepEquals(actual.getName(), name)) {
       failWithMessage("Expected name should be <%s> but was <%s>", name, actual.getName());
     }
 
@@ -59,7 +60,7 @@ public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, Batch
   public BatchRequestAssert hasRelativeUrl(String relativeUrl) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getRelativeUrl(), relativeUrl)) {
+    if (!Objects.deepEquals(actual.getRelativeUrl(), relativeUrl)) {
       failWithMessage("Expected relative URL should be <%s> but was <%s>", relativeUrl, actual.getRelativeUrl());
     }
 
@@ -69,7 +70,7 @@ public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, Batch
   public BatchRequestAssert hasBody(String body) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getBody(), body)) {
+    if (!Objects.deepEquals(actual.getBody(), body)) {
       failWithMessage("Expected relative URL should be <%s> but was <%s>", body, actual.getBody());
     }
 
@@ -79,7 +80,7 @@ public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, Batch
   public BatchRequestAssert hasDependsOn(String dependsOn) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getDependsOn(), dependsOn)) {
+    if (!Objects.deepEquals(actual.getDependsOn(), dependsOn)) {
       failWithMessage("Expected 'depends on' should be <%s> but was <%s>", dependsOn, actual.getDependsOn());
     }
 
@@ -89,7 +90,7 @@ public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, Batch
   public BatchRequestAssert hasAttachedFiles(String attachedFiles) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getAttachedFiles(), attachedFiles)) {
+    if (!Objects.deepEquals(actual.getAttachedFiles(), attachedFiles)) {
       failWithMessage("Expected attached files should be <%s> but was <%s>", attachedFiles, actual.getAttachedFiles());
     }
 
@@ -99,7 +100,7 @@ public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, Batch
   public BatchRequestAssert isOmitResponseOnSuccess() {
     isNotNull();
 
-    if (!Objects.areEqual(actual.isOmitResponseOnSuccess(), true)) {
+    if (!Objects.deepEquals(actual.isOmitResponseOnSuccess(), true)) {
       failWithMessage("Expected omitResponseOnSuccess should be <%s> but was <%s>", true,
         actual.isOmitResponseOnSuccess());
     }

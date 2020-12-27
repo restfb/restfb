@@ -24,7 +24,8 @@ package com.restfb.testutils;
 import com.restfb.FakeWebRequestor;
 
 import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.util.Objects;
+
+import java.util.Objects;
 
 public class FakeWebRequestorAssert extends AbstractAssert<FakeWebRequestorAssert, FakeWebRequestor> {
 
@@ -39,7 +40,7 @@ public class FakeWebRequestorAssert extends AbstractAssert<FakeWebRequestorAsser
   public FakeWebRequestorAssert isSavedUrlEqualTo(String url) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getSavedUrl(), url)) {
+    if (!Objects.deepEquals(actual.getSavedUrl(), url)) {
       failWithMessage("Expected saved url should be <%s> but was <%s>", url, actual.getSavedUrl());
     }
 
@@ -49,7 +50,7 @@ public class FakeWebRequestorAssert extends AbstractAssert<FakeWebRequestorAsser
   public FakeWebRequestorAssert isParametersEqualTo(String parameters) {
     isNotNull();
 
-    if (!Objects.areEqual(actual.getParameters(), parameters)) {
+    if (!Objects.deepEquals(actual.getParameters(), parameters)) {
       failWithMessage("Expected parameters should be <%s> but was <%s>", parameters, actual.getParameters());
     }
 
