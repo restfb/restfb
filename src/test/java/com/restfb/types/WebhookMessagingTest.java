@@ -57,17 +57,9 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.getMids().isEmpty());
     assertEquals("1458668856253", item.getWatermark());
     assertEquals(37L, item.getSeq().longValue());
-    AtomicBoolean foundDeprecated = new AtomicBoolean(false);
     AtomicBoolean found = new AtomicBoolean(false);
 
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
-      @Override
-      public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender) {
-        assertNotNull(delivery);
-        assertEquals("1458668856253", delivery.getWatermark());
-        foundDeprecated.set(true);
-      }
-
       @Override
       public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender,
           Date timestamp) {
@@ -77,7 +69,6 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
       }
     });
     webhookListener.process(webhookObject);
-    assertTrue(foundDeprecated.get());
     assertTrue(found.get());
   }
 
@@ -100,7 +91,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void read(ReadItem read, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void read(ReadItem read, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(read);
         assertEquals("1458668856253", read.getWatermark());
         found.set(true);
@@ -137,7 +128,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(message);
         assertEquals("mid.1458696618141:b4ef9d19ec21086067", message.getMid());
         assertNull(message.getText());
@@ -176,7 +167,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(message);
         assertEquals("mid.1458696618141:b4ef9d19ec21086067", message.getMid());
         assertTrue(message.hasAttachment());
@@ -294,7 +285,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void reaction(MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void reaction(MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(reaction);
         assertEquals("original_message_id", reaction.getMid());
         assertEquals("sad", reaction.getReaction());
@@ -367,7 +358,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void appRoles(AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void appRoles(AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(appRoles);
         found.set(true);
       }
@@ -396,7 +387,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void referral(ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void referral(ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(referral);
         found.set(true);
       }
@@ -470,7 +461,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void optin(OptinItem optin, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void optin(OptinItem optin, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(optin);
         found.set(true);
       }
@@ -519,7 +510,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
 
       @Override
       public void policyEnforcement(PolicyEnforcementItem policyEnforcement, MessagingParticipant recipient,
-          MessagingParticipant sender) {
+          MessagingParticipant sender, Date timestamp) {
         assertNotNull(policyEnforcement);
         found.set(true);
       }
@@ -565,7 +556,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void postback(PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void postback(PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(postback);
         found.set(true);
       }
@@ -637,7 +628,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void accountLinking(AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender) {
+      public void accountLinking(AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
         assertNotNull(item);
         found.set(true);
       }
@@ -745,7 +736,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
 
       @Override
       public void passThreadControl(PassThreadControlItem passThreadControl, MessagingParticipant recipient,
-          MessagingParticipant sender) {
+          MessagingParticipant sender, Date timestamp) {
         assertNotNull(passThreadControl);
         found.set(true);
       }
@@ -774,7 +765,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
 
       @Override
       public void takeThreadControl(TakeThreadControlItem takeThreadControl, MessagingParticipant recipient,
-          MessagingParticipant sender) {
+          MessagingParticipant sender, Date timestamp) {
         assertNotNull(takeThreadControl);
         found.set(true);
       }
@@ -804,7 +795,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
 
       @Override
       public void requestThreadControl(RequestThreadControlItem requestThreadControl, MessagingParticipant recipient,
-          MessagingParticipant sender) {
+          MessagingParticipant sender, Date timestamp) {
         assertNotNull(requestThreadControl);
         found.set(true);
       }

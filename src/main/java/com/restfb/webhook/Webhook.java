@@ -167,87 +167,61 @@ public class Webhook {
     webhookObject.getEntryList().stream().flatMap(entry -> entry.getMessaging().stream()).forEach(messagingItem -> {
       if (messagingItem.isAccountLinking()) {
         messagingListener.accountLinking(messagingItem.getAccountLinking(), messagingItem.getRecipient(),
-          messagingItem.getSender());
-        messagingListener.accountLinking(messagingItem.getAccountLinking(), messagingItem.getRecipient(),
           messagingItem.getSender(), messagingItem.getTimestamp());
       }
       if (messagingItem.isAppRoles()) {
-        messagingListener.appRoles(messagingItem.getAppRoles(), messagingItem.getRecipient(),
-          messagingItem.getSender());
         messagingListener.appRoles(messagingItem.getAppRoles(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isCheckoutUpdate()) {
         messagingListener.checkoutUpdate(messagingItem.getCheckoutUpdate(), messagingItem.getRecipient(),
-          messagingItem.getSender());
-        messagingListener.checkoutUpdate(messagingItem.getCheckoutUpdate(), messagingItem.getRecipient(),
           messagingItem.getSender(), messagingItem.getTimestamp());
       }
       if (messagingItem.isDelivery()) {
-        messagingListener.delivery(messagingItem.getDelivery(), messagingItem.getRecipient(),
-          messagingItem.getSender());
         messagingListener.delivery(messagingItem.getDelivery(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isMessage()) {
-        messagingListener.message(messagingItem.getMessage(), messagingItem.getRecipient(), messagingItem.getSender());
         messagingListener.message(messagingItem.getMessage(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isOptin()) {
-        messagingListener.optin(messagingItem.getOptin(), messagingItem.getRecipient(), messagingItem.getSender());
         messagingListener.optin(messagingItem.getOptin(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isPassThreadControl()) {
         messagingListener.passThreadControl(messagingItem.getPassThreadControl(), messagingItem.getRecipient(),
-          messagingItem.getSender());
-        messagingListener.passThreadControl(messagingItem.getPassThreadControl(), messagingItem.getRecipient(),
           messagingItem.getSender(), messagingItem.getTimestamp());
       }
       if (messagingItem.isPayment()) {
-        messagingListener.payment(messagingItem.getPayment(), messagingItem.getRecipient(), messagingItem.getSender());
         messagingListener.payment(messagingItem.getPayment(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isPolicyEnforcement()) {
         messagingListener.policyEnforcement(messagingItem.getPolicyEnforcement(), messagingItem.getRecipient(),
-          messagingItem.getSender());
-        messagingListener.policyEnforcement(messagingItem.getPolicyEnforcement(), messagingItem.getRecipient(),
           messagingItem.getSender(), messagingItem.getTimestamp());
       }
       if (messagingItem.isPostback()) {
-        messagingListener.postback(messagingItem.getPostback(), messagingItem.getRecipient(),
-          messagingItem.getSender());
         messagingListener.postback(messagingItem.getPostback(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isReaction()) {
-        messagingListener.reaction(messagingItem.getReaction(), messagingItem.getRecipient(),
-          messagingItem.getSender());
         messagingListener.reaction(messagingItem.getReaction(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isRead()) {
-        messagingListener.read(messagingItem.getRead(), messagingItem.getRecipient(), messagingItem.getSender());
         messagingListener.read(messagingItem.getRead(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isReferral()) {
-        messagingListener.referral(messagingItem.getReferral(), messagingItem.getRecipient(),
-          messagingItem.getSender());
         messagingListener.referral(messagingItem.getReferral(), messagingItem.getRecipient(), messagingItem.getSender(),
           messagingItem.getTimestamp());
       }
       if (messagingItem.isRequestThreadControl()) {
         messagingListener.requestThreadControl(messagingItem.getRequestThreadControl(), messagingItem.getRecipient(),
-          messagingItem.getSender());
-        messagingListener.requestThreadControl(messagingItem.getRequestThreadControl(), messagingItem.getRecipient(),
           messagingItem.getSender(), messagingItem.getTimestamp());
       }
       if (messagingItem.isTakeThreadControl()) {
-        messagingListener.takeThreadControl(messagingItem.getTakeThreadControl(), messagingItem.getRecipient(),
-          messagingItem.getSender());
         messagingListener.takeThreadControl(messagingItem.getTakeThreadControl(), messagingItem.getRecipient(),
           messagingItem.getSender(), messagingItem.getTimestamp());
       }

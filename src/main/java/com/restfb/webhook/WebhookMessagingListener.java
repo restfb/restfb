@@ -30,87 +30,37 @@ import java.util.Date;
  */
 public interface WebhookMessagingListener {
 
-  @Deprecated
-  void accountLinking(final AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender);
-
   void accountLinking(final AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
 
-  @Deprecated
-  void appRoles(final AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender);
-
   void appRoles(final AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
-
-  @Deprecated
-  void checkoutUpdate(final CheckoutUpdateItem checkoutUpdate, MessagingParticipant recipient,
-      MessagingParticipant sender);
 
   void checkoutUpdate(final CheckoutUpdateItem checkoutUpdate, MessagingParticipant recipient,
                       MessagingParticipant sender, Date timestamp);
 
-  @Deprecated
-  void delivery(final DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender);
-
   void delivery(final DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
-
-  @Deprecated
-  void message(final MessageItem message, MessagingParticipant recipient, MessagingParticipant sender);
 
   void message(final MessageItem message, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
 
-  @Deprecated
-  void optin(final OptinItem optin, MessagingParticipant recipient, MessagingParticipant sender);
-
   void optin(final OptinItem optin, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
-
-  @Deprecated
-  void passThreadControl(final PassThreadControlItem passThreadControl, MessagingParticipant recipient,
-      MessagingParticipant sender);
 
   void passThreadControl(final PassThreadControlItem passThreadControl, MessagingParticipant recipient,
                          MessagingParticipant sender, Date timestamp);
-
-  @Deprecated
-  void payment(final PaymentItem payment, MessagingParticipant recipient, MessagingParticipant sender);
 
   void payment(final PaymentItem payment, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
 
-  @Deprecated
-  void policyEnforcement(final PolicyEnforcementItem policyEnforcement, MessagingParticipant recipient,
-      MessagingParticipant sender);
-
   void policyEnforcement(final PolicyEnforcementItem policyEnforcement, MessagingParticipant recipient,
                          MessagingParticipant sender, Date timestamp);
 
-  @Deprecated
-  void postback(final PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender);
-
   void postback(final PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
-
-  @Deprecated
-  void reaction(final MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender);
 
   void reaction(final MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
 
-  @Deprecated
-  void read(final ReadItem read, MessagingParticipant recipient, MessagingParticipant sender);
-
   void read(final ReadItem read, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
-
-  @Deprecated
-  void referral(final ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender);
 
   void referral(final ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp);
 
-  @Deprecated
-  void requestThreadControl(final RequestThreadControlItem requestThreadControl, MessagingParticipant recipient,
-      MessagingParticipant sender);
-
   void requestThreadControl(final RequestThreadControlItem requestThreadControl, MessagingParticipant recipient,
                             MessagingParticipant sender, Date timestamp);
-
-  @Deprecated
-  void takeThreadControl(final TakeThreadControlItem takeThreadControl, MessagingParticipant recipient,
-      MessagingParticipant sender);
 
   void takeThreadControl(final TakeThreadControlItem takeThreadControl, MessagingParticipant recipient,
                          MessagingParticipant sender, Date timestamp);
