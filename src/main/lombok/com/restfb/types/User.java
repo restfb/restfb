@@ -162,43 +162,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private String quotes;
 
   /**
-   * The user's blurb that appears under their profile picture.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   *
-   * @return The user's blurb that appears under their profile picture.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  @Deprecated
-  private String about;
-
-  /**
-   * The user's relationship status.
-   * 
-   * @return The user's relationship status.
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Getter
-  @Setter
-  @Facebook("relationship_status")
-  @Deprecated
-  private String relationshipStatus;
-
-  /**
-   * The user's religion.
-   * 
-   * @return The user's religion.
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Getter
-  @Setter
-  @Facebook
-  @Deprecated
-  private String religion;
-
-  /**
    * Unspecific age range that this person's age fits into.
    * 
    * @return The user's age range
@@ -207,18 +170,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   @Setter
   @Facebook("age_range")
   private AgeRange ageRange;
-
-  /**
-   * A link to the user's personal website.
-   * 
-   * @return A link to the user's personal website.
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Getter
-  @Setter
-  @Facebook
-  @Deprecated
-  private String website;
 
   /**
    * The user's birthday as a {@code String}.
@@ -280,18 +231,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private VideoUploadLimits videoUploadLimits;
 
   /**
-   * Can the viewer send a gift to this person?
-   *
-   * @deprecated Will be deprecated in all versions on Nov, 2020.
-   * @return Can the viewer send a gift to this person?
-   */
-  @Getter
-  @Setter
-  @Facebook("viewer_can_send_gift")
-  @Deprecated
-  private Boolean viewerCanSendGift;
-
-  /**
    * The user's gender.
    * 
    * @return The user's gender.
@@ -302,18 +241,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private String gender;
 
   /**
-   * The user's political affiliation.
-   * 
-   * @return The user's political affiliation.
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Getter
-  @Setter
-  @Facebook
-  @Deprecated
-  private String political;
-
-  /**
    * The user's locale.
    * 
    * @return The user's locale.
@@ -322,19 +249,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   @Setter
   @Facebook
   private String locale;
-
-  /**
-   * The user's Facebook username.
-   *
-   * @return The user's Facebook username.
-   * @since 1.6.5
-   * @deprecated since graph api 2.0
-   */
-  @Deprecated
-  @Getter
-  @Setter
-  @Facebook
-  private String username;
 
   /**
    * The person's PGP public key
@@ -403,18 +317,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private NamedFacebookType location;
 
   /**
-   * Security settings
-   *
-   * @deprecated Will be deprecated in all versions on Nov, 2020.
-   * @return Security settings
-   */
-  @Getter
-  @Setter
-  @Facebook("security_settings")
-  @Deprecated
-  private SecuritySettings securitySettings;
-
-  /**
    * The time that the shared loginneeds to be upgraded to Business Manager by
    *
    * @return The time that the shared loginneeds to be upgraded to Business Manager by
@@ -433,18 +335,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   @Setter
   @Facebook("significant_other")
   private NamedFacebookType significantOther;
-
-  /**
-   * Platform test group
-   *
-   * @return Platform test group
-   * @deprecated Will be deprecated in all versions on Nov, 2020.
-   */
-  @Getter
-  @Setter
-  @Facebook("test_group")
-  @Deprecated
-  private Long testGroup;
 
   /**
    * Date the user's profile was updated.
@@ -513,18 +403,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private Boolean installed;
 
   /**
-   * Is this a shared login (e.g. a gray user)
-   *
-   * @deprecated Will be deprecated in all versions on Nov, 2020.
-   * @return Is this a shared login (e.g. a gray user)
-   */
-  @Getter
-  @Setter
-  @Facebook("is_shared_login")
-  @Deprecated
-  private Boolean isSharedLogin;
-
-  /**
    * People with large numbers of followers can have the authenticity of their identity manually verified by Facebook.
    * This field indicates whether the person's profile is verified in this way.
    *
@@ -545,23 +423,11 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   @Facebook("is_guest_user")
   private Boolean isGuestUser;
 
-  @Deprecated
-  @Facebook("interested_in")
-  private List<String> interestedIn = new ArrayList<>();
-
   @Facebook("meeting_for")
   private List<String> meetingFor = new ArrayList<>();
 
   @Facebook
   private List<UserDevice> devices = new ArrayList<>();
-
-  @Facebook
-  @Deprecated
-  private List<WorkExperience> work = new ArrayList<>();
-
-  @Facebook
-  @Deprecated
-  private List<Education> education = new ArrayList<>();
 
   @Facebook
   private List<Sport> sports = new ArrayList<>();
@@ -594,176 +460,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private List<UserInvitableFriend> invitableFriends = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Education Graph API type</a>.
-   * 
-   * @author <a href="http://restfb.com">Mark Allen</a>
-   * @author Patrick Alberts
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  public static class Education extends AbstractFacebookType {
-
-    /**
-     * The school name and ID.
-     * 
-     * @return The school name and ID.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType school;
-
-    /**
-     * Graduation year.
-     * 
-     * @return Graduation year.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType year;
-
-    /**
-     * Description for this year.
-     * 
-     * It is possible for Facebook to return either this value or {@link #getYear()}. If {@link #getYear()} returns
-     * {@code null}, then check this method to see if it has data, e.g. {@code "1997"}.
-     * 
-     * @return Description for this year.
-     * @since 1.7.1
-     */
-    @Getter
-    @Setter
-    @Facebook("year")
-    private String yearAsString;
-
-    /**
-     * Degree acquired.
-     * 
-     * @return Degree acquired.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private NamedFacebookType degree;
-
-    /**
-     * Type of school, e.g. {@code College}.
-     * 
-     * @return Type of school.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String type;
-
-    @Facebook
-    private List<NamedFacebookType> concentration = new ArrayList<>();
-
-    @Facebook
-    private List<NamedFacebookType> with = new ArrayList<>();
-
-    @Facebook
-    private List<EducationClass> classes = new ArrayList<>();
-
-    private static final long serialVersionUID = 2L;
-
-    /**
-     * Concentrations/minors.
-     * 
-     * @return Concentrations/minors.
-     */
-    public List<NamedFacebookType> getConcentration() {
-      return unmodifiableList(concentration);
-    }
-
-    public boolean addConcentration(NamedFacebookType minor) {
-      return concentration.add(minor);
-    }
-
-    public boolean removeConcentration(NamedFacebookType minor) {
-      return concentration.remove(minor);
-    }
-
-    /**
-     * Friends associated with this school.
-     * 
-     * @return Friends associated with this school.
-     * @since 1.6.3
-     */
-    public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
-    }
-
-    public boolean addWith(NamedFacebookType friend) {
-      return with.add(friend);
-    }
-
-    public boolean removeWith(NamedFacebookType friend) {
-      return with.remove(friend);
-    }
-
-    /**
-     * Classes taken at this school.
-     * 
-     * @return Classes taken at this school.
-     * @since 1.6.8
-     */
-    public List<EducationClass> getClasses() {
-      return unmodifiableList(classes);
-    }
-
-    public boolean addClasses(EducationClass eduClass) {
-      return classes.add(eduClass);
-    }
-
-    public boolean removeClasses(EducationClass eduClass) {
-      return classes.remove(eduClass);
-    }
-  }
-
-  /**
-   * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Class Graph API type</a>.
-   * 
-   * @author Mark Allen
-   * @since 1.6.8
-   */
-  public static class EducationClass extends NamedFacebookType {
-    @Facebook
-    private List<NamedFacebookType> with = new ArrayList<>();
-
-    /**
-     * The description of this class.
-     * 
-     * @return The description of this class.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String description;
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Friends associated with this class.
-     * 
-     * @return Friends associated with this class.
-     */
-    public List<NamedFacebookType> getWith() {
-      return unmodifiableList(with);
-    }
-
-    public boolean addWith(NamedFacebookType friend) {
-      return with.add(friend);
-    }
-
-    public boolean removeWith(NamedFacebookType friend) {
-      return with.remove(friend);
-    }
-
-  }
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Sport Graph API type</a>.
@@ -990,43 +686,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   }
 
   /**
-   * The genders the user is interested in.
-   * 
-   * @return The genders the user is interested in.
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  public List<String> getInterestedIn() {
-    return unmodifiableList(interestedIn);
-  }
-
-  /**
-   * Add a gender the user is interested in.
-   *
-   * @param gender
-   *          the gender that should be added
-   * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the gender could be added
-   */
-  @Deprecated
-  public boolean addInterestedIn(String gender) {
-    return interestedIn.add(gender);
-  }
-
-  /**
-   * Remove a gender the user is interested in.
-   *
-   * @param gender
-   *          the gender that should be removed
-   * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the gender could be removed
-   */
-  @Deprecated
-  public boolean removeInterestedIn(String gender) {
-    return interestedIn.remove(gender);
-  }
-
-  /**
    * What genders the user is interested in meeting.
    * 
    * @return What genders the user is interested in meeting.
@@ -1041,43 +700,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   public boolean removeMeetingFor(String gender) {
     return meetingFor.remove(gender);
-  }
-
-  /**
-   * A list of the work history from the user's profile.
-   * 
-   * @return A list of the work history from the user's profile.
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  public List<WorkExperience> getWork() {
-    return unmodifiableList(work);
-  }
-
-  /**
-   * Adds the {@link WorkExperience} from the work experience list
-   *
-   * @param workHistoryItem
-   *          the WorkExperience that should be added
-   * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@link WorkExperience} could be added
-   */
-  @Deprecated
-  public boolean addWork(WorkExperience workHistoryItem) {
-    return work.add(workHistoryItem);
-  }
-
-  /**
-   * Removes the {@link WorkExperience} from the work experience list
-   *
-   * @param workHistoryItem
-   *          the WorkExperience that should be removed
-   * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@link WorkExperience} could be removed
-   */
-  @Deprecated
-  public boolean removeWork(WorkExperience workHistoryItem) {
-    return work.remove(workHistoryItem);
   }
 
   /**
@@ -1097,43 +719,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   public boolean removeDevice(UserDevice device) {
     return devices.remove(device);
-  }
-
-  /**
-   * A list of the education history from the user's profile.
-   * 
-   * @return A list of the education history from the user's profile.
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  public List<Education> getEducation() {
-    return unmodifiableList(education);
-  }
-
-  /**
-   * Adds the {@link Education} from the education list
-   *
-   * @param educationHistoryItem
-   *          the Education that should be added
-   * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@link Education} could be added
-   */
-  @Deprecated
-  public boolean addEducation(Education educationHistoryItem) {
-    return education.add(educationHistoryItem);
-  }
-
-  /**
-   * Removes the {@link Education} from the education list
-   *
-   * @param educationHistoryItem
-   *          the Education that should be removed
-   * @deprecated since breaking change on 4 April, 2018
-   * @return {@code true} if the {@link Education} could be removed
-   */
-  @Deprecated
-  public boolean removeEducation(Education educationHistoryItem) {
-    return education.remove(educationHistoryItem);
   }
 
   /**
@@ -1254,24 +839,6 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   public boolean removeInvitableFriend(UserInvitableFriend friend) {
     return invitableFriends.remove(friend);
-  }
-
-  /**
-   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/security-settings/">Security
-   * Settings Graph API type</a>
-   */
-  public static class SecuritySettings extends AbstractFacebookType {
-
-    /**
-     * Secure browsing settings
-     *
-     * @return Secure browsing settings
-     */
-    @Getter
-    @Setter
-    @Facebook("secure_browsing")
-    private SecureBrowsing secureBrowsing;
-
   }
 
   /**

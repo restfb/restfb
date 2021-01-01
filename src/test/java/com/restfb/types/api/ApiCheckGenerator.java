@@ -83,8 +83,6 @@ public class ApiCheckGenerator extends BaseTestCheck {
     props.setProperty("Url.methods", joinMethods(fetchMethodsFromClass(Url.class)));
     props.setProperty("User.methods", joinMethods(fetchMethodsFromClass(User.class)));
     props.setProperty("User.Currency.methods", joinMethods(fetchMethodsFromClass(User.Currency.class)));
-    props.setProperty("User.Education.methods", joinMethods(fetchMethodsFromClass(User.Education.class)));
-    props.setProperty("User.EducationClass.methods", joinMethods(fetchMethodsFromClass(User.EducationClass.class)));
     props.setProperty("User.Sport.methods", joinMethods(fetchMethodsFromClass(User.Sport.class)));
     props.setProperty("Video.methods", joinMethods(fetchMethodsFromClass(Video.class)));
 

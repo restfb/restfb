@@ -48,22 +48,6 @@ class UserTest extends SetterGetterTestBase {
   }
 
   @Test
-  void testEducation() {
-    User.Education obj = new User.Education();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
-  void testEducationClass() {
-    User.EducationClass obj = new User.EducationClass();
-    addIgnoredField("rawUpdatedTime");
-    addIgnoredField("rawCreatedTime");
-    testInstance(obj);
-  }
-
-  @Test
   void testSport() {
     User.Sport obj = new User.Sport();
     addIgnoredField("rawUpdatedTime");
