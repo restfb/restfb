@@ -55,7 +55,7 @@ public class AdSet extends NamedAdsObject implements HasCreatedTime {
   @Getter
   @Setter
   @Facebook("adcampaign_group")
-  private AdCampaignGroup adcampaignGroup;
+  private Campaign adcampaignGroup;
 
   @Facebook("adlabels")
   private List<AdLabel> adLabels = new ArrayList<>();
