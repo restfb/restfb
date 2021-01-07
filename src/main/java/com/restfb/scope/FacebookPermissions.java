@@ -61,100 +61,6 @@ public enum FacebookPermissions {
   PUBLIC_PROFILE("public_profile", Category.PUBLIC), //
 
   /**
-   * Provides access to a person's personal description (the 'About Me' section on their Profile) through the bio
-   * property on the User object.
-   *
-   * <p>
-   * This permission does not give access to a person's public profile data. A person's name, profile picture, locale,
-   * age range and gender are included by default with the public_profile permission.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_ABOUT_ME("user_about_me", Category.USER_DATA), //
-
-  /**
-   * Provides access to all common books actions published by any app the person has used. This includes books they've
-   * read, want to read, rated or quoted.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_ACTIONS_BOOKS("user_actions.books", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
-   * Provides access to all common Open Graph fitness actions published by any app the person has used. This includes
-   * runs, walks and bikes actions.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_ACTIONS_FITNESS("user_actions.fitness", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
-   * Provides access to all common Open Graph music actions published by any app the person has used. This includes
-   * songs they've listened to, and playlists they've created.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_ACTIONS_MUSIC("user_actions.music", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
-   * Provides access to all common Open Graph news actions published by any app the person has used which publishes
-   * these actions. This includes news articles they've read or news articles they've published.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_ACTIONS_NEWS("user_actions.news", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
-   * Provides access to all common Open Graph video actions published by any app the person has used which publishes
-   * these actions. This includes videos they've watched, videos they've rated and videos they want to watch.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_ACTIONS_VIDEO("user_actions.video", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
    * Provides access to a person's age range.
    *
    * <p>
@@ -180,20 +86,6 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   USER_BIRTHDAY("user_birthday", Category.USER_DATA), //
-
-  /**
-   * Provides access to a person's education history through the education field on the User object.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_EDUCATION_HISTORY("user_education_history", Category.USER_DATA), //
 
   /**
    * Provides read-only access to the Events a person is hosting or has RSVP'd to.
@@ -222,20 +114,6 @@ public enum FacebookPermissions {
    * Your app may use this permission without review from Facebook.
    */
   USER_FRIENDS("user_friends", Category.USER_DATA), //
-
-  /**
-   * Provides access to read a person's game activity (scores, achievements) in any game the person has played.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_GAMES_ACTIVITY("user_games_activity", Category.USER_DATA), //
 
   /**
    * Provides access to a person's gender.
@@ -361,49 +239,6 @@ public enum FacebookPermissions {
   USER_POSTS("user_posts", Category.USER_DATA), //
 
   /**
-   * Provides access to a person's relationship interests as the <code>interested_in</code> field on the User object.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_RELATIONSHIP_DETAILS("user_relationship_details", Category.USER_DATA), //
-
-  /**
-   * Provides access to a person's relationship status, significant other and family members as fields on the User
-   * object.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_RELATIONSHIPS("user_relationships", Category.USER_DATA), //
-
-  /**
-   * Provides access to a person's religious and political affiliations.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_RELIGION_POLITICS("user_religion_politics", Category.USER_DATA), //
-
-  /**
    * Provides access to the Places a person has been tagged at in photos, videos, statuses and links.
    *
    * <p>
@@ -424,35 +259,6 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   USER_VIDEOS("user_videos", Category.USER_DATA), //
-
-  /**
-   * Provides access to the person's personal website URL via the website field on the User object.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_WEBSITE("user_website", Category.USER_DATA), //
-
-  /**
-   * Provides access to a person's work history and list of employers via the <code>work</code> field on the User
-   * object.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  USER_WORK_HISTORY("user_work_history", Category.USER_DATA), //
 
   /**
    * Provides the ability to both read and manage the ads for ad accounts you have access to. Please see
@@ -709,30 +515,6 @@ public enum FacebookPermissions {
   PAGES_USER_TIMEZONE("pages_user_timezone", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * Provides access to publish Posts, Open Graph actions, achievements, scores and other activity on behalf of a person
-   * using your app.
-   *
-   * <p>
-   * Because this permission lets you publish on behalf of a user please read the Platform Policies to ensure you
-   * understand how to properly use this permission.
-   *
-   * <p>
-   * Your app does not need to request the publish_actions permission in order to use the Feed Dialog, the Requests
-   * Dialog or the Send Dialog
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated this permission is deprecated and it is not possible to publish anything to the user feed via Graph API
-   *             since April 2018
-   */
-  @Deprecated
-  PUBLISH_ACTIONS("publish_actions", Category.USER_DATA), //
-
-  /**
    * Gives your app the ability to post, comment and like as any of the Pages managed by a person using your app.
    *
    * <p>
@@ -790,6 +572,41 @@ public enum FacebookPermissions {
   PAGES_MANAGE_ENGAGEMENT("pages_manage_engagement", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * The pages_user_gender permission allows your app to access a user's gender through the Page your app is connected
+   * to.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_USER_GENDER("pages_user_gender", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The pages_user_locale permission allows your to app to a user's locale through the Page your app is connected to.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_USER_LOCALE("pages_user_locale", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The pages_user_timezone permission grants your app access to a user's time zone through the Page your app is
+   * connected to.
+   * 
+   * <p>
+   * <strong>Review</strong>
+   * 
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_USER_TIMEZONE("pages_user_timezone", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
    * Gives an app the ability to post content into a group on behalf of a user who has granted the app this permission.
    *
    * <p>
@@ -839,69 +656,6 @@ public enum FacebookPermissions {
   READ_AUDIENCE_NETWORK_INSIGHTS("read_audience_network_insights", Category.OTHER), //
 
   /**
-   * Provides access to the names of custom lists a person has created to organize their friends. This is useful for
-   * rendering an audience selector when someone is publishing stories to Facebook from your app.
-   *
-   * <p>
-   * This permission does not give access to a list of person's friends. If you want to access a person's friends who
-   * also use your app, you should use the user_friends permission.
-   *
-   * <p>
-   * This permission will also not help you invite a person's friends to use your app.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated not usable since Graph API 2.3, use <code>READ_CUSTOM_FRIENDLISTS</code> instead. If you use the Graph
-   *             API before 2.3 ignore the deprecation warning
-   */
-  @Deprecated
-  @GraphAPI(until = "2.2")
-  READ_FRIENDLISTS("read_friendlists", Category.OTHER), //
-
-  /**
-   * Provides access to the names of custom lists a person has created to organize their friends.
-   *
-   * <p>
-   * This is useful for rendering an audience selector when someone is publishing stories to Facebook from your app.
-   *
-   * <p>
-   * This permission does not give access to a list of person's friends. If you want to access a person's friends who
-   * also use your app, you should use the user_friends permission.
-   *
-   * <p>
-   * This permission will also not help you invite a person's friends to use your app.
-   *
-   * <p>
-   * This permission was called <code>read_friendlists</code> before v2.3.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   *
-   * @deprecated since breaking change on 4 April, 2018
-   */
-  @Deprecated
-  @GraphAPI(since = "2.3")
-  READ_CUSTOM_FRIENDLISTS("read_custom_friendlists", Category.OTHER), //
-
-  /**
-   * Provides read-only access to the Insights data for Pages, Apps and web domains the person owns.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   */
-  READ_INSIGHTS("read_insights", Category.OTHER), //
-
-  /**
    * The research_apis permission allows your app to access data on public Facebook
    * Pages, Groups, and Events within the Facebook Open Research and Transparency Tool.
    *
@@ -912,11 +666,6 @@ public enum FacebookPermissions {
   RESEARCH_APIS("research_apis", Category.OTHER), //
 
   /**
-   * Provides the ability to read from the Page Inboxes of the Pages managed by a person. This permission is often used
-   * alongside the manage_pages permission.
-   *
-   * <p>
-   * This permission does not let your app read the page owner's mailbox. It only applies to the page's mailbox.
    *
    * <p>
    * <strong>Review</strong>
@@ -924,7 +673,7 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
-  READ_PAGE_MAILBOXES("read_page_mailboxes", Category.EVENTS_GROUPS_PAGES), //
+  READ_INSIGHTS("read_insights", Category.OTHER), //
 
   /**
    * Provides the ability to set a person's attendee status on Facebook Events (eg attending, maybe, or declined).
@@ -1103,7 +852,30 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   @GraphAPI(since = "2.5")
-  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM),
+  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM), //
+
+  /**
+   * The instagram_graph_user_media permission allows your app to read the Media node, which represents an image, video,
+   * or album and the node’s edges.
+   * 
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  INSTAGRAM_GRAPH_USER_MEDIA("instagram_graph_user_media", Category.INSTAGRAM), //
+
+  /**
+   * The instagram_graph_user_profile permission allows your app to read the app user's profile.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //
 
   /**
    * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other
