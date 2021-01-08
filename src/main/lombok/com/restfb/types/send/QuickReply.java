@@ -67,24 +67,12 @@ public class QuickReply extends AbstractFacebookType {
     this.payload = payload;
   }
 
-  /**
-   * @deprecated use {@link QuickReply#QuickReply(QuickReplyType)} with {@link QuickReplyType#LOCATION} as parameter instead
-   */
-  @Deprecated
-  public QuickReply() {
-    this(QuickReplyType.LOCATION);
-  }
-
   public QuickReply(QuickReplyType quickReplyType) {
     this.contentType = quickReplyType.getContentType();
   }
 
   public enum QuickReplyType {
-    USER_EMAIL, USER_PHONE_NUMBER,
-    /**
-     * @TODO: remove after October 29th, 2019
-     */
-    @Deprecated LOCATION;
+    USER_EMAIL, USER_PHONE_NUMBER;
 
     public String getContentType() {
       return name().toLowerCase();
