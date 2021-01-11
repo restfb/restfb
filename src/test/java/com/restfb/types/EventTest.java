@@ -64,14 +64,6 @@ class EventTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  void exampleEventWithVenueList() {
-    Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/event-with-venuelist"), Event.class);
-    assertNotNull(event);
-    assertNotNull(event.getVenueList());
-    assertEquals(2, event.getVenueList().size());
-  }
-
-  @Test
   void exampleEventWithLocation() {
     Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/event"), Event.class);
     assertNotNull(event);
@@ -96,15 +88,7 @@ class EventTest extends AbstractJsonMapperTests {
     assertEquals("Africa/Johannesburg", event.getTimezone());
     assertEquals("300473363410132", event.getId());
     assertEquals("OPEN", event.getPrivacy());
-    assertNotNull(event.getLocation());
-    assertEquals("Lourensford Estate", event.getLocation());
     assertNotNull(event.getOwner());
-    assertNotNull(event.getVenue());
-    assertEquals("181719998521108", event.getVenue().getId());
-    assertEquals(-34.071977375471, event.getVenue().getLatitude(), 0.1);
-    assertEquals(18.888539577026, event.getVenue().getLongitude(), 0.1);
-    assertEquals("Somerset West", event.getVenue().getCity());
-
   }
 
   @Test
@@ -130,7 +114,6 @@ class EventTest extends AbstractJsonMapperTests {
     Event event = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/event-fields"), Event.class);
     assertNotNull(event);
     assertTrue(event.getIsPageOwned());
-    assertTrue(event.getIsViewerAdmin());
     assertEquals(0L, event.getDeclinedCount().longValue());
     assertTrue(event.getCanGuestsInvite());
     assertEquals(1455840000000L, event.getStartTime().getTime());

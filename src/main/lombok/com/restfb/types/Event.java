@@ -123,20 +123,6 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
   private Date endTime;
 
   /**
-   * The location for this event, a string name.
-   * 
-   * @deprecated with API version 2.3, use <code>place</code> field instead
-   * 
-   * @return The location for this event, a string name.
-   */
-  @Getter(onMethod_ = @GraphAPI(until = "2.2"))
-  @Setter
-  @Facebook
-  @GraphAPI(until = "2.2")
-  @Deprecated
-  private String location;
-
-  /**
    * Whether or not the event has been marked as canceled
    *
    * @return Whether or not the event has been marked as canceled
@@ -155,34 +141,6 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
   @Setter
   @Facebook("rsvp_status")
   private String rsvpStatus;
-
-  /**
-   * A list of locations of this event.
-   *
-   * This may happen in some strange case - see issue #XXX on GitHub
-   *
-   * @deprecated with API version 2.3, use {@link Event#getPlace()} instead
-   * @return A list of locations of the event.
-   */
-  @Getter(onMethod_ = @GraphAPI(until = "2.2"))
-  @Setter
-  @Facebook("venue")
-  @Deprecated
-  @GraphAPI(until = "2.2")
-  private List<Location> venueList;
-
-  /**
-   * The location of this event, a structured address object.
-   * 
-   * @deprecated with API version 2.3, use {@link Event#getPlace()} field instead
-   * @return The location of this event, a structured address object.
-   */
-  @Getter(onMethod_ = @GraphAPI(until = "2.2"))
-  @Setter
-  @Facebook
-  @GraphAPI(until = "2.2")
-  @Deprecated
-  private Location venue;
 
   /**
    * Number of people interested in the event.
@@ -204,19 +162,6 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
   @Setter
   @Facebook("is_page_owned")
   private Boolean isPageOwned;
-
-  /**
-   * Whether the viewer is admin or not.
-   *
-   * @deprecated since January 30, 2018
-   *
-   * @return Whether the viewer is admin or not
-   */
-  @Getter
-  @Setter
-  @Deprecated
-  @Facebook("is_viewer_admin")
-  private Boolean isViewerAdmin;
 
   /**
    * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
