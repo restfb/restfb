@@ -1167,17 +1167,6 @@ class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  void pageConversations() {
-    WebhookObject webhookObject = openJson("page-conversations-25");
-    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
-    assertEquals(FIELD_CONVERSATIONS, change.getField(), "change field");
-    assertEquals(change.getValue().getClass(), PageConversation.class, "change value class");
-    PageConversation value = (PageConversation) change.getValue();
-    assertEquals("1234567890321", value.getPageId(), "change page id");
-    assertEquals("t_id.171899099639713", value.getThreadId(), "change thread id");
-  }
-
-  @Test
   void feedEventAdd() {
     WebhookObject webhookObject = openJson("feed-event-add");
     Change change = webhookObject.getEntryList().get(0).getChanges().get(0);

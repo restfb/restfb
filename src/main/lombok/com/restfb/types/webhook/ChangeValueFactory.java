@@ -164,7 +164,6 @@ public class ChangeValueFactory {
     RATINGS_REACTION_ADD(RatingsReactionValue.class), //
     RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //
     RATINGS_REACTION_EDIT(RatingsReactionValue.class), //
-    CONVERSATIONS(PageConversation.class), //
     LEADGEN(PageLeadgen.class), //
     // Instagram
     STORY_INSIGHTS(InstagramStoryInsightsValue.class), //
