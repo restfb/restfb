@@ -25,7 +25,7 @@
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
     <!-- additional configuration -->
-    <year.current>2020</year.current>
+    <year.current>2021</year.current>
     <skipTests>false</skipTests>
 
     <!-- sonar configuration -->
