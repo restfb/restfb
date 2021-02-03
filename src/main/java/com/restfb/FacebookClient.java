@@ -632,10 +632,8 @@ public interface FacebookClient {
         rawExpires = urlParameters.get("expires_in").get(0);
       }
 
-      if (rawExpires != null) {
-        if (rawExpires.trim().matches("\\d+")) {
-          expires = new Date().getTime() + Long.parseLong(rawExpires) * 1000L;
-        }
+      if (rawExpires != null && rawExpires.trim().matches("\\d+")) {
+        expires = new Date().getTime() + Long.parseLong(rawExpires) * 1000L;
       }
 
       AccessToken accessToken = new AccessToken();
