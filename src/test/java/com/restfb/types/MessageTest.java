@@ -22,8 +22,7 @@
 package com.restfb.types;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -86,5 +85,13 @@ class MessageTest extends AbstractJsonMapperTests {
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/message-with-sticker"), Message.class);
     assertNotNull(exampleMessage);
     assertEquals("https://scontent.xx.fbcdn.net/sticker.png", exampleMessage.getSticker());
+  }
+
+  @Test
+  void messageWithRemovedAttachment() {
+    Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v7_0/message-eu"), Message.class);
+    assertNotNull(exampleMessage);
+    Message.Attachment attachment = exampleMessage.getAttachments().get(0);
+    assertTrue(attachment.isRemovedInEurope());
   }
 }

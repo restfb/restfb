@@ -227,6 +227,18 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
       return null != videoData;
     }
 
+    /**
+     * returns if the attachment is a placeholder for the real
+     * attachment, that is not accessible via API due to privacy rules in Europe
+     *
+     * check <a href="https://developers.facebook.com/docs/messenger-platform/europe-updates">at Facebook</a>
+     *
+     * @return true if not accessible in the EU
+     */
+    public boolean isRemovedInEurope() {
+      return "1234".equals(getId());
+    }
+
   }
 
   /**
