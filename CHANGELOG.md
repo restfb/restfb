@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 3.14.0 (February 3, 2021)
+
+* Issue #1119: license date changed to 2021
+* Issue #1120: mark attachment as not accessible due to "privacy rules in Europe".
+* Issue #1121: remove circleci stuff
+
 ## 3.13.0 (December 22, 2020)
 
 * Issue #1107: use HTTP header field for access token<br />
