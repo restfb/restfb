@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2010-2017 Mark Allen, Norbert Bartels.
+# Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +21,9 @@
 # THE SOFTWARE.
 #
 
-if ([ "$TRAVIS_BRANCH" == "$RESTFB_BRANCH" ] || [ ! -z "$TRAVIS_TAG" ]) && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then
-  mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+if ([ "$TRAVIS_BRANCH" == "$RESTFB_BRANCH" ] || [ ! -z "$TRAVIS_TAG" ]) && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ $TRAVIS_JDK_VERSION == "openjdk8" ]; then
+  mvn clean compile org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=src/main/java,target/generated-sources/delombok
+
 else
   mvn test -B
 fi

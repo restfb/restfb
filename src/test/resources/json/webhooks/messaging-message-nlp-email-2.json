@@ -1,0 +1,77 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "349489628480201",
+      "time": 1546990268042,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1546990267208,
+          "message": {
+            "mid": "-DpM1dbY54v72W76CMcpFC67x9QLy11IvvcmRE",
+            "seq": 4418,
+            "text": "You can contact me at mail\u0040example.org",
+            "nlp": {
+              "entities": {
+                "email": [
+                  {
+                    "confidence": 0.96887666666667,
+                    "value": "mail\u0040example.org",
+                    "_entity": "email",
+                    "_body": "mail\u0040example.org",
+                    "_start": 22,
+                    "_end": 38
+                  }
+                ],
+                "sentiment": [
+                  {
+                    "confidence": 0.84247636838958,
+                    "value": "neutral",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.14619549377054,
+                    "value": "positive",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.011328118067174,
+                    "value": "negative",
+                    "_entity": "sentiment"
+                  }
+                ],
+                "bye": [
+                  {
+                    "confidence": 0.00027470732327898,
+                    "value": "true",
+                    "_entity": "bye"
+                  }
+                ],
+                "thanks": [
+                  {
+                    "confidence": 2.9398315725089e-5,
+                    "value": "true",
+                    "_entity": "thanks"
+                  }
+                ],
+                "greetings": [
+                  {
+                    "confidence": 0.0028112811051251,
+                    "value": "true",
+                    "_entity": "greetings"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

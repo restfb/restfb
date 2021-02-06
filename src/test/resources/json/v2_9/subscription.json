@@ -1,0 +1,23 @@
+{
+  "object": "page",
+  "callback_url": "https://www.example.org/endpoint/callback",
+  "active": true,
+  "fields": [
+    {
+      "name": "feed",
+      "version": "v3.0"
+    },
+    {
+      "name": "messages",
+      "version": "v3.0"
+    },
+    {
+      "name": "messaging_postbacks",
+      "version": "v3.0"
+    },
+    {
+      "name": "ratings",
+      "version": "v3.0"
+    }
+  ]
+}
