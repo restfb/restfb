@@ -1,0 +1,22 @@
+{
+  "entry": [
+    {
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "video_flag_reason": 1,
+            "video_id": 900767076685784,
+            "verb": "mute",
+            "link": "https://www.example.org/test.mp4",
+            "message": "Test video",
+            "item": "video"
+          }
+        }
+      ],
+      "id": "1234567890321",
+      "time": 1549519204
+    }
+  ],
+  "object": "page"
+}

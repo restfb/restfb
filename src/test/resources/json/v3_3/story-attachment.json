@@ -1,0 +1,9 @@
+{
+  "unshimmed_url": "https://translate.google.de/",
+  "url": "https://l.facebook.com/foobar",
+  "title": "Google Übersetzer",
+  "target": {
+    "url": "https://l.facebook.com/foobar"
+  },
+  "media_type": "link"
+}
