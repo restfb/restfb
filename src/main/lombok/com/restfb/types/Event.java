@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,9 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.annotation.GraphAPI;
-import com.restfb.util.MappingUtils;
 
+import com.restfb.types.features.HasCover;
+import com.restfb.types.features.HasProfilePicture;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,7 +45,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Event extends NamedFacebookType {
+public class Event extends NamedFacebookType implements HasProfilePicture, HasCover {
 
   /**
    * The user who owns the event.
@@ -61,7 +62,7 @@ public class Event extends NamedFacebookType {
    *
    * @return The category of the event
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.4")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.4"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.4")
@@ -128,7 +129,7 @@ public class Event extends NamedFacebookType {
    * 
    * @return The location for this event, a string name.
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "2.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "2.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "2.2")
@@ -163,7 +164,7 @@ public class Event extends NamedFacebookType {
    * @deprecated with API version 2.3, use {@link Event#getPlace()} instead
    * @return A list of locations of the event.
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "2.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "2.2"))
   @Setter
   @Facebook("venue")
   @Deprecated
@@ -176,7 +177,7 @@ public class Event extends NamedFacebookType {
    * @deprecated with API version 2.3, use {@link Event#getPlace()} field instead
    * @return The location of this event, a structured address object.
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "2.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "2.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "2.2")
@@ -188,7 +189,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Number of people interested in the event
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.1"))
   @Setter
   @Facebook("interested_count")
   @GraphAPI(since = "2.1")
@@ -255,7 +256,7 @@ public class Event extends NamedFacebookType {
    *         ?fields=id,name,picture)
    * @since 1.6.13
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
@@ -277,7 +278,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Location associated with the event, if any
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.3"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.3")
@@ -307,7 +308,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Cover picture
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -317,7 +318,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Number of people attending the event
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.1"))
   @Setter
   @Facebook("attending_count")
   @GraphAPI(since = "2.1")
@@ -328,7 +329,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Number of people who declined the event
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.1"))
   @Setter
   @Facebook("declined_count")
   @GraphAPI(since = "2.1")
@@ -339,7 +340,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Number of people who maybe going to the event
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.1"))
   @Setter
   @Facebook("maybe_count")
   @GraphAPI(since = "2.1")
@@ -350,7 +351,7 @@ public class Event extends NamedFacebookType {
    *
    * @return Number of people who did not reply to the event
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.1")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.1"))
   @Setter
   @Facebook("noreply_count")
   @GraphAPI(since = "2.1")
@@ -464,9 +465,8 @@ public class Event extends NamedFacebookType {
   }
 
   @JsonMappingCompleted
-  protected void convertPicture(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+  protected void fillProfilePicture(JsonMapper jsonMapper) {
+    picture = convertPicture(jsonMapper, rawPicture);
   }
 
 }

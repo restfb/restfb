@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,30 +21,30 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class GroupTest extends AbstractJsonMapperTests {
+class GroupTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV1_0() {
+  void checkV1_0() {
     Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/group"), Group.class);
     assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
     assertEquals("123456789", examplegroup.getOwner().getId());
   }
 
   @Test
-  public void checkV2_0() {
+  void checkV2_0() {
     Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/group"), Group.class);
     assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
     assertEquals("123456789", examplegroup.getOwner().getId());
   }
 
   @Test
-  public void checkV2_1() {
+  void checkV2_1() {
     Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/group"), Group.class);
     assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
     assertEquals("123456789", examplegroup.getOwner().getId());

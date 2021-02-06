@@ -21,102 +21,96 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class JsonString_Test {
+class JsonString_Test {
 
   private StringWriter stringWriter;
   private JsonWriter jsonWriter;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     stringWriter = new StringWriter();
     jsonWriter = new JsonWriter(stringWriter);
   }
 
   @Test
-  public void constructor_failsWithNull() {
-    assertException(NullPointerException.class, "string is null", new Runnable() {
-      public void run() {
-        new JsonString(null);
-      }
-    });
+  void constructor_failsWithNull() {
+    assertThrows(NullPointerException.class, () -> new JsonString(null), "string is null");
   }
 
   @Test
-  public void write() throws IOException {
+  void write() throws IOException {
     new JsonString("foo").write(jsonWriter);
 
     assertEquals("\"foo\"", stringWriter.toString());
   }
 
   @Test
-  public void write_escapesStrings() throws IOException {
+  void write_escapesStrings() throws IOException {
     new JsonString("foo\\bar").write(jsonWriter);
 
     assertEquals("\"foo\\\\bar\"", stringWriter.toString());
   }
 
   @Test
-  public void isString() {
+  void isString() {
     assertTrue(new JsonString("foo").isString());
   }
 
   @Test
-  public void asString() {
+  void asString() {
     assertEquals("foo", new JsonString("foo").asString());
   }
 
   @Test
-  public void equals_trueForSameInstance() {
+  void equals_trueForSameInstance() {
     JsonString string = new JsonString("foo");
 
     assertTrue(string.equals(string));
   }
 
   @Test
-  public void equals_trueForEqualStrings() {
+  void equals_trueForEqualStrings() {
     assertTrue(new JsonString("foo").equals(new JsonString("foo")));
   }
 
   @Test
-  public void equals_falseForDifferentStrings() {
+  void equals_falseForDifferentStrings() {
     assertFalse(new JsonString("").equals(new JsonString("foo")));
     assertFalse(new JsonString("foo").equals(new JsonString("bar")));
   }
 
   @Test
-  public void equals_falseForNull() {
+  void equals_falseForNull() {
     assertFalse(new JsonString("foo").equals(null));
   }
 
   @Test
-  public void equals_falseForSubclass() {
+  void equals_falseForSubclass() {
     assertFalse(new JsonString("foo").equals(new JsonString("foo") {}));
   }
 
   @Test
-  public void hashCode_equalsForEqualStrings() {
+  void hashCode_equalsForEqualStrings() {
     assertTrue(new JsonString("foo").hashCode() == new JsonString("foo").hashCode());
   }
 
   @Test
-  public void hashCode_differsForDifferentStrings() {
+  void hashCode_differsForDifferentStrings() {
     assertFalse(new JsonString("").hashCode() == new JsonString("foo").hashCode());
     assertFalse(new JsonString("foo").hashCode() == new JsonString("bar").hashCode());
   }
 
   @Test
-  public void canBeSerializedAndDeserialized() throws Exception {
+  void canBeSerializedAndDeserialized() throws Exception {
     JsonString string = new JsonString("foo");
 
     assertEquals(string, serializeAndDeserialize(string));

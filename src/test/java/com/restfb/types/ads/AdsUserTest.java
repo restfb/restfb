@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types.ads;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class AdsUserTest extends AbstractJsonMapperTests {
+class AdsUserTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_3() {
+  void checkV2_3() {
     AdUser exampleUser = createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_3/adsUser"), AdUser.class);
     assertEquals("12121111111", exampleUser.getId());
     assertEquals(1001, exampleUser.getRole().intValue());

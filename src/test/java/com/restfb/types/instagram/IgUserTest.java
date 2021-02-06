@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,25 +21,25 @@
  */
 package com.restfb.types.instagram;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class IgUserTest extends AbstractJsonMapperTests {
+class IgUserTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkUser() {
+  void checkUser() {
     IgUser igUser = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/user"), IgUser.class);
     assertNull(igUser.getBiography());
     assertEquals("tester2018", igUser.getUsername());
     assertNull(igUser.getWebsite());
     assertEquals(9876543L, igUser.getIgId().longValue());
-    assertEquals(10l, igUser.getFollowersCount().longValue());
-    assertEquals(15l, igUser.getFollowsCount().longValue());
-    assertEquals(2l, igUser.getMediaCount().longValue());
+    assertEquals(10L, igUser.getFollowersCount().longValue());
+    assertEquals(15L, igUser.getFollowsCount().longValue());
+    assertEquals(2L, igUser.getMediaCount().longValue());
     assertEquals("Tester Test", igUser.getName());
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@ package com.restfb.types;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
@@ -93,10 +94,7 @@ public class Subscription extends AbstractFacebookType {
   @JsonMapper.JsonMappingCompleted
   private void convertCompatFields() {
     if (compatFields != null && fields == null) {
-      fields = new ArrayList<>();
-      for (String field : compatFields) {
-        fields.add(new SubscriptionField(field));
-      }
+      fields = compatFields.stream().map(SubscriptionField::new).collect(Collectors.toList());
     }
   }
 

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,25 +21,25 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class InstagramUserTest extends AbstractJsonMapperTests {
+class InstagramUserTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_8_instagram() {
+  void checkV2_8_instagram() {
     InstagramUser instagramUser =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/instagram-user"), InstagramUser.class);
     assertNotNull(instagramUser);
     assertEquals(164L, instagramUser.getFollowCount().longValue());
     assertEquals(118L, instagramUser.getFollowedByCount().longValue());
     assertEquals(52L, instagramUser.getMediaCount().longValue());
-    assertTrue(instagramUser.getHasProfilePicture().booleanValue());
-    assertFalse(instagramUser.getIsPrivate().booleanValue());
-    assertTrue(instagramUser.getIsPublished().booleanValue());
+    assertTrue(instagramUser.getHasProfilePicture());
+    assertFalse(instagramUser.getIsPrivate());
+    assertTrue(instagramUser.getIsPublished());
     assertEquals("https://scontent.cdninstagram.com/t51.2885-19/s150x150/abcabc.jpg", instagramUser.getProfilePic());
     assertEquals("abcabc", instagramUser.getUsername());
   }

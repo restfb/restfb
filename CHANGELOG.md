@@ -1,5 +1,186 @@
 # RestFB Changelog
 
+## 3.14.0 (February 3, 2021)
+
+* Issue #1119: license date changed to 2021
+* Issue #1120: mark attachment as not accessible due to "privacy rules in Europe".
+* Issue #1121: remove circleci stuff
+
+## 3.13.0 (December 22, 2020)
+
+* Issue #1107: use HTTP header field for access token<br />
+  Thanks to @StephenFlavin for the hint<br/>
+  Attention: this may be a breaking change if you have a custom `WebRequestor` implementation
+* Issue #1105: missing fields to `WhatsappMessageTemplate` added
+* Issue #1103: Graph API 9.0: missing fields added to `AdCreative`
+
+## 3.12.0 (November 11, 2020)
+
+* Issue #1101: Graph API 9.0 version added
+
+## 3.11.0 (October 9, 2020)
+
+* Issue #1096: missing ad_id property added<br />
+  Thanks to @seth-git for the hint
+* Issue #1097: timestamp added to webhook listener<br />
+  Thanks to @alex-lx for the hint
+* Issue #1098: NEUTRAL as a valid RecommendationType added<br />
+  Thanks to @jfposton for the PR
+
+## 3.10.0 (September 1, 2020)
+
+* Issue #1093: catalog_management permission fixed<br />
+  Thanks to @w00dg1n for the hint
+* Issue #1091: Graph API 8.0 - OEmbed support
+* Issue #1090: Graph API 8.0 - deprecated fields in `User` type
+* Issue #1089: Special Category Ads - new behaviour in 7.0<br />
+  Thanks to @NenadP for the hint
+* Issue #1088: fixed DefaultFacebookExceptionGenerator.skipResponseStatusExceptionParsing is too sloppy<br />
+  Thanks to @DerKeil for the hint 
+
+## 3.9.0 (August 24, 2020)
+
+* Issue #1081: "dangling comment" warnings solved
+* Issue #1083: Graph api 8.0 version added
+* Issue #1084: integration test for test user create/delete added<br />
+  Thanks to @zzvara for the question
+
+## 3.8.0 (July 29, 2020)
+
+* Issue #416: Common methods should be defined via interface
+* Issue #1079: Remove Graph API 3.0 enum
+
+## 3.7.0 (June 11, 2020)
+
+* Issue #946: Use Listener pattern for incoming webhooks<br />
+  Thanks to @eximius313 for the hint and the examples
+* code smells removed
+
+## 3.6.1 (May 17, 2020)
+
+* many cleanups without special issues
+
+## 3.6.0 (May 6, 2020)
+
+* Graph API 7.0:
+  * Issue #1071: version added to `Version` enum
+  * Issue #1072: new permissions added, old ones marked as deprecated
+* Issue #1070: deprecated version 2.12 remove from `Version` enum
+
+## 3.5.0 (April 24, 2020)
+
+* Issue #1065: Asset Feed Spec (Ad Creative) support<br />
+  Thanks to @NenadP for the hint
+* Issue #1066: Add DebugHeaderInfo to all exception message when available<br />
+  Thanks to @StephenFlavin for the hint
+
+## 3.4.0 (March 8, 2020)
+
+* Issue #1062 and #1063: Provide way to send binary data with send api<br />
+  Thanks to @torbenw for the hint
+
+## 3.3.0 (March 3, 2020)
+
+* Issue #1059: Connection hasNext() returns false even if there is a next page<br />
+  Thanks to @ciprian197 for the bug report
+
+## 3.2.0 (February 5, 2020)
+
+* Issue #1055: Add One-time Notification to messenger API
+* Issue #1056: Graph API 6.0 added to `Version` enum
+
+## 3.1.0 (January 19, 2020)
+
+* Issue #1049: java Optional added as mapping type
+* Issue #1046 and #687: `Connection` object added as mapping field<br />
+  Thanks to @DerKeil and @StephenFlavin for the hints and the input
+* Issue #1050: `catalog_management` added to permissions 
+* Issue #422: user customized `EtagCache` can be used now
+* Issue #1044: Daily Budget field added to `AdCampaignGroup`<br />
+  Thanks to @tudorlesan for the hint
+* Issue #1045: convenience methods added to Webhook
+* Issue #1047: license info (year) updated
+* Issue #1048: version 2.11 removed from enum
+
+## 3.0.0 (November 24, 2019)
+
+* Final Release - nothing new
+
+## 3.0.0 RC2 (October 12, 2019)
+
+* some cleanup
+
+## 3.0.0 RC1 (August 14, 2019)
+
+* Issue #940: moved source level to java 8
+* Issue #1000: moved to junit 5
+
+## 2.27.1 (November 22, 2019)
+
+* Build moved to Circle CI
+* Instagram HashTag type added
+
+## 2.27.0 (November 6, 2019)
+
+* Graph API 5.0 support added
+   * Issue #1033: Version enum added
+   * Issue #1036: `IceBreaker` object added
+   * Issue #1034: `Reply` and `Reaction` support added to messenger webhook
+   * Issue #1038: Ads - `user_tasks` instead of `user_role`
+
+## 2.26.0 (October 11, 2019)
+
+* Issue #1025: `instagram_accounts` field added to `Page` type<br />
+  Thanks to @juvirez for the PR
+* Issue #1026: more missing fields added to `Page` type
+* Issue #1023: Support the new private replies on Posts and Comments
+* Issue #1024: Missing `open_graph_story_id` in `RatingsLikeValue` added<br />
+  Thanks to @CrWEE for the hint and the JSON
+* Issue #1027: Changed Page.business field type<br />
+  Thanks to @juvirez for the PR
+* Issue #1028: Added `PageTab` type<br />
+  Thanks to @juvirez for the PR
+* Issue #1029: Added missed required `ProductItem` fields<br />
+  Thanks to @juvirez for the PR
+* Issue #1030: Whatsapp business account types added
+
+## 2.25.0 (September 12, 2019)
+
+* Issue #1020: Add support for permissions webhooks<br />
+  Thanks to @Alexalex1432 for the information and JSON
+
+## 2.24.1 (August 13, 2019)
+
+* Issue #1017: Missing value `LOWEST_COST_WITH_MIN_ROAS` in `BidStrategy` enum<br />
+  Thanks to @saurabhnmishra for the hint
+
+## 2.24.0 (August 1, 2019)
+
+* Graph API 4.0 support
+  * Issue #1013: basic support
+  * Issue #1015: Messenger templates marked as deprecated
+  * Issue #1014: Location quick reply is deprecated
+* Issue #1012: Postback object is missing "title" field<br />
+  Thanks to @andrey-popovich for the hint
+
+## 2.23.1 (July 7, 2019)
+
+* Issue #1010: Quickreplies limit increased to 13<br />
+  Thanks to @andrey-popovich for the hint
+
+## 2.23.0 (June 29, 2019)
+
+* Issue #1008: Rate limit for graph api 3.3<br />
+  Thanks to @santinomazzocchi for the hint
+* without issue: more cleanup, especially in the JSON section
+
+## 2.22.0 (June 15, 2019)
+
+* Issue #1003: cleanup internal json implementation
+* Issue #1005: `with_tags` is deprecated in Graph API 3.3
+* Issue #1004: `DateUtils` fix for `page_fans_city` metric<br />
+  Thanks to @rberga for the analysis
+
 ## 2.21.0 (May 9, 2019)
 
 * Issue #993: Missing fields added to `StoryAttachment`

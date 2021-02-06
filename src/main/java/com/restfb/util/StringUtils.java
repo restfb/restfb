@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,14 @@
  */
 package com.restfb.util;
 
-import static java.lang.Integer.parseInt;
-import static java.util.Arrays.asList;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A collection of string-handling utility methods.
@@ -109,8 +107,7 @@ public final class StringUtils {
    *           If unable to convert because the JVM doesn't support {@link StringUtils#ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
-    ObjectUtil.verifyParameterPresence("string", string);
-    return string.getBytes(ENCODING_CHARSET);
+    return Optional.ofNullable(string).orElseThrow(() -> new NullPointerException("Parameter 'string' cannot be null.")).getBytes(ENCODING_CHARSET);
   }
 
   /**
@@ -127,8 +124,7 @@ public final class StringUtils {
    * @since 1.6.13
    */
   public static String toString(byte[] data) {
-    ObjectUtil.verifyParameterPresence("data", data);
-    return new String(data, ENCODING_CHARSET);
+    return new String(Optional.ofNullable(data).orElseThrow(() -> new NullPointerException("Parameter 'data' cannot be null.")), ENCODING_CHARSET);
   }
 
   /**
@@ -147,53 +143,8 @@ public final class StringUtils {
     }
 
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING_CHARSET))) {
-      StringBuilder response = new StringBuilder();
-
-      String line;
-      while ((line = reader.readLine()) != null) {
-        response.append(line);
-      }
-
-      return response.toString();
+      return reader.lines().collect(Collectors.joining("\n"));
     }
-  }
-
-  /**
-   * Joins the given {@code array} into a comma-separated string.
-   *
-   * @param array
-   *          The array to join.
-   * @return A comma-separated string representation of the given {@code array}.
-   */
-  public static String join(String[] array) {
-    return array == null ? null : join(asList(array));
-  }
-
-  /**
-   * Joins the given {@code list} into a comma-separated string.
-   *
-   * @param list
-   *          The list to join.
-   * @return A comma-separated string representation of the given {@code list}.
-   */
-  public static String join(List<String> list) {
-    if (list == null) {
-      return null;
-    }
-
-    StringBuilder joined = new StringBuilder();
-    boolean first = true;
-
-    for (String element : list) {
-      if (first) {
-        first = false;
-      } else {
-        joined.append(",");
-      }
-      joined.append(element);
-    }
-
-    return joined.toString();
   }
 
   /**
@@ -206,12 +157,8 @@ public final class StringUtils {
    *         not a valid {@code Integer}.
    */
   public static Integer toInteger(String string) {
-    if (string == null) {
-      return null;
-    }
-
     try {
-      return parseInt(string);
+      return Optional.ofNullable(string).map(Integer::parseInt).orElse(null);
     } catch (Exception e) {
       return null;
     }

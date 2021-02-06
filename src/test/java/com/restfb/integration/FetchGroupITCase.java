@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,11 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertNotNull;
+import java.util.List;
+import java.util.stream.StreamSupport;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
@@ -29,21 +33,14 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Group;
 
-import org.junit.Test;
-
-import java.util.List;
-
-public class FetchGroupITCase extends RestFbIntegrationTestBase {
+class FetchGroupITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchGroup() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+  void fetchGroup() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<Group> connection = client.fetchConnection("/me/groups", Group.class);
-    for (List<Group> groupList : connection) {
-      for (Group group : groupList) {
-        assertNotNull(group.getName());
-      }
-    }
+
+    StreamSupport.stream(connection.spliterator(), false).flatMap(List::stream).map(Group::getName)
+      .forEach(Assertions::assertNotNull);
   }
 }

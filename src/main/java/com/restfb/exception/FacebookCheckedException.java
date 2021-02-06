@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ public abstract class FacebookCheckedException extends Exception {
    * @param message
    *          A message describing this exception.
    */
-  public FacebookCheckedException(String message) {
+  protected FacebookCheckedException(String message) {
     super(message);
   }
 
@@ -41,7 +41,7 @@ public abstract class FacebookCheckedException extends Exception {
    * @param cause
    *          The exception that caused this exception to be thrown.
    */
-  public FacebookCheckedException(String message, Throwable cause) {
+  protected FacebookCheckedException(String message, Throwable cause) {
     super(message, cause);
   }
 }

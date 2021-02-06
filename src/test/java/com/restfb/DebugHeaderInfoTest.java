@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,33 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DebugHeaderInfoTest {
+class DebugHeaderInfoTest extends AbstractJsonMapperTests {
 
   @Test
-  public void usageHeader_EmptyString() {
+  void usageHeader_business() {
+    String header = jsonFromClasspath("api/header-business");
+    DebugHeaderInfo.DebugHeaderInfoFactory factory = new DebugHeaderInfo.DebugHeaderInfoFactory();
+    DebugHeaderInfo headerInfo = factory.setBusinessUseCaseUsage(header).build();
+    DebugHeaderInfo.BusinessUseCaseUsage usage = headerInfo.getBusinessUseCaseUsage();
+    assertNotNull(usage);
+    assertEquals(1, usage.getBusinessIds().size());
+    assertNotNull(usage.get("{business-id}"));
+    assertEquals(1, usage.get("{business-id}").size());
+    assertNotNull(usage.get("{business-id}").get(0));
+    DebugHeaderInfo.InnerBusinessUseCaseUsage innerUsage = usage.get("{business-id}").get(0);
+    assertEquals(100, innerUsage.getCallCount().intValue());
+    assertEquals(16, innerUsage.getTotalCputime().intValue());
+    assertEquals(45, innerUsage.getTotalTime().intValue());
+    assertEquals("ads_insights", innerUsage.getType());
+    assertEquals(10, innerUsage.getEstimatedTimeToRegainAccess().intValue());
+  }
+
+  @Test
+  void usageHeader_EmptyString() {
     DebugHeaderInfo headerInfo = buildHeader("", "", "");
     assertNotNull(headerInfo);
     assertNull(headerInfo.getAppUsage());
@@ -37,7 +56,7 @@ public class DebugHeaderInfoTest {
   }
 
   @Test
-  public void usageHeader_percentageString() {
+  void usageHeader_percentageString() {
     DebugHeaderInfo headerInfo = buildHeader("17%", "28%", "20%");
     assertNotNull(headerInfo);
     assertNotNull(headerInfo.getAppUsage());
@@ -57,7 +76,7 @@ public class DebugHeaderInfoTest {
   }
 
   @Test
-  public void usageHeader_json() {
+  void usageHeader_json() {
     DebugHeaderInfo headerInfo = buildHeader("{\"call_count\":144,\"total_cputime\":73,\"total_time\":44}",
       "{\"call_count\":144,\"total_cputime\":73,\"total_time\":44}", "{\"acc_id_util_pct\":9.67}");
     assertNotNull(headerInfo);
@@ -99,6 +118,5 @@ public class DebugHeaderInfoTest {
       .setPageUsage(pageUsage) //
       .setAdAccountUsage(adAccountUsage) //
       .build();
-
   }
 }

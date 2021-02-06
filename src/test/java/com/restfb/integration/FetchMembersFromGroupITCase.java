@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,13 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -28,19 +35,13 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
+class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchMembers() {
+  void fetchMembers() {
 
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
 
     Connection<NamedFacebookType> connection = client.fetchConnection(getTestSettings().getGroupId() + "/members",
       NamedFacebookType.class, Parameter.with("limit", 100));
@@ -48,12 +49,10 @@ public class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
     int i = 1;
     List<NamedFacebookType> memberList = new ArrayList<>();
     for (List<NamedFacebookType> memberPage : connection) {
-      for (NamedFacebookType member : memberPage) {
-        memberList.add(member);
-      }
+      memberList.addAll(memberPage);
       System.out.println("Page: " + (i++) + " size: " + memberList.size());
     }
 
-    Assert.assertTrue(memberList.size() > 0);
+    assertTrue(memberList.size() > 0);
   }
 }

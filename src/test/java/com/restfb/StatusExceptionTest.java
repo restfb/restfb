@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,16 +24,16 @@ package com.restfb;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.exception.FacebookGraphException;
 import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.testutils.AssertJson;
 
-import org.junit.Test;
-
-public class StatusExceptionTest extends AbstractJsonMapperTests {
+class StatusExceptionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void statusException() {
+  void statusException() {
     String jsonErrorString = jsonFromClasspath("exampleError");
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {
@@ -47,12 +47,12 @@ public class StatusExceptionTest extends AbstractJsonMapperTests {
       assertThat(fe.getErrorMessage()).isEqualTo("Message describing the error");
       assertThat(fe.getRawErrorJson()).isNotNull();
       AssertJson.assertEquals(jsonErrorString, fe.getRawErrorJson().toString());
-      assertThat(fe.getFbtraceId()).isEqualTo("");
+      assertThat(fe.getFbtraceId()).isEmpty();
     }
   }
 
   @Test
-  public void statusExceptionWithFbtraceId() {
+  void statusExceptionWithFbtraceId() {
     String jsonErrorString = jsonFromClasspath("exampleErrorNew");
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     try {

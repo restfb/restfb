@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,10 +24,11 @@ package com.restfb.types.ads;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdCreativeOfferData extends AbstractFacebookType {
+public class AdCreativeOfferData extends AbstractFacebookType implements HasMessage {
 
   @Getter
   @Setter
@@ -49,7 +50,7 @@ public class AdCreativeOfferData extends AbstractFacebookType {
   @Facebook("image_url")
   private String imageUrl;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

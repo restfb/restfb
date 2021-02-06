@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class CommentTest extends AbstractJsonMapperTests {
+class CommentTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_2_NoHide() {
+  void checkV2_2_NoHide() {
     Comment exampleComment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_noCanHide"), Comment.class);
     assertNull(exampleComment.getCanHide());
@@ -38,14 +38,14 @@ public class CommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_2_canHide() {
+  void checkV2_2_canHide() {
     Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_canHide"), Comment.class);
     assertTrue(exampleComment.getCanHide());
     assertFalse(exampleComment.getIsHidden());
   }
 
   @Test
-  public void checkV2_2_object() {
+  void checkV2_2_object() {
     Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment_object"), Comment.class);
     assertNotNull(exampleComment.getObject());
     assertEquals("1559830900918160", exampleComment.getObject().getId());
@@ -53,7 +53,7 @@ public class CommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_2_issue286() {
+  void checkV2_2_issue286() {
     Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/comment-issue286"), Comment.class);
     assertNotNull(exampleComment.getObject());
     assertEquals("520586098107541", exampleComment.getObject().getId());
@@ -61,7 +61,7 @@ public class CommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_4_messageTags() {
+  void checkV2_4_messageTags() {
     Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/message-tags"), Comment.class);
     assertNotNull(exampleComment);
     assertNotNull(exampleComment.getMessageTags());
@@ -75,7 +75,7 @@ public class CommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_5_messageTags() {
+  void checkV2_5_messageTags() {
     Comment exampleComment = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message-tags"), Comment.class);
     assertNotNull(exampleComment);
     assertNotNull(exampleComment.getMessageTags());
@@ -89,7 +89,7 @@ public class CommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_9_reactions() {
+  void checkV2_9_reactions() {
     Comment exampleComment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-reactions"), Comment.class);
     assertNotNull(exampleComment);
@@ -103,7 +103,7 @@ public class CommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_9_permalink() {
+  void checkV2_9_permalink() {
     Comment exampleComment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-permalink"), Comment.class);
     assertNotNull(exampleComment);
@@ -111,9 +111,9 @@ public class CommentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_9_Issue768() {
+  void checkV2_9_Issue768() {
     Comment exampleComment =
-            createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-messagetags"), Comment.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/comment-messagetags"), Comment.class);
     assertNotNull(exampleComment);
     assertNotNull(exampleComment.getMessageTags());
     assertEquals(1, exampleComment.getMessageTags().size());

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,13 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
+import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
@@ -38,10 +37,10 @@ import com.restfb.types.webhook.messaging.MessagingItem;
 import com.restfb.types.webhook.messaging.NlpResult;
 import com.restfb.types.webhook.messaging.nlp.*;
 
-public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
+class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
 
   @Test
-  public void messagingMessageWithNlpField_noNlpContent() {
+  void messagingMessageWithNlpField_noNlpContent() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-7"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -51,7 +50,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_singleEntityIntend() {
+  void messagingMessageWithNlpField_singleEntityIntend() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-6"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -62,13 +61,13 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     NlpCustomWitAi intendByClass = nlp.getEntities(NlpCustomWitAi.class).get(0);
     assertEquals(intend, intendByClass);
     assertEquals("value", intend.getType());
-    assertEquals(0.91431927422157D, intend.getConfidence().doubleValue(), 0.01);
+    assertEquals(0.91431927422157D, intend.getConfidence().doubleValue());
     assertEquals("weather", intend.getValue());
     assertEquals("intend", nlp.getEntities(NlpCustomWitAi.class).get(0).getWitAiKey());
   }
 
   @Test
-  public void messagingMessageWithNlpField_twoEntitiesReminderDate() {
+  void messagingMessageWithNlpField_twoEntitiesReminderDate() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-5"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -81,11 +80,11 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals("day", datetime.getGrain());
     assertEquals("value", datetime.getType());
     assertEquals("2017-08-02T00:00:00.000+02:00", datetime.getValue());
-    assertEquals(0.99557711676036D, datetime.getConfidence().doubleValue(), 0.01);
+    assertEquals(0.99557711676036D, datetime.getConfidence().doubleValue());
   }
 
   @Test
-  public void messagingMessageWithNlpField_singleEntityReminder() {
+  void messagingMessageWithNlpField_singleEntityReminder() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-3"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -95,11 +94,11 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals(true, reminder.getSuggested());
     assertEquals("value", reminder.getType());
     assertEquals("hallo!", reminder.getValue());
-    assertEquals(0.95058024208635D, reminder.getConfidence().doubleValue(), 0.01);
+    assertEquals(0.95058024208635D, reminder.getConfidence().doubleValue());
   }
 
   @Test
-  public void messagingMessageWithNlpField_singleEntityGreetings() {
+  void messagingMessageWithNlpField_singleEntityGreetings() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-2"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -107,11 +106,11 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals(1, nlp.getEntities().size());
     NlpGreetings greetings = nlp.getEntities().get(0).as(NlpGreetings.class);
     assertEquals("true", greetings.getValue());
-    assertEquals(0.99982774257166D, greetings.getConfidence().doubleValue(), 0.01);
+    assertEquals(0.99982774257166D, greetings.getConfidence().doubleValue());
   }
 
   @Test
-  public void messagingMessageWithNlpField_unknownEntity() {
+  void messagingMessageWithNlpField_unknownEntity() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-8"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -121,7 +120,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_amountOfMoney() {
+  void messagingMessageWithNlpField_amountOfMoney() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-money"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -136,7 +135,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_phoneNumber() {
+  void messagingMessageWithNlpField_phoneNumber() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-phone"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -149,7 +148,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_email() {
+  void messagingMessageWithNlpField_email() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-email"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -162,7 +161,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_url() {
+  void messagingMessageWithNlpField_url() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-url"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -181,7 +180,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_url_plainHost() {
+  void messagingMessageWithNlpField_url_plainHost() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-url-2"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -195,19 +194,16 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_sentiment() {
+  void messagingMessageWithNlpField_sentiment() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-email-2"), WebhookObject.class);
     assertNotNull(webhookObject);
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
     assertEquals(7, nlp.getEntities().size());
 
-    List<NlpSentiment> sentiments = new ArrayList<>();
-    for (BaseNlpEntity entity : nlp.getEntities()) {
-      if (entity instanceof NlpSentiment) {
-        sentiments.add(entity.as(NlpSentiment.class));
-      }
-    }
+    List<NlpSentiment> sentiments = nlp.getEntities() //
+      .stream().filter(NlpSentiment.class::isInstance) //
+      .map(entity -> entity.as(NlpSentiment.class)).collect(Collectors.toList());
 
     assertEquals(3, sentiments.size());
     for (NlpSentiment sentiment : sentiments) {
@@ -226,7 +222,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_distance() {
+  void messagingMessageWithNlpField_distance() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-distance"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -241,7 +237,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_duration() {
+  void messagingMessageWithNlpField_duration() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-duration"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -286,7 +282,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_quantity() {
+  void messagingMessageWithNlpField_quantity() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-quantity"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -301,7 +297,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_temperature() {
+  void messagingMessageWithNlpField_temperature() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-temperature"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -316,7 +312,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_volume() {
+  void messagingMessageWithNlpField_volume() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-volume"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -331,9 +327,9 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_location() {
+  void messagingMessageWithNlpField_location() {
     WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-location"), WebhookObject.class);
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-location"), WebhookObject.class);
     assertNotNull(webhookObject);
     NlpResult nlp = getNlpResultFromWebhookObject(webhookObject);
     assertEquals(7, nlp.getEntities().size());
@@ -350,8 +346,8 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
     assertEquals("Pacific Standard Time", place.getTimeZone().getDisplayName(Locale.US));
 
     NlpLocation.Coords coords = place.getCoords();
-    assertEquals(34.052230834961, coords.getLatitude().doubleValue(),0.0);
-    assertEquals(-118.24368286133, coords.getLongitude().doubleValue(), 0.0);
+    assertEquals(34.052230834961, coords.getLatitude().doubleValue());
+    assertEquals(-118.24368286133, coords.getLongitude().doubleValue());
 
     NlpLocation.External external = place.getExternal();
     assertEquals("5368361", external.getGeonames());
@@ -360,7 +356,7 @@ public class WebhookMessagingNlpTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageWithNlpField_error() {
+  void messagingMessageWithNlpField_error() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-nlp-error"), WebhookObject.class);
     assertNotNull(webhookObject);

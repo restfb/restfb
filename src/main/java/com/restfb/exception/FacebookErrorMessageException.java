@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,7 @@
  */
 package com.restfb.exception;
 
+import com.restfb.DebugHeaderInfo;
 import com.restfb.json.JsonObject;
 
 /**
@@ -32,11 +33,13 @@ public abstract class FacebookErrorMessageException extends FacebookException {
 
   private JsonObject rawErrorJson;
 
-  public FacebookErrorMessageException(String message) {
+  private DebugHeaderInfo debugHeaderInfo;
+
+  protected FacebookErrorMessageException(String message) {
     super(message);
   }
 
-  public FacebookErrorMessageException(String message, Throwable cause) {
+  protected FacebookErrorMessageException(String message, Throwable cause) {
     super(message, cause);
   }
 
@@ -51,5 +54,20 @@ public abstract class FacebookErrorMessageException extends FacebookException {
 
   protected void setRawErrorJson(JsonObject rawError) {
     rawErrorJson = rawError;
+  }
+
+  /**
+   * returns the debug header info that is connected with this Facebook call.
+   *
+   * you can get information like trace ids, limits and more.
+   * 
+   * @return the DebugHeaderInfo or null
+   */
+  public DebugHeaderInfo getDebugHeaderInfo() {
+    return debugHeaderInfo;
+  }
+
+  public void setDebugHeaderInfo(DebugHeaderInfo debugHeaderInfo) {
+    this.debugHeaderInfo = debugHeaderInfo;
   }
 }

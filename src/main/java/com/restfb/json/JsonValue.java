@@ -22,6 +22,7 @@
 package com.restfb.json;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * Represents a JSON value. This can be a JSON <strong>object</strong>, an <strong> array</strong>, a
@@ -59,144 +60,15 @@ public abstract class JsonValue implements Serializable {
   private static final String NOT_A_NUMBER = "Not a number: ";
   private static final String NOT_A_STRING = "Not a string: ";
   private static final String NOT_A_BOOLEAN = "Not a boolean: ";
-
-  /**
-   * Represents the JSON literal <code>true</code>.
-   * @deprecated Use <code>Json.TRUE</code> instead
-   */
-  @Deprecated
-  public static final JsonValue TRUE = new JsonLiteral("true");
-
-  /**
-   * Represents the JSON literal <code>false</code>.
-   * @deprecated Use <code>Json.FALSE</code> instead
-   */
-  @Deprecated
-  public static final JsonValue FALSE = new JsonLiteral("false");
-
-  /**
-   * Represents the JSON literal <code>null</code>.
-   * @deprecated Use <code>Json.NULL</code> instead
-   */
-  @Deprecated
-  public static final JsonValue NULL = new JsonLiteral("null");
+  // String constants
+  protected static final String STRING_IS_NULL = "string is null";
+  protected static final String OBJECT_IS_NULL = "object is null";
+  protected static final String NAME_IS_NULL = "name is null";
+  protected static final String VALUE_IS_NULL = "value is null";
+  protected static final String ARRAY_IS_NULL = "array is null";
 
   JsonValue() {
     // prevent subclasses outside of this package
-  }
-
-  /**
-   * Reads a JSON value from the given reader.
-   * <p>
-   * Characters are read in chunks and buffered internally, therefore wrapping an existing reader in an additional
-   * <code>BufferedReader</code> does <strong>not</strong> improve reading performance.
-   * </p>
-   *
-   * @param reader
-   *          the reader to read the JSON value from
-   * @return the JSON value that has been read
-   * @throws IOException
-   *           if an I/O error occurs in the reader
-   * @throws ParseException
-   *           if the input is not valid JSON
-   * @deprecated Use {@link Json#parse(Reader)} instead
-   */
-  @Deprecated
-  public static JsonValue readFrom(Reader reader) throws IOException {
-    return Json.parse(reader);
-  }
-
-  /**
-   * Reads a JSON value from the given string.
-   *
-   * @param text
-   *          the string that contains the JSON value
-   * @return the JSON value that has been read
-   * @throws ParseException
-   *           if the input is not valid JSON
-   * @deprecated Use {@link Json#parse(String)} instead
-   */
-  @Deprecated
-  public static JsonValue readFrom(String text) {
-    return Json.parse(text);
-  }
-
-  /**
-   * Returns a JsonValue instance that represents the given <code>int</code> value.
-   *
-   * @param value
-   *          the value to get a JSON representation for
-   * @return a JSON value that represents the given value
-   * @deprecated Use <code>Json.value()</code> instead
-   */
-  @Deprecated
-  public static JsonValue valueOf(int value) {
-    return Json.value(value);
-  }
-
-  /**
-   * Returns a JsonValue instance that represents the given <code>long</code> value.
-   *
-   * @param value
-   *          the value to get a JSON representation for
-   * @return a JSON value that represents the given value
-   * @deprecated Use <code>Json.value()</code> instead
-   */
-  @Deprecated
-  public static JsonValue valueOf(long value) {
-    return Json.value(value);
-  }
-
-  /**
-   * Returns a JsonValue instance that represents the given <code>float</code> value.
-   *
-   * @param value
-   *          the value to get a JSON representation for
-   * @return a JSON value that represents the given value
-   * @deprecated Use <code>Json.value()</code> instead
-   */
-  @Deprecated
-  public static JsonValue valueOf(float value) {
-    return Json.value(value);
-  }
-
-  /**
-   * Returns a JsonValue instance that represents the given <code>double</code> value.
-   *
-   * @param value
-   *          the value to get a JSON representation for
-   * @return a JSON value that represents the given value
-   * @deprecated Use <code>Json.value()</code> instead
-   */
-  @Deprecated
-  public static JsonValue valueOf(double value) {
-    return Json.value(value);
-  }
-
-  /**
-   * Returns a JsonValue instance that represents the given string.
-   *
-   * @param string
-   *          the string to get a JSON representation for
-   * @return a JSON value that represents the given string
-   * @deprecated Use <code>Json.value()</code> instead
-   */
-  @Deprecated
-  public static JsonValue valueOf(String string) {
-    return Json.value(string);
-  }
-
-  /**
-   * Returns a JsonValue instance that represents the given <code>boolean</code> value.
-   *
-   * @param value
-   *          the value to get a JSON representation for
-   * @return a JSON value that represents the given value
-   * @deprecated Use <code>Json.value()</code> instead
-   */
-  @Deprecated
-  public static JsonValue valueOf(boolean value) {
-    return Json.value(value);
   }
 
   /**
@@ -419,12 +291,8 @@ public abstract class JsonValue implements Serializable {
    *           if an I/O error occurs in the writer
    */
   public void writeTo(Writer writer, WriterConfig config) throws IOException {
-    if (writer == null) {
-      throw new NullPointerException("writer is null");
-    }
-    if (config == null) {
-      throw new NullPointerException("config is null");
-    }
+    Objects.requireNonNull(writer, "writer is null");
+    Objects.requireNonNull(config, "config is null");
     WritingBuffer buffer = new WritingBuffer(writer, 128);
     write(config.createWriter(buffer));
     buffer.flush();

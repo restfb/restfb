@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,12 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.WebhookEntry;
@@ -29,19 +34,15 @@ import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.messaging.*;
 import com.restfb.types.webhook.messaging.airline.PassengerInfoItem;
 import com.restfb.types.webhook.messaging.airline.PassengerSegmentInfoItem;
-import com.restfb.types.webhook.messaging.nlp.NlpDatetime;
-import com.restfb.types.webhook.messaging.nlp.NlpGreetings;
-import com.restfb.types.webhook.messaging.nlp.NlpCustomWitAi;
-import com.restfb.types.webhook.messaging.nlp.NlpReminder;
+import com.restfb.webhook.AbstractWebhookMessagingListener;
+import com.restfb.webhook.Webhook;
 
-import org.junit.Test;
+class WebhookMessagingTest extends AbstractJsonMapperTests {
 
-import java.text.ParseException;
-
-public class WebhookMessagingTest extends AbstractJsonMapperTests {
+  private final Webhook webhookListener = new Webhook();
 
   @Test
-  public void messagingDelivery() {
+  void messagingDelivery() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-delivery-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -55,13 +56,34 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.getMids().isEmpty());
     assertEquals("1458668856253", item.getWatermark());
     assertEquals(37L, item.getSeq().longValue());
+    AtomicBoolean foundDeprecated = new AtomicBoolean(false);
+    AtomicBoolean found = new AtomicBoolean(false);
+
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+      @Override
+      public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(delivery);
+        assertEquals("1458668856253", delivery.getWatermark());
+        foundDeprecated.set(true);
+      }
+      @Override
+      public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+        assertNotNull(delivery);
+        assertEquals("1458668856253", delivery.getWatermark());
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(foundDeprecated.get());
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingRead() {
+  void messagingRead() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-read-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
+    assertTrue(webhookObject.isPage());
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     assertFalse(entry.getMessaging().isEmpty());
@@ -71,10 +93,22 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertNotNull(item);
     assertEquals("1458668856253", item.getWatermark());
     assertEquals(38L, item.getSeq().longValue());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void read(ReadItem read, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(read);
+        assertEquals("1458668856253", read.getWatermark());
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingMessageMediaAttachment() {
+  void messagingMessageMediaAttachment() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-media-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -96,10 +130,23 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("image", attachment.getType());
     assertTrue(attachment.isImage());
     assertEquals("IMAGE_URL", attachment.getPayload().getUrl());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(message);
+        assertEquals("mid.1458696618141:b4ef9d19ec21086067", message.getMid());
+        assertNull(message.getText());
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingMessageLocationAttachment() {
+  void messagingMessageLocationAttachment() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-location-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -120,12 +167,25 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("location", attachment.getType());
     assertTrue(attachment.isLocation());
-    assertEquals(12.34, attachment.getPayload().getCoordinates().getLat(), 0);
-    assertEquals(43.21, attachment.getPayload().getCoordinates().getLongVal(), 0);
+    assertEquals(12.34, attachment.getPayload().getCoordinates().getLat().doubleValue());
+    assertEquals(43.21, attachment.getPayload().getCoordinates().getLongVal().doubleValue());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(message);
+        assertEquals("mid.1458696618141:b4ef9d19ec21086067", message.getMid());
+        assertTrue(message.hasAttachment());
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingMessageLegacyFallbackAttachment() {
+  void messagingMessageLegacyFallbackAttachment() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-fallback-attachment"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -151,7 +211,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessageBasic() {
+  void messagingMessageBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -175,9 +235,68 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingMessagePrior() {
+  void messagingMessageReply() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-prior"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-reply-1"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
+    MessageItem item = messagingItem.getMessage();
+    assertTrue(item.isReply());
+    assertEquals("very_long_id_representing_the_original_message", item.getReplyTo().getMid());
+  }
+
+  @Test
+  void messagingReactionREACT() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-reaction-1"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isReaction());
+    MessageReaction reaction = (MessageReaction) messagingItem.getItem();
+    assertEquals("original_message_id", reaction.getMid());
+    assertEquals(MessageReaction.Action.REACT, reaction.getAction());
+    assertEquals("\uD83D\uDE22", reaction.getEmoji());
+    assertEquals("sad", reaction.getReaction());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void reaction(MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(reaction);
+        assertEquals("original_message_id", reaction.getMid());
+        assertEquals("sad", reaction.getReaction());
+        found.set(true);
+      }
+
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
+  }
+
+  @Test
+  void messagingReactionUNREACT() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-reaction-2"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isReaction());
+    MessageReaction reaction = (MessageReaction) messagingItem.getItem();
+    assertEquals("original_message_id", reaction.getMid());
+    assertEquals(MessageReaction.Action.UNREACT, reaction.getAction());
+  }
+
+  @Test
+  void messagingReactionPrior() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-prior"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -202,9 +321,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingAppRoles() {
+  void messagingAppRoles() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-approles"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-approles"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -217,10 +336,21 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("123456789", roles.getAppIds().iterator().next());
     assertFalse(roles.getRoles("123456789").isEmpty());
     assertEquals("primary_receiver", roles.getRoles("123456789").get(0));
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void appRoles(AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(appRoles);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingReferralBasic() {
+  void messagingReferralBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-referral-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -235,10 +365,21 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("ref_data_in_m_dot_me_param", referral.getRef());
     assertEquals("SHORTLINK", referral.getSource());
     assertEquals("OPEN_THREAD", referral.getType());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void referral(ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(referral);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingMessageBasicIsEcho() {
+  void messagingMessageBasicIsEcho() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-message-basic-echo"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -260,9 +401,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void standbyMessageBasicIsEcho() {
-    WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/standby-message-basic-echo"), WebhookObject.class);
+  void standbyMessageBasicIsEcho() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/standby-message-basic-echo"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -283,7 +424,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingOptinBasic() {
+  void messagingOptinBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-optin-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -298,10 +439,21 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("PASS_THROUGH_PARAM", item.getRef());
     assertNull(item.getUserRef());
     assertNull(item.getUserRefMessageRecipient());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void optin(OptinItem optin, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(optin);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingOptinUserRef() {
+  void messagingOptinUserRef() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-optin-userref"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -319,9 +471,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingPolicyCallbackBlock() {
-    WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-block"), WebhookObject.class);
+  void messagingPolicyCallbackBlock() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-block"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -335,12 +487,24 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertTrue(item.isBlock());
     assertFalse(item.isUnblock());
     assertNotNull(item.getReason());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void policyEnforcement(PolicyEnforcementItem policyEnforcement, MessagingParticipant recipient,
+          MessagingParticipant sender) {
+        assertNotNull(policyEnforcement);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingPolicyCallbackUnblock() {
-    WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-unblock"), WebhookObject.class);
+  void messagingPolicyCallbackUnblock() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-policy-callback-unblock"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -356,7 +520,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingPostbackBasic() {
+  void messagingPostbackBasic() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-basic"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -370,10 +534,21 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertNotNull(item);
     assertEquals("USER_DEFINED_PAYLOAD", item.getPayload());
     assertNull(item.getReferral());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void postback(PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(postback);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingPostbackWithReferral() {
+  void messagingPostbackWithReferral() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-referral"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -393,7 +568,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingAccountLinkingLinked() {
+  void messagingAccountLinkingLinked() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-accountlinking-linked"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -409,10 +584,21 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertFalse(item.isUnlinked());
     assertEquals("linked", item.getStatus());
     assertEquals("PASS_THROUGH_AUTHORIZATION_CODE", item.getAuthorizationCode());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void accountLinking(AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender) {
+        assertNotNull(item);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void messagingAccountLinkingUnlinked() {
+  void messagingAccountLinkingUnlinked() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-accountlinking-unlinked"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -430,7 +616,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingButtonTemplate() {
+  void messagingButtonTemplate() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-button-template"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -451,7 +637,7 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagingAirlineItineraryTemplate() throws ParseException {
+  void messagingAirlineItineraryTemplate() {
     WebhookObject webhookObject = createJsonMapper()
       .toJavaObject(jsonFromClasspath("webhooks/messaging-airline-itinerary-template"), WebhookObject.class);
     assertNotNull(webhookObject);
@@ -471,14 +657,14 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("en_US", attachment.getPayload().getLocale());
     assertNull(attachment.getPayload().getThemeColor());
     assertEquals("ABCDEF", attachment.getPayload().getPnrNumber());
-    assertEquals(12206, attachment.getPayload().getBasePrice(), 0);
-    assertEquals(200, attachment.getPayload().getTax(), 0);
-    assertEquals(14003, attachment.getPayload().getTotalPrice(), 0);
+    assertEquals(12206d, attachment.getPayload().getBasePrice().doubleValue());
+    assertEquals(200d, attachment.getPayload().getTax().doubleValue());
+    assertEquals(14003d, attachment.getPayload().getTotalPrice().doubleValue());
 
     PassengerInfoItem passengerInfoItem = attachment.getPayload().getPassengerInfoItems().get(0);
     assertEquals("Farbound Smith Jr", passengerInfoItem.getName());
-    assertEquals("p001",passengerInfoItem.getPassengerId());
-    assertEquals("0741234567890",passengerInfoItem.getTicketNumber());
+    assertEquals("p001", passengerInfoItem.getPassengerId());
+    assertEquals("0741234567890", passengerInfoItem.getTicketNumber());
 
     assertEquals("c001", attachment.getPayload().getFlightInfoItems().get(0).getConnectionId());
     assertEquals("SFO", attachment.getPayload().getFlightInfoItems().get(0).getDepartureAirport().getAirportCode());
@@ -491,8 +677,9 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void passThreadControl() {
-    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-pass-thread-control"), WebhookObject.class);
+  void passThreadControl() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-pass-thread-control"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(item);
@@ -504,11 +691,24 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertNotNull(passThreadControlItem);
     assertEquals("NEW_OWNER_APP_ID", passThreadControlItem.getNewOwnerAppId());
     assertEquals("METADATA", passThreadControlItem.getMetadata());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void passThreadControl(PassThreadControlItem passThreadControl, MessagingParticipant recipient,
+          MessagingParticipant sender) {
+        assertNotNull(passThreadControl);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void takeThreadControl() {
-    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-take-thread-control"), WebhookObject.class);
+  void takeThreadControl() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-take-thread-control"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(item);
@@ -520,11 +720,24 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertNotNull(takeThreadControlItem);
     assertEquals("PREVIOUS_OWNER_APP_ID", takeThreadControlItem.getPreviousOwnerAppId());
     assertEquals("METADATA", takeThreadControlItem.getMetadata());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void takeThreadControl(TakeThreadControlItem takeThreadControl, MessagingParticipant recipient,
+          MessagingParticipant sender) {
+        assertNotNull(takeThreadControl);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 
   @Test
-  public void requestThreadControl() {
-    WebhookObject webhookObject = createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-request-thread-control"), WebhookObject.class);
+  void requestThreadControl() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-request-thread-control"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(item);
@@ -537,5 +750,17 @@ public class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertNotNull(requestThreadControlItem);
     assertEquals("REQUESTED_OWNER_APP_ID", requestThreadControlItem.getRequestedOwnerAppId());
     assertEquals("METADATA", requestThreadControlItem.getMetadata());
+    AtomicBoolean found = new AtomicBoolean(false);
+    webhookListener.registerListener(new AbstractWebhookMessagingListener() {
+
+      @Override
+      public void requestThreadControl(RequestThreadControlItem requestThreadControl, MessagingParticipant recipient,
+          MessagingParticipant sender) {
+        assertNotNull(requestThreadControl);
+        found.set(true);
+      }
+    });
+    webhookListener.process(webhookObject);
+    assertTrue(found.get());
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,39 +21,42 @@
  */
 package com.restfb.integration.base;
 
-import org.junit.Assume;
-
 import java.util.Properties;
+
+import org.junit.jupiter.api.Assumptions;
 
 /**
  * Settings holder for integration testing.
  */
 public class RestFbIntegrationTestSettings {
 
-  private boolean writeToFacebook = false;
+  private boolean writeToFacebook;
 
-  private String userAccessToken = "";
+  private String userAccessToken;
 
-  private String userId = "";
+  private String userId;
 
-  private String pageAccessToken = "";
+  private String pageAccessToken;
 
-  private String pageId = "";
+  private String pageId;
 
-  private String userGroupId = "";
+  private String userGroupId;
 
-  private String appSecret = "";
+  private String appSecret;
 
-  private String appId = "";
+  private String appId;
 
-  private String recipientId = "";
+  private String appAccessToken;
 
-  private String pageAlbumId = "";
+  private String recipientId;
 
-  public RestFbIntegrationTestSettings(Properties settings) {
+  private String pageAlbumId;
+
+  RestFbIntegrationTestSettings(Properties settings) {
     writeToFacebook = Boolean.parseBoolean(settings.getProperty("writeToFacebook", "false"));
     userAccessToken = settings.getProperty("user.accessToken", "");
     pageAccessToken = settings.getProperty("page.accessToken", "");
+    appAccessToken = settings.getProperty("app.accessToken", "");
     userId = settings.getProperty("user.id", "");
     pageId = settings.getProperty("page.id", "");
     userGroupId = settings.getProperty("user.group.id", "");
@@ -68,47 +71,52 @@ public class RestFbIntegrationTestSettings {
   }
 
   public String getUserAccessToken() {
-    Assume.assumeFalse(userAccessToken.isEmpty());
+    Assumptions.assumeFalse(userAccessToken.isEmpty());
     return userAccessToken;
   }
 
   public String getUserId() {
-    Assume.assumeFalse(userId.isEmpty());
+    Assumptions.assumeFalse(userId.isEmpty());
     return userId;
   }
 
   public String getPageAccessToken() {
-    Assume.assumeFalse(pageAccessToken.isEmpty());
+    Assumptions.assumeFalse(pageAccessToken.isEmpty());
     return pageAccessToken;
   }
 
   public String getPageId() {
-    Assume.assumeFalse(pageId.isEmpty());
+    Assumptions.assumeFalse(pageId.isEmpty());
     return pageId;
   }
 
   public String getGroupId() {
-    Assume.assumeFalse(userGroupId.isEmpty());
+    Assumptions.assumeFalse(userGroupId.isEmpty());
     return userGroupId;
   }
 
   public String getAppSecret() {
-    Assume.assumeFalse(appSecret.isEmpty());
+    Assumptions.assumeFalse(appSecret.isEmpty());
     return appSecret;
   }
 
   public String getAppId() {
-    Assume.assumeFalse(appId.isEmpty());
+    Assumptions.assumeFalse(appId.isEmpty());
     return appId;
   }
 
   public String getRecipientId() {
-    Assume.assumeFalse(recipientId.isEmpty());
+    Assumptions.assumeFalse(recipientId.isEmpty());
     return recipientId;
   }
 
   public String getPageAlbumId() {
-    Assume.assumeFalse(pageAlbumId.isEmpty());
+    Assumptions.assumeFalse(pageAlbumId.isEmpty());
     return pageAlbumId;
+  }
+
+  public String getAppAccessToken() {
+    Assumptions.assumeFalse(appAccessToken.isEmpty());
+    return appAccessToken;
   }
 }

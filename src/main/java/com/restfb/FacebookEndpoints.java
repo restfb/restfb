@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,21 +43,27 @@ public interface FacebookEndpoints {
    * 
    * @return the Facebook URL
    */
-  String getFacebookEndpoint();
+  default String getFacebookEndpoint() {
+    return Endpoint.SERVER.getUrl();
+  }
 
   /**
    * returns the Facebook Graph API endpoint URL
    * 
    * @return the Facebook Graph API endpoint URL
    */
-  String getGraphEndpoint();
+  default String getGraphEndpoint() {
+    return Endpoint.GRAPH.getUrl();
+  }
 
   /**
    * returns the Facebook Graph API Video endpoint URL
    * 
    * @return the Facebook Graph API Video endpoint URL
    */
-  String getGraphVideoEndpoint();
+  default String getGraphVideoEndpoint() {
+    return Endpoint.GRAPH_VIDEO.getUrl();
+  }
 
   enum Endpoint {
     /**

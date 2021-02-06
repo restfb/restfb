@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -113,6 +113,10 @@ public class MessageItem implements InnerMessagingItem {
   @Facebook
   private NlpResult nlp;
 
+  @Getter
+  @Facebook("reply_to")
+  private ReplyTo replyTo;
+
   /**
    * The user may send a like and this method can be used to discover the three know versions of the sticker
    *
@@ -149,5 +153,14 @@ public class MessageItem implements InnerMessagingItem {
    */
   public boolean hasNlp() {
     return nlp != null;
+  }
+
+  /**
+   * Returns wether the message is a reply to another message
+   *
+   * @return {@code true} if the message is a reply of another message, {@code false} otherwise
+   */
+  public boolean isReply() {
+    return replyTo != null;
   }
 }

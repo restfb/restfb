@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
@@ -29,17 +29,17 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
+class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchLikes() {
+  void fetchLikes() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
     Connection<NamedFacebookType> con =
         client.fetchConnection("40796308305_1565015867092106/likes", NamedFacebookType.class);
-    assertEquals("https://graph.facebook.com/v2.5/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==",
+    assertEquals("https://graph.facebook.com/v3.0/40796308305_1565015867092106/likes?after=MTU2NTAxOTcyMDQyNTA1NA==",
       con.getNextPageUrl());
   }
 

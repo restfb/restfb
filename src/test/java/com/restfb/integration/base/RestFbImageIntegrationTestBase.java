@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@
  */
 package com.restfb.integration.base;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,7 +30,7 @@ import java.util.Random;
 
 abstract public class RestFbImageIntegrationTestBase extends RestFbIntegrationTestBase {
 
-  String[] testImages = { "fruits.png", "lena.png", "tulips.png", "watch.png" };
+  private String[] testImages = { "fruits.png", "lena.png", "tulips.png", "watch.png" };
 
   protected byte[] fetchBytesFromImage() {
     int idx = new Random().nextInt(testImages.length);

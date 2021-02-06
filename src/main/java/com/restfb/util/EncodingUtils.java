@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,11 @@
 package com.restfb.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -41,6 +46,8 @@ public final class EncodingUtils {
    */
   private EncodingUtils() {}
 
+  private static final char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
+
   /**
    * Decodes a base64-encoded string, padding out if necessary.
    * 
@@ -51,23 +58,16 @@ public final class EncodingUtils {
    *           If {@code base64} is {@code null}.
    */
   public static byte[] decodeBase64(String base64) {
-    if (base64 == null)
-      throw new NullPointerException("Parameter 'base64' cannot be null.");
-
-    String fixedBase64 = padBase64(base64);
-    return Base64.getDecoder().decode(fixedBase64);
+    return Base64.getDecoder().decode(Optional.ofNullable(base64).map(EncodingUtils::padBase64).orElseThrow(() -> new NullPointerException("Parameter 'base64' cannot be null.")));
   }
 
   private static String padBase64(String base64) {
     String padding = "";
     int remainder = base64.length() % 4;
 
-    if (remainder == 1)
-      padding = "===";
-    else if (remainder == 2)
-      padding = "==";
-    else if (remainder == 3)
-      padding = "=";
+    if (remainder > 0) {
+      padding = IntStream.range(0, 4 - remainder).mapToObj(i -> "=").collect(Collectors.joining());
+    }
 
     return base64 + padding;
   }
@@ -84,17 +84,13 @@ public final class EncodingUtils {
    *           If {@code data} is {@code null}.
    */
   public static byte[] encodeHex(final byte[] data) {
-    if (data == null)
-      throw new NullPointerException("Parameter 'data' cannot be null.");
-
-    final char[] toDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-    final int l = data.length;
-    final char[] out = new char[l << 1];
-    for (int i = 0, j = 0; i < l; i++) {
-      out[j++] = toDigits[(0xF0 & data[i]) >>> 4];
-      out[j++] = toDigits[0x0F & data[i]];
+    Objects.requireNonNull(data, "Parameter 'data' cannot be null.");
+    char[] out = new char[data.length << 1];
+    for (int j = 0; j < data.length; j++) {
+      int v = data[j] & 0xFF;
+      out[j * 2] = HEX_ARRAY[v >>> 4];
+      out[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
     }
-
     return new String(out).getBytes(StandardCharsets.UTF_8);
   }
 

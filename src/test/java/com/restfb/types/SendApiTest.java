@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,13 +21,11 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
@@ -39,10 +37,12 @@ import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
 import com.restfb.types.send.media.MediaTemplateAttachmentElement;
 import com.restfb.types.send.media.MediaTemplateUrlElement;
 
-public class SendApiTest extends AbstractJsonMapperTests {
+import static org.junit.jupiter.api.Assertions.*;
+
+class SendApiTest extends AbstractJsonMapperTests {
 
   @Test
-  public void recipientWithId() {
+  void recipientWithId() {
     IdMessageRecipient recipient = new IdMessageRecipient("12345");
 
     assertTrue(recipient instanceof MessageRecipient);
@@ -54,7 +54,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void recipientWithPhone() {
+  void recipientWithPhone() {
     PhoneMessageRecipient recipient = new PhoneMessageRecipient("12345");
 
     assertTrue(recipient instanceof MessageRecipient);
@@ -66,7 +66,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void recipientWithPhoneAndName() {
+  void recipientWithPhoneAndName() {
     PhoneMessageRecipient recipient = new PhoneMessageRecipient("12345");
     recipient.setName(new PhoneMessageRecipient.Name("Jane", "Doe"));
 
@@ -80,7 +80,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void recipientWithUserRef() {
+  void recipientWithUserRef() {
     UserRefMessageRecipient recipient = new UserRefMessageRecipient("UNIQUE_USER_REF");
 
     assertTrue(recipient instanceof MessageRecipient);
@@ -92,7 +92,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageText() {
+  void messageText() {
     Message recipient = new Message("Just a Test");
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
@@ -102,7 +102,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageImageAttachment() {
+  void messageImageAttachment() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "IMAGE_URL");
     Message recipient = new Message(attachment);
 
@@ -114,7 +114,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageVideoAttachment() {
+  void messageVideoAttachment() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.VIDEO, "VIDEO_URL");
     Message recipient = new Message(attachment);
 
@@ -126,7 +126,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageMediaAttachment_imageURL() {
+  void messageMediaAttachment_imageURL() {
     MediaAttachment.MediaTemplateElement mediaTemplateElement =
         new MediaTemplateUrlElement("https://business.facebook.com/<PAGE_NAME>/photos/<NUMERIC_ID>");
     MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
@@ -142,7 +142,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageMediaAttachment_videoURL() {
+  void messageMediaAttachment_videoURL() {
     MediaAttachment.MediaTemplateElement mediaTemplateElement =
         new MediaTemplateUrlElement("https://business.facebook.com/<PAGE_NAME>/videos/<NUMERIC_ID>");
     MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
@@ -158,7 +158,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageMediaAttachment_imageAttachment() {
+  void messageMediaAttachment_imageAttachment() {
     MediaAttachment.MediaTemplateElement mediaTemplateElement =
         new MediaTemplateAttachmentElement(MediaAttachment.MediaType.IMAGE, "<ATTACHMENT_ID>");
     MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
@@ -174,7 +174,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageMediaAttachment_imageAttachmentWithButton() {
+  void messageMediaAttachment_imageAttachmentWithButton() {
     WebButton button = new WebButton("Title", "<WEB_URL>");
     MediaAttachment.MediaTemplateElement mediaTemplateElement =
         new MediaTemplateAttachmentElement(MediaAttachment.MediaType.IMAGE, "<ATTACHMENT_ID>");
@@ -192,7 +192,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageMediaAttachment_videoAttachment() {
+  void messageMediaAttachment_videoAttachment() {
     MediaAttachment.MediaTemplateElement mediaTemplateElement =
         new MediaTemplateAttachmentElement(MediaAttachment.MediaType.VIDEO, "<ATTACHMENT_ID>");
     MediaAttachment attachment = new MediaAttachment(Collections.singletonList(mediaTemplateElement));
@@ -208,7 +208,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageAudioAttachment() {
+  void messageAudioAttachment() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.AUDIO, "AUDIO_URL");
     Message recipient = new Message(attachment);
 
@@ -220,7 +220,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageAudioAttachmentWithReuse() {
+  void messageAudioAttachmentWithReuse() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.AUDIO, "AUDIO_URL");
     attachment.setIsReusable(true);
     Message recipient = new Message(attachment);
@@ -234,7 +234,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageAudioAttachmentReuseId() {
+  void messageAudioAttachmentReuseId() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.AUDIO, "123456789");
     Message recipient = new Message(attachment);
 
@@ -246,7 +246,32 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageLocationAttachment() {
+  void messageUploadAttachment() {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{},\"type\":\"image\"}}",
+            recipientJsonString);
+  }
+
+  @Test
+  void messageUploadAttachmentReusable() {
+    MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE);
+    attachment.setIsReusable(true);
+    Message recipient = new Message(attachment);
+
+    DefaultJsonMapper mapper = new DefaultJsonMapper();
+    String recipientJsonString = mapper.toJson(recipient, true);
+
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"is_reusable\":true},\"type\":\"image\"}}",
+            recipientJsonString);
+  }
+
+  @Test
+  void messageLocationAttachment() {
     LocationAttachment attachment = new LocationAttachment(20, 30);
     Message recipient = new Message(attachment);
 
@@ -259,7 +284,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageOpenGraphTemplate() {
+  void messageOpenGraphTemplate() {
     OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload();
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
@@ -272,7 +297,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageOpenGraphTemplateWithButton() {
+  void messageOpenGraphTemplateWithButton() {
     WebButton button = new WebButton("Check this", "http://www.google.com");
     OpenGraphTemplatePayload payload = new OpenGraphTemplatePayload();
     OpenGraphTemplatePayload.Element element = new OpenGraphTemplatePayload.Element("some url");
@@ -290,7 +315,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageGenericAttachment() {
+  void messageGenericAttachment() {
 
     ButtonTemplatePayload payload = new ButtonTemplatePayload("TITLE");
     TemplateAttachment attachment = new TemplateAttachment(payload);
@@ -305,7 +330,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageGenericButtonAttachment() {
+  void messageGenericButtonAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
     ButtonTemplatePayload payload = new ButtonTemplatePayload("MY TEXT");
@@ -322,7 +347,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageGenericButtonsAttachment() {
+  void messageGenericButtonsAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
     WebButton buttonHeight = new WebButton("Check this", "http://www.google.com");
@@ -346,7 +371,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageButtonsAttachment() {
+  void messageButtonsAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
@@ -369,7 +394,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageButtonsAttachmentNonSharable() {
+  void messageButtonsAttachmentNonSharable() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
     PostbackButton postbackButton = new PostbackButton("My Postback", "POSTBACK");
@@ -393,7 +418,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageListTemplatePayload() {
+  void messageListTemplatePayload() {
     ListViewElement element1 = getListViewElement(100, "Classic White T-Shirt");
     ListViewElement element2 = getListViewElement(101, "Classic Blue T-Shirt");
 
@@ -451,7 +476,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void accountLink() {
+  void accountLink() {
     AccountLinkButton button = new AccountLinkButton("https://www.example.com/oauth/authorize");
     GenericTemplatePayload payload = new GenericTemplatePayload();
     Bubble bubble = new Bubble("Link Bubble");
@@ -469,7 +494,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void accountUnLink() {
+  void accountUnLink() {
     AccountUnlinkButton button = new AccountUnlinkButton();
     GenericTemplatePayload payload = new GenericTemplatePayload();
     Bubble bubble = new Bubble("Link Bubble");
@@ -487,7 +512,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageTemplateGenericBubbleAttachment() {
+  void messageTemplateGenericBubbleAttachment() {
 
     WebButton button = new WebButton("Check this", "http://www.google.com");
     ShareButton share = new ShareButton();
@@ -511,13 +536,14 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageTemplateAirlineAttachment() {
+  void messageTemplateAirlineAttachment() {
 
     AirlineCheckinTemplatePayload payload =
         new AirlineCheckinTemplatePayload("Intro Message", "en_US", "ABCDEF", "http://www.google.com/checkin");
     TemplateAttachment attachment = new TemplateAttachment(payload);
     Message recipient = new Message(attachment);
-    recipient.getQuickReplies().equals(Collections.<QuickReply> emptyList());
+
+    assertEquals(Collections.<QuickReply> emptyList(), recipient.getQuickReplies());
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
@@ -528,7 +554,7 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageWithQuickRepliesAndMetadata() {
+  void messageWithQuickRepliesAndMetadata() {
     QuickReply quickReply1 = new QuickReply("title 1", "payload 1");
     QuickReply quickReply2 = new QuickReply("title 2", "payload 2");
     quickReply2.setImageUrl("http://example.org/test.jpg");
@@ -555,13 +581,14 @@ public class SendApiTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messageWithMultipleQuickRepliesAddedAtOnce() {
+  void messageWithMultipleQuickRepliesAddedAtOnce() {
     List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
     quickReplyList.add(new QuickReply("title2", "payload 2"));
     Message message = new Message("message text");
     message.addQuickReplies(quickReplyList);
-    message.getQuickReplies().equals(quickReplyList);
+
+    assertEquals(quickReplyList, message.getQuickReplies());
 
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String messageJsonString = mapper.toJson(message, true);
@@ -571,8 +598,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
       messageJsonString);
   }
 
-  @Test(expected = FacebookPreconditionException.class)
-  public void messageWithTooManyReplies_elevenPresentOneAdded() {
+  @Test
+  void messageWithTooManyReplies_thirdteenPresentOneAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
@@ -585,13 +612,16 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title8", "payload 8"));
     quickReplyList.add(new QuickReply("title9", "payload 9"));
     quickReplyList.add(new QuickReply("title10", "payload 10"));
-    quickReplyList.add(new QuickReply("title10", "payload 11"));
+    quickReplyList.add(new QuickReply("title11", "payload 11"));
+    quickReplyList.add(new QuickReply("title12", "payload 12"));
+    quickReplyList.add(new QuickReply("title13", "payload 13"));
     message.addQuickReplies(quickReplyList);
-    message.addQuickReply(new QuickReply("last", "payload_last"));
+    assertThrows(FacebookPreconditionException.class,
+      () -> message.addQuickReply(new QuickReply("last", "payload_last")));
   }
 
-  @Test(expected = FacebookPreconditionException.class)
-  public void messageWithTooManyReplies_EightPresentFourAdded() {
+  @Test
+  void messageWithTooManyReplies_TenPresentFourAdded() {
     Message message = new Message("message text");
     List<QuickReply> quickReplyList = new ArrayList<>();
     quickReplyList.add(new QuickReply("title1", "payload 1"));
@@ -602,6 +632,8 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyList.add(new QuickReply("title6", "payload 6"));
     quickReplyList.add(new QuickReply("title7", "payload 7"));
     quickReplyList.add(new QuickReply("title8", "payload 8"));
+    quickReplyList.add(new QuickReply("title9", "payload 9"));
+    quickReplyList.add(new QuickReply("title10", "payload 10"));
 
     List<QuickReply> quickReplyListAdded = new ArrayList<>();
     quickReplyListAdded.add(new QuickReply("title1a", "payload 1a"));
@@ -609,6 +641,6 @@ public class SendApiTest extends AbstractJsonMapperTests {
     quickReplyListAdded.add(new QuickReply("title3a", "payload 3a"));
     quickReplyListAdded.add(new QuickReply("title3a", "payload 4a"));
     message.addQuickReplies(quickReplyList);
-    message.addQuickReplies(quickReplyListAdded);
+    assertThrows(FacebookPreconditionException.class, () -> message.addQuickReplies(quickReplyListAdded));
   }
 }

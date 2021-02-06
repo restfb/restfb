@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -105,6 +105,16 @@ public interface JsonMapper {
    * @since 1.6.5
    */
   String toJson(Object object, boolean ignoreNullValuedProperties);
+
+  /**
+   * adds a {@link FacebookClient} implementation to the mapper.
+   *
+   * This is especially useful for mapping json to Connection objects that need the client itself.
+   * 
+   * @param facebookClient
+   *          that is used for Connection objects
+   */
+  void setFacebookClient(FacebookClient facebookClient);
 
   /**
    * If you apply this annotation to a method of a type mapped by {@code JsonMapper}, it will be called after the

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,9 @@ import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +46,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Comment extends FacebookType {
+public class Comment extends FacebookType implements HasComments, HasCreatedTime, HasMessage {
 
   /**
    * User who posted the comment.
@@ -60,7 +63,7 @@ public class Comment extends FacebookType {
    *
    * @return Text contents of the comment.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -70,7 +73,7 @@ public class Comment extends FacebookType {
    *
    * @return Date on which the comment was created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -181,7 +184,7 @@ public class Comment extends FacebookType {
    *
    * @return Whether the viewer can send a private reply to this comment
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_=@GraphAPI(since = "2.5"))
   @Setter
   @Facebook("can_reply_privately")
   @GraphAPI(since = "2.5")
@@ -192,7 +195,7 @@ public class Comment extends FacebookType {
    *
    * @return conversation between Page and author of the comment
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_=@GraphAPI(since = "2.5"))
   @Setter
   @Facebook("private_reply_conversation")
   @GraphAPI(since = "2.5")
@@ -246,7 +249,7 @@ public class Comment extends FacebookType {
    *
    * @return replies
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("comments")
   private Comments comments;

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +21,8 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -30,12 +30,12 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Url;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class FetchOpenGraphUrlITCase extends RestFbIntegrationTestBase {
+class FetchOpenGraphUrlITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void imdbUrlCheck() {
+  void imdbUrlCheck() {
 
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);

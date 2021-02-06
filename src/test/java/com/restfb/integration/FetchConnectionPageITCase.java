@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +21,10 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
@@ -30,14 +32,12 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
 
-import org.junit.Test;
-
-public class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
+class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void checkConnectionPage() {
+  void checkConnectionPage() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
     Connection<Post> connection = client.fetchConnection("/cocacola/feed", Post.class);
     assertFalse(connection.getData().isEmpty());
     if (connection.hasNext()) {

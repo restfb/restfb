@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,24 +22,27 @@
 package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WebRequestorTest {
+import org.junit.jupiter.api.Test;
+
+import com.restfb.util.SoftHashMap;
+
+class WebRequestorTest {
 
   @Test
-  public void enumChecker() {
+  void enumChecker() {
     assertThat(DefaultWebRequestor.HttpMethod.GET.name()).isEqualTo("GET");
     assertThat(DefaultWebRequestor.HttpMethod.DELETE.name()).isEqualTo("DELETE");
   }
 
   @Test
-  public void testFillHeaderAndDebugInfo() {
+  void testFillHeaderAndDebugInfo() {
 
     String appUsage = "{ \"call_count\": 10, \"total_time\": 20, \"total_cputime\": 30 }";
     String pageUsage = "{ \"call_count\": 20, \"total_time\": 40, \"total_cputime\": 60 }";
@@ -58,7 +61,7 @@ public class WebRequestorTest {
       }
 
       @Override
-      public void connect() throws IOException {}
+      public void connect() {}
 
       @Override
       public String getHeaderField(String name) {
@@ -80,4 +83,17 @@ public class WebRequestorTest {
     assertThat(debugHeaderInfo.getPageUsage().getTotalTime()).isEqualTo(40);
     assertThat(debugHeaderInfo.getPageUsage().getTotalCputime()).isEqualTo(60);
   }
+
+  @Test
+  void checkMapSupplier() {
+    try {
+      ETagWebRequestor requestor = new ETagWebRequestor();
+      ETagWebRequestor.setMapSupplier(HashMap::new);
+      ETagWebRequestor requestor2 = new ETagWebRequestor();
+      ETagWebRequestor.setMapSupplier(SoftHashMap::new);
+    } catch (Exception e) {
+      fail("some exception occured during creating a web requestor");
+    }
+  }
+
 }

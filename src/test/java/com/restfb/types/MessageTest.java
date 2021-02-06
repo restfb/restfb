@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,19 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import org.hamcrest.core.StringContains;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class MessageTest extends AbstractJsonMapperTests {
+class MessageTest extends AbstractJsonMapperTests {
 
   @Test
-  public void photoTags_V2_5() {
+  void photoTags_V2_5() {
     Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message"), Message.class);
     assertNotNull(exampleMessage);
     List<String> tags = exampleMessage.getTags();
@@ -44,7 +44,7 @@ public class MessageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagesWithAttachment() {
+  void messagesWithAttachment() {
     List<Message> messageList =
         createJsonMapper().toJavaList(jsonFromClasspath("v2_5/messages-with-attachments"), Message.class);
     for (Message message : messageList) {
@@ -53,12 +53,12 @@ public class MessageTest extends AbstractJsonMapperTests {
       if (attachment.isImage()) {
         assertNotNull(attachment.getImageData());
         Message.ImageData imageData = attachment.getImageData();
-        assertThat(imageData.getPreviewUrl(), new StringContains("preview"));
+        assertThat(imageData.getPreviewUrl()).contains("preview");
       } else if (attachment.isVideo()) {
         assertNotNull(attachment.getVideoData());
         Message.VideoData videoData = attachment.getVideoData();
-        assertThat(videoData.getUrl(), new StringContains("examplevideo.mp4"));
-        assertThat(videoData.getPreviewUrl(), new StringContains("example_preview.jpg"));
+        assertThat(videoData.getUrl()).contains("examplevideo.mp4");
+        assertThat(videoData.getPreviewUrl()).contains("example_preview.jpg");
         assertEquals(0, videoData.getRotation());
         Message.ImageData imageData = attachment.getImageData();
         assertEquals(1280, imageData.getWidth());
@@ -70,7 +70,7 @@ public class MessageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagesWithShares() {
+  void messagesWithShares() {
     Message exampleMessage =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/message-with-share"), Message.class);
     assertNotNull(exampleMessage);
@@ -80,10 +80,18 @@ public class MessageTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void messagesWithSticker() {
+  void messagesWithSticker() {
     Message exampleMessage =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/message-with-sticker"), Message.class);
     assertNotNull(exampleMessage);
     assertEquals("https://scontent.xx.fbcdn.net/sticker.png", exampleMessage.getSticker());
+  }
+
+  @Test
+  void messageWithRemovedAttachment() {
+    Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v7_0/message-eu"), Message.class);
+    assertNotNull(exampleMessage);
+    Message.Attachment attachment = exampleMessage.getAttachments().get(0);
+    assertTrue(attachment.isRemovedInEurope());
   }
 }

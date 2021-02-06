@@ -21,41 +21,30 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-
-public class ParseException_Test {
+class ParseException_Test {
 
   private Location location;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     location = new Location(4711, 23, 42);
   }
 
   @Test
-  public void location() {
+  void location() {
     ParseException exception = new ParseException("Foo", location);
 
     assertSame(location, exception.getLocation());
   }
 
   @Test
-  @SuppressWarnings("deprecation")
-  public void position() {
-    ParseException exception = new ParseException("Foo", location);
-
-    assertEquals(location.offset, exception.getOffset());
-    assertEquals(location.line, exception.getLine());
-    assertEquals(location.column, exception.getColumn());
-  }
-
-  @Test
-  public void message() {
+  void message() {
     ParseException exception = new ParseException("Foo", location);
 
     assertEquals("Foo at 23:42", exception.getMessage());

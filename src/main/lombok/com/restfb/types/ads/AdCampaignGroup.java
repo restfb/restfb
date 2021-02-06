@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,80 +21,12 @@
  */
 package com.restfb.types.ads;
 
-import java.util.Date;
-import java.util.List;
-
-import com.restfb.Facebook;
-
-import lombok.Getter;
-import lombok.Setter;
-
 /**
- * Represents the <a href="https://developers.facebook.com/docs/marketing-api/adaccountgroup/">AdGroup Campaign Group
- * type</a>.
+ * @deprecated use {@see Campaign} instead
  */
-public class AdCampaignGroup extends NamedAdsObject {
+@Deprecated
+public class AdCampaignGroup extends Campaign {
 
   private static final long serialVersionUID = 1L;
-
-  @Getter
-  @Setter
-  @Facebook("account_id")
-  private String accountId;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String objective;
-
-  @Getter
-  @Setter
-  @Facebook("campaign_group_status")
-  private String campaignGroupStatus;
-
-  @Getter
-  @Setter
-  @Facebook("is_completed")
-  private String isCompleted;
-
-  @Getter
-  @Setter
-  @Facebook("buying_type")
-  private String buyingType;
-
-  @Getter
-  @Setter
-  @Facebook("promoted_object")
-  private AdPromotedObject promotedObject;
-
-  @Getter
-  @Setter
-  @Facebook("spend_cap")
-  private String spendCap;
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<AdLabel> adlabels;
-
-  @Getter
-  @Setter
-  @Facebook("created_time")
-  private Date createdTime;
-
-  @Getter
-  @Setter
-  @Facebook("start_time")
-  private Date startTime;
-
-  @Getter
-  @Setter
-  @Facebook("stop_time")
-  private Date stopTime;
-
-  @Getter
-  @Setter
-  @Facebook("updated_time")
-  private Date updatedTime;
 
 }

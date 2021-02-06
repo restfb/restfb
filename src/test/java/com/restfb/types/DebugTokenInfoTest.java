@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,18 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.FacebookClient;
 import com.restfb.json.JsonObject;
 
-import org.junit.Test;
-
-public class DebugTokenInfoTest extends AbstractJsonMapperTests {
+class DebugTokenInfoTest extends AbstractJsonMapperTests {
 
   @Test
-  public void testJsonWithScopes() {
+  void testJsonWithScopes() {
     FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
         createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info"), FacebookClient.DebugTokenInfo.class);
     assertNotNull(exampleDebugTokenInfo);
@@ -41,7 +41,7 @@ public class DebugTokenInfoTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void testJsonWithMetadata() {
+  void testJsonWithMetadata() {
     FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
         createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info"), FacebookClient.DebugTokenInfo.class);
     assertNotNull(exampleDebugTokenInfo);
@@ -49,5 +49,18 @@ public class DebugTokenInfoTest extends AbstractJsonMapperTests {
     JsonObject metaData = exampleDebugTokenInfo.getMetaData();
     assertNotNull(metaData.get("sso"));
     assertEquals("iphone-safari", metaData.get("sso").asString());
+  }
+
+  @Test
+  void withExpires() {
+    FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
+        createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-2"), FacebookClient.DebugTokenInfo.class);
+    assertNotNull(exampleDebugTokenInfo);
+    assertEquals(8, exampleDebugTokenInfo.getScopes().size());
+    assertEquals(1563217616000L, exampleDebugTokenInfo.getDataAccessExpiresAt().getTime());
+    assertEquals("USER", exampleDebugTokenInfo.getType());
+    assertTrue(exampleDebugTokenInfo.isValid());
+    assertEquals("1234567890", exampleDebugTokenInfo.getAppId());
+    assertEquals(1561330800000L, exampleDebugTokenInfo.getExpiresAt().getTime());
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -128,6 +128,11 @@ public class MessagingItem {
   @Facebook("prior_message")
   private PriorMessage priorMessage;
 
+  @Getter
+  @Setter
+  @Facebook
+  private MessageReaction reaction;
+
   @Facebook("app_roles")
   private JsonObject rawAppRoles;
 
@@ -196,6 +201,10 @@ public class MessagingItem {
       return appRoles;
     }
 
+    if (reaction != null) {
+      return reaction;
+    }
+
     return null;
   }
 
@@ -257,6 +266,10 @@ public class MessagingItem {
 
   public boolean hasPriorMessage() {
     return priorMessage != null;
+  }
+
+  public boolean isReaction() {
+    return getItem() instanceof MessageReaction;
   }
 
   @JsonMapper.JsonMappingCompleted

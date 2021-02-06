@@ -23,18 +23,18 @@ package com.restfb.json;
 
 import static com.restfb.json.Json.*;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 
-public class JsonLiteral_Test {
+class JsonLiteral_Test {
 
   @Test
-  public void isNull() {
+  void isNull() {
     assertTrue(NULL.isNull());
 
     assertFalse(TRUE.isNull());
@@ -42,7 +42,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void isTrue() {
+  void isTrue() {
     assertTrue(TRUE.isTrue());
 
     assertFalse(NULL.isTrue());
@@ -50,7 +50,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void isFalse() {
+  void isFalse() {
     assertTrue(FALSE.isFalse());
 
     assertFalse(NULL.isFalse());
@@ -58,7 +58,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void isBoolean() {
+  void isBoolean() {
     assertTrue(TRUE.isBoolean());
     assertTrue(FALSE.isBoolean());
 
@@ -66,7 +66,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void NULL_write() throws IOException {
+  void NULL_write() throws IOException {
     JsonWriter writer = mock(JsonWriter.class);
 
     NULL.write(writer);
@@ -76,7 +76,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void TRUE_write() throws IOException {
+  void TRUE_write() throws IOException {
     JsonWriter writer = mock(JsonWriter.class);
 
     TRUE.write(writer);
@@ -86,7 +86,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void FALSE_write() throws IOException {
+  void FALSE_write() throws IOException {
     JsonWriter writer = mock(JsonWriter.class);
 
     FALSE.write(writer);
@@ -96,22 +96,22 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void NULL_toString() {
+  void NULL_toString() {
     assertEquals("null", NULL.toString());
   }
 
   @Test
-  public void TRUE_toString() {
+  void TRUE_toString() {
     assertEquals("true", TRUE.toString());
   }
 
   @Test
-  public void FALSE_toString() {
+  void FALSE_toString() {
     assertEquals("false", FALSE.toString());
   }
 
   @Test
-  public void NULL_equals() {
+  void NULL_equals() {
     assertTrue(NULL.equals(NULL));
 
     assertFalse(NULL.equals(null));
@@ -121,7 +121,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void TRUE_equals() {
+  void TRUE_equals() {
     assertTrue(TRUE.equals(TRUE));
 
     assertFalse(TRUE.equals(null));
@@ -131,7 +131,7 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void FALSE_equals() {
+  void FALSE_equals() {
     assertTrue(FALSE.equals(FALSE));
 
     assertFalse(FALSE.equals(null));
@@ -141,27 +141,27 @@ public class JsonLiteral_Test {
   }
 
   @Test
-  public void NULL_isSerializable() throws Exception {
+  void NULL_isSerializable() throws Exception {
     assertEquals(NULL, serializeAndDeserialize(NULL));
     assertTrue(serializeAndDeserialize(NULL).isNull());
   }
 
   @Test
-  public void TRUE_isSerializable() throws Exception {
+  void TRUE_isSerializable() throws Exception {
     assertEquals(TRUE, serializeAndDeserialize(TRUE));
     assertTrue(serializeAndDeserialize(TRUE).isBoolean());
     assertTrue(serializeAndDeserialize(TRUE).isTrue());
   }
 
   @Test
-  public void FALSE_isSerializable() throws Exception {
+  void FALSE_isSerializable() throws Exception {
     assertEquals(FALSE, serializeAndDeserialize(FALSE));
     assertTrue(serializeAndDeserialize(FALSE).isBoolean());
     assertTrue(serializeAndDeserialize(FALSE).isFalse());
   }
 
   @Test
-  public void sameAfterDeserialization() throws Exception {
+  void sameAfterDeserialization() throws Exception {
     JsonArray array = new JsonArray().add(NULL).add(NULL);
 
     JsonArray deserialized = serializeAndDeserialize(array);

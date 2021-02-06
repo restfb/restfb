@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,18 @@
  */
 package com.restfb.types.send;
 
+import java.util.Locale;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
 
-import org.junit.Test;
-
-import java.util.Locale;
-
-public class GreetingTest {
+class GreetingTest {
 
   @Test
-  public void checkDefaultLocale() {
+  void checkDefaultLocale() {
     Greeting greeting = new Greeting("Test Greeting");
     JsonMapper mapper = new DefaultJsonMapper();
 
@@ -40,7 +40,7 @@ public class GreetingTest {
   }
 
   @Test
-  public void checkGermanLocale() {
+  void checkGermanLocale() {
     Greeting greeting = new Greeting("de_de", "Test Greeting");
     JsonMapper mapper = new DefaultJsonMapper();
 
@@ -48,7 +48,7 @@ public class GreetingTest {
   }
 
   @Test
-  public void checkUsLocale() {
+  void checkUsLocale() {
     Greeting greeting = new Greeting("en_us", "Test Greeting");
     JsonMapper mapper = new DefaultJsonMapper();
 
@@ -56,7 +56,7 @@ public class GreetingTest {
   }
 
   @Test
-  public void testJavaLocale() {
+  void testJavaLocale() {
     Locale loc = Locale.CHINA;
 
     Greeting greeting = new Greeting(loc, "Test Greeting");

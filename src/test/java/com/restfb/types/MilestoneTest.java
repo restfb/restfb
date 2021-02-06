@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class MilestoneTest extends AbstractJsonMapperTests {
+class MilestoneTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_V2_5() {
+  void check_V2_5() {
     Milestone milestone = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/milestone"), Milestone.class);
     assertNotNull(milestone);
     assertEquals(1454189125000L, milestone.getCreatedTime().getTime());

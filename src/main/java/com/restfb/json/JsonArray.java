@@ -22,11 +22,8 @@
 package com.restfb.json;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Represents a JSON array, an ordered collection of JSON values.
@@ -61,9 +58,6 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
 
   private final List<JsonValue> values;
 
-  // String constants
-  private static final String ARRAY_IS_NULL = "array is null";
-
   /**
    * Creates a new empty JsonArray.
    */
@@ -82,54 +76,12 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
   }
 
   private JsonArray(JsonArray array, boolean unmodifiable) {
-    if (array == null) {
-      throw new NullPointerException(ARRAY_IS_NULL);
-    }
+    Objects.requireNonNull(array, ARRAY_IS_NULL);
     if (unmodifiable) {
       values = Collections.unmodifiableList(array.values);
     } else {
       values = new ArrayList<>(array.values);
     }
-  }
-
-  /**
-   * Reads a JSON array from the given reader.
-   * <p>
-   * Characters are read in chunks and buffered internally, therefore wrapping an existing reader in an additional
-   * <code>BufferedReader</code> does <strong>not</strong> improve reading performance.
-   * </p>
-   *
-   * @param reader
-   *          the reader to read the JSON array from
-   * @return the JSON array that has been read
-   * @throws IOException
-   *           if an I/O error occurs in the reader
-   * @throws ParseException
-   *           if the input is not valid JSON
-   * @throws UnsupportedOperationException
-   *           if the input does not contain a JSON array
-   * @deprecated Use {@link Json#parse(Reader)}{@link JsonValue#asArray() .asArray()} instead
-   */
-  @Deprecated
-  public static JsonArray readFrom(Reader reader) throws IOException {
-    return JsonValue.readFrom(reader).asArray();
-  }
-
-  /**
-   * Reads a JSON array from the given string.
-   *
-   * @param string
-   *          the string that contains the JSON array
-   * @return the JSON array that has been read
-   * @throws ParseException
-   *           if the input is not valid JSON
-   * @throws UnsupportedOperationException
-   *           if the input does not contain a JSON array
-   * @deprecated Use {@link Json#parse(String)}{@link JsonValue#asArray() .asArray()} instead
-   */
-  @Deprecated
-  public static JsonArray readFrom(String string) {
-    return JsonValue.readFrom(string).asArray();
   }
 
   /**
@@ -228,9 +180,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    * @return the array itself, to enable method chaining
    */
   public JsonArray add(JsonValue value) {
-    if (value == null) {
-      throw new NullPointerException("value is null");
-    }
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     values.add(value);
     return this;
   }
@@ -348,9 +298,7 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
    *           if the index is out of range, i.e. <code>index &lt; 0</code> or <code>index &gt;= size</code>
    */
   public JsonArray set(int index, JsonValue value) {
-    if (value == null) {
-      throw new NullPointerException("value is null");
-    }
+    Objects.requireNonNull(value, VALUE_IS_NULL);
     values.set(index, value);
     return this;
   }
@@ -411,6 +359,10 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
     return Collections.unmodifiableList(values);
   }
 
+  public Stream<JsonValue> valueStream() {
+    return values().stream();
+  }
+
   /**
    * Returns an iterator over the values of this array in document order. The returned iterator cannot be used to modify
    * this array.
@@ -421,14 +373,17 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
     final Iterator<JsonValue> iterator = values.iterator();
     return new Iterator<JsonValue>() {
 
+      @Override
       public boolean hasNext() {
         return iterator.hasNext();
       }
 
+      @Override
       public JsonValue next() {
         return iterator.next();
       }
 
+      @Override
       public void remove() {
         throw new UnsupportedOperationException();
       }

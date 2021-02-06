@@ -21,37 +21,37 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class WritingBuffer_Test {
+
+class WritingBuffer_Test {
 
   private static final int BUFFER_SIZE = 16;
   private StringWriter wrapped;
   private WritingBuffer writer;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     wrapped = new StringWriter();
     writer = new WritingBuffer(wrapped, BUFFER_SIZE);
   }
 
   @Test
-  public void testFlushEmpty() throws IOException {
+  void testFlushEmpty() throws IOException {
     writer.flush();
 
     assertEquals("", wrapped.toString());
   }
 
   @Test
-  public void testWriteChar() throws IOException {
+  void testWriteChar() throws IOException {
     writer.write('c');
     writer.flush();
 
@@ -59,7 +59,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteChar_fit() throws IOException {
+  void testWriteChar_fit() throws IOException {
     writer.write(createString(BUFFER_SIZE - 1));
     writer.write('c');
     writer.flush();
@@ -68,7 +68,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteChar_exceeding() throws IOException {
+  void testWriteChar_exceeding() throws IOException {
     writer.write(createString(BUFFER_SIZE));
     writer.write('c');
     writer.flush();
@@ -77,7 +77,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteCharArray() throws IOException {
+  void testWriteCharArray() throws IOException {
     writer.write("foobar".toCharArray(), 1, 3);
     writer.flush();
 
@@ -85,7 +85,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteCharArray_fit() throws IOException {
+  void testWriteCharArray_fit() throws IOException {
     writer.write(createString(BUFFER_SIZE - 3));
     writer.write("foobar".toCharArray(), 1, 3);
     writer.flush();
@@ -94,7 +94,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteCharArray_exceeding() throws IOException {
+  void testWriteCharArray_exceeding() throws IOException {
     writer.write(createString(BUFFER_SIZE - 2));
     writer.write("foobar".toCharArray(), 1, 3);
     writer.flush();
@@ -103,7 +103,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteCharArray_exceedingBuffer() throws IOException {
+  void testWriteCharArray_exceedingBuffer() throws IOException {
     writer.write(createChars(BUFFER_SIZE + 1));
     writer.flush();
 
@@ -111,7 +111,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteString() throws IOException {
+  void testWriteString() throws IOException {
     writer.write("foobar", 1, 3);
     writer.flush();
 
@@ -119,7 +119,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteString_fit() throws IOException {
+  void testWriteString_fit() throws IOException {
     writer.write(createString(BUFFER_SIZE - 3));
     writer.write("foobar", 1, 3);
     writer.flush();
@@ -128,7 +128,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteString_exceeding() throws IOException {
+  void testWriteString_exceeding() throws IOException {
     writer.write(createString(BUFFER_SIZE - 2));
     writer.write("foobar", 1, 3);
     writer.flush();
@@ -137,7 +137,7 @@ public class WritingBuffer_Test {
   }
 
   @Test
-  public void testWriteString_exceedingBuffer() throws IOException {
+  void testWriteString_exceedingBuffer() throws IOException {
     writer.write(createString(BUFFER_SIZE + 1));
     writer.flush();
 

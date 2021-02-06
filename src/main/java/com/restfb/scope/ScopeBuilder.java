@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,13 @@ package com.restfb.scope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ScopeBuilder {
 
-  private final List<FacebookPermissions> permissions;
+  private final List<FacebookPermissions> permissions = new ArrayList<>();
 
   public ScopeBuilder(boolean withoutPublicProfile) {
-    this.permissions = new ArrayList<>();
     if (!withoutPublicProfile) {
       permissions.add(FacebookPermissions.PUBLIC_PROFILE);
     }
@@ -46,15 +46,7 @@ public class ScopeBuilder {
 
   @Override
   public String toString() {
-    StringBuilder scopeString = new StringBuilder();
-    for (FacebookPermissions permission : permissions) {
-      scopeString.append(permission.getPermissionString()).append(",");
-    }
-    if (scopeString.length() > 0 && scopeString.lastIndexOf(",") == (scopeString.length() - 1)) {
-      scopeString.deleteCharAt(scopeString.length() - 1);
-    }
-
-    return scopeString.toString();
+    return permissions.stream().map(FacebookPermissions::getPermissionString).collect(Collectors.joining(","));
   }
 
 }

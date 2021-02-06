@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,12 @@ package com.restfb.types.setter;
 import com.restfb.types.Message;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class MessageTest extends SetterGetterTestBase {
+class MessageTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Message obj = new Message();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -38,7 +38,7 @@ public class MessageTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testAttachment() {
+  void testAttachment() {
     Message.Attachment obj = new Message.Attachment();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -46,7 +46,7 @@ public class MessageTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testImageData() {
+  void testImageData() {
     Message.ImageData obj = new Message.ImageData();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");

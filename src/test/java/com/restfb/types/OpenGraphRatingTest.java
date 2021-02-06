@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class OpenGraphRatingTest extends AbstractJsonMapperTests {
+class OpenGraphRatingTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_2_5() {
+  void check_2_5() {
     OpenGraphRating exampleRating =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/open-graph-rating-example"), OpenGraphRating.class);
     assertEquals("987654321", exampleRating.getOpenGraphStory().getId());
@@ -44,14 +44,14 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void check_2_5_simple() {
+  void check_2_5_simple() {
     OpenGraphRating exampleRating =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/open-graph-rating-simple"), OpenGraphRating.class);
     assertNotNull(exampleRating);
   }
 
   @Test
-  public void check_issue878() {
+  void check_issue878() {
     OpenGraphRating exampleRating =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_11/opengraphrating-issue878"), OpenGraphRating.class);
     assertNotNull(exampleRating);
@@ -66,7 +66,7 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void check_3_1_recommendation() {
+  void check_3_1_recommendation() {
     OpenGraphRating exampleRating = createJsonMapper()
       .toJavaObject(jsonFromClasspath("v3_1/opengraphrating-recommendation"), OpenGraphRating.class);
     assertNotNull(exampleRating);
@@ -77,7 +77,7 @@ public class OpenGraphRatingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void check_3_1_realRecommendation() {
+  void check_3_1_realRecommendation() {
     OpenGraphRating exampleRating = createJsonMapper()
       .toJavaObject(jsonFromClasspath("v3_1/opengraphrating-real-recommendation"), OpenGraphRating.class);
     assertNotNull(exampleRating);

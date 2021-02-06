@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,27 @@ package com.restfb;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
-import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.testutils.AssertJson;
-
-import org.junit.Test;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.testutils.AssertJson;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
+class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   /**
    * Can we handle null?
    */
   @Test
-  public void nullObject() {
+  void nullObject() {
     String json = createJsonMapper().toJson(null);
     assertThat(json).isEqualTo("null");
   }
@@ -52,20 +53,20 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle the empty list?
    */
   @Test
-  public void emptyList() {
+  void emptyList() {
     String json = createJsonMapper().toJson(new ArrayList<>());
     assertThat(json).isEqualTo("[]");
   }
 
   @Test
-  public void emptyFacebookList() {
+  void emptyFacebookList() {
     ListObject obj = new ListObject();
     String json = createJsonMapper().toJson(obj, true);
     assertThat(json).isEqualTo("{\"id\":12345}");
   }
 
   @Test
-  public void emptyFacebookMap() {
+  void emptyFacebookMap() {
     MapObject obj = new MapObject();
     String json = createJsonMapper().toJson(obj, true);
     assertThat(json).isEqualTo("{\"id\":12345}");
@@ -75,7 +76,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle the empty object?
    */
   @Test
-  public void emptyObject() {
+  void emptyObject() {
     String json = createJsonMapper().toJson(new Object());
     assertThat(json).isEqualTo("{}");
   }
@@ -84,7 +85,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle primitives?
    */
   @Test
-  public void primitives() {
+  void primitives() {
     // Close your eyes and pretend that string is a primitive here
     assertThat(createJsonMapper().toJson("Testing")).isEqualTo("Testing");
     assertThat(createJsonMapper().toJson(true)).isEqualTo("true");
@@ -106,7 +107,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle a basic Javabean?
    */
   @Test
-  public void basicJavabean() {
+  void basicJavabean() {
     BasicUser basicUser = new BasicUser();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
@@ -119,7 +120,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle a more complex Javabean?
    */
   @Test
-  public void complexJavabean() {
+  void complexJavabean() {
     UserWithPhotos userWithPhotos = new UserWithPhotos();
     userWithPhotos.uid = 12345L;
     userWithPhotos.name = null;
@@ -142,7 +143,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * See http://wiki.developers.facebook.com/index.php/Attachment_(Streams).
    */
   @Test
-  public void streamPublish() {
+  void streamPublish() {
     ActionLink category = new ActionLink();
     category.href = "http://bit.ly/KYbaN";
     category.text = "humor";
@@ -175,7 +176,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void specialTypes() {
+  void specialTypes() {
     JsonMapper jsonMapper = createJsonMapper();
     SpecialJavaTypes special = new SpecialJavaTypes();
     special.decimal = new BigDecimal("1234567.4");
@@ -191,7 +192,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle an empty Map?
    */
   @Test
-  public void emptyMap() {
+  void emptyMap() {
     assertThat(createJsonMapper().toJson(new HashMap<String, Object>())).isEqualTo("{}");
   }
 
@@ -199,7 +200,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
    * Can we handle a Map?
    */
   @Test
-  public void map() {
+  void map() {
     UserWithPhotos basicUser = new UserWithPhotos();
     basicUser.uid = 12345L;
     basicUser.name = "Fred";
@@ -216,7 +217,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void mapWithNoStringKey() {
+  void mapWithNoStringKey() {
     Map<Integer, Integer> map = new HashMap<>();
     map.put(1, 3);
     map.put(2, 1);
@@ -229,7 +230,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void mapWithInfiniteFloatValueKey() {
+  void mapWithInfiniteFloatValueKey() {
     Map<String, Float> map = new HashMap<>();
     map.put("test", Float.POSITIVE_INFINITY);
     try {
@@ -241,7 +242,7 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void duplicateAnnotations() {
+  void duplicateAnnotations() {
     DuplicateAnnotationsUser user = new DuplicateAnnotationsUser();
     user.hometown = "Philadelphia, PA";
     user.hometownObject = new HashMap<String, Object>() {
@@ -260,10 +261,59 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void convertDate() {
+  void checkOptional() {
+    JavaTypeWithOptionalField type = new JavaTypeWithOptionalField();
+    type.text = Optional.of("justsometext");
+    type.number = Optional.of(123456);
+    type.emptyNumber = Optional.empty();
+    type.emptyNumberButNull = null;
+
+    String json = createJsonMapper().toJson(type);
+    AssertJson.assertEquals("{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumber\": null, \"emptyNumberButNull\": null}", json);
+  }
+
+  @Test
+  void checkOptionalNoNull() {
+    JavaTypeWithOptionalField type = new JavaTypeWithOptionalField();
+    type.text = Optional.of("justsometext");
+    type.number = Optional.of(123456);
+    type.emptyNumber = Optional.empty();
+
+    String json = createJsonMapper().toJson(type, true);
+    AssertJson.assertEquals("{ \"text\": \"justsometext\", \"number\": 123456}", json);
+  }
+
+  @Test
+  void convertConnection() {
+    ConnectionFieldClass connectionClass = new ConnectionFieldClass();
+    connectionClass.number = 1234L;
+    connectionClass.text = "test";
+    connectionClass.myconnection = Mockito.mock(Connection.class);
+
+    String json = createJsonMapper().toJson(connectionClass, true);
+    AssertJson.assertEquals("{\"number\":1234,\"text\":\"test\"}", json);
+  }
+
+  @Test
+  void convertDate() {
     Date now = new Date(1474581731000L);
     String myDate = createJsonMapper().toJson(now);
     assertThat(myDate).isEqualTo("2016-09-22T22:02:11");
+  }
+
+  static class JavaTypeWithOptionalField {
+
+    @Facebook
+    Optional<String> text;
+
+    @Facebook
+    Optional<Integer> number;
+
+    @Facebook
+    Optional<Long> emptyNumber;
+
+    @Facebook
+    Optional<Float> emptyNumberButNull;
   }
 
   static class ListObject {
@@ -370,5 +420,17 @@ public class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
     @Facebook
     BigInteger integer;
+  }
+
+  static class ConnectionFieldClass {
+
+    @Facebook
+    Connection<SpecialJavaTypes> myconnection;
+
+    @Facebook
+    Long number;
+
+    @Facebook
+    String text;
   }
 }

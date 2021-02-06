@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,31 +21,29 @@
  */
 package com.restfb.exception.generator;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.assertj.core.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.ResponseErrorJsonParsingException;
 
-import org.junit.Test;
-
-public class FacebookExceptionGeneratorTest {
+class FacebookExceptionGeneratorTest {
 
   @Test
-  public void checkSkipErrorResponseParsing_NoJsonObject() {
+  void checkSkipErrorResponseParsing_NoJsonObject() {
     String json = "testString";
     parseJson(json, false);
   }
 
   @Test
-  public void checkSkipErrorResponseParsing_JsonObjectWithoutError() {
+  void checkSkipErrorResponseParsing_JsonObjectWithoutError() {
     String json = "{ \"testString\": \"example\" }";
     parseJson(json, false);
   }
 
   @Test
-  public void checkSkipErrorResponseParsing_JsonObjectWithError() {
+  void checkSkipErrorResponseParsing_JsonObjectWithError() {
     String json = "{ \"error\": \"exampleError\" }";
     parseJson(json, true);
   }
@@ -66,21 +64,21 @@ public class FacebookExceptionGeneratorTest {
   }
 
   @Test
-  public void checkSilentJsonObjectGeneration_WithValidJson() {
+  void checkSilentJsonObjectGeneration_WithValidJson() {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{ \"error\": \"exampleError\" }";
     assertThat(generator.silentlyCreateObjectFromString(json)).isNotNull();
   }
 
   @Test
-  public void checkSilentJsonObjectGeneration_WithInvalidJson() {
+  void checkSilentJsonObjectGeneration_WithInvalidJson() {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{ \"error\"}";
     assertThat(generator.silentlyCreateObjectFromString(json)).isNull();
   }
 
   @Test
-  public void checkIsTransient() {
+  void checkIsTransient() {
     DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
     String json = "{\n" + //
         "  \"error\": {\n" + //

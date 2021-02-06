@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.InputStream;
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.BinaryAttachment;
 import com.restfb.DefaultFacebookClient;
@@ -37,10 +37,10 @@ import com.restfb.integration.base.RestFbImageIntegrationTestBase;
 import com.restfb.types.GraphResponse;
 
 @NeedFacebookWriteAccess
-public class PostTwoBinaryITCase extends RestFbImageIntegrationTestBase {
+class PostTwoBinaryITCase extends RestFbImageIntegrationTestBase {
 
   @Test
-  public void postTwoBinarysAtOnce() {
+  void postTwoBinarysAtOnce() {
     InputStream thumbnailIs = getClass().getResourceAsStream("/binary/video/thumb.png");
     InputStream videoIs = getClass().getResourceAsStream("/binary/video/small.mp4");
 

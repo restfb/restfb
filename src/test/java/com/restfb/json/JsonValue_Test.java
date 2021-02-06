@@ -21,93 +21,17 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-import com.restfb.json.TestUtil.RunnableEx;
-
-import org.junit.Test;
 
 import java.io.*;
 
+import org.junit.jupiter.api.Test;
 
-public class JsonValue_Test {
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void testConstantsAreLiterals() {
-    assertEquals(Json.NULL, JsonValue.NULL);
-    assertEquals(Json.TRUE, JsonValue.TRUE);
-    assertEquals(Json.FALSE, JsonValue.FALSE);
-  }
+class JsonValue_Test {
 
   @Test
-  @SuppressWarnings("deprecation")
-  public void valueOf_int() {
-    assertEquals(Json.value(23), JsonValue.valueOf(23));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void valueOf_long() {
-    assertEquals(Json.value(23l), JsonValue.valueOf(23l));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void valueOf_float() {
-    assertEquals(Json.value(23.5f), JsonValue.valueOf(23.5f));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void valueOf_double() {
-    assertEquals(Json.value(23.5d), JsonValue.valueOf(23.5d));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void valueOf_boolean() {
-    assertSame(Json.value(true), JsonValue.valueOf(true));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void valueOf_string() {
-    assertEquals(Json.value("foo"), JsonValue.valueOf("foo"));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void readFrom_string() {
-    assertEquals(new JsonArray(), JsonValue.readFrom("[]"));
-    assertEquals(new JsonObject(), JsonValue.readFrom("{}"));
-    assertEquals(Json.value(23), JsonValue.readFrom("23"));
-    assertSame(Json.NULL, JsonValue.readFrom("null"));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void readFrom_reader() throws IOException {
-    assertEquals(new JsonArray(), JsonValue.readFrom(new StringReader("[]")));
-    assertEquals(new JsonObject(), JsonValue.readFrom(new StringReader("{}")));
-    assertEquals(Json.value(23), JsonValue.readFrom(new StringReader("23")));
-    assertSame(Json.NULL, JsonValue.readFrom(new StringReader("null")));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void readFrom_reader_doesNotCloseReader() throws IOException {
-    Reader reader = spy(new StringReader("{}"));
-
-    JsonValue.readFrom(reader);
-
-    verify(reader, never()).close();
-  }
-
-  @Test
-  public void writeTo() throws IOException {
+  void writeTo() throws IOException {
     JsonValue value = new JsonObject();
     Writer writer = new StringWriter();
 
@@ -117,40 +41,25 @@ public class JsonValue_Test {
   }
 
   @Test
-  public void writeTo_failsWithNullWriter() {
+  void writeTo_failsWithNullWriter() {
     final JsonValue value = new JsonObject();
-
-    assertException(NullPointerException.class, "writer is null", new RunnableEx() {
-      public void run() throws IOException {
-        value.writeTo(null, WriterConfig.MINIMAL);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> value.writeTo(null, WriterConfig.MINIMAL), "writer is null");
   }
 
   @Test
-  public void writeTo_failsWithNullConfig() {
+  void writeTo_failsWithNullConfig() {
     final JsonValue value = new JsonObject();
-
-    assertException(NullPointerException.class, "config is null", new RunnableEx() {
-      public void run() throws IOException {
-        value.writeTo(new StringWriter(), null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> value.writeTo(new StringWriter(), null), "config is null");
   }
 
   @Test
-  public void toString_failsWithNullConfig() {
+  void toString_failsWithNullConfig() {
     final JsonValue value = new JsonObject();
-
-    assertException(NullPointerException.class, "config is null", new RunnableEx() {
-      public void run() throws IOException {
-        value.toString(null);
-      }
-    });
+    assertThrows(NullPointerException.class, () -> value.toString(null), "config is null");
   }
 
   @Test
-  public void writeTo_doesNotCloseWriter() throws IOException {
+  void writeTo_doesNotCloseWriter() throws IOException {
     JsonValue value = new JsonObject();
     Writer writer = spy(new StringWriter());
 
@@ -160,83 +69,50 @@ public class JsonValue_Test {
   }
 
   @Test
-  public void asObject_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not an object: null", new Runnable() {
-      public void run() {
-        Json.NULL.asObject();
-      }
-    });
+  void asObject_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asObject, "Not an object: null");
   }
 
   @Test
-  public void asArray_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not an array: null", new Runnable() {
-      public void run() {
-        Json.NULL.asArray();
-      }
-    });
+  void asArray_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asArray, "Not an array: null");
   }
 
   @Test
-  public void asString_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a string: null", new Runnable() {
-      public void run() {
-        Json.NULL.asString();
-      }
-    });
+  void asString_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asString, "Not a string: null");
   }
 
   @Test
-  public void asInt_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asInt();
-      }
-    });
+  void asInt_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asInt, "Not a number: null");
   }
 
   @Test
-  public void asLong_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asLong();
-      }
-    });
+  void asLong_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asLong, "Not a number: null");
   }
 
   @Test
-  public void asFloat_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asFloat();
-      }
-    });
+  void asFloat_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asFloat, "Not a number: null");
   }
 
   @Test
-  public void asDouble_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a number: null", new Runnable() {
-      public void run() {
-        Json.NULL.asDouble();
-      }
-    });
+  void asDouble_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asDouble, "Not a number: null");
   }
 
   @Test
-  public void asBoolean_failsOnIncompatibleType() {
-    assertException(UnsupportedOperationException.class, "Not a boolean: null", new Runnable() {
-      public void run() {
-        Json.NULL.asBoolean();
-      }
-    });
+  void asBoolean_failsOnIncompatibleType() {
+    assertThrows(UnsupportedOperationException.class, Json.NULL::asBoolean, "Not a boolean: null");
   }
 
   @Test
-  public void isXxx_returnsFalseForIncompatibleType() {
+  void isXxx_returnsFalseForIncompatibleType() {
     JsonValue jsonValue = new JsonValue() {
       @Override
-      void write(JsonWriter writer) throws IOException {
-      }
+      void write(JsonWriter writer) throws IOException {}
     };
 
     assertFalse(jsonValue.isArray());

@@ -21,47 +21,47 @@
  ******************************************************************************/
 package com.restfb.json.mocking;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 import com.restfb.json.ParseException;
 
-import org.junit.Test;
-import org.mockito.Mockito;
-
-
-
 /**
  * Make sure types do not prevent mocking by final or visibility constructs.
  */
-public class Mocking_Test {
+class Mocking_Test {
 
   @Test
-  public void mockValue() {
+  void mockValue() {
     JsonValue jsonValue = Mockito.mock(JsonValue.class);
 
     assertNotNull(jsonValue);
   }
 
   @Test
-  public void mockObject() {
+  void mockObject() {
     JsonObject jsonObject = Mockito.mock(JsonObject.class);
 
     assertNotNull(jsonObject);
   }
 
   @Test
-  public void mockArray() {
+  void mockArray() {
     JsonArray jsonArray = Mockito.mock(JsonArray.class);
 
     assertNotNull(jsonArray);
   }
 
   @Test
-  public void mockParseException() {
-    Mockito.mock(ParseException.class);
+  void mockParseException() {
+    ParseException parseException = Mockito.mock(ParseException.class);
+
+    assertNotNull(parseException);
   }
 
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,31 +23,31 @@ package com.restfb.scope;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ScopeBuilderTest {
+class ScopeBuilderTest {
 
   @Test
-  public void noPermission() {
+  void noPermission() {
     ScopeBuilder s = new ScopeBuilder();
     assertThat(s.toString()).isEqualTo("public_profile");
   }
 
   @Test
-  public void noPublicProfilePermission() {
+  void noPublicProfilePermission() {
     ScopeBuilder s = new ScopeBuilder(true);
     assertThat(s.toString()).isEqualTo("");
   }
 
   @Test
-  public void singlePermission() {
+  void singlePermission() {
     ScopeBuilder s = new ScopeBuilder();
     s.addPermission(FacebookPermissions.USER_GENDER);
     assertThat(s.toString()).isEqualTo("public_profile,user_gender");
   }
 
   @Test
-  public void twoPermissions() {
+  void twoPermissions() {
     ScopeBuilder s = new ScopeBuilder();
     s.addPermission(FacebookPermissions.USER_GENDER);
     s.addPermission(FacebookPermissions.USER_AGE_RANGE);

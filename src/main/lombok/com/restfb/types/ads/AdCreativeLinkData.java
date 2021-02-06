@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,7 +35,7 @@ import lombok.Setter;
  * <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-creative-link-data/">AdCreativeLinkData</a>
  * Marketing API type
  */
-public class AdCreativeLinkData extends AbstractFacebookType {
+public class AdCreativeLinkData extends AbstractFacebookType implements HasMessage {
 
   /**
    * The index (zero based) of the image from the additionalimages array to use as the ad image for a dynamic product ad
@@ -225,7 +226,7 @@ public class AdCreativeLinkData extends AbstractFacebookType {
    *
    * @return The main body of the post
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

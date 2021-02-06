@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,8 +23,8 @@ package com.restfb;
 
 import static com.restfb.util.UrlUtils.urlEncode;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Base class that contains data and functionality from {@link DefaultFacebookClient}
@@ -85,10 +85,9 @@ abstract class BaseFacebookClient {
    * @return A new array which contains both {@code parameter} and {@code parameters}.
    */
   protected Parameter[] parametersWithAdditionalParameter(Parameter parameter, Parameter... parameters) {
-    Parameter[] updatedParameters = new Parameter[parameters.length + 1];
-    System.arraycopy(parameters, 0, updatedParameters, 0, parameters.length);
-    updatedParameters[parameters.length] = parameter;
-    return updatedParameters;
+    Parameter[] parameterArray = Arrays.copyOf(parameters, parameters.length+1);
+    parameterArray[parameters.length] = parameter;
+    return parameterArray;
   }
 
   /**
@@ -134,10 +133,12 @@ abstract class BaseFacebookClient {
    *           If there's a parameter name collision.
    */
   protected void verifyParameterLegality(Parameter... parameters) {
-    for (Parameter parameter : parameters)
-      if (illegalParamNames.contains(parameter.name)) {
-        throw new IllegalArgumentException(
-                "Parameter '" + parameter.name + "' is reserved for RestFB use - you cannot specify it yourself.");
-      }
+    Stream.of(parameters).map(parameter -> parameter.name).filter(illegalParamNames::contains).findAny()
+      .ifPresent(this::throwIAE);
+  }
+
+  private void throwIAE(String name) {
+    throw new IllegalArgumentException(
+      "Parameter '" + name + "' is reserved for RestFB use - you cannot specify it yourself.");
   }
 }

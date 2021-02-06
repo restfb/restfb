@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,8 +34,9 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.annotation.GraphAPI;
-import com.restfb.util.MappingUtils;
 
+import com.restfb.types.features.HasCover;
+import com.restfb.types.features.HasProfilePicture;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +47,7 @@ import lombok.Setter;
  * @author Patrick Alberts
  * @since 1.5
  */
-public class User extends NamedFacebookType {
+public class User extends NamedFacebookType implements HasProfilePicture, HasCover {
 
   /**
    * Social context for this person
@@ -113,7 +114,7 @@ public class User extends NamedFacebookType {
    *
    * @return Shortened, locale-aware name for the person
    */
-  @Getter(onMethod=@__(@GraphAPI(since = "2.9")))
+  @Getter(onMethod_ = {@GraphAPI(since = "2.9")})
   @Setter
   @Facebook("short_name")
   @GraphAPI(since = "2.9")
@@ -124,7 +125,7 @@ public class User extends NamedFacebookType {
    *
    * @return The person's cover photo
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -144,7 +145,7 @@ public class User extends NamedFacebookType {
    *
    * @return The user's biographical snippet.
    */
-  @Getter(onMethod=@__(@GraphAPI(until = "2.7")))
+  @Getter(onMethod_ = {@GraphAPI(until = "2.7")})
   @Setter
   @Facebook
   @GraphAPI(until = "2.7")
@@ -281,11 +282,13 @@ public class User extends NamedFacebookType {
   /**
    * Can the viewer send a gift to this person?
    *
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    * @return Can the viewer send a gift to this person?
    */
   @Getter
   @Setter
   @Facebook("viewer_can_send_gift")
+  @Deprecated
   private Boolean viewerCanSendGift;
 
   /**
@@ -365,7 +368,7 @@ public class User extends NamedFacebookType {
    * @return the user's picture as ProfilePictureSource object
    * @since 1.6.16
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
@@ -402,11 +405,13 @@ public class User extends NamedFacebookType {
   /**
    * Security settings
    *
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    * @return Security settings
    */
   @Getter
   @Setter
   @Facebook("security_settings")
+  @Deprecated
   private SecuritySettings securitySettings;
 
   /**
@@ -433,10 +438,12 @@ public class User extends NamedFacebookType {
    * Platform test group
    *
    * @return Platform test group
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    */
   @Getter
   @Setter
   @Facebook("test_group")
+  @Deprecated
   private Long testGroup;
 
   /**
@@ -508,11 +515,13 @@ public class User extends NamedFacebookType {
   /**
    * Is this a shared login (e.g. a gray user)
    *
+   * @deprecated Will be deprecated in all versions on Nov, 2020.
    * @return Is this a shared login (e.g. a gray user)
    */
   @Getter
   @Setter
   @Facebook("is_shared_login")
+  @Deprecated
   private Boolean isSharedLogin;
 
   /**
@@ -900,8 +909,7 @@ public class User extends NamedFacebookType {
 
   @JsonMappingCompleted
   protected void jsonMappingCompleted(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+    picture = convertPicture(jsonMapper, rawPicture);
   }
 
   /**

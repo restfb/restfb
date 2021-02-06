@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,10 +29,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BiConsumer;
 
 import com.restfb.util.StringUtils;
 import com.restfb.util.UrlUtils;
@@ -82,21 +80,25 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   @Override
+  public Response executeGet(String url, String headerAccessToken) throws IOException {
+    return execute(url, HttpMethod.GET, headerAccessToken);
+  }
+
+  @Override
   public Response executeGet(String url) throws IOException {
-    return execute(url, HttpMethod.GET);
+    return execute(url, HttpMethod.GET, null);
   }
 
   @Override
-  public Response executePost(String url, String parameters) throws IOException {
-    return executePost(url, parameters, null);
+  public Response executePost(String url, String parameters, String headerAccessToken) throws IOException {
+    return executePost(url, parameters, null, headerAccessToken);
   }
 
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments)
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken)
       throws IOException {
-    if (binaryAttachments == null) {
-      binaryAttachments = new ArrayList<>();
-    }
+
+    binaryAttachments = Optional.ofNullable(binaryAttachments).orElse(new ArrayList<>());
 
     if (HTTP_LOGGER.isDebugEnabled()) {
       HTTP_LOGGER.debug("Executing a POST to " + url + " with parameters "
@@ -118,6 +120,8 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setRequestMethod(HttpMethod.POST.name());
       httpUrlConnection.setDoOutput(true);
       httpUrlConnection.setUseCaches(false);
+
+      initHeaderAccessToken(httpUrlConnection, headerAccessToken);
 
       if (!binaryAttachments.isEmpty()) {
         httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
@@ -165,13 +169,17 @@ public class DefaultWebRequestor implements WebRequestor {
       return response;
     } finally {
       if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
-        for (BinaryAttachment binaryAttachment : binaryAttachments) {
-          closeQuietly(binaryAttachment.getData());
-        }
+        binaryAttachments.forEach(binaryAttachment -> closeQuietly(binaryAttachment.getData()));
       }
 
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
+    }
+  }
+
+  protected void initHeaderAccessToken(HttpURLConnection httpUrlConnection, String headerAccessToken) {
+    if (headerAccessToken != null) {
+      httpUrlConnection.setRequestProperty("Authorization", "Bearer " + headerAccessToken);
     }
   }
 
@@ -193,7 +201,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
   /**
    * Hook method which allows subclasses to easily customize the {@code connection}s created by
-   * {@link #executeGet(String)} and {@link #executePost(String, String)} - for example, setting a custom read timeout
+   * {@link #executeGet(String)} and {@link #executePost(String, String, String)} - for example, setting a custom read timeout
    * or request header.
    * <p>
    * This implementation is a no-op.
@@ -235,11 +243,8 @@ public class DefaultWebRequestor implements WebRequestor {
    *          The connection to close.
    */
   protected void closeQuietly(HttpURLConnection httpUrlConnection) {
-    if (httpUrlConnection == null) {
-      return;
-    }
     try {
-      httpUrlConnection.disconnect();
+      Optional.ofNullable(httpUrlConnection).ifPresent(HttpURLConnection::disconnect);
     } catch (Exception t) {
       HTTP_LOGGER.warn("Unable to disconnect {}: ", httpUrlConnection, t);
     }
@@ -280,13 +285,13 @@ public class DefaultWebRequestor implements WebRequestor {
    * @return The form field name for the given binary attachment.
    */
   protected String createFormFieldName(BinaryAttachment binaryAttachment) {
+
     if (binaryAttachment.getFieldName() != null) {
       return binaryAttachment.getFieldName();
     }
 
     String name = binaryAttachment.getFilename();
-    int fileExtensionIndex = name.lastIndexOf('.');
-    return fileExtensionIndex > 0 ? name.substring(0, fileExtensionIndex) : name;
+    return Optional.ofNullable(name).filter(f -> f.contains(".")).map(f -> f.substring(0, f.lastIndexOf('.'))).orElse(name);
   }
 
   /**
@@ -321,8 +326,8 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executeDelete(String url) throws IOException {
-    return execute(url, HttpMethod.DELETE);
+  public Response executeDelete(String url, String headerAccessToken) throws IOException {
+    return execute(url, HttpMethod.DELETE, headerAccessToken);
   }
 
   @Override
@@ -330,7 +335,7 @@ public class DefaultWebRequestor implements WebRequestor {
     return debugHeaderInfo;
   }
 
-  private Response execute(String url, HttpMethod httpMethod) throws IOException {
+  private Response execute(String url, HttpMethod httpMethod, String headerAccessToken) throws IOException {
     HTTP_LOGGER.debug("Making a {} request to {}", httpMethod.name(), url);
 
     HttpURLConnection httpUrlConnection = null;
@@ -340,6 +345,8 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
       httpUrlConnection.setUseCaches(false);
       httpUrlConnection.setRequestMethod(httpMethod.name());
+
+      initHeaderAccessToken(httpUrlConnection, headerAccessToken);
 
       // Allow subclasses to customize the connection if they'd like to - set
       // their own headers, timeouts, etc.
@@ -366,22 +373,11 @@ public class DefaultWebRequestor implements WebRequestor {
     String usedApiVersion = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("facebook-api-version"));
     HTTP_LOGGER.debug("Facebook used the API {} to answer your request", usedApiVersion);
 
-    String fbTraceId = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-trace-id"));
-    String fbRev = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-rev"));
-    String fbDebug = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-fb-debug"));
-    String fbAppUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-app-usage"));
-    String fbPageUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-page-usage"));
-    String fbAdAccountUsage = StringUtils.trimToEmpty(httpUrlConnection.getHeaderField("x-ad-account-usage"));
-
     Version usedVersion = Version.getVersionFromString(usedApiVersion);
-    debugHeaderInfo = DebugHeaderInfo.DebugHeaderInfoFactory.create().setVersion(usedVersion) // set the version
-      .setTraceId(fbTraceId) // set the Trace ID
-      .setDebug(fbDebug) // set the debug id
-      .setRev(fbRev) // set the rev field
-      .setAppUsage(fbAppUsage) // set the app usage
-      .setPageUsage(fbPageUsage) // set the page usage
-      .setAdAccountUsage(fbAdAccountUsage) // set the ad account usage
-      .build();
+    DebugHeaderInfo.DebugHeaderInfoFactory factory = DebugHeaderInfo.DebugHeaderInfoFactory.create().setVersion(usedVersion);
+
+    Arrays.stream(FbHeaderField.values()).forEach(f -> f.getPutHeader().accept(httpUrlConnection, factory));
+    debugHeaderInfo = factory.build();
   }
 
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
@@ -396,6 +392,31 @@ public class DefaultWebRequestor implements WebRequestor {
     }
 
     return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+  }
+
+  private enum FbHeaderField {
+    X_FB_TRACE_ID((c, f) -> f.setTraceId(getHeaderOrEmpty(c,"x-fb-trace-id"))), //
+    X_FB_REV((c, f) -> f.setRev(getHeaderOrEmpty(c,"x-fb-rev"))),
+    X_FB_DEBUG((c, f) -> f.setDebug(getHeaderOrEmpty(c,"x-fb-debug"))),
+    X_APP_USAGE((c, f) -> f.setAppUsage(getHeaderOrEmpty(c,"x-app-usage"))),
+    X_PAGE_USAGE((c, f) -> f.setPageUsage(getHeaderOrEmpty(c,"x-page-usage"))),
+    X_AD_ACCOUNT_USAGE((c, f) -> f.setAdAccountUsage(getHeaderOrEmpty(c,"x-ad-account-usage"))),
+    X_BUSINESS_USE_CASE_USAGE((c, f) -> f.setBusinessUseCaseUsage(getHeaderOrEmpty(c,"x-business-use-case-usage")));
+
+
+    private final BiConsumer<HttpURLConnection, DebugHeaderInfo.DebugHeaderInfoFactory> putHeader;
+
+    FbHeaderField(BiConsumer<HttpURLConnection, DebugHeaderInfo.DebugHeaderInfoFactory> headerFunction) {
+      this.putHeader = headerFunction;
+    }
+
+    public BiConsumer<HttpURLConnection, DebugHeaderInfo.DebugHeaderInfoFactory> getPutHeader() {
+      return putHeader;
+    }
+
+    private static String getHeaderOrEmpty(HttpURLConnection connection, String fieldName) {
+      return StringUtils.trimToEmpty(connection.getHeaderField(fieldName));
+    }
   }
 
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,20 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.StoryAttachment.Image;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class StoryAttachmentTest extends AbstractJsonMapperTests {
+class StoryAttachmentTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkImage() {
+  void checkImage() {
     StoryAttachment attachment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/story-attachment"), StoryAttachment.class);
     assertNotNull(attachment.getMedia());
@@ -44,7 +44,7 @@ public class StoryAttachmentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkSubAttachments() {
+  void checkSubAttachments() {
     StoryAttachment attachment =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/story-attachment"), StoryAttachment.class);
     assertNotNull(attachment.getSubAttachments());
@@ -53,7 +53,7 @@ public class StoryAttachmentTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void moreFieldsAttachments() {
+  void moreFieldsAttachments() {
     StoryAttachment attachment =
             createJsonMapper().toJavaObject(jsonFromClasspath("v3_3/story-attachment"), StoryAttachment.class);
     assertNotNull(attachment);

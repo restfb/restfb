@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@ import lombok.Setter;
 
 public class Message extends AbstractFacebookType {
 
-  private static final int QUICK_REPLY_ITEM_LIMIT = 11;
+  private static final int QUICK_REPLY_ITEM_LIMIT = 13;
 
   @Getter
   @Facebook

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,8 @@ import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +45,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Photo extends NamedFacebookType {
+public class Photo extends NamedFacebookType implements HasComments, HasCreatedTime {
 
   /**
    * An object containing the name and ID of the user who posted the photo.
@@ -187,7 +189,7 @@ public class Photo extends NamedFacebookType {
    *
    * @return If this object has a place, the event associated with the place
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.3")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.3"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.3")
@@ -208,7 +210,7 @@ public class Photo extends NamedFacebookType {
    * 
    * @return The time the photo was initially published.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -219,7 +221,7 @@ public class Photo extends NamedFacebookType {
    * @return All of the comments on this photo.
    * @since 1.6.5
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private Comments comments;
@@ -281,7 +283,7 @@ public class Photo extends NamedFacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Tag extends NamedFacebookType {
+  public static class Tag extends NamedFacebookType implements HasCreatedTime{
 
     /**
      * X coordinate (as a percentage of distance from left vs. width).
@@ -308,7 +310,7 @@ public class Photo extends NamedFacebookType {
      * 
      * @return Date this tag was created.
      */
-    @Getter
+    @Getter(onMethod_ = {@Override})
     @Setter
     @Facebook("created_time")
     private Date createdTime;

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,18 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Deprecated
-public class StatusMessageTest extends AbstractJsonMapperTests {
+class StatusMessageTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkPlaceV1_0() {
+  void checkPlaceV1_0() {
     StatusMessage examplePlace =
         createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/status-message"), StatusMessage.class);
     assertNotNull(examplePlace.getPlace());

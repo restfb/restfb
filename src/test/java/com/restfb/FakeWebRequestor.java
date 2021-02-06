@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,11 +41,13 @@ public class FakeWebRequestor implements WebRequestor {
 
   private Response predefinedResponse;
 
+  private String accessToken;
+
   public FakeWebRequestor() {
     this(null);
   }
 
-  public FakeWebRequestor(Response predefinedResponse) {
+  FakeWebRequestor(Response predefinedResponse) {
     this.predefinedResponse = predefinedResponse;
   }
 
@@ -57,25 +59,36 @@ public class FakeWebRequestor implements WebRequestor {
   }
 
   @Override
-  public Response executePost(String url, String parameters) throws IOException {
+  public Response executeGet(String url, String headerAccessToken) throws IOException {
     this.savedUrl = url;
-    this.method = HttpMethod.POST;
-    this.parameters = parameters;
+    this.method = HttpMethod.GET;
+    this.accessToken = headerAccessToken;
     return createInternalResponse();
   }
 
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
+  public Response executePost(String url, String parameters, String headerAccessToken) {
     this.savedUrl = url;
     this.method = HttpMethod.POST;
     this.parameters = parameters;
+    this.accessToken = headerAccessToken;
     return createInternalResponse();
   }
 
   @Override
-  public Response executeDelete(String url) throws IOException {
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken) {
+    this.savedUrl = url;
+    this.method = HttpMethod.POST;
+    this.parameters = parameters;
+    this.accessToken = headerAccessToken;
+    return createInternalResponse();
+  }
+
+  @Override
+  public Response executeDelete(String url, String headerAccessToken) {
     this.savedUrl = url;
     this.method = HttpMethod.DELETE;
+    this.accessToken = headerAccessToken;
     return createInternalResponse();
   }
 

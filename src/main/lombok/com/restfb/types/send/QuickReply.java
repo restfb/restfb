@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -80,7 +80,11 @@ public class QuickReply extends AbstractFacebookType {
   }
 
   public enum QuickReplyType {
-    USER_EMAIL, USER_PHONE_NUMBER, LOCATION;
+    USER_EMAIL, USER_PHONE_NUMBER,
+    /**
+     * @TODO: remove after October 29th, 2019
+     */
+    @Deprecated LOCATION;
 
     public String getContentType() {
       return name().toLowerCase();

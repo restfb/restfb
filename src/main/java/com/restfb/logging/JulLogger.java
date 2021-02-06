@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,7 @@
  */
 package com.restfb.logging;
 
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -95,9 +96,7 @@ public class JulLogger extends RestFBLogger {
     if (logger.isLoggable(level)) {
       JulMessage.MessageTuple tuple = JulMessage.convertMessageString(msg, args);
       LogRecord logRecord = new LogRecord(level, tuple.getMessage());
-      if (tuple.getThrowable() != null) {
-        logRecord.setThrown(tuple.getThrowable());
-      }
+      Optional.ofNullable(tuple.getThrowable()).ifPresent(logRecord::setThrown);
       logRecord.setSourceClassName(null);
       logRecord.setSourceMethodName(null);
       logRecord.setLoggerName(logger.getName());

@@ -24,6 +24,8 @@ package com.restfb.json;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Enables human readable JSON output by inserting whitespace between values.after commas and colons. Example:
@@ -32,7 +34,7 @@ import java.util.Arrays;
  * jsonValue.writeTo(writer, PrettyPrint.singleLine());
  * </pre>
  */
-public class PrettyPrint extends WriterConfig {
+public class PrettyPrint implements WriterConfig {
 
   private final char[] indentChars;
 
@@ -75,7 +77,7 @@ public class PrettyPrint extends WriterConfig {
   }
 
   @Override
-  protected JsonWriter createWriter(Writer writer) {
+  public JsonWriter createWriter(Writer writer) {
     return new PrettyPrintWriter(writer, indentChars);
   }
 
@@ -145,9 +147,7 @@ public class PrettyPrint extends WriterConfig {
         return false;
       }
       writer.write('\n');
-      for (int i = 0; i < indent; i++) {
-        writer.write(indentChars);
-      }
+      writer.write(Stream.generate(() -> String.valueOf(indentChars)).limit(indent).collect(Collectors.joining()));
       return true;
     }
 

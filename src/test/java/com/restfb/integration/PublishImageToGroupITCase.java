@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,10 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
@@ -28,20 +32,17 @@ import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 @NeedFacebookWriteAccess
-public class PublishImageToGroupITCase extends RestFbIntegrationTestBase {
+class PublishImageToGroupITCase extends RestFbIntegrationTestBase {
 
   private String imageUrl = "https://placeholdit.imgix.net/~text?txtsize=33&txt=Testimage&w=350&h=150";
 
   @Test
-  public void publishImageToGroup() {
+  void publishImageToGroup() {
     DefaultFacebookClient client =
         new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     JsonObject result = client.publish(getTestSettings().getGroupId() + "/photos", JsonObject.class,
       Parameter.with("message", "This is a cool test image"), Parameter.with("url", imageUrl));
-    Assert.assertNotNull(result);
+    assertNotNull(result);
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,30 +21,30 @@
  */
 package com.restfb.integration.base;
 
-import org.junit.Assume;
-import org.junit.Before;
-
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 
 abstract public class RestFbIntegrationTestBase {
 
   private RestFbIntegrationTestSettings testSettings = null;
 
-  @Before
-  public void setup() {
+  @BeforeEach
+  void setup() {
 
     InputStream propertyStream = getClass().getClassLoader().getResourceAsStream("integration-test.properties");
-    Assume.assumeNotNull(propertyStream);
+    Assumptions.assumeTrue(propertyStream != null);
     Properties props = new Properties();
     try {
       props.load(propertyStream);
       testSettings = new RestFbIntegrationTestSettings(props);
       if (getClass().getAnnotation(NeedFacebookWriteAccess.class) != null) {
-        Assume.assumeTrue(testSettings.writeAccessAllowed());
+        Assumptions.assumeTrue(testSettings.writeAccessAllowed());
       }
     } catch (Throwable ioe) {
-      Assume.assumeNoException(ioe);
+      Assumptions.assumeFalse(ioe instanceof Throwable);
     }
 
   }

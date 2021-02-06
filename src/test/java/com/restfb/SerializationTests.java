@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,23 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
-
-import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.junit.jupiter.api.Test;
+
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
+
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class SerializationTests {
+class SerializationTests {
+
   @Test
-  public void jsonArray() throws Exception {
+  void jsonArray() throws Exception {
     JsonArray arrayToSerialize = new JsonArray();
     arrayToSerialize.add(123);
     arrayToSerialize.add("test");
@@ -50,7 +51,7 @@ public class SerializationTests {
   }
 
   @Test
-  public void jsonObject() throws Exception {
+  void jsonObject() throws Exception {
     JsonObject objectToSerialize = new JsonObject();
     objectToSerialize.add("one", 123);
     objectToSerialize.add("two", "test");

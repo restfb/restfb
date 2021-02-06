@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +33,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page/call_to_actions/">Page Call To
  * Action type</a>
  */
-public class PageCallToAction extends FacebookType {
+public class PageCallToAction extends FacebookType implements HasCreatedTime {
 
   /**
    * App that stores the destination info on Android.
@@ -49,7 +50,7 @@ public class PageCallToAction extends FacebookType {
    *
    * @return Time when the call-to-action was created
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

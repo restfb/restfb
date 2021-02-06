@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,13 +25,16 @@ import static java.lang.String.format;
 import static java.net.URLDecoder.decode;
 import static java.net.URLEncoder.encode;
 import static java.util.Collections.emptyMap;
+import static java.util.stream.Collectors.toList;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -132,30 +135,13 @@ public final class UrlUtils {
     }
 
     Map<String, List<String>> parameters = new HashMap<>();
-
     String[] urlParts = url.split("\\?");
 
     if (urlParts.length > 1) {
       String query = urlParts[1];
-
-      for (String param : query.split("&")) {
-        String[] pair = param.split("=");
-        String key = urlDecode(pair[0]);
-        String value = "";
-
-        if (pair.length > 1) {
-          value = urlDecode(pair[1]);
-        }
-
-        List<String> values = parameters.get(key);
-
-        if (values == null) {
-          values = new ArrayList<>();
-          parameters.put(key, values);
-        }
-
-        values.add(value);
-      }
+      parameters = Pattern.compile("&").splitAsStream(query) //
+        .map(s -> Arrays.copyOf(s.split("="), 2))
+        .collect(Collectors.groupingBy(s -> urlDecode(s[0]), Collectors.mapping(s -> urlDecode(s[1]), toList())));
     }
 
     return parameters;

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,94 +22,93 @@
 package com.restfb;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.testutils.AssertJson;
 
-import org.junit.Test;
-
-public class ParameterTest {
+class ParameterTest {
 
   @Test
-  public void emptyFacebookList() {
+  void emptyFacebookList() {
     JsonMapperToJsonTest.ListObject obj = new JsonMapperToJsonTest.ListObject();
     String val = Parameter.with("key", obj).value;
     AssertJson.assertEquals("{\"id\": 12345}", val);
   }
 
   @Test
-  public void correctKeyCheck() {
+  void correctKeyCheck() {
     String key = "tHiSAtEsT";
     String val = "sOmEVaLue";
 
     Parameter testParam = Parameter.with(key, val);
 
-    assertThat(testParam).hasName(key);
-    assertThat(testParam).hasValue(val);
+    assertThat(testParam).hasName(key).hasValue(val);
   }
 
   @Test
-  public void useEnumAsValue() {
+  void useEnumAsValue() {
     assertThat(Parameter.with("key", EnumTestEnum.FOO)).hasValue("FOO");
   }
 
   @Test
-  public void correctKeyWithWsCheck() {
+  void correctKeyWithWsCheck() {
     String key = "\n\ntHiSAtEsT\n\t";
     String val = "sOmEVaLue";
 
     Parameter testParam = Parameter.with(key, val);
 
-    assertThat(testParam).hasName(key.trim());
-    assertThat(testParam).hasValue(val);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void nullKeyCheck() {
-    Parameter.with(null, "val");
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void emptyKeyCheck() {
-    Parameter.with("", "val");
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void nullValueCheck() {
-    Parameter.with("key", null);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void nullJsonMapper() {
-    Parameter.with("key", "value", null);
+    assertThat(testParam).hasName(key.trim()).hasValue(val);
   }
 
   @Test
-  public void equalsCheck_null() {
+  void nullKeyCheck() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with(null, "val"));
+  }
+
+  @Test
+  void emptyKeyCheck() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with("", "val"));
+  }
+
+  @Test
+  void nullValueCheck() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with("key", null));
+  }
+
+  @Test
+  void nullJsonMapper() {
+    assertThrows(IllegalArgumentException.class, () -> Parameter.with("key", "value", null));
+  }
+
+  @Test
+  void equalsCheck_null() {
     assertThat(Parameter.with("name", "value")).isNotNull();
   }
 
   @Test
-  public void equalsCheck_differentClass() {
+  void equalsCheck_differentClass() {
     Parameter obj = Parameter.with("name", "value");
     assertThat(obj).isNotEqualTo(new Object());
   }
 
   @Test
-  public void equalsCheck_differentName() {
+  void equalsCheck_differentName() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name1", "value");
     assertThat(obj1).isNotEqualTo(obj2);
   }
 
   @Test
-  public void equalsCheck_differentValue() {
+  void equalsCheck_differentValue() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name", "value1");
     assertThat(obj1).isNotEqualTo(obj2);
   }
 
   @Test
-  public void equalsCheck_equals() {
+  void equalsCheck_equals() {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name", "value");
     assertThat(obj1).isEqualTo(obj2);

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,9 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,7 +43,7 @@ import lombok.Setter;
  * @author Venil Noronha
  * @since 1.6.16
  */
-public class PageRating extends FacebookType {
+public class PageRating extends FacebookType implements HasComments, HasFrom, HasMessage {
 
   private static final long serialVersionUID = 1L;
 
@@ -69,12 +72,12 @@ public class PageRating extends FacebookType {
    * 
    * @return Person who rated the page
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -89,7 +92,7 @@ public class PageRating extends FacebookType {
   @Facebook("no_feed_story")
   private Boolean noFeedStory;
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private Comments comments;

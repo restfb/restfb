@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types.api;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.*;
 
-public class ApiCheckTest extends BaseTestCheck {
+import org.junit.jupiter.api.Test;
+
+class ApiCheckTest extends BaseTestCheck {
 
   @Test
-  public void check() throws IOException, ClassNotFoundException {
+  void check() throws IOException, ClassNotFoundException {
     Properties props;
     props = new Properties();
     props.load(getClass().getResourceAsStream("/pre-1.7-api.properties"));
@@ -50,7 +50,7 @@ public class ApiCheckTest extends BaseTestCheck {
       if (!expectedMethods.isEmpty()) {
         for (Iterator<String> expIterator = expectedMethods.iterator(); expIterator.hasNext();) {
           String expMethod = expIterator.next();
-          assertTrue(key + " method not found " + expMethod, currentMethods.contains(expMethod));
+          assertTrue(currentMethods.contains(expMethod), key + " method not found " + expMethod);
         }
       }
     }

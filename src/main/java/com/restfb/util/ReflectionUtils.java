@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,15 @@
  */
 package com.restfb.util;
 
-import com.restfb.exception.FacebookJsonMappingException;
-
 import static java.lang.String.format;
-import static java.util.Collections.*;
+import static java.util.Collections.synchronizedMap;
+import static java.util.Collections.unmodifiableList;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
+
+import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * A collection of reflection-related utility methods.
@@ -43,13 +44,13 @@ public final class ReflectionUtils {
    * In-memory shared cache of reflection data for {@link #findFieldsWithAnnotation(Class, Class)}.
    */
   private static final Map<ClassAnnotationCacheKey, List<?>> FIELDS_WITH_ANNOTATION_CACHE =
-      synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<?>>());
+      synchronizedMap(new HashMap<>());
 
   /**
    * In-memory shared cache of reflection data for {@link #findMethodsWithAnnotation(Class, Class)}.
    */
   private static final Map<ClassAnnotationCacheKey, List<Method>> METHODS_WITH_ANNOTATION_CACHE =
-      synchronizedMap(new HashMap<ClassAnnotationCacheKey, List<Method>>());
+      synchronizedMap(new HashMap<>());
 
   /**
    * Prevents instantiation.
@@ -73,11 +74,14 @@ public final class ReflectionUtils {
 
     Class<?> type = object.getClass();
 
-    return object instanceof String || (object instanceof Integer || Integer.TYPE.equals(type))
-        || (object instanceof Boolean || Boolean.TYPE.equals(type))
-        || (object instanceof Long || Long.TYPE.equals(type)) || (object instanceof Double || Double.TYPE.equals(type))
-        || (object instanceof Float || Float.TYPE.equals(type)) || (object instanceof Byte || Byte.TYPE.equals(type))
-        || (object instanceof Short || Short.TYPE.equals(type))
+    return object instanceof String //
+        || (object instanceof Integer || Integer.TYPE.equals(type)) //
+        || (object instanceof Boolean || Boolean.TYPE.equals(type)) //
+        || (object instanceof Long || Long.TYPE.equals(type)) //
+        || (object instanceof Double || Double.TYPE.equals(type)) //
+        || (object instanceof Float || Float.TYPE.equals(type)) //
+        || (object instanceof Byte || Byte.TYPE.equals(type)) //
+        || (object instanceof Short || Short.TYPE.equals(type)) //
         || (object instanceof Character || Character.TYPE.equals(type));
   }
 
@@ -215,9 +219,7 @@ public final class ReflectionUtils {
    * @return All accessor methods for the given {@code clazz}.
    */
   public static List<Method> getAccessors(Class<?> clazz) {
-    if (clazz == null) {
-      throw new IllegalArgumentException("The 'clazz' parameter cannot be null.");
-    }
+    ObjectUtil.requireNotNull(clazz, () -> new IllegalArgumentException("The 'clazz' parameter cannot be null."));
 
     List<Method> methods = new ArrayList<>();
     for (Method method : clazz.getMethods()) {
@@ -231,16 +233,7 @@ public final class ReflectionUtils {
       }
     }
 
-    // Order the methods alphabetically by name
-    sort(methods, new Comparator<Method>() {
-      /**
-       * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-       */
-      @Override
-      public int compare(Method method1, Method method2) {
-        return method1.getName().compareTo(method2.getName());
-      }
-    });
+    methods.sort(Comparator.comparing(Method::getName));
 
     return unmodifiableList(methods);
   }
@@ -282,7 +275,7 @@ public final class ReflectionUtils {
         // Accessors are guaranteed to take no parameters and return a value
         buffer.append(method.invoke(object));
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object.getClass(), e);
+        throwStateException(method, object.getClass(), e);
       }
     }
 
@@ -317,7 +310,7 @@ public final class ReflectionUtils {
           hashCode = hashCode * 31 + result.hashCode();
         }
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke " + method + " on " + object, e);
+        throwStateException(method, object, e);
       }
     }
 
@@ -370,7 +363,7 @@ public final class ReflectionUtils {
           return false;
         }
       } catch (Exception e) {
-        throw new IllegalStateException("Unable to reflectively invoke " + method, e);
+        throwStateException(method, null, e);
       }
     }
 
@@ -398,10 +391,7 @@ public final class ReflectionUtils {
 
     try {
       Constructor<T> defaultConstructor = type.getDeclaredConstructor();
-
-      if (defaultConstructor == null) {
-        throw new FacebookJsonMappingException("Unable to find a default constructor for " + type);
-      }
+      ObjectUtil.requireNotNull(defaultConstructor, () -> new FacebookJsonMappingException("Unable to find a default constructor for " + type));
 
       // Allows protected, private, and package-private constructors to be
       // invoked
@@ -410,6 +400,10 @@ public final class ReflectionUtils {
     } catch (Exception e) {
       throw new FacebookJsonMappingException(errorMessage, e);
     }
+  }
+
+  private static void throwStateException(Method method, Object obj, Exception e) {
+    throw new IllegalStateException("Unable to reflectively invoke " + method + Optional.ofNullable(obj).map(o -> " on " + o).orElse(""), e);
   }
 
   /**
@@ -421,12 +415,12 @@ public final class ReflectionUtils {
     /**
      * A field.
      */
-    private Field field;
+    private final Field field;
 
     /**
      * An annotation on the field.
      */
-    private T annotation;
+    private final T annotation;
 
     /**
      * Creates a field/annotation pair.
@@ -533,14 +527,8 @@ public final class ReflectionUtils {
       }
 
       if (clazz == null) {
-        if (other.clazz != null) {
-          return false;
-        }
-      } else if (!clazz.equals(other.clazz)) {
-        return false;
-      }
-
-      return true;
+        return other.clazz == null;
+      } else return clazz.equals(other.clazz);
     }
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class DeviceCodeTest extends AbstractJsonMapperTests {
+class DeviceCodeTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_v23_deviceCode() {
+  void check_v23_deviceCode() {
     DeviceCode deviceCodeInfo = createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/devicecode"), DeviceCode.class);
     assertNotNull(deviceCodeInfo);
     assertEquals("26743274374324753466371", deviceCodeInfo.getCode());

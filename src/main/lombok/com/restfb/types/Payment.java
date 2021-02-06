@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,13 +28,14 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/payment">Payment Graph API type</a>.
  */
-public class Payment extends FacebookType {
+public class Payment extends FacebookType implements HasCreatedTime {
 
   /**
    * The consumer's first and last name along with their user id. May be omitted in some cases.
@@ -113,7 +114,7 @@ public class Payment extends FacebookType {
   /**
    * The time the payment was originally created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

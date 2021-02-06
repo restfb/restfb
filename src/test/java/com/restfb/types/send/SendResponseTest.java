@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types.send;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class SendResponseTest extends AbstractJsonMapperTests {
+class SendResponseTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkJson() {
+  void checkJson() {
     SendResponse exampleResponse =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/sendresponse"), SendResponse.class);
     assertEquals("mid.1456970487936:c34767dfe57ee6e339", exampleResponse.getMessageId());
@@ -40,7 +40,7 @@ public class SendResponseTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkJson_result() {
+  void checkJson_result() {
     SendResponse exampleResponse =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/sendresponse_result"), SendResponse.class);
     assertEquals("Successfully added new_thread's CTAs", exampleResponse.getResult());

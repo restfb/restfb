@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,25 +23,24 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.json.JsonObject;
 
-import org.junit.Test;
-
-public class JsonMapperMultiFieldTest {
+class JsonMapperMultiFieldTest {
 
   @Test
-  public void check1_object() {
+  void check1_object() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass1 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass1.class);
 
     assertThat(test1.dataString).isEqualTo("{}");
-    assertThat(test1.dataObject).isNotNull();
-    assertThat(test1.dataObject.toString()).isEqualTo("{}");
+    assertThat(test1.dataObject).isNotNull().hasToString("{}");
   }
 
   @Test
-  public void check1_string() {
+  void check1_string() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass1 test1 = mapper.toJavaObject("{\"mydata\":123}", TestClass1.class);
@@ -51,18 +50,17 @@ public class JsonMapperMultiFieldTest {
   }
 
   @Test
-  public void check2_object() {
+  void check2_object() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass2 test2 = mapper.toJavaObject("{\"mydata\":{}}", TestClass2.class);
 
     assertThat(test2.dataString).isEqualTo("{}");
-    assertThat(test2.dataObject).isNotNull();
-    assertThat(test2.dataObject.toString()).isEqualTo("{}");
+    assertThat(test2.dataObject).isNotNull().hasToString("{}");
   }
 
   @Test
-  public void check2_string() {
+  void check2_string() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass2 test2 = mapper.toJavaObject("{\"mydata\":123}", TestClass2.class);
@@ -72,15 +70,13 @@ public class JsonMapperMultiFieldTest {
   }
 
   @Test
-  public void check3_object() {
+  void check3_object() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
 
     TestClass3 test1 = mapper.toJavaObject("{\"mydata\":{}}", TestClass3.class);
 
-    assertThat(test1.dataObject1).isNotNull();
-    assertThat(test1.dataObject2).isNotNull();
-    assertThat(test1.dataObject1.toString()).isEqualTo("{}");
-    assertThat(test1.dataObject2.toString()).isEqualTo("{}");
+    assertThat(test1.dataObject1).isNotNull().hasToString("{}");
+    assertThat(test1.dataObject2).isNotNull().hasToString("{}");
   }
 
   private static class TestClass3 {

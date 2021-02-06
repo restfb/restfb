@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ import com.restfb.Facebook;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,7 +38,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account">AdGroup Account
  * Type</a>.
  */
-public class AdAccount extends NamedAdsObject {
+public class AdAccount extends NamedAdsObject implements HasCreatedTime {
 
   private static final long serialVersionUID = 1L;
 
@@ -112,7 +113,7 @@ public class AdAccount extends NamedAdsObject {
   @Facebook
   private List<String> capabilities = new ArrayList<>();
 
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -254,6 +255,7 @@ public class AdAccount extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("user_role")
+  @Deprecated
   private String userRole;
 
   @Getter
@@ -291,6 +293,9 @@ public class AdAccount extends NamedAdsObject {
   @Facebook("last_used_time")
   private Date lastUsedTime;
 
+  @Facebook("user_tasks")
+  private List<String> userTasks = new ArrayList<>();
+
   public JsonObject getTosAccepted() {
     if (tosAccepted != null) {
       return Json.parse(tosAccepted).asObject();
@@ -303,6 +308,18 @@ public class AdAccount extends NamedAdsObject {
     if (tosAccepted != null) {
       this.tosAccepted = tosAccepted.toString();
     }
+  }
+
+  public boolean addUserTask(String userTask) {
+    return userTasks.add(userTask);
+  }
+
+  public boolean removeUserTask(String userTask) {
+    return userTasks.remove(userTask);
+  }
+
+  public List<String> getUserTasks() {
+    return Collections.unmodifiableList(userTasks);
   }
 
   public boolean addAdAccountGroup(AdAccountGroup adAccountGroup) {

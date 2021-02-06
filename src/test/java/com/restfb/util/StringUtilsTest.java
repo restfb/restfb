@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,75 +28,70 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class StringUtilsTest {
+class StringUtilsTest {
 
   @Test
-  public void integerParseTest_null() {
+  void integerParseTest_null() {
     assertThat(StringUtils.toInteger(null)).isNull();
   }
 
   @Test
-  public void integerParseTest_number() {
+  void integerParseTest_number() {
     assertThat(StringUtils.toInteger("23")).isEqualTo(23);
   }
 
   @Test
-  public void integerParseTest_String() {
+  void integerParseTest_String() {
     assertThat(StringUtils.toInteger("bla")).isNull();
   }
 
   @Test
-  public void joinArrayTest() {
-    assertThat(StringUtils.join(new String[] { "foo", "bar" })).isEqualTo("foo,bar");
+  void joinArrayTest() {
+    assertThat(String.join(",", new String[] { "foo", "bar" })).isEqualTo("foo,bar");
   }
 
   @Test
-  public void joinListTest_null() {
-    assertThat(StringUtils.join((List) null)).isNull();
-  }
-
-  @Test
-  public void joinListTest_List() {
+  void joinListTest_List() {
     List<String> myStrings = new ArrayList<>();
     myStrings.add("foo");
     myStrings.add("bar");
-    assertThat(StringUtils.join(myStrings)).isEqualTo("foo,bar");
+    assertThat(String.join(",", myStrings)).isEqualTo("foo,bar");
   }
 
   @Test
-  public void toString_null() {
+  void toString_null() {
     try {
       StringUtils.toString(null);
       fail("NullPointerException expected");
     } catch (NullPointerException npe) {
-      assertThat(npe).hasMessage("The 'data' parameter cannot be null.");
+      assertThat(npe).hasMessage("Parameter 'data' cannot be null.");
     }
   }
 
   @Test
-  public void toString_array() {
+  void toString_array() {
     assertThat(StringUtils.toString("abc".getBytes())).contains("abc");
   }
 
   @Test
-  public void toBytes_null() {
+  void toBytes_null() {
     try {
       StringUtils.toBytes(null);
       fail("NullPointerException expected");
     } catch (NullPointerException npe) {
-      assertThat(npe).hasMessage("The 'string' parameter cannot be null.");
+      assertThat(npe).hasMessage("Parameter 'string' cannot be null.");
     }
   }
 
   @Test
-  public void toBytes_String() {
+  void toBytes_String() {
     assertThat(StringUtils.toBytes("abc")).contains('a', 'b', 'c');
   }
 
   @Test
-  public void fromInputStream_null() throws IOException {
+  void fromInputStream_null() throws IOException {
     assertThat(StringUtils.fromInputStream(null)).isNull();
   }
 }

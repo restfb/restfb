@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,21 +21,21 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.Version;
 
-import org.junit.Test;
-
-public class SubscriptionTest extends AbstractJsonMapperTests {
+class SubscriptionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check2_8() {
+  void check2_8() {
     Subscription subscription =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/subscription"), Subscription.class);
     assertNotNull(subscription);
-    assertTrue(subscription.getActive().booleanValue());
+    assertTrue(subscription.getActive());
     assertEquals("https://www.example.org/endpoint/callback", subscription.getCallbackUrl());
     assertEquals("page", subscription.getObject());
     assertEquals(4, subscription.getFields().size());
@@ -45,16 +45,16 @@ public class SubscriptionTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void check2_9() {
+  void check2_9() {
     Subscription subscription =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/subscription"), Subscription.class);
     assertNotNull(subscription);
-    assertTrue(subscription.getActive().booleanValue());
+    assertTrue(subscription.getActive());
     assertEquals("https://www.example.org/endpoint/callback", subscription.getCallbackUrl());
     assertEquals("page", subscription.getObject());
     assertEquals(4, subscription.getFields().size());
     for (Subscription.SubscriptionField subscriptionField : subscription.getFields()) {
-      assertEquals(Version.VERSION_3_0, subscriptionField.getVersion());
+      assertEquals(Version.VERSION_3_1, subscriptionField.getVersion());
     }
   }
 }

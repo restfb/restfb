@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,8 @@ import static com.restfb.util.StringUtils.isBlank;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 public class ObjectUtil {
 
@@ -47,6 +49,22 @@ public class ObjectUtil {
       throw new IllegalArgumentException(errorText);
     }
     return obj;
+  }
+
+  /**
+   * Ensures that {@code obj} isn't {@code null}.
+   *
+   * @param obj
+   *          The parameter to check.
+   * @param exceptionSupplier
+   *          The supplier for the exception that is thrown if obj is null.
+   * @throws T
+   *           If {@code obj} is {@code null}.
+   */
+  public static <T extends Exception> void requireNotNull(Object obj, Supplier<T> exceptionSupplier) throws T {
+    if (obj == null) {
+      throw exceptionSupplier.get();
+    }
   }
 
   /**
@@ -76,9 +94,7 @@ public class ObjectUtil {
    */
   public static void verifyParameterPresence(String parameterName, String parameter) {
     verifyParameterPresence(parameterName, (Object) parameter);
-    if (parameter.trim().length() == 0) {
-      throw new IllegalArgumentException("The '" + parameterName + "' parameter cannot be an empty string.");
-    }
+    requireNotEmpty(parameter, "The '" + parameterName + "' parameter cannot be an empty string.");
   }
 
   /**
@@ -92,8 +108,6 @@ public class ObjectUtil {
    *           If {@code parameter} is {@code null}.
    */
   public static void verifyParameterPresence(String parameterName, Object parameter) {
-    if (parameter == null) {
-      throw new NullPointerException("The '" + parameterName + "' parameter cannot be null.");
-    }
+    Objects.requireNonNull(parameter, "The '" + parameterName + "' parameter cannot be null.");
   }
 }

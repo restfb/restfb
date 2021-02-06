@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,17 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
@@ -42,22 +46,21 @@ import com.restfb.types.*;
  * 
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
+class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
   /**
    * check type == null is handled correct
    */
-  @Test(expected = FacebookJsonMappingException.class)
-  public void nullAsList() {
-    createJsonMapper().toJavaList("[]", null);
-    failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
+  @Test
+  void nullAsList() {
+    assertThrows(FacebookJsonMappingException.class, () -> createJsonMapper().toJavaList("[]", null));
   }
 
   /**
    * Can we handle the empty list?
    */
   @Test
-  public void emptyList() {
+  void emptyList() {
     List<Object> objects = createJsonMapper().toJavaList("[]", Object.class);
     assertThat(objects).isEmpty();
   }
@@ -66,7 +69,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we handle the empty object?
    */
   @Test
-  public void emptyObject() {
+  void emptyObject() {
     Object object = createJsonMapper().toJavaObject("{}", Object.class);
     assertThat(object).isNotNull();
   }
@@ -75,7 +78,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we handle simple primitive mapping?
    */
   @Test
-  public void simplePrimitive() {
+  void simplePrimitive() {
     String tag = createJsonMapper().toJavaObject(jsonFromClasspath("tag"), String.class);
     assertThat(tag).isEqualTo("Good");
   }
@@ -84,7 +87,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we handle simple numeric mapping?
    */
   @Test
-  public void simplePrimitiveNumber() {
+  void simplePrimitiveNumber() {
     Integer number = createJsonMapper().toJavaObject(jsonFromClasspath("number"), Integer.class);
     assertThat(number).isEqualTo(1234);
   }
@@ -93,27 +96,25 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we handle simple primitive list mapping?
    */
   @Test
-  public void simplePrimitiveList() {
+  void simplePrimitiveList() {
     List<String> tags = createJsonMapper().toJavaList(jsonFromClasspath("tags"), String.class);
-    assertThat(tags).hasSize(3);
-    assertThat(tags).containsExactly("Good", "Better", "Best");
+    assertThat(tags).hasSize(3).containsExactly("Good", "Better", "Best");
   }
 
   /**
    * Can we handle simple primitive numeric list mapping?
    */
   @Test
-  public void simplePrimitiveNumericList() {
+  void simplePrimitiveNumericList() {
     List<Integer> numbers = createJsonMapper().toJavaList(jsonFromClasspath("numbers"), Integer.class);
-    assertThat(numbers).hasSize(3);
-    assertThat(numbers).contains(1234, 5678, 9012);
+    assertThat(numbers).hasSize(3).contains(1234, 5678, 9012);
   }
 
   /**
    * Can we handle simple object mapping?
    */
   @Test
-  public void simpleObject() {
+  void simpleObject() {
     BasicUser basicUser = createJsonMapper().toJavaObject(jsonFromClasspath("basic-user"), BasicUser.class);
     assertThat(basicUser.uid).isEqualTo(1234L);
     assertThat(basicUser.name).isEqualTo("Test Person");
@@ -123,7 +124,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we handle simple list mapping?
    */
   @Test
-  public void simpleObjectWithList() {
+  void simpleObjectWithList() {
     UserWithPhotos userWithPhotos =
         createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), UserWithPhotos.class);
     assertThat(userWithPhotos.photos).hasSize(2);
@@ -135,7 +136,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Do we properly find Facebook-annotated fields defined in a superclass?
    */
   @Test
-  public void fieldsFromSuperclass() {
+  void fieldsFromSuperclass() {
     UserWithPhotos userWithPhotos =
         createJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), UserWithPhotos.class);
     assertThat(userWithPhotos.uid).isEqualTo(1234L);
@@ -147,7 +148,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we map to Facebook-annotated fields even when they're marked private?
    */
   @Test
-  public void privateFields() {
+  void privateFields() {
     PrivateUser privateUser = createJsonMapper().toJavaObject(jsonFromClasspath("basic-user"), PrivateUser.class);
     assertThat(privateUser.getUid()).isEqualTo(1234);
   }
@@ -157,7 +158,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * instead of an empty list" bug?
    */
   @Test
-  public void usersWithAffiliations() {
+  void usersWithAffiliations() {
     List<UserWithAffiliations> usersWithAffiliations =
         createJsonMapper().toJavaList(jsonFromClasspath("users-with-affiliations"), UserWithAffiliations.class);
 
@@ -177,7 +178,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we handle nulls nicely?
    */
   @Test
-  public void nulls() {
+  void nulls() {
     UserWithAffiliations userWithAffiliations =
         createJsonMapper().toJavaObject(jsonFromClasspath("nulls"), UserWithAffiliations.class);
 
@@ -192,7 +193,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we successfully map the results of the auth.createToken call?
    */
   @Test
-  public void authCreateToken() {
+  void authCreateToken() {
     String token = createJsonMapper().toJavaObject(jsonFromClasspath("api/auth.createToken"), String.class);
     assertThat(token).isEqualTo("3e4a22bb2f5ed75114b0fc9995ea85f1");
   }
@@ -201,7 +202,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we successfully map the results of the auth.createToken call?
    */
   @Test
-  public void usersGetLoggedInUser() {
+  void usersGetLoggedInUser() {
     Long uid = createJsonMapper().toJavaObject(jsonFromClasspath("api/users.getLoggedInUser"), Long.class);
     assertThat(uid).isEqualTo(1240077L);
   }
@@ -210,21 +211,25 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we successfully map the results of the friends.get call?
    */
   @Test
-  public void friendsGet() {
+  void friendsGet() {
     List<Long> friendUids = createJsonMapper().toJavaList(jsonFromClasspath("api/friends.get"), Long.class);
-    assertThat(friendUids).hasSize(2);
-    assertThat(friendUids).containsExactly(222333L, 1240079L);
+    assertThat(friendUids).hasSize(2).containsExactly(222333L, 1240079L);
   }
 
   @Test
-  public void unicodeGet() {
+  void unicodeGet() {
     User user = createJsonMapper().toJavaObject(jsonFromClasspath("api/unicode"), User.class);
     assertThat(user).isNotNull();
 
     User user2 = new DefaultFacebookClient("blub", new DefaultWebRequestor() {
       @Override
-      public Response executeGet(final String url) {
+      public Response executeGet(final String url, String headerAccessToken) {
         return new Response(HttpURLConnection.HTTP_OK, "{\"id\":\"b4TUmsLXoK\",\"name\":\"ⲉ鯨ɯ摓㻦恛҉祐\\f፲\"}");
+      }
+
+      @Override
+      public Response executeGet(String url) throws IOException {
+        return executeGet(url, null);
       }
     }, new DefaultJsonMapper(), Version.LATEST).fetchObject("me", User.class);
     assertThat(user2).isNotNull();
@@ -234,7 +239,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * test reading in a sample page conversation
    */
   @Test
-  public void conversation() {
+  void conversation() {
     Conversation conversation = createJsonMapper().toJavaObject(jsonFromClasspath("conversation"), Conversation.class);
     assertThat(conversation.getId()).isEqualTo("t_id.378684585488220");
 
@@ -251,9 +256,9 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we successfully map the case where Facebook sends us an empty array instead of an empty string?
    */
   @Test
-  public void emptyArray() {
+  void emptyArray() {
     BasicUser user = createJsonMapper().toJavaObject(jsonFromClasspath("empty-array-as-string"), BasicUser.class);
-    assertThat(user.name).isEqualTo("");
+    assertThat(user.name).isEmpty();
   }
 
   /**
@@ -261,14 +266,13 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">here</a>
    */
   @Test
-  public void accountTest() {
+  void accountTest() {
     Account account = createJsonMapper().toJavaObject(jsonFromClasspath("account"), Account.class);
     assertThat(account.getCategory()).isEqualTo("Product/service");
     assertThat(account.getAccessToken()).isEqualTo("{access-token}");
     assertThat(account.getId()).isEqualTo("1234567890");
     assertThat(account.getName()).isEqualTo("Sample Page");
-    assertThat(account.getPerms()).hasSize(6);
-    assertThat(account.getPerms()).contains("ADMINISTER", "EDIT_PROFILE", "CREATE_CONTENT", "MODERATE_CONTENT",
+    assertThat(account.getPerms()).hasSize(6).contains("ADMINISTER", "EDIT_PROFILE", "CREATE_CONTENT", "MODERATE_CONTENT",
       "CREATE_ADS", "BASIC_ADMIN");
   }
 
@@ -277,13 +281,13 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * throwing an exception.
    */
   @Test
-  public void testFalseInsteadOfObject() {
+  void testFalseInsteadOfObject() {
     User user = createJsonMapper().toJavaObject("false", User.class);
     assertThat(user).isNull();
   }
 
   @Test
-  public void testMultipleFieldsWithSameName() {
+  void testMultipleFieldsWithSameName() {
     JsonMapper jsonMapper = createJsonMapper();
 
     User user1 = jsonMapper.toJavaObject(jsonFromClasspath("user-with-hometown-v1"), User.class);
@@ -307,7 +311,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Makes sure we handle "null" when inside of a list instead of throwing a mapping exception.
    */
   @Test
-  public void testNulls() {
+  void testNulls() {
     List<NamedFacebookType> types =
         createJsonMapper().toJavaList(jsonFromClasspath("nulls-in-list"), NamedFacebookType.class);
     assertThat(types).hasSize(3);
@@ -317,30 +321,23 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * Can we handle the JsonObject types?
    */
   @Test
-  public void story() {
+  void story() {
     Set<String> actualStoryTagIds = new HashSet<>();
-    Set<String> expectedStoryTagIds = new HashSet<String>() {
-      {
-        add("123");
-        add("456");
-      }
-    };
+    Set<String> expectedStoryTagIds = Stream.of("123","456").collect(Collectors.toSet());
 
     JsonMapper jsonMapper = createJsonMapper();
     Story story = jsonMapper.toJavaObject(jsonFromClasspath("story"), Story.class);
 
     for (String fieldName : story.storyTags.names()) {
       List<StoryTag> storyTags = jsonMapper.toJavaList(story.storyTags.get(fieldName).toString(), StoryTag.class);
-
-      for (StoryTag storyTag : storyTags)
-        actualStoryTagIds.add(storyTag.id);
+      storyTags.stream().map(tag -> tag.id).forEach(actualStoryTagIds::add);
     }
 
     assertThat(actualStoryTagIds).containsExactlyElementsOf(expectedStoryTagIds);
   }
 
   @Test
-  public void specialTypes() {
+  void specialTypes() {
     JsonMapper jsonMapper = createJsonMapper();
     SpecialJavaTypes object =
         jsonMapper.toJavaObject("{\"integer\":\"1234567\", \"decimal\":\"1234567.4\"}", SpecialJavaTypes.class);
@@ -353,14 +350,14 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void dateType() {
+  void dateType() {
     JsonMapper jsonMapper = createJsonMapper();
     Post postObj = jsonMapper.toJavaObject("{\"created_time\": \"2014-08-26T20:55:07+0000\"}", Post.class);
     assertThat(postObj.getCreatedTime()).hasTime(1409086507000L);
   }
 
   @Test
-  public void jsonMappingCompleted() {
+  void jsonMappingCompleted() {
     JsonMapper jsonMapper = createJsonMapper();
 
     BasicJsonMappingCompletedClass basicJsonMappingCompletedClass =
@@ -383,7 +380,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void jsonEmptyArray() {
+  void jsonEmptyArray() {
     User u = createJsonMapper().toJavaObject("[]", User.class);
     assertThat(u).isNotNull();
     assertThat(u.getName()).isNull();
@@ -393,7 +390,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * check if a empty string is not mapped and a exception with the correct message is thrown instead
    */
   @Test
-  public void emptyStringAsList() {
+  void emptyStringAsList() {
     try {
       createJsonMapper().toJavaList("", HashMap.class);
       failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
@@ -406,7 +403,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    * check if a empty string is not mapped and a exception with the correct message is thrown instead
    */
   @Test
-  public void emptyStringAsObject() {
+  void emptyStringAsObject() {
     try {
       createJsonMapper().toJavaObject("", String.class);
       failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
@@ -416,7 +413,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void mapArrayAsObject() {
+  void mapArrayAsObject() {
     try {
       createJsonMapper().toJavaObject("[{\"test\":123}]", String.class);
       failBecauseExceptionWasNotThrown(FacebookJsonMappingException.class);
@@ -426,7 +423,7 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void primitives() {
+  void primitives() {
     Integer integerObject = createJsonMapper().toJavaObject("12345", Integer.class);
     assertThat(integerObject.intValue()).isEqualTo(12345);
     Long longObject = createJsonMapper().toJavaObject("12345", Long.class);
@@ -450,19 +447,29 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void jsonObjectToMap() {
+  void jsonObjectToMap() {
     String jsonString = "{ \"my_map\": { \"key1\": 1, \"key2\": 2}}";
     MapTestType object = createJsonMapper().toJavaObject(jsonString, MapTestType.class);
     assertThat(object).isNotNull();
-    assertThat(object.myMap).isNotNull();
-    assertThat(object.myMap.get("key1")).isEqualTo(1L);
-    assertThat(object.myMap.get("key2")).isEqualTo(2L);
+    assertThat(object.myMap).isNotNull().containsEntry("key1", 1L).containsEntry("key2", 2L);
   }
 
-  @Test(expected = FacebookJsonMappingException.class)
-  public void jsonObjectToBadMap() {
+  @Test
+  void jsonObjectToBadMap() {
     String jsonString = "{ \"my_map\": { \"key1\": 1, \"key2\": 2}}";
-    createJsonMapper().toJavaObject(jsonString, BadMapTestType.class);
+    assertThrows(FacebookJsonMappingException.class, () -> {
+      createJsonMapper().toJavaObject(jsonString, BadMapTestType.class);
+    });
+  }
+
+  @Test
+  void jsonToObjectWithOptionals() {
+    String jsonString = "{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumberButNull\":null}";
+    JavaTypeWithOptionalField obj = createJsonMapper().toJavaObject(jsonString, JavaTypeWithOptionalField.class);
+    assertThat(obj.number).isInstanceOf(Optional.class).hasValue(123456);
+    assertThat(obj.text).isInstanceOf(Optional.class).hasValue("justsometext");
+    assertThat(obj.emptyNumber).isInstanceOf(Optional.class).isEmpty();
+    assertThat(obj.emptyNumberButNull).isInstanceOf(Optional.class).isEmpty();
   }
 
   static class MapTestType {
@@ -529,6 +536,21 @@ public class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
     @Facebook
     List<Affiliation> affiliations;
+  }
+
+  static class JavaTypeWithOptionalField {
+
+    @Facebook
+    Optional<String> text;
+
+    @Facebook
+    Optional<Integer> number;
+
+    @Facebook
+    Optional<Long> emptyNumber;
+
+    @Facebook
+    Optional<Float> emptyNumberButNull;
   }
 
   static class SpecialJavaTypes {

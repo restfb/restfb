@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,71 +22,72 @@
 package com.restfb;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-public class BinaryAttachmentTest {
+import org.junit.jupiter.api.Test;
+
+class BinaryAttachmentTest {
 
   @Test
-  public void checkByteArray() {
+  void checkByteArray() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("myfile.jpg", attachmentData.getBytes());
     assertThat(att).hasFileName("myfile.jpg");
     assertThat(att.getData()).isInstanceOf(ByteArrayInputStream.class);
   }
 
-  @Test(expected = NullPointerException.class)
-  public void checkByteArrayNull() {
-    BinaryAttachment.with("filename", (byte[]) null);
+  @Test
+  void checkByteArrayNull() {
+    assertThrows(NullPointerException.class, () -> BinaryAttachment.with("filename", (byte[]) null));
   }
 
   @Test
-  public void checkInputStream() {
+  void checkInputStream() {
     InputStream stream = this.getClass().getClassLoader().getResourceAsStream("json/account.json");
     BinaryAttachment att = BinaryAttachment.with("myfile.jpg", stream);
     assertThat(att).hasFileName("myfile.jpg");
     assertThat(att.getData()).isInstanceOf(BufferedInputStream.class);
   }
 
-  @Test(expected = NullPointerException.class)
-  public void checkInputStreamNull() {
-    BinaryAttachment.with("filename", (InputStream) null);
+  @Test
+  void checkInputStreamNull() {
+    assertThrows(NullPointerException.class, () -> BinaryAttachment.with("filename", (InputStream) null));
   }
 
   @Test
-  public void checkContentTypeStream() {
+  void checkContentTypeStream() {
     InputStream stream = getClass().getResourceAsStream("/binary/fruits.png");
     BinaryAttachment att = BinaryAttachment.with("example.png", stream);
     assertThat(att).hasContentType("image/png");
   }
 
   @Test
-  public void checkContentTypeBytes_imagePng() {
+  void checkContentTypeBytes_imagePng() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.png", attachmentData.getBytes());
     assertThat(att).hasContentType("image/png");
   }
 
   @Test
-  public void checkContentTypeBytes_html() {
+  void checkContentTypeBytes_html() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.html", attachmentData.getBytes());
     assertThat(att).hasContentType("text/html");
   }
 
   @Test
-  public void checkContentTypeBytes_fallback() {
+  void checkContentTypeBytes_fallback() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.json", attachmentData.getBytes());
     assertThat(att).hasContentType("application/octet-stream");
   }
 
   @Test
-  public void checkContentTypeBytes_manual() {
+  void checkContentTypeBytes_manual() {
     String attachmentData = "this is a short string";
     BinaryAttachment att = BinaryAttachment.with("example.json", attachmentData.getBytes(), "application/json");
     assertThat(att).hasContentType("application/json");

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,12 @@ package com.restfb.types.setter;
 import com.restfb.types.PageLifeEvent;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PageLifeEventTest extends SetterGetterTestBase {
+class PageLifeEventTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     PageLifeEvent obj = new PageLifeEvent();
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawEndTime");

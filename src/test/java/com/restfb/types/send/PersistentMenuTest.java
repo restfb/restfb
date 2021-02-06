@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,19 @@
  */
 package com.restfb.types.send;
 
+import java.util.Locale;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
 
-import org.junit.Test;
-
-import java.util.Locale;
-
-public class PersistentMenuTest extends AbstractJsonMapperTests {
+class PersistentMenuTest extends AbstractJsonMapperTests {
 
   @Test
-  public void withoutCallToAction() {
+  void withoutCallToAction() {
     PersistentMenu menu = new PersistentMenu(Locale.CHINA);
     menu.setComposerInputDisabled(true);
 
@@ -42,7 +42,7 @@ public class PersistentMenuTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void nestedMenu() {
+  void nestedMenu() {
     PersistentMenu menu = new PersistentMenu();
     menu.setComposerInputDisabled(true);
 

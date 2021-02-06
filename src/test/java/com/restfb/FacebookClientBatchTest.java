@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +21,21 @@
  */
 package com.restfb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.batch.BatchHeader;
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 
-import org.junit.Test;
-
-import java.io.IOException;
-import java.util.List;
-
-public class FacebookClientBatchTest extends AbstractJsonMapperTests {
+class FacebookClientBatchTest extends AbstractJsonMapperTests {
 
   @Test
-  public void batchtest() {
+  void batchtest() {
     FacebookClient client = createFacebookClient("batch-simple");
 
     BatchRequest exampleRequest = new BatchRequest.BatchRequestBuilder("").build();
@@ -53,7 +52,7 @@ public class FacebookClientBatchTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void batchFirst() {
+  void batchFirst() {
     FacebookClient client = createFacebookClient("batch-first-error");
 
     BatchRequest exampleRequest = new BatchRequest.BatchRequestBuilder("").build();
@@ -66,7 +65,7 @@ public class FacebookClientBatchTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void batchSecond() {
+  void batchSecond() {
     FacebookClient client = createFacebookClient("batch-second-error");
 
     BatchRequest exampleRequest = new BatchRequest.BatchRequestBuilder("").build();
@@ -87,7 +86,8 @@ public class FacebookClientBatchTest extends AbstractJsonMapperTests {
 
   private FacebookClient createFacebookClient(final String batchJson) {
     WebRequestor.Response response = new WebRequestor.Response(200, jsonFromClasspath("batch/" + batchJson));
-    return new DefaultFacebookClient("accesstoken", new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
+    return new DefaultFacebookClient("accesstoken", new FakeWebRequestor(response), new DefaultJsonMapper(),
+      Version.LATEST);
   }
 
 }

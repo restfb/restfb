@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,9 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
@@ -30,18 +32,16 @@ import com.restfb.exception.FacebookOAuthException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
 
-import org.junit.Test;
+class PostSearchITCase extends RestFbIntegrationTestBase {
 
-public class PostSearchITCase extends RestFbIntegrationTestBase {
-
-  @Test(expected = FacebookOAuthException.class)
-  public void tesPostSearchV2_5() {
-    DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
-    facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
-      Parameter.with("type", "post"));
-
-    fail("facebook should not allow this public search");
+  @Test
+  void tesPostSearchV2_5() {
+    assertThrows(FacebookOAuthException.class, () -> {
+      DefaultFacebookClient facebookClient =
+          new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+      facebookClient.fetchConnection("search", Post.class, Parameter.with("q", "watermelon"),
+        Parameter.with("type", "post"));
+    }, "facebook should not allow this public search");
   }
 
 }

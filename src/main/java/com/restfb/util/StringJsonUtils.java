@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -95,6 +95,6 @@ public class StringJsonUtils {
    * @return {@code true} if the JSON is equivalent to the empty object, {@code false} otherwise.
    */
   public static boolean isEmptyObject(String jsonString) {
-    return "{}".equals(jsonString);
+    return EMPTY_OBJECT.equals(jsonString);
   }
 }

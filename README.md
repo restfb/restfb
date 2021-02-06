@@ -1,5 +1,5 @@
-[![Travis (.org)](https://img.shields.io/travis/restfb/restfb.svg?style=for-the-badge)](https://travis-ci.org/restfb/restfb)
-
+![](https://img.shields.io/github/last-commit/restfb/restfb?style=for-the-badge)
+![](https://img.shields.io/github/workflow/status/restfb/restfb/Check%20with%20Sonar?style=for-the-badge)
 
 # RestFB (http://restfb.com)
 ## What it is
@@ -34,16 +34,16 @@ are all clearly commented and give a good overview of the functionality RestFB p
 
 Additionally, you can take a look at the integration tests [here](https://github.com/restfb/restfb/tree/master/src/test/java/com/restfb/integration) on GitHub. Some interesting use cases are exercised there and you can get a good idea of the different features that are provided by RestFB.
 
-There is also the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains a suite of tools that can be triggered via Maven calls. Additionally, for the fetch and publish example, you can find
-a JavaFX code sample that shows how an embedded browser is used to fetch a user access token.
+There is also the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains a suite of tools that can be triggered via Maven calls. Additionally, for the fetching and publishing example, you can find
+a JavaFX code sample, that shows how you can use an embedded browser to fetch a user access token.
 
 ## Sponsors and Backers
 
 You like RestFB and you like to support the development, but you cannot contribute any code? Then we have good news for 
-you. We started an [OpenCollective](https://opencollective.com/restfb) page and you or your company can be a RestFB backer or sponsor. You even get a little 
-space on the official RestFB website with your name, company logo, link and more.
+you. We added the *sponsor* button to this repository, and you can join the list of sponsors with a simple click.
 
-[Please check this new way to contribute](https://opencollective.com/restfb) 
+Please check the different tiers. We have a suitable for everyone. Depending on the tier, you even get a place 
+on the official [RestFB](https://restfb.com) website with your name, company logo, link and more. 
 
 ## Getting in touch
 

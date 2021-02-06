@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,6 @@
 package com.restfb;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
@@ -34,15 +33,15 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
-public class DefaultWebRequestorTest {
+@ExtendWith(MockitoExtension.class)
+class DefaultWebRequestorTest {
 
   @Mock
   private HttpURLConnection mockUrlConnection;
@@ -55,14 +54,24 @@ public class DefaultWebRequestorTest {
 
   private static final String exampleUrl = "http://www.example.org";
 
-  @Before
-  public void setup() throws IOException {
+  @BeforeEach
+  void setup() throws IOException {
     doReturn(mockUrlConnection).when(requestor).openConnection(any(URL.class));
-    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
   }
 
   @Test
-  public void checkGet() throws IOException {
+  void checkGet_withAccessToken() throws IOException {
+    String resultString = "This is just a simple Test";
+    when(mockUrlConnection.getResponseCode()).thenReturn(200);
+    InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
+    when(mockUrlConnection.getInputStream()).thenReturn(stream);
+    WebRequestor.Response response = requestor.executeGet("http://www.example.org", "accesstoken");
+
+    verify(mockUrlConnection).setRequestProperty("Authorization", "Bearer accesstoken");
+  }
+
+  @Test
+  void checkGet() throws IOException {
     String resultString = "This is just a simple Test";
     when(mockUrlConnection.getResponseCode()).thenReturn(200);
     InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
@@ -77,21 +86,35 @@ public class DefaultWebRequestorTest {
     verify(mockUrlConnection).setReadTimeout(180000);
     verify(mockUrlConnection).setUseCaches(false);
     verify(mockUrlConnection).setRequestMethod(DefaultWebRequestor.HttpMethod.GET.name());
+    verify(mockUrlConnection, never()).setRequestProperty(eq("Authorization"), anyString());
     verify(mockUrlConnection).connect();
     verify(requestor).executeGet(anyString());
-    verify(requestor, never()).executePost(anyString(), anyString());
+    verify(requestor, never()).executePost(anyString(), anyString(), isNull());
     verify(requestor).customizeConnection(mockUrlConnection);
     verify(requestor).fillHeaderAndDebugInfo(mockUrlConnection);
     verify(requestor).fetchResponse(mockUrlConnection);
   }
 
   @Test
-  public void checkPost_NoBinary() throws IOException {
+  void checkPost_withAccessToken() throws IOException {
+    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
     String resultString = "This is just a simple Test";
     when(mockUrlConnection.getResponseCode()).thenReturn(200);
     InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
     when(mockUrlConnection.getInputStream()).thenReturn(stream);
-    WebRequestor.Response response = requestor.executePost(exampleUrl, "");
+    WebRequestor.Response response = requestor.executePost(exampleUrl, "", "accesstoken");
+
+    verify(mockUrlConnection).setRequestProperty("Authorization", "Bearer accesstoken");
+  }
+
+  @Test
+  void checkPost_NoBinary() throws IOException {
+    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
+    String resultString = "This is just a simple Test";
+    when(mockUrlConnection.getResponseCode()).thenReturn(200);
+    InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
+    when(mockUrlConnection.getInputStream()).thenReturn(stream);
+    WebRequestor.Response response = requestor.executePost(exampleUrl, "", null);
 
     // check the result
     assertThat(response.getStatusCode()).isEqualTo(200);
@@ -102,8 +125,9 @@ public class DefaultWebRequestorTest {
     verify(mockUrlConnection).setUseCaches(false);
     verify(mockUrlConnection).setDoOutput(true);
     verify(mockUrlConnection).setRequestMethod(DefaultWebRequestor.HttpMethod.POST.name());
+    verify(mockUrlConnection, never()).setRequestProperty(eq("Authorization"), anyString());
     verify(mockUrlConnection).connect();
-    verify(requestor).executePost(same(exampleUrl), anyString());
+    verify(requestor).executePost(same(exampleUrl), anyString(), isNull());
     verify(requestor, never()).executeGet(anyString());
     verify(requestor).customizeConnection(mockUrlConnection);
     verify(requestor).fillHeaderAndDebugInfo(mockUrlConnection);
@@ -111,7 +135,8 @@ public class DefaultWebRequestorTest {
   }
 
   @Test
-  public void checkPost_WithBinary() throws IOException {
+  void checkPost_WithBinary() throws IOException {
+    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
     BinaryAttachment mockAttachment = mock(BinaryAttachment.class);
     InputStream mockBinaryInputStream = mock(InputStream.class);
     when(mockAttachment.getFilename()).thenReturn("exampleFile.png");
@@ -121,7 +146,7 @@ public class DefaultWebRequestorTest {
     when(mockUrlConnection.getResponseCode()).thenReturn(200);
     InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
     when(mockUrlConnection.getInputStream()).thenReturn(stream);
-    WebRequestor.Response response = requestor.executePost(exampleUrl, "", Collections.singletonList(mockAttachment));
+    WebRequestor.Response response = requestor.executePost(exampleUrl, "", Collections.singletonList(mockAttachment), null);
 
     // check the result
     assertThat(response.getStatusCode()).isEqualTo(200);
@@ -132,9 +157,10 @@ public class DefaultWebRequestorTest {
     verify(mockUrlConnection).setUseCaches(false);
     verify(mockUrlConnection).setDoOutput(true);
     verify(mockUrlConnection).setRequestProperty("Connection", "Keep-Alive");
+    verify(mockUrlConnection, never()).setRequestProperty(eq("Authorization"), anyString());
     verify(mockUrlConnection).setRequestMethod(DefaultWebRequestor.HttpMethod.POST.name());
     verify(mockUrlConnection).connect();
-    verify(requestor).executePost(same(exampleUrl), anyString(), anyList());
+    verify(requestor).executePost(same(exampleUrl), anyString(), anyList(), isNull());
     verify(requestor, never()).executeGet(anyString());
     verify(requestor).customizeConnection(mockUrlConnection);
     verify(requestor).fillHeaderAndDebugInfo(mockUrlConnection);

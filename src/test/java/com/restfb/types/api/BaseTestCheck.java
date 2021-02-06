@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +24,7 @@ package com.restfb.types.api;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BaseTestCheck {
 
@@ -51,15 +52,6 @@ public class BaseTestCheck {
   }
 
   protected String joinMethods(Set<String> methodList) {
-    String result = "";
-    for (String methodName : methodList) {
-      result += methodName + ",";
-    }
-
-    if (!methodList.isEmpty()) {
-      return result.substring(0, result.length() - 1);
-    } else {
-      return result;
-    }
+    return methodList.stream().collect(Collectors.joining(","));
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,15 +23,15 @@ package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-
 import java.util.Map;
 import java.util.Set;
 
-public class SoftHashMapTest {
+import org.junit.jupiter.api.Test;
+
+class SoftHashMapTest {
 
   @Test
-  public void checkSimpleSize() {
+  void checkSimpleSize() {
     SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     assertThat(hashMap).isEmpty();
     hashMap.put("test", 1);
@@ -39,7 +39,7 @@ public class SoftHashMapTest {
   }
 
   @Test
-  public void checkSimpleClear() {
+  void checkSimpleClear() {
     SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("test", 1);
     assertThat(hashMap).hasSize(1);
@@ -48,14 +48,14 @@ public class SoftHashMapTest {
   }
 
   @Test
-  public void checkSimpleGet() {
+  void checkSimpleGet() {
     SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("test", 1);
     assertThat(hashMap.get("test")).isEqualTo(1);
   }
 
   @Test
-  public void checkSimpleRemove() {
+  void checkSimpleRemove() {
     SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("test", 1);
     assertThat(hashMap).hasSize(1);
@@ -64,7 +64,7 @@ public class SoftHashMapTest {
   }
 
   @Test
-  public void checkSimpleEntrySet() {
+  void checkSimpleEntrySet() {
     SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("one", 1);
     hashMap.put("two", 2);
@@ -74,7 +74,7 @@ public class SoftHashMapTest {
   }
 
   @Test
-  public void checkSimpleEntrySet2() {
+  void checkSimpleEntrySet2() {
     SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("one", 1);
     hashMap.put("two", 2);

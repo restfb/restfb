@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,18 @@
  */
 package com.restfb.types.ads;
 
-import static org.junit.Assert.*;
-
-import com.restfb.AbstractJsonMapperTests;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-public class AdCreativeTest extends AbstractJsonMapperTests {
+import org.junit.jupiter.api.Test;
+
+import com.restfb.AbstractJsonMapperTests;
+
+class AdCreativeTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_6() {
+  void checkV2_6() {
     AdCreative adCreative =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/adCreative-issue507"), AdCreative.class);
     assertNotNull(adCreative);
@@ -67,7 +67,7 @@ public class AdCreativeTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_6_issue523() {
+  void checkV2_6_issue523() {
     AdCreative adCreative =
         createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/adCreative-issue523"), AdCreative.class);
     assertNotNull(adCreative);

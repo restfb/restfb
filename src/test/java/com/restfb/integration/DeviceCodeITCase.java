@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,23 +21,25 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
-import com.restfb.exception.FacebookOAuthException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
 
-import org.junit.Test;
+import java.util.concurrent.TimeUnit;
 
-public class DeviceCodeITCase extends RestFbIntegrationTestBase {
+class DeviceCodeITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchDeviceCode() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppId(), Version.VERSION_2_8);
+  void fetchDeviceCode() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getAppAccessToken(), Version.VERSION_3_1);
     ScopeBuilder scope = new ScopeBuilder();
     DeviceCode deviceCode = client.fetchDeviceCode(scope);
     assertNotNull(deviceCode);
@@ -49,21 +51,18 @@ public class DeviceCodeITCase extends RestFbIntegrationTestBase {
       System.out.print(count + ":");
       try {
         token = client.obtainDeviceAccessToken(deviceCode.getCode());
-      } catch (FacebookOAuthException e) {
-        System.out.println("Subcode: " + e.getErrorSubcode());
-        System.out.println("Subcode: " + e.getErrorCode());
-        System.out.println(e.getErrorMessage());
+      } catch (FacebookDeviceTokenException e) {
+        System.out.println(e.getClass());
       } catch (Exception e) {
-        System.out.println(e);
+        e.printStackTrace();
       }
       try {
-        Thread.sleep(10000l);
+        TimeUnit.SECONDS.sleep(10);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
       count--;
     } while (count > 0 && token == null);
     assertNotNull(token);
-
   }
 }

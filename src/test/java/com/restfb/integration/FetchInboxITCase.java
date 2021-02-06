@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,24 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
+import com.restfb.types.Thread;
 
-import org.junit.Test;
-
-import java.util.List;
-
-public class FetchInboxITCase extends RestFbIntegrationTestBase {
+class FetchInboxITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void fetchInboxThread() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+  void fetchInboxThread() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<com.restfb.types.Thread> connection =
         client.fetchConnection("/" + getTestSettings().getUserId() + "/inbox", com.restfb.types.Thread.class);
     assertNotNull(connection.getData());
@@ -47,12 +47,14 @@ public class FetchInboxITCase extends RestFbIntegrationTestBase {
     assertFalse(threadList.isEmpty());
     assertFalse(threadList.get(0).getComments().isEmpty());
 
-    for (com.restfb.types.Thread thread : threadList) {
-      assertNotNull(thread.getId());
-      assertNotNull(thread.getUpdatedTime());
-      assertNotNull(thread.getUnread());
-      assertNotNull(thread.getUnseen());
-    }
+    threadList.forEach(this::checkThread);
+  }
+
+  private void checkThread(Thread thread) {
+    assertNotNull(thread.getId());
+    assertNotNull(thread.getUpdatedTime());
+    assertNotNull(thread.getUnread());
+    assertNotNull(thread.getUnseen());
   }
 
 }

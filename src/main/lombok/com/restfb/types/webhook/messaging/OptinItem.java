@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,21 @@ public class OptinItem implements InnerMessagingItem {
   private String userRef;
 
   @Getter
+  @Setter
+  @Facebook
+  private String type;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String payload;
+
+  @Getter
+  @Setter
+  @Facebook("one_time_notif_token")
+  private String oneTimeNotifToken;
+
+  @Getter
   private UserRefMessageRecipient userRefMessageRecipient;
 
   @JsonMapper.JsonMappingCompleted
@@ -50,5 +65,9 @@ public class OptinItem implements InnerMessagingItem {
     if (userRef != null) {
       userRefMessageRecipient = new UserRefMessageRecipient(userRef);
     }
+  }
+
+  public boolean isOneTimeNotif() {
+    return oneTimeNotifToken != null;
   }
 }

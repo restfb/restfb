@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,8 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 
 import com.restfb.exception.FacebookJsonMappingException;
+
+import java.util.Optional;
 
 /**
  * Representation of a Facebook API request parameter.
@@ -62,14 +64,8 @@ public final class Parameter {
               + " Got instead name:" + name + ", value:" + value);
     }
 
-    if (jsonMapper == null) {
-      throw new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.");
-    }
-
+    this.value = Optional.ofNullable(jsonMapper).orElseThrow(() -> new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.")).toJson(value, true);
     this.name = trimToEmpty(name);
-
-    // Use the JSON value of the type.
-    this.value = jsonMapper.toJson(value, true);
   }
 
   /**

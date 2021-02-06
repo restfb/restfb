@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -54,10 +54,10 @@ public class ClasspathWebRequestor implements WebRequestor {
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String)
+   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Response executePost(String url, String parameters) throws IOException {
+  public Response executePost(String url, String parameters, String headerAccessToken) {
     return response;
   }
 
@@ -65,20 +65,28 @@ public class ClasspathWebRequestor implements WebRequestor {
    * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
   @Override
-  public Response executeGet(String url) throws IOException {
+  public Response executeGet(String url) {
     return response;
   }
 
   /**
-   * @see com.restfb.WebRequestor#executePost(java.lang.String, java.lang.String, com.restfb.BinaryAttachment[])
+   * @see com.restfb.WebRequestor#executeGet(java.lang.String)
    */
   @Override
-  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments) throws IOException {
+  public Response executeGet(String url, String headerAccessToken) {
+    return response;
+  }
+
+  /**
+   * @see com.restfb.WebRequestor#executePost(String, String, List, String)
+   */
+  @Override
+  public Response executePost(String url, String parameters, List<BinaryAttachment> binaryAttachments, String headerAccessToken) throws IOException {
     return response;
   }
 
   @Override
-  public Response executeDelete(String url) throws IOException {
+  public Response executeDelete(String url, String headerAccessToken) {
     return response;
   }
 

@@ -1,0 +1,16 @@
+{
+  "object": "permissions",
+  "entry": [
+    {
+      "id": "0",
+      "uid": "0",
+      "time": 1567181353,
+      "changes": [
+        {
+          "field": "connected",
+          "verb": "granted"
+        }
+      ]
+    }
+  ]
+}

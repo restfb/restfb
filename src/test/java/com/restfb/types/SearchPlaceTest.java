@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,28 +21,28 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class SearchPlaceTest extends AbstractJsonMapperTests {
+class SearchPlaceTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkPhotos() {
-    SearchPlace examplesearch =
+  void checkPhotos() {
+    SearchPlace exampleSearch =
         createJsonMapper().toJavaObject(jsonFromClasspath("v3_1/searchplace-photos"), SearchPlace.class);
-    assertNotNull(examplesearch);
-    assertNotNull(examplesearch.getPhotos());
-    assertEquals(4, examplesearch.getPhotos().size());
-    assertEquals(33597l, examplesearch.getCheckins().longValue());
-    assertNotNull(examplesearch.getPicture());
+    assertNotNull(exampleSearch);
+    assertNotNull(exampleSearch.getPhotos());
+    assertEquals(4, exampleSearch.getPhotos().size());
+    assertEquals(33597L, exampleSearch.getCheckins().longValue());
+    assertNotNull(exampleSearch.getPicture());
   }
 
   @Test
-  public void checkDefault() {
+  void checkDefault() {
     SearchPlace examplesearch =
         createJsonMapper().toJavaObject(jsonFromClasspath("v3_1/searchplace-default"), SearchPlace.class);
     assertNotNull(examplesearch);
@@ -51,7 +51,7 @@ public class SearchPlaceTest extends AbstractJsonMapperTests {
     assertEquals(6345L, examplesearch.getCheckins().longValue());
     assertNotNull(examplesearch.getPicture());
     assertEquals("(212) 253-1046", examplesearch.getPhone());
-    assertEquals(4.3, examplesearch.getOverallStarRating().doubleValue(), 0.01);
+    assertEquals(4.3, examplesearch.getOverallStarRating().doubleValue());
     assertEquals("$$", examplesearch.getPriceRange());
     assertNotNull(examplesearch.getRestaurantServices());
   }

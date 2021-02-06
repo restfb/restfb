@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,9 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,7 +37,7 @@ import lombok.Setter;
  * @author Norbert Bartels
  * @since 1.6.16
  */
-public class Review extends FacebookType {
+public class Review extends FacebookType implements HasCreatedTime, HasFrom, HasMessage {
 
   private static final long serialVersionUID = 1L;
 
@@ -44,7 +47,7 @@ public class Review extends FacebookType {
    * @return when the review was created
    * @since 1.6.16
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -55,7 +58,7 @@ public class Review extends FacebookType {
    * @return The user that created the review
    * @since 1.6.16
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -66,7 +69,7 @@ public class Review extends FacebookType {
    * @return The review text, if any
    * @since 1.6.16
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;

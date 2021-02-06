@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,27 @@
 package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.restfb.exception.FacebookSignedRequestParsingException;
 import com.restfb.exception.FacebookSignedRequestVerificationException;
 
-@RunWith(MockitoJUnitRunner.class)
-public class SignedRequestTest {
+@ExtendWith(MockitoExtension.class)
+class SignedRequestTest {
 
   @Spy
   DefaultFacebookClient facebookClient;
 
   @Test
-  public void checkSignedRequest_signedRequest() {
+  void checkSignedRequest_signedRequest() {
     String signature = "uLQw26KrDdDhZA+Cbvhjm1Y5SB1LiUej9tAXWWXhb9s=";
     String payload =
         "ewogICAib2F1dGhfdG9rZW4iOiAie3VzZXItYWNjZXNzLXRva2VufSIsCiAgICJhbGdvcml0aG0iOiAiSE1BQy1TSEEyNTYiLAogICAiZXhwaXJlcyI6IDEyOTE4NDA0MDAsCiAgICJpc3N1ZWRfYXQiOiAxMjkxODM2ODAwLAogICAidXNlcl9pZCI6ICIyMTg0NzEiCn0=";
@@ -50,12 +50,12 @@ public class SignedRequestTest {
     Payload payloadObject = facebookClient.parseSignedRequest(signature + "." + payload, "secret", Payload.class);
     assertEquals("218471", payloadObject.userId);
     assertEquals("{user-access-token}", payloadObject.oauthToken);
-    assertEquals(1_291_840_400l, payloadObject.expires.longValue());
-    assertEquals(1_291_836_800l, payloadObject.issuedAt.longValue());
+    assertEquals(1_291_840_400, payloadObject.expires.longValue());
+    assertEquals(1_291_836_800, payloadObject.issuedAt.longValue());
   }
 
   @Test
-  public void checkSignedRequest_wrongSignedRequest_appSecret() {
+  void checkSignedRequest_wrongSignedRequest_appSecret() {
     String signature = "uLQw26KrDdDhZA+Cbvhjm1Y5SB1LiUej9tAXWWXhb9s=";
     String payload =
         "ewogICAib2F1dGhfdG9rZW4iOiAie3VzZXItYWNjZXNzLXRva2VufSIsCiAgICJhbGdvcml0aG0iOiAiSE1BQy1TSEEyNTYiLAogICAiZXhwaXJlcyI6IDEyOTE4NDA0MDAsCiAgICJpc3N1ZWRfYXQiOiAxMjkxODM2ODAwLAogICAidXNlcl9pZCI6ICIyMTg0NzEiCn0=";
@@ -69,7 +69,7 @@ public class SignedRequestTest {
   }
 
   @Test
-  public void checkSignedRequest_wrongSignedRequest() {
+  void checkSignedRequest_wrongSignedRequest() {
     try {
       facebookClient.parseSignedRequest("wrongSignedRequest", "secret", Payload.class);
       fail();
@@ -79,7 +79,7 @@ public class SignedRequestTest {
   }
 
   @Test
-  public void checkSignedRequest_emptyParams() {
+  void checkSignedRequest_emptyParams() {
     try {
       facebookClient.parseSignedRequest("", "", Payload.class);
       fail();
@@ -89,7 +89,7 @@ public class SignedRequestTest {
   }
 
   @Test
-  public void checkSignedRequest_nullParams() {
+  void checkSignedRequest_nullParams() {
     try {
       facebookClient.parseSignedRequest(null, null, Payload.class);
       fail();

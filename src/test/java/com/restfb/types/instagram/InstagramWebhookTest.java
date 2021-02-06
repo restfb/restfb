@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +21,10 @@
  */
 package com.restfb.types.instagram;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.Change;
@@ -34,10 +34,10 @@ import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
 
-public class InstagramWebhookTest extends AbstractJsonMapperTests {
+class InstagramWebhookTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkComments() {
+  void checkComments() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-comments"), WebhookObject.class);
 
@@ -53,7 +53,7 @@ public class InstagramWebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkMentions() {
+  void checkMentions() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-mentions"), WebhookObject.class);
     assertEquals("instagram", webhookObject.getObject());
@@ -69,7 +69,7 @@ public class InstagramWebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkStoryInsights() {
+  void checkStoryInsights() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-story_insights"), WebhookObject.class);
     assertEquals("instagram", webhookObject.getObject());
@@ -81,11 +81,11 @@ public class InstagramWebhookTest extends AbstractJsonMapperTests {
     InstagramStoryInsightsValue value = (InstagramStoryInsightsValue) change.getValue();
 
     assertEquals("17887498072083520", value.getMediaId());
-    assertEquals(3l, value.getExits().longValue());
-    assertEquals(444l, value.getImpressions().longValue());
-    assertEquals(44l, value.getReach().longValue());
-    assertEquals(0l, value.getReplies().longValue());
-    assertEquals(3l, value.getTapsBack().longValue());
-    assertEquals(4l, value.getTapsForward().longValue());
+    assertEquals(3L, value.getExits().longValue());
+    assertEquals(444L, value.getImpressions().longValue());
+    assertEquals(44L, value.getReach().longValue());
+    assertEquals(0L, value.getReplies().longValue());
+    assertEquals(3L, value.getTapsBack().longValue());
+    assertEquals(4L, value.getTapsForward().longValue());
   }
 }

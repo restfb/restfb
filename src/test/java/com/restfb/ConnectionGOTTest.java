@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,35 +23,37 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.types.Comments;
 import com.restfb.types.Likes;
 import com.restfb.types.Post;
 
-import org.junit.Test;
-
-import java.util.List;
-
-public class ConnectionGOTTest extends AbstractJsonMapperTests {
+class ConnectionGOTTest extends AbstractJsonMapperTests {
 
   /**
    * we check the likes and the comments count if some likes or comments are present, we fill the count/total count
    * (summary needs to be set to true)
    */
   @Test
-  public void check_2_1_comments_likes_count() {
+  void check_2_1_comments_likes_count() {
     Connection<Post> con =
-        new Connection<Post>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("v2_1/feed-got"), Post.class);
+        new Connection<>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("v2_1/feed-got"), Post.class);
     List<Post> postPage = con.getData();
-    for (Post post : postPage) {
-      Comments cs = post.getComments();
-      if (null != cs && !cs.getData().isEmpty()) {
-        assertThat(cs.getTotalCount()).isGreaterThan(0);
-      }
-      Likes ls = post.getLikes();
-      if (null != ls && !ls.getData().isEmpty()) {
-        assertThat(ls.getTotalCount()).isGreaterThan(0);
-      }
-    }
+    postPage.forEach(this::checkPost);
     assertThat(postPage).hasSize(25);
+  }
+
+  private void checkPost(Post post) {
+    Comments cs = post.getComments();
+    if (null != cs && !cs.getData().isEmpty()) {
+      assertThat(cs.getTotalCount()).isPositive();
+    }
+    Likes ls = post.getLikes();
+    if (null != ls && !ls.getData().isEmpty()) {
+      assertThat(ls.getTotalCount()).isPositive();
+    }
   }
 }

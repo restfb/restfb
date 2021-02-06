@@ -1,0 +1,22 @@
+{
+  "object": "permissions",
+  "entry": [
+    {
+      "id": "0",
+      "uid": "0",
+      "time": 1567635588,
+      "changes": [
+        {
+          "field": "manage_fundraisers",
+          "value": {
+            "verb": "granted",
+            "target_ids": [
+              "123123123123123",
+              "321321321321321"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

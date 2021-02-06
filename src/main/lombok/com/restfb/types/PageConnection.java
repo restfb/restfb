@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +36,7 @@ import lombok.Setter;
  * @author Patrick Alberts
  * @since 1.6.3
  */
-public class PageConnection extends CategorizedFacebookType {
+public class PageConnection extends CategorizedFacebookType implements HasCreatedTime {
 
   private static final long serialVersionUID = 1L;
 
@@ -44,7 +45,7 @@ public class PageConnection extends CategorizedFacebookType {
    * 
    * @return The time the connection was initially created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

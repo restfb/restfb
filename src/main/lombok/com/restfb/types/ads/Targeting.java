@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -353,7 +353,7 @@ public class Targeting extends AbstractFacebookType {
   @Facebook("place_page_set_ids")
   private List<String> placePageSetIds = new ArrayList<>();
 
-  @Getter(onMethod=@__(@GraphAPI(until = "2.7")))
+  @Getter(onMethod_=@GraphAPI(until = "2.7"))
   @Setter
   @Facebook("page_types")
   @GraphAPI(until = "2.7")

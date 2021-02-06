@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ public abstract class FacebookException extends RuntimeException {
    * @param message
    *          A message describing this exception.
    */
-  public FacebookException(String message) {
+  protected FacebookException(String message) {
     super(message);
   }
 
@@ -47,7 +47,7 @@ public abstract class FacebookException extends RuntimeException {
    * @param cause
    *          The exception that caused this exception to be thrown.
    */
-  public FacebookException(String message, Throwable cause) {
+  protected FacebookException(String message, Throwable cause) {
     super(message, cause);
   }
 }

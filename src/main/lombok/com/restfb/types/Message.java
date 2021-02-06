@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,9 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,14 +46,14 @@ import lombok.Setter;
  * @author Felipe Kurkowski
  * @author alockhart
  */
-public class Message extends FacebookType {
+public class Message extends FacebookType implements HasCreatedTime, HasFrom, HasMessage {
 
   /**
    * The time the message was initially created.
    *
    * @return The time the message was initially created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -70,7 +73,7 @@ public class Message extends FacebookType {
    *
    * @return The sender of this message
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -83,7 +86,7 @@ public class Message extends FacebookType {
    *
    * @return The text of the message
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -222,6 +225,18 @@ public class Message extends FacebookType {
      */
     public boolean isVideo() {
       return null != videoData;
+    }
+
+    /**
+     * returns if the attachment is a placeholder for the real
+     * attachment, that is not accessible via API due to privacy rules in Europe
+     *
+     * check <a href="https://developers.facebook.com/docs/messenger-platform/europe-updates">at Facebook</a>
+     *
+     * @return true if not accessible in the EU
+     */
+    public boolean isRemovedInEurope() {
+      return "1234".equals(getId());
     }
 
   }

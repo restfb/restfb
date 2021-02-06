@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class EducationTest extends AbstractJsonMapperTests {
+class EducationTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_2_StringYear() {
+  void checkV2_2_StringYear() {
     User.Education exampleEducation =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education"), User.Education.class);
 
@@ -41,7 +41,7 @@ public class EducationTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkV2_2_NamedYear() {
+  void checkV2_2_NamedYear() {
     User.Education exampleEducation =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/education-year-named"), User.Education.class);
 

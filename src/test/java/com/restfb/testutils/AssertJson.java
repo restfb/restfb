@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,12 @@
  */
 package com.restfb.testutils;
 
-import static org.junit.Assert.fail;
+
+import org.junit.jupiter.api.Assertions;
 
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
 
-import org.junit.Assert;
 
 /**
  * Assertion utility for JSON as Strings. Based on junit and minimal json.
@@ -71,23 +71,23 @@ public class AssertJson {
             if (actualJson.isObject() && expectedJson.isObject()) {
                 int actualFieldSize = actualJson.asObject().names().size();
                 int expectedFieldSize = expectedJson.asObject().names().size();
-                Assert.assertEquals("Objects have different fields - expected: " + expectedFieldSize + " actual: " + actualFieldSize, expectedFieldSize, actualFieldSize);
+                Assertions.assertEquals(expectedFieldSize, actualFieldSize, "Objects have different fields - expected: " + expectedFieldSize + " actual: " + actualFieldSize);
                 for (String keyName : expectedJson.asObject().names()) {
                     failIfNotEquals(keyName, expectedJson.asObject().get(keyName), actualJson.asObject().get(keyName));
                 }
             } else if (actualJson.isArray() && expectedJson.isArray()) {
                 int actualFieldSize = actualJson.asArray().size();
                 int expectedFieldSize = expectedJson.asArray().size();
-                Assert.assertEquals("Arrays have different sizes - expected: " + expectedFieldSize + " actual: " + actualFieldSize, expectedFieldSize, actualFieldSize);
+                Assertions.assertEquals(expectedFieldSize, actualFieldSize, "Arrays have different sizes - expected: " + expectedFieldSize + " actual: " + actualFieldSize);
                 for (int i = 0; i < actualJson.asArray().size(); i++) {
                     failIfNotEquals(null, expectedJson.asArray().get(i), actualJson.asArray().get(i));
                 }
             } else {
                 String assertionString = (key != null) ? "Values with key '" + key + "' are different" : "Values are different";
-                Assert.assertEquals(assertionString, expectedJson, actualJson);
+                Assertions.assertEquals(expectedJson, actualJson, assertionString);
             }
         } catch (NullPointerException npe) {
-            fail("Objects not equal: expected " + expectedJson + ", actual " + actualJson);
+            Assertions.fail("Objects not equal: expected " + expectedJson + ", actual " + actualJson);
         }
     }
 }

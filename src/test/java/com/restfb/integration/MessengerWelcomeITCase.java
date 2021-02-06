@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,12 @@
  */
 package com.restfb.integration;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
@@ -31,17 +36,11 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
 import com.restfb.types.send.CallToAction;
 import com.restfb.types.send.Greeting;
-import com.restfb.types.send.Message;
 
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
+class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void setGreeting() {
+  void setGreeting() {
     String pageAccessToken = getTestSettings().getPageAccessToken();
 
     FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.LATEST);
@@ -53,9 +52,9 @@ public class MessengerWelcomeITCase extends RestFbIntegrationTestBase {
 
     assertEquals("Successfully updated greeting", response.get("result").asString());
   }
-  
+
   @Test
-  public void setWelcomeMessage() {
+  void setWelcomeMessage() {
     String pageAccessToken = getTestSettings().getPageAccessToken();
 
     FacebookClient client = new DefaultFacebookClient(pageAccessToken, Version.LATEST);

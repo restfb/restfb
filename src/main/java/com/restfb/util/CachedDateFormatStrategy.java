@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,31 +52,24 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
 
   private static final class SimpleDateFormatHolder {
 
-    private static final ThreadLocal<SoftReference> THREADLOCAL_FORMATTER_MAP = new ThreadLocal<SoftReference>() {
-
-      @Override
-      protected SoftReference<Map> initialValue() {
-        return new SoftReference<Map>(new HashMap<String, SimpleDateFormat>());
-      }
-
-    };
+    private static final ThreadLocal<SoftReference<Map<String, SimpleDateFormat>>> THREADLOCAL_FORMATTER_MAP =
+        ThreadLocal.withInitial(() -> new SoftReference<>(new HashMap<>()));
 
     private static SimpleDateFormat formatFor(String pattern) {
-      SoftReference<Map> ref = THREADLOCAL_FORMATTER_MAP.get();
+      SoftReference<Map<String, SimpleDateFormat>> ref = THREADLOCAL_FORMATTER_MAP.get();
       Map<String, SimpleDateFormat> formatterMap = ref.get();
-      if (formatterMap == null) {
+      if (null == formatterMap) {
         formatterMap = new HashMap<>();
-        THREADLOCAL_FORMATTER_MAP.set(new SoftReference<Map>(formatterMap));
+        THREADLOCAL_FORMATTER_MAP.set(new SoftReference<>(formatterMap));
       }
 
-      SimpleDateFormat formatter = formatterMap.get(pattern);
-      if (formatter == null) {
-        formatter = new SimpleDateFormat(pattern);
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        formatterMap.put(pattern, formatter);
-      }
+      return formatterMap.computeIfAbsent(pattern, SimpleDateFormatHolder::createSDF);
+    }
 
-      return formatter;
+    private static SimpleDateFormat createSDF(String pattern) {
+      SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+      sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+      return sdf;
     }
 
     private static void clearThreadLocal() {

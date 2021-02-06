@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,35 +21,36 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
+class PageLabelTest extends AbstractJsonMapperTests {
 
-public class PageLabelTest extends AbstractJsonMapperTests {
+  @Test
+  void checkBasic_V2_6() {
+    PageLabel pageLabel = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/pagelabel-basic"), PageLabel.class);
+    assertNotNull(pageLabel);
+    assertEquals("833572353213", pageLabel.getId());
+    assertEquals("Important", pageLabel.getName());
+    assertEquals(1449649413000L, pageLabel.getCreationTime().getTime());
+    assertNotNull(pageLabel.getFrom());
+    assertEquals(0, pageLabel.getUsers().size());
+  }
 
-    @Test
-    public void checkBasic_V2_6() {
-        PageLabel pageLabel = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/pagelabel-basic"), PageLabel.class);
-        assertNotNull(pageLabel);
-        assertEquals("833572353213", pageLabel.getId());
-        assertEquals("Important", pageLabel.getName());
-        assertEquals(1449649413000L, pageLabel.getCreationTime().getTime());
-        assertNotNull(pageLabel.getFrom());
-        assertEquals(0, pageLabel.getUsers().size());
-    }
-
-    @Test
-    public void checkWithUsers_V2_6() {
-        PageLabel pageLabel = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/pagelabel-with-users"), PageLabel.class);
-        assertNotNull(pageLabel);
-        assertEquals("833572353213", pageLabel.getId());
-        assertEquals("Important", pageLabel.getName());
-        assertEquals(1449649413000L, pageLabel.getCreationTime().getTime());
-        assertNotNull(pageLabel.getFrom());
-        assertEquals(1, pageLabel.getUsers().size());
-        assertNotNull(pageLabel.getUsers().get(0));
-    }
+  @Test
+  void checkWithUsers_V2_6() {
+    PageLabel pageLabel =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/pagelabel-with-users"), PageLabel.class);
+    assertNotNull(pageLabel);
+    assertEquals("833572353213", pageLabel.getId());
+    assertEquals("Important", pageLabel.getName());
+    assertEquals(1449649413000L, pageLabel.getCreationTime().getTime());
+    assertNotNull(pageLabel.getFrom());
+    assertEquals(1, pageLabel.getUsers().size());
+    assertNotNull(pageLabel.getUsers().get(0));
+  }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -116,6 +116,14 @@ public class AdCreative extends NamedAdsObject {
   private String applinkTreatment;
 
   /**
+   * Used for Dynamic Creative to automatically experiment and deliver different variations of an ad's creative.
+   */
+  @Getter
+  @Setter
+  @Facebook("asset_feed_spec")
+  private AdAssetFeedSpec assetFeedSpec;
+
+  /**
    * The body of the ad
    *
    * -- GETTER --
@@ -216,6 +224,11 @@ public class AdCreative extends NamedAdsObject {
   @Setter
   @Facebook("instagram_story_id")
   private String instagramStoryId;
+
+  @Getter
+  @Setter
+  @Facebook("instagram_user_id")
+  private String instagramUserId;
 
   @Getter
   @Setter
@@ -358,6 +371,11 @@ public class AdCreative extends NamedAdsObject {
   @Setter
   @Facebook("product_set_id")
   private String productSetId;
+
+  @Getter
+  @Setter
+  @Facebook("source_instagram_media_id")
+  private String sourceInstagramMediaId;
 
   /**
    * The run status of this creative.

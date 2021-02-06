@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,9 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasFrom;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,14 +41,14 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
-public class Checkin extends FacebookType {
+public class Checkin extends FacebookType implements HasCreatedTime, HasFrom, HasMessage {
 
   /**
    * The message the user added to the check-in.
    * 
    * @return The message the user added to the check-in.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -55,7 +58,7 @@ public class Checkin extends FacebookType {
    * 
    * @return The ID and name of the user who made the check-in.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -85,7 +88,7 @@ public class Checkin extends FacebookType {
    * 
    * @return The time the check-in was created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;

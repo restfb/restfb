@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,10 @@ package com.restfb.scope;
 
 import com.restfb.annotation.GraphAPI;
 
+/**
+ * Please check the permission dependencies
+ * <a href="https://developers.facebook.com/docs/pages/overview-1#permission-dependencies">here</a>
+ */
 public enum FacebookPermissions {
   /**
    * Provides access to a subset of items that are part of a person's public profile.
@@ -45,13 +49,13 @@ public enum FacebookPermissions {
    * declare it. On iOS and Android, you must manually request it as part of your login flow.<br />
    * <br />
    * 
-   * gender & locale can only be accessed if:
+   * gender &amp; locale can only be accessed if:
    * 
    * <ul>
    * <li>The person queried is the person using the app.</li>
    * <li>The person queried is using the app, and is a friend of the person using the app.</li>
    * <li>The person queried is using the app, is not a friend of the person using the app, but the app includes either
-   * an app access token or an appsecret_proof argument with the call.</li> <br />
+   * an app access token or an <code>appsecret_proof</code> argument with the call.</li> <br />
    * <strong>Review</strong> Your app may use this permission without review from Facebook.
    */
   PUBLIC_PROFILE("public_profile", Category.PUBLIC), //
@@ -475,7 +479,72 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it. You can grant this
    * permission on behalf of people listed within the Roles section of your App's Dashboard without review by Facebook.
    */
+  @Deprecated
   MANAGE_PAGES("manage_pages", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_ads} permission allows your app the ability to manage ads associated with the Page.
+   * 
+   * <p>
+   * You can use this permission to create and manage ads for the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_ADS("pages_manage_ads", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_metadata} permission allows you to subscribe and receive webhooks about activity on the
+   * Page, and to update settings on the Page.
+   * 
+   * <p>
+   * You can use this permission if you need it to help the Page Admin administer and manage the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_METADATA("pages_manage_metadata", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_read_engagement} permission allows your app the ability to read content (posts, photos, videos,
+   * events) posted by the Page, read followers data including name, PSID, and profile picture, and read metadata and
+   * other insights about the Page.
+   * 
+   * <p>
+   * You can use this permission if you need it to help the Page Admin administer and manage the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_READ_ENGAGEMENT("pages_read_engagement", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_read_user_content} permission allows your app the ability to read User generated content on the
+   * Page, such as posts, comments, and ratings by Users or other Pages, and to delete User comments on Page posts.
+   *
+   * <p>
+   * It also allows your app to read posts that the Page is tagged in.
+   *
+   * <p>
+   * You can use this permission to read Users and other Page’s content posted on the Page if you need it to help manage
+   * the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_READ_USER_CONTENT("pages_read_user_content", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Provides the access to manage call to actions of the Pages that you manage.
@@ -597,7 +666,48 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   @GraphAPI(since = "2.3")
+  @Deprecated
   PUBLISH_PAGES("publish_pages", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_posts} permission allows your app the ability to create, edit, and delete your Page posts.
+   *
+   * <p>
+   * If you have access to {@code pages_read_user_content}, you can also use {@code pages_manage_posts} to delete Page
+   * posts created by a User.
+   *
+   * <p>
+   * You can use this permission to create and delete content on the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_POSTS("pages_manage_posts", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_manage_engagement} permission allows your app the ability to create, edit, and delete comments
+   * posted on the Page.
+   *
+   * <p>
+   * If you have access to {@code pages_read_user_content}, you can also use {@code pages_manage_engagement} to delete
+   * comments posted by other Pages.
+   *
+   * <p>
+   * It also allows your app the ability to create and delete your own Page's likes to Page content.
+   *
+   * <p>
+   * You can use this permission if you need it to help manage and moderate content on the Page.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  PAGES_MANAGE_ENGAGEMENT("pages_manage_engagement", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Gives an app the ability to post content into a group on behalf of a user who has granted the app this permission.
@@ -759,6 +869,19 @@ public enum FacebookPermissions {
   BUSINESS_MANAGEMENT("business_management", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * Grants your app the ability to create, read, update, and delete business owned product catalogs that the user is an
+   * admin of. This permission grants access to related endpoints. By default, your app may only access product catalogs
+   * that are owned by admins of the app when in developer mode.
+   * 
+   * <p>
+   * <strong>Review</strong>
+   * 
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  CATALOG_MANAGEMENT("catalog_management", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
    * Grants your app permission to retrieve all the information captured within a
    * <a href="https://developers.facebook.com/docs/marketing-api/guides/lead-ads/">lead.</a>
    *
@@ -784,7 +907,7 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   @GraphAPI(since = "2.6")
-  PAGES_MESSAGING_SUBSCRPTIONS("pages_messaging_subscriptions", Category.MESSAGING), //
+  PAGES_MESSAGING_SUBSCRIPTIONS("pages_messaging_subscriptions", Category.MESSAGING), //
 
   /**
    * This allows you to charge users in Messenger conversations on behalf of pages.
@@ -865,7 +988,26 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   @GraphAPI(since = "2.5")
-  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM);
+  INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM),
+
+  /**
+   * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other
+   * businesses through this permission.
+   *
+   * These business assets include WhatsApp business accounts, phone numbers, and message templates.
+   *
+   * <p>
+   * Please see <a href=
+   * "https://developers.facebook.com/docs/facebook-login/permissions/#reference-whatsapp_business_management">Whatsapps's
+   * reference</a> for details.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP);
 
   private final String permissionString;
 
@@ -885,6 +1027,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO;
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP
   }
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -73,6 +73,11 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("commerce_tax_category")
+  private String commerceTaxCategory;
+
+  @Getter
+  @Setter
   @Facebook("commerce_insights")
   private ProductItemCommerceInsights commerceInsights;
 
@@ -80,6 +85,11 @@ public class ProductItem extends NamedAdsObject {
   @Setter
   @Facebook("condition")
   private String condition;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String currency;
 
   @Getter
   @Setter
@@ -138,6 +148,11 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook
+  private Integer inventory;
+
+  @Getter
+  @Setter
   @Facebook("manufacturer_part_number")
   private String manufacturerPartNumber;
 
@@ -145,6 +160,11 @@ public class ProductItem extends NamedAdsObject {
   @Setter
   @Facebook("material")
   private String material;
+
+  @Getter
+  @Setter
+  @Facebook("mobile_link")
+  private String mobileLink;
 
   @Getter
   @Setter
@@ -163,8 +183,18 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("product_catalog")
+  private ProductCatalog productCatalog;
+
+  @Getter
+  @Setter
   @Facebook("product_feed")
   private ProductFeed productFeed;
+
+  @Getter
+  @Setter
+  @Facebook("product_group")
+  private ProductGroup productGroup;
 
   @Getter
   @Setter
@@ -215,6 +245,11 @@ public class ProductItem extends NamedAdsObject {
   @Setter
   @Facebook("shipping_weight_value")
   private Double shippingWeightValue;
+
+  @Getter
+  @Setter
+  @Facebook("short_description")
+  private String shortDescription;
 
   @Getter
   @Setter

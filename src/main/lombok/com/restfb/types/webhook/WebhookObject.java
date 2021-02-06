@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,4 +48,45 @@ public class WebhookObject {
   @Getter
   @Setter
   private List<WebhookEntry> entryList = new ArrayList<>();
+
+  public boolean isAdAccount() {
+    return "ad_account".equals(object);
+  }
+
+  public boolean isApplication() {
+    return "application".equals(object);
+  }
+
+  public boolean isCertificateTransparency() {
+    return "certificate_transparency".equals(object);
+  }
+
+  public boolean isGroup() {
+    return "group".equals(object);
+  }
+
+  public boolean isInstagram() {
+    return "instagram".equals(object);
+  }
+
+  public boolean isInstantWorkflow() {
+    return "instant_workflow".equals(object);
+  }
+
+  public boolean isPage() {
+    return "page".equals(object);
+  }
+
+  public boolean isPermissions() {
+    return "permissions".equals(object);
+  }
+
+  public boolean isUser() {
+    return "user".equals(object);
+  }
+
+  public boolean isWorkplaceSecurity() {
+    return "workplace_security".equals(object);
+  }
+
 }

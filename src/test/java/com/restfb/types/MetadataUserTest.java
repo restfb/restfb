@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class MetadataUserTest extends AbstractJsonMapperTests {
+class MetadataUserTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_1() {
+  void checkV2_1() {
     FacebookType.Metadata exampleUserMetadata =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/metadata-user"), FacebookType.Metadata.class);
     assertEquals("user", exampleUserMetadata.getType());

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class PageRatingTest extends AbstractJsonMapperTests {
+class PageRatingTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_2_2() {
+  void check_2_2() {
     PageRating exampleRating =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_2/page-rating-example1"), PageRating.class);
     assertEquals(1448795001000L, exampleRating.getStartTime().getTime());
@@ -62,12 +62,12 @@ public class PageRatingTest extends AbstractJsonMapperTests {
     assertEquals("https://www.facebook.com/games/?app_id=302324425790", appl.getLink());
 
     assertFalse(exampleRating.getIsDraft());
-    assertEquals(3D, exampleRating.getRatingValue().doubleValue(), 00.1);
+    assertEquals(3D, exampleRating.getRatingValue().doubleValue());
     assertEquals(5L, exampleRating.getRatingScale().intValue());
   }
 
   @Test
-  public void check_2_5() {
+  void check_2_5() {
     OpenGraphRating exampleOGRating =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-rating-example1"), OpenGraphRating.class);
     assertNotNull(exampleOGRating.getOpenGraphStory().getPlace());

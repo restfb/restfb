@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,31 +21,30 @@
  */
 package com.restfb.types;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class GraphResponseTest extends AbstractJsonMapperTests {
+class GraphResponseTest extends AbstractJsonMapperTests {
 
   @Test
-  public void successExample() {
+  void successExample() {
     GraphResponse result =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_success"), GraphResponse.class);
     assertTrue(result.isSuccess());
   }
 
   @Test
-  public void successNotExample() {
+  void successNotExample() {
     GraphResponse result =
-            createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_success_not"), GraphResponse.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_success_not"), GraphResponse.class);
     assertFalse(result.isSuccess());
   }
 
   @Test
-  public void idExample() {
+  void idExample() {
     GraphResponse result =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_id"), GraphResponse.class);
     assertTrue(result.isSuccess());
@@ -54,7 +53,7 @@ public class GraphResponseTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void imageExample() {
+  void imageExample() {
     GraphResponse result =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/graphresponse_image"), GraphResponse.class);
     assertTrue(result.isSuccess());

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,14 +23,14 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.testutils.AssertJson;
 
-import org.junit.Test;
-
-public class JsonMapperEnumTest {
+class JsonMapperEnumTest {
 
   @Test
-  public void createWithEnum() {
+  void createWithEnum() {
     String simpleJson = "{\"id\": 12345, \"test_enum\": \"FOO\"}";
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
@@ -40,7 +40,7 @@ public class JsonMapperEnumTest {
   }
 
   @Test
-  public void createWithNonExistingEnumValue() {
+  void createWithNonExistingEnumValue() {
     String simpleJson = "{\"id\": 12345, \"test_enum\": \"BAZ\"}";
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
@@ -50,7 +50,7 @@ public class JsonMapperEnumTest {
   }
 
   @Test
-  public void createJsonFromObject() {
+  void createJsonFromObject() {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestTypeSimple testType = new EnumTestTypeSimple();
     testType.testEnum = EnumTestEnum.BAR;

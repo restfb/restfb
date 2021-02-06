@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,11 @@ public class AdgroupIssuesInfo extends AbstractFacebookType {
   @Setter
   @Facebook("error_message")
   private String errorMessage;
+
+  @Getter
+  @Setter
+  @Facebook("error_type")
+  private String errorType;
 
   @Getter
   @Setter

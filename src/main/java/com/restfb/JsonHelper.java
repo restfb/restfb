@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +21,10 @@
  */
 package com.restfb;
 
-import com.restfb.json.JsonValue;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
+import com.restfb.json.JsonValue;
 
 /**
  * Helper class to convert {@link JsonValue} to a given type
@@ -165,5 +165,20 @@ class JsonHelper {
     } else {
       return new BigDecimal(json.toString());
     }
+  }
+
+  /**
+   * removes starting and ending double quote from a input String
+   * 
+   * @param jsonInput
+   *          input JSON string
+   * @return the cleaned input string without leading and ending double quote
+   */
+  public String cleanString(String jsonInput) {
+    if (jsonInput.length() > 1 && jsonInput.startsWith("\"") && jsonInput.endsWith("\"")) {
+      return jsonInput.substring(1, jsonInput.length() - 1);
+    }
+
+    return jsonInput;
   }
 }

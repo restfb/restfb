@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,31 +23,31 @@ package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.FakeWebRequestor;
 import com.restfb.Version;
 
-public class EndpointBuilderTest {
+class EndpointBuilderTest {
 
   @Test
-  public void deleteObjectDELETETest() {
+  void deleteObjectDELETETest() {
     FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_8);
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_3_1);
     client.deleteObject("comment");
     assertThat(wr.getMethod()).isEqualTo("DELETE");
-    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.8/comment?access_token=12345&format=json");
+    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v3.1/comment?access_token=12345&format=json");
   }
 
   @Test
-  public void deleteObjectPOSTTest() {
+  void deleteObjectPOSTTest() {
     FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_2_8);
+    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_3_1);
     client.setHttpDeleteFallback(true);
     client.deleteObject("comment");
     assertThat(wr.getMethod()).isEqualTo("POST");
-    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v2.8/comment");
+    assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v3.1/comment");
   }
 }

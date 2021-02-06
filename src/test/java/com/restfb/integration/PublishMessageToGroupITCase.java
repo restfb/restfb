@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,10 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
@@ -28,22 +32,19 @@ import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.GraphResponse;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 @NeedFacebookWriteAccess
-public class PublishMessageToGroupITCase extends RestFbIntegrationTestBase {
+class PublishMessageToGroupITCase extends RestFbIntegrationTestBase {
 
   @Test
-  public void publishMessageToGroup() {
+  void publishMessageToGroup() {
 
     // needed permissions: publish_actions, user_managed_groups
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_2_8);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
 
     GraphResponse result = client.publish(getTestSettings().getGroupId() + "/feed", GraphResponse.class,
       Parameter.with("message", "This is a great test message"));
 
-    Assert.assertTrue(result.isSuccess());
+    assertTrue(result.isSuccess());
   }
 }

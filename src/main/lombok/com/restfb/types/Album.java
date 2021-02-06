@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,9 @@ import java.util.Date;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
-import com.restfb.util.MappingUtils;
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasProfilePicture;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +39,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class Album extends NamedFacebookType {
+public class Album extends NamedFacebookType implements HasProfilePicture, HasComments, HasCreatedTime {
 
   /**
    * An object containing the ID and name of the profile who posted this album.
@@ -127,7 +129,7 @@ public class Album extends NamedFacebookType {
    * 
    * @return The time the photo album was initially created.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -167,7 +169,7 @@ public class Album extends NamedFacebookType {
    *
    * @return The comments for this album.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private Comments comments;
@@ -183,7 +185,7 @@ public class Album extends NamedFacebookType {
    *
    * @return the album's picture as ProfilePictureSource object
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   private ProfilePictureSource picture;
 
@@ -201,8 +203,7 @@ public class Album extends NamedFacebookType {
 
   @JsonMappingCompleted
   protected void fillPicture(JsonMapper jsonMapper) {
-    MappingUtils mappingUtils = new MappingUtils(jsonMapper);
-    picture = mappingUtils.convertPicture(rawPicture);
+    picture = this.convertPicture(jsonMapper, rawPicture);
   }
 
   @JsonMappingCompleted

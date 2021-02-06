@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
@@ -33,17 +33,17 @@ import com.restfb.types.User;
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
+class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
 
   @Test
-  public void emptyStrings() {
+  void emptyStrings() {
     assertThat(createSwallowingJsonMapper().toJavaObject("", Integer.class)).isNull();
     assertThat(createSwallowingJsonMapper().toJavaObject("", String.class)).isNull();
     assertThat(createSwallowingJsonMapper().toJavaList("", String.class)).isNull();
   }
 
   @Test
-  public void objectWithIncorrectFields() {
+  void objectWithIncorrectFields() {
     MostlyIncorrectUser mostlyIncorrectUser =
         createSwallowingJsonMapper().toJavaObject(jsonFromClasspath("user-with-photos"), MostlyIncorrectUser.class);
 
@@ -51,7 +51,7 @@ public class JsonMapperErrorSwallowingTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void listWithIncorrectObject() {
+  void listWithIncorrectObject() {
     List<User> users = createSwallowingJsonMapper().toJavaList(jsonFromClasspath("incorrect-user-list"), User.class);
 
     assertThat(users.get(0).getId()).isEqualTo("123");

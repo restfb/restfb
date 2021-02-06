@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +23,13 @@ package com.restfb;
 
 import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
 
-import com.restfb.util.SoftHashMap;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Supplier;
+
+import com.restfb.util.SoftHashMap;
 
 /**
  * WebRequestor with ETag-support.
@@ -59,8 +60,9 @@ import java.util.Map;
  */
 public class ETagWebRequestor extends DefaultWebRequestor {
 
-  private final Map<String, ETagResponse> etagCache =
-      Collections.synchronizedMap(new SoftHashMap<String, ETagResponse>());
+  private static Supplier<Map<String, ETagResponse>> mapBuilder = SoftHashMap::new;
+
+  final Map<String, ETagResponse> etagCache = Collections.synchronizedMap(mapBuilder.get());
   private final ThreadLocal<ETagResponse> currentETagRespThreadLocal = new ThreadLocal<>();
   private volatile boolean useCache = true;
 
@@ -115,12 +117,26 @@ public class ETagWebRequestor extends DefaultWebRequestor {
    * </p>
    *
    * @param useCache
+   *          flag to dis/enable the cache during runtime
    */
   public void setUseCache(boolean useCache) {
     this.useCache = useCache;
   }
 
-  private class ETagResponse {
+  /**
+   * Override the mapSupplier, it needs to be some implementation of the {@link Map} interface.
+   * 
+   * You have to set this before the {@link ETagWebRequestor} object is created. While building it, the mapSupplier is
+   * used
+   * 
+   * @param mapSupplier
+   *          the supplier, that returns a new Map,
+   */
+  public static void setMapSupplier(Supplier<Map<String, ETagResponse>> mapSupplier) {
+    ETagWebRequestor.mapBuilder = mapSupplier;
+  }
+
+  static class ETagResponse {
 
     public ETagResponse(String etag, String body) {
       this.etag = etag;

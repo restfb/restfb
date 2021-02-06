@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class PagePaymentOptionsTest extends AbstractJsonMapperTests {
+class PagePaymentOptionsTest extends AbstractJsonMapperTests {
 
   @Test
-  public void convertPaymentOptions() {
+  void convertPaymentOptions() {
     Page.PagePaymentOptions paymentOptions =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_3/page-paymentoptions"), Page.PagePaymentOptions.class);
     assertFalse(paymentOptions.getAmex());

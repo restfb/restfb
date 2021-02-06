@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,12 @@ package com.restfb.types.setter;
 import com.restfb.types.Post;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PostTest extends SetterGetterTestBase {
+class PostTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Post obj = new Post();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -43,7 +43,7 @@ public class PostTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testAction() {
+  void testAction() {
     Post.Action obj = new Post.Action();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -51,7 +51,7 @@ public class PostTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testProperty() {
+  void testProperty() {
     Post.Property obj = new Post.Property();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -59,7 +59,7 @@ public class PostTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testShares() {
+  void testShares() {
     Post.Shares obj = new Post.Shares();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
@@ -67,14 +67,14 @@ public class PostTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testFeedTargeting() {
+  void testFeedTargeting() {
     Post.FeedTargeting obj = new Post.FeedTargeting();
     addIgnoredField("rawRelevantUntilTs");
     testInstance(obj);
   }
 
   @Test
-  public void testAttachments() {
+  void testAttachments() {
     Post.Attachments obj = new Post.Attachments();
     testInstance(obj);
   }

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,34 +21,32 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.types.send.MediaAttachment;
 
-public class UrlPayloadTest {
+class UrlPayloadTest {
 
   @Test
-  public void checkToString() {
+  void checkToString() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     String toStringAttachment = "MediaAttachment[payload=UrlPayload[isReusable=null url=exampleUrl] type=image]";
-    assertEquals(toStringAttachment, attachment.toString());
+    assertThat(attachment.toString()).isEqualTo(toStringAttachment);
   }
 
   @Test
-  public void checkHashcode() {
+  void checkHashcode() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
-    assertEquals(-1842490888, attachment.hashCode());
+    assertThat(attachment.hashCode()).isEqualTo(-1842490888);
   }
 
   @Test
-  public void checkEquals() {
+  void checkEquals() {
     MediaAttachment attachment1 = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     MediaAttachment attachment2 = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
-    assertTrue(attachment1.equals(attachment2));
-    // equals is used here, because this is the test
+    assertThat(attachment1).isEqualTo(attachment2);
   }
 
 }

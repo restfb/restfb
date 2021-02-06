@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,18 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.hamcrest.core.StringContains;
-import org.junit.Test;
-
-public class UrlTest extends AbstractJsonMapperTests {
+class UrlTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkURL_v2_1() {
+  void checkURL_v2_1() {
     Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/url-gotg"), Url.class);
     assertNotNull(exampleUrl);
     assertEquals("http://www.imdb.com/title/tt2015381/", exampleUrl.getId());
@@ -39,14 +40,14 @@ public class UrlTest extends AbstractJsonMapperTests {
     assertEquals("10150298925420108", exampleUrl.getOgObject().getId());
     assertEquals("video.movie", exampleUrl.getOgObject().getType());
     assertEquals(1411924963000L, exampleUrl.getOgObject().getUpdatedTime().getTime());
-    assertThat("", exampleUrl.getOgObject().getImage(), new StringContains("screencap.png"));
-    assertThat("", exampleUrl.getOgObject().getTitle(), new StringContains("Guardians"));
+    assertThat(exampleUrl.getOgObject().getImage()).contains("screencap.png");
+    assertThat(exampleUrl.getOgObject().getTitle()).contains("Guardians");
     assertEquals(0, exampleUrl.getCommentCount());
     assertEquals(59573, exampleUrl.getShareCount());
   }
 
   @Test
-  public void checkURL_v2_8() {
+  void checkURL_v2_8() {
     Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_8/url-with-share"), Url.class);
     assertNotNull(exampleUrl);
     assertEquals(5871, exampleUrl.getCommentCount());
@@ -60,7 +61,7 @@ public class UrlTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkURL_v2_9() {
+  void checkURL_v2_9() {
     Url exampleUrl = createJsonMapper().toJavaObject(jsonFromClasspath("v2_9/url-with-engagement"), Url.class);
     assertNotNull(exampleUrl);
     assertEquals(13809962, exampleUrl.getCommentCount());

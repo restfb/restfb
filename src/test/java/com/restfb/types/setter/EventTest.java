@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,12 @@ package com.restfb.types.setter;
 import com.restfb.types.Event;
 import com.restfb.types.api.SetterGetterTestBase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EventTest extends SetterGetterTestBase {
+class EventTest extends SetterGetterTestBase {
 
   @Test
-  public void test() {
+  void test() {
     Event obj = new Event();
     addIgnoredField("rawStartTime");
     addIgnoredField("rawEndTime");
@@ -40,14 +40,14 @@ public class EventTest extends SetterGetterTestBase {
   }
 
   @Test
-  public void testOwner() {
+  void testOwner() {
     Event.Owner obj = new Event.Owner();
     addIgnoredField("rawIssuedAt");
     testInstance(obj);
   }
 
   @Test
-  public void testCategory() {
+  void testCategory() {
     Event.Category obj = new Event.Category();
     addIgnoredField("rawIssuedAt");
     testInstance(obj);

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,8 @@ import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.*;
+
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookException;
@@ -40,11 +42,6 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.ReflectionUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client must operate.
@@ -98,6 +95,17 @@ public interface FacebookClient {
    *           If an error occurs while performing the API call.
    */
   <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters);
+
+  /**
+   * creates a new <code>FacebookClient</code> from a old one.
+   * 
+   * App secret and and api version are taken from the original client.
+   *
+   * @param accessToken
+   *          this accesstoken is used for the new client
+   * @return a new Facebookclient
+   */
+  FacebookClient createClientWithAccessToken(String accessToken);
 
   /**
    * Fetches multiple <a href="http://developers.facebook.com/docs/reference/api/">Graph API objects</a> in a single
@@ -563,6 +571,16 @@ public interface FacebookClient {
     @Facebook("token_type")
     private String tokenType;
 
+    private FacebookClient client;
+
+    public void setClient(FacebookClient client) {
+      this.client = client;
+    }
+
+    public FacebookClient getClient() {
+      return Optional.ofNullable(client).orElse(null);
+    }
+
     /**
      * Given a query string of the form {@code access_token=XXX} or {@code access_token=XXX&expires=YYY}, return an
      * {@code AccessToken} instance.
@@ -614,15 +632,8 @@ public interface FacebookClient {
         rawExpires = urlParameters.get("expires_in").get(0);
       }
 
-      if (rawExpires != null) {
-        try {
-          expires = Long.valueOf(rawExpires);
-        } catch (NumberFormatException e) {
-          // rawExpires is not a number, NumberFormatException ignored
-        }
-        if (expires != null) {
-          expires = new Date().getTime() + 1000L * expires;
-        }
+      if (rawExpires != null && rawExpires.trim().matches("\\d+")) {
+        expires = new Date().getTime() + Long.parseLong(rawExpires) * 1000L;
       }
 
       AccessToken accessToken = new AccessToken();
@@ -699,37 +710,74 @@ public interface FacebookClient {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The ID of the application this access token is for.
+     */
     @Facebook("app_id")
     private String appId;
 
+    /**
+     * Name of the application this access token is for.
+     */
     @Facebook
     private String application;
 
+    /**
+     * Timestamp when this access token expires.
+     */
     @Facebook("expires_at")
-    private Long expiresAt;
+    private Date expiresAt;
 
+    /**
+     * Timestamp when app's access to user data expires.
+     */
+    @Facebook("data_access_expires_at")
+    private Date dataAccessExpiresAt;
+
+    /**
+     * Timestamp when this access token was issued.
+     */
     @Facebook("issued_at")
-    private Long issuedAt;
+    private Date issuedAt;
 
+    /**
+     * Whether the access token is still valid or not.
+     */
     @Facebook("is_valid")
     private Boolean isValid;
 
+    /**
+     * The ID of the user this access token is for.
+     */
     @Facebook("user_id")
     private String userId;
 
+    /**
+     * For impersonated access tokens, the ID of the page this token contains.
+     */
     @Facebook("profile_id")
     private String profileId;
 
+    /**
+     * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'
+     */
     @Facebook
     private JsonObject metadata;
 
+    /**
+     * Any error that a request to the graph api would return due to the access token.
+     */
     @Facebook
     private DebugTokenError error;
 
+    /**
+     * List of permissions that the user has granted for the app in this access token.
+     */
     @Facebook
     private List<String> scopes = new ArrayList<>();
 
-    // FIXME let's read 'metadata' if it exist. It's a nested structure...
+    @Facebook
+    private String type;
 
     /**
      * The application id.
@@ -755,8 +803,16 @@ public interface FacebookClient {
      * @return The date on which the access token expires.
      */
     public Date getExpiresAt() {
-      // note that the expire timestamp is in *seconds*, not milliseconds
-      return expiresAt == null ? null : new Date(expiresAt * 1000L);
+      return expiresAt;
+    }
+
+    /**
+     * Timestamp when app's access to user data expires.
+     *
+     * @return The date when app's access to user data expires.
+     */
+    public Date getDataAccessExpiresAt() {
+      return dataAccessExpiresAt;
     }
 
     /**
@@ -765,8 +821,7 @@ public interface FacebookClient {
      * @return The date on which the access token was issued.
      */
     public Date getIssuedAt() {
-      // note that the issue timestamp is in *seconds*, not milliseconds
-      return issuedAt == null ? null : new Date(issuedAt * 1000L);
+      return issuedAt;
     }
 
     /**
@@ -804,8 +859,8 @@ public interface FacebookClient {
     public JsonObject getMetaData() {
       return metadata;
     }
-    
-     /**
+
+    /**
      * All Error data associated with access token debug.
      * 
      * @return debug token error
@@ -814,18 +869,30 @@ public interface FacebookClient {
       return error;
     }
 
+    public String getType() {
+      return type;
+    }
   }
 
   class DebugTokenError extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The error code for the error.
+     */
     @Facebook
     private Integer code;
 
+    /**
+     * The error message for the error.
+     */
     @Facebook
     private String message;
 
+    /**
+     * The error subcode for the error.
+     */
     @Facebook
     private Integer subcode;
 

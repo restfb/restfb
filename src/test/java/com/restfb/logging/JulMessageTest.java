@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,63 +21,63 @@
  */
 package com.restfb.logging;
 
-import static junit.framework.TestCase.*;
-
-import org.junit.Test;
-import org.mockito.internal.matchers.Null;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 
-public class JulMessageTest {
+import org.junit.jupiter.api.Test;
+
+class JulMessageTest {
 
   @Test
-  public void simpleMessage_escapedPlaceholder_noException() {
+  void simpleMessage_escapedPlaceholder_noException() {
     JulMessage.MessageTuple tuple = JulMessage.convertMessageString("Simple\\{} text");
-    assertEquals(tuple.getMessage(), "Simple\\{} text");
+    assertEquals("Simple\\{} text", tuple.getMessage());
     assertNull(tuple.getThrowable());
   }
 
   @Test
-  public void simpleMessage_escapedPlaceholderAtBeginning_noException() {
+  void simpleMessage_escapedPlaceholderAtBeginning_noException() {
     JulMessage.MessageTuple tuple = JulMessage.convertMessageString("\\{}Simple text");
-    assertEquals(tuple.getMessage(), "\\{}Simple text");
+    assertEquals("\\{}Simple text", tuple.getMessage());
     assertNull(tuple.getThrowable());
   }
 
   @Test
-  public void simpleMessage_noPlaceholder_withException() {
+  void simpleMessage_noPlaceholder_withException() {
     JulMessage.MessageTuple tuple = JulMessage.convertMessageString("Simple text", new NullPointerException());
-    assertEquals(tuple.getMessage(), "Simple text");
+    assertEquals("Simple text", tuple.getMessage());
     assertNotNull(tuple.getThrowable());
   }
 
   @Test
-  public void simpleMessage_with2Placeholder_noException() {
+  void simpleMessage_with2Placeholder_noException() {
     String convertedText = JulMessage.convertMessageString("Simple{} text {}", 2, 3).getMessage();
     assertEquals("Simple2 text 3", convertedText);
   }
 
   @Test
-  public void simpleMessage_withPlaceholderOnlyBetween_noException() {
+  void simpleMessage_withPlaceholderOnlyBetween_noException() {
     String convertedText = JulMessage.convertMessageString("Simple{} {} text", 2, 3).getMessage();
     assertEquals("Simple2 3 text", convertedText);
   }
 
   @Test
-  public void simpleMessage_withPlaceholderAtBeginning_noException() {
+  void simpleMessage_withPlaceholderAtBeginning_noException() {
     String convertedText = JulMessage.convertMessageString("{}Simple text {}", 2, 3).getMessage();
     assertEquals("2Simple text 3", convertedText);
   }
 
   @Test
-  public void simpleMessage_withPlaceholder_withException() {
-    JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2,3, new NullPointerException());
+  void simpleMessage_withPlaceholder_withException() {
+    JulMessage.MessageTuple tuple =
+        JulMessage.convertMessageString("{}Simple text {}", 2, 3, new NullPointerException());
     assertEquals("2Simple text 3", tuple.getMessage());
     assertNotNull(tuple.getThrowable());
   }
 
   @Test
-  public void simpleMessage_withPlaceholder_Object() {
+  void simpleMessage_withPlaceholder_Object() {
     Object testObj = new Object() {
       @Override
       public String toString() {
@@ -89,43 +89,50 @@ public class JulMessageTest {
   }
 
   @Test
-  public void simpleMessage_withPlaceholder_long() {
-    String convertedText = JulMessage.convertMessageString("Simple long {}", 3l).getMessage();
+  void simpleMessage_withPlaceholder_long() {
+    String convertedText = JulMessage.convertMessageString("Simple long {}", 3L).getMessage();
     assertEquals("Simple long 3", convertedText);
   }
 
   @Test
-  public void simpleMessage_withPlaceholder_byte() {
+  void simpleMessage_withPlaceholder_byte() {
     byte b = 100;
     String convertedText = JulMessage.convertMessageString("Simple byte {}", b).getMessage();
     assertEquals("Simple byte 100", convertedText);
   }
 
   @Test
-  public void simpleMessage_withPlaceholder_BigDecimal() {
+  void simpleMessage_withPlaceholder_BigDecimal() {
     BigDecimal bd = new BigDecimal(100);
     String convertedText = JulMessage.convertMessageString("Simple BigDecimal {}", bd).getMessage();
     assertEquals("Simple BigDecimal 100", convertedText);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void simpleMessage_withPlaceholder_argumentCountMismatch() {
-    JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2);
-    assertEquals("2Simple text 3", tuple.getMessage());
-    assertNotNull(tuple.getThrowable());
+  @Test
+  void simpleMessage_withPlaceholder_argumentCountMismatch() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2);
+      assertEquals("2Simple text 3", tuple.getMessage());
+      assertNotNull(tuple.getThrowable());
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void simpleMessage_withPlaceholder_argumentCountMismatch_withException() {
-    JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text {}", 2, new NullPointerException());
-    assertEquals("2Simple text 3", tuple.getMessage());
-    assertNotNull(tuple.getThrowable());
+  @Test
+  void simpleMessage_withPlaceholder_argumentCountMismatch_withException() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      JulMessage.MessageTuple tuple =
+          JulMessage.convertMessageString("{}Simple text {}", 2, new NullPointerException());
+      assertEquals("2Simple text 3", tuple.getMessage());
+      assertNotNull(tuple.getThrowable());
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void simpleMessage_withPlaceholder_argumentCountMismatch2() {
-    JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text", 2, 3);
-    assertEquals("2Simple text 3", tuple.getMessage());
-    assertNotNull(tuple.getThrowable());
+  @Test
+  void simpleMessage_withPlaceholder_argumentCountMismatch2() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      JulMessage.MessageTuple tuple = JulMessage.convertMessageString("{}Simple text", 2, 3);
+      assertEquals("2Simple text 3", tuple.getMessage());
+      assertNotNull(tuple.getThrowable());
+    });
   }
 }

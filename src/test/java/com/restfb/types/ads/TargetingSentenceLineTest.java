@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types.ads;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class TargetingSentenceLineTest extends AbstractJsonMapperTests {
+class TargetingSentenceLineTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkStringAndObject() {
+  void checkStringAndObject() {
     TargetingSentenceLine ruleJson = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_8/targetingsentenceline"), TargetingSentenceLine.class);
     assertNotNull(ruleJson);
@@ -42,7 +42,7 @@ public class TargetingSentenceLineTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkStringOnly() {
+  void checkStringOnly() {
     TargetingSentenceLine ruleJson = createJsonMapper()
       .toJavaObject(jsonFromClasspath("ads/v2_8/targetingsentencelinefallback"), TargetingSentenceLine.class);
     assertNotNull(ruleJson);

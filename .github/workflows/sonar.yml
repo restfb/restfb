@@ -1,0 +1,27 @@
+name: Check with Sonar
+on:
+  push:
+    branches:
+      - master
+      - dev
+jobs:
+  build-jdk11:
+    runs-on: ubuntu-latest
+    name: Build with Java 11
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Send to Sonarcloud
+        run: mvn -B verify sonar:sonar -Dsonar.sources=src/main/java,target/generated-sources/delombok
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

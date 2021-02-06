@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types.instagram;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class IgMediaTest extends AbstractJsonMapperTests {
+class IgMediaTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkMediaImage() {
+  void checkMediaImage() {
     IgMedia igMedia = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/media-image"), IgMedia.class);
     assertNotNull(igMedia);
     assertEquals("123456789", igMedia.getId());
@@ -42,14 +42,14 @@ public class IgMediaTest extends AbstractJsonMapperTests {
     assertNotNull(igMedia.getOwner());
     assertEquals("https://www.instagram.com/permalink", igMedia.getPermalink());
     assertEquals("shortcode", igMedia.getShortcode());
-    assertEquals(1519293629000l, igMedia.getTimestamp().getTime());
-    assertEquals(1l, igMedia.getCommentsCount().longValue());
-    assertEquals(0l, igMedia.getLikeCount().longValue());
+    assertEquals(1519293629000L, igMedia.getTimestamp().getTime());
+    assertEquals(1L, igMedia.getCommentsCount().longValue());
+    assertEquals(0L, igMedia.getLikeCount().longValue());
     assertEquals("fake_username", igMedia.getUsername());
   }
 
   @Test
-  public void checkMediaCarousel() {
+  void checkMediaCarousel() {
     IgMedia igMedia = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/media-carousel"), IgMedia.class);
     assertNotNull(igMedia);
     assertEquals("123456789", igMedia.getId());
@@ -60,9 +60,9 @@ public class IgMediaTest extends AbstractJsonMapperTests {
     assertNotNull(igMedia.getOwner());
     assertEquals("https://www.instagram.com/permalink", igMedia.getPermalink());
     assertEquals("shortcode", igMedia.getShortcode());
-    assertEquals(1519296045000l, igMedia.getTimestamp().getTime());
-    assertEquals(0l, igMedia.getCommentsCount().longValue());
-    assertEquals(0l, igMedia.getLikeCount().longValue());
+    assertEquals(1519296045000L, igMedia.getTimestamp().getTime());
+    assertEquals(0L, igMedia.getCommentsCount().longValue());
+    assertEquals(0L, igMedia.getLikeCount().longValue());
     assertEquals(2, igMedia.getChildren().size());
     int i = 0;
     for (IgMediaChild child : igMedia.getChildren()) {

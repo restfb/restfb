@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import com.restfb.util.ReflectionUtils;
 public class ChangeValue {
 
   public enum Verb {
-    REMOVE, ADD, EDITED, HIDE, UNHIDE, EDIT, UNBLOCK, BLOCK, MUTE
+    ADD, BLOCK, EDIT, EDITED, DELETE, FOLLOW, HIDE, MUTE, REMOVE, UNBLOCK, UNHIDE, UPDATE, GRANTED, REVOKED
   }
 
   /**
@@ -56,5 +56,9 @@ public class ChangeValue {
   @Override
   public String toString() {
     return ReflectionUtils.toString(this);
+  }
+
+  public <T extends ChangeValue> T convertChangeValue(Class<T> clazz) {
+    return (T) this;
   }
 }

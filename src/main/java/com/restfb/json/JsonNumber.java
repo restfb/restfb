@@ -22,27 +22,26 @@
 package com.restfb.json;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @SuppressWarnings("serial") // use default serial UID
 class JsonNumber extends JsonValue {
 
-  private final String string;
+  private final String numberStr;
 
-  JsonNumber(String string) {
-    if (string == null) {
-      throw new NullPointerException("string is null");
-    }
-    this.string = string;
+  JsonNumber(String numberStr) {
+    Objects.requireNonNull(numberStr, STRING_IS_NULL);
+    this.numberStr = numberStr;
   }
 
   @Override
   public String toString() {
-    return string;
+    return numberStr;
   }
 
   @Override
   void write(JsonWriter writer) throws IOException {
-    writer.writeNumber(string);
+    writer.writeNumber(numberStr);
   }
 
   @Override
@@ -52,27 +51,27 @@ class JsonNumber extends JsonValue {
 
   @Override
   public int asInt() {
-    return Integer.parseInt(string, 10);
+    return Integer.parseInt(numberStr, 10);
   }
 
   @Override
   public long asLong() {
-    return Long.parseLong(string, 10);
+    return Long.parseLong(numberStr, 10);
   }
 
   @Override
   public float asFloat() {
-    return Float.parseFloat(string);
+    return Float.parseFloat(numberStr);
   }
 
   @Override
   public double asDouble() {
-    return Double.parseDouble(string);
+    return Double.parseDouble(numberStr);
   }
 
   @Override
   public int hashCode() {
-    return string.hashCode();
+    return numberStr.hashCode();
   }
 
   @Override
@@ -87,7 +86,7 @@ class JsonNumber extends JsonValue {
       return false;
     }
     JsonNumber other = (JsonNumber) object;
-    return string.equals(other.string);
+    return numberStr.equals(other.numberStr);
   }
 
 }

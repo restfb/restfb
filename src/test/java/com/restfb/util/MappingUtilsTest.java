@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,43 +21,48 @@
  */
 package com.restfb.util;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import com.restfb.types.features.HasProfilePicture;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultJsonMapper;
 import com.restfb.types.ProfilePictureSource;
 
-public class MappingUtilsTest {
+class MappingUtilsTest {
+
+  class FakeClass implements HasProfilePicture {
+
+    @Override
+    public ProfilePictureSource getPicture() {
+      return null;
+    }
+  }
 
   @Test
-  public void convertRawPicture_complete() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
+  void convertRawPicture_complete() {
     String jsonString = "{\n" + //
         "    \"data\": {\n" + //
         "      \"is_silhouette\": false,\n" + //
         "      \"url\": \"https://fbcdn-profile-a.akamaihd.net/testpicture.jpg\"\n" + //
         "    }\n" + "  }";
-    ProfilePictureSource profilePicture = utils.convertPicture(jsonString);
+    ProfilePictureSource profilePicture = new FakeClass().convertPicture(new DefaultJsonMapper(), jsonString);
     assertFalse(profilePicture.getIsSilhouette());
     assertEquals("https://fbcdn-profile-a.akamaihd.net/testpicture.jpg", profilePicture.getUrl());
   }
 
   @Test
-  public void convertRawPicture_nullInput() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
-    assertNull(utils.convertPicture(null));
+  void convertRawPicture_nullInput() {
+    assertNull(new FakeClass().convertPicture(new DefaultJsonMapper(), null));
   }
 
   @Test
-  public void convertRawPicture_brokenJson() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
-    assertNull(utils.convertPicture("\"picture\":{}"));
+  void convertRawPicture_brokenJson() {
+    assertNull(new FakeClass().convertPicture(new DefaultJsonMapper(), "\"picture\":{}"));
   }
 
   @Test
-  public void convertRawPicture_jsonNoObject() {
-    MappingUtils utils = new MappingUtils(new DefaultJsonMapper());
-    assertNull(utils.convertPicture("12345"));
+  void convertRawPicture_jsonNoObject() {
+    assertNull(new FakeClass().convertPicture(new DefaultJsonMapper(), "12345"));
   }
 }

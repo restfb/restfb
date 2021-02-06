@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class PageCallToActionTest extends AbstractJsonMapperTests {
+class PageCallToActionTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkV2_5() {
+  void checkV2_5() {
     PageCallToAction callToAction =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/page-callToActions"), PageCallToAction.class);
     assertEquals("CONTACT_US", callToAction.getType());

@@ -21,43 +21,36 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import static com.restfb.json.TestUtil.assertException;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InOrder;
-
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
-public class JsonArray_Test {
+class JsonArray_Test {
 
   private JsonArray array;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     array = new JsonArray();
   }
 
   @Test
-  public void copyConstructor_failsWithNull() {
-    assertException(NullPointerException.class, "array is null", new Runnable() {
-      public void run() {
-        new JsonArray(null);
-      }
-    });
+  void copyConstructor_failsWithNull() {
+    assertThrows(NullPointerException.class, () -> new JsonArray(null), "array is null");
   }
 
   @Test
-  public void copyConstructor_hasSameValues() {
+  void copyConstructor_hasSameValues() {
     array.add(23);
     JsonArray copy = new JsonArray(array);
 
@@ -65,7 +58,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void copyConstructor_worksOnSafeCopy() {
+  void copyConstructor_worksOnSafeCopy() {
     JsonArray copy = new JsonArray(array);
     array.add(23);
 
@@ -73,7 +66,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void unmodifiableArray_hasSameValues() {
+  void unmodifiableArray_hasSameValues() {
     array.add(23);
     JsonArray unmodifiableArray = JsonArray.unmodifiableArray(array);
 
@@ -81,78 +74,53 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void unmodifiableArray_reflectsChanges() {
+  void unmodifiableArray_reflectsChanges() {
     JsonArray unmodifiableArray = JsonArray.unmodifiableArray(array);
     array.add(23);
 
     assertEquals(array.values(), unmodifiableArray.values());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
-  public void unmodifiableArray_preventsModification() {
+  @Test
+  void unmodifiableArray_preventsModification() {
     JsonArray unmodifiableArray = JsonArray.unmodifiableArray(array);
 
-    unmodifiableArray.add(23);
+    assertThrows(UnsupportedOperationException.class, () -> {
+      unmodifiableArray.add(23);
+    });
   }
 
   @Test
-  @SuppressWarnings("deprecation")
-  public void readFrom_reader() throws IOException {
-    assertEquals(new JsonArray(), JsonArray.readFrom(new StringReader("[]")));
-    assertEquals(new JsonArray().add("a").add(23),
-                 JsonArray.readFrom(new StringReader("[ \"a\", 23 ]")));
-  }
-
-  @Test
-  @SuppressWarnings("deprecation")
-  public void readFrom_string() {
-    assertEquals(new JsonArray(), JsonArray.readFrom("[]"));
-    assertEquals(new JsonArray().add("a").add(23), JsonArray.readFrom("[ \"a\", 23 ]"));
-  }
-
-  @Test(expected = ParseException.class)
-  @SuppressWarnings("deprecation")
-  public void readFrom_illegalJson() {
-    JsonArray.readFrom("This is not JSON");
-  }
-
-  @Test(expected = UnsupportedOperationException.class)
-  @SuppressWarnings("deprecation")
-  public void readFrom_wrongJsonType() {
-    JsonArray.readFrom("\"This is not a JSON object\"");
-  }
-
-  @Test
-  public void isEmpty_isTrueAfterCreation() {
+  void isEmpty_isTrueAfterCreation() {
     assertTrue(array.isEmpty());
   }
 
   @Test
-  public void isEmpty_isFalseAfterAdd() {
+  void isEmpty_isFalseAfterAdd() {
     array.add(true);
 
     assertFalse(array.isEmpty());
   }
 
   @Test
-  public void size_isZeroAfterCreation() {
+  void size_isZeroAfterCreation() {
     assertEquals(0, array.size());
   }
 
   @Test
-  public void size_isOneAfterAdd() {
+  void size_isOneAfterAdd() {
     array.add(true);
 
     assertEquals(1, array.size());
   }
 
   @Test
-  public void iterator_isEmptyAfterCreation() {
+  void iterator_isEmptyAfterCreation() {
     assertFalse(array.iterator().hasNext());
   }
 
   @Test
-  public void iterator_hasNextAfterAdd() {
+  void iterator_hasNextAfterAdd() {
     array.add(true);
 
     Iterator<JsonValue> iterator = array.iterator();
@@ -161,28 +129,32 @@ public class JsonArray_Test {
     assertFalse(iterator.hasNext());
   }
 
-  @Test(expected = UnsupportedOperationException.class)
-  public void iterator_doesNotAllowModification() {
-    array.add(23);
-    Iterator<JsonValue> iterator = array.iterator();
-    iterator.next();
-    iterator.remove();
-  }
-
-  @Test(expected = ConcurrentModificationException.class)
-  public void iterator_detectsConcurrentModification() {
-    Iterator<JsonValue> iterator = array.iterator();
-    array.add(23);
-    iterator.next();
+  @Test
+  void iterator_doesNotAllowModification() {
+    assertThrows(UnsupportedOperationException.class, () -> {
+      array.add(23);
+      Iterator<JsonValue> iterator = array.iterator();
+      iterator.next();
+      iterator.remove();
+    });
   }
 
   @Test
-  public void values_isEmptyAfterCreation() {
+  void iterator_detectsConcurrentModification() {
+    assertThrows(ConcurrentModificationException.class, () -> {
+      Iterator<JsonValue> iterator = array.iterator();
+      array.add(23);
+      iterator.next();
+    });
+  }
+
+  @Test
+  void values_isEmptyAfterCreation() {
     assertTrue(array.values().isEmpty());
   }
 
   @Test
-  public void values_containsValueAfterAdd() {
+  void values_containsValueAfterAdd() {
     array.add(true);
 
     assertEquals(1, array.values().size());
@@ -190,7 +162,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void values_reflectsChanges() {
+  void values_reflectsChanges() {
     List<JsonValue> values = array.values();
 
     array.add(true);
@@ -198,15 +170,17 @@ public class JsonArray_Test {
     assertEquals(array.values(), values);
   }
 
-  @Test(expected = UnsupportedOperationException.class)
-  public void values_preventsModification() {
+  @Test
+  void values_preventsModification() {
     List<JsonValue> values = array.values();
 
-    values.add(Json.TRUE);
+    assertThrows(UnsupportedOperationException.class, () -> {
+      values.add(Json.TRUE);
+    });
   }
 
   @Test
-  public void get_returnsValue() {
+  void get_returnsValue() {
     array.add(23);
 
     JsonValue value = array.get(0);
@@ -214,127 +188,125 @@ public class JsonArray_Test {
     assertEquals(Json.value(23), value);
   }
 
-  @Test(expected = IndexOutOfBoundsException.class)
-  public void get_failsWithInvalidIndex() {
-    array.get(0);
+  @Test
+  void get_failsWithInvalidIndex() {
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      array.get(0);
+    });
   }
 
   @Test
-  public void add_int() {
+  void add_int() {
     array.add(23);
 
     assertEquals("[23]", array.toString());
   }
 
   @Test
-  public void add_int_enablesChaining() {
+  void add_int_enablesChaining() {
     assertSame(array, array.add(23));
   }
 
   @Test
-  public void add_long() {
-    array.add(23l);
+  void add_long() {
+    array.add(23L);
 
     assertEquals("[23]", array.toString());
   }
 
   @Test
-  public void add_long_enablesChaining() {
-    assertSame(array, array.add(23l));
+  void add_long_enablesChaining() {
+    assertSame(array, array.add(23L));
   }
 
   @Test
-  public void add_float() {
+  void add_float() {
     array.add(3.14f);
 
     assertEquals("[3.14]", array.toString());
   }
 
   @Test
-  public void add_float_enablesChaining() {
+  void add_float_enablesChaining() {
     assertSame(array, array.add(3.14f));
   }
 
   @Test
-  public void add_double() {
+  void add_double() {
     array.add(3.14d);
 
     assertEquals("[3.14]", array.toString());
   }
 
   @Test
-  public void add_double_enablesChaining() {
+  void add_double_enablesChaining() {
     assertSame(array, array.add(3.14d));
   }
 
   @Test
-  public void add_boolean() {
+  void add_boolean() {
     array.add(true);
 
     assertEquals("[true]", array.toString());
   }
 
   @Test
-  public void add_boolean_enablesChaining() {
+  void add_boolean_enablesChaining() {
     assertSame(array, array.add(true));
   }
 
   @Test
-  public void add_string() {
+  void add_string() {
     array.add("foo");
 
     assertEquals("[\"foo\"]", array.toString());
   }
 
   @Test
-  public void add_string_enablesChaining() {
+  void add_string_enablesChaining() {
     assertSame(array, array.add("foo"));
   }
 
   @Test
-  public void add_string_toleratesNull() {
-    array.add((String)null);
+  void add_string_toleratesNull() {
+    array.add((String) null);
 
     assertEquals("[null]", array.toString());
   }
 
   @Test
-  public void add_jsonNull() {
+  void add_jsonNull() {
     array.add(Json.NULL);
 
     assertEquals("[null]", array.toString());
   }
 
   @Test
-  public void add_jsonArray() {
+  void add_jsonArray() {
     array.add(new JsonArray());
 
     assertEquals("[[]]", array.toString());
   }
 
   @Test
-  public void add_jsonObject() {
+  void add_jsonObject() {
     array.add(new JsonObject());
 
     assertEquals("[{}]", array.toString());
   }
 
   @Test
-  public void add_json_enablesChaining() {
+  void add_json_enablesChaining() {
     assertSame(array, array.add(Json.NULL));
   }
 
   @Test
-  public void add_json_failsWithNull() {
-    assertException(NullPointerException.class, "value is null", new Runnable() {
-      public void run() {
-        array.add((JsonValue)null);
-      }
-    });
+  void add_json_failsWithNull() {
+    assertThrows(NullPointerException.class, () -> array.add((JsonValue) null), "value is null");
   }
 
   @Test
-  public void add_json_nestedArray() {
+  void add_json_nestedArray() {
     JsonArray innerArray = new JsonArray();
     innerArray.add(23);
 
@@ -344,7 +316,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void add_json_nestedArray_modifiedAfterAdd() {
+  void add_json_nestedArray_modifiedAfterAdd() {
     JsonArray innerArray = new JsonArray();
     array.add(innerArray);
 
@@ -354,7 +326,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void add_json_nestedObject() {
+  void add_json_nestedObject() {
     JsonObject innerObject = new JsonObject();
     innerObject.add("a", 23);
 
@@ -364,7 +336,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void add_json_nestedObject_modifiedAfterAdd() {
+  void add_json_nestedObject_modifiedAfterAdd() {
     JsonObject innerObject = new JsonObject();
     array.add(innerObject);
 
@@ -374,7 +346,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_int() {
+  void set_int() {
     array.add(false);
     array.set(0, 23);
 
@@ -382,30 +354,30 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_int_enablesChaining() {
+  void set_int_enablesChaining() {
     array.add(false);
 
     assertSame(array, array.set(0, 23));
   }
 
   @Test
-  public void set_long() {
+  void set_long() {
     array.add(false);
 
-    array.set(0, 23l);
+    array.set(0, 23L);
 
     assertEquals("[23]", array.toString());
   }
 
   @Test
-  public void set_long_enablesChaining() {
+  void set_long_enablesChaining() {
     array.add(false);
 
-    assertSame(array, array.set(0, 23l));
+    assertSame(array, array.set(0, 23L));
   }
 
   @Test
-  public void set_float() {
+  void set_float() {
     array.add(false);
 
     array.set(0, 3.14f);
@@ -414,14 +386,14 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_float_enablesChaining() {
+  void set_float_enablesChaining() {
     array.add(false);
 
     assertSame(array, array.set(0, 3.14f));
   }
 
   @Test
-  public void set_double() {
+  void set_double() {
     array.add(false);
 
     array.set(0, 3.14d);
@@ -430,14 +402,14 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_double_enablesChaining() {
+  void set_double_enablesChaining() {
     array.add(false);
 
     assertSame(array, array.set(0, 3.14d));
   }
 
   @Test
-  public void set_boolean() {
+  void set_boolean() {
     array.add(false);
 
     array.set(0, true);
@@ -446,14 +418,14 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_boolean_enablesChaining() {
+  void set_boolean_enablesChaining() {
     array.add(false);
 
     assertSame(array, array.set(0, true));
   }
 
   @Test
-  public void set_string() {
+  void set_string() {
     array.add(false);
 
     array.set(0, "foo");
@@ -462,14 +434,14 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_string_enablesChaining() {
+  void set_string_enablesChaining() {
     array.add(false);
 
     assertSame(array, array.set(0, "foo"));
   }
 
   @Test
-  public void set_jsonNull() {
+  void set_jsonNull() {
     array.add(false);
 
     array.set(0, Json.NULL);
@@ -478,7 +450,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_jsonArray() {
+  void set_jsonArray() {
     array.add(false);
 
     array.set(0, new JsonArray());
@@ -487,7 +459,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_jsonObject() {
+  void set_jsonObject() {
     array.add(false);
 
     array.set(0, new JsonObject());
@@ -496,30 +468,30 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void set_json_failsWithNull() {
+  void set_json_failsWithNull() {
     array.add(false);
 
-    assertException(NullPointerException.class, "value is null", new Runnable() {
-      public void run() {
-        array.set(0, (JsonValue)null);
-      }
-    });
-  }
-
-  @Test(expected = IndexOutOfBoundsException.class)
-  public void set_json_failsWithInvalidIndex() {
-    array.set(0, Json.NULL);
+    assertThrows(NullPointerException.class, () -> {
+      array.set(0, (JsonValue) null);
+    }, "value is null");
   }
 
   @Test
-  public void set_json_enablesChaining() {
+  void set_json_failsWithInvalidIndex() {
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      array.set(0, Json.NULL);
+    });
+  }
+
+  @Test
+  void set_json_enablesChaining() {
     array.add(false);
 
     assertSame(array, array.set(0, Json.NULL));
   }
 
   @Test
-  public void set_json_replacesDifferntArrayElements() {
+  void set_json_replacesDifferentArrayElements() {
     array.add(3).add(6).add(9);
 
     array.set(1, 4).set(2, 5);
@@ -527,13 +499,15 @@ public class JsonArray_Test {
     assertEquals("[3,4,5]", array.toString());
   }
 
-  @Test(expected = IndexOutOfBoundsException.class)
-  public void remove_failsWithInvalidIndex() {
-    array.remove(0);
+  @Test
+  void remove_failsWithInvalidIndex() {
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      array.remove(0);
+    });
   }
 
   @Test
-  public void remove_removesElement() {
+  void remove_removesElement() {
     array.add(23);
 
     array.remove(0);
@@ -542,7 +516,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void remove_keepsOtherElements() {
+  void remove_keepsOtherElements() {
     array.add("a").add("b").add("c");
 
     array.remove(1);
@@ -551,7 +525,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void write_empty() throws IOException {
+  void write_empty() throws IOException {
     JsonWriter writer = mock(JsonWriter.class);
     array.write(writer);
 
@@ -562,7 +536,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void write_withSingleValue() throws IOException {
+  void write_withSingleValue() throws IOException {
     JsonWriter writer = mock(JsonWriter.class);
     array.add(23);
 
@@ -576,7 +550,7 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void write_withMultipleValues() throws IOException {
+  void write_withMultipleValues() throws IOException {
     JsonWriter writer = mock(JsonWriter.class);
     array.add(23).add("foo").add(false);
 
@@ -594,63 +568,63 @@ public class JsonArray_Test {
   }
 
   @Test
-  public void isArray() {
+  void isArray() {
     assertTrue(array.isArray());
   }
 
   @Test
-  public void asArray() {
+  void asArray() {
     assertSame(array, array.asArray());
   }
 
   @Test
-  public void equals_trueForSameInstance() {
+  void equals_trueForSameInstance() {
     assertTrue(array.equals(array));
   }
 
   @Test
-  public void equals_trueForEqualArrays() {
+  void equals_trueForEqualArrays() {
     assertTrue(array().equals(array()));
     assertTrue(array("foo", "bar").equals(array("foo", "bar")));
   }
 
   @Test
-  public void equals_falseForDifferentArrays() {
+  void equals_falseForDifferentArrays() {
     assertFalse(array("foo", "bar").equals(array("foo", "bar", "baz")));
     assertFalse(array("foo", "bar").equals(array("bar", "foo")));
   }
 
   @Test
-  public void equals_falseForNull() {
+  void equals_falseForNull() {
     assertFalse(array.equals(null));
   }
 
   @Test
-  public void equals_falseForSubclass() {
+  void equals_falseForSubclass() {
     assertFalse(array.equals(new JsonArray(array) {}));
   }
 
   @Test
-  public void hashCode_equalsForEqualArrays() {
+  void hashCode_equalsForEqualArrays() {
     assertTrue(array().hashCode() == array().hashCode());
     assertTrue(array("foo").hashCode() == array("foo").hashCode());
   }
 
   @Test
-  public void hashCode_differsForDifferentArrays() {
+  void hashCode_differsForDifferentArrays() {
     assertFalse(array().hashCode() == array("bar").hashCode());
     assertFalse(array("foo").hashCode() == array("bar").hashCode());
   }
 
   @Test
-  public void canBeSerializedAndDeserialized() throws Exception {
+  void canBeSerializedAndDeserialized() throws Exception {
     array.add(true).add(3.14d).add(23).add("foo").add(new JsonArray().add(false));
 
     assertEquals(array, serializeAndDeserialize(array));
   }
 
   @Test
-  public void deserializedArrayCanBeAccessed() throws Exception {
+  void deserializedArrayCanBeAccessed() throws Exception {
     array.add(23);
 
     JsonArray deserializedArray = serializeAndDeserialize(array);

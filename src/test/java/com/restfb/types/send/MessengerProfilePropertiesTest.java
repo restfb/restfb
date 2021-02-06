@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types.send;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class MessengerProfilePropertiesTest extends AbstractJsonMapperTests {
+class MessengerProfilePropertiesTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkSettingsExample() {
+  void checkSettingsExample() {
     MessengerProfileProperties exampleSettings = createJsonMapper()
       .toJavaObject(jsonFromClasspath("send/messenger-profile-settings"), MessengerProfileProperties.class);
     assertNotNull(exampleSettings);

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,9 @@ import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 
+import com.restfb.types.features.HasComments;
+import com.restfb.types.features.HasCreatedTime;
+import com.restfb.types.features.HasMessage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +49,7 @@ import lombok.Setter;
  * @since 1.5
  */
 @SuppressWarnings("deprecation")
-public class Post extends FacebookType {
+public class Post extends FacebookType implements HasComments, HasCreatedTime, HasMessage {
 
   /**
    * An object containing the ID and name of the user who posted the message.
@@ -104,7 +107,7 @@ public class Post extends FacebookType {
    *
    * @return The message.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private String message;
@@ -149,7 +152,7 @@ public class Post extends FacebookType {
    *
    * @return The link attached to this post.
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -162,7 +165,7 @@ public class Post extends FacebookType {
    *
    * @return The name of the link.
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -175,7 +178,7 @@ public class Post extends FacebookType {
    *
    * @return The caption of the link (appears beneath the link name).
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -188,7 +191,7 @@ public class Post extends FacebookType {
    *
    * @return A description of the link (appears beneath the link caption).
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -201,7 +204,7 @@ public class Post extends FacebookType {
    *
    * @return If available, the source link attached to this post (for example, a flash or video file).
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook
   @GraphAPI(until = "3.2")
@@ -266,7 +269,7 @@ public class Post extends FacebookType {
    *
    * @return Whether the viewer can send a private reply to this post
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook("can_reply_privately")
   @GraphAPI(since = "2.5")
@@ -277,7 +280,7 @@ public class Post extends FacebookType {
    *
    * @return The profile this was posted on if different from the author
    */
-  @Getter(onMethod = @__(@GraphAPI(since = "2.5")))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook
   @GraphAPI(since = "2.5")
@@ -329,7 +332,7 @@ public class Post extends FacebookType {
    *
    * @return The time the post was initially published.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -352,7 +355,7 @@ public class Post extends FacebookType {
    * @return The Facebook object id for an uploaded photo or video.
    * @since 1.6.5
    */
-  @Getter(onMethod = @__(@GraphAPI(until = "3.2")))
+  @Getter(onMethod_ = @GraphAPI(until = "3.2"))
   @Setter
   @Facebook("object_id")
   @GraphAPI(until = "3.2")
@@ -385,7 +388,7 @@ public class Post extends FacebookType {
    *
    * @return The comments for this post.
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
   private Comments comments;
@@ -774,7 +777,7 @@ public class Post extends FacebookType {
 
     private static final long serialVersionUID = 1L;
 
-    @Getter(onMethod = @__(@GraphAPI(since = "2.8")))
+    @Getter(onMethod_ = @GraphAPI(since = "2.8"))
     @Setter
     @Facebook("geo_locations")
     @GraphAPI(since = "2.8")
@@ -1351,14 +1354,20 @@ public class Post extends FacebookType {
    *         Facebook).
    * @since 1.6.10
    */
+  @GraphAPI(until = "3.2")
+  @Deprecated
   public List<NamedFacebookType> getWithTags() {
     return unmodifiableList(withTags);
   }
 
+  @GraphAPI(until = "3.2")
+  @Deprecated
   public boolean addWithTag(NamedFacebookType withTag) {
     return withTags.add(withTag);
   }
 
+  @GraphAPI(until = "3.2")
+  @Deprecated
   public boolean removeWithTag(NamedFacebookType withTag) {
     return withTags.remove(withTag);
   }

@@ -1,0 +1,11 @@
+{
+  "{business-id}": [
+    {
+      "call_count": 100,
+      "total_cputime": 16,
+      "total_time": 45,
+      "type": "ads_insights",
+      "estimated_time_to_regain_access": 10
+    }
+  ]
+}

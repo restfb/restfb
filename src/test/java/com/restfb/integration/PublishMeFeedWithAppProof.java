@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,9 @@
  */
 package com.restfb.integration;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
@@ -28,19 +31,16 @@ import com.restfb.integration.base.NeedFacebookWriteAccess;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 @NeedFacebookWriteAccess
-public class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
+class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
 
   @Test
-  public void publishWithProof() {
+  void publishWithProof() {
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
       getTestSettings().getAppSecret(), Version.LATEST);
     JsonObject me = client.publish("/me/feed", JsonObject.class, Parameter.with("message", "Test publish"),
       Parameter.with("privacy", "{\"value\": \"SELF\"}"));
-    Assert.assertNotNull(me);
+    Assertions.assertNotNull(me);
   }
 
 }

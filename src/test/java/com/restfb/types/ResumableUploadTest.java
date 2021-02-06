@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,16 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ResumableUploadTest extends AbstractJsonMapperTests {
+class ResumableUploadTest extends AbstractJsonMapperTests {
 
   @Test
-  public void checkTransfer() {
+  void checkTransfer() {
     ResumableUploadTransferResponse exampleResponse = createJsonMapper()
       .toJavaObject(jsonFromClasspath("v2_5/resumable-transfer"), ResumableUploadTransferResponse.class);
     assertNotNull(exampleResponse);
@@ -40,7 +40,7 @@ public class ResumableUploadTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkTransferFinished() {
+  void checkTransferFinished() {
     ResumableUploadTransferResponse exampleResponse = createJsonMapper()
       .toJavaObject(jsonFromClasspath("v2_5/resumable-transfer-finished"), ResumableUploadTransferResponse.class);
     assertNotNull(exampleResponse);
@@ -50,7 +50,7 @@ public class ResumableUploadTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  public void checkStart() {
+  void checkStart() {
     ResumableUploadStartResponse exampleResponse =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/resumable-start"), ResumableUploadStartResponse.class);
     assertNotNull(exampleResponse);

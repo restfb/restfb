@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -86,11 +86,7 @@ public class SoftHashMap<K, V> extends AbstractMap<K, V>implements Serializable 
   @Override
   public V remove(Object key) {
     expungeStaleEntries();
-    SoftReference<V> result = hash.remove(key);
-    if (result == null) {
-      return null;
-    }
-    return result.get();
+    return Optional.ofNullable(hash.remove(key)).map(SoftReference::get).orElse(null);
   }
 
   @Override

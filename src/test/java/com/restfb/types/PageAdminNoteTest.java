@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,17 +21,17 @@
  */
 package com.restfb.types;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import org.junit.Test;
-
-public class PageAdminNoteTest extends AbstractJsonMapperTests {
+class PageAdminNoteTest extends AbstractJsonMapperTests {
 
   @Test
-  public void check_V2_6() {
+  void check_V2_6() {
     PageAdminNote pageAdminNote =
         createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/page-admin-note"), PageAdminNote.class);
     assertNotNull(pageAdminNote);

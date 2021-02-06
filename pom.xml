@@ -5,7 +5,7 @@
   <artifactId>restfb</artifactId>
   <packaging>jar</packaging>
   <name>RestFB</name>
-  <version>2.22.0-SNAPSHOT</version>
+  <version>3.14.0</version>
   <description>RestFB is a simple and flexible Facebook Graph API client written in Java.</description>
   <url>http://restfb.com</url>
   <inceptionYear>2010</inceptionYear>
@@ -13,20 +13,25 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <project.build.source>1.7</project.build.source>
-    <project.build.target>1.7</project.build.target>
+    <project.build.source>1.8</project.build.source>
+    <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>4.12</version.junit>
-    <version.lombok>1.18.4</version.lombok>
-    <version.mockito>1.10.19</version.mockito>
-    <version.assertj>2.9.1</version.assertj>
+    <version.junit>5.6.2</version.junit>
+    <version.lombok>1.18.12</version.lombok>
+    <version.mockito>3.5.7</version.mockito>
+    <version.assertj>3.17.1</version.assertj>
     <version.slf4j>1.7.25</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
     <!-- additional configuration -->
-    <year.current>2019</year.current>
+    <year.current>2021</year.current>
     <skipTests>false</skipTests>
+
+    <!-- sonar configuration -->
+    <sonar.projectKey>restfb_restfb</sonar.projectKey>
+    <sonar.organization>restfb</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
 
   <licenses>
@@ -94,8 +99,20 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
       <version>${version.junit}</version>
       <scope>test</scope>
     </dependency>
@@ -107,7 +124,7 @@
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
+      <artifactId>mockito-junit-jupiter</artifactId>
       <version>${version.mockito}</version>
       <scope>test</scope>
     </dependency>
@@ -136,7 +153,7 @@
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>5.1.1</version>
         <extensions>true</extensions>
         <configuration>
           <supportedProjectTypes>
@@ -173,7 +190,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <manifestFile>
@@ -185,7 +202,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>3.8.1</version>
         <configuration>
           <fork>true</fork>
           <encoding>UTF-8</encoding>
@@ -198,7 +215,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -211,7 +228,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.22.0</version>
+        <version>2.22.2</version>
         <configuration>
           <skipITs>${skipTests}</skipITs>
         </configuration>
@@ -225,12 +242,18 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.1</version>
+      </plugin>
+      <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>3.0</version>
+        <version>4.0.rc1</version>
         <configuration>
           <header>LICENSE</header>
           <excludes>
+            <exclude>.github/**</exclude>
             <exclude>**/*.xml</exclude>
             <exclude>**/README.md</exclude>
             <exclude>**/CHANGELOG</exclude>
@@ -239,6 +262,7 @@
             <exclude>build/**</exclude>
             <exclude>template.mf</exclude>
             <exclude>pom.xml.asc</exclude>
+            <exclude>.github/**</exclude>
             <exclude>src/main/java/com/restfb/json/**</exclude>
             <exclude>src/test/java/com/restfb/json/**</exclude>
             <exclude>src/test/resources/**</exclude>
@@ -267,12 +291,32 @@
       <plugin>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok-maven-plugin</artifactId>
-        <version>1.18.4.0</version>
+        <version>1.18.16.0</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
             <goals>
               <goal>delombok</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.6</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
             </goals>
           </execution>
         </executions>
@@ -283,7 +327,7 @@
     <pluginRepository>
       <id>com.springsource.repository.bundles.external</id>
       <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
-      <url>http://repository.springsource.com/maven/bundles/external</url>
+      <url>https://repository.springsource.com/maven/bundles/external</url>
     </pluginRepository>
   </pluginRepositories>
   <profiles>
@@ -325,15 +369,14 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.0.1</version>
+            <version>3.2.0</version>
             <configuration>
               <linksource>true</linksource>
               <doclint>none</doclint>
               <source>8</source>
-              <additionalOptions>--no-module-directories</additionalOptions>
               <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
               <links>
-                <link>https://docs.oracle.com/javase/7/docs/api/</link>
+                <link>https://docs.oracle.com/javase/8/docs/api/</link>
               </links>
               <doctitle><![CDATA[<h1>RestFB ${project.version}</h1>]]></doctitle>
               <bottom>
@@ -361,12 +404,12 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.0.1</version>
+            <version>3.2.0</version>
             <configuration>
               <linksource>true</linksource>
               <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
               <links>
-                <link>https://docs.oracle.com/javase/7/docs/api/</link>
+                <link>https://docs.oracle.com/javase/8/docs/api/</link>
               </links>
               <doctitle><![CDATA[<h1>RestFB ${project.version}</h1>]]></doctitle>
               <bottom>

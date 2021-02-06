@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,11 @@ public class MediaAttachment extends MessageAttachment {
     }
   }
 
+  public MediaAttachment(Type type) {
+    setType(type.toString().toLowerCase());
+    payload = new UploadPayload();
+  }
+
   public MediaAttachment(List<MediaTemplateElement> elements) {
     setType(Type.TEMPLATE.toString().toLowerCase());
     payload = new MediaTemplatePayload(elements);
@@ -65,6 +70,23 @@ public class MediaAttachment extends MessageAttachment {
 
     public UrlPayload(String urlString) {
       url = urlString;
+    }
+
+    @Override
+    public void setIsReusable(boolean isReusable) {
+      this.isReusable = isReusable;
+    }
+
+  }
+
+  private static class UploadPayload extends AbstractFacebookType implements MediaAttachmentPayload {
+
+    @Getter
+    @Facebook("is_reusable")
+    private Boolean isReusable;
+
+    public UploadPayload() {
+      // empty constructor
     }
 
     @Override

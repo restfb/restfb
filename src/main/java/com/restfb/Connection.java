@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,16 @@ package com.restfb;
 import static com.restfb.util.StringUtils.isBlank;
 import static java.util.Collections.unmodifiableList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.*;
+import com.restfb.json.Json;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
+import com.restfb.json.ParseException;
 import com.restfb.util.ReflectionUtils;
 
 /**
@@ -48,6 +52,7 @@ public class Connection<T> implements Iterable<List<T>> {
   private Long totalCount;
   private String beforeCursor;
   private String afterCursor;
+  private String order;
 
   /**
    * @see java.lang.Iterable#iterator()
@@ -140,35 +145,27 @@ public class Connection<T> implements Iterable<List<T>> {
    */
   @SuppressWarnings("unchecked")
   public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
-
-    if (json == null) {
-      throw new FacebookJsonMappingException("You must supply non-null connection JSON.");
-    }
-
     JsonObject jsonObject;
 
     try {
-      jsonObject = Json.parse(json).asObject();
+      jsonObject = Optional.ofNullable(json).map(j -> Json.parse(j).asObject()).orElseThrow(() -> new FacebookJsonMappingException("You must supply non-null connection JSON."));
     } catch (ParseException e) {
       throw new FacebookJsonMappingException("The connection JSON you provided was invalid: " + json, e);
     }
 
     // Pull out data
     JsonArray jsonData = jsonObject.get("data").asArray();
-    List<T> dataItem = new ArrayList<>(jsonData.size());
-    for (JsonValue jsonValue : jsonData) {
-      dataItem.add(connectionType.equals(JsonObject.class) ? (T) jsonValue
-          : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType));
-    }
+    List<T> dataItem = jsonData.valueStream().map(jsonValue -> connectionType.equals(JsonObject.class) ? (T) jsonValue
+            : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType)).collect(Collectors.toList());
 
     // Pull out paging info, if present
-    if (jsonObject.get("paging") != null) {
+    if (jsonObject.contains("paging")) {
       JsonObject jsonPaging = jsonObject.get("paging").asObject();
       previousPageUrl = fixProtocol(jsonPaging.getString("previous", null));
       nextPageUrl = fixProtocol(jsonPaging.getString("next", null));
 
       // handle cursors
-      if (jsonPaging.get("cursors") != null) {
+      if (jsonPaging.contains("cursors")) {
         JsonObject jsonCursors = jsonPaging.get("cursors").asObject();
         beforeCursor = jsonCursors.getString("before", null);
         afterCursor = jsonCursors.getString("after", null);
@@ -178,11 +175,13 @@ public class Connection<T> implements Iterable<List<T>> {
       nextPageUrl = null;
     }
 
-    if (jsonObject.get("summary") != null) {
+    if (jsonObject.contains("summary")) {
       JsonObject jsonSummary = jsonObject.get("summary").asObject();
-      totalCount = jsonSummary.get("total_count") != null ? jsonSummary.getLong("total_count", 0L) : null;
+      totalCount = jsonSummary.contains("total_count") ? jsonSummary.getLong("total_count", 0L) : null;
+      order = jsonSummary.getString("order","");
     } else {
       totalCount = null;
+      order = null;
     }
 
     this.data = unmodifiableList(dataItem);
@@ -192,7 +191,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * Fetches the next page of the connection. Designed to be used by {@link Itr}.
-   * 
+   *
    * @return The next page of the connection.
    * @since 1.6.7
    */
@@ -217,7 +216,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * Data for this connection.
-   * 
+   *
    * @return Data for this connection.
    */
   public List<T> getData() {
@@ -226,7 +225,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * This connection's "previous page of data" URL.
-   * 
+   *
    * @return This connection's "previous page of data" URL, or {@code null} if there is no previous page.
    * @since 1.5.3
    */
@@ -235,17 +234,8 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   /**
-   * overrides the "previous page" URL with the given value
-   * 
-   * @param previousPageUrl
-   */
-  protected void setPreviousPageUrl(String previousPageUrl) {
-    this.previousPageUrl = previousPageUrl;
-  }
-
-  /**
    * This connection's "next page of data" URL.
-   * 
+   *
    * @return This connection's "next page of data" URL, or {@code null} if there is no next page.
    * @since 1.5.3
    */
@@ -254,40 +244,40 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   /**
-   * overrides the "next page" URL with the given value
-   * 
-   * @param nextPageUrl
-   */
-  protected void setNextPageUrl(String nextPageUrl) {
-    this.nextPageUrl = nextPageUrl;
-  }
-
-  /**
    * Does this connection have a previous page of data?
-   * 
+   *
    * @return {@code true} if there is a previous page of data for this connection, {@code false} otherwise.
    */
   public boolean hasPrevious() {
-    return !isBlank(getPreviousPageUrl()) && !isSameCursor();
+    return !isBlank(getPreviousPageUrl());
   }
 
   /**
    * Does this connection have a next page of data?
-   * 
+   *
    * @return {@code true} if there is a next page of data for this connection, {@code false} otherwise.
    */
   public boolean hasNext() {
-    return !isBlank(getNextPageUrl()) && !getData().isEmpty() && !isSameCursor();
+    return !isBlank(getNextPageUrl()) && !getData().isEmpty();
   }
 
   /**
-   * provides the total count of elements, if FB provides them (API >= v2.0)
-   * 
+   * provides the total count of elements, if FB provides them (API &ge; v2.0)
+   *
    * @return the total count of elements if present
    * @since 1.6.16
    */
   public Long getTotalCount() {
     return totalCount;
+  }
+
+  /**
+   * returns the order of the elements
+   *
+   * @return the order of the elements
+   */
+  public String getOrder() {
+    return order;
   }
 
   public String getBeforeCursor() {
@@ -299,18 +289,6 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   private String fixProtocol(String pageUrl) {
-    if (null != pageUrl && pageUrl.startsWith("http://")) {
-      return pageUrl.replaceFirst("http://", "https://");
-    } else {
-      return pageUrl;
-    }
-  }
-
-  /**
-   * checks the cursors (if present) for equality
-   * @return {@code true} if both cursor value are equal, {@code false} otherwise
-   */
-  private boolean isSameCursor() {
-    return getBeforeCursor() != null && getAfterCursor() != null && getBeforeCursor().equals(getAfterCursor());
+    return Optional.ofNullable(pageUrl).filter(s -> s.startsWith("http://")).map(s -> s.replaceFirst("http://", "https://")).orElse(pageUrl);
   }
 }

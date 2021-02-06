@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,12 +26,20 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductCatalog extends NamedAdsObject {
 
   @Getter
   @Setter
   @Facebook
   private Business business;
+
+  @Getter
+  @Setter
+  @Facebook("fallback_image_url")
+  private List<String> fallbackImageUrl = new ArrayList<>();
 
   @Getter
   @Setter
@@ -42,4 +50,14 @@ public class ProductCatalog extends NamedAdsObject {
   @Setter
   @Facebook("product_count")
   private Long productCount;
+
+  @Getter
+  @Setter
+  @Facebook("store_catalog_settings")
+  private StoreCatalogSettings storeCatalogSettings;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String vertical;
 }

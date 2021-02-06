@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,11 +26,19 @@ import java.util.Collections;
 import java.util.List;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookPreconditionException;
 
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Implementation of <a href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/list/">Vertical List View</a>
+ *
+ * @deprecated with Graph API 4.0 this is no longer supported
+ */
+@Deprecated
+@GraphAPI(until = "4.0")
 public class ListTemplatePayload extends SharableTemplatePayload implements IsBroadcastPayload {
 
   @Facebook

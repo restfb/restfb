@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +22,10 @@
 package com.restfb.util;
 
 import static com.restfb.logging.RestFBLogger.UTILS_LOGGER;
-import static java.lang.String.format;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * A collection of date-handling utility methods.
@@ -45,7 +45,8 @@ public final class DateUtils {
   public static final String FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss";
 
   /**
-   * Facebook "long" date format (IETF RFC 3339) without a timezone or seconds component. Example: {@code 2010-02-28T16:11}
+   * Facebook "long" date format (IETF RFC 3339) without a timezone or seconds component. Example:
+   * {@code 2010-02-28T16:11}
    */
   public static final String FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE_OR_SECONDS = "yyyy-MM-dd'T'HH:mm";
 
@@ -163,11 +164,18 @@ public final class DateUtils {
    * @return String representation of a {@code date} object. The String is in the form {@code 2010-02-28T16:11:08}
    */
   public static String toLongFormatFromDate(Date date) {
-    if (date == null) {
-      return null;
-    }
+    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE)::format).orElse(null);
+  }
 
-    return strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE).format(date);
+  /**
+   * Returns a <strong>short</strong> String representation of a {@code date} object
+   *
+   * @param date
+   *          as Date
+   * @return String representation of a {@code date} object. The String is in the form {@code 2019-06-14}
+   */
+  public static String toShortFormatFromDate(Date date) {
+    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT)::format).orElse(null);
   }
 
   /**

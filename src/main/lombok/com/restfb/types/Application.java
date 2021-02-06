@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2010-2019 Mark Allen, Norbert Bartels.
+/*
+ * Copyright (c) 2010-2021 Mark Allen, Norbert Bartels.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,7 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.features.HasCreatedTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +39,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
-public class Application extends CategorizedFacebookType {
+public class Application extends CategorizedFacebookType implements HasCreatedTime {
 
   /**
    * The app key hash for this app's Android native implementation.
@@ -249,7 +250,7 @@ public class Application extends CategorizedFacebookType {
    *
    * @return Timestamp that indicates when the app was created
    */
-  @Getter
+  @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -717,6 +718,26 @@ public class Application extends CategorizedFacebookType {
   @Setter
   @Facebook("asset_score")
   private Double assetScore;
+
+  @Facebook("supported_platforms")
+  private List<String> supportedPlatforms = new ArrayList<>();
+
+  /**
+   * All the platform the app supports
+   *
+   * @return All the platform the app supports
+   */
+  public List<String> getSupportedPlatforms() {
+    return Collections.unmodifiableList(supportedPlatforms);
+  }
+
+  public boolean addSupportedPlatform(String platform) {
+    return supportedPlatforms.add(platform);
+  }
+
+  public boolean removeSupportedPlatform(String platform) {
+    return supportedPlatforms.remove(platform);
+  }
 
   /**
    * Error configuration for Android SDK.
