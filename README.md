@@ -1,13 +1,12 @@
-[![Stories in Ready](https://badge.waffle.io/restfb/restfb.png?label=ready&title=Ready)](https://waffle.io/restfb/restfb)
-[![Build Status](https://travis-ci.org/restfb/restfb.svg)](https://travis-ci.org/restfb/restfb)
-[![Join the chat at https://gitter.im/restfb/restfb](https://badges.gitter.im/restfb/restfb.svg)](https://gitter.im/restfb/restfb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Backers on Open Collective](https://opencollective.com/restfb/backers/badge.svg?style=for-the-badge)](#backers) [![Sponsors on Open Collective](https://opencollective.com/restfb/sponsors/badge.svg?style=for-the-badge)](#sponsors) [![Travis (.org)](https://img.shields.io/travis/restfb/restfb.svg?style=for-the-badge)](https://travis-ci.org/restfb/restfb)
+
 
 # RestFB (http://restfb.com)
 ## What it is
 
 RestFB is a pure Java Facebook Graph API client with no external dependencies.
 
-It was created by [Mark Allen](http://revetkn.com) and is maintained by [Norbert Bartels](http://www.phpmonkeys.de/) along with a worldwide team of contributors.
+It was created by [Mark Allen](http://revetkn.com) and is maintained by [Norbert Bartels](https://www.phpmonkeys.de/) along with a worldwide team of contributors.
 
 ## Licensing
 
@@ -18,187 +17,59 @@ RestFB itself is open source software released under the terms of the MIT Licens
 
 RestFB is a single JAR - just drop it into your app and you're ready to go. Download it from Maven Central:
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.restfb/restfb/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.restfb/restfb/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.restfb/restfb.svg?label=Latest%20Release&style=for-the-badge)](https://mvnrepository.com/artifact/com.restfb/restfb)
 
 ## Building it Yourself
 
 Just type
 
-    ant dist
+    mvn package
     
-...and you're done.
+and the jars will be built and can be found in the `target` folder. 
 
-## Usage examples
+## Usage and examples
 
-The following paragraphs show only a subset of the possibilities you have, if you use RestFB. To get a complete 
-overview you should check the examples in the [documentation](http://restfb.com/documentation/). The code samples there
-are commented and have a lot of additional information that are very useful.
+We provide well-curated [documentation](https://restfb.com/documentation/) with many code examples. These 
+are all clearly commented and give a good overview of the functionality RestFB provides.
 
-### Initialization 
-`DefaultFacebookClient` is the `FacebookClient` implementation
-that ships with RestFB. You can customize it by passing in
-custom `JsonMapper` and `WebRequestor` implementations, or simply
-write your own `FacebookClient` instead for maximum control.
+Additionally, you can take a look at the integration tests [here](https://github.com/restfb/restfb/tree/master/src/test/java/com/restfb/integration) on GitHub. Some interesting use cases are exercised there and you can get a good idea of the different features that are provided by RestFB.
 
-```java
-FacebookClient facebookClient = new DefaultFacebookClient(MY_ACCESS_TOKEN, Version.LATEST);
+There is also the [example project](https://github.com/restfb/restfb-examples) on GitHub. It contains a suite of tools that can be triggered via Maven calls. Additionally, for the fetch and publish example, you can find
+a JavaFX code sample that shows how an embedded browser is used to fetch a user access token.
 
-// Get added security by using your app secret:
-FacebookClient facebookClient = 
-       new DefaultFacebookClient(MY_ACCESS_TOKEN, MY_APP_SECRET, Version.VERSION_2_8);
-```
+## Getting in touch
 
-### Fetching Single Objects
+* **[GitHub Issues](https://github.com/restfb/restfb/issues/new)**: If you have ideas, bugs, or problems with RestFB, just open a new issue.
+* **[Facebook Page](https://www.facebook.com/Restfb-909653922461664)**: Like our Facebook page to get the latest updates.
+* **[Facebook Messenger](https://fb.com/msg/Restfb-909653922461664)**: Contact us via Facebook Messenger and we will help to solve your RestFB problem.
+* **[Stackoverflow](https://stackoverflow.com/questions/tagged/restfb)**: Questions about RestFB are answered on Stackoverflow. We'll help you there, too.
+* **[Google Groups](http://groups.google.com/group/restfb)**: If you'd like to talk to other RestFB users, just send a message to our Google Group!
+## Contributors
 
-[see RestFB documentation](http://restfb.com/documentation/#fetching-single-objects)
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/restfb/restfb/graphs/contributors"><img src="https://opencollective.com/restfb/contributors.svg?width=890&button=false" /></a>
 
-For all API calls, you need to tell RestFB how to turn the JSON
-returned by Facebook into Java objects. In this case, the data
-we get back should be mapped to the `User` and `Page` types, respectively.
-You can write your own types too!
 
-```java
-User user = facebookClient.fetchObject("me", User.class);
-Page page = facebookClient.fetchObject("cocacola", Page.class, Parameter.with("fields", "fan_count"));
+## Backers
 
-out.println("User name: " + user.getName());
-out.println("Page likes: " + page.getFanCount());
-```
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/restfb#backer)]
 
-### Fetching Connections
-[see RestFB documentation](http://restfb.com/documentation/#fetching-connections)
+<a href="https://opencollective.com/restfb#backers" target="_blank"><img src="https://opencollective.com/restfb/backers.svg?width=890"></a>
 
-Connection is the name of an object list. You'll get a connection if you
-try to fetch your feed for example. As you can see in this example, you can
-simple iterate over the elements or access the contained data directly.
 
-```java
-Connection<Post> myFeed = facebookClient.fetchConnection("me/feed", Post.class);
+## Sponsors
 
-out.println("First item in my feed: " + myFeed.getData().get(0));
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/restfb#sponsor)]
 
-// Connections support paging and are iterable
-for (List<Post> myFeedConnectionPage : myFeed)
-  for (Post post : myFeedConnectionPage)
-    out.println("Post: " + post);
-```
+<a href="https://opencollective.com/restfb/sponsor/0/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/1/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/2/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/3/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/4/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/5/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/6/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/7/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/8/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/9/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/9/avatar.svg"></a>
 
-### Passing Parameters
-[see RestFB documentation](http://restfb.com/documentation/#advanced-usage-passing-parameters)
 
-You can pass along any parameters you'd like to the Facebook endpoint. 
-
-```java
-Date oneWeekAgo = new Date(currentTimeMillis() - 1000L * 60L * 60L * 24L * 7L);
-
-Connection<Post> filteredFeed = facebookClient.fetchConnection("me/feed", Post.class,
-  Parameter.with("limit", 3), Parameter.with("until", "yesterday"),
-    Parameter.with("since", oneWeekAgo));
-
-out.println("Filtered feed count: " + filteredFeed.getData().size());
-```
-
-### Selecting Specific Fields
-[see RestFB documentation](http://restfb.com/documentation/#advanced-usage-selecting-fields)
-
-With Graph API 2.4 you only get a subset of the possible fields prefilled. But you may
-define which fields you really need.
-
-```java
-User user = facebookClient.fetchObject("me", User.class,
-  Parameter.with("fields", "id,name,last_name"));
-
-out.println("User name: " + user.getName());
-```
-
-### Getting Any Kind of Data as a JSON Object
-[see RestFB documentation](http://restfb.com/documentation/#creating-json-objects)
-
-Sometimes you can't know field names at compile time
-so the `@Facebook` annotation can't be used.
-Or maybe you'd like full control over the data that gets returned.
-Either way, RestFB has you covered. Just map any API call to `JsonObject`.
-
-```java
-// Here's how to fetch a single object
-
-JsonObject btaylor = facebookClient.fetchObject("btaylor", JsonObject.class);
-out.println(btaylor.getString("name"));
-
-// Here's how to fetch a connection
-
-JsonObject photosConnection = facebookClient.fetchObject("me/photos", JsonObject.class);
-String firstPhotoUrl = photosConnection.getJsonArray("data").getJsonObject(0).getString("source");
-out.println(firstPhotoUrl);
-```
-
-### Publishing a Message
-[see RestFB documentation](http://restfb.com/documentation/#publishing-message-event)
-
-```java
-// Publishing a simple message.
-// FacebookType represents any Facebook Graph Object that has an ID property.
-
-FacebookType publishMessageResponse =
-  facebookClient.publish("me/feed", FacebookType.class,
-    Parameter.with("message", "RestFB test"));
-
-out.println("Published message ID: " + publishMessageResponse.getId());
-```
-
-### Publishing a Photo
-[see RestFB documentation](http://restfb.com/documentation/#publishing-photo)
-
-```java
-// Publishing an image to a photo album is easy!
-// Just specify the image you'd like to upload and RestFB will handle it from there.
-
-FacebookType publishPhotoResponse = facebookClient.publish("me/photos", FacebookType.class,
-  BinaryAttachment.with("cat.png", getClass().getResourceAsStream("/cat.png")),
-  Parameter.with("message", "Test cat"));
-
-out.println("Published photo ID: " + publishPhotoResponse.getId());
-
-// Publishing a video works the same way.
-
-facebookClient.publish("me/videos", FacebookType.class,
-  BinaryAttachment.with("cat.mov", getClass().getResourceAsStream("/cat.mov")),
-  Parameter.with("message", "Test cat"));
-```
-
-### Deleting
-[see RestFB documentation](http://restfb.com/documentation/#deleting)
-
-```java
-Boolean deleted = facebookClient.deleteObject("some object ID");
-out.println("Deleted object? " + deleted);
-```
-
-### Map Your Own Types
-[see RestFB documentation](http://restfb.com/documentation/#json-mapping-rules)
-
-```java
-public class MyClass {
-  @Facebook
-  String name;
-
-  @Facebook
-  BigDecimal value;
-
-  // If a Facebook field doesn't match your field's name, specify it explicitly
-
-  @Facebook("lots_of_numbers")
-  List<Integer> lotsOfNumbers;
-  
-  // You can annotate methods with @JsonMappingCompleted to perform
-  // post-mapping operations.
-  //
-  // This is useful if you want to massage the data FB returns.
-  
-  @JsonMappingCompleted
-  void allDone(JsonMapper jsonMapper) {   
-    if(lotsOfNumbers.size() == 0)
-      throw new IllegalStateException("I was expecting more numbers!");
-  }
-}
-```

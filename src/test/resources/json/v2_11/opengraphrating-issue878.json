@@ -1,0 +1,30 @@
+{
+  "open_graph_story": {
+    "message": "AAAAA",
+    "start_time": "2016-10-11T08:46:36+0000",
+    "type": "places.rates",
+    "data": {
+      "rating": {
+        "value": 5,
+        "scale": 5
+      },
+      "review_text": "AAAAA",
+      "language": "hu",
+      "generic_place": {
+        "id": "256080221451513",
+        "title": "Zzzs teszt oldal",
+        "type": "restaurant.restaurant",
+        "url": "https://www.facebook.com/Zzzs-teszt-oldal-1769597826637807/"
+      }
+    },
+    "comments": {
+      "data": [
+      ],
+      "can_comment": true,
+      "comment_order": "chronological",
+      "count": 1
+    },
+    "id": "10211119444292023"
+  },
+  "created_time": "2016-10-11T08:46:36+0000"
+}

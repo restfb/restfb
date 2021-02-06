@@ -1,0 +1,86 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "349489628480201",
+      "time": 1546990087045,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1546990086203,
+          "message": {
+            "mid": "jHwnzSs3QupEbFatUOpnWy67x9QLy11IvvcmREs",
+            "seq": 4410,
+            "text": "Please go to http:\/\/www.google.com",
+            "attachments": [
+              {
+                "title": "www.google.com",
+                "url": "https:\/\/l.facebook.com\/l.php?u=https\u00253A\u00252F\u00252Fwww.google.com\u00252F&h=AT3eI4AnyBUqx71d6J827nix6lUarQc-8H-vQGU4u3XIOr0PMn_nqut3YOn5khrXai6DH8LeggfQiBNT9CiJTFTtC1-2mxZsi8XyzlWYZZk5uU-JuUIWWl9sCaYdvElkOWeZCT9PNTERrQk&s=1",
+                "type": "fallback",
+                "payload": null
+              }
+            ],
+            "nlp": {
+              "entities": {
+                "url": [
+                  {
+                    "confidence": 0.966434,
+                    "domain": "google.com",
+                    "value": "http:\/\/www.google.com",
+                    "_entity": "url",
+                    "_body": "http:\/\/www.google.com",
+                    "_start": 13,
+                    "_end": 34
+                  }
+                ],
+                "sentiment": [
+                  {
+                    "confidence": 0.78805208154684,
+                    "value": "neutral",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.18923191965418,
+                    "value": "positive",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.022716052042627,
+                    "value": "negative",
+                    "_entity": "sentiment"
+                  }
+                ],
+                "bye": [
+                  {
+                    "confidence": 0.047611392030741,
+                    "value": "true",
+                    "_entity": "bye"
+                  }
+                ],
+                "thanks": [
+                  {
+                    "confidence": 0.00024937264977537,
+                    "value": "true",
+                    "_entity": "thanks"
+                  }
+                ],
+                "greetings": [
+                  {
+                    "confidence": 0.0062453910335055,
+                    "value": "true",
+                    "_entity": "greetings"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
