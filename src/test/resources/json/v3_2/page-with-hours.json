@@ -1,0 +1,77 @@
+{
+  "id": "12345678",
+  "hours": [
+    {
+      "key": "mon_1_open",
+      "value": "11:00"
+    },
+    {
+      "key": "mon_1_close",
+      "value": "02:00"
+    },
+    {
+      "key": "mon_2_open",
+      "value": "11:00"
+    },
+    {
+      "key": "mon_2_close",
+      "value": "23:45"
+    },
+    {
+      "key": "tue_1_open",
+      "value": "11:00"
+    },
+    {
+      "key": "tue_1_close",
+      "value": "02:00"
+    },
+    {
+      "key": "tue_2_open",
+      "value": "11:00"
+    },
+    {
+      "key": "tue_2_close",
+      "value": "23:45"
+    },
+    {
+      "key": "wed_1_open",
+      "value": "11:00"
+    },
+    {
+      "key": "wed_1_close",
+      "value": "02:00"
+    },
+    {
+      "key": "thu_1_open",
+      "value": "11:00"
+    },
+    {
+      "key": "thu_1_close",
+      "value": "02:00"
+    },
+    {
+      "key": "fri_1_open",
+      "value": "11:00"
+    },
+    {
+      "key": "fri_1_close",
+      "value": "02:00"
+    },
+    {
+      "key": "sat_1_open",
+      "value": "11:00"
+    },
+    {
+      "key": "sat_1_close",
+      "value": "02:00"
+    },
+    {
+      "key": "sun_1_open",
+      "value": "11:00"
+    },
+    {
+      "key": "sun_1_close",
+      "value": "02:00"
+    }
+  ]
+}

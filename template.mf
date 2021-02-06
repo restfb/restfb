@@ -3,3 +3,4 @@ Bundle-Name: RestFB
 Bundle-ManifestVersion: 2
 Export-Template: 
  *;version=${project.version};provider=bundlor
+

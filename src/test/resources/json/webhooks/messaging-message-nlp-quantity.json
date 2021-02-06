@@ -1,0 +1,41 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1501623673034,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1501623672530,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0QQm0ldn77eaCVEy",
+            "seq": 2435,
+            "text": "3kg may work",
+            "nlp": {
+              "entities": {
+                "quantity": [
+                  {
+                    "confidence": 1,
+                    "value": 3000,
+                    "type": "value",
+                    "unit": "gram",
+                    "_entity": "quantity",
+                    "_body": "3kg",
+                    "_start": 0,
+                    "_end": 3
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

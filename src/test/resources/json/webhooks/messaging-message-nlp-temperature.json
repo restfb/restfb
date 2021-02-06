@@ -1,0 +1,41 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1501623673034,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1501623672530,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0QQm0ldn77eaCVEy",
+            "seq": 2435,
+            "text": "it is 26°C in here",
+            "nlp": {
+              "entities": {
+                "temperature": [
+                  {
+                    "confidence": 0.96164833333333,
+                    "value": 26,
+                    "type": "value",
+                    "unit": "celsius",
+                    "_entity": "temperature",
+                    "_body": "26°C",
+                    "_start": 6,
+                    "_end": 10
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
