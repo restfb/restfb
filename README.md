@@ -1,4 +1,4 @@
-[![Travis (.org)](https://img.shields.io/travis/restfb/restfb.svg?style=for-the-badge)](https://travis-ci.org/restfb/restfb)
+[![Backers on Open Collective](https://opencollective.com/restfb/backers/badge.svg?style=for-the-badge)](#backers) [![Sponsors on Open Collective](https://opencollective.com/restfb/sponsors/badge.svg?style=for-the-badge)](#sponsors) [![Travis (.org)](https://img.shields.io/travis/restfb/restfb.svg?style=for-the-badge)](https://travis-ci.org/restfb/restfb)
 
 
 # RestFB (http://restfb.com)
@@ -44,3 +44,32 @@ a JavaFX code sample that shows how an embedded browser is used to fetch a user 
 * **[Facebook Messenger](https://fb.com/msg/Restfb-909653922461664)**: Contact us via Facebook Messenger and we will help to solve your RestFB problem.
 * **[Stackoverflow](https://stackoverflow.com/questions/tagged/restfb)**: Questions about RestFB are answered on Stackoverflow. We'll help you there, too.
 * **[Google Groups](http://groups.google.com/group/restfb)**: If you'd like to talk to other RestFB users, just send a message to our Google Group!
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/restfb/restfb/graphs/contributors"><img src="https://opencollective.com/restfb/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/restfb#backer)]
+
+<a href="https://opencollective.com/restfb#backers" target="_blank"><img src="https://opencollective.com/restfb/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/restfb#sponsor)]
+
+<a href="https://opencollective.com/restfb/sponsor/0/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/1/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/2/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/3/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/4/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/5/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/6/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/7/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/8/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/restfb/sponsor/9/website" target="_blank"><img src="https://opencollective.com/restfb/sponsor/9/avatar.svg"></a>
+
+
