@@ -1,0 +1,86 @@
+[
+  {
+    "code": 200,
+    "headers": [
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      },
+      {
+        "name": "ETag",
+        "value": "\"bbf9cb99fcd98ba6c16300aa5c925306d0ab8636\""
+      },
+      {
+        "name": "Expires",
+        "value": "Sat, 01 Jan 2000 00:00:00 GMT"
+      },
+      {
+        "name": "Facebook-API-Version",
+        "value": "v2.3"
+      },
+      {
+        "name": "Content-Type",
+        "value": "text\/javascript; charset=UTF-8"
+      },
+      {
+        "name": "X-App-Usage",
+        "value": "{\"call_count\":2,\"total_cputime\":2,\"total_time\":2}"
+      },
+      {
+        "name": "Cache-Control",
+        "value": "private, no-cache, no-store, must-revalidate"
+      },
+      {
+        "name": "Vary",
+        "value": "Accept-Encoding"
+      },
+      {
+        "name": "Pragma",
+        "value": "no-cache"
+      }
+    ],
+    "body": "{\"id\":\"123456789\",\"name\":\"Tester\"}"
+  },
+  {
+    "code": 200,
+    "headers": [
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      },
+      {
+        "name": "ETag",
+        "value": "\"8518f38182b640aa9191370b9a23afce9a2306c0\""
+      },
+      {
+        "name": "Expires",
+        "value": "Sat, 01 Jan 2000 00:00:00 GMT"
+      },
+      {
+        "name": "Facebook-API-Version",
+        "value": "v2.3"
+      },
+      {
+        "name": "Content-Type",
+        "value": "text\/javascript; charset=UTF-8"
+      },
+      {
+        "name": "X-App-Usage",
+        "value": "{\"call_count\":2,\"total_cputime\":2,\"total_time\":2}"
+      },
+      {
+        "name": "Cache-Control",
+        "value": "private, no-cache, no-store, must-revalidate"
+      },
+      {
+        "name": "Vary",
+        "value": "Accept-Encoding"
+      },
+      {
+        "name": "Pragma",
+        "value": "no-cache"
+      }
+    ],
+    "body": "{\"id\":\"4\",\"name\":\"Mark Zuckerberg\"}"
+  }
+]

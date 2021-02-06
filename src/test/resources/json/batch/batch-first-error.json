@@ -1,0 +1,86 @@
+[
+  {
+    "code": 400,
+    "headers": [
+      {
+        "name": "WWW-Authenticate",
+        "value": "OAuth \"Facebook Platform\" \"invalid_request\" \"Unsupported get request. Object with ID '2' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https:\/\/developers.facebook.com\/docs\/graph-api\""
+      },
+      {
+        "name": "Expires",
+        "value": "Sat, 01 Jan 2000 00:00:00 GMT"
+      },
+      {
+        "name": "Facebook-API-Version",
+        "value": "v2.3"
+      },
+      {
+        "name": "Content-Type",
+        "value": "text\/javascript; charset=UTF-8"
+      },
+      {
+        "name": "X-App-Usage",
+        "value": "{\"call_count\":2,\"total_cputime\":2,\"total_time\":2}"
+      },
+      {
+        "name": "Cache-Control",
+        "value": "no-store"
+      },
+      {
+        "name": "Vary",
+        "value": "Accept-Encoding"
+      },
+      {
+        "name": "Pragma",
+        "value": "no-cache"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "body": "{\"error\":{\"message\":\"Unsupported get request. Object with ID '2' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https:\\\/\\\/developers.facebook.com\\\/docs\\\/graph-api\",\"type\":\"GraphMethodException\",\"code\":100,\"fbtrace_id\":\"AjPj2sQoTXX\"}}"
+  },
+  {
+    "code": 200,
+    "headers": [
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      },
+      {
+        "name": "ETag",
+        "value": "\"bbf9cb99fcd98ba6c16300aa5c925306d0ab8636\""
+      },
+      {
+        "name": "Expires",
+        "value": "Sat, 01 Jan 2000 00:00:00 GMT"
+      },
+      {
+        "name": "Facebook-API-Version",
+        "value": "v2.3"
+      },
+      {
+        "name": "Content-Type",
+        "value": "text\/javascript; charset=UTF-8"
+      },
+      {
+        "name": "X-App-Usage",
+        "value": "{\"call_count\":2,\"total_cputime\":2,\"total_time\":2}"
+      },
+      {
+        "name": "Cache-Control",
+        "value": "private, no-cache, no-store, must-revalidate"
+      },
+      {
+        "name": "Vary",
+        "value": "Accept-Encoding"
+      },
+      {
+        "name": "Pragma",
+        "value": "no-cache"
+      }
+    ],
+    "body": "{\"id\":\"123456789\",\"name\":\"Tester\"}"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "entry": [
+    {
+      "changes": [
+        {
+          "field": "feed",
+          "value": {
+            "verb": "hide",
+            "item": "video",
+            "sender_name": "Tester",
+            "video_id": 900767076685784,
+            "sender_id": 1234567890321,
+            "post_id": "1234567890321_901097836652708",
+            "link": "https://www.example.org/test.mp4",
+            "published": 1,
+            "created_time": 1549019010
+          }
+        }
+      ],
+      "id": "1234567890321",
+      "time": 1549034772
+    }
+  ],
+  "object": "page"
+}

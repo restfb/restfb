@@ -1,0 +1,15 @@
+{
+  "screennames": {
+    "data": [
+      {
+        "service_name": "Twitter",
+        "value": "@sebastianpinera"
+      },
+      {
+        "service_name": "Instagram",
+        "value": "sebastianpinerae"
+      }
+    ]},
+  "name": "Tester Page",
+  "id": "123456473835"
+}
