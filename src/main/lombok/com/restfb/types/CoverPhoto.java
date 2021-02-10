@@ -35,17 +35,6 @@ public class CoverPhoto extends FacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Deprecated. Please use the {@link CoverPhoto#getId()} field instead
-   * 
-   * @deprecated use {@link CoverPhoto#getId()} instead
-   */
-  @Getter
-  @Setter
-  @Facebook("cover_id")
-  @Deprecated
-  String coverId;
-
-  /**
    * When non-zero, the cover image overflows horizontally. The value indicates the offset percentage of the total image
    * width from the left [0-100]
    *
