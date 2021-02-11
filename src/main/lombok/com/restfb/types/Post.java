@@ -433,9 +433,6 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   @Facebook
   private List<Property> properties = new ArrayList<>();
 
-  @Facebook("with_tags")
-  private List<NamedFacebookType> withTags = new ArrayList<>();
-
   @Facebook("message_tags")
   private transient String rawMessageTags;
 
@@ -1355,31 +1352,6 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
 
   public boolean removeProperty(Property property) {
     return properties.remove(property);
-  }
-
-  /**
-   * Objects (Users, Pages, etc) tagged as being with the publisher of the post ("Who are you with?" on Facebook).
-   *
-   * @return Objects (Users, Pages, etc) tagged as being with the publisher of the post ("Who are you with?" on
-   *         Facebook).
-   * @since 1.6.10
-   */
-  @GraphAPI(until = "3.2")
-  @Deprecated
-  public List<NamedFacebookType> getWithTags() {
-    return unmodifiableList(withTags);
-  }
-
-  @GraphAPI(until = "3.2")
-  @Deprecated
-  public boolean addWithTag(NamedFacebookType withTag) {
-    return withTags.add(withTag);
-  }
-
-  @GraphAPI(until = "3.2")
-  @Deprecated
-  public boolean removeWithTag(NamedFacebookType withTag) {
-    return withTags.remove(withTag);
   }
 
   /**
