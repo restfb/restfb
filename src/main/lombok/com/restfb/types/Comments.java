@@ -119,10 +119,24 @@ public class Comments extends AbstractFacebookType {
     return unmodifiableList(data);
   }
 
+  /**
+   * Adds a comment
+   *
+   * @param comment
+   *          the comment that should be added
+   * @return true if the comment was added, false otherwise
+   */
   public boolean addData(Comment comment) {
     return data.add(comment);
   }
 
+  /**
+   * remove a comment
+   *
+   * @param comment
+   *          the comment that should be removed
+   * @return true if the comment was removed, false otherwise
+   */
   public boolean removeData(Comment comment) {
     return data.remove(comment);
   }

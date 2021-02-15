@@ -299,7 +299,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   /**
    * Timeline visibility information of the post.
    *
-   * @return imeline visibility information of the post
+   * @return timeline visibility information of the post
    */
   @Getter
   @Setter
@@ -891,7 +891,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
     /**
      * Values of targeting regions.
      *
-     * Use type of adregion to find Targeting Options and use the returned key to specify.
+     * Use type of {@code adregion} to find Targeting Options and use the returned key to specify.
      *
      * @return list of regions
      */

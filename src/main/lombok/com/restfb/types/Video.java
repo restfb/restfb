@@ -553,38 +553,6 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   }
 
   /**
-   * Adds a comment
-   * 
-   * @param comment
-   *          the comment that should be added
-   * @return true if the comment was added, false otherwise
-   * @deprecated work on the {@code Comments} object directly instead of using this method
-   */
-  @Deprecated
-  public boolean addComment(Comment comment) {
-    if (getComments() != null) {
-      return getComments().addData(comment);
-    }
-    return false;
-  }
-
-  /**
-   * Adds a comment
-   * 
-   * @param comment
-   *          the comment that should be added
-   * @return true if the comment was added, false otherwise
-   * @deprecated work on the {@code Comments} object directly instead of using this method
-   */
-  @Deprecated
-  public boolean removeComment(Comment comment) {
-    if (getComments() != null) {
-      return getComments().removeData(comment);
-    }
-    return false;
-  }
-
-  /**
    * The number of likes on this video.
    * 
    * you have to fetch the video id with <code>?fields=likes.summary(true)</code> in order to speed up the likes count
