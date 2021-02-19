@@ -1207,20 +1207,6 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private Boolean isUnclaimed;
 
   /**
-   * Pages with a large number of followers can be manually verified by Facebook as having an authentic identity. This
-   * field indicates whether the page is verified by this process
-   * 
-   * @since 1.10.0
-   * @return Indicates whether the Page is verified
-   * @deprecated use <code>verificationStatus</code> instead
-   */
-  @Deprecated
-  @Getter
-  @Setter
-  @Facebook("is_verified")
-  private Boolean isVerified;
-
-  /**
    * Indicates whether the application is subscribed for real time updates from this page
    *
    * @return Indicates whether the application is subscribed for real time updates from this page
