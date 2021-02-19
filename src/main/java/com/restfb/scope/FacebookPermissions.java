@@ -315,19 +315,6 @@ public enum FacebookPermissions {
   PAGES_EVENTS("pages_events", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * Enables your app to retrieve Page Access Tokens for the Pages and Apps that the person administrates.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it. You can grant this
-   * permission on behalf of people listed within the Roles section of your App's Dashboard without review by Facebook.
-   */
-  @Deprecated
-  MANAGE_PAGES("manage_pages", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
    * The {@code pages_manage_ads} permission allows your app the ability to manage ads associated with the Page.
    * 
    * <p>
@@ -338,6 +325,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @since June 1, 2020
    */
   PAGES_MANAGE_ADS("pages_manage_ads", Category.EVENTS_GROUPS_PAGES), //
 
@@ -353,6 +342,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @since June 1, 2020
    */
   PAGES_MANAGE_METADATA("pages_manage_metadata", Category.EVENTS_GROUPS_PAGES), //
 
@@ -369,6 +360,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @since June 1, 2020
    */
   PAGES_READ_ENGAGEMENT("pages_read_engagement", Category.EVENTS_GROUPS_PAGES), //
 
@@ -388,6 +381,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @since June 1, 2020
    */
   PAGES_READ_USER_CONTENT("pages_read_user_content", Category.EVENTS_GROUPS_PAGES), //
 
@@ -515,23 +510,6 @@ public enum FacebookPermissions {
   PAGES_USER_TIMEZONE("pages_user_timezone", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * Gives your app the ability to post, comment and like as any of the Pages managed by a person using your app.
-   *
-   * <p>
-   * Publishing as an individual personal account is not possible with this permission. To post as an individual, please
-   * see the <code>publish_actions</code> permission.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   */
-  @GraphAPI(since = "2.3")
-  @Deprecated
-  PUBLISH_PAGES("publish_pages", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
    * The {@code pages_manage_posts} permission allows your app the ability to create, edit, and delete your Page posts.
    *
    * <p>
@@ -546,6 +524,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @since June 1, 2020
    */
   PAGES_MANAGE_POSTS("pages_manage_posts", Category.EVENTS_GROUPS_PAGES), //
 
@@ -568,6 +548,8 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   *
+   * @since June 1, 2020
    */
   PAGES_MANAGE_ENGAGEMENT("pages_manage_engagement", Category.EVENTS_GROUPS_PAGES), //
 
