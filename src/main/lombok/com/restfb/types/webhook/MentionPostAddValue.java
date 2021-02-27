@@ -21,26 +21,6 @@
  */
 package com.restfb.types.webhook;
 
-import com.restfb.Facebook;
-import com.restfb.types.webhook.base.BaseChangeValue;
+public class MentionPostAddValue extends AbstractMentionAddValue {
 
-import lombok.Getter;
-import lombok.Setter;
-
-public class MentionPostAddValue extends BaseChangeValue {
-
-  @Getter
-  @Setter
-  @Facebook("post_id")
-  private String postId;
-
-  @Getter
-  @Setter
-  @Facebook("sender_id")
-  private String senderId;
-
-  @Getter
-  @Setter
-  @Facebook("sender_name")
-  private String senderName;
 }

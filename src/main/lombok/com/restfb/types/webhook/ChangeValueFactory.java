@@ -151,6 +151,7 @@ public class ChangeValueFactory {
     FEED_LIKE_ADD(FeedLikeValue.class), //
     FEED_LIKE_REMOVE(FeedLikeValue.class), //
     MENTION_POST_ADD(MentionPostAddValue.class), //
+    MENTION_COMMENT_ADD(MentionCommentAddValue.class), //
     RATINGS_RATING_ADD(RatingsRatingValue.class), //
     RATINGS_RATING_EDIT(RatingsRatingValue.class), //
     RATINGS_RATING_REMOVE(RatingsRatingValue.class), //

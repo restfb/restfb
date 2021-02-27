@@ -19,72 +19,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.base;
+package com.restfb.types.webhook;
 
 import com.restfb.Facebook;
-
 import lombok.Getter;
 import lombok.Setter;
 
-abstract public class AbstractFeedPostValue extends BaseChangeValue {
+public class MentionCommentAddValue extends AbstractMentionAddValue {
 
   @Getter
   @Setter
-  @Facebook("post_id")
-  private String postId;
-
-  @Deprecated
-  @Setter
-  @Facebook("sender_id")
-  private String senderId;
-
-  @Deprecated
-  @Setter
-  @Facebook("sender_name")
-  private String senderName;
-
-  @Facebook
-  private From from;
-
-  /**
-   * returns the {@code sender_id}.
-   *
-   * Use {@link AbstractFeedPostValue#getFrom()} instead, because with Graph API 2.11 sender_id is deprecated
-   * 
-   * @return the sender id
-   */
-  public String getSenderId() {
-    if (from != null) {
-      return from.getId();
-    }
-    return senderId;
-  }
-
-  /**
-   * returns the {@code sender_name}.
-   *
-   * Use {@link AbstractFeedPostValue#getFrom()} instead, because with Graph API 2.11 sender_name is deprecated
-   *
-   * @return the sender name
-   */
-  public String getSenderName() {
-    if (from != null) {
-      return from.getName();
-    }
-    return senderName;
-  }
-
-  /**
-   * returns the sender (from) of the feed value
-   * 
-   * @return from of the feed value
-   */
-  public From getFrom() {
-    if (from != null) {
-      return from;
-    } else {
-      return new From(senderId, senderName);
-    }
-  }
+  @Facebook("comment_id")
+  private String commentId;
 
 }

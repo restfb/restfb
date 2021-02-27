@@ -1251,6 +1251,31 @@ class WebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void mentionPostAdd_realData() {
+    WebhookObject webhookObject = openJson("mention-post-add-real");
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertEquals(change.getValue().getClass(), MentionPostAddValue.class, "change value class");
+    MentionPostAddValue mentionPostAddValue = (MentionPostAddValue) change.getValue();
+    assertNotNull(mentionPostAddValue);
+    assertEquals("1234567890321_98722536423179", mentionPostAddValue.getPostId());
+    assertEquals("post", mentionPostAddValue.getItem());
+    assertEquals(ChangeValue.Verb.ADD, mentionPostAddValue.getVerb());
+  }
+
+  @Test
+  void mentionCommentAdd() {
+    WebhookObject webhookObject = openJson("mention-comment-add");
+    Change change = webhookObject.getEntryList().get(0).getChanges().get(0);
+    assertEquals(change.getValue().getClass(), MentionCommentAddValue.class, "change value class");
+    MentionCommentAddValue mentionCommentAddValue = (MentionCommentAddValue) change.getValue();
+    assertNotNull(mentionCommentAddValue);
+    assertEquals("1234567890321_7363534231324", mentionCommentAddValue.getPostId());
+    assertEquals("7363534231324_3754798971271444", mentionCommentAddValue.getCommentId());
+    assertEquals("comment", mentionCommentAddValue.getItem());
+    assertEquals(ChangeValue.Verb.ADD, mentionCommentAddValue.getVerb());
+  }
+
+  @Test
   void feedTwoEntries() {
     WebhookObject webhookObject = openJson("feed-two-entries-25");
     assertEquals(2, webhookObject.getEntryList().size(), "entry count");
