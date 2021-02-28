@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 3.15.0 (February 28, 2021)
+
+* Issue #1137: Graph API 10 added to version enum
+* Issue #1138: `ChangeValueFactory` cannot handle a mention comment
+* Issue #1139: Add a better `from` field implementation
+
 ## 3.14.0 (February 3, 2021)
 
 * Issue #1119: license date changed to 2021
