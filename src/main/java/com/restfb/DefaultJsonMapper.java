@@ -209,7 +209,7 @@ public class DefaultJsonMapper implements JsonMapper {
       JsonObject jsonObject = jsonValue.asObject();
 
       if (instance instanceof AbstractFacebookType) {
-        ReflectionUtils.setJson(instance, jsonObject);
+        ReflectionUtils.setJson(instance, json);
       }
 
       // For each Facebook-annotated field on the current Java object, pull data

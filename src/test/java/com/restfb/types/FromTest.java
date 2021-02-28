@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class FromTest extends AbstractJsonMapperTests {
+class FromTest extends AbstractJsonMapperTests {
 
   @Test
   void usingUserObject() {

@@ -31,7 +31,6 @@ import java.util.*;
 
 import com.restfb.annotation.OriginalJson;
 import com.restfb.exception.FacebookJsonMappingException;
-import com.restfb.json.JsonObject;
 
 /**
  * A collection of reflection-related utility methods.
@@ -61,10 +60,10 @@ public final class ReflectionUtils {
     // prevent instantiation
   }
 
-  public static void setJson(Object cls, JsonObject obj) {
-    if (cls == null || obj == null) return; // if
+  public static void setJson(Object cls, String obj) {
+    if (cls == null || obj == null) return; // if some object is null we skip this step
     List<FieldWithAnnotation<OriginalJson>> annotatedFields = findFieldsWithAnnotation(cls.getClass(), OriginalJson.class);
-    annotatedFields.stream().map(FieldWithAnnotation::getField).filter(f -> JsonObject.class.equals(f.getType())).forEach(f -> setFieldData(f, cls, obj));
+    annotatedFields.stream().map(FieldWithAnnotation::getField).filter(f -> String.class.equals(f.getType())).forEach(f -> setFieldData(f, cls, obj));
   }
 
   private static void setFieldData(Field field, Object obj, Object data) {

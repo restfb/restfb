@@ -32,7 +32,7 @@ import lombok.Setter;
 public class From extends CategorizedFacebookType {
 
   @OriginalJson
-  private JsonObject json;
+  private String json;
 
   @Setter
   private User user;
@@ -61,9 +61,8 @@ public class From extends CategorizedFacebookType {
   @JsonMapper.JsonMappingCompleted
   protected void convert(JsonMapper jsonMapper) {
     if (json != null) {
-      String jsonString = json.toString();
-      user = jsonMapper.toJavaObject(jsonString, User.class);
-      page = jsonMapper.toJavaObject(jsonString, Page.class);
+      user = jsonMapper.toJavaObject(json, User.class);
+      page = jsonMapper.toJavaObject(json, Page.class);
     }
   }
 
