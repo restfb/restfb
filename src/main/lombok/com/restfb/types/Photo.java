@@ -55,7 +55,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
   @Getter
   @Setter
   @Facebook
-  private CategorizedFacebookType from;
+  private From from;
 
   /**
    * The album-sized view of the photo.

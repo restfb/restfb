@@ -29,7 +29,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
 
+import com.restfb.annotation.OriginalJson;
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.JsonObject;
 
 /**
  * A collection of reflection-related utility methods.
@@ -57,6 +59,21 @@ public final class ReflectionUtils {
    */
   private ReflectionUtils() {
     // prevent instantiation
+  }
+
+  public static void setJson(Object cls, JsonObject obj) {
+    if (cls == null || obj == null) return; // if
+    List<FieldWithAnnotation<OriginalJson>> annotatedFields = findFieldsWithAnnotation(cls.getClass(), OriginalJson.class);
+    annotatedFields.stream().map(FieldWithAnnotation::getField).filter(f -> JsonObject.class.equals(f.getType())).forEach(f -> setFieldData(f, cls, obj));
+  }
+
+  private static void setFieldData(Field field, Object obj, Object data) {
+    try {
+      field.setAccessible(true);
+      field.set(obj, data);
+    } catch (IllegalAccessException e) {
+      // do nothing here, the field stays unset and the developer has to handle it
+    }
   }
 
   /**
@@ -386,12 +403,13 @@ public final class ReflectionUtils {
    */
   public static <T> T createInstance(Class<T> type) {
     String errorMessage = "Unable to create an instance of " + type
-            + ". Please make sure that if it's a nested class, is marked 'static'. "
-            + "It should have a no-argument constructor.";
+        + ". Please make sure that if it's a nested class, is marked 'static'. "
+        + "It should have a no-argument constructor.";
 
     try {
       Constructor<T> defaultConstructor = type.getDeclaredConstructor();
-      ObjectUtil.requireNotNull(defaultConstructor, () -> new FacebookJsonMappingException("Unable to find a default constructor for " + type));
+      ObjectUtil.requireNotNull(defaultConstructor,
+        () -> new FacebookJsonMappingException("Unable to find a default constructor for " + type));
 
       // Allows protected, private, and package-private constructors to be
       // invoked
@@ -403,7 +421,8 @@ public final class ReflectionUtils {
   }
 
   private static void throwStateException(Method method, Object obj, Exception e) {
-    throw new IllegalStateException("Unable to reflectively invoke " + method + Optional.ofNullable(obj).map(o -> " on " + o).orElse(""), e);
+    throw new IllegalStateException(
+      "Unable to reflectively invoke " + method + Optional.ofNullable(obj).map(o -> " on " + o).orElse(""), e);
   }
 
   /**
@@ -528,7 +547,8 @@ public final class ReflectionUtils {
 
       if (clazz == null) {
         return other.clazz == null;
-      } else return clazz.equals(other.clazz);
+      } else
+        return clazz.equals(other.clazz);
     }
   }
 }

@@ -59,7 +59,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   @Getter
   @Setter
   @Facebook
-  private CategorizedFacebookType from;
+  private From from;
 
   /**
    * Objectives under which this post can be advertised

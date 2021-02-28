@@ -50,7 +50,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   @Getter
   @Setter
   @Facebook
-  private CategorizedFacebookType from;
+  private From from;
 
   /**
    * The video title / caption.

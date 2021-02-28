@@ -41,9 +41,11 @@ import java.util.stream.Collectors;
 
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.*;
+import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.Comments;
 import com.restfb.util.DateUtils;
 import com.restfb.util.ObjectUtil;
+import com.restfb.util.ReflectionUtils;
 import com.restfb.util.StringJsonUtils;
 import com.restfb.util.ReflectionUtils.*;
 
@@ -205,6 +207,10 @@ public class DefaultJsonMapper implements JsonMapper {
       }
 
       JsonObject jsonObject = jsonValue.asObject();
+
+      if (instance instanceof AbstractFacebookType) {
+        ReflectionUtils.setJson(instance, jsonObject);
+      }
 
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object

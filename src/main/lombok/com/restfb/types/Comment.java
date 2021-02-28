@@ -56,7 +56,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
   @Getter
   @Setter
   @Facebook
-  private CategorizedFacebookType from;
+  private From from;
 
   /**
    * Text contents of the comment.

@@ -49,7 +49,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
   @Getter
   @Setter
   @Facebook
-  private CategorizedFacebookType from;
+  private From from;
 
   /**
    * The description of the album.
