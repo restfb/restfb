@@ -33,7 +33,7 @@ import lombok.Setter;
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
-public class CategorizedFacebookType extends NamedFacebookType {
+public abstract class CategorizedFacebookType extends NamedFacebookType {
 
   /**
    * The category field for this type.

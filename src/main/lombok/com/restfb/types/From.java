@@ -26,7 +26,14 @@ import com.restfb.annotation.OriginalJson;
 
 import lombok.Setter;
 
-public class From extends CategorizedFacebookType {
+/**
+ * {@code From} type is used as replacement for the case we need a user or a page. Because these
+ * both types have different fields we have this special handling.
+ *
+ * Because the minimal intersection of page and user are id and name, so the {@code From} object extends the
+ * {@see NamedFacebookType} and as fast access name and id are available.
+ */
+public class From extends NamedFacebookType {
 
   @OriginalJson
   private String json;

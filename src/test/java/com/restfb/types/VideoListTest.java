@@ -37,8 +37,8 @@ class VideoListTest extends AbstractJsonMapperTests {
     assertEquals("1596893690559748", videoList.getId());
     assertNull(videoList.getDescription());
     assertNotNull(videoList.getOwner());
-    CategorizedFacebookType owner = videoList.getOwner();
-    assertEquals("Restaurant/Cafe", owner.getCategory());
+    From owner = videoList.getOwner();
+    assertEquals("Restaurant/Cafe", owner.getAsPage().getCategory());
     assertEquals("12345678", owner.getId());
     assertEquals("Test", owner.getName());
   }
