@@ -61,7 +61,7 @@ public class VideoList extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private CategorizedFacebookType owner;
+  private From owner;
 
   /**
    * The time when the playlist was created
