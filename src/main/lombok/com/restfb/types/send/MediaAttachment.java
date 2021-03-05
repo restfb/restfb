@@ -137,7 +137,7 @@ public class MediaAttachment extends MessageAttachment {
 
   public interface MediaTemplateElement extends Serializable {
 
-    void addButton(WebButton button);
+    void addButton(AbstractButton button);
 
   }
 

@@ -19,48 +19,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.send.media;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.restfb.types.send;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import com.restfb.types.send.AbstractButton;
-import com.restfb.types.send.MediaAttachment;
-import com.restfb.types.send.WebButton;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Represents the media template element that is used with the attachment id as defined
- * <a href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/media#attachment">here</a>
+ * Represents the <a href="https://developers.facebook.com/docs/messenger-platform/reference/buttons/game-play">Game
+ * Play Button</a> type
  */
-public class MediaTemplateAttachmentElement extends AbstractFacebookType
-    implements MediaAttachment.MediaTemplateElement {
+public class GamePlayButton extends AbstractButton {
 
-  @Getter
-  @Facebook("media_type")
-  private String mediaType;
-
-  @Getter
-  @Facebook("attachment_id")
-  private String attachmentId;
-
-  @Getter
   @Facebook
-  private List<AbstractButton> buttons;
+  private String payload;
 
-  public MediaTemplateAttachmentElement(MediaAttachment.MediaType mediaType, String attachmentId) {
-    this.mediaType = mediaType.name().toLowerCase();
-    this.attachmentId = attachmentId;
+  @Facebook("game_metadata")
+  private GameMetadata gameMetadata;
+
+  public GamePlayButton(String title) {
+    super(title);
+    setType("game_play");
   }
 
-  @Override
-  public void addButton(AbstractButton button) {
-    if (buttons == null) {
-      buttons = new ArrayList<>();
-    }
-    buttons.add(button);
+  public void setGameMetadata(GameMetadata gameMetadata) {
+    this.gameMetadata = gameMetadata;
+  }
+
+  public void setPayload(String payload) {
+    this.payload = payload;
+  }
+
+  public static class GameMetadata {
+
+    @Setter
+    @Getter
+    @Facebook("player_id")
+    private String playerId;
+
+    @Setter
+    @Getter
+    @Facebook("context_id")
+    private String contextId;
+
   }
 }

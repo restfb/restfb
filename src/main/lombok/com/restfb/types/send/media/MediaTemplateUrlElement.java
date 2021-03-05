@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.send.AbstractButton;
 import com.restfb.types.send.MediaAttachment;
 import com.restfb.types.send.WebButton;
 
@@ -55,7 +56,7 @@ public class MediaTemplateUrlElement extends AbstractFacebookType implements Med
 
   @Getter
   @Facebook
-  private List<WebButton> buttons;
+  private List<AbstractButton> buttons;
 
   public MediaTemplateUrlElement(String url) {
     if (!validUrl(url)) {
@@ -70,7 +71,7 @@ public class MediaTemplateUrlElement extends AbstractFacebookType implements Med
   }
 
   @Override
-  public void addButton(WebButton button) {
+  public void addButton(AbstractButton button) {
     if (buttons == null) {
       buttons = new ArrayList<>();
     }
