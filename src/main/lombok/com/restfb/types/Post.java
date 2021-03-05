@@ -348,6 +348,16 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   private Date updatedTime;
 
   /**
+   * This field is available on tagged Posts.
+   *
+   * @return The tagging Date of the Post
+   */
+  @Getter
+  @Setter
+  @Facebook("tagged_time")
+  private Date taggedTime;
+
+  /**
    * The Facebook object id for an uploaded photo or video.
    *
    * Hint for Graph API 3.3: Use <code>attachment/target/id</code> instead

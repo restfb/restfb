@@ -30,14 +30,14 @@ class FromTest extends AbstractJsonMapperTests {
 
   @Test
   void usingUserObject() {
-    From from = createJsonMapper().toJavaObject(jsonFromClasspath("v10.0/from-as-user"), From.class);
+    From from = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/from-as-user"), From.class);
     assertNotNull(from);
     assertNotNull(from.getAsUser());
   }
 
   @Test
   void usingPageObject() {
-    From from = createJsonMapper().toJavaObject(jsonFromClasspath("v10.0/from-as-page"), From.class);
+    From from = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/from-as-page"), From.class);
     assertNotNull(from);
     assertNotNull(from.getAsPage());
   }

@@ -384,6 +384,13 @@ class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void checkV10_tagged() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/tagged-post"), Post.class);
+    assertNotNull(examplePost);
+    assertEquals(1614340197000l, examplePost.getTaggedTime().getTime());
+  }
+
+  @Test
   void checkNestedConnection() {
     JsonMapper mapper = createJsonMapper();
     FacebookClient mockClient = Mockito.mock(FacebookClient.class);
