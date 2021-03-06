@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
@@ -270,8 +269,8 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertThat(account.getAccessToken()).isEqualTo("{access-token}");
     assertThat(account.getId()).isEqualTo("1234567890");
     assertThat(account.getName()).isEqualTo("Sample Page");
-    assertThat(account.getPerms()).hasSize(6).contains("ADMINISTER", "EDIT_PROFILE", "CREATE_CONTENT", "MODERATE_CONTENT",
-      "CREATE_ADS", "BASIC_ADMIN");
+    assertThat(account.getTasks()).hasSize(6).contains("ANALYZE", "ADVERTISE", "MESSAGING", "MODERATE",
+      "CREATE_CONTENT", "MANAGE");
   }
 
   /**

@@ -46,18 +46,16 @@ class AccountTest extends AbstractJsonMapperTests {
   }
 
   @Test
-  void checkV2_6() {
-    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_6/account"), Account.class);
     assertEquals("123123123123", exampleAccount.getId());
     assertNotNull(exampleAccount.getOwnerBusiness());
     assertEquals("123123123123", exampleAccount.getOwnerBusiness().getId());
     assertEquals("Test Company", exampleAccount.getOwnerBusiness().getName());
-    assertEquals(6, exampleAccount.getPerms().size());
-    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
+    assertEquals(6, exampleAccount.getTasks().size());
+    assertTrue(exampleAccount.getTasks().contains("MESSAGING"));
   }
 
   private static Stream<String> jsonSupplier() {
-    return Stream.of("v1_0", "v2_0", "v2_1");
+    return Stream.of("v2_0", "v2_1");
   }
 
 }

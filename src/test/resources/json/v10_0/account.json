@@ -5,12 +5,12 @@
     "name": "Test Company"
   },
   "id": "123123123123",
-  "perms": [
-    "ADMINISTER",
-    "EDIT_PROFILE",
+  "tasks": [
+    "ANALYZE",
+    "ADVERTISE",
+    "MESSAGING",
+    "MODERATE",
     "CREATE_CONTENT",
-    "MODERATE_CONTENT",
-    "CREATE_ADS",
-    "BASIC_ADMIN"
+    "MANAGE"
   ]
 }

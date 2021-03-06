@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.annotation.GraphAPI;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.
@@ -38,53 +37,8 @@ public class Account extends Page {
 
   private static final long serialVersionUID = 1L;
 
-  @Deprecated
-  @Facebook("perms")
-  private List<String> perms = new ArrayList<>();
-
   @Facebook("tasks")
   private List<String> tasks = new ArrayList<>();
-
-  /**
-   * A list of permissions the user has for this page.
-   * <a href="https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens">See roles list here</a>
-   * 
-   * @return A list of permissions the user has for this page.
-   * @deprecated since graph api v3.1, use getTasks() instead
-   */
-  @Deprecated
-  @GraphAPI(until = "3.0")
-  public List<String> getPerms() {
-    return unmodifiableList(perms);
-  }
-
-  /**
-   * add a permission to the permission list.
-   * 
-   * @param permission
-   *          the permission that should be added
-   * @return {@code true} if the permission could be added
-   * @deprecated since graph api v3.1, use {@link Account#addTask} instead
-   */
-  @Deprecated
-  @GraphAPI(until = "3.0")
-  public boolean addPerm(String permission) {
-    return perms.add(permission);
-  }
-
-  /**
-   * remove the permission from the permission list.
-   * 
-   * @param permission
-   *          the permission that should be removed
-   * @return {@code true} if the permission could be removed
-   * @deprecated since graph api v3.1, use {@link Account#removeTask} instead
-   */
-  @Deprecated
-  @GraphAPI(until = "3.0")
-  public boolean removePerm(String permission) {
-    return perms.remove(permission);
-  }
 
   /**
    * A list of tasks allowed to perform for this page.
@@ -100,6 +54,8 @@ public class Account extends Page {
    * Add a task to the task list.
    *
    * @param task
+   *          the task is added to the task list
+   * @return {@code true} if the task is added {@code false} instead
    */
   public boolean addTask(String task) {
     return tasks.add(task);
@@ -109,7 +65,8 @@ public class Account extends Page {
    * Remove the task from the task list.
    *
    * @param task
-   * @return
+   *          the task is removed from the task list
+   * @return {@code true} if the task is removed {@code false} instead
    */
   public boolean removeTask(String task) {
     return tasks.remove(task);
