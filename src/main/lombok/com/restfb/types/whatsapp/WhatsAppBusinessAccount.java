@@ -100,4 +100,6 @@ public class WhatsAppBusinessAccount extends NamedFacebookType {
   @Setter
   @Facebook("timezone_id")
   private String timezoneId;
+
+
 }

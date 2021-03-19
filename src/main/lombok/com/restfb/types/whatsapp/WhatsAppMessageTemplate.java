@@ -21,7 +21,9 @@
  */
 package com.restfb.types.whatsapp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.types.NamedFacebookType;
@@ -60,12 +62,12 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   // private List<WhatsAppBusinessHSMWhatsAppHSMComponentGet> components;
 
   /**
-   * The language (and locale) of the element translation
+   * The languages (and locale) of the element translation
    */
   @Getter
   @Setter
   @Facebook
-  private String language;
+  private List<String> language = new ArrayList<>();
 
   /**
    * The timestamp indicating the last time the message template was updated
