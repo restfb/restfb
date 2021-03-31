@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 3.16.0 (March 31, 2021)
+
+* Issue #1144: Access to the whats app business account of a page
+* Issue #1145: MediaTemplateElement needs access to AbstractButton
+* Issue #1141: Add field tagged_time to Post type
+* Issue #1142: Replace "owner" field in videolist object with the new From object
+
 ## 3.15.0 (February 28, 2021)
 
 * Issue #1137: Graph API 10 added to version enum
