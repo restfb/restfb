@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.types.Insight;
 import com.restfb.types.NamedFacebookType;
@@ -115,8 +116,16 @@ public class IgUser extends NamedFacebookType {
   @Facebook
   private List<Insight> insights = new ArrayList<>();
 
+  @Deprecated
   @Facebook
   private List<IgMedia> media = new ArrayList<>();
+
+  @Facebook("media")
+  private Connection<IgMedia> mediaConnection;
+
+  public Connection<IgMedia> getMediaConnection() {
+    return mediaConnection;
+  }
 
   public List<Insight> getInsights() {
     return Collections.unmodifiableList(insights);
@@ -130,14 +139,17 @@ public class IgUser extends NamedFacebookType {
     return insights.remove(insight);
   }
 
+  @Deprecated
   public List<IgMedia> getMedia() {
     return Collections.unmodifiableList(media);
   }
 
+  @Deprecated
   public boolean addMedia(IgMedia media) {
     return this.media.add(media);
   }
 
+  @Deprecated
   public boolean removeMedia(IgMedia media) {
     return this.media.remove(media);
   }
