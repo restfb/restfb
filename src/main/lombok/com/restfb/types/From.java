@@ -23,10 +23,7 @@ package com.restfb.types;
 
 import com.restfb.JsonMapper;
 import com.restfb.annotation.OriginalJson;
-import com.restfb.json.JsonObject;
 
-import com.restfb.util.ObjectUtil;
-import com.restfb.util.StringUtils;
 import lombok.Setter;
 
 public class From extends CategorizedFacebookType {

@@ -47,7 +47,7 @@ public class BinaryAttachment {
   private static final String FIELD_NAME_CANNOT_BE_NULL = "Field name cannot be null.";
 
   @Getter
-  private String filename;
+  private final String filename;
 
   private byte[] data;
 
