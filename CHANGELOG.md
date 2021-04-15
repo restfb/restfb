@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.17.0 (April 15, 2021)
+
+* Issue #1148: Added connection to media field on IgUser<br />
+  Thanks to @ernyka for the hint
+
 ## 3.16.0 (March 31, 2021)
 
 * Issue #1144: Access to the whats app business account of a page
