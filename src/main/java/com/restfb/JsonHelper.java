@@ -38,8 +38,8 @@ class JsonHelper {
    *
    * The Strings false and true are converted to the corresponding types
    *
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a boolean generated from the json value
    */
   public boolean getBooleanFrom(JsonValue json) {
 
@@ -72,8 +72,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a Double
    * 
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a double generated from the jsonvalue
    */
   public Double getDoubleFrom(JsonValue json) {
     if (json.isNumber()) {
@@ -86,8 +86,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a Integer
    *
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a integer generated from the jsonvalue
    */
   public Integer getIntegerFrom(JsonValue json) {
     if (json.isNumber()) {
@@ -100,8 +100,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a String
    *
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a String generated from the json value
    */
   public String getStringFrom(JsonValue json) {
     if (json.isString()) {
@@ -114,8 +114,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a Float
    *
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a Float generated from the json value
    */
   public Float getFloatFrom(JsonValue json) {
     if (json.isNumber()) {
@@ -128,8 +128,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a BigInteger
    *
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a big integer generated from the json value
    */
   public BigInteger getBigIntegerFrom(JsonValue json) {
     if (json.isString()) {
@@ -142,8 +142,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a Long
    *
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a long genrated from the jsonvalue
    */
   public Long getLongFrom(JsonValue json) {
     if (json.isNumber()) {
@@ -156,8 +156,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a BigDecimal
    *
-   * @param json
-   * @return
+   * @param json a json value
+   * @return a big decimal generated from the json value
    */
   public BigDecimal getBigDecimalFrom(JsonValue json) {
     if (json.isString()) {
