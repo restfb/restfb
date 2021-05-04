@@ -43,20 +43,57 @@ public class IgMedia extends IgMediaChild {
   @Facebook
   private String caption;
 
+  /**
+   * Count of comments on the media.
+   *
+   * Excludes comments on album child media and the media's caption. Includes replies on comments.
+   */
   @Getter
   @Setter
   @Facebook("comments_count")
   private Long commentsCount;
 
+  /**
+   * Indicates if comments are enabled or disabled. Excludes album children.
+   */
   @Getter
   @Setter
   @Facebook("is_comment_enabled")
   private Boolean isCommentEnabled;
 
+  /**
+   * Count of likes on the media.
+   *
+   * Excludes likes on album child media and likes on promoted posts created from the media. Includes replies on comments.
+   */
   @Getter
   @Setter
   @Facebook("like_count")
   private Long likeCount;
+
+  /**
+   * Media type. Can be CAROUSEL_ALBUM, IMAGE, or VIDEO.
+   */
+  @Getter
+  @Setter
+  @Facebook("media_product_type")
+  private String mediaProductType;
+
+  /**
+   * Media thumbnail URL. Only available on VIDEO media.
+   */
+  @Getter
+  @Setter
+  @Facebook("thumbnail_url")
+  private String thumbnailUrl;
+
+  /**
+   * IGTV media title.
+   */
+  @Getter
+  @Setter
+  @Facebook("video_title")
+  private String videoTitle;
 
   @Facebook
   private List<IgMediaChild> children = new ArrayList<>();
