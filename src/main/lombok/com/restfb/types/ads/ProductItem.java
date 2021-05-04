@@ -21,6 +21,7 @@
  */
 package com.restfb.types.ads;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +134,16 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("fb_product_category")
+  private String fbProductCategory;
+
+  @Getter
+  @Setter
+  @Facebook("google_product_category")
+  private String googleProductCategory;
+
+  @Getter
+  @Setter
   @Facebook("gender")
   private String gender;
 
@@ -143,8 +154,18 @@ public class ProductItem extends NamedAdsObject {
 
   @Getter
   @Setter
+  @Facebook("image_fetch_status")
+  private String imageFetchStatus;
+
+  @Getter
+  @Setter
   @Facebook("image_url")
   private String imageUrl;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<String> images = new ArrayList<>();
 
   @Getter
   @Setter
@@ -170,6 +191,11 @@ public class ProductItem extends NamedAdsObject {
   @Setter
   @Facebook("ordering_index")
   private Long orderingIndex;
+
+  @Getter
+  @Setter
+  @Facebook("parent_product_id")
+  private String parentProductId;
 
   @Getter
   @Setter
