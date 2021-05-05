@@ -72,7 +72,7 @@ public class IgMedia extends IgMediaChild {
   private Long likeCount;
 
   /**
-   * Media type. Can be CAROUSEL_ALBUM, IMAGE, or VIDEO.
+   * Surface where the media is published. Can be AD, FEED, IGTV, or STORY.
    */
   @Getter
   @Setter

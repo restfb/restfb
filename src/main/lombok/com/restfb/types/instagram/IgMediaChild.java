@@ -38,6 +38,9 @@ public class IgMediaChild extends FacebookType {
   @Facebook("ig_id")
   private String igId;
 
+  /**
+   * Media type. Can be CAROUSEL_ALBUM, IMAGE, or VIDEO.
+   */
   @Getter
   @Setter
   @Facebook("media_type")
