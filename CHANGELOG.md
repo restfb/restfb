@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 3.18.0 (May 12, 2021)
+
+* Issue #1151: Support of fb_product_category and google_product_category in ProductItem<br />
+  Thanks to @Alexeyyy for the hint
+* Issue #1152: Add media_product_type and video_title fields to IgMedia<br />
+  Thanks to @StephenFlavin for the hint
+
 ## 3.17.0 (April 15, 2021)
 
 * Issue #1148: Added connection to media field on IgUser<br />
