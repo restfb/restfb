@@ -27,8 +27,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class BinaryAttachmentTest {
 
@@ -65,25 +69,20 @@ class BinaryAttachmentTest {
     assertThat(att).hasContentType("image/png");
   }
 
-  @Test
-  void checkContentTypeBytes_imagePng() {
+  @ParameterizedTest
+  @MethodSource("fileAndContentProvider")
+  void checkContentTypeBytes(String filename, String contentType) {
     String attachmentData = "this is a short string";
-    BinaryAttachment att = BinaryAttachment.with("example.png", attachmentData.getBytes());
-    assertThat(att).hasContentType("image/png");
+    BinaryAttachment att = BinaryAttachment.with(filename, attachmentData.getBytes());
+    assertThat(att).hasContentType(contentType);
   }
 
-  @Test
-  void checkContentTypeBytes_html() {
-    String attachmentData = "this is a short string";
-    BinaryAttachment att = BinaryAttachment.with("example.html", attachmentData.getBytes());
-    assertThat(att).hasContentType("text/html");
-  }
-
-  @Test
-  void checkContentTypeBytes_fallback() {
-    String attachmentData = "this is a short string";
-    BinaryAttachment att = BinaryAttachment.with("example.json", attachmentData.getBytes());
-    assertThat(att).hasContentType("application/octet-stream");
+  static Stream<Arguments> fileAndContentProvider() {
+    return Stream.of( //
+      Arguments.arguments("example.png", "image/png"), // png check
+      Arguments.arguments("example.html", "text/html"), // html check
+      Arguments.arguments("example.json", "application/octet-stream") // json check
+    );
   }
 
   @Test
