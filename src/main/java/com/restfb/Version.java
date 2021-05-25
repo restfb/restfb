@@ -34,21 +34,27 @@ public enum Version {
    * <tt>Graph API 3.1</tt>, available until October 23, 2020
    *
    * @since July 26, 2018
+   * @deprecated use {@link Version#VERSION_4_0} or newer
    */
+  @Deprecated
   VERSION_3_1("v3.1"),
 
   /**
    * <tt>Graph API 3.2</tt>, available until April 30, 2021
    *
    * @since October 23, 2018
+   * @deprecated use {@link Version#VERSION_4_0} or newer
    */
+  @Deprecated
   VERSION_3_2("v3.2"),
 
   /**
    * <tt>Graph API 3.3</tt>, available until July 29, 2021
    *
    * @since April 30, 2019
+   * @deprecated use {@link Version#VERSION_4_0} or newer
    */
+  @Deprecated
   VERSION_3_3("v3.3"),
 
   /**
