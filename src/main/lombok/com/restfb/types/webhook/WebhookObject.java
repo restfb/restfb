@@ -89,4 +89,6 @@ public class WebhookObject {
     return "workplace_security".equals(object);
   }
 
+  public boolean isWhatsAppBusinessAccount() { return "whatsapp_business_account".equals(object); }
+
 }

@@ -19,50 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook;
+package com.restfb.types.webhook.whatsapp;
 
-import com.restfb.util.ReflectionUtils;
+import com.restfb.Facebook;
 
-/**
- * Basic ChangeValue
- *
- * provides a enum for the {@code Verb}
- */
-public class ChangeValue {
+import lombok.Getter;
 
-  public enum Verb {
-    ADD, BLOCK, EDIT, EDITED, DELETE, FOLLOW, HIDE, MUTE, REMOVE, UNBLOCK, UNHIDE, UPDATE, GRANTED, REVOKED
-  }
+public class MessageTemplateStatusUpdateValue extends AbstractWhatsappBaseChangeValue {
 
-  /**
-   * @see Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
+  @Getter
+  @Facebook
+  private String event;
 
-  /**
-   * @see Object#equals(Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
+  @Getter
+  @Facebook("message_template_id")
+  private String messageTemplateId;
 
-  /**
-   * @see Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
+  @Getter
+  @Facebook("message_template_name")
+  private String messageTemplateName;
 
-  public boolean isWhatsapp() {
-    return false;
-  }
+  @Getter
+  @Facebook("message_template_language")
+  private String messageTemplateLanguage;
 
-  public <T extends ChangeValue> T convertChangeValue(Class<T> clazz) {
-    return (T) this;
+  @Getter
+  @Facebook("disable_info")
+  private DisableInfo disableInfo;
+
+  @Getter
+  @Facebook
+  private String reason;
+
+  public static class DisableInfo {
+
+    @Getter
+    @Facebook("disable_date")
+    private String disableDate;
   }
 }

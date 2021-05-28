@@ -30,6 +30,7 @@ import com.restfb.json.JsonValue;
 import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
+import com.restfb.types.webhook.whatsapp.*;
 
 /**
  * Factory to convert the value field of the change into a class with special fields
@@ -170,13 +171,19 @@ public class ChangeValueFactory {
     MENTIONS(InstagramMentionsValue.class), //
     COMMENTS(InstagramCommentsValue.class), //
     // User
-    HOMETOWN_ADD(UserPageValue.class),
-    MOVIES_ADD(UserPageValue.class),
-    LIKES_ADD(UserPageValue.class),
-    LOCATION_ADD(UserPageValue.class),
-    TELEVISION_ADD(UserPageValue.class),
-    GRANTED(PermissionChangeValue.class),
-    REVOKED(PermissionChangeValue.class);
+    HOMETOWN_ADD(UserPageValue.class), //
+    MOVIES_ADD(UserPageValue.class), //
+    LIKES_ADD(UserPageValue.class), //
+    LOCATION_ADD(UserPageValue.class), //
+    TELEVISION_ADD(UserPageValue.class), //
+    GRANTED(PermissionChangeValue.class), //
+    REVOKED(PermissionChangeValue.class), //
+    // Whatsapp Business Account
+    MESSAGE_TEMPLATE_STATUS_UPDATE(MessageTemplateStatusUpdateValue.class), //
+    PHONE_NUMBER_NAME_UPDATE(PhoneNumberNameUpdateValue.class), //
+    PHONE_NUMBER_QUALITY_UPDATE(PhoneNumberQualityUpdateValue.class), //
+    ACCOUNT_UPDATE(AccountUpdateValue.class), //
+    ACCOUNT_REVIEW_UPDATE(AccountReviewUpdateValue.class);
 
     private Class<ChangeValue> valueClass;
 

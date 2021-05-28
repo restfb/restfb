@@ -1,0 +1,20 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "whatsapp-business-account-id",
+      "time": 1608243053,
+      "changes": [
+        {
+          "field": "phone_number_name_update",
+          "value": {
+            "display_phone_number": "16505551111",
+            "decision": "APPROVED",
+            "requested_verified_name": "WhatsApp",
+            "rejection_reason": null
+          }
+        }
+      ]
+    }
+  ]
+}

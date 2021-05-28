@@ -19,50 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook;
+package com.restfb.types.webhook.whatsapp;
 
-import com.restfb.util.ReflectionUtils;
+import com.restfb.Facebook;
 
-/**
- * Basic ChangeValue
- *
- * provides a enum for the {@code Verb}
- */
-public class ChangeValue {
+import lombok.Getter;
 
-  public enum Verb {
-    ADD, BLOCK, EDIT, EDITED, DELETE, FOLLOW, HIDE, MUTE, REMOVE, UNBLOCK, UNHIDE, UPDATE, GRANTED, REVOKED
-  }
+public class AccountReviewUpdateValue extends AbstractWhatsappBaseChangeValue {
 
-  /**
-   * @see Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
+  @Getter
+  @Facebook
+  private String decision;
 
-  /**
-   * @see Object#equals(Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
-
-  /**
-   * @see Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
-
-  public boolean isWhatsapp() {
-    return false;
-  }
-
-  public <T extends ChangeValue> T convertChangeValue(Class<T> clazz) {
-    return (T) this;
-  }
 }

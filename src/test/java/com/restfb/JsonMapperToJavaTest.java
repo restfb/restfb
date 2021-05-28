@@ -33,6 +33,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.restfb.json.Json;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonValue;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.JsonMapper.JsonMappingCompleted;
@@ -463,6 +466,14 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void jsonListOfListOfString() {
+    String jsonString = "{\"body_text\":[[\"body-example-1\",\"body-example-2\",\"body-example-3\"]]}";
+    JsonMapper mapper = new DefaultJsonMapper();
+    ListListString example = mapper.toJavaObject(jsonString, ListListString.class);
+    assertThat(example).isNotNull();
+  }
+
+  @Test
   void jsonToObjectWithOptionals() {
     String jsonString = "{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumberButNull\":null}";
     JavaTypeWithOptionalField obj = createJsonMapper().toJavaObject(jsonString, JavaTypeWithOptionalField.class);
@@ -470,6 +481,20 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     assertThat(obj.text).isInstanceOf(Optional.class).hasValue("justsometext");
     assertThat(obj.emptyNumber).isInstanceOf(Optional.class).isEmpty();
     assertThat(obj.emptyNumberButNull).isInstanceOf(Optional.class).isEmpty();
+  }
+
+  static class ListListString {
+
+    List<String> bodyText = new ArrayList<>();
+
+    @Facebook("body_text")
+    String rawBodyText;
+
+    @JsonMappingCompleted
+    void onAfterMappingCompleted() {
+      JsonArray array = Json.parse(rawBodyText).asArray().get(0).asArray();
+      array.valueStream().map(JsonValue::asString).forEach(bodyText::add);
+    }
   }
 
   static class MapTestType {

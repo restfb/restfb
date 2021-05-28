@@ -19,50 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook;
+package com.restfb.types.webhook.whatsapp;
 
-import com.restfb.util.ReflectionUtils;
+import com.restfb.Facebook;
 
-/**
- * Basic ChangeValue
- *
- * provides a enum for the {@code Verb}
- */
-public class ChangeValue {
+import lombok.Getter;
 
-  public enum Verb {
-    ADD, BLOCK, EDIT, EDITED, DELETE, FOLLOW, HIDE, MUTE, REMOVE, UNBLOCK, UNHIDE, UPDATE, GRANTED, REVOKED
-  }
+public class PhoneNumberNameUpdateValue extends AbstractWhatsappBaseChangeValue {
 
-  /**
-   * @see Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return ReflectionUtils.hashCode(this);
-  }
+  @Getter
+  @Facebook("display_phone_number")
+  private String displayPhoneNumber;
 
-  /**
-   * @see Object#equals(Object)
-   */
-  @Override
-  public boolean equals(Object that) {
-    return ReflectionUtils.equals(this, that);
-  }
+  @Getter
+  @Facebook
+  private String decision;
 
-  /**
-   * @see Object#toString()
-   */
-  @Override
-  public String toString() {
-    return ReflectionUtils.toString(this);
-  }
+  @Getter
+  @Facebook("requested_verified_name")
+  private String requestedVerifiedName;
 
-  public boolean isWhatsapp() {
-    return false;
-  }
-
-  public <T extends ChangeValue> T convertChangeValue(Class<T> clazz) {
-    return (T) this;
-  }
+  @Getter
+  @Facebook("rejection_reason")
+  private String rejectionReason;
 }
