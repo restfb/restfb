@@ -34,4 +34,18 @@ public class MessagingParticipant {
   @Setter
   @Facebook
   private String id;
+
+  /**
+   * The user_ref of the user that triggered the webhook event.
+   *
+   * This is only available for webhook event from the chat plugin.
+   */
+  @Getter
+  @Setter
+  @Facebook("user_ref")
+  private String userRef;
+
+  public boolean isUserRef() {
+    return userRef != null;
+  }
 }

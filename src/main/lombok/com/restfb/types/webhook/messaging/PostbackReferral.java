@@ -80,5 +80,48 @@ public class PostbackReferral {
   @Getter
   @Setter
   @Facebook("is_guest_user")
-  private String isGuestUser;
+  private Boolean isGuestUser;
+
+  /**
+   * The data contaning information about the CTM ad, the user initiated the thread from.
+   */
+  @Getter
+  @Setter
+  @Facebook("ads_context_data")
+  private AdsContextData adsContextData;
+
+  public static class AdsContextData {
+
+    /**
+     * Title of the Ad.
+     */
+    @Getter
+    @Setter
+    @Facebook("ad_title")
+    private String adTitle;
+
+    /**
+     * [Optional] Url of the image from the Ad the user is interested.
+     */
+    @Getter
+    @Setter
+    @Facebook("photo_url")
+    private String photoUrl;
+
+    /**
+     * [Optional] Thumbnail url of the the video from the ad.
+     */
+    @Getter
+    @Setter
+    @Facebook("video_url")
+    private String videoUrl;
+
+    /**
+     * ID of the post.
+     */
+    @Getter
+    @Setter
+    @Facebook("post_id")
+    private String postId;
+  }
 }

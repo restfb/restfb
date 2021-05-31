@@ -21,6 +21,7 @@
  */
 package com.restfb.types;
 
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
@@ -565,6 +566,28 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     assertEquals("ref_data_in_m_dot_me_param", referral.getRef());
     assertEquals("SHORTLINK", referral.getSource());
     assertEquals("OPEN_THREAD", referral.getType());
+  }
+
+  @Test
+  void messagingPostbackFromChat() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-chat"), WebhookObject.class);
+    assertThat(webhookObject).isNotNull();
+    assertThat(webhookObject.getEntryList()).isNotEmpty();
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertThat(entry.getMessaging()).isNotEmpty();
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertThat(messagingItem.getSender().isUserRef()).isTrue();
+    assertThat(messagingItem.getSender().getUserRef()).isEqualTo("987654321432");
+    assertThat(messagingItem.getRecipient().isUserRef()).isFalse();
+    assertThat(messagingItem.isPostback()).isTrue();
+    PostbackItem item = messagingItem.getPostback();
+    assertThat(item).isNotNull();
+    PostbackReferral referral = item.getReferral();
+    assertThat(referral.getSource()).isEqualTo("CUSTOMER_CHAT_PLUGIN");
+    assertThat(referral.getType()).isEqualTo("OPEN_THREAD");
+    assertThat(referral.getRefererUri()).isEqualTo("https://www.xyz.com/abcd");
+    assertThat(referral.getIsGuestUser()).isFalse();
   }
 
   @Test

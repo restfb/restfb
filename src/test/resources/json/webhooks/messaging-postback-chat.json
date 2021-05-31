@@ -1,0 +1,31 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": 12345654332,
+      "time": 1458692752478,
+      "messaging": [
+        {
+          "sender": {
+            "user_ref": 987654321432
+          },
+          "recipient": {
+            "id": 12345654332
+          },
+          "timestamp": 1458692752478,
+          "postback": {
+            "payload": "hey",
+            "referral": {
+              "ref": null,
+              "source": "CUSTOMER_CHAT_PLUGIN",
+              "type": "OPEN_THREAD",
+              "referer_uri": "https:\/\/www.xyz.com\/abcd",
+              "is_guest_user": false
+            },
+            "title": ""
+          }
+        }
+      ]
+    }
+  ]
+}
