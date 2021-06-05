@@ -975,6 +975,21 @@ public enum FacebookPermissions {
   INSTAGRAM_MANAGE_INSIGHTS("instagram_manage_insights", Category.INSTAGRAM),
 
   /**
+   * The instagram_manage_messages permission allows business users to read and respond to Instagram Direct messages.
+   * 
+   * <p>
+   * Please see <a href="https://developers.facebook.com/docs/instagram-api/getting-started">Instagram's Getting Started
+   * Guide</a> for details.
+   * 
+   * <p>
+   * <strong>Review</strong>
+   * 
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  INSTAGRAM_MANAGE_MESSAGES("instagram_manage_messages", Category.INSTAGRAM),
+
+  /**
    * Provides the ability to publish content to Instagram account you have access to.
    *
    * <p>
