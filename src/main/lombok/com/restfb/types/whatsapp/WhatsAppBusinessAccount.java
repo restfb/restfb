@@ -37,6 +37,14 @@ public class WhatsAppBusinessAccount extends NamedFacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
+   * Status from account review process
+   */
+  @Getter
+  @Setter
+  @Facebook("account_review_status")
+  private String accountReviewStatus;
+
+  /**
    * Analytics data of the WhatsApp Business Account
    */
   @Getter
@@ -69,11 +77,27 @@ public class WhatsAppBusinessAccount extends NamedFacebookType {
   @Facebook("ineligible_for_sending_notifications_reason")
   private String ineligibleForSendingNotificationsReason;
 
+  /**
+   * Namespace string for the message templates that belong to the WhatsApp Business Account
+   */
+  @Getter
+  @Setter
+  @Facebook("message_template_namespace")
+  private String messageTemplateNamespace;
+
   // WABAOnBehalfOfComputedInfo is not defined in Graph API reference
   // @Getter
   // @Setter
   // @Facebook("WABAOnBehalfOfComputedInfo")
   // private WABAOnBehalfOfComputedInfo onBehalfOfBusinessInfo;
+
+  /**
+   * Primary funding ID for the WhatsApp Business Account paid service
+   */
+  @Getter
+  @Setter
+  @Facebook("primary_funding_id")
+  private String primaryFundingId;
 
   /**
    * The purchase order number supplied by the business for payment management purposes

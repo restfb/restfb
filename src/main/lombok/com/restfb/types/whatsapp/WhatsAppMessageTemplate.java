@@ -100,4 +100,10 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   @Setter
   @Facebook("name_or_content")
   private String nameOrContent;
+
+
+  @Getter
+  @Setter
+  @Facebook("quality_score")
+  private WhatsAppHSMQualityScoreShape qualityScore;
 }

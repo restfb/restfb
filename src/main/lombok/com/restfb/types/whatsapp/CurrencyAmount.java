@@ -22,81 +22,41 @@
 package com.restfb.types.whatsapp;
 
 import com.restfb.Facebook;
-import com.restfb.types.FacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href=
- * "https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account-to-number-current-status/">WhatsApp
- * Business Account To Number Current Status type </a>
- */
-public class WhatsAppBusinessAccountToNumberCurrentStatus extends FacebookType {
+public class CurrencyAmount {
 
-  private static final long serialVersionUID = 1L;
-
-  @Getter
-  @Setter
-  @Facebook("account_mode")
-  private String accountMode;
-
+  /**
+   * Value of the amount in whole currency units (USD 123.45 = "123.45")
+   */
   @Getter
   @Setter
   @Facebook
-  private String certificate;
+  private String amount;
 
-  @Deprecated
+  /**
+   * Value of the amount in hundredths, i.e. (USD 123.45 = "12345", JYP 1 = "100")
+   */
   @Getter
   @Setter
-  @Facebook("country_code")
-  private String countryCode;
+  @Facebook("amount_in_hundredths")
+  private String amountInHundredths;
 
-  @Deprecated
-  @Getter
-  @Setter
-  @Facebook("country_dial_code")
-  private String countryDialCode;
-
-  @Getter
-  @Setter
-  @Facebook("display_phone_number")
-  private String displayPhoneNumber;
-
-  @Getter
-  @Setter
-  @Facebook("name_status")
-  private String nameStatus;
-
-  @Getter
-  @Setter
-  @Facebook("new_certificate")
-  private String newCertificate;
-
-  @Getter
-  @Setter
-  @Facebook("new_name_status")
-  private String newNameStatus;
-
-  @Getter
-  @Setter
-  @Facebook("quality_score")
-  private WhatsAppPhoneQualityScoreShape qualityScore;
-
-  @Deprecated
-  @Getter
-  @Setter
-  @Facebook("quality_rating")
-  private String qualityRating;
-
+  /**
+   * Currency in which amount is given
+   */
   @Getter
   @Setter
   @Facebook
-  private String status;
+  private String currency;
 
-  @Deprecated
+  /**
+   * Value of the amount in cents (USD 123.45 = "12345")
+   */
   @Getter
   @Setter
-  @Facebook("verified_name")
-  private String verifiedName;
+  @Facebook("offsetted_amount")
+  private String offsettedAmount;
 }
