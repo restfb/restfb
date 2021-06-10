@@ -102,7 +102,11 @@ public class SetterGetterTestBase {
       // }
 
       if (field.getType().equals(boolean.class)) {
-        getter = theClass.getMethod("is" + capName);
+        if (!capName.startsWith("is")) {
+          getter = theClass.getMethod("is" + capName);
+        } else {
+          getter = theClass.getMethod(capName);
+        }
       } else {
         getter = theClass.getMethod("get" + capName);
       }

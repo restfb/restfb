@@ -19,74 +19,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types;
+package com.restfb.types.instagram;
 
 import com.restfb.Facebook;
-
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Respresents the User Profile object as defined
- * <a href="https://developers.facebook.com/docs/messenger-platform/identity/user-profile/">here</a>
+ * Respresents the Instagram User Profile object as defined
+ * <a href="https://developers.facebook.com/docs/messenger-platform/instagram/features/user-profile">here</a>
  */
-public class UserProfile extends NamedFacebookType {
+public class IgUserProfile extends AbstractFacebookType {
 
+  /**
+   * The user's name
+   */
   @Getter
   @Setter
-  @Facebook("first_name")
-  private String firstName;
+  @Facebook
+  private String name;
 
-  @Getter
-  @Setter
-  @Facebook("last_name")
-  private String lastName;
-
+  /**
+   * URL to the Profile picture.
+   *
+   * The URL will expire in a few days.
+   */
   @Getter
   @Setter
   @Facebook("profile_pic")
   private String profilePic;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String locale;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String timezone;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String gender;
-
-  @Getter
-  @Setter
-  @Facebook("is_payment_enabled")
-  private Boolean isPaymentEnabled;
-
-  @Getter
-  @Setter
-  @Facebook("last_ad_referral")
-  private LastAdReferral lastAdReferral;
-
-  public static class LastAdReferral extends AbstractFacebookType {
-
-    @Getter
-    @Setter
-    @Facebook
-    private String source;
-
-    @Getter
-    @Setter
-    @Facebook
-    private String type;
-
-    @Getter
-    @Setter
-    @Facebook("ad_id")
-    private String adId;
-  }
 }

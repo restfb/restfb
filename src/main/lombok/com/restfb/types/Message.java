@@ -76,10 +76,15 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
   @Getter(onMethod_ = {@Override})
   @Setter
   @Facebook
-  private NamedFacebookType from;
+  private ExtendedReferenceType from;
 
   @Facebook
-  private List<NamedFacebookType> to = new ArrayList<>();
+  private List<ExtendedReferenceType> to = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("is_unsupported")
+  private boolean isUnsupported = false;
 
   /**
    * The text of the message
@@ -100,6 +105,9 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
   @Setter
   @Facebook
   private String sticker;
+
+  @Facebook
+  private List<Reaction> reactions = new ArrayList<>();
 
   @Facebook
   private List<Attachment> attachments = new ArrayList<>();
@@ -412,6 +420,29 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   }
 
+  public static class Reaction extends AbstractFacebookType {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String reaction;
+
+    @Facebook
+    private List<ExtendedReferenceType> users = new ArrayList<>();
+
+    public List<ExtendedReferenceType> getUsers() {
+      return users;
+    }
+
+    public boolean addUser(ExtendedReferenceType user) {
+      return users.add(user);
+    }
+
+    public boolean removeUser(ExtendedReferenceType user) {
+      return users.remove(user);
+    }
+  }
+
   @JsonMappingCompleted
   void convertTags() {
     if (rawTags != null) {
@@ -465,15 +496,15 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
    *
    * @return A list of the message recipients
    */
-  public List<NamedFacebookType> getTo() {
+  public List<ExtendedReferenceType> getTo() {
     return unmodifiableList(to);
   }
 
-  public boolean addTo(NamedFacebookType receiver) {
+  public boolean addTo(ExtendedReferenceType receiver) {
     return to.add(receiver);
   }
 
-  public boolean removeTo(NamedFacebookType receiver) {
+  public boolean removeTo(ExtendedReferenceType receiver) {
     return to.remove(receiver);
   }
 
@@ -492,5 +523,22 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   public boolean removeTag(String tag) {
     return tags.remove(tag);
+  }
+
+  /**
+   * Reaction (like/love) on the existing message
+   *
+   * @return list of reactions
+   */
+  public List<Reaction> getReactions() {
+    return unmodifiableList(reactions);
+  }
+
+  public boolean addReaction(Reaction reaction) {
+    return reactions.add(reaction);
+  }
+
+  public boolean removeReaction(Reaction reaction) {
+    return reactions.remove(reaction);
   }
 }

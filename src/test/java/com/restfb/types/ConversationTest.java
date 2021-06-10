@@ -21,72 +21,25 @@
  */
 package com.restfb.types;
 
-import com.restfb.Facebook;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.junit.jupiter.api.Test;
 
-/**
- * Respresents the User Profile object as defined
- * <a href="https://developers.facebook.com/docs/messenger-platform/identity/user-profile/">here</a>
- */
-public class UserProfile extends NamedFacebookType {
+import com.restfb.AbstractJsonMapperTests;
 
-  @Getter
-  @Setter
-  @Facebook("first_name")
-  private String firstName;
+public class ConversationTest extends AbstractJsonMapperTests {
 
-  @Getter
-  @Setter
-  @Facebook("last_name")
-  private String lastName;
-
-  @Getter
-  @Setter
-  @Facebook("profile_pic")
-  private String profilePic;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String locale;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String timezone;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String gender;
-
-  @Getter
-  @Setter
-  @Facebook("is_payment_enabled")
-  private Boolean isPaymentEnabled;
-
-  @Getter
-  @Setter
-  @Facebook("last_ad_referral")
-  private LastAdReferral lastAdReferral;
-
-  public static class LastAdReferral extends AbstractFacebookType {
-
-    @Getter
-    @Setter
-    @Facebook
-    private String source;
-
-    @Getter
-    @Setter
-    @Facebook
-    private String type;
-
-    @Getter
-    @Setter
-    @Facebook("ad_id")
-    private String adId;
+  @Test
+  void checkV10_instagram() {
+    Conversation instaConversation = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-conversation"), Conversation.class);
+    assertThat(instaConversation).isNotNull();
+    assertThat(instaConversation.getParticipants()).isNotNull();
+    assertThat(instaConversation.getParticipants()).isNotEmpty();
+    for (ExtendedReferenceType refType : instaConversation.getParticipants()) {
+      assertThat(refType.getUserId()).isEqualTo("<IGID>");
+      assertThat(refType.getUsername()).isEqualTo("<IG_USER_NAME>");
+      assertThat(refType.getId()).isIn("<IGID>","<IGSID>");
+      assertThat(refType.isInstagram()).isTrue();
+    }
   }
 }

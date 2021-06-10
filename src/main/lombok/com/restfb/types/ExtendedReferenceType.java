@@ -26,67 +26,24 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Respresents the User Profile object as defined
- * <a href="https://developers.facebook.com/docs/messenger-platform/identity/user-profile/">here</a>
- */
-public class UserProfile extends NamedFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook("first_name")
-  private String firstName;
-
-  @Getter
-  @Setter
-  @Facebook("last_name")
-  private String lastName;
-
-  @Getter
-  @Setter
-  @Facebook("profile_pic")
-  private String profilePic;
+public class ExtendedReferenceType extends NamedFacebookType {
 
   @Getter
   @Setter
   @Facebook
-  private String locale;
+  private String username;
+
+  @Getter
+  @Setter
+  @Facebook("user_id")
+  private String userId;
 
   @Getter
   @Setter
   @Facebook
-  private String timezone;
+  private String email;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String gender;
-
-  @Getter
-  @Setter
-  @Facebook("is_payment_enabled")
-  private Boolean isPaymentEnabled;
-
-  @Getter
-  @Setter
-  @Facebook("last_ad_referral")
-  private LastAdReferral lastAdReferral;
-
-  public static class LastAdReferral extends AbstractFacebookType {
-
-    @Getter
-    @Setter
-    @Facebook
-    private String source;
-
-    @Getter
-    @Setter
-    @Facebook
-    private String type;
-
-    @Getter
-    @Setter
-    @Facebook("ad_id")
-    private String adId;
+  public boolean isInstagram() {
+    return username != null && userId != null;
   }
 }

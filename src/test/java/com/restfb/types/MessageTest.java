@@ -94,4 +94,29 @@ class MessageTest extends AbstractJsonMapperTests {
     Message.Attachment attachment = exampleMessage.getAttachments().get(0);
     assertTrue(attachment.isRemovedInEurope());
   }
+
+  @Test
+  void v10_instagram() {
+    Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-message"), Message.class);
+    assertThat(exampleMessage).isNotNull();
+    assertThat(exampleMessage.getReactions()).isNotEmpty();
+    assertThat(exampleMessage.getReactions().get(0).getReaction()).isEqualTo("love");
+    assertThat(exampleMessage.getReactions().get(0).getUsers().get(0).getUsername()).isEqualTo("<IG_USERNAME>");
+    assertThat(exampleMessage.getAttachments()).isNotEmpty();
+    assertThat(exampleMessage.getShares()).isNotEmpty();
+    assertThat(exampleMessage.getTo()).isNotNull();
+    assertThat(exampleMessage.getTo().get(0).isInstagram()).isTrue();
+    ExtendedReferenceType to = exampleMessage.getTo().get(0);
+    assertThat(to.getUserId()).isEqualTo("<IGID>");
+    assertThat(to.getUsername()).isEqualTo("<IG_USERNAME>");
+    assertThat(to.getId()).isEqualTo("<IGSID|IGID>");
+
+    assertThat(exampleMessage.getFrom()).isNotNull();
+    assertThat(exampleMessage.getFrom().isInstagram()).isTrue();
+    ExtendedReferenceType from = exampleMessage.getFrom();
+    assertThat(from.getUserId()).isEqualTo("<IGID>");
+    assertThat(from.getUsername()).isEqualTo("<IG_USERNAME>");
+    assertThat(from.getId()).isEqualTo("<IGSID|IGID>");
+
+  }
 }

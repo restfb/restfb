@@ -537,6 +537,14 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   @Facebook("is_verified")
   private Boolean isVerified;
 
+  /**
+   * if the current user is a guest user. should always return false.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_guest_user")
+  private Boolean isGuestUser;
+
   @Deprecated
   @Facebook("interested_in")
   private List<String> interestedIn = new ArrayList<>();

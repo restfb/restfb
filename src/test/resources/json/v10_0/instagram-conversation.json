@@ -1,0 +1,17 @@
+{
+  "id": "<THREAD_ID>",
+  "participants": {
+    "data": [
+      {
+        "username": "<IG_USER_NAME>",
+        "id":  "<IGSID>",
+        "user_id": "<IGID>"
+      },
+      {
+        "username": "<IG_USER_NAME>",
+        "id":  "<IGID>",
+        "user_id": "<IGID>"
+      }
+    ]
+  }
+}

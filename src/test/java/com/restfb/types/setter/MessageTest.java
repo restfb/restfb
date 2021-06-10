@@ -34,6 +34,7 @@ class MessageTest extends SetterGetterTestBase {
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
     addIgnoredField("rawTags");
+    addIgnoredField("isUnsupported");
     testInstance(obj);
   }
 

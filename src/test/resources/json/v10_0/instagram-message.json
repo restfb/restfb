@@ -1,0 +1,83 @@
+{
+  "id": "<MESSAGE_ID>",
+  "created_time": "<TIMESTAMP>",
+  "from": {
+    "username": "<IG_USERNAME>",
+    "id": "<IGSID|IGID>",
+    "user_id": "<IGID>"
+  },
+  "message": "<MESSAGE_TEXT>",
+  "to": {
+    "data": [
+      {
+        "username": "<IG_USERNAME>",
+        "id": "<IGSID|IGID>",
+        "user_id": "<IGID>"
+      }
+    ]
+  },
+  "is_unsupported": "true",
+  "attachments": {
+    "data": [
+      {
+        "id": "<ID>",
+        "image_data": {
+          "url": "<CDN_URL>"
+        },
+        "name": "<NAME>",
+        "video_data": {
+          "url": "<CDN_URL>"
+        },
+        "file_url": "<CDN_URL>"
+      }
+    ]
+  },
+  "reactions": {
+    "data": [
+      {
+        "reaction": "love",
+        "users": [
+          {
+            "username": "<IG_USERNAME>",
+            "id": "<IGSID|IGID>",
+            "user_id": "<IGID>"
+          }
+        ]
+      }
+    ]
+  },
+  "shares": {
+    "data": [
+      {
+        "link": "<URL>",
+        "template": {
+          "payload": {
+            "product": {
+              "elements": {
+                "data": [
+                  {
+                    "id": "<Product_id>",
+                    "retailer_id": "<EXTERNAL_ID>",
+                    "image_url": "https://fb.cdn.com/sdsd",
+                    "name": "Some product title",
+                    "price": "$10"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "story": {
+    "reply_to": {
+      "link": "<CDN_URL>",
+      "id": "<STORY_ID>"
+    },
+    "mention": {
+      "link": "<CDN_URL>",
+      "id": "<STORY_ID>"
+    }
+  }
+}

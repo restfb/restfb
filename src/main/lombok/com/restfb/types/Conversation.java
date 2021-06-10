@@ -138,7 +138,7 @@ public class Conversation extends FacebookType {
   private List<Tag> tags = new ArrayList<>();
 
   @Facebook
-  private List<NamedFacebookType> participants = new ArrayList<>();
+  private List<ExtendedReferenceType> participants = new ArrayList<>();
 
   @Facebook("former_participants")
   private List<NamedFacebookType> formerParticipants = new ArrayList<>();
@@ -216,15 +216,15 @@ public class Conversation extends FacebookType {
    * 
    * @return Users who are on this message conversation
    */
-  public List<NamedFacebookType> getParticipants() {
+  public List<ExtendedReferenceType> getParticipants() {
     return unmodifiableList(participants);
   }
 
-  public boolean addParticipant(NamedFacebookType participant) {
+  public boolean addParticipant(ExtendedReferenceType participant) {
     return participants.add(participant);
   }
 
-  public boolean removeParticipant(NamedFacebookType participant) {
+  public boolean removeParticipant(ExtendedReferenceType participant) {
     return participants.remove(participant);
   }
 
