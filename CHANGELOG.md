@@ -1,5 +1,17 @@
 # RestFB Changelog
 
+## 3.19.0 (June 13, 2021)
+
+* Issue #1161: Graph API 11 added to version enum
+* Issue #1159: Instagram Messaging support<br />
+  Thanks to @PavelHumeniuk and @gurkein for the input
+* Issue #1160: Add instagram_manage_messages permission to FacebookPermissions
+* Issue #1154: mark deprecated Version values as deprecated
+* Issue #1156: Whatsapp Business Account Webhook
+* Issue #1157: Whatsapp Business Account Objects
+* Issue #1158: Handle user_ref field of sender in messaging_referrals<br />
+  Thanks to @swapnilpandey03 and @vikasaini for the input
+
 ## 3.18.0 (May 12, 2021)
 
 * Issue #1151: Support of fb_product_category and google_product_category in ProductItem<br />
