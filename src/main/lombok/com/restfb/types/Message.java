@@ -31,10 +31,10 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
-
 import com.restfb.types.features.HasCreatedTime;
 import com.restfb.types.features.HasFrom;
 import com.restfb.types.features.HasMessage;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,7 +53,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
    *
    * @return The time the message was initially created.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -73,7 +73,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
    *
    * @return The sender of this message
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private ExtendedReferenceType from;
@@ -91,7 +91,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
    *
    * @return The text of the message
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
@@ -114,6 +114,11 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   @Facebook
   private List<Share> shares = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private Story story;
 
   /**
    * The time of the last update to this message.
@@ -236,8 +241,8 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     }
 
     /**
-     * returns if the attachment is a placeholder for the real
-     * attachment, that is not accessible via API due to privacy rules in Europe
+     * returns if the attachment is a placeholder for the real attachment, that is not accessible via API due to privacy
+     * rules in Europe
      *
      * check <a href="https://developers.facebook.com/docs/messenger-platform/europe-updates">at Facebook</a>
      *
@@ -279,6 +284,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     @Setter
     @Facebook
     private String picture;
+
   }
 
   /**
@@ -443,6 +449,33 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     }
   }
 
+  public static class Story extends AbstractFacebookType {
+
+    @Getter
+    @Setter
+    @Facebook("reply_to")
+    StoryReply replyTo;
+
+    @Getter
+    @Setter
+    @Facebook
+    StoryMention mention;
+  }
+
+  public static class StoryReply extends FacebookType {
+    @Getter
+    @Setter
+    @Facebook
+    private String link;
+  }
+
+  public static class StoryMention extends FacebookType {
+    @Getter
+    @Setter
+    @Facebook
+    private String link;
+  }
+
   @JsonMappingCompleted
   void convertTags() {
     if (rawTags != null) {
@@ -541,4 +574,5 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
   public boolean removeReaction(Reaction reaction) {
     return reactions.remove(reaction);
   }
+
 }

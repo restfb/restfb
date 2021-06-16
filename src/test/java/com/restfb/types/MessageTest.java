@@ -119,4 +119,16 @@ class MessageTest extends AbstractJsonMapperTests {
     assertThat(from.getId()).isEqualTo("<IGSID|IGID>");
 
   }
+
+  @Test
+  void v10_instagram_story() {
+    Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-message-story"), Message.class);
+    assertThat(exampleMessage).isNotNull();
+    assertThat(exampleMessage.getStory()).isNotNull();
+    assertThat(exampleMessage.getStory().getReplyTo()).isNotNull();
+    assertThat(exampleMessage.getStory().getReplyTo().getLink()).isNotNull();
+    assertThat(exampleMessage.getStory().getReplyTo().getLink()).contains("lookaside");
+    assertThat(exampleMessage.getStory().getReplyTo().getId()).isNotNull();
+    assertThat(exampleMessage.getStory().getReplyTo().getId()).contains("1807");
+  }
 }
