@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 3.20.0 (June 29, 2021)
+
+* Issue #1163: IG Messaging Story<br />
+  Thanks to @rhossei2 for the hint
+
 ## 3.19.0 (June 13, 2021)
 
 * Issue #1161: Graph API 11 added to version enum
