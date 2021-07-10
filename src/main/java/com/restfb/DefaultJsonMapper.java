@@ -47,7 +47,6 @@ import com.restfb.util.DateUtils;
 import com.restfb.util.ObjectUtil;
 import com.restfb.util.ReflectionUtils;
 import com.restfb.util.StringJsonUtils;
-import com.restfb.util.ReflectionUtils.*;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
@@ -81,7 +80,7 @@ public class DefaultJsonMapper implements JsonMapper {
     ObjectUtil.requireNotNull(type, () -> new FacebookJsonMappingException("You must specify the Java type to map to."));
     json = trimToEmpty(json);
 
-    checkBlankJson(json);
+    checkJsonNotBlank(json);
 
     if (StringJsonUtils.isObject(json)) {
       // Sometimes Facebook returns the empty object {} when it really should be
@@ -153,7 +152,8 @@ public class DefaultJsonMapper implements JsonMapper {
       return toJavaObject(StringJsonUtils.EMPTY_OBJECT, type);
     }
 
-    basicJsonStringChecks(json);
+    checkJsonNotBlank(json);
+    checkJsonNotList(json);
 
     try {
       // Are we asked to map to JsonObject? If so, short-circuit right away.
@@ -161,13 +161,13 @@ public class DefaultJsonMapper implements JsonMapper {
         return (T) Json.parse(json).asObject();
       }
 
-      List<FieldWithAnnotation<Facebook>> fieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);
-      Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(fieldsWithAnnotation);
+      List<FieldWithAnnotation<Facebook>> listOfFieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);
+      Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(listOfFieldsWithAnnotation);
 
       // If there are no annotated fields, assume we're mapping to a built-in
       // type. If this is actually the empty object, just return a new instance
       // of the corresponding Java type.
-      if (fieldsWithAnnotation.isEmpty()) {
+      if (listOfFieldsWithAnnotation.isEmpty()) {
         if (StringJsonUtils.isEmptyObject(json)) {
           T instance = createInstance(type);
 
@@ -208,13 +208,11 @@ public class DefaultJsonMapper implements JsonMapper {
 
       JsonObject jsonObject = jsonValue.asObject();
 
-      if (instance instanceof AbstractFacebookType) {
-        ReflectionUtils.setJson(instance, json);
-      }
+      handleAbstractFacebookType(json, instance);
 
       // For each Facebook-annotated field on the current Java object, pull data
       // out of the JSON object and put it in the Java object
-      for (FieldWithAnnotation<Facebook> fieldWithAnnotation : fieldsWithAnnotation) {
+      for (FieldWithAnnotation<Facebook> fieldWithAnnotation : listOfFieldsWithAnnotation) {
         String facebookFieldName = getFacebookFieldName(fieldWithAnnotation);
 
         if (!jsonObject.contains(facebookFieldName)
@@ -256,15 +254,19 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
-  private void checkBlankJson(String json) {
+  private <T> void handleAbstractFacebookType(String json, T instance) {
+    if (instance instanceof AbstractFacebookType) {
+      ReflectionUtils.setJson(instance, json);
+    }
+  }
+
+  private void checkJsonNotBlank(String json) {
     if (isBlank(json)) {
       throw new FacebookJsonMappingException("JSON is an empty string - can't map it.");
     }
   }
 
-  private void basicJsonStringChecks(String json) {
-    checkBlankJson(json);
-
+  private void checkJsonNotList(String json) {
     if (StringJsonUtils.isList(json)) {
       throw new FacebookJsonMappingException("JSON is an array but is being mapped as an object "
           + "- you should map it as a List instead. Offending JSON is '" + json + "'.");
@@ -288,14 +290,19 @@ public class DefaultJsonMapper implements JsonMapper {
     for (Method method : findMethodsWithAnnotation(object.getClass(), JsonMappingCompleted.class)) {
       method.setAccessible(true);
 
-      if (method.getParameterTypes().length == 0)
+      int methodParameterCount = method.getParameterTypes().length;
+
+      if (methodParameterCount == 0) {
         method.invoke(object);
-      else if (method.getParameterTypes().length == 1 && JsonMapper.class.equals(method.getParameterTypes()[0]))
+      }
+      else if (methodParameterCount == 1 && JsonMapper.class.equals(method.getParameterTypes()[0])) {
         method.invoke(object, this);
-      else
+      }
+      else {
         throw new FacebookJsonMappingException(
-          format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",
-            JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));
+                format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",
+                        JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));
+      }
     }
   }
 
@@ -409,31 +416,11 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (object instanceof List<?>) {
-      JsonArray jsonArray = new JsonArray();
-
-      for (Object o : (List<?>) object)
-        jsonArray.add(toJsonInternal(o, ignoreNullValuedProperties));
-
-      return jsonArray;
+      return convertListToJsonArray((List<?>) object, ignoreNullValuedProperties);
     }
 
     if (object instanceof Map<?, ?>) {
-      JsonObject jsonObject = new JsonObject();
-      for (Entry<?, ?> entry : ((Map<?, ?>) object).entrySet()) {
-        if (!(entry.getKey() instanceof String)) {
-          throw new FacebookJsonMappingException("Your Map keys must be of type " + String.class
-              + " in order to be converted to JSON.  Offending map is " + object);
-        }
-
-        try {
-          jsonObject.add((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
-        } catch (ParseException | IllegalArgumentException e) {
-          throw new FacebookJsonMappingException(
-            "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, e);
-        }
-      }
-
-      return jsonObject;
+      return convertMapToJsonObject(object, ignoreNullValuedProperties);
     }
 
     if (isPrimitive(object)) {
@@ -441,7 +428,7 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (object instanceof Optional) {
-      return toJsonInternal(((Optional) object).orElse(null), ignoreNullValuedProperties);
+      return convertOptionalToJsonValue((Optional) object, ignoreNullValuedProperties);
     }
 
     if (object instanceof BigInteger) {
@@ -493,8 +480,7 @@ public class DefaultJsonMapper implements JsonMapper {
         }
 
         if (!(ignoreNullValuedProperties
-            && (fieldValue == null || (fieldValue instanceof Optional && !((Optional) fieldValue).isPresent())
-                || isEmptyCollectionOrMap(fieldValue)))) {
+            && (fieldValue == null || isEmptyOptional(fieldValue) || isEmptyCollectionOrMap(fieldValue)))) {
           jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
@@ -504,6 +490,38 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     return jsonObject;
+  }
+
+  private boolean isEmptyOptional(Object fieldValue) {
+    return fieldValue instanceof Optional && !((Optional) fieldValue).isPresent();
+  }
+
+  private JsonArray convertListToJsonArray(List<?> objects, boolean ignoreNullValuedProperties) {
+    JsonArray jsonArray = new JsonArray();
+    objects.stream().map(o -> toJsonInternal(o, ignoreNullValuedProperties)).forEach(jsonArray::add);
+    return jsonArray;
+  }
+
+  private JsonObject convertMapToJsonObject(Object object, boolean ignoreNullValuedProperties) {
+    JsonObject jsonObject = new JsonObject();
+    for (Entry<?, ?> entry : ((Map<?, ?>) object).entrySet()) {
+      if (!(entry.getKey() instanceof String)) {
+        throw new FacebookJsonMappingException("Your Map keys must be of type " + String.class
+            + " in order to be converted to JSON.  Offending map is " + object);
+      }
+
+      try {
+        jsonObject.add((String) entry.getKey(), toJsonInternal(entry.getValue(), ignoreNullValuedProperties));
+      } catch (ParseException | IllegalArgumentException e) {
+        throw new FacebookJsonMappingException(
+          "Unable to process value '" + entry.getValue() + "' for key '" + entry.getKey() + "' in Map " + object, e);
+      }
+    }
+    return jsonObject;
+  }
+
+  private JsonValue convertOptionalToJsonValue(Optional object, boolean ignoreNullValuedProperties) {
+    return toJsonInternal(object.orElse(null), ignoreNullValuedProperties);
   }
 
   /**
@@ -526,7 +544,6 @@ public class DefaultJsonMapper implements JsonMapper {
   @SuppressWarnings("unchecked")
   protected <T> T toPrimitiveJavaType(String json, Class<T> type) {
 
-    // cleanup the json string
     json = jsonHelper.cleanString(json);
 
     if (String.class.equals(type)) {
@@ -583,9 +600,8 @@ public class DefaultJsonMapper implements JsonMapper {
     if (rawValue == null || rawValue.isNull()) {
       if (type.equals(Optional.class)) {
         return Optional.empty();
-      } else {
-        return null;
       }
+      return null;
     }
 
     if (String.class.equals(type)) {
@@ -646,7 +662,7 @@ public class DefaultJsonMapper implements JsonMapper {
       return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
     }
     if (Map.class.equals(type)) {
-      return convertJsonObjectToMap(rawValue.toString(), fieldWithAnnotation.getField());
+      return convertRawValueToMap(rawValue.toString(), fieldWithAnnotation.getField());
     }
 
     if (Optional.class.equals(type)) {
@@ -655,18 +671,8 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (type.isEnum()) {
-      Class<? extends Enum> enumType = type.asSubclass(Enum.class);
-      try {
-        return Enum.valueOf(enumType, rawValue.asString());
-      } catch (IllegalArgumentException iae) {
-        MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(),
-          enumType.getName());
-      }
-      try {
-        return Enum.valueOf(enumType, rawValue.asString().toUpperCase());
-      } catch (IllegalArgumentException iae) {
-        MAPPER_LOGGER.debug("Mapping string {} to enum {} not possible", rawValue.asString(), enumType.getName());
-      }
+      Enum enumType = convertRawValueToEnumType(type, rawValue);
+      if (enumType != null) return enumType;
     }
 
     if (Date.class.equals(type)) {
@@ -674,14 +680,8 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (Connection.class.equals(type)) {
-      if (null != facebookClient) {
-        return new Connection(facebookClient, jsonHelper.getStringFrom(rawValue),
-          getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
-      } else {
-        MAPPER_LOGGER.warn(
-          "Skipping java field {}, because it has the type Connection, but the given facebook client is null",
-          fieldWithAnnotation.getField().getName());
-      }
+      Connection createdConnection = convertRawValueToConnection(fieldWithAnnotation, rawValue);
+      if (createdConnection != null) return createdConnection;
     }
 
     String rawValueAsString = jsonHelper.getStringFrom(rawValue);
@@ -704,7 +704,35 @@ public class DefaultJsonMapper implements JsonMapper {
     return toJavaObject(rawValueAsString, type);
   }
 
-  private Map convertJsonObjectToMap(String json, Field field) {
+  private Connection convertRawValueToConnection(FieldWithAnnotation<Facebook> fieldWithAnnotation, JsonValue rawValue) {
+    if (null != facebookClient) {
+      return new Connection(facebookClient, jsonHelper.getStringFrom(rawValue),
+        getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
+    } else {
+      MAPPER_LOGGER.warn(
+        "Skipping java field {}, because it has the type Connection, but the given facebook client is null",
+        fieldWithAnnotation.getField().getName());
+    }
+    return null;
+  }
+
+  private Enum convertRawValueToEnumType(Class<?> type, JsonValue rawValue) {
+    Class<? extends Enum> enumType = type.asSubclass(Enum.class);
+    try {
+      return Enum.valueOf(enumType, rawValue.asString());
+    } catch (IllegalArgumentException iae) {
+      MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(),
+        enumType.getName());
+    }
+    try {
+      return Enum.valueOf(enumType, rawValue.asString().toUpperCase());
+    } catch (IllegalArgumentException iae) {
+      MAPPER_LOGGER.debug("Mapping string {} to enum {} not possible", rawValue.asString(), enumType.getName());
+    }
+    return null;
+  }
+
+  private Map convertRawValueToMap(String json, Field field) {
     Class<?> firstParam = getFirstParameterizedTypeArgument(field);
     if (!String.class.equals(firstParam)) {
       throw new FacebookJsonMappingException("The java type map needs to have a 'String' key, but is " + firstParam);

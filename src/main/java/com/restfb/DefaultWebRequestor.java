@@ -168,12 +168,15 @@ public class DefaultWebRequestor implements WebRequestor {
       HTTP_LOGGER.debug("Facebook responded with {}", response);
       return response;
     } finally {
-      if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
-        binaryAttachments.forEach(binaryAttachment -> closeQuietly(binaryAttachment.getData()));
-      }
-
+      closeAttachmentsOnAutoClose(binaryAttachments);
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
+    }
+  }
+
+  private void closeAttachmentsOnAutoClose(List<BinaryAttachment> binaryAttachments) {
+    if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
+      binaryAttachments.stream().map(BinaryAttachment::getData).forEach(this::closeQuietly);
     }
   }
 
@@ -223,13 +226,12 @@ public class DefaultWebRequestor implements WebRequestor {
    *          The resource to close.
    */
   protected void closeQuietly(Closeable closeable) {
-    if (closeable == null) {
-      return;
-    }
-    try {
-      closeable.close();
-    } catch (Exception t) {
-      HTTP_LOGGER.warn("Unable to close {}: ", closeable, t);
+    if (closeable != null) {
+      try {
+        closeable.close();
+      } catch (Exception t) {
+        HTTP_LOGGER.warn("Unable to close {}: ", closeable, t);
+      }
     }
   }
 
