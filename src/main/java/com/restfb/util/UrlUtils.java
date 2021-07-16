@@ -46,7 +46,7 @@ public final class UrlUtils {
    * Prevents instantiation.
    */
   private UrlUtils() {
-    // Prevents instantiation
+    throw new IllegalStateException("UrlUtils must not be instantiated");
   }
 
   /**

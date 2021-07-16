@@ -27,7 +27,7 @@ package com.restfb.util;
 public class StringJsonUtils {
 
   private StringJsonUtils() {
-    // nothing here, prevent class instantiation
+    throw new IllegalStateException("StringJsonUtils must not be instantiated");
   }
 
   public static final String EMPTY_OBJECT = "{}";

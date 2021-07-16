@@ -77,7 +77,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
   @Override
   public <T> List<T> toJavaList(String json, Class<T> type) {
-    ObjectUtil.requireNotNull(type, () -> new FacebookJsonMappingException("You must specify the Java type to map to."));
+    ObjectUtil.requireNotNull(type,
+      () -> new FacebookJsonMappingException("You must specify the Java type to map to."));
     json = trimToEmpty(json);
 
     checkJsonNotBlank(json);
@@ -162,7 +163,8 @@ public class DefaultJsonMapper implements JsonMapper {
       }
 
       List<FieldWithAnnotation<Facebook>> listOfFieldsWithAnnotation = findFieldsWithAnnotation(type, Facebook.class);
-      Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldNamesWithMultipleMappings(listOfFieldsWithAnnotation);
+      Set<String> facebookFieldNamesWithMultipleMappings =
+          facebookFieldNamesWithMultipleMappings(listOfFieldsWithAnnotation);
 
       // If there are no annotated fields, assume we're mapping to a built-in
       // type. If this is actually the empty object, just return a new instance
@@ -231,8 +233,7 @@ public class DefaultJsonMapper implements JsonMapper {
         // sometimes return data in different formats for the same field name.
         // See issues 56 and 90 for examples of this behavior and discussion.
         try {
-          fieldWithAnnotation.getField().set(instance,
-                  toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+          fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
         } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {
           if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
             logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
@@ -294,14 +295,12 @@ public class DefaultJsonMapper implements JsonMapper {
 
       if (methodParameterCount == 0) {
         method.invoke(object);
-      }
-      else if (methodParameterCount == 1 && JsonMapper.class.equals(method.getParameterTypes()[0])) {
+      } else if (methodParameterCount == 1 && JsonMapper.class.equals(method.getParameterTypes()[0])) {
         method.invoke(object, this);
-      }
-      else {
+      } else {
         throw new FacebookJsonMappingException(
-                format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",
-                        JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));
+          format("Methods annotated with @%s must take 0 parameters or a single %s parameter. Your method was %s",
+            JsonMappingCompleted.class.getSimpleName(), JsonMapper.class.getSimpleName(), method));
       }
     }
   }
@@ -368,17 +367,19 @@ public class DefaultJsonMapper implements JsonMapper {
 
     // Get a count of Facebook field name occurrences for each
     // @Facebook-annotated field
-    fieldsWithAnnotation.forEach(field -> {
-      String fieldName = getFacebookFieldName(field);
-      int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);
-      facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
-    });
+    fieldsWithAnnotation.forEach(field -> occurenceCounter(facebookFieldsNamesWithOccurrenceCount, field));
 
     // Pull out only those field names with multiple mappings
     Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldsNamesWithOccurrenceCount.entrySet().stream()
       .filter(entry -> entry.getValue() > 1).map(Entry::getKey).collect(Collectors.toSet());
 
     return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
+  }
+
+  private void occurenceCounter(Map<String, Integer> facebookFieldsNamesWithOccurrenceCount, FieldWithAnnotation<Facebook> field) {
+    String fieldName = getFacebookFieldName(field);
+    int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);
+    facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
   }
 
   @Override
@@ -424,7 +425,7 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (isPrimitive(object)) {
-      return primitiveToJsonValue(object);
+      return javaTypeToJsonValue(object);
     }
 
     if (object instanceof Optional) {
@@ -546,28 +547,28 @@ public class DefaultJsonMapper implements JsonMapper {
 
     json = jsonHelper.cleanString(json);
 
-    if (String.class.equals(type)) {
+    if (typeIsString(type)) {
       return (T) json;
     }
-    if (Integer.class.equals(type) || Integer.TYPE.equals(type)) {
+    if (typeIsInteger(type)) {
       return (T) Integer.valueOf(json);
     }
-    if (Boolean.class.equals(type) || Boolean.TYPE.equals(type)) {
+    if (typeIsBoolean(type)) {
       return (T) Boolean.valueOf(json);
     }
-    if (Long.class.equals(type) || Long.TYPE.equals(type)) {
+    if (typeIsLong(type)) {
       return (T) Long.valueOf(json);
     }
-    if (Double.class.equals(type) || Double.TYPE.equals(type)) {
+    if (typeIsDouble(type)) {
       return (T) Double.valueOf(json);
     }
-    if (Float.class.equals(type) || Float.TYPE.equals(type)) {
+    if (typeIsFloat(type)) {
       return (T) Float.valueOf(json);
     }
-    if (BigInteger.class.equals(type)) {
+    if (typeIsBigInteger(type)) {
       return (T) new BigInteger(json);
     }
-    if (BigDecimal.class.equals(type)) {
+    if (typeIsBigDecimal(type)) {
       return (T) new BigDecimal(json);
     }
 
@@ -597,14 +598,14 @@ public class DefaultJsonMapper implements JsonMapper {
     JsonValue rawValue = jsonObject.get(facebookFieldName);
 
     // Short-circuit right off the bat if we've got a null value, but Optionals are created nevertheless.
-    if (rawValue == null || rawValue.isNull()) {
-      if (type.equals(Optional.class)) {
+    if (jsonHelper.isNull(rawValue)) {
+      if (typeIsOptional(type)) {
         return Optional.empty();
       }
       return null;
     }
 
-    if (String.class.equals(type)) {
+    if (typeIsString(type)) {
       /*
        * Special handling here for better error checking.
        *
@@ -620,7 +621,7 @@ public class DefaultJsonMapper implements JsonMapper {
        * Per Antonello Naccarato, sometimes FB will return an empty JSON array instead of an empty string. Look for that
        * here.
        */
-      if (rawValue.isArray() && rawValue.asArray().isEmpty()) {
+      if (jsonHelper.isEmptyArray(rawValue)) {
         MAPPER_LOGGER.trace("Coercing an empty JSON array to an empty string for {}", fieldWithAnnotation);
 
         return "";
@@ -637,51 +638,55 @@ public class DefaultJsonMapper implements JsonMapper {
       return jsonHelper.getStringFrom(rawValue);
     }
 
-    if (Integer.class.equals(type) || Integer.TYPE.equals(type)) {
+    if (typeIsInteger(type)) {
       return jsonHelper.getIntegerFrom(rawValue);
     }
-    if (Boolean.class.equals(type) || Boolean.TYPE.equals(type)) {
+    if (typeIsBoolean(type)) {
       return jsonHelper.getBooleanFrom(rawValue);
     }
-    if (Long.class.equals(type) || Long.TYPE.equals(type)) {
+    if (typeIsLong(type)) {
       return jsonHelper.getLongFrom(rawValue);
     }
-    if (Double.class.equals(type) || Double.TYPE.equals(type)) {
+    if (typeIsDouble(type)) {
       return jsonHelper.getDoubleFrom(rawValue);
     }
-    if (Float.class.equals(type) || Float.TYPE.equals(type)) {
+    if (typeIsFloat(type)) {
       return jsonHelper.getFloatFrom(rawValue);
     }
-    if (BigInteger.class.equals(type)) {
+    if (typeIsBigInteger(type)) {
       return jsonHelper.getBigIntegerFrom(rawValue);
     }
-    if (BigDecimal.class.equals(type)) {
+    if (typeIsBigDecimal(type)) {
       return jsonHelper.getBigDecimalFrom(rawValue);
     }
-    if (List.class.equals(type)) {
+    if (typeIsList(type)) {
       return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
     }
-    if (Map.class.equals(type)) {
+    if (typeIsMap(type)) {
       return convertRawValueToMap(rawValue.toString(), fieldWithAnnotation.getField());
     }
 
-    if (Optional.class.equals(type)) {
+    if (typeIsOptional(type)) {
       return Optional.ofNullable(
         toJavaObject(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));
     }
 
     if (type.isEnum()) {
-      Enum enumType = convertRawValueToEnumType(type, rawValue);
-      if (enumType != null) return enumType;
+      Optional<Enum> enumTypeOpt = convertRawValueToEnumType(type, rawValue);
+      if (enumTypeOpt.isPresent()) {
+        return enumTypeOpt.get();
+      }
     }
 
-    if (Date.class.equals(type)) {
+    if (typeIsDate(type)) {
       return DateUtils.toDateFromLongFormat(jsonHelper.getStringFrom(rawValue));
     }
 
     if (Connection.class.equals(type)) {
-      Connection createdConnection = convertRawValueToConnection(fieldWithAnnotation, rawValue);
-      if (createdConnection != null) return createdConnection;
+      Optional<Connection> createdConnectionOpt = convertRawValueToConnection(fieldWithAnnotation, rawValue);
+      if (createdConnectionOpt.isPresent()) {
+        return createdConnectionOpt.get();
+      }
     }
 
     String rawValueAsString = jsonHelper.getStringFrom(rawValue);
@@ -704,37 +709,38 @@ public class DefaultJsonMapper implements JsonMapper {
     return toJavaObject(rawValueAsString, type);
   }
 
-  private Connection convertRawValueToConnection(FieldWithAnnotation<Facebook> fieldWithAnnotation, JsonValue rawValue) {
+  private Optional<Connection> convertRawValueToConnection(FieldWithAnnotation<Facebook> fieldWithAnnotation,
+      JsonValue rawValue) {
     if (null != facebookClient) {
-      return new Connection(facebookClient, jsonHelper.getStringFrom(rawValue),
-        getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
+      return Optional.of(new Connection(facebookClient, jsonHelper.getStringFrom(rawValue),
+        getFirstParameterizedTypeArgument(fieldWithAnnotation.getField())));
     } else {
       MAPPER_LOGGER.warn(
         "Skipping java field {}, because it has the type Connection, but the given facebook client is null",
         fieldWithAnnotation.getField().getName());
     }
-    return null;
+    return Optional.empty();
   }
 
-  private Enum convertRawValueToEnumType(Class<?> type, JsonValue rawValue) {
+  private Optional<Enum> convertRawValueToEnumType(Class<?> type, JsonValue rawValue) {
     Class<? extends Enum> enumType = type.asSubclass(Enum.class);
     try {
-      return Enum.valueOf(enumType, rawValue.asString());
+      return Optional.of(Enum.valueOf(enumType, rawValue.asString()));
     } catch (IllegalArgumentException iae) {
       MAPPER_LOGGER.debug("Cannot map string {} to enum {}, try fallback toUpperString next...", rawValue.asString(),
         enumType.getName());
     }
     try {
-      return Enum.valueOf(enumType, rawValue.asString().toUpperCase());
+      return Optional.of(Enum.valueOf(enumType, rawValue.asString().toUpperCase()));
     } catch (IllegalArgumentException iae) {
       MAPPER_LOGGER.debug("Mapping string {} to enum {} not possible", rawValue.asString(), enumType.getName());
     }
-    return null;
+    return Optional.empty();
   }
 
   private Map convertRawValueToMap(String json, Field field) {
     Class<?> firstParam = getFirstParameterizedTypeArgument(field);
-    if (!String.class.equals(firstParam)) {
+    if (!typeIsString(firstParam)) {
       throw new FacebookJsonMappingException("The java type map needs to have a 'String' key, but is " + firstParam);
     }
 
@@ -753,49 +759,110 @@ public class DefaultJsonMapper implements JsonMapper {
     return null;
   }
 
-  private JsonValue primitiveToJsonValue(Object object) {
+  private JsonValue javaTypeToJsonValue(Object object) {
     if (object == null) {
       return Json.NULL;
     }
 
     Class<?> type = object.getClass();
 
-    if (object instanceof String) {
+    if (typeIsString(type)) {
       return Json.value((String) object);
     }
 
-    if (object instanceof Integer || Integer.TYPE.equals(type)) {
+    if (typeIsInteger(type)) {
       return Json.value((Integer) object);
     }
 
-    if (object instanceof Boolean || Boolean.TYPE.equals(type)) {
+    if (typeIsBoolean(type)) {
       return Json.value((Boolean) object);
     }
 
-    if (object instanceof Long || Long.TYPE.equals(type)) {
+    if (typeIsLong(type)) {
       return Json.value((Long) object);
     }
 
-    if (object instanceof Double || Double.TYPE.equals(type)) {
+    if (typeIsDouble(type)) {
       return Json.value((Double) object);
     }
 
-    if (object instanceof Float || Float.TYPE.equals(type)) {
+    if (typeIsFloat(type)) {
       return Json.value((Float) object);
     }
 
-    if (object instanceof Byte || Byte.TYPE.equals(type)) {
+    if (typeIsByte(type)) {
       return Json.value((Byte) object);
     }
-    if (object instanceof Short || Short.TYPE.equals(type)) {
+
+    if (typeIsShort(type)) {
       return Json.value((Short) object);
     }
 
-    if (object instanceof Character || Character.TYPE.equals(type)) {
+    if (typeIsCharacter(type)) {
       return Json.value(Character.toString((Character) object));
     }
 
     return Json.NULL;
 
+  }
+
+  private boolean typeIsCharacter(Class<?> type) {
+    return Character.class.equals(type) || Character.TYPE.equals(type);
+  }
+
+  private boolean typeIsShort(Class<?> type) {
+    return Short.class.equals(type) || Short.TYPE.equals(type);
+  }
+
+  private boolean typeIsByte(Class<?> type) {
+    return Byte.class.equals(type) || Byte.TYPE.equals(type);
+  }
+
+  private boolean typeIsFloat(Class<?> type) {
+    return Float.class.equals(type) || Float.TYPE.equals(type);
+  }
+
+  private boolean typeIsLong(Class<?> type) {
+    return Long.class.equals(type) || Long.TYPE.equals(type);
+  }
+
+  private boolean typeIsInteger(Class<?> type) {
+    return Integer.class.equals(type) || Integer.TYPE.equals(type);
+  }
+
+  private boolean typeIsBigDecimal(Class<?> type) {
+    return BigDecimal.class.equals(type);
+  }
+
+  private boolean typeIsBigInteger(Class<?> type) {
+    return BigInteger.class.equals(type);
+  }
+
+  private boolean typeIsDouble(Class<?> type) {
+    return Double.class.equals(type) || Double.TYPE.equals(type);
+  }
+
+  private boolean typeIsBoolean(Class<?> type) {
+    return Boolean.class.equals(type) || Boolean.TYPE.equals(type);
+  }
+
+  private boolean typeIsString(Class<?> type) {
+    return String.class.equals(type);
+  }
+
+  private boolean typeIsOptional(Class<?> type) {
+    return Optional.class.equals(type);
+  }
+
+  private boolean typeIsMap(Class<?> type) {
+    return Map.class.equals(type);
+  }
+
+  private boolean typeIsList(Class<?> type) {
+    return List.class.equals(type);
+  }
+
+  private boolean typeIsDate(Class<?> type) {
+    return Date.class.equals(type);
   }
 }

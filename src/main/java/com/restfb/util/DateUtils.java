@@ -74,7 +74,7 @@ public final class DateUtils {
    * Prevents instantiation.
    */
   private DateUtils() {
-    // Prevents instantiation
+    throw new IllegalStateException("DateUtils must not be instantiated");
   }
 
   /**
@@ -88,7 +88,7 @@ public final class DateUtils {
    *         is {@code null} or invalid.
    */
   public static Date toDateFromLongFormat(String date) {
-    if (date == null) {
+    if (isNull(date)) {
       return null;
     }
 
@@ -101,16 +101,20 @@ public final class DateUtils {
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT);
 
     // Fall back to variant without timezone if the initial parse fails
-    if (parsedDate == null) {
+    if (isNull(parsedDate)) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE);
     }
 
     // Fall back to variant without seconds if secondary parse fails
-    if (parsedDate == null) {
+    if (isNull(parsedDate)) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE_OR_SECONDS);
     }
 
     return parsedDate;
+  }
+
+  private static boolean isNull(Object date) {
+    return date == null;
   }
 
   /**
@@ -122,14 +126,14 @@ public final class DateUtils {
    *         is {@code null} or invalid.
    */
   public static Date toDateFromShortFormat(String date) {
-    if (date == null) {
+    if (isNull(date)) {
       return null;
     }
 
     Date parsedDate = toDateWithFormatString(date, FACEBOOK_SHORT_DATE_FORMAT);
 
     // Fall back to variant if initial parse fails
-    if (parsedDate == null) {
+    if (isNull(parsedDate)) {
       parsedDate = toDateWithFormatString(date, FACEBOOK_ALTERNATE_SHORT_DATE_FORMAT);
     }
 
@@ -145,7 +149,7 @@ public final class DateUtils {
    *         {@code date} is {@code null} or invalid.
    */
   public static Date toDateFromMonthYearFormat(String date) {
-    if (date == null) {
+    if (isNull(date)) {
       return null;
     }
 
@@ -187,7 +191,7 @@ public final class DateUtils {
    *         or invalid.
    */
   private static Date toDateWithFormatString(String date, String format) {
-    if (date == null) {
+    if (isNull(date)) {
       return null;
     }
 
@@ -195,7 +199,6 @@ public final class DateUtils {
       return strategy.formatFor(format).parse(date);
     } catch (ParseException e) {
       UTILS_LOGGER.trace("Unable to parse date '{}' using format string '{}': {}", date, format, e);
-
       return null;
     }
   }

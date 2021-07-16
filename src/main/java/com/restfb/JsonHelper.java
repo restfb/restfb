@@ -181,4 +181,12 @@ class JsonHelper {
 
     return jsonInput;
   }
+
+  boolean isEmptyArray(JsonValue jsonValue) {
+    return jsonValue.isArray() && jsonValue.asArray().isEmpty();
+  }
+
+  boolean isNull(JsonValue jsonValue) {
+    return jsonValue == null || jsonValue.isNull();
+  }
 }
