@@ -26,8 +26,11 @@ import static org.mockito.Mockito.*;
 
 import java.io.*;
 
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
+@TestMethodOrder(MethodOrderer.Random.class)
 class JsonValue_Test {
 
   @Test
@@ -61,11 +64,14 @@ class JsonValue_Test {
   @Test
   void writeTo_doesNotCloseWriter() throws IOException {
     JsonValue value = new JsonObject();
-    Writer writer = spy(new StringWriter());
+    StringWriter strWriter = new StringWriter() {
+      @Override
+      public void close() {
+        throw new RuntimeException("close may not be called");
+      }
+    };
 
-    value.writeTo(writer);
-
-    verify(writer, never()).close();
+    value.writeTo(strWriter);
   }
 
   @Test

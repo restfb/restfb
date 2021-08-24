@@ -109,10 +109,7 @@ public class DefaultJsonMapper implements JsonMapper {
           boolean hasSingleDataProperty = fieldNames.size() == 1;
           Object jsonDataObject = jsonObject.get(fieldNames.get(0));
 
-          if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray)) {
-            throw new FacebookJsonMappingException(
-              "JSON is an object but is being mapped as a list instead. Offending JSON is '" + json + "'.");
-          }
+          checkObjectIsMappedAsList(json, hasSingleDataProperty, jsonDataObject);
 
           json = jsonDataObject.toString();
         }
@@ -129,12 +126,7 @@ public class DefaultJsonMapper implements JsonMapper {
       List<T> list = new ArrayList<>(jsonArray.size());
       for (JsonValue jsonValue : jsonArray) {
         String innerJson = jsonHelper.getStringFrom(jsonValue);
-        // the inner JSON starts with square brackets but the parser don't think this is a JSON array
-        // so we think the parser is right and add quotes around the string
-        // solves Issue #719
-        if (jsonValue.isString() && innerJson.startsWith("[")) {
-          innerJson = '"' + innerJson + '"';
-        }
+        innerJson = convertArrayToStringIfNecessary(jsonValue, innerJson);
         list.add(toJavaObject(innerJson, type));
       }
       return unmodifiableList(list);
@@ -143,6 +135,23 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (Exception e) {
       throw new FacebookJsonMappingException(
         "Unable to convert Facebook response JSON to a list of " + type.getName() + " instances", e);
+    }
+  }
+
+  private String convertArrayToStringIfNecessary(JsonValue jsonValue, String innerJson) {
+    // the inner JSON starts with square brackets but the parser don't think this is a JSON array
+    // so we think the parser is right and add quotes around the string
+    // solves Issue #719
+    if (jsonValue.isString() && innerJson.startsWith("[")) {
+      innerJson = '"' + innerJson + '"';
+    }
+    return innerJson;
+  }
+
+  private void checkObjectIsMappedAsList(String json, boolean hasSingleDataProperty, Object jsonDataObject) {
+    if (!hasSingleDataProperty && !(jsonDataObject instanceof JsonArray)) {
+      throw new FacebookJsonMappingException(
+        "JSON is an object but is being mapped as a list instead. Offending JSON is '" + json + "'.");
     }
   }
 
@@ -225,22 +234,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
         fieldWithAnnotation.getField().setAccessible(true);
 
-        // Set the Java field's value.
-        //
-        // If we notice that this Facebook field name is mapped more than once,
-        // go into a special mode where we swallow any exceptions that occur
-        // when mapping to the Java field. This is because Facebook will
-        // sometimes return data in different formats for the same field name.
-        // See issues 56 and 90 for examples of this behavior and discussion.
-        try {
-          fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
-        } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {
-          if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
-            logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
-          } else {
-            throw e;
-          }
-        }
+        setJavaFileValue(json, facebookFieldNamesWithMultipleMappings, instance, jsonObject, fieldWithAnnotation, facebookFieldName);
       }
 
       // If there are any methods annotated with @JsonMappingCompleted,
@@ -252,6 +246,25 @@ public class DefaultJsonMapper implements JsonMapper {
       throw e;
     } catch (Exception e) {
       throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + json + "'.", e);
+    }
+  }
+
+  private <T> void setJavaFileValue(String json, Set<String> facebookFieldNamesWithMultipleMappings, T instance, JsonObject jsonObject, FieldWithAnnotation<Facebook> fieldWithAnnotation, String facebookFieldName) throws IllegalAccessException {
+    // Set the Java field's value.
+    //
+    // If we notice that this Facebook field name is mapped more than once,
+    // go into a special mode where we swallow any exceptions that occur
+    // when mapping to the Java field. This is because Facebook will
+    // sometimes return data in different formats for the same field name.
+    // See issues 56 and 90 for examples of this behavior and discussion.
+    try {
+      fieldWithAnnotation.getField().set(instance, toJavaType(fieldWithAnnotation, jsonObject, facebookFieldName));
+    } catch (FacebookJsonMappingException | ParseException | UnsupportedOperationException e) {
+      if (facebookFieldNamesWithMultipleMappings.contains(facebookFieldName)) {
+        logMultipleMappingFailedForField(facebookFieldName, fieldWithAnnotation, json);
+      } else {
+        throw e;
+      }
     }
   }
 
@@ -367,7 +380,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
     // Get a count of Facebook field name occurrences for each
     // @Facebook-annotated field
-    fieldsWithAnnotation.forEach(field -> occurenceCounter(facebookFieldsNamesWithOccurrenceCount, field));
+    fieldsWithAnnotation.forEach(field -> occurrenceCounter(facebookFieldsNamesWithOccurrenceCount, field));
 
     // Pull out only those field names with multiple mappings
     Set<String> facebookFieldNamesWithMultipleMappings = facebookFieldsNamesWithOccurrenceCount.entrySet().stream()
@@ -376,7 +389,7 @@ public class DefaultJsonMapper implements JsonMapper {
     return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
   }
 
-  private void occurenceCounter(Map<String, Integer> facebookFieldsNamesWithOccurrenceCount, FieldWithAnnotation<Facebook> field) {
+  private void occurrenceCounter(Map<String, Integer> facebookFieldsNamesWithOccurrenceCount, FieldWithAnnotation<Facebook> field) {
     String fieldName = getFacebookFieldName(field);
     int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);
     facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
@@ -521,7 +534,7 @@ public class DefaultJsonMapper implements JsonMapper {
     return jsonObject;
   }
 
-  private JsonValue convertOptionalToJsonValue(Optional object, boolean ignoreNullValuedProperties) {
+  private JsonValue convertOptionalToJsonValue(Optional<?> object, boolean ignoreNullValuedProperties) {
     return toJsonInternal(object.orElse(null), ignoreNullValuedProperties);
   }
 
