@@ -277,16 +277,10 @@ public final class ReflectionUtils {
       }
 
       try {
-        String methodName = method.getName();
-        int offset = methodName.startsWith("is") ? 2 : 3;
-        methodName = methodName.substring(offset, offset + 1).toLowerCase() + methodName.substring(offset + 1);
-
-        buffer.append(methodName);
+        buffer.append(getMethodName(method));
         buffer.append("=");
 
-        if (!method.isAccessible()) {
-          method.setAccessible(true);
-        }
+        makeMethodAccessible(method);
 
         // Accessors are guaranteed to take no parameters and return a value
         buffer.append(method.invoke(object));
@@ -297,6 +291,13 @@ public final class ReflectionUtils {
 
     buffer.append("]");
     return buffer.toString();
+  }
+
+  private static String getMethodName(Method method) {
+    String methodName = method.getName();
+    int offset = methodName.startsWith("is") ? 2 : 3;
+    methodName = methodName.substring(offset, offset + 1).toLowerCase() + methodName.substring(offset + 1);
+    return methodName;
   }
 
   /**
@@ -317,9 +318,7 @@ public final class ReflectionUtils {
 
     for (Method method : getAccessors(object.getClass())) {
       try {
-        if (!method.isAccessible()) {
-          method.setAccessible(true);
-        }
+        makeMethodAccessible(method);
 
         Object result = method.invoke(object);
         if (result != null) {
@@ -363,9 +362,7 @@ public final class ReflectionUtils {
 
     for (Method method : accessorMethodsIntersection) {
       try {
-        if (!method.isAccessible()) {
-          method.setAccessible(true);
-        }
+        makeMethodAccessible(method);
 
         Object result1 = method.invoke(object1);
         Object result2 = method.invoke(object2);
@@ -384,6 +381,12 @@ public final class ReflectionUtils {
     }
 
     return true;
+  }
+
+  private static void makeMethodAccessible(Method method) {
+    if (!method.isAccessible()) {
+      method.setAccessible(true);
+    }
   }
 
   /**

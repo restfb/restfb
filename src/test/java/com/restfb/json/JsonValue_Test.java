@@ -67,7 +67,7 @@ class JsonValue_Test {
     StringWriter strWriter = new StringWriter() {
       @Override
       public void close() {
-        throw new RuntimeException("close may not be called");
+        fail("close must not be called here");
       }
     };
 

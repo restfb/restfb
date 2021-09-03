@@ -389,15 +389,18 @@ public class DefaultWebRequestor implements WebRequestor {
   protected Response fetchResponse(HttpURLConnection httpUrlConnection) throws IOException {
     InputStream inputStream = null;
     try {
-      inputStream =
-          httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK ? httpUrlConnection.getErrorStream()
-              : httpUrlConnection.getInputStream();
+      inputStream = getInputStreamFromUrlConnection(httpUrlConnection);
     } catch (IOException e) {
       HTTP_LOGGER.warn("An error occurred while making a {} request to {}:", httpUrlConnection.getRequestMethod(),
         httpUrlConnection.getURL(), e);
     }
 
     return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+  }
+
+  private InputStream getInputStreamFromUrlConnection(HttpURLConnection httpUrlConnection) throws IOException {
+    return httpUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK ? httpUrlConnection.getErrorStream()
+        : httpUrlConnection.getInputStream();
   }
 
   private enum FbHeaderField {
