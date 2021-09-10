@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 3.21.0 (September 10, 2021)
+
+* many internal cleanups and refactorings to prepare a better structure
+
 ## 3.20.0 (June 29, 2021)
 
 * Issue #1163: IG Messaging Story<br />
