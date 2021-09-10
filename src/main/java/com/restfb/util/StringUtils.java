@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -107,7 +108,8 @@ public final class StringUtils {
    *           If unable to convert because the JVM doesn't support {@link StringUtils#ENCODING_CHARSET}.
    */
   public static byte[] toBytes(String string) {
-    return Optional.ofNullable(string).orElseThrow(() -> new NullPointerException("Parameter 'string' cannot be null.")).getBytes(ENCODING_CHARSET);
+    Objects.requireNonNull(string, "Parameter 'string' cannot be null.");
+    return string.getBytes(ENCODING_CHARSET);
   }
 
   /**
@@ -124,7 +126,8 @@ public final class StringUtils {
    * @since 1.6.13
    */
   public static String toString(byte[] data) {
-    return new String(Optional.ofNullable(data).orElseThrow(() -> new NullPointerException("Parameter 'data' cannot be null.")), ENCODING_CHARSET);
+    Objects.requireNonNull(data, "Parameter 'data' cannot be null.");
+    return new String(data, ENCODING_CHARSET);
   }
 
   /**

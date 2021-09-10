@@ -58,11 +58,6 @@ public class CachedDateFormatStrategy implements DateFormatStrategy {
     private static SimpleDateFormat formatFor(String pattern) {
       SoftReference<Map<String, SimpleDateFormat>> ref = THREADLOCAL_FORMATTER_MAP.get();
       Map<String, SimpleDateFormat> formatterMap = ref.get();
-      if (null == formatterMap) {
-        formatterMap = new HashMap<>();
-        THREADLOCAL_FORMATTER_MAP.set(new SoftReference<>(formatterMap));
-      }
-
       return formatterMap.computeIfAbsent(pattern, SimpleDateFormatHolder::createSDF);
     }
 
