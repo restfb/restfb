@@ -22,7 +22,7 @@
 package com.restfb.types.ads;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +95,7 @@ public class ProductItem extends NamedAdsObject {
   @Getter
   @Setter
   @Facebook("custom_data")
-  private Map<String, String> customData = new HashMap<>();
+  private Map<String, String> customData = new LinkedHashMap<>();
 
   @Getter
   @Setter
