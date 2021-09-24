@@ -29,6 +29,8 @@ import com.restfb.json.JsonObject;
 import com.restfb.json.ParseException;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DefaultFacebookExceptionGenerator implements FacebookExceptionGenerator {
 
@@ -36,6 +38,8 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
    * Knows how to map Graph API exceptions to formal Java exception types.
    */
   protected FacebookExceptionMapper graphFacebookExceptionMapper;
+
+  private static final Pattern ERROR_PATTERN = Pattern.compile("\"error\"\\s*:");
 
   public DefaultFacebookExceptionGenerator() {
     super();
@@ -130,7 +134,8 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
     }
 
     int subStrEnd = Math.min(50, json.length());
-    if (!json.substring(0, subStrEnd).contains("\"error\"")) {
+    Matcher matcher = ERROR_PATTERN.matcher(json.substring(0, subStrEnd));
+    if (!matcher.find()) {
       throw new ResponseErrorJsonParsingException();
     }
   }

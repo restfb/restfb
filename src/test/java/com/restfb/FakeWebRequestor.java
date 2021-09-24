@@ -47,7 +47,7 @@ public class FakeWebRequestor implements WebRequestor {
     this(null);
   }
 
-  FakeWebRequestor(Response predefinedResponse) {
+  public FakeWebRequestor(Response predefinedResponse) {
     this.predefinedResponse = predefinedResponse;
   }
 
