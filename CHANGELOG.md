@@ -1,5 +1,19 @@
 # RestFB Changelog
 
+## 3.22.0 (September 26, 2021)
+
+* Graph API 12 changes
+  * Issue #1170: basic support in enum
+  * Issue #1171: Instagram type changes
+  * Issue #1172: deprecated fields in page object
+  * Issue #1173: deprecated fields in User type
+  * Issue #1174: New User Profile Fields in Instagram Messaging API
+  * Issue #1175: new fields in Video object
+* Issue #1168: Changed customData type to LinkedHashMap<br>
+  Thanks to @rundoom for the PR
+* Issue #1169: IgUserProfile translation issue for name="error"<br>
+  Thanks to @Moon-sparkcentral for the hint and information
+
 ## 3.21.0 (September 10, 2021)
 
 * many internal cleanups and refactorings to prepare a better structure
