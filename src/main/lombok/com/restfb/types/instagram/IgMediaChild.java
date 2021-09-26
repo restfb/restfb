@@ -51,9 +51,16 @@ public class IgMediaChild extends FacebookType {
   @Facebook("media_url")
   private String mediaUrl;
 
+  /**
+   * ID of Instagram user who created the media. Only returned if the app user making the query also created the media,
+   * otherwise <code>username</code> field will be returned instead.
+   *
+   * @deprecated with Graph API 12 or December 13, 2021 for all versions
+   */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private IgUser owner;
 
   @Getter

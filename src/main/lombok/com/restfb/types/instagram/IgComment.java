@@ -81,10 +81,13 @@ public class IgComment extends FacebookType {
 
   /**
    * User who made the comment
+   *
+   * @deprecated with Graph API 12 or December 13, 2021 for all versions
    */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private IgUser user;
 
   /**
