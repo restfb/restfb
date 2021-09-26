@@ -52,11 +52,13 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   /**
    * Social context for this person
    *
+   * @deprecated with Graph API 12 or December 13, 2021 for all versions
    * @return Social context for this person
    */
   @Getter
   @Setter
   @Facebook
+  @Deprecated
   private FacebookType context;
 
   /**
