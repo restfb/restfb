@@ -162,6 +162,14 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   private MusicVideoCopyright musicVideoCopyright;
 
   /**
+   * The public view count of the video post, not aggregated with any other crossposts of the video.
+   */
+  @Getter
+  @Setter
+  @Facebook("post_views")
+  private Integer postViews;
+
+  /**
    * The reactions for this video.
    *
    * @return The reactions for this video.
@@ -214,6 +222,14 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   @Setter
   @Facebook("universal_video_id")
   private String universalVideoId;
+
+  /**
+   * The public view count of the video.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer views;
 
   @Facebook
   private List<VideoFormat> format = new ArrayList<>();
