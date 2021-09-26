@@ -22,6 +22,7 @@
 package com.restfb.types.instagram;
 
 import com.restfb.Facebook;
+import com.restfb.annotation.GraphAPI;
 import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,4 +50,40 @@ public class IgUserProfile extends AbstractFacebookType {
   @Setter
   @Facebook("profile_pic")
   private String profilePic;
+
+  /**
+   * Verification status of the user
+   */
+  @GraphAPI(since = "12.0")
+  @Getter
+  @Setter
+  @Facebook("is_verified_user")
+  private Boolean isVerifiedUser;
+
+  /**
+   * Follower count of the user
+   */
+  @GraphAPI(since = "12.0")
+  @Getter
+  @Setter
+  @Facebook("follower_count")
+  private Integer followerCount;
+
+  /**
+   * A flag indicating whether the user follow the business or not
+   */
+  @GraphAPI(since = "12.0")
+  @Getter
+  @Setter
+  @Facebook("is_user_follow_business")
+  private Boolean isUserFollowBusiness;
+
+  /**
+   * A flag indicating whether the business follow the user or not
+   */
+  @GraphAPI(since = "12.0")
+  @Getter
+  @Setter
+  @Facebook("is_business_follow_user")
+  private Boolean isBusinessFollowUser;
 }
