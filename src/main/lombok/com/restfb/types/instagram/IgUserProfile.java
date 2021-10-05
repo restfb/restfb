@@ -24,6 +24,7 @@ package com.restfb.types.instagram;
 import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
 import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.NamedFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,15 +32,7 @@ import lombok.Setter;
  * Respresents the Instagram User Profile object as defined
  * <a href="https://developers.facebook.com/docs/messenger-platform/instagram/features/user-profile">here</a>
  */
-public class IgUserProfile extends AbstractFacebookType {
-
-  /**
-   * The user's name
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String name;
+public class IgUserProfile extends NamedFacebookType {
 
   /**
    * URL to the Profile picture.
