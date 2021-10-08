@@ -1361,24 +1361,18 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Instagram account connected to page via page settings
-   *
-   * @deprecated with Graph API 12 or December 13, 2021 for all versions
    */
   @Getter
   @Setter
   @Facebook("connected_instagram_account")
-  @Deprecated
   private IgUser connectedInstagramAccount;
 
   /**
    * Instagram account linked to page during Instagram business conversion flow
-   *
-   * @deprecated with Graph API 12 or December 13, 2021 for all versions
    */
   @Getter
   @Setter
   @Facebook("instagram_business_account")
-  @Deprecated
   private IgUser instagramBusinessAccount;
 
   @Facebook("instagram_accounts")
@@ -2008,20 +2002,16 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    * Notes of this page
    *
    * @return Notes of this page
-   * @deprecated with Graph API 12 or December 13, 2021 for all versions
    */
-  @Deprecated
-  @GraphAPI(since = "2.6", until = "12.0")
+  @GraphAPI(since = "2.6")
   public List<PageAdminNote> getAdminNotes() {
     return unmodifiableList(adminNotes);
   }
 
-  @Deprecated
   public boolean addAdminNote(PageAdminNote adminNote) {
     return adminNotes.add(adminNote);
   }
 
-  @Deprecated
   public boolean removeAdminNote(PageAdminNote adminNote) {
     return adminNotes.remove(adminNote);
   }
