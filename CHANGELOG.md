@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 3.23.0 (October 13, 2021)
+
+* Issue #1171: missing fields added to IgUserProfile<br />
+  Thanks to @gurkein for the hint
+* Issue #1178: reverted some changes regarding deprecations<br />
+  Thanks to @gurkein for the heads up
+* Issue #1179: added missing fields to Location typ<br />
+  Thanks to @JochenSeifarth for the hint
+
 ## 3.22.0 (September 26, 2021)
 
 * Graph API 12 changes
