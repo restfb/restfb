@@ -57,6 +57,15 @@ public class Location extends FacebookType {
   private String city;
 
   /**
+   * City ID. Any city identified is also a city you can use for targeting ads.
+   */
+  @Getter
+  @Setter
+  @Facebook("city_id")
+  private String cityId;
+
+
+  /**
    * The state name of this location.
    * 
    * @return The state name of this location.
@@ -75,6 +84,16 @@ public class Location extends FacebookType {
   @Setter
   @Facebook
   private String country;
+
+  /**
+   * Country code
+   *
+   * @return the country code
+   */
+  @Getter
+  @Setter
+  @Facebook("country_code")
+  private String countryCode;
 
   /**
    * The postal code of this location.
@@ -115,6 +134,17 @@ public class Location extends FacebookType {
   @Setter
   @Facebook
   private String region;
+
+  /**
+   * Region ID. Specifies a geographic region, such as California.
+   * An identified region is the same as one you can use to target ads.
+   *
+   * @return the region id
+   */
+  @Getter
+  @Setter
+  @Facebook("region_id")
+  private String regionId;
 
   /**
    * The name of this location.
