@@ -318,6 +318,21 @@ public enum FacebookPermissions {
   USER_MANAGED_GROUPS("user_managed_groups", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * The user_messenger_contact permission allows a business to contact a person via Messenger upon their approval or
+   * initiation of a chat thread with the business's Page.
+   *
+   * <p>
+   * The allowed usage for this permission is for a Page to send a person an initial message,
+   * post—purchase updates and account updates.
+   *
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  USER_MESSENGER_CONTACT("user_messenger_contact", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
    * Provides access to the photos a person has uploaded or been tagged in. This is available through the photos edge on
    * the User object.
    *
