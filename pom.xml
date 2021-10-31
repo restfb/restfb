@@ -17,11 +17,11 @@
     <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>5.6.2</version.junit>
-    <version.lombok>1.18.20</version.lombok>
-    <version.mockito>3.12.1</version.mockito>
-    <version.assertj>3.17.1</version.assertj>
-    <version.slf4j>1.7.25</version.slf4j>
+    <version.junit>5.8.1</version.junit>
+    <version.lombok>1.18.22</version.lombok>
+    <version.mockito>3.12.4</version.mockito>
+    <version.assertj>3.21.0</version.assertj>
+    <version.slf4j>1.7.32</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
     <!-- additional configuration -->
@@ -304,7 +304,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.6</version>
+        <version>0.8.7</version>
         <executions>
           <execution>
             <id>prepare-agent</id>
