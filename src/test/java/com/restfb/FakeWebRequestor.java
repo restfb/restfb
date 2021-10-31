@@ -39,7 +39,7 @@ public class FakeWebRequestor implements WebRequestor {
 
   private String parameters;
 
-  private Response predefinedResponse;
+  private final Response predefinedResponse;
 
   private String accessToken;
 

@@ -23,33 +23,28 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
 class PhotoTagsTest extends AbstractJsonMapperTests {
 
-  @Test
-  void checkNoBackdateV1_0() {
-    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/photo-nobackdate"), Photo.class);
+  @DisplayName("check no backdate on PhotoTags")
+  @ParameterizedTest(name = "{index} ==> version ''{0}''")
+  @MethodSource("jsonSupplier")
+  void checkNoBackdate(String version) {
+    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath(version + "/photo-nobackdate"), Photo.class);
     assertEquals(1, examplePhoto.getTags().size());
     assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX().doubleValue());
     assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY().doubleValue());
   }
 
-  @Test
-  void checkNoBackdateV2_0() {
-    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/photo-nobackdate"), Photo.class);
-    assertEquals(1, examplePhoto.getTags().size());
-    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX().doubleValue());
-    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY().doubleValue());
+  private static Stream<String> jsonSupplier() {
+    return Stream.of("v1_0", "v2_0", "v2_1");
   }
 
-  @Test
-  void checkNoBackdateV2_1() {
-    Photo examplePhoto = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/photo-nobackdate"), Photo.class);
-    assertEquals(1, examplePhoto.getTags().size());
-    assertEquals(46.428571428571, examplePhoto.getTags().get(0).getX().doubleValue());
-    assertEquals(53.571428571429, examplePhoto.getTags().get(0).getY().doubleValue());
-  }
 }

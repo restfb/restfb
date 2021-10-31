@@ -23,33 +23,22 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
 class AccountTest extends AbstractJsonMapperTests {
 
-  @Test
-  void checkV1_0() {
-    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/account"), Account.class);
-    assertEquals("testtoken", exampleAccount.getAccessToken());
-    assertEquals("123456789", exampleAccount.getId());
-    assertEquals(6, exampleAccount.getPerms().size());
-    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
-  }
-
-  @Test
-  void checkV2_0() {
-    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/account"), Account.class);
-    assertEquals("testtoken", exampleAccount.getAccessToken());
-    assertEquals("123456789", exampleAccount.getId());
-    assertEquals(6, exampleAccount.getPerms().size());
-    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
-  }
-
-  @Test
-  void checkV2_1() {
-    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/account"), Account.class);
+  @DisplayName("check Account with json from version")
+  @ParameterizedTest(name = "{index} ==> version ''{0}''")
+  @MethodSource("jsonSupplier")
+  void check(String version) {
+    Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath(version + "/account"), Account.class);
     assertEquals("testtoken", exampleAccount.getAccessToken());
     assertEquals("123456789", exampleAccount.getId());
     assertEquals(6, exampleAccount.getPerms().size());
@@ -65,6 +54,10 @@ class AccountTest extends AbstractJsonMapperTests {
     assertEquals("Test Company", exampleAccount.getOwnerBusiness().getName());
     assertEquals(6, exampleAccount.getPerms().size());
     assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
+  }
+
+  private static Stream<String> jsonSupplier() {
+    return Stream.of("v1_0", "v2_0", "v2_1");
   }
 
 }

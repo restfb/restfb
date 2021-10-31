@@ -36,7 +36,7 @@ import com.restfb.json.JsonObject;
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
-class SerializationTests {
+class SerializationTest {
 
   @Test
   void jsonArray() throws Exception {

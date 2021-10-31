@@ -25,7 +25,6 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -191,7 +190,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
       }
 
       @Override
-      public Response executeGet(String url) throws IOException {
+      public Response executeGet(String url) {
         return executeGet(url, null);
       }
     };
@@ -239,7 +238,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
       }
 
       @Override
-      public Response executeGet(String url) throws IOException {
+      public Response executeGet(String url) {
         return executeGet(url, null);
       }
     };
@@ -270,7 +269,7 @@ class ConnectionTest extends AbstractJsonMapperTests {
       }
 
       @Override
-      public Response executeGet(String url) throws IOException {
+      public Response executeGet(String url) {
         return executeGet(url, null);
       }
     };

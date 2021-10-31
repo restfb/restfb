@@ -28,9 +28,9 @@ import org.junit.jupiter.api.Test;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.types.send.GamePlayButton;
 
-public class GamePlayButtonTest {
+class GamePlayButtonTest {
 
-  private DefaultJsonMapper mapper = new DefaultJsonMapper();
+  private final DefaultJsonMapper mapper = new DefaultJsonMapper();
 
   @Test
   void checkGamePlayButton_basic() {

@@ -23,30 +23,27 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
 class GroupTest extends AbstractJsonMapperTests {
 
-  @Test
-  void checkV1_0() {
-    Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/group"), Group.class);
+  @DisplayName("check Group")
+  @ParameterizedTest(name = "{index} ==> version ''{0}''")
+  @MethodSource("jsonSupplier")
+  void check(String version) {
+    Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath(version + "/group"), Group.class);
     assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
     assertEquals("123456789", examplegroup.getOwner().getId());
   }
 
-  @Test
-  void checkV2_0() {
-    Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/group"), Group.class);
-    assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
-    assertEquals("123456789", examplegroup.getOwner().getId());
+  private static Stream<String> jsonSupplier() {
+    return Stream.of("v1_0", "v2_0", "v2_1");
   }
 
-  @Test
-  void checkV2_1() {
-    Group examplegroup = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/group"), Group.class);
-    assertEquals("https://fbstatic-a.akamaihd.net/XCrOg4YmGg4.png", examplegroup.getIcon());
-    assertEquals("123456789", examplegroup.getOwner().getId());
-  }
 }

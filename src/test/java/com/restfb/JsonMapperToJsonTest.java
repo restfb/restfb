@@ -96,8 +96,8 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     assertThat(createJsonMapper().toJson(1D)).isEqualTo("1");
     assertThat(createJsonMapper().toJson(1.1D)).isEqualTo("1.1");
     assertThat(createJsonMapper().toJson('1')).isEqualTo("1");
-    assertThat(createJsonMapper().toJson(new Byte("1"))).isEqualTo("1");
-    assertThat(createJsonMapper().toJson(new Short("1"))).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(Byte.valueOf("1"))).isEqualTo("1");
+    assertThat(createJsonMapper().toJson(Short.valueOf("1"))).isEqualTo("1");
     assertThat(createJsonMapper().toJson(new BigInteger("1"))).isEqualTo("1");
     assertThat(createJsonMapper().toJson(new BigDecimal("1"))).isEqualTo("1");
     assertThat(createJsonMapper().toJson(new BigDecimal("1.1"))).isEqualTo("1.1");

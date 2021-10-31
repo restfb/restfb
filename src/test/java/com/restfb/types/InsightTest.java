@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.*;
@@ -94,7 +93,7 @@ class InsightTest extends AbstractJsonMapperTests {
   private Connection<Insight> create3PageInsightConnection() {
     FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
       @Override
-      public Response executeGet(String url, String headerAccessToken) throws IOException {
+      public Response executeGet(String url, String headerAccessToken) {
 
         if (url.equals("https://graph.facebook.com/v3.3/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-1"));

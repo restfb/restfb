@@ -60,7 +60,7 @@ class OpenGraphRatingTest extends AbstractJsonMapperTests {
     PageRating rating = exampleRating.getOpenGraphStory();
     assertEquals("AAAAA", rating.getReviewText());
     assertEquals("hu", rating.getLanguage());
-    assertEquals(5l, rating.getRatingScale().longValue());
+    assertEquals(5L, rating.getRatingScale().longValue());
     assertEquals(5, rating.getRatingValue().intValue());
     assertNotNull(rating.getPlace());
   }

@@ -24,16 +24,22 @@ package com.restfb.types;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
 class PageTest extends AbstractJsonMapperTests {
 
-  @Test
-  void checkV1_0() {
-    Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v1_0/page"), Page.class);
+  @DisplayName("check Page")
+  @ParameterizedTest(name = "{index} ==> version ''{0}''")
+  @MethodSource("jsonSupplier")
+  void checkV1_0(String version) {
+    Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath(version + "/page"), Page.class);
     assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
     assertEquals(1, examplePage.getCategoryList().size());
     Category cat = examplePage.getCategoryList().get(0);
@@ -41,24 +47,8 @@ class PageTest extends AbstractJsonMapperTests {
     assertEquals("2200", cat.getId());
   }
 
-  @Test
-  void checkV2_0() {
-    Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_0/page"), Page.class);
-    assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
-    assertEquals(1, examplePage.getCategoryList().size());
-    Category cat = examplePage.getCategoryList().get(0);
-    assertEquals("Company", cat.getName());
-    assertEquals("2200", cat.getId());
-  }
-
-  @Test
-  void checkV2_1() {
-    Page examplePage = createJsonMapper().toJavaObject(jsonFromClasspath("v2_1/page"), Page.class);
-    assertEquals("http://www.coca-cola.com", examplePage.getWebsite());
-    assertEquals(1, examplePage.getCategoryList().size());
-    Category cat = examplePage.getCategoryList().get(0);
-    assertEquals("Company", cat.getName());
-    assertEquals("2200", cat.getId());
+  private static Stream<String> jsonSupplier() {
+    return Stream.of("v1_0", "v2_0", "v2_1");
   }
 
   @Test

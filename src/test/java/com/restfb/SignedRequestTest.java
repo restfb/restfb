@@ -22,13 +22,18 @@
 package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
+import java.util.stream.Stream;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -54,48 +59,31 @@ class SignedRequestTest {
     assertEquals(1_291_836_800, payloadObject.issuedAt.longValue());
   }
 
-  @Test
-  void checkSignedRequest_wrongSignedRequest_appSecret() {
+  @DisplayName("Check signed request exception handling")
+  @ParameterizedTest(name = "{index} ==> check for signedRequest and secret ''{1}''")
+  @MethodSource("requestProvider")
+  void checkSignedRequest(String signedRequest, String appSecret, String message, Class<? extends Throwable> clazz) {
+    try {
+      facebookClient.parseSignedRequest(signedRequest, appSecret, Payload.class);
+      failBecauseExceptionWasNotThrown(clazz);
+    } catch (Throwable t) {
+      if (clazz.isInstance(t.getClass()))
+        assertThat(t).hasMessageContaining(message);
+    }
+  }
+
+  private static Stream<Arguments> requestProvider() {
     String signature = "uLQw26KrDdDhZA+Cbvhjm1Y5SB1LiUej9tAXWWXhb9s=";
     String payload =
         "ewogICAib2F1dGhfdG9rZW4iOiAie3VzZXItYWNjZXNzLXRva2VufSIsCiAgICJhbGdvcml0aG0iOiAiSE1BQy1TSEEyNTYiLAogICAiZXhwaXJlcyI6IDEyOTE4NDA0MDAsCiAgICJpc3N1ZWRfYXQiOiAxMjkxODM2ODAwLAogICAidXNlcl9pZCI6ICIyMTg0NzEiCn0=";
 
-    try {
-      facebookClient.parseSignedRequest(signature + "." + payload, "wrong_secret", Payload.class);
-      fail();
-    } catch (FacebookSignedRequestVerificationException ex) {
-      assertThat(ex).hasMessageContaining("was made for the app identified by the app secret you");
-    }
-  }
-
-  @Test
-  void checkSignedRequest_wrongSignedRequest() {
-    try {
-      facebookClient.parseSignedRequest("wrongSignedRequest", "secret", Payload.class);
-      fail();
-    } catch (FacebookSignedRequestParsingException ex) {
-      assertThat(ex).hasMessageContaining("signature and payload strings separated by a '.'");
-    }
-  }
-
-  @Test
-  void checkSignedRequest_emptyParams() {
-    try {
-      facebookClient.parseSignedRequest("", "", Payload.class);
-      fail();
-    } catch (IllegalArgumentException iae) {
-      assertThat(iae).hasMessageContaining("cannot be an empty string");
-    }
-  }
-
-  @Test
-  void checkSignedRequest_nullParams() {
-    try {
-      facebookClient.parseSignedRequest(null, null, Payload.class);
-      fail();
-    } catch (NullPointerException npe) {
-      assertThat(npe).hasMessageContaining("parameter cannot be null");
-    }
+    return Stream.of(
+      Arguments.of(signature + "." + payload, "wrong_secret", "was made for the app identified by the app secret you",
+        FacebookSignedRequestVerificationException.class),
+      Arguments.of("wrongSignedRequest", "secret", "signature and payload strings separated by a '.'",
+        FacebookSignedRequestParsingException.class),
+      Arguments.of("", "", "cannot be an empty string", IllegalArgumentException.class),
+      Arguments.of(null, null, "parameter cannot be null", NullPointerException.class));
   }
 
   public static class Payload {
