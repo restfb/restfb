@@ -23,15 +23,15 @@ package com.restfb.types;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 
-import com.restfb.types.webhook.whatsapp.*;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
+import com.restfb.types.webhook.whatsapp.*;
 
-public class WebhookWhatsappTest extends AbstractJsonMapperTests {
+class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
   @Test
   void messageTemplateStatusUpdate_approved() {

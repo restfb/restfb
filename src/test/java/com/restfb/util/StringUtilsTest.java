@@ -22,7 +22,7 @@
 package com.restfb.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
+import static org.assertj.core.api.Fail.failBecauseExceptionWasNotThrown;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ class StringUtilsTest {
   void toString_null() {
     try {
       StringUtils.toString(null);
-      fail("NullPointerException expected");
+      failBecauseExceptionWasNotThrown(NullPointerException.class);
     } catch (NullPointerException npe) {
       assertThat(npe).hasMessage("Parameter 'data' cannot be null.");
     }
@@ -79,7 +79,7 @@ class StringUtilsTest {
   void toBytes_null() {
     try {
       StringUtils.toBytes(null);
-      fail("NullPointerException expected");
+      failBecauseExceptionWasNotThrown(NullPointerException.class);
     } catch (NullPointerException npe) {
       assertThat(npe).hasMessage("Parameter 'string' cannot be null.");
     }

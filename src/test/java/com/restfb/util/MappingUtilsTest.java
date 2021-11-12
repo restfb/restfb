@@ -23,15 +23,15 @@ package com.restfb.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.restfb.types.features.HasProfilePicture;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultJsonMapper;
 import com.restfb.types.ProfilePictureSource;
+import com.restfb.types.features.HasProfilePicture;
 
 class MappingUtilsTest {
 
-  class FakeClass implements HasProfilePicture {
+  static class FakeClass implements HasProfilePicture {
 
     @Override
     public ProfilePictureSource getPicture() {
