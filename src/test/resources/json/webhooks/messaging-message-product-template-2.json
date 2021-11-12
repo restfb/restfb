@@ -1,0 +1,42 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "page id",
+      "time": 1636729432317,
+      "messaging": [
+        {
+          "sender": {
+            "id": "send id"
+          },
+          "recipient": {
+            "id": "page id"
+          },
+          "timestamp": 1636729431949,
+          "message": {
+            "mid": "m_id",
+            "text": "text sent along with the product",
+            "attachments": [
+              {
+                "type": "template",
+                "payload": {
+                  "product": {
+                    "elements": [
+                      {
+                        "id": "12345678910",
+                        "retailer_id": "123456",
+                        "image_url": "https://scontent.xx.fbcdn.net/v/andSoOn.png",
+                        "title": "product name",
+                        "subtitle": "product price as a string"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

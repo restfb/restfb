@@ -61,6 +61,11 @@ public class MessagingAttachment {
    */
   public static final String VIDEO = "video";
 
+  /**
+   * The "template" attachment type.
+   */
+  public static final String TEMPLATE = "template";
+
   @Getter
   @Setter
   @Facebook
@@ -144,5 +149,14 @@ public class MessagingAttachment {
    */
   public boolean isVideo() {
     return VIDEO.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is template
+   *
+   * @return {@code true} if template, {@code false} if not template
+   */
+  public boolean isTemplate() {
+    return TEMPLATE.equals(type);
   }
 }

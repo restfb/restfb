@@ -1,0 +1,41 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "682498302938465",
+      "time": 1518479195594,
+      "messaging": [
+        {
+          "sender": {
+            "id": "<PSID>"
+          },
+          "recipient": {
+            "id": "<PAGE_ID>"
+          },
+          "timestamp": 1518479195308,
+          "message": {
+            "mid": "mid.$cAAJdkrCd2ORnva8ErFhjGm0X_Q_c",
+            "attachments": [
+              {
+                "type": "template",
+                "payload": {
+                  "product": {
+                    "elements": [
+                      {
+                        "id": "<PRODUCT_ID>",
+                        "retailer_id": "<EXTERNAL_ID>",
+                        "image_url": "https://fb.cdn.com/sdsd",
+                        "title": "Some product title",
+                        "subtitle": "$40"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

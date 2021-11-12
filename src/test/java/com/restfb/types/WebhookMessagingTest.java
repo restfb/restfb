@@ -67,8 +67,10 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
         assertEquals("1458668856253", delivery.getWatermark());
         foundDeprecated.set(true);
       }
+
       @Override
-      public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void delivery(DeliveryItem delivery, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(delivery);
         assertEquals("1458668856253", delivery.getWatermark());
         found.set(true);
@@ -571,7 +573,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   @Test
   void messagingPostbackFromChat() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-chat"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-postback-chat"), WebhookObject.class);
     assertThat(webhookObject).isNotNull();
     assertThat(webhookObject.getEntryList()).isNotEmpty();
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -785,5 +787,45 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     });
     webhookListener.process(webhookObject);
     assertTrue(found.get());
+  }
+
+  @Test
+  void productTemplate() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-product-template"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    ProductItem productItem = extractProductItem(webhookObject);
+    assertThat(productItem.getId()).isEqualTo("<PRODUCT_ID>");
+    assertThat(productItem.getImageUrl()).endsWith("sdsd");
+    assertThat(productItem.getTitle()).isEqualTo("Some product title");
+    assertThat(productItem.getRetailerId()).isEqualTo("<EXTERNAL_ID>");
+    assertThat(productItem.getSubtitle()).isEqualTo("$40");
+  }
+
+  @Test
+  void productTemplateLive() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-product-template-2"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    ProductItem productItem = extractProductItem(webhookObject);
+    assertThat(productItem.getId()).isEqualTo("12345678910");
+    assertThat(productItem.getImageUrl()).contains("andSoOn.png");
+    assertThat(productItem.getTitle()).isEqualTo("product name");
+    assertThat(productItem.getRetailerId()).isEqualTo("123456");
+    assertThat(productItem.getSubtitle()).isEqualTo("product price as a string");
+  }
+
+  private ProductItem extractProductItem(WebhookObject webhookObject) {
+    MessagingItem item = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertNotNull(item);
+    assertTrue(item.getMessage().hasAttachment());
+    MessagingAttachment messagingAttachment = item.getMessage().getAttachments().get(0);
+    assertNotNull(messagingAttachment);
+    assertTrue(messagingAttachment.isTemplate());
+    final ProductTemplateItem product = messagingAttachment.getPayload().getProduct();
+    assertFalse(product.getElements().isEmpty());
+    ProductItem productItem = product.getElements().get(0);
+    assertNotNull(productItem);
+    return productItem;
   }
 }

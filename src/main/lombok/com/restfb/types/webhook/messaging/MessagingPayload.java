@@ -185,6 +185,11 @@ public class MessagingPayload {
 
   @Getter
   @Setter
+  @Facebook
+  private ProductTemplateItem product;
+
+  @Getter
+  @Setter
   private String fallback;
 
   /**
