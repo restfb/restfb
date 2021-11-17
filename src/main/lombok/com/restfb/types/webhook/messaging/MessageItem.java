@@ -67,6 +67,19 @@ public class MessageItem implements InnerMessagingItem {
   @Facebook
   private String text;
 
+  @Getter
+  @Setter
+  @Facebook("is_deleted")
+  private Boolean isDeleted;
+
+  /**
+   * not included if message is supported
+   */
+  @Getter
+  @Setter
+  @Facebook("is_unsupported")
+  private Boolean isUnsupported;
+
   /**
    * Indicates the message sent from the page itself
    */

@@ -1,0 +1,25 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": 12345654332,
+      "time": 1457764198246,
+      "messaging": [
+        {
+          "sender": {
+            "id": 987654321432
+          },
+          "recipient": {
+            "id": 12345654332
+          },
+          "timestamp": 1457764197627,
+          "message": {
+            "is_deleted": true,
+            "mid": "message_id"
+          }
+        }
+      ]
+    }
+  ]
+}
+
