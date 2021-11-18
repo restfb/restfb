@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 3.24.0 (November 18, 2021)
+
+* Issue #1181: The permission `user_messenger_contact` is missing
+* Issue #1183: Missing `is_deleted` field in MessageItem<br />
+  Thanks to @BernardoGiordano for the hint
+* Issue #1182: Missing shop product type<br />
+  Thanks to @TheFuseGamer for the hint
+
 ## 3.23.0 (October 13, 2021)
 
 * Issue #1171: missing fields added to IgUserProfile<br />
