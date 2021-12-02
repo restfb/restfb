@@ -30,20 +30,20 @@ class ScopeBuilderTest {
   @Test
   void noPermission() {
     ScopeBuilder s = new ScopeBuilder();
-    assertThat(s.toString()).isEqualTo("public_profile");
+    assertThat(s).hasToString("public_profile");
   }
 
   @Test
   void noPublicProfilePermission() {
     ScopeBuilder s = new ScopeBuilder(true);
-    assertThat(s.toString()).isEqualTo("");
+    assertThat(s.toString()).isEmpty();
   }
 
   @Test
   void singlePermission() {
     ScopeBuilder s = new ScopeBuilder();
     s.addPermission(FacebookPermissions.USER_GENDER);
-    assertThat(s.toString()).isEqualTo("public_profile,user_gender");
+    assertThat(s).hasToString("public_profile,user_gender");
   }
 
   @Test
@@ -51,7 +51,7 @@ class ScopeBuilderTest {
     ScopeBuilder s = new ScopeBuilder();
     s.addPermission(FacebookPermissions.USER_GENDER);
     s.addPermission(FacebookPermissions.USER_AGE_RANGE);
-    assertThat(s.toString()).isEqualTo("public_profile,user_gender,user_age_range");
+    assertThat(s).hasToString("public_profile,user_gender,user_age_range");
   }
 
 }

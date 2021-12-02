@@ -33,7 +33,7 @@ class UrlPayloadTest {
   void checkToString() {
     MediaAttachment attachment = new MediaAttachment(MediaAttachment.Type.IMAGE, "exampleUrl");
     String toStringAttachment = "MediaAttachment[payload=UrlPayload[isReusable=null url=exampleUrl] type=image]";
-    assertThat(attachment.toString()).isEqualTo(toStringAttachment);
+    assertThat(attachment).hasToString(toStringAttachment);
   }
 
   @Test
