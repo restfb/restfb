@@ -467,6 +467,18 @@ public enum FacebookPermissions {
   ADS_READ("ads_read", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * The attribution_read permission grants your app access to the Attribution API to pull
+   * attribution report data for lines of business you own or have been granted access to by
+   * the owner or owners of other lines of business.
+   *
+   * Allowed Usage
+   *
+   * Provides the ability for your app to access ads performance data from Attribution for
+   * use in custom dashboards and data analytics.
+   */
+  ATTRIBUTION_READ("attribution_read", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
    * Provides access to the person's primary email address via the email property on the user object.
    *
    * <p>
@@ -483,6 +495,18 @@ public enum FacebookPermissions {
    * Your app may use this permission without review from Facebook.
    */
   EMAIL("email", Category.USER_DATA), //
+
+  /**
+   * The page_events permissions allows your app permission to log events on behalf of
+   * Facebook Pages administered by people using your app and to send those events to
+   * Facebook for ads targeting, optimization and reporting.
+   *
+   * <b>Allowed Usage</b>
+   *
+   * Send businesses related activities (for example purchase, add-to-cart, lead) on behalf
+   * of Pages owned by the people who use your app.
+   */
+  PAGES_EVENTS("pages_events", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Enables your app to retrieve Page Access Tokens for the Pages and Apps that the person administrates.
@@ -642,6 +666,47 @@ public enum FacebookPermissions {
    */
   @GraphAPI(since = "2.5")
   PAGES_SHOW_LIST("pages_show_list", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The pages_user_gender permission allows your app to access a user's gender through the
+   * Page your app is connected to.
+   *
+   * Allowed Usage
+   *
+   * <ul>
+   *   <li>Personalize experiences or recommendations based on gender.</li>
+   *   <li>Use gendered language such as correct pronouns and titles.</li>
+   * </ul>
+   */
+  PAGES_USER_GENDER("pages_user_gender", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The pages_user_locale permission allows your to app to a user's locale through the Page your app is connected to.
+   *
+   * Allowed Usage
+   *
+   * <ul>
+   * <li>Personalize experiences based on the locale of a person by surfacing locale specific content.</li>
+   * <li>Send responses in the preferred language of the person.</li>
+   * <li>Display numbers, times, and dates correctly for the locale of the person.</li>
+   * </ul>
+   */
+  PAGES_USER_LOCALE("pages_user_locale", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The pages_user_timezone permission grants your app access to a user's time zone
+   * through the Page your app is connected to.
+   *
+   * Allowed Usage
+   *
+   * <ul>
+   * <li>Prevent messages from being sent at an inconvenient time.</li>
+   * <li>Send time sensitive content or recurring news at a specific time.</li>
+   * <li>Provide tailored content based on time.</li>
+   * <li>Send time appropriate greetings.</li>
+   * </ul>
+   */
+  PAGES_USER_TIMEZONE("pages_user_timezone", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Provides access to publish Posts, Open Graph actions, achievements, scores and other activity on behalf of a person
@@ -837,6 +902,16 @@ public enum FacebookPermissions {
   READ_INSIGHTS("read_insights", Category.OTHER), //
 
   /**
+   * The research_apis permission allows your app to access data on public Facebook
+   * Pages, Groups, and Events within the Facebook Open Research and Transparency Tool.
+   *
+   * Allowed Usage
+   *
+   * Utilize public Facebook data for academic research.
+   */
+  RESEARCH_APIS("research_apis", Category.OTHER), //
+
+  /**
    * Provides the ability to read from the Page Inboxes of the Pages managed by a person. This permission is often used
    * alongside the manage_pages permission.
    *
@@ -895,6 +970,16 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   CATALOG_MANAGEMENT("catalog_management", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The gaming_user_locale permission allows your app to get a user's preferred language
+   * while the user plays a game on Facebook (for example, Instant Games or Cloud Gaming).
+   *
+   * Allowed Usage
+   *
+   * Display a game interface in the user's preferred language.
+   */
+  GAMING_USER_LOCALE("gaming_user_locale", Category.EVENTS_GROUPS_PAGES), //
 
   /**
    * Grants your app permission to retrieve all the information captured within a
