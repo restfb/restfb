@@ -554,41 +554,6 @@ public enum FacebookPermissions {
   PAGES_MANAGE_ENGAGEMENT("pages_manage_engagement", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * The pages_user_gender permission allows your app to access a user's gender through the Page your app is connected
-   * to.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   */
-  PAGES_USER_GENDER("pages_user_gender", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
-   * The pages_user_locale permission allows your to app to a user's locale through the Page your app is connected to.
-   *
-   * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   */
-  PAGES_USER_LOCALE("pages_user_locale", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
-   * The pages_user_timezone permission grants your app access to a user's time zone through the Page your app is
-   * connected to.
-   * 
-   * <p>
-   * <strong>Review</strong>
-   * 
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
-   */
-  PAGES_USER_TIMEZONE("pages_user_timezone", Category.EVENTS_GROUPS_PAGES), //
-
-  /**
    * Gives an app the ability to post content into a group on behalf of a user who has granted the app this permission.
    *
    * <p>

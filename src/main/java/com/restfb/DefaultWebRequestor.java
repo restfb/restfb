@@ -172,14 +172,12 @@ public class DefaultWebRequestor implements WebRequestor {
   private void closeAttachmentsOnAutoClose(List<BinaryAttachment> binaryAttachments) {
     if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
       binaryAttachments.stream().map(BinaryAttachment::getData).forEach(this::closeQuietly);
+    }
   }
 
   protected void initHeaderAccessToken(HttpURLConnection httpUrlConnection, Request request) {
     if (request.hasHeaderAccessToken()) {
       httpUrlConnection.setRequestProperty("Authorization", "Bearer " + request.getHeaderAccessToken());
-    }
-  }
-
     }
   }
 

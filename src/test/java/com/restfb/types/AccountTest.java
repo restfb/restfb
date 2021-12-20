@@ -21,12 +21,12 @@
  */
 package com.restfb.types;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -39,23 +39,14 @@ class AccountTest extends AbstractJsonMapperTests {
   @MethodSource("jsonSupplier")
   void check(String version) {
     Account exampleAccount = createJsonMapper().toJavaObject(jsonFromClasspath(version + "/account"), Account.class);
-    assertEquals("testtoken", exampleAccount.getAccessToken());
-    assertEquals("123456789", exampleAccount.getId());
-    assertEquals(6, exampleAccount.getPerms().size());
-    assertTrue(exampleAccount.getPerms().contains("BASIC_ADMIN"));
-  }
-
-  @Test
     assertEquals("123123123123", exampleAccount.getId());
     assertNotNull(exampleAccount.getOwnerBusiness());
     assertEquals("123123123123", exampleAccount.getOwnerBusiness().getId());
     assertEquals("Test Company", exampleAccount.getOwnerBusiness().getName());
-    assertEquals(6, exampleAccount.getTasks().size());
-    assertTrue(exampleAccount.getTasks().contains("MESSAGING"));
   }
 
   private static Stream<String> jsonSupplier() {
-    return Stream.of("v2_0", "v2_1");
+    return Stream.of("v10_0");
   }
 
 }
