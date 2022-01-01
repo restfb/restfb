@@ -1,5 +1,26 @@
 # RestFB Changelog
 
+## 2022.1.0 (January 1st, 2022) 
+
+* Issue #1187: Change License year to 2022
+* Issue #1185: Add missing permissions type
+* Issue #1135: Remove "perms" field from Account-object - is no longer supported type
+* Issue #1143: Remove `CategorizedFacebookType` type
+* Issue #1133: Remove deprecated `is_verified` field from `Page` object type
+* Issue #1132: Remove the deprecated `manage_pages` and `publish_pages` permissions type
+* Issue #1131: Remove `addComment` and removeComment from Video type
+* Issue #1130: Remove `with_tags` from `Post` because it is deprecated with Graph API 3.2 type
+* Issue #1128: Remove `coverId` from `CoverPhoto` type
+* Issue #1117: Cleanup the Messenger API objects
+* Issue #1116: Remove deprecated fields from `Event` type 
+* Issue #1115: Remove the deprecated `Location` quick reply type
+* Issue #1114: Remove deprecated permissions type
+* Issue #1113: Remove deprecated 'Ad' types
+* Issue #1112: Remove deprecated fields from `User` type
+* Issue #1111: `WebhookMessagingListener` remove deprecated methods type
+* Issue #1110: Assertj classes - change deprecated `Objects.areEqual` type
+* Issue #1109: `WebRequestor` methods refactoring
+
 ## 3.24.0 (November 18, 2021)
 
 * Issue #1181: The permission `user_messenger_contact` is missing
