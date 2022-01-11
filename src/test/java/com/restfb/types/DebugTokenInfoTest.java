@@ -63,4 +63,22 @@ class DebugTokenInfoTest extends AbstractJsonMapperTests {
     assertEquals("1234567890", exampleDebugTokenInfo.getAppId());
     assertEquals(1561330800000L, exampleDebugTokenInfo.getExpiresAt().getTime());
   }
+
+  @Test
+  void testJsonWithGranularScopes() {
+    FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
+        createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-3"), FacebookClient.DebugTokenInfo.class);
+    assertNotNull(exampleDebugTokenInfo);
+    assertNotNull(exampleDebugTokenInfo.getGranularScopes());
+    assertEquals(2, exampleDebugTokenInfo.getGranularScopes().size());
+
+    assertEquals("pages_show_list", exampleDebugTokenInfo.getGranularScopes().get(0).getScope());
+    assertNotNull(exampleDebugTokenInfo.getGranularScopes().get(0).getTargetIds());
+    assertEquals(0, exampleDebugTokenInfo.getGranularScopes().get(0).getTargetIds().size());
+
+    assertEquals("instagram_basic", exampleDebugTokenInfo.getGranularScopes().get(1).getScope());
+    assertNotNull(exampleDebugTokenInfo.getGranularScopes().get(1).getTargetIds());
+    assertEquals(1, exampleDebugTokenInfo.getGranularScopes().get(1).getTargetIds().size());
+    assertEquals("{connected-ig-user-id}", exampleDebugTokenInfo.getGranularScopes().get(1).getTargetIds().get(0));
+  }
 }

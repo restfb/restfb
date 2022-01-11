@@ -776,6 +776,12 @@ public interface FacebookClient {
     @Facebook
     private List<String> scopes = new ArrayList<>();
 
+    /**
+     * List of granular permissions that the user has granted for this app in this access token.
+     */
+    @Facebook("granular_scopes")
+    private List<GranularScope> granularScopes = new ArrayList<>();
+
     @Facebook
     private String type;
 
@@ -852,6 +858,15 @@ public interface FacebookClient {
     }
 
     /**
+     * List of granular scopes the access token 'contains'
+     * 
+     * @return list of granular scopes
+     */
+    public List<GranularScope> getGranularScopes() {
+      return unmodifiableList(granularScopes);
+    }
+
+    /**
      * General metadata associated with the access token. Can contain data like 'sso', 'auth_type', 'auth_nonce'
      * 
      * @return General metadata associated with the access token
@@ -871,6 +886,41 @@ public interface FacebookClient {
 
     public String getType() {
       return type;
+    }
+  }
+
+  class GranularScope extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The permission granted by the user.
+     */
+    @Facebook
+    private String scope;
+
+    /**
+     * The target ids of Pages, Groups, or business assets the user granted the above permission for.
+     */
+    @Facebook("target_ids")
+    private List<String> targetIds = new ArrayList<>();
+
+    /**
+     * The permission granted by the user.
+     * 
+     * @return The permission granted by the user.
+     */
+    public String getScope() {
+      return scope;
+    }
+
+    /**
+     * The target ids of Pages, Groups, or business assets the user granted the above permission for.
+     * 
+     * @return The target ids of Pages, Groups, or business assets the user granted the above permission for.
+     */
+    public List<String> getTargetIds() {
+      return unmodifiableList(targetIds);
     }
   }
 

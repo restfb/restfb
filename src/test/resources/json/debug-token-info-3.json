@@ -1,0 +1,25 @@
+{
+  "app_id": "{app-id}",
+  "type": "USER",
+  "application": "{app-name}",
+  "data_access_expires_at": 1649504517,
+  "expires_at": 1641733200,
+  "is_valid": true,
+  "scopes": [
+    "pages_show_list",
+    "instagram_basic",
+    "public_profile"
+  ],
+  "granular_scopes": [
+    {
+      "scope": "pages_show_list"
+    },
+    {
+      "scope": "instagram_basic",
+      "target_ids": [
+        "{connected-ig-user-id}"
+      ]
+    }
+  ],
+  "user_id": "{user-id}"
+}
