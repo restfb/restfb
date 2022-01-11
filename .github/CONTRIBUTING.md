@@ -12,6 +12,7 @@ We like new issues and are very keen to hear your problems, ideas and proposals.
 * Provide a JSON snippet if possible (values may be obfuscated but similar to the original)
 * Tell us why this is beneficial and what the advantage is for the RestFB users
 * Explain your use case, it's easier to understand a proposal if we have some background knowledge
+* If your request is not working in RestFB, check it in the Facebook Graph API explorer first
 
 ## How to create a pull request
 
