@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2022.2.0 (January 13, 2022)
+
+* Issue #1191: `granular_scopes` added to `DebugTokenInfo`<br />
+  thanks to @maxrasche for the PR
+
 ## 2022.1.0 (January 1st, 2022) 
 
 * Issue #1187: Change License year to 2022
