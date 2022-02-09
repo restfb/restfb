@@ -17,10 +17,10 @@
     <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>5.8.1</version.junit>
+    <version.junit>5.8.2</version.junit>
     <version.lombok>1.18.22</version.lombok>
     <version.mockito>3.12.4</version.mockito>
-    <version.assertj>3.21.0</version.assertj>
+    <version.assertj>3.22.0</version.assertj>
     <version.slf4j>1.7.32</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
@@ -296,7 +296,7 @@
           <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.18</version>
+            <version>1.4.19</version>
           </dependency>
         </dependencies>
       </plugin>
