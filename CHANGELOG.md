@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2022.3.0 (February 9, 2022)
+
+* Issue #1195: Support for `onBehalfOfBusinessInfo` field in `WhatsAppBusinessAccount`<br />
+  thanks to @maganth-seetharaman for the hint and the information
+* Issue #1196: Basic support for Graph API 13.0
+* Issue #1194: Whatsapp Conversation Analytics Objects<br />
+  thanks to @akashtyagi08 for the hint
+
 ## 2022.2.0 (January 13, 2022)
 
 * Issue #1191: `granular_scopes` added to `DebugTokenInfo`<br />
