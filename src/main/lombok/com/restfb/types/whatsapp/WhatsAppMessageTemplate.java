@@ -32,7 +32,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/whats-app-business-hsm/">WhatsApp
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account/message_templates/">WhatsApp
  * Message Template type </a>
  */
 public class WhatsAppMessageTemplate extends NamedFacebookType {
@@ -55,11 +56,10 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   @Facebook
   private String content;
 
-  // WhatsAppBusinessHSMWhatsAppHSMComponentGet is not defined in the reference
-  // @Getter
-  // @Setter
-  // @Facebook
-  // private List<WhatsAppBusinessHSMWhatsAppHSMComponentGet> components;
+  @Getter
+  @Setter
+  @Facebook
+  private List<WhatsAppMessageTemplateComponent> components;
 
   /**
    * The languages (and locale) of the element translation
@@ -100,7 +100,6 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   @Setter
   @Facebook("name_or_content")
   private String nameOrContent;
-
 
   @Getter
   @Setter
