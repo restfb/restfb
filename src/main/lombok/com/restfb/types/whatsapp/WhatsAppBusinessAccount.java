@@ -85,11 +85,13 @@ public class WhatsAppBusinessAccount extends NamedFacebookType {
   @Facebook("message_template_namespace")
   private String messageTemplateNamespace;
 
-  // WABAOnBehalfOfComputedInfo is not defined in Graph API reference
-  // @Getter
-  // @Setter
-  // @Facebook("WABAOnBehalfOfComputedInfo")
-  // private WABAOnBehalfOfComputedInfo onBehalfOfBusinessInfo;
+  /**
+   * The "on behalf of" information for the WhatsApp Business Account
+   */
+  @Getter
+  @Setter
+  @Facebook("WABAOnBehalfOfComputedInfo")
+  private WABAOnBehalfOfComputedInfo onBehalfOfBusinessInfo;
 
   /**
    * Primary funding ID for the WhatsApp Business Account paid service
