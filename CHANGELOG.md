@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2022.3.1 (February 14, 2022)
+
+* NoIssue: fix for 1195
+
 ## 2022.3.0 (February 9, 2022)
 
 * Issue #1195: Support for `onBehalfOfBusinessInfo` field in `WhatsAppBusinessAccount`<br />
