@@ -90,7 +90,7 @@ public class WhatsAppBusinessAccount extends NamedFacebookType {
    */
   @Getter
   @Setter
-  @Facebook("WABAOnBehalfOfComputedInfo")
+  @Facebook("on_behalf_of_business_info")
   private WABAOnBehalfOfComputedInfo onBehalfOfBusinessInfo;
 
   /**
