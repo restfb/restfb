@@ -48,6 +48,17 @@ public class IgComment extends FacebookType {
   private Boolean hidden;
 
   /**
+   * An object containing:
+   *
+   * id — IGSID of the Instagram user who created the IG Comment.
+   * username — Username of the Instagram user who created the IG Comment.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private IgFrom from;
+
+  /**
    * Number of likes on the comment
    */
   @Getter
