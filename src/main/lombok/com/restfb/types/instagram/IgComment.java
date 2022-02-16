@@ -99,6 +99,14 @@ public class IgComment extends FacebookType {
   @Facebook
   private String username;
 
+  /**
+   * ID of the parent IG Comment if this comment was created on another IG Comment (i.e. a reply to another comment.
+   */
+  @Getter
+  @Setter
+  @Facebook("parent_id")
+  private String parentId;
+
   @Facebook
   private List<IgComment> replies = new ArrayList<>();
 
