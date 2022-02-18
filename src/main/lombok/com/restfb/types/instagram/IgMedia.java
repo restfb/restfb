@@ -64,7 +64,13 @@ public class IgMedia extends IgMediaChild {
   /**
    * Count of likes on the media.
    *
-   * Excludes likes on album child media and likes on promoted posts created from the media. Includes replies on comments.
+   * Excludes likes on album child media and likes on promoted posts created from the media. Includes replies on
+   * comments.
+   * 
+   * <ul>
+   * <li><strong>v10.0 and older calls</strong>: value will be 0 if the media owner has hidden like counts it.</li>
+   * <li><strong>v11.0+ calls</strong>: field will be omitted if media owner has hidden like counts on it.</li>
+   * </ul>
    */
   @Getter
   @Setter

@@ -46,10 +46,22 @@ public class IgMediaChild extends FacebookType {
   @Facebook("media_type")
   private String mediaType;
 
+  /**
+   * Media URL. Will be omitted from responses if the media contains copyrighted material, or has been flagged for a
+   * copyright violation.
+   */
   @Getter
   @Setter
   @Facebook("media_url")
   private String mediaUrl;
+
+  /**
+   * Surface where the media is published. Can be AD, FEED, or STORY.
+   */
+  @Getter
+  @Setter
+  @Facebook("media_product_type")
+  private String mediaProductType;
 
   /**
    * ID of Instagram user who created the media. Only returned if the app user making the query also created the media,
@@ -63,26 +75,41 @@ public class IgMediaChild extends FacebookType {
   @Deprecated
   private IgUser owner;
 
+  /**
+   * Permanent URL to the media.
+   */
   @Getter
   @Setter
   @Facebook
   private String permalink;
 
+  /**
+   * Shortcode to the media.
+   */
   @Getter
   @Setter
   @Facebook
   private String shortcode;
 
+  /**
+   * Media thumbnail URL. Only available on VIDEO media.
+   */
   @Getter
   @Setter
   @Facebook("thumbnail_url")
   private String thumbnailUrl;
 
+  /**
+   * ISO 8601 formatted creation date in UTC (default is UTC ±00:00)
+   */
   @Getter
   @Setter
   @Facebook
   private Date timestamp;
 
+  /**
+   * Username of user who created the media.
+   */
   @Getter
   @Setter
   @Facebook
