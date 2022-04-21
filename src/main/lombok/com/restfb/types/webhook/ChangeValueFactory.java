@@ -165,10 +165,13 @@ public class ChangeValueFactory {
     RATINGS_REACTION_REMOVE(RatingsReactionValue.class), //
     RATINGS_REACTION_EDIT(RatingsReactionValue.class), //
     LEADGEN(PageLeadgen.class), //
+
     // Instagram
     STORY_INSIGHTS(InstagramStoryInsightsValue.class), //
     MENTIONS(InstagramMentionsValue.class), //
     COMMENTS(InstagramCommentsValue.class), //
+    LIVE_COMMENTS(InstagramCommentsValue.class), //
+
     // User
     HOMETOWN_ADD(UserPageValue.class), //
     MOVIES_ADD(UserPageValue.class), //
@@ -177,6 +180,7 @@ public class ChangeValueFactory {
     TELEVISION_ADD(UserPageValue.class), //
     GRANTED(PermissionChangeValue.class), //
     REVOKED(PermissionChangeValue.class), //
+
     // Whatsapp Business Account
     MESSAGE_TEMPLATE_STATUS_UPDATE(MessageTemplateStatusUpdateValue.class), //
     PHONE_NUMBER_NAME_UPDATE(PhoneNumberNameUpdateValue.class), //

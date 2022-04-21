@@ -39,14 +39,21 @@ class InstagramWebhookTest extends AbstractJsonMapperTests {
   void checkComments() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-comments"), WebhookObject.class);
-    checkInstagramCommentWebhook(webhookObject);
+    checkInstagramCommentWebhook(webhookObject, "comments");
+  }
+
+  @Test
+  void checkLiveComments() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-livecomments"), WebhookObject.class);
+    checkInstagramCommentWebhook(webhookObject, "live_comments");
   }
 
   @Test
   void checkComments2021() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-comments-2021"), WebhookObject.class);
-    InstagramCommentsValue value = checkInstagramCommentWebhook(webhookObject);
+    InstagramCommentsValue value = checkInstagramCommentWebhook(webhookObject, "comments");
 
     assertNotNull(value.getFrom());
     assertEquals("1234536447", value.getFrom().getId());
@@ -57,11 +64,11 @@ class InstagramWebhookTest extends AbstractJsonMapperTests {
     assertEquals("FEED", value.getMedia().getMediaProductType());
   }
 
-  private InstagramCommentsValue checkInstagramCommentWebhook(WebhookObject webhookObject) {
+  private InstagramCommentsValue checkInstagramCommentWebhook(WebhookObject webhookObject, String field) {
     assertEquals("instagram", webhookObject.getObject());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     Change change = entry.getChanges().get(0);
-    assertEquals("comments", change.getField());
+    assertEquals(field, change.getField());
 
     assertTrue(change.getValue() instanceof InstagramCommentsValue);
     InstagramCommentsValue value = (InstagramCommentsValue) change.getValue();
