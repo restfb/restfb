@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2022.4.0 (April 21, 2022)
+
+* Issue #1202: New IG comments webhook fields<br />
+  Thanks to @gurkein for the hint
+* Issue #1203: New IG live_comments webhook<br />
+  Thanks to @gurkein for the hint
+* Issue #1198: IgMedia - `media_product_type` field added
+* Issue #1200: IgComment - `parent_id` field added
+* Issue #1199: IgComment - `from` field added
+
 ## 2022.3.1 (February 14, 2022)
 
 * NoIssue: fix for 1195
