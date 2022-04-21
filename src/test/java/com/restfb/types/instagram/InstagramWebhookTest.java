@@ -21,9 +21,6 @@
  */
 package com.restfb.types.instagram;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -34,13 +31,33 @@ import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class InstagramWebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void checkComments() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-comments"), WebhookObject.class);
+    checkInstagramCommentWebhook(webhookObject);
+  }
 
+  @Test
+  void checkComments2021() {
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/wh-comments-2021"), WebhookObject.class);
+    InstagramCommentsValue value = checkInstagramCommentWebhook(webhookObject);
+
+    assertNotNull(value.getFrom());
+    assertEquals("1234536447", value.getFrom().getId());
+    assertEquals("testuser", value.getFrom().getUsername());
+    assertEquals("987654321", value.getParentId());
+    assertNotNull(value.getMedia());
+    assertEquals("76543987", value.getMedia().getId());
+    assertEquals("FEED", value.getMedia().getMediaProductType());
+  }
+
+  private InstagramCommentsValue checkInstagramCommentWebhook(WebhookObject webhookObject) {
     assertEquals("instagram", webhookObject.getObject());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     Change change = entry.getChanges().get(0);
@@ -50,6 +67,7 @@ class InstagramWebhookTest extends AbstractJsonMapperTests {
     InstagramCommentsValue value = (InstagramCommentsValue) change.getValue();
     assertEquals("123456789", value.getId());
     assertEquals("This is an example.", value.getText());
+    return value;
   }
 
   @Test

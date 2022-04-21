@@ -22,6 +22,7 @@
 package com.restfb.types.webhook.instagram;
 
 import com.restfb.Facebook;
+import com.restfb.types.instagram.IgFrom;
 import com.restfb.types.webhook.ChangeValue;
 
 import lombok.Getter;
@@ -37,5 +38,33 @@ public class InstagramCommentsValue extends ChangeValue {
   @Getter
   @Setter
   @Facebook
+  private IgFrom from;
+
+  @Getter
+  @Setter
+  @Facebook
+  private IgCommentMedia media;
+
+  @Getter
+  @Setter
+  @Facebook
   private String text;
+
+  @Getter
+  @Setter
+  @Facebook("parent_id")
+  private String parentId;
+
+  public static class IgCommentMedia {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String id;
+
+    @Getter
+    @Setter
+    @Facebook("media_product_type")
+    private String mediaProductType;
+  }
 }
