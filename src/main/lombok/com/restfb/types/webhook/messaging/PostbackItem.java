@@ -35,6 +35,14 @@ import lombok.ToString;
 public class PostbackItem implements InnerMessagingItem {
 
   /**
+   * Message ID
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String mid;
+
+  /**
    * Title for the CTA that was clicked on. This is sent to all apps subscribed to the page.
    *
    * For apps other than the original CTA sender, the postback event will be delivered via the
