@@ -193,6 +193,14 @@ public class MessagingPayload {
   private String fallback;
 
   /**
+   * Title of the attachment. Applicable to attachment type: fallback
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String title;
+
+  /**
    * The user may send a like and this method can be used to discover the three know versions of the sticker
    *
    * @return {@code true} if the user sent a like (thumb up sticker), {@code false} otherwise
