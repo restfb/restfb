@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2022.5.0 (May 10, 2000)
+
+* Issue #1205: `PostbackItem` object is missing `mid` field<br />
+  Thanks to @Nick97-git for the input
+* Issue #1206: `MessagingPayload` is missing `title` field<br />
+  Thanks to @Nick97-git for the input
+
 ## 2022.4.0 (April 21, 2022)
 
 * Issue #1202: New IG comments webhook fields<br />
