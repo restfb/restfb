@@ -24,6 +24,8 @@ package com.restfb;
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Locale;
+
 import org.junit.jupiter.api.Test;
 
 import com.restfb.testutils.AssertJson;
@@ -112,6 +114,21 @@ class ParameterTest {
     Parameter obj1 = Parameter.with("name", "value");
     Parameter obj2 = Parameter.with("name", "value");
     assertThat(obj1).isEqualTo(obj2);
+  }
+
+  @Test
+  void checkLocaleParameter() {
+    assertThat(Parameter.withLocale(Locale.GERMAN)).hasName("locale").hasValue("de");
+  }
+
+  @Test
+  void checkFieldsParameter() {
+    assertThat(Parameter.withFields("id,name")).hasName("fields").hasValue("id,name");
+  }
+
+  @Test
+  void checkMetadataParameter() {
+    assertThat(Parameter.withMetadata()).hasValue("1").hasName("metadata");
   }
 
 }

@@ -25,9 +25,10 @@ import static com.restfb.util.StringUtils.isBlank;
 import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 
-import com.restfb.exception.FacebookJsonMappingException;
-
+import java.util.Locale;
 import java.util.Optional;
+
+import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * Representation of a Facebook API request parameter.
@@ -61,10 +62,12 @@ public final class Parameter {
   private Parameter(String name, Object value, JsonMapper jsonMapper) {
     if (isBlank(name) || value == null) {
       throw new IllegalArgumentException(Parameter.class + " instances must have a non-blank name and non-null value."
-              + " Got instead name:" + name + ", value:" + value);
+          + " Got instead name:" + name + ", value:" + value);
     }
 
-    this.value = Optional.ofNullable(jsonMapper).orElseThrow(() -> new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null.")).toJson(value, true);
+    this.value = Optional.ofNullable(jsonMapper)
+      .orElseThrow(() -> new IllegalArgumentException("Provided " + JsonMapper.class + " must not be null."))
+      .toJson(value, true);
     this.name = trimToEmpty(name);
   }
 
@@ -89,6 +92,38 @@ public final class Parameter {
    */
   public static Parameter with(String name, Object value) {
     return Parameter.with(name, value, new DefaultJsonMapper());
+  }
+
+  /**
+   * convenience factory method which needs a comma separated list of fields that the dev likes to fetch from the API
+   * 
+   * @param fieldList
+   *          comma separated list of fields
+   * @return Parameter object
+   */
+  public static Parameter withFields(String fieldList) {
+    return Parameter.with("fields", fieldList);
+  }
+
+  /**
+   * convenience factory method which creates a {@code Parameter} object to fetch the metadata from API
+   *
+   * @return Parameter object
+   */
+  public static Parameter withMetadata() {
+    return Parameter.with("metadata", "1");
+  }
+
+  /**
+   * convenience factory method which creates a {@code Parameter} object to fetch data from API with given locale
+   *
+   * @param locale
+   *          the locale that should be used to fetch the data
+   *
+   * @return Parameter object
+   */
+  public static Parameter withLocale(Locale locale) {
+    return Parameter.with("locale", locale.getLanguage());
   }
 
   /**
