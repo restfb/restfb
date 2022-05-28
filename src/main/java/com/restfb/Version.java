@@ -107,33 +107,40 @@ public enum Version {
   VERSION_10_0("v10.0"),
 
   /**
-   * <tt>Graph API 11.0</tt>, available at least until September 14, 2023
+   * <tt>Graph API 11.0</tt>, available until September 14th, 2023
    *
    * @since June 8th, 2021
    */
   VERSION_11_0("v11.0"),
 
   /**
-   * <tt>Graph API 12.0</tt>, available at least until February 8, 2024
+   * <tt>Graph API 12.0</tt>, available until February 8th, 2024
    *
    * @since September 14th, 2021
    */
   VERSION_12_0("v12.0"),
 
   /**
-   * <tt>Graph API 13.0</tt>, available at least until February 2024
+   * <tt>Graph API 13.0</tt>, available until May 28th, 2024
    *
-   * @since September 14th, 2021
+   * @since February 8th, 2022
    */
   VERSION_13_0("v13.0"),
 
   /**
+   * <tt>Graph API 14.0</tt>, available at least until May 2025
+   *
+   * @since May 25th, 2022
+   */
+  VERSION_14_0("v14.0"),
+
+  /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
    * <p>
-   * the current version is <tt>Graph API 13.0</tt>
+   * the current version is <tt>Graph API 14.0</tt>
    * </p>
    */
-  LATEST("v13.0");
+  LATEST("v14.0");
 
   private final String urlElement;
 
