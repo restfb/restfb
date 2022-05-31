@@ -1,6 +1,12 @@
 # RestFB Changelog
 
-## 2022.5.0 (May 10, 2000)
+## 2022.6.0 (May 31, 2022)
+
+* Issue #1213: `rtbdynamicpost` type is missing 
+* Issue #1218: Make it easier to use parameters in the API calls
+* Issue #1220: Add Basic Graph API 14 support
+
+## 2022.5.0 (May 10, 2022)
 
 * Issue #1205: `PostbackItem` object is missing `mid` field<br />
   Thanks to @Nick97-git for the input
