@@ -31,6 +31,7 @@ import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
 import com.restfb.types.webhook.whatsapp.*;
+import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
 
 /**
  * Factory to convert the value field of the change into a class with special fields
@@ -87,6 +88,9 @@ public class ChangeValueFactory {
         }
         if (userObjectVerb != null) {
           classDefinition += "_" + userObjectVerb.name();
+        }
+        if (objValue.get("messaging_product") != null) {
+          classDefinition += "_" + objValue.get("messaging_product").asString().toUpperCase();
         }
 
         // special handling for permissions
@@ -186,7 +190,10 @@ public class ChangeValueFactory {
     PHONE_NUMBER_NAME_UPDATE(PhoneNumberNameUpdateValue.class), //
     PHONE_NUMBER_QUALITY_UPDATE(PhoneNumberQualityUpdateValue.class), //
     ACCOUNT_UPDATE(AccountUpdateValue.class), //
-    ACCOUNT_REVIEW_UPDATE(AccountReviewUpdateValue.class);
+    ACCOUNT_REVIEW_UPDATE(AccountReviewUpdateValue.class),//
+
+    // Whatsapp Business Platform
+    MESSAGES_WHATSAPP(WhatsappMessagesValue.class);
 
     private Class<ChangeValue> valueClass;
 

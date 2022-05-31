@@ -21,12 +21,45 @@
  */
 package com.restfb.types.webhook.whatsapp;
 
-import com.restfb.types.webhook.ChangeValue;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class AbstractWhatsappBaseChangeValue extends ChangeValue {
+import com.restfb.Facebook;
+import com.restfb.types.whatsapp.platform.*;
+import com.restfb.types.whatsapp.platform.Error;
 
-  @Override
-  public boolean isWhatsapp() {
-    return true;
-  }
+import lombok.Getter;
+import lombok.Setter;
+
+public class WhatsappMessagesValue extends AbstractWhatsappBaseChangeValue {
+
+  @Getter
+  @Setter
+  @Facebook("messaging_product")
+  private String messagingProduct;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<Contact> contacts = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<Error> errors = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<Message> messages = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<Status> statuses = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private Metadata metadata;
 }

@@ -23,6 +23,8 @@ package com.restfb.types;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -30,6 +32,9 @@ import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.*;
+import com.restfb.types.whatsapp.platform.Contact;
+import com.restfb.types.whatsapp.platform.Message;
+import com.restfb.types.whatsapp.platform.message.MessageType;
 
 class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
@@ -94,6 +99,34 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
   void accountReviewUpdate() {
     AccountReviewUpdateValue change = getWHObjectFromJson("webhook-accountReviewUpdate", AccountReviewUpdateValue.class);
     assertThat(change.getDecision()).isEqualTo("APPROVED");
+  }
+
+  @Test
+  void incomingMessageText() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-text", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    // check contact
+    assertThat(change.getContacts()).hasSize(1);
+    Contact contact = change.getContacts().get(0);
+    assertThat(contact.getWaId()).isEqualTo("491234567890");
+    assertThat(contact.getProfile()).isNotNull();
+    assertThat(contact.getProfile().getName()).isEqualTo("TestUser");
+
+    // check Metadata
+    assertThat(change.getMetadata()).isNotNull();
+    assertThat(change.getMetadata().getDisplayPhoneNumber()).isEqualTo("1234567891");
+    assertThat(change.getMetadata().getPhoneNumberId()).isEqualTo("10634295353625");
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getText()).isNotNull();
+    assertThat(message.getText().getBody()).isEqualTo("Test");
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.text);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+    assertThat(message.isText()).isTrue();
   }
 
   private <T extends ChangeValue> T getWHObjectFromJson(String jsonName, Class<T> clazz) {

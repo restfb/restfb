@@ -19,14 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.whatsapp;
+package com.restfb.types.whatsapp.platform.message;
 
-import com.restfb.types.webhook.ChangeValue;
-
-public abstract class AbstractWhatsappBaseChangeValue extends ChangeValue {
-
-  @Override
-  public boolean isWhatsapp() {
-    return true;
-  }
+public enum MessageType {
+  audio, button, document, text, image, interactive, sticker, system, unknown, video
 }
