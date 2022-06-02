@@ -30,7 +30,7 @@ import lombok.Setter;
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/instagram-user/">Instagram User</a>
  * API type.
  */
-public class InstagramUser extends FacebookType {
+public class InstagramUser extends NamedFacebookType {
 
   /**
    * Number of Instagram users that this Instagram user follows
