@@ -79,4 +79,13 @@ public class IgUserProfile extends NamedFacebookType {
   @Setter
   @Facebook("is_business_follow_user")
   private Boolean isBusinessFollowUser;
+  
+  /**
+   * The username for the customer's Instagram account
+   */
+  @GraphAPI(since = "14.0")
+  @Getter
+  @Setter
+  @Facebook("username")
+  private String username;
 }
