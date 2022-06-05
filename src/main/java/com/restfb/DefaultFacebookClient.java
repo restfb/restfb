@@ -370,6 +370,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   @Override
+  public <T> T publish(String connection, Class<T> objectType, Body body, Parameter... parameters) {
+    verifyParameterPresence("connection", connection);
+    return jsonMapper.toJavaObject(makeRequest(connection, true, false, null, body, parameters), objectType);
+  }
+
+  @Override
   public String getLogoutUrl(String next) {
     String parameterString;
     if (next != null) {
@@ -701,6 +707,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return makeRequest(endpoint, false, false, null, parameters);
   }
 
+  protected String makeRequest(String endpoint, final boolean executeAsPost, final boolean executeAsDelete,
+      final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
+    return makeRequest(endpoint, executeAsPost, executeAsDelete,
+    binaryAttachments, null, parameters);
+  }
+
   /**
    * Coordinates the process of executing the API request GET/POST and processing the response we receive from the
    * endpoint.
@@ -721,7 +733,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    *           If an error occurs while making the Facebook API POST or processing the response.
    */
   protected String makeRequest(String endpoint, final boolean executeAsPost, final boolean executeAsDelete,
-      final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
+      final List<BinaryAttachment> binaryAttachments, Body body, Parameter... parameters) {
     verifyParameterLegality(parameters);
 
     if (executeAsDelete && isHttpDeleteFallback()) {
@@ -744,6 +756,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
       if (executeAsPost) {
         request.setBinaryAttachments(binaryAttachments);
+        request.setBody(body);
         return webRequestor.executePost(request);
       }
 

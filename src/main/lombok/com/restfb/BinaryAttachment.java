@@ -424,7 +424,7 @@ public class BinaryAttachment {
     }
 
     if (data != null) {
-      contentType = URLConnection.guessContentTypeFromName(filename);
+      contentType = URLConnection.getFileNameMap().getContentTypeFor(filename);
     }
 
     // fallback - if we have no contenttype and cannot detect one, use 'application/octet-stream'

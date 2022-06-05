@@ -39,6 +39,7 @@ public class FakeWebRequestor implements WebRequestor {
   private final Response predefinedResponse;
 
   private String accessToken;
+  private Body body;
 
   public FakeWebRequestor() {
     this(null);
@@ -62,6 +63,7 @@ public class FakeWebRequestor implements WebRequestor {
     this.method = HttpMethod.POST;
     this.parameters = request.getParameters();
     this.accessToken = request.getHeaderAccessToken();
+    this.body = request.getBody();
     return createInternalResponse();
   }
 
@@ -111,5 +113,9 @@ public class FakeWebRequestor implements WebRequestor {
    */
   public String getParameters() {
     return parameters;
+  }
+
+  public Body getBody() {
+    return body;
   }
 }

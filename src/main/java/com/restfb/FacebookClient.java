@@ -257,6 +257,27 @@ public interface FacebookClient {
   <T> T publish(String connection, Class<T> objectType, BinaryAttachment binaryAttachment, Parameter... parameters);
 
   /**
+   * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
+   * given {@code connection} and includes special body in the publish request, and mapping the
+   * result to an instance of {@code objectType}.
+   *
+   * @param <T>
+   *          Java type to map to.
+   * @param connection
+   *          The Connection to publish to.
+   * @param objectType
+   *          Object type token.
+   * @param body
+   *          The body used in the POST request.
+   * @param parameters
+   *          URL parameters to include in the API call.
+   * @return An instance of type {@code objectType} which contains the Facebook response to your publish request.
+   * @throws FacebookException
+   *           If an error occurs while performing the API call.
+   */
+  <T> T publish(String connection, Class<T> objectType, Body body, Parameter... parameters);
+
+  /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph API delete</a> operation on the given
    * {@code object}.
    * 

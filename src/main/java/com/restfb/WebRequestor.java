@@ -108,6 +108,8 @@ public interface WebRequestor {
 
     private String parameters;
 
+    private Body body;
+
     private List<BinaryAttachment> binaryAttachments;
 
     /**
@@ -193,6 +195,18 @@ public interface WebRequestor {
     public String toString() {
       return format("Request to url %s with parameters %s. Header access token: %b", getUrl(), getParameters(),
         hasHeaderAccessToken());
+    }
+
+    public void setBody(Body body) {
+      this.body = body;
+    }
+
+    public Body getBody() {
+      return body;
+    }
+
+    public boolean hasBody() {
+      return body != null;
     }
   }
 

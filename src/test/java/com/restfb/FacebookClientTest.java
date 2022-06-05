@@ -48,6 +48,7 @@ import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.User;
 import com.restfb.types.send.IdMessageRecipient;
@@ -203,6 +204,24 @@ class FacebookClientTest {
     }
     assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v3.1/me/messages").isParametersEqualTo(
       "recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json");
+  }
+
+  @Test
+  void sendWithBody() {
+    FakeWebRequestor requestor = new FakeWebRequestor();
+    DefaultFacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_13_0);
+    fbc.setHeaderAuthorization(true);
+    try {
+      Body body = Body.withData(new JsonObject());
+      SendResponse response = fbc.publish("me/messages", SendResponse.class, body);
+    } catch (FacebookJsonMappingException ignored) {
+
+    }
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v13.0/me/messages")
+      .isParametersEqualTo("format=json");
+    assertThat(requestor.getBody()).isNotNull();
+    assertThat(requestor.getBody().getData()).isEqualTo("{}");
   }
 
   @Test

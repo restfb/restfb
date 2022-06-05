@@ -137,7 +137,11 @@ public class DefaultWebRequestor implements WebRequestor {
               + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(StringUtils.ENCODING_CHARSET));
         }
       } else {
-        outputStream.write(request.getParameters().getBytes(StringUtils.ENCODING_CHARSET));
+        if (request.hasBody()) {
+          outputStream.write(request.getBody().getData().getBytes(StringUtils.ENCODING_CHARSET));
+        } else {
+          outputStream.write(request.getParameters().getBytes(StringUtils.ENCODING_CHARSET));
+        }
       }
 
       HTTP_LOGGER.debug("Response headers: {}", httpUrlConnection.getHeaderFields());

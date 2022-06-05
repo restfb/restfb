@@ -40,6 +40,8 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.restfb.json.JsonObject;
+
 @ExtendWith(MockitoExtension.class)
 class DefaultWebRequestorTest {
 
@@ -171,5 +173,36 @@ class DefaultWebRequestorTest {
     verify(requestor).closeQuietly(mockUrlConnection);
     verify(requestor).closeQuietly(mockOutputStream);
     verify(requestor).closeQuietly(mockBinaryInputStream);
+  }
+
+  @Test
+  void checkPost_WithBody() throws IOException {
+    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
+    String resultString = "This is just a simple Test";
+    when(mockUrlConnection.getResponseCode()).thenReturn(200);
+    InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
+    when(mockUrlConnection.getInputStream()).thenReturn(stream);
+    WebRequestor.Request request = new WebRequestor.Request(exampleUrl, null, "");
+    Body spyBody = spy(Body.withData(new JsonObject()));
+    request.setBody(spyBody);
+    WebRequestor.Response response = requestor.executePost(request);
+
+    // check the result
+    assertThat(response.getStatusCode()).isEqualTo(200);
+    assertThat(response.getBody()).isEqualTo(resultString);
+
+    // verify the calls
+    verify(mockUrlConnection).setReadTimeout(180000);
+    verify(mockUrlConnection).setUseCaches(false);
+    verify(mockUrlConnection).setDoOutput(true);
+    verify(mockUrlConnection).setRequestMethod(DefaultWebRequestor.HttpMethod.POST.name());
+    verify(mockUrlConnection, never()).setRequestProperty(eq("Authorization"), anyString());
+    verify(mockUrlConnection).connect();
+    verify(requestor).executePost(eq(request));
+    verify(requestor, never()).executeGet(any(WebRequestor.Request.class));
+    verify(spyBody).getData();
+    verify(requestor).customizeConnection(mockUrlConnection);
+    verify(requestor).fillHeaderAndDebugInfo(mockUrlConnection);
+    verify(requestor).fetchResponse(mockUrlConnection);
   }
 }
