@@ -119,6 +119,10 @@ public class DefaultWebRequestor implements WebRequestor {
         httpUrlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + MULTIPART_BOUNDARY);
       }
 
+      if (request.hasBody()) {
+        httpUrlConnection.setRequestProperty("Content-Type", "application/json");
+      }
+
       httpUrlConnection.connect();
       outputStream = httpUrlConnection.getOutputStream();
 
