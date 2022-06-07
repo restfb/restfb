@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 2022.7.0 (June 7, 2022)
+
+* Issue #1223: Pull Request to add `username` to `IgUserProfile` type<br />
+  Thanks to @pranjalmittal for the PR
+* Issue #1224: `name` field added to `InstagramUser`<br />
+  Thanks to @Nick97-git for the hint
+* Issue #1225: Send JsonObject as request body<br />
+  Thanks to @astrit-hakobyan for the input
+
 ## 2022.6.0 (May 31, 2022)
 
 * Issue #1213: `rtbdynamicpost` type is missing 
