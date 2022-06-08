@@ -18,9 +18,9 @@
 
     <!-- dependency versions -->
     <version.junit>5.8.2</version.junit>
-    <version.lombok>1.18.22</version.lombok>
-    <version.mockito>3.12.4</version.mockito>
-    <version.assertj>3.22.0</version.assertj>
+    <version.lombok>1.18.24</version.lombok>
+    <version.mockito>4.6.1</version.mockito>
+    <version.assertj>3.23.1</version.assertj>
     <version.slf4j>1.7.32</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
@@ -316,7 +316,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.7</version>
+        <version>0.8.8</version>
         <executions>
           <execution>
             <id>prepare-agent</id>
