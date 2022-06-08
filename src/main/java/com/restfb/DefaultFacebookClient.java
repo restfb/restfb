@@ -66,6 +66,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public static final String SCOPE = "scope";
   public static final String CANNOT_EXTRACT_ACCESS_TOKEN_MESSAGE = "Unable to extract access token from response.";
   public static final String PARAM_CLIENT_SECRET = "client_secret";
+
+  public static final String CONNECTION = "connection";
+  public static final String CONNECTION_TYPE = "connectionType";
+  public static final String ALGORITHM = "algorithm";
   /**
    * Graph API access token.
    */
@@ -260,8 +264,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   public <T> Connection<T> fetchConnection(String connection, Class<T> connectionType, Parameter... parameters) {
-    verifyParameterPresence("connection", connection);
-    verifyParameterPresence("connectionType", connectionType);
+    verifyParameterPresence(CONNECTION, connection);
+    verifyParameterPresence(CONNECTION_TYPE, connectionType);
     return new Connection<>(this, makeRequest(connection, parameters), connectionType);
   }
 
@@ -305,7 +309,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @SuppressWarnings("unchecked")
   public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("ids", ids);
-    verifyParameterPresence("connectionType", objectType);
+    verifyParameterPresence(CONNECTION_TYPE, objectType);
     requireNotEmpty(ids, "The list of IDs cannot be empty.");
 
     if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
@@ -344,7 +348,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public <T> T publish(String connection, Class<T> objectType, List<BinaryAttachment> binaryAttachments,
       Parameter... parameters) {
-    verifyParameterPresence("connection", connection);
+    verifyParameterPresence(CONNECTION, connection);
 
     return jsonMapper.toJavaObject(makeRequest(connection, true, false, binaryAttachments, parameters), objectType);
   }
@@ -371,7 +375,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public <T> T publish(String connection, Class<T> objectType, Body body, Parameter... parameters) {
-    verifyParameterPresence("connection", connection);
+    verifyParameterPresence(CONNECTION, connection);
     return jsonMapper.toJavaObject(makeRequest(connection, true, false, null, body, parameters), objectType);
   }
 
@@ -576,11 +580,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     // Convert payload to a JsonObject so we can pull algorithm data out of it
     JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);
 
-    if (!payloadObject.contains("algorithm")) {
+    if (!payloadObject.contains(ALGORITHM)) {
       throw new FacebookSignedRequestParsingException("Unable to detect algorithm used for signed request");
     }
 
-    String algorithm = payloadObject.getString("algorithm", null);
+    String algorithm = payloadObject.getString(ALGORITHM, null);
 
     if (!verifySignedRequest(appSecret, algorithm, encodedPayload, signature)) {
       throw new FacebookSignedRequestVerificationException(
@@ -639,7 +643,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected boolean verifySignedRequest(String appSecret, String algorithm, String encodedPayload, byte[] signature) {
     verifyParameterPresence(APP_SECRET, appSecret);
-    verifyParameterPresence("algorithm", algorithm);
+    verifyParameterPresence(ALGORITHM, algorithm);
     verifyParameterPresence("encodedPayload", encodedPayload);
     verifyParameterPresence("signature", signature);
 

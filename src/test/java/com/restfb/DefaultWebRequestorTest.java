@@ -198,7 +198,7 @@ class DefaultWebRequestorTest {
     verify(mockUrlConnection).setRequestMethod(DefaultWebRequestor.HttpMethod.POST.name());
     verify(mockUrlConnection, never()).setRequestProperty(eq("Authorization"), anyString());
     verify(mockUrlConnection).connect();
-    verify(requestor).executePost(eq(request));
+    verify(requestor).executePost(request);
     verify(requestor, never()).executeGet(any(WebRequestor.Request.class));
     verify(spyBody).getData();
     verify(requestor).customizeConnection(mockUrlConnection);
