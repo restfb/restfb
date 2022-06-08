@@ -841,7 +841,25 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
-  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP);
+  WHATSAPP_BUSINESS_MANAGEMENT("whatsapp_business_management", Category.WHATSAPP),
+
+  /**
+   * The `whatsapp_business_messaging` permission allows an app to send WhatsApp messages to a specific phone number,
+   * upload and retrieve media from messages, manage and get WhatsApp business profile information,
+   * and to register those phone numbers with Meta.
+   *
+   * <p>
+   * Please see <a href=
+   * "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging">Whatsapps's
+   * reference</a> for details.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP);
 
   private final String permissionString;
 
