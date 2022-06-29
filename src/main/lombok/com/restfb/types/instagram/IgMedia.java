@@ -62,6 +62,16 @@ public class IgMedia extends IgMediaChild {
   private Boolean isCommentEnabled;
 
   /**
+   * Reels only. If {@code true}, indicates the reel can appear in both the Feed and Reels tabs.
+   * 
+   * If {@code false}, indicates the reel can only appear in the Reels tab.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_shared_to_feed")
+  private Boolean isSharedToFeed;
+
+  /**
    * Count of likes on the media.
    *
    * Excludes likes on album child media and likes on promoted posts created from the media. Includes replies on
