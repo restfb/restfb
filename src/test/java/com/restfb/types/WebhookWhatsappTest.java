@@ -34,6 +34,7 @@ import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.*;
 import com.restfb.types.whatsapp.platform.Contact;
 import com.restfb.types.whatsapp.platform.Message;
+import com.restfb.types.whatsapp.platform.message.Image;
 import com.restfb.types.whatsapp.platform.message.MessageType;
 
 class WebhookWhatsappTest extends AbstractJsonMapperTests {
@@ -127,6 +128,41 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
     assertThat(message.getType()).isEqualTo(MessageType.text);
     assertThat(message.getFrom()).isEqualTo("491234567890");
     assertThat(message.isText()).isTrue();
+  }
+
+  @Test
+  void incomingMessageImage() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-image", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    // check contact
+    assertThat(change.getContacts()).hasSize(1);
+    Contact contact = change.getContacts().get(0);
+    assertThat(contact.getWaId()).isEqualTo("491234567890");
+    assertThat(contact.getProfile()).isNotNull();
+    assertThat(contact.getProfile().getName()).isEqualTo("TestUser");
+
+    // check Metadata
+    assertThat(change.getMetadata()).isNotNull();
+    assertThat(change.getMetadata().getDisplayPhoneNumber()).isEqualTo("1234567891");
+    assertThat(change.getMetadata().getPhoneNumberId()).isEqualTo("10634295353625");
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getImage()).isNotNull();
+    assertThat(message.isImage()).isTrue();
+    assertThat(message.isText()).isFalse();
+
+    Image image = message.getImage();
+    assertThat(image.getCaption()).isEqualTo("Some awesome image");
+    assertThat(image.getId()).isEqualTo("400962571939895");
+    assertThat(image.getMimeType()).isEqualTo("image\\/jpeg");
+    assertThat(image.getSha256()).isEqualTo("law0CgE277wMMnIJU0XIxhDne6Ptmwaek\\/thVM7mVtg=");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.image);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 
   private <T extends ChangeValue> T getWHObjectFromJson(String jsonName, Class<T> clazz) {
