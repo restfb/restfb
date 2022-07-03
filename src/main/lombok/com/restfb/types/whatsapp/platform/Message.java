@@ -43,7 +43,10 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private Audio audio;
 
-  private JsonObject button;
+  @Getter
+  @Setter
+  @Facebook
+  private Button button;
 
   private JsonObject context;
 
@@ -130,5 +133,9 @@ public class Message extends AbstractFacebookType {
 
   public boolean isVoice() {
     return isAudio() && getAudio().isVoice();
+  }
+
+  public boolean isButton() {
+    return button != null;
   }
 }
