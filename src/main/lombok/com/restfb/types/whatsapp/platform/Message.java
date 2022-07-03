@@ -38,7 +38,10 @@ import lombok.Setter;
  */
 public class Message extends AbstractFacebookType {
 
-  private JsonObject audio;
+  @Getter
+  @Setter
+  @Facebook
+  private Audio audio;
 
   private JsonObject button;
 
@@ -105,11 +108,27 @@ public class Message extends AbstractFacebookType {
     return text != null;
   }
 
-  public boolean isImage() { return image != null; }
+  public boolean isImage() {
+    return image != null;
+  }
 
-  public boolean isVideo() { return video != null; }
+  public boolean isVideo() {
+    return video != null;
+  }
 
-  public boolean isSticker() { return sticker != null; }
+  public boolean isSticker() {
+    return sticker != null;
+  }
 
-  public boolean isLocation() { return location != null; }
+  public boolean isLocation() {
+    return location != null;
+  }
+
+  public boolean isAudio() {
+    return audio != null;
+  }
+
+  public boolean isVoice() {
+    return isAudio() && getAudio().isVoice();
+  }
 }

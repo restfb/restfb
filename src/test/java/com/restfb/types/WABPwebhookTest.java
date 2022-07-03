@@ -176,6 +176,38 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
     assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 
+  @Test
+  void incomingMessageAudio() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-audio", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getAudio()).isNotNull();
+    assertThat(message.isImage()).isFalse();
+    assertThat(message.isText()).isFalse();
+    assertThat(message.isVideo()).isFalse();
+    assertThat(message.isSticker()).isFalse();
+    assertThat(message.isLocation()).isFalse();
+    assertThat(message.isAudio()).isTrue();
+    assertThat(message.isVoice()).isTrue();
+
+    Audio image = message.getAudio();
+    assertThat(image.getId()).isEqualTo("1113842206146232");
+    assertThat(image.getMimeType()).isEqualTo("audio\\/ogg; codecs=opus");
+    assertThat(image.getSha256()).isEqualTo("qGgRrybLhq3DQ2fh7t2IPHP6LnQpFVsZ7zkDwoxDPJs=");
+    assertThat(image.isVoice()).isTrue();
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.audio);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
   private void checkMetaData(WhatsappMessagesValue change) {
     // check Metadata
     assertThat(change.getMetadata()).isNotNull();
