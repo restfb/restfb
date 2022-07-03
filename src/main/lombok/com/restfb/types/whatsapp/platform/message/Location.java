@@ -21,6 +21,35 @@
  */
 package com.restfb.types.whatsapp.platform.message;
 
-public enum MessageType {
-  audio, button, document, text, image, interactive, location, sticker, system, unknown, video
+import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
+import lombok.Getter;
+import lombok.Setter;
+
+public class Location extends AbstractFacebookType {
+
+  @Getter
+  @Setter
+  @Facebook
+  private String address;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Double latitude;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Double longitude;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String name;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String url;
 }

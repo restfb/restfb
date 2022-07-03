@@ -67,6 +67,11 @@ public class Message extends AbstractFacebookType {
 
   private JsonObject interactive;
 
+  @Getter
+  @Setter
+  @Facebook
+  private Location location;
+
   private JsonObject referral;
 
   private JsonObject system;
@@ -105,4 +110,6 @@ public class Message extends AbstractFacebookType {
   public boolean isVideo() { return video != null; }
 
   public boolean isSticker() { return sticker != null; }
+
+  public boolean isLocation() { return location != null; }
 }

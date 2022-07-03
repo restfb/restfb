@@ -34,9 +34,8 @@ import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
 import com.restfb.types.whatsapp.platform.Contact;
 import com.restfb.types.whatsapp.platform.Message;
-import com.restfb.types.whatsapp.platform.message.Image;
-import com.restfb.types.whatsapp.platform.message.MessageType;
-import com.restfb.types.whatsapp.platform.message.Sticker;
+import com.restfb.types.whatsapp.platform.message.*;
+import com.restfb.types.whatsapp.platform.message.Location;
 import com.restfb.types.whatsapp.platform.message.Video;
 
 class WABPwebhookTest extends AbstractJsonMapperTests {
@@ -145,6 +144,35 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
     assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
     assertThat(message.getType()).isEqualTo(MessageType.sticker);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
+  @Test
+  void incomingMessageLocation() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-location", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getLocation()).isNotNull();
+    assertThat(message.isImage()).isFalse();
+    assertThat(message.isText()).isFalse();
+    assertThat(message.isVideo()).isFalse();
+    assertThat(message.isSticker()).isFalse();
+    assertThat(message.isLocation()).isTrue();
+
+    Location image = message.getLocation();
+    assertThat(image.getName()).isEqualTo("Saarbr\\u00fccken");
+    assertThat(image.getLatitude()).isEqualTo(49.234939575195);
+    assertThat(image.getLongitude()).isEqualTo(6.9993596076965);
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.location);
     assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 

@@ -1,0 +1,42 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "101809759215303",
+      "changes": [
+        {
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "1234567891",
+              "phone_number_id": "10634295353625"
+            },
+            "contacts": [
+              {
+                "profile": {
+                  "name": "TestUser"
+                },
+                "wa_id": "491234567890"
+              }
+            ],
+            "messages": [
+              {
+                "from": "491234567890",
+                "id": "wamid.HBgNNDkxNTIwOTgzMzM5OBUCABIYHGDEHJVFHJEVCFHJEVBCMTkyODk1OEIyAA==",
+                "timestamp": "1653253313",
+                "type": "location",
+                "location": {
+                  "address": "Saarbr\\u00fccken",
+                  "latitude": 49.234939575195,
+                  "longitude": 6.9993596076965,
+                  "name": "Saarbr\\u00fccken"
+                }
+              }
+            ]
+          },
+          "field": "messages"
+        }
+      ]
+    }
+  ]
+}
