@@ -21,6 +21,12 @@
  */
 package com.restfb.types;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Date;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.WebhookEntry;
@@ -29,13 +35,9 @@ import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
 import com.restfb.types.whatsapp.platform.Contact;
 import com.restfb.types.whatsapp.platform.Message;
 import com.restfb.types.whatsapp.platform.message.Image;
-import com.restfb.types.whatsapp.platform.message.Video;
 import com.restfb.types.whatsapp.platform.message.MessageType;
-import org.junit.jupiter.api.Test;
-
-import java.util.Date;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import com.restfb.types.whatsapp.platform.message.Sticker;
+import com.restfb.types.whatsapp.platform.message.Video;
 
 class WABPwebhookTest extends AbstractJsonMapperTests {
 
@@ -115,6 +117,34 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
     assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
     assertThat(message.getType()).isEqualTo(MessageType.video);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
+  @Test
+  void incomingMessageSticker() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-sticker", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getSticker()).isNotNull();
+    assertThat(message.isImage()).isFalse();
+    assertThat(message.isText()).isFalse();
+    assertThat(message.isVideo()).isFalse();
+    assertThat(message.isSticker()).isTrue();
+
+    Sticker image = message.getSticker();
+    assertThat(image.getId()).isEqualTo("1122990445227715");
+    assertThat(image.getMimeType()).isEqualTo("image\\/webp");
+    assertThat(image.getSha256()).isEqualTo("RZEEl5HVWT4S6C0PoOgjYCQVDWs5esIMJsjcDYI80ZE=");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.sticker);
     assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 

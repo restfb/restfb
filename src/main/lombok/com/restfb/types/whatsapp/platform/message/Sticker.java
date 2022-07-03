@@ -19,90 +19,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+package com.restfb.types.whatsapp.platform.message;
 
 import com.restfb.Facebook;
-import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
-import com.restfb.types.whatsapp.platform.message.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components#messages-object
- */
-public class Message extends AbstractFacebookType {
+public class Sticker extends AbstractFacebookType {
 
-  private JsonObject audio;
-
-  private JsonObject button;
-
-  private JsonObject context;
-
-  private JsonObject document;
-
-  private List<JsonObject> errors = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private String from;
-
+  /**
+   * ID for the sticker
+   */
   @Getter
   @Setter
   @Facebook
   private String id;
 
-  private JsonObject identity;
+  /**
+   * image/webp
+   */
+  @Getter
+  @Setter
+  @Facebook("mime_type")
+  private String mimeType;
 
+  /**
+   * Hash for the sticker
+   */
   @Getter
   @Setter
   @Facebook
-  private Image image;
-
-  private JsonObject interactive;
-
-  private JsonObject referral;
-
-  private JsonObject system;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Sticker sticker;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Text text;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Date timestamp;
-
-  @Getter
-  @Setter
-  @Facebook
-  private MessageType type;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Video video;
-
-  public boolean isText() {
-    return text != null;
-  }
-
-  public boolean isImage() { return image != null; }
-
-  public boolean isVideo() { return video != null; }
-
-  public boolean isSticker() { return sticker != null; }
+  private String sha256;
 }
