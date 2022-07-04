@@ -50,7 +50,10 @@ public class Message extends AbstractFacebookType {
 
   private JsonObject context;
 
-  private JsonObject document;
+  @Getter
+  @Setter
+  @Facebook
+  private Document document;
 
   private List<JsonObject> errors = new ArrayList<>();
 
@@ -141,6 +144,8 @@ public class Message extends AbstractFacebookType {
   public boolean isButton() {
     return button != null;
   }
+
+  public boolean isDocument() { return document != null; }
 
   public boolean hasReferral() {
     return referral != null;

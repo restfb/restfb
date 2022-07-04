@@ -240,6 +240,41 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void incomingMessageDocument() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-document", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getDocument()).isNotNull();
+    assertThat(message.isImage()).isFalse();
+    assertThat(message.isText()).isFalse();
+    assertThat(message.isVideo()).isFalse();
+    assertThat(message.isSticker()).isFalse();
+    assertThat(message.isLocation()).isFalse();
+    assertThat(message.isAudio()).isFalse();
+    assertThat(message.isVoice()).isFalse();
+    assertThat(message.isButton()).isFalse();
+    assertThat(message.isDocument()).isTrue();
+
+    Document image = message.getDocument();
+    assertThat(image.getId()).isEqualTo("4937353526352");
+    assertThat(image.getMimeType()).isEqualTo("application\\/zip");
+    assertThat(image.getSha256()).isEqualTo("FzonbuoHILCEbNUvfvddy77Ef\\/vLBuZvfrM8W2kd4srXrk=");
+    assertThat(image.getFilename()).isEqualTo("RESTFB ANNIVERSARY.zip");
+    assertThat(image.getCaption()).isEqualTo("RESTFB ANNIVERSARY");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.document);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
+  @Test
   void incomingMessageAds() {
     WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-ads", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
