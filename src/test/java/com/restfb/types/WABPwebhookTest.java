@@ -239,6 +239,42 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
     assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 
+  @Test
+  void incomingMessageAds() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-ads", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getText()).isNotNull();
+    assertThat(message.getReferral()).isNotNull();
+    assertThat(message.isText()).isTrue();
+    assertThat(message.hasReferral()).isTrue();
+
+    Text image = message.getText();
+    assertThat(image.getBody()).isEqualTo("Test");
+
+    Referral referral = message.getReferral();
+    assertThat(referral.getBody()).isEqualTo("AD_DESCRIPTION");
+    assertThat(referral.getHeadline()).isEqualTo("AD_TITLE");
+    assertThat(referral.getImageUrl()).isEqualTo("RAW_IMAGE_URL");
+    assertThat(referral.getSourceId()).isEqualTo("ADID");
+    assertThat(referral.getSourceUrl()).isEqualTo("AD_OR_POST_FB_URL");
+    assertThat(referral.getSourceType()).isEqualTo(Referral.SourceType.ad);
+    assertThat(referral.getMediaType()).isEqualTo(Referral.MediaType.video);
+    assertThat(referral.getThumbnailUrl()).isEqualTo("RAW_THUMBNAIL_URL");
+    assertThat(referral.getVideoUrl()).isEqualTo("RAW_VIDEO_URL");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.text);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
   private void checkMetaData(WhatsappMessagesValue change) {
     // check Metadata
     assertThat(change.getMetadata()).isNotNull();
