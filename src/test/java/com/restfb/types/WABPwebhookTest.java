@@ -36,6 +36,7 @@ import com.restfb.types.whatsapp.platform.Contact;
 import com.restfb.types.whatsapp.platform.Message;
 import com.restfb.types.whatsapp.platform.message.*;
 import com.restfb.types.whatsapp.platform.message.Location;
+import com.restfb.types.whatsapp.platform.message.System;
 import com.restfb.types.whatsapp.platform.message.Video;
 
 class WABPwebhookTest extends AbstractJsonMapperTests {
@@ -307,6 +308,31 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
     assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
     assertThat(message.getType()).isEqualTo(MessageType.text);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
+  @Test
+  void incomingMessageSystem() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-system", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getSystem()).isNotNull();
+    assertThat(message.isSystem()).isTrue();
+
+    System image = message.getSystem();
+    assertThat(image.getBody()).isEqualTo("NAME changed from PHONE_NUMBER to PHONE_NUMBER");
+    assertThat(image.getNewWaId()).isEqualTo("NEW_PHONE_NUMBER");
+    assertThat(image.getType()).isEqualTo("user_changed_number");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.system);
     assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 

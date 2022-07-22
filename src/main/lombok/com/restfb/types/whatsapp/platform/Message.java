@@ -29,6 +29,7 @@ import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.whatsapp.platform.message.*;
+import com.restfb.types.whatsapp.platform.message.System;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -86,7 +87,10 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private Referral referral;
 
-  private JsonObject system;
+  @Getter
+  @Setter
+  @Facebook
+  private System system;
 
   @Getter
   @Setter
@@ -145,9 +149,15 @@ public class Message extends AbstractFacebookType {
     return button != null;
   }
 
-  public boolean isDocument() { return document != null; }
+  public boolean isDocument() {
+    return document != null;
+  }
 
   public boolean hasReferral() {
     return referral != null;
+  }
+
+  public boolean isSystem() {
+    return system != null;
   }
 }
