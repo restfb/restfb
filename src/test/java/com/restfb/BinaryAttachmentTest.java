@@ -81,7 +81,7 @@ class BinaryAttachmentTest {
     return Stream.of( //
       Arguments.arguments("example.png", "image/png"), // png check
       Arguments.arguments("example.html", "text/html"), // html check
-      Arguments.arguments("example.json", "application/octet-stream") // json check
+      Arguments.arguments("example.json", "application/json") // json check
     );
   }
 
