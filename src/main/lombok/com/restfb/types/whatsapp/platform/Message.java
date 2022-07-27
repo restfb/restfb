@@ -75,7 +75,10 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private Image image;
 
-  private JsonObject interactive;
+  @Getter
+  @Setter
+  @Facebook
+  private Interactive interactive;
 
   @Getter
   @Setter
@@ -159,5 +162,9 @@ public class Message extends AbstractFacebookType {
 
   public boolean isSystem() {
     return system != null;
+  }
+
+  public boolean isInteractive() {
+    return interactive != null;
   }
 }

@@ -336,6 +336,76 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
     assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 
+  @Test
+  void incomingMessageInteractiveButton() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-interactive-btn", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getInteractive()).isNotNull();
+    assertThat(message.isInteractive()).isTrue();
+
+    Interactive image = message.getInteractive();
+    assertThat(image.isListReply()).isFalse();
+    assertThat(image.isButtonReply()).isTrue();
+
+    assertThat(image.getReply()).isNotNull();
+    assertThat(image.getButtonReply()).isNotNull();
+    assertThat(image.getListReply()).isNull();
+
+    assertThat(image.getType()).isEqualTo(Interactive.Type.button_reply);
+
+    Interactive.Reply reply = image.getReply();
+    assertThat(reply.getDescription()).isNull();
+    assertThat(reply.getId()).isEqualTo("unique-button-identifier-here");
+    assertThat(reply.getTitle()).isEqualTo("button-text");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.interactive);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
+  @Test
+  void incomingMessageInteractiveList() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-interactive-list", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getInteractive()).isNotNull();
+    assertThat(message.isInteractive()).isTrue();
+
+    Interactive image = message.getInteractive();
+    assertThat(image.isListReply()).isTrue();
+    assertThat(image.isButtonReply()).isFalse();
+
+    assertThat(image.getReply()).isNotNull();
+    assertThat(image.getButtonReply()).isNull();
+    assertThat(image.getListReply()).isNotNull();
+
+    assertThat(image.getType()).isEqualTo(Interactive.Type.list_reply);
+
+    Interactive.Reply reply = image.getReply();
+    assertThat(reply.getDescription()).isEqualTo("list_reply_description");
+    assertThat(reply.getId()).isEqualTo("list_reply_id");
+    assertThat(reply.getTitle()).isEqualTo("list_reply_title");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.interactive);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
   private void checkMetaData(WhatsappMessagesValue change) {
     // check Metadata
     assertThat(change.getMetadata()).isNotNull();
