@@ -28,18 +28,52 @@ import lombok.Setter;
 
 public class System extends AbstractFacebookType {
 
+  /**
+   * Describes the change to the customer's identity or phone number
+   */
   @Getter
   @Setter
   @Facebook
   private String body;
 
+  /**
+   * Hash for the identity fetched from server
+   */
+  private String identity;
+
+  /**
+   * New WhatsApp ID for the customer when their phone number is updated.
+   *
+   * Available on webhook versions V11 and below
+   */
   @Getter
   @Setter
   @Facebook("new_wa_id")
   private String newWaId;
 
+  /**
+   * New WhatsApp ID for the customer when their phone number is updated.
+   *
+   * Available on webhook versions V12 and above
+   */
+  @Getter
+  @Setter
+  @Facebook("wa_id")
+  private String waId;
+
+  /**
+   * Type of system update.
+   */
   @Getter
   @Setter
   @Facebook
   private String type;
+
+  /**
+   * The WhatsApp ID for the customer prior to the update
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String customer;
 }
