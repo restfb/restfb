@@ -35,6 +35,7 @@ import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
 import com.restfb.types.whatsapp.platform.Contact;
 import com.restfb.types.whatsapp.platform.Message;
 import com.restfb.types.whatsapp.platform.message.*;
+import com.restfb.types.whatsapp.platform.message.Error;
 import com.restfb.types.whatsapp.platform.message.Location;
 import com.restfb.types.whatsapp.platform.message.System;
 import com.restfb.types.whatsapp.platform.message.Video;
@@ -411,6 +412,32 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
     assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
     assertThat(message.getType()).isEqualTo(MessageType.interactive);
+    assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
+  @Test
+  void incomingMessageUnknown() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-error", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+
+    assertThat(message.hasErrors()).isTrue();
+
+    assertThat(message.getErrors()).hasSize(1);
+
+    Error error = message.getErrors().get(0);
+    assertThat(error.getCode()).isEqualTo("131051");
+    assertThat(error.getTitle()).isEqualTo("Unsupported message type");
+    assertThat(error.getDetails()).isEqualTo("Message type is not currently supported");
+
+    assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
+    assertThat(message.getType()).isEqualTo(MessageType.unknown);
     assertThat(message.getFrom()).isEqualTo("491234567890");
   }
 

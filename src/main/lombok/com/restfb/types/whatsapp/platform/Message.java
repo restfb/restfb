@@ -29,6 +29,7 @@ import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.whatsapp.platform.message.*;
+import com.restfb.types.whatsapp.platform.message.Error;
 import com.restfb.types.whatsapp.platform.message.System;
 
 import lombok.Getter;
@@ -59,7 +60,10 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private Document document;
 
-  private List<JsonObject> errors = new ArrayList<>();
+  @Getter
+  @Setter
+  @Facebook
+  private List<Error> errors = new ArrayList<>();
 
   @Getter
   @Setter
@@ -173,5 +177,9 @@ public class Message extends AbstractFacebookType {
 
   public boolean isInteractive() {
     return interactive != null;
+  }
+
+  public boolean hasErrors() {
+    return !errors.isEmpty();
   }
 }
