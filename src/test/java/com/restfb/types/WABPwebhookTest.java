@@ -231,9 +231,17 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
     assertThat(message.isVoice()).isFalse();
     assertThat(message.isButton()).isTrue();
 
+    assertThat(message.hasContext()).isTrue();
+
     Button image = message.getButton();
     assertThat(image.getText()).isEqualTo("No");
     assertThat(image.getPayload()).isEqualTo("No-Button-Payload");
+
+    Context context = message.getContext();
+    assertThat(context.getFrom()).isEqualTo("PHONE_NUMBER");
+    assertThat(context.getId()).isEqualTo("wamid.ID");
+    assertThat(context.isForwarded()).isFalse();
+    assertThat(context.isFrequentlyForwarded()).isFalse();
 
     assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
     assertThat(message.getType()).isEqualTo(MessageType.button);

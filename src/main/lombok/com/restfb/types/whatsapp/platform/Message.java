@@ -49,7 +49,10 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private Button button;
 
-  private JsonObject context;
+  @Getter
+  @Setter
+  @Facebook
+  private Context context;
 
   @Getter
   @Setter
@@ -158,6 +161,10 @@ public class Message extends AbstractFacebookType {
 
   public boolean hasReferral() {
     return referral != null;
+  }
+
+  public boolean hasContext() {
+    return context != null;
   }
 
   public boolean isSystem() {

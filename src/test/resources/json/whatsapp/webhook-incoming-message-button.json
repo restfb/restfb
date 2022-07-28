@@ -28,6 +28,10 @@
                 "button": {
                   "text": "No",
                   "payload": "No-Button-Payload"
+                },
+                "context": {
+                  "from": "PHONE_NUMBER",
+                  "id": "wamid.ID"
                 }
               }
             ]
