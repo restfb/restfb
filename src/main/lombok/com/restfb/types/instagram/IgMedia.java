@@ -88,14 +88,6 @@ public class IgMedia extends IgMediaChild {
   private Long likeCount;
 
   /**
-   * Surface where the media is published. Can be AD, FEED, IGTV, or STORY.
-   */
-  @Getter
-  @Setter
-  @Facebook("media_product_type")
-  private String mediaProductType;
-
-  /**
    * Media thumbnail URL. Only available on VIDEO media.
    */
   @Getter
