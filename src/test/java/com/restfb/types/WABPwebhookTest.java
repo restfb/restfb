@@ -34,11 +34,15 @@ import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
 import com.restfb.types.whatsapp.platform.Contact;
 import com.restfb.types.whatsapp.platform.Message;
+import com.restfb.types.whatsapp.platform.Status;
 import com.restfb.types.whatsapp.platform.message.*;
 import com.restfb.types.whatsapp.platform.message.Error;
 import com.restfb.types.whatsapp.platform.message.Location;
 import com.restfb.types.whatsapp.platform.message.System;
 import com.restfb.types.whatsapp.platform.message.Video;
+import com.restfb.types.whatsapp.platform.status.CategoryType;
+import com.restfb.types.whatsapp.platform.status.Conversation;
+import com.restfb.types.whatsapp.platform.status.Pricing;
 
 class WABPwebhookTest extends AbstractJsonMapperTests {
 
@@ -439,6 +443,30 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
     assertThat(message.getTimestamp()).isEqualTo(new Date(1653253313000L));
     assertThat(message.getType()).isEqualTo(MessageType.unknown);
     assertThat(message.getFrom()).isEqualTo("491234567890");
+  }
+
+  @Test
+  void incomingMessageStatusUserInitiated() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-status-ui", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    assertThat(change.getMessages()).isEmpty();
+    assertThat(change.getStatuses()).hasSize(1);
+
+    Status status = change.getStatuses().get(0);
+    assertThat(status.getId()).isEqualTo("wamid.ID");
+    assertThat(status.getRecipientId()).isEqualTo("PHONE_NUMBER");
+    assertThat(status.getTimestamp()).isNull();
+
+    Pricing pricing = status.getPricing();
+    assertThat(pricing.getPricingModel()).isEqualTo("CBP");
+    assertThat(pricing.getCategory()).isEqualTo(CategoryType.user_initiated);
+    assertThat(pricing.isBillable()).isTrue();
+
+    Conversation conversation = status.getConversation();
+    assertThat(conversation.getId()).isEqualTo("CONVERSATION_ID");
+    assertThat(conversation.getOrigin()).isNotNull();
+    assertThat(conversation.getOrigin().getType()).isEqualTo(CategoryType.user_initiated);
   }
 
   private void checkMetaData(WhatsappMessagesValue change) {

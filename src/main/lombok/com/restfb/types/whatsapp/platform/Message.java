@@ -26,7 +26,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.whatsapp.platform.message.*;
 import com.restfb.types.whatsapp.platform.message.Error;
@@ -75,7 +74,10 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private String id;
 
-  private JsonObject identity;
+  @Getter
+  @Setter
+  @Facebook
+  private Identity identity;
 
   @Getter
   @Setter
@@ -181,5 +183,9 @@ public class Message extends AbstractFacebookType {
 
   public boolean hasErrors() {
     return !errors.isEmpty();
+  }
+
+  public boolean hasIdentity() {
+    return identity != null;
   }
 }

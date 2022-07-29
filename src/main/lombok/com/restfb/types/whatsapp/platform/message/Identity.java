@@ -19,52 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform;
+package com.restfb.types.whatsapp.platform.message;
 
 import java.util.Date;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-import com.restfb.types.whatsapp.platform.status.Conversation;
-import com.restfb.types.whatsapp.platform.status.Pricing;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class Status extends AbstractFacebookType {
+public class Identity extends AbstractFacebookType {
 
+  /**
+   * State of acknowledgment
+   */
   @Getter
   @Setter
   @Facebook
-  private String id;
+  private String acknowledged;
 
+  @Getter
+  @Setter
+  @Facebook("customer_identity_changed")
+  private String customerIdentityChanged;
+
+  /**
+   * The time when the WhatsApp Business Management API detected the customer may have changed their profile information
+   */
+  @Getter
+  @Setter
+  @Facebook("created_timestamp")
+  private Date createdTimestamp;
+
+  /**
+   * The ID for the messages system customer_identity_changed
+   */
   @Getter
   @Setter
   @Facebook
-  private Date timestamp;
-
-  @Getter
-  @Setter
-  @Facebook("recipient_id")
-  private String recipientId;
-
-  @Getter
-  @Setter
-  @Facebook
-  private StatusType status;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Pricing pricing;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Conversation conversation;
-
-
-  public enum StatusType {
-    delivered, read, sent, failed, deleted
-  }
+  private String hash;
 }

@@ -19,52 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform;
-
-import java.util.Date;
+package com.restfb.types.whatsapp.platform.status;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-import com.restfb.types.whatsapp.platform.status.Conversation;
-import com.restfb.types.whatsapp.platform.status.Pricing;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class Status extends AbstractFacebookType {
+public class Pricing extends AbstractFacebookType {
+
+  @Getter
+  @Setter
+  @Facebook("pricing_model")
+  private String pricingModel;
 
   @Getter
   @Setter
   @Facebook
-  private String id;
+  private boolean billable;
 
   @Getter
   @Setter
   @Facebook
-  private Date timestamp;
+  private CategoryType category;
 
-  @Getter
-  @Setter
-  @Facebook("recipient_id")
-  private String recipientId;
-
-  @Getter
-  @Setter
-  @Facebook
-  private StatusType status;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Pricing pricing;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Conversation conversation;
-
-
-  public enum StatusType {
-    delivered, read, sent, failed, deleted
-  }
 }
