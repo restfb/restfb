@@ -1,5 +1,26 @@
 # RestFB Changelog
 
+## 2022.8.0 (July 31, 2022)
+
+* WhatsApp Business Platform (Webhook)
+  * Issue #1240: incoming webhook status
+  * Issue #1232: incoming identity message
+  * Issue #1239: incoming webhook message with type unknown incl. some errors
+  * Issue #1234: incoming interactive message
+  * Issue #1238: incoming document message
+  * Issue #1237: incoming system message
+  * Issue #1236: incoming ads message
+  * Issue #1235: incoming audio message
+  * Issue #1230: incoming sticker message
+  * Issue #1231: incoming location message
+  * Issue #1233: incoming button message
+  * Issue #1216: incoming image message
+  * Issue #1215: incoming text message
+* Issue #1229: Reels API feature<br />
+  Thanks to @gurkein for the hint
+* Issue #1227: add `whatsapp_business_messaging` permission
+* Issue #1241: Fix IgMedia, the mdia_product_type is defined here and in the parent class
+
 ## 2022.7.0 (June 7, 2022)
 
 * Issue #1223: Pull Request to add `username` to `IgUserProfile` type<br />
