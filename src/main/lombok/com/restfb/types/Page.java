@@ -1396,6 +1396,14 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   @Facebook("screennames")
   private List<ScreenName> screenNames = new ArrayList<>();
 
+  /**
+   * Page is utilising the new page experiece or not
+   */
+  @Getter
+  @Setter
+  @Facebook("has_transitioned_to_new_page_experience")
+  private Boolean hasTransitionedToNewPageExperience;
+
   private static final long serialVersionUID = 2L;
 
   public static class ScreenName extends AbstractFacebookType {
