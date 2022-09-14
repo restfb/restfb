@@ -51,9 +51,8 @@ public class QuickReply extends AbstractFacebookType {
   private String imageUrl;
 
   /**
-   *
    * @deprecated use constructor without contenttype instead. If using content type 'text' use
-   *             {@link QuickReply#QuickReply(String,String)} for 'location' use {@link QuickReply#QuickReply()}
+   *             {@link QuickReply#QuickReply(String,String)}
    */
   @Deprecated
   public QuickReply(String contentType, String title, String payload) {
