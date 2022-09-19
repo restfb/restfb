@@ -29,4 +29,19 @@ public class ReplyTo {
   @Getter
   @Facebook
   private String mid;
+
+  @Getter
+  @Facebook
+  private Story story;
+
+  public static class Story {
+
+    @Getter
+    @Facebook
+    private String url;
+
+    @Getter
+    @Facebook
+    private String id;
+  }
 }

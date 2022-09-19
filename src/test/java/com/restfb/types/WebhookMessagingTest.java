@@ -264,6 +264,24 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void messagingMessageReplyStory() {
+    WebhookObject webhookObject =
+            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-reply-2"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    assertTrue(messagingItem.isMessage());
+    MessageItem item = messagingItem.getMessage();
+    assertTrue(item.isReply());
+    assertNotNull(item.getReplyTo().getStory());
+    ReplyTo.Story story = item.getReplyTo().getStory();
+    assertEquals("EXAMPLE_URL", story.getUrl());
+    assertEquals("STORY_ID", story.getId());
+  }
+
+  @Test
   void messagingReactionREACT() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-reaction-1"), WebhookObject.class);
