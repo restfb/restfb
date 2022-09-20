@@ -19,37 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform;
+package com.restfb.types.whatsapp.platform.send;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import com.restfb.types.whatsapp.platform.send.Context;
-import com.restfb.types.whatsapp.platform.send.Text;
-import lombok.Getter;
-import lombok.Setter;
 
-public class SendMessage extends AbstractFacebookType {
+public class Context {
 
-  @Getter
-  @Setter
-  @Facebook
-  private String to;
+    @Facebook("message_id")
+    private String messageId;
 
-  @Getter
-  @Setter
-  @Facebook
-  private Context context;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Text text;
-
-  @Facebook("messaging_product")
-  private String messagingProduct = "whatsapp";
-
-  public SendMessage(String to) {
-    setTo(to);
-  }
-
+    public Context(String messageId) {
+        this.messageId = messageId;
+    }
 }
