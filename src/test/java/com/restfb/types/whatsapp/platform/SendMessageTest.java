@@ -24,8 +24,12 @@ package com.restfb.types.whatsapp.platform;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
+import com.restfb.types.whatsapp.platform.send.Image;
 import com.restfb.types.whatsapp.platform.send.Reaction;
 import org.junit.jupiter.api.Test;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 class SendMessageTest {
 
@@ -40,6 +44,19 @@ class SendMessageTest {
 
     AssertJson.assertEquals(
       "{\"to\":\"12345678\",\"reaction\":{\"message_id\":\"my-message-id\",\"emoji\":\"\\ud83d\\ude07\"},\"type\":\"reaction\",\"messaging_product\":\"whatsapp\"}",
+      mappedMessage);
+  }
+
+  @Test
+  void checkMedia() throws MalformedURLException {
+    Image image = new Image(new URL("https://restfb.com/img/favicon.png"));
+    SendMessage message = new SendMessage("12345678");
+    message.setMedia(image);
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
+
+    AssertJson.assertEquals(
+      "{\"to\":\"12345678\",\"image\":{\"link\":\"https://restfb.com/img/favicon.png\"},\"type\":\"image\",\"messaging_product\":\"whatsapp\"}",
       mappedMessage);
   }
 }

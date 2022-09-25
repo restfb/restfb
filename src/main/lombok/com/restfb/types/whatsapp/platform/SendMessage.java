@@ -23,9 +23,7 @@ package com.restfb.types.whatsapp.platform;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-import com.restfb.types.whatsapp.platform.send.Context;
-import com.restfb.types.whatsapp.platform.send.Reaction;
-import com.restfb.types.whatsapp.platform.send.Text;
+import com.restfb.types.whatsapp.platform.send.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,6 +48,21 @@ public class SendMessage extends AbstractFacebookType {
   private Reaction reaction;
 
   @Facebook
+  private Video video;
+
+  @Facebook
+  private Audio audio;
+
+  @Facebook
+  private Image image;
+
+  @Facebook
+  private Document document;
+
+  @Facebook
+  private Sticker sticker;
+
+  @Facebook
   @Setter
   private Type type = Type.text;
 
@@ -70,7 +83,34 @@ public class SendMessage extends AbstractFacebookType {
     this.type = Type.text;
   }
 
+  public void setMedia(Media media) {
+    if (media instanceof Audio) {
+      this.audio = media.as(Audio.class);
+      this.type = Type.audio;
+    }
+
+    if (media instanceof Video) {
+      this.video = media.as(Video.class);
+      this.type = Type.video;
+    }
+
+    if (media instanceof Image) {
+      this.image = media.as(Image.class);
+      this.type = Type.image;
+    }
+
+    if (media instanceof Document) {
+      this.document = media.as(Document.class);
+      this.type = Type.document;
+    }
+
+    if (media instanceof Sticker) {
+      this.sticker = media.as(Sticker.class);
+      this.type = Type.sticker;
+    }
+  }
+
   public enum Type {
-    text, reaction;
+    text, reaction, audio, video, document, sticker, image;
   }
 }
