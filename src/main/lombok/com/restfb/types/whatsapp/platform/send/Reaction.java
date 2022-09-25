@@ -26,18 +26,18 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Text extends AbstractFacebookType {
+public class Reaction extends AbstractFacebookType {
 
   @Getter
-  @Facebook
-  private final String body;
+  @Facebook("message_id")
+  private String messageId;
 
   @Getter
   @Setter
-  @Facebook("preview_url")
-  private Boolean previewUrl;
+  @Facebook
+  private String emoji;
 
-  public Text(String body) {
-    this.body = body;
+  public Reaction(String messageId) {
+    this.messageId = messageId;
   }
 }

@@ -22,13 +22,14 @@
 package com.restfb.types.whatsapp.platform.send;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 
-public class Context {
+public class Context extends AbstractFacebookType {
 
-    @Facebook("message_id")
-    private String messageId;
+  @Facebook("message_id")
+  private String messageId;
 
-    public Context(String messageId) {
-        this.messageId = messageId;
-    }
+  public Context(String messageId) {
+    this.messageId = messageId;
+  }
 }

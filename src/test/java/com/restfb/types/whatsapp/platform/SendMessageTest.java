@@ -19,25 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform.send;
+package com.restfb.types.whatsapp.platform;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import lombok.Getter;
-import lombok.Setter;
+import com.restfb.DefaultJsonMapper;
+import com.restfb.JsonMapper;
+import com.restfb.testutils.AssertJson;
+import com.restfb.types.whatsapp.platform.send.Reaction;
+import org.junit.jupiter.api.Test;
 
-public class Text extends AbstractFacebookType {
+class SendMessageTest {
 
-  @Getter
-  @Facebook
-  private final String body;
+  @Test
+  void checkReaction() {
+    Reaction reaction = new Reaction("my-message-id");
+    reaction.setEmoji("😇");
+    SendMessage message = new SendMessage("12345678");
+    message.setReaction(reaction);
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
 
-  @Getter
-  @Setter
-  @Facebook("preview_url")
-  private Boolean previewUrl;
-
-  public Text(String body) {
-    this.body = body;
+    AssertJson.assertEquals(
+      "{\"to\":\"12345678\",\"reaction\":{\"message_id\":\"my-message-id\",\"emoji\":\"\\ud83d\\ude07\"},\"type\":\"reaction\",\"messaging_product\":\"whatsapp\"}",
+      mappedMessage);
   }
 }

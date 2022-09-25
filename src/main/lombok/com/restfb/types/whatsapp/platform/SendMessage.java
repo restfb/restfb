@@ -24,6 +24,7 @@ package com.restfb.types.whatsapp.platform;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.whatsapp.platform.send.Context;
+import com.restfb.types.whatsapp.platform.send.Reaction;
 import com.restfb.types.whatsapp.platform.send.Text;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,15 +42,35 @@ public class SendMessage extends AbstractFacebookType {
   private Context context;
 
   @Getter
-  @Setter
   @Facebook
   private Text text;
 
+  @Getter
+  @Facebook
+  private Reaction reaction;
+
+  @Facebook
+  @Setter
+  private Type type = Type.text;
+
   @Facebook("messaging_product")
-  private String messagingProduct = "whatsapp";
+  private final String messagingProduct = "whatsapp";
 
   public SendMessage(String to) {
     setTo(to);
   }
 
+  public void setReaction(Reaction reaction) {
+    this.reaction = reaction;
+    this.type = Type.reaction;
+  }
+
+  public void setText(Text text) {
+    this.text = text;
+    this.type = Type.text;
+  }
+
+  public enum Type {
+    text, reaction;
+  }
 }
