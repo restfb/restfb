@@ -1,5 +1,20 @@
 # RestFB Changelog
 
+## 2022.9.0 (September 27, 2022)
+
+* Issue #1246: Story in Webhook event<br />
+  Thanks to @Nick97-git for the hint
+* Issue #1243: Add check for Page New Experience<br />
+  Thanks to @pranjalmittal for the PR
+* WhatsApp Business Platform (Send Messages)
+  * Issue #1244: Send Message object added
+  * Issue #1247: Text message added
+  * Issue #1249: Message reaction added
+  * Issue #1251: Result object for sending message added
+  * Issue #1248: Media message added
+  * Issue #1254: Location message added
+  * Issue #1250: Interactive message added
+
 ## 2022.8.0 (July 31, 2022)
 
 * WhatsApp Business Platform (Webhook)
