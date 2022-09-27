@@ -66,6 +66,9 @@ public class SendMessage extends AbstractFacebookType {
   private Interactive interactive;
 
   @Facebook
+  private Location location;
+
+  @Facebook
   @Setter
   private Type type = Type.text;
 
@@ -118,7 +121,12 @@ public class SendMessage extends AbstractFacebookType {
     this.type = Type.interactive;
   }
 
+  public void setLocation(Location location) {
+    this.location = location;
+    this.type = Type.location;
+  }
+
   public enum Type {
-    text, reaction, audio, video, document, sticker, image, interactive;
+    text, reaction, audio, video, document, sticker, image, interactive, location;
   }
 }
