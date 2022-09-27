@@ -25,7 +25,10 @@ import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
 import com.restfb.types.whatsapp.platform.send.Image;
+import com.restfb.types.whatsapp.platform.send.Interactive;
 import com.restfb.types.whatsapp.platform.send.Reaction;
+import com.restfb.types.whatsapp.platform.send.Text;
+import com.restfb.types.whatsapp.platform.send.interactive.*;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
@@ -57,6 +60,64 @@ class SendMessageTest {
 
     AssertJson.assertEquals(
       "{\"to\":\"12345678\",\"image\":{\"link\":\"https://restfb.com/img/favicon.png\"},\"type\":\"image\",\"messaging_product\":\"whatsapp\"}",
+      mappedMessage);
+  }
+
+  @Test
+  void checkInteractive1() {
+
+    Action action = new Action();
+    action.setCatalogId("CATALOG_ID");
+    action.setProductRetailerId("ID_TEST_ITEM_1");
+    Interactive interactive = new Interactive(action);
+    interactive.setType(Interactive.Type.product);
+    interactive.setBody(new Body("optional body text"));
+    interactive.setFooter(new Footer("optional footer text"));
+    SendMessage message = new SendMessage("PHONE_NUMBER");
+    message.setInteractive(interactive);
+
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
+
+    AssertJson.assertEquals(
+      "{\"to\":\"PHONE_NUMBER\",\"interactive\":{\"action\":{\"catalog_id\":\"CATALOG_ID\",\"product_retailer_id\":\"ID_TEST_ITEM_1\"},\"body\":{\"text\":\"optional body text\"},\"footer\":{\"text\":\"optional footer text\"},\"type\":\"product\"},\"type\":\"interactive\",\"messaging_product\":\"whatsapp\"}",
+      mappedMessage);
+  }
+
+  @Test
+  void checkInteractive2() {
+
+    Action action = new Action();
+    action.setCatalogId("CATALOG_ID");
+
+    Section section1 = new Section();
+    section1.addProductItem(new Section.Product("product-SKU-in-catalog"))
+      .addProductItem(new Section.Product("product-SKU-in-catalog"));
+    section1.setTitle("section-title");
+    Section section2 = new Section();
+    section2.addProductItem(new Section.Product("product-SKU-in-catalog"))
+      .addProductItem(new Section.Product("product-SKU-in-catalog"));
+    section2.setTitle("section-title");
+    action.addSection(section1).addSection(section2);
+    Interactive interactive = new Interactive(action);
+    interactive.setType(Interactive.Type.product);
+    interactive.setBody(new Body("body-content"));
+    interactive.setFooter(new Footer("footer-content"));
+    interactive.setHeader(new Header(new Text("header-content")));
+    SendMessage message = new SendMessage("PHONE_NUMBER");
+    message.setInteractive(interactive);
+
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
+
+    AssertJson.assertEquals("{\"to\":\"PHONE_NUMBER\"," + "\"interactive\":{\"action\":"
+        + "{\"catalog_id\":\"CATALOG_ID\","
+        + "\"sections\":[{\"product_items\":[{\"product_retailer_id\":\"product-SKU-in-catalog\"},{\"product_retailer_id\":\"product-SKU-in-catalog\"}],\"title\":\"section-title\"},"
+        + "{\"product_items\":[{\"product_retailer_id\":\"product-SKU-in-catalog\"},{\"product_retailer_id\":\"product-SKU-in-catalog\"}],\"title\":\"section-title\"}]},"
+        + "\"body\":{\"text\":\"body-content\"},"
+        + "\"header\":{\"text\":{\"body\":\"header-content\"},\"type\":\"text\"},"
+        + "\"footer\":{\"text\":\"footer-content\"},\"type\":\"product\"},"
+        + "\"type\":\"interactive\",\"messaging_product\":\"whatsapp\"}",
       mappedMessage);
   }
 }

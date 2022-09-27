@@ -63,6 +63,9 @@ public class SendMessage extends AbstractFacebookType {
   private Sticker sticker;
 
   @Facebook
+  private Interactive interactive;
+
+  @Facebook
   @Setter
   private Type type = Type.text;
 
@@ -110,7 +113,12 @@ public class SendMessage extends AbstractFacebookType {
     }
   }
 
+  public void setInteractive(Interactive interactive) {
+    this.interactive = interactive;
+    this.type = Type.interactive;
+  }
+
   public enum Type {
-    text, reaction, audio, video, document, sticker, image;
+    text, reaction, audio, video, document, sticker, image, interactive;
   }
 }
