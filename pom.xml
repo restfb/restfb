@@ -267,6 +267,7 @@
             <exclude>src/test/java/com/restfb/json/**</exclude>
             <exclude>src/test/resources/**</exclude>
             <exclude>src/main/java/com/restfb/util/Base64.java</exclude>
+            <exclude>*.sh</exclude>
           </excludes>
         </configuration>
         <executions>
