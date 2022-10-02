@@ -19,48 +19,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.whatsapp;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.restfb.types.whatsapp.platform.send.contact;
 
 import com.restfb.Facebook;
-import com.restfb.types.whatsapp.platform.*;
-import com.restfb.types.whatsapp.platform.Error;
-
-import com.restfb.types.whatsapp.platform.message.Contact;
-import lombok.Getter;
+import com.restfb.types.AbstractFacebookType;
 import lombok.Setter;
 
-public class WhatsappMessagesValue extends AbstractWhatsappBaseChangeValue {
+public class Email extends AbstractFacebookType {
 
-  @Getter
-  @Setter
-  @Facebook("messaging_product")
-  private String messagingProduct;
-
-  @Getter
   @Setter
   @Facebook
-  private List<Contact> contacts = new ArrayList<>();
+  private String email;
 
-  @Getter
   @Setter
   @Facebook
-  private List<Error> errors = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<Message> messages = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<Status> statuses = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private Metadata metadata;
+  private String type;
 }

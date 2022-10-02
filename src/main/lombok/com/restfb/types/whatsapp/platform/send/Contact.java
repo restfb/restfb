@@ -19,48 +19,77 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.whatsapp;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.restfb.types.whatsapp.platform.send;
 
 import com.restfb.Facebook;
-import com.restfb.types.whatsapp.platform.*;
-import com.restfb.types.whatsapp.platform.Error;
-
-import com.restfb.types.whatsapp.platform.message.Contact;
-import lombok.Getter;
+import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.whatsapp.platform.send.contact.*;
+import com.restfb.util.DateUtils;
 import lombok.Setter;
 
-public class WhatsappMessagesValue extends AbstractWhatsappBaseChangeValue {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-  @Getter
-  @Setter
-  @Facebook("messaging_product")
-  private String messagingProduct;
+public class Contact extends AbstractFacebookType {
 
-  @Getter
+  @Facebook
+  private List<Address> addresses;
+
+  @Facebook
+  private String birthday;
+
+  @Facebook
+  private List<Email> emails;
+
   @Setter
   @Facebook
-  private List<Contact> contacts = new ArrayList<>();
+  private Name name;
 
-  @Getter
   @Setter
   @Facebook
-  private List<Error> errors = new ArrayList<>();
+  private Organisation org;
 
-  @Getter
-  @Setter
   @Facebook
-  private List<Message> messages = new ArrayList<>();
+  private List<Phone> phones;
 
-  @Getter
-  @Setter
   @Facebook
-  private List<Status> statuses = new ArrayList<>();
+  private List<Url> urls;
 
-  @Getter
-  @Setter
-  @Facebook
-  private Metadata metadata;
+  public void setBirthday(Date birthday) {
+    this.birthday = DateUtils.toShortFormatFromDate(birthday);
+  }
+
+  public void addAddress(Address address) {
+    if (addresses == null) {
+      this.addresses = new ArrayList<>();
+    }
+
+    this.addresses.add(address);
+  }
+
+  public void addEmail(Email email) {
+    if (emails == null) {
+      this.emails = new ArrayList<>();
+    }
+
+    this.emails.add(email);
+  }
+
+  public void addPhone(Phone phone) {
+    if (phones == null) {
+      this.phones = new ArrayList<>();
+    }
+
+    this.phones.add(phone);
+  }
+
+  public void addUrl(Url url) {
+    if (urls == null) {
+      this.urls = new ArrayList<>();
+    }
+
+    this.urls.add(url);
+  }
+
 }

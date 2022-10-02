@@ -32,7 +32,7 @@ import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
-import com.restfb.types.whatsapp.platform.Contact;
+import com.restfb.types.whatsapp.platform.message.Contact;
 import com.restfb.types.whatsapp.platform.Message;
 import com.restfb.types.whatsapp.platform.Status;
 import com.restfb.types.whatsapp.platform.message.*;

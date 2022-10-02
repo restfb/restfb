@@ -19,23 +19,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform;
+package com.restfb.types.whatsapp.platform.send.contact;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
-import lombok.Getter;
 import lombok.Setter;
 
-public class Contact extends AbstractFacebookType {
+public class Organisation extends AbstractFacebookType {
 
-  @Getter
-  @Setter
-  @Facebook("wa_id")
-  private String waId;
-
-  @Getter
   @Setter
   @Facebook
-  private Profile profile;
+  private String company;
+
+  @Setter
+  @Facebook
+  private String department;
+
+  @Setter
+  @Facebook
+  private String title;
 }

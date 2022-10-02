@@ -24,15 +24,18 @@ package com.restfb.types.whatsapp.platform;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
+import com.restfb.types.whatsapp.platform.send.Contact;
 import com.restfb.types.whatsapp.platform.send.Image;
 import com.restfb.types.whatsapp.platform.send.Interactive;
 import com.restfb.types.whatsapp.platform.send.Reaction;
 import com.restfb.types.whatsapp.platform.send.Text;
+import com.restfb.types.whatsapp.platform.send.contact.*;
 import com.restfb.types.whatsapp.platform.send.interactive.*;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 
 class SendMessageTest {
 
@@ -119,5 +122,85 @@ class SendMessageTest {
         + "\"footer\":{\"text\":\"footer-content\"},\"type\":\"product\"},"
         + "\"type\":\"interactive\",\"messaging_product\":\"whatsapp\"}",
       mappedMessage);
+  }
+
+  @Test
+  void checkContacts() {
+    Address address1 = createAddress("HOME");
+    Address address2 = createAddress("WORK");
+    Contact contact = new Contact();
+    contact.addAddress(address1);
+    contact.addAddress(address2);
+    contact.setBirthday(new Date(1664713264745L));
+
+    Email email1 = new Email();
+    email1.setEmail("EMAIL");
+    email1.setType("HOME");
+    Email email2 = new Email();
+    email2.setEmail("EMAIL");
+    email2.setType("WORK");
+
+    contact.addEmail(email1);
+    contact.addEmail(email2);
+
+    Organisation organisation = new Organisation();
+    organisation.setCompany("COMPANY");
+    organisation.setDepartment("DEPARTMENT");
+    organisation.setTitle("TITLE");
+
+    contact.setOrg(organisation);
+
+    Phone phone1 = new Phone();
+    phone1.setPhone("PHONE_NUMBER");
+    phone1.setType("HOME");
+
+    Phone phone2 = new Phone();
+    phone2.setPhone("PHONE_NUMBER");
+    phone2.setType("WORK");
+    phone2.setWaId("PHONE_OR_WA_ID");
+
+    contact.addPhone(phone1);
+    contact.addPhone(phone2);
+
+    Url url1 = new Url();
+    url1.setUrl("URL");
+    url1.setType("WORK");
+
+    Url url2 = new Url();
+    url2.setUrl("URL");
+    url2.setType("HOME");
+
+    contact.addUrl(url1);
+    contact.addUrl(url2);
+
+    SendMessage message = new SendMessage("PHONE_NUMBER");
+    message.addContact(contact);
+
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
+
+    AssertJson.assertEquals("{\"to\":\"PHONE_NUMBER\"," + "\"contacts\":[" + "{\"addresses\":["
+        + "{\"street\":\"STREET\",\"city\":\"CITY\",\"state\":\"STATE\",\"zip\":\"ZIP\",\"country\":\"COUNTRY\",\"country_code\":\"COUNTRY_CODE\",\"type\":\"HOME\"},"
+        + "{\"street\":\"STREET\",\"city\":\"CITY\",\"state\":\"STATE\",\"zip\":\"ZIP\",\"country\":\"COUNTRY\",\"country_code\":\"COUNTRY_CODE\",\"type\":\"WORK\"}],"
+        + "\"birthday\":\"2022-10-02\"," + "\"emails\":[" + "{\"email\":\"EMAIL\",\"type\":\"HOME\"},"
+        + "{\"email\":\"EMAIL\",\"type\":\"WORK\"}],"
+        + "\"org\":{\"company\":\"COMPANY\",\"department\":\"DEPARTMENT\",\"title\":\"TITLE\"}," + "\"phones\":["
+        + "{\"phone\":\"PHONE_NUMBER\",\"type\":\"HOME\"},"
+        + "{\"phone\":\"PHONE_NUMBER\",\"type\":\"WORK\",\"wa_id\":\"PHONE_OR_WA_ID\"}]," + "\"urls\":["
+        + "{\"url\":\"URL\",\"type\":\"WORK\"}," + "{\"url\":\"URL\",\"type\":\"HOME\"}]}],"
+        + "\"type\":\"contacts\",\"messaging_product\":\"whatsapp\"}",
+      mappedMessage);
+  }
+
+  private static Address createAddress(String type) {
+    Address address1 = new Address();
+    address1.setCity("CITY");
+    address1.setStreet("STREET");
+    address1.setState("STATE");
+    address1.setType(type);
+    address1.setZip("ZIP");
+    address1.setCountry("COUNTRY");
+    address1.setCountryCode("COUNTRY_CODE");
+    return address1;
   }
 }

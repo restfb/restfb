@@ -24,8 +24,12 @@ package com.restfb.types.whatsapp.platform;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.whatsapp.platform.send.*;
+import com.restfb.types.whatsapp.platform.send.Contact;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SendMessage extends AbstractFacebookType {
 
@@ -67,6 +71,9 @@ public class SendMessage extends AbstractFacebookType {
 
   @Facebook
   private Location location;
+
+  @Facebook
+  private List<Contact> contacts;
 
   @Facebook
   @Setter
@@ -126,7 +133,16 @@ public class SendMessage extends AbstractFacebookType {
     this.type = Type.location;
   }
 
+  public void addContact(Contact contact) {
+    if (contacts == null) {
+      contacts = new ArrayList<>();
+    }
+
+    contacts.add(contact);
+    this.type = Type.contacts;
+  }
+
   public enum Type {
-    text, reaction, audio, video, document, sticker, image, interactive, location;
+    text, reaction, audio, video, document, sticker, image, interactive, location, contacts;
   }
 }
