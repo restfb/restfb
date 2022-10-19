@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2022.10.0 (October 19, 2022)
+
+* Issue #1257: Graph API 15 added to version enum
+* Issue #1256: content_publishing_limit for instagram API<br />
+  Thanks to @Mexicath for the input
+* Issue #1253: WhatsApp Business Platform (Send Messages) - contact message
+
 ## 2022.9.0 (September 27, 2022)
 
 * Issue #1246: Story in Webhook event<br />
