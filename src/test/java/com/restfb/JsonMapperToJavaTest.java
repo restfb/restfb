@@ -173,7 +173,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
     // Make sure the weird Facebook "empty object means empty list" workaround
     // works
-    assertThat(usersWithAffiliations.get(2).affiliations.isEmpty()).isTrue();
+    assertThat(usersWithAffiliations.get(2).affiliations).isEmpty();
   }
 
   /**
