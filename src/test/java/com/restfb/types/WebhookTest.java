@@ -494,14 +494,14 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedShareAdd() {
-    FeedShareValue value =
-        openAndCheckFeedPostBasics("feed-share-add-25", FeedShareValue.class, ITEM_SHARE, ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
-          @Override
-          public void feedShareValue(FeedShareValue convertChangeValue) {
-            assertNotNull(convertChangeValue);
-            listenerTriggered.set(true);
-          }
-        });
+    FeedShareValue value = openAndCheckFeedPostBasics("feed-share-add-25", FeedShareValue.class, ITEM_SHARE,
+      ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedShareValue(FeedShareValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321", value.getSenderId());
     assertTrue(value.getPublished());
@@ -513,14 +513,14 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedShareHide() {
-    FeedShareValue value =
-        openAndCheckFeedPostBasics("feed-share-hide", FeedShareValue.class, ITEM_SHARE, ChangeValue.Verb.HIDE, new AbstractWebhookChangeListener() {
-          @Override
-          public void feedShareValue(FeedShareValue convertChangeValue) {
-            assertNotNull(convertChangeValue);
-            listenerTriggered.set(true);
-          }
-        });
+    FeedShareValue value = openAndCheckFeedPostBasics("feed-share-hide", FeedShareValue.class, ITEM_SHARE,
+      ChangeValue.Verb.HIDE, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedShareValue(FeedShareValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321", value.getSenderId());
     assertEquals("Let me google that for you", value.getMessage());
@@ -531,14 +531,14 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedShareUnhide() {
-    FeedShareValue value =
-        openAndCheckFeedPostBasics("feed-share-unhide", FeedShareValue.class, ITEM_SHARE, ChangeValue.Verb.UNHIDE, new AbstractWebhookChangeListener() {
-          @Override
-          public void feedShareValue(FeedShareValue convertChangeValue) {
-            assertNotNull(convertChangeValue);
-            listenerTriggered.set(true);
-          }
-        });
+    FeedShareValue value = openAndCheckFeedPostBasics("feed-share-unhide", FeedShareValue.class, ITEM_SHARE,
+      ChangeValue.Verb.UNHIDE, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedShareValue(FeedShareValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321", value.getSenderId());
     assertEquals("Let me google that for you", value.getMessage());
@@ -550,13 +550,13 @@ class WebhookTest extends AbstractJsonMapperTests {
   @Test
   void feedStatusEdited() {
     FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-edited-25", FeedStatusValue.class, ITEM_STATUS,
-            ChangeValue.Verb.EDITED, new AbstractWebhookChangeListener() {
-              @Override
-              public void feedStatusValue(FeedStatusValue convertChangeValue) {
-                assertNotNull(convertChangeValue);
-                listenerTriggered.set(true);
-              }
-            });
+      ChangeValue.Verb.EDITED, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedStatusValue(FeedStatusValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertEquals("edited", value.getVerbAsString());
     assertEquals("Tester", value.getSenderName());
     assertEquals("status", value.getItem());
@@ -570,12 +570,12 @@ class WebhookTest extends AbstractJsonMapperTests {
   void feedStatusEdited_withPhotos() {
     FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-edited-photos", FeedStatusValue.class, ITEM_STATUS,
       ChangeValue.Verb.EDITED, new AbstractWebhookChangeListener() {
-              @Override
-              public void feedStatusValue(FeedStatusValue convertChangeValue) {
-                assertNotNull(convertChangeValue);
-                listenerTriggered.set(true);
-              }
-            });
+        @Override
+        public void feedStatusValue(FeedStatusValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertEquals("edited", value.getVerbAsString());
     assertEquals("Tester", value.getSenderName());
     assertEquals("status", value.getItem());
@@ -590,14 +590,14 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedStatusAdd() {
-    FeedStatusValue value =
-        openAndCheckFeedPostBasics("feed-status-add-25", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
-          @Override
-          public void feedStatusValue(FeedStatusValue convertChangeValue) {
-            assertNotNull(convertChangeValue);
-            listenerTriggered.set(true);
-          }
-        });
+    FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-add-25", FeedStatusValue.class, ITEM_STATUS,
+      ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedStatusValue(FeedStatusValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertTrue(value.getPublished());
     assertEquals("1234567890321_930145403745849", value.getPostId());
     assertEquals("Tester", value.getSenderName());
@@ -608,14 +608,14 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedStatusAdd_withPhotos() {
-    FeedStatusValue value =
-        openAndCheckFeedPostBasics("feed-status-add-photos", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
-          @Override
-          public void feedStatusValue(FeedStatusValue convertChangeValue) {
-            assertNotNull(convertChangeValue);
-            listenerTriggered.set(true);
-          }
-        });
+    FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-add-photos", FeedStatusValue.class, ITEM_STATUS,
+      ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedStatusValue(FeedStatusValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertTrue(value.getPublished());
     assertEquals("1234567890321_930145403745849", value.getPostId());
     assertEquals("Tester", value.getSenderName());
@@ -629,14 +629,14 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedStatusHide() {
-    FeedStatusValue value =
-        openAndCheckFeedPostBasics("feed-status-hide-25", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.HIDE, new AbstractWebhookChangeListener() {
-          @Override
-          public void feedStatusValue(FeedStatusValue convertChangeValue) {
-            assertNotNull(convertChangeValue);
-            listenerTriggered.set(true);
-          }
-        });
+    FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-hide-25", FeedStatusValue.class, ITEM_STATUS,
+      ChangeValue.Verb.HIDE, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedStatusValue(FeedStatusValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertEquals("1234567890321_7293787835232", value.getPostId());
     assertEquals("Some Tester", value.getSenderName());
     assertTrue(listenerTriggered.get());
@@ -644,14 +644,14 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedStatusUnhide() {
-    FeedStatusValue value =
-        openAndCheckFeedPostBasics("feed-status-unhide", FeedStatusValue.class, ITEM_STATUS, ChangeValue.Verb.UNHIDE, new AbstractWebhookChangeListener() {
-          @Override
-          public void feedStatusValue(FeedStatusValue convertChangeValue) {
-            assertNotNull(convertChangeValue);
-            listenerTriggered.set(true);
-          }
-        });
+    FeedStatusValue value = openAndCheckFeedPostBasics("feed-status-unhide", FeedStatusValue.class, ITEM_STATUS,
+      ChangeValue.Verb.UNHIDE, new AbstractWebhookChangeListener() {
+        @Override
+        public void feedStatusValue(FeedStatusValue convertChangeValue) {
+          assertNotNull(convertChangeValue);
+          listenerTriggered.set(true);
+        }
+      });
     assertEquals("123456789_64352426", value.getPostId());
     assertEquals("Tester", value.getSenderName());
     assertTrue(listenerTriggered.get());
@@ -1350,6 +1350,21 @@ class WebhookTest extends AbstractJsonMapperTests {
     assertNotNull(attachment.getPayload());
     assertEquals("56789012345678", attachment.getPayload().getStickerId());
     assertFalse(attachment.getPayload().isLike());
+  }
+
+  @Test
+  void unsupportedAttachment() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("instagram/messaging-attachment-unsupported"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    MessagingItem messageItem = webhookObject.getEntryList().get(0).getMessaging().get(0);
+    assertNotNull(messageItem);
+    assertTrue(messageItem.getMessage().hasAttachment());
+    MessagingAttachment attachment = messageItem.getMessage().getAttachments().get(0);
+    assertTrue(attachment.isUnsupportedType());
+    assertNotNull(attachment.getPayload());
+    MessagingPayload payload = attachment.getPayload();
+    assertNotNull(payload.getUrl());
   }
 
   @Test

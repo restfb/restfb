@@ -28,3 +28,4 @@ nb-configuration.xml
 # Misc
 pom.xml.asc
 *.sh
+.DS_Store

@@ -62,6 +62,11 @@ public class MessagingAttachment {
   public static final String VIDEO = "video";
 
   /**
+   * The "unsupported type" attachment type
+   */
+  public static final String UNSUPPORTED_TYPE = "unsupported_type";
+
+  /**
    * The "template" attachment type.
    */
   public static final String TEMPLATE = "template";
@@ -158,5 +163,14 @@ public class MessagingAttachment {
    */
   public boolean isTemplate() {
     return TEMPLATE.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is unsupported
+   *
+   * @return {@code true} if unsupported type, {@code false} if supported
+   */
+  public boolean isUnsupportedType() {
+    return UNSUPPORTED_TYPE.equals(type);
   }
 }
