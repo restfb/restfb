@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.testutils.AssertJson.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
@@ -29,10 +30,11 @@ import com.restfb.testutils.AssertJson;
 
 class JsonMapperEnumTest {
 
+  private final DefaultJsonMapper mapper = new DefaultJsonMapper();
+
   @Test
   void createWithEnum() {
     String simpleJson = "{\"id\": 12345, \"test_enum\": \"FOO\"}";
-    DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
     assertThat(testType.id).isEqualTo("12345");
     assertThat(testType.testEnum).isEqualTo(EnumTestEnum.FOO);
@@ -42,7 +44,6 @@ class JsonMapperEnumTest {
   @Test
   void createWithNonExistingEnumValue() {
     String simpleJson = "{\"id\": 12345, \"test_enum\": \"BAZ\"}";
-    DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestType testType = mapper.toJavaObject(simpleJson, EnumTestType.class);
     assertThat(testType.id).isEqualTo("12345");
     assertThat(testType.testEnum).isNull();
@@ -51,11 +52,58 @@ class JsonMapperEnumTest {
 
   @Test
   void createJsonFromObject() {
-    DefaultJsonMapper mapper = new DefaultJsonMapper();
     EnumTestTypeSimple testType = new EnumTestTypeSimple();
     testType.testEnum = EnumTestEnum.BAR;
     testType.id = "1234";
     String jsonString = mapper.toJson(testType);
-    AssertJson.assertEquals("{\"id\":\"1234\",\"test_enum\":\"BAR\"}", jsonString);
+    assertEquals("{\"id\":\"1234\",\"test_enum\":\"BAR\"}", jsonString);
+  }
+
+  @Test
+  void checkAnnotationEnumWithoutAnnotation() {
+    String json = "{\"id\": 12345, \"test_enum\": \"FOO\"}";
+    EnumTestTypeAnnotation testType = mapper.toJavaObject(json, EnumTestTypeAnnotation.class);
+    assertThat(testType.testEnum).isEqualTo(EnumTestAnnotationEnum.FOO);
+  }
+
+  @Test
+  void checkAnnotationEnumWithAnnotation() {
+    String json = "{\"id\": 12345, \"test_enum\": \"BAR\"}";
+    EnumTestTypeAnnotation testType = mapper.toJavaObject(json, EnumTestTypeAnnotation.class);
+    assertThat(testType.testEnum).isEqualTo(EnumTestAnnotationEnum.BAR);
+  }
+
+  @Test
+  void checkAnnotationEnumWithAnnotationValue() {
+    String json = "{\"id\": 12345, \"test_enum\": \"foo_bar\"}";
+    EnumTestTypeAnnotation testType = mapper.toJavaObject(json, EnumTestTypeAnnotation.class);
+    assertThat(testType.testEnum).isEqualTo(EnumTestAnnotationEnum.BAZ);
+  }
+
+  @Test
+  void checkAnnotationEnumToJsonAltValue() {
+    EnumTestTypeAnnotation testType = new EnumTestTypeAnnotation();
+    testType.id = "12345";
+    testType.testEnum = EnumTestAnnotationEnum.BAZ;
+    String json = mapper.toJson(testType);
+    assertEquals(json, "{\"id\":\"12345\",\"test_enum\":\"foo_bar\"}");
+  }
+
+  @Test
+  void checkAnnotationEnumToJsonWithAnnotation() {
+    EnumTestTypeAnnotation testType = new EnumTestTypeAnnotation();
+    testType.id = "12345";
+    testType.testEnum = EnumTestAnnotationEnum.BAR;
+    String json = mapper.toJson(testType);
+    assertEquals(json, "{\"id\":\"12345\",\"test_enum\":\"BAR\"}");
+  }
+
+  @Test
+  void checkAnnotationEnumToJsonWithoutAnnotation() {
+    EnumTestTypeAnnotation testType = new EnumTestTypeAnnotation();
+    testType.id = "12345";
+    testType.testEnum = EnumTestAnnotationEnum.FOO;
+    String json = mapper.toJson(testType);
+    assertEquals(json, "{\"id\":\"12345\",\"test_enum\":\"FOO\"}");
   }
 }

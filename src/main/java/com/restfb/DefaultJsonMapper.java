@@ -234,7 +234,8 @@ public class DefaultJsonMapper implements JsonMapper {
 
         fieldWithAnnotation.getField().setAccessible(true);
 
-        setJavaFileValue(json, facebookFieldNamesWithMultipleMappings, instance, jsonObject, fieldWithAnnotation, facebookFieldName);
+        setJavaFileValue(json, facebookFieldNamesWithMultipleMappings, instance, jsonObject, fieldWithAnnotation,
+          facebookFieldName);
       }
 
       // If there are any methods annotated with @JsonMappingCompleted,
@@ -249,7 +250,9 @@ public class DefaultJsonMapper implements JsonMapper {
     }
   }
 
-  private <T> void setJavaFileValue(String json, Set<String> facebookFieldNamesWithMultipleMappings, T instance, JsonObject jsonObject, FieldWithAnnotation<Facebook> fieldWithAnnotation, String facebookFieldName) throws IllegalAccessException {
+  private <T> void setJavaFileValue(String json, Set<String> facebookFieldNamesWithMultipleMappings, T instance,
+      JsonObject jsonObject, FieldWithAnnotation<Facebook> fieldWithAnnotation, String facebookFieldName)
+      throws IllegalAccessException {
     // Set the Java field's value.
     //
     // If we notice that this Facebook field name is mapped more than once,
@@ -389,7 +392,8 @@ public class DefaultJsonMapper implements JsonMapper {
     return unmodifiableSet(facebookFieldNamesWithMultipleMappings);
   }
 
-  private void occurrenceCounter(Map<String, Integer> facebookFieldsNamesWithOccurrenceCount, FieldWithAnnotation<Facebook> field) {
+  private void occurrenceCounter(Map<String, Integer> facebookFieldsNamesWithOccurrenceCount,
+      FieldWithAnnotation<Facebook> field) {
     String fieldName = getFacebookFieldName(field);
     int occurrenceCount = facebookFieldsNamesWithOccurrenceCount.getOrDefault(fieldName, 0);
     facebookFieldsNamesWithOccurrenceCount.put(fieldName, occurrenceCount + 1);
@@ -454,7 +458,8 @@ public class DefaultJsonMapper implements JsonMapper {
     }
 
     if (object instanceof Enum) {
-      return Json.value(((Enum) object).name());
+      Enum e = (Enum) object;
+      return Json.value(getAlternativeEnumValue(e).orElseGet(e::name));
     }
 
     if (object instanceof Date) {
@@ -737,6 +742,22 @@ public class DefaultJsonMapper implements JsonMapper {
 
   private Optional<Enum> convertRawValueToEnumType(Class<?> type, JsonValue rawValue) {
     Class<? extends Enum> enumType = type.asSubclass(Enum.class);
+    Map<String, Enum> annotatedEnumMapping = new HashMap<>();
+    if (enumType.getEnumConstants() != null) {
+      for (Enum e : enumType.getEnumConstants()) {
+        getAlternativeEnumValue(e).ifPresent(s -> annotatedEnumMapping.put(s, e));
+      }
+    }
+
+    Enum e = annotatedEnumMapping.get(rawValue.asString());
+    if (e != null) {
+      return Optional.of(e);
+    } else {
+      MAPPER_LOGGER.debug(
+        "No suitable annotated enum constant found for string {} and enum {}, use default enum detection.",
+        rawValue.asString(), enumType.getName());
+    }
+
     try {
       return Optional.of(Enum.valueOf(enumType, rawValue.asString()));
     } catch (IllegalArgumentException iae) {
@@ -747,6 +768,19 @@ public class DefaultJsonMapper implements JsonMapper {
       return Optional.of(Enum.valueOf(enumType, rawValue.asString().toUpperCase()));
     } catch (IllegalArgumentException iae) {
       MAPPER_LOGGER.debug("Mapping string {} to enum {} not possible", rawValue.asString(), enumType.getName());
+    }
+    return Optional.empty();
+  }
+
+  private Optional<String> getAlternativeEnumValue(Enum e) {
+    try {
+      Field f = e.getClass().getField(e.toString());
+      Facebook a = f.getAnnotation(Facebook.class);
+      if (a != null && !a.value().isEmpty()) {
+        return Optional.of(a.value());
+      }
+    } catch (NoSuchFieldException ex) {
+      MAPPER_LOGGER.debug("Enum constant without annotation, skip annotation value detection for {}", e);
     }
     return Optional.empty();
   }
