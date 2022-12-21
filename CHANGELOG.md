@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2022.11.0 (December 21, 2022)
+
+* Issue #1259: better enum handling
+* Issue #1260: unsupported_type added to messaging attachment
+
 ## 2022.10.0 (October 19, 2022)
 
 * Issue #1257: Graph API 15 added to version enum
