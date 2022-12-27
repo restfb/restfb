@@ -33,7 +33,7 @@ class DebugTokenITCase extends RestFbIntegrationTestBase {
 
   @Test
   void checkDebugToken() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_3_1);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_9_0);
     FacebookClient.DebugTokenInfo debugTokenInfo = client.debugToken("abc");
     assertNotNull(debugTokenInfo);
   }

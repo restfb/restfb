@@ -111,7 +111,7 @@
     }
   ],
   "paging": {
-    "previous": "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1559890800&until=1560063600",
-    "next": "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1560236400&until=1560409200"
+    "previous": "https://graph.facebook.com/v9.0/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1559890800&until=1560063600",
+    "next": "https://graph.facebook.com/v9.0/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1560236400&until=1560409200"
   }
 }

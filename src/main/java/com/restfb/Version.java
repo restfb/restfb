@@ -31,68 +31,6 @@ public enum Version {
   UNVERSIONED(null),
 
   /**
-   * <tt>Graph API 3.1</tt>, available until October 23, 2020
-   *
-   * @since July 26, 2018
-   * @deprecated use {@link Version#VERSION_4_0} or newer
-   */
-  @Deprecated
-  VERSION_3_1("v3.1"),
-
-  /**
-   * <tt>Graph API 3.2</tt>, available until April 30, 2021
-   *
-   * @since October 23, 2018
-   * @deprecated use {@link Version#VERSION_4_0} or newer
-   */
-  @Deprecated
-  VERSION_3_2("v3.2"),
-
-  /**
-   * <tt>Graph API 3.3</tt>, available until July 29, 2021
-   *
-   * @since April 30, 2019
-   * @deprecated use {@link Version#VERSION_4_0} or newer
-   */
-  @Deprecated
-  VERSION_3_3("v3.3"),
-
-  /**
-   * <tt>Graph API 4.0</tt>, available until October 29, 2021
-   *
-   * @since July 29, 2019
-   */
-  VERSION_4_0("v4.0"),
-
-  /**
-   * <tt>Graph API 5.0</tt>, available until February 3rd, 2022
-   *
-   * @since October 29, 2019
-   */
-  VERSION_5_0("v5.0"),
-
-  /**
-   * <tt>Graph API 6.0</tt>, available until May 5th, 2022
-   *
-   * @since February 3rd, 2020
-   */
-  VERSION_6_0("v6.0"),
-
-  /**
-   * <tt>Graph API 7.0</tt>, available until August 4th, 2022
-   *
-   * @since May 5th, 2020
-   */
-  VERSION_7_0("v7.0"),
-
-  /**
-   * <tt>Graph API 8.0</tt>, available until November 10th, 2022
-   *
-   * @since August 4th, 2020
-   */
-  VERSION_8_0("v8.0"),
-
-  /**
    * <tt>Graph API 9.0</tt>, available until February 23, 2023
    *
    * @since November 10th, 2020

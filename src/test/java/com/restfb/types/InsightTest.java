@@ -96,17 +96,17 @@ class InsightTest extends AbstractJsonMapperTests {
 
         String url = request.getFullUrl();
 
-        if (url.equals("https://graph.facebook.com/v3.3/page1?access_token=token&format=json")) {
+        if (url.equals("https://graph.facebook.com/v9.0/page1?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-1"));
         }
 
         if (url.equals(
-          "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1560236400&until=1560409200")) {
+          "https://graph.facebook.com/v9.0/<page-id>/insights?access_token=<access_token>&pretty=0&metric=page_fans_city&since=1560236400&until=1560409200")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-2"));
         }
 
         if (url.equals(
-          "https://graph.facebook.com/v3.3/<page-id>/insights?access_token=<access_token>&pretty=0&since=1560409200&until=1560582000&metric=page_fans_city")) {
+          "https://graph.facebook.com/v9.0/<page-id>/insights?access_token=<access_token>&pretty=0&since=1560409200&until=1560582000&metric=page_fans_city")) {
           return new Response(HTTP_OK, jsonFromClasspath("v3_3/insight/page-3"));
         }
 
@@ -114,7 +114,7 @@ class InsightTest extends AbstractJsonMapperTests {
       }
     };
     DefaultFacebookClient facebookClient =
-        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_3_3);
+        new DefaultFacebookClient("token", fakeWebRequestor, new DefaultJsonMapper(), Version.VERSION_9_0);
     return facebookClient.fetchConnection("/page1", Insight.class);
   }
 }
