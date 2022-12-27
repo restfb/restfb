@@ -51,7 +51,7 @@ class SoftHashMapTest {
   void checkSimpleGet() {
     SoftHashMap<String, Integer> hashMap = new SoftHashMap<>();
     hashMap.put("test", 1);
-    assertThat(hashMap.get("test")).isEqualTo(1);
+    assertThat(hashMap).containsEntry("test", 1);
   }
 
   @Test

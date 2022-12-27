@@ -23,11 +23,17 @@ package com.restfb.testutils.test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.json.Json;
 import com.restfb.json.JsonValue;
 import com.restfb.testutils.AssertJson;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 class AssertJsonTest {
 
@@ -44,8 +50,8 @@ class AssertJsonTest {
     JsonValue expectedFalseValue = Json.FALSE;
     JsonValue actualFalseValue = Json.TRUE;
 
-    assertThrows(AssertionError.class, () ->
-    AssertJson.assertEquals(expectedFalseValue.toString(), actualFalseValue.toString()));
+    assertThrows(AssertionError.class,
+      () -> AssertJson.assertEquals(expectedFalseValue.toString(), actualFalseValue.toString()));
   }
 
   @Test
@@ -64,51 +70,33 @@ class AssertJsonTest {
     AssertJson.assertEquals(expectedFalseValue.toString(), actualFalseValue.toString());
   }
 
-  @Test
-  void check_Array_both() {
-    String expectedString = "[\"String1\",\"String2\",\"String3\"]";
-    String actualString = "[\"String1\",\"String2\",\"String3\"]";
-
-    AssertJson.assertEquals(expectedString, actualString);
-  }
-
-  @Test
-  void check_Array_differentOrder() {
-    String expectedString = "[\"String1\",\"String2\",\"String3\"]";
-    String actualString = "[\"String2\",\"String3\",\"String1\"]";
-
+  @ParameterizedTest(name = "[{index}] {0}")
+  @MethodSource("provideJsonWithExc")
+  void check_Object_checkExc(String expectedString, String actualString) {
     assertThrows(AssertionError.class, () -> AssertJson.assertEquals(expectedString, actualString));
   }
 
-  @Test
-  void check_Object_both() {
-    String expectedString = "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}";
-    String actualString = "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}";
+  private static Stream<Arguments> provideJsonWithExc() {
+    return Stream.of(
+      Arguments.of(Named.of("check_Array_differentOrder", "[\"String1\",\"String2\",\"String3\"]"),
+        "[\"String2\",\"String3\",\"String1\"]"),
+      Arguments.of(Named.of("check_Object_differentFields", "{}"), "{\"id\":345}"),
+      Arguments.of(Named.of("check_Object_Array", "{}"), "[]"));
+  }
 
+  @ParameterizedTest(name = "[{index}] {0}")
+  @MethodSource("provideJson")
+  void check_Object_param(String expectedString, String actualString) {
     AssertJson.assertEquals(expectedString, actualString);
   }
 
-  @Test
-  void check_Object_differentOrder() {
-    String expectedString = "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}";
-    String actualString = "{\"id\":345,\"name\":\"test\",\"blub\":\"bla\"}";
-
-    AssertJson.assertEquals(expectedString, actualString);
-  }
-
-  @Test
-  void check_Object_differentFields() {
-    String expectedString = "{}";
-    String actualString = "{\"id\":345}";
-
-    assertThrows(AssertionError.class, () -> AssertJson.assertEquals(expectedString, actualString));
-  }
-
-  @Test
-  void check_Object_Array() {
-    String expectedString = "{}";
-    String actualString = "[]";
-
-    assertThrows(AssertionError.class, () -> AssertJson.assertEquals(expectedString, actualString));
+  private static Stream<Arguments> provideJson() {
+    return Stream.of(
+      Arguments.of(Named.of("check_Object_both", "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}"),
+        "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}"),
+      Arguments.of(Named.of("check_Object_differentOrder", "{\"name\":\"test\",\"id\":345,\"blub\":\"bla\"}"),
+        "{\"id\":345,\"name\":\"test\",\"blub\":\"bla\"}"),
+      Arguments.of(Named.of("check_Array_both", "[\"String1\",\"String2\",\"String3\"]"),
+        "[\"String1\",\"String2\",\"String3\"]"));
   }
 }

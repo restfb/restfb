@@ -25,7 +25,13 @@ import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
 import static com.restfb.util.UrlUtils.extractParametersFromUrl;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.UrlUtils}.
@@ -71,51 +77,37 @@ class UrlUtilsTest {
     assertThat(extractParametersFromUrl("http://whatever?access_token=123")).hasSize(1);
   }
 
-  @Test
-  void replaceParameter() {
-    String exampleUrl = "http://www.example.com?access_token=123&before=1234";
-    String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
-    String expectedURL = "http://www.example.com?access_token=123&before=56789";
+  @ParameterizedTest(name = "{index} {0}")
+  @MethodSource("provideRemoveUrls")
+  void removeParameter(String exampleURL, String key, String expectedURL) {
+    String resultURL = UrlUtils.removeQueryParameter(exampleURL, key);
     assertThat(resultURL).isEqualTo(expectedURL);
   }
 
-  @Test
-  void removeParameter_lastParameter() {
-    String exampleUrl = "http://www.example.com?access_token=123&before=1234";
-    String resultURL = UrlUtils.removeQueryParameter(exampleUrl, "before");
-    String expectedURL = "http://www.example.com?access_token=123";
+  private static Stream<Arguments> provideRemoveUrls() {
+    return Stream.of(
+      Arguments.of(Named.of("lastParameter", "http://www.example.com?access_token=123&before=1234"), "before",
+        "http://www.example.com?access_token=123"),
+      Arguments.of(Named.of("firstParameter", "http://www.example.com?access_token=123&before=1234"), "access_token",
+        "http://www.example.com?before=1234"),
+      Arguments.of(Named.of("middleParameter", "http://www.example.com?access_token=123&first=6543&before=1234"),
+        "first", "http://www.example.com?access_token=123&before=1234"));
+  }
+
+  @ParameterizedTest(name = "{index} {0}")
+  @MethodSource("provideReplaceUrls")
+  void replaceOrAddParameter(String exampleURL, String expectedURL) {
+    String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleURL, "before", "56789");
     assertThat(resultURL).isEqualTo(expectedURL);
   }
 
-  @Test
-  void removeParameter_firstParameter() {
-    String exampleUrl = "http://www.example.com?access_token=123&before=1234";
-    String resultURL = UrlUtils.removeQueryParameter(exampleUrl, "access_token");
-    String expectedURL = "http://www.example.com?before=1234";
-    assertThat(resultURL).isEqualTo(expectedURL);
-  }
-
-  @Test
-  void removeParameter_middleParameter() {
-    String exampleUrl = "http://www.example.com?access_token=123&first=6543&before=1234";
-    String resultURL = UrlUtils.removeQueryParameter(exampleUrl, "first");
-    String expectedURL = "http://www.example.com?access_token=123&before=1234";
-    assertThat(resultURL).isEqualTo(expectedURL);
-  }
-
-  @Test
-  void addParameterNoParameter() {
-    String exampleUrl = "http://www.example.com";
-    String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
-    String expectedURL = "http://www.example.com?before=56789";
-    assertThat(resultURL).isEqualTo(expectedURL);
-  }
-
-  @Test
-  void addParameter() {
-    String exampleUrl = "http://www.example.com?access_token=123";
-    String resultURL = UrlUtils.replaceOrAddQueryParameter(exampleUrl, "before", "56789");
-    String expectedURL = "http://www.example.com?access_token=123&before=56789";
-    assertThat(resultURL).isEqualTo(expectedURL);
+  private static Stream<Arguments> provideReplaceUrls() {
+    return Stream.of(
+      Arguments.of(Named.of("replace", "http://www.example.com?access_token=123&before=1234"),
+        "http://www.example.com?access_token=123&before=56789"),
+      Arguments.of(Named.of("addParameterNoParameter", "http://www.example.com"),
+        "http://www.example.com?before=56789"),
+      Arguments.of(Named.of("addParameter", "http://www.example.com?access_token=123"),
+        "http://www.example.com?access_token=123&before=56789"));
   }
 }

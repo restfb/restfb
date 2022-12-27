@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
-public class ConversationTest extends AbstractJsonMapperTests {
+class ConversationTest extends AbstractJsonMapperTests {
 
   @Test
   void checkV10_instagram() {
