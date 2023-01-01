@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2023.1.0 (January 1, 2023)
+
+* Issue #1263: removed unsupported graph api versions (breaking change)
+* License headers changed and some junit cleanup
+
 ## 2022.11.0 (December 21, 2022)
 
 * Issue #1259: better enum handling
