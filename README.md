@@ -1,5 +1,5 @@
 ![](https://img.shields.io/github/last-commit/restfb/restfb?style=for-the-badge)
-![](https://img.shields.io/github/workflow/status/restfb/restfb/Check%20with%20Sonar?style=for-the-badge)
+![](https://img.shields.io/github/actions/workflow/status/restfb/restfb/sonar.yml?style=for-the-badge)
 
 # RestFB (http://restfb.com)
 ## What it is
