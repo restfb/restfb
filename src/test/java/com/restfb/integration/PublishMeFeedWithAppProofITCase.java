@@ -32,7 +32,7 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.json.JsonObject;
 
 @NeedFacebookWriteAccess
-class PublishMeFeedWithAppProof extends RestFbIntegrationTestBase {
+class PublishMeFeedWithAppProofITCase extends RestFbIntegrationTestBase {
 
   @Test
   void publishWithProof() {
