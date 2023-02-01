@@ -131,4 +131,9 @@ class ParameterTest {
     assertThat(Parameter.withMetadata()).hasValue("1").hasName("metadata");
   }
 
+  @Test
+  void checkLimitParameter() {
+    assertThat(Parameter.withLimit(10)).hasValue("10").hasName("limit");
+  }
+
 }

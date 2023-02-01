@@ -106,7 +106,7 @@ public final class Parameter {
   }
 
   /**
-   * convenience factory method which creates a {@code Parameter} object to fetch the metadata from API
+   * Convenience factory method that creates a {@code Parameter} object to retrieve the metadata from the API.
    *
    * @return Parameter object
    */
@@ -124,6 +124,18 @@ public final class Parameter {
    */
   public static Parameter withLocale(Locale locale) {
     return Parameter.with("locale", locale.getLanguage());
+  }
+
+  /**
+   * convenience factory method which creates a {@code Parameter} object to fetch data from API with given limit
+   *
+   * @param limit
+   *          the limit that should be used fetching data
+   *
+   * @return Parameter object
+   */
+  public static Parameter withLimit(int limit) {
+    return Parameter.with("limit", limit);
   }
 
   /**
