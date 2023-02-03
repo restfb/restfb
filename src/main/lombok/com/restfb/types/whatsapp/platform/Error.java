@@ -36,4 +36,22 @@ public class Error {
   @Setter
   @Facebook
   private String title;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String message;
+
+  @Getter
+  @Setter
+  @Facebook("error_data")
+  private Data errorData;
+
+  public static class Data {
+
+    @Getter
+    @Setter
+    @Facebook
+    private String details;
+  }
 }
