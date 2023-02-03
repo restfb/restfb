@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2023.2.0 (February 3, 2023)
+
+* Issue #1267: Add convenience method for adding limit Parameter
+* Issue #1269: Version 16.0 added
+* Issue #1266: Check Page type for missing fields
+* Issue #1270: WABP Webhook Version 16: new fields in Error object
+
 ## 2023.1.0 (January 1, 2023)
 
 * Issue #1263: removed unsupported graph api versions (breaking change)
