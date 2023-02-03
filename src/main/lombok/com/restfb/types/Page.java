@@ -58,7 +58,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    * 
    * @return the page's profile picture as ProfilePictureSource object
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   private ProfilePictureSource picture;
 
@@ -268,6 +268,16 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   @Setter
   @Facebook
   private String features;
+
+  /**
+   * Number of page followers
+   *
+   * @return Number of page followers
+   */
+  @Getter
+  @Setter
+  @Facebook("followers_count")
+  private Long followersCount;
 
   /**
    * The name of the Page with country codes appended for Global Brand Pages. Only visible to the Page admin
@@ -758,6 +768,21 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private String studio;
 
   /**
+   * Indicates how the business corresponding to this Page is operating differently than usual. Possible values:
+   *
+   * <ul>
+   * <li>differently_open</li>
+   * <li>temporarily_closed</li>
+   * <li>operating_as_usual</li>
+   * <li>no_data</li>
+   * </ul>
+   */
+  @Getter
+  @Setter
+  @Facebook("temporary_status")
+  private String temporaryStatus;
+
+  /**
    * The social sentence and like count information for this Page. This is the same info used for the like button
    * 
    * @since 1.10.0
@@ -945,9 +970,9 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Parent Page of this Page.
    *
-   * If the Page is part of a Global Root Structure and you have permission to the Global Root,
-   * the Global Root Parent Page is returned. If you do not have Global Root permission,
-   * the Market Page for your current region is returned as the Parent Page.
+   * If the Page is part of a Global Root Structure and you have permission to the Global Root, the Global Root Parent
+   * Page is returned. If you do not have Global Root permission, the Market Page for your current region is returned as
+   * the Parent Page.
    *
    * If your Page is not part of a Global Root Structure, the Parent Page is returned.
    *
@@ -957,6 +982,16 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   @Setter
   @Facebook("parent_page")
   private Page parentPage;
+
+  /**
+   * Privacy url in page info section
+   *
+   * @return Privacy url in page info section
+   */
+  @Getter
+  @Setter
+  @Facebook("privacy_info_url")
+  private String privacyInfoUrl;
 
   /**
    * Indicates whether a user has accepted the TOS for running LeadGen Ads on the Page.
@@ -976,7 +1011,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    * @return The number of likes the page has
    * @since 1.6.5
    */
-  @Getter(onMethod_ = {@GraphAPI(until = "2.5")})
+  @Getter(onMethod_ = { @GraphAPI(until = "2.5") })
   @Setter
   @Facebook("likes")
   @GraphAPI(until = "2.5")
@@ -987,7 +1022,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    *
    * @return The Pages that this Page Likes.
    */
-  @Getter(onMethod_ = {@GraphAPI(since = "2.6")})
+  @Getter(onMethod_ = { @GraphAPI(since = "2.6") })
   @Setter
   @Facebook
   @GraphAPI(since = "2.6")
@@ -998,7 +1033,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    *
    * @return The number of likes the page has
    */
-  @Getter(onMethod_ = {@GraphAPI(since = "2.6")})
+  @Getter(onMethod_ = { @GraphAPI(since = "2.6") })
   @Setter
   @Facebook("fan_count")
   @GraphAPI(since = "2.6")
@@ -1073,8 +1108,6 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   @Setter
   @Facebook("is_owned")
   private Boolean isOwned;
-
-
 
   /**
    * A description of this page.
@@ -1211,11 +1244,27 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    *
    * @return Indicates whether the application is subscribed for real time updates from this page
    */
-  @Getter(onMethod_ = {@GraphAPI(since = "2.7")})
+  @Getter(onMethod_ = { @GraphAPI(since = "2.7") })
   @Setter
   @Facebook("is_webhooks_subscribed")
   @GraphAPI(since = "2.7")
   private Boolean isWebhooksSubscribed;
+
+  /**
+   * Indicates the time when the TOS for running LeadGen Ads on the page was accepted
+   */
+  @Getter
+  @Setter
+  @Facebook("leadgen_tos_acceptance_time")
+  private Date leadgenTosAcceptanceTime;
+
+  /**
+   * Indicates the user who accepted the TOS for running LeadGen Ads on the page
+   */
+  @Getter
+  @Setter
+  @Facebook("leadgen_tos_accepting_user")
+  private User leadgenTosAcceptingUser;
 
   /**
    * The director of the film. Applicable to Films.
@@ -1289,6 +1338,17 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   @Setter
   @Facebook("merchant_id")
   private String merchantId;
+
+  /**
+   * Review status of the Page against FB commerce policies, this status decides whether the Page can use component flow
+   */
+  @Getter
+  @Setter
+  @Facebook("merchant_review_status")
+  private String merchantReviewStatus;
+
+  @Facebook("messenger_ads_default_icebreakers")
+  private List<String> messengerAdsDefaultIcebreakers = new ArrayList<>();
 
   /**
    * The cover photo.
@@ -1397,7 +1457,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private List<ScreenName> screenNames = new ArrayList<>();
 
   /**
-   * Page is utilising the new page experiece or not
+   * Indicates whether a page has transitioned to new page experience or not
    */
   @Getter
   @Setter
@@ -2043,6 +2103,18 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
     return instagramAccounts.remove(igUser);
   }
 
+  public boolean addMessengerAdsDefaultIcebreaker(String icebreaker) {
+    return messengerAdsDefaultIcebreakers.add(icebreaker);
+  }
+
+  public boolean removeMessengerAdsDefaultIcebreaker(String icebreaker) {
+    return messengerAdsDefaultIcebreakers.remove(icebreaker);
+  }
+
+  public List<String> getMessengerAdsDefaultIcebreakers() {
+    return unmodifiableList(messengerAdsDefaultIcebreakers);
+  }
+
   @JsonMappingCompleted
   protected void convertLabels(JsonMapper jsonMapper) {
     JsonObject rawLabels = null;
@@ -2061,7 +2133,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   @JsonMappingCompleted
   protected void fillProfilePicture(JsonMapper jsonMapper) {
-    picture = convertPicture(jsonMapper,rawPicture);
+    picture = convertPicture(jsonMapper, rawPicture);
   }
 
   @JsonMappingCompleted
