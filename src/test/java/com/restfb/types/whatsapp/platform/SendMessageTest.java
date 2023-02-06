@@ -117,8 +117,7 @@ class SendMessageTest {
         + "{\"catalog_id\":\"CATALOG_ID\","
         + "\"sections\":[{\"product_items\":[{\"product_retailer_id\":\"product-SKU-in-catalog\"},{\"product_retailer_id\":\"product-SKU-in-catalog\"}],\"title\":\"section-title\"},"
         + "{\"product_items\":[{\"product_retailer_id\":\"product-SKU-in-catalog\"},{\"product_retailer_id\":\"product-SKU-in-catalog\"}],\"title\":\"section-title\"}]},"
-        + "\"body\":{\"text\":\"body-content\"},"
-        + "\"header\":{\"text\":{\"body\":\"header-content\"},\"type\":\"text\"},"
+        + "\"body\":{\"text\":\"body-content\"}," + "\"header\":{\"text\":\"header-content\",\"type\":\"text\"},"
         + "\"footer\":{\"text\":\"footer-content\"},\"type\":\"product\"},"
         + "\"type\":\"interactive\",\"messaging_product\":\"whatsapp\"}",
       mappedMessage);

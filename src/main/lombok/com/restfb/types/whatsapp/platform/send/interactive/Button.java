@@ -29,16 +29,26 @@ import java.util.Optional;
 public class Button extends AbstractFacebookType {
 
   @Facebook
-  private String title;
-
-  @Facebook
-  private String id;
+  private Reply reply;
 
   @Facebook
   private final String type = "reply";
 
   public Button(String title, String id) {
-    this.title = title;
-    this.id = Optional.ofNullable(id).map(String::trim).orElse(null);
+    this.reply = new Reply(title, id);
+  }
+
+  private static class Reply {
+
+    @Facebook
+    private String title;
+
+    @Facebook
+    private String id;
+
+    public Reply(String title, String id) {
+      this.title = title;
+      this.id = Optional.ofNullable(id).map(String::trim).orElse(null);
+    }
   }
 }

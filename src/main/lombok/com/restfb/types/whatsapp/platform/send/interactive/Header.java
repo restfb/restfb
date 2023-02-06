@@ -39,12 +39,18 @@ public class Header extends AbstractFacebookType {
   private Image image;
 
   @Facebook
-  private Text text;
+  private String text;
 
   @Facebook
   private Type type = Type.text;
 
+  @Deprecated
   public Header(Text text) {
+    this.text = text.getBody();
+    this.type = Type.text;
+  }
+
+  public Header(String text) {
     this.text = text;
     this.type = Type.text;
   }
