@@ -139,6 +139,19 @@ public final class Parameter {
   }
 
   /**
+   * convenience factory method which creates a {@code Parameter} object to post a object with a message parameter to
+   * the API
+   *
+   * @param obj
+   *          The content of the message, should be a String, but maybe some JSON
+   *
+   * @return Parameter object
+   */
+  public static Parameter withMessage(Object obj) {
+    return Parameter.with("message", obj);
+  }
+
+  /**
    * Factory method which provides an instance with the given {@code name} and {@code value}, using the provided
    * {@code jsonMapper} to turn {@code value} into a JSON string.
    * <p>

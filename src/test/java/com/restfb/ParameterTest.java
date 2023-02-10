@@ -136,4 +136,9 @@ class ParameterTest {
     assertThat(Parameter.withLimit(10)).hasValue("10").hasName("limit");
   }
 
+  @Test
+  void checkMessageParameter() {
+    assertThat(Parameter.withMessage("test")).hasValue("test").hasName("message");
+  }
+
 }
