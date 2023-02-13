@@ -152,6 +152,19 @@ public final class Parameter {
   }
 
   /**
+   * convenience factory method which creates a {@code Parameter} object to query some information e.g. searching profiles
+   * the API
+   *
+   * @param queryString
+   *          the String used in the query
+   *
+   * @return Parameter object
+   */
+  public static Parameter withQuery(String queryString) {
+    return Parameter.with("q", queryString);
+  }
+
+  /**
    * Factory method which provides an instance with the given {@code name} and {@code value}, using the provided
    * {@code jsonMapper} to turn {@code value} into a JSON string.
    * <p>

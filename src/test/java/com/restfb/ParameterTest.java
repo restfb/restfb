@@ -141,4 +141,9 @@ class ParameterTest {
     assertThat(Parameter.withMessage("test")).hasValue("test").hasName("message");
   }
 
+  @Test
+  void checkQueryParameter() {
+    assertThat(Parameter.withQuery("test")).hasValue("test").hasName("q");
+  }
+
 }
