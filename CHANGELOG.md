@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2023.3.0 (February 18, 2023)
+
+* Issue #1273: `Parameter.withQuery` added
+* Issue #1272: `Parameter.withMessage` added
+* Issue #1268: WABP interactive messages fixed<br />
+  Thanks to @ztomic for the hint and the JSONs
+* Issue #1274: auto deploy to maven central
+
 ## 2023.2.0 (February 3, 2023)
 
 * Issue #1267: Add convenience method for adding limit Parameter
