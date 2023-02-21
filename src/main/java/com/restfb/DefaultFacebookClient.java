@@ -672,6 +672,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     try {
       JsonObject json = Json.parse(response).asObject();
+
+      // FB sometimes returns an empty DebugTokenInfo and then the 'data' field is an array
+      if (json.contains("data") && json.get("data").isArray()) {
+        return null;
+      }
+
       JsonObject data = json.get("data").asObject();
       return getJsonMapper().toJavaObject(data.toString(), DebugTokenInfo.class);
     } catch (Exception t) {
