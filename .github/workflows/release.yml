@@ -27,7 +27,7 @@ jobs:
         name: Install GPG secret key
         run: |
           cat <(echo -e "${{ secrets.GPG_PRIVATE_KEY }}") | gpg --batch --import
-      - name: Deploy
+      - name: Build and Deploy to MVN Central
         run: |
           mvn --no-transfer-progress \
             --batch-mode -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
@@ -37,3 +37,29 @@ jobs:
           MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+      - name: Get the version
+        id: get_version
+        run: echo "VERSION=$(echo $GITHUB_REF | cut -d / -f 3 | cut -c 2-)" >> $GITHUB_OUTPUT
+      - run: echo "previous_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo '')" >> $GITHUB_ENV
+      - name: Generate Release Changelog
+        id: changelog
+        uses: jaywcjlove/changelog-generator@main
+        if: env.previous_tag
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create javadoc zip
+        uses: vimtor/action-zip@v1
+        with:
+          files: target/apidocs
+          dest: javadoc.zip
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            target/restfb*.jar
+            javadoc.zip
+          draft: true
+          prerelease: false
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
