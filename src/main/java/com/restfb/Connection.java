@@ -291,4 +291,12 @@ public class Connection<T> implements Iterable<List<T>> {
   private String fixProtocol(String pageUrl) {
     return Optional.ofNullable(pageUrl).filter(s -> s.startsWith("http://")).map(s -> s.replaceFirst("http://", "https://")).orElse(pageUrl);
   }
+
+  /**
+   * replace the current facebookclient with the new one.
+   * @param facebookClient the new FacebookClient
+   */
+  public void replaceFacebookClient(FacebookClient facebookClient) {
+    this.facebookClient = facebookClient;
+  }
 }
