@@ -3,4 +3,10 @@ name = "cz_conventional_commits"
 version = "2023.3.0"
 tag_format = "v$version"
 gpg_sign = true
-
+bump_message = "Release $new_version"
+pre_bump_hooks = [
+    "misc/scripts/prepare_java_version.sh"
+]
+post_bump_hooks = [
+    "misc/scripts/commit_java_version.sh"
+]

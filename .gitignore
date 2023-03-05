@@ -27,5 +27,5 @@ nb-configuration.xml
 
 # Misc
 pom.xml.asc
-*.sh
+release.sh
 .DS_Store
