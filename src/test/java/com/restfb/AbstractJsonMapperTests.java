@@ -23,6 +23,8 @@ package com.restfb;
 
 import static com.restfb.logging.RestFBLogger.getLoggerInstance;
 import static com.restfb.util.StringUtils.fromInputStream;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,6 +37,14 @@ import com.restfb.exception.FacebookJsonMappingException;
 public abstract class AbstractJsonMapperTests {
   protected JsonMapper createJsonMapper() {
     return new DefaultJsonMapper();
+  }
+
+  protected JsonMapper createConnectionJsonMapper() {
+    JsonMapper mapper = new DefaultJsonMapper();
+    FacebookClient facebookClient = mock(FacebookClient.class);
+    when(facebookClient.getJsonMapper()).thenReturn(mapper);
+    mapper.setFacebookClient(facebookClient);
+    return mapper;
   }
 
   protected JsonMapper createSwallowingJsonMapper() {

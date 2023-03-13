@@ -1,0 +1,62 @@
+{
+  "insights": {
+    "data": [
+      {
+        "name": "page_engaged_users",
+        "period": "day",
+        "values": [
+          {
+            "value": 0,
+            "end_time": "2023-03-08T08:00:00+0000"
+          },
+          {
+            "value": 0,
+            "end_time": "2023-03-09T08:00:00+0000"
+          }
+        ],
+        "title": "Daily Page Engaged Users",
+        "description": "Daily: The number of people who engaged with your Page. Engagement includes any click or story created. (Unique Users)",
+        "id": "123456/insights/page_engaged_users/day"
+      },
+      {
+        "name": "page_engaged_users",
+        "period": "week",
+        "values": [
+          {
+            "value": 1,
+            "end_time": "2023-03-08T08:00:00+0000"
+          },
+          {
+            "value": 1,
+            "end_time": "2023-03-09T08:00:00+0000"
+          }
+        ],
+        "title": "Weekly Page Engaged Users",
+        "description": "Weekly: The number of people who engaged with your Page. Engagement includes any click or story created. (Unique Users)",
+        "id": "123456/insights/page_engaged_users/week"
+      },
+      {
+        "name": "page_engaged_users",
+        "period": "days_28",
+        "values": [
+          {
+            "value": 1,
+            "end_time": "2023-03-08T08:00:00+0000"
+          },
+          {
+            "value": 1,
+            "end_time": "2023-03-09T08:00:00+0000"
+          }
+        ],
+        "title": "28 Days Page Engaged Users",
+        "description": "28 Days: The number of people who engaged with your Page. Engagement includes any click or story created. (Unique Users)",
+        "id": "123456/insights/page_engaged_users/days_28"
+      }
+    ],
+    "paging": {
+      "previous": "https://graph.facebook.com/v16.0/123456/insights?access_token=access_token&pretty=0&metric=page_engaged_users&since=1678003200&until=1678176000",
+      "next": "https://graph.facebook.com/v16.0/123456/insights?access_token=access_token&pretty=0&metric=page_engaged_users&since=1678348800&until=1678521600"
+    }
+  },
+  "id": "123456"
+}

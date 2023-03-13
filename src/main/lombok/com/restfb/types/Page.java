@@ -25,6 +25,7 @@ import static java.util.Collections.unmodifiableList;
 
 import java.util.*;
 
+import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
@@ -1455,6 +1456,11 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   @Facebook("screennames")
   private List<ScreenName> screenNames = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private Connection<Insight> insights;
 
   /**
    * Indicates whether a page has transitioned to new page experience or not

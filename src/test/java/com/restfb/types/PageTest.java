@@ -22,10 +22,14 @@
 package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.restfb.FacebookClient;
+import com.restfb.JsonMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -217,6 +221,21 @@ class PageTest extends AbstractJsonMapperTests {
     assertNotNull(page);
     assertEquals(2, page.getRatingCount().intValue());
     assertEquals(2.5, page.getOverallStarRating().doubleValue());
+  }
+
+  @Test
+  void checkv16_insights() {
+    JsonMapper mapper = createConnectionJsonMapper();
+    Page page = mapper.toJavaObject(jsonFromClasspath("v16_0/page-with-insights"), Page.class);
+    assertNotNull(page);
+    assertNotNull(page.getInsights());
+    assertEquals(3, page.getInsights().getData().size());
+    Insight insight0 = page.getInsights().getData().get(0);
+    assertEquals("day", insight0.getPeriod());
+    assertEquals("page_engaged_users", insight0.getName());
+    assertEquals("123456/insights/page_engaged_users/day", insight0.getId());
+    assertEquals(2, insight0.getValues().size());
+    assertEquals(0, insight0.getValues().get(0).get("value").asInt());
   }
 
 }
