@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
@@ -445,6 +446,11 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
 
   @Facebook("sponsor_tags")
   private List<NamedFacebookType> sponsorTags = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook
+  private Connection<Insight> insights;
 
   /**
    * UNIX timestamp of the scheduled publish time for the post.

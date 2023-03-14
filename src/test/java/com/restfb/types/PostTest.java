@@ -409,6 +409,19 @@ class PostTest extends AbstractJsonMapperTests {
     assertEquals("ranked", examplePost.getCommentsConnection().getOrder());
   }
 
+  @Test
+  void checkPostWithInsights() {
+    Post postWithInsights =
+        createConnectionJsonMapper().toJavaObject(jsonFromClasspath("v16_0/post-with-insight"), Post.class);
+    assertNotNull(postWithInsights);
+    assertNotNull(postWithInsights.getInsights());
+    assertEquals(1, postWithInsights.getInsights().getData().size());
+    Insight insight = postWithInsights.getInsights().getData().get(0);
+    assertNotNull(insight);
+    assertEquals("post_engaged_users", insight.getName());
+    assertEquals("lifetime", insight.getPeriod());
+  }
+
   private void verifyFeedTargeting(String exampleFile) {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath(exampleFile), Post.class);
     assertNotNull(examplePost);

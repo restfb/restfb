@@ -1,0 +1,23 @@
+{
+  "insights": {
+    "data": [
+      {
+        "name": "post_engaged_users",
+        "period": "lifetime",
+        "values": [
+          {
+            "value": 0
+          }
+        ],
+        "title": "Lifetime Engaged Users",
+        "description": "Lifetime: The number of unique people who engaged in certain ways with your Page post, for example by commenting on, liking, sharing, or clicking upon particular elements of the post. (Unique Users)",
+        "id": "1234567_98765432/insights/post_engaged_users/lifetime"
+      }
+    ],
+    "paging": {
+      "previous": "https://graph.facebook.com/v16.0/1234567_98765432/insights?access_token=access_token&pretty=0&metric=post_engaged_users&since=1678262400&until=1678435200",
+      "next": "https://graph.facebook.com/v16.0/1234567_98765432/insights?access_token=access_token&pretty=0&metric=post_engaged_users&since=1678608000&until=1678777200"
+    }
+  },
+  "id": "1234567_98765432"
+}
