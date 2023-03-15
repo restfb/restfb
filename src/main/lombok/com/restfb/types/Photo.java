@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
@@ -274,6 +275,11 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
   @Setter
   @Facebook("backdated_time_granularity")
   private String backdatedTimeGranularity;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Connection<Insight> insights;
 
   private static final long serialVersionUID = 1L;
 

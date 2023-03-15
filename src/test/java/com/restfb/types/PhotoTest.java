@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import com.restfb.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -102,5 +103,20 @@ class PhotoTest extends AbstractJsonMapperTests {
     assertTrue(likes.getCanLike());
     assertFalse(likes.getHasLiked());
     assertEquals(0L, likes.getTotalCount().longValue());
+  }
+
+  @Test
+  void checkv16_insights() {
+    JsonMapper mapper = createConnectionJsonMapper();
+    Photo page = mapper.toJavaObject(jsonFromClasspath("v16_0/photo-with-insight"), Photo.class);
+    assertNotNull(page);
+    assertNotNull(page.getInsights());
+    assertEquals(1, page.getInsights().getData().size());
+    Insight insight0 = page.getInsights().getData().get(0);
+    assertEquals("lifetime", insight0.getPeriod());
+    assertEquals("post_engaged_users", insight0.getName());
+    assertEquals("123456_789101112/insights/post_engaged_users/lifetime", insight0.getId());
+    assertEquals(1, insight0.getValues().size());
+    assertEquals(0, insight0.getValues().get(0).get("value").asInt());
   }
 }
