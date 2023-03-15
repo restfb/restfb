@@ -1,0 +1,45 @@
+{
+  "video_insights": {
+    "data": [
+      {
+        "name": "total_video_views",
+        "period": "lifetime",
+        "values": [
+          {
+            "value": 6
+          }
+        ],
+        "title": "Lifetime Total Video Views",
+        "description": "Lifetime: Total number of times your video was viewed for 3 seconds or viewed to the end, whichever came first. (Total Count)",
+        "id": "987654321/video_insights/total_video_views/lifetime"
+      },
+      {
+        "name": "total_video_views_unique",
+        "period": "lifetime",
+        "values": [
+          {
+            "value": 2
+          }
+        ],
+        "title": "Lifetime Unique Video Views",
+        "description": "Lifetime: Number of unique people who viewed your video for 3 seconds or viewed to the end, whichever came first. (Unique Users)",
+        "id": "987654321/video_insights/total_video_views_unique/lifetime"
+      },
+      {
+        "name": "total_video_view_time_by_distribution_type",
+        "period": "lifetime",
+        "values": [
+          {
+            "value": {
+              "page_owned": 85597
+            }
+          }
+        ],
+        "title": "Lifetime Video View Time (in ms) by Distribution Type (page_owned/shared/crossposted)",
+        "description": "Lifetime video view time (in ms) by distribution type. On asset level, there are three possible distribution types: (page_owned/shared/crossposted)",
+        "id": "987654321/video_insights/total_video_view_time_by_distribution_type/lifetime"
+      }
+    ]
+  },
+  "id": "987654321"
+}

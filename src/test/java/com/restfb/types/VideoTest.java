@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import com.restfb.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -163,4 +164,18 @@ class VideoTest extends AbstractJsonMapperTests {
     assertFalse(secondCaption.getIsDefault());
   }
 
+  @Test
+  void checkv16_insights() {
+    JsonMapper mapper = createConnectionJsonMapper();
+    Video page = mapper.toJavaObject(jsonFromClasspath("v16_0/video-with-insights"), Video.class);
+    assertNotNull(page);
+    assertNotNull(page.getVideoInsights());
+    assertEquals(3, page.getVideoInsights().getData().size());
+    Insight insight0 = page.getVideoInsights().getData().get(0);
+    assertEquals("lifetime", insight0.getPeriod());
+    assertEquals("total_video_views", insight0.getName());
+    assertEquals("987654321/video_insights/total_video_views/lifetime", insight0.getId());
+    assertEquals(1, insight0.getValues().size());
+    assertEquals(6, insight0.getValues().get(0).get("value").asInt());
+  }
 }

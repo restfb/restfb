@@ -25,6 +25,7 @@ import static java.util.Collections.unmodifiableList;
 
 import java.util.*;
 
+import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
 
@@ -449,6 +450,11 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   @Facebook("custom_labels")
   private List<String> customLabels = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("video_insights")
+  private Connection<Insight> videoInsights;
 
   private static final long serialVersionUID = 1L;
 
