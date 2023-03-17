@@ -1,6 +1,6 @@
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "2023.3.0"
+version = "2023.4.0"
 tag_format = "v$version"
 gpg_sign = true
 bump_message = "Release $new_version"
