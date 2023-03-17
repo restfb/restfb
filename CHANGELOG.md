@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2023.4.0 (March 18, 2023)
+
+* Issue #1278: parsing error in debugtoken<br />
+  Thanke to @abdelrahmanmohamed1990 for the hint
+* Issue #1278: Add `insights` to Page object
+* Issue #1279: Add `insights` to Photo object
+* Issue #1280: Add `video_insights` to Video object
+* Issue #1281: Add `insights` to Post object
+* Issue #1282: Add `thumbnails` field to Video object
+
 ## 2023.3.0 (February 18, 2023)
 
 * Issue #1273: `Parameter.withQuery` added
