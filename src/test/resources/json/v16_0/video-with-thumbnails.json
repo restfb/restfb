@@ -1,0 +1,23 @@
+{
+  "thumbnails": {
+    "data": [
+      {
+        "id": "1234567",
+        "height": 1280,
+        "scale": 1,
+        "uri": "thumbnail_url1",
+        "width": 1280,
+        "is_preferred": false
+      },
+      {
+        "id": "7654321",
+        "height": 1280,
+        "scale": 1,
+        "uri": "thumbnail_url1",
+        "width": 1280,
+        "is_preferred": false
+      }
+    ]
+  },
+  "id": "796845312"
+}

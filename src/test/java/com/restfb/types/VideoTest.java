@@ -178,4 +178,19 @@ class VideoTest extends AbstractJsonMapperTests {
     assertEquals(1, insight0.getValues().size());
     assertEquals(6, insight0.getValues().get(0).get("value").asInt());
   }
+
+  @Test
+  void checkv16_withThumbnails() {
+    Video page = createConnectionJsonMapper().toJavaObject(jsonFromClasspath("v16_0/video-with-thumbnails"), Video.class);
+    assertNotNull(page);
+    assertNotNull(page.getThumbnails());
+    List<Video.Thumbnail> thumbnailList = page.getThumbnails().getData();
+    assertEquals(2, thumbnailList.size());
+    Video.Thumbnail thumb = thumbnailList.get(0);
+    assertEquals("thumbnail_url1", thumb.getUri());
+    assertEquals(1.0F, thumb.getScale());
+    assertEquals(1280, thumb.getWidth());
+    assertEquals(1280, thumb.getHeight());
+    assertFalse(thumb.getIsPreferred());
+  }
 }

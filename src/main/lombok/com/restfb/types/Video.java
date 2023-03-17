@@ -456,6 +456,11 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   @Facebook("video_insights")
   private Connection<Insight> videoInsights;
 
+  @Getter
+  @Setter
+  @Facebook
+  private Connection<Thumbnail> thumbnails;
+
   private static final long serialVersionUID = 1L;
 
   public List<VideoCaption> getCaptions() {
@@ -597,17 +602,9 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
    * 
    * @since 1.10.0
    */
-  public static class Thumbnail extends AbstractFacebookType {
+  public static class Thumbnail extends NamedFacebookType {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * The name of the thumbnail
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String name;
 
     /**
      * The height of the thumbnail
