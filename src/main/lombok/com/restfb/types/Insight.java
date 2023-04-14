@@ -70,6 +70,11 @@ public class Insight extends NamedFacebookType {
   @Facebook
   private String description;
 
+  @Getter
+  @Setter
+  @Facebook("total_value")
+  private InsightTotalValue totalValue;
+
   @Facebook
   private List<JsonObject> values = new ArrayList<>();
 

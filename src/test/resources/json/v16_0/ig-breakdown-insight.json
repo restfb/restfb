@@ -1,0 +1,48 @@
+{
+  "name": "navigation",
+  "period": "lifetime",
+  "values": [
+    {
+      "value": 25
+    }
+  ],
+  "title": "Navigation",
+  "description": "This is the total number of actions taken from your story. These are made up of metrics like exited, forward, back and next story.",
+  "total_value": {
+    "value": 25,
+    "breakdowns": [
+      {
+        "dimension_keys": [
+          "story_navigation_action_type"
+        ],
+        "results": [
+          {
+            "dimension_values": [
+              "tap_forward"
+            ],
+            "value": 19
+          },
+          {
+            "dimension_values": [
+              "tap_back"
+            ],
+            "value": 4
+          },
+          {
+            "dimension_values": [
+              "tap_exit"
+            ],
+            "value": 1
+          },
+          {
+            "dimension_values": [
+              "swipe_forward"
+            ],
+            "value": 1
+          }
+        ]
+      }
+    ]
+  },
+  "id": "17969782069736348/insights/navigation/lifetime"
+}

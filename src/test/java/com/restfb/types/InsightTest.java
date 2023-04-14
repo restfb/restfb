@@ -39,6 +39,22 @@ import com.restfb.json.JsonObject;
 class InsightTest extends AbstractJsonMapperTests {
 
   @Test
+  void checkV16_0_igBreakdownInsight() {
+    Insight exampleInsight = createJsonMapper().toJavaObject(jsonFromClasspath("v16_0/ig-breakdown-insight"), Insight.class);
+    assertNotNull(exampleInsight);
+    assertNotNull(exampleInsight.getTotalValue());
+    InsightTotalValue totalValue = exampleInsight.getTotalValue();
+    assertEquals(25, totalValue.getValue());
+    assertEquals(1, totalValue.getBreakdowns().size());
+    InsightBreakdown breakdown = totalValue.getBreakdowns().get(0);
+    assertEquals(4, breakdown.getResults().size());
+    InsightBreakdownResult insightBreakdownResult = breakdown.getResults().get(0);
+    assertEquals(1, insightBreakdownResult.getDimensionValues().size());
+    assertEquals("tap_forward", insightBreakdownResult.getDimensionValues().get(0));
+    assertEquals(19, insightBreakdownResult.getValue());
+  }
+
+  @Test
   void checkV2_4_insight() {
     Insight exampleInsight = createJsonMapper().toJavaObject(jsonFromClasspath("v2_4/insight"), Insight.class);
     assertEquals("Lifetime: The number of stories created about your Page post, by action type. (Total Count)",
