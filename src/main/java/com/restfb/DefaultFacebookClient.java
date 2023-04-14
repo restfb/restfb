@@ -904,8 +904,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   @Override
   protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {
-    while (apiCall.startsWith("/"))
+    while (apiCall.startsWith("/")) {
       apiCall = apiCall.substring(1);
+    }
 
     String baseUrl = getFacebookGraphEndpointUrl();
 

@@ -26,6 +26,7 @@ import static com.restfb.util.StringUtils.isBlank;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class ObjectUtil {
@@ -68,9 +69,7 @@ public class ObjectUtil {
    *           If {@code obj} is {@code null}.
    */
   public static <T extends Exception> void requireNotNull(Object obj, Supplier<T> exceptionSupplier) throws T {
-    if (obj == null) {
-      throw exceptionSupplier.get();
-    }
+    Optional.ofNullable(obj).orElseThrow(exceptionSupplier);
   }
 
   /**
