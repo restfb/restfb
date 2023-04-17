@@ -59,7 +59,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
    * @return The video title / caption.
    * @deprecated FB seems to have removed this field.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   @Deprecated
@@ -70,7 +70,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
    *
    * @return The comments for this video.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private Comments comments;
@@ -410,7 +410,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
    * 
    * @return The time the video was initially published.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -736,6 +736,87 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
     @Setter
     @Facebook("processing_progress")
     private Integer processingProgress;
+
+    /**
+     * This structure contains information about progress through the uploading phase.
+     * The bytes_transferred field can be used in conjunction with the upload endpoint
+     * to resume an interrupted upload.
+     */
+    @Getter
+    @Setter
+    @Facebook("uploading_phase")
+    private VideoPhase uploadingVideoPhase;
+
+    /**
+     * This structure contains information about progress through the processing phase.
+     * This phase encompasses generating alternate media encodings, thumbnails, and other
+     * assets necessary for publishing.
+     */
+    @Getter
+    @Setter
+    @Facebook("processing_phase")
+    private VideoPhase processingVideoPhase;
+
+    /**
+     * This structure contains information about progress through the publishing phase.
+     * This phase encompasses adding the video to the page, and if scheduled, will describe
+     * when the video is intended to be published.
+     */
+    @Getter
+    @Setter
+    @Facebook("publishing_phase")
+    private VideoPhase publishingVideoPhase;
+  }
+
+  public static class VideoPhase extends AbstractFacebookType {
+    private static final long serialVersionUID = 1L;
+    /**
+     * Status of a videoPahse.
+     *
+     * not_started, in_progress, complete, error
+     *
+     * @return Status of a videoPhase
+     */
+    @Getter
+    @Setter
+    @Facebook("status")
+    private String status;
+
+    @Getter
+    @Setter
+    @Facebook("bytes_transfered")
+    private Long bytesTransfered;
+
+    @Getter
+    @Setter
+    @Facebook("publish_status")
+    private String publishStatus;
+
+    @Getter
+    @Setter
+    @Facebook("publish_time")
+    private Date publishTime;
+
+    @Getter
+    @Setter
+    @Facebook("errors")
+    private List<VideoPhaseError> errors;
+
+  }
+
+  public static class VideoPhaseError extends AbstractFacebookType {
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook("code")
+    private Long code; // error code
+
+    @Getter
+    @Setter
+    @Facebook("message")
+    private String message; // error message
+
   }
 
 }
