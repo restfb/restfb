@@ -1457,10 +1457,21 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   @Facebook("screennames")
   private List<ScreenName> screenNames = new ArrayList<>();
 
+  /**
+   * This Page's Insights data
+   */
   @Getter
   @Setter
   @Facebook
   private Connection<Insight> insights;
+
+  /**
+   * groups
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Connection<Group> groups;
 
   /**
    * Indicates whether a page has transitioned to new page experience or not
