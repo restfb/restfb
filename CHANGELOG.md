@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2023.5.0 (April 17, 2023)
+
+* Issue #1284: breakdown feature of the new IG insights added to our Insight type
+* Issue #1285: groups field added to Page
+* Issue #1286: Add VideoPhaseError, VideoPhase to Video type
+
 ## 2023.4.0 (March 18, 2023)
 
 * Issue #1278: parsing error in debugtoken<br />
