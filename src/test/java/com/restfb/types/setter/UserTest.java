@@ -36,6 +36,7 @@ class UserTest extends SetterGetterTestBase {
     addIgnoredField("rawPicture");
     addIgnoredField("hometownAsString");
     addIgnoredField("rawSharedLoginUpgradeRequiredBy");
+    addIgnoredField("profilePic");
     testInstance(obj);
   }
 

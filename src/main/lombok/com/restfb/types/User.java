@@ -100,6 +100,12 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private PaymentPricepoints paymentPricepoints;
 
   /**
+   * The profile picture URL of the Messenger user. The URL will expire.
+   */
+  @Facebook("profile_pic")
+  private String profilePic;
+
+  /**
    * The user's last name.
    * 
    * @return The user's last name.
@@ -131,7 +137,10 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private CoverPhoto cover;
 
   /**
-   * A link to the user's profile.
+   * A link to the person's Timeline.
+   *
+   * The link will only resolve if the person clicking the link is logged
+   * into Facebook and is a friend of the person whose profile is being viewed.
    * 
    * @return A link to the user's profile.
    */
@@ -174,8 +183,14 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   /**
    * The user's birthday as a {@code String}.
    * <p>
-   * Will always succeed, even if the user has specified month/year format only. If you'd like to use a typed version of
-   * this accessor, call {@link #getBirthdayAsDate()} instead.
+   * Will always succeed, even if the user has specified month/year format only.
+   * If you'd like to use a typed version of this accessor,
+   * call {@link #getBirthdayAsDate()} instead.
+   *
+   * "The person's birthday. This is a fixed format string, like `MM/DD/YYYY`.
+   * However, people can control who can see the year they were
+   * born separately from the month and day so this string can be
+   * only the year (YYYY) or the month + day (MM/DD)",
    * 
    * @return The user's birthday as a {@code String}.
    */
@@ -307,8 +322,18 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   private String hometownAsString;
 
   /**
-   * The user's current location.
-   * 
+   * A profile based app scoped ID. It is used to query avatars
+   */
+  @Getter
+  @Setter
+  @Facebook("id_for_avatars")
+  private String idForAvatars;
+
+  /**
+   * he person's current location as entered by them on their profile.
+   *
+   * This field requires the `user_location` permission.
+   *
    * @return The user's current location.
    */
   @Getter
@@ -334,7 +359,15 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   @Getter
   @Setter
   @Facebook("significant_other")
-  private NamedFacebookType significantOther;
+  private User significantOther;
+
+  /**
+   * Whether the user can add a Donate Button to their Live Videos
+   */
+  @Getter
+  @Setter
+  @Facebook("supports_donate_button_in_live_video")
+  private Boolean supportsDonateButtonInLiveVideo;
 
   /**
    * Date the user's profile was updated.

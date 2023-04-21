@@ -33,6 +33,7 @@ class TestUserTest extends SetterGetterTestBase {
     TestUser obj = new TestUser();
     addIgnoredField("rawUpdatedTime");
     addIgnoredField("rawCreatedTime");
+    addIgnoredField("profilePic");
     testInstance(obj);
   }
 
