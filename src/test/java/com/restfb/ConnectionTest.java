@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.StreamSupport;
 
+import com.restfb.types.Post;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.exception.FacebookJsonMappingException;
@@ -197,6 +198,11 @@ class ConnectionTest extends AbstractJsonMapperTests {
     assertThat(it.hasNext()).isTrue();
     it.next();
     assertThat(it.hasNext()).isFalse();
+  }
+
+  @Test
+  void checkConnectionWithObject() {
+    assertThrows(FacebookJsonMappingException.class, () -> new Connection<Post>(null, "{}", Post.class));
   }
 
   private Connection<FacebookType> createCursorConnection(boolean cursorOnly) {

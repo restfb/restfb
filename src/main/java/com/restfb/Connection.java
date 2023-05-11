@@ -154,6 +154,9 @@ public class Connection<T> implements Iterable<List<T>> {
     }
 
     // Pull out data
+    if (!jsonObject.contains("data")) {
+      throw new FacebookJsonMappingException("The connection JSON does not contain a data field, maybe it is no connection");
+    }
     JsonArray jsonData = jsonObject.get("data").asArray();
     List<T> dataItem = jsonData.valueStream().map(jsonValue -> connectionType.equals(JsonObject.class) ? (T) jsonValue
             : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType)).collect(Collectors.toList());

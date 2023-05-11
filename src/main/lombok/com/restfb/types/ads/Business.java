@@ -26,7 +26,6 @@ import java.util.Date;
 import com.restfb.Facebook;
 import com.restfb.types.Page;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 
