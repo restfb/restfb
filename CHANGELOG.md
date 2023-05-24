@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2023.6.0 (May 24, 2023)
+
+* Issue #1291: Graph API 17.0 support
+* Issue #1289: fetchConnection improvement<br />
+  Thanks to @vicdaran for the report
+
 ## 2023.5.0 (April 17, 2023)
 
 * Issue #1284: breakdown feature of the new IG insights added to our Insight type
@@ -9,7 +15,7 @@
 ## 2023.4.0 (March 18, 2023)
 
 * Issue #1278: parsing error in debugtoken<br />
-  Thanke to @abdelrahmanmohamed1990 for the hint
+  Thanks to @abdelrahmanmohamed1990 for the hint
 * Issue #1278: Add `insights` to Page object
 * Issue #1279: Add `insights` to Photo object
 * Issue #1280: Add `video_insights` to Video object
