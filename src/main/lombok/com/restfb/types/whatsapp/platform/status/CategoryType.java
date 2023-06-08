@@ -22,5 +22,33 @@
 package com.restfb.types.whatsapp.platform.status;
 
 public enum CategoryType {
-  business_initiated, referral_conversion, user_initiated
+
+  @Deprecated
+  business_initiated, //
+  /**
+   * Indicates a <a href="https://developers.facebook.com/docs/whatsapp/pricing#free-entry-point-conversations">free
+   * entry point conversation</a>.
+   */
+  referral_conversion, //
+  @Deprecated
+  user_initiated, //
+  /**
+   * Indicates the conversation was opened by a business sending template categorized as AUTHENTICATION to the customer.
+   * This applies any time it has been more than 24 hours since the last customer message.
+   */
+  authentication, //
+  /**
+   * Indicates the conversation was opened by a business sending template categorized as MARKETING to the customer. This
+   * applies any time it has been more than 24 hours since the last customer message.
+   */
+  marketing, //
+  /**
+   * Indicates the conversation was opened by a business sending template categorized as UTILITY to the customer. This
+   * applies any time it has been more than 24 hours since the last customer message.
+   */
+  utility, //
+  /**
+   * Indicates that the conversation opened by a business replying to a customer within a customer service window.
+   */
+  service
 }
