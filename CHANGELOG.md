@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2023.7.0 (June 8, 2023)
+
+* Issue #1304: WABP: Webhooks - CategoryType missing enum constants<br />
+  Thanks to @ztomic for the hint
+* Issue #1301: Bump maven-javadoc-plugin from 3.2.0 to 3.5.0
+* Issue #1295: Bump maven-bundle-plugin from 5.1.1 to 5.1.9
+* Issue #1294: Bump version.junit from 5.9.2 to 5.9.3
+* Issue #1293: Bump maven-jar-plugin from 3.2.0 to 3.3.0
+* Issue #1297: Bump license-maven-plugin from 4.0.rc1 to 4.2
+
 ## 2023.6.0 (May 24, 2023)
 
 * Issue #1291: Graph API 17.0 support
