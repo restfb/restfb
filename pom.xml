@@ -173,7 +173,9 @@
               com.restfb*;version=${project.version}
             </Export-Package>
             <Import-Package>
-              !com.restfb*; *
+              !com.restfb*,
+              org.slf4j*;version="[1.7,3)",
+              *
             </Import-Package>
           </instructions>
         </configuration>
