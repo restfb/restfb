@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2023.7.1 (June 14, 2023)
+
+* Issue #1308: Correct OSGI version range for SLF4J<br />
+  Thanks to @vladimirfx for the PR
+
 ## 2023.7.0 (June 8, 2023)
 
 * Issue #1304: WABP: Webhooks - CategoryType missing enum constants<br />
