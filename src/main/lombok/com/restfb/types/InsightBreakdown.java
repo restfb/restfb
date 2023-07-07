@@ -23,6 +23,7 @@ package com.restfb.types;
 
 import com.restfb.Facebook;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,10 +31,10 @@ public class InsightBreakdown extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
   @Facebook("dimension_keys")
-  private List<String> dimensionKeys;
+  private List<String> dimensionKeys = new ArrayList<>();
 
   @Facebook
-  private List<InsightBreakdownResult> results;
+  private List<InsightBreakdownResult> results = new ArrayList<>();
 
   public List<String> getDimensionKeys() {
     return Collections.unmodifiableList(dimensionKeys);

@@ -25,6 +25,7 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class InsightBreakdownResult extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
   @Facebook("dimension_values")
-  private List<String> dimensionValues;
+  private List<String> dimensionValues = new ArrayList<>();
 
   @Setter
   @Getter
