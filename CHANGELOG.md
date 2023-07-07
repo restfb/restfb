@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2023.8.0 (July 7, 2023)
+
+* Issue #1312: fix NPEs in InsightBreakdown classes 
+
 ## 2023.7.1 (June 14, 2023)
 
 * Issue #1308: Correct OSGI version range for SLF4J<br />
