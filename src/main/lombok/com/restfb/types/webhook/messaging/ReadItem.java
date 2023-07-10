@@ -39,4 +39,17 @@ public class ReadItem implements InnerMessagingItem {
   @Setter
   @Facebook
   private Long seq;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String mid;
+
+  public boolean hasMid() {
+    return mid != null;
+  }
+
+  public boolean hasWatermark() {
+    return watermark != null;
+  }
 }
