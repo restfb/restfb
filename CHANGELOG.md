@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2023.9.0 (July 11, 2023)
+
+* Issue #1314: Instagram messaging read event webhook handling<br />
+  Thanks to @An1s9n for the hint
+
 ## 2023.8.0 (July 7, 2023)
 
 * Issue #1312: fix NPEs in InsightBreakdown classes 
