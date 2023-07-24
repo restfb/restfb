@@ -17,7 +17,7 @@
     <project.build.target>1.8</project.build.target>
 
     <!-- dependency versions -->
-    <version.junit>5.9.3</version.junit>
+    <version.junit>5.10.0</version.junit>
     <version.lombok>1.18.28</version.lombok>
     <version.mockito>5.3.1</version.mockito>
     <version.assertj>3.24.2</version.assertj>
