@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 2023.10.0 (August 10, 2023)
+
+* Issue #1319: getBreakdowns throws NPE on null breakdowns<br />
+  Thanks to @MartinKosturkov for the hint
+* Issue #1306: bump maven-failsafe-plugin from 3.1.0 to 3.1.2
+* Issue #1307: bump maven-surefire-plugin from 3.1.0 to 3.1.2
+* Issue #1310: bump mockito-junit to 5.4.0
+* Issue #1318: bump junit to 5.10.0
+
 ## 2023.9.0 (July 11, 2023)
 
 * Issue #1314: Instagram messaging read event webhook handling<br />
