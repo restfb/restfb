@@ -25,6 +25,7 @@ import com.restfb.Facebook;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class InsightTotalValue extends AbstractFacebookType {
   private Long value;
 
   @Facebook
-  private List<InsightBreakdown> breakdowns;
+  private List<InsightBreakdown> breakdowns = new ArrayList<>();
 
   public List<InsightBreakdown> getBreakdowns() {
     return Collections.unmodifiableList(breakdowns);
