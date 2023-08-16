@@ -26,6 +26,7 @@ import java.util.Date;
 import com.restfb.Facebook;
 
 import com.restfb.types.features.HasCover;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,6 +37,14 @@ import lombok.Setter;
  * @since 1.5
  */
 public class Group extends NamedFacebookType implements HasCover {
+
+  /**
+   * administrator
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean administrator;
 
   /**
    * Information about the group's cover photo.
@@ -134,6 +143,14 @@ public class Group extends NamedFacebookType implements HasCover {
   @Setter
   @Facebook
   private String privacy;
+
+  /**
+   * unread count
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Long unread;
 
   /**
    * The last time the group was updated.
