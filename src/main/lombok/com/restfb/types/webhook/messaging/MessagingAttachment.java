@@ -71,6 +71,11 @@ public class MessagingAttachment {
    */
   public static final String TEMPLATE = "template";
 
+  /**
+   * The "story_mention" attachment type.
+   */
+  public static final String STORY_MENTION = "story_mention";
+
   @Getter
   @Setter
   @Facebook
@@ -172,5 +177,14 @@ public class MessagingAttachment {
    */
   public boolean isUnsupportedType() {
     return UNSUPPORTED_TYPE.equals(type);
+  }
+
+  /**
+   * convenience method to check if the attachment type is story_mention
+   *
+   * @return {@code true} if story_mention type, {@code false} if not story_mention
+   */
+  public boolean isStoryMention() {
+    return STORY_MENTION.equals(type);
   }
 }
