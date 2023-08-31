@@ -584,7 +584,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   }
 
   /**
-   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user-device/">Use">User Device
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user-device/">User Device
    * Graph API type</a>.
    * 
    * @author <a href="http://restfb.com">Norbert Bartels</a>

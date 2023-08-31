@@ -27,7 +27,7 @@ package com.restfb;
  * Facebook provides several endpoints that are used for working with the Graph API and working with Facebook in
  * general. This interface provides methods to access the different urls.
  *
- * The default implementation is {@link DefaultFacebookEndpoints}. That class provides the access to Facebook and should
+ * The default implementation is {@link FacebookEndpoints}. That class provides the access to Facebook and should
  * be used in productive environments.
  *
  * This interface provides some fields with the default URLs so custom implementation can diretly use these or modify

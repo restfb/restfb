@@ -840,7 +840,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The number of visits to this Page's location. If the Page setting Show map, check-ins and star ratings on the Page
-   * (under Page Settings > Page Info > Address) is disabled, then this value will also be disabled
+   * (under Page Settings &gt; Page Info &gt; Address) is disabled, then this value will also be disabled
    * 
    * @since 1.10.0
    * @return The number of visits to this Page's location

@@ -31,7 +31,7 @@ import lombok.Setter;
  * both types have different fields we have this special handling.
  *
  * Because the minimal intersection of page and user are id and name, so the {@code From} object extends the
- * {@see NamedFacebookType} and as fast access name and id are available.
+ * {@link NamedFacebookType} and as fast access name and id are available.
  */
 public class From extends NamedFacebookType {
 
@@ -45,7 +45,7 @@ public class From extends NamedFacebookType {
   private Page page;
 
   /**
-   * returns the from field as {@see com.restfb.types.User} object
+   * returns the from field as {@link com.restfb.types.User} object
    * 
    * @return the from field as User
    */
@@ -54,7 +54,7 @@ public class From extends NamedFacebookType {
   }
 
   /**
-   * returns the from field as {@see com.restfb.types.Page} object
+   * returns the from field as {@link com.restfb.types.Page} object
    * 
    * @return the from field as Page
    */
