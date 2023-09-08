@@ -448,6 +448,11 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   @Facebook("is_verified")
   private Boolean isVerified;
 
+  @Getter
+  @Setter
+  @Facebook("is_work_account")
+  private Boolean isWorkAccount;
+
   /**
    * if the current user is a guest user. should always return false.
    */
