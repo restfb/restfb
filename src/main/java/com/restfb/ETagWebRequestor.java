@@ -136,7 +136,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
     ETagWebRequestor.mapBuilder = mapSupplier;
   }
 
-  static class ETagResponse {
+  public static class ETagResponse {
 
     public ETagResponse(String etag, String body) {
       this.etag = etag;
