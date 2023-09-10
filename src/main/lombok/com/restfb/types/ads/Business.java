@@ -145,6 +145,11 @@ public class Business extends NamedAdsObject {
   @Facebook("updated_by")
   private NamedAdsObject updatedBy;
 
+  @Getter
+  @Setter
+  @Facebook("user_access_expire_time")
+  private Date userAccessExpireTime;
+
   /**
    * Verification status for this business.
    */

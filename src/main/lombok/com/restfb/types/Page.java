@@ -626,6 +626,11 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   @GraphAPI(since = "2.5")
   private String storeLocationDescriptor;
 
+  @Getter
+  @Setter
+  @Facebook("user_access_expire_time")
+  private Date userAccessExpireTime;
+
   /**
    * The genre of the film. Applicable to Films
    * 

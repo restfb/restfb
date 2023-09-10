@@ -293,6 +293,11 @@ public class AdAccount extends NamedAdsObject implements HasCreatedTime {
   @Facebook("last_used_time")
   private Date lastUsedTime;
 
+  @Getter
+  @Setter
+  @Facebook("user_access_expire_time")
+  private Date userAccessExpireTime;
+
   @Facebook("user_tasks")
   private List<String> userTasks = new ArrayList<>();
 

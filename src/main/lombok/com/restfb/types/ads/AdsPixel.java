@@ -67,4 +67,9 @@ public class AdsPixel extends NamedAdsObject {
   @Facebook("owner_business")
   private Business ownerBusiness;
 
+  @Getter
+  @Setter
+  @Facebook("user_access_expire_time")
+  private Date userAccessExpireTime;
+
 }

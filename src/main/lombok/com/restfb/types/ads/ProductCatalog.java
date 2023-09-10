@@ -27,6 +27,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductCatalog extends NamedAdsObject {
@@ -60,4 +61,9 @@ public class ProductCatalog extends NamedAdsObject {
   @Setter
   @Facebook
   private String vertical;
+
+  @Getter
+  @Setter
+  @Facebook("user_access_expire_time")
+  private Date userAccessExpireTime;
 }
