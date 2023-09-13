@@ -90,10 +90,7 @@ public class DefaultWebRequestor implements WebRequestor {
     List<BinaryAttachment> binaryAttachments = request.getBinaryAttachments();
 
     if (HTTP_LOGGER.isDebugEnabled()) {
-      HTTP_LOGGER.debug("Executing a POST to " + request.getUrl() + " with parameters "
-          + (!binaryAttachments.isEmpty() ? "" : "(sent in request body): ")
-          + UrlUtils.urlDecode(request.getParameters())
-          + (!binaryAttachments.isEmpty() ? " and " + binaryAttachments.size() + " binary attachment[s]." : ""));
+      logRequestAndAttachmentOnDebug(request, binaryAttachments);
     }
 
     HttpURLConnection httpUrlConnection = null;
@@ -141,11 +138,7 @@ public class DefaultWebRequestor implements WebRequestor {
               + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(StringUtils.ENCODING_CHARSET));
         }
       } else {
-        if (request.hasBody()) {
-          outputStream.write(request.getBody().getData().getBytes(StringUtils.ENCODING_CHARSET));
-        } else {
-          outputStream.write(request.getParameters().getBytes(StringUtils.ENCODING_CHARSET));
-        }
+        writeRequestToOutputStream(request, outputStream);
       }
 
       HTTP_LOGGER.debug("Response headers: {}", httpUrlConnection.getHeaderFields());
@@ -161,6 +154,21 @@ public class DefaultWebRequestor implements WebRequestor {
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
     }
+  }
+
+  private static void writeRequestToOutputStream(Request request, OutputStream outputStream) throws IOException {
+    if (request.hasBody()) {
+      outputStream.write(request.getBody().getData().getBytes(StringUtils.ENCODING_CHARSET));
+    } else {
+      outputStream.write(request.getParameters().getBytes(StringUtils.ENCODING_CHARSET));
+    }
+  }
+
+  private static void logRequestAndAttachmentOnDebug(Request request, List<BinaryAttachment> binaryAttachments) {
+    HTTP_LOGGER.debug("Executing a POST to " + request.getUrl() + " with parameters "
+        + (!binaryAttachments.isEmpty() ? "" : "(sent in request body): ")
+        + UrlUtils.urlDecode(request.getParameters())
+        + (!binaryAttachments.isEmpty() ? " and " + binaryAttachments.size() + " binary attachment[s]." : ""));
   }
 
   private StringBuilder createBinaryAttachmentFormData(BinaryAttachment binaryAttachment) {
