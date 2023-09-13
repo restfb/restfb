@@ -100,8 +100,8 @@ public class DefaultWebRequestor implements WebRequestor {
     OutputStream outputStream = null;
 
     try {
-      httpUrlConnection = openConnection(
-        new URL(request.getUrl() + (!binaryAttachments.isEmpty() ? "?" + request.getParameters() : "")));
+      String url = request.getUrl() + ((!binaryAttachments.isEmpty() || request.hasBody()) ? "?" + request.getParameters() : "");
+      httpUrlConnection = openConnection(new URL(url));
       httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
 
       // Allow subclasses to customize the connection if they'd like to - set
