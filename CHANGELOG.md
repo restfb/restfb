@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2023.11.0 (September 14, 2023)
+
+* Issue #1321: add missing fields to `Group` type 
+* Issue #1322: enhance `MessagingAttachment`<br />
+  Thanks to @An1s9n for the PR
+* Issue #1324: User object needs is_work_account field
+* Issue #1325: `user_access_expire_time` field missing in some objects
+* Issue #1311: Missing `app_secret` proof.<br />
+  Thanks to @walschap for the hint and the information
+
 ## 2023.10.0 (August 10, 2023)
 
 * Issue #1319: getBreakdowns throws NPE on null breakdowns<br />
