@@ -97,7 +97,9 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * IGTV media title.
+   * @deprecated Omitted from response.
    */
+  @Deprecated
   @Getter
   @Setter
   @Facebook("video_title")
