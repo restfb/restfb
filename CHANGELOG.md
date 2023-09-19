@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2023.12.0 (September 19, 2023)
+
+* Issue #1330: Instagram: Support for mentioned media
+* Issue #1328: InstagramCommentsValue.IgCommentMedia should have ad related field<br />
+  Thanks to @gurkein for the hint
+* Issue #1327: Add Version 18.0 to version enum
+
 ## 2023.11.0 (September 14, 2023)
 
 * Issue #1321: add missing fields to `Group` type 
