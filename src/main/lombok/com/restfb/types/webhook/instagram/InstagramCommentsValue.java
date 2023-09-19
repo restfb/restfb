@@ -30,26 +30,41 @@ import lombok.Setter;
 
 public class InstagramCommentsValue extends ChangeValue {
 
+  /**
+   * The id of the object
+   */
   @Getter
   @Setter
   @Facebook
   private String id;
 
+  /**
+   * Instagram-scoped ID and username of the Instagram user who created the comment
+   */
   @Getter
   @Setter
   @Facebook
   private IgFrom from;
 
+  /**
+   * ID and product type of the IG Media the comment was created on
+   */
   @Getter
   @Setter
   @Facebook
   private IgCommentMedia media;
 
+  /**
+   * Comment text
+   */
   @Getter
   @Setter
   @Facebook
   private String text;
 
+  /**
+   * ID of parent IG Comment if this comment was created on another IG Comment (i.g. a reply to another comment)
+   */
   @Getter
   @Setter
   @Facebook("parent_id")
@@ -57,14 +72,36 @@ public class InstagramCommentsValue extends ChangeValue {
 
   public static class IgCommentMedia {
 
+    /**
+     * ID of the IG Media the comment was created on
+     */
     @Getter
     @Setter
     @Facebook
     private String id;
 
+    /**
+     * Product type of the IG Media the comment was created on
+     */
     @Getter
     @Setter
     @Facebook("media_product_type")
     private String mediaProductType;
+
+    /**
+     * ID of the IG Ad the comment was created on
+     */
+    @Getter
+    @Setter
+    @Facebook("ad_id")
+    private String adId;
+
+    /**
+     * Title of the IG Ad the comment was created on
+     */
+    @Getter
+    @Setter
+    @Facebook("ad_title")
+    private String adTitle;
   }
 }
