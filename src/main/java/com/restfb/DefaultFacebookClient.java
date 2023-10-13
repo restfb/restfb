@@ -946,6 +946,18 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
+  /**
+   * Returns the Facebook Reels Upload endpoint URL for handling the Reels Upload
+   * @return the Facebook Reels Upload endpoint URL
+   */
+  protected String getFacebookReelsUploadEndpointUrl() {
+    if (apiVersion.isUrlElementRequired()) {
+      return getFacebookEndpointUrls().getReelUploadEndpoint() + "/" + apiVersion.getUrlElement();
+    }
+
+    return getFacebookEndpointUrls().getReelUploadEndpoint();
+  }
+
   public FacebookEndpoints getFacebookEndpointUrls() {
     return facebookEndpointUrls;
   }
