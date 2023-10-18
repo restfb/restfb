@@ -129,6 +129,11 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private Video video;
 
+  @Getter
+  @Setter
+  @Facebook
+  private Reaction reaction;
+
   public boolean isText() {
     return text != null;
   }
@@ -179,6 +184,10 @@ public class Message extends AbstractFacebookType {
 
   public boolean isInteractive() {
     return interactive != null;
+  }
+
+  public boolean isReaction() {
+    return reaction != null;
   }
 
   public boolean hasErrors() {

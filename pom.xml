@@ -253,26 +253,30 @@
         <artifactId>license-maven-plugin</artifactId>
         <version>4.3</version>
         <configuration>
-          <header>LICENSE</header>
-          <excludes>
-            <exclude>.github/**</exclude>
-            <exclude>**/*.xml</exclude>
-            <exclude>**/README.md</exclude>
-            <exclude>**/CHANGELOG</exclude>
-            <exclude>target/**</exclude>
-            <exclude>LICENSE**</exclude>
-            <exclude>build/**</exclude>
-            <exclude>template.mf</exclude>
-            <exclude>pom.xml.asc</exclude>
-            <exclude>.github/**</exclude>
-            <exclude>src/main/java/com/restfb/json/**</exclude>
-            <exclude>src/test/java/com/restfb/json/**</exclude>
-            <exclude>src/test/resources/**</exclude>
-            <exclude>src/main/java/com/restfb/util/Base64.java</exclude>
-            <exclude>*.sh</exclude>
-            <exclude>misc/scripts/*.sh</exclude>
-            <exclude>.cz.toml</exclude>
-          </excludes>
+          <licenseSets>
+            <licenseSet>
+              <header>LICENSE</header>
+              <excludes>
+                <exclude>.github/**</exclude>
+                <exclude>**/*.xml</exclude>
+                <exclude>**/README.md</exclude>
+                <exclude>**/CHANGELOG</exclude>
+                <exclude>target/**</exclude>
+                <exclude>LICENSE**</exclude>
+                <exclude>build/**</exclude>
+                <exclude>template.mf</exclude>
+                <exclude>pom.xml.asc</exclude>
+                <exclude>.github/**</exclude>
+                <exclude>src/main/java/com/restfb/json/**</exclude>
+                <exclude>src/test/java/com/restfb/json/**</exclude>
+                <exclude>src/test/resources/**</exclude>
+                <exclude>src/main/java/com/restfb/util/Base64.java</exclude>
+                <exclude>*.sh</exclude>
+                <exclude>misc/scripts/*.sh</exclude>
+                <exclude>.cz.toml</exclude>
+              </excludes>
+            </licenseSet>
+          </licenseSets>
         </configuration>
         <executions>
           <execution>

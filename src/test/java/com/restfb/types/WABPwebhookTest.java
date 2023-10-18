@@ -215,6 +215,33 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void incomingMessageEmoji() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-emoji", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    checkContact(change);
+
+    checkMetaData(change);
+
+    // check Message
+    assertThat(change.getMessages()).hasSize(1);
+    Message message = change.getMessages().get(0);
+    assertThat(message.getReaction()).isNotNull();
+    assertThat(message.isImage()).isFalse();
+    assertThat(message.isText()).isFalse();
+    assertThat(message.isVideo()).isFalse();
+    assertThat(message.isSticker()).isFalse();
+    assertThat(message.isLocation()).isFalse();
+    assertThat(message.isAudio()).isFalse();
+    assertThat(message.isVoice()).isFalse();
+    assertThat(message.isReaction()).isTrue();
+
+    Reaction reaction = message.getReaction();
+    assertThat(reaction.getMessageId()).isEqualTo("wamid.xxxxxxxx");
+    assertThat(reaction.getEmoji()).isEqualTo("\uD83D\uDC4D\uD83C\uDFFB");
+  }
+
+  @Test
   void incomingMessageButton() {
     WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-button", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);

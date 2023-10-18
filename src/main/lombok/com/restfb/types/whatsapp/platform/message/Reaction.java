@@ -21,6 +21,20 @@
  */
 package com.restfb.types.whatsapp.platform.message;
 
-public enum MessageType {
-  audio, button, document, text, image, interactive, location, sticker, system, unknown, video, reaction
+import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
+import lombok.Getter;
+import lombok.Setter;
+
+public class Reaction extends AbstractFacebookType {
+
+  @Getter
+  @Setter
+  @Facebook("message_id")
+  private String messageId;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String emoji;
 }
