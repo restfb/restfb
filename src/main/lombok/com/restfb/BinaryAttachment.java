@@ -49,7 +49,7 @@ public class BinaryAttachment {
   @Getter
   private final String filename;
 
-  private byte[] data;
+  protected byte[] data;
 
   private InputStream dataStream;
 
@@ -57,6 +57,10 @@ public class BinaryAttachment {
 
   @Getter
   private String fieldName;
+
+  protected BinaryAttachment() {
+    filename = "default";
+  }
 
   /**
    * Creates a new binary attachment.
@@ -96,6 +100,10 @@ public class BinaryAttachment {
     ObjectUtil.requireNotEmpty(fieldName, FIELD_NAME_CANNOT_BE_NULL);
 
     this.fieldName = fieldName;
+  }
+
+  public boolean isFacebookReel() {
+    return false;
   }
 
   /**
@@ -433,5 +441,9 @@ public class BinaryAttachment {
     }
 
     return contentType;
+  }
+
+  public boolean hasBinaryData() {
+    return data != null;
   }
 }

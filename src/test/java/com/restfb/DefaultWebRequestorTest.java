@@ -33,6 +33,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
+import com.restfb.types.FacebookReelAttachment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -144,6 +145,8 @@ class DefaultWebRequestorTest {
     InputStream mockBinaryInputStream = mock(InputStream.class);
     when(mockAttachment.getFilename()).thenReturn("exampleFile.png");
     when(mockAttachment.getData()).thenReturn(mockBinaryInputStream);
+    when(mockAttachment.isFacebookReel()).thenReturn(false);
+    when(mockAttachment.hasBinaryData()).thenReturn(true);
 
     String resultString = "This is just a simple Test";
     when(mockUrlConnection.getResponseCode()).thenReturn(200);
@@ -173,6 +176,88 @@ class DefaultWebRequestorTest {
     verify(requestor).closeQuietly(mockUrlConnection);
     verify(requestor).closeQuietly(mockOutputStream);
     verify(requestor).closeQuietly(mockBinaryInputStream);
+  }
+
+  @Test
+  void checkPost_WithReel_Binary() throws IOException {
+    when(mockUrlConnection.getOutputStream()).thenReturn(mockOutputStream);
+    FacebookReelAttachment mockAttachment = mock(FacebookReelAttachment.class);
+    InputStream mockBinaryInputStream = mock(InputStream.class);
+    when(mockAttachment.getData()).thenReturn(mockBinaryInputStream);
+    when(mockAttachment.isFacebookReel()).thenReturn(true);
+    when(mockAttachment.hasBinaryData()).thenReturn(true);
+    when(mockAttachment.isBinary()).thenReturn(true);
+    when(mockAttachment.getFileSizeInBytes()).thenReturn(1234);
+
+    String resultString = "This is just a simple Test";
+    when(mockUrlConnection.getResponseCode()).thenReturn(200);
+    InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
+    when(mockUrlConnection.getInputStream()).thenReturn(stream);
+    WebRequestor.Request request = new WebRequestor.Request(exampleUrl, null, "", Collections.singletonList(mockAttachment));
+    WebRequestor.Response response = requestor.executePost(request);
+
+    // check the result
+    assertThat(response.getStatusCode()).isEqualTo(200);
+    assertThat(response.getBody()).isEqualTo(resultString);
+
+    // verify the calls
+    verify(mockUrlConnection).setReadTimeout(180000);
+    verify(mockUrlConnection).setUseCaches(false);
+    verify(mockUrlConnection).setDoOutput(true);
+    verify(mockUrlConnection).setRequestProperty("Connection", "Keep-Alive");
+    verify(mockUrlConnection).setRequestProperty(eq("Authorization"), anyString());
+    verify(mockUrlConnection).setRequestMethod(DefaultWebRequestor.HttpMethod.POST.name());
+    verify(mockUrlConnection).setRequestProperty("offset", "0");
+    verify(mockUrlConnection).setRequestProperty("file_size", "1234");
+    verify(mockUrlConnection).connect();
+    verify(requestor).executePost(request);
+    verify(requestor, never()).executeGet(any(WebRequestor.Request.class));
+    verify(requestor).customizeConnection(mockUrlConnection);
+    verify(requestor).fillHeaderAndDebugInfo(mockUrlConnection);
+    verify(requestor).fetchResponse(mockUrlConnection);
+    verify(requestor).write(mockBinaryInputStream, mockOutputStream, 8192);
+    verify(requestor).closeQuietly(mockUrlConnection);
+    verify(requestor).closeQuietly(mockOutputStream);
+    verify(requestor).closeQuietly(mockBinaryInputStream);
+  }
+
+  @Test
+  void checkPost_WithReel_Url() throws IOException {
+    FacebookReelAttachment mockAttachment = mock(FacebookReelAttachment.class);
+    when(mockAttachment.isFacebookReel()).thenReturn(true);
+    when(mockAttachment.hasBinaryData()).thenReturn(false);
+    when(mockAttachment.isBinary()).thenReturn(false);
+    when(mockAttachment.getReelUrl()).thenReturn("myUrl");
+
+    String resultString = "This is just a simple Test";
+    when(mockUrlConnection.getResponseCode()).thenReturn(200);
+    InputStream stream = new ByteArrayInputStream(resultString.getBytes(StandardCharsets.UTF_8));
+    when(mockUrlConnection.getInputStream()).thenReturn(stream);
+    WebRequestor.Request request = new WebRequestor.Request(exampleUrl, null, "", Collections.singletonList(mockAttachment));
+    WebRequestor.Response response = requestor.executePost(request);
+
+    // check the result
+    assertThat(response.getStatusCode()).isEqualTo(200);
+    assertThat(response.getBody()).isEqualTo(resultString);
+
+    // verify the calls
+    verify(mockUrlConnection).setReadTimeout(180000);
+    verify(mockUrlConnection).setUseCaches(false);
+    verify(mockUrlConnection).setDoOutput(true);
+    verify(mockUrlConnection).setRequestProperty("Connection", "Keep-Alive");
+    verify(mockUrlConnection).setRequestProperty(eq("Authorization"), anyString());
+    verify(mockUrlConnection).setRequestMethod(DefaultWebRequestor.HttpMethod.POST.name());
+    verify(mockUrlConnection, never()).setRequestProperty("offset", "0");
+    verify(mockUrlConnection, never()).setRequestProperty("file_size", "1234");
+    verify(mockUrlConnection).setRequestProperty("file_url","myUrl");
+    verify(mockUrlConnection).connect();
+    verify(requestor).executePost(request);
+    verify(requestor, never()).executeGet(any(WebRequestor.Request.class));
+    verify(requestor).customizeConnection(mockUrlConnection);
+    verify(requestor).fillHeaderAndDebugInfo(mockUrlConnection);
+    verify(requestor).fetchResponse(mockUrlConnection);
+    verify(requestor, never()).write(any(InputStream.class), eq(mockOutputStream), eq(8192));
+    verify(requestor).closeQuietly(mockUrlConnection);
   }
 
   @Test

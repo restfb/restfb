@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.restfb.types.FacebookReelAttachment;
 import com.restfb.util.StringUtils;
 
 /**
@@ -207,6 +208,23 @@ public interface WebRequestor {
 
     public boolean hasBody() {
       return body != null;
+    }
+
+    public boolean isReelUpload() {
+      List<BinaryAttachment> attachments = getBinaryAttachments();
+      if (attachments.size() == 1) {
+        return attachments.get(0).isFacebookReel();
+      }
+
+      return false;
+    }
+
+    public Optional<FacebookReelAttachment> getReel() {
+      if (isReelUpload()) {
+        return Optional.of((FacebookReelAttachment) getBinaryAttachments().get(0));
+      }
+
+      return Optional.empty();
     }
   }
 

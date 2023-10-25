@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.function.BiConsumer;
 
+import com.restfb.types.FacebookReelAttachment;
 import com.restfb.util.StringUtils;
 import com.restfb.util.UrlUtils;
 
@@ -84,8 +85,63 @@ public class DefaultWebRequestor implements WebRequestor {
     return execute(HttpMethod.GET, request);
   }
 
+  private Response executeReelUpload(Request request) throws IOException {
+    if (!request.getReel().isPresent()) {
+      throw new IllegalArgumentException("Try uploading reel with corrupt request");
+    }
+
+    if (HTTP_LOGGER.isDebugEnabled()) {
+      logRequestAndAttachmentOnDebug(request, request.getBinaryAttachments());
+    }
+
+    HttpURLConnection httpUrlConnection = null;
+    OutputStream outputStream = null;
+
+    try {
+      String url = request.getUrl();
+      httpUrlConnection = openConnection(new URL(url));
+      httpUrlConnection.setReadTimeout(DEFAULT_READ_TIMEOUT_IN_MS);
+
+      // Allow subclasses to customize the connection if they'd like to - set
+      // their own headers, timeouts, etc.
+      customizeConnection(httpUrlConnection);
+
+      httpUrlConnection.setRequestMethod(HttpMethod.POST.name());
+      httpUrlConnection.setDoOutput(true);
+      httpUrlConnection.setUseCaches(false);
+
+      httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
+
+      initHeaderAccessToken(httpUrlConnection, request);
+
+      FacebookReelAttachment reel = request.getReel().get();
+      if (reel.isBinary()) {
+        httpUrlConnection.setRequestProperty("offset", "0");
+        httpUrlConnection.setRequestProperty("file_size", String.valueOf(reel.getFileSizeInBytes()));
+        httpUrlConnection.connect();
+        outputStream = httpUrlConnection.getOutputStream();
+        write(reel.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
+      } else {
+        httpUrlConnection.setRequestProperty("file_url", reel.getReelUrl());
+        httpUrlConnection.connect();
+      }
+
+      HTTP_LOGGER.debug("Response headers: {}", httpUrlConnection.getHeaderFields());
+      fillHeaderAndDebugInfo(httpUrlConnection);
+      return fetchResponse(httpUrlConnection);
+    } finally {
+      closeAttachmentsOnAutoClose(request.getBinaryAttachments());
+      closeQuietly(outputStream);
+      closeQuietly(httpUrlConnection);
+    }
+  }
+
   @Override
   public Response executePost(Request request) throws IOException {
+    // special handling for reel upload
+    if (request.isReelUpload()) {
+      return executeReelUpload(request);
+    }
 
     List<BinaryAttachment> binaryAttachments = request.getBinaryAttachments();
 
@@ -142,13 +198,8 @@ public class DefaultWebRequestor implements WebRequestor {
       }
 
       HTTP_LOGGER.debug("Response headers: {}", httpUrlConnection.getHeaderFields());
-
       fillHeaderAndDebugInfo(httpUrlConnection);
-
-      Response response = fetchResponse(httpUrlConnection);
-
-      HTTP_LOGGER.debug("Facebook responded with {}", response);
-      return response;
+      return fetchResponse(httpUrlConnection);
     } finally {
       closeAttachmentsOnAutoClose(binaryAttachments);
       closeQuietly(outputStream);
@@ -187,12 +238,14 @@ public class DefaultWebRequestor implements WebRequestor {
 
   private void closeAttachmentsOnAutoClose(List<BinaryAttachment> binaryAttachments) {
     if (autocloseBinaryAttachmentStream && !binaryAttachments.isEmpty()) {
-      binaryAttachments.stream().map(BinaryAttachment::getData).forEach(this::closeQuietly);
+      binaryAttachments.stream().filter(BinaryAttachment::hasBinaryData).map(BinaryAttachment::getData).forEach(this::closeQuietly);
     }
   }
 
   protected void initHeaderAccessToken(HttpURLConnection httpUrlConnection, Request request) {
-    if (request.hasHeaderAccessToken()) {
+    if (request.isReelUpload()) {
+      httpUrlConnection.setRequestProperty("Authorization", "OAuth " + request.getHeaderAccessToken());
+    } else if (request.hasHeaderAccessToken()) {
       httpUrlConnection.setRequestProperty("Authorization", "Bearer " + request.getHeaderAccessToken());
     }
   }
@@ -370,13 +423,8 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.connect();
 
       HTTP_LOGGER.trace("Response headers: {}", httpUrlConnection.getHeaderFields());
-
       fillHeaderAndDebugInfo(httpUrlConnection);
-
-      Response response = fetchResponse(httpUrlConnection);
-
-      HTTP_LOGGER.debug("Facebook responded with {}", response);
-      return response;
+      return fetchResponse(httpUrlConnection);
     } finally {
       closeQuietly(httpUrlConnection);
     }
@@ -405,7 +453,9 @@ public class DefaultWebRequestor implements WebRequestor {
         httpUrlConnection.getURL(), e);
     }
 
-    return new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+    Response response = new Response(httpUrlConnection.getResponseCode(), StringUtils.fromInputStream(inputStream));
+    HTTP_LOGGER.debug("Facebook responded with {}", response);
+    return response;
   }
 
   private InputStream getInputStreamFromUrlConnection(HttpURLConnection httpUrlConnection) throws IOException {

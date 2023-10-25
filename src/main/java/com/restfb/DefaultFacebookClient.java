@@ -389,7 +389,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       parameterString = toParameterString(false);
     }
 
-    final String fullEndPoint = createEndpointForApiCall("logout.php", false);
+    final String fullEndPoint = createEndpointForApiCall("logout.php", false, false);
     return fullEndPoint + "?" + parameterString;
   }
 
@@ -754,12 +754,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       endpoint = "/" + endpoint;
     }
 
+    boolean hasAttachment = binaryAttachments != null && !binaryAttachments.isEmpty();
+    boolean hasReel = hasAttachment && binaryAttachments.get(0).isFacebookReel();
+
     final String fullEndpoint =
-        createEndpointForApiCall(endpoint, binaryAttachments != null && !binaryAttachments.isEmpty());
+        createEndpointForApiCall(endpoint, hasAttachment, hasReel);
     final String parameterString = toParameterString(parameters);
 
+    String headerAccessToken = (hasReel) ? accessToken : getHeaderAccessToken();
+
     return makeRequestAndProcessResponse(() -> {
-      WebRequestor.Request request = new WebRequestor.Request(fullEndpoint, getHeaderAccessToken(), parameterString);
+      WebRequestor.Request request = new WebRequestor.Request(fullEndpoint, headerAccessToken, parameterString);
       if (executeAsDelete && !isHttpDeleteFallback()) {
         return webRequestor.executeDelete(request);
       }
@@ -900,17 +905,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean)
+   * @see com.restfb.BaseFacebookClient#createEndpointForApiCall(java.lang.String,boolean,boolean)
    */
   @Override
-  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment) {
+  protected String createEndpointForApiCall(String apiCall, boolean hasAttachment, boolean hasReel) {
     while (apiCall.startsWith("/")) {
       apiCall = apiCall.substring(1);
     }
 
     String baseUrl = getFacebookGraphEndpointUrl();
 
-    if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
+    if (hasAttachment && hasReel) {
+      baseUrl = getFacebookReelsUploadEndpointUrl();
+    } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
       baseUrl = getFacebookGraphVideoEndpointUrl();
     } else if (apiCall.endsWith("logout.php")) {
       baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();

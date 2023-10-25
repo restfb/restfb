@@ -121,10 +121,12 @@ abstract class BaseFacebookClient {
    *          The FB API call (Graph or Old REST API) for which we'd like an endpoint.
    * @param hasAttachment
    *          Are we including a multipart file when making this API call?
+   * @param hasReel
+   *          Is the binary attachment used as Facebook reel?
    * @return An absolute endpoint URL to communicate with.
    * @since 1.6.3
    */
-  protected abstract String createEndpointForApiCall(String apiCall, boolean hasAttachment);
+  protected abstract String createEndpointForApiCall(String apiCall, boolean hasAttachment, boolean hasReel);
 
   /**
    * Verifies that the provided parameter names don't collide with the ones we internally pass along to Facebook.
