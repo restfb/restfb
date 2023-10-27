@@ -86,9 +86,13 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   private Response executeReelUpload(Request request) throws IOException {
-    if (!request.getReel().isPresent()) {
+    Optional<FacebookReelAttachment> reelOpt = request.getReel();
+
+    if (!reelOpt.isPresent()) {
       throw new IllegalArgumentException("Try uploading reel with corrupt request");
     }
+
+    FacebookReelAttachment reel = reelOpt.get();
 
     if (HTTP_LOGGER.isDebugEnabled()) {
       logRequestAndAttachmentOnDebug(request, request.getBinaryAttachments());
@@ -114,7 +118,6 @@ public class DefaultWebRequestor implements WebRequestor {
 
       initHeaderAccessToken(httpUrlConnection, request);
 
-      FacebookReelAttachment reel = request.getReel().get();
       if (reel.isBinary()) {
         httpUrlConnection.setRequestProperty("offset", "0");
         httpUrlConnection.setRequestProperty("file_size", String.valueOf(reel.getFileSizeInBytes()));
