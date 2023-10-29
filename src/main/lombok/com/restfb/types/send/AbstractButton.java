@@ -26,7 +26,9 @@ import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 
-abstract public class AbstractButton extends AbstractFacebookType {
+public abstract class AbstractButton extends AbstractFacebookType {
+
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @Facebook
@@ -36,7 +38,7 @@ abstract public class AbstractButton extends AbstractFacebookType {
   @Facebook
   protected String title;
 
-  public AbstractButton(String title) {
+  protected AbstractButton(String title) {
     this.title = title;
   }
 

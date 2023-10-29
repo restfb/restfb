@@ -39,7 +39,7 @@ class IgMediaTest extends AbstractJsonMapperTests {
     assertEquals("a great picture", igMedia.getCaption());
     assertEquals("IMAGE", igMedia.getMediaType());
     assertEquals("<image url>", igMedia.getMediaUrl());
-    assertNotNull(igMedia.getOwner());
+    assertNotNull(igMedia.getUsername());
     assertEquals("https://www.instagram.com/permalink", igMedia.getPermalink());
     assertEquals("shortcode", igMedia.getShortcode());
     assertEquals(1519293629000L, igMedia.getTimestamp().getTime());
@@ -57,7 +57,7 @@ class IgMediaTest extends AbstractJsonMapperTests {
     assertEquals("Great carousel", igMedia.getCaption());
     assertEquals("CAROUSEL_ALBUM", igMedia.getMediaType());
     assertEquals("<image url>", igMedia.getMediaUrl());
-    assertNotNull(igMedia.getOwner());
+    assertNotNull(igMedia.getUsername());
     assertEquals("https://www.instagram.com/permalink", igMedia.getPermalink());
     assertEquals("shortcode", igMedia.getShortcode());
     assertEquals(1519296045000L, igMedia.getTimestamp().getTime());
@@ -67,7 +67,7 @@ class IgMediaTest extends AbstractJsonMapperTests {
     int i = 0;
     for (IgMediaChild child : igMedia.getChildren()) {
       i++;
-      assertNotNull(child.getOwner());
+      assertNotNull(child.getUsername());
       assertEquals(igMedia.getId() + i, child.getId());
       assertEquals(igMedia.getIgId() + i, child.getIgId());
       assertEquals("IMAGE", child.getMediaType());

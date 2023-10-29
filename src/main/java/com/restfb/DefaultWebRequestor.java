@@ -187,14 +187,7 @@ public class DefaultWebRequestor implements WebRequestor {
       // Otherwise the body is the URL parameter string.
       if (!binaryAttachments.isEmpty()) {
         for (BinaryAttachment binaryAttachment : binaryAttachments) {
-          StringBuilder formData = createBinaryAttachmentFormData(binaryAttachment);
-
-          outputStream.write(formData.toString().getBytes(StringUtils.ENCODING_CHARSET));
-
-          write(binaryAttachment.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
-
-          outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
-              + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(StringUtils.ENCODING_CHARSET));
+          writeBinaryAttachmentToOutputStream(binaryAttachment, outputStream);
         }
       } else {
         writeRequestToOutputStream(request, outputStream);
@@ -208,6 +201,14 @@ public class DefaultWebRequestor implements WebRequestor {
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
     }
+  }
+
+  private void writeBinaryAttachmentToOutputStream(BinaryAttachment binaryAttachment, OutputStream outputStream) throws IOException {
+    StringBuilder formData = createBinaryAttachmentFormData(binaryAttachment);
+    outputStream.write(formData.toString().getBytes(StringUtils.ENCODING_CHARSET));
+    write(binaryAttachment.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
+    outputStream.write((MULTIPART_CARRIAGE_RETURN_AND_NEWLINE + MULTIPART_TWO_HYPHENS + MULTIPART_BOUNDARY
+            + MULTIPART_TWO_HYPHENS + MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).getBytes(StringUtils.ENCODING_CHARSET));
   }
 
   private static void writeRequestToOutputStream(Request request, OutputStream outputStream) throws IOException {
@@ -227,10 +228,9 @@ public class DefaultWebRequestor implements WebRequestor {
 
   private StringBuilder createBinaryAttachmentFormData(BinaryAttachment binaryAttachment) {
     StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append(MULTIPART_TWO_HYPHENS).append(MULTIPART_BOUNDARY)
-      .append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Disposition: form-data; name=\"")
-      .append(createFormFieldName(binaryAttachment)).append("\"; filename=\"")
-      .append(binaryAttachment.getFilename()).append("\"");
+    stringBuilder.append(MULTIPART_TWO_HYPHENS).append(MULTIPART_BOUNDARY).append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE)
+      .append("Content-Disposition: form-data; name=\"").append(createFormFieldName(binaryAttachment))
+      .append("\"; filename=\"").append(binaryAttachment.getFilename()).append("\"");
 
     stringBuilder.append(MULTIPART_CARRIAGE_RETURN_AND_NEWLINE).append("Content-Type: ")
       .append(binaryAttachment.getContentType());

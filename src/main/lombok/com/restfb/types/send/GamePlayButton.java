@@ -23,6 +23,7 @@ package com.restfb.types.send;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,7 +52,9 @@ public class GamePlayButton extends AbstractButton {
     this.payload = payload;
   }
 
-  public static class GameMetadata {
+  public static class GameMetadata extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
 
     @Setter
     @Getter

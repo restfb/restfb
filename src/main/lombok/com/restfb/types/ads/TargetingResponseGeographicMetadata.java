@@ -100,8 +100,7 @@ public class TargetingResponseGeographicMetadata extends AbstractFacebookType {
 
     @Getter
     @Facebook("custom_locations")
-    private Map<String, TargetingResponseGeographic> customLocations =
-        new HashMap<>();
+    private Map<String, TargetingResponseGeographic> customLocations = new HashMap<>();
 
     @Getter
     @Facebook("geo_markets")
@@ -109,7 +108,6 @@ public class TargetingResponseGeographicMetadata extends AbstractFacebookType {
 
     @Getter
     @Facebook("electoral_districts")
-    private Map<String, TargetingResponseGeographic> electoralDistricts =
-        new HashMap<String, TargetingResponseGeographic>();
+    private Map<String, TargetingResponseGeographic> electoralDistricts = new HashMap<>();
   }
 }

@@ -41,7 +41,7 @@ public class AdAssetFeedSpec extends BaseAdsObject {
   @Getter
   @Setter
   @Facebook("ad_formats")
-  List<String> adFormats = new ArrayList<>();
+  private List<String> adFormats = new ArrayList<>();
 
   @Getter
   @Setter

@@ -22,6 +22,7 @@
 package com.restfb.types.whatsapp;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,8 +30,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WhatsAppHSMQualityScoreShape {
+public class WhatsAppHSMQualityScoreShape extends AbstractFacebookType {
 
+  private static final long serialVersionUID = 1L;
   @Facebook
   private List<String> reasons = new ArrayList<>();
 

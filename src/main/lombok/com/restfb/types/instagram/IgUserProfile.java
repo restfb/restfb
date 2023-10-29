@@ -23,8 +23,8 @@ package com.restfb.types.instagram;
 
 import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
-import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.NamedFacebookType;
+
 import lombok.Getter;
 import lombok.Setter;
 

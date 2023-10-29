@@ -10,6 +10,7 @@
   "owner": {
     "id": "987654321"
   },
+  "username" : "Tester",
   "permalink": "https://www.instagram.com/permalink",
   "shortcode": "shortcode",
   "timestamp": "2018-02-22T10:40:45+0000",
@@ -23,6 +24,7 @@
         "owner": {
           "id": "987654321"
         },
+        "username" : "fake_user1",
         "permalink": "https://www.instagram.com/permalink1",
         "shortcode": "shortcode1",
         "timestamp": "2018-02-22T10:40:32+0000"
@@ -35,6 +37,7 @@
         "owner": {
           "id": "987654321"
         },
+        "username" : "fake_user2",
         "permalink": "https://www.instagram.com/permalink2",
         "shortcode": "shortcode2",
         "timestamp": "2018-02-22T10:40:32+0000"

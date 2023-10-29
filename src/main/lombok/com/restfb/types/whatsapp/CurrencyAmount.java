@@ -23,11 +23,13 @@ package com.restfb.types.whatsapp;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class CurrencyAmount {
+public class CurrencyAmount extends AbstractFacebookType {
 
+  private static final long serialVersionUID = 1L;
   /**
    * Value of the amount in whole currency units (USD 123.45 = "123.45")
    */

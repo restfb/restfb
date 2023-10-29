@@ -28,7 +28,6 @@ import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.send.AbstractButton;
 import com.restfb.types.send.MediaAttachment;
-import com.restfb.types.send.WebButton;
 
 import lombok.Getter;
 

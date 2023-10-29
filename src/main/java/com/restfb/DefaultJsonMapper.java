@@ -803,6 +803,7 @@ public class DefaultJsonMapper implements JsonMapper {
       return map;
     }
 
+    // @TODO: return emptyMap here, to allow the devs to go on without null check (v2024)
     return null;
   }
 

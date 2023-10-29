@@ -26,10 +26,13 @@ import java.util.List;
 
 import com.restfb.Facebook;
 
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AdCreativeInteractiveComponentsSpec {
+public class AdCreativeInteractiveComponentsSpec extends AbstractFacebookType {
+
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @Setter

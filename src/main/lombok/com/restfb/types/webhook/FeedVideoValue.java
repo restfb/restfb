@@ -27,8 +27,6 @@ import com.restfb.types.webhook.base.AbstractFeedPostValue;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * change value of the feed video
  */

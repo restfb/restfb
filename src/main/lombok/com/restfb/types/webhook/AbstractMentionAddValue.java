@@ -26,7 +26,7 @@ import com.restfb.types.webhook.base.BaseChangeValue;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract public class AbstractMentionAddValue extends BaseChangeValue {
+public abstract class AbstractMentionAddValue extends BaseChangeValue {
 
   @Getter
   @Setter

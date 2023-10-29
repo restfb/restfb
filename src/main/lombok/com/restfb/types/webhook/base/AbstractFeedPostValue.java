@@ -23,21 +23,32 @@ package com.restfb.types.webhook.base;
 
 import com.restfb.Facebook;
 
+import com.restfb.annotation.GraphAPI;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract public class AbstractFeedPostValue extends BaseChangeValue {
+public abstract class AbstractFeedPostValue extends BaseChangeValue {
 
   @Getter
   @Setter
   @Facebook("post_id")
   private String postId;
 
+  /**
+   * @deprecated use from field instead
+   * @TODO: remove with 2024
+   */
+  @GraphAPI(until = "2.11")
   @Deprecated
   @Setter
   @Facebook("sender_id")
   private String senderId;
 
+  /**
+   * @deprecated use from field instead
+   * @TODO: remove with 2024
+   */
+  @GraphAPI(until = "2.11")
   @Deprecated
   @Setter
   @Facebook("sender_name")

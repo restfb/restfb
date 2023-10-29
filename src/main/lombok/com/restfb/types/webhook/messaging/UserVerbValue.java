@@ -26,7 +26,7 @@ import com.restfb.types.webhook.ChangeValue;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract public class UserVerbValue extends ChangeValue {
+public abstract class UserVerbValue extends ChangeValue {
 
     @Getter
     @Setter
