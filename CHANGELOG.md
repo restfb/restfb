@@ -1,5 +1,17 @@
 # RestFB Changelog
 
+## 2023.13.0 (October 31, 2023)
+
+* Issue #1344: Add errors field to WABP webhook status update<br />
+  Thanks to @lennehendrickx for the link
+* Issue #1332: Facebook reel support (check our docs)<br />
+  Thanks to @saunders-d for the hint
+* Issue #1341: make error_data accessible in FacebookException<br />
+  Thanks to @walschap and @lennehendrickx for the hint
+* Issue #1338: support WABP reaction mapping in webhook<br />
+  Thanks to @walschap for the hint
+* Several build lib updates
+
 ## 2023.12.0 (September 19, 2023)
 
 * Issue #1330: Instagram: Support for mentioned media
