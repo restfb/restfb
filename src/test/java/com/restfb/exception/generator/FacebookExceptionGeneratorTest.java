@@ -100,4 +100,31 @@ class FacebookExceptionGeneratorTest {
 
   }
 
+  @Test
+  void checkErrorData() {
+    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
+    String json = "{\n" +
+            "    \"error\": {\n" +
+            "        \"message\": \"(#131009) Parameter value is not valid\",\n" +
+            "        \"type\": \"OAuthException\",\n" +
+            "        \"code\": 131009,\n" +
+            "        \"error_data\": {\n" +
+            "            \"messaging_product\": \"whatsapp\",\n" +
+            "            \"details\": \"Duplicate button id\"\n" +
+            "        },\n" +
+            "        \"fbtrace_id\": \"A7YysJRhDLLwyNk-RXuVBTM\"\n" +
+            "    }\n" +
+            "}";
+
+    try {
+      generator.throwFacebookResponseStatusExceptionIfNecessary(json, 500);
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
+    } catch (FacebookOAuthException fex) {
+      assertThat(fex.getErrorCode().intValue()).isEqualTo(131009);
+      assertThat(fex.getErrorData()).isNotNull();
+      assertThat(fex.getErrorData("messaging_product")).isEqualTo("whatsapp");
+      assertThat(fex.getErrorData("details")).isEqualTo("Duplicate button id");
+    }
+  }
+
 }

@@ -25,6 +25,8 @@ import static java.lang.String.format;
 
 import com.restfb.json.JsonObject;
 
+import java.util.Optional;
+
 /**
  * Indicates that the Facebook Graph API endpoint returned JSON which indicates an error condition.
  * <p>
@@ -206,4 +208,33 @@ public class FacebookGraphException extends FacebookErrorMessageException {
     return "";
   }
 
+  /**
+   * returns the error data as defined <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes/">here</a> as JsonObject.
+   * We use no special object to be future proof and allow other error JSONs to use this.
+   * @return Optional<JsonObject> with the JsonObject
+   */
+  public Optional<JsonObject> getErrorData() {
+    if (getRawErrorJson() != null && getRawErrorJson().get("error").isObject()) {
+      JsonObject errorJson = getRawErrorJson().get("error").asObject();
+      if (errorJson.contains("error_data")) {
+        return Optional.of(errorJson.get("error_data").asObject());
+      }
+    }
+
+    return Optional.empty();
+  }
+
+  /**
+   * special method to get the String result to the given field of the error_data field
+   * @param field field you like to fetch
+   * @return String with the result or empty String if not available
+   */
+  public String getErrorData(String field) {
+    Optional<JsonObject> errorDataOpt = getErrorData();
+    if (errorDataOpt.isPresent()) {
+      return errorDataOpt.get().getString(field, "");
+    }
+
+    return "";
+  }
 }
