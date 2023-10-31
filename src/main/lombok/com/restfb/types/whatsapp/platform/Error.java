@@ -44,6 +44,11 @@ public class Error {
 
   @Getter
   @Setter
+  @Facebook
+  private String href;
+
+  @Getter
+  @Setter
   @Facebook("error_data")
   private Data errorData;
 

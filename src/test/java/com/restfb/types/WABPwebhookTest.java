@@ -32,7 +32,6 @@ import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
-import com.restfb.types.whatsapp.platform.message.Contact;
 import com.restfb.types.whatsapp.platform.Message;
 import com.restfb.types.whatsapp.platform.Status;
 import com.restfb.types.whatsapp.platform.message.*;
@@ -494,6 +493,27 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
     assertThat(conversation.getId()).isEqualTo("CONVERSATION_ID");
     assertThat(conversation.getOrigin()).isNotNull();
     assertThat(conversation.getOrigin().getType()).isEqualTo(CategoryType.user_initiated);
+  }
+
+  @Test
+  void incomingMessageStatusWithErrors() {
+    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-status-errors", WhatsappMessagesValue.class);
+    assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
+
+    assertThat(change.getMessages()).isEmpty();
+    assertThat(change.getStatuses()).hasSize(1);
+
+    Status status = change.getStatuses().get(0);
+    assertThat(status.hasErrors()).isTrue();
+    assertThat(status.getErrors()).isNotEmpty();
+    assertThat(status.getStatus()).isEqualTo(Status.StatusType.failed);
+    com.restfb.types.whatsapp.platform.Error error = status.getErrors().get(0);
+    assertThat(error.getCode()).isEqualTo("131026");
+    assertThat(error.getErrorData()).isNotNull();
+    assertThat(error.getErrorData().getDetails()).isEqualTo("Message Undeliverable.");
+    assertThat(error.getHref()).contains("cloud-api");
+    assertThat(error.getMessage()).contains("incapable");
+    assertThat(error.getTitle()).contains("incapable");
   }
 
   private void checkMetaData(WhatsappMessagesValue change) {

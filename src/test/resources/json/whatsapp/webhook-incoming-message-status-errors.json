@@ -1,0 +1,39 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "2432658263680361",
+      "changes": [
+        {
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "REDACTED",
+              "phone_number_id": "REDACTED"
+            },
+            "statuses": [
+              {
+                "id": "wamid.HBgLMzI0NzY3NTUzNzYVAgARGBIzOTI2MzFGRjdBRjA4M0Y2RDQA",
+                "status": "failed",
+                "timestamp": "1698231447",
+                "recipient_id": "REDACTED",
+                "errors": [
+                  {
+                    "code": 131026,
+                    "title": "Receiver is incapable of receiving this message",
+                    "message": "Receiver is incapable of receiving this message",
+                    "error_data": {
+                      "details": "Message Undeliverable."
+                    },
+                    "href": "https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes/"
+                  }
+                ]
+              }
+            ]
+          },
+          "field": "messages"
+        }
+      ]
+    }
+  ]
+}

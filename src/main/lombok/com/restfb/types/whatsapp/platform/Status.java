@@ -21,7 +21,9 @@
  */
 package com.restfb.types.whatsapp.platform;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
@@ -63,8 +65,16 @@ public class Status extends AbstractFacebookType {
   @Facebook
   private Conversation conversation;
 
+  @Getter
+  @Setter
+  @Facebook
+  private List<Error> errors = new ArrayList<>();
 
   public enum StatusType {
     delivered, read, sent, failed, deleted
+  }
+
+  public boolean hasErrors() {
+    return !errors.isEmpty();
   }
 }
