@@ -830,6 +830,11 @@ public interface FacebookClient {
      * @return The date on which the access token expires.
      */
     public Date getExpiresAt() {
+
+      if (expiresAt != null && expiresAt.getTime() == 0L) {
+        return null;
+      }
+
       return expiresAt;
     }
 
@@ -867,6 +872,14 @@ public interface FacebookClient {
      */
     public String getUserId() {
       return userId;
+    }
+
+    /**
+     * the profile id
+     * @return the profile id
+     */
+    public String getProfileId() {
+      return profileId;
     }
 
     /**

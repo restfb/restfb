@@ -1,0 +1,16 @@
+{
+  "app_id": 100000000000,
+  "application": "Social Cafe",
+  "expires_at": 0,
+  "is_valid": true,
+  "issued_at": 1347235328,
+  "metadata": {
+    "sso": "iphone-safari"
+  },
+  "scopes": [
+    "email",
+    "publish_actions"
+  ],
+  "user_id": 1207059,
+  "profile_id": 123456789
+}

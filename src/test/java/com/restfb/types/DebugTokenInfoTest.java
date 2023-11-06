@@ -21,6 +21,7 @@
  */
 package com.restfb.types;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -80,5 +81,21 @@ class DebugTokenInfoTest extends AbstractJsonMapperTests {
     assertNotNull(exampleDebugTokenInfo.getGranularScopes().get(1).getTargetIds());
     assertEquals(1, exampleDebugTokenInfo.getGranularScopes().get(1).getTargetIds().size());
     assertEquals("{connected-ig-user-id}", exampleDebugTokenInfo.getGranularScopes().get(1).getTargetIds().get(0));
+  }
+
+  @Test
+  void testJsonWithProfileId() {
+    FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
+            createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-4"), FacebookClient.DebugTokenInfo.class);
+    assertNotNull(exampleDebugTokenInfo);
+    assertThat(exampleDebugTokenInfo.getProfileId()).isEqualTo("123456789");
+  }
+
+  @Test
+  void testJsonWithExpiresAtZero() {
+    FacebookClient.DebugTokenInfo exampleDebugTokenInfo =
+            createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-4"), FacebookClient.DebugTokenInfo.class);
+    assertNotNull(exampleDebugTokenInfo);
+    assertNull(exampleDebugTokenInfo.getExpiresAt());
   }
 }
