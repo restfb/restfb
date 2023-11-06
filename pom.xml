@@ -385,7 +385,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.6.0</version>
+            <version>3.6.2</version>
             <configuration>
               <linksource>true</linksource>
               <doclint>none</doclint>
@@ -420,7 +420,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.6.0</version>
+            <version>3.6.2</version>
             <configuration>
               <linksource>true</linksource>
               <stylesheetfile>${project.basedir}/misc/javadoc/stylesheet.css</stylesheetfile>
