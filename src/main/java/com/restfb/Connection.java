@@ -53,6 +53,7 @@ public class Connection<T> implements Iterable<List<T>> {
   private String beforeCursor;
   private String afterCursor;
   private String order;
+  private T typedSummary;
 
   /**
    * @see java.lang.Iterable#iterator()
@@ -182,6 +183,13 @@ public class Connection<T> implements Iterable<List<T>> {
       JsonObject jsonSummary = jsonObject.get("summary").asObject();
       totalCount = jsonSummary.contains("total_count") ? jsonSummary.getLong("total_count", 0L) : null;
       order = jsonSummary.getString("order","");
+
+      // special handling to fill the typed summary (used by ad insights for example)
+      try {
+        typedSummary = facebookClient.getJsonMapper().toJavaObject(jsonSummary.toString(), connectionType);
+      } catch (FacebookJsonMappingException jme) {
+        // ignore mapping exception here
+      }
     } else {
       totalCount = null;
       order = null;
@@ -289,6 +297,18 @@ public class Connection<T> implements Iterable<List<T>> {
 
   public String getAfterCursor() {
     return afterCursor;
+  }
+
+  /**
+   * return the typed summary.
+   *
+   * For some connections, there is summary object that contains almost the same fields as the
+   * type that is used in the connection. For example ad insights fill the summary that way (if you use the
+   * right query parameter)
+   * @return the typed summary, may be null
+   */
+  public T getTypedSummary() {
+    return typedSummary;
   }
 
   private String fixProtocol(String pageUrl) {

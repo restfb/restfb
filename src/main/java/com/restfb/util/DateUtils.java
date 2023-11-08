@@ -110,6 +110,11 @@ public final class DateUtils {
       parsedDate = toDateWithFormatString(date, FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE_OR_SECONDS);
     }
 
+    // fallback if we assume long, but it is a short format
+    if (isNull(parsedDate)) {
+      parsedDate = toDateFromShortFormat(date);
+    }
+
     return parsedDate;
   }
 

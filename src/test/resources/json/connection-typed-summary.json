@@ -1,0 +1,276 @@
+{
+  "data": [
+    {
+      "ad_id": "6339881987524",
+      "ad_name": "Insta Stories Ad",
+      "adset_id": "6339881988124",
+      "adset_name": "Insta Stories Set",
+      "campaign_id": "6339881986324",
+      "campaign_name": "11-22 / Conversions / Instagram Stories / Retargeting",
+      "account_id": "351418568",
+      "account_name": "my account",
+      "date_start": "2023-11-01",
+      "date_stop": "2023-11-06",
+      "spend": "235.75",
+      "impressions": "85899",
+      "reach": "18727",
+      "clicks": "101",
+      "frequency": "4.586907",
+      "cpc": "2.334158",
+      "cpm": "2.744502",
+      "cpp": "12.588776",
+      "wish_bid": "0",
+      "actions": [
+        {
+          "action_type": "onsite_conversion.post_save",
+          "value": "2"
+        },
+        {
+          "action_type": "post",
+          "value": "4"
+        },
+        {
+          "action_type": "omni_initiated_checkout",
+          "value": "2"
+        },
+        {
+          "action_type": "landing_page_view",
+          "value": "24"
+        },
+        {
+          "action_type": "page_engagement",
+          "value": "8964"
+        },
+        {
+          "action_type": "purchase",
+          "value": "1"
+        },
+        {
+          "action_type": "comment",
+          "value": "2"
+        },
+        {
+          "action_type": "onsite_web_app_purchase",
+          "value": "1"
+        },
+        {
+          "action_type": "post_engagement",
+          "value": "8963"
+        },
+        {
+          "action_type": "onsite_web_purchase",
+          "value": "1"
+        },
+        {
+          "action_type": "like",
+          "value": "1"
+        },
+        {
+          "action_type": "complete_registration",
+          "value": "16"
+        },
+        {
+          "action_type": "add_payment_info",
+          "value": "1"
+        },
+        {
+          "action_type": "video_view",
+          "value": "8892"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_add_payment_info",
+          "value": "1"
+        },
+        {
+          "action_type": "post_reaction",
+          "value": "7"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_complete_registration",
+          "value": "16"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_custom",
+          "value": "17"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_initiate_checkout",
+          "value": "2"
+        },
+        {
+          "action_type": "offsite_conversion.fb_pixel_purchase",
+          "value": "1"
+        },
+        {
+          "action_type": "initiate_checkout",
+          "value": "2"
+        },
+        {
+          "action_type": "omni_complete_registration",
+          "value": "16"
+        },
+        {
+          "action_type": "link_click",
+          "value": "56"
+        },
+        {
+          "action_type": "omni_purchase",
+          "value": "1"
+        },
+        {
+          "action_type": "offsite_conversion.custom.1093740204746680",
+          "value": "1"
+        },
+        {
+          "action_type": "offsite_conversion.custom.246820843230443",
+          "value": "1"
+        },
+        {
+          "action_type": "offsite_conversion.custom.1211320395905404",
+          "value": "1"
+        },
+        {
+          "action_type": "offsite_conversion.custom.765655987519477",
+          "value": "14"
+        }
+      ]
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MAZDZD",
+      "after": "MAZDZD"
+    },
+    "next": "https://graph.facebook.com/v17.0/123456789098765/insights?access_token=accTokenPlaceholder&default_summary=true&fields=ad_id%2Cad_name%2Cadset_id%2Cadset_name%2Ccampaign_id%2Ccampaign_name%2Caccount_id%2Caccount_name%2Cdate_start%2Cdate_stop%2Cspend%2Cimpressions%2Creach%2Cclicks%2Cfrequency%2Ccpc%2Ccpm%2Ccpp%2Cwish_bid%2Cactions&level=ad&limit=1&pretty=0&sort=impressions_descending&time_range=%7Bsince%3A%272023-11-01%27%2Cuntil%3A%272023-11-06%27%7D&after=MAZDZD"
+  },
+  "summary": {
+    "date_start": "2023-11-01",
+    "date_stop": "2023-11-06",
+    "spend": "918.75",
+    "impressions": "189097",
+    "reach": "41035",
+    "clicks": "223",
+    "frequency": "4.608188",
+    "cpc": "4.119955",
+    "cpm": "4.858618",
+    "cpp": "22.389424",
+    "actions": [
+      {
+        "action_type": "onsite_conversion.post_save",
+        "value": "2"
+      },
+      {
+        "action_type": "post",
+        "value": "6"
+      },
+      {
+        "action_type": "omni_initiated_checkout",
+        "value": "3"
+      },
+      {
+        "action_type": "landing_page_view",
+        "value": "51"
+      },
+      {
+        "action_type": "page_engagement",
+        "value": "19013"
+      },
+      {
+        "action_type": "purchase",
+        "value": "2"
+      },
+      {
+        "action_type": "comment",
+        "value": "4"
+      },
+      {
+        "action_type": "onsite_web_app_purchase",
+        "value": "2"
+      },
+      {
+        "action_type": "post_engagement",
+        "value": "19009"
+      },
+      {
+        "action_type": "onsite_web_purchase",
+        "value": "2"
+      },
+      {
+        "action_type": "like",
+        "value": "4"
+      },
+      {
+        "action_type": "complete_registration",
+        "value": "27"
+      },
+      {
+        "action_type": "add_payment_info",
+        "value": "2"
+      },
+      {
+        "action_type": "video_view",
+        "value": "18844"
+      },
+      {
+        "action_type": "offsite_conversion.fb_pixel_add_payment_info",
+        "value": "2"
+      },
+      {
+        "action_type": "post_reaction",
+        "value": "42"
+      },
+      {
+        "action_type": "offsite_conversion.fb_pixel_complete_registration",
+        "value": "27"
+      },
+      {
+        "action_type": "offsite_conversion.fb_pixel_custom",
+        "value": "31"
+      },
+      {
+        "action_type": "offsite_conversion.fb_pixel_initiate_checkout",
+        "value": "3"
+      },
+      {
+        "action_type": "offsite_conversion.fb_pixel_purchase",
+        "value": "2"
+      },
+      {
+        "action_type": "initiate_checkout",
+        "value": "3"
+      },
+      {
+        "action_type": "omni_complete_registration",
+        "value": "27"
+      },
+      {
+        "action_type": "link_click",
+        "value": "111"
+      },
+      {
+        "action_type": "omni_purchase",
+        "value": "2"
+      },
+      {
+        "action_type": "offsite_conversion.custom.1093740204746680",
+        "value": "3"
+      },
+      {
+        "action_type": "offsite_conversion.custom.246308396674205",
+        "value": "1"
+      },
+      {
+        "action_type": "offsite_conversion.custom.246820843230443",
+        "value": "2"
+      },
+      {
+        "action_type": "offsite_conversion.custom.1211320395905404",
+        "value": "2"
+      },
+      {
+        "action_type": "offsite_conversion.custom.765655987519477",
+        "value": "23"
+      }
+    ]
+  }
+}

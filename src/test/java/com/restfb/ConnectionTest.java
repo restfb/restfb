@@ -30,7 +30,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.StreamSupport;
 
+import com.restfb.types.Insight;
 import com.restfb.types.Post;
+import com.restfb.types.ads.AdsInsights;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.exception.FacebookJsonMappingException;
@@ -176,6 +178,16 @@ class ConnectionTest extends AbstractJsonMapperTests {
     assertThat(con.hasNext()).isTrue();
     con.next();
     assertThat(con.hasNext()).isFalse();
+  }
+
+  @Test
+  void checkTypedSummary() {
+    Connection<AdsInsights> con = new Connection(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("connection-typed-summary"), AdsInsights.class);
+    assertThat(con.getTypedSummary()).isNotNull();
+    AdsInsights insightsSummary = con.getTypedSummary();
+    assertThat(insightsSummary.getActions()).hasSize(29);
+    assertThat(insightsSummary.getClicks()).isEqualTo("223");
+    assertThat(insightsSummary.getDateStart()).hasTime(1698796800000L);
   }
 
   @Test
