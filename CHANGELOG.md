@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2023.14.0 (November 12, 2023)
+
+* Issue #1347: add flexible summary field to connection class
+* Issue #1348: profileId getter and possible FB bug in DebugTokenInfo fixed
+
 ## 2023.13.0 (October 31, 2023)
 
 * Issue #1344: Add errors field to WABP webhook status update<br />
