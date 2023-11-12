@@ -117,16 +117,13 @@ public class DefaultWebRequestor implements WebRequestor {
       httpUrlConnection.setRequestProperty("Connection", "Keep-Alive");
 
       initHeaderAccessToken(httpUrlConnection, request);
+      fillReelHeader(httpUrlConnection, reel);
+
+      httpUrlConnection.connect();
+      outputStream = httpUrlConnection.getOutputStream();
 
       if (reel.isBinary()) {
-        httpUrlConnection.setRequestProperty("offset", "0");
-        httpUrlConnection.setRequestProperty("file_size", String.valueOf(reel.getFileSizeInBytes()));
-        httpUrlConnection.connect();
-        outputStream = httpUrlConnection.getOutputStream();
         write(reel.getData(), outputStream, MULTIPART_DEFAULT_BUFFER_SIZE);
-      } else {
-        httpUrlConnection.setRequestProperty("file_url", reel.getReelUrl());
-        httpUrlConnection.connect();
       }
 
       HTTP_LOGGER.debug("Response headers: {}", httpUrlConnection.getHeaderFields());
@@ -136,6 +133,15 @@ public class DefaultWebRequestor implements WebRequestor {
       closeAttachmentsOnAutoClose(request.getBinaryAttachments());
       closeQuietly(outputStream);
       closeQuietly(httpUrlConnection);
+    }
+  }
+
+  private void fillReelHeader(HttpURLConnection httpUrlConnection, FacebookReelAttachment reel) {
+    if (reel.isBinary()) {
+      httpUrlConnection.setRequestProperty("offset", "0");
+      httpUrlConnection.setRequestProperty("file_size", String.valueOf(reel.getFileSizeInBytes()));
+    } else {
+      httpUrlConnection.setRequestProperty("file_url", reel.getReelUrl());
     }
   }
 
