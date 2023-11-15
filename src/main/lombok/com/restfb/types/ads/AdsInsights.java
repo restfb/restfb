@@ -27,9 +27,8 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.function.Supplier;
 
 @Setter
 @Getter
@@ -390,4 +389,70 @@ public class AdsInsights extends AbstractFacebookType {
   private String titleAsset;
   @Facebook("video_asset")
   private String videoAsset;
+
+  public List<AdsActionStats> getActionStats(String actionStatsField) {
+    Supplier<List<AdsActionStats>> supplier = initAdActionsStatsListMap().get(actionStatsField);
+    if (supplier != null) {
+      return supplier.get();
+    }
+
+    return Collections.emptyList();
+  }
+
+  private Map<String, Supplier<List<AdsActionStats>>> initAdActionsStatsListMap() {
+    Map<String, Supplier<List<AdsActionStats>>> map = new HashMap<>();
+    map.put("action_values", this::getActionValues);
+    map.put("actions", this::getActions);
+    map.put("ad_click_actions", this::getAdClickActions);
+    map.put("ad_impression_actions", this::getAdImpressionActions);
+    map.put("catalog_segment_actions", this::getCatalogSegmentActions);
+    map.put("catalog_segment_value", this::getCatalogSegmentValue);
+    map.put("catalog_segment_value_mobile_purchase_roas", this::getCatalogSegmentValueMobilePurchaseRoas);
+    map.put("catalog_segment_value_omni_purchase_roas", this::getCatalogSegmentValueOmniPurchaseRoas);
+    map.put("catalog_segment_value_website_purchase_roas", this::getCatalogSegmentValueWebsitePurchaseRoas);
+    map.put("conversion_values", this::getConversionValues);
+    map.put("conversions", this::getConversions);
+    map.put("converted_product_quantity", this::getConvertedProductQuantity);
+    map.put("converted_product_value", this::getConvertedProductValue);
+    map.put("cost_per_15_sec_video_view", this::getCostPer15SecVideoView);
+    map.put("cost_per_2_sec_continuous_video_view", this::getCostPer2SecContinuousVideoView);
+    map.put("cost_per_action_type", this::getCostPerActionType);
+    map.put("cost_per_ad_click", this::getCostPerAdClick);
+    map.put("cost_per_conversion", this::getCostPerConversion);
+    map.put("cost_per_unique_conversion", this::getCostPerUniqueConversion);
+    map.put("cost_per_one_thousand_ad_impression", this::getCostPerOneThousandAdImpression);
+    map.put("cost_per_outbound_click", this::getCostPerOutboundClick);
+    map.put("cost_per_thruplay", this::getCostPerThruplay);
+    map.put("cost_per_unique_action_type", this::getCostPerUniqueActionType);
+    map.put("cost_per_unique_outbound_click", this::getCostPerUniqueOutboundClick);
+    map.put("instant_experience_outbound_clicks", this::getInstantExperienceOutboundClicks);
+    map.put("interactive_component_tap", this::getInteractiveComponentTap);
+    map.put("mobile_app_purchase_roas", this::getMobileAppPurchaseRoas);
+    map.put("outbound_clicks", this::getOutboundClicks);
+    map.put("outbound_clicks_ctr", this::getOutboundClicksCtr);
+    map.put("purchase_roas", this::getPurchaseRoas);
+    map.put("total_postbacks_detailed", this::getTotalPostbacksDetailed);
+    map.put("total_postbacks_detailed_v4", this::getTotalPostbacksDetailedV4);
+    map.put("unique_actions", this::getUniqueActions);
+    map.put("unique_conversions", this::getUniqueConversions);
+    map.put("unique_outbound_clicks", this::getUniqueOutboundClicks);
+    map.put("unique_outbound_clicks_ctr", this::getUniqueOutboundClicksCtr);
+    map.put("unique_video_continuous_2_sec_watched_actions", this::getUniqueVideoContinuous2SecWatchedActions);
+    map.put("unique_video_view_15_sec", this::getUniqueVideoView15Sec);
+    map.put("video_15_sec_watched_actions", this::getVideo15SecWatchedActions);
+    map.put("video_30_sec_watched_actions", this::getVideo30SecWatchedActions);
+    map.put("video_avg_time_watched_actions", this::getVideoAvgTimeWatchedActions);
+    map.put("video_continuous_2_sec_watched_actions", this::getVideoContinuous2SecWatchedActions);
+    map.put("video_p100_watched_actions", this::getVideoP100WatchedActions);
+    map.put("video_p25_watched_actions", this::getVideoP25WatchedActions);
+    map.put("video_p50_watched_actions", this::getVideoP50WatchedActions);
+    map.put("video_p75_watched_actions", this::getVideoP75WatchedActions);
+    map.put("video_p95_watched_actions", this::getVideoP95WatchedActions);
+    map.put("video_play_actions", this::getVideoPlayActions);
+    map.put("video_thruplay_watched_actions", this::getVideoThruplayWatchedActions);
+    map.put("video_time_watched_actions", this::getVideoTimeWatchedActions);
+    map.put("website_ctr", this::getWebsiteCtr);
+    map.put("website_purchase_roas", this::getWebsitePurchaseRoas);
+    return map;
+  }
 }
