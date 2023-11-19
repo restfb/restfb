@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2023.15.0 (December 19, 2023)
+
+* Issue #1357: Add Facebook Story type
+
 ## 2023.14.0 (November 12, 2023)
 
 * Issue #1347: add flexible summary field to connection class
