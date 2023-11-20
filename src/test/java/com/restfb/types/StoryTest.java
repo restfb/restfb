@@ -34,8 +34,7 @@ class StoryTest extends AbstractJsonMapperTests {
 
     assertEquals("post_id", story.getPostId());
     assertEquals("PUBLISHED", story.getStatus());
-    assertEquals(123456000, story.getCreationTime().getTime()); // Hier könnte eine angepasste Logik erforderlich sein,
-                                                             // abhängig vom Datumsformat
+    assertEquals(123456000, story.getCreationTime().getTime());
     assertEquals("video", story.getMediaType());
     assertEquals("video_id", story.getMediaId());
     assertEquals("https://facebook.com/stories/123456", story.getUrl());

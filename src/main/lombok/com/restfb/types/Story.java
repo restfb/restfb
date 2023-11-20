@@ -51,28 +51,4 @@ public class Story extends AbstractFacebookType {
 
   @Facebook("url")
   private String url;
-
-  public String getPostId() {
-    return this.postId;
-  }
-
-  public String getStatus() {
-    return this.status;
-  }
-
-  public Date getCreationTime() {
-    return this.creationTime;
-  }
-
-  public String getMediaType() {
-    return this.mediaType;
-  }
-
-  public String getMediaId() {
-    return this.mediaId;
-  }
-
-  public String getUrl() {
-    return this.url;
-  }
 }
