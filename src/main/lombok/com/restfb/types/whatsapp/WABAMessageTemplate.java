@@ -22,44 +22,86 @@
 package com.restfb.types.whatsapp;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.NamedFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class WhatsAppHSMQualityScoreShape extends AbstractFacebookType {
+/**
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account/message_templates/">WhatsApp
+ * Message Template type </a>
+ */
+public class WABAMessageTemplate extends NamedFacebookType {
 
   private static final long serialVersionUID = 1L;
-  @Facebook
-  private List<String> reasons = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private String score;
-
-  @Getter
-  @Setter
-  @Facebook
-  private Date date;
 
   /**
-   * List of reasons for the score of the HSM
+   * The category type of the message template
    */
-  public List<String> getReasons() {
-    return Collections.unmodifiableList(reasons);
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private String category;
 
-  public boolean addReason(String reason) {
-    return reasons.add(reason);
-  }
+  /**
+   * Message template string with placeholders for parameters
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String content;
 
-  public boolean removeReason(String reason) {
-    return reasons.remove(reason);
-  }
+  @Getter
+  @Setter
+  @Facebook
+  private List<WhatsAppMessageTemplateComponent> components;
 
+  /**
+   * The languages (and locale) of the element translation
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private List<String> language = new ArrayList<>();
+
+  /**
+   * The timestamp indicating the last time the message template was updated
+   */
+  @Getter
+  @Setter
+  @Facebook("last_updated_time")
+  private Date lastUpdatedTime;
+
+  /**
+   * The reason the message template was rejected
+   */
+  @Getter
+  @Setter
+  @Facebook("rejected_reason")
+  private String rejectedReason;
+
+  /**
+   * The status of the message template
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String status;
+
+  /**
+   * String as a query parameter to filter message templates name or content containing this variable
+   */
+  @Getter
+  @Setter
+  @Facebook("name_or_content")
+  private String nameOrContent;
+
+  @Getter
+  @Setter
+  @Facebook("quality_score")
+  private WhatsAppHSMQualityScoreShape qualityScore;
 }

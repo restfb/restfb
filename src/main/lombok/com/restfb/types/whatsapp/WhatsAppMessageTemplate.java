@@ -32,9 +32,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href=
- * "https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account/message_templates/">WhatsApp
- * Message Template type </a>
+ * Represents the
+ * <a href= "https://developers.facebook.com/docs/graph-api/reference/whats-app-business-hsm/#fields">WhatsApp Message
+ * Template type </a>
  */
 public class WhatsAppMessageTemplate extends NamedFacebookType {
 
@@ -48,34 +48,28 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   @Facebook
   private String category;
 
-  /**
-   * Message template string with placeholders for parameters
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String content;
-
   @Getter
   @Setter
   @Facebook
   private List<WhatsAppMessageTemplateComponent> components;
 
   /**
-   * The languages (and locale) of the element translation
+   * The language (and locale) of the element translation
    */
   @Getter
   @Setter
   @Facebook
-  private List<String> language = new ArrayList<>();
+  private String language;
 
-  /**
-   * The timestamp indicating the last time the message template was updated
-   */
   @Getter
   @Setter
-  @Facebook("last_updated_time")
-  private Date lastUpdatedTime;
+  @Facebook("message_send_ttl_seconds")
+  private Long messageSendTtlSeconds;
+
+  @Getter
+  @Setter
+  @Facebook("previous_category")
+  private String previousCategory;
 
   /**
    * The reason the message template was rejected
@@ -94,13 +88,8 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   private String status;
 
   /**
-   * String as a query parameter to filter message templates name or content containing this variable
+   * Quality score of the HSM
    */
-  @Getter
-  @Setter
-  @Facebook("name_or_content")
-  private String nameOrContent;
-
   @Getter
   @Setter
   @Facebook("quality_score")
