@@ -174,7 +174,6 @@ class DefaultWebRequestorTest {
     verify(requestor).fetchResponse(mockUrlConnection);
     verify(requestor).write(mockBinaryInputStream, mockOutputStream, 8192);
     verify(requestor).closeQuietly(mockUrlConnection);
-    verify(requestor).closeQuietly(mockOutputStream);
     verify(requestor).closeQuietly(mockBinaryInputStream);
   }
 
@@ -217,7 +216,6 @@ class DefaultWebRequestorTest {
     verify(requestor).fetchResponse(mockUrlConnection);
     verify(requestor).write(mockBinaryInputStream, mockOutputStream, 8192);
     verify(requestor).closeQuietly(mockUrlConnection);
-    verify(requestor).closeQuietly(mockOutputStream);
     verify(requestor).closeQuietly(mockBinaryInputStream);
   }
 
