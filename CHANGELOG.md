@@ -1,6 +1,17 @@
 # RestFB Changelog
 
-## 2023.15.0 (December 19, 2023)
+## 2023.16.0 (November 26, 2023)
+
+* Issue #1359: Remove duplicate getter from `Story`
+* Issue #1360: fix javadoc generation
+* Issue #1361: WhatsApp Message Template contains one language instead of an array
+* Issue #1350: bump version.junit from 5.10.0 to 5.10.1
+* Issue #1351: bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.0 to 3.6.2
+* Issue #1352: bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.1 to 3.2.2
+* Issue #1353: bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.1 to 3.2.2
+* Issue #1354: bump org.mockito:mockito-junit-jupiter from 5.6.0 to 5.7.0
+
+## 2023.15.0 (November 19, 2023)
 
 * Issue #1357: Add Facebook Story type
 
