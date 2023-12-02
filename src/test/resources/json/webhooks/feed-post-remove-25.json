@@ -12,8 +12,11 @@
             "item": "post",
             "verb": "remove",
             "post_id": "1234567890321_901097836652708",
-            "sender_id": 1234567890321,
-            "created_time": 1452098986
+            "created_time": 1452098986,
+            "from": {
+              "name": "John Doe",
+              "id": 1234567890321
+            }
           }
         }
       ]

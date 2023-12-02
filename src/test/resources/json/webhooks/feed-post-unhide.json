@@ -6,8 +6,10 @@
           "field": "feed",
           "value": {
             "post_id": "1234567890321_7293787835232",
-            "sender_name": "Joe",
-            "sender_id": 8423678347823,
+            "from": {
+              "name": "Joe",
+              "id": "8423678347823"
+            },
             "item": "post",
             "verb": "unhide",
             "message": "Let's check this"

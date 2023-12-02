@@ -105,32 +105,6 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void feedCommentAdd() {
-    FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-add-25", FeedCommentValue.class, ITEM_COMMENT,
-      ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
-        @Override
-        public void feedCommentValue(FeedCommentValue convertChangeValue) {
-          assertNotNull(convertChangeValue);
-          listenerTriggered.set(true);
-        }
-      });
-    assertFalse(value.isReply());
-    assertEquals("and the next one", value.getMessage());
-    assertEquals("1234567890321_901097836652708", value.getPostId());
-    assertEquals("1234567890321_901097836652708", value.getParentId());
-    assertEquals("901097836652708_903438993085259", value.getCommentId());
-    assertEquals(1449135003000L, value.getCreatedTime().getTime());
-
-    assertEquals("Tester", value.getFrom().getName());
-    assertEquals("1234567890321", value.getFrom().getId());
-    assertEquals("Tester", value.getSenderName());
-    assertEquals("1234567890321", value.getSenderId());
-
-    assertNull(value.getPhoto());
-    assertTrue(listenerTriggered.get());
-  }
-
-  @Test
-  void feedCommentAdd_v2_11() {
     FeedCommentValue value = openAndCheckFeedPostBasics("feed-comment-add-211", FeedCommentValue.class, ITEM_COMMENT,
       ChangeValue.Verb.ADD, new AbstractWebhookChangeListener() {
         @Override
@@ -144,13 +118,11 @@ class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_901097836652708", value.getPostId());
     assertEquals("1234567890321_901097836652708", value.getParentId());
     assertEquals("901097836652708_903438993085259", value.getCommentId());
+    assertEquals(1449135003000L, value.getCreatedTime().getTime());
 
     assertEquals("Tester", value.getFrom().getName());
     assertEquals("1234567890321", value.getFrom().getId());
-    assertEquals("Tester", value.getSenderName());
-    assertEquals("1234567890321", value.getSenderId());
 
-    assertEquals(1449135003000L, value.getCreatedTime().getTime());
     assertNull(value.getPhoto());
     assertTrue(listenerTriggered.get());
   }
@@ -324,7 +296,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_7293787835232", value.getPostId());
-    assertEquals("8423678347823", value.getSenderId());
+    assertEquals("8423678347823", value.getFrom().getId());
     assertFalse(value.getIsHidden());
     assertEquals("Let's check this", value.getMessage());
     assertTrue(listenerTriggered.get());
@@ -341,7 +313,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_7293787835232", value.getPostId());
-    assertEquals("8423678347823", value.getSenderId());
+    assertEquals("8423678347823", value.getFrom().getId());
     assertEquals("Let's check this", value.getMessage());
     assertTrue(listenerTriggered.get());
   }
@@ -357,7 +329,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_7293787835232", value.getPostId());
-    assertEquals("8423678347823", value.getSenderId());
+    assertEquals("8423678347823", value.getFrom().getId());
     assertEquals("Let's check this", value.getMessage());
     assertEquals("753215778164799", value.getRecipientId());
     assertTrue(listenerTriggered.get());
@@ -374,7 +346,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_901097836652708", value.getPostId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals(1452098986000L, value.getCreatedTime().getTime());
     assertEquals("1234567890321", value.getRecipientId());
     assertTrue(listenerTriggered.get());
@@ -391,7 +363,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_7293787835232", value.getPostId());
-    assertEquals("8423678347823", value.getSenderId());
+    assertEquals("8423678347823", value.getFrom().getId());
     assertEquals("Let's check this", value.getMessage());
     assertTrue(listenerTriggered.get());
   }
@@ -408,7 +380,7 @@ class WebhookTest extends AbstractJsonMapperTests {
       });
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_901097836652708", value.getParentId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals("love", value.getReactionType());
     assertTrue(value.isPostReaction());
     assertFalse(value.isCommentReaction());
@@ -429,7 +401,7 @@ class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_98735342324352", value.getParentId());
     assertEquals("1234567890321_1264545546974600", value.getCommentId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals("love", value.getReactionType());
     assertFalse(value.isPostReaction());
     assertTrue(value.isCommentReaction());
@@ -450,7 +422,7 @@ class WebhookTest extends AbstractJsonMapperTests {
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_1264545546974600", value.getParentId());
     assertEquals("1234567890321_1357555177673636", value.getCommentId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals("like", value.getReactionType());
     assertFalse(value.isPostReaction());
     assertTrue(value.isCommentReaction());
@@ -470,7 +442,7 @@ class WebhookTest extends AbstractJsonMapperTests {
       });
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_901097836652708", value.getParentId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals("wow", value.getReactionType());
     assertTrue(listenerTriggered.get());
   }
@@ -487,7 +459,7 @@ class WebhookTest extends AbstractJsonMapperTests {
       });
     assertEquals("1234567890321_98735342324352", value.getPostId());
     assertEquals("1234567890321_901097836652708", value.getParentId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals("wow", value.getReactionType());
     assertTrue(listenerTriggered.get());
   }
@@ -503,7 +475,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_98735342324352", value.getPostId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertTrue(value.getPublished());
     assertNotNull(value.getMessage());
     assertEquals("http://www.google.com/", value.getLink());
@@ -522,7 +494,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_98735342324352", value.getPostId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals("Let me google that for you", value.getMessage());
     assertEquals("http://www.google.com/", value.getLink());
     assertEquals("98735342324352", value.getShareId());
@@ -540,7 +512,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_98735342324352", value.getPostId());
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890321", value.getFrom().getId());
     assertEquals("Let me google that for you", value.getMessage());
     assertEquals("http://www.google.com/", value.getLink());
     assertEquals("98735342324352", value.getShareId());
@@ -558,7 +530,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("edited", value.getVerbAsString());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertEquals("status", value.getItem());
     assertEquals("This is an edited test message", value.getMessage());
     assertTrue(value.getPublished());
@@ -577,7 +549,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("edited", value.getVerbAsString());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertEquals("status", value.getItem());
     assertEquals("This is an edited test message", value.getMessage());
     assertTrue(value.getPublished());
@@ -600,7 +572,7 @@ class WebhookTest extends AbstractJsonMapperTests {
       });
     assertTrue(value.getPublished());
     assertEquals("1234567890321_930145403745849", value.getPostId());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertEquals(1448633038000L, value.getCreatedTime().getTime());
     assertEquals(0, value.getPhotos().size());
     assertTrue(listenerTriggered.get());
@@ -618,7 +590,7 @@ class WebhookTest extends AbstractJsonMapperTests {
       });
     assertTrue(value.getPublished());
     assertEquals("1234567890321_930145403745849", value.getPostId());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertEquals(1448633038000L, value.getCreatedTime().getTime());
     assertEquals(3, value.getPhotos().size());
     assertTrue(value.getPhotos().get(0).contains("exampleimage1.png"));
@@ -638,7 +610,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("1234567890321_7293787835232", value.getPostId());
-    assertEquals("Some Tester", value.getSenderName());
+    assertEquals("Some Tester", value.getFrom().getName());
     assertTrue(listenerTriggered.get());
   }
 
@@ -653,7 +625,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals("123456789_64352426", value.getPostId());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertTrue(listenerTriggered.get());
   }
 
@@ -975,7 +947,7 @@ class WebhookTest extends AbstractJsonMapperTests {
           listenerTriggered.set(true);
         }
       });
-    assertEquals("1234567890321", value.getSenderId());
+    assertEquals("1234567890123", value.getFrom().getId());
     assertEquals("100002220109526_716630661754264", value.getParentId());
     assertTrue(listenerTriggered.get());
   }
@@ -1056,7 +1028,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals(1451775296000L, value.getCreatedTime().getTime());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertEquals("100002241334695_904801129604590", value.getParentId());
     assertTrue(listenerTriggered.get());
   }
@@ -1072,7 +1044,7 @@ class WebhookTest extends AbstractJsonMapperTests {
         }
       });
     assertEquals(1451775296000L, value.getCreatedTime().getTime());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertEquals("100002241334695_904801129604590", value.getParentId());
     assertNull(value.getReviewText());
     assertEquals("2782258465134925", value.getOpenGraphStoryId());
@@ -1092,6 +1064,7 @@ class WebhookTest extends AbstractJsonMapperTests {
     assertNotNull(value);
     assertEquals(1451775365000L, value.getCreatedTime().getTime());
     assertEquals("100002241334695_904801129604590", value.getParentId());
+    assertEquals("705955836155788", value.getFrom().getId());
     assertNull(value.getReviewText());
     assertTrue(listenerTriggered.get());
   }
@@ -1108,7 +1081,7 @@ class WebhookTest extends AbstractJsonMapperTests {
       });
     assertNotNull(value);
     assertEquals(1451775296000L, value.getCreatedTime().getTime());
-    assertEquals("Tester", value.getSenderName());
+    assertEquals("Tester", value.getFrom().getName());
     assertEquals("100002241334695_904801129604590", value.getParentId());
     assertNull(value.getReviewText());
     assertEquals("2782258465134925", value.getOpenGraphStoryId());

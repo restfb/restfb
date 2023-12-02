@@ -7,8 +7,10 @@
           "value": {
             "share_id": 98735342324352,
             "post_id": "1234567890321_98735342324352",
-            "sender_name": "Joe",
-            "sender_id": 1234567890321,
+            "from": {
+              "name": "Joe",
+              "id": "1234567890321"
+            },
             "item": "share",
             "verb": "hide",
             "link": "http://www.google.com/",

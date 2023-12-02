@@ -14,7 +14,10 @@
             "parent_id": "1234567890321_901097836652708",
             "verb": "add",
             "reaction_type": "love",
-            "sender_id": 1234567890321
+            "from": {
+              "name": "John Doe",
+              "id": "1234567890321"
+            }
           }
         }
       ]

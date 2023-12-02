@@ -34,68 +34,8 @@ public abstract class AbstractFeedPostValue extends BaseChangeValue {
   @Facebook("post_id")
   private String postId;
 
-  /**
-   * @deprecated use from field instead
-   * @TODO: remove with 2024
-   */
-  @GraphAPI(until = "2.11")
-  @Deprecated
-  @Setter
-  @Facebook("sender_id")
-  private String senderId;
-
-  /**
-   * @deprecated use from field instead
-   * @TODO: remove with 2024
-   */
-  @GraphAPI(until = "2.11")
-  @Deprecated
-  @Setter
-  @Facebook("sender_name")
-  private String senderName;
-
   @Facebook
+  @Getter
   private From from;
-
-  /**
-   * returns the {@code sender_id}.
-   *
-   * Use {@link AbstractFeedPostValue#getFrom()} instead, because with Graph API 2.11 sender_id is deprecated
-   * 
-   * @return the sender id
-   */
-  public String getSenderId() {
-    if (from != null) {
-      return from.getId();
-    }
-    return senderId;
-  }
-
-  /**
-   * returns the {@code sender_name}.
-   *
-   * Use {@link AbstractFeedPostValue#getFrom()} instead, because with Graph API 2.11 sender_name is deprecated
-   *
-   * @return the sender name
-   */
-  public String getSenderName() {
-    if (from != null) {
-      return from.getName();
-    }
-    return senderName;
-  }
-
-  /**
-   * returns the sender (from) of the feed value
-   * 
-   * @return from of the feed value
-   */
-  public From getFrom() {
-    if (from != null) {
-      return from;
-    } else {
-      return new From(senderId, senderName);
-    }
-  }
 
 }
