@@ -49,6 +49,7 @@ import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 import com.restfb.exception.generator.FacebookExceptionGenerator;
 import com.restfb.json.*;
 import com.restfb.scope.ScopeBuilder;
+import com.restfb.types.DebugTokenInfo;
 import com.restfb.types.DeviceCode;
 import com.restfb.util.EncodingUtils;
 import com.restfb.util.ObjectUtil;

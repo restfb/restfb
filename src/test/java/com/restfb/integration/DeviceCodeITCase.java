@@ -23,10 +23,10 @@ package com.restfb.integration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.restfb.AccessToken;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
-import com.restfb.FacebookClient;
 import com.restfb.Version;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
@@ -43,7 +43,7 @@ class DeviceCodeITCase extends RestFbIntegrationTestBase {
     ScopeBuilder scope = new ScopeBuilder();
     DeviceCode deviceCode = client.fetchDeviceCode(scope);
     assertNotNull(deviceCode);
-    FacebookClient.AccessToken token = null;
+    AccessToken token = null;
     System.out.println("UserCode: " + deviceCode.getUserCode());
 
     int count = 10;

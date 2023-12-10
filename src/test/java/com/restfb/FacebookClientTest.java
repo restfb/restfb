@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.restfb.types.DebugTokenInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -136,7 +137,7 @@ class FacebookClientTest {
   void obtainExtendedAccessTokenV23() {
     FacebookClient fbc = facebookClientWithResponse(
       new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\", \"expires_in\":132363}"));
-    FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
+    AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
     assertThat(at.getTokenType()).isEqualTo("tokentype");
     assertThat(at.getExpires()).isAfter(new Date());
@@ -147,7 +148,7 @@ class FacebookClientTest {
   void obtainExtendedAccessTokenV23WithoutExpiresIn() {
     FacebookClient fbc = facebookClientWithResponse(
       new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\"}"));
-    FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
+    AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
     assertThat(at.getTokenType()).isEqualTo("tokentype");
     assertThat(at.getExpires()).isNull();
@@ -158,7 +159,7 @@ class FacebookClientTest {
   void obtainExtendedAccessTokenV22() {
     FacebookClient fbc =
         facebookClientWithResponse(new Response(200, "access_token=accesstoken&token_type=tokentype&expires=132363"));
-    FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
+    AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
     assertThat(at.getTokenType()).isEqualTo("tokentype");
     assertThat(at.getExpires()).isAfter(new Date());
@@ -167,7 +168,7 @@ class FacebookClientTest {
   @Test
   void obtainExtendedAccessTokenV22WithoutTokenType() {
     FacebookClient fbc = facebookClientWithResponse(new Response(200, "access_token=accesstoken&expires=132363"));
-    FacebookClient.AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
+    AccessToken at = fbc.obtainExtendedAccessToken("a", "b", "c");
     assertThat(at.getAccessToken()).isEqualTo("accesstoken");
     assertThat(at.getTokenType()).isNull();
     assertThat(at.getExpires()).isAfter(new Date());
@@ -327,7 +328,7 @@ class FacebookClientTest {
 
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
-    FacebookClient.DebugTokenInfo debugTokenInfo = fbc.debugToken("myToken");
+    DebugTokenInfo debugTokenInfo = fbc.debugToken("myToken");
     assertThat(requestor).isSavedUrlEqualTo(
       "https://graph.facebook.com/v9.0/debug_token?input_token=myToken&access_token=accesstoken&format=json");
     assertThat(debugTokenInfo).isNotNull();
@@ -389,14 +390,14 @@ class FacebookClientTest {
   @Test
   void checkUrlWithExpiresIn() {
     String queryString = "access_token=<access-token>&expires_in=5184000";
-    FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
+    AccessToken token = AccessToken.fromQueryString(queryString);
     assertThat(token.getExpires()).isAfter(new Date(1468096359099L));
   }
 
   @Test
   void checkUrlWithExpires() {
     String queryString = "access_token=<access-token>&expires=5184000";
-    FacebookClient.AccessToken token = FacebookClient.AccessToken.fromQueryString(queryString);
+    AccessToken token = AccessToken.fromQueryString(queryString);
     assertThat(token.getExpires()).isAfter(new Date(1468096359099L));
   }
 

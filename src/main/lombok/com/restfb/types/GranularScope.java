@@ -19,22 +19,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.integration;
+package com.restfb.types;
 
-import com.restfb.DefaultFacebookClient;
-import com.restfb.Version;
-import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.types.DebugTokenInfo;
-import org.junit.jupiter.api.Test;
+import com.restfb.Facebook;
+import lombok.Getter;
+import lombok.Setter;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-class DebugTokenITCase extends RestFbIntegrationTestBase {
+import static java.util.Collections.unmodifiableList;
 
-  @Test
-  void checkDebugToken() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_9_0);
-    DebugTokenInfo debugTokenInfo = client.debugToken("abc");
-    assertNotNull(debugTokenInfo);
-  }
+public class GranularScope extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The permission granted by the user.
+     *
+     * @return The permission granted by the user.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String scope;
+
+    /**
+     * The target ids of Pages, Groups, or business assets the user granted the above permission for.
+     */
+    @Facebook("target_ids")
+    private List<String> targetIds = new ArrayList<>();
+
+    /**
+     * The target ids of Pages, Groups, or business assets the user granted the above permission for.
+     *
+     * @return The target ids of Pages, Groups, or business assets the user granted the above permission for.
+     */
+    public List<String> getTargetIds() {
+        return unmodifiableList(targetIds);
+    }
 }

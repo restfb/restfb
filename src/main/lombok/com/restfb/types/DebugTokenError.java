@@ -19,22 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.integration;
+package com.restfb.types;
 
-import com.restfb.DefaultFacebookClient;
-import com.restfb.Version;
-import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.types.DebugTokenInfo;
-import org.junit.jupiter.api.Test;
+import com.restfb.Facebook;
+import lombok.Getter;
+import lombok.Setter;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+public class DebugTokenError extends AbstractFacebookType {
 
-class DebugTokenITCase extends RestFbIntegrationTestBase {
+    private static final long serialVersionUID = 1L;
 
-  @Test
-  void checkDebugToken() {
-    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_9_0);
-    DebugTokenInfo debugTokenInfo = client.debugToken("abc");
-    assertNotNull(debugTokenInfo);
-  }
+    /**
+     * The error code for the error.
+     *
+     * @return The error code for the error.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer code;
+
+    /**
+     * The error message for the error.
+     *
+     * @return The error message for the error.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String message;
+
+    /**
+     * The error subcode for the error.
+     *
+     * @return The error subcode for the error.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private Integer subcode;
+
 }
