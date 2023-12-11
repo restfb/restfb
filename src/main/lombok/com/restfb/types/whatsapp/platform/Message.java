@@ -134,6 +134,11 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private Reaction reaction;
 
+  @Getter
+  @Setter
+  @Facebook
+  private List<MessageContact> contacts = new ArrayList<>();
+
   public boolean isText() {
     return text != null;
   }
@@ -188,6 +193,10 @@ public class Message extends AbstractFacebookType {
 
   public boolean isReaction() {
     return reaction != null;
+  }
+
+  public boolean hasContacts() {
+    return !contacts.isEmpty();
   }
 
   public boolean hasErrors() {

@@ -22,5 +22,5 @@
 package com.restfb.types.whatsapp.platform.message;
 
 public enum MessageType {
-  audio, button, document, text, image, interactive, location, sticker, system, unknown, video, reaction
+  audio, button, document, text, image, interactive, location, sticker, system, unknown, video, reaction, contacts, unsupported
 }

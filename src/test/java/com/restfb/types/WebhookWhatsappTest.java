@@ -23,6 +23,11 @@ package com.restfb.types;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 
+import com.restfb.json.JsonObject;
+import com.restfb.types.whatsapp.platform.Message;
+import com.restfb.types.whatsapp.platform.message.Error;
+import com.restfb.types.whatsapp.platform.message.MessageContact;
+import com.restfb.types.whatsapp.platform.message.MessageType;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -94,6 +99,32 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
   void accountReviewUpdate() {
     AccountReviewUpdateValue change = getWHObjectFromJson("webhook-accountReviewUpdate", AccountReviewUpdateValue.class);
     assertThat(change.getDecision()).isEqualTo("APPROVED");
+  }
+
+  @Test
+  void messageContacts() {
+    WhatsappMessagesValue messagesValue = getWHObjectFromJson("webhook-incoming-message-contacts", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getContacts()).hasSize(1);
+    assertThat(messagesValue.getMessages()).hasSize(1);
+    Message message = messagesValue.getMessages().get(0);
+    assertThat(message.hasContacts()).isTrue();
+    assertThat(message.getType()).isEqualTo(MessageType.contacts);
+    assertThat(message.getContacts()).hasSize(1);
+    MessageContact contact = message.getContacts().get(0);
+    assertThat(contact.getName()).isNotNull();
+    assertThat(contact.getName().getFirstName()).isEqualTo("j_doe");
+    assertThat(contact.getName().getFormattedName()).isEqualTo("j_doe");
+  }
+
+  @Test
+  void messageUnsupported() {
+    WhatsappMessagesValue messagesValue = getWHObjectFromJson("webhook-incoming-message-unsupported", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getMessages()).hasSize(1);
+    Message message = messagesValue.getMessages().get(0);
+    assertThat(message.getType()).isEqualTo(MessageType.unsupported);
+    assertThat(message.getErrors()).hasSize(1);
+    Error error = message.getErrors().get(0);
+    assertThat(error.getErrorData()).isNotNull();
   }
 
   private <T extends ChangeValue> T getWHObjectFromJson(String jsonName, Class<T> clazz) {

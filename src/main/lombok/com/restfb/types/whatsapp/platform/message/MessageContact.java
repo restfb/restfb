@@ -26,38 +26,30 @@ import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Error extends AbstractFacebookType {
+/**
+ * Contact type used in the Message object
+ */
+public class MessageContact extends AbstractFacebookType {
+
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @Setter
   @Facebook
-  private String code;
+  private ContactName name;
 
-  @Getter
-  @Setter
-  @Facebook
-  private String title;
+  public static class ContactName extends AbstractFacebookType {
 
-  @Getter
-  @Setter
-  @Facebook
-  private String details;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String message;
-
-  @Getter
-  @Setter
-  @Facebook("error_data")
-  private ErrorData errorData;
-
-  public static class ErrorData extends AbstractFacebookType {
+    private static final long serialVersionUID = 1L;
 
     @Getter
     @Setter
-    @Facebook
-    private String details;
+    @Facebook("first_name")
+    private String firstName;
+
+    @Getter
+    @Setter
+    @Facebook("formatted_name")
+    private String formattedName;
   }
 }
