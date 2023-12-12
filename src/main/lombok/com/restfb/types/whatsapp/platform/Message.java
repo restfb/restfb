@@ -139,6 +139,16 @@ public class Message extends AbstractFacebookType {
   @Facebook
   private List<MessageContact> contacts = new ArrayList<>();
 
+  /**
+   * An arbitrary 256B string, useful for tracking (optional).
+   *
+   * Cloud API only
+   */
+  @Getter
+  @Setter
+  @Facebook("biz_opaque_callback_data")
+  private String bizOpaqueCallbackData;
+
   public boolean isText() {
     return text != null;
   }

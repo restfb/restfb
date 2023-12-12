@@ -40,6 +40,14 @@ public class Status extends AbstractFacebookType {
   @Facebook
   private String id;
 
+  /**
+   * Arbitrary string included in sent message.
+   */
+  @Getter
+  @Setter
+  @Facebook("biz_opaque_callback_data")
+  private String bizOpaqueCallbackData;
+
   @Getter
   @Setter
   @Facebook
