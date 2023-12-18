@@ -75,4 +75,13 @@ class IgMediaTest extends AbstractJsonMapperTests {
       assertEquals(igMedia.getShortcode() + i, child.getShortcode());
     }
   }
+
+  @Test
+  void checkMediaCopyright() {
+    IgMedia igMedia = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/igmedia-cci"), IgMedia.class);
+    assertNotNull(igMedia);
+    assertNotNull(igMedia.getCopyrightCheckInformation());
+    assertNotNull(igMedia.getCopyrightCheckInformation().getStatus());
+    assertEquals("error", igMedia.getCopyrightCheckInformation().getStatus().getStatus());
+  }
 }

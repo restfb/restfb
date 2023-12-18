@@ -105,6 +105,11 @@ public class IgMedia extends IgMediaChild {
   @Facebook("video_title")
   private String videoTitle;
 
+  @Getter
+  @Setter
+  @Facebook("copyright_check_information")
+  private CopyrightCheckInformation copyrightCheckInformation;
+
   @Facebook
   private List<IgMediaChild> children = new ArrayList<>();
 
