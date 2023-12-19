@@ -1,5 +1,16 @@
 # RestFB Changelog
 
+## 2023.17.0 (December 19, 2023)
+
+* Issue #1365: added contacts and unsupported to MessageType<br />
+  Thanks to @mikedeswert for the hint and the JSON
+* Issue #1367: Add biz_opaque_callback_data to whatsapp messages
+* Issue #1366: Add copyright_check_information to IgMedia
+* Issue #1363: update mockito-junit lib
+* Issue #1364: update maven-javadoc-plugin
+* Issue #1369: update maven-surefire-plugin
+* Issue #1370: update maven-failsafe-plugin
+
 ## 2023.16.0 (November 26, 2023)
 
 * Issue #1359: Remove duplicate getter from `Story`
