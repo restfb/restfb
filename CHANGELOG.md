@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2024.1.0 (January 1, 2024)
+
+* Issue #1349: Move inner types to own classes
+* Issue #1342: `sender_id` and `sender_name` removed because it is deprecated since api 2.11
+
 ## 2023.17.0 (December 19, 2023)
 
 * Issue #1365: added contacts and unsupported to MessageType<br />
