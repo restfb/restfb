@@ -200,8 +200,8 @@ public enum FacebookPermissions {
    * initiation of a chat thread with the business's Page.
    *
    * <p>
-   * The allowed usage for this permission is for a Page to send a person an initial message,
-   * post—purchase updates and account updates.
+   * The allowed usage for this permission is for a Page to send a person an initial message, post—purchase updates and
+   * account updates.
    *
    * <strong>Review</strong>
    *
@@ -273,14 +273,13 @@ public enum FacebookPermissions {
   ADS_READ("ads_read", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * The attribution_read permission grants your app access to the Attribution API to pull
-   * attribution report data for lines of business you own or have been granted access to by
-   * the owner or owners of other lines of business.
+   * The attribution_read permission grants your app access to the Attribution API to pull attribution report data for
+   * lines of business you own or have been granted access to by the owner or owners of other lines of business.
    *
    * Allowed Usage
    *
-   * Provides the ability for your app to access ads performance data from Attribution for
-   * use in custom dashboards and data analytics.
+   * Provides the ability for your app to access ads performance data from Attribution for use in custom dashboards and
+   * data analytics.
    */
   ATTRIBUTION_READ("attribution_read", Category.EVENTS_GROUPS_PAGES), //
 
@@ -303,14 +302,13 @@ public enum FacebookPermissions {
   EMAIL("email", Category.USER_DATA), //
 
   /**
-   * The page_events permissions allows your app permission to log events on behalf of
-   * Facebook Pages administered by people using your app and to send those events to
-   * Facebook for ads targeting, optimization and reporting.
+   * The page_events permissions allows your app permission to log events on behalf of Facebook Pages administered by
+   * people using your app and to send those events to Facebook for ads targeting, optimization and reporting.
    *
    * <b>Allowed Usage</b>
    *
-   * Send businesses related activities (for example purchase, add-to-cart, lead) on behalf
-   * of Pages owned by the people who use your app.
+   * Send businesses related activities (for example purchase, add-to-cart, lead) on behalf of Pages owned by the people
+   * who use your app.
    */
   PAGES_EVENTS("pages_events", Category.EVENTS_GROUPS_PAGES), //
 
@@ -469,14 +467,14 @@ public enum FacebookPermissions {
   PAGES_SHOW_LIST("pages_show_list", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * The pages_user_gender permission allows your app to access a user's gender through the
-   * Page your app is connected to.
+   * The pages_user_gender permission allows your app to access a user's gender through the Page your app is connected
+   * to.
    *
    * Allowed Usage
    *
    * <ul>
-   *   <li>Personalize experiences or recommendations based on gender.</li>
-   *   <li>Use gendered language such as correct pronouns and titles.</li>
+   * <li>Personalize experiences or recommendations based on gender.</li>
+   * <li>Use gendered language such as correct pronouns and titles.</li>
    * </ul>
    */
   PAGES_USER_GENDER("pages_user_gender", Category.EVENTS_GROUPS_PAGES), //
@@ -495,8 +493,8 @@ public enum FacebookPermissions {
   PAGES_USER_LOCALE("pages_user_locale", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * The pages_user_timezone permission grants your app access to a user's time zone
-   * through the Page your app is connected to.
+   * The pages_user_timezone permission grants your app access to a user's time zone through the Page your app is
+   * connected to.
    *
    * Allowed Usage
    *
@@ -561,8 +559,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024
    */
-  @GraphAPI(since = "3.0")
+  @GraphAPI(since = "3.0", until = "19.0")
+  @Deprecated
   PUBLISH_TO_GROUPS("publish_to_groups", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -586,8 +586,10 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024
    */
-  @GraphAPI(since = "3.0")
+  @GraphAPI(since = "3.0", until = "19.0")
+  @Deprecated
   GROUPS_ACCESS_MEMBER_INFO("groups_access_member_info", Category.EVENTS_GROUPS_PAGES), //
 
   /**
@@ -603,8 +605,8 @@ public enum FacebookPermissions {
   READ_AUDIENCE_NETWORK_INSIGHTS("read_audience_network_insights", Category.OTHER), //
 
   /**
-   * The research_apis permission allows your app to access data on public Facebook
-   * Pages, Groups, and Events within the Facebook Open Research and Transparency Tool.
+   * The research_apis permission allows your app to access data on public Facebook Pages, Groups, and Events within the
+   * Facebook Open Research and Transparency Tool.
    *
    * Allowed Usage
    *
@@ -668,8 +670,8 @@ public enum FacebookPermissions {
   CATALOG_MANAGEMENT("catalog_management", Category.EVENTS_GROUPS_PAGES), //
 
   /**
-   * The gaming_user_locale permission allows your app to get a user's preferred language
-   * while the user plays a game on Facebook (for example, Instant Games or Cloud Gaming).
+   * The gaming_user_locale permission allows your app to get a user's preferred language while the user plays a game on
+   * Facebook (for example, Instant Games or Cloud Gaming).
    *
    * Allowed Usage
    *
@@ -845,12 +847,12 @@ public enum FacebookPermissions {
 
   /**
    * The `whatsapp_business_messaging` permission allows an app to send WhatsApp messages to a specific phone number,
-   * upload and retrieve media from messages, manage and get WhatsApp business profile information,
-   * and to register those phone numbers with Meta.
+   * upload and retrieve media from messages, manage and get WhatsApp business profile information, and to register
+   * those phone numbers with Meta.
    *
    * <p>
-   * Please see <a href=
-   * "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging">Whatsapps's
+   * Please see
+   * <a href= "https://developers.facebook.com/docs/permissions/reference/whatsapp_business_messaging">Whatsapps's
    * reference</a> for details.
    *
    * <p>
