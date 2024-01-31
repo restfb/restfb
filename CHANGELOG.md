@@ -1,5 +1,15 @@
 # RestFB Changelog
 
+## 2024.2.0 (January 31, 2024)
+
+* Issue #1382: Graph API 19.0 added
+* Issue #1383: mark publish_to_groups and groups_access_member_info as deprecated
+* Issue #1378: update mockito-junit-jupiter
+* Issue #1377: update maven-surefire-plugin
+* Issue #1376: update maven-failsafe-plugin
+* Issue #1375: update assertj-core
+* Issue #1372: update maven-compiler-plugin
+
 ## 2024.1.0 (January 1, 2024)
 
 * Issue #1349: Move inner types to own classes
