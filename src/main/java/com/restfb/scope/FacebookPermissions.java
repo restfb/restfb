@@ -559,6 +559,7 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   * 
    * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024
    */
   @GraphAPI(since = "3.0", until = "19.0")
@@ -586,6 +587,7 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
+   * 
    * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024
    */
   @GraphAPI(since = "3.0", until = "19.0")
@@ -861,7 +863,62 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
-  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP);
+  WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP),
+
+  /**
+   * Required for making any calls to all Threads API endpoints
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_BASIC("threads_basic", Category.THREADS),
+
+  /**
+   * Required for Threads publishing endpoints only
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_CONTENT_PUBLISH("threads_content_publish", Category.THREADS),
+
+  /**
+   * Required for making GET calls to insights endpoints
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),
+
+  /**
+   * Required for making POST calls to reply endpoints
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),
+
+  /**
+   * Required for making GET calls to reply endpoints
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS);
 
   private final String permissionString;
 
@@ -881,6 +938,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP, THREADS
   }
 }
