@@ -21,6 +21,7 @@
  */
 package com.restfb.types.whatsapp.platform.message;
 
+import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
@@ -38,6 +39,11 @@ public class MessageContact extends AbstractFacebookType {
   @Facebook
   private ContactName name;
 
+  @Getter
+  @Setter
+  @Facebook
+  private List<ContactPhone> phones;
+
   public static class ContactName extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
@@ -49,7 +55,32 @@ public class MessageContact extends AbstractFacebookType {
 
     @Getter
     @Setter
+    @Facebook("last_name")
+    private String lastName;
+
+    @Getter
+    @Setter
     @Facebook("formatted_name")
     private String formattedName;
+  }
+
+  public static class ContactPhone extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook("phone")
+    private String phone;
+
+    @Getter
+    @Setter
+    @Facebook("type")
+    private String type;
+
+    @Getter
+    @Setter
+    @Facebook("wa_id")
+    private String waId;
   }
 }
