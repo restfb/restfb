@@ -40,7 +40,8 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
   @Test
   void messageTemplateStatusUpdate_approved() {
-    MessageTemplateStatusUpdateValue change = getWHObjectFromJson("webhook-messageTemplateStatusUpdate-approved", MessageTemplateStatusUpdateValue.class);
+    MessageTemplateStatusUpdateValue change =
+        getWHObjectFromJson("webhook-messageTemplateStatusUpdate-approved", MessageTemplateStatusUpdateValue.class);
     assertThat(change.getMessageTemplateId()).isEqualTo("1234567");
     assertThat(change.getEvent()).isEqualTo("APPROVED");
     assertThat(change.getMessageTemplateName()).isEqualTo("My message template");
@@ -51,7 +52,8 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
   @Test
   void messageTemplateStatusUpdate_disabling() {
-    MessageTemplateStatusUpdateValue change = getWHObjectFromJson("webhook-messageTemplateStatusUpdate-disabling", MessageTemplateStatusUpdateValue.class);
+    MessageTemplateStatusUpdateValue change =
+        getWHObjectFromJson("webhook-messageTemplateStatusUpdate-disabling", MessageTemplateStatusUpdateValue.class);
     assertThat(change.getMessageTemplateId()).isEqualTo("1234567");
     assertThat(change.getEvent()).isEqualTo("FLAGGED");
     assertThat(change.getMessageTemplateName()).isEqualTo("My message template");
@@ -62,7 +64,8 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
   @Test
   void phoneNumberNameUpdate() {
-    PhoneNumberNameUpdateValue change = getWHObjectFromJson("webhook-phoneNumberNameUpdate", PhoneNumberNameUpdateValue.class);
+    PhoneNumberNameUpdateValue change =
+        getWHObjectFromJson("webhook-phoneNumberNameUpdate", PhoneNumberNameUpdateValue.class);
     assertThat(change.getDisplayPhoneNumber()).isEqualTo("16505551111");
     assertThat(change.getDecision()).isEqualTo("APPROVED");
     assertThat(change.getRequestedVerifiedName()).isEqualTo("WhatsApp");
@@ -71,7 +74,8 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
   @Test
   void phoneNumberQualityUpdate() {
-    PhoneNumberQualityUpdateValue change = getWHObjectFromJson("webhook-phoneNumberQualityUpdate", PhoneNumberQualityUpdateValue.class);
+    PhoneNumberQualityUpdateValue change =
+        getWHObjectFromJson("webhook-phoneNumberQualityUpdate", PhoneNumberQualityUpdateValue.class);
     assertThat(change.getDisplayPhoneNumber()).isEqualTo("16505551111");
     assertThat(change.getCurrentLimit()).isEqualTo("TIER_10K");
     assertThat(change.getEvent()).isEqualTo("FLAGGED");
@@ -97,13 +101,15 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
   @Test
   void accountReviewUpdate() {
-    AccountReviewUpdateValue change = getWHObjectFromJson("webhook-accountReviewUpdate", AccountReviewUpdateValue.class);
+    AccountReviewUpdateValue change =
+        getWHObjectFromJson("webhook-accountReviewUpdate", AccountReviewUpdateValue.class);
     assertThat(change.getDecision()).isEqualTo("APPROVED");
   }
 
   @Test
   void messageContacts() {
-    WhatsappMessagesValue messagesValue = getWHObjectFromJson("webhook-incoming-message-contacts", WhatsappMessagesValue.class);
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-contacts", WhatsappMessagesValue.class);
     assertThat(messagesValue.getContacts()).hasSize(1);
     assertThat(messagesValue.getMessages()).hasSize(1);
     Message message = messagesValue.getMessages().get(0);
@@ -117,8 +123,41 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void messageContacts2() {
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-contacts2", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getContacts()).hasSize(1);
+    assertThat(messagesValue.getMessages()).hasSize(1);
+    Message message = messagesValue.getMessages().get(0);
+    assertThat(message.hasContacts()).isTrue();
+    assertThat(message.getType()).isEqualTo(MessageType.contacts);
+    assertThat(message.getContacts()).hasSize(2);
+    MessageContact contact1 = message.getContacts().get(0);
+    assertThat(contact1.getName()).isNotNull();
+    assertThat(contact1.getName().getFirstName()).isEqualTo("REDACTED");
+    assertThat(contact1.getName().getLastName()).isEqualTo("REDACTED");
+    assertThat(contact1.getName().getFormattedName()).isEqualTo("REDACTED");
+    assertThat(contact1.getPhones()).hasSize(1);
+    MessageContact.ContactPhone phone = contact1.getPhones().get(0);
+    assertThat(phone.getPhone()).isEqualTo("+39 393 REDACTED");
+    assertThat(phone.getType()).isEqualTo("Cellulare");
+    assertThat(phone.getWaId()).isNull();
+    MessageContact contact2 = message.getContacts().get(1);
+    assertThat(contact2.getName()).isNotNull();
+    assertThat(contact2.getName().getFirstName()).isEqualTo("REDACTED");
+    assertThat(contact2.getName().getLastName()).isEqualTo("REDACTED");
+    assertThat(contact2.getName().getFormattedName()).isEqualTo("REDACTED");
+    assertThat(contact2.getPhones()).hasSize(1);
+    MessageContact.ContactPhone phone2 = contact2.getPhones().get(0);
+    assertThat(phone2.getPhone()).isEqualTo("+39 349 REDACTED");
+    assertThat(phone2.getWaId()).isEqualTo("39349REDACTED");
+    assertThat(phone2.getType()).isEqualTo("Cellulare");
+  }
+
+  @Test
   void messageUnsupported() {
-    WhatsappMessagesValue messagesValue = getWHObjectFromJson("webhook-incoming-message-unsupported", WhatsappMessagesValue.class);
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-unsupported", WhatsappMessagesValue.class);
     assertThat(messagesValue.getMessages()).hasSize(1);
     Message message = messagesValue.getMessages().get(0);
     assertThat(message.getType()).isEqualTo(MessageType.unsupported);
@@ -129,7 +168,7 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
 
   private <T extends ChangeValue> T getWHObjectFromJson(String jsonName, Class<T> clazz) {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("whatsapp/" + jsonName), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("whatsapp/" + jsonName), WebhookObject.class);
     assertThat(webhookObject.isWhatsAppBusinessAccount()).isTrue();
     assertThat(webhookObject.getEntryList()).hasSize(1);
     WebhookEntry entry = webhookObject.getEntryList().get(0);
