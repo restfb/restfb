@@ -1,0 +1,65 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "REDACTED",
+      "changes": [
+        {
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "REDACTED",
+              "phone_number_id": "REDACTED"
+            },
+            "contacts": [
+              {
+                "profile": {
+                  "name": "REDACTED"
+                },
+                "wa_id": "REDACTED"
+              }
+            ],
+            "messages": [
+              {
+                "from": "REDACTED",
+                "id": "wamid.HBg...",
+                "timestamp": "1712646603",
+                "type": "contacts",
+                "contacts": [
+                  {
+                    "name": {
+                      "first_name": "REDACTED",
+                      "last_name": "REDACTED",
+                      "formatted_name": "REDACTED"
+                    },
+                    "phones": [
+                      {
+                        "phone": "+39 393 REDACTED",
+                        "type": "Cellulare"
+                      }
+                    ]
+                  },
+                  {
+                    "name": {
+                      "first_name": "REDACTED",
+                      "last_name": "REDACTED",
+                      "formatted_name": "REDACTED"
+                    },
+                    "phones": [
+                      {
+                        "phone": "+39 349 REDACTED",
+                        "wa_id": "39349REDACTED",
+                        "type": "Cellulare"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "field": "messages"
+        }
+      ]
+    }
+  ]
+}
