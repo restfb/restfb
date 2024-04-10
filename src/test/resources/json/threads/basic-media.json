@@ -1,0 +1,13 @@
+{
+  "id": "1234567",
+  "media_product_type": "THREADS",
+  "media_type": "TEXT_POST",
+  "permalink": "https://www.threads.net/@threadsapitestuser/post/abcdefg",
+  "owner": {
+    "id": "1234567"
+  },
+  "username": "threadsapitestuser",
+  "text": "Today Is Monday",
+  "timestamp": "2023-10-17T05:42:03+0000",
+  "shortcode": "abcdefg"
+}
