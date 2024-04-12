@@ -1,0 +1,7 @@
+{
+  "reply_quota_usage": 1,
+  "reply_config": {
+    "quota_total": 1000,
+    "quota_duration": 86400
+  }
+}
