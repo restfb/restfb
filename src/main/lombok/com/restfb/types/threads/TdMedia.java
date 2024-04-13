@@ -51,7 +51,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook("media_type")
-  private MediaType mediaType;
+  private TdMediaType mediaType;
 
   /**
    * The post’s media URL.
@@ -134,7 +134,4 @@ public class TdMedia extends FacebookType {
   @Facebook("is_quote_post")
   private Boolean isQuotePost;
 
-  public enum MediaType {
-    TEXT_POST, IMAGE, VIDEO, CAROUSEL_ALBUM, REPOST_FACADE
-  }
 }

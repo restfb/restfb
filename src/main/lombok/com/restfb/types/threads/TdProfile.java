@@ -33,6 +33,8 @@ import lombok.Setter;
  */
 public class TdProfile extends AbstractFacebookType {
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * Instagram user ID. This is returned by default.
    */

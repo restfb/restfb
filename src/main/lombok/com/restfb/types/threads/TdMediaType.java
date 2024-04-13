@@ -21,23 +21,6 @@
  */
 package com.restfb.types.threads;
 
-import com.restfb.AbstractJsonMapperTests;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-class TdMediaTest extends AbstractJsonMapperTests {
-
-  @Test
-  void checkBasic() {
-    TdMedia threadsMedis = createJsonMapper().toJavaObject(jsonFromClasspath("threads/basic-media"), TdMedia.class);
-    assertNotNull(threadsMedis);
-    assertNotNull(threadsMedis.getOwner());
-    assertEquals("1234567", threadsMedis.getOwner().getId());
-    assertEquals("1234567", threadsMedis.getId());
-    assertEquals(1697521323000L, threadsMedis.getTimestamp().getTime());
-    assertEquals("abcdefg", threadsMedis.getShortcode());
-    assertEquals(TdMediaType.TEXT_POST, threadsMedis.getMediaType());
-  }
+public enum TdMediaType {
+  TEXT_POST, IMAGE, VIDEO, CAROUSEL_ALBUM, REPOST_FACADE
 }

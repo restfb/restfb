@@ -1,0 +1,61 @@
+{
+  "data": [
+    {
+      "id": "1234567890",
+      "text": "First Reply",
+      "timestamp": "2024-01-01T18:20:00+0000",
+      "media_product_type": "THREADS",
+      "media_type": "TEXT_POST",
+      "shortcode": "abcdefg",
+      "has_replies": true,
+      "root_post": {
+        "id": "1234567890"
+      },
+      "replied_to": {
+        "id": "1234567890"
+      },
+      "is_reply": true,
+      "hide_status": "NOT_HUSHED"
+    },
+    {
+      "id": "1234567890",
+      "text": "Second Reply",
+      "timestamp": "2024-01-01T18:20:00+0000",
+      "media_product_type": "THREADS",
+      "media_type": "TEXT_POST",
+      "shortcode": "abcdefg",
+      "has_replies": false,
+      "root_post": {
+        "id": "1234567890"
+      },
+      "replied_to": {
+        "id": "1234567890"
+      },
+      "is_reply": true,
+      "hide_status": "HIDDEN"
+    },
+    {
+      "id": "1234567890",
+      "text": "Third Reply",
+      "timestamp": "2024-01-01T18:20:00+0000",
+      "media_product_type": "THREADS",
+      "media_type": "TEXT_POST",
+      "shortcode": "abcdefg",
+      "has_replies": false,
+      "root_post": {
+        "id": "1234567890"
+      },
+      "replied_to": {
+        "id": "1234567890"
+      },
+      "is_reply": true,
+      "hide_status": "UNHUSHED"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "BEFORE_CURSOR",
+      "after": "AFTER_CURSOR"
+    }
+  }
+}
