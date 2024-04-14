@@ -1,5 +1,24 @@
 # RestFB Changelog
 
+## 2024.3.0 (April 14, 2024)
+
+* Threads API added:
+  * Issue #1398: new Threads permissions added
+  * Issue #1399: profile type added
+  * Issue #1400: media type added
+  * Issue #1401: rate limit type added
+  * Issue #1402: reply type added
+  * Issue #1403: insights checked
+* build deps updated:
+  * Issue #1385: bump version.junit from 5.10.1 to 5.10.2
+  * Issue #1386: bump org.assertj:assertj-core from 3.25.2 to 3.25.3
+  * Issue #1387: bump org.mockito:mockito-junit-jupiter from 5.10.0 to 5.11.0
+  * Issue #1391: bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0
+  * Issue #1392: bump org.apache.maven.plugins:maven-gpg-plugin from 3.1.0 to 3.2.2
+  * Issue #1394: bump org.apache.maven.plugins:maven-source-plugin from 3.3.0 to 3.3.1
+  * Issue #1395: bump org.projectlombok:lombok from 1.18.30 to 1.18.32
+  * Issue #1396: bump org.jacoco:jacoco-maven-plugin from 0.8.11 to 0.8.12
+
 ## 2024.2.0 (January 31, 2024)
 
 * Issue #1382: Graph API 19.0 added
