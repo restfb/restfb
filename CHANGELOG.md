@@ -2,6 +2,8 @@
 
 ## 2024.3.0 (April 14, 2024)
 
+* Add missing MessageContact fields<br />
+  Thanks to @BernardoGiordano for the PR
 * Threads API added:
   * Issue #1398: new Threads permissions added
   * Issue #1399: profile type added
