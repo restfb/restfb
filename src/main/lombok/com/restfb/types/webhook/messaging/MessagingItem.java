@@ -71,6 +71,11 @@ public class MessagingItem {
 
   @Getter
   @Setter
+  @Facebook("message_edit")
+  private MessageEditItem messageEdit;
+
+  @Getter
+  @Setter
   @Facebook
   private PostbackItem postback;
 

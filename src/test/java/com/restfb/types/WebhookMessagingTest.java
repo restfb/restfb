@@ -432,6 +432,23 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void messagingMessageEdits() {
+    WebhookObject webhookObject = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-edits"), WebhookObject.class);
+    assertNotNull(webhookObject);
+    assertFalse(webhookObject.getEntryList().isEmpty());
+    WebhookEntry entry = webhookObject.getEntryList().get(0);
+    assertFalse(entry.getMessaging().isEmpty());
+    assertFalse(entry.hasStandby());
+    MessagingItem messagingItem = entry.getMessaging().get(0);
+    MessageEditItem item = messagingItem.getMessageEdit();
+    assertNotNull(item);
+    assertEquals("mid.1457764197618:41d102a3e1ae206a38", item.getMid());
+    assertEquals("hello, world!", item.getText());
+    assertEquals(37, item.getNumEdit());
+  }
+
+  @Test
   void standbyMessageBasicIsEcho() {
     WebhookObject webhookObject =
         createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/standby-message-basic-echo"), WebhookObject.class);
