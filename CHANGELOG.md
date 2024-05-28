@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2024.4.0 (May 28, 2024)
+
+* Issue #1410: message_edits Webhook added
+* Issue #1419: Graph API 20 added to version enum
+* dependency updates
+
 ## 2024.3.0 (April 14, 2024)
 
 * Add missing MessageContact fields<br />
