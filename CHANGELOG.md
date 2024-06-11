@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2024.5.0 (June 11, 2024)
+
+* Issue #1422: Improve `obtainExtendedAccessToken`
+* Issue #1423: add IgContainer
+* Issue #1424: Add Instagram Endpoint for Instagram 
+  basic display API and Threads
+
 ## 2024.4.0 (May 28, 2024)
 
 * Issue #1410: message_edits Webhook added
