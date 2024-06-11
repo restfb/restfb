@@ -108,6 +108,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   protected boolean accessTokenInHeader;
 
+  protected boolean useInstagramApi;
+
   protected DefaultFacebookClient() {
     this(Version.LATEST);
   }
@@ -915,17 +917,52 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       apiCall = apiCall.substring(1);
     }
 
-    String baseUrl = getFacebookGraphEndpointUrl();
+    String baseUrl;
+    if (useInstagramApi()) {
+      baseUrl = getInstagramGraphEndpointUrl();
+    } else {
+      baseUrl = getFacebookGraphEndpointUrl();
 
-    if (hasAttachment && hasReel) {
-      baseUrl = getFacebookReelsUploadEndpointUrl();
-    } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
-      baseUrl = getFacebookGraphVideoEndpointUrl();
-    } else if (apiCall.endsWith("logout.php")) {
-      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();
+      if (hasAttachment && hasReel) {
+        baseUrl = getFacebookReelsUploadEndpointUrl();
+      } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
+        baseUrl = getFacebookGraphVideoEndpointUrl();
+      } else if (apiCall.endsWith("logout.php")) {
+        baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();
+      }
     }
 
     return format("%s/%s", baseUrl, apiCall);
+  }
+
+  /**
+   * Sets a boolean indicating whether the client should use the Instagram API.
+   *
+   * @param useInstagramApi
+   *          {@code true} if the client should use the Instagram API, {@code false} otherwise.
+   *
+   *          This method allows the client to switch between the Facebook Graph API and the Instagram Graph API. By
+   *          default, the client uses the Facebook Graph API.
+   */
+  public void setUseInstagramApi(boolean useInstagramApi) {
+    this.useInstagramApi = useInstagramApi;
+  }
+
+  /**
+   * Returns a boolean indicating whether the client is currently configured to use the Instagram API.
+   *
+   * @return {@code true} if the client is configured to use the Instagram API, {@code false} otherwise.
+   */
+  public boolean useInstagramApi() {
+    return useInstagramApi;
+  }
+
+  protected String getInstagramGraphEndpointUrl() {
+    if (apiVersion.isUrlElementRequired()) {
+      return getFacebookEndpointUrls().getInstagramEndpoint() + '/' + apiVersion.getUrlElement();
+    } else {
+      return getFacebookEndpointUrls().getInstagramEndpoint();
+    }
   }
 
   /**

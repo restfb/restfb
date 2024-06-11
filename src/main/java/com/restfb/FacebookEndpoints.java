@@ -74,6 +74,10 @@ public interface FacebookEndpoints {
     return Endpoint.RUPLOAD.getUrl();
   }
 
+  default String getInstagramEndpoint() {
+    return Endpoint.INSTAGRAM.getUrl();
+  }
+
   enum Endpoint {
     /**
      * General Facebook endpoint URL.
@@ -93,7 +97,12 @@ public interface FacebookEndpoints {
     /**
      * Reels Upload endpont URL.
      */
-    RUPLOAD("https://rupload.facebook.com/video-upload");
+    RUPLOAD("https://rupload.facebook.com/video-upload"),
+
+    /**
+     * Instagram Graph API endpoint URL.
+     */
+    INSTAGRAM("https://graph.instagram.com");
 
     private String url;
 
