@@ -533,9 +533,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence(APP_SECRET, appSecret);
     verifyParameterPresence("accessToken", accessToken);
 
-    String response = makeRequest("/oauth/access_token", false, false, null, Parameter.with(CLIENT_ID, appId),
-      Parameter.with(PARAM_CLIENT_SECRET, appSecret), Parameter.with("grant_type", "fb_exchange_token"),
-      Parameter.with("fb_exchange_token", accessToken));
+    String response = makeRequest("/oauth/access_token", false, false, null, //
+      Parameter.with(CLIENT_ID, appId), //
+      Parameter.with(PARAM_CLIENT_SECRET, appSecret), //
+      Parameter.with("grant_type", "fb_exchange_token"), //
+      Parameter.with("fb_exchange_token", accessToken), //
+      Parameter.withFields("access_token,expires_in,token_type"));
 
     try {
       return getAccessTokenFromResponse(response);
@@ -720,8 +723,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   protected String makeRequest(String endpoint, final boolean executeAsPost, final boolean executeAsDelete,
       final List<BinaryAttachment> binaryAttachments, Parameter... parameters) {
-    return makeRequest(endpoint, executeAsPost, executeAsDelete,
-    binaryAttachments, null, parameters);
+    return makeRequest(endpoint, executeAsPost, executeAsDelete, binaryAttachments, null, parameters);
   }
 
   /**
@@ -758,8 +760,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     boolean hasAttachment = binaryAttachments != null && !binaryAttachments.isEmpty();
     boolean hasReel = hasAttachment && binaryAttachments.get(0).isFacebookReel();
 
-    final String fullEndpoint =
-        createEndpointForApiCall(endpoint, hasAttachment, hasReel);
+    final String fullEndpoint = createEndpointForApiCall(endpoint, hasAttachment, hasReel);
     final String parameterString = toParameterString(parameters);
 
     String headerAccessToken = (hasReel) ? accessToken : getHeaderAccessToken();
@@ -956,6 +957,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Returns the Facebook Reels Upload endpoint URL for handling the Reels Upload
+   * 
    * @return the Facebook Reels Upload endpoint URL
    */
   protected String getFacebookReelsUploadEndpointUrl() {
