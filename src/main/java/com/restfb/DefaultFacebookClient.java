@@ -525,12 +525,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence(CODE, code);
     verifyParameterPresence(REDIRECT_URI, redirectUri);
 
-    return publish(PATH_OAUTH_ACCESS_TOKEN, AccessToken.class,
+    // save current Instagram API flag
+    boolean useInstagram = useInstagramApi();
+    // override to use Instagram API
+    setUseInstagramApi(true);
+
+    AccessToken igToken = publish(PATH_OAUTH_ACCESS_TOKEN, AccessToken.class,
             Parameter.with(CLIENT_ID, clientId),
             Parameter.with(PARAM_CLIENT_SECRET, clientSecret),
             Parameter.with(CODE, code),
             Parameter.with(GRANT_TYPE, "authorization_code"),
             Parameter.with(REDIRECT_URI, redirectUri));
+
+    // set Instagram API flag back
+    setUseInstagramApi(useInstagram);
+    return igToken;
   }
 
   /**
