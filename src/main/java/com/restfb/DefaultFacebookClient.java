@@ -34,6 +34,7 @@ import static java.util.Collections.emptyList;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -616,20 +617,34 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
+    List<Parameter> parameterList = asList(parameters);
+    return getGenericLoginDialogUrl(appId, redirectUri, scope, () -> getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth", parameterList);
+  }
+
+  @Override
+  public String getInstagramLoginDialogUrl(String instagramAppId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
+    List<Parameter> parameterList = new ArrayList<>();
+    Collections.addAll(parameterList, parameters);
+    parameterList.add(Parameter.with("response_type", "code"));
+    return getGenericLoginDialogUrl(instagramAppId, redirectUri, scope, () -> getFacebookEndpointUrls().getInstagramApiEndpoint() + "/oauth/authorize", parameterList);
+  }
+
+  private String getGenericLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Supplier<String> endpointSupplier, List<Parameter> parameters) {
     verifyParameterPresence(APP_ID, appId);
     verifyParameterPresence("redirectUri", redirectUri);
     verifyParameterPresence(SCOPE, scope);
 
-    String dialogUrl = getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth";
+    String dialogUrl = endpointSupplier.get();
 
     List<Parameter> parameterList = new ArrayList<>();
     parameterList.add(Parameter.with(CLIENT_ID, appId));
     parameterList.add(Parameter.with("redirect_uri", redirectUri));
-    parameterList.add(Parameter.with(SCOPE, scope.toString()));
+    if (!scope.toString().isEmpty()) {
+      parameterList.add(Parameter.with(SCOPE, scope.toString()));
+    }
 
     // add optional parameters
-    Collections.addAll(parameterList, parameters);
-
+    parameterList.addAll(parameters);
     return dialogUrl + "?" + toParameterString(false, parameterList.toArray(new Parameter[0]));
   }
 

@@ -74,6 +74,11 @@ public class AccessToken {
     @Facebook("token_type")
     private String tokenType;
 
+    @Getter
+    @Setter
+    @Facebook("user_id")
+    private String userId;
+
     private FacebookClient client;
 
     public void setClient(FacebookClient client) {

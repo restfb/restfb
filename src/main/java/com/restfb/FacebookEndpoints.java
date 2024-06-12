@@ -78,6 +78,10 @@ public interface FacebookEndpoints {
     return Endpoint.INSTAGRAM.getUrl();
   }
 
+  default String getInstagramApiEndpoint() {
+    return Endpoint.INSTAGRAM_API.getUrl();
+  }
+
   enum Endpoint {
     /**
      * General Facebook endpoint URL.
@@ -102,7 +106,12 @@ public interface FacebookEndpoints {
     /**
      * Instagram Graph API endpoint URL.
      */
-    INSTAGRAM("https://graph.instagram.com");
+    INSTAGRAM("https://graph.instagram.com"),
+
+    /**
+     * Instagram API endpoint URL.
+     */
+    INSTAGRAM_API("https://api.instagram.com");
 
     private String url;
 

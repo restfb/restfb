@@ -254,8 +254,8 @@ public interface FacebookClient {
 
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
-   * given {@code connection} and includes special body in the publish request, and mapping the
-   * result to an instance of {@code objectType}.
+   * given {@code connection} and includes special body in the publish request, and mapping the result to an instance of
+   * {@code objectType}.
    *
    * @param <T>
    *          Java type to map to.
@@ -460,6 +460,23 @@ public interface FacebookClient {
    */
   AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException;
+
+  /**
+   * Generates the login dialog URL for Instagram.
+   *
+   * This method constructs a URL that can be used to initiate the login process for an Instagram app.
+   * The URL includes the necessary parameters such as the app ID, redirect URI, and requested scopes.
+   *
+   * @param instagramAppId The ID of your Instagram app, found in your app's dashboard.
+   * @param redirectUri The URL that you want to redirect the person logging in back to.
+   *                    This URL will capture the response from the Login Dialog.
+   * @param scope List of Permissions to request from the person using your app.
+   * @param parameters Additional parameters to be included in the URL.
+   *
+   * @return The login dialog URL for Instagram.
+   */
+  String getInstagramLoginDialogUrl(String instagramAppId, String redirectUri, ScopeBuilder scope,
+      Parameter... parameters);
 
   /**
    * <p>

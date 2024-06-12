@@ -379,12 +379,30 @@ class FacebookClientTest {
   }
 
   @Test
+  void checkInstagramDialogURL() {
+    FacebookClient client = new DefaultFacebookClient(Version.LATEST);
+    String loginDialogUrlString =
+        client.getInstagramLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true));
+    assertThat(loginDialogUrlString).isEqualTo(
+      "https://api.instagram.com/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&response_type=code");
+  }
+
+  @Test
   void checkLoginDialogURLAdditionalParameters() {
     FacebookClient client = new DefaultFacebookClient(Version.VERSION_9_0);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
       Parameter.with("auth_type", "reauthenticate"));
     assertThat(loginDialogUrlString).isEqualTo(
       "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile&auth_type=reauthenticate");
+  }
+
+  @Test
+  void checkInstagramDialogURLAdditionalParameters() {
+    FacebookClient client = new DefaultFacebookClient(Version.LATEST);
+    String loginDialogUrlString = client.getInstagramLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true),
+    Parameter.with("state", "abcd"));
+    assertThat(loginDialogUrlString).isEqualTo(
+            "https://api.instagram.com/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=abcd&response_type=code");
   }
 
   @Test
