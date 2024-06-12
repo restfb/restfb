@@ -72,6 +72,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public static final String CONNECTION = "connection";
   public static final String CONNECTION_TYPE = "connectionType";
   public static final String ALGORITHM = "algorithm";
+  public static final String PATH_OAUTH_ACCESS_TOKEN = "oauth/access_token";
+  public static final String REDIRECT_URI = "redirect_uri";
+  public static final String GRANT_TYPE = "grant_type";
+  public static final String CODE = "code";
   /**
    * Graph API access token.
    */
@@ -453,7 +457,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence(APP_ID, appId);
     verifyParameterPresence(APP_SECRET, appSecret);
 
-    String response = makeRequest("oauth/access_token", Parameter.with("grant_type", "client_credentials"),
+    String response = makeRequest(PATH_OAUTH_ACCESS_TOKEN, Parameter.with(GRANT_TYPE, "client_credentials"),
       Parameter.with(CLIENT_ID, appId), Parameter.with(PARAM_CLIENT_SECRET, appSecret));
 
     try {
@@ -477,14 +481,14 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException {
-    verifyParameterPresence("code", code);
+    verifyParameterPresence(CODE, code);
 
     ObjectUtil.requireNotNull(accessToken,
       () -> new IllegalStateException("access token is required to fetch a device access token"));
 
     try {
       String response = makeRequest("device/login_status", true, false, null, Parameter.with("type", "device_token"),
-        Parameter.with("code", code));
+        Parameter.with(CODE, code));
       return getAccessTokenFromResponse(response);
     } catch (FacebookOAuthException foae) {
       DeviceTokenExceptionFactory.createFrom(foae);
@@ -503,9 +507,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence(APP_SECRET, appSecret);
     verifyParameterPresence("verificationCode", verificationCode);
 
-    String response = makeRequest("oauth/access_token", Parameter.with(CLIENT_ID, appId),
-      Parameter.with(PARAM_CLIENT_SECRET, appSecret), Parameter.with("code", verificationCode),
-      Parameter.with("redirect_uri", redirectUri));
+    String response = makeRequest(PATH_OAUTH_ACCESS_TOKEN, Parameter.with(CLIENT_ID, appId),
+      Parameter.with(PARAM_CLIENT_SECRET, appSecret), Parameter.with(CODE, verificationCode),
+      Parameter.with(REDIRECT_URI, redirectUri));
 
     try {
       return getAccessTokenFromResponse(response);
@@ -517,18 +521,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   @Override
   public AccessToken obtainInstagramAccessToken(String clientId, String clientSecret, String code, String redirectUri) {
     verifyParameterPresence(CLIENT_ID, clientId);
-    verifyParameterPresence("client_secret", clientSecret);
-    verifyParameterPresence("code", code);
-    verifyParameterPresence("redirect_uri", redirectUri);
+    verifyParameterPresence(PARAM_CLIENT_SECRET, clientSecret);
+    verifyParameterPresence(CODE, code);
+    verifyParameterPresence(REDIRECT_URI, redirectUri);
 
-    AccessToken accessToken = publish("oauth/access_token", AccessToken.class,
+    return publish(PATH_OAUTH_ACCESS_TOKEN, AccessToken.class,
             Parameter.with(CLIENT_ID, clientId),
-            Parameter.with("client_secret", clientSecret),
-            Parameter.with("code", code),
-            Parameter.with("grant_type", "authorization_code"),
-            Parameter.with("redirect_uri", redirectUri));
-
-    return accessToken;
+            Parameter.with(PARAM_CLIENT_SECRET, clientSecret),
+            Parameter.with(CODE, code),
+            Parameter.with(GRANT_TYPE, "authorization_code"),
+            Parameter.with(REDIRECT_URI, redirectUri));
   }
 
   /**
@@ -556,7 +558,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     String response = makeRequest("/oauth/access_token", false, false, null, //
       Parameter.with(CLIENT_ID, appId), //
       Parameter.with(PARAM_CLIENT_SECRET, appSecret), //
-      Parameter.with("grant_type", "fb_exchange_token"), //
+      Parameter.with(GRANT_TYPE, "fb_exchange_token"), //
       Parameter.with("fb_exchange_token", accessToken), //
       Parameter.withFields("access_token,expires_in,token_type"));
 
@@ -642,7 +644,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public String getInstagramLoginDialogUrl(String instagramAppId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
     List<Parameter> parameterList = new ArrayList<>();
     Collections.addAll(parameterList, parameters);
-    parameterList.add(Parameter.with("response_type", "code"));
+    parameterList.add(Parameter.with("response_type", CODE));
     return getGenericLoginDialogUrl(instagramAppId, redirectUri, scope, () -> getFacebookEndpointUrls().getInstagramApiEndpoint() + "/oauth/authorize", parameterList);
   }
 
@@ -655,7 +657,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     List<Parameter> parameterList = new ArrayList<>();
     parameterList.add(Parameter.with(CLIENT_ID, appId));
-    parameterList.add(Parameter.with("redirect_uri", redirectUri));
+    parameterList.add(Parameter.with(REDIRECT_URI, redirectUri));
     if (!scope.toString().isEmpty()) {
       parameterList.add(Parameter.with(SCOPE, scope.toString()));
     }

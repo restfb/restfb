@@ -382,6 +382,22 @@ public interface FacebookClient {
    */
   String obtainAppSecretProof(String accessToken, String appSecret);
 
+
+  /**
+   * Method to obtain an Instagram Access Token.
+   *
+   * This method is used to authenticate a user with the Instagram API. It requires the client ID, client secret,
+   * authorization code (received from the Instagram login dialog), and the redirect URI.
+   *
+   * @param clientId The client ID of your Instagram app, found in your app's dashboard.
+   * @param clientSecret The client secret of your Instagram app, found in your app's dashboard.
+   * @param code The authorization code received from the Instagram login dialog.
+   * @param redirectUri The URL that you want to redirect the person logging in back to. This URL will capture the response from the Login Dialog.
+   *
+   * @return An instance of {@link AccessToken} representing the authenticated user's access token.
+   *
+   * @throws FacebookOAuthException If the authorization is declined, the code is expired, or there is an error during the authorization process.
+   */
   AccessToken obtainInstagramAccessToken(String clientId, String clientSecret, String code, String redirectUri);
 
   /**
