@@ -382,6 +382,8 @@ public interface FacebookClient {
    */
   String obtainAppSecretProof(String accessToken, String appSecret);
 
+  AccessToken obtainInstagramAccessToken(String clientId, String clientSecret, String code, String redirectUri);
+
   /**
    * Convenience method which invokes {@link #obtainExtendedAccessToken(String, String, String)} with the current access
    * token.

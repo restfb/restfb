@@ -514,6 +514,23 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
+  @Override
+  public AccessToken obtainInstagramAccessToken(String clientId, String clientSecret, String code, String redirectUri) {
+    verifyParameterPresence(CLIENT_ID, clientId);
+    verifyParameterPresence("client_secret", clientSecret);
+    verifyParameterPresence("code", code);
+    verifyParameterPresence("redirect_uri", redirectUri);
+
+    AccessToken accessToken = publish("oauth/access_token", AccessToken.class,
+            Parameter.with(CLIENT_ID, clientId),
+            Parameter.with("client_secret", clientSecret),
+            Parameter.with("code", code),
+            Parameter.with("grant_type", "authorization_code"),
+            Parameter.with("redirect_uri", redirectUri));
+
+    return accessToken;
+  }
+
   /**
    * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String)
    */
@@ -934,7 +951,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String baseUrl;
     if (useInstagramApi()) {
-      baseUrl = getInstagramGraphEndpointUrl();
+      if (apiCall.startsWith("oauth")) {
+        baseUrl = getFacebookEndpointUrls().getInstagramApiEndpoint();
+      } else {
+        baseUrl = getInstagramGraphEndpointUrl();
+      }
     } else {
       baseUrl = getFacebookGraphEndpointUrl();
 
