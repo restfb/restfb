@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2024.6.0 (June 12, 2024)
+
+* Issue #1426: IG Basic Display API: create auth window URL
+* Issue #1427: IG Basic Display API: obtain access token
+* Issue #1421: update maven-javadoc Plugin
+
 ## 2024.5.0 (June 11, 2024)
 
 * Issue #1422: Improve `obtainExtendedAccessToken`
