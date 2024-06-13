@@ -30,7 +30,7 @@ import com.restfb.annotation.GraphAPI;
 public enum FacebookPermissions {
   /**
    * Provides access to a subset of items that are part of a person's public profile.
-   * 
+   * <p>
    * A person's public profile refers to the following properties on the user object by default:
    * <ul>
    * <li>id</li>
@@ -191,7 +191,7 @@ public enum FacebookPermissions {
    * the reviewable feature Groups API, and do not submit this {@code user_managed_groups} in your review.
    *
    * <p>
-   * <b>Limited use: for testing only</b>
+   * <b>Limited use: for testing only</strong>
    */
   USER_MANAGED_GROUPS("user_managed_groups", Category.EVENTS_GROUPS_PAGES), //
 
@@ -202,7 +202,7 @@ public enum FacebookPermissions {
    * <p>
    * The allowed usage for this permission is for a Page to send a person an initial message, post—purchase updates and
    * account updates.
-   *
+   * <p>
    * <strong>Review</strong>
    *
    * <p>
@@ -275,9 +275,9 @@ public enum FacebookPermissions {
   /**
    * The attribution_read permission grants your app access to the Attribution API to pull attribution report data for
    * lines of business you own or have been granted access to by the owner or owners of other lines of business.
-   *
+   * <p>
    * Allowed Usage
-   *
+   * <p>
    * Provides the ability for your app to access ads performance data from Attribution for use in custom dashboards and
    * data analytics.
    */
@@ -304,9 +304,9 @@ public enum FacebookPermissions {
   /**
    * The page_events permissions allows your app permission to log events on behalf of Facebook Pages administered by
    * people using your app and to send those events to Facebook for ads targeting, optimization and reporting.
-   *
-   * <b>Allowed Usage</b>
-   *
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <p>
    * Send businesses related activities (for example purchase, add-to-cart, lead) on behalf of Pages owned by the people
    * who use your app.
    */
@@ -469,7 +469,7 @@ public enum FacebookPermissions {
   /**
    * The pages_user_gender permission allows your app to access a user's gender through the Page your app is connected
    * to.
-   *
+   * <p>
    * Allowed Usage
    *
    * <ul>
@@ -481,7 +481,7 @@ public enum FacebookPermissions {
 
   /**
    * The pages_user_locale permission allows your to app to a user's locale through the Page your app is connected to.
-   *
+   * <p>
    * Allowed Usage
    *
    * <ul>
@@ -495,7 +495,7 @@ public enum FacebookPermissions {
   /**
    * The pages_user_timezone permission grants your app access to a user's time zone through the Page your app is
    * connected to.
-   *
+   * <p>
    * Allowed Usage
    *
    * <ul>
@@ -550,6 +550,18 @@ public enum FacebookPermissions {
    * @since June 1, 2020
    */
   PAGES_MANAGE_ENGAGEMENT("pages_manage_engagement", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The private_computation_access permission allows an app to access the Meta Private Computation products.
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Monitor private attribution datasets for a business.</li>
+   * <li>Monitor instances for private attribution datasets for a business.</li>
+   * <li>Create and manage instances for private attribution datasets for a business.</li>
+   * </ul>
+   */
+  PRIVATE_COMPUTATION_ACCESS("private_computation_access", Category.OTHER), //
 
   /**
    * Gives an app the ability to post content into a group on behalf of a user who has granted the app this permission.
@@ -609,20 +621,21 @@ public enum FacebookPermissions {
   /**
    * The research_apis permission allows your app to access data on public Facebook Pages, Groups, and Events within the
    * Facebook Open Research and Transparency Tool.
-   *
-   * Allowed Usage
-   *
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <p>
    * Utilize public Facebook data for academic research.
    */
   RESEARCH_APIS("research_apis", Category.OTHER), //
 
   /**
-   *
+   * The read_insights permission allows your app to read the Insights data for Pages, apps and web domains the person
+   * owns.
    * <p>
-   * <strong>Review</strong>
-   *
-   * <p>
-   * If your app requests this permission Facebook will have to review how your app uses it.
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Integrate Facebook's app, page or domain insights into your own analytics tools..</li>
+   * </ul>
    */
   READ_INSIGHTS("read_insights", Category.OTHER), //
 
@@ -674,9 +687,9 @@ public enum FacebookPermissions {
   /**
    * The gaming_user_locale permission allows your app to get a user's preferred language while the user plays a game on
    * Facebook (for example, Instant Games or Cloud Gaming).
-   *
-   * Allowed Usage
-   *
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <p>
    * Display a game interface in the user's preferred language.
    */
   GAMING_USER_LOCALE("gaming_user_locale", Category.EVENTS_GROUPS_PAGES), //
@@ -759,6 +772,23 @@ public enum FacebookPermissions {
   INSTAGRAM_MANAGE_COMMENTS("instagram_manage_comments", Category.INSTAGRAM),
 
   /**
+   * The instagram_manage_events permission allows an app permission to log events (e.g., purchase, add-to-cart, leads)
+   * on behalf of Instagram accounts administered by the app’s users. The allowed usage for this permission is to log
+   * events on Instagram accounts and send this activity data to Meta for ads targeting, optimization and reporting; and
+   * to provide marketing and advertising analytics insights. You may also use this permission to request analytics
+   * insights to improve your app and for marketing or advertising purposes, through the use of aggregated and
+   * de-identified or anonymized information (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Get metadata of an Instagram Business account.</li>
+   * <li>Get data insights of an Instagram Business account.</li>
+   * <li>Get story insights of an Instagram Business account.</li>
+   * </ul>
+   */
+  INSTAGRAM_MANAGE_EVENTS("instagram_manage_events", Category.INSTAGRAM), //
+
+  /**
    * Provides the ability to read insights of Instagram account you have access to.
    *
    * <p>
@@ -790,6 +820,21 @@ public enum FacebookPermissions {
   INSTAGRAM_MANAGE_MESSAGES("instagram_manage_messages", Category.INSTAGRAM),
 
   /**
+   * The instagram_shopping_tag_products permission allows an app to tag Instagram media with product tags and appeal
+   * product rejections.
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Check eligibility for product tagging</li>
+   * <li>Get catalogs and products</li>
+   * <li>Tag media with product tags</li>
+   * <li>Manage existing product tags</li>
+   * <li>Appeal product rejections</li>
+   * </ul>
+   */
+  INSTAGRAM_SHOPPING_TAG_PRODUCTS("instagram_shopping_tag_products", Category.INSTAGRAM), //
+
+  /**
    * Provides the ability to publish content to Instagram account you have access to.
    *
    * <p>
@@ -804,6 +849,47 @@ public enum FacebookPermissions {
    */
   @GraphAPI(since = "2.5")
   INSTAGRAM_CONTENT_PUBLISH("instagram_content_publish", Category.INSTAGRAM), //
+
+  /**
+   * The instagram_branded_content_ads_brand permission allows an app to read Instagram posts where the app user's
+   * Instagram account is tagged as a paid partner, and an app user to read, request, and revoke permissions to run
+   * Partnership Ads.
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Read Instagram posts where the account is tagged as a paid partner</li>
+   * <li>Manage permissions to run Partnership Ads without needing a pre-existing post</li>
+   * </ul>
+   */
+  INSTAGRAM_BRANDED_CONTENT_ADS_BRAND("instagram_branded_content_ads_brand", Category.INSTAGRAM), //
+
+  /**
+   * The instagram_branded_content_brand permission allows your app to add, remove and view creators from a specific
+   * brand’s approved creators list. The allowed usage for this permission is to manage a specific brand’s Instagram
+   * creator content settings. You may also use this permission to request analytics insights to improve your app and
+   * for marketing or advertising purposes, through the use of aggregated and de-identified or anonymized information
+   * (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Manage branded creator content settings on a business’ Instagram account.</li>
+   * </ul>
+   */
+  INSTAGRAM_BRANDED_CONTENT_BRAND("instagram_branded_content_brand", Category.INSTAGRAM), //
+
+  /**
+   * The instagram_branded_content_creator permission allows your app to read and change the boost status of a creator’s
+   * specific piece of content. The allowed usage for this permission is to manage Instagram creator content settings.
+   * You may also use this permission to request analytics insights to improve your app and for marketing or advertising
+   * purposes, through the use of aggregated and de-identified or anonymized information (provided such data cannot be
+   * re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Read and change an Instagram creator’s content settings.</li>
+   * </ul>
+   */
+  INSTAGRAM_BRANDED_CONTENT_CREATOR("instagram_branded_content_creator", Category.INSTAGRAM), //
 
   /**
    * The instagram_graph_user_media permission allows your app to read the Media node, which represents an image, video,
@@ -854,7 +940,7 @@ public enum FacebookPermissions {
   /**
    * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other
    * businesses through this permission.
-   *
+   * <p>
    * These business assets include WhatsApp business accounts, phone numbers, and message templates.
    *
    * <p>
@@ -941,7 +1027,67 @@ public enum FacebookPermissions {
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
-  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS);
+  THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),
+
+  /**
+   * The commerce_account manage_orders permission allows your app to read and update commerce account orders.
+   *
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Read orders in your commerce account.</li>
+   * <li>Tech providers manage orders on behalf of their customers.</li>
+   * <li>Access to Webhook notifications.</li>
+   * </ul>
+   */
+  COMMERCE_ACCOUNT_MANAGE_ORDERS("commerce_account_manage_orders", Category.COMMERCE),
+
+  /**
+   * The commerce_account_read_orders permission allows your app to read commerce account orders.
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Read orders in your commerce account.</li>
+   * <li>Use the buyer's email address for marketing purposes only if a buyer has opted-in at checkout.</li>
+   * </ul>
+   */
+  COMMERCE_ACCOUNT_READ_ORDERS("commerce_account_read_orders", Category.COMMERCE),
+
+  /**
+   * The commerce_account_read_reports permission allows your app to read finance reporting data to build custom tax,
+   * cash reconciliation and reimbursement reports for a commerce account.
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Read finance reporting data in your commerce account for building custom tax cash reconciliation and
+   * reimbursement reports.</li>
+   * <li>Tech providers can run finance reports on behalf of their customers.</li>
+   * </ul>
+   */
+  COMMERCE_ACCOUNT_READ_REPORTS("commerce_account_read_reports", Category.COMMERCE),
+
+  /**
+   * The commerce_account_read_settings permission allows your app to read commerce account settings. Allowed Usage
+   * <ul>
+   * <li>Read basic commerce account information like connected channels, shipping options, fulfillment locations, etc.
+   * </ul>
+   */
+  COMMERCE_ACCOUNT_READ_SETTINGS("commerce_account_read_settings", Category.COMMERCE),
+
+  /**
+   * The commerce_manage_accounts permission allows your app to create and manage commerce accounts, such as an
+   * ecommerce app
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Associate your app with your commerce account.</li>
+   * <li>Tech providers create a commerce account on behalf of their customers.</li>
+   * <li>Tech providers enable a new sales channel within their customer’s commerce account.</li>
+   * </ul>
+   */
+  COMMERCE_MANAGE_ACCOUNTS("commerce_manage_accounts", Category.COMMERCE),
+
+  ;
 
   private final String permissionString;
 
@@ -961,6 +1107,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, THREADS
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, THREADS
   }
 }
