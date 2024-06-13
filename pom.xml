@@ -48,8 +48,8 @@
   </scm>
 
   <ciManagement>
-    <url>https://travis-ci.org/restfb/restfb</url>
-    <system>Travis</system>
+    <url>https://github.com/restfb/restfb/actions</url>
+    <system>Github Actions</system>
   </ciManagement>
 
   <distributionManagement>
