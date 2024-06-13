@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2024.7.0 (June 13, 2024)
+
+* Issue #1431: Instagram basic display api scopes added
+* Issue #1432: missing scopes added
+* Issue #1429: fix CI link
+* Issue #1434: add DefaultInstagramClient for the basic Display API
+* Issue #1433: state param added to login window url
+
 ## 2024.6.0 (June 12, 2024)
 
 * Issue #1426: IG Basic Display API: create auth window URL
