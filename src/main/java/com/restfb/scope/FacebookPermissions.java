@@ -829,6 +829,29 @@ public enum FacebookPermissions {
   INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //
 
   /**
+   * The user_media permission allows your app to read the Media node, which represents an image, video, or album and
+   * the node’s edges using the Instagram Basic Display API.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  USER_MEDIA("user_media", Category.INSTAGRAM_BASIC_DISPLAY), //
+
+  /**
+   * The user_profile permission allows your app to read the app user's profile using the Instagram Basic Display API.
+   *
+   * <p>
+   * <strong>Review</strong>
+   *
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  USER_PROFILE("user_profile", Category.INSTAGRAM_BASIC_DISPLAY), //
+
+  /**
    * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other
    * businesses through this permission.
    *
@@ -938,6 +961,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, LIVE_VIDEO, WHATSAPP, THREADS
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, THREADS
   }
 }
