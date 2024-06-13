@@ -59,7 +59,18 @@ public final class StringUtils {
    * @return {@code true} if {@code string} is blank, {@code false} otherwise.
    */
   public static boolean isBlank(String string) {
-    return string == null || "".equals(string.trim());
+    return string == null || string.trim().isEmpty();
+  }
+
+  /**
+   * Is {@code string} not blank (null or only whitespace)?
+   *
+   * @param string
+   *          The string to check.
+   * @return {@code true} if {@code string} is not blank, {@code false} otherwise.
+   */
+  public static boolean isNotBlank(String string) {
+    return !isBlank(string);
   }
 
   /**

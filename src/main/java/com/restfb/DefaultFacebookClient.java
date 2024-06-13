@@ -84,7 +84,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * Graph API app secret.
    */
-  private String appSecret;
+  protected String appSecret;
 
   /**
    * facebook exception generator to convert Facebook error json into java exceptions
@@ -112,8 +112,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected boolean httpDeleteFallback;
 
   protected boolean accessTokenInHeader;
-
-  protected boolean useInstagramApi;
 
   protected DefaultFacebookClient() {
     this(Version.LATEST);
@@ -307,7 +305,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public FacebookClient createClientWithAccessToken(String accessToken) {
-    return new DefaultFacebookClient(accessToken, this.appSecret, this.apiVersion);
+    return new DefaultFacebookClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(), this.apiVersion);
   }
 
   /**
@@ -518,30 +516,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
-  @Override
-  public AccessToken obtainInstagramAccessToken(String clientId, String clientSecret, String code, String redirectUri) {
-    verifyParameterPresence(CLIENT_ID, clientId);
-    verifyParameterPresence(PARAM_CLIENT_SECRET, clientSecret);
-    verifyParameterPresence(CODE, code);
-    verifyParameterPresence(REDIRECT_URI, redirectUri);
-
-    // save current Instagram API flag
-    boolean useInstagram = useInstagramApi();
-    // override to use Instagram API
-    setUseInstagramApi(true);
-
-    AccessToken igToken = publish(PATH_OAUTH_ACCESS_TOKEN, AccessToken.class,
-            Parameter.with(CLIENT_ID, clientId),
-            Parameter.with(PARAM_CLIENT_SECRET, clientSecret),
-            Parameter.with(CODE, code),
-            Parameter.with(GRANT_TYPE, "authorization_code"),
-            Parameter.with(REDIRECT_URI, redirectUri));
-
-    // set Instagram API flag back
-    setUseInstagramApi(useInstagram);
-    return igToken;
-  }
-
   /**
    * @see com.restfb.FacebookClient#obtainExtendedAccessToken(java.lang.String, java.lang.String)
    */
@@ -553,6 +527,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
           getClass().getSimpleName())));
 
     return obtainExtendedAccessToken(appId, appSecret, accessToken);
+  }
+
+  @Override
+  public AccessToken obtainRefreshedExtendedAccessToken() {
+    throw new UnsupportedOperationException("obtaining a refreshed extended access token is not supported by this client");
   }
 
   /**
@@ -578,7 +557,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
-  private AccessToken getAccessTokenFromResponse(String response) {
+  protected AccessToken getAccessTokenFromResponse(String response) {
     AccessToken token;
     try {
       token = getJsonMapper().toJavaObject(response, AccessToken.class);
@@ -644,20 +623,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   @Override
-  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
+  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, String state, Parameter... parameters) {
     List<Parameter> parameterList = asList(parameters);
-    return getGenericLoginDialogUrl(appId, redirectUri, scope, () -> getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth", parameterList);
+    return getGenericLoginDialogUrl(appId, redirectUri, scope, () -> getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth", state, parameterList);
   }
 
   @Override
-  public String getInstagramLoginDialogUrl(String instagramAppId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
-    List<Parameter> parameterList = new ArrayList<>();
-    Collections.addAll(parameterList, parameters);
-    parameterList.add(Parameter.with("response_type", CODE));
-    return getGenericLoginDialogUrl(instagramAppId, redirectUri, scope, () -> getFacebookEndpointUrls().getInstagramApiEndpoint() + "/oauth/authorize", parameterList);
+  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... parameters) {
+    return getLoginDialogUrl(appId, redirectUri, scope, null, parameters);
   }
 
-  private String getGenericLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Supplier<String> endpointSupplier, List<Parameter> parameters) {
+  protected String getGenericLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Supplier<String> endpointSupplier, String state, List<Parameter> parameters) {
     verifyParameterPresence(APP_ID, appId);
     verifyParameterPresence("redirectUri", redirectUri);
     verifyParameterPresence(SCOPE, scope);
@@ -669,6 +645,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     parameterList.add(Parameter.with(REDIRECT_URI, redirectUri));
     if (!scope.toString().isEmpty()) {
       parameterList.add(Parameter.with(SCOPE, scope.toString()));
+    }
+
+    if (StringUtils.isNotBlank(state)) {
+      parameterList.add(Parameter.with("state", state));
     }
 
     // add optional parameters
@@ -983,25 +963,12 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Sets a boolean indicating whether the client should use the Instagram API.
-   *
-   * @param useInstagramApi
-   *          {@code true} if the client should use the Instagram API, {@code false} otherwise.
-   *
-   *          This method allows the client to switch between the Facebook Graph API and the Instagram Graph API. By
-   *          default, the client uses the Facebook Graph API.
-   */
-  public void setUseInstagramApi(boolean useInstagramApi) {
-    this.useInstagramApi = useInstagramApi;
-  }
-
-  /**
    * Returns a boolean indicating whether the client is currently configured to use the Instagram API.
    *
    * @return {@code true} if the client is configured to use the Instagram API, {@code false} otherwise.
    */
   public boolean useInstagramApi() {
-    return useInstagramApi;
+    return false;
   }
 
   protected String getInstagramGraphEndpointUrl() {

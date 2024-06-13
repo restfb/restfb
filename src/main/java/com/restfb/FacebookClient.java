@@ -21,16 +21,11 @@
  */
 package com.restfb;
 
-import static java.lang.String.format;
-
-import java.util.*;
+import java.util.List;
 
 import com.restfb.batch.BatchRequest;
 import com.restfb.batch.BatchResponse;
-import com.restfb.exception.FacebookException;
-import com.restfb.exception.FacebookOAuthException;
-import com.restfb.exception.FacebookSignedRequestParsingException;
-import com.restfb.exception.FacebookSignedRequestVerificationException;
+import com.restfb.exception.*;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
@@ -94,7 +89,7 @@ public interface FacebookClient {
 
   /**
    * creates a new <code>FacebookClient</code> from a old one.
-   * 
+   * <p>
    * App secret and and api version are taken from the original client.
    *
    * @param accessToken
@@ -382,24 +377,6 @@ public interface FacebookClient {
    */
   String obtainAppSecretProof(String accessToken, String appSecret);
 
-
-  /**
-   * Method to obtain an Instagram Access Token.
-   *
-   * This method is used to authenticate a user with the Instagram API. It requires the client ID, client secret,
-   * authorization code (received from the Instagram login dialog), and the redirect URI.
-   *
-   * @param clientId The client ID of your Instagram app, found in your app's dashboard.
-   * @param clientSecret The client secret of your Instagram app, found in your app's dashboard.
-   * @param code The authorization code received from the Instagram login dialog.
-   * @param redirectUri The URL that you want to redirect the person logging in back to. This URL will capture the response from the Login Dialog.
-   *
-   * @return An instance of {@link AccessToken} representing the authenticated user's access token.
-   *
-   * @throws FacebookOAuthException If the authorization is declined, the code is expired, or there is an error during the authorization process.
-   */
-  AccessToken obtainInstagramAccessToken(String clientId, String clientSecret, String code, String redirectUri);
-
   /**
    * Convenience method which invokes {@link #obtainExtendedAccessToken(String, String, String)} with the current access
    * token.
@@ -416,6 +393,21 @@ public interface FacebookClient {
    * @since 1.6.10
    */
   AccessToken obtainExtendedAccessToken(String appId, String appSecret);
+
+  /**
+   * Obtain a refreshed Instagram extended access token.
+   *
+   * <p>
+   * This method is used to refresh an existing Instagram extended access token. Extended access tokens expire after a
+   * certain period of time, and this method allows you to obtain a new one using the refresh token provided with the
+   * original extended access token.
+   *
+   * @return A new {@link AccessToken} object containing the refreshed access token, expiration time, and token type.
+   * @throws FacebookResponseContentException
+   *           If the response from the Facebook API cannot be parsed or if the access token cannot be extracted from
+   *           the response.
+   */
+  AccessToken obtainRefreshedExtendedAccessToken();
 
   /**
    * Parses a signed request and verifies it against your App Secret.
@@ -443,10 +435,10 @@ public interface FacebookClient {
 
   /**
    * Method to initialize the device access token generation.
-   *
+   * <p>
    * You receive a {@link DeviceCode} instance and have to show the user the {@link DeviceCode#getVerificationUri()} and
    * the {@link DeviceCode#getUserCode()}. The user have to enter the user code at the verification url.
-   *
+   * <p>
    * Save the {@link DeviceCode#getCode()} to use it later, when polling Facebook with the
    * {@link #obtainDeviceAccessToken(java.lang.String)} method.
    *
@@ -458,9 +450,9 @@ public interface FacebookClient {
 
   /**
    * Method to poll Facebook and fetch the Device Access Token.
-   *
+   * <p>
    * You have to use this method to check if the user confirms the authorization.
-   *
+   * <p>
    * {@link FacebookOAuthException} can be thrown if the authorization is declined or still pending.
    *
    * @param code
@@ -478,23 +470,6 @@ public interface FacebookClient {
    */
   AccessToken obtainDeviceAccessToken(String code) throws FacebookDeviceTokenCodeExpiredException,
       FacebookDeviceTokenPendingException, FacebookDeviceTokenDeclinedException, FacebookDeviceTokenSlowdownException;
-
-  /**
-   * Generates the login dialog URL for Instagram.
-   *
-   * This method constructs a URL that can be used to initiate the login process for an Instagram app.
-   * The URL includes the necessary parameters such as the app ID, redirect URI, and requested scopes.
-   *
-   * @param instagramAppId The ID of your Instagram app, found in your app's dashboard.
-   * @param redirectUri The URL that you want to redirect the person logging in back to.
-   *                    This URL will capture the response from the Login Dialog.
-   * @param scope List of Permissions to request from the person using your app.
-   * @param parameters Additional parameters to be included in the URL.
-   *
-   * @return The login dialog URL for Instagram.
-   */
-  String getInstagramLoginDialogUrl(String instagramAppId, String redirectUri, ScopeBuilder scope,
-      Parameter... parameters);
 
   /**
    * <p>
@@ -582,6 +557,26 @@ public interface FacebookClient {
    * @since 1.9.0
    */
   String getLogoutUrl(String next);
+
+  /**
+   * generates the login dialog url
+   *
+   * @param appId
+   *          The ID of your app, found in your app's dashboard.
+   * @param redirectUri
+   *          The URL that you want to redirect the person logging in back to. This URL will capture the response from
+   *          the Login Dialog. If you are using this in a webview within a desktop app, this must be set to
+   *          <code>https://www.facebook.com/connect/login_success.html</code>.
+   * @param scope
+   *          List of Permissions to request from the person using your app.
+   * @param state
+   *         The state parameter is used to prevent CSRF attacks.
+   * @param parameters
+   *          List of additional parameters
+   * @since 1.9.0
+   * @return the login dialog url
+   */
+  String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, String state, Parameter... parameters);
 
   /**
    * generates the login dialog url
