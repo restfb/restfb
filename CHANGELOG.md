@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2024.8.0 (June 19, 2024)
+
+* Issue #1436: bump maven-surefire-plugin to 3.3.0
+* Issue #1437: bump maven-failsafe-plugin to 3.3.0
+* Issue #1438: `original_media_id` added to Instagram comment webhook
+* Issue #1440: Threads client added (OAuth and API requests)
+
 ## 2024.7.0 (June 13, 2024)
 
 * Issue #1431: Instagram basic display api scopes added
