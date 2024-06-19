@@ -52,8 +52,8 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private transient String rawPicture;
 
   /**
-   * The pages's profile picture, if provided.
-   * 
+   * The page's profile picture, if provided.
+   * <p>
    * To force Facebook to fill the <code>picture</code> field you have to fetch the page with the
    * <code>fields=picture</code> parameter, otherwise the picture is <code>null</code>.
    * 
@@ -975,11 +975,11 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Parent Page of this Page.
-   *
+   * <p>
    * If the Page is part of a Global Root Structure and you have permission to the Global Root, the Global Root Parent
    * Page is returned. If you do not have Global Root permission, the Market Page for your current region is returned as
    * the Parent Page.
-   *
+   * <p>
    * If your Page is not part of a Global Root Structure, the Parent Page is returned.
    *
    * @return parent page of this page
@@ -1011,7 +1011,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The number of likes the page has.
-   *
+   * <p>
    * Since Graph 2.6 you should use {@link Page#fanCount} instead
    *
    * @return The number of likes the page has
@@ -1203,9 +1203,9 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private Long talkingAboutCount;
 
   /**
-   * Whether this page has checkin functionality enabled.
+   * Whether this page has check in functionality enabled.
    *
-   * @return Whether this page has checkin functionality enabled
+   * @return Whether this page has check in functionality enabled
    */
   @Getter
   @Setter
@@ -1982,7 +1982,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * convert the value field in a boolean and return it.
-     * 
+     * <p>
      * Every value that's not the String "true" (case is ignored) is <code>false</code>!
      * 
      * @return the value field as boolean.
@@ -1993,7 +1993,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Takes the value and converts it into a json object if possible.
-     * 
+     * <p>
      * May throw a JsonException
      * 
      * @return

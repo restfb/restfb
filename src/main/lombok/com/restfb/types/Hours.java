@@ -62,7 +62,7 @@ public class Hours extends AbstractFacebookType {
     DayOfWeek day = DayOfWeek.valueOf(dayStr.toUpperCase());
 
     if (!hours.containsKey(day)) {
-      hours.put(day, new HashMap<Integer, Hour>());
+      hours.put(day, new HashMap<>());
     }
 
     if (key.endsWith("open")) {

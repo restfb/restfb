@@ -108,7 +108,7 @@ public interface JsonMapper {
 
   /**
    * adds a {@link FacebookClient} implementation to the mapper.
-   *
+   * <p>
    * This is especially useful for mapping json to Connection objects that need the client itself.
    * 
    * @param facebookClient

@@ -103,7 +103,7 @@ public class Payment extends FacebookType implements HasCreatedTime {
 
   /**
    * The country determined by Facebook for tax calculation of this purchase, given as an ISO 3166-1 alpha-2 country
-   * code. Note: This field is for your information only and it should not be used for any recalculation or
+   * code. Note: This field is for your information only, and it should not be used for any recalculation or
    * reconciliation purposes. If tax is equal to not_taxed or already_paid this field will be omitted.
    */
   @Getter
@@ -265,7 +265,7 @@ public class Payment extends FacebookType implements HasCreatedTime {
 
   /**
    * Contains the information related to a dispute, including the user_comment and user_email which is provided by the
-   * consumer when the dispute is initiated. Additionally contains the current status of the dispute, the time the
+   * consumer when the dispute is initiated. Additionally, contains the current status of the dispute, the time the
    * dispute was created an an resolution reason, if available.
    */
   public static class Dispute extends AbstractFacebookType {
@@ -348,7 +348,7 @@ public class Payment extends FacebookType implements HasCreatedTime {
 
   /**
    * Contains the information related to a dispute, including the {@code user_comment} and {@code user_email} which is
-   * provided by the consumer when the dispute is initiated. Additionally contains the current status of the dispute,
+   * provided by the consumer when the dispute is initiated. Additionally, contains the current status of the dispute,
    * the time the dispute was created an an resolution reason, if available.
    * 
    * @return list of disputes

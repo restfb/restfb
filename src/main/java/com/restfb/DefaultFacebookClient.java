@@ -107,7 +107,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   protected Version apiVersion;
 
   /**
-   * By default this is <code>false</code>, so real http DELETE is used
+   * By default, this is <code>false</code>, so real http DELETE is used
    */
   protected boolean httpDeleteFallback;
 
@@ -312,7 +312,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * @see com.restfb.FacebookClient#fetchObjects(java.util.List, java.lang.Class, com.restfb.Parameter[])
    */
   @Override
-  @SuppressWarnings("unchecked")
   public <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters) {
     verifyParameterPresence("ids", ids);
     verifyParameterPresence(CONNECTION_TYPE, objectType);
@@ -591,7 +590,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     String urlDecodedPayload = urlDecodeSignedRequestToken(encodedPayload);
     String payload = StringUtils.toString(decodeBase64(urlDecodedPayload));
 
-    // Convert payload to a JsonObject so we can pull algorithm data out of it
+    // Convert payload to a JsonObject, so we can pull algorithm data out of it
     JsonObject payloadObject = getJsonMapper().toJavaObject(payload, JsonObject.class);
 
     if (!payloadObject.contains(ALGORITHM)) {
@@ -839,7 +838,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * do not support the whole http method set, to delete objects from facebook
    * 
    * @param httpDeleteFallback
-   *          <code>true</code> if the the http Delete Fallback is used
+   *          <code>true</code> if the http Delete Fallback is used
    */
   public void setHttpDeleteFallback(boolean httpDeleteFallback) {
     this.httpDeleteFallback = httpDeleteFallback;
@@ -993,9 +992,9 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   /**
-   * Returns the base endpoint URL for the Graph API's video upload functionality.
+   * Returns the base endpoint URL for the Graph APIs video upload functionality.
    * 
-   * @return The base endpoint URL for the Graph API's video upload functionality.
+   * @return The base endpoint URL for the Graph APIs video upload functionality.
    * @since 1.6.5
    */
   protected String getFacebookGraphVideoEndpointUrl() {

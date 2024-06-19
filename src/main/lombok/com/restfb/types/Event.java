@@ -123,9 +123,9 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
   private Date endTime;
 
   /**
-   * Whether or not the event has been marked as canceled
+   * Whether the event has been marked as canceled
    *
-   * @return Whether or not the event has been marked as canceled
+   * @return Whether the event has been marked as canceled
    */
   @Getter
   @Setter

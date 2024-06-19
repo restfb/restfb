@@ -29,7 +29,7 @@ import lombok.Setter;
 
 /**
  * Type that can be used as return value for publishing new objects to Facebook.
- * 
+ * <p>
  * Id, post_id and success field are accessible. Have a look at the fields and methods javadoc
  */
 public class GraphResponse {
@@ -56,10 +56,10 @@ public class GraphResponse {
 
   /**
    * returns the id that is used for the post or comment.
-   * 
-   * Normally the <code>id</code> of the newly object is returned, but after publishing a photo the <code>post id</code>
+   * <p>
+   * Normally the <code>id</code> of the new object is returned, but after publishing a photo the <code>post id</code>
    * is returned. So you get the id of the corresponding post without put the logic in your application.
-   * 
+   * <p>
    * Attention: if you publish a photo without story you get the photo id here
    *
    * @return id of the new created post / comment

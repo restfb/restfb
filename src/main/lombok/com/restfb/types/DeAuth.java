@@ -29,7 +29,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * DeAuth type, returned on deauthorization callback
+ * DeAuth type, returned on de-authorization callback
  * 
  * @since 1.6.16
  */

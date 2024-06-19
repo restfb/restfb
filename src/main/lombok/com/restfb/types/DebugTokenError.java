@@ -50,9 +50,9 @@ public class DebugTokenError extends AbstractFacebookType {
     private String message;
 
     /**
-     * The error subcode for the error.
+     * The error sub code for the error.
      *
-     * @return The error subcode for the error.
+     * @return The error sub code for the error.
      */
     @Getter
     @Setter

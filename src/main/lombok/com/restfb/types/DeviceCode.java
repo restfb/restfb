@@ -48,7 +48,7 @@ public class DeviceCode extends AbstractFacebookType {
 
   /**
    * Url the user should call.
-   * 
+   * <p>
    * Here he should add the user code
    */
   @Getter
@@ -58,7 +58,7 @@ public class DeviceCode extends AbstractFacebookType {
 
   /**
    * The code expires in these seconds.
-   * 
+   * <p>
    * You should cancel the login flow after that time if you do not receive an access token
    */
   @Getter

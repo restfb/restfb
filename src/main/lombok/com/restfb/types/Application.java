@@ -216,9 +216,9 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
   private String company;
 
   /**
-   * True if the app has configured Single Sign On on iOS.
+   * True if the app has configured Single Sign-On on iOS.
    *
-   * @return True if the app has configured Single Sign On on iOS
+   * @return True if the app has configured Single Sign-On on iOS
    */
   @Getter
   @Setter
@@ -1223,9 +1223,9 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
     private String location;
 
     /**
-     * Custom made category restrictions for the app, such as alcohol restriction.
+     * Custom-made category restrictions for the app, such as alcohol restriction.
      * 
-     * @return Custom made category restrictions for the app, such as alcohol restriction
+     * @return Custom-made category restrictions for the app, such as alcohol restriction
      */
     @Getter
     @Setter
@@ -1241,9 +1241,9 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
   private class ApplicationObjectStoreURLs extends AbstractFacebookType {
 
     /**
-     * URL for the app in the Google Play store.
+     * URL for the app in the Google Play Store.
      *
-     * @return URL for the app in the Google Play store
+     * @return URL for the app in the Google Play Store
      */
     @Getter
     @Setter

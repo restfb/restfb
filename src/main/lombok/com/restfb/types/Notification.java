@@ -89,7 +89,7 @@ public class Notification extends FacebookType implements HasCreatedTime, HasFro
 
   /**
    * Indicates that the notification is unread.
-   *
+   * <p>
    * Note that 'read' notifications will not be accessible.
    *
    * @return Indicates that the notification is unread.

@@ -203,7 +203,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     private String fileUrl;
 
     /**
-     * When the attached file is an image, Facebook will also send information about it's width, height and url.
+     * When the attached file is an image, Facebook will also send information about its width, height and url.
      *
      * @return The attachment's image data.
      */
@@ -213,7 +213,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     private ImageData imageData;
 
     /**
-     * When the attached file is a video, Facebook will also send information about it's width, height and url.
+     * When the attached file is a video, Facebook will also send information about its width, height and url.
      *
      * @return The attachment's video data.
      */
@@ -223,9 +223,9 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     private VideoData videoData;
 
     /**
-     * returns if the attachment is a image
+     * returns if the attachment is an image
      * 
-     * @return true if the attachment is a image, false otherwise
+     * @return true if the attachment is an image, false otherwise
      */
     public boolean isImage() {
       return null != imageData && null == videoData;
@@ -358,7 +358,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
   }
 
   /**
-   * Additional attachment information, only present when an attached file is an video.
+   * Additional attachment information, only present when an attached file is a video.
    */
   public static class VideoData extends AttachmentData {
 
@@ -507,7 +507,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   /**
    * The shares associated with the message.
-   *
+   * <p>
    * This is page only.
    *
    * @return The shares associated with the message.

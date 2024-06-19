@@ -158,7 +158,7 @@ public class Likes extends AbstractFacebookType {
 
     /**
      * created time is the date the Like was created.
-     *
+     * <p>
      * may be null if Facebook does not provide this information
      */
     @Getter(onMethod_ = {@Override})

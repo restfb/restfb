@@ -43,7 +43,7 @@ public class OpenGraphRating extends FacebookType implements HasCreatedTime {
    *
    * @return When the reviewer rated this object.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -100,8 +100,9 @@ public class OpenGraphRating extends FacebookType implements HasCreatedTime {
 
   /**
    * Recommendation field for change on August 17, 2018
-   *
-   * for more information check here: https://www.facebook.com/business/recommendations
+   * <p>
+   * for more information check here:
+   * <a href="https://www.facebook.com/business/recommendations">https://www.facebook.com/business/recommendations</a>
    *
    * @return the recommendation type
    */

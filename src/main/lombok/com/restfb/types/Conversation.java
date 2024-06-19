@@ -113,7 +113,7 @@ public class Conversation extends FacebookType {
 
   /**
    * The number of unread messages in the conversation
-   * 
+   * <p>
    * Facebook does not send the unread count if there aren't any new messages. In order to keep data consistency, we set
    * the default value to zero. If this value is sent, the {@link com.restfb.JsonMapper} will override it.
    * 
@@ -178,6 +178,8 @@ public class Conversation extends FacebookType {
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Felipe Kurkowski
    */
+  @Getter
+  @Setter
   public static class Tag extends AbstractFacebookType {
 
     /**
@@ -185,8 +187,6 @@ public class Conversation extends FacebookType {
      * 
      * @return The name field for this type.
      */
-    @Getter
-    @Setter
     @Facebook
     private String name;
 

@@ -80,7 +80,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
 
   /**
    * Duplicate mapping for "likes" since FB can return it differently in different situations.
-   *
+   * <p>
    * -- GETTER -- The likes on this post.
    * <p>
    * Sometimes this can be {@code null} - check {@link #getLikeCount()} instead in that case.
@@ -256,7 +256,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
 
   /**
    * Attachment (image) added to a comment.
-   *
+   * <p>
    * To force Facebook to fill the <code>attachment</code> field you have to fetch the comment with the
    * <code>fields=attachment</code> parameter, otherwise the attachments are <code>null</code>.
    *
@@ -306,9 +306,9 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
   }
 
   /**
-   * Objects tagged in the message (Users, Pages, etc).
+   * Objects tagged in the message (Users, Pages, etc.)
    *
-   * @return Objects tagged in the message (Users, Pages, etc).
+   * @return Objects tagged in the message (Users, Pages, etc.)
    * @since 1.6.10
    */
   public List<MessageTag> getMessageTags() {
