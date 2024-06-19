@@ -70,38 +70,38 @@ public class InstagramCommentsValue extends ChangeValue {
   @Facebook("parent_id")
   private String parentId;
 
+  @Getter
+  @Setter
   public static class IgCommentMedia {
 
     /**
      * ID of the IG Media the comment was created on
      */
-    @Getter
-    @Setter
     @Facebook
     private String id;
 
     /**
      * Product type of the IG Media the comment was created on
      */
-    @Getter
-    @Setter
     @Facebook("media_product_type")
     private String mediaProductType;
 
     /**
      * ID of the IG Ad the comment was created on
      */
-    @Getter
-    @Setter
     @Facebook("ad_id")
     private String adId;
 
     /**
      * Title of the IG Ad the comment was created on
      */
-    @Getter
-    @Setter
     @Facebook("ad_title")
     private String adTitle;
+
+    /**
+     * Original media id of the IG Ad the comment was created on
+     */
+    @Facebook("original_media_id")
+    private String originalMediaId;
   }
 }
