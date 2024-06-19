@@ -21,41 +21,39 @@
  */
 package com.restfb;
 
-import static com.restfb.util.ObjectUtil.verifyParameterPresence;
+import com.restfb.exception.FacebookResponseContentException;
+import com.restfb.scope.ScopeBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.restfb.exception.FacebookResponseContentException;
-import com.restfb.scope.ScopeBuilder;
+import static com.restfb.util.ObjectUtil.verifyParameterPresence;
 
 /**
- * The default implementation to work with the Instagram Basic Display API.
- * <p>
- * it is used for this Instagram API and for the Threads API. This API is accordingly to the reference based on the
- * Instagram Basic Display API.
+ * A class representing a client for interacting with Facebook's Threads API. This class extends the
+ * DefaultFacebookClient and provides additional methods for accessing Threads-specific functionalities.
  */
-public class DefaultInstagramClient extends DefaultFacebookClient {
+public class DefaultThreadsClient extends DefaultFacebookClient {
 
-  public DefaultInstagramClient(Version version) {
+  public DefaultThreadsClient(Version version) {
     super(version);
   }
 
-  public DefaultInstagramClient(String accessToken, Version apiVersion) {
+  public DefaultThreadsClient(String accessToken, Version apiVersion) {
     super(accessToken, apiVersion);
   }
 
-  public DefaultInstagramClient(String accessToken, String appSecret, Version apiVersion) {
+  public DefaultThreadsClient(String accessToken, String appSecret, Version apiVersion) {
     super(accessToken, appSecret, apiVersion);
   }
 
-  public DefaultInstagramClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper,
+  public DefaultThreadsClient(String accessToken, WebRequestor webRequestor, JsonMapper jsonMapper,
       Version apiVersion) {
     super(accessToken, webRequestor, jsonMapper, apiVersion);
   }
 
-  public DefaultInstagramClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
+  public DefaultThreadsClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
       Version apiVersion) {
     super(accessToken, appSecret, webRequestor, jsonMapper, apiVersion);
   }
@@ -67,7 +65,7 @@ public class DefaultInstagramClient extends DefaultFacebookClient {
     Collections.addAll(parameterList, parameters);
     parameterList.add(Parameter.with("response_type", CODE));
     return getGenericLoginDialogUrl(appId, redirectUri, scope,
-      () -> getFacebookEndpointUrls().getInstagramApiEndpoint() + "/oauth/authorize", state, parameterList);
+      () -> getFacebookEndpointUrls().getThreadsBaseEndpoint() + "/oauth/authorize", state, parameterList);
   }
 
   @Override
@@ -102,7 +100,7 @@ public class DefaultInstagramClient extends DefaultFacebookClient {
 
     String response = makeRequest("access_token", false, false, null, //
       Parameter.with(PARAM_CLIENT_SECRET, appSecret), //
-      Parameter.with(GRANT_TYPE, "ig_exchange_token"), //
+      Parameter.with(GRANT_TYPE, "th_exchange_token"), //
       Parameter.withFields("access_token,expires_in,token_type"));
 
     try {
@@ -113,10 +111,10 @@ public class DefaultInstagramClient extends DefaultFacebookClient {
   }
 
   /**
-   * Obtain a refreshed Instagram extended access token.
+   * Obtain a refreshed Threads extended access token.
    *
    * <p>
-   * This method is used to refresh an existing Instagram extended access token. Extended access tokens expire after a
+   * This method is used to refresh an existing Threads extended access token. Extended access tokens expire after a
    * certain period of time, and this method allows you to obtain a new one using the refresh token provided with the
    * original extended access token.
    *
@@ -128,7 +126,7 @@ public class DefaultInstagramClient extends DefaultFacebookClient {
   @Override
   public AccessToken obtainRefreshedExtendedAccessToken() {
     String response = makeRequest("refresh_access_token", false, false, null, //
-      Parameter.with(GRANT_TYPE, "ig_refresh_token"), //
+      Parameter.with(GRANT_TYPE, "th_refresh_token"), //
       Parameter.withFields("access_token,expires_in,token_type"));
     try {
       return getAccessTokenFromResponse(response);
@@ -139,24 +137,19 @@ public class DefaultInstagramClient extends DefaultFacebookClient {
 
   @Override
   public FacebookClient createClientWithAccessToken(String accessToken) {
-    return new DefaultInstagramClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(), this.apiVersion);
+    return new DefaultThreadsClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(), this.apiVersion);
   }
 
   @Override
   protected String createBaseUrlForEndpoint(String apiCall, boolean hasAttachment, boolean hasReel) {
-    String baseUrl = getInstagramGraphEndpointUrl();
-    if (apiCall.startsWith("oauth")) {
-      baseUrl = getFacebookEndpointUrls().getInstagramApiEndpoint();
-    }
-
-    return baseUrl;
+    return getThreadsGraphEndpointUrl();
   }
 
-  private String getInstagramGraphEndpointUrl() {
+  private String getThreadsGraphEndpointUrl() {
     if (apiVersion.isUrlElementRequired()) {
-      return getFacebookEndpointUrls().getInstagramEndpoint() + '/' + apiVersion.getUrlElement();
+      return getFacebookEndpointUrls().getThreadsApiEndpoint() + '/' + apiVersion.getUrlElement();
     } else {
-      return getFacebookEndpointUrls().getInstagramEndpoint();
+      return getFacebookEndpointUrls().getThreadsApiEndpoint();
     }
   }
 }

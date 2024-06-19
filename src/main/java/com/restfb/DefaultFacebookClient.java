@@ -530,7 +530,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public AccessToken obtainRefreshedExtendedAccessToken() {
-    throw new UnsupportedOperationException("obtaining a refreshed extended access token is not supported by this client");
+    throw new UnsupportedOperationException(
+      "obtaining a refreshed extended access token is not supported by this client");
   }
 
   /**
@@ -622,9 +623,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   @Override
-  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, String state, Parameter... parameters) {
+  public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, String state,
+      Parameter... parameters) {
     List<Parameter> parameterList = asList(parameters);
-    return getGenericLoginDialogUrl(appId, redirectUri, scope, () -> getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth", state, parameterList);
+    return getGenericLoginDialogUrl(appId, redirectUri, scope,
+      () -> getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth", state, parameterList);
   }
 
   @Override
@@ -632,7 +635,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return getLoginDialogUrl(appId, redirectUri, scope, null, parameters);
   }
 
-  protected String getGenericLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Supplier<String> endpointSupplier, String state, List<Parameter> parameters) {
+  protected String getGenericLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope,
+      Supplier<String> endpointSupplier, String state, List<Parameter> parameters) {
     verifyParameterPresence(APP_ID, appId);
     verifyParameterPresence("redirectUri", redirectUri);
     verifyParameterPresence(SCOPE, scope);
@@ -939,43 +943,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
       apiCall = apiCall.substring(1);
     }
 
-    String baseUrl;
-    if (useInstagramApi()) {
-      if (apiCall.startsWith("oauth")) {
-        baseUrl = getFacebookEndpointUrls().getInstagramApiEndpoint();
-      } else {
-        baseUrl = getInstagramGraphEndpointUrl();
-      }
-    } else {
-      baseUrl = getFacebookGraphEndpointUrl();
-
-      if (hasAttachment && hasReel) {
-        baseUrl = getFacebookReelsUploadEndpointUrl();
-      } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
-        baseUrl = getFacebookGraphVideoEndpointUrl();
-      } else if (apiCall.endsWith("logout.php")) {
-        baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();
-      }
-    }
+    String baseUrl = createBaseUrlForEndpoint(apiCall, hasAttachment, hasReel);
 
     return format("%s/%s", baseUrl, apiCall);
   }
 
-  /**
-   * Returns a boolean indicating whether the client is currently configured to use the Instagram API.
-   *
-   * @return {@code true} if the client is configured to use the Instagram API, {@code false} otherwise.
-   */
-  public boolean useInstagramApi() {
-    return false;
-  }
-
-  protected String getInstagramGraphEndpointUrl() {
-    if (apiVersion.isUrlElementRequired()) {
-      return getFacebookEndpointUrls().getInstagramEndpoint() + '/' + apiVersion.getUrlElement();
-    } else {
-      return getFacebookEndpointUrls().getInstagramEndpoint();
+  protected String createBaseUrlForEndpoint(String apiCall, boolean hasAttachment, boolean hasReel) {
+    String baseUrl = getFacebookGraphEndpointUrl();
+    if (hasAttachment && hasReel) {
+      baseUrl = getFacebookReelsUploadEndpointUrl();
+    } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
+      baseUrl = getFacebookGraphVideoEndpointUrl();
+    } else if (apiCall.endsWith("logout.php")) {
+      baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();
     }
+    return baseUrl;
   }
 
   /**

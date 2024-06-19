@@ -121,7 +121,17 @@ public enum Version {
    * the current version is <tt>Graph API 20.0</tt>
    * </p>
    */
-  LATEST("v20.0");
+  LATEST("v20.0"),
+
+  /**
+   * <tt>Threads API 1.0</tt>, according to the documentation, this is the first Threads API Version
+   */
+  THREADS_1_0("v1.0"),
+
+  /**
+   * convenience enum to provide simple access to the latest supported Threads API Version.
+   */
+  THREADS_LATEST("v1.0");
 
   private final String urlElement;
 
@@ -149,9 +159,7 @@ public enum Version {
       return UNVERSIONED;
     }
 
-    return Arrays.stream(Version.values())
-            .filter(v -> urlElementStr.equals(v.getUrlElement()))
-            .findFirst()
-            .orElse(UNVERSIONED);
+    return Arrays.stream(Version.values()).filter(v -> urlElementStr.equals(v.getUrlElement())).findFirst()
+      .orElse(UNVERSIONED);
   }
 }

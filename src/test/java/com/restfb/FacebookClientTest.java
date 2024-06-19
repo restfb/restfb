@@ -444,6 +444,15 @@ class FacebookClientTest {
   }
 
   @Test
+  void checkThreadsDialogURLWithState() {
+    FacebookClient client = new DefaultThreadsClient(Version.LATEST);
+    String loginDialogUrlString =
+            client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true), "state3456");
+    assertThat(loginDialogUrlString).isEqualTo(
+            "https://www.threads.net/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&response_type=code");
+  }
+
+  @Test
   void checkLoginDialogURLAdditionalParameters() {
     FacebookClient client = new DefaultFacebookClient(Version.VERSION_9_0);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
@@ -459,6 +468,15 @@ class FacebookClientTest {
       Parameter.with("state", "abcd"));
     assertThat(loginDialogUrlString).isEqualTo(
       "https://api.instagram.com/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=abcd&response_type=code");
+  }
+
+  @Test
+  void checkThreadsDialogURLAdditionalParameters() {
+    FacebookClient client = new DefaultThreadsClient(Version.LATEST);
+    String loginDialogUrlString = client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true),
+            Parameter.with("state", "abcd"));
+    assertThat(loginDialogUrlString).isEqualTo(
+            "https://www.threads.net/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=abcd&response_type=code");
   }
 
   @Test

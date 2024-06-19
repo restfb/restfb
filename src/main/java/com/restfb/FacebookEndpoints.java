@@ -27,8 +27,8 @@ package com.restfb;
  * Facebook provides several endpoints that are used for working with the Graph API and working with Facebook in
  * general. This interface provides methods to access the different urls.
  *
- * The default implementation is {@link FacebookEndpoints}. That class provides the access to Facebook and should
- * be used in productive environments.
+ * The default implementation is {@link FacebookEndpoints}. That class provides the access to Facebook and should be
+ * used in productive environments.
  *
  * This interface provides some fields with the default URLs so custom implementation can diretly use these or modify
  * the url or provide a completly custom one. This is possible without extending our default implementation.
@@ -82,6 +82,14 @@ public interface FacebookEndpoints {
     return Endpoint.INSTAGRAM_API.getUrl();
   }
 
+  default String getThreadsBaseEndpoint() {
+    return Endpoint.THREADS_OAUTH.getUrl();
+  }
+
+  default String getThreadsApiEndpoint() {
+    return Endpoint.THREADS_GRAPH.getUrl();
+  }
+
   enum Endpoint {
     /**
      * General Facebook endpoint URL.
@@ -111,9 +119,19 @@ public interface FacebookEndpoints {
     /**
      * Instagram API endpoint URL.
      */
-    INSTAGRAM_API("https://api.instagram.com");
+    INSTAGRAM_API("https://api.instagram.com"),
 
-    private String url;
+    /**
+     * Threads OAuth endpoint URL.
+     */
+    THREADS_OAUTH("https://www.threads.net"),
+
+    /**
+     * Threads Graph API endpoint URL.
+     */
+    THREADS_GRAPH("https://graph.threads.net");
+
+    private final String url;
 
     Endpoint(String url) {
       this.url = url;
