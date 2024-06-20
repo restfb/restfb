@@ -22,5 +22,5 @@
 package com.restfb.types.threads;
 
 public enum TdMediaType {
-  TEXT_POST, IMAGE, VIDEO, CAROUSEL_ALBUM, REPOST_FACADE
+  TEXT_POST, IMAGE, VIDEO, CAROUSEL_ALBUM, REPOST_FACADE, AUDIO
 }
