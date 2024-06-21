@@ -151,7 +151,7 @@ public class TdReply extends FacebookType {
   private Boolean isReply;
 
   /**
-   * Whether or not the reply is hidden. Values: NOT_HUSHED, UNHUSHED, HIDDEN
+   * Whether or not the reply is hidden. Values: NOT_HUSHED, UNHUSHED, HIDDEN, COVERED, BLOCKED, RESTRICTED
    */
   @Getter
   @Setter
@@ -159,6 +159,6 @@ public class TdReply extends FacebookType {
   private TdHideStatus hideStatus;
 
   public enum TdHideStatus {
-    NOT_HUSHED, UNHUSHED, HIDDEN
+    NOT_HUSHED, UNHUSHED, HIDDEN, COVERED, BLOCKED, RESTRICTED
   }
 }
