@@ -159,6 +159,17 @@ public class TdReply extends FacebookType {
   private Boolean isReply;
 
   /**
+   * {@code true} if your user is the owner of the Threads reply.
+   * <br>
+   * {@code false} if another user is the owner of the
+   * Threads reply.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_reply_owned_by_me")
+  private Boolean isReplyOwnedByMe;
+
+  /**
    * Whether or not the reply is hidden. Values: NOT_HUSHED, UNHUSHED, HIDDEN, COVERED, BLOCKED, RESTRICTED
    */
   @Getter
