@@ -119,6 +119,14 @@ public class TdReply extends FacebookType {
   private List<TdReply> children = new ArrayList<>();
 
   /**
+   * Indicates if the media is a quoted reply made by another user.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_quote_post")
+  private Boolean isQuotePost;
+
+  /**
    * true if the Threads post or reply has replies that you can see.
    */
   @Getter
