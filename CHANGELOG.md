@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2024.9.0 (June 21, 2024)
+
+* Issue #1443: `AUDIO` added to `TdMediaTye`
+* Issue #1444: `reply_audience` added to `TdReply`
+* Issue #1445: `is_reply_owned_by_me` added to `TdReply`
+* Issue #1446: `COVERED`, `BLOCKED` and `RESTRICTED` added to `TdHideStatus`
+* Issue #1447: `is_quote_post` added to `TdReply`
+
 ## 2024.8.0 (June 19, 2024)
 
 * Issue #1436: bump maven-surefire-plugin to 3.3.0

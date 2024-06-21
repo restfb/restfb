@@ -28,8 +28,6 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/threads/threads-profiles">Threads profile</a>
- *
- * @TODO: we have to check if this is the IgUser with additional fields
  */
 public class TdProfile extends AbstractFacebookType {
 
