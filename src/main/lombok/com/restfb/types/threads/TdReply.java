@@ -177,7 +177,19 @@ public class TdReply extends FacebookType {
   @Facebook("hide_status")
   private TdHideStatus hideStatus;
 
+  /**
+   * Who can reply to your post.
+   */
+  @Getter
+  @Setter
+  @Facebook("reply_audience")
+  private TdReplyAudience replyAudience;
+
   public enum TdHideStatus {
     NOT_HUSHED, UNHUSHED, HIDDEN, COVERED, BLOCKED, RESTRICTED
+  }
+
+  public enum TdReplyAudience {
+    EVERYONE, ACCOUNTS_YOU_FOLLOW, MENTIONED_ONLY
   }
 }
