@@ -23,7 +23,11 @@ package com.restfb.scope;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.restfb.Parameter;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class ScopeBuilderTest {
 
@@ -52,6 +56,17 @@ class ScopeBuilderTest {
     s.addPermission(FacebookPermissions.USER_GENDER);
     s.addPermission(FacebookPermissions.USER_AGE_RANGE);
     assertThat(s).hasToString("public_profile,user_gender,user_age_range");
+  }
+
+  @Test
+  void multiPermissions() {
+    ScopeBuilder s = new ScopeBuilder(true);
+    List<FacebookPermissions> permissions = new ArrayList<>();
+    permissions.add(FacebookPermissions.THREADS_BASIC);
+    permissions.add(FacebookPermissions.THREADS_CONTENT_PUBLISH);
+    permissions.add(FacebookPermissions.THREADS_MANAGE_INSIGHTS);
+    s.addPermissions( permissions);
+    assertThat(s).hasToString("threads_basic,threads_content_publish,threads_manage_insights");
   }
 
 }

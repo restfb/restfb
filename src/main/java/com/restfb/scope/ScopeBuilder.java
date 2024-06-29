@@ -21,7 +21,11 @@
  */
 package com.restfb.scope;
 
+import com.restfb.exception.FacebookPreconditionException;
+import com.restfb.util.ObjectUtil;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +45,12 @@ public class ScopeBuilder {
 
   public ScopeBuilder addPermission(FacebookPermissions permission) {
     permissions.add(permission);
+    return this;
+  }
+
+  public ScopeBuilder addPermissions(List<FacebookPermissions> permissionList) {
+    ObjectUtil.requireNotNull(permissionList, () -> new FacebookPreconditionException("permissionList must not be null"));
+    permissions.addAll(permissionList);
     return this;
   }
 
