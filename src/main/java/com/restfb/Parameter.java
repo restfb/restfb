@@ -75,7 +75,7 @@ public final class Parameter {
    * Factory method which provides an instance with the given {@code name} and {@code value}.
    * <p>
    * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a
-   * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean and it will be
+   * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean, and it will be
    * converted to JSON automatically. See the "attachment" section of
    * <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for
    * an example of where this is useful.
@@ -139,7 +139,7 @@ public final class Parameter {
   }
 
   /**
-   * convenience factory method which creates a {@code Parameter} object to post a object with a message parameter to
+   * convenience factory method which creates a {@code Parameter} object to post an object with a message parameter to
    * the API
    *
    * @param obj
@@ -169,7 +169,7 @@ public final class Parameter {
    * {@code jsonMapper} to turn {@code value} into a JSON string.
    * <p>
    * The {@code value} parameter is often a {@link String} or primitive type like {@link Integer}, but you may pass in a
-   * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean and it will be
+   * {@link java.util.List}, {@link java.util.Map}, or your own <tt>@Facebook</tt>-annotated Javabean, and it will be
    * converted to JSON automatically. See the "attachment" section of
    * <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for
    * an example of where this is useful.

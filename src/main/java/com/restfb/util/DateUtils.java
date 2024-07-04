@@ -219,7 +219,7 @@ public final class DateUtils {
 
   /**
    * set the {@link DateFormatStrategy}.
-   * 
+   * <p>
    * default value: {@link SimpleDateFormatStrategy}
    * 
    * @param dateFormatStrategy

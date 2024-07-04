@@ -125,7 +125,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
 
   /**
    * Override the mapSupplier, it needs to be some implementation of the {@link Map} interface.
-   * 
+   * <p>
    * You have to set this before the {@link ETagWebRequestor} object is created. While building it, the mapSupplier is
    * used
    * 

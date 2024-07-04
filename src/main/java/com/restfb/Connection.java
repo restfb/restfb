@@ -301,7 +301,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * return the typed summary.
-   *
+   * <p>
    * For some connections, there is summary object that contains almost the same fields as the
    * type that is used in the connection. For example ad insights fill the summary that way (if you use the
    * right query parameter)

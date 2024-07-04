@@ -44,7 +44,7 @@ class PostByteImageScheduledITCase extends RestFbImageIntegrationTestBase {
     Date dt = createTomorrow();
     byte[] imageAsBytes = fetchBytesFromImage();
     DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getPageAccessToken(), Version.LATEST);
-    JsonObject obj = client.publish(getTestSettings().getPageId() + "/photos", JsonObject.class,
+    JsonObject obj = client.publish("me/photos", JsonObject.class,
       BinaryAttachment.with("test.png", imageAsBytes, "image/png"), //
       Parameter.with("message", "TestImage"), //
       Parameter.with("published", "false"), //
@@ -53,12 +53,10 @@ class PostByteImageScheduledITCase extends RestFbImageIntegrationTestBase {
   }
 
   private Date createTomorrow() {
-    Date dt = new Date();
     Calendar c = Calendar.getInstance();
-    c.setTime(dt);
+    c.setTime(new Date());
     c.add(Calendar.DATE, 1);
-    dt = c.getTime();
-    return dt;
+    return c.getTime();
   }
 
 }

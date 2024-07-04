@@ -139,7 +139,7 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   private String convertArrayToStringIfNecessary(JsonValue jsonValue, String innerJson) {
-    // the inner JSON starts with square brackets but the parser don't think this is a JSON array
+    // the inner JSON starts with square brackets but the parser don't think this is a JSON array,
     // so we think the parser is right and add quotes around the string
     // solves Issue #719
     if (jsonValue.isString() && innerJson.startsWith("[")) {

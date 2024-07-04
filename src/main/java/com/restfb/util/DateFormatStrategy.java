@@ -25,7 +25,7 @@ import java.text.DateFormat;
 
 /**
  * The DateFormat strategy interface.
- * 
+ * <p>
  * all DateFormat strategies have to implement this interface and return a DateFormat
  * 
  * @since 1.7.0

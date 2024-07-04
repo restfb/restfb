@@ -30,10 +30,10 @@ import java.util.TimeZone;
 
 /**
  * a DateFormat strategy that returns a cached SimpleDateFormat instance.
- * 
+ * <p>
  * For every format string an instance of the SimpleDateFormat is saved on a per thread base, so the SimpleDateFormat
  * instance is reused and you get an major speedup.
- * 
+ * <p>
  * Attention: to prevent a possible memory leak while using this strategy you have to clean up the inner ThreadLocal
  * with the {@code clearThreadLocal} method.
  * 

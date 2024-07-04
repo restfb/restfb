@@ -23,7 +23,7 @@ package com.restfb.logging;
 
 /**
  * Java util logging message format helper class.
- *
+ * <p>
  * This class is used to allow JUL to use the <code>{}</code> placeholder in the log message. The placeholders are
  * replaced by the given arguments in the order of occurrence. The last object may be a {@code Throwable} and this don't
  * need any placeholder. The amount of placeholder in the message and the argument count must be equal, otherwise you

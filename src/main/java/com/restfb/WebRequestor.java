@@ -264,7 +264,7 @@ public interface WebRequestor {
 
   /**
    * Provides access to the facebook header information.
-   * 
+   * <p>
    * The fields <code>x-fb-rev</code>, <code>x-fb-trace-id</code> and <code>x-fb-debug</code> are checked and returned
    * in a single container of the type {@link DebugHeaderInfo}
    * 

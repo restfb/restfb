@@ -33,9 +33,9 @@ class JsonHelper {
 
   /**
    * convert {@link JsonValue} into Boolean.
-   *
-   * if the gven type is a boolean the json internal conversion is used. 0 or 1 are converted to False or True
-   *
+   * <p>
+   * if the given type is a boolean the json internal conversion is used. 0 or 1 are converted to False or True
+   * <p>
    * The Strings false and true are converted to the corresponding types
    *
    * @param json a json value
@@ -143,7 +143,7 @@ class JsonHelper {
    * convert jsonvalue to a Long
    *
    * @param json a json value
-   * @return a long genrated from the jsonvalue
+   * @return a long generated from the jsonvalue
    */
   public Long getLongFrom(JsonValue json) {
     if (json.isNumber()) {
@@ -168,7 +168,7 @@ class JsonHelper {
   }
 
   /**
-   * removes starting and ending double quote from a input String
+   * removes starting and ending double quote from an input String
    * 
    * @param jsonInput
    *          input JSON string

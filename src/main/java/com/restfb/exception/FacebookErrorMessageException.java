@@ -26,7 +26,7 @@ import com.restfb.json.JsonObject;
 
 /**
  * Abstract class to provide access to the JSON Facebook provides in case of an error
- *
+ * <p>
  * Sometime a developer needs to access the plain error to get a more in depth view to the error.
  */
 public abstract class FacebookErrorMessageException extends FacebookException {
@@ -58,7 +58,7 @@ public abstract class FacebookErrorMessageException extends FacebookException {
 
   /**
    * returns the debug header info that is connected with this Facebook call.
-   *
+   * <p>
    * you can get information like trace ids, limits and more.
    * 
    * @return the DebugHeaderInfo or null

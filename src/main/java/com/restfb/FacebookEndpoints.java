@@ -23,16 +23,16 @@ package com.restfb;
 
 /**
  * Interface for accessing the Facebook Endpoints.
- *
+ * <p>
  * Facebook provides several endpoints that are used for working with the Graph API and working with Facebook in
  * general. This interface provides methods to access the different urls.
- *
+ * <p>
  * The default implementation is {@link FacebookEndpoints}. That class provides the access to Facebook and should be
  * used in productive environments.
- *
- * This interface provides some fields with the default URLs so custom implementation can diretly use these or modify
- * the url or provide a completly custom one. This is possible without extending our default implementation.
- *
+ * <p>
+ * This interface provides some fields with the default URLs so custom implementation can directly use these or modify
+ * the url or provide a completely custom one. This is possible without extending our default implementation.
+ * <p>
  * In tests, a custom implementation can be used to mock the Facebook service. The implementing class only needs to
  * provide urls to the mock service and the custom class is set in the {@link DefaultFacebookClient}.
  */

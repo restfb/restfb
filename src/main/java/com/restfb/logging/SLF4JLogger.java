@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Logger implementation based on {@code org.slf4j.Logger}.
- *
+ * <p>
  * The slf4j configuration should be provided by a external application. The mapping is defined like:
  * <ul>
  * <li>trace maps to slf4j.<i>trace</i></li>

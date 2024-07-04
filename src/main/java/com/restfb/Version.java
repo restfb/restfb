@@ -22,7 +22,6 @@
 package com.restfb;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public enum Version {
 
@@ -113,7 +112,7 @@ public enum Version {
    *
    * @since May 21, 2024
    */
-  VERSION_20_ß("v20.0"),
+  VERSION_20_0("v20.0"),
 
   /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
