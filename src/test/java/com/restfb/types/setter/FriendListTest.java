@@ -21,10 +21,10 @@
  */
 package com.restfb.types.setter;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.types.FriendList;
 import com.restfb.types.api.SetterGetterTestBase;
-
-import org.junit.jupiter.api.Test;
 
 class FriendListTest extends SetterGetterTestBase {
 

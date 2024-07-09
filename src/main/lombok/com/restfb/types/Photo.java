@@ -34,9 +34,9 @@ import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.annotation.GraphAPI;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.JsonObject;
-
 import com.restfb.types.features.HasComments;
 import com.restfb.types.features.HasCreatedTime;
+
 import lombok.Getter;
 import lombok.Setter;
 

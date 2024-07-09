@@ -24,8 +24,8 @@ package com.restfb.types;
 import java.util.Date;
 
 import com.restfb.Facebook;
-
 import com.restfb.types.features.HasCover;
+
 import lombok.Getter;
 import lombok.Setter;
 

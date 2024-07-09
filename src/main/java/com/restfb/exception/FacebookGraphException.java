@@ -23,9 +23,9 @@ package com.restfb.exception;
 
 import static java.lang.String.format;
 
-import com.restfb.json.JsonObject;
-
 import java.util.Optional;
+
+import com.restfb.json.JsonObject;
 
 /**
  * Indicates that the Facebook Graph API endpoint returned JSON which indicates an error condition.

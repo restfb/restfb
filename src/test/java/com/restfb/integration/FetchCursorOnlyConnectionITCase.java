@@ -23,13 +23,13 @@ package com.restfb.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.NamedFacebookType;
-
-import org.junit.jupiter.api.Test;
 
 class FetchCursorOnlyConnectionITCase extends RestFbIntegrationTestBase {
 

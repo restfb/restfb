@@ -25,10 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.types.whatsapp.platform.*;
 import com.restfb.types.whatsapp.platform.Error;
-
+import com.restfb.types.whatsapp.platform.Message;
+import com.restfb.types.whatsapp.platform.Metadata;
+import com.restfb.types.whatsapp.platform.Status;
 import com.restfb.types.whatsapp.platform.message.Contact;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -23,6 +23,7 @@ package com.restfb.types.instagram;
 
 import com.restfb.Facebook;
 import com.restfb.types.FacebookType;
+
 import lombok.Getter;
 import lombok.Setter;
 

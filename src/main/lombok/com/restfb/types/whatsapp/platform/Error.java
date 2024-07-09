@@ -22,6 +22,7 @@
 package com.restfb.types.whatsapp.platform;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 

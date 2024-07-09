@@ -21,15 +21,16 @@
  */
 package com.restfb.types.whatsapp;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public class WhatsAppHSMQualityScoreShape extends AbstractFacebookType {
 

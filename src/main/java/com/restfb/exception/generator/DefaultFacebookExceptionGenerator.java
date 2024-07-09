@@ -23,14 +23,14 @@ package com.restfb.exception.generator;
 
 import static com.restfb.util.StringUtils.toInteger;
 
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.restfb.exception.*;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.ParseException;
-
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DefaultFacebookExceptionGenerator implements FacebookExceptionGenerator {
 

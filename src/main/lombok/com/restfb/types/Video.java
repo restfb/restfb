@@ -23,15 +23,17 @@ package com.restfb.types;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
-
 import com.restfb.types.features.HasComments;
 import com.restfb.types.features.HasCreatedTime;
 import com.restfb.types.features.HasMessage;
+
 import lombok.Getter;
 import lombok.Setter;
 

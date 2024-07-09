@@ -36,10 +36,10 @@ import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
-
 import com.restfb.types.features.HasComments;
 import com.restfb.types.features.HasCreatedTime;
 import com.restfb.types.features.HasMessage;
+
 import lombok.Getter;
 import lombok.Setter;
 

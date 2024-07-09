@@ -23,6 +23,8 @@ package com.restfb.integration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
@@ -31,8 +33,6 @@ import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.send.IdMessageRecipient;
 import com.restfb.types.send.Message;
 import com.restfb.types.send.SendResponse;
-
-import org.junit.jupiter.api.Test;
 
 class MessengerUnicodeITCase extends RestFbIntegrationTestBase {
 

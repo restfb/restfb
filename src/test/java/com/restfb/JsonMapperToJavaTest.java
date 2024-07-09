@@ -32,15 +32,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.restfb.json.Json;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonValue;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.JsonMapperToJavaTest.Story.StoryTag;
 import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.json.Json;
+import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
 import com.restfb.types.*;
 
 /**

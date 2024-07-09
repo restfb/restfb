@@ -21,8 +21,6 @@
  */
 package com.restfb.types.oembed;
 
-import com.restfb.types.AbstractFacebookType;
-
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/oembed-page/">OEmbed Page type</a>
  */

@@ -21,17 +21,18 @@
  */
 package com.restfb.types;
 
-import com.restfb.Facebook;
-import com.restfb.FacebookClient;
-import com.restfb.json.JsonObject;
-import lombok.Getter;
-import lombok.Setter;
+import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static java.util.Collections.unmodifiableList;
+import com.restfb.Facebook;
+import com.restfb.FacebookClient;
+import com.restfb.json.JsonObject;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>

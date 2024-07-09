@@ -21,14 +21,14 @@
  */
 package com.restfb;
 
-import com.restfb.exception.FacebookResponseContentException;
-import com.restfb.scope.ScopeBuilder;
+import static com.restfb.util.ObjectUtil.verifyParameterPresence;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.restfb.util.ObjectUtil.verifyParameterPresence;
+import com.restfb.exception.FacebookResponseContentException;
+import com.restfb.scope.ScopeBuilder;
 
 /**
  * A class representing a client for interacting with Facebook's Threads API. This class extends the

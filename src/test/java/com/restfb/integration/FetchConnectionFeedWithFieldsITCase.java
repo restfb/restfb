@@ -21,6 +21,9 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -32,8 +35,6 @@ import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
 import com.restfb.util.StringUtils;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class FetchConnectionFeedWithFieldsITCase extends RestFbIntegrationTestBase {
 

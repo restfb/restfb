@@ -21,13 +21,12 @@
  */
 package com.restfb.scope;
 
-import com.restfb.exception.FacebookPreconditionException;
-import com.restfb.util.ObjectUtil;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.restfb.exception.FacebookPreconditionException;
+import com.restfb.util.ObjectUtil;
 
 public class ScopeBuilder {
 

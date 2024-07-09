@@ -21,11 +21,12 @@
  */
 package com.restfb.types;
 
+import java.util.Date;
+
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/page-stories-api/#get-stories">Story Graph API type</a>.

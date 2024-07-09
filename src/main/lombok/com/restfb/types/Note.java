@@ -28,10 +28,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.restfb.Facebook;
-
 import com.restfb.types.features.HasCreatedTime;
 import com.restfb.types.features.HasFrom;
 import com.restfb.types.features.HasMessage;
+
 import lombok.Getter;
 import lombok.Setter;
 

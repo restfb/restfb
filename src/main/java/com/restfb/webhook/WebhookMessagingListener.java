@@ -21,9 +21,9 @@
  */
 package com.restfb.webhook;
 
-import com.restfb.types.webhook.messaging.*;
-
 import java.util.Date;
+
+import com.restfb.types.webhook.messaging.*;
 
 /**
  * interface to provide methods a listener can implement to handle the different messaging items

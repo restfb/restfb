@@ -26,7 +26,6 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;

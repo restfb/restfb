@@ -21,12 +21,13 @@
  */
 package com.restfb.types.whatsapp.platform.send;
 
+import java.net.URL;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.net.URL;
 
 public abstract class Media extends AbstractFacebookType {
 

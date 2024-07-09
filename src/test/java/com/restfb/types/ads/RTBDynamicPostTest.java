@@ -21,10 +21,11 @@
  */
 package com.restfb.types.ads;
 
-import com.restfb.AbstractJsonMapperTests;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.restfb.AbstractJsonMapperTests;
 
 class RTBDynamicPostTest extends AbstractJsonMapperTests {
 

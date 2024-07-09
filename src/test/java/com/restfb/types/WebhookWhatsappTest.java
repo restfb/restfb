@@ -23,11 +23,6 @@ package com.restfb.types;
 
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 
-import com.restfb.json.JsonObject;
-import com.restfb.types.whatsapp.platform.Message;
-import com.restfb.types.whatsapp.platform.message.Error;
-import com.restfb.types.whatsapp.platform.message.MessageContact;
-import com.restfb.types.whatsapp.platform.message.MessageType;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -35,6 +30,10 @@ import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.*;
+import com.restfb.types.whatsapp.platform.Message;
+import com.restfb.types.whatsapp.platform.message.Error;
+import com.restfb.types.whatsapp.platform.message.MessageContact;
+import com.restfb.types.whatsapp.platform.message.MessageType;
 
 class WebhookWhatsappTest extends AbstractJsonMapperTests {
 

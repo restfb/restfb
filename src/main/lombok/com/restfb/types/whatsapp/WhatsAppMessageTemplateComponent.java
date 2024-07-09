@@ -24,8 +24,8 @@ package com.restfb.types.whatsapp;
 import java.util.List;
 
 import com.restfb.Facebook;
-
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Getter;
 import lombok.Setter;
 

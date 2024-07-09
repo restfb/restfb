@@ -21,6 +21,8 @@
  */
 package com.restfb.types;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,8 +38,6 @@ import com.restfb.types.send.Message;
 import com.restfb.types.send.airline.AirlineCheckinTemplatePayload;
 import com.restfb.types.send.media.MediaTemplateAttachmentElement;
 import com.restfb.types.send.media.MediaTemplateUrlElement;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SendApiTest extends AbstractJsonMapperTests {
 

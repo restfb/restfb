@@ -24,12 +24,12 @@ package com.restfb.types.ads;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.json.JsonObject;
 import com.restfb.testutils.AssertJson;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class RuleTest extends AbstractJsonMapperTests {
 

@@ -22,6 +22,7 @@
 package com.restfb.types.oembed;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 import lombok.Setter;
 

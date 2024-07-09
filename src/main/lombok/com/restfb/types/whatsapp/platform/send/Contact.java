@@ -21,15 +21,16 @@
  */
 package com.restfb.types.whatsapp.platform.send;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.whatsapp.platform.send.contact.*;
 import com.restfb.util.DateUtils;
-import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import lombok.Setter;
 
 public class Contact extends AbstractFacebookType {
 

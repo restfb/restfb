@@ -23,11 +23,11 @@ package com.restfb.batch;
 
 import static java.util.Collections.unmodifiableList;
 
-import com.restfb.Facebook;
-import com.restfb.util.ReflectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.util.ReflectionUtils;
 
 /**
  * Encapsulates a discrete part of an entire

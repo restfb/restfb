@@ -24,11 +24,11 @@ package com.restfb.types.ads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import com.restfb.AbstractJsonMapperTests;
 
 class LookalikeSpecTest extends AbstractJsonMapperTests {
 

@@ -21,10 +21,10 @@
  */
 package com.restfb.types.setter.ads;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.types.ads.WindowsPhoneAppLink;
 import com.restfb.types.api.SetterGetterTestBase;
-
-import org.junit.jupiter.api.Test;
 
 class WindowsPhoneAppLinkTest extends SetterGetterTestBase {
 

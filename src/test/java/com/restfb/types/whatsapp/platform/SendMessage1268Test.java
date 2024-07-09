@@ -21,6 +21,8 @@
  */
 package com.restfb.types.whatsapp.platform;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
@@ -29,7 +31,6 @@ import com.restfb.types.whatsapp.platform.send.Text;
 import com.restfb.types.whatsapp.platform.send.interactive.Action;
 import com.restfb.types.whatsapp.platform.send.interactive.Button;
 import com.restfb.types.whatsapp.platform.send.interactive.Header;
-import org.junit.jupiter.api.Test;
 
 class SendMessage1268Test {
 

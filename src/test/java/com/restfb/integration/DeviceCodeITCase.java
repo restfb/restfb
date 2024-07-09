@@ -23,17 +23,17 @@ package com.restfb.integration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AccessToken;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.Test;
 
+import com.restfb.AccessToken;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.exception.devicetoken.FacebookDeviceTokenException;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.DeviceCode;
-
-import java.util.concurrent.TimeUnit;
 
 class DeviceCodeITCase extends RestFbIntegrationTestBase {
 

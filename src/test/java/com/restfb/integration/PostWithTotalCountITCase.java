@@ -23,13 +23,13 @@ package com.restfb.integration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.Post;
-
-import org.junit.jupiter.api.Test;
 
 class PostWithTotalCountITCase extends RestFbIntegrationTestBase {
 

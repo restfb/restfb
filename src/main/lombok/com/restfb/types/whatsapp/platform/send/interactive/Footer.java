@@ -23,6 +23,7 @@ package com.restfb.types.whatsapp.platform.send.interactive;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Getter;
 
 public class Footer extends AbstractFacebookType {

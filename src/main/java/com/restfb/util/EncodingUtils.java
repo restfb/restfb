@@ -74,7 +74,7 @@ public final class EncodingUtils {
 
   /**
    * Encodes a hex {@code byte[]} from given {@code byte[]}.
-   * 
+   * <p>
    * This function is equivalent to Apache commons-codec binary {@code new Hex().encode(byte[])}
    * 
    * @param data
@@ -96,7 +96,7 @@ public final class EncodingUtils {
 
   /**
    * Generates an appsecret_proof for facebook.
-   * 
+   * <p>
    * See https://developers.facebook.com/docs/graph-api/securing-requests for more info
    * 
    * @param appSecret

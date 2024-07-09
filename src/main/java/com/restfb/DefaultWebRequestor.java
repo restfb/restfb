@@ -72,7 +72,7 @@ public class DefaultWebRequestor implements WebRequestor {
   private DebugHeaderInfo debugHeaderInfo;
 
   /**
-   * By default this is true, to prevent breaking existing usage
+   * By default, this is true, to prevent breaking existing usage
    */
   private boolean autocloseBinaryAttachmentStream = true;
 

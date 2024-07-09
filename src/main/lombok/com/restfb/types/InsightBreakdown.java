@@ -21,11 +21,11 @@
  */
 package com.restfb.types;
 
-import com.restfb.Facebook;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.restfb.Facebook;
 
 public class InsightBreakdown extends AbstractFacebookType {
 

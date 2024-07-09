@@ -25,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import com.restfb.JsonMapper;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
+import com.restfb.JsonMapper;
 
 class PhotoTest extends AbstractJsonMapperTests {
 

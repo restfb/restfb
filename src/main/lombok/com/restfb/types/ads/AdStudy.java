@@ -25,8 +25,8 @@ import java.util.Date;
 
 import com.restfb.Facebook;
 import com.restfb.types.User;
-
 import com.restfb.types.features.HasCreatedTime;
+
 import lombok.Getter;
 import lombok.Setter;
 

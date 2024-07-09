@@ -23,7 +23,6 @@ package com.restfb.types.webhook.base;
 
 import com.restfb.Facebook;
 
-import com.restfb.annotation.GraphAPI;
 import lombok.Getter;
 import lombok.Setter;
 

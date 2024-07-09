@@ -33,7 +33,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
-import com.restfb.types.FacebookReelAttachment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +41,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.restfb.json.JsonObject;
+import com.restfb.types.FacebookReelAttachment;
 
 @ExtendWith(MockitoExtension.class)
 class DefaultWebRequestorTest {

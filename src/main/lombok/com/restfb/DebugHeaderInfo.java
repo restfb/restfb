@@ -191,7 +191,7 @@ public class DebugHeaderInfo implements Serializable {
 
   /**
    * business use case based usage object.
-   *
+   * <p>
    * This usage object is used in Graph API 3.3+ and provides access to the complete set of inner objects.
    */
   public static class BusinessUseCaseUsage implements Serializable {

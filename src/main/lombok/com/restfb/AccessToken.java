@@ -21,17 +21,18 @@
  */
 package com.restfb;
 
-import com.restfb.util.ReflectionUtils;
-import lombok.Getter;
-import lombok.Setter;
+import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
+import static java.lang.String.format;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.restfb.util.UrlUtils.extractParametersFromQueryString;
-import static java.lang.String.format;
+import com.restfb.util.ReflectionUtils;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents an access token/expiration date pair.

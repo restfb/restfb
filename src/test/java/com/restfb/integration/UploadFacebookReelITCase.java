@@ -21,12 +21,11 @@
  */
 package com.restfb.integration;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.InputStream;
 
-import com.restfb.integration.base.NeedFacebookWriteAccess;
-import com.restfb.integration.base.RestFbIntegrationTestBase;
-import com.restfb.types.ReelsUploadStartResponse;
-import com.restfb.types.Video;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.DefaultFacebookClient;
@@ -34,12 +33,12 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.integration.base.BinaryAsBytes;
-import com.restfb.json.JsonObject;
+import com.restfb.integration.base.NeedFacebookWriteAccess;
+import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.FacebookReelAttachment;
 import com.restfb.types.GraphResponse;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import com.restfb.types.ReelsUploadStartResponse;
+import com.restfb.types.Video;
 
 @NeedFacebookWriteAccess
 class UploadFacebookReelITCase extends RestFbIntegrationTestBase implements BinaryAsBytes {

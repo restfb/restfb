@@ -21,16 +21,22 @@
  */
 package com.restfb.integration;
 
-import com.restfb.*;
-import com.restfb.integration.base.NeedFacebookWriteAccess;
-import com.restfb.integration.base.RestFbImageIntegrationTestBase;
-import com.restfb.types.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.Version;
+import com.restfb.integration.base.NeedFacebookWriteAccess;
+import com.restfb.integration.base.RestFbImageIntegrationTestBase;
+import com.restfb.types.FacebookReelAttachment;
+import com.restfb.types.GraphResponse;
+import com.restfb.types.ResumableUploadStartResponse;
 
 @NeedFacebookWriteAccess
 class PostFacebookStoryITCase extends RestFbImageIntegrationTestBase {

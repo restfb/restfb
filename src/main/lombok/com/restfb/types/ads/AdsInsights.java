@@ -21,14 +21,15 @@
  */
 package com.restfb.types.ads;
 
+import java.util.*;
+import java.util.function.Supplier;
+
 import com.restfb.Facebook;
 import com.restfb.json.JsonObject;
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.*;
-import java.util.function.Supplier;
 
 @Setter
 @Getter

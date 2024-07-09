@@ -27,8 +27,8 @@ import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.annotation.GraphAPI;
-
 import com.restfb.types.features.HasCreatedTime;
+
 import lombok.Getter;
 import lombok.Setter;
 

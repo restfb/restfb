@@ -31,7 +31,6 @@ import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
 import com.restfb.types.webhook.whatsapp.*;
-import com.restfb.types.webhook.whatsapp.WhatsappMessagesValue;
 
 /**
  * Factory to convert the value field of the change into a class with special fields

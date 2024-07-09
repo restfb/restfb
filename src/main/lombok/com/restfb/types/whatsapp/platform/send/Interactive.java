@@ -27,6 +27,7 @@ import com.restfb.types.whatsapp.platform.send.interactive.Action;
 import com.restfb.types.whatsapp.platform.send.interactive.Body;
 import com.restfb.types.whatsapp.platform.send.interactive.Footer;
 import com.restfb.types.whatsapp.platform.send.interactive.Header;
+
 import lombok.Setter;
 
 public class Interactive extends AbstractFacebookType {

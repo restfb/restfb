@@ -22,5 +22,9 @@
 package com.restfb;
 
 public enum EnumTestAnnotationEnum {
-  FOO, @Facebook BAR, @Facebook("foo_bar") BAZ
+  FOO, //
+  @Facebook
+  BAR, //
+  @Facebook("foo_bar")
+  BAZ
 }

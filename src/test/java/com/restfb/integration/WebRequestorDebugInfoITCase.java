@@ -23,13 +23,11 @@ package com.restfb.integration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.*;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 import com.restfb.types.User;
-
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 class WebRequestorDebugInfoITCase extends RestFbIntegrationTestBase {
 

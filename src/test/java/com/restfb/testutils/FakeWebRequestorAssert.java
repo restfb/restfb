@@ -21,11 +21,11 @@
  */
 package com.restfb.testutils;
 
-import com.restfb.FakeWebRequestor;
+import java.util.Objects;
 
 import org.assertj.core.api.AbstractAssert;
 
-import java.util.Objects;
+import com.restfb.FakeWebRequestor;
 
 public class FakeWebRequestorAssert extends AbstractAssert<FakeWebRequestorAssert, FakeWebRequestor> {
 

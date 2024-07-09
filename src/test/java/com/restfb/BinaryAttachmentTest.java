@@ -29,7 +29,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.stream.Stream;
 
-import com.restfb.integration.base.BinaryAsBytes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

@@ -387,7 +387,7 @@ class PostTest extends AbstractJsonMapperTests {
   void checkV10_tagged() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/tagged-post"), Post.class);
     assertNotNull(examplePost);
-    assertEquals(1614340197000l, examplePost.getTaggedTime().getTime());
+    assertEquals(1614340197000L, examplePost.getTaggedTime().getTime());
   }
 
   @Test

@@ -21,13 +21,14 @@
  */
 package com.restfb.types.whatsapp.platform.send.interactive;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public class Action extends AbstractFacebookType {
 

@@ -21,15 +21,19 @@
  */
 package com.restfb.exception;
 
-import com.restfb.exception.devicetoken.*;
+import static com.restfb.exception.devicetoken.DeviceTokenExceptionFactory.createFrom;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.restfb.exception.devicetoken.DeviceTokenExceptionFactory.createFrom;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenCodeExpiredException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenDeclinedException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenPendingException;
+import com.restfb.exception.devicetoken.FacebookDeviceTokenSlowdownException;
 
 @ExtendWith(MockitoExtension.class)
 class DeviceTokenExceptionFactoryTest {

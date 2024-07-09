@@ -24,7 +24,7 @@ package com.restfb;
 import java.util.Optional;
 
 /**
- * The POST body class. It uses the RestFB JsonMapper to convert a object to json String.
+ * The POST body class. It uses the RestFB JsonMapper to convert an object to json String.
  * <p>
  * You can use your custom mapper to modify the mapping.
  */

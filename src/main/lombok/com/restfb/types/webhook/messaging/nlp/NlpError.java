@@ -21,14 +21,14 @@
  */
 package com.restfb.types.webhook.messaging.nlp;
 
+import java.io.Serializable;
+
 import com.restfb.Facebook;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.io.Serializable;
 
 @ToString
 @EqualsAndHashCode

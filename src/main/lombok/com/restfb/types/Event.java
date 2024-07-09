@@ -33,9 +33,9 @@ import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.annotation.GraphAPI;
-
 import com.restfb.types.features.HasCover;
 import com.restfb.types.features.HasProfilePicture;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -29,9 +29,9 @@ import java.util.List;
 import com.restfb.Facebook;
 import com.restfb.JsonMapper;
 import com.restfb.types.ads.AppLinks;
-
 import com.restfb.types.features.HasCover;
 import com.restfb.types.features.HasProfilePicture;
+
 import lombok.Getter;
 import lombok.Setter;
 

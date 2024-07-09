@@ -88,9 +88,9 @@ public interface FacebookClient {
   <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters);
 
   /**
-   * creates a new <code>FacebookClient</code> from a old one.
+   * creates a new <code>FacebookClient</code> from an old one.
    * <p>
-   * App secret and and api version are taken from the original client.
+   * App secret and api version are taken from the original client.
    *
    * @param accessToken
    *          this accesstoken is used for the new client

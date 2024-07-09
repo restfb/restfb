@@ -24,9 +24,9 @@ package com.restfb.types.ads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.restfb.AbstractJsonMapperTests;
-
 import org.junit.jupiter.api.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 class IDNameTest extends AbstractJsonMapperTests {
 

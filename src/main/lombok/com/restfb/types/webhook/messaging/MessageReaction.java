@@ -22,6 +22,7 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+
 import lombok.Getter;
 
 public class MessageReaction implements InnerMessagingItem {

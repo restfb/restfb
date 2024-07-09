@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-import com.restfb.WebRequestor;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.ETagWebRequestor;
+import com.restfb.WebRequestor;
 import com.restfb.WebRequestor.Response;
 import com.restfb.integration.base.RestFbIntegrationTestBase;
 

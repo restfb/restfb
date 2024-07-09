@@ -27,9 +27,11 @@ import com.restfb.json.JsonObject;
 /**
  * Abstract class to provide access to the JSON Facebook provides in case of an error
  * <p>
- * Sometime a developer needs to access the plain error to get a more in depth view to the error.
+ * Sometimes a developer needs to access the plain error to get a more in depth view to the error.
  */
 public abstract class FacebookErrorMessageException extends FacebookException {
+
+  private static final long serialVersionUID = 1L;
 
   private JsonObject rawErrorJson;
 

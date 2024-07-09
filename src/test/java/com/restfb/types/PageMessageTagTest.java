@@ -23,10 +23,10 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.send.PageMessageTag;
-
-import org.junit.jupiter.api.Test;
 
 class PageMessageTagTest extends AbstractJsonMapperTests {
 

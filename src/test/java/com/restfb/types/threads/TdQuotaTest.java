@@ -21,11 +21,12 @@
  */
 package com.restfb.types.threads;
 
-import com.restfb.AbstractJsonMapperTests;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
+import com.restfb.AbstractJsonMapperTests;
 
 class TdQuotaTest extends AbstractJsonMapperTests {
 

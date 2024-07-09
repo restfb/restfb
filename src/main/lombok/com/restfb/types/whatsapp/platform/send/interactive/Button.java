@@ -21,10 +21,10 @@
  */
 package com.restfb.types.whatsapp.platform.send.interactive;
 
+import java.util.Optional;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
-import java.util.Optional;
 
 public class Button extends AbstractFacebookType {
 

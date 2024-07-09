@@ -21,11 +21,11 @@
  */
 package com.restfb.testutils;
 
+import java.util.Objects;
+
 import org.assertj.core.api.AbstractAssert;
 
 import com.restfb.batch.BatchRequest;
-
-import java.util.Objects;
 
 public class BatchRequestAssert extends AbstractAssert<BatchRequestAssert, BatchRequest> {
 

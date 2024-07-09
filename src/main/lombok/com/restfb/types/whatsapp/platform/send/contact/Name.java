@@ -23,6 +23,7 @@ package com.restfb.types.whatsapp.platform.send.contact;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Setter;
 
 public class Name extends AbstractFacebookType {

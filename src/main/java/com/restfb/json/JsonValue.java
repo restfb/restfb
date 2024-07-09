@@ -21,7 +21,10 @@
  ******************************************************************************/
 package com.restfb.json;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Objects;
 
 /**

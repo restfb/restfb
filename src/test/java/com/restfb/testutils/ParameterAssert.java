@@ -21,11 +21,11 @@
  */
 package com.restfb.testutils;
 
-import com.restfb.Parameter;
+import java.util.Objects;
 
 import org.assertj.core.api.AbstractAssert;
 
-import java.util.Objects;
+import com.restfb.Parameter;
 
 public class ParameterAssert extends AbstractAssert<ParameterAssert, Parameter> {
 

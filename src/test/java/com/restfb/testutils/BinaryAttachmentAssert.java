@@ -21,11 +21,11 @@
  */
 package com.restfb.testutils;
 
+import java.util.Objects;
+
 import org.assertj.core.api.AbstractAssert;
 
 import com.restfb.BinaryAttachment;
-
-import java.util.Objects;
 
 public class BinaryAttachmentAssert extends AbstractAssert<BinaryAttachmentAssert, BinaryAttachment> {
 

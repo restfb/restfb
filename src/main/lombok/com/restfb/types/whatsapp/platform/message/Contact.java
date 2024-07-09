@@ -23,8 +23,8 @@ package com.restfb.types.whatsapp.platform.message;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
 import com.restfb.types.whatsapp.platform.Profile;
+
 import lombok.Getter;
 import lombok.Setter;
 

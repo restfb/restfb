@@ -28,10 +28,10 @@ import com.restfb.JsonMapper;
 import com.restfb.JsonMapper.JsonMappingCompleted;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
-
 import com.restfb.types.features.HasComments;
 import com.restfb.types.features.HasFrom;
 import com.restfb.types.features.HasMessage;
+
 import lombok.Getter;
 import lombok.Setter;
 

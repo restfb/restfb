@@ -23,6 +23,7 @@ package com.restfb.types.webhook;
 
 import com.restfb.Facebook;
 import com.restfb.types.webhook.base.BaseChangeValue;
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -21,10 +21,11 @@
  */
 package com.restfb.types;
 
-import com.restfb.AbstractJsonMapperTests;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.restfb.AbstractJsonMapperTests;
 
 class StoryTest extends AbstractJsonMapperTests {
 

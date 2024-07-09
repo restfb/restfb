@@ -23,11 +23,10 @@ package com.restfb.scope;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.restfb.Parameter;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 class ScopeBuilderTest {
 

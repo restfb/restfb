@@ -25,8 +25,8 @@ import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
 import com.restfb.types.features.HasMessage;
+
 import lombok.Getter;
 import lombok.Setter;
 

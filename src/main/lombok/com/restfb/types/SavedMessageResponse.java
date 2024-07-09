@@ -22,8 +22,8 @@
 package com.restfb.types;
 
 import com.restfb.Facebook;
-
 import com.restfb.types.features.HasMessage;
+
 import lombok.Getter;
 import lombok.Setter;
 

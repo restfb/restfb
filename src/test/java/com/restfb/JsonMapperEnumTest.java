@@ -26,8 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import com.restfb.testutils.AssertJson;
-
 class JsonMapperEnumTest {
 
   private final DefaultJsonMapper mapper = new DefaultJsonMapper();

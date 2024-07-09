@@ -23,12 +23,13 @@ package com.restfb.types;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
 import com.restfb.AbstractJsonMapperTests;
 import com.restfb.types.webhook.Change;
 import com.restfb.types.webhook.ChangeValue;
 import com.restfb.types.webhook.PermissionChangeValue;
 import com.restfb.types.webhook.WebhookObject;
-import org.junit.jupiter.api.Test;
 
 class WebhookPermissionTest extends AbstractJsonMapperTests {
 

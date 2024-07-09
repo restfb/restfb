@@ -21,14 +21,14 @@
  */
 package com.restfb.types.ads;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.restfb.Facebook;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class ProductCatalog extends NamedAdsObject {
 

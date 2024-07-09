@@ -21,14 +21,15 @@
  */
 package com.restfb.types.threads;
 
-import com.restfb.Facebook;
-import com.restfb.types.FacebookType;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.FacebookType;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/threads/threads-media">Threads Media type</a>

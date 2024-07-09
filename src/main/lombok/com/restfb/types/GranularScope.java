@@ -21,14 +21,15 @@
  */
 package com.restfb.types;
 
-import com.restfb.Facebook;
-import lombok.Getter;
-import lombok.Setter;
+import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Collections.unmodifiableList;
+import com.restfb.Facebook;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public class GranularScope extends AbstractFacebookType {
 

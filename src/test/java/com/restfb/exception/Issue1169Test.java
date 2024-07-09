@@ -21,11 +21,12 @@
  */
 package com.restfb.exception;
 
-import com.restfb.*;
-import com.restfb.types.instagram.IgUserProfile;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 
-import static com.restfb.testutils.RestfbAssertions.assertThat;
+import com.restfb.*;
+import com.restfb.types.instagram.IgUserProfile;
 
 class Issue1169Test extends AbstractJsonMapperTests {
 
