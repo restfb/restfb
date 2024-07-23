@@ -9,5 +9,6 @@
   "username": "threadsapitestuser",
   "text": "Today Is Monday",
   "timestamp": "2023-10-17T05:42:03+0000",
-  "shortcode": "abcdefg"
+  "shortcode": "abcdefg",
+  "allowlisted_country_codes": ["US", "CA"]
 }

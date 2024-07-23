@@ -24,6 +24,7 @@ package com.restfb.types.threads;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.restfb.Facebook;
 import com.restfb.types.FacebookType;
@@ -134,5 +135,18 @@ public class TdMedia extends FacebookType {
   @Setter
   @Facebook("is_quote_post")
   private Boolean isQuotePost;
+
+  @Getter
+  @Setter
+  @Facebook("allowlisted_country_codes")
+  private List<String> allowlistedCountryCodes = new ArrayList<>();
+
+  public List<Locale> getAllowlistedCountryCodesAsLocales() {
+    List<Locale> locales = new ArrayList<>();
+    for (String code : allowlistedCountryCodes) {
+      locales.add(new Locale("", code));
+    }
+    return locales;
+  }
 
 }

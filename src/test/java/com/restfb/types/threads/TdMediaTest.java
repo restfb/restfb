@@ -28,6 +28,8 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
+import java.util.Locale;
+
 class TdMediaTest extends AbstractJsonMapperTests {
 
   @Test
@@ -40,5 +42,11 @@ class TdMediaTest extends AbstractJsonMapperTests {
     assertEquals(1697521323000L, threadsMedis.getTimestamp().getTime());
     assertEquals("abcdefg", threadsMedis.getShortcode());
     assertEquals(TdMediaType.TEXT_POST, threadsMedis.getMediaType());
+    assertEquals(2, threadsMedis.getAllowlistedCountryCodesAsLocales().size());
+    Locale locale1 = threadsMedis.getAllowlistedCountryCodesAsLocales().get(0);
+    Locale locale2 = threadsMedis.getAllowlistedCountryCodesAsLocales().get(1);
+    assertEquals("US", locale1.getCountry());
+    assertEquals("CA", locale2.getCountry());
+    assertEquals(2, threadsMedis.getAllowlistedCountryCodes().size());
   }
 }
