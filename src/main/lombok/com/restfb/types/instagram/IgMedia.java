@@ -38,6 +38,19 @@ public class IgMedia extends IgMediaChild {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * The field provides information about boosting eligibility of a IG instagram media as an ad and additional details
+   * if not eligible.
+   */
+  @Getter
+  @Setter
+  @Facebook("boost_eligibility_info")
+  private IgBoostEligibilityInfo boostEligibilityInfo;
+
+  /**
+   * Caption. Excludes album children. The @ symbol is excluded, unless the app user can perform admin-equivalent tasks
+   * on the Facebook Page connected to the Instagram account used to create the caption.
+   */
   @Getter
   @Setter
   @Facebook
@@ -45,7 +58,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * Count of comments on the media.
-   *
+   * <p>
    * Excludes comments on album child media and the media's caption. Includes replies on comments.
    */
   @Getter
@@ -63,7 +76,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * Reels only. If {@code true}, indicates the reel can appear in both the Feed and Reels tabs.
-   * 
+   * <p>
    * If {@code false}, indicates the reel can only appear in the Reels tab.
    */
   @Getter
@@ -73,7 +86,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * Count of likes on the media.
-   *
+   * <p>
    * Excludes likes on album child media and likes on promoted posts created from the media. Includes replies on
    * comments.
    * 
@@ -97,6 +110,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * IGTV media title.
+   * 
    * @deprecated Omitted from response.
    */
   @Deprecated
