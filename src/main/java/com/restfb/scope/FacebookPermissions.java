@@ -914,6 +914,13 @@ public enum FacebookPermissions {
    */
   INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //
 
+  INSTAGRAM_BUSINESS_BASIC("instagram_business_basic", Category.INSTAGRAM_BUSINESS), //
+
+  INSTAGRAM_BUSINESS_MANAGE_COMMENTS("instagram_business_manage_comments", Category.INSTAGRAM_BUSINESS), //
+
+  INSTAGRAM_BUSINESS_CONTENT_PUBLISH("instagram_business_content_publish", Category.INSTAGRAM_BUSINESS), //
+
+  INSTAGRAM_BUSINESS_MANAGE_MESSAGES("instagram_business_manage_messages", Category.INSTAGRAM_BUSINESS), //
   /**
    * The user_media permission allows your app to read the Media node, which represents an image, video, or album and
    * the node’s edges using the Instagram Basic Display API.
@@ -1107,6 +1114,9 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, THREADS
+    PUBLIC,
+    USER_DATA,
+    EVENTS_GROUPS_PAGES,
+    OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, INSTAGRAM_BUSINESS, THREADS
   }
 }
