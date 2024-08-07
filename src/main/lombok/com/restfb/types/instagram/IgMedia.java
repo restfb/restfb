@@ -25,9 +25,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.types.Insight;
 
+import com.restfb.types.ads.IgBoostMediaAd;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,6 +48,11 @@ public class IgMedia extends IgMediaChild {
   @Setter
   @Facebook("boost_eligibility_info")
   private IgBoostEligibilityInfo boostEligibilityInfo;
+
+  @Getter
+  @Setter
+  @Facebook("boost_ads_list")
+  private List<IgBoostMediaAd> boostAdsList = new ArrayList<>();
 
   /**
    * Caption. Excludes album children. The @ symbol is excluded, unless the app user can perform admin-equivalent tasks

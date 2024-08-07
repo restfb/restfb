@@ -1,0 +1,11 @@
+{
+  "id": "1234567898765",
+  "boost_ads_list": {
+    "data": [
+      {
+        "ad_id": "ad123",
+        "ad_status": "active"
+      }
+    ]
+  }
+}

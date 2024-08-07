@@ -24,6 +24,7 @@ package com.restfb.types.instagram;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.restfb.types.ads.IgBoostMediaAd;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
@@ -83,5 +84,15 @@ class IgMediaTest extends AbstractJsonMapperTests {
     assertNotNull(igMedia.getCopyrightCheckInformation());
     assertNotNull(igMedia.getCopyrightCheckInformation().getStatus());
     assertEquals("error", igMedia.getCopyrightCheckInformation().getStatus().getStatus());
+  }
+
+  @Test
+  void checkMediaWithBoostAdsList() {
+    IgMedia igMedia = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/media-with-boost-ads"), IgMedia.class);
+    assertNotNull(igMedia);
+    assertEquals(1, igMedia.getBoostAdsList().size());
+    IgBoostMediaAd boostAd = igMedia.getBoostAdsList().get(0);
+    assertEquals("ad123", boostAd.getAdId());
+    assertEquals("active", boostAd.getAdStatus());
   }
 }
