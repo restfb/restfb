@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2024.10.0 (August 9, 2024)
+
+* Issue #1464: IG API with IG Login: new permissions added
+* Issue #1463: Instagram missing `boost_ads_list` field added
+* Issue #1461: Threads support for geo-gated posts
+* Issue #1453: ScopeBuilder add multiple scopes at once
+* lot of build library updates
+
 ## 2024.9.0 (June 21, 2024)
 
 * Issue #1443: `AUDIO` added to `TdMediaTye`
