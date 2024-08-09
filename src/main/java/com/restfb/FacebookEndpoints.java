@@ -75,11 +75,15 @@ public interface FacebookEndpoints {
   }
 
   default String getInstagramEndpoint() {
-    return Endpoint.INSTAGRAM.getUrl();
+    return Endpoint.INSTAGRAM_GRAPH.getUrl();
   }
 
   default String getInstagramApiEndpoint() {
     return Endpoint.INSTAGRAM_API.getUrl();
+  }
+
+  default String getInstagramOAuthEndpoint() {
+    return Endpoint.INSTAGRAM_OAUTH.getUrl();
   }
 
   default String getThreadsBaseEndpoint() {
@@ -114,12 +118,17 @@ public interface FacebookEndpoints {
     /**
      * Instagram Graph API endpoint URL.
      */
-    INSTAGRAM("https://graph.instagram.com"),
+    INSTAGRAM_GRAPH("https://graph.instagram.com"),
 
     /**
      * Instagram API endpoint URL.
      */
     INSTAGRAM_API("https://api.instagram.com"),
+
+    /**
+     * Instagram website URL.
+     */
+    INSTAGRAM_OAUTH("https://www.instagram.com"),
 
     /**
      * Threads OAuth endpoint URL.

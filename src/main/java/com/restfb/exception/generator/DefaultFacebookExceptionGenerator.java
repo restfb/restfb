@@ -39,7 +39,7 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
    */
   protected FacebookExceptionMapper graphFacebookExceptionMapper;
 
-  private static final Pattern ERROR_PATTERN = Pattern.compile("\"error\"\\s*:");
+  private static final Pattern ERROR_PATTERN = Pattern.compile("\"error[_a-z]*\"\\s*:");
 
   public DefaultFacebookExceptionGenerator() {
     super();
@@ -50,6 +50,8 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
   public void throwFacebookResponseStatusExceptionIfNecessary(String json, Integer httpStatusCode) {
     try {
       skipResponseStatusExceptionParsing(json);
+
+      throwLoginOauthExceprtionIfNecessary(json, httpStatusCode);
 
       // If we have a batch API exception, throw it.
       throwBatchFacebookResponseStatusExceptionIfNecessary(json, httpStatusCode);
@@ -68,6 +70,21 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
     } catch (ResponseErrorJsonParsingException ex) {
       // do nothing here
     }
+  }
+
+  private void throwLoginOauthExceprtionIfNecessary(String json, Integer httpStatusCode) {
+    JsonObject errorObject = silentlyCreateObjectFromString(json);
+
+    if (errorObject == null || errorObject.contains(BATCH_ERROR_ATTRIBUTE_NAME)) {
+      return;
+    }
+
+    String errorType = errorObject.getString("error_type", null);
+    Integer errorCode = errorObject.getInt("code", 0);
+    String errorMessage = errorObject.getString("error_message", null);
+
+    ExceptionInformation container = new ExceptionInformation(errorCode, null, httpStatusCode, errorType, errorMessage, null, null, false, errorObject);
+    throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(container);
   }
 
   protected ExceptionInformation createFacebookResponseTypeAndMessageContainer(JsonObject errorObject,

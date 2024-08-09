@@ -24,6 +24,7 @@ package com.restfb;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
+import com.restfb.exception.FacebookOAuthException;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.exception.FacebookGraphException;
@@ -50,6 +51,21 @@ class OAuthExceptionTest extends AbstractJsonMapperTests {
       assertThat(fe.getRawErrorJson()).isNotNull();
       AssertJson.assertEquals(jsonErrorString, fe.getRawErrorJson().toString());
       assertThat(fe.getFbtraceId()).isEqualTo("EmOAvxDPlF2");
+    }
+  }
+
+  @Test
+  void loginOauthException() {
+    String jsonErrorString = jsonFromClasspath("exampleOauthError");
+    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
+    try {
+      generator.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
+    } catch (FacebookOAuthException fe) {
+      assertThat(fe.getErrorCode()).isEqualTo(400);
+      assertThat(fe.getMessage()).contains("verification");
+    } catch (Exception ex) {
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
     }
   }
 
