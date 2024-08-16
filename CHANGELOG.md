@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2024.11.0 (August 16, 2024)
+
+* Issue #1449: Add Threads Media Container
+* Issue #1467: maven-gpg-plugin version upgrade
+* Issue #1465: Instagram API with Instagram Login Client
+
 ## 2024.10.0 (August 9, 2024)
 
 * Issue #1464: IG API with IG Login: new permissions added
