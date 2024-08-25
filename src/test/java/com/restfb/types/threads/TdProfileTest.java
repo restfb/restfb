@@ -39,5 +39,6 @@ class TdProfileTest extends AbstractJsonMapperTests {
     assertEquals("threadsapitestuser", threadsProfile.getUsername());
     assertEquals("This is my Threads bio.", threadsProfile.getThreadsBiography());
     assertEquals("https://cdn.example.org", threadsProfile.getThreadsProfilePictureUrl());
+    assertEquals("Test User", threadsProfile.getName());
   }
 }

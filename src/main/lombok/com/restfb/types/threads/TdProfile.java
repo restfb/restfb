@@ -51,6 +51,14 @@ public class TdProfile extends AbstractFacebookType {
   private String username;
 
   /**
+   * name of the Threads profile
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String name;
+
+  /**
    * URL of the user's profile picture on Threads.
    */
   @Getter

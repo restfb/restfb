@@ -2,5 +2,6 @@
   "id": "1234567",
   "username": "threadsapitestuser",
   "threads_profile_picture_url": "https://cdn.example.org",
-  "threads_biography": "This is my Threads bio."
+  "threads_biography": "This is my Threads bio.",
+  "name": "Test User"
 }
