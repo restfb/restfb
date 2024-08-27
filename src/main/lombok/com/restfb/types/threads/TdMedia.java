@@ -136,6 +136,14 @@ public class TdMedia extends FacebookType {
   @Facebook("is_quote_post")
   private Boolean isQuotePost;
 
+  /**
+   * The accessibility text label or description for an image or video in a Threads post
+   */
+  @Getter
+  @Setter
+  @Facebook("alt_text")
+  private String altText;
+
   @Getter
   @Setter
   @Facebook("allowlisted_country_codes")
