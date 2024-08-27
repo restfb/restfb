@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2024.12.0 (August 27, 2024)
+
+* Issue #1473: name field added to TdProfile
+* Issue #1475: alt_text field added to TdMedia
+* Some build libraries updates
+
 ## 2024.11.0 (August 16, 2024)
 
 * Issue #1449: Add Threads Media Container
