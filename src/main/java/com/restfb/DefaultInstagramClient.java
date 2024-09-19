@@ -35,7 +35,11 @@ import com.restfb.scope.ScopeBuilder;
  * <p>
  * it is used for this Instagram API and for the Threads API. This API is accordingly to the reference based on the
  * Instagram Basic Display API.
+ *
+ * @deprecated on December 2024 see blog post: <a href=
+ *             "https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/">https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/</a>
  */
+@Deprecated
 public class DefaultInstagramClient extends DefaultFacebookClient {
 
   public DefaultInstagramClient(Version version) {
