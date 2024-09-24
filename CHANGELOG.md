@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2024.13.0 (September 25, 2024)
+
+* Issue #1484: `link_attachment_url` added to TdMedia
+* Issue #1481: Instagram Basic Display API client marked as deprecated
+* Issue #1483: Instagram API with Instagram Login scopes renamed
+* Some build libraries updated
+
 ## 2024.12.0 (August 27, 2024)
 
 * Issue #1473: name field added to TdProfile
