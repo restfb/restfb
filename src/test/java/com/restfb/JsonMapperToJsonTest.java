@@ -28,6 +28,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
+import com.restfb.json.Json;
+import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -301,6 +304,18 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     assertThat(myDate).isEqualTo("2016-09-22T22:02:11");
   }
 
+  @Test
+  void doubledField() {
+    DoubledFieldClass doubledFieldClass = new DoubledFieldClass();
+    doubledFieldClass.example = "foo";
+    doubledFieldClass.fallback = "bar";
+
+    String json = createJsonMapper().toJson(doubledFieldClass);
+    JsonValue jsonValue = Json.parse(json);
+    JsonObject jsObj = jsonValue.asObject();
+    assertThat(jsObj.names()).hasSize(1);
+  }
+
   static class JavaTypeWithOptionalField {
 
     @Facebook
@@ -432,5 +447,14 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
 
     @Facebook
     String text;
+  }
+
+  static class DoubledFieldClass {
+
+    @Facebook
+    String example;
+
+    @Facebook("example")
+    String fallback;
   }
 }
