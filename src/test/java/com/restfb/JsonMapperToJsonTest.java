@@ -260,7 +260,24 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     // The current behavior is that it's luck of the draw which field is
     // selected to marshal to JSON if there are multiple fields with the same
     // mapping
-    assertThat(json).contains("Philly", "Philadelphia");
+    assertThat(json).containsAnyOf("Philly", "Philadelphia");
+  }
+
+  @Test
+  void duplicateAnnotationsNull() {
+    DuplicateAnnotationsUser user = new DuplicateAnnotationsUser();
+    user.hometown = null; // null should be ignored on serializing to String
+    user.hometownObject = new HashMap<String, Object>() {
+
+      private static final long serialVersionUID = 1L;
+      {
+        put("id", "123");
+        put("name", "Philly");
+      }
+    };
+
+    String json = createJsonMapper().toJson(user);
+    assertThat(json).contains("Philly");
   }
 
   @Test

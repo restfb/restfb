@@ -500,7 +500,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
         if (!(ignoreNullValuedProperties
             && (fieldValue == null || isEmptyOptional(fieldValue) || isEmptyCollectionOrMap(fieldValue)))) {
-          jsonObject.add(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
+            jsonObject.set(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
         throw new FacebookJsonMappingException(
