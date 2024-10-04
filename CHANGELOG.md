@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2024.14.0 (October 4, 2024)
+
+* Issue #1485: duplicate key converting type to json fixed<br />
+  Thanks to @parth0201-in for the bug report
+* Issue #1491: Version 21.0 added to version enum
+* libraries updated
+
 ## 2024.13.0 (September 25, 2024)
 
 * Issue #1484: `link_attachment_url` added to TdMedia
