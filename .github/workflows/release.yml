@@ -52,7 +52,7 @@ jobs:
       - name: Create javadoc zip
         uses: vimtor/action-zip@v1
         with:
-          files: target/apidocs
+          files: target/reports/apidocs
           dest: javadoc.zip
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
