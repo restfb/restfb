@@ -35,6 +35,7 @@ public enum Version {
    *
    * @since November 10th, 2020
    */
+  @Deprecated
   VERSION_9_0("v9.0"),
 
   /**
@@ -42,6 +43,7 @@ public enum Version {
    *
    * @since February 23th, 2021
    */
+  @Deprecated
   VERSION_10_0("v10.0"),
 
   /**
@@ -49,6 +51,7 @@ public enum Version {
    *
    * @since June 8th, 2021
    */
+  @Deprecated
   VERSION_11_0("v11.0"),
 
   /**
@@ -108,19 +111,26 @@ public enum Version {
   VERSION_19_0("v19.0"),
 
   /**
-   * <tt>Graph API 20.0</tt>, available at least until May 2026
+   * <tt>Graph API 20.0</tt>, available at least until September 24, 2026
    *
    * @since May 21, 2024
    */
   VERSION_20_0("v20.0"),
 
   /**
+   * <tt>Graph API 21.0</tt>, available at least until October 2026
+   *
+   * @since October 2, 2024
+   */
+  VERSION_21_0("v21.0"),
+
+  /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
    * <p>
-   * the current version is <tt>Graph API 20.0</tt>
+   * the current version is <tt>Graph API 21.0</tt>
    * </p>
    */
-  LATEST("v20.0"),
+  LATEST("v21.0"),
 
   /**
    * <tt>Threads API 1.0</tt>, according to the documentation, this is the first Threads API Version
