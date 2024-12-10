@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2024.15.0 (December 10, 2024)
+
+* Issue #1502: ThreadsApiException added
+* Many Build dependencies added
+
 ## 2024.14.0 (October 4, 2024)
 
 * Issue #1485: duplicate key converting type to json fixed<br />
