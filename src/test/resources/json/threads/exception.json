@@ -1,0 +1,9 @@
+{
+  "error": {
+    "message": "Unsupported get request. Object with ID '1234567' does not exist, cannot be loaded due to missing permissions, or does not support this operation",
+    "type": "THApiException",
+    "code": 100,
+    "error_subcode": 33,
+    "fbtrace_id": "abcdefg"
+  }
+}

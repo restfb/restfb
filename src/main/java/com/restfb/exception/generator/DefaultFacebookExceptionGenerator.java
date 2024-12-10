@@ -83,7 +83,8 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
     Integer errorCode = errorObject.getInt("code", 0);
     String errorMessage = errorObject.getString("error_message", null);
 
-    ExceptionInformation container = new ExceptionInformation(errorCode, null, httpStatusCode, errorType, errorMessage, null, null, false, errorObject);
+    ExceptionInformation container = new ExceptionInformation(errorCode, null, httpStatusCode, errorType, errorMessage,
+      null, null, false, errorObject);
     throw graphFacebookExceptionMapper.exceptionForTypeAndMessage(container);
   }
 
@@ -92,8 +93,10 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
     JsonObject innerErrorObject = errorObject.get(ERROR_ATTRIBUTE_NAME).asObject();
 
     // If there's an Integer error code, pluck it out.
-    Integer errorCode = Optional.ofNullable(innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME)).map(obj -> toInteger(obj.toString())).orElse(null);
-    Integer errorSubcode = Optional.ofNullable(innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME)).map(obj -> toInteger(obj.toString())).orElse(null);
+    Integer errorCode = Optional.ofNullable(innerErrorObject.get(ERROR_CODE_ATTRIBUTE_NAME))
+      .map(obj -> toInteger(obj.toString())).orElse(null);
+    Integer errorSubcode = Optional.ofNullable(innerErrorObject.get(ERROR_SUBCODE_ATTRIBUTE_NAME))
+      .map(obj -> toInteger(obj.toString())).orElse(null);
 
     return new ExceptionInformation(errorCode, errorSubcode, httpStatusCode,
       innerErrorObject.getString(ERROR_TYPE_ATTRIBUTE_NAME, null),
@@ -112,8 +115,8 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
 
       if (errorObject == null || errorObject.contains(BATCH_ERROR_ATTRIBUTE_NAME)
           || errorObject.contains(BATCH_ERROR_DESCRIPTION_ATTRIBUTE_NAME)
-              // not a batch response, if data key is present
-              || errorObject.contains("data"))
+          // not a batch response, if data key is present
+          || errorObject.contains("data"))
         return;
 
       ExceptionInformation container = new ExceptionInformation(errorObject.getInt(BATCH_ERROR_ATTRIBUTE_NAME, 0),
@@ -202,6 +205,12 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
         return new FacebookQueryParseException(container.getType(), container.getMessage(), container.getErrorCode(),
           container.getErrorSubcode(), container.getHttpStatusCode(), container.getUserTitle(),
           container.getUserMessage(), container.getIsTransient(), container.getRawError());
+      }
+
+      if ("THApiException".equals(container.getType())) {
+        return new ThreadsApiException(container.getType(), container.getMessage(), container.getErrorCode(),
+          container.getErrorSubcode(), container.getHttpStatusCode(), container.getIsTransient(),
+          container.getRawError());
       }
 
       // Don't recognize this exception type? Just go with the standard
