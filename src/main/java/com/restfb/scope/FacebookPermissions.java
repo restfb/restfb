@@ -1114,6 +1114,29 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   THREADS_MANAGE_MENTIONS("threads_manage_mentions", Category.THREADS),
+
+  /**
+   * The {@code threads_keyword_search} permission allows an app to search and fetch content with a specific keyword
+   * on behalf of a Threads user.
+   * <p>
+   * The permission also allows for publishing responses to this fetched content.
+   * The allowed usage for this permission is to help the user manage their social media presence. You may also use
+   * this permission to request analytics insights to improve your app and for marketing or advertising purposes,
+   * through the use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Showing public content and the public content tree that a user searches using a specific keyword.</li>
+   * <li>Giving the user the ability to sort user’s own mentioned threads.</li>
+   * <li>Giving the user the ability to publish responses to public content that the user searches for.</li>
+   * </ul>
+   * <p>
+   * <strong>Review</strong>
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_KEYWORD_SEARCH("threads_keyword_search", Category.THREADS),
+
   /**
    * The commerce_account manage_orders permission allows your app to read and update commerce account orders.
    *
