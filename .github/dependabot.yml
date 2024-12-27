@@ -7,3 +7,6 @@ updates:
     target-branch: "dev"
     allow:
       - dependency-type: "direct"
+    ignore:
+      - dependency-name: "org.apache.felix:maven-bundle-plugin"
+        update-types: ["version-update:semver-major"]
