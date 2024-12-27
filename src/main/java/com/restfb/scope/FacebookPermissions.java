@@ -982,8 +982,18 @@ public enum FacebookPermissions {
   WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP),
 
   /**
-   * Required for making any calls to all Threads API endpoints
-   *
+   * The {@code threads_basic} permission allows an app to get a user's Threads profile information
+   * and the media and text content that they posted to Threads.
+   * <p>
+   * The allowed usage for this permission is to display a user’s own Threads posts within an app, and make these
+   * visible only to the user who created them. You may also use this permission to request analytics insights to
+   * improve your app and for marketing or advertising purposes, through the use of aggregated and de-identified or
+   * anonymized information (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Display a user’s own Threads posts within an app, and make these visible only to the user who created them</li>
+   * </ul>
    * <p>
    * <strong>Review</strong>
    *
@@ -993,49 +1003,117 @@ public enum FacebookPermissions {
   THREADS_BASIC("threads_basic", Category.THREADS),
 
   /**
-   * Required for Threads publishing endpoints only
+   * The {@code threads_content_publish} permission allows an app to create and publish content on behalf of a
+   * Threads profile.
+   * <p>
+   * The allowed usage for this permission is to enable an app user to create and publish content to their
+   * Threads profile. You may also use this permission to request analytics insights to improve your app and for
+   * marketing or advertising purposes, through the use of aggregated and de-identified or anonymized information
+   * (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   *     <li>Enables an app user to create and publish content to their Threads profile</li>
+   * </ul>
    *
    * <p>
    * <strong>Review</strong>
-   *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   THREADS_CONTENT_PUBLISH("threads_content_publish", Category.THREADS),
 
   /**
-   * Required for making GET calls to insights endpoints
+   * The {@code threads_manage_insights} permission allows your app to get access to insights for a Threads profile.
+   * <p>
+   * The allowed usage for this permission is to allow your app to get insights for a Threads profile and for
+   * individual threads published by that profile. You may also use this permission to request analytics insights to
+   * improve your app and for marketing or advertising purposes, through the use of aggregated and de-identified or
+   * anonymized information (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   *    <li>Get insights for a Threads profile</li>
+   *    <li>Get insights for individual threads published by that profile</li>
+   * </ul>
    *
    * <p>
    * <strong>Review</strong>
-   *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),
 
   /**
-   * Required for making POST calls to reply endpoints
+   * The {@code threads_manage_replies} permission allows an app to create a reply on behalf of
+   * a Threads profile, hide or unhide replies to a thread, and control who can reply to a thread on
+   * the Threads profile.
+   * <p>
+   * The allowed usage of this permission is to allow an app to create a reply on behalf of a Threads profile,
+   * hide or unhide replies to a thread, and control who can reply to a thread on the Threads profile. You may
+   * also use this permission to request analytics insights to improve your app and for marketing or
+   * advertising purposes, through the use of aggregated and de-identified or anonymized information
+   * (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Create a reply on behalf of a Threads profile</li>
+   * <li>Hide or unhide replies to a thread</li>
+   * <li>Control who can reply to a thread on the Threads profile</li>
+   * </ul>
    *
    * <p>
    * <strong>Review</strong>
-   *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),
 
   /**
-   * Required for making GET calls to reply endpoints
+   * The {@code threads_read_replies} permission allows an app to read replies to a user's thread.
+   * <p>
+   * The allowed usage for this permission is to get replies to a thread owned by the app user. You may also use this
+   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through
+   * the use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Get replies to a thread owned by the app user</li>
+   * </ul>
    *
    * <p>
    * <strong>Review</strong>
-   *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),
 
+  /**
+   * The {@code threads_manage_mentions} permission allows an app to fetch content where
+   * the user is mentioned in on behalf of a Threads user.
+   * <p>
+   * The allowed usage for this permission is to help the user manage their social media presence,
+   * which includes: showing public content and the public content tree that a user is mentioned in,
+   * enabling the user to sort user’s own mentioned threads, and enabling the user to publish responses
+   * to the public content tree that the user is mentioned in.
+   * <p>
+   * You may also use this permission to request analytics insights to improve your app and for marketing or
+   * advertising purposes, through the use of aggregated and de-identified or anonymized information
+   * (provided such data cannot be re-identified).
+   *
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>Showing public content and the public content tree that a user is mentioned in.</li>
+   * <li>Giving the user the ability to sort user’s own mentioned threads.</li>
+   * <li>Giving the user the ability to publish responses to public content that a user is mentioned in.</li>
+   * </ul>
+   * <p>
+   * <strong>Review</strong>
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_MANAGE_MENTIONS("threads_manage_mentions", Category.THREADS),
   /**
    * The commerce_account manage_orders permission allows your app to read and update commerce account orders.
    *
