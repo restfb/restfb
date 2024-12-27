@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2024.16.0 (December 27, 2024)
+
+* Issue #1508: Threads manage mentions permission added 
+* Issue #1509: Threads keyword search permission added
+* Build dependencies updated and dependabot.yml changed
+
 ## 2024.15.0 (December 10, 2024)
 
 * Issue #1502: ThreadsApiException added
