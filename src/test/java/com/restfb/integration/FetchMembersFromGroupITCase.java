@@ -41,7 +41,7 @@ class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
   void fetchMembers() {
 
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_9_0);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_15_0);
 
     Connection<NamedFacebookType> connection = client.fetchConnection(getTestSettings().getGroupId() + "/members",
       NamedFacebookType.class, Parameter.with("limit", 100));

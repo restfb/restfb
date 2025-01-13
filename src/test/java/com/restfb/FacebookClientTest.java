@@ -145,28 +145,6 @@ class FacebookClientTest {
   }
 
   @Test
-  void obtainExtendedAccessTokenForInstagram() {
-    FacebookClient fbc = instagramClientWithResponse(
-            new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"bearer\", \"expires_in\":5183944}"));
-    AccessToken at = fbc.obtainExtendedAccessToken("a", "b");
-    assertThat(at.getAccessToken()).isEqualTo("accesstoken");
-    assertThat(at.getTokenType()).isEqualTo("bearer");
-    assertThat(at.getExpires()).isAfter(new Date());
-    assertThat(at.getClient()).isNotNull();
-  }
-
-  @Test
-  void obtainRefreshedExtendedAccessTokenForInstagram() {
-    FacebookClient fbc = instagramClientWithResponse(
-            new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"bearer\", \"expires_in\":5183944}"));
-    AccessToken at = fbc.obtainRefreshedExtendedAccessToken();
-    assertThat(at.getAccessToken()).isEqualTo("accesstoken");
-    assertThat(at.getTokenType()).isEqualTo("bearer");
-    assertThat(at.getExpires()).isAfter(new Date());
-    assertThat(at.getClient()).isNotNull();
-  }
-
-  @Test
   void obtainExtendedAccessTokenV23WithoutExpiresIn() {
     FacebookClient fbc = facebookClientWithResponse(
       new Response(200, "{\"access_token\": \"accesstoken\", \"token_type\":\"tokentype\"}"));
@@ -215,7 +193,7 @@ class FacebookClientTest {
   void sendTextMessage() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
     try {
       Message simpleTextMessage = new Message("That's funny \uD83D\uDE03");
       IdMessageRecipient recipient = new IdMessageRecipient("968155906638513");
@@ -225,7 +203,7 @@ class FacebookClientTest {
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v9.0/me/messages").isParametersEqualTo(
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v15.0/me/messages").isParametersEqualTo(
       "recipient=%7B%22id%22%3A%22968155906638513%22%7D&message=%7B%22text%22%3A%22That%27s+funny+%5Cud83d%5Cude03%22%7D&access_token=accesstoken&format=json");
   }
 
@@ -251,7 +229,7 @@ class FacebookClientTest {
   void checkfetchObjects() throws URISyntaxException {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
 
     List<String> idList = new ArrayList<>();
     idList.add("123456789  ");
@@ -272,7 +250,7 @@ class FacebookClientTest {
   void checkfetchObjects_withEmptyId() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
 
     List<String> idList = new ArrayList<>();
     idList.add("  ");
@@ -286,7 +264,7 @@ class FacebookClientTest {
   void checkfetchObjects_idsAsParameter() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
 
     List<String> idList = new ArrayList<>();
     idList.add("abcdefghijkl");
@@ -300,7 +278,7 @@ class FacebookClientTest {
   void checkfetchObjects_emptyList() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
 
     assertThrows(IllegalArgumentException.class, () -> fbc.fetchObjects(Collections.EMPTY_LIST, String.class));
   }
@@ -309,20 +287,20 @@ class FacebookClientTest {
   void fetchDeviceCodeV26() {
     FakeWebRequestor requestor = new FakeWebRequestor();
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
     try {
       fbc.fetchDeviceCode(new ScopeBuilder());
     } catch (FacebookJsonMappingException ignored) {
 
     }
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v9.0/device/login")
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v15.0/device/login")
       .isParametersEqualTo("type=device_code&scope=public_profile&access_token=accesstoken&format=json");
   }
 
   @Test
   void obtainDeviceAccessTokenCodeV26() {
-    FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_9_0);
-    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v9.0/device/login_status")
+    FakeWebRequestor requestor = createFbClientAndObtainAccessToken(Version.VERSION_15_0);
+    assertThat(requestor).isSavedUrlEqualTo("https://graph.facebook.com/v15.0/device/login_status")
       .isParametersEqualTo("type=device_token&code=DevCode1234&access_token=accesstoken&format=json");
   }
 
@@ -349,10 +327,10 @@ class FacebookClientTest {
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, returnJson));
 
     FacebookClient fbc =
-        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
     DebugTokenInfo debugTokenInfo = fbc.debugToken("myToken");
     assertThat(requestor).isSavedUrlEqualTo(
-      "https://graph.facebook.com/v9.0/debug_token?input_token=myToken&access_token=accesstoken&format=json");
+      "https://graph.facebook.com/v15.0/debug_token?input_token=myToken&access_token=accesstoken&format=json");
     assertThat(debugTokenInfo).isNotNull();
   }
 
@@ -361,35 +339,9 @@ class FacebookClientTest {
     FakeWebRequestor requestor = new FakeWebRequestor(new Response(200, null));
     assertThrows(FacebookResponseContentException.class, () -> {
       FacebookClient fbc =
-          new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_9_0);
+          new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_15_0);
       fbc.debugToken("myToken");
     });
-  }
-
-  @Test
-  void obtainInstagramAccessToken() {
-    FakeWebRequestor requestor =
-        new FakeWebRequestor(new Response(200, "{\"access_token\":\"ABCDE\",\"user_id\":\"123456\"}"));
-    FacebookClient client =
-        new DefaultInstagramClient("accesstoken", requestor, new DefaultJsonMapper(), Version.LATEST);
-    AccessToken token = client.obtainUserAccessToken("clientId", "clientSecret", "code", "redirectUri");
-    assertThat(token.getAccessToken()).isEqualTo("ABCDE");
-    assertThat(token.getUserId()).isEqualTo("123456");
-  }
-
-  @Test
-  void obtainInstagramAccessTokenError() {
-    FakeWebRequestor requestor = new FakeWebRequestor(new Response(400,
-      "{\"error_type\":\"OAuthException\",\"code\":400,\"error_message\":\"Matching code was not found.\"}"));
-    FacebookClient client =
-        new DefaultInstagramClient("accesstoken", requestor, new DefaultJsonMapper(), Version.LATEST);
-    try {
-      client.obtainUserAccessToken("clientId", "clientSecret", "code", "redirectUri");
-    } catch (FacebookOAuthException e) {
-      assertThat(e.getErrorCode()).isEqualTo(400);
-      assertThat(e.getErrorMessage()).isEqualTo("Matching code was not found.");
-      assertThat(e.getErrorType()).isEqualTo("OAuthException");
-    }
   }
 
   @ParameterizedTest
@@ -405,14 +357,14 @@ class FacebookClientTest {
 
   @Test
   void checkLogoutUrl() {
-    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_9_0);
+    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_15_0);
     String logoutUrl = client.getLogoutUrl(null);
     assertThat(logoutUrl).isEqualTo("https://www.facebook.com/logout.php?access_token=123456");
   }
 
   @Test
   void checkLogoutUrlWithNext() {
-    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_9_0);
+    FacebookClient client = new DefaultFacebookClient("123456", Version.VERSION_15_0);
     String logoutUrl = client.getLogoutUrl("http://www.example.com");
     assertThat(logoutUrl)
       .isEqualTo("https://www.facebook.com/logout.php?next=http%3A%2F%2Fwww.example.com&access_token=123456");
@@ -420,27 +372,10 @@ class FacebookClientTest {
 
   @Test
   void checkLoginDialogURL() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_9_0);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_15_0);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder());
     assertThat(loginDialogUrlString).isEqualTo(
       "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile");
-  }
-
-  @Test
-  void checkInstagramDialogURL() {
-    FacebookClient client = new DefaultInstagramClient(Version.LATEST);
-    String loginDialogUrlString = client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true));
-    assertThat(loginDialogUrlString).isEqualTo(
-      "https://api.instagram.com/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&response_type=code");
-  }
-
-  @Test
-  void checkInstagramDialogURLWithState() {
-    FacebookClient client = new DefaultInstagramClient(Version.LATEST);
-    String loginDialogUrlString =
-        client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true), "state3456");
-    assertThat(loginDialogUrlString).isEqualTo(
-      "https://api.instagram.com/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&response_type=code");
   }
 
   @Test
@@ -454,20 +389,11 @@ class FacebookClientTest {
 
   @Test
   void checkLoginDialogURLAdditionalParameters() {
-    FacebookClient client = new DefaultFacebookClient(Version.VERSION_9_0);
+    FacebookClient client = new DefaultFacebookClient(Version.VERSION_15_0);
     String loginDialogUrlString = client.getLoginDialogUrl("123456", "http://www.example.com", new ScopeBuilder(),
       Parameter.with("auth_type", "reauthenticate"));
     assertThat(loginDialogUrlString).isEqualTo(
       "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&scope=public_profile&auth_type=reauthenticate");
-  }
-
-  @Test
-  void checkInstagramDialogURLAdditionalParameters() {
-    FacebookClient client = new DefaultInstagramClient(Version.LATEST);
-    String loginDialogUrlString = client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true),
-      Parameter.with("state", "abcd"));
-    assertThat(loginDialogUrlString).isEqualTo(
-      "https://api.instagram.com/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=abcd&response_type=code");
   }
 
   @Test
@@ -516,17 +442,4 @@ class FacebookClientTest {
     return new DefaultFacebookClient(null, new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
   }
 
-  /**
-   * Simple way to create a {@code FacebookClient} whose web requests always return the provided synthetic
-   * {@code response}.
-   * <p>
-   * This FacebookClient is based on the {@link DefaultInstagramClient}.
-   *
-   * @param response
-   *          The synthetic response to return.
-   * @return A {@code FacebookClient} for testing.
-   */
-  protected FacebookClient instagramClientWithResponse(final Response response) {
-    return new DefaultInstagramClient("abc", new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
-  }
 }

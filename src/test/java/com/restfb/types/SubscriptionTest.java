@@ -54,7 +54,7 @@ class SubscriptionTest extends AbstractJsonMapperTests {
     assertEquals("page", subscription.getObject());
     assertEquals(4, subscription.getFields().size());
     for (Subscription.SubscriptionField subscriptionField : subscription.getFields()) {
-      assertEquals(Version.VERSION_9_0, subscriptionField.getVersion());
+      assertEquals(Version.VERSION_15_0, subscriptionField.getVersion());
     }
   }
 }

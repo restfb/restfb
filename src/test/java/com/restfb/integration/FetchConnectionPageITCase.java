@@ -37,7 +37,7 @@ class FetchConnectionPageITCase extends RestFbIntegrationTestBase {
   @Test
   void checkConnectionPage() {
     DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_9_0);
+        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.VERSION_15_0);
     Connection<Post> connection = client.fetchConnection("/cocacola/feed", Post.class);
     assertFalse(connection.getData().isEmpty());
     if (connection.hasNext()) {
