@@ -118,6 +118,8 @@ class JsonValue_Test {
   @Test
   void isXxx_returnsFalseForIncompatibleType() {
     JsonValue jsonValue = new JsonValue() {
+      private static final long serialVersionUID = 1L;
+
       @Override
       void write(JsonWriter writer) throws IOException {}
     };

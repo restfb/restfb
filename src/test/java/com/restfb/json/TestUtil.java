@@ -81,7 +81,7 @@ public class TestUtil {
   }
 
   private static RunnableEx adapt(final Runnable runnable) {
-    return () -> runnable.run();
+    return runnable::run;
   }
 
   public interface RunnableEx {

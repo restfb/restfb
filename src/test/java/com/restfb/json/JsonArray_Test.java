@@ -22,6 +22,7 @@
 package com.restfb.json;
 
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
+import static com.restfb.testutils.RestfbAssertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
@@ -579,41 +580,43 @@ class JsonArray_Test {
 
   @Test
   void equals_trueForSameInstance() {
-    assertTrue(array.equals(array));
+    assertEquals(array, array);
   }
 
   @Test
   void equals_trueForEqualArrays() {
-    assertTrue(array().equals(array()));
-    assertTrue(array("foo", "bar").equals(array("foo", "bar")));
+    assertEquals(array(), array());
+    assertEquals(array("foo", "bar"), array("foo", "bar"));
   }
 
   @Test
   void equals_falseForDifferentArrays() {
-    assertFalse(array("foo", "bar").equals(array("foo", "bar", "baz")));
-    assertFalse(array("foo", "bar").equals(array("bar", "foo")));
+    assertNotEquals(array("foo", "bar"), array("foo", "bar", "baz"));
+    assertNotEquals(array("foo", "bar"), array("bar", "foo"));
   }
 
   @Test
   void equals_falseForNull() {
-    assertFalse(array.equals(null));
+    assertNotEquals(null, array);
   }
 
   @Test
   void equals_falseForSubclass() {
-    assertFalse(array.equals(new JsonArray(array) {}));
+    assertThat(array).isNotSameAs(new JsonArray(array){
+      private static final long serialVersionUID = 9019559538981810113L;
+    });
   }
 
   @Test
   void hashCode_equalsForEqualArrays() {
-    assertTrue(array().hashCode() == array().hashCode());
-    assertTrue(array("foo").hashCode() == array("foo").hashCode());
+    assertThat(array().hashCode()).isSameAs(array().hashCode());
+    assertThat(array("foo")).hasSameHashCodeAs(array("foo"));
   }
 
   @Test
   void hashCode_differsForDifferentArrays() {
-    assertFalse(array().hashCode() == array("bar").hashCode());
-    assertFalse(array("foo").hashCode() == array("bar").hashCode());
+    assertThat(array().hashCode()).isNotSameAs(array("bar").hashCode());
+    assertThat(array("foo").hashCode()).isNotSameAs(array("bar").hashCode());
   }
 
   @Test

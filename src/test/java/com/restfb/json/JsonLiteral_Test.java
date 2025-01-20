@@ -23,13 +23,13 @@ package com.restfb.json;
 
 import static com.restfb.json.Json.*;
 import static com.restfb.json.TestUtil.serializeAndDeserialize;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
-
 
 class JsonLiteral_Test {
 
@@ -112,32 +112,31 @@ class JsonLiteral_Test {
 
   @Test
   void NULL_equals() {
-    assertTrue(NULL.equals(NULL));
-
-    assertFalse(NULL.equals(null));
-    assertFalse(NULL.equals(TRUE));
-    assertFalse(NULL.equals(FALSE));
-    assertFalse(NULL.equals(Json.value("null")));
+    assertThat(NULL) //
+      .isEqualTo(NULL) //
+      .isNotEqualTo(null) //
+      .isNotEqualTo(TRUE) //
+      .isNotEqualTo(FALSE).isNotEqualTo(Json.value("null"));
   }
 
   @Test
   void TRUE_equals() {
-    assertTrue(TRUE.equals(TRUE));
-
-    assertFalse(TRUE.equals(null));
-    assertFalse(TRUE.equals(FALSE));
-    assertFalse(TRUE.equals(Boolean.TRUE));
-    assertFalse(NULL.equals(Json.value("true")));
+    assertThat(TRUE) //
+      .isEqualTo(TRUE) //
+      .isNotEqualTo(null) //
+      .isNotEqualTo(FALSE) //
+      .isNotEqualTo(Boolean.TRUE);
+    assertThat(NULL).isNotEqualTo(Json.value("true"));
   }
 
   @Test
   void FALSE_equals() {
-    assertTrue(FALSE.equals(FALSE));
+    assertThat(FALSE).isEqualTo(FALSE);
 
-    assertFalse(FALSE.equals(null));
-    assertFalse(FALSE.equals(TRUE));
-    assertFalse(FALSE.equals(Boolean.FALSE));
-    assertFalse(NULL.equals(Json.value("false")));
+    assertThat(FALSE).isNotEqualTo(null);
+    assertThat(FALSE).isNotEqualTo(TRUE);
+    assertThat(FALSE).isNotEqualTo(Boolean.FALSE);
+    assertThat(NULL).isNotEqualTo(Json.value("false"));
   }
 
   @Test
