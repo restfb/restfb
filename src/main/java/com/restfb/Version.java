@@ -97,19 +97,26 @@ public enum Version {
   VERSION_20_0("v20.0"),
 
   /**
-   * <tt>Graph API 21.0</tt>, available at least until October 2026
+   * <tt>Graph API 21.0</tt>, available at least until January 21, 2027
    *
    * @since October 2, 2024
    */
   VERSION_21_0("v21.0"),
 
   /**
+   * <tt>Graph API 22.0</tt>, available at least until January 2027
+   *
+   * @since January 21, 2025
+   */
+  VERSION_22_0("v22.0"),
+
+  /**
    * convenience enum to provide simple access to the latest supported Graph API Version.
    * <p>
-   * the current version is <tt>Graph API 21.0</tt>
+   * the current version is <tt>Graph API 22.0</tt>
    * </p>
    */
-  LATEST("v21.0"),
+  LATEST("v22.0"),
 
   /**
    * <tt>Threads API 1.0</tt>, according to the documentation, this is the first Threads API Version
