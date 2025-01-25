@@ -29,7 +29,7 @@ import java.io.StringReader;
 
 import org.junit.jupiter.api.Test;
 
-class Json_Test {
+class JsonTest {
 
   @Test
   void literalConstants() {

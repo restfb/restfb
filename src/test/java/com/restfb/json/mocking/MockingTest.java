@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2016 EclipseSource.
+ * Copyright (c) 2013, 2015 EclipseSource.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,35 +19,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package com.restfb.json;
+package com.restfb.json.mocking;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-class ParseException_Test {
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
+import com.restfb.json.ParseException;
 
-  private Location location;
+/**
+ * Make sure types do not prevent mocking by final or visibility constructs.
+ */
+class MockingTest {
 
-  @BeforeEach
-  void setUp() {
-    location = new Location(4711, 23, 42);
+  @Test
+  void mockValue() {
+    JsonValue jsonValue = Mockito.mock(JsonValue.class);
+
+    assertNotNull(jsonValue);
   }
 
   @Test
-  void location() {
-    ParseException exception = new ParseException("Foo", location);
+  void mockObject() {
+    JsonObject jsonObject = Mockito.mock(JsonObject.class);
 
-    assertSame(location, exception.getLocation());
+    assertNotNull(jsonObject);
   }
 
   @Test
-  void message() {
-    ParseException exception = new ParseException("Foo", location);
+  void mockArray() {
+    JsonArray jsonArray = Mockito.mock(JsonArray.class);
 
-    assertEquals("Foo at 23:42", exception.getMessage());
+    assertNotNull(jsonArray);
+  }
+
+  @Test
+  void mockParseException() {
+    ParseException parseException = Mockito.mock(ParseException.class);
+
+    assertNotNull(parseException);
   }
 
 }

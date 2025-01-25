@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2015 EclipseSource.
+ * Copyright (c) 2013, 2016 EclipseSource.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,49 +19,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package com.restfb.json.mocking;
+package com.restfb.json;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
-import com.restfb.json.JsonValue;
-import com.restfb.json.ParseException;
+class ParseExceptionTest {
 
-/**
- * Make sure types do not prevent mocking by final or visibility constructs.
- */
-class Mocking_Test {
+  private Location location;
 
-  @Test
-  void mockValue() {
-    JsonValue jsonValue = Mockito.mock(JsonValue.class);
-
-    assertNotNull(jsonValue);
+  @BeforeEach
+  void setUp() {
+    location = new Location(4711, 23, 42);
   }
 
   @Test
-  void mockObject() {
-    JsonObject jsonObject = Mockito.mock(JsonObject.class);
+  void location() {
+    ParseException exception = new ParseException("Foo", location);
 
-    assertNotNull(jsonObject);
+    assertSame(location, exception.getLocation());
   }
 
   @Test
-  void mockArray() {
-    JsonArray jsonArray = Mockito.mock(JsonArray.class);
+  void message() {
+    ParseException exception = new ParseException("Foo", location);
 
-    assertNotNull(jsonArray);
-  }
-
-  @Test
-  void mockParseException() {
-    ParseException parseException = Mockito.mock(ParseException.class);
-
-    assertNotNull(parseException);
+    assertEquals("Foo at 23:42", exception.getMessage());
   }
 
 }

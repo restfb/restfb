@@ -249,6 +249,7 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     DuplicateAnnotationsUser user = new DuplicateAnnotationsUser();
     user.hometown = "Philadelphia, PA";
     user.hometownObject = new HashMap<String, Object>() {
+      private static final long serialVersionUID = 1L;
       {
         put("id", "123");
         put("name", "Philly");
@@ -289,7 +290,8 @@ class JsonMapperToJsonTest extends AbstractJsonMapperTests {
     type.emptyNumberButNull = null;
 
     String json = createJsonMapper().toJson(type);
-    AssertJson.assertEquals("{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumber\": null, \"emptyNumberButNull\": null}", json);
+    AssertJson.assertEquals(
+      "{ \"text\": \"justsometext\", \"number\": 123456, \"emptyNumber\": null, \"emptyNumberButNull\": null}", json);
   }
 
   @Test

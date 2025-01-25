@@ -34,7 +34,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-class PrettyPrint_Test {
+class PrettyPrintTest {
 
   private StringWriter output;
 

@@ -39,7 +39,7 @@ import org.mockito.InOrder;
 import com.restfb.json.JsonObject.HashIndexTable;
 import com.restfb.json.JsonObject.Member;
 
-class JsonObject_Test {
+class JsonObjectTest {
 
   private JsonObject object;
 

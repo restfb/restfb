@@ -91,7 +91,7 @@ class WebRequestorTest {
       ETagWebRequestor requestor2 = new ETagWebRequestor();
       ETagWebRequestor.setMapSupplier(SoftHashMap::new);
     } catch (Exception e) {
-      fail("some exception occured during creating a web requestor");
+      fail("some exception occurred during creating a web requestor");
     }
   }
 

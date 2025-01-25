@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.Random.class)
-class JsonValue_Test {
+class JsonValueTest {
 
   @Test
   void writeTo() throws IOException {

@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 import com.restfb.json.Json.DefaultHandler;
 import com.restfb.json.TestUtil.RunnableEx;
 
-class JsonParser_Test {
+class JsonParserTest {
 
   private TestHandler handler;
   private JsonParser parser;

@@ -31,7 +31,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-class WritingBuffer_Test {
+class WritingBufferTest {
 
   private static final int BUFFER_SIZE = 16;
   private StringWriter wrapped;

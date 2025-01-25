@@ -36,7 +36,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
-class JsonArray_Test {
+class JsonArrayTest {
 
   private JsonArray array;
 

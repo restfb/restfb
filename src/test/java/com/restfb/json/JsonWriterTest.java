@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-class JsonWriter_Test {
+class JsonWriterTest {
 
   private StringWriter output;
   private JsonWriter writer;
