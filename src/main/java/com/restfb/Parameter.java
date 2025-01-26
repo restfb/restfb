@@ -26,6 +26,7 @@ import static com.restfb.util.StringUtils.trimToEmpty;
 import static java.lang.String.format;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.restfb.exception.FacebookJsonMappingException;
@@ -194,21 +195,10 @@ public final class Parameter {
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    }
-    if (!getClass().equals(obj.getClass())) {
-      return false;
-    }
-
-    Parameter other = (Parameter) obj;
-
-    if (this.name != other.name && !this.name.equals(other.name)) {
-      return false;
-    }
-
-    return !(this.value != other.value && !this.value.equals(other.value));
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    Parameter parameter = (Parameter) o;
+    return Objects.equals(name, parameter.name) && Objects.equals(value, parameter.value);
   }
 
   @Override

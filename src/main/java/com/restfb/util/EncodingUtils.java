@@ -97,8 +97,9 @@ public final class EncodingUtils {
   /**
    * Generates an appsecret_proof for facebook.
    * <p>
-   * See https://developers.facebook.com/docs/graph-api/securing-requests for more info
-   * 
+   * See <a href="https://developers.facebook.com/docs/graph-api/securing-requests">
+   *     https://developers.facebook.com/docs/graph-api/securing-requests</a> for more info
+   *
    * @param appSecret
    *          The facebook application secret
    * @param accessToken

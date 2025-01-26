@@ -120,8 +120,9 @@ public final class UrlUtils {
    * For the given {@code url}, extract a mapping of query string parameter names to values.
    * <p>
    * Adapted from an implementation by BalusC and dfrankow, available at
-   * http://stackoverflow.com/questions/1667278/parsing-query-strings-in-java.
-   * 
+   * <a href="http://stackoverflow.com/questions/1667278/parsing-query-strings-in-java">
+   * http://stackoverflow.com/questions/1667278/parsing-query-strings-in-java</a>.
+   *
    * @param url
    *          The URL from which parameters are extracted.
    * @return A mapping of query string parameter names to values. If {@code url} is {@code null}, an empty {@code Map}
