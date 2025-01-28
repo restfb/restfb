@@ -33,7 +33,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a <a href="https://developers.facebook.com/docs/instagram-api/reference/comment">Instagram Comment</a>
+ * Represents a <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-comment">Instagram Comment</a>
  * object
  */
 public class IgComment extends FacebookType {
@@ -118,9 +118,20 @@ public class IgComment extends FacebookType {
   @Facebook("parent_id")
   private String parentId;
 
+  /**
+   * The ID for Instagram comment that was created for Marketing API endpoints for v21.0 and older.
+   */
+  @Getter
+  @Setter
+  @Facebook("legacy_instagram_media_id")
+  private String legacyInstagramMediaId;
+
   @Facebook
   private List<IgComment> replies = new ArrayList<>();
 
+  /**
+   * Get a list of IG Comments on the IG Comment; Create an IG Comment on an IG Comment.
+   */
   public List<IgComment> getReplies() {
     return Collections.unmodifiableList(replies);
   }
