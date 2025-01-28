@@ -137,6 +137,22 @@ public class TdMedia extends FacebookType {
   private Boolean isQuotePost;
 
   /**
+   * Media ID of the post that was quoted. Note: This only appears on quote posts.
+   */
+  @Getter
+  @Setter
+  @Facebook("quoted_post")
+  private String quotedPost;
+
+  /**
+   * Media ID of the post that was reposted. Note: This only appears on reposts.
+   */
+  @Getter
+  @Setter
+  @Facebook("reposted_post")
+  private String repostedPost;
+
+  /**
    * The accessibility text label or description for an image or video in a Threads post
    */
   @Getter
