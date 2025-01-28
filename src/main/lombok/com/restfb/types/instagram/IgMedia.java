@@ -116,6 +116,14 @@ public class IgMedia extends IgMediaChild {
   private String thumbnailUrl;
 
   /**
+   * The ID for Instagram media that was created for Marketing API endpoints for v21.0 and older.
+   */
+  @Getter
+  @Setter
+  @Facebook("legacy_instagram_media_id")
+  private String legacyInstagramMediaId;
+
+  /**
    * IGTV media title.
    * 
    * @deprecated Omitted from response.
