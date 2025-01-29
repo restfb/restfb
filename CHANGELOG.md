@@ -1,5 +1,22 @@
 # RestFB Changelog
 
+## 2025.1.0 (January 29, 2025)
+
+* Cleanup
+  * Issue #1516: Instagram Basic Display API Client removed (Breaking change)
+  * Issue #1517: old versions from Version enum removed (Breaking change)
+  * Issue #1512: license info changed to 2025
+  * minor refactorings
+* Threads
+  * Issue #1523: quote and repost id added to TdMedia
+* Graph API 22:
+  * Issue #1519: version added to enum
+  * Issue #1520: legacy_instagram_media_id added to IgMedia
+  * Issue #1522: legacy_instagram_comment_id added to IgComment
+* Libraries:
+  * Issue #1518: assertj-core updated
+  * Issue #1514: mockito-junit updated
+
 ## 2024.16.0 (December 27, 2024)
 
 * Issue #1508: Threads manage mentions permission added 

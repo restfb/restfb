@@ -123,8 +123,8 @@ public class IgComment extends FacebookType {
    */
   @Getter
   @Setter
-  @Facebook("legacy_instagram_media_id")
-  private String legacyInstagramMediaId;
+  @Facebook("legacy_instagram_comment_id")
+  private String legacyInstagramCommentId;
 
   @Facebook
   private List<IgComment> replies = new ArrayList<>();
