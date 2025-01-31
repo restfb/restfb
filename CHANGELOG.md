@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2025.2.0 (January 31, 2025)
+
+* Issue #1525: Instagram Business API Insights permission added
+* Issue #1527: Fix for wrong Instagram Business content publish permission<br />
+  Thanks to @saunders-d for the bug report
+
 ## 2025.1.0 (January 29, 2025)
 
 * Cleanup
