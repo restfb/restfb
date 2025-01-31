@@ -914,13 +914,51 @@ public enum FacebookPermissions {
    */
   INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //
 
+  /**
+   * The instagram_business_basic allows your app to read an Instagram Business account
+   * profile's info and media.
+   * <p>
+   * The allowed usage for this permission is to get basic metadata of an Instagram
+   * Business account profile, for example username and ID.
+   */
   INSTAGRAM_BUSINESS_BASIC("instagram_business_basic", Category.INSTAGRAM_BUSINESS), //
 
+  /**
+   * The instagram_business_manage_comments permission allows an app to access comments
+   * on an Instagram professional account, as well as public posts and Instagram Stories where that account
+   * is tagged or mentioned in comments. The allowed usage for this permission is to create,
+   * update and delete comments for an Instagram professional account.
+   */
   INSTAGRAM_BUSINESS_MANAGE_COMMENTS("instagram_business_manage_comments", Category.INSTAGRAM_BUSINESS), //
 
-  INSTAGRAM_BUSINESS_CONTENT_PUBLISH("instagram_business_content_publishing", Category.INSTAGRAM_BUSINESS), //
+  /**
+   * The instagram_business_content_publish permission allows an app to
+   * create organic feed photo and video posts on behalf of a business user.
+   * <p>
+   * The allowed usage of this permission is to allow an app to manage the organic
+   * content creation process for Instagram (for example, post photos and videos) on
+   * behalf of an Instagram business account. You may also use this permission to
+   * request analytics insights to improve your app and for marketing or
+   * advertising purposes, through the use of aggregated and de-identified or
+   * anonymized information (provided such data cannot be re-identified).
+   */
+  INSTAGRAM_BUSINESS_CONTENT_PUBLISH("instagram_business_content_publish", Category.INSTAGRAM_BUSINESS), //
 
+  /**
+   * The instagram_business_manage_messages permission allows an app to access messages
+   * on an Instagram professional account.
+   * <p>
+   * The allowed usage for this permission is to view, manage and respond to messages,
+   * and to use third-party customer relationship management (CRM) tools to manage messages.
+   */
   INSTAGRAM_BUSINESS_MANAGE_MESSAGES("instagram_business_manage_messages", Category.INSTAGRAM_BUSINESS), //
+
+  /**
+   * Permission to fetch insights info:
+   * <p>
+   * According to: <a href="https://developers.facebook.com/docs/instagram-platform/insights">Instagram API</a>
+   */
+  INSTAGRAM_BUSINESS_MANAGE_INSIGHTS("instagram_business_manage_insights", Category.INSTAGRAM_BUSINESS), //
   /**
    * The user_media permission allows your app to read the Media node, which represents an image, video, or album and
    * the node’s edges using the Instagram Basic Display API.
