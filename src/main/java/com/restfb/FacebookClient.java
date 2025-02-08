@@ -596,4 +596,23 @@ public interface FacebookClient {
    */
   String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, Parameter... additionalParameters);
 
+  /**
+   * Generates the login dialog url for Business
+   *
+   * @param appId
+   *          The ID of your app, found in your app's dashboard.
+   * @param redirectUri
+   *          The URL that you want to redirect the person logging in back to. This URL will capture the response from
+   *          the Login Dialog. If you are using this in a webview within a desktop app, this must be set to
+   *          <code>https://www.facebook.com/connect/login_success.html</code>.
+   * @param configId
+   *          The configuration ID that defines the permissions and settings, found in the product section of your
+   *          app's dashboard.
+   * @param state
+   *         An optional string used to maintain state between the request and the callback.
+   * @param parameters
+   *          List of additional parameters
+   * @return the login dialog url
+   */
+  String getBusinessLoginDialogUrl(String appId, String redirectUri, String configId, String state, Parameter... parameters);
 }

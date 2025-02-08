@@ -397,6 +397,25 @@ class FacebookClientTest {
   }
 
   @Test
+  void checkBusinessLoginDialogURL() {
+    FacebookClient client = new DefaultFacebookClient(Version.LATEST);
+    String loginDialogUrlString =
+            client.getBusinessLoginDialogUrl("123456", "http://www.example.com", "1234", "state3456");
+    assertThat(loginDialogUrlString).isEqualTo(
+            "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&config_id=1234&response_type=code&override_default_response_type=true");
+  }
+
+  @Test
+  void checkBusinessLoginDialogURLAdditionalParameters() {
+    FacebookClient client = new DefaultFacebookClient(Version.LATEST);
+    String loginDialogUrlString =
+            client.getBusinessLoginDialogUrl("123456", "http://www.example.com", "1234", "state3456",
+                    Parameter.with("extras", "{sessionInfoVersion: '3'}"));
+    assertThat(loginDialogUrlString).isEqualTo(
+            "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&extras=%7BsessionInfoVersion%3A+%273%27%7D&config_id=1234&response_type=code&override_default_response_type=true");
+  }
+
+  @Test
   void checkThreadsDialogURLAdditionalParameters() {
     FacebookClient client = new DefaultThreadsClient(Version.LATEST);
     String loginDialogUrlString = client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true),
