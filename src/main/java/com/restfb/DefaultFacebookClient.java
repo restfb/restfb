@@ -635,6 +635,20 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     return getLoginDialogUrl(appId, redirectUri, scope, null, parameters);
   }
 
+  @Override
+  public String getBusinessLoginDialogUrl(String appId, String redirectUri, String configId, String state,
+                                          Parameter... parameters) {
+    verifyParameterPresence("configId", configId);
+
+    List<Parameter> parameterList = new ArrayList<>(asList(parameters));
+    parameterList.add(Parameter.with("config_id", configId));
+    parameterList.add(Parameter.with("response_type", "code"));
+    parameterList.add(Parameter.with("override_default_response_type", true));
+
+    return getGenericLoginDialogUrl(appId, redirectUri, new ScopeBuilder(true),
+            () -> getFacebookEndpointUrls().getFacebookEndpoint() + "/dialog/oauth", state, parameterList);
+  }
+
   protected String getGenericLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope,
       Supplier<String> endpointSupplier, String state, List<Parameter> parameters) {
     verifyParameterPresence(APP_ID, appId);
