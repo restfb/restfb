@@ -152,4 +152,9 @@ public class DefaultThreadsClient extends DefaultFacebookClient {
       return getFacebookEndpointUrls().getThreadsApiEndpoint();
     }
   }
+
+  @Override
+  public String getBusinessLoginDialogUrl(String appId, String redirectUri, String configId, String state, Parameter... parameters) {
+    throw new UnsupportedOperationException("Facebook Login for Business is not supported in the Threads API.");
+  }
 }
