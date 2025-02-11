@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2025.3.0 (February 11, 2025)
+
+* Issue #1529: Add method to generate Facebook Business Login URL<br />
+  Thanks to @bxacosta for the PR
+
 ## 2025.2.0 (January 31, 2025)
 
 * Issue #1525: Instagram Business API Insights permission added
