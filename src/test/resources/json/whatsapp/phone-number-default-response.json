@@ -1,0 +1,15 @@
+{
+  "verified_name": "Business Phone Numbers Name",
+  "code_verification_status": "EXPIRED",
+  "display_phone_number": "+593 99 999 9999",
+  "quality_rating": "GREEN",
+  "platform_type": "CLOUD_API",
+  "throughput": {
+    "level": "STANDARD"
+  },
+  "last_onboarded_time": "2025-02-04T17:40:07+0000",
+  "webhook_configuration": {
+    "application": "https://example.com/webhook"
+  },
+  "id": "999999999999999"
+}

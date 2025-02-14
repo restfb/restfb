@@ -1,0 +1,83 @@
+{
+  "account_mode": "LIVE",
+  "certificate": "certificate",
+  "new_certificate": "new_certificate",
+  "code_verification_status": "EXPIRED",
+  "display_phone_number": "+593 99 999 9999",
+  "eligibility_for_api_business_global_search": "NON_ELIGIBLE_NUMBER_OUTSIDE_ROLLOUT_COUNTRIES",
+  "health_status": {
+    "can_send_message": "BLOCKED",
+    "entities": [
+      {
+        "entity_type": "PHONE_NUMBER",
+        "id": "999999999999999",
+        "can_send_message": "BLOCKED",
+        "errors": [
+          {
+            "error_code": 141000,
+            "error_description": "The phone number you are trying to send messages from is not linked to your WhatsApp account.",
+            "possible_solution": "Register and finish the OTP authentication process for your phone number."
+          }
+        ],
+        "additional_info": [
+          "Your display name has not been approved yet. Your message limit will increase after the display name is approved."
+        ]
+      },
+      {
+        "entity_type": "WABA",
+        "id": "999999999999999",
+        "can_send_message": "AVAILABLE"
+      },
+      {
+        "entity_type": "BUSINESS",
+        "id": "999999999999999",
+        "can_send_message": "AVAILABLE"
+      },
+      {
+        "entity_type": "APP",
+        "id": "999999999999999",
+        "can_send_message": "AVAILABLE"
+      }
+    ]
+  },
+  "is_official_business_account": false,
+  "is_on_biz_app": false,
+  "is_pin_enabled": true,
+  "is_preverified_number": false,
+  "last_onboarded_time": "2025-02-04T17:40:07+0000",
+  "messaging_limit_tier": "TIER_1K",
+  "name_status": "APPROVED",
+  "new_name_status": "NONE",
+  "platform_type": "CLOUD_API",
+  "quality_score": {
+    "date": 1739513802,
+    "score": "GREEN",
+    "reasons": [
+      "reason"
+    ]
+  },
+  "search_visibility": "NON_VISIBLE",
+  "status": "CONNECTED",
+  "throughput": {
+    "level": "STANDARD"
+  },
+  "verified_name": "Business Phone Numbers Name",
+  "conversational_automation": {
+    "enable_welcome_message": true,
+    "prompts": [
+      "Find the best hotels in the area",
+      "Find deals on rental cars"
+    ],
+    "commands": [
+      {
+        "command_name": "tickets",
+        "command_description": "Book flight tickets"
+      },
+      {
+        "command_name": "hotel",
+        "command_description": "Book hotel"
+      }
+    ]
+  },
+  "id": "999999999999999"
+}
