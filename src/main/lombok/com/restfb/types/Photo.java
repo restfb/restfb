@@ -241,6 +241,11 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
   @Facebook("name_tags")
   private transient String rawNameTags;
 
+  @Getter
+  @Setter
+  @Facebook("post_id")
+  private String postId;
+
   private List<EntityAtTextRange> nameTags = new ArrayList<>();
 
   /**
@@ -443,6 +448,17 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
       }
     } catch (FacebookJsonMappingException je) {
       // cannot parse message tags, but don't break the flow here
+    }
+
+    // fiy for https://developers.facebook.com/bugs/1407227215980363/
+    if (postId != null) {
+      if (pageStoryId != null) {
+        if (!pageStoryId.equals(postId)) {
+          throw new RuntimeException("postId: " + postId + ", is different from pageStoryId: " + pageStoryId);
+        }
+      } else {
+        setPageStoryId(postId);
+      }
     }
   }
 }
