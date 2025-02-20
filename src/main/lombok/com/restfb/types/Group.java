@@ -114,6 +114,14 @@ public class Group extends NamedFacebookType implements HasCover {
   private Long memberRequestCount;
 
   /**
+   * The number of members in the Group.
+   */
+  @Getter
+  @Setter
+  @Facebook("member_count")
+  private Long memberCount;
+
+  /**
    * The parent of this group, if it exists.
    *
    * @return The parent of this group, if it exists
