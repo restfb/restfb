@@ -315,8 +315,6 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Children Pages of a Global Pages root Page. Both default and root Page can return children Pages.
    */
-  @Getter
-  @Setter
   @Facebook("global_brand_children")
   private List<Page> globalBrandChildren = new ArrayList<>();
   /**
