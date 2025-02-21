@@ -80,12 +80,9 @@ public class AccessToken {
   private FacebookClient client;
 
   @Getter
-  private List<String> permissions;
-
-  @Getter
   @Setter
-  @Facebook("permissions")
-  private String permissionsAsString;
+  @Facebook
+  private List<String> permissions;
 
   public void setClient(FacebookClient client) {
     this.client = client;
@@ -177,10 +174,5 @@ public class AccessToken {
     if (rawExpires != null) {
       expires = new Date(new Date().getTime() + 1000L * rawExpires);
     }
-  }
-
-  @JsonMapper.JsonMappingCompleted
-  void convertPermissions() {
-    permissions = permissionsAsString != null ? Arrays.asList(permissionsAsString.split(",")) : null;
   }
 }

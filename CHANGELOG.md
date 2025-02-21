@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2025.4.1 (February 21, 2025)
+
+* Bugfix for #1542
+
 ## 2025.4.0 (February 21, 2025)
 
 * Issue #1531: add `promotable_id` to Post
