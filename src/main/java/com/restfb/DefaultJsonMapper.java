@@ -30,9 +30,7 @@ import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -76,6 +74,7 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public <T> List<T> toJavaList(String json, Class<T> type) {
     ObjectUtil.requireNotNull(type,
       () -> new FacebookJsonMappingException("You must specify the Java type to map to."));
@@ -126,8 +125,14 @@ public class DefaultJsonMapper implements JsonMapper {
       List<T> list = new ArrayList<>(jsonArray.size());
       for (JsonValue jsonValue : jsonArray) {
         String innerJson = jsonHelper.getStringFrom(jsonValue);
-        innerJson = convertArrayToStringIfNecessary(jsonValue, innerJson);
-        list.add(toJavaObject(innerJson, type));
+
+        if (jsonValue.isArray() && typeIsList(type)) {
+          T innerList = (T) toJavaList(innerJson, type);
+          list.add(innerList);
+        } else {
+          innerJson = convertArrayToStringIfNecessary(jsonValue, innerJson);
+          list.add(toJavaObject(innerJson, type));
+        }
       }
       return unmodifiableList(list);
     } catch (FacebookJsonMappingException e) {
@@ -678,7 +683,7 @@ public class DefaultJsonMapper implements JsonMapper {
       return jsonHelper.getBigDecimalFrom(rawValue);
     }
     if (typeIsList(type)) {
-      return toJavaList(rawValue.toString(), getFirstParameterizedTypeArgument(fieldWithAnnotation.getField()));
+      return convertRawValueToList(rawValue, fieldWithAnnotation.getField());
     }
     if (typeIsMap(type)) {
       return convertRawValueToMap(rawValue.toString(), fieldWithAnnotation.getField());
@@ -805,6 +810,48 @@ public class DefaultJsonMapper implements JsonMapper {
 
     // @TODO: return emptyMap here, to allow the devs to go on without null check (v2024)
     return null;
+  }
+
+  private List<?> convertRawValueToList(JsonValue rawJson, Field field) {
+    Type type = getParameterizedTypeArgument(field.getGenericType(), 0);
+
+    if (type == null || type.equals(List.class)) {
+      throw new FacebookJsonMappingException("No generic type specified for field: " + field.getName());
+    }
+
+    return convertRawValueToList(rawJson, type);
+  }
+
+  private List<?> convertRawValueToList(JsonValue rawJson, Type type) {
+    if (type instanceof Class<?>) {
+      return toJavaList(rawJson.toString(), (Class<?>) type);
+    }
+
+    if (!(type instanceof ParameterizedType)) {
+      throw new FacebookJsonMappingException("You must specify the generic type for mapping");
+    }
+
+    ParameterizedType paramType = (ParameterizedType) type;
+    if (!paramType.getRawType().equals(List.class)) {
+      throw new FacebookJsonMappingException("Type must be a List, found: " + paramType.getRawType());
+    }
+
+    Type innerType = paramType.getActualTypeArguments()[0];
+
+    try {
+      JsonArray jsonArray = rawJson.asArray();
+      List<Object> result = new ArrayList<>(jsonArray.size());
+
+      for (JsonValue jsonValue : jsonArray) {
+        result.add(convertRawValueToList(jsonValue, innerType));
+      }
+      return unmodifiableList(result);
+    } catch (FacebookJsonMappingException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new FacebookJsonMappingException(
+              "Unable to convert Facebook response JSON to a list of " + innerType + " instances", e);
+    }
   }
 
   private JsonValue javaTypeToJsonValue(Object object) {
