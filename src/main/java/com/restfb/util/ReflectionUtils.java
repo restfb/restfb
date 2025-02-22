@@ -216,14 +216,30 @@ public final class ReflectionUtils {
     return getParameterizedTypeArgument(field, 1);
   }
 
-  private static Class<?> getParameterizedTypeArgument(Field field, int i) {
-    Type type = field.getGenericType();
-    if (!(type instanceof ParameterizedType)) {
-      return null;
-    }
+  /**
+   * Retrieves the {@code i}-th parameterized type argument from the given {@code type}.
+   * <p>
+   * If the type is not parameterized or the index is out of bounds, {@code null} is returned.
+   *
+   * @param type
+   *          The generic type to inspect.
+   * @param i
+   *          The index of the parameterized type argument to retrieve (zero-based).
+   * @return The {@code i}-th parameterized type argument of the given type, or {@code null} if none exists.
+   */
+  public static Type getParameterizedTypeArgument(Type type, int i) {
+    if (!(type instanceof ParameterizedType)) return null;
 
-    ParameterizedType parameterizedType = (ParameterizedType) type;
-    Type firstTypeArgument = parameterizedType.getActualTypeArguments()[i];
+    Type[] typeArguments = ((ParameterizedType) type).getActualTypeArguments();
+
+    if (i < 0 || i >= typeArguments.length) return null;
+
+    return typeArguments[i];
+  }
+
+  private static Class<?> getParameterizedTypeArgument(Field field, int i) {
+    Type firstTypeArgument = getParameterizedTypeArgument(field.getGenericType(), i);
+
     return (firstTypeArgument instanceof Class) ? (Class<?>) firstTypeArgument : null;
   }
 
