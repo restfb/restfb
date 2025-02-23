@@ -30,7 +30,11 @@ import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -124,12 +128,11 @@ public class DefaultJsonMapper implements JsonMapper {
       JsonArray jsonArray = Json.parse(json).asArray();
       List<T> list = new ArrayList<>(jsonArray.size());
       for (JsonValue jsonValue : jsonArray) {
-        String innerJson = jsonHelper.getStringFrom(jsonValue);
-
         if (jsonValue.isArray() && typeIsList(type)) {
-          T innerList = (T) toJavaList(innerJson, type);
+          T innerList = (T) convertRawValueToList(jsonValue, type);
           list.add(innerList);
         } else {
+          String innerJson = jsonHelper.getStringFrom(jsonValue);
           innerJson = convertArrayToStringIfNecessary(jsonValue, innerJson);
           list.add(toJavaObject(innerJson, type));
         }
