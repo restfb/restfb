@@ -23,6 +23,8 @@ package com.restfb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
@@ -312,6 +314,68 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     List<NamedFacebookType> types =
         createJsonMapper().toJavaList(jsonFromClasspath("nulls-in-list"), NamedFacebookType.class);
     assertThat(types).hasSize(3);
+  }
+
+  /**
+   * Object with nested list of strings
+   */
+  @Test
+  void testNestedListOfStrings() {
+    NestedListOfStrings object = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("nested-list-of-strings"), NestedListOfStrings.class);
+
+    assertEquals(3, object.values.size());
+    assertEquals(0, object.values.get(0).size());
+    assertEquals(1, object.values.get(1).size());
+    assertEquals(2, object.values.get(2).size());
+  }
+
+  /**
+   * Object with nested list of objects
+   */
+  @Test
+  void testNestedListOfObjects() {
+    NestedListOfObjects object = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("nested-list-of-objects"), NestedListOfObjects.class);
+
+    assertEquals(2, object.values.size());
+
+    List<BasicUser> firstList = object.values.get(0);
+    assertEquals(2, firstList.size());
+
+    assertNull(firstList.get(0).uid);
+    assertNull(firstList.get(0).name);
+
+    assertNull(firstList.get(1).uid);
+    assertEquals("Albert", firstList.get(1).name);
+
+    List<BasicUser> secondList = object.values.get(1);
+    assertEquals(1, secondList.size());
+
+    assertEquals(1234L, secondList.get(0).uid);
+    assertEquals("Sam", secondList.get(0).name);
+  }
+
+  @Test
+  void testCombinedNestedList() {
+    CombinedNestedList object = createJsonMapper()
+            .toJavaObject(jsonFromClasspath("nested-lists"), CombinedNestedList.class);
+
+    // Strings
+    List<NestedListOfStrings> strings = object.strings;
+    assertEquals(1, strings.size());
+    assertEquals(1, strings.get(0).values.size());
+    assertEquals(2, strings.get(0).values.get(0).size());
+    assertEquals("Albert", strings.get(0).values.get(0).get(0));
+    assertEquals("1800-555-1234", strings.get(0).values.get(0).get(1));
+
+    // Objects
+    List<List<NestedListOfObjects>> objects = object.objects;
+    assertEquals(1, objects.size());
+    assertEquals(1, objects.get(0).get(0).values.size());
+    assertEquals(1, objects.get(0).get(0).values.get(0).size());
+    assertEquals(1234L, objects.get(0).get(0).values.get(0).get(0).uid);
+    assertEquals("Sam", objects.get(0).get(0).values.get(0).get(0).name);
   }
 
   /**
@@ -609,5 +673,22 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     protected void jsonMappingCompleted(JsonMapper jsonMapper, String someOtherParameter) {
       // Should never get here, illegal signature
     }
+  }
+
+  static class NestedListOfStrings {
+    @Facebook
+    private List<List<String>> values;
+  }
+
+  static class NestedListOfObjects {
+    @Facebook
+    private List<List<BasicUser>> values;
+  }
+
+  static class CombinedNestedList {
+    @Facebook
+    private List<NestedListOfStrings> strings;
+    @Facebook
+    private List<List<NestedListOfObjects>> objects;
   }
 }
