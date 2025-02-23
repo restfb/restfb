@@ -818,7 +818,7 @@ public class DefaultJsonMapper implements JsonMapper {
   private List<?> convertRawValueToList(JsonValue rawJson, Field field) {
     Type type = getParameterizedTypeArgument(field.getGenericType(), 0);
 
-    if (type == null || type.equals(List.class)) {
+    if (type == null) {
       throw new FacebookJsonMappingException("No generic type specified for field: " + field.getName());
     }
 
@@ -826,12 +826,16 @@ public class DefaultJsonMapper implements JsonMapper {
   }
 
   private List<?> convertRawValueToList(JsonValue rawJson, Type type) {
+    if (type.equals(List.class)) {
+      throw new FacebookJsonMappingException("You must specify the generic type for mapping");
+    }
+
     if (type instanceof Class<?>) {
       return toJavaList(rawJson.toString(), (Class<?>) type);
     }
 
     if (!(type instanceof ParameterizedType)) {
-      throw new FacebookJsonMappingException("You must specify the generic type for mapping");
+      throw new FacebookJsonMappingException("Unsupported type: " + type);
     }
 
     ParameterizedType paramType = (ParameterizedType) type;

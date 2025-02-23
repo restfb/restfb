@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -373,9 +374,53 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     List<List<NestedListOfObjects>> objects = object.objects;
     assertEquals(1, objects.size());
     assertEquals(1, objects.get(0).get(0).values.size());
-    assertEquals(1, objects.get(0).get(0).values.get(0).size());
+    assertEquals(2, objects.get(0).get(0).values.get(0).size());
     assertEquals(1234L, objects.get(0).get(0).values.get(0).get(0).uid);
     assertEquals("Sam", objects.get(0).get(0).values.get(0).get(0).name);
+    assertNull(objects.get(0).get(0).values.get(0).get(1));
+
+    // Values
+    List<List<List<Integer>>> values = object.values;
+    assertEquals(1, values.size());
+    assertEquals(2, values.get(0).size());
+
+    assertEquals(1, values.get(0).get(0).size());
+    assertEquals(1234, values.get(0).get(0).get(0));
+
+    assertEquals(1, values.get(0).get(1).size());
+    assertEquals(4321, values.get(0).get(1).get(0));
+  }
+
+  @Test
+  void testThrowExceptionWhenGenericTypeIsMissing() {
+    FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
+            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), MissingGenericType.class)
+    );
+    assertEquals("No generic type specified for field: values", exception.getMessage());
+  }
+
+  @Test
+  void testThrowExceptionWhenInnerGenericTypeIsMissing() {
+    FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
+            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), MissingInnerGenericType.class)
+    );
+    assertEquals("You must specify the generic type for mapping", exception.getMessage());
+  }
+
+  @Test
+  void testThrowExceptionWhenTypeIsUnsupported() {
+    FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
+            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), UnsupportedGenericType.class)
+    );
+    assertEquals("Type must be a List, found: interface java.util.function.Supplier", exception.getMessage());
+  }
+
+  @Test
+  void testThrowExceptionWhenTypeIsWildcard() {
+    FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
+            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), UnsupportedWildcardType.class)
+    );
+    assertEquals("Unsupported type: ?", exception.getMessage());
   }
 
   /**
@@ -690,5 +735,27 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
     private List<NestedListOfStrings> strings;
     @Facebook
     private List<List<NestedListOfObjects>> objects;
+    @Facebook
+    private List<List<List<Integer>>> values;
+  }
+
+  static class MissingGenericType {
+    @Facebook
+    private List values;
+  }
+
+  static class MissingInnerGenericType {
+    @Facebook
+    private List<List<List>> values;
+  }
+
+  static class UnsupportedGenericType {
+    @Facebook
+    private List<Supplier<String>> values;
+  }
+
+  static class UnsupportedWildcardType {
+    @Facebook
+    private List<?> values;
   }
 }
