@@ -1,0 +1,130 @@
+[
+  {
+    "type": "HEADER",
+    "format": "TEXT",
+    "text": "Header text"
+  },
+  {
+    "type": "HEADER",
+    "format": "IMAGE",
+    "example": {
+      "header_handle": [
+        "https://example.com"
+      ]
+    }
+  },
+  {
+    "type": "HEADER",
+    "format": "TEXT",
+    "text": "Hello {{1}}",
+    "example": {
+      "header_text": [
+        "Albert"
+      ]
+    }
+  },
+  {
+    "type": "HEADER",
+    "format": "TEXT",
+    "text": "Hello {{name}}",
+    "example": {
+      "header_text_named_params": [
+        {
+          "param_name": "name",
+          "example": "Albert"
+        }
+      ]
+    }
+  },
+  {
+    "type": "BODY",
+    "text": "Hello {{name}}",
+    "example": {
+      "body_text_named_params": [
+        {
+          "param_name": "name",
+          "example": "Albert"
+        }
+      ]
+    }
+  },
+  {
+    "type": "FOOTER",
+    "text": "This code expires in 10 minutes.",
+    "code_expiration_minutes": 10
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "URL",
+        "text": "Copy code",
+        "url": "https://example.com/{{1}}",
+        "example": [
+          "https://example.com/item"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "COPY_CODE",
+        "text": "Copy offer code",
+        "example": [
+          "SALE2025"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "FLOW",
+        "text": "Flow button",
+        "flow_id": "9999999999999999",
+        "flow_action": "NAVIGATE",
+        "navigate_screen": "QUESTION_ONE"
+      }
+    ]
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "PHONE_NUMBER",
+        "text": "Call",
+        "phone_number": "+593999999999"
+      }
+    ]
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "QUICK_REPLY",
+        "text": "Quick reply text"
+      }
+    ]
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "MPM",
+        "text": "View items"
+      }
+    ]
+  },
+  {
+    "type": "BUTTONS",
+    "buttons": [
+      {
+        "type": "SPM",
+        "text": "View"
+      }
+    ]
+  }
+]

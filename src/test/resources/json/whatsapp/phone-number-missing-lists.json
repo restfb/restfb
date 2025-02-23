@@ -1,0 +1,10 @@
+{
+  "conversational_automation": {},
+  "health_status": {
+    "entities": [
+      {}
+    ]
+  },
+  "quality_score": {},
+  "throughput": {}
+}

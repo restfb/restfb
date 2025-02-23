@@ -1,5 +1,22 @@
 # RestFB Changelog
 
+## 2025.4.1 (February 21, 2025)
+
+* Bugfix for #1542
+
+## 2025.4.0 (February 21, 2025)
+
+* Issue #1531: add `promotable_id` to Post
+* Issue #1532: add `global_brand_children` to Page
+* Issue #1533: add `owned_pages` to ads Business 
+* Issue #1534: add type for mapping WhatsApp Business Phone Number<br />
+  Thanks @bxacosta for the PR 
+* Issue #1536: add `member_count` to Group
+* Issue #1537: add `post_id` to Photo
+* Issue #1539: add missing fields for WhatsAppMessageTemplateComponent Type<br />
+  Thanks @bxacosta for the PR
+* Issue #1542: add `permissions` to AccessToken
+
 ## 2025.3.0 (February 11, 2025)
 
 * Issue #1529: Add method to generate Facebook Business Login URL<br />

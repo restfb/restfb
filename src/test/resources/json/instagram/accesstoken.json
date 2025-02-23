@@ -1,0 +1,10 @@
+{
+  "access_token": "EAACEdEose0...",
+  "user_id": "1234567890",
+  "permissions": [
+    "instagram_business_basic",
+    "instagram_business_manage_messages",
+    "instagram_business_manage_comments",
+    "instagram_business_content_publish"
+    ]
+}

@@ -199,6 +199,40 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   private String description;
 
   /**
+   * If this Post has a place, the event associated with the place
+   */
+  @Getter
+  @Setter
+  @Facebook
+  @GraphAPI(since = "2.5")
+  private Event event;
+
+  @Getter
+  @Setter
+  @Facebook("expanded_height")
+  private Long expandedHeight;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Long height;
+
+  @Getter
+  @Setter
+  @Facebook("expanded_width")
+  private Long expandedWidth;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Long width;
+
+  @Getter
+  @Setter
+  @Facebook("video_buying_eligibility")
+  private List<String> videoBuyingEligibility;
+
+  /**
    * If available, the source link attached to this post (for example, a flash or video file).
    *
    * Hint for Graph API 3.3: Use <code>attachment/media/source</code> instead
@@ -240,6 +274,14 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   @Setter
   @Facebook
   private Privacy privacy;
+
+  /**
+   * ID of post to use for promotion for stories that cannot be promoted directly
+   */
+  @Getter
+  @Setter
+  @Facebook("promotable_id")
+  private String promotableId;
 
   /**
    * Status of the promotion, if the post was promoted.
@@ -534,6 +576,14 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   @Setter
   @Facebook("is_hidden")
   private Boolean isHidden;
+
+  /**
+   * Returns True if the post was created inline when creating ads.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_inline_created")
+  private Boolean isInlineCreated;
 
   /**
    * Whether this post can be promoted in Instagram.

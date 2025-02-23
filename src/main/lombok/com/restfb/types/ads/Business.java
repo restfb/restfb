@@ -21,7 +21,9 @@
  */
 package com.restfb.types.ads;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
 import com.restfb.types.Page;
@@ -173,5 +175,13 @@ public class Business extends NamedAdsObject {
   @Setter
   @Facebook("vertical_id")
   private Integer verticalId;
+
+  /**
+   * This business owns these pages.
+   */
+  @Getter
+  @Setter
+  @Facebook("owned_pages")
+  private List<Page> ownedPages = new ArrayList<>();
 
 }

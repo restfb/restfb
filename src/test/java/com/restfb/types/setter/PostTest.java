@@ -39,6 +39,7 @@ class PostTest extends SetterGetterTestBase {
     addIgnoredField("likesCount");
     addIgnoredField("messageTags");
     addIgnoredField("allowedAdvertisingObjectives");
+    addIgnoredField("videoBuyingEligibility");
     testInstance(obj);
   }
 

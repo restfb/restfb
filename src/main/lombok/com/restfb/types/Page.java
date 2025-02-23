@@ -313,6 +313,11 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private Page globalBrandParentPage;
 
   /**
+   * Children Pages of a Global Pages root Page. Both default and root Page can return children Pages.
+   */
+  @Facebook("global_brand_children")
+  private List<Page> globalBrandChildren = new ArrayList<>();
+  /**
    * Indicates whether this Page has added the app making the query in a Page tab.
    * 
    * @since 1.10.0
@@ -2131,6 +2136,18 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   public boolean removeMessengerAdsDefaultIcebreaker(String icebreaker) {
     return messengerAdsDefaultIcebreakers.remove(icebreaker);
+  }
+
+  public List<Page> getGlobalBrandChildren() {
+    return unmodifiableList(globalBrandChildren);
+  }
+
+  public boolean addGlobalBrandChildren(Page globalBrandChild) {
+    return globalBrandChildren.add(globalBrandChild);
+  }
+
+  public boolean removeGlobalBrandChildren(Page globalBrandChild) {
+    return globalBrandChildren.remove(globalBrandChild);
   }
 
   public List<String> getMessengerAdsDefaultIcebreakers() {
