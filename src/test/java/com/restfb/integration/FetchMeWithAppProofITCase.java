@@ -40,4 +40,17 @@ class FetchMeWithAppProofITCase extends RestFbIntegrationTestBase {
     assertNotNull(me);
   }
 
+  @Test
+  void fetchWithTimeBasedProof() {
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(),
+      getTestSettings().getAppSecret(), Version.LATEST) {
+      @Override
+      public boolean isAppSecretProofWithTime() {
+        return true;
+      }
+    };
+    User me = client.fetchObject("/me", User.class);
+    assertNotNull(me);
+  }
+
 }

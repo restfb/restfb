@@ -282,9 +282,17 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   public <T> Connection<T> fetchConnectionPage(final String connectionPageUrl, Class<T> connectionType) {
     String connectionJson;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
-      WebRequestor.Request request = new WebRequestor.Request(String.format("%s&%s=%s", connectionPageUrl,
-        urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)), null);
-      connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(request));
+      if (isAppSecretProofWithTime()) {
+        long now = System.currentTimeMillis() / 1000;
+        WebRequestor.Request request = new WebRequestor.Request(String.format("%s&%s=%s&%s=%s", connectionPageUrl,
+                urlEncode(APP_SECRET_PROOF_TIME_PARAM_NAME), now,
+                urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken + "|" + now, appSecret)), null);
+        connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(request));
+      } else {
+        WebRequestor.Request request = new WebRequestor.Request(String.format("%s&%s=%s", connectionPageUrl,
+                urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)), null);
+        connectionJson = makeRequestAndProcessResponse(() -> webRequestor.executeGet(request));
+      }
     } else {
       connectionJson = makeRequestAndProcessResponse(
         () -> webRequestor.executeGet(new WebRequestor.Request(connectionPageUrl, getHeaderAccessToken())));
@@ -936,8 +944,16 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
 
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
-      parameters = parametersWithAdditionalParameter(
-        Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);
+      if (isAppSecretProofWithTime()) {
+        long now = System.currentTimeMillis() / 1000;
+        parameters = parametersWithAdditionalParameter(
+                Parameter.with(APP_SECRET_PROOF_TIME_PARAM_NAME, String.valueOf(now)), parameters);
+        parameters = parametersWithAdditionalParameter(
+                Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken + "|" + now, appSecret)), parameters);
+      } else {
+        parameters = parametersWithAdditionalParameter(
+                Parameter.with(APP_SECRET_PROOF_PARAM_NAME, obtainAppSecretProof(accessToken, appSecret)), parameters);
+      }
     }
 
     if (withJsonParameter) {

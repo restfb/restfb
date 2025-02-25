@@ -615,4 +615,8 @@ public interface FacebookClient {
    * @return the login dialog url
    */
   String getBusinessLoginDialogUrl(String appId, String redirectUri, String configId, String state, Parameter... parameters);
+
+  default boolean isAppSecretProofWithTime() {
+    return false;
+  }
 }

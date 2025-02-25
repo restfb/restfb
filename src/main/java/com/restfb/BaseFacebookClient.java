@@ -70,6 +70,8 @@ abstract class BaseFacebookClient {
    */
   protected static final String APP_SECRET_PROOF_PARAM_NAME = "appsecret_proof";
 
+  protected static final String APP_SECRET_PROOF_TIME_PARAM_NAME = "appsecret_time";
+
   BaseFacebookClient() {
     illegalParamNames = new HashSet<>();
     illegalParamNames.add(ACCESS_TOKEN_PARAM_NAME);
