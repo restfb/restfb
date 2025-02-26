@@ -1,5 +1,16 @@
 # RestFB Changelog
 
+## 2025.5.0 (February 26, 2025)
+
+* Issue #1545: update junit lib
+* Issue #1546: update mvn-compiler-plugin
+* Issue #1544: support for deserialize nested lists<br />
+  Many thanks @bxacosta for the PR
+* Issue #1155 and #1540: problem deserialize nested lists<br />
+  solved with PR #1544
+* Issue #1541: appsecret_proof with additional time factor
+* Issue #1538: RtbDynamicPost type added
+
 ## 2025.4.1 (February 21, 2025)
 
 * Bugfix for #1542
