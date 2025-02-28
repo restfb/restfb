@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2025.5.1 (February 28, 2025)
+
+* Fix for #1538
+
 ## 2025.5.0 (February 26, 2025)
 
 * Issue #1545: update junit lib
