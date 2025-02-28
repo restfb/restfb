@@ -68,8 +68,8 @@ public class RtbDynamicPost extends FacebookType {
 
   @Getter
   @Setter
-  @Facebook("production_id")
-  private String productionId;
+  @Facebook("product_id")
+  private String productId;
 
   @Getter
   @Setter
