@@ -209,6 +209,11 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
 
     @Getter
     @Setter
+    @Facebook("body_text")
+    private List<List<String>> bodyText = new ArrayList<>();
+
+    @Getter
+    @Setter
     @Facebook("body_text_named_params")
     private List<NamedParam> bodyTextNamedParams = new ArrayList<>();
 
