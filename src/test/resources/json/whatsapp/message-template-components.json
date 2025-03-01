@@ -126,5 +126,16 @@
         "text": "View"
       }
     ]
+  },
+  {
+    "type": "BODY",
+    "text": "Hello {{1}}",
+    "example": {
+      "body_text": [
+        [
+          "Albert"
+        ]
+      ]
+    }
   }
 ]

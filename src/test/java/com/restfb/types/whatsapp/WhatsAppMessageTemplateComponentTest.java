@@ -143,5 +143,14 @@ public class WhatsAppMessageTemplateComponentTest extends AbstractJsonMapperTest
     WhatsAppMessageTemplateComponent.Button spmButton = buttonSpm.getButtons().get(0);
     assertEquals(WhatsAppMessageTemplateComponent.ButtonType.SPM, spmButton.getType());
     assertEquals("View", spmButton.getText());
+
+
+    // Test BODY component with positional type parameters
+    WhatsAppMessageTemplateComponent bodyPositionalParams = components.get(13);
+    assertEquals(WhatsAppMessageTemplateComponent.Type.BODY, bodyPositionalParams.getType());
+    assertTrue(bodyPositionalParams.getText().contains("{{1}}"));
+    assertEquals(1, bodyPositionalParams.getExample().getBodyText().size());
+    assertEquals(1, bodyPositionalParams.getExample().getBodyText().get(0).size());
+    assertEquals("Albert", bodyPositionalParams.getExample().getBodyText().get(0).get(0));
   }
 }
