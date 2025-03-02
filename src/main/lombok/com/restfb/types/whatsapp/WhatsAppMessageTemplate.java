@@ -92,4 +92,16 @@ public class WhatsAppMessageTemplate extends NamedFacebookType {
   @Setter
   @Facebook("quality_score")
   private WhatsAppHSMQualityScoreShape qualityScore;
+
+  /**
+   * The parameter format of the template
+   */
+  @Getter
+  @Setter
+  @Facebook("parameter_format")
+  private ParameterFormat parameterFormat;
+
+  public enum ParameterFormat {
+    NAMED, POSITIONAL
+  }
 }
