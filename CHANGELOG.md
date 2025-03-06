@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2025.6.0 (March 6, 2025)
+
+* Issue #1548: Add missing fields to WhatsAppMessageTemplate and WhatsAppMessageTemplateComponent<br />
+  Many thanks @bxacosta for the PR
+* Issue #1551: Fix for DefaultInstagramLoginClient and obtaining the extended access token
+* Issue #1552: IgUser fields added to support Instagram API with Instagram Login
+
 ## 2025.5.1 (February 28, 2025)
 
 * Fix for #1538
