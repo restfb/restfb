@@ -95,14 +95,14 @@ public class DefaultInstagramLoginClient extends DefaultFacebookClient {
   }
 
   @Override
-  public AccessToken obtainExtendedAccessToken(String appId, String appSecret) {
+  public AccessToken obtainExtendedAccessToken(String appId, String appSecret, String accessToken) {
     verifyParameterPresence(APP_SECRET, appSecret);
     verifyParameterPresence("accessToken", accessToken);
 
     String response = makeRequest("access_token", false, false, null, //
-      Parameter.with(PARAM_CLIENT_SECRET, appSecret), //
-      Parameter.with(GRANT_TYPE, "ig_exchange_token"), //
-      Parameter.withFields("access_token,expires_in,token_type"));
+            Parameter.with(PARAM_CLIENT_SECRET, appSecret), //
+            Parameter.with(GRANT_TYPE, "ig_exchange_token"), //
+            Parameter.withFields("access_token,expires_in,token_type"));
     try {
       return getAccessTokenFromResponse(response);
     } catch (Exception t) {
