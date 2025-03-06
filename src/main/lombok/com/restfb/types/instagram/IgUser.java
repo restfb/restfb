@@ -36,6 +36,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/instagram-api/reference/user/">instagram user</a> type
  * used in the Graph API
+ * and contains additional fields for the instagram API with instagram login User object
  */
 public class IgUser extends NamedFacebookType {
 
@@ -82,12 +83,29 @@ public class IgUser extends NamedFacebookType {
   private Long igId;
 
   /**
+   * Instagram Id of the Instagram API with Instagram login user
+   */
+  @Getter
+  @Setter
+  @Facebook("user_id")
+  private Long userId;
+
+  /**
    * Filtered media count of the user
    */
   @Getter
   @Setter
   @Facebook("media_count")
   private Long mediaCount;
+
+  /**
+   * The app user's account type.
+   * Can be Business or Media_Creator
+   */
+  @Getter
+  @Setter
+  @Facebook("account_type")
+  private String accountType;
 
   /**
    * The cdn url to query the raw profile picture of the user
@@ -152,5 +170,17 @@ public class IgUser extends NamedFacebookType {
   @Deprecated
   public boolean removeMedia(IgMedia media) {
     return this.media.remove(media);
+  }
+
+  public Long getInstagramId() {
+    if (userId != null) {
+      return userId;
+    }
+
+    if (igId != null) {
+      return igId;
+    }
+
+    return null;
   }
 }
