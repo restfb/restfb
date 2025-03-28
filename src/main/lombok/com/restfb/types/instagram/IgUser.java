@@ -172,6 +172,12 @@ public class IgUser extends NamedFacebookType {
     return this.media.remove(media);
   }
 
+  /**
+   * will be removed in 2026. the ID structure between
+   * Instagram user fetched with Instagram Login and Facebook API are too different
+   * @return some ID
+   */
+  @Deprecated
   public Long getInstagramId() {
     if (userId != null) {
       return userId;
