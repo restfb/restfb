@@ -114,4 +114,12 @@ public class IgMediaChild extends FacebookType {
   @Setter
   @Facebook
   private String username;
+
+  /**
+   * describing text for the media. Also known as accessibility label.
+   */
+  @Getter
+  @Setter
+  @Facebook("alt_text")
+  private String altText;
 }
