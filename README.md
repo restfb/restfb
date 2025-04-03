@@ -47,8 +47,11 @@ on the official [RestFB](https://restfb.com) website with your name, company log
 
 ## Getting in touch
 
+Facebook has suspended the RestFB page without providing any clear or understandable reason for the action.
+Therefore we cannot provide support via Facebook anymore - sounds strange, but it is what it is.
+
 * **[GitHub Issues](https://github.com/restfb/restfb/issues/new)**: If you have ideas, bugs, or problems with RestFB, just open a new issue.
-* **[Facebook Page](https://www.facebook.com/Restfb-909653922461664)**: Like our Facebook page to get the latest updates.
-* **[Facebook Messenger](https://fb.com/msg/Restfb-909653922461664)**: Contact us via Facebook Messenger and we will help to solve your RestFB problem.
+* **[Bluesky](https://bsky.app/profile/restfb.com)**: You can follow us on BlueSky to get the latest updates.
+* **[LinkedIn](https://www.linkedin.com/company/restfb/)**: You can get in touch with us here and get the latest updates:
 * **[Stackoverflow](https://stackoverflow.com/questions/tagged/restfb)**: Questions about RestFB are answered on Stackoverflow. We'll help you there, too.
 * **[Google Groups](http://groups.google.com/group/restfb)**: If you'd like to talk to other RestFB users, just send a message to our Google Group!
