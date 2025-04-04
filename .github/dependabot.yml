@@ -10,3 +10,5 @@ updates:
     ignore:
       - dependency-name: "org.apache.felix:maven-bundle-plugin"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "com.mycila:license-maven-plugin"
+        update-types: ["version-update:semver-major"]
