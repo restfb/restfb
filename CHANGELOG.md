@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2025.7.0 (April 14, 2025)
+
+* Issue #1557: alt_text added to IgMedia
+* Issue #1561: removed old Facebook page links from Readme
+* library updates
+
 ## 2025.6.0 (March 6, 2025)
 
 * Issue #1548: Add missing fields to WhatsAppMessageTemplate and WhatsAppMessageTemplateComponent<br />
