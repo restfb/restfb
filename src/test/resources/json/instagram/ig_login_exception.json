@@ -1,0 +1,8 @@
+{
+  "error": {
+    "message": "Unknown path components: /impressions/day",
+    "type": "IGApiException",
+    "code": 2500,
+    "fbtrace_id": "A7OjVVCXwSdfpIERKqntSKo"
+  }
+}

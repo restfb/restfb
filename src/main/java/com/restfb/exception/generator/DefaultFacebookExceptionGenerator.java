@@ -213,6 +213,12 @@ public class DefaultFacebookExceptionGenerator implements FacebookExceptionGener
           container.getRawError());
       }
 
+      if ("IGApiException".equals(container.getType())) {
+        return new InstagramApiException(container.getType(), container.getMessage(), container.getErrorCode(),
+          container.getErrorSubcode(), container.getHttpStatusCode(), container.getIsTransient(),
+          container.getRawError());
+      }
+
       // Don't recognize this exception type? Just go with the standard
       // FacebookGraphException.
       return new FacebookGraphException(container.getType(), container.getMessage(), container.getErrorCode(),
