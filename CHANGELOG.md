@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2025.8.0 (April 21, 2025)
+
+* Issue #1558: Instagram Login API Exception added
+* build library updates
+
 ## 2025.7.0 (April 14, 2025)
 
 * Issue #1557: alt_text added to IgMedia
