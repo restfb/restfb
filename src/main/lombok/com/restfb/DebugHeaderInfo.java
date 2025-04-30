@@ -182,6 +182,10 @@ public class DebugHeaderInfo implements Serializable {
         return new HeaderUsage(jsonValue.getDouble("acc_id_util_pct", 0.0));
       }
 
+      if (jsonValue.contains("call_volume") && jsonValue.contains("cpu_time")) {
+        return new HeaderUsage(jsonValue.getInt("call_volume", -1), jsonValue.getInt("cpu_time", -1));
+      }
+
       return new HeaderUsage(jsonValue.getInt("call_count", -1), jsonValue.getInt("total_time", -1),
         jsonValue.getInt("total_cputime", -1));
     } catch (Exception e) {
@@ -279,6 +283,13 @@ public class DebugHeaderInfo implements Serializable {
       this.adAccountHeader = false;
     }
 
+    HeaderUsage(Integer callVolume, Integer cpuTime) {
+      this.callVolume = callVolume;
+      this.cpuTime = cpuTime;
+      this.percentageOnly = false;
+      this.adAccountHeader = false;
+    }
+
     HeaderUsage(Integer callCount, Integer totalTime, Integer totalCputime) {
       this.callCount = callCount;
       this.totalTime = totalTime;
@@ -306,10 +317,16 @@ public class DebugHeaderInfo implements Serializable {
     private Integer callCount;
 
     @Getter
+    private Integer callVolume;
+
+    @Getter
     private Integer totalTime;
 
     @Getter
     private Integer totalCputime;
+
+    @Getter
+    private Integer cpuTime;
 
     @Getter
     private Double accIdUtilPct;
