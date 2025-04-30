@@ -1,0 +1,14 @@
+{
+  "id": "1234567",
+  "poll_attachment": {
+    "option_a": "first option",
+    "option_b": "second option",
+    "option_c": "third option",
+    "option_d": "fourth option",
+    "option_a_votes_percentage": 0.10,
+    "option_b_votes_percentage": 0.20,
+    "option_c_votes_percentage": 0.15,
+    "option_d_votes_percentage": 0.55,
+    "expiration_timestamp": "2025-01-01T23:00:00+0000"
+  }
+}

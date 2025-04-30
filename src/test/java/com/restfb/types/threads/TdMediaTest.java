@@ -49,4 +49,18 @@ class TdMediaTest extends AbstractJsonMapperTests {
     assertEquals("CA", locale2.getCountry());
     assertEquals(2, threadsMedis.getAllowlistedCountryCodes().size());
   }
+
+  @Test
+  void checkPoll() {
+    TdMedia threadsMedia = createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-poll"), TdMedia.class);
+    assertNotNull(threadsMedia);
+    assertNotNull(threadsMedia.getPollAttachment());
+    assertEquals(0.10, threadsMedia.getPollAttachment().getOptionAVotesPercentage(), 0.01);
+    assertEquals(0.20, threadsMedia.getPollAttachment().getOptionBVotesPercentage(), 0.01);
+    assertEquals(0.15, threadsMedia.getPollAttachment().getOptionCVotesPercentage(), 0.01);
+    assertEquals(0.55, threadsMedia.getPollAttachment().getOptionDVotesPercentage(), 0.01);
+
+    assertEquals(1735772400000L, threadsMedia.getPollAttachment().getExpirationTimestamp().getTime());
+
+  }
 }
