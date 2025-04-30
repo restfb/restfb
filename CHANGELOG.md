@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2025.9.0 (April 30, 2025)
+
+* Issue #1569: add poll attachment to TdMedia object
+* Issue #1571: app usage header for Instagram Login Api addedg
+
 ## 2025.8.0 (April 21, 2025)
 
 * Issue #1558: Instagram Login API Exception added
