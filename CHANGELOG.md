@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2025.10.0 (May 10, 2025)
+
+* Issue #1574: Maven deployment migration<br />
+Thanks @revetkn
+
 ## 2025.9.0 (April 30, 2025)
 
 * Issue #1569: add poll attachment to TdMedia object
