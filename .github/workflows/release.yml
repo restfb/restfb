@@ -32,13 +32,14 @@ jobs:
       - name: Build and Deploy to MVN Central
         run: |
           mvn --no-transfer-progress \
-            --batch-mode -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
+            --batch-mode \
             --file pom.xml -s release/m2-settings.xml clean deploy -DskipTests=true -DperformRelease=true
         env:
           JDK_JAVA_OPTIONS: "--illegal-access=warn"
           MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
           CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
           CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       - name: Get the version
         id: get_version
         run: echo "VERSION=$(echo $GITHUB_REF | cut -d / -f 3 | cut -c 2-)" >> $GITHUB_OUTPUT

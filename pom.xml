@@ -296,6 +296,7 @@
         <extensions>true</extensions>
         <configuration>
           <publishingServerId>central-portal</publishingServerId>
+          <autoPublish>true</autoPublish>
         </configuration>
       </plugin>
       <plugin>
