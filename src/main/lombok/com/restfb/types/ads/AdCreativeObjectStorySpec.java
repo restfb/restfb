@@ -46,6 +46,18 @@ public class AdCreativeObjectStorySpec extends AbstractFacebookType {
   private String instagramActorId;
 
   /**
+   * The Instagram user account that the story will be posted to
+   *
+   * -- GETTER --
+   *
+   * @return The Instagram user account that the story will be posted to
+   */
+  @Getter
+  @Setter
+  @Facebook("instagram_user_id")
+  private String instagramUserId;
+
+  /**
    * The spec for a link page post or carousel ad
    *
    * -- GETTER --

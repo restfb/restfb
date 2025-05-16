@@ -196,10 +196,23 @@ public class AdCreative extends NamedAdsObject {
    *
    * @return Instagram actor ID
    */
+  @Deprecated
   @Getter
   @Setter
   @Facebook("instagram_actor_id")
   private String instagramActorId;
+
+  /**
+   * Instagram user ID
+   *
+   * -- GETTER --
+   *
+   * @return Instagram user ID
+   */
+  @Getter
+  @Setter
+  @Facebook("instagram_user_id")
+  private String instagramUserId;
 
   /**
    * Instagram permalink
@@ -224,11 +237,6 @@ public class AdCreative extends NamedAdsObject {
   @Setter
   @Facebook("instagram_story_id")
   private String instagramStoryId;
-
-  @Getter
-  @Setter
-  @Facebook("instagram_user_id")
-  private String instagramUserId;
 
   @Getter
   @Setter
