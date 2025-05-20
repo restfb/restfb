@@ -915,41 +915,37 @@ public enum FacebookPermissions {
   INSTAGRAM_GRAPH_USER_PROFILE("instagram_graph_user_profile", Category.INSTAGRAM), //
 
   /**
-   * The instagram_business_basic allows your app to read an Instagram Business account
-   * profile's info and media.
+   * The instagram_business_basic allows your app to read an Instagram Business account profile's info and media.
    * <p>
-   * The allowed usage for this permission is to get basic metadata of an Instagram
-   * Business account profile, for example username and ID.
+   * The allowed usage for this permission is to get basic metadata of an Instagram Business account profile, for
+   * example username and ID.
    */
   INSTAGRAM_BUSINESS_BASIC("instagram_business_basic", Category.INSTAGRAM_BUSINESS), //
 
   /**
-   * The instagram_business_manage_comments permission allows an app to access comments
-   * on an Instagram professional account, as well as public posts and Instagram Stories where that account
-   * is tagged or mentioned in comments. The allowed usage for this permission is to create,
-   * update and delete comments for an Instagram professional account.
+   * The instagram_business_manage_comments permission allows an app to access comments on an Instagram professional
+   * account, as well as public posts and Instagram Stories where that account is tagged or mentioned in comments. The
+   * allowed usage for this permission is to create, update and delete comments for an Instagram professional account.
    */
   INSTAGRAM_BUSINESS_MANAGE_COMMENTS("instagram_business_manage_comments", Category.INSTAGRAM_BUSINESS), //
 
   /**
-   * The instagram_business_content_publish permission allows an app to
-   * create organic feed photo and video posts on behalf of a business user.
+   * The instagram_business_content_publish permission allows an app to create organic feed photo and video posts on
+   * behalf of a business user.
    * <p>
-   * The allowed usage of this permission is to allow an app to manage the organic
-   * content creation process for Instagram (for example, post photos and videos) on
-   * behalf of an Instagram business account. You may also use this permission to
-   * request analytics insights to improve your app and for marketing or
-   * advertising purposes, through the use of aggregated and de-identified or
-   * anonymized information (provided such data cannot be re-identified).
+   * The allowed usage of this permission is to allow an app to manage the organic content creation process for
+   * Instagram (for example, post photos and videos) on behalf of an Instagram business account. You may also use this
+   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through the
+   * use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
    */
   INSTAGRAM_BUSINESS_CONTENT_PUBLISH("instagram_business_content_publish", Category.INSTAGRAM_BUSINESS), //
 
   /**
-   * The instagram_business_manage_messages permission allows an app to access messages
-   * on an Instagram professional account.
+   * The instagram_business_manage_messages permission allows an app to access messages on an Instagram professional
+   * account.
    * <p>
-   * The allowed usage for this permission is to view, manage and respond to messages,
-   * and to use third-party customer relationship management (CRM) tools to manage messages.
+   * The allowed usage for this permission is to view, manage and respond to messages, and to use third-party customer
+   * relationship management (CRM) tools to manage messages.
    */
   INSTAGRAM_BUSINESS_MANAGE_MESSAGES("instagram_business_manage_messages", Category.INSTAGRAM_BUSINESS), //
 
@@ -1020,8 +1016,8 @@ public enum FacebookPermissions {
   WHATSAPP_BUSINESS_MESSAGING("whatsapp_business_messaging", Category.WHATSAPP),
 
   /**
-   * The {@code threads_basic} permission allows an app to get a user's Threads profile information
-   * and the media and text content that they posted to Threads.
+   * The {@code threads_basic} permission allows an app to get a user's Threads profile information and the media and
+   * text content that they posted to Threads.
    * <p>
    * The allowed usage for this permission is to display a user’s own Threads posts within an app, and make these
    * visible only to the user who created them. You may also use this permission to request analytics insights to
@@ -1041,17 +1037,17 @@ public enum FacebookPermissions {
   THREADS_BASIC("threads_basic", Category.THREADS),
 
   /**
-   * The {@code threads_content_publish} permission allows an app to create and publish content on behalf of a
-   * Threads profile.
+   * The {@code threads_content_publish} permission allows an app to create and publish content on behalf of a Threads
+   * profile.
    * <p>
-   * The allowed usage for this permission is to enable an app user to create and publish content to their
-   * Threads profile. You may also use this permission to request analytics insights to improve your app and for
-   * marketing or advertising purposes, through the use of aggregated and de-identified or anonymized information
-   * (provided such data cannot be re-identified).
+   * The allowed usage for this permission is to enable an app user to create and publish content to their Threads
+   * profile. You may also use this permission to request analytics insights to improve your app and for marketing or
+   * advertising purposes, through the use of aggregated and de-identified or anonymized information (provided such data
+   * cannot be re-identified).
    * <p>
    * <strong>Allowed Usage</strong>
    * <ul>
-   *     <li>Enables an app user to create and publish content to their Threads profile</li>
+   * <li>Enables an app user to create and publish content to their Threads profile</li>
    * </ul>
    *
    * <p>
@@ -1064,15 +1060,15 @@ public enum FacebookPermissions {
   /**
    * The {@code threads_manage_insights} permission allows your app to get access to insights for a Threads profile.
    * <p>
-   * The allowed usage for this permission is to allow your app to get insights for a Threads profile and for
-   * individual threads published by that profile. You may also use this permission to request analytics insights to
-   * improve your app and for marketing or advertising purposes, through the use of aggregated and de-identified or
-   * anonymized information (provided such data cannot be re-identified).
+   * The allowed usage for this permission is to allow your app to get insights for a Threads profile and for individual
+   * threads published by that profile. You may also use this permission to request analytics insights to improve your
+   * app and for marketing or advertising purposes, through the use of aggregated and de-identified or anonymized
+   * information (provided such data cannot be re-identified).
    * <p>
    * <strong>Allowed Usage</strong>
    * <ul>
-   *    <li>Get insights for a Threads profile</li>
-   *    <li>Get insights for individual threads published by that profile</li>
+   * <li>Get insights for a Threads profile</li>
+   * <li>Get insights for individual threads published by that profile</li>
    * </ul>
    *
    * <p>
@@ -1083,15 +1079,13 @@ public enum FacebookPermissions {
   THREADS_MANAGE_INSIGHTS("threads_manage_insights", Category.THREADS),
 
   /**
-   * The {@code threads_manage_replies} permission allows an app to create a reply on behalf of
-   * a Threads profile, hide or unhide replies to a thread, and control who can reply to a thread on
-   * the Threads profile.
+   * The {@code threads_manage_replies} permission allows an app to create a reply on behalf of a Threads profile, hide
+   * or unhide replies to a thread, and control who can reply to a thread on the Threads profile.
    * <p>
-   * The allowed usage of this permission is to allow an app to create a reply on behalf of a Threads profile,
-   * hide or unhide replies to a thread, and control who can reply to a thread on the Threads profile. You may
-   * also use this permission to request analytics insights to improve your app and for marketing or
-   * advertising purposes, through the use of aggregated and de-identified or anonymized information
-   * (provided such data cannot be re-identified).
+   * The allowed usage of this permission is to allow an app to create a reply on behalf of a Threads profile, hide or
+   * unhide replies to a thread, and control who can reply to a thread on the Threads profile. You may also use this
+   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through the
+   * use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
    * <p>
    * <strong>Allowed Usage</strong>
    * <ul>
@@ -1111,8 +1105,8 @@ public enum FacebookPermissions {
    * The {@code threads_read_replies} permission allows an app to read replies to a user's thread.
    * <p>
    * The allowed usage for this permission is to get replies to a thread owned by the app user. You may also use this
-   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through
-   * the use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
+   * permission to request analytics insights to improve your app and for marketing or advertising purposes, through the
+   * use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
    * <p>
    * <strong>Allowed Usage</strong>
    * <ul>
@@ -1127,17 +1121,17 @@ public enum FacebookPermissions {
   THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),
 
   /**
-   * The {@code threads_manage_mentions} permission allows an app to fetch content where
-   * the user is mentioned in on behalf of a Threads user.
+   * The {@code threads_manage_mentions} permission allows an app to fetch content where the user is mentioned in on
+   * behalf of a Threads user.
    * <p>
-   * The allowed usage for this permission is to help the user manage their social media presence,
-   * which includes: showing public content and the public content tree that a user is mentioned in,
-   * enabling the user to sort user’s own mentioned threads, and enabling the user to publish responses
-   * to the public content tree that the user is mentioned in.
+   * The allowed usage for this permission is to help the user manage their social media presence, which includes:
+   * showing public content and the public content tree that a user is mentioned in, enabling the user to sort user’s
+   * own mentioned threads, and enabling the user to publish responses to the public content tree that the user is
+   * mentioned in.
    * <p>
-   * You may also use this permission to request analytics insights to improve your app and for marketing or
-   * advertising purposes, through the use of aggregated and de-identified or anonymized information
-   * (provided such data cannot be re-identified).
+   * You may also use this permission to request analytics insights to improve your app and for marketing or advertising
+   * purposes, through the use of aggregated and de-identified or anonymized information (provided such data cannot be
+   * re-identified).
    *
    * <p>
    * <strong>Allowed Usage</strong>
@@ -1154,13 +1148,13 @@ public enum FacebookPermissions {
   THREADS_MANAGE_MENTIONS("threads_manage_mentions", Category.THREADS),
 
   /**
-   * The {@code threads_keyword_search} permission allows an app to search and fetch content with a specific keyword
-   * on behalf of a Threads user.
+   * The {@code threads_keyword_search} permission allows an app to search and fetch content with a specific keyword on
+   * behalf of a Threads user.
    * <p>
-   * The permission also allows for publishing responses to this fetched content.
-   * The allowed usage for this permission is to help the user manage their social media presence. You may also use
-   * this permission to request analytics insights to improve your app and for marketing or advertising purposes,
-   * through the use of aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
+   * The permission also allows for publishing responses to this fetched content. The allowed usage for this permission
+   * is to help the user manage their social media presence. You may also use this permission to request analytics
+   * insights to improve your app and for marketing or advertising purposes, through the use of aggregated and
+   * de-identified or anonymized information (provided such data cannot be re-identified).
    * <p>
    * <strong>Allowed Usage</strong>
    * <ul>
@@ -1174,6 +1168,20 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   THREADS_KEYWORD_SEARCH("threads_keyword_search", Category.THREADS),
+
+  /**
+   * The {@code threads_delete} permission allows an app to delete an app user's Threads posts.
+   * <p>
+   * <strong>Allowed Usage</strong>
+   * <ul>
+   * <li>The allowed usage for this permission is to delete an app user's Thread posts</li>
+   * </ul>
+   * <p>
+   * <strong>Review</strong>
+   * <p>
+   * If your app requests this permission Facebook will have to review how your app uses it.
+   */
+  THREADS_DELETE("threads_delete", Category.THREADS),
 
   /**
    * The commerce_account manage_orders permission allows your app to read and update commerce account orders.
@@ -1253,9 +1261,6 @@ public enum FacebookPermissions {
   }
 
   public enum Category {
-    PUBLIC,
-    USER_DATA,
-    EVENTS_GROUPS_PAGES,
-    OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, INSTAGRAM_BUSINESS, THREADS
+    PUBLIC, USER_DATA, EVENTS_GROUPS_PAGES, OTHER, MESSAGING, INSTAGRAM, INSTAGRAM_BASIC_DISPLAY, LIVE_VIDEO, WHATSAPP, COMMERCE, INSTAGRAM_BUSINESS, THREADS
   }
 }
