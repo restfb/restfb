@@ -1,5 +1,12 @@
 # RestFB Changelog
 
+## 2025.11.0 (May 21, 2025)
+
+* Issue #1577: AdCreativeObjectStorySpec fields fixed<br />
+  Thanks to @harry-cong-wadiz for the hint
+* Issue #1579: `threads_delete` permission added
+* Issue #1580: missing fields added to `Video` type
+
 ## 2025.10.0 (May 10, 2025)
 
 * Issue #1574: Maven deployment migration<br />
