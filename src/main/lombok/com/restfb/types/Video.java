@@ -260,6 +260,14 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   private Place place;
 
   /**
+   * identifier of the post this video belongs to
+   */
+  @Getter
+  @Setter
+  @Facebook("post_id")
+  private String postId;
+
+  /**
    * The content category of this video.
    * 
    * @return The content category of this video.
@@ -406,6 +414,14 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   @Setter
   @Facebook("backdated_time_granularity")
   private String backdatedTimeGranularity;
+
+  /**
+   * Shows whether the video is eligible to be boosted or not
+   */
+  @Getter
+  @Setter
+  @Facebook("boost_eligibility_info")
+  private VideoBoostEligibilityInfo boostEligibilityInfo;
 
   /**
    * The time the video was initially published.
