@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2025.12.0 (June 03, 2025)
+
+* Issue #1584: Graph API v23.0 added
+* Issue #1585: threads_location_tagging permission added
+* Issue #1586: Location type and fields added to TdMedia
+
 ## 2025.11.0 (May 21, 2025)
 
 * Issue #1577: AdCreativeObjectStorySpec fields fixed<br />
