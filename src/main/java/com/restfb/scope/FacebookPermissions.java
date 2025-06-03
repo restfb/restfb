@@ -1121,6 +1121,16 @@ public enum FacebookPermissions {
   THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),
 
   /**
+   * The {@code threads_location_tagging} permission allows an app to search for
+   * and fetch public locations using specific queries/keywords or coordinates on
+   * behalf of a Threads user and publish media with a location tagged.
+   * <p>
+   * The allowed usage for this permission is to help users tag public locations to
+   * their posts and request locations when media is retrieved
+   */
+  THREADS_LOCATION_TAGGING("threads_location_tagging", Category.THREADS),
+
+  /**
    * The {@code threads_manage_mentions} permission allows an app to fetch content where the user is mentioned in on
    * behalf of a Threads user.
    * <p>
