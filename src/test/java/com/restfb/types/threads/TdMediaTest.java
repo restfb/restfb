@@ -61,6 +61,21 @@ class TdMediaTest extends AbstractJsonMapperTests {
     assertEquals(0.55, threadsMedia.getPollAttachment().getOptionDVotesPercentage(), 0.01);
 
     assertEquals(1735772400000L, threadsMedia.getPollAttachment().getExpirationTimestamp().getTime());
+  }
 
+  @Test
+  void checkLocation() {
+    TdMedia threadsMedia = createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-location"), TdMedia.class);
+    assertNotNull(threadsMedia);
+    assertNotNull(threadsMedia.getLocation());
+    assertNotNull(threadsMedia.getLocationId());
+    assertEquals("12345", threadsMedia.getLocation().getId());
+    assertEquals("Facebook Headquarters", threadsMedia.getLocation().getName());
+    assertEquals("Menlo Park", threadsMedia.getLocation().getCity());
+    assertEquals("USA", threadsMedia.getLocation().getCountry());
+    assertEquals("94025", threadsMedia.getLocation().getPostalCode());
+    assertEquals("1 Hacker Way", threadsMedia.getLocation().getAddress());
+    assertEquals(37.48375115774628d, threadsMedia.getLocation().getLatitude());
+    assertEquals(-122.14892131843617d, threadsMedia.getLocation().getLongitude());
   }
 }

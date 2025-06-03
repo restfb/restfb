@@ -160,6 +160,22 @@ public class TdMedia extends FacebookType {
   @Facebook("alt_text")
   private String altText;
 
+  /**
+   * The ID of the location tagged to the media.
+   */
+  @Getter
+  @Setter
+  @Facebook("location_id")
+  private String locationId;
+
+  /**
+   * The location tagged to the media.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private TdLocation location;
+
   @Getter
   @Setter
   @Facebook("allowlisted_country_codes")

@@ -1,0 +1,14 @@
+{
+  "id": "54321",
+  "location_id": "12345",
+  "location": {
+    "id": "12345",
+    "address": "1 Hacker Way",
+    "name": "Facebook Headquarters",
+    "city": "Menlo Park",
+    "country": "USA",
+    "latitude": 37.48375115774628,
+    "longitude": -122.14892131843617,
+    "postal_code": "94025"
+  }
+}
