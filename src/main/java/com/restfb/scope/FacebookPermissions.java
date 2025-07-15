@@ -1113,6 +1113,15 @@ public enum FacebookPermissions {
   THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),
 
   /**
+   * The {@code }threads_profile_discovery} permission allows an app to access profiles for public Threads accounts
+   * and public posts of these accounts.
+   * <p>
+   * The allowed usage for this permission is to allow the app's users to find profiles of public Threads
+   * accounts and public posts of these accounts to conduct competitor analyses.
+   */
+  THREADS_PROFILE_DISCOVERY("threads_profile_discovery", Category.THREADS),
+
+  /**
    * The {@code threads_read_replies} permission allows an app to read replies to a user's thread.
    * <p>
    * The allowed usage for this permission is to get replies to a thread owned by the app user. You may also use this
