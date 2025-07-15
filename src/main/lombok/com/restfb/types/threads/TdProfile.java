@@ -73,4 +73,12 @@ public class TdProfile extends AbstractFacebookType {
   @Setter
   @Facebook("threads_biography")
   private String threadsBiography;
+
+  /**
+   * Returns true if the user is verified on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_verified")
+  private Boolean isVerified;
 }
