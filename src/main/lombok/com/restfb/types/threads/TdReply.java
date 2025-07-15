@@ -160,10 +160,8 @@ public class TdReply extends FacebookType {
   private Boolean isReply;
 
   /**
-   * {@code true} if your user is the owner of the Threads reply.
-   * <br>
-   * {@code false} if another user is the owner of the
-   * Threads reply.
+   * {@code true} if your user is the owner of the Threads reply. <br>
+   * {@code false} if another user is the owner of the Threads reply.
    */
   @Getter
   @Setter
@@ -191,6 +189,10 @@ public class TdReply extends FacebookType {
   }
 
   public enum TdReplyAudience {
-    EVERYONE, ACCOUNTS_YOU_FOLLOW, MENTIONED_ONLY
+    EVERYONE, //
+    ACCOUNTS_YOU_FOLLOW, //
+    MENTIONED_ONLY, //
+    PARENT_POST_AUTHOR_ONLY, //
+    FOLLOWERS_ONLY
   }
 }
