@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2025.13.0 (July 15, 2025)
+
+* Issue #1598: `threads_profile_discovery` permission added
+* Issue #1590: `threads_business_basic` permission added
+* Issue #1596: `is_verified` added to `TdProfile`
+* Issue #1597: TdReplyAudience values added
+* dependencies updated
+
 ## 2025.12.0 (June 03, 2025)
 
 * Issue #1584: Graph API v23.0 added
