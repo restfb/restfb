@@ -1037,6 +1037,17 @@ public enum FacebookPermissions {
   THREADS_BASIC("threads_basic", Category.THREADS),
 
   /**
+   * The threads_business_basic permission allows an app to fetch the Threads account ID that is connected to
+   * an Instagram account.
+   * <p>
+   * The allowed usage for this permission is to retrieve a Threads account ID to use as
+   * the {@code }threads_user_id} during the creation of ads on Threads. You may also use this permission to
+   * request analytics insights to improve your app and for marketing or advertising purposes, through the use of
+   * aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
+   */
+  THREADS_BUSINESS_BASIC("threads_business_basic", Category.THREADS),
+
+  /**
    * The {@code threads_content_publish} permission allows an app to create and publish content on behalf of a Threads
    * profile.
    * <p>
