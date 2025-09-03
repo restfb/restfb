@@ -43,6 +43,14 @@ public class IgUser extends NamedFacebookType {
   private static final long serialVersionUID = 1L;
 
   /**
+   * Descriptive text for images, for accessibility.
+   */
+  @Getter
+  @Setter
+  @Facebook("alt_text")
+  private String altText;
+
+  /**
    * Biography of the user
    */
   @Getter
@@ -75,12 +83,30 @@ public class IgUser extends NamedFacebookType {
   private Long followsCount;
 
   /**
+   * Indicates whether your app user's Instagram professional
+   * account has a profile picture.
+   */
+  @Getter
+  @Setter
+  @Facebook("has_profile_pic")
+  private Boolean hasProfilePic;
+
+  /**
    * Ig Id of the user
    */
   @Getter
   @Setter
   @Facebook("ig_id")
   private Long igId;
+
+  /**
+   * Indicates whether your app user's Instagram account is published.
+   * Available for Page-backed Instagram accounts.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_published")
+  private Boolean isPublished;
 
   /**
    * Instagram Id of the Instagram API with Instagram login user
@@ -108,12 +134,30 @@ public class IgUser extends NamedFacebookType {
   private String accountType;
 
   /**
+   * Your app user's Instagram ID that was created for Marketing API
+   * endpoints for v21.0 and older. Available for Page-backed Instagram accounts.
+   */
+  @Getter
+  @Setter
+  @Facebook("legacy_instagram_user_id")
+  private String legacyInstagramUserId;
+
+  /**
    * The cdn url to query the raw profile picture of the user
    */
   @Getter
   @Setter
   @Facebook("profile_picture_url")
   private String profilePictureUrl;
+
+  /**
+   * Returns true if your app user has set up an Instagram
+   * Shop and is therefore eligible for product tagging, otherwise returns false.
+   */
+  @Getter
+  @Setter
+  @Facebook("shopping_product_tag_eligibility")
+  private Boolean shoppingProductTagEligibility;
 
   /**
    * Username handle of the user
@@ -144,6 +188,10 @@ public class IgUser extends NamedFacebookType {
   public Connection<IgMedia> getMediaConnection() {
     return mediaConnection;
   }
+
+  @Getter
+  @Facebook("connected_threads_user")
+  private Connection<IgUserConnectedThreadsUser> connectedThreadsUser;
 
   public List<Insight> getInsights() {
     return Collections.unmodifiableList(insights);
@@ -189,4 +237,5 @@ public class IgUser extends NamedFacebookType {
 
     return null;
   }
+
 }
