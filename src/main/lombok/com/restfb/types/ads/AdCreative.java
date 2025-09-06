@@ -161,6 +161,22 @@ public class AdCreative extends NamedAdsObject {
   @Facebook("image_crops")
   private AdsImageCrops imageCrops;
 
+  @Getter
+  @Setter
+  @Deprecated
+  @Facebook("effective_instagram_story_id")
+  private String effectiveInstagramStoryId;
+
+  @Getter
+  @Setter
+  @Facebook("effective_object_story_id")
+  private String effectiveObjectStoryId;
+
+  @Getter
+  @Setter
+  @Facebook("effective_instagram_media_id")
+  private String effectiveInstagramMediaId;
+
   /**
    * Image hash for an image you can use in creatives.
    *
