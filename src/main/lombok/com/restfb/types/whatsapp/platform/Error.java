@@ -41,6 +41,11 @@ public class Error {
   @Getter
   @Setter
   @Facebook
+  private String type;
+
+  @Getter
+  @Setter
+  @Facebook
   private String message;
 
   @Getter
@@ -52,6 +57,11 @@ public class Error {
   @Setter
   @Facebook("error_data")
   private Data errorData;
+
+  @Getter
+  @Setter
+  @Facebook("fbtrace_id")
+  private String fbTraceId;
 
   public static class Data {
 

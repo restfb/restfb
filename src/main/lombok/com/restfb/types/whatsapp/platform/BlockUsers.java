@@ -21,55 +21,24 @@
  */
 package com.restfb.types.whatsapp.platform;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class SuccessfulResponse extends AbstractFacebookType {
+import java.util.List;
+
+public class BlockUsers extends AbstractFacebookType {
+
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @Setter
-  @Facebook("messaging_product")
-  private String messagingProduct;
+  @Facebook("added_users")
+  private List<SuccessfulResponse.MessageContact> addedUsers;
 
   @Getter
   @Setter
-  @Facebook
-  private List<MessageContact> contacts = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private List<MessageResponse> messages = new ArrayList<>();
-
-  @Getter
-  @Setter
-  @Facebook
-  private BlockUsers blockUsers;
-
-  public static class MessageResponse extends AbstractFacebookType {
-
-    @Getter
-    @Setter
-    @Facebook
-    private String id;
-  }
-
-  public static class MessageContact extends AbstractFacebookType {
-
-    @Getter
-    @Setter
-    @Facebook
-    private String input;
-
-    @Getter
-    @Setter
-    @Facebook("wa_id")
-    private String waId;
-  }
+  @Facebook("failed_users")
+  private List<SuccessfulResponse.MessageContact> failedUsers;
 }
