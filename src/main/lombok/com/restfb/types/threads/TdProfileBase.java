@@ -22,46 +22,27 @@
 package com.restfb.types.threads;
 
 import com.restfb.Facebook;
-
+import com.restfb.types.AbstractFacebookType;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-app-scoped-user-s-profile-information">Threads profile</a>
- */
-public class TdProfile extends TdProfileBase {
+public class TdProfileBase extends AbstractFacebookType {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  /**
-   * Instagram user ID. This is returned by default.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String id;
+    /**
+     * Handle or unique username on Threads. This is the same as the username on Instagram.
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String username;
 
-  /**
-   * URL of the user's profile picture on Threads.
-   */
-  @Getter
-  @Setter
-  @Facebook("threads_profile_picture_url")
-  private String threadsProfilePictureUrl;
-
-  /**
-   * Biography text on Threads profile.
-   */
-  @Getter
-  @Setter
-  @Facebook("threads_biography")
-  private String threadsBiography;
-
-  /**
-   * Returns true if the user is verified on Threads.
-   */
-  @Getter
-  @Setter
-  @Facebook("is_verified")
-  private Boolean isVerified;
+    /**
+     * name of the Threads profile
+     */
+    @Getter
+    @Setter
+    @Facebook
+    private String name;
 }

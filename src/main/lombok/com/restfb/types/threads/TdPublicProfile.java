@@ -22,40 +22,33 @@
 package com.restfb.types.threads;
 
 import com.restfb.Facebook;
-
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-app-scoped-user-s-profile-information">Threads profile</a>
+ * Represents the Threads public profile.
+ * <p>
+ * <a href="https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-user-s-public-profile-information">Threads reference</a>
  */
-public class TdProfile extends TdProfileBase {
+public class TdPublicProfile extends TdProfileBase {
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * Instagram user ID. This is returned by default.
-   */
-  @Getter
-  @Setter
-  @Facebook
-  private String id;
 
   /**
    * URL of the user's profile picture on Threads.
    */
   @Getter
   @Setter
-  @Facebook("threads_profile_picture_url")
-  private String threadsProfilePictureUrl;
+  @Facebook("profile_picture_url")
+  private String profilePictureUrl;
 
   /**
    * Biography text on Threads profile.
    */
   @Getter
   @Setter
-  @Facebook("threads_biography")
-  private String threadsBiography;
+  @Facebook
+  private String biography;
 
   /**
    * Returns true if the user is verified on Threads.
@@ -64,4 +57,45 @@ public class TdProfile extends TdProfileBase {
   @Setter
   @Facebook("is_verified")
   private Boolean isVerified;
+
+  /**
+   * Returns the number of followers on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("follower_count")
+  private Integer followerCount;
+
+  /**
+   * Returns the number of likes on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("likes_count")
+  private Integer likesCount;
+
+  /**
+   * Returns the number of quotes on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("quotes_count")
+  private Integer quotesCount;
+
+  /**
+   * Returns the number of reposts on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("reposts_count")
+  private Integer repostsCount;
+
+  /**
+   * Returns the number of views on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("views_count")
+  private Integer viewsCount;
+
 }
