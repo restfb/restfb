@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2025.14.0 (September 7, 2025)
+
+* Issue #1521: WhatsApp Block users support
+* Issue #1601: Threads public profile added
+* Issue #1535 and #1609: AdCreative missing fields added
+* Issue #1607: IgUser missing fields added
+* dependencies updated
+
 ## 2025.13.0 (July 15, 2025)
 
 * Issue #1598: `threads_profile_discovery` permission added
