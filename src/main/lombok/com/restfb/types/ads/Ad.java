@@ -23,6 +23,7 @@ package com.restfb.types.ads;
 
 import java.util.*;
 
+import com.restfb.Connection;
 import com.restfb.Facebook;
 import com.restfb.types.features.HasCreatedTime;
 
@@ -87,7 +88,7 @@ public class Ad extends NamedAdsObject implements HasCreatedTime {
   @Facebook("conversion_specs")
   private List<ConversionActionQuery> conversionSpecs = new ArrayList<>();
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -172,6 +173,16 @@ public class Ad extends NamedAdsObject implements HasCreatedTime {
   @Setter
   @Facebook("updated_time")
   private Date updatedTime;
+
+  @Getter
+  @Setter
+  @Facebook("adcreatives")
+  private Connection<AdCreative> adCreatives;
+
+  @Getter
+  @Setter
+  @Facebook("insights")
+  private Connection<AdsInsights> adInsights;
 
   @Facebook
   private List<TargetingSentenceLine> targetingsentencelines = new ArrayList<>();
