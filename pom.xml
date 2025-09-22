@@ -20,7 +20,7 @@
     <version.junit>5.13.4</version.junit>
     <version.lombok>1.18.40</version.lombok>
     <version.mockito>5.20.0</version.mockito>
-    <version.assertj>3.27.4</version.assertj>
+    <version.assertj>3.27.6</version.assertj>
     <version.slf4j>[1.7.32,)</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
 
