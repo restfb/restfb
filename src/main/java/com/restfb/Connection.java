@@ -53,6 +53,7 @@ public class Connection<T> implements Iterable<List<T>> {
   private String beforeCursor;
   private String afterCursor;
   private String order;
+  private String json;
   private T typedSummary;
 
   /**
@@ -147,20 +148,25 @@ public class Connection<T> implements Iterable<List<T>> {
   @SuppressWarnings("unchecked")
   public Connection(FacebookClient facebookClient, String json, Class<T> connectionType) {
     JsonObject jsonObject;
+    this.json = json;
 
     try {
-      jsonObject = Optional.ofNullable(json).map(j -> Json.parse(j).asObject()).orElseThrow(() -> new FacebookJsonMappingException("You must supply non-null connection JSON."));
+      jsonObject = Optional.ofNullable(json).map(j -> Json.parse(j).asObject())
+        .orElseThrow(() -> new FacebookJsonMappingException("You must supply non-null connection JSON."));
     } catch (ParseException e) {
       throw new FacebookJsonMappingException("The connection JSON you provided was invalid: " + json, e);
     }
 
     // Pull out data
     if (!jsonObject.contains("data")) {
-      throw new FacebookJsonMappingException("The connection JSON does not contain a data field, maybe it is no connection");
+      throw new FacebookJsonMappingException(
+        "The connection JSON does not contain a data field, maybe it is no connection");
     }
     JsonArray jsonData = jsonObject.get("data").asArray();
-    List<T> dataItem = jsonData.valueStream().map(jsonValue -> connectionType.equals(JsonObject.class) ? (T) jsonValue
-            : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType)).collect(Collectors.toList());
+    List<T> dataItem = jsonData.valueStream()
+      .map(jsonValue -> connectionType.equals(JsonObject.class) ? (T) jsonValue
+          : facebookClient.getJsonMapper().toJavaObject(jsonValue.toString(), connectionType))
+      .collect(Collectors.toList());
 
     // Pull out paging info, if present
     if (jsonObject.contains("paging")) {
@@ -182,7 +188,7 @@ public class Connection<T> implements Iterable<List<T>> {
     if (jsonObject.contains("summary")) {
       JsonObject jsonSummary = jsonObject.get("summary").asObject();
       totalCount = jsonSummary.contains("total_count") ? jsonSummary.getLong("total_count", 0L) : null;
-      order = jsonSummary.getString("order","");
+      order = jsonSummary.getString("order", "");
 
       // special handling to fill the typed summary (used by ad insights for example)
       try {
@@ -302,9 +308,9 @@ public class Connection<T> implements Iterable<List<T>> {
   /**
    * return the typed summary.
    * <p>
-   * For some connections, there is summary object that contains almost the same fields as the
-   * type that is used in the connection. For example ad insights fill the summary that way (if you use the
-   * right query parameter)
+   * For some connections, there is summary object that contains almost the same fields as the type that is used in the
+   * connection. For example ad insights fill the summary that way (if you use the right query parameter)
+   * 
    * @return the typed summary, may be null
    */
   public T getTypedSummary() {
@@ -312,14 +318,25 @@ public class Connection<T> implements Iterable<List<T>> {
   }
 
   private String fixProtocol(String pageUrl) {
-    return Optional.ofNullable(pageUrl).filter(s -> s.startsWith("http://")).map(s -> s.replaceFirst("http://", "https://")).orElse(pageUrl);
+    return Optional.ofNullable(pageUrl).filter(s -> s.startsWith("http://"))
+      .map(s -> s.replaceFirst("http://", "https://")).orElse(pageUrl);
   }
 
   /**
    * replace the current facebookclient with the new one.
-   * @param facebookClient the new FacebookClient
+   * 
+   * @param facebookClient
+   *          the new FacebookClient
    */
   public void replaceFacebookClient(FacebookClient facebookClient) {
     this.facebookClient = facebookClient;
+  }
+
+  /**
+   * returns the JSON this connection is based on, it can be used for debug logs for example
+   * @return JSON as String the connection is based on
+   */
+  public String getJson() {
+    return json;
   }
 }
