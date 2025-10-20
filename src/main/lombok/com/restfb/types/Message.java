@@ -150,12 +150,32 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
   @Facebook
   private Boolean unseen;
 
+  @Getter
+  @Setter
+  @Facebook("reply_to")
+  private ReplyTo replyTo;
+
   @Facebook("tags")
   private transient String rawTags;
 
   private List<String> tags = new ArrayList<>();
 
   private static final long serialVersionUID = 1L;
+
+  public static class ReplyTo extends FacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String mid;
+
+    @Getter
+    @Setter
+    @Facebook("is_self_reply")
+    private Boolean isSelfReply;
+  }
 
   /**
    * Represents an attached file that you may find on a private message.
