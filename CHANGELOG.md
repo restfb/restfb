@@ -1,5 +1,14 @@
 # RestFB Changelog
 
+## 2025.15.0 (October 20, 2025)
+
+* Issue #1612: Missing `Connections` added to `Ad` object
+* Issue #1613: Missing `Connections` added to `Ads Business` object
+* Issue #1621: Graph API 24.0 - enum value added
+* Issue #1622: Graph API 24.0 - `is_owner` added to `Conversation`
+* Issue #1620: Make JSON in `Connection` accessible
+* Issue #1611: lombok lib updated
+
 ## 2025.14.0 (September 7, 2025)
 
 * Issue #1521: WhatsApp Block users support
