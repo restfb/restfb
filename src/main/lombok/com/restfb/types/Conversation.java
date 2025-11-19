@@ -134,6 +134,14 @@ public class Conversation extends FacebookType {
   @Facebook
   private String wallpaper;
 
+  /**
+   * Indicates whether the app making this request is the thread owner responsible for replying to the conversation
+   */
+  @Getter
+  @Setter
+  @Facebook("is_owner")
+  private Boolean isOwner;
+
   @Facebook
   private List<Tag> tags = new ArrayList<>();
 

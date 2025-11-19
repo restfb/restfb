@@ -5,7 +5,7 @@
   <artifactId>restfb</artifactId>
   <packaging>jar</packaging>
   <name>RestFB</name>
-  <version>2025.15.0-SNAPSHOT</version>
+  <version>2025.16.0-SNAPSHOT</version>
   <description>RestFB is a simple and flexible Facebook Graph API client written in Java.</description>
   <url>http://restfb.com</url>
   <inceptionYear>2010</inceptionYear>
@@ -19,7 +19,7 @@
     <!-- dependency versions -->
     <version.junit>5.13.4</version.junit>
     <version.lombok>1.18.40</version.lombok>
-    <version.mockito>5.19.0</version.mockito>
+    <version.mockito>5.20.0</version.mockito>
     <version.assertj>3.27.4</version.assertj>
     <version.slf4j>[1.7.32,)</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
@@ -391,7 +391,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.11.3</version>
+            <version>3.12.0</version>
             <configuration>
               <linksource>true</linksource>
               <doclint>none</doclint>
@@ -425,7 +425,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.11.3</version>
+            <version>3.12.0</version>
             <configuration>
               <linksource>true</linksource>
               <links>
