@@ -1,0 +1,21 @@
+{
+  "open_graph_story": {
+    "start_time": "2018-07-07T04:35:18+0000",
+    "type": "sellers.rates",
+    "data": {
+      "is_hidden": false,
+      "seller": {
+        "id": "130533530354972",
+        "title": "Jasper's Market",
+        "type": "seller",
+        "url": "https://www.facebook.com/JaspersMarket/"
+      },
+      "recommendation_type": "positive"
+    },
+    "id": "10150030749305470"
+  },
+  "created_time": "2018-07-07T04:35:18+0000",
+  "has_rating": false,
+  "has_review": false,
+  "recommendation_type": "positive"
+}

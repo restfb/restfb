@@ -1,0 +1,36 @@
+{
+  "id": "1234567898765432",
+  "ids_for_apps": {
+    "data": [
+      {
+        "id": "987654321",
+        "app": {
+          "id": "123456789085756",
+          "app_name": "Test App"
+        }
+      }
+    ]
+  },
+  "ids_for_business": {
+    "data": [
+      {
+        "id": "987654321",
+        "app": {
+          "id": "123456789085756",
+          "app_name": "Test App"
+        }
+      }
+    ]
+  },
+  "ids_for_pages": {
+    "data": [
+      {
+        "id": "987654321",
+        "page": {
+          "id": "123456789085756",
+          "name": "Tester Page"
+        }
+      }
+    ]
+  }
+}

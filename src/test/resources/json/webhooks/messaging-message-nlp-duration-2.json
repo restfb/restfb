@@ -1,0 +1,84 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1546990162637,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1546990161827,
+          "message": {
+            "mid": "a6z41gZb04lWvf1Pa2iKsi67x9QLy11IvvcmREsiaAFDr",
+            "seq": 4414,
+            "text": "I think this takes 2 hours",
+            "nlp": {
+              "entities": {
+                "duration": [
+                  {
+                    "confidence": 1,
+                    "value": 2,
+                    "hour": 2,
+                    "type": "value",
+                    "unit": "hour",
+                    "normalized": {
+                      "value": 7200,
+                      "unit": "second"
+                    },
+                    "_entity": "duration",
+                    "_body": "2 hours",
+                    "_start": 19,
+                    "_end": 26
+                  }
+                ],
+                "sentiment": [
+                  {
+                    "confidence": 0.61417030192353,
+                    "value": "neutral",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.19328645137047,
+                    "value": "positive",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.19254320450378,
+                    "value": "negative",
+                    "_entity": "sentiment"
+                  }
+                ],
+                "bye": [
+                  {
+                    "confidence": 0.00031932256936482,
+                    "value": "true",
+                    "_entity": "bye"
+                  }
+                ],
+                "thanks": [
+                  {
+                    "confidence": 3.5137828891136e-5,
+                    "value": "true",
+                    "_entity": "thanks"
+                  }
+                ],
+                "greetings": [
+                  {
+                    "confidence": 0.0017430032081684,
+                    "value": "true",
+                    "_entity": "greetings"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

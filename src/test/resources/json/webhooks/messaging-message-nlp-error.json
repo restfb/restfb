@@ -1,0 +1,33 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "692521420913831",
+      "time": 1546532206632,
+      "messaging": [
+        {
+          "sender": {
+            "id": "1886939548028072"
+          },
+          "recipient": {
+            "id": "692521420913831"
+          },
+          "timestamp": 1546532206372,
+          "message": {
+            "mid": "t8Z18hGWisXFy90yYBRHwnOwRWDDf7jJyJdxFrmLryLNJTyS7eBGQOrzuKbVtlDqlYf7WgtMkgshUzwUfznHcg",
+            "seq": 177139,
+            "text": "For security reasons this isn't the actual text the chatbot application received. Nontheless I counted the chars and it had more than 1024 chars like the error states.",
+            "nlp": {
+              "errors": [
+                {
+                  "code": "msg-invalid",
+                  "message": "Message is either too short or too long (max is 1024)"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

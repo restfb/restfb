@@ -1,5 +1,220 @@
 # RestFB Changelog
 
+## 2.21.0 (May 9, 2019)
+
+* Issue #993: Missing fields added to `StoryAttachment`
+* Issue #994: `VideoPoll` type added
+
+## 2.20.0 (May 1, 2019)
+
+* Graph API 3.3:
+   * Issue #989: Version enum changed
+   * Issue #990: deprecated fields in `Post` type
+   * Issue #991: conversation webhook is deprecated now
+* Issue #987: Graph API 2.8 marked as deprecated
+* Issue #988: `priorMessage` field added to `MessagingItem`<br />
+  Thanks to @chaas for the hint
+* Issue #983: Facebook Marketing API rate limitation (Ad Account Level Limits)<br />
+  Thanks to @mikron for the hint
+* Issue #980 and #981: Video type checked and missing fields added
+* Issue #979: `AdCreativeLinkDataChildAttachment.place_data` should be an Object<br />
+  Thanks to @AdrianMF for the hint
+* Issue #982: correct bid strategy enum names<br />
+  Thanks to @Vanley for the PR
+* Issue #986: introduce `issues_info` field on `ad-set` and `campaign`<br />
+  Thanks to @Vanley for the PR
+
+## 2.19.0 (April 5, 2019)
+
+* Issue #972: code of conduct added
+* Issue #975: waffle.io badge removed
+* Issue #973: multiple JSON fields with same name fixed<br />
+  Thanks to @thevietto for the hint
+
+## 2.18.1 (March 9, 2019)
+
+* Issue #970: `FacebookJsonMappingException` when fetching `Hours` object of a childpage<br />
+  Thanks to @mknoebel for the hint and the example JSON
+
+## 2.18.0 (February 19, 2019)
+
+* Issue #953: underscore fields added to NLP entity types
+* Issue #967: `overall_star_rating` and `rating_count` fields added to `Page` type<br />
+  Thanks to @AvielNiego for the hint
+* Issue #965: `FacebookJsonMappingException` when fetching page object hours<br />
+  Thanks to @AvielNiego for the hint
+* Issue #966: connection iterator fixed<br />
+  Thanks to @amanduggal for the hint
+
+## 2.17.0 (February 10, 2019)
+
+* Issue #959: Missing AdSet Targeting field added<br />
+  Thanks to @AndreaFalcon for the hint
+* Issue #960: More Ad types added and some fixed
+* Issue #961: API version annotation added
+* Issue #962: undefined change values added<br />
+  Thanks to @thevietto for the hint and the JSONs
+* Issue #963: licence information changed to 2019
+
+## 2.16.0 (January 25, 2019)
+
+* Issue #956: Some missing fields added to ads classes<br />
+  Thanks to @AndreaFalcon for the hint
+* Issue #957: `UrlPayload` crash for building image attachment<br />
+  Thanks to @nitrag for the hint and the tests
+
+## 2.15.0 (January 11, 2019)
+
+* Issue #950: osgi bundlor replaced
+* Issue #952: missing NLP entities added
+* Issue #951: error field added to `NlpResult`<br />
+  Thanks to @RedEagle for the hint and the example
+
+## 2.14.0 (December 24, 2018)
+
+* Issue #944: minimal-json updated to latest code
+* Issue #948: lead_retrieval permission added
+* Issue #945: unit test coverage improved
+
+## 2.13.0 (December 4, 2018)
+
+* Documentation improvement
+  * Issue #936 - Improve "Setting persistent menu" section<br />
+  Thanks to @eximius313 for the hints
+  * Issue #935 - Improve "Setting a Welcome Message" section<br />
+  Thanks to @eximius313 for the hints
+* `DefaulJsonMapper` improved
+  * Issue #938 - extract short circuit methods
+  * Issue #939 - remove the `JsonMappingErrorHandler`
+* Issue #930 - Post `sponsor_tags` field missing
+* Issue #928 - unversioned constructors removed from `DefaultFacebookClient`  
+
+## 2.12.0 (October 25, 2018)
+
+* Issue #922: Cleanup old Graph API versions
+* Issue #924: Graph API 3.2: add version to enum<br />
+  Thanks to @pcornelissen for the PR
+
+## 2.11.0 (October 9, 2018)
+
+* Issue #911: remove ant description from readme
+* Issue #912: Webhook JSON for new recommendation
+* Issue #915: Place.class improvement with new fields<br />
+  Thanks to @egemenozkan for the hint
+* Issue #916: Infinite loop while fetching next page<br />
+  Thanks to @CrWEE for the hint the analysis
+* Issue #920: Set Graph API version 2.7 to deprecated
+* Issue #919: Added tasks field to Account<br />
+  Thanks to @juvirez for the PR
+
+## 2.10.0 (September 15, 2018)
+
+* Issue #908: Deployment improved
+* Issue #909: Connection should construct next & prev page URLs from cursors as a fallback<br />
+  Thanks to @mrhota for the hint
+
+## 2.9.0 (August 21, 2018)
+
+* Issue #902: Report parameter values when throwing<br />
+  Thanks to @pkoivisto for the PR 
+* Issue #905: `publish_video` permission added<br />
+  Thanks to @mekya for the hint 
+* Issue #904: Changes for the new "recommendations" feature
+
+## 2.8.0 (August 3, 2018)
+
+* Graph API 3.1
+  * Issue #899: basic support
+  * Issue #900: `LiveVideo` replace `type` with `source` field 
+
+## 2.7.0 (July 8, 2018)
+
+* Issue #892 - `LIKES_ADD` missing for user object in webhook<br />
+  Thanks to Mikhail (Facebook DM) for the hint
+* Issue #893 - Add `user` webhook change value that contains a link to a page
+
+## 2.6.0 (June 1, 2018)
+
+* Issue #889 - switch to java 7
+* Issue #890 - replace old custom base 64 implementation
+* Issue #888 - improved exception logging
+
+## 2.5.0 (May 4, 2018)
+
+* Graph API 3.0
+  * Issue #885: Basic support
+  * Issue #886: Permissions added and cleanup
+* Issue #882: new field to instagram comments/replies<br />
+  Thanks to @amanduggal for the hint and PR
+* Cleanup:
+  * Issue #881: picture conversion helper added 
+  * Issue #880: `Date` mapping added
+  * Issue #877: old readonly API removed
+* Issue #876: version 2.5 is deprecated now
+* Issue #879: `getCaptions()` method throws NPE in `Video` object when `captions` is null<br />
+  Thanks to @CrWEE for the hint
+* Issue #878: Some `OpenGraphRating` fields mapped with extra quotation marks<br />
+  Thanks to @CrWEE for the hint
+
+## 2.4.0 (April 6, 2018)
+
+* Issue #865: Add logging formatter for JUL
+* Issue #868: Support for Instagram Content Publish Scope<br />
+  Thanks to @AndreaFalcon for the hint
+* Issue #870: Deserialisation issue with JsonNumber<br />
+  Thanks to @ErfanMaybe for the hint
+* Issue #872: Improve deserialisation according to #870
+* Issue #873: Check April 2018 breaking changes
+
+## 2.3.0 (March 4, 2018)
+
+* Instagram support
+  * Issue #854: add `instagram_business_account` to Page type
+  * Issue #855: create `IgUser` type
+  * Issue #856: `IgMedia` type
+  * Issue #859: webhook objects
+  * Issue #857: `IgComment` type
+  * Issue #858: missing connections added
+  * Issue #851: Request for support of Facebook Instagram API<br />
+    Thanks to @martinmalek for the hint
+
+* Messenger Platform 2.3 changes
+  * Issue #861: Phone and email quick replies
+  * Issue #862: Request thread control for the Handover Protocol
+
+## 2.2.0 (February 20, 2018)
+
+* Issue #845: Graph API 2.12 enum added
+* Issue #846: Graph API 2.12 - marked field in `Event` type as deprecated
+* Issue #847: `screennames` added to `Page` type<br />
+  Thanks to @joelforessottile for the hint
+* Issue #848: old eclipse stuff removed<br />
+  Thanks to @ghost for the hint
+* Issue #849: missing id lists added to `User` type<br />
+  Thanks to @JB4GH for the hint
+* Issue #701: Solution for integration testing without make the endpoint urls changeable
+* Issue #850: Add invitable friends to `User` type
+* Issue #852: Add instagram permissions  
+
+## 2.1.1 (January 28, 2018)
+
+* Issue #844: fix "bundlor" problem
+
+## 2.1.0 (January 28, 2018)
+
+* Issue #834: directories restructured
+* Issue #836: Copyright year changed to 2018
+* Issue #837: `canReplyPrivately` added to `Post` type<br />
+  Thanks to @dmtar for the hint
+* Issue #838: `DefaultFacebookClient.fetchObjects()` uses Json array<br />
+  Thanks to @grumseren for the hint and analysis
+
+## 2.0.0 (December 11, 2017)
+
+* Issue #833: Facebook Messenger - builtin NLP entities added<br />
+  Thanks to @RedEagle for the hint
+* Issue #830: Git branches reorganized
+
 ## 2.0.0-rc.4 (December 2, 2017)
 
 * Issue #791: README.md cleanup
