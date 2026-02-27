@@ -1,0 +1,78 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "349489628480201",
+      "time": 1546990123728,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1546990122890,
+          "message": {
+            "mid": "SRpovOEJmrwZL-rgr3dDqC67x9QLy11Ivvcm",
+            "seq": 4412,
+            "text": "https:\/\/restfb.com\/documentation\/#using-webhooks",
+            "nlp": {
+              "entities": {
+                "url": [
+                  {
+                    "confidence": 1,
+                    "domain": "restfb.com",
+                    "value": "https:\/\/restfb.com\/documentation\/#using-webhooks",
+                    "_entity": "url",
+                    "_body": "https:\/\/restfb.com\/documentation\/#using-webhooks",
+                    "_start": 0,
+                    "_end": 48
+                  }
+                ],
+                "sentiment": [
+                  {
+                    "confidence": 0.84869444044603,
+                    "value": "neutral",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.14460352815807,
+                    "value": "positive",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.006702071181273,
+                    "value": "negative",
+                    "_entity": "sentiment"
+                  }
+                ],
+                "bye": [
+                  {
+                    "confidence": 0.017367651965069,
+                    "value": "true",
+                    "_entity": "bye"
+                  }
+                ],
+                "thanks": [
+                  {
+                    "confidence": 0.015556841988714,
+                    "value": "true",
+                    "_entity": "thanks"
+                  }
+                ],
+                "greetings": [
+                  {
+                    "confidence": 0.19807172201743,
+                    "value": "true",
+                    "_entity": "greetings"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

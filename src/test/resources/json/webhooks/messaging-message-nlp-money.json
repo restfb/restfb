@@ -1,0 +1,41 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1501623673034,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1501623672530,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0QQm0ldn77eaCVEy",
+            "seq": 2435,
+            "text": "This costs 4.56 EUR",
+            "nlp": {
+              "entities": {
+                "amount_of_money": [
+                  {
+                    "confidence": 1,
+                    "value": 4.56,
+                    "type": "value",
+                    "unit": "EUR",
+                    "_entity": "amount_of_money",
+                    "_body": "4.56 EUR",
+                    "_start": 11,
+                    "_end": 19
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

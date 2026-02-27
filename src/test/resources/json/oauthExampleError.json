@@ -1,0 +1,12 @@
+{
+  "error": {
+    "message": "An unknown error occurred",
+    "type": "OAuthException",
+    "code": 1,
+    "error_subcode": 1965014,
+    "is_transient": false,
+    "error_user_title": "Fundraisers Have a 90 Day Limit",
+    "error_user_msg": "Please choose another end date.",
+    "fbtrace_id": "EmOAvxDPlF2"
+  }
+}

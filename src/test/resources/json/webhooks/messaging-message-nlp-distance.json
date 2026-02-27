@@ -1,0 +1,41 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1501623673034,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1501623672530,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0QQm0ldn77eaCVEy",
+            "seq": 2435,
+            "text": "Saabruecken is about 20km away",
+            "nlp": {
+              "entities": {
+                "distance": [
+                  {
+                    "confidence": 0.968075,
+                    "value": 20,
+                    "type": "value",
+                    "unit": "kilometre",
+                    "_entity": "distance",
+                    "_body": "20km",
+                    "_start": 20,
+                    "_end": 24
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
