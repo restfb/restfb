@@ -1,0 +1,23 @@
+{
+  "place": {
+    "overall_rating": 3.8,
+    "location": {
+      "city": "Saarbrücken",
+      "country": "Germany",
+      "latitude": 49.2349091,
+      "longitude": 6.9965,
+      "street": "Rathausplatz 1",
+      "zip": "66111"
+    },
+    "name": "Ratskeller Saarbrücken",
+    "id": "182964801750573"
+  },
+  "owner": {
+    "name": "Steffen Böttcher",
+    "id": "10205317217155673"
+  },
+  "start_time": "2015-11-12T19:00:00+0100",
+  "attending_count": 52,
+  "name": "Dia Vortrag \"Logbuch New York\" im Ratskeller Saarbrücken",
+  "id": "432719480252832"
+}

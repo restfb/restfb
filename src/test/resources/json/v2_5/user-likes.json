@@ -1,0 +1,34 @@
+{
+  "likes": {
+    "data": [
+      {
+        "name": "Facebook",
+        "id": "197589525931",
+        "created_time": "2015-12-10T09:58:39+0000"
+      },
+      {
+        "name": "Remonopoly",
+        "id": "502336136609078",
+        "created_time": "2015-12-07T10:41:18+0000"
+      },
+      {
+        "name": "Restfb",
+        "id": "909653922461664",
+        "created_time": "2015-10-10T14:39:50+0000"
+      },
+      {
+        "name": "Drobo",
+        "id": "54443011765",
+        "created_time": "2015-03-02T16:44:56+0000"
+      }
+    ],
+    "paging": {
+      "cursors": {
+        "before": "MTQ5OTczMDYyMDMxNTU5OAZDZD",
+        "after": "MTQxNzI3ODAyNTM5OTY4"
+      },
+      "next": "https://graph.facebook.com/v2.5/1234567654/likes?access_token=TOKEN&pretty=0&summary=1&limit=25&after=MTQxNzI3ODAyNTM5OTY4"
+    }
+  },
+  "id": "987654321"
+}

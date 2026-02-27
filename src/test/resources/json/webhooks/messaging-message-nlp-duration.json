@@ -1,0 +1,115 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1501623673034,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1501623672530,
+          "message": {
+            "mid": "mid.$cAAFnKHM6z25j0QQm0ldn77eaCVEy",
+            "seq": 2435,
+            "text": "I need 1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds and 7 milliseconds",
+            "nlp": {
+              "entities": {
+                "duration": [
+                  {
+                    "confidence": 1,
+                    "value": 1,
+                    "year": 1,
+                    "unit": "year",
+                    "normalized": {
+                      "value": 31536000,
+                      "unit": "second"
+                    },
+                    "_entity": "duration",
+                    "_body": "1 year",
+                    "_start": 7,
+                    "_end": 13
+                  },
+                  {
+                    "confidence": 1,
+                    "value": 2,
+                    "month": 2,
+                    "unit": "month",
+                    "normalized": {
+                      "value": 5184000,
+                      "unit": "second"
+                    },
+                    "_entity": "duration",
+                    "_body": "2 months",
+                    "_start": 15,
+                    "_end": 23
+                  },
+                  {
+                    "confidence": 1,
+                    "value": 3,
+                    "day": 3,
+                    "unit": "day",
+                    "normalized": {
+                      "value": 259200,
+                      "unit": "second"
+                    },
+                    "_entity": "duration",
+                    "_body": "3 days",
+                    "_start": 25,
+                    "_end": 31
+                  },
+                  {
+                    "confidence": 0.943785,
+                    "value": 4,
+                    "hour": 4,
+                    "unit": "hour",
+                    "normalized": {
+                      "value": 14400,
+                      "unit": "second"
+                    },
+                    "_entity": "duration",
+                    "_body": "hours",
+                    "_start": 35,
+                    "_end": 40
+                  },
+                  {
+                    "confidence": 0.967975,
+                    "value": 5,
+                    "minute": 5,
+                    "unit": "minute",
+                    "normalized": {
+                      "value": 300,
+                      "unit": "second"
+                    },
+                    "_entity": "duration",
+                    "_body": "5 minutes",
+                    "_start": 42,
+                    "_end": 51
+                  },
+                  {
+                    "confidence": 0.964505,
+                    "second": 6,
+                    "value": 6,
+                    "unit": "second",
+                    "normalized": {
+                      "value": 6,
+                      "unit": "second"
+                    },
+                    "_entity": "duration",
+                    "_body": "6 seconds",
+                    "_start": 53,
+                    "_end": 62
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

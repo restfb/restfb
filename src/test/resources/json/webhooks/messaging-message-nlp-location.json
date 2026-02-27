@@ -1,0 +1,126 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "349489628480201",
+      "time": 1546989996409,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1546989995572,
+          "message": {
+            "mid": "OJNsdcNtKglZvaa3FlPKYy67x9QLy11Ivvc",
+            "seq": 4408,
+            "text": "Can we meet in Los Angeles?",
+            "nlp": {
+              "entities": {
+                "location": [
+                  {
+                    "confidence": 0.935215,
+                    "value": "Los Angeles",
+                    "resolved": {
+                      "values": [
+                        {
+                          "name": "Los Angeles",
+                          "grain": "locality",
+                          "type": "resolved",
+                          "timezone": "America\/Los_Angeles",
+                          "coords": {
+                            "lat": 34.052230834961,
+                            "long": -118.24368286133
+                          },
+                          "external": {
+                            "geonames": "5368361",
+                            "wikidata": "Q65",
+                            "wikipedia": "Los Angeles"
+                          }
+                        },
+                        {
+                          "name": "Los Angeles County",
+                          "grain": "region",
+                          "type": "resolved",
+                          "timezone": "America\/Los_Angeles",
+                          "coords": {
+                            "lat": 34.198009490967,
+                            "long": -118.2610168457
+                          },
+                          "external": {
+                            "geonames": "5368381",
+                            "wikidata": "Q104994",
+                            "wikipedia": "Los Angeles County, California"
+                          }
+                        },
+                        {
+                          "name": "Los \u00c1ngeles",
+                          "grain": "locality",
+                          "type": "resolved",
+                          "timezone": "America\/Santiago",
+                          "coords": {
+                            "lat": -37.469730377197,
+                            "long": -72.353660583496
+                          },
+                          "external": {
+                            "geonames": "3882428",
+                            "wikidata": "Q16910",
+                            "wikipedia": "Los \u00c1ngeles, Chile"
+                          }
+                        }
+                      ]
+                    },
+                    "_entity": "location",
+                    "_body": "Los Angeles",
+                    "_start": 15,
+                    "_end": 26
+                  }
+                ],
+                "sentiment": [
+                  {
+                    "confidence": 0.93741196394464,
+                    "value": "neutral",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.043297759110187,
+                    "value": "positive",
+                    "_entity": "sentiment"
+                  },
+                  {
+                    "confidence": 0.019290270112076,
+                    "value": "negative",
+                    "_entity": "sentiment"
+                  }
+                ],
+                "bye": [
+                  {
+                    "confidence": 0.0002013936438763,
+                    "value": "true",
+                    "_entity": "bye"
+                  }
+                ],
+                "thanks": [
+                  {
+                    "confidence": 0.00010612223577281,
+                    "value": "true",
+                    "_entity": "thanks"
+                  }
+                ],
+                "greetings": [
+                  {
+                    "confidence": 0.00011334217466943,
+                    "value": "true",
+                    "_entity": "greetings"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

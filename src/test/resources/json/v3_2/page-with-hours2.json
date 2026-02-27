@@ -1,0 +1,15 @@
+{
+  "id": "12345678",
+  "hours": {
+    "mon_1_open": "08:00",
+    "mon_1_close": "16:00",
+    "tue_1_open": "08:00",
+    "tue_1_close": "16:00",
+    "wed_1_open": "08:00",
+    "wed_1_close": "16:00",
+    "thu_1_open": "08:00",
+    "thu_1_close": "16:00",
+    "fri_1_open": "08:00",
+    "fri_1_close": "16:00"
+  }
+}
