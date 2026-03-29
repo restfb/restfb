@@ -10,3 +10,6 @@ updates:
     ignore:
       - dependency-name: "org.apache.felix:maven-bundle-plugin"
         update-types: ["version-update:semver-major"]
+      # JUnit 6 requires Java 17+, but the project still targets Java 11.
+      - dependency-name: "version.junit"
+        update-types: ["version-update:semver-major"]
