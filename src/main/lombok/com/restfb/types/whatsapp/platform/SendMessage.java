@@ -41,6 +41,11 @@ public class SendMessage extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
+  private String recipient;
+
+  @Getter
+  @Setter
+  @Facebook
   private Context context;
 
   @Getter
@@ -82,8 +87,27 @@ public class SendMessage extends AbstractFacebookType {
   @Facebook("messaging_product")
   private final String messagingProduct = "whatsapp";
 
+  public SendMessage() {
+  }
+
   public SendMessage(String to) {
     setTo(to);
+  }
+
+  public static SendMessage toPhone(String to) {
+    return new SendMessage(to);
+  }
+
+  public static SendMessage toRecipient(String recipient) {
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setRecipient(recipient);
+    return sendMessage;
+  }
+
+  public static SendMessage toPhoneAndRecipient(String to, String recipient) {
+    SendMessage sendMessage = new SendMessage(to);
+    sendMessage.setRecipient(recipient);
+    return sendMessage;
   }
 
   public void setReaction(Reaction reaction) {

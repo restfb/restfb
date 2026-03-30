@@ -27,6 +27,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import com.restfb.AbstractJsonMapperTests;
 import com.restfb.DefaultJsonMapper;
 import com.restfb.JsonMapper;
 import com.restfb.testutils.AssertJson;
@@ -34,7 +35,7 @@ import com.restfb.types.whatsapp.platform.send.*;
 import com.restfb.types.whatsapp.platform.send.contact.*;
 import com.restfb.types.whatsapp.platform.send.interactive.*;
 
-class SendMessageTest {
+class SendMessageTest extends AbstractJsonMapperTests {
 
   @Test
   void checkReaction() {
@@ -61,6 +62,39 @@ class SendMessageTest {
     AssertJson.assertEquals(
       "{\"to\":\"12345678\",\"image\":{\"link\":\"https://restfb.com/img/favicon.png\"},\"type\":\"image\",\"messaging_product\":\"whatsapp\"}",
       mappedMessage);
+  }
+
+  @Test
+  void checkPhoneFactory() {
+    SendMessage message = SendMessage.toPhone("+16505551234");
+    message.setText(new Text("hello via phone"));
+
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
+
+    AssertJson.assertEquals(jsonFromClasspath("whatsapp/send-message-phone-only"), mappedMessage);
+  }
+
+  @Test
+  void checkRecipientFactory() {
+    SendMessage message = SendMessage.toRecipient("US.13491208655302741918");
+    message.setText(new Text("hello via bsuid"));
+
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
+
+    AssertJson.assertEquals(jsonFromClasspath("whatsapp/send-message-recipient-only"), mappedMessage);
+  }
+
+  @Test
+  void checkPhoneAndRecipientFactory() {
+    SendMessage message = SendMessage.toPhoneAndRecipient("+16505551234", "US.13491208655302741918");
+    message.setText(new Text("hello with fallback"));
+
+    JsonMapper mapper = new DefaultJsonMapper();
+    String mappedMessage = mapper.toJson(message, true);
+
+    AssertJson.assertEquals(jsonFromClasspath("whatsapp/send-message-to-and-recipient"), mappedMessage);
   }
 
   @Test

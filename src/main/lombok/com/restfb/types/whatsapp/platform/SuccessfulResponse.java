@@ -71,5 +71,10 @@ public class SuccessfulResponse extends AbstractFacebookType {
     @Setter
     @Facebook("wa_id")
     private String waId;
+
+    @Getter
+    @Setter
+    @Facebook("user_id")
+    private String userId;
   }
 }

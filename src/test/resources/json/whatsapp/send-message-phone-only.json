@@ -1,0 +1,8 @@
+{
+  "to": "+16505551234",
+  "text": {
+    "body": "hello via phone"
+  },
+  "type": "text",
+  "messaging_product": "whatsapp"
+}
