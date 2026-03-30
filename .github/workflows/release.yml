@@ -46,17 +46,17 @@ jobs:
       - run: echo "previous_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo '')" >> $GITHUB_ENV
       - name: Generate Release Changelog
         id: changelog
-        uses: jaywcjlove/changelog-generator@main
+        uses: jaywcjlove/changelog-generator@8e2e0cff25d4500fb7cc4c7c87f0733b8f80ff5b # main
         if: env.previous_tag
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create javadoc zip
-        uses: vimtor/action-zip@v1
+        uses: vimtor/action-zip@5f1c4aa587ea41db1110df6a99981dbe19cee310 # v1
         with:
           files: target/reports/apidocs
           dest: javadoc.zip
       - name: Create Github Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v1
         with:
           files: |
             target/restfb*.jar
