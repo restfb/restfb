@@ -1,0 +1,19 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "102290129340398",
+      "time": 1749416383,
+      "changes": [
+        {
+          "field": "business_username_update",
+          "value": {
+            "display_phone_number": "15550783881",
+            "username": "acme_support",
+            "status": "approved"
+          }
+        }
+      ]
+    }
+  ]
+}

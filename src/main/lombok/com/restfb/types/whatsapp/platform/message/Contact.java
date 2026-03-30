@@ -37,6 +37,16 @@ public class Contact extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("user_id")
+  private String userId;
+
+  @Getter
+  @Setter
+  @Facebook("parent_user_id")
+  private String parentUserId;
+
+  @Getter
+  @Setter
   @Facebook
   private Profile profile;
 }

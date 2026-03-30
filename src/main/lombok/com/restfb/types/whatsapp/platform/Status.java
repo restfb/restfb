@@ -60,6 +60,31 @@ public class Status extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("recipient_user_id")
+  private String recipientUserId;
+
+  @Getter
+  @Setter
+  @Facebook("parent_recipient_user_id")
+  private String parentRecipientUserId;
+
+  @Getter
+  @Setter
+  @Facebook("recipient_participant_id")
+  private String recipientParticipantId;
+
+  @Getter
+  @Setter
+  @Facebook("recipient_participant_user_id")
+  private String recipientParticipantUserId;
+
+  @Getter
+  @Setter
+  @Facebook("recipient_participant_parent_user_id")
+  private String recipientParticipantParentUserId;
+
+  @Getter
+  @Setter
   @Facebook
   private StatusType status;
 

@@ -71,6 +71,16 @@ public class Message extends AbstractFacebookType {
 
   @Getter
   @Setter
+  @Facebook("from_user_id")
+  private String fromUserId;
+
+  @Getter
+  @Setter
+  @Facebook("from_parent_user_id")
+  private String fromParentUserId;
+
+  @Getter
+  @Setter
   @Facebook
   private String id;
 
@@ -98,6 +108,11 @@ public class Message extends AbstractFacebookType {
   @Setter
   @Facebook
   private Referral referral;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String origin;
 
   @Getter
   @Setter
@@ -138,6 +153,11 @@ public class Message extends AbstractFacebookType {
   @Setter
   @Facebook
   private List<MessageContact> contacts = new ArrayList<>();
+
+  @Getter
+  @Setter
+  @Facebook("group_id")
+  private String groupId;
 
   /**
    * An arbitrary 256B string, useful for tracking (optional).

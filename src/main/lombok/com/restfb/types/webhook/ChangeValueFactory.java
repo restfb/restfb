@@ -190,8 +190,10 @@ public class ChangeValueFactory {
     PHONE_NUMBER_QUALITY_UPDATE(PhoneNumberQualityUpdateValue.class), //
     ACCOUNT_UPDATE(AccountUpdateValue.class), //
     ACCOUNT_REVIEW_UPDATE(AccountReviewUpdateValue.class),//
+    BUSINESS_USERNAME_UPDATE(BusinessUsernameUpdateValue.class), //
 
     // Whatsapp Business Platform
+    USER_ID_UPDATE_WHATSAPP(UserIdUpdateValue.class), //
     MESSAGES_WHATSAPP(WhatsappMessagesValue.class);
 
     private Class<ChangeValue> valueClass;

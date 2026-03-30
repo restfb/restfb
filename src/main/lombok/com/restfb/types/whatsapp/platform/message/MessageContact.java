@@ -44,6 +44,11 @@ public class MessageContact extends AbstractFacebookType {
   @Getter
   @Setter
   @Facebook
+  private String vcard;
+
+  @Getter
+  @Setter
+  @Facebook
   private List<ContactPhone> phones;
 
   public static class ContactName extends AbstractFacebookType {

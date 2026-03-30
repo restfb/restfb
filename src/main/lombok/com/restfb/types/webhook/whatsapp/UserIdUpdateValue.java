@@ -19,34 +19,67 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform.status;
+package com.restfb.types.webhook.whatsapp;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
+import com.restfb.types.whatsapp.platform.Metadata;
+import com.restfb.types.whatsapp.platform.message.Contact;
 
 import lombok.Getter;
-import lombok.Setter;
 
-public class Pricing extends AbstractFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook("pricing_model")
-  private String pricingModel;
+public class UserIdUpdateValue extends AbstractWhatsappBaseChangeValue {
 
   @Getter
-  @Setter
+  @Facebook("messaging_product")
+  private String messagingProduct;
+
+  @Getter
   @Facebook
-  private boolean billable;
+  private Metadata metadata;
 
   @Getter
-  @Setter
   @Facebook
-  private CategoryType category;
+  private List<Contact> contacts = new ArrayList<>();
 
   @Getter
-  @Setter
-  @Facebook
-  private String type;
+  @Facebook("user_id_update")
+  private List<UserIdUpdateItem> userIdUpdate = new ArrayList<>();
 
+  public static class UserIdUpdateItem {
+
+    @Getter
+    @Facebook("wa_id")
+    private String waId;
+
+    @Getter
+    @Facebook
+    private String detail;
+
+    @Getter
+    @Facebook("user_id")
+    private ChangedId userId;
+
+    @Getter
+    @Facebook("parent_user_id")
+    private ChangedId parentUserId;
+
+    @Getter
+    @Facebook
+    private Date timestamp;
+  }
+
+  public static class ChangedId {
+
+    @Getter
+    @Facebook
+    private String previous;
+
+    @Getter
+    @Facebook
+    private String current;
+  }
 }
