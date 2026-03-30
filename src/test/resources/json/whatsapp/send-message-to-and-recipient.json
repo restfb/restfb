@@ -1,0 +1,9 @@
+{
+  "to": "+16505551234",
+  "recipient": "US.13491208655302741918",
+  "text": {
+    "body": "hello with fallback"
+  },
+  "type": "text",
+  "messaging_product": "whatsapp"
+}

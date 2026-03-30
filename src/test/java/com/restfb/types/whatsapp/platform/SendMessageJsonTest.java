@@ -23,6 +23,7 @@ package com.restfb.types.whatsapp.platform;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,5 +42,31 @@ class SendMessageJsonTest extends AbstractJsonMapperTests {
     assertEquals("wamid.foobar", response.getMessages().get(0).getId());
     assertEquals("123456789", response.getContacts().get(0).getInput());
     assertEquals("123456789", response.getContacts().get(0).getWaId());
+  }
+
+  @Test
+  void checkSuccessfulResponseWithBsuid() {
+    SuccessfulResponse response =
+        createJsonMapper().toJavaObject(jsonFromClasspath("whatsapp/message-response-bsuid"), SuccessfulResponse.class);
+    assertNotNull(response);
+    assertEquals("whatsapp", response.getMessagingProduct());
+    assertEquals(1, response.getContacts().size());
+    assertEquals(1, response.getMessages().size());
+    assertEquals("wamid.foobar", response.getMessages().get(0).getId());
+    assertEquals("US.13491208655302741918", response.getContacts().get(0).getInput());
+    assertNull(response.getContacts().get(0).getWaId());
+    assertEquals("US.13491208655302741918", response.getContacts().get(0).getUserId());
+  }
+
+  @Test
+  void checkSuccessfulResponseWithPhonePrecedence() {
+    SuccessfulResponse response = createJsonMapper().toJavaObject(
+        jsonFromClasspath("whatsapp/message-response-phone-precedence"), SuccessfulResponse.class);
+    assertNotNull(response);
+    assertEquals("whatsapp", response.getMessagingProduct());
+    assertEquals(1, response.getContacts().size());
+    assertEquals("+16505551234", response.getContacts().get(0).getInput());
+    assertEquals("16505551234", response.getContacts().get(0).getWaId());
+    assertNull(response.getContacts().get(0).getUserId());
   }
 }
