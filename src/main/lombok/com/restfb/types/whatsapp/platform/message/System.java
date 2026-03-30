@@ -63,6 +63,22 @@ public class System extends AbstractFacebookType {
   private String waId;
 
   /**
+   * New business-scoped user ID for the customer when their phone number is updated.
+   */
+  @Getter
+  @Setter
+  @Facebook("user_id")
+  private String userId;
+
+  /**
+   * New parent business-scoped user ID for the customer when their phone number is updated.
+   */
+  @Getter
+  @Setter
+  @Facebook("parent_user_id")
+  private String parentUserId;
+
+  /**
    * Type of system update.
    */
   @Getter

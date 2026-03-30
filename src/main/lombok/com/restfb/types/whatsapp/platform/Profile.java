@@ -33,4 +33,9 @@ public class Profile extends AbstractFacebookType {
   @Setter
   @Facebook
   private String name;
+
+  @Getter
+  @Setter
+  @Facebook
+  private String username;
 }

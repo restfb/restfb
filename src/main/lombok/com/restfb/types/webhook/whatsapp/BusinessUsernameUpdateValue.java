@@ -19,34 +19,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.whatsapp.platform.status;
+package com.restfb.types.webhook.whatsapp;
 
 import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
-import lombok.Setter;
 
-public class Pricing extends AbstractFacebookType {
-
-  @Getter
-  @Setter
-  @Facebook("pricing_model")
-  private String pricingModel;
+public class BusinessUsernameUpdateValue extends AbstractWhatsappBaseChangeValue {
 
   @Getter
-  @Setter
+  @Facebook("display_phone_number")
+  private String displayPhoneNumber;
+
+  @Getter
   @Facebook
-  private boolean billable;
+  private String username;
 
   @Getter
-  @Setter
   @Facebook
-  private CategoryType category;
-
-  @Getter
-  @Setter
-  @Facebook
-  private String type;
-
+  private String status;
 }

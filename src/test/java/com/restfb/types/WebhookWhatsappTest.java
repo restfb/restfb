@@ -31,6 +31,8 @@ import com.restfb.types.webhook.WebhookEntry;
 import com.restfb.types.webhook.WebhookObject;
 import com.restfb.types.webhook.whatsapp.*;
 import com.restfb.types.whatsapp.platform.Message;
+import com.restfb.types.whatsapp.platform.Status;
+import com.restfb.types.whatsapp.platform.message.Contact;
 import com.restfb.types.whatsapp.platform.message.Error;
 import com.restfb.types.whatsapp.platform.message.MessageContact;
 import com.restfb.types.whatsapp.platform.message.MessageType;
@@ -106,6 +108,34 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void businessUsernameUpdateApproved() {
+    BusinessUsernameUpdateValue change =
+        getWHObjectFromJson("webhook-businessUsernameUpdate-approved", BusinessUsernameUpdateValue.class);
+    assertThat(change.getDisplayPhoneNumber()).isEqualTo("15550783881");
+    assertThat(change.getUsername()).isEqualTo("acme_support");
+    assertThat(change.getStatus()).isEqualTo("approved");
+  }
+
+  @Test
+  void userIdUpdate() {
+    UserIdUpdateValue change = getWHObjectFromJson("webhook-userIdUpdate", UserIdUpdateValue.class);
+    assertThat(change.getMessagingProduct()).isEqualTo("whatsapp");
+    assertThat(change.getContacts()).hasSize(1);
+    assertThat(change.getContacts().get(0).getWaId()).isEqualTo("16505551234");
+    assertThat(change.getUserIdUpdate()).hasSize(1);
+    UserIdUpdateValue.UserIdUpdateItem update = change.getUserIdUpdate().get(0);
+    assertThat(update.getWaId()).isEqualTo("16505551234");
+    assertThat(update.getDetail()).isEqualTo("User id for Sheena Nelson has been updated.");
+    assertThat(update.getUserId()).isNotNull();
+    assertThat(update.getUserId().getPrevious()).isEqualTo("US.10101010101010101010");
+    assertThat(update.getUserId().getCurrent()).isEqualTo("US.13491208655302741918");
+    assertThat(update.getParentUserId()).isNotNull();
+    assertThat(update.getParentUserId().getPrevious()).isEqualTo("US.ENT.10101010101010101010");
+    assertThat(update.getParentUserId().getCurrent()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(update.getTimestamp()).isNotNull();
+  }
+
+  @Test
   void messageContacts() {
     WhatsappMessagesValue messagesValue =
         getWHObjectFromJson("webhook-incoming-message-contacts", WhatsappMessagesValue.class);
@@ -163,6 +193,101 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
     assertThat(message.getErrors()).hasSize(1);
     Error error = message.getErrors().get(0);
     assertThat(error.getErrorData()).isNotNull();
+  }
+
+  @Test
+  void incomingMessageWithBsuidFields() {
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-text-bsuid", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getContacts()).hasSize(1);
+    Contact contact = messagesValue.getContacts().get(0);
+    assertThat(contact.getWaId()).isNull();
+    assertThat(contact.getUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(contact.getParentUserId()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(contact.getProfile()).isNotNull();
+    assertThat(contact.getProfile().getName()).isEqualTo("Sheena Nelson");
+    assertThat(contact.getProfile().getUsername()).isEqualTo("@realsheenanelson");
+
+    assertThat(messagesValue.getMessages()).hasSize(1);
+    Message message = messagesValue.getMessages().get(0);
+    assertThat(message.getFrom()).isNull();
+    assertThat(message.getFromUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(message.getFromParentUserId()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(message.getGroupId()).isEqualTo("120363418770915618@g.us");
+    assertThat(message.getType()).isEqualTo(MessageType.text);
+    assertThat(message.getText()).isNotNull();
+    assertThat(message.getText().getBody()).isEqualTo("Does it come in another color?");
+  }
+
+  @Test
+  void statusMessageWithBsuidFields() {
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-status-bsuid", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getContacts()).hasSize(1);
+    Contact contact = messagesValue.getContacts().get(0);
+    assertThat(contact.getWaId()).isNull();
+    assertThat(contact.getUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(contact.getParentUserId()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(contact.getProfile()).isNotNull();
+    assertThat(contact.getProfile().getName()).isEqualTo("Pablo M.");
+    assertThat(contact.getProfile().getUsername()).isEqualTo("@pablomorales");
+
+    assertThat(messagesValue.getStatuses()).hasSize(1);
+    Status status = messagesValue.getStatuses().get(0);
+    assertThat(status.getRecipientId()).isNull();
+    assertThat(status.getRecipientUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(status.getParentRecipientUserId()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(status.getPricing()).isNotNull();
+    assertThat(status.getPricing().getType()).isEqualTo("regular");
+  }
+
+  @Test
+  void groupStatusMessageWithBsuidFields() {
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-status-group-bsuid", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getStatuses()).hasSize(1);
+    Status status = messagesValue.getStatuses().get(0);
+    assertThat(status.getRecipientId()).isEqualTo("120363418770915618@g.us");
+    assertThat(status.getRecipientParticipantId()).isEqualTo("16505551234");
+    assertThat(status.getRecipientParticipantUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(status.getRecipientParticipantParentUserId()).isEqualTo("US.ENT.11815799212886844830");
+  }
+
+  @Test
+  void systemMessageWithBsuidFields() {
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-system-bsuid", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getMessages()).hasSize(1);
+    Message message = messagesValue.getMessages().get(0);
+    assertThat(message.isSystem()).isTrue();
+    assertThat(message.getSystem().getWaId()).isNull();
+    assertThat(message.getSystem().getUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(message.getSystem().getParentUserId()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(message.getSystem().getType()).isEqualTo("user_changed_user_id");
+    assertThat(message.getSystem().getBody())
+        .isEqualTo("User Sheena Nelson changed from US.10101010101010101010 to US.13491208655302741918");
+  }
+
+  @Test
+  void contactsRequestMessageWithBsuidFields() {
+    WhatsappMessagesValue messagesValue =
+        getWHObjectFromJson("webhook-incoming-message-contacts-request-bsuid", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getContacts()).hasSize(1);
+    Contact contact = messagesValue.getContacts().get(0);
+    assertThat(contact.getUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(contact.getParentUserId()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(contact.getProfile()).isNotNull();
+    assertThat(contact.getProfile().getUsername()).isEqualTo("@realsheenanelson");
+
+    assertThat(messagesValue.getMessages()).hasSize(1);
+    Message message = messagesValue.getMessages().get(0);
+    assertThat(message.getType()).isEqualTo(MessageType.contacts);
+    assertThat(message.getOrigin()).isEqualTo("contact_request/other");
+    assertThat(message.getContacts()).hasSize(1);
+    MessageContact messageContact = message.getContacts().get(0);
+    assertThat(messageContact.getVcard()).contains("BEGIN:VCARD");
+    assertThat(messageContact.getPhones()).hasSize(1);
+    assertThat(messageContact.getPhones().get(0).getPhone()).isEqualTo("15551234567");
   }
 
   private <T extends ChangeValue> T getWHObjectFromJson(String jsonName, Class<T> clazz) {
