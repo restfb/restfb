@@ -193,6 +193,7 @@ public class ChangeValueFactory {
     BUSINESS_USERNAME_UPDATE(BusinessUsernameUpdateValue.class), //
 
     // Whatsapp Business Platform
+    GROUP_PARTICIPANTS_UPDATE_WHATSAPP(GroupParticipantsUpdateValue.class), //
     USER_ID_UPDATE_WHATSAPP(UserIdUpdateValue.class), //
     MESSAGES_WHATSAPP(WhatsappMessagesValue.class);
 

@@ -1,0 +1,13 @@
+{
+  "messaging_product": "whatsapp",
+  "contacts": [
+    {
+      "input": "120363418770915618@g.us"
+    }
+  ],
+  "messages": [
+    {
+      "id": "wamid.foobar"
+    }
+  ]
+}

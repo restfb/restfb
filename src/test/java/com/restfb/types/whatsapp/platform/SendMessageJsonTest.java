@@ -69,4 +69,16 @@ class SendMessageJsonTest extends AbstractJsonMapperTests {
     assertEquals("16505551234", response.getContacts().get(0).getWaId());
     assertNull(response.getContacts().get(0).getUserId());
   }
+
+  @Test
+  void checkSuccessfulResponseWithGroupId() {
+    SuccessfulResponse response =
+        createJsonMapper().toJavaObject(jsonFromClasspath("whatsapp/message-response-group"), SuccessfulResponse.class);
+    assertNotNull(response);
+    assertEquals("whatsapp", response.getMessagingProduct());
+    assertEquals(1, response.getContacts().size());
+    assertEquals("120363418770915618@g.us", response.getContacts().get(0).getInput());
+    assertNull(response.getContacts().get(0).getWaId());
+    assertNull(response.getContacts().get(0).getUserId());
+  }
 }
