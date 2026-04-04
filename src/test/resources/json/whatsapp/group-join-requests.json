@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "join_request_id": "join-request-1",
+      "creation_timestamp": "1751210000",
+      "wa_id": "16505551234",
+      "user_id": "US.13491208655302741918",
+      "parent_user_id": "US.ENT.11815799212886844830",
+      "username": "@pablomorales"
+    },
+    {
+      "join_request_id": "join-request-2",
+      "creation_timestamp": "1751210050",
+      "user_id": "US.99887766554433221100",
+      "username": "@realsheenanelson"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "before-cursor",
+      "after": "after-cursor"
+    }
+  }
+}

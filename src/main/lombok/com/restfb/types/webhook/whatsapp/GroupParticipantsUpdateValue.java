@@ -1,0 +1,119 @@
+/*
+ * Copyright (c) 2010-2025 Mark Allen, Norbert Bartels.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package com.restfb.types.webhook.whatsapp;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.restfb.Facebook;
+import com.restfb.types.whatsapp.platform.Metadata;
+import com.restfb.types.whatsapp.platform.group.GroupParticipant;
+
+import lombok.Getter;
+import lombok.Setter;
+
+public class GroupParticipantsUpdateValue extends AbstractWhatsappBaseChangeValue {
+
+  @Getter
+  @Setter
+  @Facebook("messaging_product")
+  private String messagingProduct;
+
+  @Getter
+  @Setter
+  @Facebook
+  private Metadata metadata;
+
+  @Getter
+  @Setter
+  @Facebook
+  private List<GroupEvent> groups = new ArrayList<>();
+
+  public static class GroupEvent {
+
+    @Getter
+    @Setter
+    @Facebook
+    private Date timestamp;
+
+    @Getter
+    @Setter
+    @Facebook("group_id")
+    private String groupId;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String type;
+
+    @Getter
+    @Setter
+    @Facebook("request_id")
+    private String requestId;
+
+    @Getter
+    @Setter
+    @Facebook("initiated_by")
+    private String initiatedBy;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String reason;
+
+    @Getter
+    @Setter
+    @Facebook("join_request_id")
+    private String joinRequestId;
+
+    @Getter
+    @Setter
+    @Facebook("added_participants")
+    private List<GroupParticipant> addedParticipants = new ArrayList<>();
+
+    @Getter
+    @Setter
+    @Facebook("removed_participants")
+    private List<GroupParticipant> removedParticipants = new ArrayList<>();
+
+    @Getter
+    @Setter
+    @Facebook("wa_id")
+    private String waId;
+
+    @Getter
+    @Setter
+    @Facebook("user_id")
+    private String userId;
+
+    @Getter
+    @Setter
+    @Facebook("parent_user_id")
+    private String parentUserId;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String username;
+  }
+}

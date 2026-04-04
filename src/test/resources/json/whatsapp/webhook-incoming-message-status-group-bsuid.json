@@ -11,12 +11,24 @@
               "display_phone_number": "15550783881",
               "phone_number_id": "106540352242922"
             },
+            "contacts": [
+              {
+                "profile": {
+                  "name": "Pablo M.",
+                  "username": "@pablomorales"
+                },
+                "wa_id": "16505551234",
+                "user_id": "US.13491208655302741918",
+                "parent_user_id": "US.ENT.11815799212886844830"
+              }
+            ],
             "statuses": [
               {
                 "id": "wamid.HBgLMTY1MDM4Nzk0MzkVAgASGBQzQUFERjg0NDEzNDdFODU3MUMxMAA=",
                 "status": "read",
                 "timestamp": "1750030173",
                 "recipient_id": "120363418770915618@g.us",
+                "recipient_type": "group",
                 "recipient_participant_id": "16505551234",
                 "recipient_participant_user_id": "US.13491208655302741918",
                 "recipient_participant_parent_user_id": "US.ENT.11815799212886844830"

@@ -245,9 +245,19 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
   void groupStatusMessageWithBsuidFields() {
     WhatsappMessagesValue messagesValue =
         getWHObjectFromJson("webhook-incoming-message-status-group-bsuid", WhatsappMessagesValue.class);
+    assertThat(messagesValue.getContacts()).hasSize(1);
+    Contact contact = messagesValue.getContacts().get(0);
+    assertThat(contact.getWaId()).isEqualTo("16505551234");
+    assertThat(contact.getUserId()).isEqualTo("US.13491208655302741918");
+    assertThat(contact.getParentUserId()).isEqualTo("US.ENT.11815799212886844830");
+    assertThat(contact.getProfile()).isNotNull();
+    assertThat(contact.getProfile().getName()).isEqualTo("Pablo M.");
+    assertThat(contact.getProfile().getUsername()).isEqualTo("@pablomorales");
+
     assertThat(messagesValue.getStatuses()).hasSize(1);
     Status status = messagesValue.getStatuses().get(0);
     assertThat(status.getRecipientId()).isEqualTo("120363418770915618@g.us");
+    assertThat(status.getRecipientType()).isEqualTo("group");
     assertThat(status.getRecipientParticipantId()).isEqualTo("16505551234");
     assertThat(status.getRecipientParticipantUserId()).isEqualTo("US.13491208655302741918");
     assertThat(status.getRecipientParticipantParentUserId()).isEqualTo("US.ENT.11815799212886844830");

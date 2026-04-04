@@ -1,0 +1,83 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "102290129340398",
+      "changes": [
+        {
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "15550783881",
+              "phone_number_id": "106540352242922"
+            },
+            "groups": [
+              {
+                "timestamp": "1751210000",
+                "group_id": "120363418770915618@g.us",
+                "type": "group_participants_remove",
+                "request_id": "request-business-remove",
+                "removed_participants": [
+                  {
+                    "input": "US.13491208655302741918"
+                  }
+                ],
+                "initiated_by": "business"
+              },
+              {
+                "timestamp": "1751210050",
+                "group_id": "120363418770915618@g.us",
+                "type": "group_participants_remove",
+                "request_id": "request-participant-remove",
+                "removed_participants": [
+                  {
+                    "wa_id": "16505551234",
+                    "user_id": "US.13491208655302741918",
+                    "parent_user_id": "US.ENT.11815799212886844830",
+                    "username": "@pablomorales"
+                  }
+                ],
+                "initiated_by": "participant"
+              },
+              {
+                "timestamp": "1751210100",
+                "group_id": "120363418770915618@g.us",
+                "type": "group_participants_add",
+                "reason": "invite_link",
+                "added_participants": [
+                  {
+                    "wa_id": "16505550000",
+                    "user_id": "US.99887766554433221100",
+                    "parent_user_id": "US.ENT.00998877665544332211",
+                    "username": "@realsheenanelson"
+                  }
+                ]
+              },
+              {
+                "timestamp": "1751210150",
+                "group_id": "120363418770915618@g.us",
+                "type": "group_join_request_created",
+                "join_request_id": "join-request-1",
+                "wa_id": "16505551111",
+                "user_id": "US.11112222333344445555",
+                "parent_user_id": "US.ENT.55554444333322221111",
+                "username": "@joinrequester"
+              },
+              {
+                "timestamp": "1751210200",
+                "group_id": "120363418770915618@g.us",
+                "type": "group_join_request_revoked",
+                "join_request_id": "join-request-2",
+                "wa_id": "16505552222",
+                "user_id": "US.22223333444455556666",
+                "parent_user_id": "US.ENT.66665555444433332222",
+                "username": "@revokedrequest"
+              }
+            ]
+          },
+          "field": "group_participants_update"
+        }
+      ]
+    }
+  ]
+}
