@@ -28,9 +28,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
+import com.restfb.Connection;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.Version;
 import com.restfb.types.whatsapp.platform.group.GroupInfo;
 import com.restfb.types.whatsapp.platform.group.GroupJoinRequest;
-import com.restfb.types.whatsapp.platform.group.GroupJoinRequests;
 import com.restfb.types.whatsapp.platform.group.GroupParticipant;
 
 class GroupApiJsonTest extends AbstractJsonMapperTests {
@@ -59,14 +61,13 @@ class GroupApiJsonTest extends AbstractJsonMapperTests {
 
   @Test
   void checkGroupJoinRequests() {
-    GroupJoinRequests joinRequests =
-        createJsonMapper().toJavaObject(jsonFromClasspath("whatsapp/group-join-requests"), GroupJoinRequests.class);
+    Connection<GroupJoinRequest> joinRequests =
+        new Connection<>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("whatsapp/group-join-requests"),
+            GroupJoinRequest.class);
     assertNotNull(joinRequests);
     assertEquals(2, joinRequests.getData().size());
-    assertNotNull(joinRequests.getPaging());
-    assertNotNull(joinRequests.getPaging().getCursors());
-    assertEquals("before-cursor", joinRequests.getPaging().getCursors().getBefore());
-    assertEquals("after-cursor", joinRequests.getPaging().getCursors().getAfter());
+    assertEquals("before-cursor", joinRequests.getBeforeCursor());
+    assertEquals("after-cursor", joinRequests.getAfterCursor());
 
     GroupJoinRequest firstRequest = joinRequests.getData().get(0);
     assertEquals("join-request-1", firstRequest.getJoinRequestId());
