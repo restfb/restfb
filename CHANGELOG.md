@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 2026.2.0 (April 19, 2026)
+
+* Issue #1645: Support for new business scoped user ids in whatsapp<br />
+  Thanks to @bert-walschap-hs for the hint
+* Issue #1655: support groups api payloads
+* some build dependency updates
+
 ## 2026.1.0 (February 19, 2026)
 
 * Issue #1526: Java baseline switched to Java 11
