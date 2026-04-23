@@ -116,6 +116,12 @@ class MessageTest extends AbstractJsonMapperTests {
     assertThat(attachment.getImageData()).isNull();
     assertThat(attachment.getVideoData()).isNull();
     assertThat(attachment.getFileUrl()).isNull();
+
+    List<Message> messageList =
+        createJsonMapper().toJavaList(jsonFromClasspath("v2_5/messages-with-attachments"), Message.class);
+    Message.Attachment nonGenericAttachment = messageList.get(0).getAttachments().get(0);
+    assertThat(nonGenericAttachment.isGenericTemplate()).isFalse();
+    assertThat(nonGenericAttachment.getGenericTemplate()).isNull();
   }
 
   @Test
