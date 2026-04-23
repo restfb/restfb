@@ -1,6 +1,8 @@
 # RestFB Changelog
 
-## Unreleased
+## 2026.3.0 (April 23, 2026)
+
+* Issue #1657: generic_template attachment in message
 
 ## 2026.2.0 (April 19, 2026)
 
