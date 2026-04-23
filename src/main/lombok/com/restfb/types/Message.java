@@ -243,6 +243,16 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     private VideoData videoData;
 
     /**
+     * When the attachment is a generic template, Facebook returns title, subtitle, media URL and CTA metadata.
+     *
+     * @return The attachment's generic template data.
+     */
+    @Getter
+    @Setter
+    @Facebook("generic_template")
+    private GenericTemplate genericTemplate;
+
+    /**
      * returns if the attachment is an image
      * 
      * @return true if the attachment is an image, false otherwise
@@ -261,6 +271,15 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
     }
 
     /**
+     * returns if the attachment is a generic template
+     *
+     * @return true if the attachment is a generic template, false otherwise
+     */
+    public boolean isGenericTemplate() {
+      return null != genericTemplate;
+    }
+
+    /**
      * returns if the attachment is a placeholder for the real attachment, that is not accessible via API due to privacy
      * rules in Europe
      *
@@ -272,6 +291,57 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
       return "1234".equals(getId());
     }
 
+  }
+
+  /**
+   * Additional attachment information, only present when the attachment is a generic template.
+   */
+  public static class GenericTemplate extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String title;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String subtitle;
+
+    @Getter
+    @Setter
+    @Facebook("media_url")
+    private String mediaUrl;
+
+    @Getter
+    @Setter
+    @Facebook
+    private GenericTemplateCallToAction cta;
+  }
+
+  /**
+   * Call-to-action metadata included in a generic template attachment.
+   */
+  public static class GenericTemplateCallToAction extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String title;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String type;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String url;
   }
 
   /**
