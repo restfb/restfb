@@ -96,6 +96,29 @@ class MessageTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void messageWithGenericTemplateAttachment() {
+    Message exampleMessage =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/message-with-generic-template"), Message.class);
+
+    assertThat(exampleMessage).isNotNull();
+    assertThat(exampleMessage.getAttachments()).hasSize(1);
+
+    Message.Attachment attachment = exampleMessage.getAttachments().get(0);
+    assertThat(attachment.isGenericTemplate()).isTrue();
+    assertThat(attachment.getGenericTemplate()).isNotNull();
+    assertThat(attachment.getGenericTemplate().getTitle()).isEqualTo("Featured product");
+    assertThat(attachment.getGenericTemplate().getSubtitle()).isEqualTo("Limited edition release");
+    assertThat(attachment.getGenericTemplate().getMediaUrl()).isEqualTo("https://example.org/item.png");
+    assertThat(attachment.getGenericTemplate().getCta()).isNotNull();
+    assertThat(attachment.getGenericTemplate().getCta().getTitle()).isEqualTo("View item");
+    assertThat(attachment.getGenericTemplate().getCta().getType()).isEqualTo("web_url");
+    assertThat(attachment.getGenericTemplate().getCta().getUrl()).isEqualTo("https://example.org/item");
+    assertThat(attachment.getImageData()).isNull();
+    assertThat(attachment.getVideoData()).isNull();
+    assertThat(attachment.getFileUrl()).isNull();
+  }
+
+  @Test
   void v10_instagram() {
     Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-message"), Message.class);
     assertThat(exampleMessage).isNotNull();

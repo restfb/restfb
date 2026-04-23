@@ -1,0 +1,20 @@
+{
+  "id": "<MESSAGE_ID>",
+  "attachments": {
+    "data": [
+      {
+        "id": "<ATTACHMENT_ID>",
+        "generic_template": {
+          "title": "Featured product",
+          "subtitle": "Limited edition release",
+          "media_url": "https://example.org/item.png",
+          "cta": {
+            "title": "View item",
+            "type": "web_url",
+            "url": "https://example.org/item"
+          }
+        }
+      }
+    ]
+  }
+}
