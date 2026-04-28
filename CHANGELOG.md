@@ -1,5 +1,11 @@
 # RestFB Changelog
 
+## 2026.4.0 (April 28, 2026)
+
+* Issue #1662: Facebook permissions updated
+* Issue #1659: Project Lombok lib version bump
+* Issue #1661: mockito junit lib version bump
+
 ## 2026.3.0 (April 23, 2026)
 
 * Issue #1657: generic_template attachment in message
