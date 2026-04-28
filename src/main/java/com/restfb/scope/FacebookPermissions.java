@@ -302,6 +302,25 @@ public enum FacebookPermissions {
   EMAIL("email", Category.USER_DATA), //
 
   /**
+   * The {@code facebook_branded_content_ads_brand} permission allows an app to read Facebook posts where the app user's
+   * Facebook profile is tagged as a paid partner, and allows the app user to read, request, and revoke permissions to
+   * run Partnership Ads.
+   * <p>
+   * The allowed usage for this permission is to enable a business to read Facebook posts where the account is tagged as
+   * a paid partner and manage permissions to run Partnership Ads without needing a pre-existing post.
+   */
+  FACEBOOK_BRANDED_CONTENT_ADS_BRAND("facebook_branded_content_ads_brand", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code facebook_creator_marketplace_discovery} permission allows an app to discover Facebook creators on the
+   * creator discovery platform.
+   * <p>
+   * The allowed usage for this permission is to retrieve insight data for eligible Facebook creators so businesses can
+   * discover and evaluate them for brand campaigns.
+   */
+  FACEBOOK_CREATOR_MARKETPLACE_DISCOVERY("facebook_creator_marketplace_discovery", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
    * The page_events permissions allows your app permission to log events on behalf of Facebook Pages administered by
    * people using your app and to send those events to Facebook for ads targeting, optimization and reporting.
    * <p>
@@ -455,6 +474,15 @@ public enum FacebookPermissions {
   PAGES_MESSAGING_PHONE_NUMBER("pages_messaging_phone_number", Category.MESSAGING), //
 
   /**
+   * The {@code marketing_messages_messenger} permission allows an app to create, manage, send, and view the performance
+   * of paid marketing messages in Messenger using ad accounts authorized by the app user.
+   * <p>
+   * The allowed usage for this permission is to let a business send paid marketing messages in Messenger to people who
+   * opted in to receive announcement or promotional messages from Facebook Pages managed by that business.
+   */
+  MARKETING_MESSAGES_MESSENGER("marketing_messages_messenger", Category.MESSAGING), //
+
+  /**
    * Provides the access to show the list of the Pages that you manage.
    *
    * <p>
@@ -506,6 +534,14 @@ public enum FacebookPermissions {
    * </ul>
    */
   PAGES_USER_TIMEZONE("pages_user_timezone", Category.EVENTS_GROUPS_PAGES), //
+
+  /**
+   * The {@code pages_utility_messaging} permission allows an app to access a Page's utility message templates.
+   * <p>
+   * The allowed usage for this permission is to manage a Page's utility message templates and send utility messages over
+   * Messenger.
+   */
+  PAGES_UTILITY_MESSAGING("pages_utility_messaging", Category.MESSAGING), //
 
   /**
    * The {@code pages_manage_posts} permission allows your app the ability to create, edit, and delete your Page posts.
@@ -708,6 +744,24 @@ public enum FacebookPermissions {
   LEADS_RETRIEVAL("leads_retrieval", Category.EVENTS_GROUPS_PAGES), //
 
   /**
+   * The {@code manage_app_solutions} permission allows an app to get a list of apps that a user can manage and make API
+   * calls on behalf of those apps.
+   * <p>
+   * The allowed usage for this permission is to let a business create and manage partner solutions between technology
+   * providers and solution partners.
+   */
+  MANAGE_APP_SOLUTIONS("manage_app_solutions", Category.OTHER), //
+
+  /**
+   * The {@code manage_fundraisers} permission allows an app to create, update, and read a fundraiser and its donations
+   * on behalf of a user.
+   * <p>
+   * The allowed usage for this permission is to help fundraiser creators grow their reach on Facebook and synchronize
+   * fundraising totals with a linked Facebook fundraiser.
+   */
+  MANAGE_FUNDRAISERS("manage_fundraisers", Category.OTHER), //
+
+  /**
    * This allows you to send and receive messages through a Facebook Page out of the 24h window opened by a user action.
    *
    * <p>
@@ -772,6 +826,41 @@ public enum FacebookPermissions {
   INSTAGRAM_MANAGE_COMMENTS("instagram_manage_comments", Category.INSTAGRAM),
 
   /**
+   * The {@code instagram_creator_marketplace_discovery} permission allows an app to discover creators on Instagram
+   * Creator Marketplace and access insights such as creator bio, follower count, and account reach for eligible
+   * creators.
+   * <p>
+   * The allowed usage for this permission is for eligible Instagram businesses to retrieve creator insight data for
+   * discovery and campaign evaluation.
+   */
+  INSTAGRAM_CREATOR_MARKETPLACE_DISCOVERY("instagram_creator_marketplace_discovery", Category.INSTAGRAM), //
+
+  /**
+   * The {@code instagram_creator_marketplace_messaging} permission allows an app to retrieve a brand's partner
+   * conversations and a creator's messaging ID for partner messages.
+   * <p>
+   * The allowed usage for this permission is to allow brands in Instagram Creator Marketplace to message creators as
+   * part of paid partnership campaigns.
+   */
+  INSTAGRAM_CREATOR_MARKETPLACE_MESSAGING("instagram_creator_marketplace_messaging", Category.INSTAGRAM), //
+
+  /**
+   * The {@code instagram_manage_contents} permission allows an app to delete posts, stories, or reels on behalf of an
+   * Instagram account connected to a Facebook Page.
+   * <p>
+   * The allowed usage for this permission is to let an app user delete Instagram media.
+   */
+  INSTAGRAM_MANAGE_CONTENTS("instagram_manage_contents", Category.INSTAGRAM), //
+
+  /**
+   * The {@code instagram_manage_engagement} permission allows an app to create or delete likes for Instagram media,
+   * comments, and replies on behalf of an Instagram account connected to a Facebook Page.
+   * <p>
+   * The allowed usage for this permission is to let app users manage likes on Instagram media and comment objects.
+   */
+  INSTAGRAM_MANAGE_ENGAGEMENT("instagram_manage_engagement", Category.INSTAGRAM), //
+
+  /**
    * The instagram_manage_events permission allows an app permission to log events (e.g., purchase, add-to-cart, leads)
    * on behalf of Instagram accounts administered by the app’s users. The allowed usage for this permission is to log
    * events on Instagram accounts and send this activity data to Meta for ads targeting, optimization and reporting; and
@@ -787,6 +876,14 @@ public enum FacebookPermissions {
    * </ul>
    */
   INSTAGRAM_MANAGE_EVENTS("instagram_manage_events", Category.INSTAGRAM), //
+
+  /**
+   * The {@code instagram_manage_upcoming_events} permission allows an app to read, create, and update upcoming events on
+   * behalf of Instagram accounts administered by people using the app.
+   * <p>
+   * The allowed usage for this permission is to manage upcoming events on Instagram accounts administered by app users.
+   */
+  INSTAGRAM_MANAGE_UPCOMING_EVENTS("instagram_manage_upcoming_events", Category.INSTAGRAM), //
 
   /**
    * Provides the ability to read insights of Instagram account you have access to.
@@ -950,9 +1047,11 @@ public enum FacebookPermissions {
   INSTAGRAM_BUSINESS_MANAGE_MESSAGES("instagram_business_manage_messages", Category.INSTAGRAM_BUSINESS), //
 
   /**
-   * Permission to fetch insights info:
+   * The instagram_business_manage_insights permission allows an app to fetch insights for an Instagram Business account
+   * when using Business Login for Instagram.
    * <p>
-   * According to: <a href="https://developers.facebook.com/docs/instagram-platform/insights">Instagram API</a>
+   * According to: <a href="https://developers.facebook.com/docs/instagram-platform/insights">Instagram Platform
+   * Insights</a>
    */
   INSTAGRAM_BUSINESS_MANAGE_INSIGHTS("instagram_business_manage_insights", Category.INSTAGRAM_BUSINESS), //
   /**
@@ -977,6 +1076,15 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   USER_PROFILE("user_profile", Category.INSTAGRAM_BASIC_DISPLAY), //
+
+  /**
+   * The {@code whatsapp_business_manage_events} permission allows an app to log events, such as purchases, add-to-cart
+   * actions, and leads, on behalf of a WhatsApp business account managed by an app user.
+   * <p>
+   * The allowed usage for this permission is to log events on WhatsApp business accounts and send event activity data to
+   * Meta for ads targeting, optimization, and reporting.
+   */
+  WHATSAPP_BUSINESS_MANAGE_EVENTS("whatsapp_business_manage_events", Category.WHATSAPP), //
 
   /**
    * Provides the ability to read and/or manage WhatsApp business assets you own or have been granted access to by other
@@ -1139,6 +1247,15 @@ public enum FacebookPermissions {
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
   THREADS_READ_REPLIES("threads_read_replies", Category.THREADS),
+
+  /**
+   * The {@code threads_share_to_instagram} permission allows an app to post an app user's Threads post to their linked
+   * Instagram account on behalf of the user.
+   * <p>
+   * The allowed usage for this permission is to let a user share Threads content to their linked Instagram account, as a
+   * one-time action or automatically for future posts.
+   */
+  THREADS_SHARE_TO_INSTAGRAM("threads_share_to_instagram", Category.THREADS),
 
   /**
    * The {@code threads_location_tagging} permission allows an app to search for
