@@ -108,6 +108,83 @@ public class IgMedia extends IgMediaChild {
   private Long likeCount;
 
   /**
+   * Count of views for Instagram Reels.
+   * <p>
+   * Includes paid and organic metrics. For content crossposted to Facebook, the combined Instagram and Facebook view
+   * counts are returned if the session user can access the Facebook post. Only available for the Business Discovery API.
+   */
+  @Getter
+  @Setter
+  @Facebook("view_count")
+  private Long viewCount;
+
+  /**
+   * Count of times the media has been reposted.
+   * <p>
+   * Available for FEED and REELS media. Not accessible through Hashtag API endpoints. Only available for the Instagram
+   * API with Facebook Login.
+   */
+  @Getter
+  @Setter
+  @Facebook("reposts_count")
+  private Long repostsCount;
+
+  /**
+   * Count of times the media has been saved.
+   * <p>
+   * Available for FEED and REELS media. Only accessible to the media owner or an accepted collaborator. Not accessible
+   * through Business Discovery, tagged media, mentioned media, or Hashtag API endpoints.
+   */
+  @Getter
+  @Setter
+  @Facebook("saved_count")
+  private Long savedCount;
+
+  /**
+   * Count of times the media has been shared.
+   * <p>
+   * Available for FEED and REELS media. Not accessible through Business Discovery or Hashtag API endpoints. Only
+   * available for the Instagram API with Facebook Login.
+   */
+  @Getter
+  @Setter
+  @Facebook("shares_count")
+  private Long sharesCount;
+
+  /**
+   * Total number of comments on the media across all surfaces.
+   * <p>
+   * Includes comments on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only available
+   * for the Instagram API with Facebook Login.
+   */
+  @Getter
+  @Setter
+  @Facebook("total_comments_count")
+  private Long totalCommentsCount;
+
+  /**
+   * Total number of likes on the media across all surfaces.
+   * <p>
+   * Includes likes on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only available for
+   * the Instagram API with Facebook Login.
+   */
+  @Getter
+  @Setter
+  @Facebook("total_like_count")
+  private Long totalLikeCount;
+
+  /**
+   * Total number of views for video content across all surfaces.
+   * <p>
+   * Includes views through boosted or promoted media and replays. Only available for video media. Not accessible through
+   * Business Discovery or Hashtag API endpoints; use {@code view_count} for Business Discovery.
+   */
+  @Getter
+  @Setter
+  @Facebook("total_views_count")
+  private Long totalViewsCount;
+
+  /**
    * Media thumbnail URL. Only available on VIDEO media.
    */
   @Getter
