@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2026.5.0 (April 30, 2026)
+
+* Issue #1664: IgMedia missing fields added
+
 ## 2026.4.0 (April 28, 2026)
 
 * Issue #1662: Facebook permissions updated
