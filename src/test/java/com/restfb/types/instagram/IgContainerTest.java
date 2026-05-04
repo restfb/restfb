@@ -23,6 +23,7 @@ package com.restfb.types.instagram;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -42,5 +43,17 @@ class IgContainerTest extends AbstractJsonMapperTests {
     assertNotNull(igContainer.getCopyrightCheckStatus());
     assertEquals("completed", igContainer.getCopyrightCheckStatus().getStatus());
     assertTrue(igContainer.getCopyrightCheckStatus().getMatchesFound());
+  }
+
+  @Test
+  void checkJson_missingCopyrightCheckStatus() {
+    IgContainer igContainer = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/container_no_copyright"),
+      IgContainer.class);
+
+    assertNotNull(igContainer);
+    assertEquals("17889615691921648", igContainer.getId());
+    assertEquals("in_progress", igContainer.getStatus());
+    assertEquals("IN_PROGRESS", igContainer.getStatusCode());
+    assertNull(igContainer.getCopyrightCheckStatus());
   }
 }
