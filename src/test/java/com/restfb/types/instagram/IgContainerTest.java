@@ -21,42 +21,26 @@
  */
 package com.restfb.types.instagram;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import com.restfb.types.FacebookType;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.junit.jupiter.api.Test;
 
-/**
- * This class represents an Instagram container object.
- * It contains information about the status and status code of an Instagram object.
- */
-@Setter
-@Getter
-public class IgContainer extends FacebookType {
+import com.restfb.AbstractJsonMapperTests;
 
-    private static final long serialVersionUID = 1L;
+class IgContainerTest extends AbstractJsonMapperTests {
 
-    @Facebook
-    private String status;
+  @Test
+  void checkJson() {
+    IgContainer igContainer = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/container"), IgContainer.class);
 
-    @Facebook("status_code")
-    private String statusCode;
-
-    @Facebook("copyright_check_status")
-    private CopyrightCheckStatus copyrightCheckStatus;
-
-    @Setter
-    @Getter
-    public static class CopyrightCheckStatus extends AbstractFacebookType {
-
-        private static final long serialVersionUID = 1L;
-
-        @Facebook
-        private String status;
-
-        @Facebook("matches_found")
-        private Boolean matchesFound;
-    }
+    assertNotNull(igContainer);
+    assertEquals("17889615691921648", igContainer.getId());
+    assertEquals("FINISHED", igContainer.getStatusCode());
+    assertEquals("completed", igContainer.getStatus());
+    assertNotNull(igContainer.getCopyrightCheckStatus());
+    assertEquals("completed", igContainer.getCopyrightCheckStatus().getStatus());
+    assertTrue(igContainer.getCopyrightCheckStatus().getMatchesFound());
+  }
 }
