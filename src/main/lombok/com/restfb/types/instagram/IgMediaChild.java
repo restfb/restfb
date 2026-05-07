@@ -40,6 +40,8 @@ public class IgMediaChild extends FacebookType {
 
   /**
    * Media type. Can be CAROUSEL_ALBUM, IMAGE, or VIDEO.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -49,6 +51,8 @@ public class IgMediaChild extends FacebookType {
   /**
    * Media URL. Will be omitted from responses if the media contains copyrighted material, or has been flagged for a
    * copyright violation.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -57,6 +61,8 @@ public class IgMediaChild extends FacebookType {
 
   /**
    * Surface where the media is published. Can be AD, FEED, or STORY.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -77,6 +83,8 @@ public class IgMediaChild extends FacebookType {
 
   /**
    * Permanent URL to the media.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -93,6 +101,8 @@ public class IgMediaChild extends FacebookType {
 
   /**
    * Media thumbnail URL. Only available on VIDEO media.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -101,6 +111,8 @@ public class IgMediaChild extends FacebookType {
 
   /**
    * ISO 8601 formatted creation date in UTC (default is UTC ±00:00)
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -109,6 +121,8 @@ public class IgMediaChild extends FacebookType {
 
   /**
    * Username of user who created the media.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter

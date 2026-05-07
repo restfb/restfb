@@ -57,6 +57,8 @@ public class IgMedia extends IgMediaChild {
   /**
    * Caption. Excludes album children. The @ symbol is excluded, unless the app user can perform admin-equivalent tasks
    * on the Facebook Page connected to the Instagram account used to create the caption.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -67,6 +69,8 @@ public class IgMedia extends IgMediaChild {
    * Count of comments on the media.
    * <p>
    * Excludes comments on album child media and the media's caption. Includes replies on comments.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -101,6 +105,8 @@ public class IgMedia extends IgMediaChild {
    * <li><strong>v10.0 and older calls</strong>: value will be 0 if the media owner has hidden like counts it.</li>
    * <li><strong>v11.0+ calls</strong>: field will be omitted if media owner has hidden like counts on it.</li>
    * </ul>
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -123,6 +129,8 @@ public class IgMedia extends IgMediaChild {
    * <p>
    * Available for FEED and REELS media. Not accessible through Hashtag API endpoints. Only available for the Instagram
    * API with Facebook Login.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -134,6 +142,8 @@ public class IgMedia extends IgMediaChild {
    * <p>
    * Available for FEED and REELS media. Only accessible to the media owner or an accepted collaborator. Not accessible
    * through Business Discovery, tagged media, mentioned media, or Hashtag API endpoints.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -145,6 +155,8 @@ public class IgMedia extends IgMediaChild {
    * <p>
    * Available for FEED and REELS media. Not accessible through Business Discovery or Hashtag API endpoints. Only
    * available for the Instagram API with Facebook Login.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -156,6 +168,8 @@ public class IgMedia extends IgMediaChild {
    * <p>
    * Includes comments on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only available
    * for the Instagram API with Facebook Login.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -167,6 +181,8 @@ public class IgMedia extends IgMediaChild {
    * <p>
    * Includes likes on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only available for
    * the Instagram API with Facebook Login.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -178,6 +194,8 @@ public class IgMedia extends IgMediaChild {
    * <p>
    * Includes views through boosted or promoted media and replays. Only available for video media. Not accessible through
    * Business Discovery or Hashtag API endpoints; use {@code view_count} for Business Discovery.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
@@ -186,6 +204,8 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * Media thumbnail URL. Only available on VIDEO media.
+   * <p>
+   * Available for the {@code collaborative_media} connection.
    */
   @Getter
   @Setter
