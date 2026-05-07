@@ -303,6 +303,20 @@ class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void checkMissingPostFields_absence() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("post-missing-fields-absence"), Post.class);
+    assertNotNull(examplePost);
+    assertNull(examplePost.getBackdatedTime());
+    assertNull(examplePost.getIsFbLiveVideos());
+    assertNull(examplePost.getSubscribed());
+
+    Post.Coordinates coordinates = examplePost.getCoordinates();
+    assertNotNull(coordinates);
+    assertNull(coordinates.getCoords());
+    assertTrue(coordinates.getTaggedUids().isEmpty());
+  }
+
+  @Test
   void checkV2_5_parentField() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-parent"), Post.class);
     assertNotNull(examplePost);
