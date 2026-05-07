@@ -257,6 +257,22 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   private NamedFacebookType application;
 
   /**
+   * The backdated time for backdate post. For regular post, this field will be set to null.
+   */
+  @Getter
+  @Setter
+  @Facebook("backdated_time")
+  private Date backdatedTime;
+
+  /**
+   * Information about the attachment to the post.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Coordinates coordinates;
+
+  /**
    * A link to an icon representing the type of this post.
    *
    * @return A link to an icon representing the type of this post.
@@ -567,6 +583,11 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   @Facebook("is_expired")
   private Boolean isExpired;
 
+  @Getter
+  @Setter
+  @Facebook("is_fb_live_videos")
+  private Boolean isFbLiveVideos;
+
   /**
    * If this post is marked as hidden (applies to Pages only).
    *
@@ -629,6 +650,14 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   @Setter
   @Facebook("is_spherical")
   private Boolean isSpherical;
+
+  /**
+   * Whether user is subscribed to the post.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Boolean subscribed;
 
   /**
    * Whether display the end card for a multi-link share post
@@ -811,6 +840,65 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
     @Setter
     @Facebook
     private String link;
+
+    private static final long serialVersionUID = 1L;
+
+  }
+
+  /**
+   * Represents the coordinates information attached to a Post.
+   */
+  public static class Coordinates extends AbstractFacebookType {
+
+    @Getter
+    @Setter
+    @Facebook("checkin_id")
+    private String checkinId;
+
+    @Getter
+    @Setter
+    @Facebook("author_uid")
+    private String authorUid;
+
+    @Getter
+    @Setter
+    @Facebook("page_id")
+    private String pageId;
+
+    @Getter
+    @Setter
+    @Facebook("target_id")
+    private String targetId;
+
+    @Getter
+    @Setter
+    @Facebook("target_href")
+    private String targetHref;
+
+    @Getter
+    @Setter
+    @Facebook
+    private JsonObject coords;
+
+    @Getter
+    @Setter
+    @Facebook("tagged_uids")
+    private List<String> taggedUids = new ArrayList<>();
+
+    @Getter
+    @Setter
+    @Facebook
+    private Date timestamp;
+
+    @Getter
+    @Setter
+    @Facebook
+    private String message;
+
+    @Getter
+    @Setter
+    @Facebook("target_type")
+    private String targetType;
 
     private static final long serialVersionUID = 1L;
 
