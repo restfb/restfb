@@ -60,6 +60,26 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
   private From from;
 
   /**
+   * For a comment made by a page, the page admin who wrote it.
+   *
+   * @return the page admin who wrote the comment.
+   */
+  @Getter
+  @Setter
+  @Facebook("admin_creator")
+  private User adminCreator;
+
+  /**
+   * The app this comment was published by.
+   *
+   * @return the app this comment was published by.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Application application;
+
+  /**
    * Text contents of the comment.
    *
    * @return Text contents of the comment.
@@ -215,6 +235,16 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
   private Boolean isHidden;
 
   /**
+   * Whether the comment is a private comment.
+   *
+   * @return is_private
+   */
+  @Getter
+  @Setter
+  @Facebook("is_private")
+  private Boolean isPrivate;
+
+  /**
    * Whether the viewer can like this comment
    *
    * @return can_like
@@ -244,6 +274,16 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
   @Setter
   @Facebook("permalink_url")
   private String permalinkUrl;
+
+  /**
+   * Time the comment was made on a live video.
+   *
+   * @return live_broadcast_timestamp
+   */
+  @Getter
+  @Setter
+  @Facebook("live_broadcast_timestamp")
+  private Date liveBroadcastTimestamp;
 
   /**
    * The replies to this comment
