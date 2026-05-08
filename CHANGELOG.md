@@ -1,5 +1,13 @@
 # RestFB Changelog
 
+## 2026.6.0 (May 8, 2026)
+
+* Issue #1667: map `IgContainer` copyright check status
+* Issue #1668: map additional `Post` fields
+* Issue #1669: map additional `Comment` fields
+* Issue #1666: bump surefire-plugin to 3.5.5
+* Issue #1670: add collaboration invite type
+
 ## 2026.5.0 (April 30, 2026)
 
 * Issue #1664: IgMedia missing fields added
