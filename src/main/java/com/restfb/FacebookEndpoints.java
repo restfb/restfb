@@ -57,15 +57,6 @@ public interface FacebookEndpoints {
   }
 
   /**
-   * returns the Facebook Graph API Video endpoint URL
-   * 
-   * @return the Facebook Graph API Video endpoint URL
-   */
-  default String getGraphVideoEndpoint() {
-    return Endpoint.GRAPH_VIDEO.getUrl();
-  }
-
-  /**
    * returns the Facebook Reel Upload endpoint URL
    *
    * @return the Facebook Reel Upload endpoint URL
@@ -106,12 +97,13 @@ public interface FacebookEndpoints {
     GRAPH("https://graph.facebook.com"),
 
     /**
-     * Video Upload API endpoint URL.
+     * Legacy Video Upload API endpoint URL.
      */
+    @Deprecated
     GRAPH_VIDEO("https://graph-video.facebook.com"),
 
     /**
-     * Reels Upload endpont URL.
+     * Reels Upload endpoint URL.
      */
     RUPLOAD("https://rupload.facebook.com/video-upload"),
 
