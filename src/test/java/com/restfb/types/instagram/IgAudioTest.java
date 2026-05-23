@@ -24,10 +24,12 @@ package com.restfb.types.instagram;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
+import com.restfb.exception.FacebookJsonMappingException;
 
 class IgAudioTest extends AbstractJsonMapperTests {
 
@@ -73,5 +75,43 @@ class IgAudioTest extends AbstractJsonMapperTests {
     assertEquals("music", igAudio.getAudioType());
     assertEquals("Birthday Wish", igAudio.getTitle());
     assertEquals("https://scontent.example/audio-metadata.mp3", igAudio.getDownloadUrl());
+  }
+
+  @Test
+  void checkEmptyJsonThrows() {
+    assertThrows(FacebookJsonMappingException.class,
+      () -> createJsonMapper().toJavaObject("", IgAudioResponse.class));
+    assertThrows(FacebookJsonMappingException.class, () -> createJsonMapper().toJavaObject("", IgAudio.class));
+  }
+
+  @Test
+  void checkNullJsonThrows() {
+    assertThrows(FacebookJsonMappingException.class,
+      () -> createJsonMapper().toJavaObject(null, IgAudioResponse.class));
+    assertThrows(FacebookJsonMappingException.class, () -> createJsonMapper().toJavaObject(null, IgAudio.class));
+  }
+
+  @Test
+  void checkMalformedJsonHandling() {
+    assertThrows(FacebookJsonMappingException.class,
+      () -> createJsonMapper().toJavaObject("{\"audio\": [", IgAudioResponse.class));
+    assertThrows(FacebookJsonMappingException.class,
+      () -> createJsonMapper().toJavaObject("{\"audio_id\":", IgAudio.class));
+  }
+
+  @Test
+  void checkMissingFieldsDefaults() {
+    IgAudioResponse response = createJsonMapper().toJavaObject("{}", IgAudioResponse.class);
+
+    assertNotNull(response);
+    assertNotNull(response.getAudio());
+    assertEquals(0, response.getAudio().size());
+
+    IgAudio igAudio = createJsonMapper().toJavaObject("{}", IgAudio.class);
+
+    assertNotNull(igAudio);
+    assertNull(igAudio.getAudioId());
+    assertNull(igAudio.getTitle());
+    assertNull(igAudio.getDurationInMs());
   }
 }
