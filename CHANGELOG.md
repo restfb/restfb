@@ -3,6 +3,7 @@
 ## 2026.7.0 (unreleased)
 
 * Add Instagram Audio API response types
+* Add `MessagingParticipant` conversion to Send API message recipients
 
 ## 2026.6.0 (May 8, 2026)
 

@@ -21,42 +21,43 @@
  */
 package com.restfb.types.webhook.messaging;
 
-import com.restfb.Facebook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import org.junit.jupiter.api.Test;
+
 import com.restfb.types.send.IdMessageRecipient;
-import com.restfb.types.send.MessageRecipient;
 import com.restfb.types.send.UserRefMessageRecipient;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+class MessagingParticipantTest {
 
-@ToString
-public class MessagingParticipant {
+  @Test
+  void toMessageRecipientUsesId() {
+    MessagingParticipant participant = new MessagingParticipant();
+    participant.setId("12345");
 
-  @Getter
-  @Setter
-  @Facebook
-  private String id;
-
-  /**
-   * The user_ref of the user that triggered the webhook event.
-   *
-   * This is only available for webhook event from the chat plugin.
-   */
-  @Getter
-  @Setter
-  @Facebook("user_ref")
-  private String userRef;
-
-  public boolean isUserRef() {
-    return userRef != null;
+    IdMessageRecipient recipient = assertInstanceOf(IdMessageRecipient.class, participant.toMessageRecipient());
+    assertEquals("12345", recipient.getId());
   }
 
-  public MessageRecipient toMessageRecipient() {
-    if (isUserRef()) {
-      return new UserRefMessageRecipient(userRef);
-    }
+  @Test
+  void toMessageRecipientUsesUserRef() {
+    MessagingParticipant participant = new MessagingParticipant();
+    participant.setUserRef("UNIQUE_USER_REF");
 
-    return new IdMessageRecipient(id);
+    UserRefMessageRecipient recipient =
+        assertInstanceOf(UserRefMessageRecipient.class, participant.toMessageRecipient());
+    assertEquals("UNIQUE_USER_REF", recipient.getUserRef());
+  }
+
+  @Test
+  void toMessageRecipientPrefersUserRef() {
+    MessagingParticipant participant = new MessagingParticipant();
+    participant.setId("12345");
+    participant.setUserRef("UNIQUE_USER_REF");
+
+    UserRefMessageRecipient recipient =
+        assertInstanceOf(UserRefMessageRecipient.class, participant.toMessageRecipient());
+    assertEquals("UNIQUE_USER_REF", recipient.getUserRef());
   }
 }
