@@ -22,6 +22,9 @@
 package com.restfb.types.webhook.messaging;
 
 import com.restfb.Facebook;
+import com.restfb.types.send.IdMessageRecipient;
+import com.restfb.types.send.MessageRecipient;
+import com.restfb.types.send.UserRefMessageRecipient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -47,5 +50,13 @@ public class MessagingParticipant {
 
   public boolean isUserRef() {
     return userRef != null;
+  }
+
+  public MessageRecipient toMessageRecipient() {
+    if (isUserRef()) {
+      return new UserRefMessageRecipient(userRef);
+    }
+
+    return new IdMessageRecipient(id);
   }
 }
