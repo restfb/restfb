@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2026.7.0 (unreleased)
+
+* Add Instagram Audio API response types
+
 ## 2026.6.0 (May 8, 2026)
 
 * Issue #1667: map `IgContainer` copyright check status
