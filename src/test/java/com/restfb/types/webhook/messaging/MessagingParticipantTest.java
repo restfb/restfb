@@ -23,6 +23,7 @@ package com.restfb.types.webhook.messaging;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -59,5 +60,13 @@ class MessagingParticipantTest {
     UserRefMessageRecipient recipient =
         assertInstanceOf(UserRefMessageRecipient.class, participant.toMessageRecipient());
     assertEquals("UNIQUE_USER_REF", recipient.getUserRef());
+  }
+
+  @Test
+  void toMessageRecipientUsesNullId() {
+    MessagingParticipant participant = new MessagingParticipant();
+
+    IdMessageRecipient recipient = assertInstanceOf(IdMessageRecipient.class, participant.toMessageRecipient());
+    assertNull(recipient.getId());
   }
 }
