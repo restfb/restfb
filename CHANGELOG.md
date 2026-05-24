@@ -1,6 +1,6 @@
 # RestFB Changelog
 
-## 2026.7.0 (unreleased)
+## 2026.7.0 (May 24, 2026)
 
 * Add Instagram Audio API response types
 * Add `MessagingParticipant` conversion to Send API message recipients
