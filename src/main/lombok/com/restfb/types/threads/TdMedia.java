@@ -195,6 +195,11 @@ public class TdMedia extends FacebookType {
   @Facebook("poll_attachment")
   private TdPollAttachment pollAttachment;
 
+  @Getter
+  @Setter
+  @Facebook("text_attachment")
+  private TdTextAttachment textAttachment;
+
   public List<Locale> getAllowlistedCountryCodesAsLocales() {
     List<Locale> locales = new ArrayList<>();
     for (String code : allowlistedCountryCodes) {

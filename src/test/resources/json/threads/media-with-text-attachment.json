@@ -1,0 +1,19 @@
+{
+  "id": "<THREADS_MEDIA_ID>",
+  "text_attachment": {
+    "plaintext": "Lengthy plaintext for the text attachment.",
+    "link_attachment_url": "<LINK_URL>",
+    "text_with_styling_info": [
+      {
+        "offset": 0,
+        "length": 7,
+        "styling_info": ["bold", "italic"]
+      },
+      {
+        "offset": 7,
+        "length": 10,
+        "styling_info": ["highlight"]
+      }
+    ]
+  }
+}

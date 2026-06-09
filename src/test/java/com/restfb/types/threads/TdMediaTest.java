@@ -64,6 +64,31 @@ class TdMediaTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void checkTextAttachment() {
+    TdMedia threadsMedia =
+        createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-text-attachment"), TdMedia.class);
+    assertNotNull(threadsMedia);
+    assertEquals("<THREADS_MEDIA_ID>", threadsMedia.getId());
+    assertNotNull(threadsMedia.getTextAttachment());
+
+    TdTextAttachment textAttachment = threadsMedia.getTextAttachment();
+    assertEquals("Lengthy plaintext for the text attachment.", textAttachment.getPlaintext());
+    assertEquals("<LINK_URL>", textAttachment.getLinkAttachmentUrl());
+    assertEquals(2, textAttachment.getTextWithStylingInfo().size());
+
+    TdTextAttachment.TextWithStylingInfo firstStylingInfo = textAttachment.getTextWithStylingInfo().get(0);
+    assertEquals(0, firstStylingInfo.getOffset());
+    assertEquals(7, firstStylingInfo.getLength());
+    assertEquals("bold", firstStylingInfo.getStylingInfo().get(0));
+    assertEquals("italic", firstStylingInfo.getStylingInfo().get(1));
+
+    TdTextAttachment.TextWithStylingInfo secondStylingInfo = textAttachment.getTextWithStylingInfo().get(1);
+    assertEquals(7, secondStylingInfo.getOffset());
+    assertEquals(10, secondStylingInfo.getLength());
+    assertEquals("highlight", secondStylingInfo.getStylingInfo().get(0));
+  }
+
+  @Test
   void checkLocation() {
     TdMedia threadsMedia = createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-location"), TdMedia.class);
     assertNotNull(threadsMedia);
