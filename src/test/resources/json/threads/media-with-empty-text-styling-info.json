@@ -1,0 +1,8 @@
+{
+  "id": "<THREADS_MEDIA_ID>",
+  "text_attachment": {
+    "plaintext": "Lengthy plaintext for the text attachment.",
+    "link_attachment_url": "<LINK_URL>",
+    "text_with_styling_info": []
+  }
+}

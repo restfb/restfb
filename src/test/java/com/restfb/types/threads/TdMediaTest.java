@@ -23,6 +23,8 @@ package com.restfb.types.threads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -86,6 +88,38 @@ class TdMediaTest extends AbstractJsonMapperTests {
     assertEquals(7, secondStylingInfo.getOffset());
     assertEquals(10, secondStylingInfo.getLength());
     assertEquals("highlight", secondStylingInfo.getStylingInfo().get(0));
+  }
+
+  @Test
+  void checkMissingTextAttachment() {
+    TdMedia threadsMedia =
+        createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-without-text-attachment"), TdMedia.class);
+
+    assertNotNull(threadsMedia);
+    assertNull(threadsMedia.getTextAttachment());
+  }
+
+  @Test
+  void checkTextAttachmentWithEmptyStylingInfo() {
+    TdMedia threadsMedia =
+        createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-empty-text-styling-info"), TdMedia.class);
+
+    assertNotNull(threadsMedia);
+    TdTextAttachment textAttachment = threadsMedia.getTextAttachment();
+    assertNotNull(textAttachment);
+    assertTrue(textAttachment.getTextWithStylingInfo().isEmpty());
+  }
+
+  @Test
+  void checkTextAttachmentWithMissingOrNullFields() {
+    TdMedia threadsMedia =
+        createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-incomplete-text-attachment"), TdMedia.class);
+
+    assertNotNull(threadsMedia);
+    TdTextAttachment textAttachment = threadsMedia.getTextAttachment();
+    assertNotNull(textAttachment);
+    assertNull(textAttachment.getPlaintext());
+    assertNull(textAttachment.getLinkAttachmentUrl());
   }
 
   @Test
