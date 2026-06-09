@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2026.8.0 (unreleased)
+
+* Issue #1672: use the Graph API endpoint for video uploads and deprecate the legacy Graph Video endpoint
+
 ## 2026.7.0 (May 24, 2026)
 
 * Add Instagram Audio API response types

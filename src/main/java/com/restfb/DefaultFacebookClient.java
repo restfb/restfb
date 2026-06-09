@@ -1164,8 +1164,6 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     String baseUrl = getFacebookGraphEndpointUrl();
     if (hasAttachment && hasReel) {
       baseUrl = getFacebookReelsUploadEndpointUrl();
-    } else if (hasAttachment && (apiCall.endsWith("/videos") || apiCall.endsWith("/advideos"))) {
-      baseUrl = getFacebookGraphVideoEndpointUrl();
     } else if (apiCall.endsWith("logout.php")) {
       baseUrl = getFacebookEndpointUrls().getFacebookEndpoint();
     }
@@ -1190,7 +1188,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * 
    * @return The base endpoint URL for the Graph APIs video upload functionality.
    * @since 1.6.5
+   * @deprecated the Graph Video endpoint is deprecated; video uploads use the Graph API endpoint
+   *             instead.
    */
+  @Deprecated
   protected String getFacebookGraphVideoEndpointUrl() {
     if (apiVersion.isUrlElementRequired()) {
       return getFacebookEndpointUrls().getGraphVideoEndpoint() + '/' + apiVersion.getUrlElement();
