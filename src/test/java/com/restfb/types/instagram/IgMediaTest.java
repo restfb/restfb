@@ -50,6 +50,22 @@ class IgMediaTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void checkMediaAdditionalFields() {
+    String json = "{\"current_live_viewer_count\":42,\"has_poll\":true,\"has_slider\":false,"
+      + "\"media_audio_type\":\"MUSIC\"}";
+
+    IgMedia igMedia = createJsonMapper().toJavaObject(json, IgMedia.class);
+
+    assertEquals(42L, igMedia.getCurrentLiveViewerCount().longValue());
+    assertEquals(Boolean.TRUE, igMedia.getHasPoll());
+    assertEquals(Boolean.FALSE, igMedia.getHasSlider());
+    assertEquals(IgMedia.MediaAudioType.MUSIC, igMedia.getMediaAudioType());
+
+    IgMedia originalSoundMedia = createJsonMapper().toJavaObject("{\"media_audio_type\":\"ORIGINAL_SOUND\"}", IgMedia.class);
+    assertEquals(IgMedia.MediaAudioType.ORIGINAL_SOUND, originalSoundMedia.getMediaAudioType());
+  }
+
+  @Test
   void checkMediaCarousel() {
     IgMedia igMedia = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/media-carousel"), IgMedia.class);
     assertNotNull(igMedia);

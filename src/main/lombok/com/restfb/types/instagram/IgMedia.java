@@ -78,6 +78,24 @@ public class IgMedia extends IgMediaChild {
   private Long commentsCount;
 
   /**
+   * Current viewer count for an ongoing Instagram Live.
+   */
+  @Getter
+  @Setter
+  @Facebook("current_live_viewer_count")
+  private Long currentLiveViewerCount;
+
+  @Getter
+  @Setter
+  @Facebook("has_poll")
+  private Boolean hasPoll;
+
+  @Getter
+  @Setter
+  @Facebook("has_slider")
+  private Boolean hasSlider;
+
+  /**
    * Indicates if comments are enabled or disabled. Excludes album children.
    */
   @Getter
@@ -112,6 +130,14 @@ public class IgMedia extends IgMediaChild {
   @Setter
   @Facebook("like_count")
   private Long likeCount;
+
+  /**
+   * Type of audio used in video media such as Reels.
+   */
+  @Getter
+  @Setter
+  @Facebook("media_audio_type")
+  private MediaAudioType mediaAudioType;
 
   /**
    * Count of views for Instagram Reels.
@@ -303,5 +329,9 @@ public class IgMedia extends IgMediaChild {
 
   public boolean removeComment(IgComment comment) {
     return comments.remove(comment);
+  }
+
+  public enum MediaAudioType {
+    MUSIC, ORIGINAL_SOUND
   }
 }
