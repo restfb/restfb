@@ -115,13 +115,56 @@ class DefaultFacebookClientTest {
       });
   }
 
+  @Test
+  void videoUploadUsesGraphEndpoint() {
+    TestableFacebookClient client = new TestableFacebookClient();
+
+    assertThat(client.createEndpoint("me/videos", true, false))
+      .isEqualTo("https://graph.facebook.com/v18.0/me/videos");
+    assertThat(client.createEndpoint("act_123/advideos", true, false))
+      .isEqualTo("https://graph.facebook.com/v18.0/act_123/advideos");
+  }
+
+  @Test
+  void reelUploadStillUsesReelUploadEndpoint() {
+    TestableFacebookClient client = new TestableFacebookClient();
+
+    assertThat(client.createEndpoint("me/video_reels", true, true))
+      .isEqualTo("https://rupload.facebook.com/video-upload/v18.0/me/video_reels");
+  }
+
+  @Test
+  @SuppressWarnings("deprecation")
+  void graphVideoEndpointMethodIsRetainedForCompatibility() {
+    TestableFacebookClient client = new TestableFacebookClient();
+
+    assertThat(client.graphVideoEndpoint()).isEqualTo("https://graph-video.facebook.com/v18.0");
+    assertThat(client.getFacebookEndpointUrls().getGraphVideoEndpoint()).isEqualTo("https://graph-video.facebook.com");
+  }
+
+  @Test
+  void logoutStillUsesFacebookEndpoint() {
+    TestableFacebookClient client = new TestableFacebookClient();
+
+    assertThat(client.createEndpoint("logout.php", false, false)).isEqualTo("https://www.facebook.com/logout.php");
+  }
+
   private static class TestableFacebookClient extends DefaultFacebookClient {
     TestableFacebookClient() {
-      super("token", new DefaultWebRequestor(), new DefaultJsonMapper(), Version.LATEST);
+      super("token", new DefaultWebRequestor(), new DefaultJsonMapper(), Version.VERSION_18_0);
     }
 
     void invokeMakeRequest(Requestor requestor) {
       executeRequestWithMetadata(null, null, requestor);
+    }
+
+    String createEndpoint(String apiCall, boolean hasAttachment, boolean hasReel) {
+      return createEndpointForApiCall(apiCall, hasAttachment, hasReel);
+    }
+
+    @SuppressWarnings("deprecation")
+    String graphVideoEndpoint() {
+      return getFacebookGraphVideoEndpointUrl();
     }
   }
 
