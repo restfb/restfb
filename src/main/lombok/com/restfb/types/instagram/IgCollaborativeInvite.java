@@ -19,44 +19,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.instagram;
 
 import com.restfb.Facebook;
-import com.restfb.types.send.IdMessageRecipient;
-import com.restfb.types.send.MessageRecipient;
-import com.restfb.types.send.UserRefMessageRecipient;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString
-public class MessagingParticipant {
+/**
+ * Represents an Instagram collaboration invite.
+ *
+ * @see <a href="https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/collaboration#fetch-collaboration-invites">Fetch Collaboration Invites</a>
+ */
+public class IgCollaborativeInvite extends AbstractFacebookType {
 
-  @Getter
-  @Setter
-  @Facebook
-  private String id;
+  private static final long serialVersionUID = 1L;
 
   /**
-   * The user_ref of the user that triggered the webhook event.
-   *
-   * This is only available for webhook event from the chat plugin.
+   * The ID of the Instagram Media object tagged for collaboration.
    */
   @Getter
   @Setter
-  @Facebook("user_ref")
-  private String userRef;
+  @Facebook("media_id")
+  private String mediaId;
 
-  public boolean isUserRef() {
-    return userRef != null;
-  }
+  /**
+   * Instagram username of the media owner who invited the app user's Instagram account for collaboration.
+   */
+  @Getter
+  @Setter
+  @Facebook("media_owner_username")
+  private String mediaOwnerUsername;
 
-  public MessageRecipient toMessageRecipient() {
-    if (isUserRef()) {
-      return new UserRefMessageRecipient(userRef);
-    }
+  /**
+   * Caption of the tagged Instagram Media.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String caption;
 
-    return new IdMessageRecipient(id);
-  }
+  /**
+   * Viewable CDN URL of the tagged Instagram Media.
+   */
+  @Getter
+  @Setter
+  @Facebook("media_url")
+  private String mediaUrl;
 }

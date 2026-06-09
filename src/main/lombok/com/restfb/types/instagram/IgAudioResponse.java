@@ -19,44 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.restfb.types.webhook.messaging;
+package com.restfb.types.instagram;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.restfb.Facebook;
-import com.restfb.types.send.IdMessageRecipient;
-import com.restfb.types.send.MessageRecipient;
-import com.restfb.types.send.UserRefMessageRecipient;
+import com.restfb.types.AbstractFacebookType;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString
-public class MessagingParticipant {
+/**
+ * Response returned by the Instagram Audio API search endpoint.
+ */
+@Getter
+@Setter
+public class IgAudioResponse extends AbstractFacebookType {
 
-  @Getter
-  @Setter
+  private static final long serialVersionUID = 1L;
+
   @Facebook
-  private String id;
-
-  /**
-   * The user_ref of the user that triggered the webhook event.
-   *
-   * This is only available for webhook event from the chat plugin.
-   */
-  @Getter
-  @Setter
-  @Facebook("user_ref")
-  private String userRef;
-
-  public boolean isUserRef() {
-    return userRef != null;
-  }
-
-  public MessageRecipient toMessageRecipient() {
-    if (isUserRef()) {
-      return new UserRefMessageRecipient(userRef);
-    }
-
-    return new IdMessageRecipient(id);
-  }
+  private List<IgAudio> audio = new ArrayList<>();
 }

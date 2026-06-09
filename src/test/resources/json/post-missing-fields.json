@@ -1,0 +1,21 @@
+{
+  "backdated_time": 1700000000,
+  "coordinates": {
+    "checkin_id": "123456789",
+    "author_uid": "987654321",
+    "page_id": "1122334455",
+    "target_id": "6677889900",
+    "target_href": "https://www.facebook.com/example",
+    "coords": {
+      "latitude": 52.52,
+      "longitude": 13.405
+    },
+    "tagged_uids": ["111", "222"],
+    "timestamp": 1710000000,
+    "message": "Location attachment",
+    "target_type": "place"
+  },
+  "is_fb_live_videos": true,
+  "subscribed": false,
+  "id": "1234567890_987654312"
+}

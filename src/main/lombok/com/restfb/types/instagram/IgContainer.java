@@ -22,6 +22,7 @@
 package com.restfb.types.instagram;
 
 import com.restfb.Facebook;
+import com.restfb.types.AbstractFacebookType;
 import com.restfb.types.FacebookType;
 
 import lombok.Getter;
@@ -42,4 +43,20 @@ public class IgContainer extends FacebookType {
 
     @Facebook("status_code")
     private String statusCode;
+
+    @Facebook("copyright_check_status")
+    private CopyrightCheckStatus copyrightCheckStatus;
+
+    @Setter
+    @Getter
+    public static class CopyrightCheckStatus extends AbstractFacebookType {
+
+        private static final long serialVersionUID = 1L;
+
+        @Facebook
+        private String status;
+
+        @Facebook("matches_found")
+        private Boolean matchesFound;
+    }
 }

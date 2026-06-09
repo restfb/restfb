@@ -279,6 +279,44 @@ class PostTest extends AbstractJsonMapperTests {
   }
 
   @Test
+  void checkMissingPostFields() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("post-missing-fields"), Post.class);
+    assertNotNull(examplePost);
+    assertEquals(1700000000000L, examplePost.getBackdatedTime().getTime());
+    assertTrue(examplePost.getIsFbLiveVideos());
+    assertFalse(examplePost.getSubscribed());
+
+    Post.Coordinates coordinates = examplePost.getCoordinates();
+    assertNotNull(coordinates);
+    assertEquals("123456789", coordinates.getCheckinId());
+    assertEquals("987654321", coordinates.getAuthorUid());
+    assertEquals("1122334455", coordinates.getPageId());
+    assertEquals("6677889900", coordinates.getTargetId());
+    assertEquals("https://www.facebook.com/example", coordinates.getTargetHref());
+    assertEquals(52.52, coordinates.getCoords().get("latitude").asDouble(), 0.0001);
+    assertEquals(13.405, coordinates.getCoords().get("longitude").asDouble(), 0.0001);
+    assertEquals(2, coordinates.getTaggedUids().size());
+    assertEquals("111", coordinates.getTaggedUids().get(0));
+    assertEquals(1710000000000L, coordinates.getTimestamp().getTime());
+    assertEquals("Location attachment", coordinates.getMessage());
+    assertEquals("place", coordinates.getTargetType());
+  }
+
+  @Test
+  void checkMissingPostFields_absence() {
+    Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("post-missing-fields-absence"), Post.class);
+    assertNotNull(examplePost);
+    assertNull(examplePost.getBackdatedTime());
+    assertNull(examplePost.getIsFbLiveVideos());
+    assertNull(examplePost.getSubscribed());
+
+    Post.Coordinates coordinates = examplePost.getCoordinates();
+    assertNotNull(coordinates);
+    assertNull(coordinates.getCoords());
+    assertTrue(coordinates.getTaggedUids().isEmpty());
+  }
+
+  @Test
   void checkV2_5_parentField() {
     Post examplePost = createJsonMapper().toJavaObject(jsonFromClasspath("v2_5/post-parent"), Post.class);
     assertNotNull(examplePost);

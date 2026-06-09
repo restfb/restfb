@@ -1,0 +1,22 @@
+{
+  "audio": [
+    {
+      "audio_id": "587784541076604",
+      "cover_artwork_thumbnail_uri": "https://scontent.example/cover.jpg",
+      "display_artist": "Shuba",
+      "duration_in_ms": 153760,
+      "audio_type": "music",
+      "title": "Birthday Wish",
+      "download_url": "https://scontent.example/audio.mp3"
+    },
+    {
+      "audio_id": "1234567890",
+      "duration_in_ms": 104000,
+      "audio_type": "original_sound",
+      "title": "Original Audio",
+      "download_url": "https://scontent.example/original.mp3",
+      "ig_username": "restfb",
+      "profile_picture_url": "https://scontent.example/profile.jpg"
+    }
+  ]
+}
