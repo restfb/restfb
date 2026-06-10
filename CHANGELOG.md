@@ -1,8 +1,12 @@
 # RestFB Changelog
 
-## 2026.8.0 (unreleased)
+## 2026.8.0 (June 10, 2026)
 
-* Issue #1672: use the Graph API endpoint for video uploads and deprecate the legacy Graph Video endpoint
+* Issue #1684: use the Graph API endpoint for video uploads and deprecate the legacy Graph Video endpoint
+* Issue #1682: add Threads text attachment support
+* Issue #1683: add Instagram media fields
+* Issue #1680: bump Surefire plugin to 3.5.6
+* Issue #1678: bump Failsafe plugin to 3.5.6
 
 ## 2026.7.0 (May 24, 2026)
 
