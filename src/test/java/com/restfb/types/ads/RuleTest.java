@@ -141,7 +141,7 @@ class RuleTest extends AbstractJsonMapperTests {
   @ValueSource(ints = { 1, 2, 4, 5, 6, 7 })
   void exampletestReverse(int ruleFileId) {
     JsonObject ruleJson =
-            createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example" + ruleFileId), JsonObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("ads/v2_6/rule_example" + ruleFileId), JsonObject.class);
     Rule rule = RuleFactory.createRuleFromJson(ruleJson);
     JsonObject ruleJsonReverse = RuleFactory.createJsonFromRule(rule);
     AssertJson.assertEquals(ruleJson.toString(), ruleJsonReverse.toString());

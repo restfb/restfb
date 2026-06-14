@@ -143,10 +143,10 @@ public class MessagingItem {
 
   /**
    * generic access to the inner item.
-   * 
+   *
    * depending on the inner elements the corresponding element is returned. So you can get an {@link OptinItem},
    * {@link PostbackItem}, {@link DeliveryItem}, {@link AccountLinkingItem} or {@link MessageItem}
-   * 
+   *
    * @return the inner item.
    */
   public InnerMessagingItem getItem() {

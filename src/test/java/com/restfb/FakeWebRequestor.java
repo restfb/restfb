@@ -85,7 +85,7 @@ public class FakeWebRequestor implements WebRequestor {
 
   /**
    * get the used HTTP Method.
-   * 
+   *
    * @return HTTP Method as String
    */
   public String getMethod() {
@@ -94,7 +94,7 @@ public class FakeWebRequestor implements WebRequestor {
 
   /**
    * get the called url.
-   * 
+   *
    * @return the called url as String
    */
   public String getSavedUrl() {
@@ -103,7 +103,7 @@ public class FakeWebRequestor implements WebRequestor {
 
   /**
    * get the used parameters (query string)
-   * 
+   *
    * @return the used parameter
    */
   public String getParameters() {

@@ -25,7 +25,7 @@ public abstract class FacebookCheckedException extends Exception {
 
   /**
    * Creates an exception with the given message.
-   * 
+   *
    * @param message
    *          A message describing this exception.
    */
@@ -35,7 +35,7 @@ public abstract class FacebookCheckedException extends Exception {
 
   /**
    * Creates an exception with the given message and cause.
-   * 
+   *
    * @param message
    *          A message describing this exception.
    * @param cause

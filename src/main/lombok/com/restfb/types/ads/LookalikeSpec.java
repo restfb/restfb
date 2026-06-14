@@ -91,8 +91,7 @@ public class LookalikeSpec extends AbstractFacebookType {
   public static class Origin extends NamedAdsObject {
 
     /**
-     * {@code true}, returned only when the origin is deleted
-     * -- GETTER --
+     * {@code true}, returned only when the origin is deleted -- GETTER --
      *
      * @return {@code true}, returned only when the origin is deleted
      */
@@ -102,8 +101,7 @@ public class LookalikeSpec extends AbstractFacebookType {
     private Boolean deleted;
 
     /**
-     * {@code custom_audience} or {@code conversion_pixel} or {@code page} or {@code app}
-     * -- GETTER --
+     * {@code custom_audience} or {@code conversion_pixel} or {@code page} or {@code app} -- GETTER --
      *
      * @return {@code custom_audience} or {@code conversion_pixel} or {@code page} or {@code app}
      */

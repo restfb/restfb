@@ -93,7 +93,8 @@ public class ChangeValueFactory {
         }
 
         // special handling for permissions
-        String verbString = (objValue.get("verb") != null && objValue.get("verb").isString()) ? objValue.get("verb").asString() : "";
+        String verbString =
+            (objValue.get("verb") != null && objValue.get("verb").isString()) ? objValue.get("verb").asString() : "";
         if (verbString.equals("granted") || verbString.equals("revoked")) {
           classDefinition = verbString.toUpperCase();
         }
@@ -189,7 +190,7 @@ public class ChangeValueFactory {
     PHONE_NUMBER_NAME_UPDATE(PhoneNumberNameUpdateValue.class), //
     PHONE_NUMBER_QUALITY_UPDATE(PhoneNumberQualityUpdateValue.class), //
     ACCOUNT_UPDATE(AccountUpdateValue.class), //
-    ACCOUNT_REVIEW_UPDATE(AccountReviewUpdateValue.class),//
+    ACCOUNT_REVIEW_UPDATE(AccountReviewUpdateValue.class), //
     BUSINESS_USERNAME_UPDATE(BusinessUsernameUpdateValue.class), //
 
     // Whatsapp Business Platform

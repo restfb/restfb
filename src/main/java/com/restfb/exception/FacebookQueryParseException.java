@@ -34,7 +34,7 @@ import com.restfb.json.JsonObject;
         "message": "Some of the aliases you requested do not exist: xxxxx"
       }
   } </code>
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
@@ -43,7 +43,7 @@ public class FacebookQueryParseException extends FacebookGraphException {
 
   /**
    * Creates an exception with the given error type and message.
-   * 
+   *
    * @param errorType
    *          Value of the Facebook response attribute {@code error.type}.
    * @param errorMessage

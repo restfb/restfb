@@ -32,7 +32,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/life-event">Life Event Graph API</a>
  * type.
- * 
+ *
  * @author <a href="http://restfb.com">Quang Pham Le Duy</a>
  * @since 2.0.0
  */
@@ -42,17 +42,17 @@ public class PageLifeEvent extends FacebookType implements HasCreatedTime {
 
   /**
    * The time when this milestone was published
-   * 
+   *
    * @return The time when this milestone was published
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
 
   /**
    * Description of the milestone.
-   * 
+   *
    * @return Description of the milestone.
    */
   @Getter
@@ -62,7 +62,7 @@ public class PageLifeEvent extends FacebookType implements HasCreatedTime {
 
   /**
    * The time when this milestone came to an end.
-   * 
+   *
    * @return The time when this milestone came to an end.
    */
   @Getter
@@ -72,7 +72,7 @@ public class PageLifeEvent extends FacebookType implements HasCreatedTime {
 
   /**
    * The information of the Page that owns the milestone.
-   * 
+   *
    * @return The information of the Page that owns the milestone.
    */
   @Getter
@@ -92,7 +92,7 @@ public class PageLifeEvent extends FacebookType implements HasCreatedTime {
 
   /**
    * The time when this milestone was started.
-   * 
+   *
    * @return The time when this milestone was started.
    */
   @Getter
@@ -102,7 +102,7 @@ public class PageLifeEvent extends FacebookType implements HasCreatedTime {
 
   /**
    * The title of the milestone.
-   * 
+   *
    * @return The title of the milestone.
    */
   @Getter
@@ -112,7 +112,7 @@ public class PageLifeEvent extends FacebookType implements HasCreatedTime {
 
   /**
    * The time when this milestone was updated.
-   * 
+   *
    * @return The time when this milestone was updated.
    */
   @Getter

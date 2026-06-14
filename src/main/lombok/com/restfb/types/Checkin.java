@@ -37,7 +37,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/checkin">Check-In Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
@@ -45,27 +45,27 @@ public class Checkin extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   /**
    * The message the user added to the check-in.
-   * 
+   *
    * @return The message the user added to the check-in.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
 
   /**
    * The ID and name of the user who made the check-in.
-   * 
+   *
    * @return The ID and name of the user who made the check-in.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private NamedFacebookType from;
 
   /**
    * The ID and name of the application that made the check-in.
-   * 
+   *
    * @return The ID and name of the application that made the check-in.
    */
   @Getter
@@ -75,7 +75,7 @@ public class Checkin extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   /**
    * The ID, name, and location of the Facebook Page that represents the location of the check-in.
-   * 
+   *
    * @return The ID, name, and location of the Facebook Page that represents the location of the check-in.
    */
   @Getter
@@ -85,10 +85,10 @@ public class Checkin extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   /**
    * The time the check-in was created.
-   * 
+   *
    * @return The time the check-in was created.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -103,7 +103,7 @@ public class Checkin extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   /**
    * The comments for the check-in.
-   * 
+   *
    * @return The comments for the check-in.
    */
   public List<Comment> getComments() {
@@ -120,7 +120,7 @@ public class Checkin extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
   /**
    * Tags for the check-in. I.e. Users tagged in the check-in
-   * 
+   *
    * @return Tags for the check-in.
    */
   public List<NamedFacebookType> getTags() {

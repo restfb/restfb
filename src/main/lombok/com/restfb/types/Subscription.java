@@ -34,7 +34,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/app/subscriptions">App Subscription
  * type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Norbert Bartels</a>
  * @since 1.5
  */
@@ -44,9 +44,9 @@ public class Subscription extends AbstractFacebookType {
 
   /**
    * Indicates the object type that this subscription applies to.
-   * 
+   *
    * type: user, page, permissions, payments
-   * 
+   *
    * @return the object type that this subscription applies to
    */
   @Getter
@@ -56,7 +56,7 @@ public class Subscription extends AbstractFacebookType {
 
   /**
    * The URL that will receive the POST request when an update is triggered.
-   * 
+   *
    * @return the URL that will receive the POST request
    */
   @Getter
@@ -66,10 +66,10 @@ public class Subscription extends AbstractFacebookType {
 
   /**
    * One or more of the set of valid fields in this object to subscribe to.
-   * 
+   *
    * The set of valid fields is defined here:
    * https://developers.facebook.com/docs/graph-api/real-time-updates/v2.3#subscribefields
-   * 
+   *
    * @return set of fields
    */
   @Getter
@@ -82,7 +82,7 @@ public class Subscription extends AbstractFacebookType {
 
   /**
    * Indicates whether or not the subscription is active.
-   * 
+   *
    * @return if the subscription is active
    */
   @Getter

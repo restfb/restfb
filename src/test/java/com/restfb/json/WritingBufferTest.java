@@ -30,7 +30,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class WritingBufferTest {
 
   private static final int BUFFER_SIZE = 16;

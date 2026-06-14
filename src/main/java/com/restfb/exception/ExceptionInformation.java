@@ -72,7 +72,7 @@ public class ExceptionInformation {
 
   /**
    * basic constructor to build a set of information used by the exception generator
-   * 
+   *
    * @param errorCode
    *          Old REST API exception error code field, e.g. 190.
    * @param httpStatusCode

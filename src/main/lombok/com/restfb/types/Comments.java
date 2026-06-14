@@ -49,7 +49,7 @@ public class Comments extends AbstractFacebookType {
 
   /**
    * The count of comments on this node.
-   * 
+   *
    * <p>
    * It is important to note that this value is changed depending on the {@code filter} modifier being used (where
    * comment replies are available):
@@ -77,7 +77,7 @@ public class Comments extends AbstractFacebookType {
 
   /**
    * Order in which comments were returned.
-   * 
+   *
    * <p>
    * <code>ranked</code> indicates the most interesting comments are sorted first.<br>
    * <code>chronological</code> indicates comments are sorted by the oldest comments first.

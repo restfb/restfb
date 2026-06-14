@@ -34,7 +34,7 @@ public class Hours extends AbstractFacebookType {
 
   /**
    * Returns a map of indices and {@link Hour} objects with the open and close time
-   * 
+   *
    * @param day
    *          the day the map should be returned for
    * @return the map containing the index and the {@link Hour} object
@@ -49,7 +49,7 @@ public class Hours extends AbstractFacebookType {
 
   /**
    * returns the complete overview, with the day as key and a map as value
-   * 
+   *
    * @return the complete overview
    */
   public Map<DayOfWeek, Map<Integer, Hour>> getHours() {

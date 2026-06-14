@@ -87,8 +87,7 @@ class FacebookClientTest {
    */
   @Test
   void oauthExceptionWithErrorCode() {
-    DebugHeaderInfo debugHeaderInfo =
-        DebugHeaderInfo.DebugHeaderInfoFactory.create().setTraceId("trace-id").build();
+    DebugHeaderInfo debugHeaderInfo = DebugHeaderInfo.DebugHeaderInfoFactory.create().setTraceId("trace-id").build();
     FacebookClient facebookClient = facebookClientWithResponse(new Response(403,
       "{\"error\":{\"message\":\"(#210) User not visible\",\"type\":\"OAuthException\",\"code\":210}}",
       debugHeaderInfo));
@@ -153,8 +152,7 @@ class FacebookClientTest {
 
     assertThat(result.getResult()).isNotNull();
     assertThat(result.getDebugHeaderInfo()).isSameAs(debugHeaderInfo);
-    assertThat(result.getResponseHeaders()).containsEntry("facebook-api-version",
-      Collections.singletonList("v25.0"));
+    assertThat(result.getResponseHeaders()).containsEntry("facebook-api-version", Collections.singletonList("v25.0"));
     assertThat(result.getDuration()).isNotNull();
     assertThat(result.getHttpMethod()).isEqualTo("GET");
     assertThat(result.getRequestUrl()).contains("me");
@@ -164,14 +162,13 @@ class FacebookClientTest {
   void deleteObjectResultContainsMetadata() {
     Map<String, List<String>> headers = new HashMap<>();
     headers.put("facebook-api-version", Collections.singletonList("v25.0"));
-    DefaultFacebookClient facebookClient = (DefaultFacebookClient) facebookClientWithResponse(
-      new Response(200, "{\"success\":true}", null, headers));
+    DefaultFacebookClient facebookClient =
+        (DefaultFacebookClient) facebookClientWithResponse(new Response(200, "{\"success\":true}", null, headers));
 
     ApiResult<Boolean> result = facebookClient.deleteObjectWithResult("123");
 
     assertThat(result.getResult()).isTrue();
-    assertThat(result.getResponseHeaders()).containsEntry("facebook-api-version",
-      Collections.singletonList("v25.0"));
+    assertThat(result.getResponseHeaders()).containsEntry("facebook-api-version", Collections.singletonList("v25.0"));
     assertThat(result.getDuration()).isNotNull();
     assertThat(result.getHttpMethod()).isEqualTo("DELETE");
     assertThat(result.getRequestUrl()).contains("123");
@@ -181,15 +178,14 @@ class FacebookClientTest {
   void fetchConnectionPageResultContainsMetadata() {
     Map<String, List<String>> headers = new HashMap<>();
     headers.put("facebook-api-version", Collections.singletonList("v25.0"));
-    DefaultFacebookClient facebookClient = (DefaultFacebookClient) facebookClientWithResponse(
-      new Response(200, "{\"data\":[]}", null, headers));
+    DefaultFacebookClient facebookClient =
+        (DefaultFacebookClient) facebookClientWithResponse(new Response(200, "{\"data\":[]}", null, headers));
 
     Connection<User> result = facebookClient.fetchConnectionPage("https://graph.facebook.com/foo", User.class);
 
     ResponseMetadata metadata = result.getResponseMetadata();
     assertThat(metadata).isNotNull();
-    assertThat(metadata.getResponseHeaders()).containsEntry("facebook-api-version",
-      Collections.singletonList("v25.0"));
+    assertThat(metadata.getResponseHeaders()).containsEntry("facebook-api-version", Collections.singletonList("v25.0"));
     assertThat(metadata.getHttpMethod()).isEqualTo("GET");
     assertThat(metadata.getRequestUrl()).contains("graph.facebook.com");
   }
@@ -198,15 +194,14 @@ class FacebookClientTest {
   void fetchConnectionResultContainsMetadata() {
     Map<String, List<String>> headers = new HashMap<>();
     headers.put("facebook-api-version", Collections.singletonList("v25.0"));
-    DefaultFacebookClient facebookClient = (DefaultFacebookClient) facebookClientWithResponse(
-      new Response(200, "{\"data\":[]}", null, headers));
+    DefaultFacebookClient facebookClient =
+        (DefaultFacebookClient) facebookClientWithResponse(new Response(200, "{\"data\":[]}", null, headers));
 
     Connection<User> result = facebookClient.fetchConnection("me/friends", User.class);
 
     ResponseMetadata metadata = result.getResponseMetadata();
     assertThat(metadata).isNotNull();
-    assertThat(metadata.getResponseHeaders()).containsEntry("facebook-api-version",
-      Collections.singletonList("v25.0"));
+    assertThat(metadata.getResponseHeaders()).containsEntry("facebook-api-version", Collections.singletonList("v25.0"));
     assertThat(metadata.getHttpMethod()).isEqualTo("GET");
     assertThat(metadata.getRequestUrl()).contains("me/friends");
   }
@@ -460,9 +455,9 @@ class FacebookClientTest {
   void checkThreadsDialogURLWithState() {
     FacebookClient client = new DefaultThreadsClient(Version.LATEST);
     String loginDialogUrlString =
-            client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true), "state3456");
+        client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true), "state3456");
     assertThat(loginDialogUrlString).isEqualTo(
-            "https://www.threads.net/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&response_type=code");
+      "https://www.threads.net/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&response_type=code");
   }
 
   @Test
@@ -478,28 +473,27 @@ class FacebookClientTest {
   void checkBusinessLoginDialogURL() {
     FacebookClient client = new DefaultFacebookClient(Version.LATEST);
     String loginDialogUrlString =
-            client.getBusinessLoginDialogUrl("123456", "http://www.example.com", "1234", "state3456");
+        client.getBusinessLoginDialogUrl("123456", "http://www.example.com", "1234", "state3456");
     assertThat(loginDialogUrlString).isEqualTo(
-            "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&config_id=1234&response_type=code&override_default_response_type=true");
+      "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&config_id=1234&response_type=code&override_default_response_type=true");
   }
 
   @Test
   void checkBusinessLoginDialogURLAdditionalParameters() {
     FacebookClient client = new DefaultFacebookClient(Version.LATEST);
-    String loginDialogUrlString =
-            client.getBusinessLoginDialogUrl("123456", "http://www.example.com", "1234", "state3456",
-                    Parameter.with("extras", "{sessionInfoVersion: '3'}"));
+    String loginDialogUrlString = client.getBusinessLoginDialogUrl("123456", "http://www.example.com", "1234",
+      "state3456", Parameter.with("extras", "{sessionInfoVersion: '3'}"));
     assertThat(loginDialogUrlString).isEqualTo(
-            "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&extras=%7BsessionInfoVersion%3A+%273%27%7D&config_id=1234&response_type=code&override_default_response_type=true");
+      "https://www.facebook.com/dialog/oauth?client_id=123456&redirect_uri=http%3A%2F%2Fwww.example.com&state=state3456&extras=%7BsessionInfoVersion%3A+%273%27%7D&config_id=1234&response_type=code&override_default_response_type=true");
   }
 
   @Test
   void checkThreadsDialogURLAdditionalParameters() {
     FacebookClient client = new DefaultThreadsClient(Version.LATEST);
     String loginDialogUrlString = client.getLoginDialogUrl("1234", "http://www.example.com", new ScopeBuilder(true),
-            Parameter.with("state", "abcd"));
+      Parameter.with("state", "abcd"));
     assertThat(loginDialogUrlString).isEqualTo(
-            "https://www.threads.net/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=abcd&response_type=code");
+      "https://www.threads.net/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fwww.example.com&state=abcd&response_type=code");
   }
 
   @Test
@@ -530,7 +524,7 @@ class FacebookClientTest {
    * {@code response}.
    * <p>
    * This FacebookClient is based on the {@link DefaultFacebookClient}.
-   * 
+   *
    * @param response
    *          The synthetic response to return.
    * @return A {@code FacebookClient} for testing.

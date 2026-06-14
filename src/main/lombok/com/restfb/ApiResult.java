@@ -48,7 +48,8 @@ public final class ApiResult<T> implements Serializable {
 
   public static <T> ApiResult<T> withMetadata(T result, DebugHeaderInfo debugHeaderInfo,
       Map<String, List<String>> responseHeaders, Duration duration, String httpMethod, String requestUrl) {
-    return withMetadata(result, ResponseMetadata.of(debugHeaderInfo, responseHeaders, duration, httpMethod, requestUrl));
+    return withMetadata(result,
+      ResponseMetadata.of(debugHeaderInfo, responseHeaders, duration, httpMethod, requestUrl));
   }
 
   public static <T> ApiResult<T> withMetadata(T result, ResponseMetadata responseMetadata) {

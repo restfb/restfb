@@ -29,7 +29,7 @@ import java.util.Optional;
 
 /**
  * A collection of date-handling utility methods.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
@@ -81,7 +81,7 @@ public final class DateUtils {
    * Returns a Java representation of a Facebook "long" {@code date} string, or the number of seconds since the epoch.
    * <p>
    * Supports dates with or without timezone information.
-   * 
+   *
    * @param date
    *          Facebook {@code date} string.
    * @return Java date representation of the given Facebook "long" {@code date} string or {@code null} if {@code date}
@@ -124,7 +124,7 @@ public final class DateUtils {
 
   /**
    * Returns a Java representation of a Facebook "short" {@code date} string.
-   * 
+   *
    * @param date
    *          Facebook {@code date} string.
    * @return Java date representation of the given Facebook "short" {@code date} string or {@code null} if {@code date}
@@ -147,7 +147,7 @@ public final class DateUtils {
 
   /**
    * Returns a Java representation of a Facebook "month-year" {@code date} string.
-   * 
+   *
    * @param date
    *          Facebook {@code date} string.
    * @return Java date representation of the given Facebook "month-year" {@code date} string or {@code null} if
@@ -167,13 +167,14 @@ public final class DateUtils {
 
   /**
    * Returns a String representation of a {@code date} object
-   * 
+   *
    * @param date
    *          as Date
    * @return String representation of a {@code date} object. The String is in the form {@code 2010-02-28T16:11:08}
    */
   public static String toLongFormatFromDate(Date date) {
-    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE)::format).orElse(null);
+    return Optional.ofNullable(date).map(strategy.formatFor(FACEBOOK_LONG_DATE_FORMAT_WITHOUT_TIMEZONE)::format)
+      .orElse(null);
   }
 
   /**
@@ -189,7 +190,7 @@ public final class DateUtils {
 
   /**
    * Returns a Java representation of a {@code date} string.
-   * 
+   *
    * @param date
    *          Date in string format.
    * @return Java date representation of the given {@code date} string or {@code null} if {@code date} is {@code null}
@@ -210,7 +211,7 @@ public final class DateUtils {
 
   /**
    * get the current DateFormatStrategy.
-   * 
+   *
    * @return the current DateFormatStrategy
    */
   public static DateFormatStrategy getDateFormatStrategy() {
@@ -221,10 +222,10 @@ public final class DateUtils {
    * set the {@link DateFormatStrategy}.
    * <p>
    * default value: {@link SimpleDateFormatStrategy}
-   * 
+   *
    * @param dateFormatStrategy
    *          the used {@link DateFormatStrategy}
-   * 
+   *
    */
   public static void setDateFormatStrategy(DateFormatStrategy dateFormatStrategy) {
     strategy = dateFormatStrategy;

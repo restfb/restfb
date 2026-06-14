@@ -69,13 +69,12 @@ public abstract class BaseNlpEntity {
 
   /**
    * returns if the object contains only a nlp entity or if the nlp object contains body, start and end fields, too.
+   *
    * @return {@code true} if the nlp object contains also body, start and end fields, {@code false} otherwise
    */
   public boolean isEntityOnly() {
     return body == null;
   }
-
-
 
   public <T extends BaseNlpEntity> T as(Class<T> clazz) {
     return (T) this;

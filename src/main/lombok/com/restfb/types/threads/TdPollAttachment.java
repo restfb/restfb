@@ -29,8 +29,7 @@ import lombok.Setter;
 import java.util.Date;
 
 /**
- * Poll attachment for threads.
- * As defined here: https://developers.facebook.com/docs/threads/create-posts/polls
+ * Poll attachment for threads. As defined here: https://developers.facebook.com/docs/threads/create-posts/polls
  */
 public class TdPollAttachment extends AbstractFacebookType {
 

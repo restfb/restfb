@@ -57,9 +57,9 @@ public class SetterGetterTestBase {
 
   /**
    * test the given instance.
-   * 
+   *
    * check all fields (except the ignored fields), try to set and get
-   * 
+   *
    * @param instance
    */
   public void testInstance(final Object instance) {
@@ -151,9 +151,9 @@ public class SetterGetterTestBase {
       }
 
       Object o = getExampleValueByType(adder.getParameterTypes()[0]);
-      assertEquals( 0, ((List) getter.invoke(instance)).size(), testText);
+      assertEquals(0, ((List) getter.invoke(instance)).size(), testText);
       adder.invoke(instance, o);
-      assertEquals( 1, ((List) getter.invoke(instance)).size(), testText);
+      assertEquals(1, ((List) getter.invoke(instance)).size(), testText);
       remover.invoke(instance, o);
       assertEquals(0, ((List) getter.invoke(instance)).size(), testText);
       try {

@@ -26,27 +26,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the video boost eligibility information type as definied here:
- * <a href="https://developers.facebook.com/docs/graph-api/reference/video-boost-eligibility-info/"></a>https://developers.facebook.com/docs/graph-api/reference/video-boost-eligibility-info/</a>
+ * Represents the video boost eligibility information type as definied here: <a href=
+ * "https://developers.facebook.com/docs/graph-api/reference/video-boost-eligibility-info/"></a>https://developers.facebook.com/docs/graph-api/reference/video-boost-eligibility-info/</a>
  */
 public class VideoBoostEligibilityInfo extends FacebookType {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Reason in case video is not eligible to boost
-     */
-    @Getter
-    @Setter
-    @Facebook("boost_ineligible_reason")
-    private String boostIneligibleReason;
+  /**
+   * Reason in case video is not eligible to boost
+   */
+  @Getter
+  @Setter
+  @Facebook("boost_ineligible_reason")
+  private String boostIneligibleReason;
 
-    /**
-     * Whether a video is eligible to post
-     */
-    @Getter
-    @Setter
-    @Facebook("eligible_to_boost")
-    private Boolean eligibleToBoost;
+  /**
+   * Whether a video is eligible to post
+   */
+  @Getter
+  @Setter
+  @Facebook("eligible_to_boost")
+  private Boolean eligibleToBoost;
 
 }

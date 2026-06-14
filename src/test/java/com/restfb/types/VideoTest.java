@@ -181,7 +181,8 @@ class VideoTest extends AbstractJsonMapperTests {
 
   @Test
   void checkv16_withThumbnails() {
-    Video page = createConnectionJsonMapper().toJavaObject(jsonFromClasspath("v16_0/video-with-thumbnails"), Video.class);
+    Video page =
+        createConnectionJsonMapper().toJavaObject(jsonFromClasspath("v16_0/video-with-thumbnails"), Video.class);
     assertNotNull(page);
     assertNotNull(page.getThumbnails());
     List<Video.Thumbnail> thumbnailList = page.getThumbnails().getData();

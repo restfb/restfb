@@ -40,8 +40,7 @@ class FetchConnectionFeedWithFieldsITCase extends RestFbIntegrationTestBase {
 
   @Test
   void checkConnection() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     Connection<Post> connection =
         client.fetchConnection("/cocacola/feed", Post.class, Parameter.with("fields", "id,from,full_picture"));
     assertNotNull(connection);

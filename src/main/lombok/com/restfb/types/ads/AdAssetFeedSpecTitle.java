@@ -21,5 +21,4 @@
  */
 package com.restfb.types.ads;
 
-public class AdAssetFeedSpecTitle extends AbstractAdAssetFeedSpec {
-}
+public class AdAssetFeedSpecTitle extends AbstractAdAssetFeedSpec {}

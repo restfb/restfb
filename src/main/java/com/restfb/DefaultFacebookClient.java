@@ -59,7 +59,7 @@ import com.restfb.util.StringUtils;
 
 /**
  * Default implementation of a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class DefaultFacebookClient extends BaseFacebookClient implements FacebookClient {
@@ -114,14 +114,13 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   protected boolean accessTokenInHeader;
 
-
   protected DefaultFacebookClient() {
     this(Version.LATEST);
   }
 
   /**
    * Creates a Facebook Graph API client with the given {@code apiVersion}.
-   * 
+   *
    * @param apiVersion
    *          Version of the api endpoint
    */
@@ -131,7 +130,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Creates a Facebook Graph API client with the given {@code accessToken}.
-   * 
+   *
    * @param accessToken
    *          A Facebook OAuth access token.
    * @param apiVersion
@@ -144,7 +143,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Creates a Facebook Graph API client with the given {@code accessToken}.
-   * 
+   *
    * @param accessToken
    *          A Facebook OAuth access token.
    * @param appSecret
@@ -159,7 +158,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Creates a Facebook Graph API client with the given {@code accessToken}.
-   * 
+   *
    * @param accessToken
    *          A Facebook OAuth access token.
    * @param webRequestor
@@ -180,7 +179,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * Creates a Facebook Graph API client with the given {@code accessToken}, {@code webRequestor}, and
    * {@code jsonMapper}.
-   * 
+   *
    * @param accessToken
    *          A Facebook OAuth access token.
    * @param appSecret
@@ -213,7 +212,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Switch between access token in header and access token in query parameters (default)
-   * 
+   *
    * @param accessTokenInHttpHeader
    *          <code>true</code> use access token as header field, <code>false</code> use access token as query parameter
    *          (default)
@@ -224,7 +223,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * override the default facebook exception generator to provide a custom handling for the facebook error objects
-   * 
+   *
    * @param exceptionGenerator
    *          the custom exception generator implementing the {@link FacebookExceptionGenerator} interface
    */
@@ -234,7 +233,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * fetch the current facebook exception generator implementing the {@link FacebookExceptionGenerator} interface
-   * 
+   *
    * @return the current facebook exception generator
    */
   public FacebookExceptionGenerator getFacebookExceptionGenerator() {
@@ -309,10 +308,11 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
       if (isAppSecretProofWithTime()) {
         long now = System.currentTimeMillis() / 1000;
-        request = new WebRequestor.Request(
-          String.format("%s&%s=%s&%s=%s", connectionPageUrl, urlEncode(APP_SECRET_PROOF_TIME_PARAM_NAME), now,
-            urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken + "|" + now, appSecret)),
-          null);
+        request =
+            new WebRequestor.Request(
+              String.format("%s&%s=%s&%s=%s", connectionPageUrl, urlEncode(APP_SECRET_PROOF_TIME_PARAM_NAME), now,
+                urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken + "|" + now, appSecret)),
+              null);
       } else {
         request = new WebRequestor.Request(String.format("%s&%s=%s", connectionPageUrl,
           urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)), null);
@@ -700,7 +700,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Decodes a component of a signed request received from Facebook using FB's special URL-encoding strategy.
-   * 
+   *
    * @param signedRequestToken
    *          Token to decode.
    * @return The decoded token.
@@ -763,7 +763,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Verifies that the signed request is really from Facebook.
-   * 
+   *
    * @param appSecret
    *          The secret for the app that can verify this signed request.
    * @param algorithm
@@ -838,7 +838,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   /**
    * Coordinates the process of executing the API request GET/POST and processing the response we receive from the
    * endpoint.
-   * 
+   *
    * @param endpoint
    *          Facebook Graph API endpoint.
    * @param parameters
@@ -874,7 +874,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Coordinates the process of executing the API request GET/POST and returning the raw response.
-   * 
+   *
    * @param endpoint
    *          Facebook Graph API endpoint.
    * @param executeAsPost
@@ -941,9 +941,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
-  protected Response makeRequestForResponse(String endpoint, final boolean executeAsPost,
-      final boolean executeAsDelete, final List<BinaryAttachment> binaryAttachments, Body body,
-      Parameter... parameters) {
+  protected Response makeRequestForResponse(String endpoint, final boolean executeAsPost, final boolean executeAsDelete,
+      final List<BinaryAttachment> binaryAttachments, Body body, Parameter... parameters) {
     return makeRequestWithMetadata(endpoint, executeAsPost, executeAsDelete, binaryAttachments, body, parameters)
       .getResponse();
   }
@@ -966,8 +965,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return executeGetRequest(request);
     } catch (FacebookException facebookException) {
-      facebookException.withInfoData("GET", request.getUrl(), request.getParameters(),
-        request.getHeaderAccessToken(), startTime);
+      facebookException.withInfoData("GET", request.getUrl(), request.getParameters(), request.getHeaderAccessToken(),
+        startTime);
       throw facebookException;
     }
   }
@@ -992,7 +991,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * returns if the fallback post method (<code>true</code>) is used or the http delete (<code>false</code>)
-   * 
+   *
    * @return {@code true} if POST is used instead of HTTP DELETE (default)
    */
   public boolean isHttpDeleteFallback() {
@@ -1003,7 +1002,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    * Set to <code>true</code> if the facebook http delete fallback should be used. Facebook allows to use the http POST
    * with the parameter "method=delete" to override the post and use delete instead. This feature allow http client that
    * do not support the whole http method set, to delete objects from facebook
-   * 
+   *
    * @param httpDeleteFallback
    *          <code>true</code> if the http Delete Fallback is used
    */
@@ -1097,7 +1096,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Generate the parameter string to be included in the Facebook API request.
-   * 
+   *
    * @param parameters
    *          Arbitrary number of extra parameters to include in the request.
    * @return The parameter string to include in the Facebook API request.
@@ -1110,7 +1109,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Generate the parameter string to be included in the Facebook API request.
-   * 
+   *
    * @param withJsonParameter
    *          add additional parameter format with type json
    * @param parameters
@@ -1172,7 +1171,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Returns the base endpoint URL for the Graph API.
-   * 
+   *
    * @return The base endpoint URL for the Graph API.
    */
   protected String getFacebookGraphEndpointUrl() {
@@ -1185,11 +1184,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Returns the base endpoint URL for the Graph APIs video upload functionality.
-   * 
+   *
    * @return The base endpoint URL for the Graph APIs video upload functionality.
    * @since 1.6.5
-   * @deprecated the Graph Video endpoint is deprecated; video uploads use the Graph API endpoint
-   *             instead.
+   * @deprecated the Graph Video endpoint is deprecated; video uploads use the Graph API endpoint instead.
    */
   @Deprecated
   protected String getFacebookGraphVideoEndpointUrl() {
@@ -1202,7 +1200,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   /**
    * Returns the Facebook Reels Upload endpoint URL for handling the Reels Upload
-   * 
+   *
    * @return the Facebook Reels Upload endpoint URL
    */
   protected String getFacebookReelsUploadEndpointUrl() {

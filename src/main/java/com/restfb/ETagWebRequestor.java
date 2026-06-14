@@ -92,8 +92,8 @@ public class ETagWebRequestor extends DefaultWebRequestor {
         } else {
           Response resp = super.createResponse(httpResponse, headers);
           String fullUrl = httpResponse.request().uri().toString();
-          httpResponse.headers().firstValue("ETag").ifPresent(etag ->
-            etagCache.put(fullUrl, new ETagResponse(etag, resp.getBody())));
+          httpResponse.headers().firstValue("ETag")
+            .ifPresent(etag -> etagCache.put(fullUrl, new ETagResponse(etag, resp.getBody())));
           return resp;
         }
       } else {
@@ -106,7 +106,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
 
   /**
    * return if cache is used.
-   * 
+   *
    * @return <code>true</code> if ETag-Cache is used, <code>false</code> if not
    */
   public boolean isUseCache() {
@@ -132,7 +132,7 @@ public class ETagWebRequestor extends DefaultWebRequestor {
    * <p>
    * You have to set this before the {@link ETagWebRequestor} object is created. While building it, the mapSupplier is
    * used
-   * 
+   *
    * @param mapSupplier
    *          the supplier, that returns a new Map,
    */

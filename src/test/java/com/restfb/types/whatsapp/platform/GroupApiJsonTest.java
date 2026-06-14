@@ -61,9 +61,8 @@ class GroupApiJsonTest extends AbstractJsonMapperTests {
 
   @Test
   void checkGroupJoinRequests() {
-    Connection<GroupJoinRequest> joinRequests =
-        new Connection<>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("whatsapp/group-join-requests"),
-            GroupJoinRequest.class);
+    Connection<GroupJoinRequest> joinRequests = new Connection<>(new DefaultFacebookClient(Version.LATEST),
+      jsonFromClasspath("whatsapp/group-join-requests"), GroupJoinRequest.class);
     assertNotNull(joinRequests);
     assertEquals(2, joinRequests.getData().size());
     assertEquals("before-cursor", joinRequests.getBeforeCursor());

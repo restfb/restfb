@@ -27,14 +27,14 @@ import java.text.DateFormat;
  * The DateFormat strategy interface.
  * <p>
  * all DateFormat strategies have to implement this interface and return a DateFormat
- * 
+ *
  * @since 1.7.0
  */
 public interface DateFormatStrategy {
 
   /**
    * fetch the DateFormat instance that is used to parse a date in the DateUtils
-   * 
+   *
    * @param format
    *          the format pattern as string
    * @return a DateFormat instance

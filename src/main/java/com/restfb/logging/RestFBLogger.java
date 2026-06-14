@@ -80,7 +80,7 @@ public abstract class RestFBLogger {
 
   /**
    * returns the instance of the logger that belongs to the category.
-   * 
+   *
    * @param logCategory
    *          the category of the logger
    * @return a instance of the logger
@@ -161,21 +161,21 @@ public abstract class RestFBLogger {
 
   /**
    * Is the logger instance enabled for the DEBUG level?
-   * 
+   *
    * @return {@code true} if it is enabled, {@code false} otherwise
    */
   public abstract boolean isDebugEnabled();
 
   /**
    * Is the logger instance enabled for the INFO level?
-   * 
+   *
    * @return {@code true} if it is enabled, {@code false} otherwise
    */
   public abstract boolean isInfoEnabled();
 
   /**
    * Is the logger instance enabled for the TRACE level?
-   * 
+   *
    * @return {@code true} if it is enabled, {@code false} otherwise
    */
   public abstract boolean isTraceEnabled();

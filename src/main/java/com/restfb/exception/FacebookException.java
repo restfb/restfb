@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 
 /**
  * Root of the RestFB exception hierarchy.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author <a href="Http://restfb.com">Norbert Bartels</a>
  */
@@ -41,7 +41,7 @@ public abstract class FacebookException extends RuntimeException {
 
   /**
    * Creates an exception with the given message.
-   * 
+   *
    * @param message
    *          A message describing this exception.
    */
@@ -51,7 +51,7 @@ public abstract class FacebookException extends RuntimeException {
 
   /**
    * Creates an exception with the given message and cause.
-   * 
+   *
    * @param message
    *          A message describing this exception.
    * @param cause
@@ -169,9 +169,9 @@ public abstract class FacebookException extends RuntimeException {
 
     @Override
     public String toString() {
-      return "URL: " + httpMethod + ": " + getUrl() +
-              (headerAccessToken != null ? " headerAccessToken: " + headerAccessToken : "")
-              + ", response-time: " + getDurationAsString();
+      return "URL: " + httpMethod + ": " + getUrl()
+          + (headerAccessToken != null ? " headerAccessToken: " + headerAccessToken : "") + ", response-time: "
+          + getDurationAsString();
     }
 
   }

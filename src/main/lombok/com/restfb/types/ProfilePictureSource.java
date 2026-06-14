@@ -29,7 +29,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/profile-picture-source/">Profile
  * Picture Source Graph API type</a>.
- * 
+ *
  * @author Norbert Bartels
  */
 public class ProfilePictureSource extends AbstractFacebookType {
@@ -38,7 +38,7 @@ public class ProfilePictureSource extends AbstractFacebookType {
 
   /**
    * URL of the profile picture
-   * 
+   *
    * @return URL of the profile picture
    */
   @Getter
@@ -48,7 +48,7 @@ public class ProfilePictureSource extends AbstractFacebookType {
 
   /**
    * Indicates whether the profile photo is the default 'silhouette' picture, or has been replaced
-   * 
+   *
    * @return is the photo the default or has been replaced
    */
   @Getter
@@ -58,7 +58,7 @@ public class ProfilePictureSource extends AbstractFacebookType {
 
   /**
    * Picture height in pixels
-   * 
+   *
    * @return Picture height in pixels
    */
   @Getter
@@ -68,7 +68,7 @@ public class ProfilePictureSource extends AbstractFacebookType {
 
   /**
    * Picture width in pixels
-   * 
+   *
    * @return Picture width in pixels
    */
   @Getter

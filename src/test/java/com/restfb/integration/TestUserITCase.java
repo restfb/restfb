@@ -37,9 +37,10 @@ class TestUserITCase extends RestFbIntegrationTestBase {
 
   @Test
   void createAndRemoveTestUser() {
-    //create test user
+    // create test user
     FacebookClient appClient = new DefaultFacebookClient(getTestSettings().getAppAccessToken(), Version.LATEST);
-    TestUser testUser = appClient.publish(getTestSettings().getAppId() + "/accounts/test-users", TestUser.class, Parameter.with("installed",true));
+    TestUser testUser = appClient.publish(getTestSettings().getAppId() + "/accounts/test-users", TestUser.class,
+      Parameter.with("installed", true));
     assertNotNull(testUser);
 
     // delete test user

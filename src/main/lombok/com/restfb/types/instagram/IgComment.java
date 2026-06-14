@@ -33,8 +33,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-comment">Instagram Comment</a>
- * object
+ * Represents a
+ * <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-comment">Instagram
+ * Comment</a> object
  */
 public class IgComment extends FacebookType {
 
@@ -50,8 +51,8 @@ public class IgComment extends FacebookType {
   /**
    * An object containing:
    *
-   * id — IGSID of the Instagram user who created the IG Comment.
-   * username — Username of the Instagram user who created the IG Comment.
+   * id — IGSID of the Instagram user who created the IG Comment. username — Username of the Instagram user who created
+   * the IG Comment.
    */
   @Getter
   @Setter

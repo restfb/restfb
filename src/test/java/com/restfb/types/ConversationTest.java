@@ -31,14 +31,15 @@ class ConversationTest extends AbstractJsonMapperTests {
 
   @Test
   void checkV10_instagram() {
-    Conversation instaConversation = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-conversation"), Conversation.class);
+    Conversation instaConversation =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-conversation"), Conversation.class);
     assertThat(instaConversation).isNotNull();
     assertThat(instaConversation.getParticipants()).isNotNull();
     assertThat(instaConversation.getParticipants()).isNotEmpty();
     for (ExtendedReferenceType refType : instaConversation.getParticipants()) {
       assertThat(refType.getUserId()).isEqualTo("<IGID>");
       assertThat(refType.getUsername()).isEqualTo("<IG_USER_NAME>");
-      assertThat(refType.getId()).isIn("<IGID>","<IGSID>");
+      assertThat(refType.getId()).isIn("<IGID>", "<IGSID>");
       assertThat(refType.isInstagram()).isTrue();
     }
   }

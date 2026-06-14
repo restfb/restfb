@@ -42,7 +42,7 @@ public class ResumableUploadTransferResponse extends AbstractFacebookType {
 
   /**
    * Is <code>true</code> if Facebook don't want any other bytes and the video is transfered.
-   * 
+   *
    * @return if the transfer is the last one and the file upload is finished
    */
   public boolean isFinished() {

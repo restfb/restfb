@@ -40,7 +40,7 @@ public interface FacebookEndpoints {
 
   /**
    * returns the Facebook URL
-   * 
+   *
    * @return the Facebook URL
    */
   default String getFacebookEndpoint() {
@@ -49,7 +49,7 @@ public interface FacebookEndpoints {
 
   /**
    * returns the Facebook Graph API endpoint URL
-   * 
+   *
    * @return the Facebook Graph API endpoint URL
    */
   default String getGraphEndpoint() {
@@ -58,10 +58,9 @@ public interface FacebookEndpoints {
 
   /**
    * returns the Facebook Graph API Video endpoint URL
-   * 
+   *
    * @return the Facebook Graph API Video endpoint URL
-   * @deprecated the Graph Video endpoint is deprecated; video uploads use the Graph API endpoint
-   *             instead.
+   * @deprecated the Graph Video endpoint is deprecated; video uploads use the Graph API endpoint instead.
    */
   @Deprecated
   default String getGraphVideoEndpoint() {

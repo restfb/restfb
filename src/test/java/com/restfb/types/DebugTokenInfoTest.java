@@ -85,7 +85,7 @@ class DebugTokenInfoTest extends AbstractJsonMapperTests {
   @Test
   void testJsonWithProfileId() {
     DebugTokenInfo exampleDebugTokenInfo =
-            createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-4"), DebugTokenInfo.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-4"), DebugTokenInfo.class);
     assertNotNull(exampleDebugTokenInfo);
     assertThat(exampleDebugTokenInfo.getProfileId()).isEqualTo("123456789");
   }
@@ -93,7 +93,7 @@ class DebugTokenInfoTest extends AbstractJsonMapperTests {
   @Test
   void testJsonWithExpiresAtZero() {
     DebugTokenInfo exampleDebugTokenInfo =
-            createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-4"), DebugTokenInfo.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("debug-token-info-4"), DebugTokenInfo.class);
     assertNotNull(exampleDebugTokenInfo);
     assertNull(exampleDebugTokenInfo.getExpiresAt());
   }

@@ -56,7 +56,7 @@ public class StringJsonUtils {
 
   /**
    * Checks if the given String is equals to the String with the content {@code "null"}
-   * 
+   *
    * @param jsonString
    *          the JSON to check.
    * @return {@code true} if the String is {@code "null"}
@@ -67,7 +67,7 @@ public class StringJsonUtils {
 
   /**
    * Checks if the given String is equals to the String with the content {@code "false"}
-   * 
+   *
    * @param jsonString
    *          the JSON to check.
    * @return {@code true} if the String is {@code "false"}

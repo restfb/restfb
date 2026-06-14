@@ -26,7 +26,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Objects;
 
-
 /**
  * A streaming parser for JSON text. The parser reports all events to a given handler.
  */
@@ -50,17 +49,12 @@ public class JsonParser {
   private int nestingLevel;
 
   /*
-   * |                      bufferOffset
-   *                        v
-   * [a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t]        < input
-   *                       [l|m|n|o|p|q|r|s|t|?|?]    < buffer
-   *                          ^               ^
-   *                       |  index           fill
+   * | bufferOffset v [a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t] < input [l|m|n|o|p|q|r|s|t|?|?] < buffer ^ ^ | index
+   * fill
    */
 
   /**
-   * Creates a new JsonParser with the given handler. The parser will report all parser events to
-   * this handler.
+   * Creates a new JsonParser with the given handler. The parser will report all parser events to this handler.
    *
    * @param handler
    *          the handler to process parser events
@@ -68,13 +62,12 @@ public class JsonParser {
   @SuppressWarnings("unchecked")
   public JsonParser(JsonHandler<?, ?> handler) {
     Objects.requireNonNull(handler, "handler is null");
-    this.handler = (JsonHandler<Object, Object>)handler;
+    this.handler = (JsonHandler<Object, Object>) handler;
     handler.parser = this;
   }
 
   /**
-   * Parses the given input string. The input must contain a valid JSON value, optionally padded
-   * with whitespace.
+   * Parses the given input string. The input must contain a valid JSON value, optionally padded with whitespace.
    *
    * @param string
    *          the input string, must be valid JSON
@@ -93,11 +86,11 @@ public class JsonParser {
   }
 
   /**
-   * Reads the entire input from the given reader and parses it as JSON. The input must contain a
-   * valid JSON value, optionally padded with whitespace.
+   * Reads the entire input from the given reader and parses it as JSON. The input must contain a valid JSON value,
+   * optionally padded with whitespace.
    * <p>
-   * Characters are read in chunks into a default-sized input buffer. Hence, wrapping a reader in an
-   * additional <code>BufferedReader</code> likely won't improve reading performance.
+   * Characters are read in chunks into a default-sized input buffer. Hence, wrapping a reader in an additional
+   * <code>BufferedReader</code> likely won't improve reading performance.
    * </p>
    *
    * @param reader
@@ -112,11 +105,11 @@ public class JsonParser {
   }
 
   /**
-   * Reads the entire input from the given reader and parses it as JSON. The input must contain a
-   * valid JSON value, optionally padded with whitespace.
+   * Reads the entire input from the given reader and parses it as JSON. The input must contain a valid JSON value,
+   * optionally padded with whitespace.
    * <p>
-   * Characters are read in chunks into an input buffer of the given size. Hence, wrapping a reader
-   * in an additional <code>BufferedReader</code> likely won't improve reading performance.
+   * Characters are read in chunks into an input buffer of the given size. Hence, wrapping a reader in an additional
+   * <code>BufferedReader</code> likely won't improve reading performance.
    * </p>
    *
    * @param reader
@@ -153,39 +146,39 @@ public class JsonParser {
 
   private void readValue() throws IOException {
     switch (current) {
-      case 'n':
-        readNull();
-        break;
-      case 't':
-        readTrue();
-        break;
-      case 'f':
-        readFalse();
-        break;
-      case '"':
-        readString();
-        break;
-      case '[':
-        readArray();
-        break;
-      case '{':
-        readObject();
-        break;
-      case '-':
-      case '0':
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-      case '6':
-      case '7':
-      case '8':
-      case '9':
-        readNumber();
-        break;
-      default:
-        throw expected("value");
+    case 'n':
+      readNull();
+      break;
+    case 't':
+      readTrue();
+      break;
+    case 'f':
+      readFalse();
+      break;
+    case '"':
+      readString();
+      break;
+    case '[':
+      readArray();
+      break;
+    case '{':
+      readObject();
+      break;
+    case '-':
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+      readNumber();
+      break;
+    default:
+      throw expected("value");
     }
   }
 

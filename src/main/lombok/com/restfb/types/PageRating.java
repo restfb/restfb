@@ -38,7 +38,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/v1.0/page/ratings">Cover Graph API
  * type</a>.
- * 
+ *
  * @author Anand Hemmige
  * @author Venil Noronha
  * @since 1.6.16
@@ -49,7 +49,7 @@ public class PageRating extends FacebookType implements HasComments, HasFrom, Ha
 
   /**
    * Time the rating took place
-   * 
+   *
    * @return Time the rating took place
    */
   @Getter
@@ -69,15 +69,15 @@ public class PageRating extends FacebookType implements HasComments, HasFrom, Ha
 
   /**
    * Person who rated the page
-   * 
+   *
    * @return Person who rated the page
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private NamedFacebookType from;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
@@ -92,7 +92,7 @@ public class PageRating extends FacebookType implements HasComments, HasFrom, Ha
   @Facebook("no_feed_story")
   private Boolean noFeedStory;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private Comments comments;

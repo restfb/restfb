@@ -48,7 +48,7 @@ import com.restfb.types.*;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert JSON to Java" functionality.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 class JsonMapperToJavaTest extends AbstractJsonMapperTests {
@@ -322,8 +322,8 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    */
   @Test
   void testNestedListOfStrings() {
-    NestedListOfStrings object = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("nested-list-of-strings"), NestedListOfStrings.class);
+    NestedListOfStrings object =
+        createJsonMapper().toJavaObject(jsonFromClasspath("nested-list-of-strings"), NestedListOfStrings.class);
 
     assertEquals(3, object.values.size());
     assertEquals(0, object.values.get(0).size());
@@ -336,8 +336,8 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
    */
   @Test
   void testNestedListOfObjects() {
-    NestedListOfObjects object = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("nested-list-of-objects"), NestedListOfObjects.class);
+    NestedListOfObjects object =
+        createJsonMapper().toJavaObject(jsonFromClasspath("nested-list-of-objects"), NestedListOfObjects.class);
 
     assertEquals(2, object.values.size());
 
@@ -359,8 +359,8 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
 
   @Test
   void testCombinedNestedList() {
-    CombinedNestedList object = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("nested-lists"), CombinedNestedList.class);
+    CombinedNestedList object =
+        createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), CombinedNestedList.class);
 
     // Strings
     List<NestedListOfStrings> strings = object.strings;
@@ -394,32 +394,28 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   void testThrowExceptionWhenGenericTypeIsMissing() {
     FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
-            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), MissingGenericType.class)
-    );
+      () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), MissingGenericType.class));
     assertEquals("No generic type specified for field: values", exception.getMessage());
   }
 
   @Test
   void testThrowExceptionWhenInnerGenericTypeIsMissing() {
     FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
-            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), MissingInnerGenericType.class)
-    );
+      () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), MissingInnerGenericType.class));
     assertEquals("You must specify the generic type for mapping", exception.getMessage());
   }
 
   @Test
   void testThrowExceptionWhenTypeIsUnsupported() {
     FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
-            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), UnsupportedGenericType.class)
-    );
+      () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), UnsupportedGenericType.class));
     assertEquals("Type must be a List, found: interface java.util.function.Supplier", exception.getMessage());
   }
 
   @Test
   void testThrowExceptionWhenTypeIsWildcard() {
     FacebookJsonMappingException exception = assertThrows(FacebookJsonMappingException.class,
-            () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), UnsupportedWildcardType.class)
-    );
+      () -> createJsonMapper().toJavaObject(jsonFromClasspath("nested-lists"), UnsupportedWildcardType.class));
     assertEquals("Unsupported type: ?", exception.getMessage());
   }
 
@@ -429,7 +425,7 @@ class JsonMapperToJavaTest extends AbstractJsonMapperTests {
   @Test
   void story() {
     Set<String> actualStoryTagIds = new HashSet<>();
-    Set<String> expectedStoryTagIds = Stream.of("123","456").collect(Collectors.toSet());
+    Set<String> expectedStoryTagIds = Stream.of("123", "456").collect(Collectors.toSet());
 
     JsonMapper jsonMapper = createJsonMapper();
     Story story = jsonMapper.toJavaObject(jsonFromClasspath("story"), Story.class);

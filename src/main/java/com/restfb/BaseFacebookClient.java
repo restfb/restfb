@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 
 /**
  * Base class that contains data and functionality from {@link DefaultFacebookClient}
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -81,7 +81,7 @@ abstract class BaseFacebookClient {
 
   /**
    * Appends the given {@code parameter} to the given {@code parameters} array.
-   * 
+   *
    * @param parameter
    *          The parameter value to append.
    * @param parameters
@@ -89,7 +89,7 @@ abstract class BaseFacebookClient {
    * @return A new array which contains both {@code parameter} and {@code parameters}.
    */
   protected Parameter[] parametersWithAdditionalParameter(Parameter parameter, Parameter... parameters) {
-    Parameter[] parameterArray = Arrays.copyOf(parameters, parameters.length+1);
+    Parameter[] parameterArray = Arrays.copyOf(parameters, parameters.length + 1);
     parameterArray[parameters.length] = parameter;
     return parameterArray;
   }
@@ -99,7 +99,7 @@ abstract class BaseFacebookClient {
    * <p>
    * Includes special-case handling for access token parameters where we check if the token is already URL-encoded - if
    * so, we don't encode again. All other parameter types are always URL-encoded.
-   * 
+   *
    * @param name
    *          The name of the parameter whose value should be URL-encoded and returned.
    * @param value
@@ -118,7 +118,7 @@ abstract class BaseFacebookClient {
    * Given an api call (e.g. "me" or "fql.query"), returns the correct FB API endpoint to use.
    * <p>
    * Useful for returning the read-only API endpoint where possible.
-   * 
+   *
    * @param apiCall
    *          The FB API call (Graph or Old REST API) for which we'd like an endpoint.
    * @param hasAttachment

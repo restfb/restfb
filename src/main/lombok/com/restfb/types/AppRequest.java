@@ -34,7 +34,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/user/#apprequests" >App Request Graph API
  * type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
  */
@@ -52,7 +52,7 @@ public class AppRequest extends FacebookType implements HasCreatedTime, HasFrom,
 
   /**
    * App associated with the request.
-   * 
+   *
    * @return App associated with the request.
    */
   @Getter
@@ -72,7 +72,7 @@ public class AppRequest extends FacebookType implements HasCreatedTime, HasFrom,
 
   /**
    * The recipient user associated with the request.
-   * 
+   *
    * @return The recipient user associated with the request.
    */
   @Getter
@@ -82,30 +82,30 @@ public class AppRequest extends FacebookType implements HasCreatedTime, HasFrom,
 
   /**
    * The sender user associated with the request.
-   * 
+   *
    * @return The sender user associated with the request.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private NamedFacebookType from;
 
   /**
    * A string describing the request.
-   * 
+   *
    * @return A string describing the request.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
 
   /**
    * Timestamp when the request was created.
-   * 
+   *
    * @return Timestamp when the request was created.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -114,7 +114,7 @@ public class AppRequest extends FacebookType implements HasCreatedTime, HasFrom,
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Cover Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
    */
@@ -122,7 +122,7 @@ public class AppRequest extends FacebookType implements HasCreatedTime, HasFrom,
 
     /**
      * The application's canvas name.
-     * 
+     *
      * @return The application's canvas name.
      */
     @Getter
@@ -132,7 +132,7 @@ public class AppRequest extends FacebookType implements HasCreatedTime, HasFrom,
 
     /**
      * The application's namespace.
-     * 
+     *
      * @return The application's namespace.
      */
     @Getter

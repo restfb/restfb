@@ -118,7 +118,7 @@ public class IgMedia extends IgMediaChild {
    * <p>
    * Excludes likes on album child media and likes on promoted posts created from the media. Includes replies on
    * comments.
-   * 
+   *
    * <ul>
    * <li><strong>v10.0 and older calls</strong>: value will be 0 if the media owner has hidden like counts it.</li>
    * <li><strong>v11.0+ calls</strong>: field will be omitted if media owner has hidden like counts on it.</li>
@@ -143,7 +143,8 @@ public class IgMedia extends IgMediaChild {
    * Count of views for Instagram Reels.
    * <p>
    * Includes paid and organic metrics. For content crossposted to Facebook, the combined Instagram and Facebook view
-   * counts are returned if the session user can access the Facebook post. Only available for the Business Discovery API.
+   * counts are returned if the session user can access the Facebook post. Only available for the Business Discovery
+   * API.
    */
   @Getter
   @Setter
@@ -192,8 +193,8 @@ public class IgMedia extends IgMediaChild {
   /**
    * Total number of comments on the media across all surfaces.
    * <p>
-   * Includes comments on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only available
-   * for the Instagram API with Facebook Login.
+   * Includes comments on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only
+   * available for the Instagram API with Facebook Login.
    * <p>
    * Available for the {@code collaborative_media} connection.
    */
@@ -205,8 +206,8 @@ public class IgMedia extends IgMediaChild {
   /**
    * Total number of likes on the media across all surfaces.
    * <p>
-   * Includes likes on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only available for
-   * the Instagram API with Facebook Login.
+   * Includes likes on related boosted or promoted media. Not accessible through Hashtag API endpoints. Only available
+   * for the Instagram API with Facebook Login.
    * <p>
    * Available for the {@code collaborative_media} connection.
    */
@@ -218,8 +219,8 @@ public class IgMedia extends IgMediaChild {
   /**
    * Total number of views for video content across all surfaces.
    * <p>
-   * Includes views through boosted or promoted media and replays. Only available for video media. Not accessible through
-   * Business Discovery or Hashtag API endpoints; use {@code view_count} for Business Discovery.
+   * Includes views through boosted or promoted media and replays. Only available for video media. Not accessible
+   * through Business Discovery or Hashtag API endpoints; use {@code view_count} for Business Discovery.
    * <p>
    * Available for the {@code collaborative_media} connection.
    */
@@ -248,7 +249,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * IGTV media title.
-   * 
+   *
    * @deprecated Omitted from response.
    */
   @Deprecated
@@ -273,7 +274,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * returns the list of child media objects, only available if the media_type is a carousal
-   * 
+   *
    * @return the list of children as unmodifiable list
    */
   public List<IgMediaChild> getChildren() {
@@ -282,7 +283,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * adds a new child to the children list
-   * 
+   *
    * @param child
    *          the child that is added
    * @return true if adding the child works
@@ -293,7 +294,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * removes a new child from the children list
-   * 
+   *
    * @param child
    *          the child that is removed
    * @return true if removing the child works
@@ -316,7 +317,7 @@ public class IgMedia extends IgMediaChild {
 
   /**
    * returns the comments of this media
-   * 
+   *
    * @return the comments of this media
    */
   public List<IgComment> getComments() {

@@ -34,7 +34,7 @@ import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * A collection of reflection-related utility methods.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Igor Kabiljo
  * @author Scott Hernandez
@@ -61,9 +61,12 @@ public final class ReflectionUtils {
   }
 
   public static void setJson(Object cls, String obj) {
-    if (cls == null || obj == null) return; // if some object is null we skip this step
-    List<FieldWithAnnotation<OriginalJson>> annotatedFields = findFieldsWithAnnotation(cls.getClass(), OriginalJson.class);
-    annotatedFields.stream().map(FieldWithAnnotation::getField).filter(f -> String.class.equals(f.getType())).forEach(f -> setFieldData(f, cls, obj));
+    if (cls == null || obj == null)
+      return; // if some object is null we skip this step
+    List<FieldWithAnnotation<OriginalJson>> annotatedFields =
+        findFieldsWithAnnotation(cls.getClass(), OriginalJson.class);
+    annotatedFields.stream().map(FieldWithAnnotation::getField).filter(f -> String.class.equals(f.getType()))
+      .forEach(f -> setFieldData(f, cls, obj));
   }
 
   private static void setFieldData(Field field, Object obj, Object data) {
@@ -77,7 +80,7 @@ public final class ReflectionUtils {
 
   /**
    * Is the given {@code object} a primitive type or wrapper for a primitive type?
-   * 
+   *
    * @param object
    *          The object to check for primitive-ness.
    * @return {@code true} if {@code object} is a primitive type or wrapper for a primitive type, {@code false}
@@ -104,7 +107,7 @@ public final class ReflectionUtils {
   /**
    * Finds fields on the given {@code type} and all of its superclasses annotated with annotations of type
    * {@code annotationType}.
-   * 
+   *
    * @param <T>
    *          The annotation type.
    * @param type
@@ -150,7 +153,7 @@ public final class ReflectionUtils {
    * {@code annotationType}.
    * <p>
    * These results are cached to mitigate performance overhead.
-   * 
+   *
    * @param <T>
    *          The annotation type.
    * @param type
@@ -194,7 +197,7 @@ public final class ReflectionUtils {
    * For example, a field of type {@code List<Long>} would have a first type argument of {@code Long.class}.
    * <p>
    * If the field has no type arguments, {@code null} is returned.
-   * 
+   *
    * @param field
    *          The field to check.
    * @return The field's first parameterized type argument, or {@code null} if none exists.
@@ -228,11 +231,13 @@ public final class ReflectionUtils {
    * @return The {@code i}-th parameterized type argument of the given type, or {@code null} if none exists.
    */
   public static Type getParameterizedTypeArgument(Type type, int i) {
-    if (!(type instanceof ParameterizedType)) return null;
+    if (!(type instanceof ParameterizedType))
+      return null;
 
     Type[] typeArguments = ((ParameterizedType) type).getActualTypeArguments();
 
-    if (i < 0 || i >= typeArguments.length) return null;
+    if (i < 0 || i >= typeArguments.length)
+      return null;
 
     return typeArguments[i];
   }
@@ -245,7 +250,7 @@ public final class ReflectionUtils {
 
   /**
    * Gets all accessor methods for the given {@code clazz}.
-   * 
+   *
    * @param clazz
    *          The class for which accessors are extracted.
    * @return All accessor methods for the given {@code clazz}.
@@ -272,7 +277,7 @@ public final class ReflectionUtils {
 
   /**
    * Reflection-based implementation of {@link Object#toString()}.
-   * 
+   *
    * @param object
    *          The object to convert to a string representation.
    * @return A string representation of {@code object}.
@@ -318,7 +323,7 @@ public final class ReflectionUtils {
 
   /**
    * Reflection-based implementation of {@link Object#hashCode()}.
-   * 
+   *
    * @param object
    *          The object to hash.
    * @return A hashcode for {@code object}.
@@ -350,7 +355,7 @@ public final class ReflectionUtils {
 
   /**
    * Reflection-based implementation of {@link Object#equals(Object)}.
-   * 
+   *
    * @param object1
    *          One object to compare.
    * @param object2
@@ -445,7 +450,7 @@ public final class ReflectionUtils {
 
   /**
    * A field/annotation pair.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
   public static class FieldWithAnnotation<T extends Annotation> {
@@ -461,7 +466,7 @@ public final class ReflectionUtils {
 
     /**
      * Creates a field/annotation pair.
-     * 
+     *
      * @param field
      *          A field.
      * @param annotation
@@ -474,7 +479,7 @@ public final class ReflectionUtils {
 
     /**
      * Gets the field.
-     * 
+     *
      * @return The field.
      */
     public Field getField() {
@@ -483,7 +488,7 @@ public final class ReflectionUtils {
 
     /**
      * Gets the annotation on the field.
-     * 
+     *
      * @return The annotation on the field.
      */
     public T getAnnotation() {
@@ -499,7 +504,7 @@ public final class ReflectionUtils {
 
   /**
    * Cache key composed of a class and annotation pair. Used by {@link ReflectionUtils#FIELDS_WITH_ANNOTATION_CACHE}.
-   * 
+   *
    * @author Igor Kabiljo
    */
   private static final class ClassAnnotationCacheKey {
@@ -515,7 +520,7 @@ public final class ReflectionUtils {
 
     /**
      * Creates a cache key with the given {@code clazz}/@{code annotation} pair.
-     * 
+     *
      * @param clazz
      *          Class component of this cache key.
      * @param annotation

@@ -30,7 +30,7 @@ import lombok.Setter;
 
 /**
  * DeAuth type, returned on de-authorization callback
- * 
+ *
  * @since 1.6.16
  */
 public class DeAuth extends AbstractFacebookType {

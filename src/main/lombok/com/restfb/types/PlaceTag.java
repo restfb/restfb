@@ -40,7 +40,7 @@ public class PlaceTag extends FacebookType implements HasCreatedTime {
    *
    * @return Time when the place was visited
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

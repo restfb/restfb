@@ -602,7 +602,7 @@ class JsonArrayTest {
 
   @Test
   void equals_falseForSubclass() {
-    assertThat(array).isNotSameAs(new JsonArray(array){
+    assertThat(array).isNotSameAs(new JsonArray(array) {
       private static final long serialVersionUID = 9019559538981810113L;
     });
   }

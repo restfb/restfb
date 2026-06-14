@@ -29,6 +29,4 @@ public class AdAssetFeedSpecBody extends AbstractAdAssetFeedSpec {
 
   private static final long serialVersionUID = 1L;
 
-
-
 }

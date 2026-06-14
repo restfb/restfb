@@ -66,7 +66,7 @@ public class WebButton extends AbstractButton implements MenuItem {
 
   /**
    * Set to {@code true} to disable sharing in the webview (for sensitive info).
-   * 
+   *
    * @param disable
    */
   public void setDisableSharing(boolean disable) {

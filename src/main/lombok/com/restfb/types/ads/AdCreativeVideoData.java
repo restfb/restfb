@@ -62,7 +62,7 @@ public class AdCreativeVideoData extends AbstractFacebookType implements HasMess
   @Facebook("link_description")
   private String linkDescription;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;

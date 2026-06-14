@@ -127,7 +127,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(message);
         assertEquals("mid.1458696618141:b4ef9d19ec21086067", message.getMid());
         assertNull(message.getText());
@@ -165,7 +166,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void message(MessageItem message, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(message);
         assertEquals("mid.1458696618141:b4ef9d19ec21086067", message.getMid());
         assertTrue(message.hasAttachment());
@@ -238,8 +240,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
 
   @Test
   void messagingMessageIsUnsupported() {
-    WebhookObject webhookObject =
-        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-isunsupported"), WebhookObject.class);
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-isunsupported"), WebhookObject.class);
     assertNotNull(webhookObject);
     WebhookEntry entry = webhookObject.getEntryList().get(0);
     MessagingItem messagingItem = entry.getMessaging().get(0);
@@ -266,7 +268,7 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
   @Test
   void messagingMessageReplyStory() {
     WebhookObject webhookObject =
-            createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-reply-2"), WebhookObject.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-reply-2"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -299,7 +301,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void reaction(MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void reaction(MessageReaction reaction, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(reaction);
         assertEquals("original_message_id", reaction.getMid());
         assertEquals("sad", reaction.getReaction());
@@ -372,7 +375,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void appRoles(AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void appRoles(AppRoles appRoles, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(appRoles);
         found.set(true);
       }
@@ -401,7 +405,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void referral(ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void referral(ReferralItem referral, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(referral);
         found.set(true);
       }
@@ -433,8 +438,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
 
   @Test
   void messagingMessageEdits() {
-    WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("webhooks/messaging-message-edits"), WebhookObject.class);
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("webhooks/messaging-message-edits"), WebhookObject.class);
     assertNotNull(webhookObject);
     assertFalse(webhookObject.getEntryList().isEmpty());
     WebhookEntry entry = webhookObject.getEntryList().get(0);
@@ -585,7 +590,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void postback(PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void postback(PostbackItem postback, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(postback);
         found.set(true);
       }
@@ -657,7 +663,8 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
       @Override
-      public void accountLinking(AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender, Date timestamp) {
+      public void accountLinking(AccountLinkingItem item, MessagingParticipant recipient, MessagingParticipant sender,
+          Date timestamp) {
         assertNotNull(item);
         found.set(true);
       }

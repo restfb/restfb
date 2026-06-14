@@ -34,7 +34,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/thread">Thread Graph API type</a>.
- * 
+ *
  * @since 1.7.0
  */
 public class Thread extends FacebookType {
@@ -49,7 +49,7 @@ public class Thread extends FacebookType {
 
   /**
    * The amount of messages that are unread by the session profile.
-   * 
+   *
    * @return the amount of messages that are unread
    */
   @Getter
@@ -59,7 +59,7 @@ public class Thread extends FacebookType {
 
   /**
    * The amount of messages that are unseen by the session profile.
-   * 
+   *
    * @return the amount of messages that are unseen
    */
   @Getter
@@ -69,7 +69,7 @@ public class Thread extends FacebookType {
 
   /**
    * The time of the last comment on this post.
-   * 
+   *
    * @return The time of the last comment on this post.
    */
   @Getter
@@ -79,7 +79,7 @@ public class Thread extends FacebookType {
 
   /**
    * The messages in this thread.
-   * 
+   *
    * @return the messages in the thread
    */
   public List<Message> getComments() {
@@ -96,7 +96,7 @@ public class Thread extends FacebookType {
 
   /**
    * A list of the Thread subscriber
-   * 
+   *
    * @return A list of the thread subsscriber
    */
   public List<NamedFacebookType> getTo() {

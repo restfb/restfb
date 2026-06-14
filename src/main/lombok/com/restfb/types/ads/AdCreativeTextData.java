@@ -30,7 +30,7 @@ import lombok.Setter;
 
 public class AdCreativeTextData extends AbstractFacebookType implements HasMessage {
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;

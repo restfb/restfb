@@ -36,7 +36,7 @@ import java.util.TimeZone;
  * <p>
  * Attention: to prevent a possible memory leak while using this strategy you have to clean up the inner ThreadLocal
  * with the {@code clearThreadLocal} method.
- * 
+ *
  * @since 1.7.0
  */
 public class CachedDateFormatStrategy implements DateFormatStrategy {

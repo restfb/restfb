@@ -31,7 +31,7 @@ public class DeviceTokenExceptionFactory {
 
   /**
    * Create a {@link FacebookDeviceTokenException} to a given {@link FacebookOAuthException}.
-   * 
+   *
    * @param oauthException
    * @throws FacebookDeviceTokenCodeExpiredException
    * @throws FacebookDeviceTokenPendingException

@@ -154,7 +154,7 @@ public class OpenGraphPropertyConfig {
 
   /**
    * For enum properties, the set of allowed values
-   * 
+   *
    * @return the set of allowed values
    */
   public List<String> getAllowedValues() {
@@ -171,7 +171,7 @@ public class OpenGraphPropertyConfig {
 
   /**
    * For struct properties, the config for the nested properties
-   * 
+   *
    * @return the config for the nested properties
    */
   public Map<String, OpenGraphPropertyConfig> getStructConfig() {

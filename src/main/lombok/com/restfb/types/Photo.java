@@ -42,7 +42,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/photo/">Photo Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -50,7 +50,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * An object containing the name and ID of the user who posted the photo.
-   * 
+   *
    * @return An object containing the name and ID of the user who posted the photo.
    */
   @Getter
@@ -60,7 +60,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The album-sized view of the photo.
-   * 
+   *
    * @return The album-sized view of the photo.
    */
   @Getter
@@ -92,7 +92,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The full-sized source of the photo.
-   * 
+   *
    * @return The full-sized source of the photo.
    * @deprecated Use <code>images</code> field instead
    */
@@ -104,7 +104,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The height of the photo, in pixels.
-   * 
+   *
    * @return The height of the photo, in pixels.
    */
   @Getter
@@ -114,7 +114,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The width of the photo, in pixels.
-   * 
+   *
    * @return The width of the photo, in pixels.
    */
   @Getter
@@ -124,7 +124,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * A link to the photo on Facebook.
-   * 
+   *
    * @return A link to the photo on Facebook.
    */
   @Getter
@@ -134,7 +134,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The icon-sized source of the photo.
-   * 
+   *
    * @return The icon-sized source of the photo.
    */
   @Getter
@@ -174,7 +174,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The position of this photo in the album.
-   * 
+   *
    * @return The position of this photo in the album.
    * @since 1.6.5
    * @deprecated Facebook will start returning 0 for this field starting on October 3, 2012.
@@ -198,7 +198,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The last time the photo or its caption was updated.
-   * 
+   *
    * @return The last time the photo or its caption was updated.
    */
   @Getter
@@ -208,10 +208,10 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The time the photo was initially published.
-   * 
+   *
    * @return The time the photo was initially published.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -222,7 +222,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
    * @return All of the comments on this photo.
    * @since 1.6.5
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private Comments comments;
@@ -250,7 +250,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The location associated with this photo, if any.
-   * 
+   *
    * @return The place this photo was taken.
    * @since 1.6.10
    */
@@ -261,7 +261,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Back dated time
-   * 
+   *
    * @return the back dated time
    * @since 1.6.15
    */
@@ -272,7 +272,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * String that represents the back dated time granularity
-   * 
+   *
    * @return the back dated time granularity
    * @since 1.6.15
    */
@@ -290,15 +290,15 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/photo">Tag Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
-  public static class Tag extends NamedFacebookType implements HasCreatedTime{
+  public static class Tag extends NamedFacebookType implements HasCreatedTime {
 
     /**
      * X coordinate (as a percentage of distance from left vs. width).
-     * 
+     *
      * @return X coordinate (as a percentage of distance from left vs. width).
      */
     @Getter
@@ -308,7 +308,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * Y coordinate (as a percentage of distance from top vs. height).
-     * 
+     *
      * @return Y coordinate (as a percentage of distance from top vs. height).
      */
     @Getter
@@ -318,10 +318,10 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * Date this tag was created.
-     * 
+     *
      * @return Date this tag was created.
      */
-    @Getter(onMethod_ = {@Override})
+    @Getter(onMethod_ = { @Override })
     @Setter
     @Facebook("created_time")
     private Date createdTime;
@@ -332,7 +332,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/photo">Image Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.5
    */
@@ -340,7 +340,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * The height of the image in pixels.
-     * 
+     *
      * @return The height of the image in pixels.
      */
     @Getter
@@ -350,7 +350,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * The width of the image in pixels.
-     * 
+     *
      * @return The width of the image in pixels.
      */
     @Getter
@@ -360,7 +360,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * The source URL of the image.
-     * 
+     *
      * @return The source URL of the image.
      */
     @Getter
@@ -374,7 +374,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
   /**
    * An array containing the users and their positions in this photo. The x and y coordinates are percentages from the
    * left and top edges of the photo, respectively.
-   * 
+   *
    * @return An array containing the users and their positions in this photo. The x and y coordinates are percentages
    *         from the left and top edges of the photo, respectively.
    */
@@ -404,7 +404,7 @@ public class Photo extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The 4 different stored representations of the photo.
-   * 
+   *
    * @return The 4 different stored representations of the photo.
    * @since 1.6.5
    */

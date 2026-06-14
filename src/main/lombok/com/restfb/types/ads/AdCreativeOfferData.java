@@ -50,7 +50,7 @@ public class AdCreativeOfferData extends AbstractFacebookType implements HasMess
   @Facebook("image_url")
   private String imageUrl;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;

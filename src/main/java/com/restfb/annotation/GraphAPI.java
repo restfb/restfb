@@ -28,12 +28,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Target({ TYPE, METHOD, CONSTRUCTOR, FIELD,  })
+@Target({ TYPE, METHOD, CONSTRUCTOR, FIELD, })
 @Retention(RUNTIME)
 @Documented
 public @interface GraphAPI {
 
-    String since() default "";
+  String since() default "";
 
-    String until() default "";
+  String until() default "";
 }

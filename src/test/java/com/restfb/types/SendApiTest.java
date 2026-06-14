@@ -253,8 +253,7 @@ class SendApiTest extends AbstractJsonMapperTests {
     DefaultJsonMapper mapper = new DefaultJsonMapper();
     String recipientJsonString = mapper.toJson(recipient, true);
 
-    AssertJson.assertEquals("{\"attachment\":{\"payload\":{},\"type\":\"image\"}}",
-            recipientJsonString);
+    AssertJson.assertEquals("{\"attachment\":{\"payload\":{},\"type\":\"image\"}}", recipientJsonString);
   }
 
   @Test
@@ -267,7 +266,7 @@ class SendApiTest extends AbstractJsonMapperTests {
     String recipientJsonString = mapper.toJson(recipient, true);
 
     AssertJson.assertEquals("{\"attachment\":{\"payload\":{\"is_reusable\":true},\"type\":\"image\"}}",
-            recipientJsonString);
+      recipientJsonString);
   }
 
   @Test

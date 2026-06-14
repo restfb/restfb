@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the
- * <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/health-status/#response-contents">
+ * Represents the <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/health-status/#response-contents">
  * Messaging Health Status</a>
  */
 public class WhatsAppBusinessHealthStatus extends AbstractFacebookType {

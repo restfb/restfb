@@ -32,7 +32,7 @@ import com.restfb.util.ReflectionUtils;
 /**
  * Encapsulates a discrete part of an entire
  * <a href="https://developers.facebook.com/docs/reference/api/batch/" target="_blank">Facebook Batch API</a> response.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.5
  */
@@ -54,7 +54,7 @@ public class BatchResponse {
 
   /**
    * Creates a batch response with the given HTTP response status code, headers, and JSON body.
-   * 
+   *
    * @param code
    *          HTTP status code.
    * @param headers
@@ -88,7 +88,7 @@ public class BatchResponse {
 
   /**
    * The HTTP status code for this response.
-   * 
+   *
    * @return The HTTP status code for this response.
    */
   public Integer getCode() {
@@ -97,7 +97,7 @@ public class BatchResponse {
 
   /**
    * The HTTP response body JSON.
-   * 
+   *
    * @return The HTTP response body JSON.
    */
   public String getBody() {
@@ -106,7 +106,7 @@ public class BatchResponse {
 
   /**
    * The HTTP response headers.
-   * 
+   *
    * @return The HTTP response headers.
    */
   public List<BatchHeader> getHeaders() {

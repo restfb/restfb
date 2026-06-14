@@ -41,7 +41,7 @@ import com.restfb.json.JsonObject;
         "error_user_msg": "A message"
       }
   } </code>
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -87,7 +87,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Creates an exception with the given error type and message.
-   * 
+   *
    * @param errorType
    *          Value of the Facebook response attribute {@code error.type}.
    * @param errorMessage
@@ -103,7 +103,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
    * @param errorUserMessage
    *          Value of the Facebook response attribute {@code error.error_user_msg}.
    * @param isTransient
-   * 
+   *
    */
   public FacebookGraphException(String errorType, String errorMessage, Integer errorCode, Integer errorSubcode,
       Integer httpStatusCode, String errorUserTitle, String errorUserMessage, Boolean isTransient,
@@ -123,7 +123,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Gets the Facebook Graph API error type.
-   * 
+   *
    * @return The Facebook Graph API error type.
    */
   public String getErrorType() {
@@ -132,7 +132,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Gets the Facebook Graph API error message.
-   * 
+   *
    * @return The Facebook Graph API error message.
    */
   public String getErrorMessage() {
@@ -141,7 +141,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Gets the Facebook API error code.
-   * 
+   *
    * @return The Facebook API error code.
    */
   public Integer getErrorCode() {
@@ -150,7 +150,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Gets the Facebook API error subcode.
-   * 
+   *
    * @return The Facebook API error subcode.
    */
   public Integer getErrorSubcode() {
@@ -159,7 +159,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Gets the HTTP status code returned by the server.
-   * 
+   *
    * @return The HTTP status code returned by the server.
    * @since 1.6.10
    */
@@ -169,7 +169,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Gets the Facebook API error user title.
-   * 
+   *
    * @return the Facebook API error user title
    * @since 1.7.1
    */
@@ -179,7 +179,7 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * Gets the Facebook API error user message.
-   * 
+   *
    * @return the Facebook API error user message
    * @since 1.7.1
    */
@@ -209,8 +209,10 @@ public class FacebookGraphException extends FacebookErrorMessageException {
   }
 
   /**
-   * returns the error data as defined <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes/">here</a> as JsonObject.
-   * We use no special object to be future proof and allow other error JSONs to use this.
+   * returns the error data as defined
+   * <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes/">here</a> as JsonObject. We
+   * use no special object to be future proof and allow other error JSONs to use this.
+   *
    * @return Optional<JsonObject> with the JsonObject
    */
   public Optional<JsonObject> getErrorData() {
@@ -226,7 +228,9 @@ public class FacebookGraphException extends FacebookErrorMessageException {
 
   /**
    * special method to get the String result to the given field of the error_data field
-   * @param field field you like to fetch
+   *
+   * @param field
+   *          field you like to fetch
    * @return String with the result or empty String if not available
    */
   public String getErrorData(String field) {

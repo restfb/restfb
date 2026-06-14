@@ -50,7 +50,7 @@ public class AdRecommendation extends AbstractFacebookType implements HasMessage
   @Facebook
   private String importance;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;

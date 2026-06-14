@@ -34,7 +34,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign">AdGroup Set
  * type</a>.
- * 
+ *
  * Note: AdGroup Set vs AdGroup Campaign Prior to July 2014 ad sets were referred to as 'campaigns'. When using ad sets
  * in API calls the parameter may be referred to as 'adcampaign'. A campaign contains one or more ad sets.
  */
@@ -135,7 +135,7 @@ public class AdSet extends NamedAdsObject implements HasCreatedTime {
   @Facebook("configured_status")
   private String configuredStatus;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

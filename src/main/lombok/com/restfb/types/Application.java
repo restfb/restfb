@@ -35,7 +35,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/application/" >Application Graph API
  * type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
@@ -120,7 +120,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
   /**
    * One line description of an app that appears in the Login Dialog
-   * 
+   *
    * @return One line description of an app that appears in the Login Dialog
    */
   @Getter
@@ -130,7 +130,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
   /**
    * The text to explain why an app needs additional permissions. This appears in the Login Dialog
-   * 
+   *
    * @return The text to explain why an app needs additional permissions. This appears in the Login Dialog
    */
   @Getter
@@ -250,7 +250,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
    *
    * @return Timestamp that indicates when the app was created
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -305,7 +305,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
   /**
    * The description of the app, as provided by the developer.
-   * 
+   *
    * @return The description of the app, as provided by the developer.
    */
   @Getter
@@ -341,7 +341,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
   /**
    * Whether to support the iOS integrated Login Dialog.
-   * 
+   *
    * @return Whether to support the iOS integrated Login Dialog
    */
   @Getter
@@ -381,7 +381,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
   /**
    * A link to the app on Facebook.
-   * 
+   *
    * @return A link to the app on Facebook
    */
   @Getter
@@ -741,7 +741,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
   /**
    * Error configuration for Android SDK.
-   * 
+   *
    * @return Error configuration for Android SDK.
    */
   public List<MobileSdkErrorCategory> getAndroidSdkErrorCategories() {
@@ -775,7 +775,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
   /**
    * Domains and subdomains this app can use.
-   * 
+   *
    * @return Domains and subdomains this app can use
    */
   public List<String> getAppDomains() {
@@ -1169,7 +1169,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
     /**
      * List of device models that may not do fast app switches.
-     * 
+     *
      * @return List of device models that may not do fast app switches
      */
     public List<String> getBlockedDeviceModels() {
@@ -1224,7 +1224,7 @@ public class Application extends CategorizedFacebookType implements HasCreatedTi
 
     /**
      * Custom-made category restrictions for the app, such as alcohol restriction.
-     * 
+     *
      * @return Custom-made category restrictions for the app, such as alcohol restriction
      */
     @Getter

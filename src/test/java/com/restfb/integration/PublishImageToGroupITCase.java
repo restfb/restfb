@@ -39,8 +39,7 @@ class PublishImageToGroupITCase extends RestFbIntegrationTestBase {
 
   @Test
   void publishImageToGroup() {
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
     JsonObject result = client.publish(getTestSettings().getGroupId() + "/photos", JsonObject.class,
       Parameter.with("message", "This is a cool test image"), Parameter.with("url", imageUrl));
     assertNotNull(result);

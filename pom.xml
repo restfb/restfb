@@ -24,7 +24,9 @@
     <version.assertj>3.27.7</version.assertj>
     <version.slf4j>[1.7.32,)</version.slf4j>
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
+    <version.enforcer.maven.plugin>3.6.2</version.enforcer.maven.plugin>
     <version.sonar.maven.plugin>3.11.0.3922</version.sonar.maven.plugin>
+    <version.spotless.maven.plugin>3.6.0</version.spotless.maven.plugin>
 
     <!-- additional configuration -->
     <year.current>2024</year.current>
@@ -156,6 +158,28 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${version.enforcer.maven.plugin}</version>
+        <executions>
+          <execution>
+            <id>enforce-java-version</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[17,18)</version>
+                  <message>RestFB must be built with JDK 17. The published artifacts still target Java 11.</message>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
         <version>5.1.9</version>
@@ -227,6 +251,31 @@
             <arg>-Xlint:-deprecation</arg>
           </compilerArgs>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${version.spotless.maven.plugin}</version>
+        <configuration>
+          <java>
+            <includes>
+              <include>src/main/java/**/*.java</include>
+              <include>src/main/lombok/**/*.java</include>
+              <include>src/test/java/**/*.java</include>
+            </includes>
+            <eclipse>
+              <file>${project.basedir}/misc/eclipse/eclipse-code-formatting-rules.xml</file>
+            </eclipse>
+            <trimTrailingWhitespace/>
+          </java>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -21,7 +21,6 @@
  ******************************************************************************/
 package com.restfb.json;
 
-
 import java.io.Serializable;
 
 /**
@@ -73,7 +72,7 @@ public class Location implements Serializable {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    Location other = (Location)obj;
+    Location other = (Location) obj;
     return offset == other.offset && column == other.column && line == other.line;
   }
 

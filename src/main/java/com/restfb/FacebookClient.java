@@ -39,7 +39,7 @@ import com.restfb.types.DeviceCode;
  * Specifies how a <a href="http://developers.facebook.com/docs/api">Facebook Graph API</a> client must operate.
  * <p>
  * If you'd like to...
- * 
+ *
  * <ul>
  * <li>Fetch an object: use {@link #fetchObject(String, Class, Parameter...)} or
  * {@link #fetchObjects(List, Class, Parameter...)}</li>
@@ -49,10 +49,10 @@ import com.restfb.types.DeviceCode;
  * {@link #publish(String, Class, BinaryAttachment, Parameter...)}</li>
  * <li>Delete an object: use {@link #deleteObject(String, Parameter...)}</li>
  * </ul>
- * 
+ *
  * <p>
  * You may also perform some common access token operations. If you'd like to...
- * 
+ *
  * <ul>
  * <li>Extend the life of an access token: use {@link #obtainExtendedAccessToken(String, String, String)}</li>
  * <li>Obtain an access token for use on behalf of an application instead of a user, use
@@ -61,7 +61,7 @@ import com.restfb.types.DeviceCode;
  * {@link #convertSessionKeysToAccessTokens(String, String, String...)}</li>
  * <li>Verify and extract data from a signed request: use {@link #parseSignedRequest(String, String, Class)}</li>
  * </ul>
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Scott Hernandez
  * @author Mattia Tommasone
@@ -73,7 +73,7 @@ public interface FacebookClient {
   /**
    * Fetches a single <a href="http://developers.facebook.com/docs/reference/api/">Graph API object</a>, mapping the
    * result to an instance of {@code objectType}.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param object
@@ -85,7 +85,7 @@ public interface FacebookClient {
    * @return An instance of type {@code objectType} which contains the requested object's data.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
-  */
+   */
   <T> T fetchObject(String object, Class<T> objectType, Parameter... parameters);
 
   /**
@@ -126,7 +126,7 @@ public interface FacebookClient {
    * <p>
    * You'll need to write your own container type ({@code objectType}) to hold the results. See
    * <a href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param ids
@@ -142,8 +142,8 @@ public interface FacebookClient {
   <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters);
 
   /**
-   * Variant of {@link #fetchObjects(List, Class, Parameter...)} that exposes response metadata in an
-   * {@link ApiResult} wrapper.
+   * Variant of {@link #fetchObjects(List, Class, Parameter...)} that exposes response metadata in an {@link ApiResult}
+   * wrapper.
    *
    * @param <T>
    *          Java type to map to.
@@ -164,7 +164,7 @@ public interface FacebookClient {
 
   /**
    * Fetches a Graph API {@code Connection} type, mapping the result to an instance of {@code connectionType}.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param connection
@@ -173,8 +173,8 @@ public interface FacebookClient {
    *          Connection type token.
    * @param parameters
    *          URL parameters to include in the API call (optional).
-   * @return An instance of type {@code connectionType} which contains the requested Connection's data. Metadata about the
-   *         HTTP response can be accessed via {@link Connection#getResponseMetadata()}.
+   * @return An instance of type {@code connectionType} which contains the requested Connection's data. Metadata about
+   *         the HTTP response can be accessed via {@link Connection#getResponseMetadata()}.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
@@ -183,7 +183,7 @@ public interface FacebookClient {
   /**
    * Fetches a previous/next page of a Graph API {@code Connection} type, mapping the result to an instance of
    * {@code connectionType}.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param connectionPageUrl
@@ -191,8 +191,8 @@ public interface FacebookClient {
    *          {@link Connection#getNextPageUrl()}.
    * @param connectionType
    *          Connection type token.
-   * @return An instance of type {@code connectionType} which contains the requested Connection's data. Metadata about the
-   *         HTTP response can be accessed via {@link Connection#getResponseMetadata()}.
+   * @return An instance of type {@code connectionType} which contains the requested Connection's data. Metadata about
+   *         the HTTP response can be accessed via {@link Connection#getResponseMetadata()}.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
    */
@@ -217,7 +217,7 @@ public interface FacebookClient {
   /**
    * Executes operations as a batch using the <a href="https://developers.facebook.com/docs/reference/api/batch/">Batch
    * API</a>.
-   * 
+   *
    * @param batchRequests
    *          The operations to execute.
    * @return The execution results in the order in which the requests were specified.
@@ -227,7 +227,7 @@ public interface FacebookClient {
   /**
    * Executes operations as a batch using the <a href="https://developers.facebook.com/docs/reference/api/batch/">Batch
    * API</a>.
-   * 
+   *
    * @param batchRequests
    *          The operations to execute.
    * @return The execution results in the order in which the requests were specified.
@@ -237,7 +237,7 @@ public interface FacebookClient {
   /**
    * Executes operations as a batch with binary attachments using the
    * <a href="https://developers.facebook.com/docs/reference/api/batch/">Batch API</a>.
-   * 
+   *
    * @param batchRequests
    *          The operations to execute.
    * @param binaryAttachments
@@ -250,7 +250,7 @@ public interface FacebookClient {
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
    * given {@code connection}, mapping the result to an instance of {@code objectType}.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param connection
@@ -289,7 +289,7 @@ public interface FacebookClient {
    * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
    * given {@code connection} and includes some files - photos, for example - in the publish request, and mapping the
    * result to an instance of {@code objectType}.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param connection
@@ -334,7 +334,7 @@ public interface FacebookClient {
    * Performs a <a href="http://developers.facebook.com/docs/api#publishing">Graph API publish</a> operation on the
    * given {@code connection} and includes a file - a photo, for example - in the publish request, and mapping the
    * result to an instance of {@code objectType}.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param connection
@@ -422,7 +422,7 @@ public interface FacebookClient {
   /**
    * Performs a <a href="http://developers.facebook.com/docs/api#deleting">Graph API delete</a> operation on the given
    * {@code object}.
-   * 
+   *
    * @param object
    *          The ID of the object to delete.
    * @param parameters
@@ -455,7 +455,7 @@ public interface FacebookClient {
    * See the <a href="http://developers.facebook.com/docs/guides/upgrade">Facebook Platform Upgrade Guide</a> for
    * details on how this process works and why you should convert your application's session keys if you haven't
    * already.
-   * 
+   *
    * @param appId
    *          A Facebook application ID.
    * @param secretKey
@@ -496,7 +496,7 @@ public interface FacebookClient {
    * <p>
    * See <a href="https://developers.facebook.com/docs/authentication/applications/" >Facebook's authenticating as an
    * app documentation</a>.
-   * 
+   *
    * @param appId
    *          The ID of the app for which you'd like to obtain an access token.
    * @param appSecret
@@ -513,7 +513,7 @@ public interface FacebookClient {
    * <p>
    * See <a href="https://developers.facebook.com/roadmap/offline-access-removal/#extend_token">Facebook's extend access
    * token documentation</a>.
-   * 
+   *
    * @param appId
    *          The ID of the app for which you'd like to obtain an extended access token.
    * @param appSecret
@@ -532,7 +532,7 @@ public interface FacebookClient {
    * <p>
    * See <a href="https://developers.facebook.com/docs/graph-api/securing-requests">Facebook's 'securing requests'
    * documentation</a> for more info.
-   * 
+   *
    * @param accessToken
    *          The access token required to generate the {@code appsecret_proof} value.
    * @param appSecret
@@ -547,7 +547,7 @@ public interface FacebookClient {
   /**
    * Convenience method which invokes {@link #obtainExtendedAccessToken(String, String, String)} with the current access
    * token.
-   * 
+   *
    * @param appId
    *          The ID of the app for which you'd like to obtain an extended access token.
    * @param appSecret
@@ -581,7 +581,7 @@ public interface FacebookClient {
    * <p>
    * See <a href="http://developers.facebook.com/docs/howtos/login/signed-request/">Facebook's signed request
    * documentation</a>.
-   * 
+   *
    * @param signedRequest
    *          The signed request to parse.
    * @param appSecret
@@ -643,65 +643,46 @@ public interface FacebookClient {
    * When working with access tokens, you may need to check what information is associated with them, such as its user
    * or expiry. To get this information you can use the debug tool in the developer site, or you can use this function.
    * </p>
-   * 
+   *
    * <p>
    * You must instantiate your FacebookClient using your App Access Token, or a valid User Access Token from a developer
    * of the app.
    * </p>
-   * 
+   *
    * <p>
    * Note that if your app is set to Native/Desktop in the Advanced settings of your App Dashboard, the underlying
    * GraphAPI endpoint will not work with your app token unless you change the "App Secret in Client" setting to NO. If
    * you do not see this setting, make sure your "App Type" is set to Native/Desktop and then press the save button at
    * the bottom of the page. This will not affect apps set to Web.
    * </p>
-   * 
+   *
    * <p>
    * The response of the API call is a JSON array containing data and a map of fields. For example:
    * </p>
-   * 
-   * <pre>
-   * {@code
-   * {
-   *     "data": {
-   *         "app_id": 138483919580948, 
-   *         "application": "Social Cafe", 
-   *         "expires_at": 1352419328, 
-   *         "is_valid": true, 
-   *         "issued_at": 1347235328, 
-   *         "metadata": {
-   *             "sso": "iphone-safari"
-   *         }, 
-   *         "scopes": [
-   *             "email", 
-   *             "publish_actions"
-   *         ], 
-   *         "user_id": 1207059
-   *     }
-   * }
-   * }
-   * </pre>
-   * 
+   *
+   * <pre> {@code { "data": { "app_id": 138483919580948, "application": "Social Cafe", "expires_at": 1352419328,
+   * "is_valid": true, "issued_at": 1347235328, "metadata": { "sso": "iphone-safari" }, "scopes": [ "email",
+   * "publish_actions" ], "user_id": 1207059 } } } </pre>
+   *
    * <p>
    * Note that the {@code issued_at} field is not returned for short-lived access tokens.
    * </p>
-   * 
+   *
    * <p>
    * See <a href="https://developers.facebook.com/docs/howtos/login/debugging-access-tokens/"> Debugging an Access
    * Token</a>
    * </p>
-   * 
+   *
    * @param inputToken
    *          The Access Token to debug.
-   * 
-   * @return A JsonObject containing the debug information for the accessToken.
-   * @since 1.6.13
+   *
+   * @return A JsonObject containing the debug information for the accessToken. @since 1.6.13
    */
   DebugTokenInfo debugToken(String inputToken);
 
   /**
    * Gets the {@code JsonMapper} used to convert Facebook JSON to Java objects.
-   * 
+   *
    * @return The {@code JsonMapper} used to convert Facebook JSON to Java objects.
    * @since 1.6.7
    */
@@ -709,7 +690,7 @@ public interface FacebookClient {
 
   /**
    * Gets the {@code WebRequestor} used to talk to the Facebook API endpoints.
-   * 
+   *
    * @return The {@code WebRequestor} used to talk to the Facebook API endpoints.
    * @since 1.6.7
    */
@@ -717,7 +698,7 @@ public interface FacebookClient {
 
   /**
    * generates an logout url
-   * 
+   *
    * @param next
    *          may be null, url the webpage should redirect after logout
    * @return the logout url
@@ -737,7 +718,7 @@ public interface FacebookClient {
    * @param scope
    *          List of Permissions to request from the person using your app.
    * @param state
-   *         The state parameter is used to prevent CSRF attacks.
+   *          The state parameter is used to prevent CSRF attacks.
    * @param parameters
    *          List of additional parameters
    * @since 1.9.0
@@ -747,7 +728,7 @@ public interface FacebookClient {
 
   /**
    * generates the login dialog url
-   * 
+   *
    * @param appId
    *          The ID of your app, found in your app's dashboard.
    * @param redirectUri
@@ -773,15 +754,16 @@ public interface FacebookClient {
    *          the Login Dialog. If you are using this in a webview within a desktop app, this must be set to
    *          <code>https://www.facebook.com/connect/login_success.html</code>.
    * @param configId
-   *          The configuration ID that defines the permissions and settings, found in the product section of your
-   *          app's dashboard.
+   *          The configuration ID that defines the permissions and settings, found in the product section of your app's
+   *          dashboard.
    * @param state
-   *         An optional string used to maintain state between the request and the callback.
+   *          An optional string used to maintain state between the request and the callback.
    * @param parameters
    *          List of additional parameters
    * @return the login dialog url
    */
-  String getBusinessLoginDialogUrl(String appId, String redirectUri, String configId, String state, Parameter... parameters);
+  String getBusinessLoginDialogUrl(String appId, String redirectUri, String configId, String state,
+      Parameter... parameters);
 
   default boolean isAppSecretProofWithTime() {
     return false;

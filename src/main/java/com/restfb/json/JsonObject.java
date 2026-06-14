@@ -41,7 +41,7 @@ import com.restfb.json.JsonObject.Member;
  * {@link #names()}. This class also supports iterating over the members in document order using an {@link #iterator()}
  * or an enhanced for loop:
  * </p>
- * 
+ *
  * <pre>
  * for (Member member : jsonObject) {
  *   String name = member.getName();
@@ -451,9 +451,8 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
   }
 
   /**
-   * Checks if a specified member is present as a child of this object. This will not test if
-   * this object contains the literal <code>null</code>, {@link JsonValue#isNull()} should be used
-   * for this purpose.
+   * Checks if a specified member is present as a child of this object. This will not test if this object contains the
+   * literal <code>null</code>, {@link JsonValue#isNull()} should be used for this purpose.
    *
    * @param name
    *          the name of the member to check for
@@ -464,9 +463,9 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
   }
 
   /**
-   * Copies all members of the specified object into this object. When the specified object contains
-   * members with names that also exist in this object, the existing values in this object will be
-   * replaced by the corresponding values in the specified object.
+   * Copies all members of the specified object into this object. When the specified object contains members with names
+   * that also exist in this object, the existing values in this object will be replaced by the corresponding values in
+   * the specified object.
    *
    * @param object
    *          the object to merge
@@ -776,17 +775,15 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
     }
 
     /**
-     * Indicates whether a given object is "equal to" this JsonObject. An object is considered equal
-     * if it is also a <code>JsonObject</code> and both objects contain the same members <em>in
-     * the same order</em>.
+     * Indicates whether a given object is "equal to" this JsonObject. An object is considered equal if it is also a
+     * <code>JsonObject</code> and both objects contain the same members <em>in the same order</em>.
      * <p>
      * If two JsonObjects are equal, they will also produce the same JSON output.
      * </p>
      *
      * @param object
      *          the object to be compared with this JsonObject
-     * @return <tt>true</tt> if the specified object is equal to this JsonObject, <code>false</code>
-     *         otherwise
+     * @return <tt>true</tt> if the specified object is equal to this JsonObject, <code>false</code> otherwise
      */
     @Override
     public boolean equals(Object object) {
@@ -799,7 +796,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
       if (getClass() != object.getClass()) {
         return false;
       }
-      Member other = (Member)object;
+      Member other = (Member) object;
       return name.equals(other.name) && value.equals(other.value);
     }
 
@@ -810,7 +807,7 @@ public class JsonObject extends JsonValue implements Iterable<Member> {
     private final byte[] hashTable = new byte[32]; // must be a power of two
 
     public HashIndexTable() {
-        // nothing to do here
+      // nothing to do here
     }
 
     public HashIndexTable(HashIndexTable original) {

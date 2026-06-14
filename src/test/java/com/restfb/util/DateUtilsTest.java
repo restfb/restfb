@@ -32,7 +32,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.DateUtils}.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 class DateUtilsTest {

@@ -54,7 +54,7 @@ public class UserInvitableFriend extends NamedFacebookType implements HasProfile
   @Facebook("picture")
   private transient String rawPicture;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   private ProfilePictureSource picture;
 

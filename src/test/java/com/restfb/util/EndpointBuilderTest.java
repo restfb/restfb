@@ -35,7 +35,8 @@ class EndpointBuilderTest {
   @Test
   void deleteObjectDELETETest() {
     FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_18_0);
+    DefaultFacebookClient client =
+        new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_18_0);
     client.deleteObject("comment");
     assertThat(wr.getMethod()).isEqualTo("DELETE");
     assertThat(wr.getSavedUrl()).isEqualTo("https://graph.facebook.com/v18.0/comment?access_token=12345&format=json");
@@ -44,7 +45,8 @@ class EndpointBuilderTest {
   @Test
   void deleteObjectPOSTTest() {
     FakeWebRequestor wr = new FakeWebRequestor();
-    DefaultFacebookClient client = new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_18_0);
+    DefaultFacebookClient client =
+        new DefaultFacebookClient("12345", wr, new DefaultJsonMapper(), Version.VERSION_18_0);
     client.setHttpDeleteFallback(true);
     client.deleteObject("comment");
     assertThat(wr.getMethod()).isEqualTo("POST");

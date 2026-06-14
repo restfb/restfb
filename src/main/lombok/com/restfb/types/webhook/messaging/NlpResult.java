@@ -101,7 +101,7 @@ public class NlpResult {
 
   /**
    * returns the complete list of all found entities.
-   * 
+   *
    * @return the complete list of all found entities.
    */
   public List<BaseNlpEntity> getEntities() {

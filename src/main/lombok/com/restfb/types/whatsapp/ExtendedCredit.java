@@ -33,8 +33,8 @@ public class ExtendedCredit extends FacebookType {
   /**
    * The total amount of credit that has been granted to other businesses.
    *
-   * Going forward, credentials are measured in USD at the top level, and attachable
-   * to ad accounts of multiple currencies.
+   * Going forward, credentials are measured in USD at the top level, and attachable to ad accounts of multiple
+   * currencies.
    */
   @Getter
   @Setter
@@ -44,9 +44,8 @@ public class ExtendedCredit extends FacebookType {
   /**
    * The total amount spent.
    *
-   * This is calculated by adding parent ad account and all child ad accounts.
-   * Going forward, credentials are measured in USD at the top level, and attachable
-   * to ad accounts of multiple currencies.
+   * This is calculated by adding parent ad account and all child ad accounts. Going forward, credentials are measured
+   * in USD at the top level, and attachable to ad accounts of multiple currencies.
    */
   @Getter
   @Setter
@@ -96,8 +95,7 @@ public class ExtendedCredit extends FacebookType {
   private String legalEntityName;
 
   /**
-   * When this credit is chosen as the payment method,
-   * the business name of the liable_party
+   * When this credit is chosen as the payment method, the business name of the liable_party
    */
   @Getter
   @Setter
@@ -107,8 +105,8 @@ public class ExtendedCredit extends FacebookType {
   /**
    * The amount of credit available to a specific business.
    *
-   * Going forward, credentials are measured in USD at the top level, and
-   * attachable to ad accounts of multiple currencies.
+   * Going forward, credentials are measured in USD at the top level, and attachable to ad accounts of multiple
+   * currencies.
    */
   @Getter
   @Setter
@@ -118,8 +116,8 @@ public class ExtendedCredit extends FacebookType {
   /**
    * The raw credit limit for an entire business.
    *
-   * Going forward, credentials are measured in USD at the top level, and
-   * attachable to ad accounts of multiple currencies.
+   * Going forward, credentials are measured in USD at the top level, and attachable to ad accounts of multiple
+   * currencies.
    */
   @Getter
   @Setter

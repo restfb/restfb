@@ -54,7 +54,7 @@ public class ProductFeed extends BaseAdsObject implements HasCreatedTime {
    *
    * @return Creation time of the product feed
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

@@ -29,34 +29,34 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * This class represents an Instagram container object.
- * It contains information about the status and status code of an Instagram object.
+ * This class represents an Instagram container object. It contains information about the status and status code of an
+ * Instagram object.
  */
 @Setter
 @Getter
 public class IgContainer extends FacebookType {
+
+  private static final long serialVersionUID = 1L;
+
+  @Facebook
+  private String status;
+
+  @Facebook("status_code")
+  private String statusCode;
+
+  @Facebook("copyright_check_status")
+  private CopyrightCheckStatus copyrightCheckStatus;
+
+  @Setter
+  @Getter
+  public static class CopyrightCheckStatus extends AbstractFacebookType {
 
     private static final long serialVersionUID = 1L;
 
     @Facebook
     private String status;
 
-    @Facebook("status_code")
-    private String statusCode;
-
-    @Facebook("copyright_check_status")
-    private CopyrightCheckStatus copyrightCheckStatus;
-
-    @Setter
-    @Getter
-    public static class CopyrightCheckStatus extends AbstractFacebookType {
-
-        private static final long serialVersionUID = 1L;
-
-        @Facebook
-        private String status;
-
-        @Facebook("matches_found")
-        private Boolean matchesFound;
-    }
+    @Facebook("matches_found")
+    private Boolean matchesFound;
+  }
 }

@@ -52,7 +52,7 @@ import com.restfb.util.StringJsonUtils;
 
 /**
  * Default implementation of a JSON-to-Java mapper.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class DefaultJsonMapper implements JsonMapper {
@@ -89,9 +89,8 @@ public class DefaultJsonMapper implements JsonMapper {
     try {
       jsonValue = Json.parse(json);
     } catch (ParseException e) {
-      throw new FacebookJsonMappingException(
-        "Unable to convert Facebook response JSON to a list of " + type.getName() + " instances. Offending JSON is '"
-            + json + "'.",
+      throw new FacebookJsonMappingException("Unable to convert Facebook response JSON to a list of " + type.getName()
+          + " instances. Offending JSON is '" + json + "'.",
         e);
     }
 
@@ -150,9 +149,8 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      throw new FacebookJsonMappingException(
-        "Unable to convert Facebook response JSON to a list of " + type.getName() + " instances. Offending JSON is '"
-            + sourceJson + "'.",
+      throw new FacebookJsonMappingException("Unable to convert Facebook response JSON to a list of " + type.getName()
+          + " instances. Offending JSON is '" + sourceJson + "'.",
         e);
     }
   }
@@ -186,9 +184,8 @@ public class DefaultJsonMapper implements JsonMapper {
         }
         return type.cast(parsed.asObject());
       } catch (ParseException | UnsupportedOperationException e) {
-        throw new FacebookJsonMappingException("Unable to parse JSON into JsonObject. Offending JSON is '" + json
-            + "'.",
-          e);
+        throw new FacebookJsonMappingException(
+          "Unable to parse JSON into JsonObject. Offending JSON is '" + json + "'.", e);
       }
     }
 
@@ -219,9 +216,8 @@ public class DefaultJsonMapper implements JsonMapper {
           try {
             return type.cast(Json.parse(jsonValue.asString()).asObject());
           } catch (ParseException e) {
-            throw new FacebookJsonMappingException("Unable to parse JSON into JsonObject. Offending JSON is '"
-                + jsonValue + "'.",
-              e);
+            throw new FacebookJsonMappingException(
+              "Unable to parse JSON into JsonObject. Offending JSON is '" + jsonValue + "'.", e);
           }
         }
         return type.cast(jsonValue.asObject());
@@ -294,8 +290,7 @@ public class DefaultJsonMapper implements JsonMapper {
     } catch (FacebookJsonMappingException e) {
       throw e;
     } catch (Exception e) {
-      throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + sourceJson + "'.",
-        e);
+      throw new FacebookJsonMappingException("Unable to map JSON to Java. Offending JSON is '" + sourceJson + "'.", e);
     }
   }
 
@@ -343,7 +338,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * Finds and invokes methods on {@code object} that are annotated with the {@code @JsonMappingCompleted} annotation.
    * <p>
    * This will even work on {@code private} methods.
-   * 
+   *
    * @param object
    *          The object on which to invoke the method.
    * @throws IllegalAccessException
@@ -372,7 +367,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
   /**
    * Dumps out a log message when one of a multiple-mapped Facebook field name JSON-to-Java mapping operation fails.
-   * 
+   *
    * @param facebookFieldName
    *          The Facebook field name.
    * @param fieldWithAnnotation
@@ -398,7 +393,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * For a Java field annotated with the {@code Facebook} annotation, figure out what the corresponding Facebook JSON
    * field name to map to it is.
-   * 
+   *
    * @param fieldWithAnnotation
    *          A Java field annotated with the {@code Facebook} annotation.
    * @return The Facebook JSON field name that should be mapped to this Java field.
@@ -421,7 +416,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
   /**
    * Finds any Facebook JSON fields that are mapped to more than 1 Java field.
-   * 
+   *
    * @param fieldsWithAnnotation
    *          Java fields annotated with the {@code Facebook} annotation.
    * @return Any Facebook JSON fields that are mapped to more than 1 Java field.
@@ -463,7 +458,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * Recursively marshal the given {@code object} to JSON.
    * <p>
    * Used by {@link #toJson(Object)}.
-   * 
+   *
    * @param object
    *          The object to marshal.
    * @param ignoreNullValuedProperties
@@ -549,7 +544,7 @@ public class DefaultJsonMapper implements JsonMapper {
 
         if (!(ignoreNullValuedProperties
             && (fieldValue == null || isEmptyOptional(fieldValue) || isEmptyCollectionOrMap(fieldValue)))) {
-            jsonObject.set(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
+          jsonObject.set(facebookFieldName, toJsonInternal(fieldValue, ignoreNullValuedProperties));
         }
       } catch (Exception e) {
         throw new FacebookJsonMappingException(
@@ -598,7 +593,7 @@ public class DefaultJsonMapper implements JsonMapper {
    * <p>
    * This is to support non-legal JSON served up by Facebook for API calls like {@code Friends.get} (example result:
    * {@code [222333,1240079]}).
-   * 
+   *
    * @param <T>
    *          The Java type to map to.
    * @param json
@@ -646,7 +641,7 @@ public class DefaultJsonMapper implements JsonMapper {
   /**
    * Extracts JSON data for a field according to its {@code Facebook} annotation and returns it converted to the proper
    * Java type.
-   * 
+   *
    * @param fieldWithAnnotation
    *          The field/annotation pair which specifies what Java type to convert to.
    * @param jsonObject
@@ -897,7 +892,7 @@ public class DefaultJsonMapper implements JsonMapper {
       throw e;
     } catch (Exception e) {
       throw new FacebookJsonMappingException(
-              "Unable to convert Facebook response JSON to a list of " + innerType + " instances", e);
+        "Unable to convert Facebook response JSON to a list of " + innerType + " instances", e);
     }
   }
 

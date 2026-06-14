@@ -31,8 +31,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Text attachment for Threads posts.
- * As defined here: https://developers.facebook.com/docs/threads/create-posts/text-attachments
+ * Text attachment for Threads posts. As defined here:
+ * https://developers.facebook.com/docs/threads/create-posts/text-attachments
  */
 public class TdTextAttachment extends AbstractFacebookType {
 

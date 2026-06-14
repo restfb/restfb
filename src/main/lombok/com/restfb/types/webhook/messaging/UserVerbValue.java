@@ -28,7 +28,7 @@ import lombok.Setter;
 
 public abstract class UserVerbValue extends ChangeValue {
 
-    @Getter
-    @Setter
-    private Verb verb;
+  @Getter
+  @Setter
+  private Verb verb;
 }

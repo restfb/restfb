@@ -21,11 +21,21 @@ RestFB is a single JAR - just drop it into your app and you're ready to go. Down
 
 ## Building it Yourself
 
+Builds require JDK 17. RestFB artifacts still target Java 11.
+
 Just type
 
     mvn package
-    
-and the jars will be built and can be found in the `target` folder. 
+
+and the jars will be built and can be found in the `target` folder.
+
+Code formatting is checked during `mvn verify`. You can also run it directly:
+
+    mvn spotless:check
+
+To apply the configured Eclipse formatter, run:
+
+    mvn spotless:apply
 
 ## Usage and examples
 

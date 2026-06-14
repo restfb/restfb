@@ -31,7 +31,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/group">Group Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -50,7 +50,7 @@ public class Group extends NamedFacebookType implements HasCover {
    *
    * @return Information about the group's cover photo.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -60,7 +60,7 @@ public class Group extends NamedFacebookType implements HasCover {
    * <p>
    * Only current members of the group can use this.
    * </p>
-   * 
+   *
    * @return The email address to upload content to the group.
    */
   @Getter
@@ -70,7 +70,7 @@ public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * An object containing the name and ID of the user who owns the group.
-   * 
+   *
    * @return An object containing the name and ID of the user who owns the group.
    */
   @Getter
@@ -80,7 +80,7 @@ public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * The group description.
-   * 
+   *
    * @return The group description.
    */
   @Getter
@@ -90,7 +90,7 @@ public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * The URL for the group's website.
-   * 
+   *
    * @return The URL for the group's website.
    */
   @Getter
@@ -133,7 +133,7 @@ public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * The location of this group, a structured address object.
-   * 
+   *
    * @return The location of this group, a structured address object.
    */
   @Getter
@@ -143,7 +143,7 @@ public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * The privacy setting of the group, either 'OPEN', 'CLOSED', or 'SECRET'.
-   * 
+   *
    * @return The privacy setting of the group, either 'OPEN', 'CLOSED', or 'SECRET'.
    */
   @Getter
@@ -161,7 +161,7 @@ public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * The last time the group was updated.
-   * 
+   *
    * @return The last time the group was updated.
    */
   @Getter
@@ -171,7 +171,7 @@ public class Group extends NamedFacebookType implements HasCover {
 
   /**
    * The URL of the group's icon
-   * 
+   *
    * @return The group's icon url
    * @since 1.6.16
    */

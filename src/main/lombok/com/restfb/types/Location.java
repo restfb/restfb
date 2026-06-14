@@ -30,7 +30,7 @@ import lombok.Setter;
  * Represents a location (address and latitude/longitude).
  * <p>
  * This is used by several Graph API types, e.g. <tt>{@link Post}</tt> and <tt>{@link Page}</tt>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.8
  */
@@ -38,7 +38,7 @@ public class Location extends FacebookType {
 
   /**
    * The street address of this location.
-   * 
+   *
    * @return The street address of this location.
    */
   @Getter
@@ -48,7 +48,7 @@ public class Location extends FacebookType {
 
   /**
    * The city name of this location.
-   * 
+   *
    * @return The city name of this location.
    */
   @Getter
@@ -64,10 +64,9 @@ public class Location extends FacebookType {
   @Facebook("city_id")
   private String cityId;
 
-
   /**
    * The state name of this location.
-   * 
+   *
    * @return The state name of this location.
    */
   @Getter
@@ -77,7 +76,7 @@ public class Location extends FacebookType {
 
   /**
    * The country name of this location.
-   * 
+   *
    * @return The country name of this location.
    */
   @Getter
@@ -97,7 +96,7 @@ public class Location extends FacebookType {
 
   /**
    * The postal code of this location.
-   * 
+   *
    * @return The postal code of this location.
    */
   @Getter
@@ -107,7 +106,7 @@ public class Location extends FacebookType {
 
   /**
    * The latitude of this location.
-   * 
+   *
    * @return The latitude of this location.
    */
   @Getter
@@ -117,7 +116,7 @@ public class Location extends FacebookType {
 
   /**
    * The longitude of this location.
-   * 
+   *
    * @return The longitude of this location.
    */
   @Getter
@@ -136,8 +135,8 @@ public class Location extends FacebookType {
   private String region;
 
   /**
-   * Region ID. Specifies a geographic region, such as California.
-   * An identified region is the same as one you can use to target ads.
+   * Region ID. Specifies a geographic region, such as California. An identified region is the same as one you can use
+   * to target ads.
    *
    * @return the region id
    */

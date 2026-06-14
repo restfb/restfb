@@ -84,7 +84,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
    *
    * @return Text contents of the comment.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
@@ -94,7 +94,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
    *
    * @return Date on which the comment was created.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -205,7 +205,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
    *
    * @return Whether the viewer can send a private reply to this comment
    */
-  @Getter(onMethod_=@GraphAPI(since = "2.5"))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook("can_reply_privately")
   @GraphAPI(since = "2.5")
@@ -216,7 +216,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
    *
    * @return conversation between Page and author of the comment
    */
-  @Getter(onMethod_=@GraphAPI(since = "2.5"))
+  @Getter(onMethod_ = @GraphAPI(since = "2.5"))
   @Setter
   @Facebook("private_reply_conversation")
   @GraphAPI(since = "2.5")
@@ -290,7 +290,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
    *
    * @return replies
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("comments")
   private Comments comments;
@@ -317,7 +317,7 @@ public class Comment extends FacebookType implements HasComments, HasCreatedTime
 
   /**
    * Post-JSON-mapping operation that populates the {@code messageTags} field "by hand".
-   * 
+   *
    * @param jsonMapper
    *          The {@code JsonMapper} that was used to map to this type.
    */

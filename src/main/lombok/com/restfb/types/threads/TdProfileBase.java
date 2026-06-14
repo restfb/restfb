@@ -28,21 +28,21 @@ import lombok.Setter;
 
 public class TdProfileBase extends AbstractFacebookType {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Handle or unique username on Threads. This is the same as the username on Instagram.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String username;
+  /**
+   * Handle or unique username on Threads. This is the same as the username on Instagram.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String username;
 
-    /**
-     * name of the Threads profile
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String name;
+  /**
+   * name of the Threads profile
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String name;
 }

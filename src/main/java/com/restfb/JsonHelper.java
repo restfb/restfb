@@ -38,7 +38,8 @@ class JsonHelper {
    * <p>
    * The Strings false and true are converted to the corresponding types
    *
-   * @param json a json value
+   * @param json
+   *          a json value
    * @return a boolean generated from the json value
    */
   public boolean getBooleanFrom(JsonValue json) {
@@ -71,8 +72,9 @@ class JsonHelper {
 
   /**
    * convert jsonvalue to a Double
-   * 
-   * @param json a json value
+   *
+   * @param json
+   *          a json value
    * @return a double generated from the jsonvalue
    */
   public Double getDoubleFrom(JsonValue json) {
@@ -86,7 +88,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a Integer
    *
-   * @param json a json value
+   * @param json
+   *          a json value
    * @return a integer generated from the jsonvalue
    */
   public Integer getIntegerFrom(JsonValue json) {
@@ -100,7 +103,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a String
    *
-   * @param json a json value
+   * @param json
+   *          a json value
    * @return a String generated from the json value
    */
   public String getStringFrom(JsonValue json) {
@@ -114,7 +118,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a Float
    *
-   * @param json a json value
+   * @param json
+   *          a json value
    * @return a Float generated from the json value
    */
   public Float getFloatFrom(JsonValue json) {
@@ -128,7 +133,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a BigInteger
    *
-   * @param json a json value
+   * @param json
+   *          a json value
    * @return a big integer generated from the json value
    */
   public BigInteger getBigIntegerFrom(JsonValue json) {
@@ -142,7 +148,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a Long
    *
-   * @param json a json value
+   * @param json
+   *          a json value
    * @return a long generated from the jsonvalue
    */
   public Long getLongFrom(JsonValue json) {
@@ -156,7 +163,8 @@ class JsonHelper {
   /**
    * convert jsonvalue to a BigDecimal
    *
-   * @param json a json value
+   * @param json
+   *          a json value
    * @return a big decimal generated from the json value
    */
   public BigDecimal getBigDecimalFrom(JsonValue json) {
@@ -169,7 +177,7 @@ class JsonHelper {
 
   /**
    * removes starting and ending double quote from an input String
-   * 
+   *
    * @param jsonInput
    *          input JSON string
    * @return the cleaned input string without leading and ending double quote

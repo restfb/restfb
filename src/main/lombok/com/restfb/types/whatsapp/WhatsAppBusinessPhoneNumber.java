@@ -30,8 +30,8 @@ import lombok.Setter;
 import java.util.Date;
 
 /**
- * Represents the
- * <a href="https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account-to-number-current-status#fields">
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account-to-number-current-status#fields">
  * WhatsApp Business Phone Number</a>
  */
 public class WhatsAppBusinessPhoneNumber extends AbstractFacebookType {
@@ -181,7 +181,8 @@ public class WhatsAppBusinessPhoneNumber extends AbstractFacebookType {
 
   @JsonMappingCompleted
   protected void fillQualityScore() {
-    if (this.qualityScore != null || this.qualityRating == null) return;
+    if (this.qualityScore != null || this.qualityRating == null)
+      return;
 
     WhatsAppPhoneQualityScoreShape qualityScore = new WhatsAppPhoneQualityScoreShape();
     qualityScore.setScore(this.qualityRating);
@@ -225,4 +226,3 @@ public class WhatsAppBusinessPhoneNumber extends AbstractFacebookType {
     }
   }
 }
-

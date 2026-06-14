@@ -28,7 +28,9 @@ import lombok.Setter;
 /**
  * Represents the Threads public profile.
  * <p>
- * <a href="https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-user-s-public-profile-information">Threads reference</a>
+ * <a href=
+ * "https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-user-s-public-profile-information">Threads
+ * reference</a>
  */
 public class TdPublicProfile extends TdProfileBase {
 

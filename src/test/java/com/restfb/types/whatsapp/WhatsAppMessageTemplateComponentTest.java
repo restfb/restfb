@@ -33,9 +33,8 @@ public class WhatsAppMessageTemplateComponentTest extends AbstractJsonMapperTest
   @Test
   void checkWhatsAppMessageTemplateComponents() {
 
-    List<WhatsAppMessageTemplateComponent> components = createJsonMapper().toJavaList(
-            jsonFromClasspath("whatsapp/message-template-components"),
-            WhatsAppMessageTemplateComponent.class);
+    List<WhatsAppMessageTemplateComponent> components = createJsonMapper()
+      .toJavaList(jsonFromClasspath("whatsapp/message-template-components"), WhatsAppMessageTemplateComponent.class);
 
     assertNotNull(components);
 
@@ -69,7 +68,6 @@ public class WhatsAppMessageTemplateComponentTest extends AbstractJsonMapperTest
     assertEquals("name", headerNamedParams.getExample().getHeaderTextNamedParams().get(0).getParamName());
     assertEquals("Albert", headerNamedParams.getExample().getHeaderTextNamedParams().get(0).getExample());
 
-
     // Test BODY component with named type parameters
     WhatsAppMessageTemplateComponent bodyNamedParams = components.get(4);
     assertEquals(WhatsAppMessageTemplateComponent.Type.BODY, bodyNamedParams.getType());
@@ -78,13 +76,11 @@ public class WhatsAppMessageTemplateComponentTest extends AbstractJsonMapperTest
     assertEquals("name", bodyNamedParams.getExample().getBodyTextNamedParams().get(0).getParamName());
     assertEquals("Albert", bodyNamedParams.getExample().getBodyTextNamedParams().get(0).getExample());
 
-
     // Test FOOTER component (with code expiration)
     WhatsAppMessageTemplateComponent footer = components.get(5);
     assertEquals(WhatsAppMessageTemplateComponent.Type.FOOTER, footer.getType());
     assertEquals("This code expires in 10 minutes.", footer.getText());
     assertEquals(10, footer.getCodeExpirationMinutes());
-
 
     // Test BUTTONS component with URL button and one parameter
     WhatsAppMessageTemplateComponent buttonUrl = components.get(6);
@@ -143,7 +139,6 @@ public class WhatsAppMessageTemplateComponentTest extends AbstractJsonMapperTest
     WhatsAppMessageTemplateComponent.Button spmButton = buttonSpm.getButtons().get(0);
     assertEquals(WhatsAppMessageTemplateComponent.ButtonType.SPM, spmButton.getType());
     assertEquals("View", spmButton.getText());
-
 
     // Test BODY component with positional type parameters
     WhatsAppMessageTemplateComponent bodyPositionalParams = components.get(13);

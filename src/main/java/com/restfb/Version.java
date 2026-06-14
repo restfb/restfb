@@ -120,7 +120,7 @@ public enum Version {
 
   /**
    * converts a String (for example the url parameter) into a Version object
-   * 
+   *
    * @param urlElementStr
    *          String that should
    * @return the generated version

@@ -51,8 +51,8 @@ class IgMediaTest extends AbstractJsonMapperTests {
 
   @Test
   void checkMediaAdditionalFields() {
-    String json = "{\"current_live_viewer_count\":42,\"has_poll\":true,\"has_slider\":false,"
-      + "\"media_audio_type\":\"MUSIC\"}";
+    String json =
+        "{\"current_live_viewer_count\":42,\"has_poll\":true,\"has_slider\":false," + "\"media_audio_type\":\"MUSIC\"}";
 
     IgMedia igMedia = createJsonMapper().toJavaObject(json, IgMedia.class);
 
@@ -61,7 +61,8 @@ class IgMediaTest extends AbstractJsonMapperTests {
     assertEquals(Boolean.FALSE, igMedia.getHasSlider());
     assertEquals(IgMedia.MediaAudioType.MUSIC, igMedia.getMediaAudioType());
 
-    IgMedia originalSoundMedia = createJsonMapper().toJavaObject("{\"media_audio_type\":\"ORIGINAL_SOUND\"}", IgMedia.class);
+    IgMedia originalSoundMedia =
+        createJsonMapper().toJavaObject("{\"media_audio_type\":\"ORIGINAL_SOUND\"}", IgMedia.class);
     assertEquals(IgMedia.MediaAudioType.ORIGINAL_SOUND, originalSoundMedia.getMediaAudioType());
   }
 
@@ -104,7 +105,8 @@ class IgMediaTest extends AbstractJsonMapperTests {
 
   @Test
   void checkMediaWithBoostAdsList() {
-    IgMedia igMedia = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/media-with-boost-ads"), IgMedia.class);
+    IgMedia igMedia =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/media-with-boost-ads"), IgMedia.class);
     assertNotNull(igMedia);
     assertEquals(1, igMedia.getBoostAdsList().size());
     IgBoostMediaAd boostAd = igMedia.getBoostAdsList().get(0);

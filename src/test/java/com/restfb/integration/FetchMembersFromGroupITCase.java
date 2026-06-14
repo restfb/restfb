@@ -54,6 +54,6 @@ class FetchMembersFromGroupITCase extends RestFbIntegrationTestBase {
       System.out.println("Page: " + (i++) + " size: " + memberList.size());
     }
 
-      assertFalse(memberList.isEmpty());
+    assertFalse(memberList.isEmpty());
   }
 }

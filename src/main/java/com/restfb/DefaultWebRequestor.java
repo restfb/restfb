@@ -50,7 +50,7 @@ import com.restfb.util.UrlUtils;
 
 /**
  * Default implementation of a service that sends HTTP requests to the Facebook API endpoint.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class DefaultWebRequestor implements WebRequestor {
@@ -241,7 +241,7 @@ public class DefaultWebRequestor implements WebRequestor {
    * Given a {@code url}, opens and returns a connection to it.
    * <p>
    * If you'd like to pipe your connection through a proxy, this is the place to do so.
-   * 
+   *
    * @param url
    *          The URL to connect to.
    * @return A connection to the URL.
@@ -290,7 +290,7 @@ public class DefaultWebRequestor implements WebRequestor {
    * anyway.
    * <p>
    * It's OK to pass {@code null} in, this method will no-op in that case.
-   * 
+   *
    * @param closeable
    *          The resource to close.
    */
@@ -307,7 +307,7 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * Writes the contents of the {@code source} stream to the {@code destination} stream using the given
    * {@code bufferSize}.
-   * 
+   *
    * @param source
    *          The source stream to copy from.
    * @param destination
@@ -333,14 +333,14 @@ public class DefaultWebRequestor implements WebRequestor {
   /**
    * Creates the form field name for the binary attachment filename by stripping off the file extension - for example,
    * the filename "test.png" would return "test".
-   * 
+   *
    * @param binaryAttachment
    *          The binary attachment for which to create the form field name.
    * @return The form field name for the given binary attachment.
    */
   /**
    * returns if the binary attachment stream is closed automatically
-   * 
+   *
    * @since 1.7.0
    * @return {@code true} if the binary stream should be closed automatically, {@code false} otherwise
    */
@@ -350,7 +350,7 @@ public class DefaultWebRequestor implements WebRequestor {
 
   /**
    * define if the binary attachment stream is closed automatically after sending the content to facebook
-   * 
+   *
    * @since 1.7.0
    * @param autocloseBinaryAttachmentStream
    *          {@code true} if the {@link BinaryAttachment} stream should be closed automatically, {@code false}

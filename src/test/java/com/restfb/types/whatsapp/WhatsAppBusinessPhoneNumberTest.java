@@ -30,9 +30,8 @@ class WhatsAppBusinessPhoneNumberTest extends AbstractJsonMapperTests {
 
   @Test
   void checkDeserializeDefaultResponse() {
-    WhatsAppBusinessPhoneNumber phoneNumber = createJsonMapper().toJavaObject(
-            jsonFromClasspath("whatsapp/phone-number-default-response"),
-            WhatsAppBusinessPhoneNumber.class);
+    WhatsAppBusinessPhoneNumber phoneNumber = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("whatsapp/phone-number-default-response"), WhatsAppBusinessPhoneNumber.class);
 
     assertNotNull(phoneNumber);
     assertEquals("Business Phone Numbers Name", phoneNumber.getVerifiedName());
@@ -47,9 +46,8 @@ class WhatsAppBusinessPhoneNumberTest extends AbstractJsonMapperTests {
 
   @Test
   void checkDeserializeFullResponse() {
-    WhatsAppBusinessPhoneNumber phoneNumber = createJsonMapper().toJavaObject(
-            jsonFromClasspath("whatsapp/phone-number-full-response"),
-            WhatsAppBusinessPhoneNumber.class);
+    WhatsAppBusinessPhoneNumber phoneNumber = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("whatsapp/phone-number-full-response"), WhatsAppBusinessPhoneNumber.class);
 
     // Validate main fields
     assertNotNull(phoneNumber);
@@ -58,7 +56,8 @@ class WhatsAppBusinessPhoneNumberTest extends AbstractJsonMapperTests {
     assertEquals(WhatsAppBusinessPhoneNumber.AccountMode.LIVE, phoneNumber.getAccountMode());
     assertEquals(WhatsAppBusinessPhoneNumber.CodeVerificationStatus.EXPIRED, phoneNumber.getCodeVerificationStatus());
     assertEquals("+593 99 999 9999", phoneNumber.getDisplayPhoneNumber());
-    assertEquals("NON_ELIGIBLE_NUMBER_OUTSIDE_ROLLOUT_COUNTRIES", phoneNumber.getEligibilityForApiBusinessGlobalSearch());
+    assertEquals("NON_ELIGIBLE_NUMBER_OUTSIDE_ROLLOUT_COUNTRIES",
+      phoneNumber.getEligibilityForApiBusinessGlobalSearch());
     assertEquals(WhatsAppBusinessPhoneNumber.MessagingLimitTier.TIER_1K, phoneNumber.getMessagingLimitTier());
     assertEquals(WhatsAppBusinessPhoneNumber.NameStatus.APPROVED, phoneNumber.getNameStatus());
     assertEquals(WhatsAppBusinessPhoneNumber.PlatformType.CLOUD_API, phoneNumber.getPlatformType());
@@ -76,7 +75,8 @@ class WhatsAppBusinessPhoneNumberTest extends AbstractJsonMapperTests {
 
     // Validate HealthStatus
     assertNotNull(phoneNumber.getHealthStatus());
-    assertEquals(WhatsAppBusinessHealthStatus.CanSendMessageStatus.BLOCKED, phoneNumber.getHealthStatus().getCanSendMessage());
+    assertEquals(WhatsAppBusinessHealthStatus.CanSendMessageStatus.BLOCKED,
+      phoneNumber.getHealthStatus().getCanSendMessage());
     assertEquals(4, phoneNumber.getHealthStatus().getEntities().size());
 
     // Validate first HealthStatus entity
@@ -87,11 +87,15 @@ class WhatsAppBusinessPhoneNumberTest extends AbstractJsonMapperTests {
     assertFalse(entity.getErrors().isEmpty());
 
     assertEquals(141000, entity.getErrors().get(0).getErrorCode());
-    assertEquals("The phone number you are trying to send messages from is not linked to your WhatsApp account.", entity.getErrors().get(0).getErrorDescription());
-    assertEquals("Register and finish the OTP authentication process for your phone number.", entity.getErrors().get(0).getPossibleSolution());
+    assertEquals("The phone number you are trying to send messages from is not linked to your WhatsApp account.",
+      entity.getErrors().get(0).getErrorDescription());
+    assertEquals("Register and finish the OTP authentication process for your phone number.",
+      entity.getErrors().get(0).getPossibleSolution());
 
     assertFalse(entity.getAdditionalInfo().isEmpty());
-    assertEquals("Your display name has not been approved yet. Your message limit will increase after the display name is approved.", entity.getAdditionalInfo().get(0));
+    assertEquals(
+      "Your display name has not been approved yet. Your message limit will increase after the display name is approved.",
+      entity.getAdditionalInfo().get(0));
 
     // Validate Conversation Automation
     WhatsAppBusinessConversationalComponent conversationalComponent = phoneNumber.getConversationAutomation();
@@ -119,9 +123,8 @@ class WhatsAppBusinessPhoneNumberTest extends AbstractJsonMapperTests {
 
   @Test
   void checkListsNotNullWhenMissingInJson() {
-    WhatsAppBusinessPhoneNumber phoneNumber = createJsonMapper().toJavaObject(
-            jsonFromClasspath("whatsapp/phone-number-missing-lists"),
-            WhatsAppBusinessPhoneNumber.class);
+    WhatsAppBusinessPhoneNumber phoneNumber = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("whatsapp/phone-number-missing-lists"), WhatsAppBusinessPhoneNumber.class);
 
     assertNotNull(phoneNumber);
 

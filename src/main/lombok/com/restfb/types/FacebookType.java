@@ -35,7 +35,7 @@ import lombok.Setter;
 /**
  * Base class which encapsulates behavior and properties common to most
  * <a href="http://developers.facebook.com/docs/reference/api/">Graph API types</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -43,7 +43,7 @@ public class FacebookType extends AbstractFacebookType {
 
   /**
    * This object's unique Facebook ID.
-   * 
+   *
    * @return This object's unique Facebook ID.
    */
   @Getter
@@ -52,8 +52,8 @@ public class FacebookType extends AbstractFacebookType {
   private String id;
 
   /**
-   * This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
-   * -- GETTER --
+   * This object's metadata, available by including the {@code metadata=1} URL parameter in an API request. -- GETTER --
+   *
    * @return This object's metadata, available by including the {@code metadata=1} URL parameter in an API request.
    */
   @Getter
@@ -71,15 +71,15 @@ public class FacebookType extends AbstractFacebookType {
   /**
    * Represents <a href="http://developers.facebook.com/docs/api#introspection">Facebook Object metadata</a>, available
    * by including the {@code metadata=1} URL parameter in an API request.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.5
    */
   public static class Metadata extends AbstractFacebookType {
 
     /**
-     * The available connections for this object.
-     * -- GETTER --
+     * The available connections for this object. -- GETTER --
+     *
      * @return The available connections for this object.
      */
     @Getter
@@ -88,8 +88,8 @@ public class FacebookType extends AbstractFacebookType {
     private Connections connections;
 
     /**
-     * The metadata type of the object
-     * -- GETTER --
+     * The metadata type of the object -- GETTER --
+     *
      * @return the metadata type
      * @since 1.6.16
      */
@@ -106,15 +106,15 @@ public class FacebookType extends AbstractFacebookType {
     /**
      * Represents <a href="http://developers.facebook.com/docs/api#introspection">Facebook Object connections
      * metadata</a>, available by including the {@code metadata=1} URL parameter in an API request.
-     * 
+     *
      * @author <a href="http://restfb.com">Mark Allen</a>
      * @since 1.5
      */
     public static class Connections extends AbstractFacebookType {
 
       /**
-       * This object's 'home' connection URL.
-       * -- GETTER --
+       * This object's 'home' connection URL. -- GETTER --
+       *
        * @return This object's 'home' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -123,8 +123,8 @@ public class FacebookType extends AbstractFacebookType {
       private String home;
 
       /**
-       * This object's 'feed' connection URL.
-       * -- GETTER --
+       * This object's 'feed' connection URL. -- GETTER --
+       *
        * @return This object's 'feed' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -133,8 +133,8 @@ public class FacebookType extends AbstractFacebookType {
       private String feed;
 
       /**
-       * This object's 'friends' connection URL.
-       * -- GETTER --
+       * This object's 'friends' connection URL. -- GETTER --
+       *
        * @return This object's 'friends' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -143,8 +143,8 @@ public class FacebookType extends AbstractFacebookType {
       private String friends;
 
       /**
-       * This object's 'family' connection URL.
-       * -- GETTER --
+       * This object's 'family' connection URL. -- GETTER --
+       *
        * @return This object's 'family' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -153,8 +153,8 @@ public class FacebookType extends AbstractFacebookType {
       private String family;
 
       /**
-       * This object's 'activities' connection URL.
-       * -- GETTER --
+       * This object's 'activities' connection URL. -- GETTER --
+       *
        * @return This object's 'activities' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -163,8 +163,8 @@ public class FacebookType extends AbstractFacebookType {
       private String activities;
 
       /**
-       * This object's 'interests' connection URL.
-       * -- GETTER --
+       * This object's 'interests' connection URL. -- GETTER --
+       *
        * @return This object's 'interests' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -173,8 +173,8 @@ public class FacebookType extends AbstractFacebookType {
       private String interests;
 
       /**
-       * This object's 'music' connection URL.
-       * -- GETTER --
+       * This object's 'music' connection URL. -- GETTER --
+       *
        * @return This object's 'music' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -183,8 +183,8 @@ public class FacebookType extends AbstractFacebookType {
       private String music;
 
       /**
-       * This object's 'books' connection URL.
-       * -- GETTER --
+       * This object's 'books' connection URL. -- GETTER --
+       *
        * @return This object's 'books' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -193,8 +193,8 @@ public class FacebookType extends AbstractFacebookType {
       private String books;
 
       /**
-       * This object's 'movies' connection URL.
-       * -- GETTER --
+       * This object's 'movies' connection URL. -- GETTER --
+       *
        * @return This object's 'movies' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -203,8 +203,8 @@ public class FacebookType extends AbstractFacebookType {
       private String movies;
 
       /**
-       * This object's 'television' connection URL.
-       * -- GETTER --
+       * This object's 'television' connection URL. -- GETTER --
+       *
        * @return This object's 'television' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -213,8 +213,8 @@ public class FacebookType extends AbstractFacebookType {
       private String television;
 
       /**
-       * This object's 'likes' connection URL.
-       * -- GETTER --
+       * This object's 'likes' connection URL. -- GETTER --
+       *
        * @return This object's 'likes' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -223,8 +223,8 @@ public class FacebookType extends AbstractFacebookType {
       private String likes;
 
       /**
-       * This object's 'posts' connection URL.
-       * -- GETTER --
+       * This object's 'posts' connection URL. -- GETTER --
+       *
        * @return This object's 'posts' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -233,8 +233,8 @@ public class FacebookType extends AbstractFacebookType {
       private String posts;
 
       /**
-       * This object's 'tagged' connection URL.
-       * -- GETTER --
+       * This object's 'tagged' connection URL. -- GETTER --
+       *
        * @return This object's 'tagged' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -243,8 +243,8 @@ public class FacebookType extends AbstractFacebookType {
       private String tagged;
 
       /**
-       * This object's 'statuses' connection URL.
-       * -- GETTER --
+       * This object's 'statuses' connection URL. -- GETTER --
+       *
        * @return This object's 'statuses' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -253,8 +253,8 @@ public class FacebookType extends AbstractFacebookType {
       private String statuses;
 
       /**
-       * This object's 'links' connection URL.
-       * -- GETTER --
+       * This object's 'links' connection URL. -- GETTER --
+       *
        * @return This object's 'links' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -263,8 +263,8 @@ public class FacebookType extends AbstractFacebookType {
       private String links;
 
       /**
-       * This object's 'notes' connection URL.
-       * -- GETTER --
+       * This object's 'notes' connection URL. -- GETTER --
+       *
        * @return This object's 'notes' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -273,8 +273,8 @@ public class FacebookType extends AbstractFacebookType {
       private String notes;
 
       /**
-       * This object's 'photos' connection URL.
-       * -- GETTER --
+       * This object's 'photos' connection URL. -- GETTER --
+       *
        * @return This object's 'photos' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -283,8 +283,8 @@ public class FacebookType extends AbstractFacebookType {
       private String photos;
 
       /**
-       * This object's 'albums' connection URL.
-       * -- GETTER --
+       * This object's 'albums' connection URL. -- GETTER --
+       *
        * @return This object's 'albums' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -293,8 +293,8 @@ public class FacebookType extends AbstractFacebookType {
       private String albums;
 
       /**
-       * This object's 'events' connection URL.
-       * -- GETTER --
+       * This object's 'events' connection URL. -- GETTER --
+       *
        * @return This object's 'events' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -303,8 +303,8 @@ public class FacebookType extends AbstractFacebookType {
       private String events;
 
       /**
-       * This object's 'groups' connection URL.
-       * -- GETTER --
+       * This object's 'groups' connection URL. -- GETTER --
+       *
        * @return This object's 'groups' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -313,8 +313,8 @@ public class FacebookType extends AbstractFacebookType {
       private String groups;
 
       /**
-       * This object's 'videos' connection URL.
-       * -- GETTER --
+       * This object's 'videos' connection URL. -- GETTER --
+       *
        * @return This object's 'videos' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -323,8 +323,8 @@ public class FacebookType extends AbstractFacebookType {
       private String videos;
 
       /**
-       * This object's 'picture' connection URL.
-       * -- GETTER --
+       * This object's 'picture' connection URL. -- GETTER --
+       *
        * @return This object's 'picture' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -333,8 +333,8 @@ public class FacebookType extends AbstractFacebookType {
       private String picture;
 
       /**
-       * This object's 'inbox' connection URL.
-       * -- GETTER --
+       * This object's 'inbox' connection URL. -- GETTER --
+       *
        * @return This object's 'inbox' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -343,8 +343,8 @@ public class FacebookType extends AbstractFacebookType {
       private String inbox;
 
       /**
-       * This object's 'outbox' connection URL.
-       * -- GETTER --
+       * This object's 'outbox' connection URL. -- GETTER --
+       *
        * @return This object's 'outbox' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -353,8 +353,8 @@ public class FacebookType extends AbstractFacebookType {
       private String outbox;
 
       /**
-       * This object's 'updates' connection URL.
-       * -- GETTER --
+       * This object's 'updates' connection URL. -- GETTER --
+       *
        * @return This object's 'updates' connection URL, or {@code null} if it doesn't have one.
        */
       @Getter
@@ -366,7 +366,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'home' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'home' connection, {@code false} otherwise.
        */
       public Boolean hasHome() {
@@ -375,7 +375,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'feed' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'feed' connection, {@code false} otherwise.
        */
       public Boolean hasFeed() {
@@ -384,7 +384,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'friends' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'friends' connection, {@code false} otherwise.
        */
       public Boolean hasFriends() {
@@ -393,7 +393,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'family' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'family' connection, {@code false} otherwise.
        */
       public Boolean hasFamily() {
@@ -402,7 +402,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have an 'activities' connection?
-       * 
+       *
        * @return {@code true} if this object has an 'activities' connection, {@code false} otherwise.
        */
       public Boolean hasActivities() {
@@ -411,7 +411,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have an 'interests' connection?
-       * 
+       *
        * @return {@code true} if this object has an 'interests' connection, {@code false} otherwise.
        */
       public Boolean hasInterests() {
@@ -420,7 +420,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'music' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'music' connection, {@code false} otherwise.
        */
       public Boolean hasMusic() {
@@ -429,7 +429,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'books' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'books' connection, {@code false} otherwise.
        */
       public Boolean hasBooks() {
@@ -438,7 +438,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'movies' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'movies' connection, {@code false} otherwise.
        */
       public Boolean hasMovies() {
@@ -447,7 +447,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'television' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'television' connection, {@code false} otherwise.
        */
       public Boolean hasTelevision() {
@@ -456,7 +456,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'likes' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'likes' connection, {@code false} otherwise.
        */
       public Boolean hasLikes() {
@@ -465,7 +465,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'posts' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'posts' connection, {@code false} otherwise.
        */
       public Boolean hasPosts() {
@@ -474,7 +474,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'tagged' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'tagged' connection, {@code false} otherwise.
        */
       public Boolean hasTagged() {
@@ -483,7 +483,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'statuses' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'statuses' connection, {@code false} otherwise.
        */
       public Boolean hasStatuses() {
@@ -492,7 +492,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'links' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'links' connection, {@code false} otherwise.
        */
       public Boolean hasLinks() {
@@ -501,7 +501,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'notes' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'notes' connection, {@code false} otherwise.
        */
       public Boolean hasNotes() {
@@ -510,7 +510,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'photos' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'photos' connection, {@code false} otherwise.
        */
       public Boolean hasPhotos() {
@@ -519,7 +519,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have an 'albums' connection?
-       * 
+       *
        * @return {@code true} if this object has an 'albums' connection, {@code false} otherwise.
        */
       public Boolean hasAlbums() {
@@ -528,7 +528,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have an 'events' connection?
-       * 
+       *
        * @return {@code true} if this object has an 'events' connection, {@code false} otherwise.
        */
       public Boolean hasEvents() {
@@ -537,7 +537,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'groups' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'groups' connection, {@code false} otherwise.
        */
       public Boolean hasGroups() {
@@ -546,7 +546,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'videos' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'videos' connection, {@code false} otherwise.
        */
       public Boolean hasVideos() {
@@ -555,7 +555,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have a 'picture' connection?
-       * 
+       *
        * @return {@code true} if this object has a 'picture' connection, {@code false} otherwise.
        */
       public Boolean hasPicture() {
@@ -564,7 +564,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have an 'inbox' connection?
-       * 
+       *
        * @return {@code true} if this object has an 'inbox' connection, {@code false} otherwise.
        */
       public Boolean hasInbox() {
@@ -573,7 +573,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have an 'outbox' connection?
-       * 
+       *
        * @return {@code true} if this object has an 'outbox' connection, {@code false} otherwise.
        */
       public Boolean hasOutbox() {
@@ -582,7 +582,7 @@ public class FacebookType extends AbstractFacebookType {
 
       /**
        * Does this object have an 'updates' connection?
-       * 
+       *
        * @return {@code true} if this object has an 'updates' connection, {@code false} otherwise.
        */
       public Boolean hasUpdates() {
@@ -593,7 +593,7 @@ public class FacebookType extends AbstractFacebookType {
 
     /**
      * Existing fields in the current type
-     * 
+     *
      * @return list of field of the current type
      * @since 1.6.16
      */

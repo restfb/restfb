@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the
- * <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/phone-numbers/conversational-components/#configuring-via-the-api">
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/whatsapp/cloud-api/phone-numbers/conversational-components/#configuring-via-the-api">
  * Conversational Components</a>
  */
 public class WhatsAppBusinessConversationalComponent extends AbstractFacebookType {
