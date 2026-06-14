@@ -21,7 +21,7 @@ RestFB is a single JAR - just drop it into your app and you're ready to go. Down
 
 ## Building it Yourself
 
-Builds require JDK 17. RestFB artifacts still target Java 11.
+Builds require JDK 17 or newer. RestFB artifacts still target Java 11.
 
 Just type
 

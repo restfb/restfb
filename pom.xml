@@ -171,8 +171,8 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>[17,18)</version>
-                  <message>RestFB must be built with JDK 17. The published artifacts still target Java 11.</message>
+                  <version>[17,)</version>
+                  <message>RestFB must be built with JDK 17 or newer. The published artifacts still target Java 11.</message>
                 </requireJavaVersion>
               </rules>
             </configuration>
