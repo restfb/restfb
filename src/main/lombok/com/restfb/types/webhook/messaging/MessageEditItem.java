@@ -28,28 +28,28 @@ import lombok.Setter;
 
 public class MessageEditItem implements InnerMessagingItem {
 
-    /**
-     * The Message ID of the message that the user edited.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String mid;
+  /**
+   * The Message ID of the message that the user edited.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String mid;
 
-    /**
-     * The new message content, after the user's edit.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String text;
+  /**
+   * The new message content, after the user's edit.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String text;
 
-    /**
-     * The number of times the user has edited the message.
-     * (The user cannot edit a message more than five times. This constraint is on the Messenger client side.)
-     */
-    @Getter
-    @Setter
-    @Facebook("num_edit")
-    private Integer numEdit;
+  /**
+   * The number of times the user has edited the message. (The user cannot edit a message more than five times. This
+   * constraint is on the Messenger client side.)
+   */
+  @Getter
+  @Setter
+  @Facebook("num_edit")
+  private Integer numEdit;
 }

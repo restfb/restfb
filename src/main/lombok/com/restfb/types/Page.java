@@ -42,7 +42,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page/">Page Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -56,7 +56,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    * <p>
    * To force Facebook to fill the <code>picture</code> field you have to fetch the page with the
    * <code>fields=picture</code> parameter, otherwise the picture is <code>null</code>.
-   * 
+   *
    * @return the page's profile picture as ProfilePictureSource object
    */
   @Getter(onMethod_ = { @Override })
@@ -68,7 +68,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Affiliation of this person. Applicable to Pages representing people
-   * 
+   *
    * @since 1.10.0
    * @return affiliation of this person
    */
@@ -89,7 +89,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Artists the band likes. Applicable to Bands
-   * 
+   *
    * @since 1.10.0
    * @return artists the band likes
    */
@@ -110,7 +110,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Dress code of the business. Applicable to Restaurants or Nightlife. Can be one of Casual, Dressy or Unspecified
-   * 
+   *
    * @since 1.10.0
    * @return dress code of the business
    */
@@ -121,7 +121,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The awards information of the film. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return the awards information of the film
    */
@@ -132,7 +132,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Band interests. Applicable to Bands
-   * 
+   *
    * @since 1.10.0
    * @return band interests
    */
@@ -143,7 +143,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Members of the band. Applicable to Bands
-   * 
+   *
    * @since 1.10.0
    * @return members of the band
    */
@@ -155,7 +155,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * The best available Page on Facebook for the concept represented by this Page. The best available Page takes into
    * account authenticity and the number of likes
-   * 
+   *
    * @since 1.10.0
    * @return The best available Page on Facebook for the concept represented by this Page
    */
@@ -167,7 +167,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * The mailing or contact address for this page. This field will be blank if the contact address is the same as the
    * physical address
-   * 
+   *
    * @since 1.10.0
    * @return The mailing or contact address for this page
    */
@@ -198,7 +198,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Biography of the band. Applicable to Bands
-   * 
+   *
    * @since 1.10.0
    * @return Biography of the band
    */
@@ -209,7 +209,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Birthday of this person. Applicable to Pages representing people
-   * 
+   *
    * @since 1.10.0
    * @return birthday of this person
    */
@@ -220,7 +220,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Year vehicle was built. Applicable to Vehicles
-   * 
+   *
    * @since 1.10.0
    * @return Year vehicle was built
    */
@@ -239,7 +239,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Culinary team of the business. Applicable to Restaurants or Nightlife
-   * 
+   *
    * @since 1.10.0
    * @return culinary team of the business
    */
@@ -250,7 +250,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Current location of the Page.
-   * 
+   *
    * @since 1.10.0
    * @return current location of the Page
    */
@@ -261,7 +261,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Features of the vehicle. Applicable to Vehicles
-   * 
+   *
    * @since 1.10.0
    * @return Features of the vehicle
    */
@@ -282,7 +282,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The name of the Page with country codes appended for Global Brand Pages. Only visible to the Page admin
-   * 
+   *
    * @since 1.10.0
    * @return The name of the Page with country codes appended for Global Brand Pages
    */
@@ -303,7 +303,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * This brand's global (parent) Page.
-   * 
+   *
    * @since 1.10.0
    * @return this brand's global (parent) Page
    */
@@ -319,7 +319,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private List<Page> globalBrandChildren = new ArrayList<>();
   /**
    * Indicates whether this Page has added the app making the query in a Page tab.
-   * 
+   *
    * @since 1.10.0
    * @return Indicates whether this Page has added the app making the query in a Page tab
    */
@@ -350,7 +350,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Hometown of the band. Applicable to Bands
-   * 
+   *
    * @since 1.10.0
    * @return Hometown of the band
    */
@@ -376,7 +376,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Legal information about the Page publishers.
-   * 
+   *
    * @since 1.10.0
    * @return Legal information about the Page publishers
    */
@@ -387,7 +387,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Influences on the band. Applicable to Bands
-   * 
+   *
    * @since 1.10.0
    * @return Influences on the band
    */
@@ -398,7 +398,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Whether the business corresponding to this Page is permanently closed.
-   * 
+   *
    * @since 1.10.0
    * @return Whether the business corresponding to this Page is permanently closed
    */
@@ -452,7 +452,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Personal information. Applicable to Pages representing People
-   * 
+   *
    * @since 1.10.0
    * @return Personal information
    */
@@ -463,7 +463,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Payment options accepted by the business. Applicable to Restaurants or Nightlife
-   * 
+   *
    * @since 1.10.0
    * @return Payment options accepted by the business
    */
@@ -473,7 +473,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   private PagePaymentOptions paymentOptions;
   /**
    * Personal interests. Applicable to Pages representing People
-   * 
+   *
    * @since 1.10.0
    * @return Personal interests
    */
@@ -484,7 +484,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Pharmacy safety information. Applicable to Pharmaceutical companies
-   * 
+   *
    * @since 1.10.0
    * @return Pharmacy safety information
    */
@@ -505,7 +505,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The plot outline of the film. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return The plot outline of the film
    */
@@ -517,7 +517,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Price range of the business. Applicable to Restaurants or Nightlife. Can be one of $ (0-10), $$ (10-30), $$$
    * (30-50), $$$$ (50+) or Unspecified
-   * 
+   *
    * @since 1.10.0
    * @return Price range of the business
    */
@@ -528,7 +528,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The productor of the film. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return The productor of the film
    */
@@ -539,7 +539,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Reason why a post isn't eligible for boosting. Only visible to Page Admins
-   * 
+   *
    * @since 1.10.0
    * @return Reason why a post isn't eligible for boosting
    */
@@ -550,7 +550,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Reason, for which boosted posts are not eligible. Only visible to a page admin
-   * 
+   *
    * @since 1.10.0
    * @return Reason, for which boosted posts are not eligible
    */
@@ -561,7 +561,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Public transit to the business. Applicable to Restaurants or Nightlife
-   * 
+   *
    * @since 1.10.0
    * @return Public transit to the business
    */
@@ -572,7 +572,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Record label of the band. Applicable to Bands
-   * 
+   *
    * @since 1.10.0
    * @return Record label of the band
    */
@@ -583,7 +583,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The film's release date. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return The film's release date
    */
@@ -594,7 +594,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Services the restaurant provides. Applicable to Restaurants
-   * 
+   *
    * @since 1.10.0
    * @return Services the restaurant provides
    */
@@ -605,7 +605,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The restaurant's specialties. Applicable to Restaurants
-   * 
+   *
    * @since 1.10.0
    * @return The restaurant's specialties
    */
@@ -638,7 +638,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The genre of the film. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return The genre of the film
    */
@@ -649,7 +649,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * MPG of the vehicle. Applicable to Vehicles
-   * 
+   *
    * @since 1.10.0
    * @return MPG of the vehicle
    */
@@ -660,7 +660,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The TV network for the TV show. Applicable to TV Shows
-   * 
+   *
    * @since 1.10.0
    * @return The TV network for the TV show
    */
@@ -671,7 +671,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The number of people who have liked the Page, since the last login. Only visible to a page admin
-   * 
+   *
    * @since 1.10.0
    * @return The number of people who have liked the Page, since the last login
    */
@@ -682,7 +682,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Offer eligibility status. Only visible to a page admin
-   * 
+   *
    * @since 1.10.0
    * @return Offer eligibility status
    */
@@ -693,7 +693,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The air schedule of the TV show. Applicable to TV Shows
-   * 
+   *
    * @since 1.10.0
    * @return The air schedule of the TV show
    */
@@ -704,7 +704,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The screenwriter of the film. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return The screenwriter of the film
    */
@@ -715,7 +715,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The season information of the TV Show. Applicable to TV Shows
-   * 
+   *
    * @since 1.10.0
    * @return The season information of the TV Show
    */
@@ -736,7 +736,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The cast of the film. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return The cast of the film
    */
@@ -747,7 +747,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Information about when the entity represented by the Page was started
-   * 
+   *
    * @since 1.10.0
    * @return Information about when the entity represented by the Page was started
    */
@@ -758,7 +758,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Unique store number for this location Page.
-   * 
+   *
    * @since 1.10.0
    * @return Unique store number for this location Page
    */
@@ -769,7 +769,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The studio for the film production. Applicable to Films
-   * 
+   *
    * @since 1.10.0
    * @return The studio for the film production
    */
@@ -795,7 +795,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The social sentence and like count information for this Page. This is the same info used for the like button
-   * 
+   *
    * @since 1.10.0
    * @return The social sentence and like count information for this Page
    */
@@ -806,7 +806,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Unread message count for the Page. Only visible to a page admin
-   * 
+   *
    * @since 1.10.0
    * @return Unread message count for the Page
    */
@@ -817,7 +817,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Number of unread notifications. Only visible to a page admin
-   * 
+   *
    * @since 1.10.0
    * @return Number of unread notifications
    */
@@ -828,7 +828,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Unseen message count for the Page. Only visible to a page admin
-   * 
+   *
    * @since 1.10.0
    * @return Unseen message count for the Page
    */
@@ -839,7 +839,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Members of this org. Applicable to Pages representing Team Orgs
-   * 
+   *
    * @since 1.10.0
    * @return Members of this org
    */
@@ -851,7 +851,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * The number of visits to this Page's location. If the Page setting Show map, check-ins and star ratings on the Page
    * (under Page Settings &gt; Page Info &gt; Address) is disabled, then this value will also be disabled
-   * 
+   *
    * @since 1.10.0
    * @return The number of visits to this Page's location
    */
@@ -862,7 +862,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Video Featured by the Page. Only visible to the Page admin
-   * 
+   *
    * @since 1.10.0
    * @return Video Featured by the Page
    */
@@ -883,7 +883,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Voip info
-   * 
+   *
    * @since 1.10.0
    * @return Voip info
    */
@@ -894,7 +894,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The writer of the TV show. Applicable to TV Shows
-   * 
+   *
    * @since 1.10.0
    * @return The writer of the TV show
    */
@@ -915,7 +915,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The page's link.
-   * 
+   *
    * @return The page's link.
    */
   @Getter
@@ -925,7 +925,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The page's username. The alias of the Page. For example, for www.facebook.com/platform the username is 'platform'
-   * 
+   *
    * @return The page's username.
    */
   @Getter
@@ -935,7 +935,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * When the page was founded.
-   * 
+   *
    * @return When the page was founded.
    */
   @Getter
@@ -945,7 +945,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Overview of the page's company.
-   * 
+   *
    * @return Overview of the page's company.
    */
   @Getter
@@ -955,7 +955,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The company mission. Applicable to Companies
-   * 
+   *
    * @return The page's mission.
    */
   @Getter
@@ -965,7 +965,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The page's products.
-   * 
+   *
    * @return The page's products.
    */
   @Getter
@@ -1006,7 +1006,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Indicates whether a user has accepted the TOS for running LeadGen Ads on the Page.
-   * 
+   *
    * @return Indicates whether a user has accepted the TOS for running LeadGen Ads on the Page
    */
   @Getter
@@ -1072,7 +1072,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Is this a community page?
-   * 
+   *
    * @return Is this a community page?
    */
   @Getter
@@ -1122,7 +1122,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * A description of this page.
-   * 
+   *
    * @return A description of this page.
    */
   @Getter
@@ -1132,7 +1132,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The description of the Page in raw HTML.
-   * 
+   *
    * @since 1.10.0
    * @return The description of the Page in raw HTML
    */
@@ -1143,7 +1143,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The total number of users who have checked in to the Page.
-   * 
+   *
    * @return The total number of users who have checked in to the Page.
    */
   @Getter
@@ -1153,7 +1153,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The phone number (not always normalized for country code) for the Page.
-   * 
+   *
    * @return The phone number (not always normalized for country code) for the Page.
    */
   @Getter
@@ -1176,7 +1176,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    * <p>
    * The current user must be an administrator of this page; only returned if specifically requested via the fields URL
    * parameter, e.g. {@code facebookClient.fetchObject("123", Page.class, Parameter.with("fields","access_token"))}
-   * 
+   *
    * @return The access token specific to this page.
    * @since 1.6.5
    */
@@ -1187,7 +1187,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * General information about this page.
-   * 
+   *
    * @return General information about this page.
    * @since 1.6.10
    */
@@ -1198,7 +1198,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The number of people that are talking about this page (last seven days).
-   * 
+   *
    * @return The number of people that are talking about this page (last seven days).
    * @since 1.6.10
    */
@@ -1219,7 +1219,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Indicates whether the current session user can post on this page.
-   * 
+   *
    * @return Whether the current session user can post on this page.
    * @since 1.6.10
    */
@@ -1230,7 +1230,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Indicates whether the page is published and visible to non-admins.
-   * 
+   *
    * @return Whether the page is published and visible to non-admins.
    * @since 1.6.10
    */
@@ -1241,7 +1241,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Indicates whether the Page is unclaimed.
-   * 
+   *
    * @return Indicates whether the Page is unclaimed.
    * @since 1.7.0
    */
@@ -1279,7 +1279,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The director of the film. Applicable to Films.
-   * 
+   *
    * @return The director of the film
    * @since 1.7.0
    */
@@ -1310,7 +1310,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * General manager of the business. Applicable to Restaurants or Nightlife.
-   * 
+   *
    * @return General manager of the business.
    * @since 1.7.0
    */
@@ -1321,7 +1321,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The general information for a page.
-   * 
+   *
    * @return The general information for a page.
    * @since 1.6.12
    */
@@ -1332,7 +1332,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The location of the place this page represents.
-   * 
+   *
    * @return The location of the place this page represents.
    */
   @Getter
@@ -1363,7 +1363,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The cover photo.
-   * 
+   *
    * @return The cover photo.
    * @since 1.6.10
    */
@@ -1374,7 +1374,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The website URL
-   * 
+   *
    * @return the website url
    * @since 1.6.15
    */
@@ -1385,7 +1385,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The name of a Location Page that provides additional location information for that Page beside its name.
-   * 
+   *
    * @return the name of Location Page
    * @since 1.7.0
    */
@@ -1396,7 +1396,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Booking agent of the band. Applicable to Bands.
-   * 
+   *
    * @return Booking agent of the band
    * @since 1.7.0
    */
@@ -1407,7 +1407,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Press contact information of the band. Applicable to Bands.
-   * 
+   *
    * @return Press contact information of the band
    * @since 1.7.0
    */
@@ -1510,7 +1510,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/page">Cover Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.10
    */
@@ -1518,7 +1518,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * The ID of the photo.
-     * 
+     *
      * @return The ID of the photo.
      */
     @Getter
@@ -1528,7 +1528,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * The URL for the cover photo.
-     * 
+     *
      * @return The URL for the cover photo.
      */
     @Getter
@@ -1538,7 +1538,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * The percentage offset from top [0-100].
-     * 
+     *
      * @return The percentage offset from top [0-100].
      */
     @Getter
@@ -1622,9 +1622,9 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/engagement/">Page Engagement Graph
    * API type</a>.
-   * 
+   *
    * The social sentence and like count used to render the like plugin
-   * 
+   *
    * @since 1.10.0
    */
   public static class Engagement extends AbstractFacebookType {
@@ -1633,7 +1633,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Number of people who like this.
-     * 
+     *
      * @return Number of people who like this
      */
     @Getter
@@ -1643,7 +1643,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Abbreviated string representation of count.
-     * 
+     *
      * @return Abbreviated string representation of count
      */
     @Getter
@@ -1653,7 +1653,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Abbreviated string representation of count if the viewer likes the object.
-     * 
+     *
      * @return Abbreviated string representation of count if the viewer likes the object
      */
     @Getter
@@ -1663,7 +1663,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Abbreviated string representation of count if the viewer does not like the object.
-     * 
+     *
      * @return Abbreviated string representation of count if the viewer does not like the object
      */
     @Getter
@@ -1673,7 +1673,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Text that the like button would currently display.
-     * 
+     *
      * @return Text that the like button would currently display
      */
     @Getter
@@ -1683,7 +1683,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Text that the like button would display if the viewer likes the object.
-     * 
+     *
      * @return Text that the like button would display if the viewer likes the object
      */
     @Getter
@@ -1693,7 +1693,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
     /**
      * Text that the like button would display if the viewer does not like the object.
-     * 
+     *
      * @return Text that the like button would display if the viewer does not like the object
      */
     @Getter
@@ -1705,7 +1705,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/voip-info/">VOIP Info Graph API
    * type</a>.
-   * 
+   *
    * @since 1.10.0
    */
   public static class VoipInfo extends AbstractFacebookType {
@@ -1751,7 +1751,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page-start-info/">Page Start Info
    * Graph API type</a>.
-   * 
+   *
    * @since 1.10.0
    */
   public static class PageStartInfo extends AbstractFacebookType {
@@ -1792,7 +1792,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page-payment-options/">Page
    * Payment Options Graph API type</a>.
-   * 
+   *
    * @since 1.10.0
    */
   public static class PagePaymentOptions extends AbstractFacebookType {
@@ -1843,7 +1843,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page-restaurant-services/">Page
    * Restaurant Services Graph API type</a>.
-   * 
+   *
    * @since 1.10.0
    */
   public static class PageRestaurantServices extends AbstractFacebookType {
@@ -1899,7 +1899,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page-restaurant-specialties/">Page
    * Restaurant Specialties Graph API type</a>.
-   * 
+   *
    * @since 1.10.0
    */
   public static class PageRestaurantSpecialties extends AbstractFacebookType {
@@ -1968,7 +1968,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/page-settings/">Page Settings
    * Graph API type</a>.
-   * 
+   *
    * @since 1.10.0
    */
   public static class Settings extends AbstractFacebookType {
@@ -1989,7 +1989,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
      * convert the value field in a boolean and return it.
      * <p>
      * Every value that's not the String "true" (case is ignored) is <code>false</code>!
-     * 
+     *
      * @return the value field as boolean.
      */
     public boolean getValueAsBoolean() {
@@ -2000,7 +2000,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
      * Takes the value and converts it into a json object if possible.
      * <p>
      * May throw a JsonException
-     * 
+     *
      * @return
      */
     public JsonObject getValueAsJsonObject() {
@@ -2027,7 +2027,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * the sub category list
-   * 
+   *
    * @return the sub category list
    * @since 1.6.15
    */
@@ -2045,7 +2045,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The emails listed in the About section of a Page.
-   * 
+   *
    * @return The emails listed in the About section of a Page
    * @since 1.10.0
    */
@@ -2063,7 +2063,7 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
 
   /**
    * The restaurant's food styles. Applicable to Restaurants
-   * 
+   *
    * @return The restaurant's food styles
    * @since 1.10.0
    */

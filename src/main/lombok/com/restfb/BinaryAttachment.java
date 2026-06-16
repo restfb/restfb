@@ -38,7 +38,7 @@ import lombok.Getter;
  * Represents a binary file that can be uploaded to Facebook.
  * <p>
  * Normally this would be a photo or video.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Marcel Stoer
  * @since 1.6.5
@@ -65,7 +65,7 @@ public class BinaryAttachment {
 
   /**
    * Creates a new binary attachment backed by a stream supplier.
-   * 
+   *
    * @param filename
    *          The attachment's filename.
    * @param dataSupplier
@@ -105,7 +105,7 @@ public class BinaryAttachment {
 
   /**
    * Creates a new binary attachment backed by a stream supplier.
-   * 
+   *
    * @param filename
    *          The attachment's filename.
    * @param dataSupplier
@@ -113,8 +113,8 @@ public class BinaryAttachment {
    * @param contentType
    *          The attachment's contentType.
    * @throws IllegalArgumentException
-   *           If {@code dataSupplier} is {@code null}, {@code filename} is {@code null} or blank, or {@code contentType}
-   *           is {@code null} or blank.
+   *           If {@code dataSupplier} is {@code null}, {@code filename} is {@code null} or blank, or
+   *           {@code contentType} is {@code null} or blank.
    * @since 1.6.13
    */
   protected BinaryAttachment(String filename, Supplier<InputStream> dataSupplier, String contentType) {
@@ -136,11 +136,12 @@ public class BinaryAttachment {
    * @param fieldName
    *          The field name the binary belongs to
    * @throws IllegalArgumentException
-   *           If {@code dataSupplier} is {@code null}, {@code filename} is {@code null} or blank, or {@code contentType}
-   *           is {@code null} or blank.
+   *           If {@code dataSupplier} is {@code null}, {@code filename} is {@code null} or blank, or
+   *           {@code contentType} is {@code null} or blank.
    * @since 1.6.13
    */
-  protected BinaryAttachment(String fieldName, String filename, Supplier<InputStream> dataSupplier, String contentType) {
+  protected BinaryAttachment(String fieldName, String filename, Supplier<InputStream> dataSupplier,
+      String contentType) {
     this(filename, dataSupplier, contentType);
     ObjectUtil.requireNotEmpty(fieldName, FIELD_NAME_CANNOT_BE_NULL);
 
@@ -232,7 +233,7 @@ public class BinaryAttachment {
 
   /**
    * Creates a binary attachment backed by a stream supplier.
-   * 
+   *
    * @param filename
    *          The attachment's filename.
    * @param dataSupplier
@@ -264,7 +265,7 @@ public class BinaryAttachment {
 
   /**
    * Creates a binary attachment backed by a stream supplier.
-   * 
+   *
    * @param filename
    *          The attachment's filename.
    * @param dataSupplier
@@ -335,7 +336,7 @@ public class BinaryAttachment {
 
   /**
    * Creates a binary attachment.
-   * 
+   *
    * @param filename
    *          The attachment's filename.
    * @param data
@@ -388,7 +389,7 @@ public class BinaryAttachment {
 
   /**
    * The attachment's data.
-   * 
+   *
    * @return The attachment's data.
    */
   public InputStream getData() {
@@ -405,7 +406,7 @@ public class BinaryAttachment {
 
   /**
    * return the given content type or try to guess from stream or file name. Depending of the available data.
-   * 
+   *
    * @return the content type
    */
   public String getContentType() {

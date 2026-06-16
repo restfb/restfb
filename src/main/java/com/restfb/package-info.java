@@ -23,6 +23,7 @@
  * Contains types used to interact with the <a href="http://developers.facebook.com/docs/api" target="_blank">Facebook
  * Graph API</a>.
  * <p>
- * For full documentation and sample code, please see the <a href="https://restfb.com/documentation/">RestFB documentation</a>.
+ * For full documentation and sample code, please see the <a href="https://restfb.com/documentation/">RestFB
+ * documentation</a>.
  */
 package com.restfb;

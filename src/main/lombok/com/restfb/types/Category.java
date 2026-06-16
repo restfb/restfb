@@ -33,7 +33,7 @@ import lombok.Setter;
 
 /**
  * Represents a category element used by place and page
- * 
+ *
  * @author Norbert Bartels
  * @since 1.6.15
  */

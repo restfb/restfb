@@ -27,17 +27,17 @@ import java.io.InputStream;
 
 public interface BinaryAsBytes {
 
-    default byte[] getBytesFromInputStream(InputStream is) {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        try {
-            byte[] buffer = new byte[65535];
-            for (int len; (len = is.read(buffer)) != -1;) {
-                os.write(buffer, 0, len);
-            }
-            os.flush();
-            return os.toByteArray();
-        } catch (IOException e) {
-            return null;
-        }
+  default byte[] getBytesFromInputStream(InputStream is) {
+    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    try {
+      byte[] buffer = new byte[65535];
+      for (int len; (len = is.read(buffer)) != -1;) {
+        os.write(buffer, 0, len);
+      }
+      os.flush();
+      return os.toByteArray();
+    } catch (IOException e) {
+      return null;
     }
+  }
 }

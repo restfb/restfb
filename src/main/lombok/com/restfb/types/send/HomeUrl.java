@@ -60,7 +60,7 @@ public class HomeUrl extends AbstractFacebookType {
 
   /**
    * Controls whether users not assigned a role for your bot or its Facebook page can see the Chat Extension.
-   * 
+   *
    * This should be set to true until the Chat Extension is ready to be used by others.
    */
   @Getter

@@ -226,7 +226,7 @@ public class AdCreativeLinkData extends AbstractFacebookType implements HasMessa
    *
    * @return The main body of the post
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;

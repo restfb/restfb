@@ -49,7 +49,7 @@ public class FeedReactionValue extends AbstractFeedPostValue {
 
   /**
    * returns <code>true</code> if the reaction was made on a Post
-   * 
+   *
    * @return <code>true</code> if the reaction was made on a Post
    */
   public boolean isPostReaction() {
@@ -59,7 +59,7 @@ public class FeedReactionValue extends AbstractFeedPostValue {
   /**
    * returns <code>true</code> if the reaction was made on a Comment, <code>false</code> if the reaction was made on a
    * post
-   * 
+   *
    * @return <code>true</code> if the reaction was made on a Comment
    */
   public boolean isCommentReaction() {
@@ -68,7 +68,7 @@ public class FeedReactionValue extends AbstractFeedPostValue {
 
   /**
    * returns <code>true</code> if the reaction was made on a Reply (comment of a comment),
-   * 
+   *
    * @return <code>true</code> if the reaction was made on a Reply
    */
   public boolean isReplyReaction() {

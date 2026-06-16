@@ -31,8 +31,8 @@ import lombok.Setter;
 @Getter
 public class IgBoostEligibilityInfo extends AbstractFacebookType {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Facebook("eligible_to_boost")
-    private Boolean eligibleToBoost;
+  @Facebook("eligible_to_boost")
+  private Boolean eligibleToBoost;
 }

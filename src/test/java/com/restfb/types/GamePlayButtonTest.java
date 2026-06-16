@@ -56,6 +56,8 @@ class GamePlayButtonTest {
     metadata.setContextId("<CONTEXT_ID>");
     button.setGameMetadata(metadata);
     String json = mapper.toJson(button, true);
-    assertEquals("{\"payload\":\"{<SERIALIZED_JSON_PAYLOAD>}\",\"game_metadata\":{\"player_id\":\"<PLAYER_ID>\",\"context_id\":\"<CONTEXT_ID>\"},\"type\":\"game_play\",\"title\":\"Play\"}", json);
+    assertEquals(
+      "{\"payload\":\"{<SERIALIZED_JSON_PAYLOAD>}\",\"game_metadata\":{\"player_id\":\"<PLAYER_ID>\",\"context_id\":\"<CONTEXT_ID>\"},\"type\":\"game_play\",\"title\":\"Play\"}",
+      json);
   }
 }

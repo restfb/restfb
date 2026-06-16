@@ -35,8 +35,8 @@ class IgAudioTest extends AbstractJsonMapperTests {
 
   @Test
   void checkSearchResponseJson() {
-    IgAudioResponse response = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/audio-response"),
-      IgAudioResponse.class);
+    IgAudioResponse response =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/audio-response"), IgAudioResponse.class);
 
     assertNotNull(response);
     assertEquals(2, response.getAudio().size());
@@ -79,8 +79,7 @@ class IgAudioTest extends AbstractJsonMapperTests {
 
   @Test
   void checkEmptyJsonThrows() {
-    assertThrows(FacebookJsonMappingException.class,
-      () -> createJsonMapper().toJavaObject("", IgAudioResponse.class));
+    assertThrows(FacebookJsonMappingException.class, () -> createJsonMapper().toJavaObject("", IgAudioResponse.class));
     assertThrows(FacebookJsonMappingException.class, () -> createJsonMapper().toJavaObject("", IgAudio.class));
   }
 

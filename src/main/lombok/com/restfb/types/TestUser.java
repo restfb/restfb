@@ -28,7 +28,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/test_users">Test User type</a>.
- * 
+ *
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
@@ -38,7 +38,7 @@ public class TestUser extends FacebookType {
   /**
    * You can use this access token to make API calls on behalf of the test user. This is available only if your app has
    * been installed by the test user.
-   * 
+   *
    * @return The test user's access token.
    */
   @Getter
@@ -48,7 +48,7 @@ public class TestUser extends FacebookType {
 
   /**
    * You can login as the test user by going to this url.
-   * 
+   *
    * @return The test user's login url.
    */
   @Getter
@@ -58,7 +58,7 @@ public class TestUser extends FacebookType {
 
   /**
    * If logging in manually (that is, not using the login_url), you can use this as the user's email address.
-   * 
+   *
    * @return The test user's email address.
    */
   @Getter
@@ -68,7 +68,7 @@ public class TestUser extends FacebookType {
 
   /**
    * If logging in manually (that is, not using the login_url), you can use this as the user's password.
-   * 
+   *
    * @return The test user's password.
    */
   @Getter

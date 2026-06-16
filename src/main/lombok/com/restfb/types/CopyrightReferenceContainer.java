@@ -33,7 +33,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Ported from <a href="https://github.com/facebook/facebook-java-business-sdk/blob/189b22281f75681939750fc71ae1429651865867/src/main/java/com/facebook/ads/sdk/CopyrightReferenceContainer.java">
+ * Ported from <a href=
+ * "https://github.com/facebook/facebook-java-business-sdk/blob/189b22281f75681939750fc71ae1429651865867/src/main/java/com/facebook/ads/sdk/CopyrightReferenceContainer.java">
  * Facebook Business Ads SDK</a>
  */
 public class CopyrightReferenceContainer extends FacebookType {

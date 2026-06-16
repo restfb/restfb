@@ -27,7 +27,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-app-scoped-user-s-profile-information">Threads profile</a>
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-app-scoped-user-s-profile-information">Threads
+ * profile</a>
  */
 public class TdProfile extends TdProfileBase {
 

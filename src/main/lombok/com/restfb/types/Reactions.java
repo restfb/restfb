@@ -53,6 +53,7 @@ public class Reactions extends AbstractFacebookType {
    * returns the user reaction to the object
    *
    * --GETTER--
+   *
    * @return the user reaction to the object
    */
   @Getter

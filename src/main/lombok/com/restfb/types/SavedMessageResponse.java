@@ -60,7 +60,7 @@ public class SavedMessageResponse extends FacebookType implements HasMessage {
   /**
    * The message body of the saved response
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;

@@ -24,7 +24,7 @@ package com.restfb.exception;
 /**
  * Specifies a method for mapping Graph and Old REST API exceptions to corresponding instances of
  * {@code FacebookException}.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
@@ -32,7 +32,7 @@ public interface FacebookExceptionMapper {
   /**
    * Given a Facebook API exception type and message, generates an instance of the corresponding
    * {@code FacebookGraphException} or one of its subclasses.
-   * 
+   *
    * @param container
    *          container for all data needed to create the associated {@link FacebookException}
    * @return An appropriate {@code FacebookException} subclass.

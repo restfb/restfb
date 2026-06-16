@@ -119,8 +119,7 @@ class DefaultFacebookClientTest {
   void videoUploadUsesGraphEndpoint() {
     TestableFacebookClient client = new TestableFacebookClient();
 
-    assertThat(client.createEndpoint("me/videos", true, false))
-      .isEqualTo("https://graph.facebook.com/v18.0/me/videos");
+    assertThat(client.createEndpoint("me/videos", true, false)).isEqualTo("https://graph.facebook.com/v18.0/me/videos");
     assertThat(client.createEndpoint("act_123/advideos", true, false))
       .isEqualTo("https://graph.facebook.com/v18.0/act_123/advideos");
   }

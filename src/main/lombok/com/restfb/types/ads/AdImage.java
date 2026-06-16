@@ -122,7 +122,7 @@ public class AdImage extends NamedAdsObject implements HasCreatedTime {
   /**
    * Time the image was created
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

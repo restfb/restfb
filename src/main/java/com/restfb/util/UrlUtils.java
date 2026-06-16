@@ -53,7 +53,7 @@ public final class UrlUtils {
    * URL-encodes a string.
    * <p>
    * Assumes {@code string} is in {@link StandardCharsets#UTF_8} format.
-   * 
+   *
    * @param string
    *          The string to URL-encode.
    * @return The URL-encoded version of the input string, or {@code null} if {@code string} is {@code null}.
@@ -75,7 +75,7 @@ public final class UrlUtils {
    * URL-decodes a string.
    * <p>
    * Assumes {@code string} is in {@link StandardCharsets#UTF_8} format.
-   * 
+   *
    * @param string
    *          The string to URL-decode.
    * @return The URL-decoded version of the input string, or {@code null} if {@code string} is {@code null}.
@@ -98,7 +98,7 @@ public final class UrlUtils {
    * For the given {@code queryString}, extract a mapping of query string parameter names to values.
    * <p>
    * Example of a {@code queryString} is {@code accessToken=123&expires=345}.
-   * 
+   *
    * @param queryString
    *          The URL query string from which parameters are extracted.
    * @return A mapping of query string parameter names to values. If {@code queryString} is {@code null}, an empty

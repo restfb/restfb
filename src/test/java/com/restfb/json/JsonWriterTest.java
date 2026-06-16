@@ -29,7 +29,6 @@ import java.io.StringWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class JsonWriterTest {
 
   private StringWriter output;
@@ -146,21 +145,21 @@ class JsonWriterTest {
 
   @Test
   void escapesZeroCharacter() throws IOException {
-    writer.writeString(string('f', 'o', 'o', (char)0, 'b', 'a', 'r'));
+    writer.writeString(string('f', 'o', 'o', (char) 0, 'b', 'a', 'r'));
 
     assertEquals("\"foo\\u0000bar\"", output.toString());
   }
 
   @Test
   void escapesEscapeCharacter() throws IOException {
-    writer.writeString(string('f', 'o', 'o', (char)27, 'b', 'a', 'r'));
+    writer.writeString(string('f', 'o', 'o', (char) 27, 'b', 'a', 'r'));
 
     assertEquals("\"foo\\u001bbar\"", output.toString());
   }
 
   @Test
   void escapesControlCharacters() throws IOException {
-    writer.writeString(string((char)1, (char)8, (char)15, (char)16, (char)31));
+    writer.writeString(string((char) 1, (char) 8, (char) 15, (char) 16, (char) 31));
 
     assertEquals("\"\\u0001\\u0008\\u000f\\u0010\\u001f\"", output.toString());
   }

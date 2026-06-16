@@ -60,8 +60,8 @@ class SendMessageJsonTest extends AbstractJsonMapperTests {
 
   @Test
   void checkSuccessfulResponseWithPhonePrecedence() {
-    SuccessfulResponse response = createJsonMapper().toJavaObject(
-        jsonFromClasspath("whatsapp/message-response-phone-precedence"), SuccessfulResponse.class);
+    SuccessfulResponse response = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("whatsapp/message-response-phone-precedence"), SuccessfulResponse.class);
     assertNotNull(response);
     assertEquals("whatsapp", response.getMessagingProduct());
     assertEquals(1, response.getContacts().size());

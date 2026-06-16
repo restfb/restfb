@@ -37,7 +37,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/note">Note Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -45,17 +45,17 @@ public class Note extends FacebookType implements HasCreatedTime, HasFrom, HasMe
 
   /**
    * The ID of the user who posted the note.
-   * 
+   *
    * @return The ID of the user who posted the note.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private NamedFacebookType from;
 
   /**
    * The title of the note.
-   * 
+   *
    * @return The title of the note.
    */
   @Getter
@@ -65,17 +65,17 @@ public class Note extends FacebookType implements HasCreatedTime, HasFrom, HasMe
 
   /**
    * The note content, an HTML string.
-   * 
+   *
    * @return The note content, an HTML string.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
 
   /**
    * The note icon.
-   * 
+   *
    * @return The note icon.
    */
   @Getter
@@ -85,17 +85,17 @@ public class Note extends FacebookType implements HasCreatedTime, HasFrom, HasMe
 
   /**
    * The time the note was initially published.
-   * 
+   *
    * @return The time the note was initially published.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
 
   /**
    * The time the note was last updated.
-   * 
+   *
    * @return The time the note was last updated.
    */
   @Getter
@@ -118,7 +118,7 @@ public class Note extends FacebookType implements HasCreatedTime, HasFrom, HasMe
 
   /**
    * Comments made on the note.
-   * 
+   *
    * @return Comments made on the note.
    * @since 1.6.10
    */

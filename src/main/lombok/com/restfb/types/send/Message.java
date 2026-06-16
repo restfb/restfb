@@ -62,7 +62,7 @@ public class Message extends AbstractFacebookType {
 
   /**
    * add single {@code QuickReply} to the list of QuickReplies
-   * 
+   *
    * @param quickReply
    *          the QuickReply you like to add
    * @return
@@ -79,7 +79,7 @@ public class Message extends AbstractFacebookType {
 
   /**
    * add list of {@code QuickReply} objects to the list of QuickReplies
-   * 
+   *
    * @param quickReplyList
    *          the list QuickReplies you like to add
    * @return

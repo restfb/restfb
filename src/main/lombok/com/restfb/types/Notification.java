@@ -41,7 +41,7 @@ public class Notification extends FacebookType implements HasCreatedTime, HasFro
    *
    * @return The entity that 'sent', or is the source of the notification.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private NamedFacebookType from;
@@ -124,7 +124,7 @@ public class Notification extends FacebookType implements HasCreatedTime, HasFro
    *
    * @return When the notification was created.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

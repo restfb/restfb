@@ -30,7 +30,7 @@ import com.restfb.Facebook;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/api#impersonation">Account Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class Account extends Page {

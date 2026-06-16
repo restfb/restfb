@@ -74,7 +74,8 @@ class JsonParserTest {
 
   @Test
   void parse_reader_rejectsEmpty() {
-    ParseException exception = assertException(ParseException.class, (RunnableEx) () -> parser.parse(new StringReader("")));
+    ParseException exception =
+        assertException(ParseException.class, (RunnableEx) () -> parser.parse(new StringReader("")));
 
     assertEquals(0, exception.getLocation().offset);
     assertThat(exception.getMessage()).startsWith("Unexpected end of input at");
@@ -246,7 +247,8 @@ class JsonParserTest {
   void parse_handlesPositionsCorrectlyWhenInputExceedsBufferSize() {
     final String input = "{\n  \"a\": 23,\n  \"b\": 42,\n}";
 
-    ParseException exception = assertException(ParseException.class, (RunnableEx) () -> parser.parse(new StringReader(input), 3));
+    ParseException exception =
+        assertException(ParseException.class, (RunnableEx) () -> parser.parse(new StringReader(input), 3));
     assertEquals(new Location(24, 4, 1), exception.getLocation());
   }
 

@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 /**
- * Contains all types that are necessary to interact with
- * the <a href="https://developers.facebook.com/docs/instagram-api">Instagram Graph API</a>.
+ * Contains all types that are necessary to interact with the
+ * <a href="https://developers.facebook.com/docs/instagram-api">Instagram Graph API</a>.
  */
 package com.restfb.types.instagram;

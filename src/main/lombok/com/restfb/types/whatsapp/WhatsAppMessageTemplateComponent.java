@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the
- * <a href="https://developers.facebook.com/docs/graph-api/reference/whats-app-business-hsm-whats-app-hsm-component-get/">
+ * Represents the <a href=
+ * "https://developers.facebook.com/docs/graph-api/reference/whats-app-business-hsm-whats-app-hsm-component-get/">
  * WhatsApp Business HSMWhats App HSMComponent Get</a>, based on
  * <a href="https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/components">
  * Template Components</a>
@@ -81,8 +81,7 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
   private Integer codeExpirationMinutes;
 
   /**
-   * The illustrative sample text for the parameter.
-   * Applies only if the component has parameters.
+   * The illustrative sample text for the parameter. Applies only if the component has parameters.
    */
   @Getter
   @Setter
@@ -141,8 +140,8 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
     private String phoneNumber;
 
     /**
-     * Single element list with the strings to copy to the device's clipboard if the type is 'COPY_CODE',
-     * or sample URL if the type is 'URL' and has a parameter.
+     * Single element list with the strings to copy to the device's clipboard if the type is 'COPY_CODE', or sample URL
+     * if the type is 'URL' and has a parameter.
      */
     @Getter
     @Setter
@@ -150,8 +149,7 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
     private List<String> example;
 
     /**
-     * Unique identifier of the Flow provided by WhatsApp.
-     * The Flow must be published.
+     * Unique identifier of the Flow provided by WhatsApp. The Flow must be published.
      */
     @Getter
     @Setter
@@ -159,8 +157,7 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
     private String flowId;
 
     /**
-     * The name of the Flow, supported in Cloud API only.
-     * Cannot be used with flow_id or flow_json.
+     * The name of the Flow, supported in Cloud API only. Cannot be used with flow_id or flow_json.
      */
     @Getter
     @Setter
@@ -168,8 +165,7 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
     private String flowName;
 
     /**
-     * JSON string specifying the layout of the Flow.
-     * Cannot be used with flow_id or flow_name.
+     * JSON string specifying the layout of the Flow. Cannot be used with flow_id or flow_name.
      */
     @Getter
     @Setter
@@ -177,8 +173,8 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
     private String flowJson;
 
     /**
-     * Action to define the Flow behavior.
-     * Can be 'navigate' for predefined screens or 'data_exchange' for dynamic screens.
+     * Action to define the Flow behavior. Can be 'navigate' for predefined screens or 'data_exchange' for dynamic
+     * screens.
      */
     @Getter
     @Setter
@@ -186,15 +182,13 @@ public class WhatsAppMessageTemplateComponent extends AbstractFacebookType {
     private String flowAction;
 
     /**
-     * ID of the entry screen in the Flow if flow_action is 'navigate'.
-     * Optional. Default is 'FIRST_ENTRY_SCREEN'.
+     * ID of the entry screen in the Flow if flow_action is 'navigate'. Optional. Default is 'FIRST_ENTRY_SCREEN'.
      */
     @Getter
     @Setter
     @Facebook("navigate_screen")
     private String navigateScreen;
   }
-
 
   public static class Example {
     @Getter

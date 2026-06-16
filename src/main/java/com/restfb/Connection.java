@@ -68,7 +68,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * Iterator over connection pages.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.7
    */
@@ -78,7 +78,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
     /**
      * Creates a new iterator over the given {@code connection}.
-     * 
+     *
      * @param connection
      *          The connection over which to iterate.
      */
@@ -134,7 +134,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * Creates a connection with the given {@code jsonObject}.
-   * 
+   *
    * @param facebookClient
    *          The {@code FacebookClient} used to fetch additional pages and map data to JSON objects.
    * @param json
@@ -311,7 +311,7 @@ public class Connection<T> implements Iterable<List<T>> {
    * <p>
    * For some connections, there is summary object that contains almost the same fields as the type that is used in the
    * connection. For example ad insights fill the summary that way (if you use the right query parameter)
-   * 
+   *
    * @return the typed summary, may be null
    */
   public T getTypedSummary() {
@@ -325,7 +325,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * replace the current facebookclient with the new one.
-   * 
+   *
    * @param facebookClient
    *          the new FacebookClient
    */
@@ -335,7 +335,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * returns the JSON this connection is based on, it can be used for debug logs for example
-   * 
+   *
    * @return JSON as String the connection is based on
    */
   public String getJson() {
@@ -363,7 +363,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * Override the next page URL - use at your own risk
-   * 
+   *
    * @param nextPageUrl
    *          Custom next Page URL as String
    */
@@ -373,7 +373,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * Override the previous page URL - use at your own risk
-   * 
+   *
    * @param previousPageUrl
    *          Custom previous Page URL as String
    */
@@ -383,6 +383,7 @@ public class Connection<T> implements Iterable<List<T>> {
 
   /**
    * fetch the currently used {@see FacebookClient}
+   *
    * @return the used FacebookClient
    */
   public FacebookClient getFacebookClient() {

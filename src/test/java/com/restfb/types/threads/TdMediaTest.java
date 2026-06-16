@@ -112,8 +112,8 @@ class TdMediaTest extends AbstractJsonMapperTests {
 
   @Test
   void checkTextAttachmentWithMissingOrNullFields() {
-    TdMedia threadsMedia =
-        createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-incomplete-text-attachment"), TdMedia.class);
+    TdMedia threadsMedia = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("threads/media-with-incomplete-text-attachment"), TdMedia.class);
 
     assertNotNull(threadsMedia);
     TdTextAttachment textAttachment = threadsMedia.getTextAttachment();
@@ -124,7 +124,8 @@ class TdMediaTest extends AbstractJsonMapperTests {
 
   @Test
   void checkLocation() {
-    TdMedia threadsMedia = createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-location"), TdMedia.class);
+    TdMedia threadsMedia =
+        createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-location"), TdMedia.class);
     assertNotNull(threadsMedia);
     assertNotNull(threadsMedia.getLocation());
     assertNotNull(threadsMedia.getLocationId());

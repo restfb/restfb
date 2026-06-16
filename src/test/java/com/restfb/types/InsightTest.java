@@ -39,7 +39,8 @@ class InsightTest extends AbstractJsonMapperTests {
 
   @Test
   void checkV16_0_igBreakdownInsight() {
-    Insight exampleInsight = createJsonMapper().toJavaObject(jsonFromClasspath("v16_0/ig-breakdown-insight"), Insight.class);
+    Insight exampleInsight =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v16_0/ig-breakdown-insight"), Insight.class);
     assertNotNull(exampleInsight);
     assertNotNull(exampleInsight.getTotalValue());
     InsightTotalValue totalValue = exampleInsight.getTotalValue();

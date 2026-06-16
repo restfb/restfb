@@ -30,9 +30,9 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/video-list">Video List Graph API type</a>.
- * 
+ *
  * Facebook APi Version 2.3+
- * 
+ *
  * @since 1.12.0
  */
 public class VideoList extends FacebookType {

@@ -39,7 +39,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/video">Video Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -47,7 +47,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * An object containing the name and ID of the user who posted the video.
-   * 
+   *
    * @return An object containing the name and ID of the user who posted the video.
    */
   @Getter
@@ -57,7 +57,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The video title / caption.
-   * 
+   *
    * @return The video title / caption.
    * @deprecated FB seems to have removed this field.
    */
@@ -79,7 +79,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The long-form HTML description of the video.
-   * 
+   *
    * @return The long-form HTML description of the video.
    */
   @Getter
@@ -198,7 +198,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * If this object has a place, the event associated with the place.
-   * 
+   *
    * @return the event associated with the place
    */
   @Getter(onMethod_ = @GraphAPI(since = "2.3"))
@@ -239,9 +239,9 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * People who like this.
-   * 
+   *
    * you need to add the field to the fields query parameter to get the likes list otherwise null is returned
-   * 
+   *
    * @return People who like this
    */
   @Getter
@@ -251,7 +251,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Location associated with the video, if any.
-   * 
+   *
    * @return Location associated with the video, if any.
    */
   @Getter
@@ -269,7 +269,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The content category of this video.
-   * 
+   *
    * @return The content category of this video.
    */
   @Getter(onMethod_ = @GraphAPI(since = "2.4"))
@@ -280,7 +280,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * A URL for the thumbnail picture of the video.
-   * 
+   *
    * @return A URL for the thumbnail picture of the video.
    */
   @Getter
@@ -290,7 +290,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * An icon URL which represents the video.
-   * 
+   *
    * @return An icon URL which represents the video.
    */
   @Getter
@@ -300,7 +300,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * A URL to the raw, playable video file.
-   * 
+   *
    * @return A URL to the raw, playable video file.
    * @since 1.6.5
    */
@@ -311,7 +311,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * HTML that may be used to embed the video on another website.
-   * 
+   *
    * @return HTML that may be used to embed the video on another website.
    */
   @Getter
@@ -321,7 +321,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The length of the video, in seconds.
-   * 
+   *
    * @return The length of the video, in seconds.
    */
   @Getter
@@ -355,7 +355,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Privacy setting for the video.
-   * 
+   *
    * @return Privacy setting for the video.
    */
   @Getter
@@ -373,7 +373,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Object describing the status attributes of a video.
-   * 
+   *
    * @return Object describing the status attributes of a video.
    */
   @Getter
@@ -383,7 +383,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Whether a post about this video is published.
-   * 
+   *
    * This field is only accessible in Graph API 2.3 or later.
    *
    * @return whether a post about this video is published.
@@ -425,7 +425,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The time the video was initially published.
-   * 
+   *
    * @return The time the video was initially published.
    */
   @Getter(onMethod_ = { @Override })
@@ -435,7 +435,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The last time the video or its caption were updated.
-   * 
+   *
    * @return The last time the video or its caption were updated.
    */
   @Getter
@@ -445,9 +445,9 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The time that the video is scheduled to be published.
-   * 
+   *
    * This field is only accessible in Graph API 2.3 or later.
-   * 
+   *
    * @return The time that the video is scheduled to be published.
    * @since 1.10.0
    */
@@ -495,7 +495,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The different formats of the video.
-   * 
+   *
    * @return The different formats of the video.
    */
   public List<VideoFormat> getFormat() {
@@ -512,7 +512,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * Tags for the video.
-   * 
+   *
    * @return Tags for the video.
    * @since 1.6.5
    */
@@ -583,7 +583,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The number of likes on this video.
-   * 
+   *
    * you have to fetch the video id with <code>?fields=likes.summary(true)</code> in order to speed up the likes count
    * generation, you may use <code>?fields=likes.limit(1).summary(true)</code>, so only 1 like is fetched, but the
    * complete summary
@@ -600,7 +600,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
   /**
    * The number of comments of this video.
-   * 
+   *
    * you have to fetch the video id with <code>?fields=comments.summary(true)</code> in order to speed up the comments
    * count generation, you may use <code>?fields=comments.limit(1).summary(true)</code>, so only 1 comment is fetched,
    * but the complete summary
@@ -617,7 +617,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
   /**
    * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/video-thumbnail/">Video Thumbnail
    * Graph API type</a>.
-   * 
+   *
    * @since 1.10.0
    */
   public static class Thumbnail extends NamedFacebookType {
@@ -675,7 +675,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * HTML to embed the video in this format.
-     * 
+     *
      * @return HTML to embed the video in this format.
      */
     @Getter
@@ -685,7 +685,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * The filter applied to this video format.
-     * 
+     *
      * @return The filter applied to this video format.
      */
     @Getter
@@ -695,7 +695,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * The thumbnail for the video in this format.
-     * 
+     *
      * @return The thumbnail for the video in this format.
      */
     @Getter
@@ -705,7 +705,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * The width of the video in this format.
-     * 
+     *
      * @return The width of the video in this format.
      */
     @Getter
@@ -715,7 +715,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * The height of the video in this format.
-     * 
+     *
      * @return The height of the video in this format.
      */
     @Getter
@@ -734,10 +734,10 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * Status of a video.
-     * 
+     *
      * Either "ready" (uploaded, encoded, thumbnails extracted), "processing" (not ready yet) or "error" (processing
      * failed).
-     * 
+     *
      * @return Status of a video
      */
     @Getter
@@ -747,7 +747,7 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
 
     /**
      * Video processing progress in percent [int 0 to 100].
-     * 
+     *
      * @return Video processing progress in percent [int 0 to 100].
      */
     @Getter
@@ -756,9 +756,8 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
     private Integer processingProgress;
 
     /**
-     * This structure contains information about progress through the uploading phase.
-     * The bytes_transferred field can be used in conjunction with the upload endpoint
-     * to resume an interrupted upload.
+     * This structure contains information about progress through the uploading phase. The bytes_transferred field can
+     * be used in conjunction with the upload endpoint to resume an interrupted upload.
      */
     @Getter
     @Setter
@@ -766,9 +765,8 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
     private VideoPhase uploadingVideoPhase;
 
     /**
-     * This structure contains information about progress through the processing phase.
-     * This phase encompasses generating alternate media encodings, thumbnails, and other
-     * assets necessary for publishing.
+     * This structure contains information about progress through the processing phase. This phase encompasses
+     * generating alternate media encodings, thumbnails, and other assets necessary for publishing.
      */
     @Getter
     @Setter
@@ -776,9 +774,8 @@ public class Video extends NamedFacebookType implements HasComments, HasCreatedT
     private VideoPhase processingVideoPhase;
 
     /**
-     * This structure contains information about progress through the publishing phase.
-     * This phase encompasses adding the video to the page, and if scheduled, will describe
-     * when the video is intended to be published.
+     * This structure contains information about progress through the publishing phase. This phase encompasses adding
+     * the video to the page, and if scheduled, will describe when the video is intended to be published.
      */
     @Getter
     @Setter

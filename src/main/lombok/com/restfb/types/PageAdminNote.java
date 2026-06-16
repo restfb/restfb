@@ -54,7 +54,7 @@ public class PageAdminNote extends FacebookType {
 
   /**
    * The user that this note is attached to.
-   * 
+   *
    * @return The user that this note is attached to
    */
   @Getter

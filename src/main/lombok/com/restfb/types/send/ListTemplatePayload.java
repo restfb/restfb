@@ -33,7 +33,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Implementation of <a href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/list/">Vertical List View</a>
+ * Implementation of
+ * <a href="https://developers.facebook.com/docs/messenger-platform/send-messages/template/list/">Vertical List View</a>
  *
  * @deprecated with Graph API 4.0 this is no longer supported
  */

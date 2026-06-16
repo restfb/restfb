@@ -64,8 +64,8 @@ public abstract class AbstractJsonMapperTests {
         try {
           return super.toJavaObject(json, type);
         } catch (FacebookJsonMappingException ex) {
-          getLoggerInstance("ErrorSwallowingJsonMapper")
-            .info("Ignored failed mapping to {}. Bad JSON was '{}' and exception was '{}'", type, json, ex.getMessage());
+          getLoggerInstance("ErrorSwallowingJsonMapper").info(
+            "Ignored failed mapping to {}. Bad JSON was '{}' and exception was '{}'", type, json, ex.getMessage());
           return null;
         }
       }
@@ -75,8 +75,8 @@ public abstract class AbstractJsonMapperTests {
         try {
           return super.toJavaList(json, type);
         } catch (FacebookJsonMappingException ex) {
-          getLoggerInstance("ErrorSwallowingJsonMapper")
-            .info("Ignored failed mapping to {}. Bad JSON was '{}' and exception was '{}'", type, json, ex.getMessage());
+          getLoggerInstance("ErrorSwallowingJsonMapper").info(
+            "Ignored failed mapping to {}. Bad JSON was '{}' and exception was '{}'", type, json, ex.getMessage());
           return null;
         }
       }

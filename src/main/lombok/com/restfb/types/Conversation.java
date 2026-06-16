@@ -35,7 +35,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/page/#conversations"> Conversation Graph
  * API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Felipe Kurkowski
  */
@@ -43,7 +43,7 @@ public class Conversation extends FacebookType {
 
   /**
    * A URL for this conversation.
-   * 
+   *
    * @return A URL for this conversation.
    */
   @Getter
@@ -53,7 +53,7 @@ public class Conversation extends FacebookType {
 
   /**
    * The subject of this conversation.
-   * 
+   *
    * @return The subject of this conversation.
    */
   @Getter
@@ -63,7 +63,7 @@ public class Conversation extends FacebookType {
 
   /**
    * The title of a message in the conversation
-   * 
+   *
    * @return The title of a message in the conversation
    */
   @Getter
@@ -83,7 +83,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Last update time of the conversation
-   * 
+   *
    * @return Last update time of the conversation
    */
   @Getter
@@ -93,7 +93,7 @@ public class Conversation extends FacebookType {
 
   /**
    * The number of messages in the conversation
-   * 
+   *
    * @return The number of messages in the conversation
    */
   @Getter
@@ -116,7 +116,7 @@ public class Conversation extends FacebookType {
    * <p>
    * Facebook does not send the unread count if there aren't any new messages. In order to keep data consistency, we set
    * the default value to zero. If this value is sent, the {@link com.restfb.JsonMapper} will override it.
-   * 
+   *
    * @return The number of unread messages in the conversation
    */
   @Getter
@@ -156,7 +156,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Whether The Page can reply to the conversation
-   * 
+   *
    * @return Whether The Page can reply to the conversation
    */
   @Getter
@@ -166,7 +166,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Whether you are subscribed to the conversation
-   * 
+   *
    * @return Whether you are subscribed to the conversation
    */
   @Getter
@@ -182,7 +182,7 @@ public class Conversation extends FacebookType {
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/page/#conversations"> Tag Graph API
    * type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @author Felipe Kurkowski
    */
@@ -192,7 +192,7 @@ public class Conversation extends FacebookType {
 
     /**
      * The name field for this type.
-     * 
+     *
      * @return The name field for this type.
      */
     @Facebook
@@ -204,7 +204,7 @@ public class Conversation extends FacebookType {
 
   /**
    * A list of tags indicating the message folder, and whether the conversation is read and seen.
-   * 
+   *
    * @return A list of tags indicating the message folder, and whether the conversation is read and seen.
    */
   public List<Tag> getTags() {
@@ -221,7 +221,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Users who are on this message conversation
-   * 
+   *
    * @return Users who are on this message conversation
    */
   public List<ExtendedReferenceType> getParticipants() {
@@ -238,7 +238,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Users who send a message on the conversation
-   * 
+   *
    * @return Users who send a message on the conversation
    */
   public List<NamedFacebookType> getSenders() {
@@ -255,7 +255,7 @@ public class Conversation extends FacebookType {
 
   /**
    * List of all messages in the conversation
-   * 
+   *
    * @return List of all messages in the conversation
    */
   public List<Message> getMessages() {
@@ -272,7 +272,7 @@ public class Conversation extends FacebookType {
 
   /**
    * Users who used to be on this message conversation.
-   * 
+   *
    * @return Users who used to be on this message conversation.
    */
   public List<NamedFacebookType> getFormerParticipants() {

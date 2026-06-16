@@ -126,7 +126,8 @@ class MessageTest extends AbstractJsonMapperTests {
 
   @Test
   void v10_instagram() {
-    Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-message"), Message.class);
+    Message exampleMessage =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-message"), Message.class);
     assertThat(exampleMessage).isNotNull();
     assertThat(exampleMessage.getReactions()).isNotEmpty();
     assertThat(exampleMessage.getReactions().get(0).getReaction()).isEqualTo("love");
@@ -151,7 +152,8 @@ class MessageTest extends AbstractJsonMapperTests {
 
   @Test
   void v10_instagram_story() {
-    Message exampleMessage = createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-message-story"), Message.class);
+    Message exampleMessage =
+        createJsonMapper().toJavaObject(jsonFromClasspath("v10_0/instagram-message-story"), Message.class);
     assertThat(exampleMessage).isNotNull();
     assertThat(exampleMessage.getStory()).isNotNull();
     assertThat(exampleMessage.getStory().getReplyTo()).isNotNull();

@@ -64,7 +64,7 @@ public class Lead extends BaseAdsObject implements HasCreatedTime {
   @Facebook("campaign_name")
   private String campaignName;
 
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

@@ -33,7 +33,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * A collection of data-encoding utility methods.
- * 
+ *
  * @author Josef Gierbl
  * @author Mikael Grev
  * @author <a href="http://restfb.com">Mark Allen</a>
@@ -50,7 +50,7 @@ public final class EncodingUtils {
 
   /**
    * Decodes a base64-encoded string, padding out if necessary.
-   * 
+   *
    * @param base64
    *          The base64-encoded string to decode.
    * @return A decoded version of {@code base64}.
@@ -58,7 +58,8 @@ public final class EncodingUtils {
    *           If {@code base64} is {@code null}.
    */
   public static byte[] decodeBase64(String base64) {
-    return Base64.getDecoder().decode(Optional.ofNullable(base64).map(EncodingUtils::padBase64).orElseThrow(() -> new NullPointerException("Parameter 'base64' cannot be null.")));
+    return Base64.getDecoder().decode(Optional.ofNullable(base64).map(EncodingUtils::padBase64)
+      .orElseThrow(() -> new NullPointerException("Parameter 'base64' cannot be null.")));
   }
 
   private static String padBase64(String base64) {
@@ -76,7 +77,7 @@ public final class EncodingUtils {
    * Encodes a hex {@code byte[]} from given {@code byte[]}.
    * <p>
    * This function is equivalent to Apache commons-codec binary {@code new Hex().encode(byte[])}
-   * 
+   *
    * @param data
    *          The data to encode as hex.
    * @return Hex-encoded {@code byte[]}
@@ -98,7 +99,7 @@ public final class EncodingUtils {
    * Generates an appsecret_proof for facebook.
    * <p>
    * See <a href="https://developers.facebook.com/docs/graph-api/securing-requests">
-   *     https://developers.facebook.com/docs/graph-api/securing-requests</a> for more info
+   * https://developers.facebook.com/docs/graph-api/securing-requests</a> for more info
    *
    * @param appSecret
    *          The facebook application secret

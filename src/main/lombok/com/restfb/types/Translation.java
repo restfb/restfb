@@ -47,7 +47,7 @@ public class Translation extends FacebookType {
    * <p>
    * Possible values: auto-approved, approved, unapproved
    * </p>
-   * 
+   *
    * @return The approval status of the string.
    */
   @Getter

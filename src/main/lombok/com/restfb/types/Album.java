@@ -35,7 +35,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/album/">Album Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -43,7 +43,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * An object containing the ID and name of the profile who posted this album.
-   * 
+   *
    * @return An object containing the ID and name of the profile who posted this album.
    */
   @Getter
@@ -53,7 +53,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The description of the album.
-   * 
+   *
    * @return The description of the album.
    */
   @Getter
@@ -63,7 +63,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The location of the album.
-   * 
+   *
    * @return The location of the album.
    */
   @Getter
@@ -73,7 +73,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * A link to this album on Facebook.
-   * 
+   *
    * @return A link to this album on Facebook.
    */
   @Getter
@@ -83,7 +83,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The number of photos in this album.
-   * 
+   *
    * @return The number of photos in this album.
    */
   @Getter
@@ -93,7 +93,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The album cover photo ID.
-   * 
+   *
    * @return The album cover photo ID
    */
   @Getter
@@ -106,7 +106,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The privacy settings for the album.
-   * 
+   *
    * @return The privacy settings for the album.
    */
   @Getter
@@ -116,7 +116,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * Whether or not the user has permission to upload to this album.
-   * 
+   *
    * @return The {@code can_upload} setting for this album.
    */
   @Getter
@@ -126,17 +126,17 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The time the photo album was initially created.
-   * 
+   *
    * @return The time the photo album was initially created.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
 
   /**
    * The last time the photo album was updated.
-   * 
+   *
    * @return The last time the photo album was updated.
    */
   @Getter
@@ -169,7 +169,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
    *
    * @return The comments for this album.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private Comments comments;
@@ -185,7 +185,7 @@ public class Album extends NamedFacebookType implements HasProfilePicture, HasCo
    *
    * @return the album's picture as ProfilePictureSource object
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   private ProfilePictureSource picture;
 

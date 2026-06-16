@@ -32,7 +32,7 @@ import com.restfb.json.JsonObject;
  * API calls.
  * <p>
  * Example: <code>{"error_code": 2, "error_msg": "The service is not available at this time.", ...}</code>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class FacebookResponseStatusException extends FacebookErrorMessageException {
@@ -50,7 +50,7 @@ public class FacebookResponseStatusException extends FacebookErrorMessageExcepti
 
   /**
    * Creates an exception with the given message and error code.
-   * 
+   *
    * @param errorCode
    *          Value of the Facebook response attribute {@code error_code}.
    * @param errorMessage
@@ -65,7 +65,7 @@ public class FacebookResponseStatusException extends FacebookErrorMessageExcepti
 
   /**
    * Gets the Facebook API error code.
-   * 
+   *
    * @return The Facebook API error code.
    */
   public Integer getErrorCode() {
@@ -74,7 +74,7 @@ public class FacebookResponseStatusException extends FacebookErrorMessageExcepti
 
   /**
    * Gets the Facebook API error message.
-   * 
+   *
    * @return The Facebook API error message.
    */
   public String getErrorMessage() {

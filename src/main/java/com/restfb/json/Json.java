@@ -31,7 +31,7 @@ import java.util.Objects;
  * <p>
  * To <strong>parse</strong> a given JSON input, use the <code>parse()</code> methods like in this example:
  * </p>
- * 
+ *
  * <pre>
  * JsonObject object = Json.parse(string).asObject();
  * </pre>
@@ -40,7 +40,7 @@ import java.util.Objects;
  * <code>array()</code>, and <code>object()</code>. For example, the following snippet will produce the JSON string
  * <em>{"foo": 23, "bar": true}</em>:
  * </p>
- * 
+ *
  * <pre>
  * String string = Json.object().add("foo", 23).add("bar", true).toString();
  * </pre>
@@ -48,7 +48,7 @@ import java.util.Objects;
  * To create a JSON array from a given Java array, you can use one of the <code>array()</code> methods with varargs
  * parameters:
  * </p>
- * 
+ *
  * <pre>
  * String[] names = ...
  * JsonArray array = Json.array(names);
@@ -277,8 +277,8 @@ public final class Json {
   }
 
   /**
-   * Reads the entire input from the given reader and parses it as JSON. The input must contain a
-   * valid JSON value, optionally padded with whitespace.
+   * Reads the entire input from the given reader and parses it as JSON. The input must contain a valid JSON value,
+   * optionally padded with whitespace.
    * <p>
    * Characters are read in chunks into an input buffer. Hence, wrapping a reader in an additional
    * <code>BufferedReader</code> likely won't improve reading performance.

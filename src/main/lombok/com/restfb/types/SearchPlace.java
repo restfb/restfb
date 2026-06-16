@@ -78,7 +78,7 @@ public class SearchPlace extends NamedFacebookType implements HasProfilePicture,
    *
    * @return Information about the cover photo.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -221,7 +221,7 @@ public class SearchPlace extends NamedFacebookType implements HasProfilePicture,
    *
    * @return the page's profile picture as ProfilePictureSource object
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   private ProfilePictureSource picture;
 

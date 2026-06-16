@@ -35,7 +35,7 @@ import java.util.stream.Stream;
  * Elements can be accessed by their index using {@link #get(int)}. This class also supports iterating over the elements
  * in document order using an {@link #iterator()} or an enhanced for loop:
  * </p>
- * 
+ *
  * <pre>
  * for (JsonValue value : jsonArray) {
  *   ...
@@ -419,18 +419,16 @@ public class JsonArray extends JsonValue implements Iterable<JsonValue> {
     return values.hashCode();
   }
 
-
   /**
-   * Indicates whether a given object is "equal to" this JsonArray. An object is considered equal
-   * if it is also a <code>JsonArray</code> and both arrays contain the same list of values.
+   * Indicates whether a given object is "equal to" this JsonArray. An object is considered equal if it is also a
+   * <code>JsonArray</code> and both arrays contain the same list of values.
    * <p>
    * If two JsonArrays are equal, they will also produce the same JSON output.
    * </p>
    *
    * @param object
    *          the object to be compared with this JsonArray
-   * @return <tt>true</tt> if the specified object is equal to this JsonArray, <code>false</code>
-   *         otherwise
+   * @return <tt>true</tt> if the specified object is equal to this JsonArray, <code>false</code> otherwise
    */
   @Override
   public boolean equals(Object object) {

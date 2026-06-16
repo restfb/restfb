@@ -181,7 +181,8 @@ class ConnectionTest extends AbstractJsonMapperTests {
 
   @Test
   void checkTypedSummary() {
-    Connection<AdsInsights> con = new Connection<>(new DefaultFacebookClient(Version.LATEST), jsonFromClasspath("connection-typed-summary"), AdsInsights.class);
+    Connection<AdsInsights> con = new Connection<>(new DefaultFacebookClient(Version.LATEST),
+      jsonFromClasspath("connection-typed-summary"), AdsInsights.class);
     assertThat(con.getTypedSummary()).isNotNull();
     AdsInsights insightsSummary = con.getTypedSummary();
     assertThat(insightsSummary.getActions()).hasSize(29);
@@ -194,7 +195,8 @@ class ConnectionTest extends AbstractJsonMapperTests {
     FakeWebRequestor fakeWebRequestor = new FakeWebRequestor() {
       @Override
       public Response executeGet(Request request) {
-        if (request.getFullUrl().equals("https://graph.facebook.com/v18.0/me/adaccounts?access_token=token&format=json")) {
+        if (request.getFullUrl()
+          .equals("https://graph.facebook.com/v18.0/me/adaccounts?access_token=token&format=json")) {
           return new Response(HTTP_OK, jsonFromClasspath("connection-same-cursor"));
         }
 

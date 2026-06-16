@@ -28,11 +28,11 @@ import com.restfb.types.api.SetterGetterTestBase;
 
 class MessageTagTest extends SetterGetterTestBase {
 
-    @Test
-    void testMessageTag() {
-        MessageTag obj = new MessageTag();
-        addIgnoredField("rawUpdatedTime");
-        addIgnoredField("rawCreatedTime");
-        testInstance(obj);
-    }
+  @Test
+  void testMessageTag() {
+    MessageTag obj = new MessageTag();
+    addIgnoredField("rawUpdatedTime");
+    addIgnoredField("rawCreatedTime");
+    testInstance(obj);
+  }
 }

@@ -34,7 +34,7 @@ public class Webhook {
 
   /**
    * registers an listener that handles the messaging Items of an incoming webhook request
-   * 
+   *
    * @param listener
    */
   public void registerListener(WebhookMessagingListener listener) {
@@ -43,7 +43,7 @@ public class Webhook {
 
   /**
    * registers a listener that handles the change values of an incoming webhook request
-   * 
+   *
    * @param listener
    */
   public void registerListener(WebhookChangeListener listener) {

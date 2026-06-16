@@ -182,8 +182,8 @@ public class TdMedia extends FacebookType {
   private List<String> allowlistedCountryCodes = new ArrayList<>();
 
   /**
-   * link attachment URL of the URL that is attachment with highlight.
-   * See here: https://developers.facebook.com/docs/threads/posts#tags-and-links-in-posts
+   * link attachment URL of the URL that is attachment with highlight. See here:
+   * https://developers.facebook.com/docs/threads/posts#tags-and-links-in-posts
    */
   @Getter
   @Setter

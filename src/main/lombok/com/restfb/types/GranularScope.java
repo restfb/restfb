@@ -33,30 +33,30 @@ import lombok.Setter;
 
 public class GranularScope extends AbstractFacebookType {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * The permission granted by the user.
-     *
-     * @return The permission granted by the user.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String scope;
+  /**
+   * The permission granted by the user.
+   *
+   * @return The permission granted by the user.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String scope;
 
-    /**
-     * The target ids of Pages, Groups, or business assets the user granted the above permission for.
-     */
-    @Facebook("target_ids")
-    private List<String> targetIds = new ArrayList<>();
+  /**
+   * The target ids of Pages, Groups, or business assets the user granted the above permission for.
+   */
+  @Facebook("target_ids")
+  private List<String> targetIds = new ArrayList<>();
 
-    /**
-     * The target ids of Pages, Groups, or business assets the user granted the above permission for.
-     *
-     * @return The target ids of Pages, Groups, or business assets the user granted the above permission for.
-     */
-    public List<String> getTargetIds() {
-        return unmodifiableList(targetIds);
-    }
+  /**
+   * The target ids of Pages, Groups, or business assets the user granted the above permission for.
+   *
+   * @return The target ids of Pages, Groups, or business assets the user granted the above permission for.
+   */
+  public List<String> getTargetIds() {
+    return unmodifiableList(targetIds);
+  }
 }

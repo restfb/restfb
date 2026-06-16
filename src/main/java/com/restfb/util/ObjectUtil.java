@@ -74,7 +74,7 @@ public class ObjectUtil {
 
   /**
    * Checks is the object is a empty 'collection' or 'map'.
-   * 
+   *
    * @param obj
    *          the object that is checked
    * @return {@code true} if the given object is a empty collection or an empty map, {@code false} otherwise

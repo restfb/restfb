@@ -38,7 +38,7 @@ import com.restfb.json.JsonObject;
         "error_user_msg": "A message"
       }
   } </code>
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6
  */
@@ -47,7 +47,7 @@ public class FacebookOAuthException extends FacebookGraphException {
 
   /**
    * Creates an exception with the given error type and message.
-   * 
+   *
    * @param errorType
    *          Value of the Facebook response attribute {@code error.type}.
    * @param errorMessage

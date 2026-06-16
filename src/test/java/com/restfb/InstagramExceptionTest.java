@@ -33,18 +33,18 @@ import com.restfb.exception.generator.DefaultFacebookExceptionGenerator;
 
 class InstagramExceptionTest extends AbstractJsonMapperTests {
 
-    @Test
-    void instagramException() {
-        String jsonErrorString = jsonFromClasspath("instagram/ig_login_exception");
-        DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
-        try {
-            generator.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
-            failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
-        } catch (InstagramApiException fe) {
-            assertThat(fe.getErrorCode()).isEqualTo(2500);
-            assertThat(fe.getMessage()).contains("impressions/day");
-        } catch (Exception ex) {
-            failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
-        }
+  @Test
+  void instagramException() {
+    String jsonErrorString = jsonFromClasspath("instagram/ig_login_exception");
+    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
+    try {
+      generator.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
+    } catch (InstagramApiException fe) {
+      assertThat(fe.getErrorCode()).isEqualTo(2500);
+      assertThat(fe.getMessage()).contains("impressions/day");
+    } catch (Exception ex) {
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
     }
+  }
 }

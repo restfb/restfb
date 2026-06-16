@@ -44,13 +44,13 @@ public enum FacebookPermissions {
    * <li>updated_time</li>
    * <li>verified</li>
    * </ul>
-   * 
+   *
    * On the web, public_profile is implied with every request and isn't required, although the best practice is to
    * declare it. On iOS and Android, you must manually request it as part of your login flow.<br />
    * <br />
-   * 
+   *
    * gender &amp; locale can only be accessed if:
-   * 
+   *
    * <ul>
    * <li>The person queried is the person using the app.</li>
    * <li>The person queried is using the app, and is a friend of the person using the app.</li>
@@ -333,7 +333,7 @@ public enum FacebookPermissions {
 
   /**
    * The {@code pages_manage_ads} permission allows your app the ability to manage ads associated with the Page.
-   * 
+   *
    * <p>
    * You can use this permission to create and manage ads for the Page.
    *
@@ -350,7 +350,7 @@ public enum FacebookPermissions {
   /**
    * The {@code pages_manage_metadata} permission allows you to subscribe and receive webhooks about activity on the
    * Page, and to update settings on the Page.
-   * 
+   *
    * <p>
    * You can use this permission if you need it to help the Page Admin administer and manage the Page.
    *
@@ -368,7 +368,7 @@ public enum FacebookPermissions {
    * The {@code pages_read_engagement} permission allows your app the ability to read content (posts, photos, videos,
    * events) posted by the Page, read followers data including name, PSID, and profile picture, and read metadata and
    * other insights about the Page.
-   * 
+   *
    * <p>
    * You can use this permission if you need it to help the Page Admin administer and manage the Page.
    *
@@ -538,8 +538,8 @@ public enum FacebookPermissions {
   /**
    * The {@code pages_utility_messaging} permission allows an app to access a Page's utility message templates.
    * <p>
-   * The allowed usage for this permission is to manage a Page's utility message templates and send utility messages over
-   * Messenger.
+   * The allowed usage for this permission is to manage a Page's utility message templates and send utility messages
+   * over Messenger.
    */
   PAGES_UTILITY_MESSAGING("pages_utility_messaging", Category.MESSAGING), //
 
@@ -607,7 +607,7 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   * 
+   *
    * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024
    */
   @GraphAPI(since = "3.0", until = "19.0")
@@ -635,7 +635,7 @@ public enum FacebookPermissions {
    *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
-   * 
+   *
    * @deprecated no longer supported with Graph API 19.0 or after 22. April 2024
    */
   @GraphAPI(since = "3.0", until = "19.0")
@@ -711,10 +711,10 @@ public enum FacebookPermissions {
    * Grants your app the ability to create, read, update, and delete business owned product catalogs that the user is an
    * admin of. This permission grants access to related endpoints. By default, your app may only access product catalogs
    * that are owned by admins of the app when in developer mode.
-   * 
+   *
    * <p>
    * <strong>Review</strong>
-   * 
+   *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
@@ -878,8 +878,8 @@ public enum FacebookPermissions {
   INSTAGRAM_MANAGE_EVENTS("instagram_manage_events", Category.INSTAGRAM), //
 
   /**
-   * The {@code instagram_manage_upcoming_events} permission allows an app to read, create, and update upcoming events on
-   * behalf of Instagram accounts administered by people using the app.
+   * The {@code instagram_manage_upcoming_events} permission allows an app to read, create, and update upcoming events
+   * on behalf of Instagram accounts administered by people using the app.
    * <p>
    * The allowed usage for this permission is to manage upcoming events on Instagram accounts administered by app users.
    */
@@ -903,14 +903,14 @@ public enum FacebookPermissions {
 
   /**
    * The instagram_manage_messages permission allows business users to read and respond to Instagram Direct messages.
-   * 
+   *
    * <p>
    * Please see <a href="https://developers.facebook.com/docs/instagram-api/getting-started">Instagram's Getting Started
    * Guide</a> for details.
-   * 
+   *
    * <p>
    * <strong>Review</strong>
-   * 
+   *
    * <p>
    * If your app requests this permission Facebook will have to review how your app uses it.
    */
@@ -991,7 +991,7 @@ public enum FacebookPermissions {
   /**
    * The instagram_graph_user_media permission allows your app to read the Media node, which represents an image, video,
    * or album and the node’s edges.
-   * 
+   *
    * <p>
    * <strong>Review</strong>
    *
@@ -1081,8 +1081,8 @@ public enum FacebookPermissions {
    * The {@code whatsapp_business_manage_events} permission allows an app to log events, such as purchases, add-to-cart
    * actions, and leads, on behalf of a WhatsApp business account managed by an app user.
    * <p>
-   * The allowed usage for this permission is to log events on WhatsApp business accounts and send event activity data to
-   * Meta for ads targeting, optimization, and reporting.
+   * The allowed usage for this permission is to log events on WhatsApp business accounts and send event activity data
+   * to Meta for ads targeting, optimization, and reporting.
    */
   WHATSAPP_BUSINESS_MANAGE_EVENTS("whatsapp_business_manage_events", Category.WHATSAPP), //
 
@@ -1145,13 +1145,13 @@ public enum FacebookPermissions {
   THREADS_BASIC("threads_basic", Category.THREADS),
 
   /**
-   * The threads_business_basic permission allows an app to fetch the Threads account ID that is connected to
-   * an Instagram account.
+   * The threads_business_basic permission allows an app to fetch the Threads account ID that is connected to an
+   * Instagram account.
    * <p>
-   * The allowed usage for this permission is to retrieve a Threads account ID to use as
-   * the {@code }threads_user_id} during the creation of ads on Threads. You may also use this permission to
-   * request analytics insights to improve your app and for marketing or advertising purposes, through the use of
-   * aggregated and de-identified or anonymized information (provided such data cannot be re-identified).
+   * The allowed usage for this permission is to retrieve a Threads account ID to use as the {@code }threads_user_id}
+   * during the creation of ads on Threads. You may also use this permission to request analytics insights to improve
+   * your app and for marketing or advertising purposes, through the use of aggregated and de-identified or anonymized
+   * information (provided such data cannot be re-identified).
    */
   THREADS_BUSINESS_BASIC("threads_business_basic", Category.THREADS),
 
@@ -1221,11 +1221,11 @@ public enum FacebookPermissions {
   THREADS_MANAGE_REPLIES("threads_manage_replies", Category.THREADS),
 
   /**
-   * The {@code }threads_profile_discovery} permission allows an app to access profiles for public Threads accounts
-   * and public posts of these accounts.
+   * The {@code }threads_profile_discovery} permission allows an app to access profiles for public Threads accounts and
+   * public posts of these accounts.
    * <p>
-   * The allowed usage for this permission is to allow the app's users to find profiles of public Threads
-   * accounts and public posts of these accounts to conduct competitor analyses.
+   * The allowed usage for this permission is to allow the app's users to find profiles of public Threads accounts and
+   * public posts of these accounts to conduct competitor analyses.
    */
   THREADS_PROFILE_DISCOVERY("threads_profile_discovery", Category.THREADS),
 
@@ -1252,18 +1252,17 @@ public enum FacebookPermissions {
    * The {@code threads_share_to_instagram} permission allows an app to post an app user's Threads post to their linked
    * Instagram account on behalf of the user.
    * <p>
-   * The allowed usage for this permission is to let a user share Threads content to their linked Instagram account, as a
-   * one-time action or automatically for future posts.
+   * The allowed usage for this permission is to let a user share Threads content to their linked Instagram account, as
+   * a one-time action or automatically for future posts.
    */
   THREADS_SHARE_TO_INSTAGRAM("threads_share_to_instagram", Category.THREADS),
 
   /**
-   * The {@code threads_location_tagging} permission allows an app to search for
-   * and fetch public locations using specific queries/keywords or coordinates on
-   * behalf of a Threads user and publish media with a location tagged.
+   * The {@code threads_location_tagging} permission allows an app to search for and fetch public locations using
+   * specific queries/keywords or coordinates on behalf of a Threads user and publish media with a location tagged.
    * <p>
-   * The allowed usage for this permission is to help users tag public locations to
-   * their posts and request locations when media is retrieved
+   * The allowed usage for this permission is to help users tag public locations to their posts and request locations
+   * when media is retrieved
    */
   THREADS_LOCATION_TAGGING("threads_location_tagging", Category.THREADS),
 

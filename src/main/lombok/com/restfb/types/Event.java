@@ -41,7 +41,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -49,7 +49,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The user who owns the event.
-   * 
+   *
    * @return The user who owns the event.
    */
   @Getter
@@ -90,7 +90,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The long-form HTML description of the event.
-   * 
+   *
    * @return The long-form HTML description of the event.
    */
   @Getter
@@ -106,7 +106,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The start time of the event.
-   * 
+   *
    * @return The start time of the event.
    */
   @Getter
@@ -115,7 +115,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The end time of the event.
-   * 
+   *
    * @return The end time of the event.
    */
   @Getter
@@ -134,7 +134,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The RSVP status of this event.
-   * 
+   *
    * @return The RSVP status of this event.
    */
   @Getter
@@ -165,7 +165,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
-   * 
+   *
    * @return The visibility of this event. Can be 'OPEN', 'CLOSED', or 'SECRET'.
    */
   @Getter
@@ -175,7 +175,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The last time the event was updated.
-   * 
+   *
    * @return The last time the event was updated.
    */
   @Getter
@@ -185,7 +185,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The URL to a location to buy tickets for this event (on Events for Pages only).
-   * 
+   *
    * @return The URL to a location to buy tickets for this event (on Events for Pages only).
    * @since 1.6.13
    */
@@ -196,12 +196,12 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The event's picture.
-   * 
+   *
    * @return The event's picture (only returned if you explicitly include picture in the fields param; example:
    *         ?fields=id,name,picture)
    * @since 1.6.13
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   private ProfilePictureSource picture;
 
@@ -210,7 +210,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * The group the event belongs to, if any.
-   * 
+   *
    * @return The group the event belongs to, if any.
    */
   @Getter
@@ -231,7 +231,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * Should the time information be ignored in the dates for this event?
-   * 
+   *
    * @return <tt>true</tt> if the time information be ignored in the dates for this event, <tt>false</tt> otherwise.
    * @since 1.6.13
    */
@@ -253,7 +253,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
    *
    * @return Cover picture
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -306,7 +306,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Owner Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.13
    */
@@ -314,7 +314,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
     /**
      * The unique identifier for this owner.
-     * 
+     *
      * @return The unique identifier for this owner.
      */
     @Getter
@@ -324,7 +324,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
     /**
      * The name of this owner.
-     * 
+     *
      * @return The name of this owner.
      */
     @Getter
@@ -334,7 +334,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
     /**
      * The category for this owner.
-     * 
+     *
      * @return The category for this owner.
      */
     @Getter
@@ -357,7 +357,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
     /**
      * List of other categories for this owner.
-     * 
+     *
      * @return List of other categories for this owner.
      */
     public List<Category> getCategoryList() {
@@ -368,7 +368,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/event">Event Owner Category Graph API
    * type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.13
    */
@@ -376,7 +376,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
     /**
      * The unique identifier for this category.
-     * 
+     *
      * @return The unique identifier for this category.
      */
     @Getter
@@ -386,7 +386,7 @@ public class Event extends NamedFacebookType implements HasProfilePicture, HasCo
 
     /**
      * The name of this category.
-     * 
+     *
      * @return The name of this category.
      */
     @Getter

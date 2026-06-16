@@ -109,7 +109,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
    *
    * @return The message.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
@@ -129,7 +129,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
    * <p>
    * Example: https://www.facebook.com/FacebookforDevelopers/posts/10153449196353553
    * </p>
-   * 
+   *
    * @return The permanent static URL to the post on www.facebook.com.
    */
   @Getter
@@ -392,7 +392,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
    *
    * @return The time the post was initially published.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -458,7 +458,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
    *
    * @return The comments for this post.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private Comments comments;
@@ -550,7 +550,7 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
    * It returns the enum <code>eligible</code> if it can be promoted. Otherwise it returns an enum for why it cannot be
    * promoted
    * </p>
-   * 
+   *
    * @return Whether the post can be promoted on Instagram
    */
   @Getter
@@ -690,12 +690,12 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
 
   /**
    * Full picture URL.
-   * 
+   *
    * you get the url to this posts full picture.
-   * 
+   *
    * To force Facebook to fill the <code>full_picture</code> field you have to fetch the post with the
    * <code>fields=full_picture</code> parameter, otherwise the full_picture is <code>null</code>.
-   * 
+   *
    * @return String representing the url to the post's full picture
    */
   @Getter
@@ -714,8 +714,8 @@ public class Post extends FacebookType implements HasComments, HasCreatedTime, H
   /**
    * A string indicating the object type of this post.
    *
-   * Hint for Graph API 3.3: <code>attachment/media_type</code> If there is no <code>attachment</code> or <code>media_type=link</code>, the
-   * value is the same as <code>type=status</code>.
+   * Hint for Graph API 3.3: <code>attachment/media_type</code> If there is no <code>attachment</code> or
+   * <code>media_type=link</code>, the value is the same as <code>type=status</code>.
    *
    * @return A string indicating the object type of this post.
    */

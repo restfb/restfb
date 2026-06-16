@@ -51,7 +51,8 @@ class DefaultWebRequestorTest {
       capture.capture(exchange);
       respond(exchange, 200, "pong");
     })) {
-      WebRequestor.Response response = requestor.executeGet(new WebRequestor.Request(server.url("/auth"), "accesstoken"));
+      WebRequestor.Response response =
+          requestor.executeGet(new WebRequestor.Request(server.url("/auth"), "accesstoken"));
 
       assertThat(response.getStatusCode()).isEqualTo(200);
       assertThat(capture.getHeaders().getFirst("Authorization")).isEqualTo("Bearer accesstoken");
@@ -115,8 +116,8 @@ class DefaultWebRequestorTest {
     })) {
       BinaryAttachment attachment = BinaryAttachment.with("photo", "test.txt",
         () -> new CloseTrackingInputStream("hello".getBytes(StandardCharsets.UTF_8)), "text/plain");
-      WebRequestor.Request request = new WebRequestor.Request(server.url("/upload"), null, "",
-        Collections.singletonList(attachment));
+      WebRequestor.Request request =
+          new WebRequestor.Request(server.url("/upload"), null, "", Collections.singletonList(attachment));
       requestor.executePost(request);
 
       assertThat(capture.getHeaders().getFirst("Content-Type")).contains("multipart/form-data");
@@ -132,15 +133,17 @@ class DefaultWebRequestorTest {
       capture.capture(exchange);
       respond(exchange, 200, "ok");
     })) {
-      FacebookReelAttachment reel = FacebookReelAttachment.withByteContent("reel-data".getBytes(StandardCharsets.UTF_8));
-      WebRequestor.Request request = new WebRequestor.Request(server.url("/reel"), "token", "",
-        Collections.singletonList(reel));
+      FacebookReelAttachment reel =
+          FacebookReelAttachment.withByteContent("reel-data".getBytes(StandardCharsets.UTF_8));
+      WebRequestor.Request request =
+          new WebRequestor.Request(server.url("/reel"), "token", "", Collections.singletonList(reel));
       WebRequestor.Response response = requestor.executePost(request);
 
       assertThat(response.getStatusCode()).isEqualTo(200);
       assertThat(capture.getHeaders().getFirst("Authorization")).isEqualTo("OAuth token");
       assertThat(capture.getHeaders().getFirst("offset")).isEqualTo("0");
-      assertThat(capture.getHeaders().getFirst("file_size")).isEqualTo(String.valueOf("reel-data".getBytes(StandardCharsets.UTF_8).length));
+      assertThat(capture.getHeaders().getFirst("file_size"))
+        .isEqualTo(String.valueOf("reel-data".getBytes(StandardCharsets.UTF_8).length));
       assertThat(new String(capture.getBody(), StandardCharsets.UTF_8)).isEqualTo("reel-data");
     }
   }
@@ -153,8 +156,8 @@ class DefaultWebRequestorTest {
       respond(exchange, 200, "ok");
     })) {
       FacebookReelAttachment reel = FacebookReelAttachment.withUrl("https://example.com/reel.mp4");
-      WebRequestor.Request request = new WebRequestor.Request(server.url("/reel-url"), "token", "",
-        Collections.singletonList(reel));
+      WebRequestor.Request request =
+          new WebRequestor.Request(server.url("/reel-url"), "token", "", Collections.singletonList(reel));
       requestor.executePost(request);
 
       assertThat(capture.getHeaders().getFirst("file_url")).isEqualTo("https://example.com/reel.mp4");

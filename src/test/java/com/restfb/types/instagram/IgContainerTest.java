@@ -34,7 +34,8 @@ class IgContainerTest extends AbstractJsonMapperTests {
 
   @Test
   void checkJson() {
-    IgContainer igContainer = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/container"), IgContainer.class);
+    IgContainer igContainer =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/container"), IgContainer.class);
 
     assertNotNull(igContainer);
     assertEquals("17889615691921648", igContainer.getId());
@@ -47,8 +48,8 @@ class IgContainerTest extends AbstractJsonMapperTests {
 
   @Test
   void checkJson_missingCopyrightCheckStatus() {
-    IgContainer igContainer = createJsonMapper().toJavaObject(jsonFromClasspath("instagram/container_no_copyright"),
-      IgContainer.class);
+    IgContainer igContainer =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/container_no_copyright"), IgContainer.class);
 
     assertNotNull(igContainer);
     assertEquals("17889615691921648", igContainer.getId());

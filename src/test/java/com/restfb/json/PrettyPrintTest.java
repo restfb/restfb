@@ -33,7 +33,6 @@ import java.io.Writer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class PrettyPrintTest {
 
   private StringWriter output;
@@ -66,9 +65,7 @@ class PrettyPrintTest {
 
   @Test
   void testIndentWithSpaces_nestedArray() throws IOException {
-    new JsonArray().add(23)
-                   .add(new JsonArray().add(42))
-                   .writeTo(output, indentWithSpaces(2));
+    new JsonArray().add(23).add(new JsonArray().add(42)).writeTo(output, indentWithSpaces(2));
 
     assertEquals("[\n  23,\n  [\n    42\n  ]\n]", output.toString());
   }
@@ -82,9 +79,7 @@ class PrettyPrintTest {
 
   @Test
   void testIndentWithSpaces_nestedObject() throws IOException {
-    new JsonObject().add("a", 23)
-                    .add("b", new JsonObject().add("c", 42))
-                    .writeTo(output, indentWithSpaces(2));
+    new JsonObject().add("a", 23).add("b", new JsonObject().add("c", 42)).writeTo(output, indentWithSpaces(2));
 
     assertEquals("{\n  \"a\": 23,\n  \"b\": {\n    \"c\": 42\n  }\n}", output.toString());
   }
@@ -151,9 +146,7 @@ class PrettyPrintTest {
 
   @Test
   void testSingleLine_nestedObject() throws IOException {
-    new JsonObject().add("a", 23)
-                    .add("b", new JsonObject().add("c", 42))
-                    .writeTo(output, singleLine());
+    new JsonObject().add("a", 23).add("b", new JsonObject().add("c", 42)).writeTo(output, singleLine());
 
     assertEquals("{\"a\": 23, \"b\": {\"c\": 42}}", output.toString());
   }

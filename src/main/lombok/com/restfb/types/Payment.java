@@ -114,7 +114,7 @@ public class Payment extends FacebookType implements HasCreatedTime {
   /**
    * The time the payment was originally created.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
@@ -314,7 +314,7 @@ public class Payment extends FacebookType implements HasCreatedTime {
 
   /**
    * The items associated with the payment.
-   * 
+   *
    * @return list of items
    */
   public List<Item> getItems() {
@@ -331,7 +331,7 @@ public class Payment extends FacebookType implements HasCreatedTime {
 
   /**
    * The list of different action types that have occurred in this payment.
-   * 
+   *
    * @return list of actions
    */
   public List<Action> getActions() {
@@ -350,7 +350,7 @@ public class Payment extends FacebookType implements HasCreatedTime {
    * Contains the information related to a dispute, including the {@code user_comment} and {@code user_email} which is
    * provided by the consumer when the dispute is initiated. Additionally, contains the current status of the dispute,
    * the time the dispute was created an an resolution reason, if available.
-   * 
+   *
    * @return list of disputes
    */
   public List<Dispute> getDisputes() {

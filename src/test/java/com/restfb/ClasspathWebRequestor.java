@@ -29,7 +29,7 @@ import java.io.IOException;
 /**
  * {@link WebRequestor} implementation that loads a file from the classpath instead of hitting the web. Useful for
  * running unit tests against local JSON textfiles.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public class ClasspathWebRequestor implements WebRequestor {
@@ -40,7 +40,7 @@ public class ClasspathWebRequestor implements WebRequestor {
 
   /**
    * Creates a web requestor that loads a file from the classpath instead of hitting the web.
-   * 
+   *
    * @param pathToJson
    *          The classpath location of the JSON file to load.
    * @throws IOException

@@ -30,7 +30,9 @@ import lombok.Setter;
 /**
  * Represents an Instagram collaboration invite.
  *
- * @see <a href="https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/collaboration#fetch-collaboration-invites">Fetch Collaboration Invites</a>
+ * @see <a href=
+ *      "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/collaboration#fetch-collaboration-invites">Fetch
+ *      Collaboration Invites</a>
  */
 public class IgCollaborativeInvite extends AbstractFacebookType {
 

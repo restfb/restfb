@@ -87,8 +87,7 @@ public class SendMessage extends AbstractFacebookType {
   @Facebook("messaging_product")
   private final String messagingProduct = "whatsapp";
 
-  public SendMessage() {
-  }
+  public SendMessage() {}
 
   public SendMessage(String to) {
     setTo(to);

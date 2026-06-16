@@ -33,7 +33,7 @@ import com.restfb.exception.FacebookJsonMappingException;
 
 /**
  * Representation of a Facebook API request parameter.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public final class Parameter {
@@ -49,7 +49,7 @@ public final class Parameter {
 
   /**
    * Creates a new parameter with the given {@code name} and {@code value}.
-   * 
+   *
    * @param name
    *          The parameter name.
    * @param value
@@ -80,7 +80,7 @@ public final class Parameter {
    * converted to JSON automatically. See the "attachment" section of
    * <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for
    * an example of where this is useful.
-   * 
+   *
    * @param name
    *          The parameter name.
    * @param value
@@ -97,7 +97,7 @@ public final class Parameter {
 
   /**
    * convenience factory method which needs a comma separated list of fields that the dev likes to fetch from the API
-   * 
+   *
    * @param fieldList
    *          comma separated list of fields
    * @return Parameter object
@@ -153,8 +153,8 @@ public final class Parameter {
   }
 
   /**
-   * convenience factory method which creates a {@code Parameter} object to query some information e.g. searching profiles
-   * the API
+   * convenience factory method which creates a {@code Parameter} object to query some information e.g. searching
+   * profiles the API
    *
    * @param queryString
    *          the String used in the query
@@ -174,7 +174,7 @@ public final class Parameter {
    * converted to JSON automatically. See the "attachment" section of
    * <a href="http://wiki.developers.facebook.com/index.php/Stream.publish">the stream.publish API documentation</a> for
    * an example of where this is useful.
-   * 
+   *
    * @param name
    *          The parameter name.
    * @param value
@@ -196,7 +196,8 @@ public final class Parameter {
    */
   @Override
   public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
+    if (o == null || getClass() != o.getClass())
+      return false;
     Parameter parameter = (Parameter) o;
     return Objects.equals(name, parameter.name) && Objects.equals(value, parameter.value);
   }

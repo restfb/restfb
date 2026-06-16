@@ -48,7 +48,8 @@ public class ScopeBuilder {
   }
 
   public ScopeBuilder addPermissions(List<FacebookPermissions> permissionList) {
-    ObjectUtil.requireNotNull(permissionList, () -> new FacebookPreconditionException("permissionList must not be null"));
+    ObjectUtil.requireNotNull(permissionList,
+      () -> new FacebookPreconditionException("permissionList must not be null"));
     permissions.addAll(permissionList);
     return this;
   }

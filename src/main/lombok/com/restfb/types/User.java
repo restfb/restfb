@@ -42,7 +42,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user">User Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Patrick Alberts
  * @since 1.5
@@ -61,7 +61,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's first name.
-   * 
+   *
    * @return The user's first name.
    */
   @Getter
@@ -71,7 +71,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's middle name.
-   * 
+   *
    * @return The user's middle name.
    */
   @Getter
@@ -107,7 +107,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's last name.
-   * 
+   *
    * @return The user's last name.
    */
   @Getter
@@ -120,7 +120,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
    *
    * @return Shortened, locale-aware name for the person
    */
-  @Getter(onMethod_ = {@GraphAPI(since = "2.9")})
+  @Getter(onMethod_ = { @GraphAPI(since = "2.9") })
   @Setter
   @Facebook("short_name")
   @GraphAPI(since = "2.9")
@@ -131,7 +131,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
    *
    * @return The person's cover photo
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private CoverPhoto cover;
@@ -139,9 +139,9 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   /**
    * A link to the person's Timeline.
    *
-   * The link will only resolve if the person clicking the link is logged
-   * into Facebook and is a friend of the person whose profile is being viewed.
-   * 
+   * The link will only resolve if the person clicking the link is logged into Facebook and is a friend of the person
+   * whose profile is being viewed.
+   *
    * @return A link to the user's profile.
    */
   @Getter
@@ -154,7 +154,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
    *
    * @return The user's biographical snippet.
    */
-  @Getter(onMethod_ = {@GraphAPI(until = "2.7")})
+  @Getter(onMethod_ = { @GraphAPI(until = "2.7") })
   @Setter
   @Facebook
   @GraphAPI(until = "2.7")
@@ -162,7 +162,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's favorite quotes.
-   * 
+   *
    * @return The user's favorite quotes.
    */
   @Getter
@@ -172,7 +172,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * Unspecific age range that this person's age fits into.
-   * 
+   *
    * @return The user's age range
    */
   @Getter
@@ -183,15 +183,13 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   /**
    * The user's birthday as a {@code String}.
    * <p>
-   * Will always succeed, even if the user has specified month/year format only.
-   * If you'd like to use a typed version of this accessor,
-   * call {@link #getBirthdayAsDate()} instead.
+   * Will always succeed, even if the user has specified month/year format only. If you'd like to use a typed version of
+   * this accessor, call {@link #getBirthdayAsDate()} instead.
    *
-   * "The person's birthday. This is a fixed format string, like `MM/DD/YYYY`.
-   * However, people can control who can see the year they were
-   * born separately from the month and day so this string can be
-   * only the year (YYYY) or the month + day (MM/DD)",
-   * 
+   * "The person's birthday. This is a fixed format string, like `MM/DD/YYYY`. However, people can control who can see
+   * the year they were born separately from the month and day so this string can be only the year (YYYY) or the month +
+   * day (MM/DD)",
+   *
    * @return The user's birthday as a {@code String}.
    */
   @Getter
@@ -201,7 +199,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The proxied or contact email address granted by the user.
-   * 
+   *
    * @return The proxied or contact email address granted by the user.
    */
   @Getter
@@ -211,7 +209,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's timezone offset.
-   * 
+   *
    * @return The user's timezone offset.
    */
   @Getter
@@ -227,7 +225,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
    * <li>Confirm their account via SMS</li>
    * <li>Enter a valid credit card</li>
    * </ul>
-   * 
+   *
    * @return User verification status.
    */
   @Getter
@@ -247,7 +245,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's gender.
-   * 
+   *
    * @return The user's gender.
    */
   @Getter
@@ -257,7 +255,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's locale.
-   * 
+   *
    * @return The user's locale.
    */
   @Getter
@@ -290,24 +288,24 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's picture, if provided.
-   * 
+   *
    * To force Facebook to fill the <code>picture</code> field you have to fetch the user with the
    * <code>fields=picture</code> parameter, otherwise the picture is <code>null</code>.
-   * 
+   *
    * @return the user's picture as ProfilePictureSource object
    * @since 1.6.16
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   private ProfilePictureSource picture;
 
   /**
    * Duplicate mapping for "hometown" since FB can return it differently in different situations.
-   * 
+   *
    * -- GETTER -- The user's hometown.
    * <p>
    * Sometimes this can be {@code null} - check {@link #getHometownName()} instead in that case.
-   * 
+   *
    * @return The user's hometown.
    */
   @Getter
@@ -353,7 +351,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's significant other.
-   * 
+   *
    * @return The user's significant other.
    */
   @Getter
@@ -371,7 +369,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * Date the user's profile was updated.
-   * 
+   *
    * @return Date the user's profile was updated.
    */
   @Getter
@@ -381,7 +379,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * An anonymous, but unique identifier for the user.
-   * 
+   *
    * @return An anonymous, but unique identifier for the user.
    */
   @Getter
@@ -395,7 +393,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
    * Further documentation available on Facebook's
    * <a href="https://developers.facebook.com/docs/payments/user_currency">Displaying prices in user's currency</a>
    * page.
-   * 
+   *
    * @return The user's currency preferences.
    * @since 1.6.12
    */
@@ -406,7 +404,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * This returns a string which is the same for this person across all the apps managed by the same Business Manager.
-   * 
+   *
    * @return string which is the same for a person across all apps managed by one company
    * @since 1.7.0
    */
@@ -501,7 +499,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * Represents the <a href="http://developers.facebook.com/docs/reference/api/user">Sport Graph API type</a>.
-   * 
+   *
    * @author Patrick Alberts
    * @since 1.6.3
    */
@@ -514,7 +512,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
     /**
      * Friends associated with this sport.
-     * 
+     *
      * @return Friends associated with this sport.
      */
     public List<NamedFacebookType> getWith() {
@@ -532,7 +530,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * Represents the <a href="https://developers.facebook.com/docs/payments/user_currency">Currency Graph API type</a>.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.12
    */
@@ -540,7 +538,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
     /**
      * The ISO-4217-3 code for the user's preferred currency (defaulting to USD if the user hasn't set one).
-     * 
+     *
      * @return The ISO-4217-3 code for the user's preferred currency (defaulting to USD if the user hasn't set one).
      */
     @Getter
@@ -550,7 +548,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
     /**
      * The number of Facebook Credits that equate in value to one unit of {@code user_currency}.
-     * 
+     *
      * @return The number of Facebook Credits that equate in value to one unit of {@code user_currency}.
      */
     @Getter
@@ -563,7 +561,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
      * <p>
      * To calculate the local currency amount based on the credits price, compute
      * {@code credits_price * currency_exchange_inverse}.
-     * 
+     *
      * @return The number of units of {@code user_currency} that equate in value to one Credit.
      */
     @Getter
@@ -576,7 +574,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
      * <p>
      * For example, a price of $1.20 will be represented by the Facebook API as "120", which you should divide by the
      * USD {@code currency_offset} of 100 to arrive back at 1.20.
-     * 
+     *
      * @return The number by which a price should be divided for display in {@code user_currency} units.
      */
     @Getter
@@ -589,9 +587,9 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
   }
 
   /**
-   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user-device/">User Device
-   * Graph API type</a>.
-   * 
+   * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/user-device/">User Device Graph
+   * API type</a>.
+   *
    * @author <a href="http://restfb.com">Norbert Bartels</a>
    */
   public static class UserDevice extends AbstractFacebookType {
@@ -616,7 +614,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
     /**
      * The lower bounds of the range for this person's age.
-     * 
+     *
      * @return The lower bounds of the range for this person's age.
      */
     @Getter
@@ -626,7 +624,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
     /**
      * The upper bounds of the range for this person's age.
-     * 
+     *
      * @return The upper bounds of the range for this person's age.
      */
     @Getter
@@ -638,7 +636,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's birthday, typed to {@code java.util.Date} if possible.
-   * 
+   *
    * @return The user's birthday, or {@code null} if unavailable or only available in month/year format.
    */
   public Date getBirthdayAsDate() {
@@ -656,7 +654,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The user's hometown name.
-   * 
+   *
    * @return The user's hometown name.
    */
   public String getHometownName() {
@@ -670,7 +668,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
    * Businesses can claim ownership of multiple apps using Business Manager.
    *
    * This method returns the list of IDs that this user has in any of those other apps
-   * 
+   *
    * @return list of ids a user has in other apps
    */
   public List<UserIDForApp> getIdsForApps() {
@@ -725,7 +723,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * What genders the user is interested in meeting.
-   * 
+   *
    * @return What genders the user is interested in meeting.
    */
   public List<String> getMeetingFor() {
@@ -742,9 +740,9 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * The list of devices the person is using.
-   * 
+   *
    * This will return only iOS and Android devices
-   * 
+   *
    * @return The list of devices the person is using.
    */
   public List<UserDevice> getDevices() {
@@ -761,7 +759,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * A list of the sports from the user's profile.
-   * 
+   *
    * @return A list of the sports from this user's profile.
    */
   public List<Sport> getSports() {
@@ -778,7 +776,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * A list of the favorite sports teams from the user's profile.
-   * 
+   *
    * @return A list of the favorite sports teams from the user's profile.
    */
   public List<Experience> getFavoriteTeams() {
@@ -795,7 +793,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * A list of the favorite athletes from the user's profile.
-   * 
+   *
    * @return A list of the favorite athletes from the user's profile.
    */
   public List<Experience> getFavoriteAthletes() {
@@ -829,7 +827,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * A list of the languages from the user's profile.
-   * 
+   *
    * @return A list of the languages from the user's profile.
    */
   public List<Experience> getLanguages() {
@@ -864,7 +862,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
   /**
    * A list of friends that can be invited to install a Facebook Canvas app
-   * 
+   *
    * @return A list of friends that can be invited to install a Facebook Canvas app
    */
   public List<UserInvitableFriend> getInvitableFriends() {
@@ -908,7 +906,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
     /**
      * Mobile payment pricepoints
-     * 
+     *
      * @return Mobile payment pricepoints
      */
     public List<PaymentPricepoint> getMobile() {
@@ -981,7 +979,7 @@ public class User extends NamedFacebookType implements HasProfilePicture, HasCov
 
     /**
      * Tagged users
-     * 
+     *
      * @return Tagged users
      */
     public List<User> getWith() {

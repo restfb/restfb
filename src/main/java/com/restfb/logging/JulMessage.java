@@ -42,7 +42,7 @@ final class JulMessage {
   /**
    * convert the message and the arguments and convert everything in a {@code MessageTuple}. The {@code MessageTuple}
    * contains the message and the optional throwable.
-   * 
+   *
    * @param messagePattern
    *          the message with optional placeholders
    * @param args

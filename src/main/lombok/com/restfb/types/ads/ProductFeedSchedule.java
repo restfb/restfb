@@ -37,7 +37,7 @@ public class ProductFeedSchedule extends AbstractFacebookType {
    * The day of month to fetch feed, for monthly schedules e.g., 1 for first of month
    *
    * -- GETTER --
-   * 
+   *
    * @return The day of month to fetch feed, for monthly schedules e.g., 1 for first of month
    */
   @Getter
@@ -51,7 +51,7 @@ public class ProductFeedSchedule extends AbstractFacebookType {
    * Allowed values: SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
    *
    * -- GETTER --
-   * 
+   *
    * @return The day of week to fetch feed, for weekly schedules.
    */
   @Getter
@@ -63,7 +63,7 @@ public class ProductFeedSchedule extends AbstractFacebookType {
    * Hour of the day to fetch the product feed, 0-23 PST
    *
    * -- GETTER --
-   * 
+   *
    * @return Hour of the day to fetch the product feed, 0-23 PST
    */
   @Getter
@@ -75,7 +75,7 @@ public class ProductFeedSchedule extends AbstractFacebookType {
    * The interval at which the product feed gets fetched
    *
    * -- GETTER --
-   * 
+   *
    * @return The interval at which the product feed gets fetched
    */
   @Getter
@@ -87,7 +87,7 @@ public class ProductFeedSchedule extends AbstractFacebookType {
    * Minute of the hour to fetch the product feed, 0-59
    *
    * -- GETTER --
-   * 
+   *
    * @return Minute of the hour to fetch the product feed, 0-59
    */
   @Getter
@@ -99,7 +99,7 @@ public class ProductFeedSchedule extends AbstractFacebookType {
    * The location of the product feed to fetch
    *
    * -- GETTER --
-   * 
+   *
    * @return The location of the product feed to fetch
    */
   @Getter
@@ -111,7 +111,7 @@ public class ProductFeedSchedule extends AbstractFacebookType {
    * The username that is needed to access the url
    *
    * -- GETTER --
-   * 
+   *
    * @return The username that is needed to access the url
    */
   @Getter

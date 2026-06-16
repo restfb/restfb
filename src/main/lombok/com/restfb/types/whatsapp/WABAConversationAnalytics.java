@@ -70,7 +70,6 @@ public class WABAConversationAnalytics {
   @Facebook
   private Integer start;
 
-
   public List<WABAMetricType> getMetricTypes() {
     return Collections.unmodifiableList(getMetricTypesList());
   }

@@ -54,7 +54,7 @@ class BinaryAttachmentTest {
   @Test
   void checkInputStream() {
     Supplier<InputStream> supplier = () -> new BufferedInputStream(
-            Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("json/account.json")));
+      Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("json/account.json")));
     BinaryAttachment att = BinaryAttachment.with("myfile.jpg", supplier);
     assertThat(att).hasFileName("myfile.jpg");
     assertThat(att.getData()).isInstanceOf(InputStream.class);
@@ -67,7 +67,8 @@ class BinaryAttachmentTest {
 
   @Test
   void checkContentTypeStream() {
-    Supplier<InputStream> supplier = () -> new BufferedInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/binary/fruits.png")));
+    Supplier<InputStream> supplier =
+        () -> new BufferedInputStream(Objects.requireNonNull(getClass().getResourceAsStream("/binary/fruits.png")));
     BinaryAttachment att = BinaryAttachment.with("example.png", supplier);
     assertThat(att).hasContentType("image/png");
   }

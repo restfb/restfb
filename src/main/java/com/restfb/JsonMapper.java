@@ -36,7 +36,7 @@ import com.restfb.exception.FacebookJsonMappingException;
  * Note that implementors must be able to handle illegal JSON in {@link #toJavaObject(String, Class)} and
  * {@link #toJavaList(String, Class)} in order to correctly process Facebook responses. For example, the
  * {@code Users.getLoggedInUser} Legacy API call returns a value like {@code 1240077}, which is not valid JSON.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public interface JsonMapper {
@@ -44,7 +44,7 @@ public interface JsonMapper {
    * Given a JSON string, create and return a new instance of a corresponding Java object of type {@code type}.
    * <p>
    * The Java {@code type} must have a no-argument constructor.
-   * 
+   *
    * @param <T>
    *          Java type to map to.
    * @param json
@@ -62,7 +62,7 @@ public interface JsonMapper {
    * elements of type {@code type}.
    * <p>
    * The Java {@code type} must have a no-argument constructor.
-   * 
+   *
    * @param <T>
    *          Java type to map to for each element of the list.
    * @param json
@@ -80,7 +80,7 @@ public interface JsonMapper {
    * Given a Java {@code object}, create and return a JSON string that represents it.
    * <p>
    * The {@code object}'s properties will be traversed recursively, allowing for arbitrarily complex JSON generation.
-   * 
+   *
    * @param object
    *          The Java object to map to JSON. Can be a Javabean, {@link java.util.List}, or {@link java.util.Map}.
    * @return A JSON string.
@@ -94,7 +94,7 @@ public interface JsonMapper {
    * Given a Java {@code object}, create and return a JSON string that represents it.
    * <p>
    * The {@code object}'s properties will be traversed recursively, allowing for arbitrarily complex JSON generation.
-   * 
+   *
    * @param object
    *          The Java object to map to JSON. Can be a Javabean, {@link java.util.List}, or {@link java.util.Map}.
    * @param ignoreNullValuedProperties
@@ -110,7 +110,7 @@ public interface JsonMapper {
    * adds a {@link FacebookClient} implementation to the mapper.
    * <p>
    * This is especially useful for mapping json to Connection objects that need the client itself.
-   * 
+   *
    * @param facebookClient
    *          that is used for Connection objects
    */
@@ -125,7 +125,7 @@ public interface JsonMapper {
    * <p>
    * This is useful if you'd like to perform a custom post-mapping task, like massaging the data Facebook returns or
    * custom mapping of fields {@code JsonMapper} isn't equipped to handle yet.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    * @since 1.6.11
    */

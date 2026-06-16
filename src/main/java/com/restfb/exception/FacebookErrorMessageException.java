@@ -47,7 +47,7 @@ public abstract class FacebookErrorMessageException extends FacebookException {
 
   /**
    * return the raw error as JSON, may be <code>null</code>
-   * 
+   *
    * @return raw error
    */
   public JsonObject getRawErrorJson() {
@@ -62,7 +62,7 @@ public abstract class FacebookErrorMessageException extends FacebookException {
    * returns the debug header info that is connected with this Facebook call.
    * <p>
    * you can get information like trace ids, limits and more.
-   * 
+   *
    * @return the DebugHeaderInfo or null
    */
   public DebugHeaderInfo getDebugHeaderInfo() {

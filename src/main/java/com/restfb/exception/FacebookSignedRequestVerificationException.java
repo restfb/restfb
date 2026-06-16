@@ -27,14 +27,14 @@ import com.restfb.FacebookClient;
  * Indicates that signed request verification failed.
  * <p>
  * See {@link FacebookClient#parseSignedRequest(String, String, Class)} for more details.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.13
  */
 public class FacebookSignedRequestVerificationException extends FacebookException {
   /**
    * Creates an exception with the given message.
-   * 
+   *
    * @param message
    *          A message describing this exception.
    */
@@ -44,7 +44,7 @@ public class FacebookSignedRequestVerificationException extends FacebookExceptio
 
   /**
    * Creates an exception with the given message and cause.
-   * 
+   *
    * @param message
    *          A message describing this exception.
    * @param cause

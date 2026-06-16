@@ -33,7 +33,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/graph-api/reference/review">Review Graph API Type</a>
- * 
+ *
  * @author Norbert Bartels
  * @since 1.6.16
  */
@@ -43,40 +43,40 @@ public class Review extends FacebookType implements HasCreatedTime, HasFrom, Has
 
   /**
    * When the review was created.
-   * 
+   *
    * @return when the review was created
    * @since 1.6.16
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;
 
   /**
    * The user that created the review.
-   * 
+   *
    * @return The user that created the review
    * @since 1.6.16
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private NamedFacebookType from;
 
   /**
    * The review text, if any.
-   * 
+   *
    * @return The review text, if any
    * @since 1.6.16
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
 
   /**
    * The review rating.
-   * 
+   *
    * @return The review rating
    * @since 1.6.16
    */
@@ -87,7 +87,7 @@ public class Review extends FacebookType implements HasCreatedTime, HasFrom, Has
 
   /**
    * The app to which this review applies.
-   * 
+   *
    * @return The app to which this review applies
    * @since 1.6.16
    */

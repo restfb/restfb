@@ -28,36 +28,36 @@ import lombok.Setter;
 
 public class DebugTokenError extends AbstractFacebookType {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * The error code for the error.
-     *
-     * @return The error code for the error.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Integer code;
+  /**
+   * The error code for the error.
+   *
+   * @return The error code for the error.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer code;
 
-    /**
-     * The error message for the error.
-     *
-     * @return The error message for the error.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private String message;
+  /**
+   * The error message for the error.
+   *
+   * @return The error message for the error.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private String message;
 
-    /**
-     * The error sub code for the error.
-     *
-     * @return The error sub code for the error.
-     */
-    @Getter
-    @Setter
-    @Facebook
-    private Integer subcode;
+  /**
+   * The error sub code for the error.
+   *
+   * @return The error sub code for the error.
+   */
+  @Getter
+  @Setter
+  @Facebook
+  private Integer subcode;
 
 }

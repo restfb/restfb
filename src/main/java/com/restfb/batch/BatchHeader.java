@@ -26,7 +26,7 @@ import com.restfb.util.ReflectionUtils;
 
 /**
  * Represents an HTTP header name/value pair used by {@link BatchRequest} and {@link BatchResponse}.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.5
  */
@@ -47,7 +47,7 @@ public class BatchHeader {
 
   /**
    * Creates a {@code BatchHeader} with the given name/value pair.
-   * 
+   *
    * @param name
    *          The name of the header.
    * @param value
@@ -75,7 +75,7 @@ public class BatchHeader {
 
   /**
    * The name of the HTTP header.
-   * 
+   *
    * @return The name of the HTTP header.
    */
   public String getName() {
@@ -84,7 +84,7 @@ public class BatchHeader {
 
   /**
    * The value of the HTTP header.
-   * 
+   *
    * @return The value of the HTTP header.
    */
   public String getValue() {

@@ -34,7 +34,7 @@ public class AppRoles implements InnerMessagingItem {
 
   /**
    * Get a set of app ids
-   * 
+   *
    * @return set of app ids
    */
   public Set<String> getAppIds() {
@@ -43,7 +43,7 @@ public class AppRoles implements InnerMessagingItem {
 
   /**
    * get the roles to the given app id
-   * 
+   *
    * @param appId
    * @return List of app roles
    */

@@ -31,18 +31,18 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 class ThreadsExceptionTest extends AbstractJsonMapperTests {
 
-    @Test
-    void threadsException() {
-        String jsonErrorString = jsonFromClasspath("threads/exception");
-        DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
-        try {
-            generator.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
-            failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
-        } catch (ThreadsApiException fe) {
-            assertThat(fe.getErrorCode()).isEqualTo(100);
-            assertThat(fe.getMessage()).contains("missing permission");
-        } catch (Exception ex) {
-            failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
-        }
+  @Test
+  void threadsException() {
+    String jsonErrorString = jsonFromClasspath("threads/exception");
+    DefaultFacebookExceptionGenerator generator = new DefaultFacebookExceptionGenerator();
+    try {
+      generator.throwFacebookResponseStatusExceptionIfNecessary(jsonErrorString, 400);
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
+    } catch (ThreadsApiException fe) {
+      assertThat(fe.getErrorCode()).isEqualTo(100);
+      assertThat(fe.getMessage()).contains("missing permission");
+    } catch (Exception ex) {
+      failBecauseExceptionWasNotThrown(FacebookOAuthException.class);
     }
+  }
 }

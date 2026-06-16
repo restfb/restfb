@@ -154,7 +154,8 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void incomingMessageLocation() {
-    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-location", WhatsappMessagesValue.class);
+    WhatsappMessagesValue change =
+        getWHObjectFromJson("webhook-incoming-message-location", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
 
     checkContact(change);
@@ -281,7 +282,8 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void incomingMessageDocument() {
-    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-document", WhatsappMessagesValue.class);
+    WhatsappMessagesValue change =
+        getWHObjectFromJson("webhook-incoming-message-document", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
 
     checkContact(change);
@@ -377,7 +379,8 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void incomingMessageInteractiveButton() {
-    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-interactive-btn", WhatsappMessagesValue.class);
+    WhatsappMessagesValue change =
+        getWHObjectFromJson("webhook-incoming-message-interactive-btn", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
 
     checkContact(change);
@@ -412,7 +415,8 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void incomingMessageInteractiveList() {
-    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-interactive-list", WhatsappMessagesValue.class);
+    WhatsappMessagesValue change =
+        getWHObjectFromJson("webhook-incoming-message-interactive-list", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
 
     checkContact(change);
@@ -473,7 +477,8 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void incomingMessageStatusUserInitiated() {
-    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-status-ui", WhatsappMessagesValue.class);
+    WhatsappMessagesValue change =
+        getWHObjectFromJson("webhook-incoming-message-status-ui", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
 
     assertThat(change.getMessages()).isEmpty();
@@ -497,7 +502,8 @@ class WABPwebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void incomingMessageStatusWithErrors() {
-    WhatsappMessagesValue change = getWHObjectFromJson("webhook-incoming-message-status-errors", WhatsappMessagesValue.class);
+    WhatsappMessagesValue change =
+        getWHObjectFromJson("webhook-incoming-message-status-errors", WhatsappMessagesValue.class);
     assertThat(change).isInstanceOf(WhatsappMessagesValue.class);
 
     assertThat(change.getMessages()).isEmpty();

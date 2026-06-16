@@ -34,7 +34,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/insights" >Insight Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.3
  */
@@ -42,7 +42,7 @@ public class Insight extends NamedFacebookType {
 
   /**
    * Length of the period during which the insights were collected, e.g. 'day', 'week' or 'month'.
-   * 
+   *
    * @return Length of the period during which the insights were collected.
    */
   @Getter
@@ -62,7 +62,7 @@ public class Insight extends NamedFacebookType {
 
   /**
    * The human-readable description of this Insight data.
-   * 
+   *
    * @return The human-readable description of this Insight data.
    */
   @Getter
@@ -79,9 +79,9 @@ public class Insight extends NamedFacebookType {
   private List<JsonObject> values = new ArrayList<>();
 
   /**
-   * Data for this Insight as a list of <tt>{@link JsonObject}</tt> because its structure can vary
-   * depending on which type of Insight you're looking at.
-   * 
+   * Data for this Insight as a list of <tt>{@link JsonObject}</tt> because its structure can vary depending on which
+   * type of Insight you're looking at.
+   *
    * @return Data for this Insight.
    */
   public List<JsonObject> getValues() {

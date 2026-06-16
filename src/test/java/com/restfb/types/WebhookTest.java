@@ -1342,8 +1342,8 @@ class WebhookTest extends AbstractJsonMapperTests {
 
   @Test
   void instagramMessageRead() {
-    WebhookObject webhookObject = createJsonMapper()
-            .toJavaObject(jsonFromClasspath("instagram/messaging-seen"), WebhookObject.class);
+    WebhookObject webhookObject =
+        createJsonMapper().toJavaObject(jsonFromClasspath("instagram/messaging-seen"), WebhookObject.class);
     assertNotNull(webhookObject);
     MessagingItem messageItem = webhookObject.getEntryList().get(0).getMessaging().get(0);
     assertNotNull(messageItem);

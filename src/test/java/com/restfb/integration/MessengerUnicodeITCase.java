@@ -45,8 +45,8 @@ class MessengerUnicodeITCase extends RestFbIntegrationTestBase {
     Message simpleTextMessage = new Message("That's funny \uD83D\uDE03");
     IdMessageRecipient recipient = new IdMessageRecipient(getTestSettings().getRecipientId());
 
-    SendResponse response = client.publish("me/messages", SendResponse.class,
-      Parameter.with("recipient", recipient), Parameter.with("message", simpleTextMessage));
+    SendResponse response = client.publish("me/messages", SendResponse.class, Parameter.with("recipient", recipient),
+      Parameter.with("message", simpleTextMessage));
 
     assertNotNull(response.getMessageId());
   }

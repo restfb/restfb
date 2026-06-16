@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
 
 /**
  * Specifies how a Facebook JSON response attribute maps to a Java field.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 @Retention(RUNTIME)
@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 public @interface Facebook {
   /**
    * Name of the Facebook API result attribute to map to - {@code affiliation}, for example.
-   * 
+   *
    * @return Name of the Facebook API result attribute to map to.
    */
   String value() default "";

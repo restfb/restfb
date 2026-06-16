@@ -50,7 +50,7 @@ public class PageCallToAction extends FacebookType implements HasCreatedTime {
    *
    * @return Time when the call-to-action was created
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

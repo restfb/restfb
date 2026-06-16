@@ -275,7 +275,7 @@ class WebhookWhatsappTest extends AbstractJsonMapperTests {
     assertThat(message.getSystem().getParentUserId()).isEqualTo("US.ENT.11815799212886844830");
     assertThat(message.getSystem().getType()).isEqualTo("user_changed_user_id");
     assertThat(message.getSystem().getBody())
-        .isEqualTo("User Sheena Nelson changed from US.10101010101010101010 to US.13491208655302741918");
+      .isEqualTo("User Sheena Nelson changed from US.10101010101010101010 to US.13491208655302741918");
   }
 
   @Test

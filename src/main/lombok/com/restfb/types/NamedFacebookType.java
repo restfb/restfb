@@ -29,7 +29,7 @@ import lombok.Setter;
 /**
  * Superclass for <a href="http://developers.facebook.com/docs/reference/api/">Graph API types</a> that include a
  * {@code name} field and (optionally) a {@code created_time} field.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.5
  */
@@ -37,7 +37,7 @@ public class NamedFacebookType extends FacebookType {
 
   /**
    * The name field for this type.
-   * 
+   *
    * @return The name field for this type.
    */
   @Getter

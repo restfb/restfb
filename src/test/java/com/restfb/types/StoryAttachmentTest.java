@@ -55,7 +55,7 @@ class StoryAttachmentTest extends AbstractJsonMapperTests {
   @Test
   void moreFieldsAttachments() {
     StoryAttachment attachment =
-            createJsonMapper().toJavaObject(jsonFromClasspath("v3_3/story-attachment"), StoryAttachment.class);
+        createJsonMapper().toJavaObject(jsonFromClasspath("v3_3/story-attachment"), StoryAttachment.class);
     assertNotNull(attachment);
     assertEquals("link", attachment.getMediaType());
     assertEquals("https://translate.google.de/", attachment.getUnshimmedUrl());

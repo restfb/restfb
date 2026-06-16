@@ -47,7 +47,7 @@ public class Body {
 
   /**
    * returns the Body data as String
-   * 
+   *
    * @return the body data
    */
   public String getData() {
@@ -56,7 +56,7 @@ public class Body {
 
   /**
    * build a new body object instance with the given data as immutable inner data
-   * 
+   *
    * @param data
    *          the data is internally converted into a String using the JsonMapper
    * @return the Body instance
@@ -72,7 +72,7 @@ public class Body {
    *          the data is internally converted into a String using the provided JsonMapper
    * @param jsonMapper
    *          the custom JsonMapper used for the Object to String conversion
-   * 
+   *
    * @return the Body instance
    */
   public static Body withData(Object data, JsonMapper jsonMapper) {

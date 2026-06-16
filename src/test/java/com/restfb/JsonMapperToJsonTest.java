@@ -39,7 +39,7 @@ import com.restfb.testutils.AssertJson;
 
 /**
  * Unit tests that exercise {@link JsonMapper} implementations, specifically the "convert Java to JSON" functionality.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 class JsonMapperToJsonTest extends AbstractJsonMapperTests {

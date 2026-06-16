@@ -160,7 +160,7 @@ public class Campaign extends NamedAdsObject implements HasCreatedTime {
    *
    * @return Created Time
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

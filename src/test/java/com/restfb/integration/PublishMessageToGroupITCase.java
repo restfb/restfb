@@ -39,8 +39,7 @@ class PublishMessageToGroupITCase extends RestFbIntegrationTestBase {
   void publishMessageToGroup() {
 
     // needed permissions: publish_actions, user_managed_groups
-    DefaultFacebookClient client =
-        new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
+    DefaultFacebookClient client = new DefaultFacebookClient(getTestSettings().getUserAccessToken(), Version.LATEST);
 
     GraphResponse result = client.publish(getTestSettings().getGroupId() + "/feed", GraphResponse.class,
       Parameter.with("message", "This is a great test message"));

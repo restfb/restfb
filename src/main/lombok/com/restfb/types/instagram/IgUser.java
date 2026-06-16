@@ -35,8 +35,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="https://developers.facebook.com/docs/instagram-api/reference/user/">instagram user</a> type
- * used in the Graph API
- * and contains additional fields for the instagram API with instagram login User object
+ * used in the Graph API and contains additional fields for the instagram API with instagram login User object
  */
 public class IgUser extends NamedFacebookType {
 
@@ -83,8 +82,7 @@ public class IgUser extends NamedFacebookType {
   private Long followsCount;
 
   /**
-   * Indicates whether your app user's Instagram professional
-   * account has a profile picture.
+   * Indicates whether your app user's Instagram professional account has a profile picture.
    */
   @Getter
   @Setter
@@ -100,8 +98,7 @@ public class IgUser extends NamedFacebookType {
   private Long igId;
 
   /**
-   * Indicates whether your app user's Instagram account is published.
-   * Available for Page-backed Instagram accounts.
+   * Indicates whether your app user's Instagram account is published. Available for Page-backed Instagram accounts.
    */
   @Getter
   @Setter
@@ -125,8 +122,7 @@ public class IgUser extends NamedFacebookType {
   private Long mediaCount;
 
   /**
-   * The app user's account type.
-   * Can be Business or Media_Creator
+   * The app user's account type. Can be Business or Media_Creator
    */
   @Getter
   @Setter
@@ -134,8 +130,8 @@ public class IgUser extends NamedFacebookType {
   private String accountType;
 
   /**
-   * Your app user's Instagram ID that was created for Marketing API
-   * endpoints for v21.0 and older. Available for Page-backed Instagram accounts.
+   * Your app user's Instagram ID that was created for Marketing API endpoints for v21.0 and older. Available for
+   * Page-backed Instagram accounts.
    */
   @Getter
   @Setter
@@ -151,8 +147,8 @@ public class IgUser extends NamedFacebookType {
   private String profilePictureUrl;
 
   /**
-   * Returns true if your app user has set up an Instagram
-   * Shop and is therefore eligible for product tagging, otherwise returns false.
+   * Returns true if your app user has set up an Instagram Shop and is therefore eligible for product tagging, otherwise
+   * returns false.
    */
   @Getter
   @Setter
@@ -221,8 +217,9 @@ public class IgUser extends NamedFacebookType {
   }
 
   /**
-   * will be removed in 2026. the ID structure between
-   * Instagram user fetched with Instagram Login and Facebook API are too different
+   * will be removed in 2026. the ID structure between Instagram user fetched with Instagram Login and Facebook API are
+   * too different
+   *
    * @return some ID
    */
   @Deprecated

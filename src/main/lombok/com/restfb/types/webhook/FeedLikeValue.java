@@ -49,10 +49,10 @@ public class FeedLikeValue extends AbstractFeedPostValue {
 
   /**
    * returns if the page is liked or a post.
-   * 
+   *
    * if this is a page like you can only fetch the {@code userId} of the liking user. Otherwise you can fetch fields
    * like {@code parentId}, {@code postId}, {@code senderId} and so on
-   * 
+   *
    * @return if this is a page like
    */
   public boolean isPageLike() {
@@ -61,7 +61,7 @@ public class FeedLikeValue extends AbstractFeedPostValue {
 
   /**
    * returns true if the liked item is a comment
-   * 
+   *
    * @return true if the liked item is a comment
    */
   public boolean isCommentLike() {
@@ -70,7 +70,7 @@ public class FeedLikeValue extends AbstractFeedPostValue {
 
   /**
    * returns true if the liked item is a post
-   * 
+   *
    * @return true if the liked item is a post
    */
   public boolean isPostLike() {

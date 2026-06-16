@@ -123,7 +123,7 @@ public class OpenGraphRating extends FacebookType implements HasCreatedTime {
 
   /**
    * If OpenGraphRating is a new recommendation
-   * 
+   *
    * @return <code>true</code> if it is a recommendation, <code>false</code> if it's a rating
    */
   public boolean isRecommendation() {

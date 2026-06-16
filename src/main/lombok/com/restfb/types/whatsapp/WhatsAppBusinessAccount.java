@@ -127,5 +127,4 @@ public class WhatsAppBusinessAccount extends NamedFacebookType {
   @Facebook("timezone_id")
   private String timezoneId;
 
-
 }

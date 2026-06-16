@@ -40,13 +40,13 @@ import com.restfb.util.StringUtils;
 
 /**
  * Specifies how a class that sends {@code HTTP} requests to the Facebook API endpoint must operate.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 public interface WebRequestor {
   /**
    * Encapsulates an HTTP response body and status code.
-   * 
+   *
    * @author <a href="http://restfb.com">Mark Allen</a>
    */
   class Response {
@@ -69,7 +69,7 @@ public interface WebRequestor {
 
     /**
      * Creates a response with the given HTTP status code and response body as text.
-     * 
+     *
      * @param statusCode
      *          The HTTP status code of the response.
      * @param body
@@ -96,7 +96,8 @@ public interface WebRequestor {
     /**
      * Creates a response with status, body, debug info and headers.
      */
-    public Response(Integer statusCode, String body, DebugHeaderInfo debugHeaderInfo, Map<String, List<String>> headers) {
+    public Response(Integer statusCode, String body, DebugHeaderInfo debugHeaderInfo,
+        Map<String, List<String>> headers) {
       this.statusCode = statusCode;
       this.body = trimToEmpty(body);
       this.headers = headers == null ? null : Collections.unmodifiableMap(headers);
@@ -107,7 +108,7 @@ public interface WebRequestor {
 
     /**
      * Gets the HTTP status code.
-     * 
+     *
      * @return The HTTP status code.
      */
     public Integer getStatusCode() {
@@ -116,7 +117,7 @@ public interface WebRequestor {
 
     /**
      * Gets the HTTP response body as text.
-     * 
+     *
      * @return The HTTP response body as text.
      */
     public String getBody() {
@@ -125,7 +126,7 @@ public interface WebRequestor {
 
     /**
      * Gets the debug header information parsed from the response headers.
-     * 
+     *
      * @return debug header information, may be {@code null}
      */
     public DebugHeaderInfo getDebugHeaderInfo() {
@@ -148,7 +149,7 @@ public interface WebRequestor {
 
     /**
      * Gets the HTTP headers returned by Facebook.
-     * 
+     *
      * @return unmodifiable header map or {@code null}
      */
     public Map<String, List<String>> getHeaders() {
@@ -233,7 +234,7 @@ public interface WebRequestor {
 
     /**
      * Simple http request with url and a header access token
-     * 
+     *
      * @param url
      *          the endpoint the request ist directed to
      * @param headerAccessToken
@@ -348,7 +349,7 @@ public interface WebRequestor {
 
   /**
    * Given a Facebook API endpoint URL, execute a {@code GET} against it.
-   * 
+   *
    * @param request
    *          The request data for the {@code GET} request
    * @return HTTP response data.
@@ -360,7 +361,7 @@ public interface WebRequestor {
 
   /**
    * Given a Facebook API endpoint URL and parameter string, execute a {@code POST} to the endpoint URL.
-   * 
+   *
    * @param request
    *          The request data used for the {@code POST} request.
    * @return HTTP response data.
@@ -371,7 +372,7 @@ public interface WebRequestor {
 
   /**
    * Given a Facebook API endpoint URL and parameter string, execute a {@code DELETE} to the endpoint URL.
-   * 
+   *
    * @param request
    *          The request data used for the {@code DELETE} request.
    * @return HTTP response data.

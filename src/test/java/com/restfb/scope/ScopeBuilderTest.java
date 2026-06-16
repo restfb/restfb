@@ -64,7 +64,7 @@ class ScopeBuilderTest {
     permissions.add(FacebookPermissions.THREADS_BASIC);
     permissions.add(FacebookPermissions.THREADS_CONTENT_PUBLISH);
     permissions.add(FacebookPermissions.THREADS_MANAGE_INSIGHTS);
-    s.addPermissions( permissions);
+    s.addPermissions(permissions);
     assertThat(s).hasToString("threads_basic,threads_content_publish,threads_manage_insights");
   }
 

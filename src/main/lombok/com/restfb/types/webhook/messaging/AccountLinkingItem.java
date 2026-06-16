@@ -58,7 +58,7 @@ public class AccountLinkingItem implements InnerMessagingItem {
 
   /**
    * convenience method to check the status of the account linking
-   * 
+   *
    * @return {@code true} if linked, {@code false} if unlinked
    */
   public boolean isLinked() {

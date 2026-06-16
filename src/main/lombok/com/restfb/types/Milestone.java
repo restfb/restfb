@@ -70,7 +70,7 @@ public class Milestone extends FacebookType implements HasCreatedTime {
    *
    * @return The creation time of the milestone
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

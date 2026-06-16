@@ -27,15 +27,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the Threads user connected to the Instagram user:
- * <a href="https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/connected_threads_user">Instagram reference</a>
+ * Represents the Threads user connected to the Instagram user: <a href=
+ * "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/connected_threads_user">Instagram
+ * reference</a>
  */
 public class IgUserConnectedThreadsUser extends AbstractFacebookType {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Getter
-    @Setter
-    @Facebook("threads_user_id")
-    private String threadsUserId;
+  @Getter
+  @Setter
+  @Facebook("threads_user_id")
+  private String threadsUserId;
 }

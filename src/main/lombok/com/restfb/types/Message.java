@@ -254,7 +254,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
     /**
      * returns if the attachment is an image
-     * 
+     *
      * @return true if the attachment is an image, false otherwise
      */
     public boolean isImage() {
@@ -263,7 +263,7 @@ public class Message extends FacebookType implements HasCreatedTime, HasFrom, Ha
 
     /**
      * returns if the attachment is a video
-     * 
+     *
      * @return true if the attachment is a video, false otherwise
      */
     public boolean isVideo() {

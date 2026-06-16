@@ -33,7 +33,7 @@ import lombok.Setter;
 
 /**
  * Represents the <a href="http://developers.facebook.com/docs/reference/api/link">Link Graph API type</a>.
- * 
+ *
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @author Patrick Alberts
  * @since 1.5
@@ -42,27 +42,27 @@ public class Link extends NamedFacebookType implements HasCreatedTime, HasFrom, 
 
   /**
    * An object containing the name and ID of the user who posted the link.
-   * 
+   *
    * @return An object containing the name and ID of the user who posted the link.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private NamedFacebookType from;
 
   /**
    * The link message content.
-   * 
+   *
    * @return The link message content.
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook
   private String message;
 
   /**
    * The picture associated with the link.
-   * 
+   *
    * @return The picture associated with the link.
    */
   @Getter
@@ -72,7 +72,7 @@ public class Link extends NamedFacebookType implements HasCreatedTime, HasFrom, 
 
   /**
    * The actual URL that was shared.
-   * 
+   *
    * @return The actual URL that was shared.
    */
   @Getter
@@ -82,7 +82,7 @@ public class Link extends NamedFacebookType implements HasCreatedTime, HasFrom, 
 
   /**
    * The link description.
-   * 
+   *
    * @return The link description.
    */
   @Getter
@@ -92,7 +92,7 @@ public class Link extends NamedFacebookType implements HasCreatedTime, HasFrom, 
 
   /**
    * The link icon.
-   * 
+   *
    * @return The link icon.
    */
   @Getter
@@ -102,11 +102,11 @@ public class Link extends NamedFacebookType implements HasCreatedTime, HasFrom, 
 
   /**
    * The time at which this object was created, if available.
-   * 
+   *
    * @return The time at which this object was created.
    * @since 1.6.3
    */
-  @Getter(onMethod_ = {@Override})
+  @Getter(onMethod_ = { @Override })
   @Setter
   @Facebook("created_time")
   private Date createdTime;

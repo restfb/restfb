@@ -29,7 +29,7 @@ import lombok.Setter;
 /**
  * Represents the <a href="https://developers.facebook.com/docs/reference/api/FriendList" >FriendList Graph API type</a>
  * .
- * 
+ *
  * @author <a href="http://ex-nerd.com">Chris Petersen</a>
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
@@ -39,7 +39,7 @@ public class FriendList extends NamedFacebookType {
   /**
    * The type of the friends list; Possible values are: {@code close_friends}, {@code acquaintances}, {@code restricted}
    * , {@code user_created}, {@code education}, {@code work}, {@code current_city} or {@code family}.
-   * 
+   *
    * @return The type of the friends list.
    */
   @Getter

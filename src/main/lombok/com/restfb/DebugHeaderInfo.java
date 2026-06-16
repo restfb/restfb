@@ -86,7 +86,7 @@ public class DebugHeaderInfo implements Serializable {
 
   /**
    * get Facebook response header field <code>x-fb-debug</code>
-   * 
+   *
    * @return the Facebook response header field <code>x-fb-debug</code>
    */
   public String getDebug() {
@@ -95,7 +95,7 @@ public class DebugHeaderInfo implements Serializable {
 
   /**
    * get Facebook response header field <code>x-fb-rev</code>
-   * 
+   *
    * @return the Facebook response header field <code>x-fb-rev</code>
    */
   public String getRev() {
@@ -104,7 +104,7 @@ public class DebugHeaderInfo implements Serializable {
 
   /**
    * get Facebook response header field <code>x-fb-trace-id</code>
-   * 
+   *
    * @return the Facebook response header field x-fb-trace-id
    */
   public String getTraceId() {
@@ -113,7 +113,7 @@ public class DebugHeaderInfo implements Serializable {
 
   /**
    * get the version, facebook used internally to fulfill the request
-   * 
+   *
    * @return the version, facebook used internally to fulfill the request
    */
   public Version getUsedVersion() {
@@ -140,7 +140,7 @@ public class DebugHeaderInfo implements Serializable {
 
   /**
    * get Facebook response header field <code>x-ad-account-usage</code>
-   * 
+   *
    * @return the Facebook response header field x-ad-account-usage
    */
   public HeaderUsage getAdAccountUsage() {
@@ -227,7 +227,7 @@ public class DebugHeaderInfo implements Serializable {
 
     /**
      * returns the list of Business Ids that are provided in the the business use case usage header
-     * 
+     *
      * @return list of business ids
      */
     public List<String> getBusinessIds() {
