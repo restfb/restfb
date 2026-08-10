@@ -1,5 +1,9 @@
 # RestFB Changelog
 
+## 2026.9.0 (unreleased)
+
+* Issue #1692: use batch requests in `fetchObjects` for Graph API 26.0 compatibility and enforce the 50-request batch limit
+
 ## 2026.8.0 (June 10, 2026)
 
 * Issue #1684: use the Graph API endpoint for video uploads and deprecate the legacy Graph Video endpoint

@@ -27,9 +27,10 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.restfb.Connection;
 import com.restfb.ResponseMetadata;
 import com.restfb.WebRequestor.Response;
+import com.restfb.batch.BatchResponse;
 import com.restfb.exception.FacebookJsonMappingException;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.exception.FacebookResponseContentException;
@@ -299,8 +301,9 @@ class FacebookClientTest {
   }
 
   @Test
-  void checkfetchObjects() throws URISyntaxException {
-    FakeWebRequestor requestor = new FakeWebRequestor();
+  void checkfetchObjects() {
+    FakeWebRequestor requestor = new FakeWebRequestor(batchResponse(successResponse("123456789"),
+      successResponse("abcdefghijkl"), successResponse("m_mid:35723r72$bfehZFDEBDET")));
     FacebookClient fbc =
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_18_0);
 
@@ -309,14 +312,105 @@ class FacebookClientTest {
     idList.add("abcdefghijkl");
     idList.add("m_mid:35723r72$bfehZFDEBDET");
 
-    fbc.fetchObjects(idList, String.class);
+    JsonObject result = fbc.fetchObjects(idList, JsonObject.class, Parameter.withFields("id,name"));
 
-    assertThat(requestor.getSavedUrl()).contains("123456789", "abcdefghijkl", "m_mid%3A35723r72%24bfehZFDEBDET")
-      .contains("ids=%5B", "%5D&");
-    URI savedURL = new URI(requestor.getSavedUrl());
+    assertThat(requestor.getMethod()).isEqualTo("POST");
+    assertThat(requestor.getSavedUrl()).isEqualTo("https://graph.facebook.com/v18.0/");
+    String batchRequest = URLDecoder.decode(requestor.getParameters(), StandardCharsets.UTF_8);
     for (String id : idList) {
-      assertThat(savedURL.getQuery()).contains('"' + id.trim() + '"');
+      assertThat(batchRequest).contains("\"relative_url\":\"" + id.trim() + "?fields=id%2Cname\"");
+      assertThat(result.contains(id.trim())).isTrue();
     }
+    assertThat(batchRequest).doesNotContain("ids=");
+  }
+
+  @Test
+  void fetchObjectsUsesIdParameterForUrlIds() {
+    String urlId = "http://cnn.com/article?foo=bar&baz=qux";
+    FakeWebRequestor requestor = new FakeWebRequestor(batchResponse(successResponse("url")));
+    FacebookClient client =
+        new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_26_0);
+
+    JsonObject result =
+        client.fetchObjects(Collections.singletonList(urlId), JsonObject.class, Parameter.withFields("engagement"));
+
+    String batchRequest = URLDecoder.decode(requestor.getParameters(), StandardCharsets.UTF_8);
+    assertThat(batchRequest).contains(
+      "\"relative_url\":\"?fields=engagement&" + "id=http%3A%2F%2Fcnn.com%2Farticle%3Ffoo%3Dbar%26baz%3Dqux\"");
+    assertThat(result.contains(urlId)).isTrue();
+  }
+
+  @Test
+  void fetchObjectsSkipsUnavailableObjectAfterSuccess() {
+    FacebookClient client = facebookClientWithResponse(batchResponse(successResponse("123456789"), missingResponse()));
+
+    FetchObjectsResult result = client.fetchObjects(Arrays.asList("123456789", "2"), FetchObjectsResult.class);
+
+    assertThat(result.available.getName()).isEqualTo("Tester");
+    assertThat(result.unavailable).isNull();
+  }
+
+  @Test
+  void fetchObjectsSkipsUnavailableObjectBeforeSuccess() {
+    FacebookClient client = facebookClientWithResponse(batchResponse(missingResponse(), successResponse("123456789")));
+
+    FetchObjectsResult result = client.fetchObjects(Arrays.asList("2", "123456789"), FetchObjectsResult.class);
+
+    assertThat(result.available.getName()).isEqualTo("Tester");
+    assertThat(result.unavailable).isNull();
+  }
+
+  @Test
+  void fetchObjectsReturnsEmptyContainerIfAllObjectsAreUnavailable() {
+    FacebookClient client = facebookClientWithResponse(batchResponse(missingResponse()));
+
+    FetchObjectsResult result = client.fetchObjects(Collections.singletonList("2"), FetchObjectsResult.class);
+
+    assertThat(result).isNotNull();
+    assertThat(result.available).isNull();
+    assertThat(result.unavailable).isNull();
+  }
+
+  @Test
+  void fetchObjectsPropagatesErrorBodyWithSuccessfulStatus() {
+    BatchResponse oauthError = new BatchResponse(200, Collections.emptyList(),
+      "{\"error\":{\"message\":\"Invalid access token\",\"type\":\"OAuthException\",\"code\":190}}");
+    FacebookClient client = facebookClientWithResponse(batchResponse(oauthError));
+
+    assertThrows(FacebookOAuthException.class,
+      () -> client.fetchObjects(Collections.singletonList("123456789"), FetchObjectsResult.class));
+  }
+
+  @Test
+  void fetchObjectsResultContainsBatchMetadata() {
+    DebugHeaderInfo debugHeaderInfo = DebugHeaderInfo.DebugHeaderInfoFactory.create().setTraceId("trace").build();
+    Map<String, List<String>> headers = new HashMap<>();
+    headers.put("facebook-api-version", Collections.singletonList("v26.0"));
+    DefaultFacebookClient client = (DefaultFacebookClient) facebookClientWithResponse(
+      batchResponse(debugHeaderInfo, headers, successResponse("123456789")));
+
+    ApiResult<FetchObjectsResult> result =
+        client.fetchObjectsWithResult(Collections.singletonList("123456789"), FetchObjectsResult.class);
+
+    assertThat(result.getResult().available.getName()).isEqualTo("Tester");
+    assertThat(result.getDebugHeaderInfo()).isSameAs(debugHeaderInfo);
+    assertThat(result.getResponseHeaders()).containsEntry("facebook-api-version", Collections.singletonList("v26.0"));
+    assertThat(result.getHttpMethod()).isEqualTo("POST");
+    assertThat(result.getRequestUrl()).startsWith("https://graph.facebook.com/v26.0/?batch=");
+  }
+
+  @Test
+  void fetchObjectsPropagatesDebugInfoForNonObjectErrors() {
+    DebugHeaderInfo debugHeaderInfo = DebugHeaderInfo.DebugHeaderInfoFactory.create().setTraceId("trace").build();
+    BatchResponse oauthError = new BatchResponse(400, Collections.emptyList(),
+      "{\"error\":{\"message\":\"Invalid access token\",\"type\":\"OAuthException\",\"code\":190}}");
+    FacebookClient client =
+        facebookClientWithResponse(batchResponse(debugHeaderInfo, Collections.emptyMap(), oauthError));
+
+    FacebookOAuthException exception = assertThrows(FacebookOAuthException.class,
+      () -> client.fetchObjects(Collections.singletonList("123456789"), FetchObjectsResult.class));
+
+    assertThat(exception.getDebugHeaderInfo()).isSameAs(debugHeaderInfo);
   }
 
   @Test
@@ -354,6 +448,15 @@ class FacebookClientTest {
         new DefaultFacebookClient("accesstoken", requestor, new DefaultJsonMapper(), Version.VERSION_18_0);
 
     assertThrows(IllegalArgumentException.class, () -> fbc.fetchObjects(Collections.EMPTY_LIST, String.class));
+  }
+
+  @Test
+  void checkfetchObjects_tooManyIds() {
+    FacebookClient fbc =
+        new DefaultFacebookClient("accesstoken", new FakeWebRequestor(), new DefaultJsonMapper(), Version.VERSION_18_0);
+
+    assertThrows(IllegalArgumentException.class,
+      () -> fbc.fetchObjects(Collections.nCopies(51, "123456789"), String.class));
   }
 
   @Test
@@ -531,6 +634,33 @@ class FacebookClientTest {
    */
   protected FacebookClient facebookClientWithResponse(final Response response) {
     return new DefaultFacebookClient(null, new FakeWebRequestor(response), new DefaultJsonMapper(), Version.LATEST);
+  }
+
+  private static Response batchResponse(BatchResponse... batchResponses) {
+    return batchResponse(null, Collections.emptyMap(), batchResponses);
+  }
+
+  private static Response batchResponse(DebugHeaderInfo debugHeaderInfo, Map<String, List<String>> headers,
+      BatchResponse... batchResponses) {
+    String responseJson = new DefaultJsonMapper().toJson(Arrays.asList(batchResponses), true);
+    return new Response(200, responseJson, debugHeaderInfo, headers);
+  }
+
+  private static BatchResponse successResponse(String id) {
+    return new BatchResponse(200, Collections.emptyList(), "{\"id\":\"" + id + "\",\"name\":\"Tester\"}");
+  }
+
+  private static BatchResponse missingResponse() {
+    return new BatchResponse(400, Collections.emptyList(),
+      "{\"error\":{\"message\":\"Unsupported get request\"," + "\"type\":\"GraphMethodException\",\"code\":100}}");
+  }
+
+  static class FetchObjectsResult {
+    @Facebook("123456789")
+    User available;
+
+    @Facebook("2")
+    User unavailable;
   }
 
 }

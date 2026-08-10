@@ -121,8 +121,8 @@ public interface FacebookClient {
   FacebookClient createClientWithAccessToken(String accessToken);
 
   /**
-   * Fetches multiple <a href="http://developers.facebook.com/docs/reference/api/">Graph API objects</a> in a single
-   * call, mapping the results to an instance of {@code objectType}.
+   * Fetches up to 50 <a href="http://developers.facebook.com/docs/reference/api/">Graph API objects</a> in a single
+   * batch call, mapping the results to an instance of {@code objectType}.
    * <p>
    * You'll need to write your own container type ({@code objectType}) to hold the results. See
    * <a href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
@@ -138,6 +138,8 @@ public interface FacebookClient {
    * @return An instance of type {@code objectType} which contains the requested objects' data.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @throws IllegalArgumentException
+   *           If more than 50 IDs are provided.
    */
   <T> T fetchObjects(List<String> ids, Class<T> objectType, Parameter... parameters);
 
@@ -156,6 +158,8 @@ public interface FacebookClient {
    * @return ApiResult containing the mapped objects plus response metadata.
    * @throws FacebookException
    *           If an error occurs while performing the API call.
+   * @throws IllegalArgumentException
+   *           If more than 50 IDs are provided.
    * @since 2026.0.0
    */
   default <T> ApiResult<T> fetchObjectsWithResult(List<String> ids, Class<T> objectType, Parameter... parameters) {

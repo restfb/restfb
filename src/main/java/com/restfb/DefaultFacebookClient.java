@@ -102,6 +102,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   protected static final String IDS_PARAM_NAME = "ids";
 
+  private static final int MAX_BATCH_SIZE = 50;
+
   /**
    * Version of API endpoint.
    */
@@ -360,27 +362,72 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     verifyParameterPresence(CONNECTION_TYPE, objectType);
     requireNotEmpty(ids, "The list of IDs cannot be empty.");
 
-    if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
-      throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
-          + "RestFB will populate this for you with the list of IDs you passed to this method.");
+    if (ids.size() > MAX_BATCH_SIZE) {
+      throw new IllegalArgumentException("The list of IDs cannot contain more than " + MAX_BATCH_SIZE + " entries.");
     }
 
-    JsonArray idArray = new JsonArray();
+    if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
+      throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
+          + "the list of IDs passed to this method determines the requested objects.");
+    }
+
+    List<String> normalizedIds = new ArrayList<>(ids.size());
+    List<BatchRequest> batchRequests = new ArrayList<>(ids.size());
 
     // Normalize the IDs
     for (String id : ids) {
       throwIAEonBlankId(id);
-      idArray.add(id.trim());
+      String normalizedId = id.trim();
+      normalizedIds.add(normalizedId);
+      if (normalizedId.regionMatches(true, 0, "http://", 0, 7)
+          || normalizedId.regionMatches(true, 0, "https://", 0, 8)) {
+        Parameter[] urlParameters = parametersWithAdditionalParameter(Parameter.with("id", normalizedId), parameters);
+        batchRequests.add(new BatchRequest.BatchRequestBuilder("").parameters(urlParameters).build());
+      } else {
+        batchRequests.add(new BatchRequest.BatchRequestBuilder(normalizedId).parameters(parameters).build());
+      }
     }
 
     try {
-      RequestExecutionResult executionResult = makeRequestWithMetadata("",
-        parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, idArray.toString()), parameters));
+      RequestExecutionResult executionResult = makeRequestWithMetadata("", true, false, emptyList(),
+        Parameter.with("batch", jsonMapper.toJson(batchRequests, true)));
+      List<BatchResponse> batchResponses =
+          jsonMapper.toJavaList(executionResult.getResponse().getBody(), BatchResponse.class);
 
-      T mapped = jsonMapper.toJavaObject(executionResult.getResponse().getBody(), objectType);
+      if (batchResponses.size() != normalizedIds.size()) {
+        throw new FacebookJsonMappingException("The number of batch responses does not match the number of IDs.");
+      }
+
+      JsonObject combinedResponse = new JsonObject();
+      for (int i = 0; i < batchResponses.size(); i++) {
+        BatchResponse batchResponse = batchResponses.get(i);
+        if (batchResponse == null || batchResponse.getCode() == null || batchResponse.getBody() == null) {
+          throw new FacebookJsonMappingException("Facebook returned an invalid batch response.");
+        }
+
+        try {
+          getFacebookExceptionGenerator().throwFacebookResponseStatusExceptionIfNecessary(batchResponse.getBody(),
+            batchResponse.getCode());
+        } catch (FacebookGraphException e) {
+          if (Integer.valueOf(100).equals(e.getErrorCode()) && "GraphMethodException".equals(e.getErrorType())) {
+            continue;
+          }
+          Optional.ofNullable(executionResult.getResponse().getDebugHeaderInfo()).ifPresent(e::setDebugHeaderInfo);
+          throw e;
+        }
+
+        if (batchResponse.getCode() >= HTTP_OK && batchResponse.getCode() < 300) {
+          combinedResponse.set(normalizedIds.get(i), Json.parse(batchResponse.getBody()));
+          continue;
+        }
+
+        throw new FacebookNetworkException(batchResponse.getCode());
+      }
+
+      T mapped = jsonMapper.toJavaObject(combinedResponse.toString(), objectType);
       return toApiResult(mapped, executionResult);
     } catch (ParseException e) {
-      throw new FacebookJsonMappingException("Unable to map connection JSON to Java objects", e);
+      throw new FacebookJsonMappingException("Unable to map batch response JSON to Java objects", e);
     }
   }
 
