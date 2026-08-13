@@ -253,8 +253,8 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    *
    * @since 1.10.0
    * @return current location of the Page
-   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in
-   *             Graph API 26.0 and later. No replacement is available.
+   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in Graph
+   *             API 26.0 and later. No replacement is available.
    */
   @Getter
   @Setter
@@ -644,8 +644,8 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    *
    * @since 1.10.0
    * @return The genre of the film
-   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in
-   *             Graph API 26.0 and later. No replacement is available.
+   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in Graph
+   *             API 26.0 and later. No replacement is available.
    */
   @Getter
   @Setter
@@ -669,8 +669,8 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    *
    * @since 1.10.0
    * @return The TV network for the TV show
-   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in
-   *             Graph API 26.0 and later. No replacement is available.
+   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in Graph
+   *             API 26.0 and later. No replacement is available.
    */
   @Getter
   @Setter
@@ -759,8 +759,8 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    *
    * @since 1.10.0
    * @return Information about when the entity represented by the Page was started
-   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in
-   *             Graph API 26.0 and later. No replacement is available.
+   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in Graph
+   *             API 26.0 and later. No replacement is available.
    */
   @Getter
   @Setter
@@ -1177,8 +1177,8 @@ public class Page extends CategorizedFacebookType implements HasProfilePicture {
    * Parking information. Applicable to Businesses and Places
    *
    * @return Parking information. Applicable to Businesses and Places
-   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in
-   *             Graph API 26.0 and later. No replacement is available.
+   * @deprecated This field is no longer maintained for New Pages Experience pages and returns a version error in Graph
+   *             API 26.0 and later. No replacement is available.
    */
   @Getter
   @Setter
