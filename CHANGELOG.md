@@ -1,8 +1,15 @@
 # RestFB Changelog
 
-## 2026.9.0 (unreleased)
+## 2026.9.0 (August 13, 2026)
 
 * Issue #1692: use batch requests in `fetchObjects` for Graph API 26.0 compatibility and enforce the 50-request batch limit
+* Issue #1693: deprecate legacy Page fields for New Pages Experience
+* Issue #1694: add Graph API v26.0 and update `LATEST`
+* PR #1688: add Spotless formatting checks and require JDK 17 for builds
+* PR #1690: update lock threads GitHub Action
+* PR #1696: update Sonar analysis to provision Java 21 while builds stay on Java 17
+* PR #1687: bump JaCoCo Maven Plugin to 0.8.15
+* PR #1689: bump Maven Enforcer Plugin to 3.6.3
 
 ## 2026.8.0 (June 10, 2026)
 
