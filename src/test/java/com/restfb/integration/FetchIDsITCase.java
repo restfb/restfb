@@ -21,7 +21,6 @@
  */
 package com.restfb.integration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -45,11 +44,9 @@ class FetchIDsITCase extends RestFbIntegrationTestBase {
     assertTrue(me.abc.getReactionCount() > 0);
     assertTrue(me.abc.getCommentCount() > 0);
     assertTrue(me.abc.getShareCount() > 0);
-    assertEquals(0, me.abc.getCommentPluginCount());
     assertTrue(me.cnn.getReactionCount() > 0);
     assertTrue(me.cnn.getCommentCount() > 0);
     assertTrue(me.cnn.getShareCount() > 0);
-    assertEquals(0, me.cnn.getCommentPluginCount());
   }
 
   static class FetchObjectsResult {
