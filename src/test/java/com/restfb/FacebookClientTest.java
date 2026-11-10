@@ -396,7 +396,9 @@ class FacebookClientTest {
     assertThat(result.getDebugHeaderInfo()).isSameAs(debugHeaderInfo);
     assertThat(result.getResponseHeaders()).containsEntry("facebook-api-version", Collections.singletonList("v26.0"));
     assertThat(result.getHttpMethod()).isEqualTo("POST");
-    assertThat(result.getRequestUrl()).startsWith("https://graph.facebook.com/v26.0/?batch=");
+    assertThat(result.getRequestUrl())
+      .startsWith("https://graph.facebook.com/" + Version.LATEST.getUrlElement() + "/?batch=[REDACTED]")
+      .doesNotContain("123456789", "relative_url");
   }
 
   @Test

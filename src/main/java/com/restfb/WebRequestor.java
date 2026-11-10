@@ -37,6 +37,7 @@ import java.util.function.BiConsumer;
 
 import com.restfb.types.FacebookReelAttachment;
 import com.restfb.util.StringUtils;
+import com.restfb.util.UrlUtils;
 
 /**
  * Specifies how a class that sends {@code HTTP} requests to the Facebook API endpoint must operate.
@@ -313,7 +314,8 @@ public interface WebRequestor {
 
     @Override
     public String toString() {
-      return format("Request to url %s with parameters %s. Header access token: %b", getUrl(), getParameters(),
+      return format("Request to url %s with parameters %s. Header access token: %b",
+        UrlUtils.redactSensitiveUrl(getUrl()), UrlUtils.redactSensitiveParameters(getParameters()),
         hasHeaderAccessToken());
     }
 

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Issue #1702: redact credentials before storing exception request metadata, including getter and serialized output; also redact diagnostic request URLs and request logs. Header tokens and batch payloads are no longer exposed by diagnostic getters.
 * Add Graph API v27.0 and update `LATEST`
 * Correct the Graph API v26.0 Javadoc and update its minimum availability based on the v27.0 release
 

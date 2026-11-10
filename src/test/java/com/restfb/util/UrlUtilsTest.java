@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Unit tests that exercise {@link com.restfb.util.UrlUtils}.
@@ -39,6 +40,62 @@ import org.junit.jupiter.params.provider.MethodSource;
  * @author <a href="http://restfb.com">Mark Allen</a>
  */
 class UrlUtilsTest {
+
+  @ParameterizedTest
+  @ValueSource(strings = { "access_token", "appsecret_proof", "client_secret", "input_token", "fb_exchange_token",
+      "code", "refresh_token", "signed_request", "sessions", "batch", "ACCESS_TOKEN", "access%5Ftoken", "%63ode" })
+  void redactSensitiveParameters(String name) {
+    assertThat(UrlUtils.redactSensitiveParameters("fields=id&" + name + "=credential-value&format=json"))
+      .isEqualTo("fields=id&" + name + "=[REDACTED]&format=json");
+  }
+
+  @Test
+  void redactRepeatedEmptyAndEncodedCredentials() {
+    assertThat(UrlUtils.redactSensitiveParameters("access_token=app%7Csecret&access_token=&access_token=second"))
+      .isEqualTo("access_token=[REDACTED]&access_token=[REDACTED]&access_token=[REDACTED]");
+  }
+
+  @Test
+  void preserveOrdinaryEncodedParameterBoundaries() {
+    String parameters = "fields=id%2Cname&message=one%26two%3Dthree&format=json&&";
+    assertThat(UrlUtils.redactSensitiveParameters(parameters)).isEqualTo(parameters);
+    assertThat(UrlUtils.redactSensitiveParameters(null)).isNull();
+    assertThat(UrlUtils.redactSensitiveParameters("")).isEmpty();
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "access%_token=credential-value", "fields=credential-value%", "credential-value",
+      "=credential-value", "access_token=credential-value%" })
+  void malformedParametersDoNotFallBackToRawData(String parameter) {
+    assertThat(UrlUtils.redactSensitiveParameters("fields=id&" + parameter + "&format=json")).contains("[REDACTED]")
+      .doesNotContain("credential-value").startsWith("fields=id&").endsWith("&format=json");
+  }
+
+  @Test
+  void redactNestedBatchCredentialsWithoutParsingPayload() {
+    String batch = "[{\"relative_url\":\"me?access_token=nested-token\","
+        + "\"body\":\"client_secret=nested-secret\",\"headers\":[{\"name\":\"Authorization\",\"value\":\"Bearer nested-header\"}]}]";
+    assertThat(UrlUtils.redactSensitiveParameters("batch=" + UrlUtils.urlEncode(batch) + "&fields=id"))
+      .isEqualTo("batch=[REDACTED]&fields=id");
+  }
+
+  @Test
+  void redactUrlQueriesAndOAuthFragments() {
+    assertThat(UrlUtils.redactSensitiveUrl("https://graph.facebook.com/me?fields=id&access_token=url-token"))
+      .isEqualTo("https://graph.facebook.com/me?fields=id&access_token=[REDACTED]");
+    assertThat(UrlUtils.redactSensitiveUrl("https://example.com/callback#access_token=fragment-token"))
+      .isEqualTo("https://example.com/callback#[REDACTED]");
+    assertThat(UrlUtils.redactSensitiveUrl("https://example.com/callback?code=query-code#fragment-token"))
+      .isEqualTo("https://example.com/callback?code=[REDACTED]#[REDACTED]");
+    assertThat(UrlUtils.redactSensitiveUrl("https://graph.facebook.com/me")).isEqualTo("https://graph.facebook.com/me");
+    assertThat(UrlUtils.redactSensitiveUrl(null)).isNull();
+  }
+
+  @Test
+  void redactionIsIdempotent() {
+    String redacted = UrlUtils.redactSensitiveUrl("https://graph.facebook.com/me?access_token=token&fields=id");
+    assertThat(UrlUtils.redactSensitiveUrl(redacted)).isEqualTo(redacted);
+  }
 
   @Test
   void urlEncode_null() {
