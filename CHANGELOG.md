@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## Unreleased
+
+* Add Graph API v27.0 and update `LATEST`
+* Correct the Graph API v26.0 Javadoc and update its minimum availability based on the v27.0 release
+
 ## 2026.9.0 (August 13, 2026)
 
 * Issue #1692: use batch requests in `fetchObjects` for Graph API 26.0 compatibility and enforce the 50-request batch limit
