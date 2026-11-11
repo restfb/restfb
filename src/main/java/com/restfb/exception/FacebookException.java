@@ -26,7 +26,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Optional;
-import java.util.StringJoiner;
+
+import com.restfb.util.UrlUtils;
 
 /**
  * Root of the RestFB exception hierarchy.
@@ -102,7 +103,9 @@ public abstract class FacebookException extends RuntimeException {
   }
 
   /**
-   * Aggregates optional metadata that may help diagnose a failing Facebook request.
+   * Aggregates optional metadata that may help diagnose a failing Facebook request. Authentication parameters are
+   * redacted before storage, including in getter and serialized output. The request itself is not modified. Arbitrary
+   * exception messages, causes and application data are not sanitized here.
    */
   public static final class InfoData implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -117,9 +120,9 @@ public abstract class FacebookException extends RuntimeException {
     public InfoData(String httpMethod, String fullEndpoint, String parameterString, String headerAccessToken,
         Long startTime) {
       this.httpMethod = httpMethod;
-      this.fullEndpoint = fullEndpoint;
-      this.parameterString = parameterString;
-      this.headerAccessToken = headerAccessToken;
+      this.fullEndpoint = UrlUtils.redactSensitiveUrl(fullEndpoint);
+      this.parameterString = UrlUtils.redactSensitiveParameters(parameterString);
+      this.headerAccessToken = headerAccessToken == null ? null : UrlUtils.REDACTED_VALUE;
       this.startTime = startTime;
       this.endTime = System.currentTimeMillis();
     }
@@ -128,14 +131,23 @@ public abstract class FacebookException extends RuntimeException {
       return httpMethod;
     }
 
+    /**
+     * @return the endpoint with authentication query parameters redacted
+     */
     public String getFullEndpoint() {
       return fullEndpoint;
     }
 
+    /**
+     * @return URL-encoded diagnostic parameters with authentication values redacted, or {@code null}
+     */
     public String getParameterString() {
       return parameterString;
     }
 
+    /**
+     * @return {@code [REDACTED]} if a header token was supplied, otherwise {@code null}; never the original token
+     */
     public String getHeaderAccessToken() {
       return headerAccessToken;
     }
@@ -152,19 +164,23 @@ public abstract class FacebookException extends RuntimeException {
     }
 
     public String getUrl() {
-      String parameterStringToReturn;
-      try {
-        parameterStringToReturn = URLDecoder.decode(parameterString, StandardCharsets.UTF_8);
-      } catch (Exception e) {
-        parameterStringToReturn = parameterString;
+      String endpoint = String.valueOf(fullEndpoint);
+      if (parameterString != null && !parameterString.isEmpty()) {
+        int fragmentIndex = endpoint.indexOf('#');
+        String fragment = fragmentIndex < 0 ? "" : endpoint.substring(fragmentIndex);
+        endpoint = fragmentIndex < 0 ? endpoint : endpoint.substring(0, fragmentIndex);
+        String separator = "?";
+        if (endpoint.contains("?")) {
+          separator = endpoint.endsWith("?") || endpoint.endsWith("&") ? "" : "&";
+        }
+        endpoint += separator + parameterString + fragment;
       }
-      String endpointToReturn;
       try {
-        endpointToReturn = URLDecoder.decode(fullEndpoint, StandardCharsets.UTF_8);
-      } catch (Exception e) {
-        endpointToReturn = fullEndpoint;
+        return URLDecoder.decode(endpoint, StandardCharsets.UTF_8);
+      } catch (IllegalArgumentException e) {
+        // The stored URL is already redacted, even if its path cannot be decoded.
+        return endpoint;
       }
-      return endpointToReturn + (parameterString != null ? "?" + parameterStringToReturn : "");
     }
 
     @Override

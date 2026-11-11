@@ -45,6 +45,39 @@ class DefaultWebRequestorTest {
   private final DefaultWebRequestor requestor = new DefaultWebRequestor();
 
   @Test
+  void requestToStringRedactsCredentialsWithoutChangingRequest() {
+    String url = "https://graph.facebook.com/me?access_token=url-credential";
+    String parameters = "fields=id&client_secret=secret-credential&batch=payload-credential";
+    WebRequestor.Request request = new WebRequestor.Request(url, "header-credential", parameters);
+
+    assertThat(request.toString()).contains("access_token=[REDACTED]", "client_secret=[REDACTED]", "batch=[REDACTED]",
+      "fields=id", "Header access token: true").doesNotContain("credential");
+    assertThat(request.getUrl()).isEqualTo(url);
+    assertThat(request.getParameters()).isEqualTo(parameters);
+    assertThat(request.getHeaderAccessToken()).isEqualTo("header-credential");
+  }
+
+  @Test
+  void authenticationParametersAreSentUnchanged() throws IOException {
+    RequestCapture capture = new RequestCapture();
+    try (TestServer server = TestServer.start("/credentials", exchange -> {
+      capture.capture(exchange);
+      respond(exchange, 200, "ok");
+    })) {
+      String parameters = "access_token=query-credential&appsecret_proof=proof-credential";
+      WebRequestor.Request request =
+          new WebRequestor.Request(server.url("/credentials"), "header-credential", parameters);
+      requestor.executeGet(request);
+      assertThat(capture.getUri().getRawQuery()).isEqualTo(parameters);
+      assertThat(capture.getHeaders().getFirst("Authorization")).isEqualTo("Bearer header-credential");
+
+      requestor.executePost(request);
+      assertThat(capture.bodyAsString()).isEqualTo(parameters);
+      assertThat(capture.getHeaders().getFirst("Authorization")).isEqualTo("Bearer header-credential");
+    }
+  }
+
+  @Test
   void checkGet_withAccessToken() throws IOException {
     RequestCapture capture = new RequestCapture();
     try (TestServer server = TestServer.start("/auth", exchange -> {
