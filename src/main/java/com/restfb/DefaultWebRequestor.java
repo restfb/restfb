@@ -218,7 +218,8 @@ public class DefaultWebRequestor implements WebRequestor {
       HTTP_LOGGER.debug("Executing a POST to " + UrlUtils.redactSensitiveUrl(request.getUrl()) + " with parameters "
           + (!binaryAttachments.isEmpty() ? "" : "(sent in request body): ")
           + UrlUtils.redactSensitiveParameters(request.getParameters())
-          + (!binaryAttachments.isEmpty() ? " and " + binaryAttachments.size() + " binary attachment[s]." : ""));
+          + (!binaryAttachments.isEmpty() ? " and " + binaryAttachments.size() + " binary attachment[s]." : "")
+          + " Header access token: " + UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken()));
     }
   }
 
@@ -366,8 +367,11 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   private Response execute(HttpMethod httpMethod, Request request) throws IOException {
-    HTTP_LOGGER.debug("Making a {} request to {} with parameters {}", httpMethod.name(),
-      UrlUtils.redactSensitiveUrl(request.getUrl()), UrlUtils.redactSensitiveParameters(request.getParameters()));
+    if (HTTP_LOGGER.isDebugEnabled()) {
+      HTTP_LOGGER.debug("Making a {} request to {} with parameters {}. Header access token: {}", httpMethod.name(),
+        UrlUtils.redactSensitiveUrl(request.getUrl()), UrlUtils.redactSensitiveParameters(request.getParameters()),
+        UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken()));
+    }
 
     HttpRequest.Builder builder = openConnection(new URL(request.getFullUrl()));
     builder.timeout(Duration.ofMillis(DEFAULT_READ_TIMEOUT_IN_MS));

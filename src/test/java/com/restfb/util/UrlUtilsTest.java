@@ -42,17 +42,50 @@ import org.junit.jupiter.params.provider.ValueSource;
 class UrlUtilsTest {
 
   @ParameterizedTest
-  @ValueSource(strings = { "access_token", "appsecret_proof", "client_secret", "input_token", "fb_exchange_token",
-      "code", "refresh_token", "signed_request", "sessions", "batch", "ACCESS_TOKEN", "access%5Ftoken", "%63ode" })
+  @ValueSource(strings = { "appsecret_proof", "code", "signed_request", "sessions", "batch", "%63ode", "CODE" })
   void redactSensitiveParameters(String name) {
     assertThat(UrlUtils.redactSensitiveParameters("fields=id&" + name + "=credential-value&format=json"))
       .isEqualTo("fields=id&" + name + "=[REDACTED]&format=json");
   }
 
+  @ParameterizedTest
+  @ValueSource(strings = { "access_token", "client_secret", "app_secret", "input_token", "fb_exchange_token",
+      "refresh_token", "ACCESS_TOKEN", "access%5Ftoken", "%63lient_secret", "APP_SECRET" })
+  void tokensAndAppSecretsIncludeFingerprint(String name) {
+    assertThat(UrlUtils.redactSensitiveParameters("fields=id&" + name + "=abc&format=json"))
+      .isEqualTo("fields=id&" + name + "=[REDACTED; sha256=ba7816bf8f01cfea]&format=json");
+  }
+
+  @Test
+  void credentialFingerprintUsesCompleteUtf8Value() {
+    assertThat(UrlUtils.redactSensitiveCredential("abc")).isEqualTo("[REDACTED; sha256=ba7816bf8f01cfea]");
+    assertThat(UrlUtils.redactSensitiveCredential("abcd")).isEqualTo("[REDACTED; sha256=88d4266fd4e6338d]");
+    assertThat(UrlUtils.redactSensitiveCredential("ä")).isEqualTo("[REDACTED; sha256=33e6d73fee82904c]");
+    assertThat(UrlUtils.redactSensitiveCredential(null)).isNull();
+    assertThat(UrlUtils.redactSensitiveCredential("")).isEqualTo("[REDACTED]");
+  }
+
+  @Test
+  void encodedCredentialMatchesUnencodedHeaderFingerprint() {
+    String credential = "app|secret+space ä&=end";
+    String expected = "access_token=" + UrlUtils.redactSensitiveCredential(credential);
+    assertThat(UrlUtils.redactSensitiveParameters("access_token=" + UrlUtils.urlEncode(credential)))
+      .isEqualTo(expected);
+    assertThat(UrlUtils.redactSensitiveParameters("access_token=abc&input_token=%61bc"))
+      .isEqualTo("access_token=[REDACTED; sha256=ba7816bf8f01cfea]&input_token=[REDACTED; sha256=ba7816bf8f01cfea]");
+  }
+
+  @Test
+  void guessableCodesHaveNoFingerprint() {
+    assertThat(UrlUtils.redactSensitiveParameters("code=123456&signed_request=abc&sessions=abc&appsecret_proof=abc"))
+      .isEqualTo("code=[REDACTED]&signed_request=[REDACTED]&sessions=[REDACTED]&appsecret_proof=[REDACTED]");
+  }
+
   @Test
   void redactRepeatedEmptyAndEncodedCredentials() {
     assertThat(UrlUtils.redactSensitiveParameters("access_token=app%7Csecret&access_token=&access_token=second"))
-      .isEqualTo("access_token=[REDACTED]&access_token=[REDACTED]&access_token=[REDACTED]");
+      .isEqualTo("access_token=" + UrlUtils.redactSensitiveCredential("app|secret")
+          + "&access_token=[REDACTED]&access_token=" + UrlUtils.redactSensitiveCredential("second"));
   }
 
   @Test
@@ -81,8 +114,8 @@ class UrlUtilsTest {
 
   @Test
   void redactUrlQueriesAndOAuthFragments() {
-    assertThat(UrlUtils.redactSensitiveUrl("https://graph.facebook.com/me?fields=id&access_token=url-token"))
-      .isEqualTo("https://graph.facebook.com/me?fields=id&access_token=[REDACTED]");
+    assertThat(UrlUtils.redactSensitiveUrl("https://graph.facebook.com/me?fields=id&access_token=url-token")).isEqualTo(
+      "https://graph.facebook.com/me?fields=id&access_token=" + UrlUtils.redactSensitiveCredential("url-token"));
     assertThat(UrlUtils.redactSensitiveUrl("https://example.com/callback#access_token=fragment-token"))
       .isEqualTo("https://example.com/callback#[REDACTED]");
     assertThat(UrlUtils.redactSensitiveUrl("https://example.com/callback?code=query-code#fragment-token"))
@@ -93,8 +126,21 @@ class UrlUtilsTest {
 
   @Test
   void redactionIsIdempotent() {
-    String redacted = UrlUtils.redactSensitiveUrl("https://graph.facebook.com/me?access_token=token&fields=id");
+    String redacted = UrlUtils.redactSensitiveUrl(
+      "https://graph.facebook.com/me?access_token=token&client_secret=secret" + "&code=123456&fields=id#fragment");
     assertThat(UrlUtils.redactSensitiveUrl(redacted)).isEqualTo(redacted);
+    String fingerprint = UrlUtils.redactSensitiveCredential("abc");
+    assertThat(UrlUtils.redactSensitiveCredential(fingerprint)).isEqualTo(fingerprint);
+    assertThat(UrlUtils.redactSensitiveCredential("[REDACTED]")).isEqualTo("[REDACTED]");
+    assertThat(UrlUtils.redactSensitiveParameters("access_token=" + UrlUtils.urlEncode(fingerprint)))
+      .isEqualTo("access_token=" + fingerprint);
+    assertThat(UrlUtils.redactSensitiveParameters("access_token=[REDACTED]")).isEqualTo("access_token=[REDACTED]");
+  }
+
+  @Test
+  void incompleteMarkersAreNotReturnedAsCredentials() {
+    assertThat(UrlUtils.redactSensitiveCredential("[REDACTED; sha256=private-credential]"))
+      .matches("\\[REDACTED; sha256=[0-9a-f]{16}\\]").doesNotContain("private-credential");
   }
 
   @Test

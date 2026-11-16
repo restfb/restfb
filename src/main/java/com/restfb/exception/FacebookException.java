@@ -104,8 +104,9 @@ public abstract class FacebookException extends RuntimeException {
 
   /**
    * Aggregates optional metadata that may help diagnose a failing Facebook request. Authentication parameters are
-   * redacted before storage, including in getter and serialized output. The request itself is not modified. Arbitrary
-   * exception messages, causes and application data are not sanitized here.
+   * redacted before storage, including in getter and serialized output. Access tokens and app secrets retain only a
+   * diagnostic SHA-256 fingerprint. The request itself is not modified. Arbitrary exception messages, causes and
+   * application data are not sanitized here.
    */
   public static final class InfoData implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -122,7 +123,7 @@ public abstract class FacebookException extends RuntimeException {
       this.httpMethod = httpMethod;
       this.fullEndpoint = UrlUtils.redactSensitiveUrl(fullEndpoint);
       this.parameterString = UrlUtils.redactSensitiveParameters(parameterString);
-      this.headerAccessToken = headerAccessToken == null ? null : UrlUtils.REDACTED_VALUE;
+      this.headerAccessToken = UrlUtils.redactSensitiveCredential(headerAccessToken);
       this.startTime = startTime;
       this.endTime = System.currentTimeMillis();
     }
@@ -146,7 +147,8 @@ public abstract class FacebookException extends RuntimeException {
     }
 
     /**
-     * @return {@code [REDACTED]} if a header token was supplied, otherwise {@code null}; never the original token
+     * @return a redacted marker with a diagnostic SHA-256 fingerprint if a nonempty header token was supplied,
+     *         {@code [REDACTED]} for an empty token, otherwise {@code null}; never the original token
      */
     public String getHeaderAccessToken() {
       return headerAccessToken;

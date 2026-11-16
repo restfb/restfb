@@ -21,6 +21,7 @@
  */
 package com.restfb.exception;
 
+import static com.restfb.util.UrlUtils.redactSensitiveCredential;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayInputStream;
@@ -31,6 +32,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,7 +48,8 @@ class FacebookExceptionTest {
     exception.withInfoData("GET", "https://graph.facebook.com/me", "fields=id", "token", 1000L);
 
     assertThat(exception.getMessage()).contains("boom").contains("GET").contains("headerAccessToken");
-    assertThat(exception.getMessage()).contains("headerAccessToken: [REDACTED]").doesNotContain("token");
+    assertThat(exception.getMessage()).contains("headerAccessToken: " + redactSensitiveCredential("token"))
+      .doesNotContain("token");
     assertThat(exception.getBasicMessage()).isEqualTo("boom");
   }
 
@@ -59,17 +62,22 @@ class FacebookExceptionTest {
   }
 
   @ParameterizedTest
-  @ValueSource(strings = { "access_token", "appsecret_proof", "client_secret", "input_token", "fb_exchange_token",
-      "code", "sessions", "batch" })
+  @ValueSource(strings = { "access_token", "appsecret_proof", "client_secret", "app_secret", "input_token",
+      "fb_exchange_token", "refresh_token", "code", "signed_request", "sessions", "batch" })
   void credentialsAreAbsentFromAllMetadataOutputsAndSerialization(String name) throws Exception {
     TestFacebookException exception = new TestFacebookException("boom");
     exception.withInfoData("POST", "https://graph.facebook.com/oauth/access_token?" + name + "=endpoint-credential",
       "fields=id&" + name + "=parameter-credential", "header-credential", null);
     InfoData info = exception.getInfoData().orElseThrow();
 
-    assertThat(info.getFullEndpoint()).contains(name + "=[REDACTED]");
-    assertThat(info.getParameterString()).isEqualTo("fields=id&" + name + "=[REDACTED]");
-    assertThat(info.getHeaderAccessToken()).isEqualTo("[REDACTED]");
+    boolean fingerprinted =
+        Set.of("access_token", "client_secret", "app_secret", "input_token", "fb_exchange_token", "refresh_token")
+          .contains(name);
+    assertThat(info.getFullEndpoint())
+      .contains(name + "=" + (fingerprinted ? redactSensitiveCredential("endpoint-credential") : "[REDACTED]"));
+    assertThat(info.getParameterString()).isEqualTo(
+      "fields=id&" + name + "=" + (fingerprinted ? redactSensitiveCredential("parameter-credential") : "[REDACTED]"));
+    assertThat(info.getHeaderAccessToken()).isEqualTo(redactSensitiveCredential("header-credential"));
     assertThat(info.getUrl()).contains("&fields=id&").doesNotContain("credential");
     assertThat(info.toString()).doesNotContain("credential");
     assertThat(exception.getMessage()).contains("boom").doesNotContain("credential");
@@ -89,7 +97,8 @@ class FacebookExceptionTest {
     try (ObjectInputStream input = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()))) {
       FacebookException restored = (FacebookException) input.readObject();
       assertThat(restored.getMessage()).isEqualTo(exception.getMessage());
-      assertThat(restored.getInfoData().orElseThrow().getHeaderAccessToken()).isEqualTo("[REDACTED]");
+      assertThat(restored.getInfoData().orElseThrow().getHeaderAccessToken())
+        .isEqualTo(redactSensitiveCredential("header-credential"));
     }
   }
 
@@ -98,8 +107,9 @@ class FacebookExceptionTest {
     InfoData info = new InfoData("GET", "https://graph.facebook.com/me?after=cursor&access_token=app%7Csecret",
       "fields=id%2Cname&client_secret=private-value", null, null);
 
-    assertThat(info.getUrl()).isEqualTo("https://graph.facebook.com/me?after=cursor&access_token=[REDACTED]"
-        + "&fields=id,name&client_secret=[REDACTED]");
+    assertThat(info.getUrl())
+      .isEqualTo("https://graph.facebook.com/me?after=cursor&access_token=" + redactSensitiveCredential("app|secret")
+          + "&fields=id,name&client_secret=" + redactSensitiveCredential("private-value"));
     assertThat(info.getHeaderAccessToken()).isNull();
     assertThat(info.getDuration()).isEqualTo(Duration.ZERO);
     assertThat(info.getDurationAsString()).isEqualTo("unknown");
@@ -111,7 +121,8 @@ class FacebookExceptionTest {
   void urlJoinsParametersWithoutExtraSeparators(String endpoint) {
     InfoData info = new InfoData("GET", endpoint, "access_token=private-value", null, null);
 
-    assertThat(info.getUrl()).endsWith("access_token=[REDACTED]").doesNotContain("??", "?&", "&&", "private-value");
+    assertThat(info.getUrl()).endsWith("access_token=" + redactSensitiveCredential("private-value"))
+      .doesNotContain("??", "?&", "&&", "private-value");
     assertThat(info.getUrl().chars().filter(c -> c == '?').count()).isEqualTo(1);
   }
 
@@ -130,6 +141,22 @@ class FacebookExceptionTest {
     InfoData info = new InfoData("GET", "https://graph.facebook.com/me?fields=id#access_token=private-value",
       "format=json", null, null);
     assertThat(info.getUrl()).isEqualTo("https://graph.facebook.com/me?fields=id&format=json#[REDACTED]");
+  }
+
+  @Test
+  void queryAndHeaderTokensShareFingerprintAcrossRepeatedMetadataRedaction() {
+    InfoData original = new InfoData("GET", "https://graph.facebook.com/me?access_token=app%7Csecret",
+      "input_token=app%7Csecret", "app|secret", null);
+    InfoData repeated = new InfoData(original.getHttpMethod(), original.getFullEndpoint(),
+      original.getParameterString(), original.getHeaderAccessToken(), null);
+
+    assertThat(original.getFullEndpoint()).endsWith("access_token=" + original.getHeaderAccessToken());
+    assertThat(original.getParameterString()).isEqualTo("input_token=" + original.getHeaderAccessToken());
+    assertThat(repeated.getFullEndpoint()).isEqualTo(original.getFullEndpoint());
+    assertThat(repeated.getParameterString()).isEqualTo(original.getParameterString());
+    assertThat(repeated.getHeaderAccessToken()).isEqualTo(original.getHeaderAccessToken());
+    assertThat(new InfoData("GET", "https://graph.facebook.com/me", null, "", null).getHeaderAccessToken())
+      .isEqualTo("[REDACTED]");
   }
 
   private static class TestFacebookException extends FacebookException {

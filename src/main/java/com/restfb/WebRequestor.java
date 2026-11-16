@@ -314,9 +314,9 @@ public interface WebRequestor {
 
     @Override
     public String toString() {
-      return format("Request to url %s with parameters %s. Header access token: %b",
+      return format("Request to url %s with parameters %s. Header access token: %s",
         UrlUtils.redactSensitiveUrl(getUrl()), UrlUtils.redactSensitiveParameters(getParameters()),
-        hasHeaderAccessToken());
+        UrlUtils.redactSensitiveCredential(getHeaderAccessToken()));
     }
 
     public void setBody(Body body) {

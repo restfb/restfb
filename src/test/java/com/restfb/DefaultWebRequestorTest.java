@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.util.UrlUtils.redactSensitiveCredential;
 import static com.restfb.testutils.RestfbAssertions.assertThat;
 
 import java.io.Closeable;
@@ -50,8 +51,9 @@ class DefaultWebRequestorTest {
     String parameters = "fields=id&client_secret=secret-credential&batch=payload-credential";
     WebRequestor.Request request = new WebRequestor.Request(url, "header-credential", parameters);
 
-    assertThat(request.toString()).contains("access_token=[REDACTED]", "client_secret=[REDACTED]", "batch=[REDACTED]",
-      "fields=id", "Header access token: true").doesNotContain("credential");
+    assertThat(request.toString()).contains("access_token=" + redactSensitiveCredential("url-credential"),
+      "client_secret=" + redactSensitiveCredential("secret-credential"), "batch=[REDACTED]", "fields=id",
+      "Header access token: " + redactSensitiveCredential("header-credential")).doesNotContain("credential");
     assertThat(request.getUrl()).isEqualTo(url);
     assertThat(request.getParameters()).isEqualTo(parameters);
     assertThat(request.getHeaderAccessToken()).isEqualTo("header-credential");

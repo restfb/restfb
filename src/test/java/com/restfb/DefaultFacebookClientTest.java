@@ -21,6 +21,7 @@
  */
 package com.restfb;
 
+import static com.restfb.util.UrlUtils.redactSensitiveCredential;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -76,7 +77,7 @@ class DefaultFacebookClientTest {
         assertThat(info.getHttpMethod()).isEqualTo("GET");
         assertThat(info.getFullEndpoint()).contains("/me");
         assertThat(info.getParameterString()).contains("fields=id").contains("format=json");
-        assertThat(info.getHeaderAccessToken()).isEqualTo("[REDACTED]");
+        assertThat(info.getHeaderAccessToken()).isEqualTo(redactSensitiveCredential("token"));
         assertThat(info.getDuration()).isNotNull();
       });
   }
@@ -111,7 +112,7 @@ class DefaultFacebookClientTest {
         assertThat(info.getHttpMethod()).isEqualTo("GET");
         assertThat(info.getFullEndpoint()).isEqualTo(connectionUrl);
         assertThat(info.getParameterString()).isNull();
-        assertThat(info.getHeaderAccessToken()).isEqualTo("[REDACTED]");
+        assertThat(info.getHeaderAccessToken()).isEqualTo(redactSensitiveCredential("token"));
         assertThat(info.getDuration()).isNotNull();
       });
   }
@@ -127,8 +128,8 @@ class DefaultFacebookClientTest {
     assertThatThrownBy(() -> client.makeRequestWithMetadata("me", "POST".equals(method), "DELETE".equals(method), null,
       Parameter.with("fields", "id"))).isInstanceOf(FacebookNetworkException.class).satisfies(throwable -> {
         FacebookException exception = (FacebookException) throwable;
-        assertThat(exception.getMessage())
-          .contains(method, "fields=id", "access_token=[REDACTED]", "appsecret_proof=[REDACTED]")
+        assertThat(exception.getMessage()).contains(method, "fields=id",
+          "access_token=" + redactSensitiveCredential("request-token"), "appsecret_proof=[REDACTED]")
           .doesNotContain("request-token", "request-secret", proof);
         assertThat(exception.getInfoData().orElseThrow().getParameterString()).doesNotContain("request-token",
           "request-secret", proof);
@@ -147,7 +148,8 @@ class DefaultFacebookClientTest {
     assertThatThrownBy(() -> client.fetchObject("me", JsonObject.class)).isInstanceOf(FacebookNetworkException.class)
       .satisfies(throwable -> {
         FacebookException exception = (FacebookException) throwable;
-        assertThat(exception.getInfoData().orElseThrow().getHeaderAccessToken()).isEqualTo("[REDACTED]");
+        assertThat(exception.getInfoData().orElseThrow().getHeaderAccessToken())
+          .isEqualTo(redactSensitiveCredential("request-token"));
         assertThat(exception.getMessage()).doesNotContain("request-token");
       });
     assertThat(requestor.request.getHeaderAccessToken()).isEqualTo("request-token");
@@ -163,8 +165,8 @@ class DefaultFacebookClientTest {
     assertThatThrownBy(() -> client.fetchConnectionPage(connectionUrl, JsonObject.class))
       .isInstanceOf(FacebookNetworkException.class).satisfies(throwable -> {
         FacebookException exception = (FacebookException) throwable;
-        assertThat(exception.getInfoData().orElseThrow().getFullEndpoint())
-          .contains("after=cursor", "access_token=[REDACTED]", "appsecret_proof=[REDACTED]")
+        assertThat(exception.getInfoData().orElseThrow().getFullEndpoint()).contains("after=cursor",
+          "access_token=" + redactSensitiveCredential("paging-token"), "appsecret_proof=[REDACTED]")
           .doesNotContain("paging-token", proof);
         assertThat(exception.getMessage()).doesNotContain("paging-token", proof);
       });
@@ -198,6 +200,19 @@ class DefaultFacebookClientTest {
       FacebookException exception = (FacebookException) throwable;
       assertThat(exception.getMessage()).doesNotContain("request-token", "oauth-secret", "exchange-token",
         "verification-code", "debug-token", "device-code");
+      assertThat(exception.getMessage()).contains("access_token=" + redactSensitiveCredential("request-token"));
+      switch (operation) {
+      case "app":
+      case "extended":
+      case "user":
+        assertThat(exception.getMessage()).contains("client_secret=" + redactSensitiveCredential("oauth-secret"));
+        break;
+      case "debug":
+        assertThat(exception.getMessage()).contains("input_token=" + redactSensitiveCredential("debug-token"));
+        break;
+      default:
+        assertThat(exception.getMessage()).contains("code=[REDACTED]");
+      }
     });
     String parameters = requestor.request.getParameters();
     assertThat(parameters).contains("access_token=request-token");
@@ -227,7 +242,8 @@ class DefaultFacebookClientTest {
     DefaultFacebookClient client = credentialClient(requestor);
 
     assertThatThrownBy(() -> client.fetchObject("me", JsonObject.class)).isInstanceOf(FacebookOAuthException.class)
-      .satisfies(throwable -> assertThat(throwable.getMessage()).contains("Invalid token", "access_token=[REDACTED]")
+      .satisfies(throwable -> assertThat(throwable.getMessage())
+        .contains("Invalid token", "access_token=" + redactSensitiveCredential("request-token"))
         .doesNotContain("request-token"));
   }
 
@@ -239,7 +255,8 @@ class DefaultFacebookClientTest {
 
     ApiResult<JsonObject> result = client.fetchObjectWithResult("me", JsonObject.class, Parameter.with("fields", "id"));
 
-    assertThat(result.getRequestUrl()).contains("fields=id", "access_token=[REDACTED]", "appsecret_proof=[REDACTED]")
+    assertThat(result.getRequestUrl())
+      .contains("fields=id", "access_token=" + redactSensitiveCredential("request-token"), "appsecret_proof=[REDACTED]")
       .doesNotContain("request-token", client.obtainAppSecretProof("request-token", "request-secret"));
     assertThat(requestor.request.getParameters()).contains("access_token=request-token");
   }
