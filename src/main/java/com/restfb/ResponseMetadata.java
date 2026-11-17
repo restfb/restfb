@@ -29,6 +29,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.restfb.util.UrlUtils;
+
 /**
  * Immutable carrier for HTTP response metadata.
  */
@@ -52,7 +54,7 @@ public final class ResponseMetadata implements Serializable {
     this.responseHeaders = responseHeaders;
     this.duration = duration;
     this.httpMethod = httpMethod;
-    this.requestUrl = requestUrl;
+    this.requestUrl = UrlUtils.redactSensitiveUrl(requestUrl);
   }
 
   public static ResponseMetadata of(DebugHeaderInfo debugHeaderInfo, Map<String, List<String>> responseHeaders,
@@ -76,6 +78,9 @@ public final class ResponseMetadata implements Serializable {
     return httpMethod;
   }
 
+  /**
+   * @return the diagnostic request URL with authentication parameters redacted
+   */
   public String getRequestUrl() {
     return requestUrl;
   }

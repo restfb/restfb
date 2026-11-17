@@ -29,10 +29,15 @@ import static java.util.stream.Collectors.toList;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.StringJoiner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -41,6 +46,124 @@ import java.util.stream.Collectors;
  * @since 1.6.10
  */
 public final class UrlUtils {
+
+  /**
+   * Replacement for credentials in diagnostic output. Never use redacted data to execute a request.
+   */
+  public static final String REDACTED_VALUE = "[REDACTED]";
+
+  private static final Set<String> SENSITIVE_PARAMETERS = Set.of("access_token", "appsecret_proof", "client_secret",
+    "app_secret", "input_token", "fb_exchange_token", "code", "refresh_token", "signed_request", "sessions", "batch");
+
+  private static final Set<String> FINGERPRINTED_PARAMETERS =
+      Set.of("access_token", "client_secret", "app_secret", "input_token", "fb_exchange_token", "refresh_token");
+
+  private static final Pattern REDACTED_CREDENTIAL = Pattern.compile("\\[REDACTED(?:; sha256=[0-9a-f]{16})?\\]");
+
+  /**
+   * Replaces a high-entropy access token or app secret with a diagnostic marker containing the first 16 lowercase
+   * hexadecimal characters of its SHA-256 digest. Hashes the complete, unencoded UTF-8 value. Existing markers are
+   * preserved so repeated redaction is safe. Empty values are fully redacted.
+   * <p>
+   * Fingerprints allow correlation across diagnostics, not credential validation. Do not use this for short or
+   * guessable values such as verification codes: their fingerprints could be used to test guesses offline.
+   *
+   * @param credential
+   *          the unencoded access token or app secret (may be {@code null})
+   * @return a redacted diagnostic value, or {@code null} if the input is {@code null}
+   */
+  public static String redactSensitiveCredential(String credential) {
+    if (credential == null) {
+      return null;
+    }
+    if (credential.isEmpty()) {
+      return REDACTED_VALUE;
+    }
+    if (REDACTED_CREDENTIAL.matcher(credential).matches()) {
+      return credential;
+    }
+    try {
+      byte[] digest = MessageDigest.getInstance("SHA-256").digest(credential.getBytes(StandardCharsets.UTF_8));
+      StringBuilder fingerprint = new StringBuilder(16);
+      for (int i = 0; i < 8; i++) {
+        fingerprint.append(Character.forDigit((digest[i] & 0xff) >>> 4, 16));
+        fingerprint.append(Character.forDigit(digest[i] & 0xf, 16));
+      }
+      return "[REDACTED; sha256=" + fingerprint + "]";
+    } catch (NoSuchAlgorithmException e) {
+      // SHA-256 is required by Java, but diagnostic failures must never expose the credential.
+      return REDACTED_VALUE;
+    }
+  }
+
+  /**
+   * Redacts authentication parameters in a URL for diagnostics, leaving its path and ordinary query parameters intact.
+   * Access tokens and app secrets include a diagnostic fingerprint as described by
+   * {@link #redactSensitiveCredential(String)}. Fragments are redacted in full because OAuth fragments can also contain
+   * credentials.
+   *
+   * @param url
+   *          the URL to redact (may be {@code null})
+   * @return a diagnostic URL, or {@code null} if the input is {@code null}
+   */
+  public static String redactSensitiveUrl(String url) {
+    if (url == null) {
+      return null;
+    }
+    int fragmentIndex = url.indexOf('#');
+    String endpoint = fragmentIndex < 0 ? url : url.substring(0, fragmentIndex);
+    int queryIndex = endpoint.indexOf('?');
+    return (queryIndex < 0 ? endpoint
+        : endpoint.substring(0, queryIndex + 1) + redactSensitiveParameters(endpoint.substring(queryIndex + 1)))
+        + (fragmentIndex < 0 ? "" : "#" + REDACTED_VALUE);
+  }
+
+  /**
+   * Redacts authentication values in a URL-encoded parameter string for diagnostics. Access tokens and app secrets
+   * include a diagnostic fingerprint as described by {@link #redactSensitiveCredential(String)}; other authentication
+   * values, including codes, are fully redacted without fingerprints. Batch payloads are redacted in full because they
+   * can contain credentials in nested URLs, bodies and headers. Malformed parameters are redacted rather than returned
+   * unchanged. This does not redact arbitrary application data or response bodies.
+   *
+   * @param parameters
+   *          the parameter string to redact (may be {@code null})
+   * @return redacted parameters, or {@code null} if the input is {@code null}
+   */
+  public static String redactSensitiveParameters(String parameters) {
+    if (parameters == null || parameters.isEmpty()) {
+      return parameters;
+    }
+    StringJoiner result = new StringJoiner("&");
+    // Split before decoding so encoded separators cannot change parameter boundaries.
+    for (String parameter : parameters.split("&", -1)) {
+      if (parameter.isEmpty()) {
+        result.add("");
+        continue;
+      }
+      int separator = parameter.indexOf('=');
+      if (separator <= 0) {
+        result.add(REDACTED_VALUE);
+        continue;
+      }
+      String name = parameter.substring(0, separator);
+      try {
+        String decodedName = decode(name, StandardCharsets.UTF_8).toLowerCase(Locale.ROOT);
+        if (SENSITIVE_PARAMETERS.contains(decodedName)) {
+          String redactedValue = FINGERPRINTED_PARAMETERS.contains(decodedName)
+              ? redactSensitiveCredential(decode(parameter.substring(separator + 1), StandardCharsets.UTF_8))
+              : REDACTED_VALUE;
+          result.add(name + "=" + redactedValue);
+        } else {
+          // Validate both components; decoding errors must not fall back to raw diagnostic data.
+          decode(parameter.substring(separator + 1), StandardCharsets.UTF_8);
+          result.add(parameter);
+        }
+      } catch (IllegalArgumentException e) {
+        result.add(REDACTED_VALUE);
+      }
+    }
+    return result.toString();
+  }
 
   /**
    * Prevents instantiation.
