@@ -26,10 +26,73 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
 class TdReplyTest extends AbstractJsonMapperTests {
+
+  @Test
+  void checkAdditionalFields() {
+    // Synthetic field-coverage fixture, not a captured API response.
+    TdReply reply =
+        createJsonMapper().toJavaObject(jsonFromClasspath("threads/reply-with-additional-fields"), TdReply.class);
+
+    assertEquals("https://example.org/avatar.jpg", reply.getProfilePictureUrl());
+    assertTrue(reply.getIsVerified());
+    assertEquals("400", reply.getQuotedPost());
+    assertEquals("https://example.org/animation.gif", reply.getGifUrl());
+    assertEquals("ThreadsAPI", reply.getTopicTag());
+    assertNotNull(reply.getPollAttachment());
+    assertEquals("First", reply.getPollAttachment().getOptionA());
+    assertEquals("Second", reply.getPollAttachment().getOptionB());
+    assertEquals(0.25, reply.getPollAttachment().getOptionAVotesPercentage(), 0.001);
+    assertEquals(0.75, reply.getPollAttachment().getOptionBVotesPercentage(), 0.001);
+    assertEquals(1735772400000L, reply.getPollAttachment().getExpirationTimestamp().getTime());
+    assertEquals("200", reply.getRootPost().getId());
+    assertEquals("300", reply.getRepliedTo().getId());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "true", "false", "null" })
+  void checkOptionalBooleanValues(String rawValue) {
+    String json = String.format(
+      "{\"is_verified\":%1$s,\"has_replies\":%1$s,\"is_reply\":%1$s,\"is_reply_owned_by_me\":%1$s,\"is_quote_post\":%1$s}",
+      rawValue);
+    TdReply reply = createJsonMapper().toJavaObject(json, TdReply.class);
+    Boolean expected = "null".equals(rawValue) ? null : Boolean.valueOf(rawValue);
+
+    assertEquals(expected, reply.getIsVerified());
+    assertEquals(expected, reply.getHasReplies());
+    assertEquals(expected, reply.getIsReply());
+    assertEquals(expected, reply.getIsReplyOwnedByMe());
+    assertEquals(expected, reply.getIsQuotePost());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "threads/basic-reply", "threads/additional-fields-null" })
+  void checkMissingOrNullAdditionalFields(String fixture) {
+    TdReply reply = createJsonMapper().toJavaObject(jsonFromClasspath(fixture), TdReply.class);
+
+    assertNull(reply.getProfilePictureUrl());
+    assertNull(reply.getIsVerified());
+    assertNull(reply.getQuotedPost());
+    assertNull(reply.getGifUrl());
+    assertNull(reply.getPollAttachment());
+    assertNull(reply.getTopicTag());
+  }
+
+  @Test
+  void checkMissingBooleanFields() {
+    TdReply reply = createJsonMapper().toJavaObject("{\"id\":\"100\"}", TdReply.class);
+
+    assertNull(reply.getIsVerified());
+    assertNull(reply.getHasReplies());
+    assertNull(reply.getIsReply());
+    assertNull(reply.getIsReplyOwnedByMe());
+    assertNull(reply.getIsQuotePost());
+  }
 
   @Test
   void checkSingleBasicReply() {

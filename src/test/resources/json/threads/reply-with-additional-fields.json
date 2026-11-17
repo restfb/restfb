@@ -1,0 +1,21 @@
+{
+  "id": "100",
+  "profile_picture_url": "https://example.org/avatar.jpg",
+  "is_verified": true,
+  "quoted_post": "400",
+  "gif_url": "https://example.org/animation.gif",
+  "topic_tag": "ThreadsAPI",
+  "poll_attachment": {
+    "option_a": "First",
+    "option_b": "Second",
+    "option_a_votes_percentage": 0.25,
+    "option_b_votes_percentage": 0.75,
+    "expiration_timestamp": "2025-01-01T23:00:00+0000"
+  },
+  "root_post": {
+    "id": "200"
+  },
+  "replied_to": {
+    "id": "300"
+  }
+}

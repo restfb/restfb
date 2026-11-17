@@ -33,7 +33,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents the <a href="https://developers.facebook.com/docs/threads/threads-media">Threads Media type</a>
+ * Represents the
+ * <a href="https://developers.facebook.com/documentation/threads/retrieve-and-discover-posts/retrieve-posts">Threads
+ * Media type</a>. Field availability depends on the endpoint, permissions, and post type.
  */
 public class TdMedia extends FacebookType {
 
@@ -47,7 +49,7 @@ public class TdMedia extends FacebookType {
   private String mediaProductType;
 
   /**
-   * The media type for a Threads post will be one of these values: TEXT_POST, IMAGE, VIDEO, CAROUSEL_ALBUM, or
+   * The media type for a Threads post will be one of these values: TEXT_POST, IMAGE, VIDEO, CAROUSEL_ALBUM, AUDIO, or
    * REPOST_FACADE.
    */
   @Getter
@@ -73,7 +75,7 @@ public class TdMedia extends FacebookType {
   private String permalink;
 
   /**
-   * Instagram user ID who created the post.
+   * Threads user who created the post. Only available on top-level posts that you own.
    */
   @Getter
   @Setter
@@ -81,12 +83,28 @@ public class TdMedia extends FacebookType {
   private TdProfile owner;
 
   /**
-   * Instagram username who created the post.
+   * Threads username who created the post.
    */
   @Getter
   @Setter
   @Facebook
   private String username;
+
+  /**
+   * URL of the post author's profile picture on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("profile_picture_url")
+  private String profilePictureUrl;
+
+  /**
+   * Whether the post author's profile is verified on Threads.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_verified")
+  private Boolean isVerified;
 
   /**
    * Represents text for a Threads post.
@@ -135,6 +153,63 @@ public class TdMedia extends FacebookType {
   @Setter
   @Facebook("is_quote_post")
   private Boolean isQuotePost;
+
+  /**
+   * Whether the post or reply has replies that you can see. Supported by media retrieval and keyword search; not listed
+   * in the Retrieve User Posts field table.
+   */
+  @Getter
+  @Setter
+  @Facebook("has_replies")
+  private Boolean hasReplies;
+
+  /**
+   * Whether the media is a reply rather than a top-level post.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_reply")
+  private Boolean isReply;
+
+  /**
+   * Whether your user owns the reply. Only appears on replies.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_reply_owned_by_me")
+  private Boolean isReplyOwnedByMe;
+
+  /**
+   * The top-level post or original thread in the reply tree. Only appears on replies.
+   */
+  @Getter
+  @Setter
+  @Facebook("root_post")
+  private TdReply rootPost;
+
+  /**
+   * The immediate parent of the reply. Only appears on replies.
+   */
+  @Getter
+  @Setter
+  @Facebook("replied_to")
+  private TdReply repliedTo;
+
+  /**
+   * Whether the reply is hidden. Only appears on replies.
+   */
+  @Getter
+  @Setter
+  @Facebook("hide_status")
+  private TdReply.TdHideStatus hideStatus;
+
+  /**
+   * Who can reply to the post. Only appears on top-level posts and replies that you own.
+   */
+  @Getter
+  @Setter
+  @Facebook("reply_audience")
+  private TdReply.TdReplyAudience replyAudience;
 
   /**
    * Media ID of the post that was quoted. Note: This only appears on quote posts.
@@ -189,6 +264,46 @@ public class TdMedia extends FacebookType {
   @Setter
   @Facebook("link_attachment_url")
   private String linkAttachmentUrl;
+
+  /**
+   * URL of the GIF attached to the post. Only appears on posts with a GIF attachment.
+   */
+  @Getter
+  @Setter
+  @Facebook("gif_url")
+  private String gifUrl;
+
+  /**
+   * Topic tag in the post's header. Only appears on posts with a topic tag.
+   */
+  @Getter
+  @Setter
+  @Facebook("topic_tag")
+  private String topicTag;
+
+  /**
+   * Whether the media was posted as a spoiler.
+   */
+  @Getter
+  @Setter
+  @Facebook("is_spoiler_media")
+  private Boolean isSpoilerMedia;
+
+  /**
+   * Status of a ghost post, currently ACTIVE or ARCHIVED. Only appears on ghost posts.
+   */
+  @Getter
+  @Setter
+  @Facebook("ghost_post_status")
+  private String ghostPostStatus;
+
+  /**
+   * When the ghost post expires or expired. Only appears on ghost posts.
+   */
+  @Getter
+  @Setter
+  @Facebook("ghost_post_expiration_timestamp")
+  private Date ghostPostExpirationTimestamp;
 
   @Getter
   @Setter

@@ -1,0 +1,19 @@
+{
+  "id": "100",
+  "profile_picture_url": null,
+  "is_verified": null,
+  "gif_url": null,
+  "topic_tag": null,
+  "has_replies": null,
+  "is_reply": null,
+  "is_reply_owned_by_me": null,
+  "root_post": null,
+  "replied_to": null,
+  "hide_status": null,
+  "reply_audience": null,
+  "is_spoiler_media": null,
+  "ghost_post_status": null,
+  "ghost_post_expiration_timestamp": null,
+  "quoted_post": null,
+  "poll_attachment": null
+}
