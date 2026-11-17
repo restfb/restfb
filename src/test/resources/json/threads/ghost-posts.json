@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": "100",
+      "ghost_post_status": "ACTIVE",
+      "ghost_post_expiration_timestamp": "2026-11-18T10:00:00+0000"
+    },
+    {
+      "id": "200",
+      "ghost_post_status": "ARCHIVED",
+      "ghost_post_expiration_timestamp": "2026-11-16T11:00:00+0100"
+    },
+    {
+      "id": "300",
+      "ghost_post_status": "FUTURE_STATUS"
+    }
+  ]
+}

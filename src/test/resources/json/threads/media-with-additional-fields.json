@@ -1,0 +1,19 @@
+{
+  "id": "100",
+  "profile_picture_url": "https://example.org/avatar.jpg",
+  "is_verified": true,
+  "gif_url": "https://example.org/animation.gif",
+  "topic_tag": "ThreadsAPI",
+  "is_spoiler_media": true,
+  "has_replies": true,
+  "is_reply": true,
+  "is_reply_owned_by_me": true,
+  "root_post": {
+    "id": "200"
+  },
+  "replied_to": {
+    "id": "300"
+  },
+  "hide_status": "NOT_HUSHED",
+  "reply_audience": "FOLLOWERS_ONLY"
+}

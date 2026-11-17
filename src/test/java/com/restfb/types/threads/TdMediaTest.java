@@ -26,13 +26,89 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.Locale;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
-import java.util.Locale;
-
 class TdMediaTest extends AbstractJsonMapperTests {
+
+  @Test
+  void checkAdditionalFields() {
+    // Synthetic field-coverage fixture, not a captured API response.
+    TdMedia media =
+        createJsonMapper().toJavaObject(jsonFromClasspath("threads/media-with-additional-fields"), TdMedia.class);
+
+    assertEquals("https://example.org/avatar.jpg", media.getProfilePictureUrl());
+    assertTrue(media.getIsVerified());
+    assertEquals("https://example.org/animation.gif", media.getGifUrl());
+    assertEquals("ThreadsAPI", media.getTopicTag());
+    assertTrue(media.getIsSpoilerMedia());
+    assertTrue(media.getHasReplies());
+    assertTrue(media.getIsReply());
+    assertTrue(media.getIsReplyOwnedByMe());
+    assertNotNull(media.getRootPost());
+    assertEquals("200", media.getRootPost().getId());
+    assertNotNull(media.getRepliedTo());
+    assertEquals("300", media.getRepliedTo().getId());
+    assertEquals(TdReply.TdHideStatus.NOT_HUSHED, media.getHideStatus());
+    assertEquals(TdReply.TdReplyAudience.FOLLOWERS_ONLY, media.getReplyAudience());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "true", "false", "null" })
+  void checkOptionalBooleanValues(String rawValue) {
+    String json = String.format(
+      "{\"is_verified\":%1$s,\"has_replies\":%1$s,\"is_reply\":%1$s,\"is_reply_owned_by_me\":%1$s,\"is_spoiler_media\":%1$s}",
+      rawValue);
+    TdMedia media = createJsonMapper().toJavaObject(json, TdMedia.class);
+    Boolean expected = "null".equals(rawValue) ? null : Boolean.valueOf(rawValue);
+
+    assertEquals(expected, media.getIsVerified());
+    assertEquals(expected, media.getHasReplies());
+    assertEquals(expected, media.getIsReply());
+    assertEquals(expected, media.getIsReplyOwnedByMe());
+    assertEquals(expected, media.getIsSpoilerMedia());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "threads/basic-media", "threads/additional-fields-null" })
+  void checkMissingOrNullAdditionalFields(String fixture) {
+    TdMedia media = createJsonMapper().toJavaObject(jsonFromClasspath(fixture), TdMedia.class);
+
+    assertNull(media.getProfilePictureUrl());
+    assertNull(media.getIsVerified());
+    assertNull(media.getGifUrl());
+    assertNull(media.getTopicTag());
+    assertNull(media.getHasReplies());
+    assertNull(media.getIsReply());
+    assertNull(media.getIsReplyOwnedByMe());
+    assertNull(media.getRootPost());
+    assertNull(media.getRepliedTo());
+    assertNull(media.getHideStatus());
+    assertNull(media.getReplyAudience());
+    assertNull(media.getIsSpoilerMedia());
+    assertNull(media.getGhostPostStatus());
+    assertNull(media.getGhostPostExpirationTimestamp());
+  }
+
+  @Test
+  void checkGhostPosts() {
+    List<TdMedia> media = createJsonMapper().toJavaList(jsonFromClasspath("threads/ghost-posts"), TdMedia.class);
+
+    assertEquals(3, media.size());
+    assertEquals("ACTIVE", media.get(0).getGhostPostStatus());
+    assertEquals(Instant.parse("2026-11-18T10:00:00Z"), media.get(0).getGhostPostExpirationTimestamp().toInstant());
+    assertEquals("ARCHIVED", media.get(1).getGhostPostStatus());
+    assertEquals(Instant.parse("2026-11-16T10:00:00Z"), media.get(1).getGhostPostExpirationTimestamp().toInstant());
+    assertEquals("FUTURE_STATUS", media.get(2).getGhostPostStatus());
+    assertNull(media.get(2).getGhostPostExpirationTimestamp());
+  }
 
   @Test
   void checkBasic() {
