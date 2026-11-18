@@ -50,6 +50,8 @@ class IgAudioTest extends AbstractJsonMapperTests {
     assertEquals("music", musicAudio.getAudioType());
     assertEquals("Birthday Wish", musicAudio.getTitle());
     assertEquals("https://scontent.example/audio.mp3", musicAudio.getDownloadUrl());
+    assertEquals(Boolean.FALSE, musicAudio.getIsAdsEligible());
+    assertEquals("https://www.instagram.com/reels/audio/587784541076604/", musicAudio.getOnPlatformAudioPreviewLink());
     assertNull(musicAudio.getIgUsername());
     assertNull(musicAudio.getProfilePictureUrl());
 
@@ -60,6 +62,9 @@ class IgAudioTest extends AbstractJsonMapperTests {
     assertEquals("https://scontent.example/profile.jpg", originalSoundAudio.getProfilePictureUrl());
     assertNull(originalSoundAudio.getDisplayArtist());
     assertNull(originalSoundAudio.getCoverArtworkThumbnailUrl());
+    assertNull(originalSoundAudio.getCoverArtworkThumbnailUri());
+    assertNull(originalSoundAudio.getIsAdsEligible());
+    assertNull(originalSoundAudio.getOnPlatformAudioPreviewLink());
   }
 
   @Test
@@ -75,6 +80,64 @@ class IgAudioTest extends AbstractJsonMapperTests {
     assertEquals("music", igAudio.getAudioType());
     assertEquals("Birthday Wish", igAudio.getTitle());
     assertEquals("https://scontent.example/audio-metadata.mp3", igAudio.getDownloadUrl());
+    assertEquals(Boolean.TRUE, igAudio.getIsAdsEligible());
+    assertEquals("https://www.instagram.com/reels/audio/587784541076604/", igAudio.getOnPlatformAudioPreviewLink());
+  }
+
+  @Test
+  void checkExplicitNullFields() {
+    IgAudio igAudio = createJsonMapper().toJavaObject(
+      "{\"is_ads_eligible\":null,\"on_platform_audio_preview_link\":null,"
+          + "\"cover_artwork_thumbnail_url\":null,\"cover_artwork_thumbnail_uri\":null,\"download_url\":null}",
+      IgAudio.class);
+
+    assertNull(igAudio.getIsAdsEligible());
+    assertNull(igAudio.getOnPlatformAudioPreviewLink());
+    assertNull(igAudio.getCoverArtworkThumbnailUrl());
+    assertNull(igAudio.getCoverArtworkThumbnailUri());
+    assertNull(igAudio.getDownloadUrl());
+  }
+
+  @Test
+  void checkCoverArtworkGettersPreferMatchingField() {
+    IgAudio igAudio =
+        createJsonMapper().toJavaObject("{\"cover_artwork_thumbnail_url\":\"https://scontent.example/metadata.jpg\","
+            + "\"cover_artwork_thumbnail_uri\":\"https://scontent.example/search.jpg\"}",
+          IgAudio.class);
+
+    assertEquals("https://scontent.example/metadata.jpg", igAudio.getCoverArtworkThumbnailUrl());
+    assertEquals("https://scontent.example/search.jpg", igAudio.getCoverArtworkThumbnailUri());
+  }
+
+  @Test
+  void checkCoverArtworkFallbackWithExplicitNull() {
+    IgAudio metadataAudio =
+        createJsonMapper().toJavaObject("{\"cover_artwork_thumbnail_url\":\"https://scontent.example/metadata.jpg\","
+            + "\"cover_artwork_thumbnail_uri\":null}",
+          IgAudio.class);
+    IgAudio searchAudio = createJsonMapper().toJavaObject("{\"cover_artwork_thumbnail_url\":null,"
+        + "\"cover_artwork_thumbnail_uri\":\"https://scontent.example/search.jpg\"}",
+      IgAudio.class);
+
+    assertEquals("https://scontent.example/metadata.jpg", metadataAudio.getCoverArtworkThumbnailUri());
+    assertEquals("https://scontent.example/search.jpg", searchAudio.getCoverArtworkThumbnailUrl());
+  }
+
+  @Test
+  void checkAdsResponseWithEmptyDownloadUrl() {
+    IgAudioResponse response = createJsonMapper().toJavaObject("{\"audio\":[{\"audio_id\":\"587784541076604\","
+        + "\"cover_artwork_thumbnail_uri\":\"https://scontent.example/cover.jpg\","
+        + "\"display_artist\":\"Shuba\",\"duration_in_ms\":153760,\"title\":\"Birthday Wish\",\"download_url\":\"\"}]}",
+      IgAudioResponse.class);
+
+    assertEquals(1, response.getAudio().size());
+    IgAudio igAudio = response.getAudio().get(0);
+    assertEquals("587784541076604", igAudio.getAudioId());
+    assertEquals("https://scontent.example/cover.jpg", igAudio.getCoverArtworkThumbnailUrl());
+    assertEquals("", igAudio.getDownloadUrl());
+    assertNull(igAudio.getAudioType());
+    assertNull(igAudio.getIsAdsEligible());
+    assertNull(igAudio.getOnPlatformAudioPreviewLink());
   }
 
   @Test
@@ -112,5 +175,9 @@ class IgAudioTest extends AbstractJsonMapperTests {
     assertNull(igAudio.getAudioId());
     assertNull(igAudio.getTitle());
     assertNull(igAudio.getDurationInMs());
+    assertNull(igAudio.getCoverArtworkThumbnailUrl());
+    assertNull(igAudio.getCoverArtworkThumbnailUri());
+    assertNull(igAudio.getIsAdsEligible());
+    assertNull(igAudio.getOnPlatformAudioPreviewLink());
   }
 }
