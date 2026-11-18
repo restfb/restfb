@@ -5,5 +5,7 @@
   "duration_in_ms": 153760,
   "audio_type": "music",
   "title": "Birthday Wish",
-  "download_url": "https://scontent.example/audio-metadata.mp3"
+  "download_url": "https://scontent.example/audio-metadata.mp3",
+  "is_ads_eligible": true,
+  "on_platform_audio_preview_link": "https://www.instagram.com/reels/audio/587784541076604/"
 }
