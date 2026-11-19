@@ -64,12 +64,22 @@ public class Change {
   @Facebook("value")
   private String rawValue;
 
+  /**
+   * Creates the factory used to resolve this change's value. Subclasses can select a different platform without
+   * duplicating the JSON mapping lifecycle.
+   *
+   * @return a new change value factory
+   */
+  protected ChangeValueFactory createValueFactory() {
+    return new ChangeValueFactory();
+  }
+
   @JsonMapper.JsonMappingCompleted
   private void convertChangeValue(JsonMapper mapper) {
 
     if (rawValue != null) {
       ChangeValueFactory factory =
-          new ChangeValueFactory().setField(field).setUserObjectVerb(userObjectVerb).setValue(rawValue);
+          createValueFactory().setField(field).setUserObjectVerb(userObjectVerb).setValue(rawValue);
       value = factory.buildWithMapper(mapper);
       if (value instanceof UserVerbValue && userObjectVerb != null) {
         ((UserVerbValue) value).setVerb(userObjectVerb);

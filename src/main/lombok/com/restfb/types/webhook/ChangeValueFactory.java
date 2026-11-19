@@ -23,13 +23,18 @@ package com.restfb.types.webhook;
 
 import static com.restfb.logging.RestFBLogger.VALUE_FACTORY_LOGGER;
 
+import java.util.Locale;
+import java.util.Objects;
+
 import com.restfb.JsonMapper;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
+import com.restfb.types.threads.TdMedia;
 import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
+import com.restfb.types.webhook.threads.ThreadsMediaValue;
 import com.restfb.types.webhook.whatsapp.*;
 
 /**
@@ -42,6 +47,28 @@ public class ChangeValueFactory {
   private JsonValue value;
 
   private ChangeValue.Verb userObjectVerb;
+
+  private Platform platform = Platform.DEFAULT;
+
+  /**
+   * Selects the namespace used to resolve event fields. The default preserves the existing Facebook, Instagram, and
+   * WhatsApp mappings. Threads needs a separate namespace because, for example, both platforms use {@code mentions}.
+   *
+   * @param platform
+   *          the non-null platform namespace
+   * @return this factory
+   */
+  public ChangeValueFactory setPlatform(Platform platform) {
+    this.platform = Objects.requireNonNull(platform, "platform");
+    return this;
+  }
+
+  /**
+   * Namespaces for event fields, not API versions or notification topics.
+   */
+  public enum Platform {
+    DEFAULT, THREADS
+  }
 
   public ChangeValueFactory setField(String field) {
     this.field = field;
@@ -78,30 +105,38 @@ public class ChangeValueFactory {
       JsonObject objValue = value.asObject();
       String classDefinition;
       if (objValue != null && field != null) {
-        classDefinition = field.toUpperCase();
-        if (objValue.get("item") != null) {
-          classDefinition += "_" + objValue.get("item").asString().toUpperCase();
-        }
-        if (objValue.get("verb") != null) {
-          classDefinition += "_" + objValue.get("verb").asString().toUpperCase();
-        }
-        if (userObjectVerb != null) {
-          classDefinition += "_" + userObjectVerb.name();
-        }
-        if (objValue.get("messaging_product") != null) {
-          classDefinition += "_" + objValue.get("messaging_product").asString().toUpperCase();
-        }
+        if (platform == Platform.THREADS) {
+          classDefinition = "THREADS_" + field.toUpperCase(Locale.ROOT);
+        } else {
+          classDefinition = field.toUpperCase();
+          if (objValue.get("item") != null) {
+            classDefinition += "_" + objValue.get("item").asString().toUpperCase();
+          }
+          if (objValue.get("verb") != null) {
+            classDefinition += "_" + objValue.get("verb").asString().toUpperCase();
+          }
+          if (userObjectVerb != null) {
+            classDefinition += "_" + userObjectVerb.name();
+          }
+          if (objValue.get("messaging_product") != null) {
+            classDefinition += "_" + objValue.get("messaging_product").asString().toUpperCase();
+          }
 
-        // special handling for permissions
-        String verbString =
-            (objValue.get("verb") != null && objValue.get("verb").isString()) ? objValue.get("verb").asString() : "";
-        if (verbString.equals("granted") || verbString.equals("revoked")) {
-          classDefinition = verbString.toUpperCase();
+          // special handling for permissions
+          String verbString =
+              (objValue.get("verb") != null && objValue.get("verb").isString()) ? objValue.get("verb").asString() : "";
+          if (verbString.equals("granted") || verbString.equals("revoked")) {
+            classDefinition = verbString.toUpperCase();
+          }
         }
 
         try {
           ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
-          return mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());
+          ChangeValue changeValue = mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());
+          if (changeValue instanceof ThreadsMediaValue) {
+            ((ThreadsMediaValue) changeValue).setMedia(mapper.toJavaObject(objValue.toString(), TdMedia.class));
+          }
+          return changeValue;
         } catch (IllegalArgumentException iae) {
           VALUE_FACTORY_LOGGER.warn("undefined change value detected: {}", classDefinition);
           VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: {}", objValue.toString());
@@ -175,6 +210,12 @@ public class ChangeValueFactory {
     MENTIONS(InstagramMentionsValue.class), //
     COMMENTS(InstagramCommentsValue.class), //
     LIVE_COMMENTS(InstagramCommentsValue.class), //
+
+    // Threads
+    THREADS_REPLIES(ThreadsMediaValue.class), //
+    THREADS_MENTIONS(ThreadsMediaValue.class), //
+    THREADS_DELETE(ThreadsMediaValue.class), //
+    THREADS_PUBLISH(ThreadsMediaValue.class), //
 
     // User
     HOMETOWN_ADD(UserPageValue.class), //

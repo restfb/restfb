@@ -1,0 +1,28 @@
+{
+  "app_id": "123456",
+  "topic": "moderate",
+  "target_id": "78901",
+  "time": 1723226877,
+  "subscription_id": "234567",
+  "has_uid_field": false,
+  "values": {
+    "value": {
+      "id": "8901234",
+      "username": "test_username",
+      "text": "Reply",
+      "media_type": "TEXT_POST",
+      "permalink": "https://www.threads.com/@test_username/post/Pp",
+      "replied_to": {
+        "id": "567890"
+      },
+      "root_post": {
+        "id": "123456",
+        "owner_id": "123456",
+        "username": "test_username_2"
+      },
+      "shortcode": "Pp",
+      "timestamp": "2024-08-07T10:33:16+0000"
+    },
+    "field": "replies"
+  }
+}
