@@ -358,27 +358,10 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public <T> ApiResult<T> fetchObjectsWithResult(List<String> ids, Class<T> objectType, Parameter... parameters) {
-    verifyParameterPresence("ids", ids);
-    verifyParameterPresence(CONNECTION_TYPE, objectType);
-    requireNotEmpty(ids, "The list of IDs cannot be empty.");
+    List<String> normalizedIds = normalizeFetchObjectIds(ids, objectType, parameters);
+    List<BatchRequest> batchRequests = new ArrayList<>(normalizedIds.size());
 
-    if (ids.size() > MAX_BATCH_SIZE) {
-      throw new IllegalArgumentException("The list of IDs cannot contain more than " + MAX_BATCH_SIZE + " entries.");
-    }
-
-    if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
-      throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
-          + "the list of IDs passed to this method determines the requested objects.");
-    }
-
-    List<String> normalizedIds = new ArrayList<>(ids.size());
-    List<BatchRequest> batchRequests = new ArrayList<>(ids.size());
-
-    // Normalize the IDs
-    for (String id : ids) {
-      throwIAEonBlankId(id);
-      String normalizedId = id.trim();
-      normalizedIds.add(normalizedId);
+    for (String normalizedId : normalizedIds) {
       if (normalizedId.regionMatches(true, 0, "http://", 0, 7)
           || normalizedId.regionMatches(true, 0, "https://", 0, 8)) {
         Parameter[] urlParameters = parametersWithAdditionalParameter(Parameter.with("id", normalizedId), parameters);
@@ -431,13 +414,31 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     }
   }
 
-  private void throwIAEonBlankId(String id) {
-    if (StringUtils.isBlank(id)) {
-      throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
+  static List<String> normalizeFetchObjectIds(List<String> ids, Class<?> objectType, Parameter... parameters) {
+    verifyParameterPresence("ids", ids);
+    verifyParameterPresence(CONNECTION_TYPE, objectType);
+    requireNotEmpty(ids, "The list of IDs cannot be empty.");
+
+    if (ids.size() > MAX_BATCH_SIZE) {
+      throw new IllegalArgumentException("The list of IDs cannot contain more than " + MAX_BATCH_SIZE + " entries.");
     }
+
+    if (Stream.of(parameters).anyMatch(p -> IDS_PARAM_NAME.equals(p.name))) {
+      throw new IllegalArgumentException("You cannot specify the '" + IDS_PARAM_NAME + "' URL parameter yourself - "
+          + "the list of IDs passed to this method determines the requested objects.");
+    }
+
+    List<String> normalizedIds = new ArrayList<>(ids.size());
+    for (String id : ids) {
+      if (StringUtils.isBlank(id)) {
+        throw new IllegalArgumentException("The list of IDs cannot contain blank strings.");
+      }
+      normalizedIds.add(id.trim());
+    }
+    return normalizedIds;
   }
 
-  private <T> ApiResult<T> toApiResult(T result, RequestExecutionResult executionResult) {
+  final <T> ApiResult<T> toApiResult(T result, RequestExecutionResult executionResult) {
     return ApiResult.withMetadata(result, toResponseMetadata(executionResult));
   }
 

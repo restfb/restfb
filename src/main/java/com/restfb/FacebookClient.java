@@ -121,8 +121,9 @@ public interface FacebookClient {
   FacebookClient createClientWithAccessToken(String accessToken);
 
   /**
-   * Fetches up to 50 <a href="http://developers.facebook.com/docs/reference/api/">Graph API objects</a> in a single
-   * batch call, mapping the results to an instance of {@code objectType}.
+   * Fetches up to 50 <a href="http://developers.facebook.com/docs/reference/api/">Graph API objects</a>, mapping the
+   * results to an instance of {@code objectType}. The request strategy depends on the client: Facebook uses a batch
+   * call, while Threads uses GET requests.
    * <p>
    * You'll need to write your own container type ({@code objectType}) to hold the results. See
    * <a href="http://restfb.com">http://restfb.com</a> for an example of how to do this.
