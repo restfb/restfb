@@ -26,7 +26,7 @@
     <version.bundlor>1.1.2.RELEASE</version.bundlor>
     <version.enforcer.maven.plugin>3.6.3</version.enforcer.maven.plugin>
     <version.sonar.maven.plugin>5.7.0.6970</version.sonar.maven.plugin>
-    <version.spotless.maven.plugin>3.6.0</version.spotless.maven.plugin>
+    <version.spotless.maven.plugin>3.9.0</version.spotless.maven.plugin>
 
     <!-- additional configuration -->
     <year.current>2024</year.current>
