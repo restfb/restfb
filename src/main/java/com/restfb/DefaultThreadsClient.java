@@ -21,13 +21,23 @@
  */
 package com.restfb;
 
+import static com.restfb.logging.RestFBLogger.CLIENT_LOGGER;
 import static com.restfb.util.ObjectUtil.verifyParameterPresence;
+import static com.restfb.util.UrlUtils.urlEncode;
+import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
+import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
+import com.restfb.WebRequestor.Response;
+import com.restfb.exception.FacebookGraphException;
+import com.restfb.exception.FacebookNetworkException;
 import com.restfb.exception.FacebookResponseContentException;
+import com.restfb.json.JsonArray;
+import com.restfb.json.JsonObject;
 import com.restfb.scope.ScopeBuilder;
 
 /**
@@ -35,6 +45,13 @@ import com.restfb.scope.ScopeBuilder;
  * DefaultFacebookClient and provides additional methods for accessing Threads-specific functionalities.
  */
 public class DefaultThreadsClient extends DefaultFacebookClient {
+
+  // Graph error 100 alone is ambiguous. Require a message that explicitly rejects the ids parameter.
+  private static final Pattern UNSUPPORTED_IDS_MESSAGE = Pattern
+    .compile("(?:\\(#100\\)\\s*)?(?:(?:unknown|unsupported|unrecognized) parameter(?:\\s*:\\s*|\\s+)['\"`]?ids['\"`]?"
+        + "|(?:the\\s+)?(?:parameter\\s+['\"`]?ids['\"`]?|['\"`]?ids['\"`]?\\s+parameter)\\s+is\\s+"
+        + "(?:not supported|no longer supported))\\.?",
+      Pattern.CASE_INSENSITIVE);
 
   public DefaultThreadsClient(Version version) {
     super(version);
@@ -56,6 +73,58 @@ public class DefaultThreadsClient extends DefaultFacebookClient {
   public DefaultThreadsClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
       Version apiVersion) {
     super(accessToken, appSecret, webRequestor, jsonMapper, apiVersion);
+  }
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * Threads first tries a single GET with the {@code ids} parameter. If Threads explicitly rejects that parameter, this
+   * method fetches each ID separately. The combined result of those requests has no response metadata.
+   */
+  @Override
+  public <T> ApiResult<T> fetchObjectsWithResult(List<String> ids, Class<T> objectType, Parameter... parameters) {
+    List<String> normalizedIds = normalizeFetchObjectIds(ids, objectType, parameters);
+    JsonArray idArray = new JsonArray();
+    normalizedIds.forEach(idArray::add);
+
+    RequestExecutionResult executionResult;
+    try {
+      executionResult = makeRequestWithMetadata("",
+        parametersWithAdditionalParameter(Parameter.with(IDS_PARAM_NAME, idArray.toString()), parameters));
+    } catch (FacebookGraphException e) {
+      if (!isUnsupportedIdsParameter(e)) {
+        throw e;
+      }
+
+      CLIENT_LOGGER.debug("Threads rejected the ids parameter; retrying with individual GET requests.");
+      return fetchObjectsIndividually(normalizedIds, objectType, parameters);
+    }
+
+    T mapped = getJsonMapper().toJavaObject(successfulResponseBody(executionResult), objectType);
+    return toApiResult(mapped, executionResult);
+  }
+
+  private static boolean isUnsupportedIdsParameter(FacebookGraphException e) {
+    return Integer.valueOf(HTTP_BAD_REQUEST).equals(e.getHttpStatusCode())
+        && Integer.valueOf(100).equals(e.getErrorCode()) && !Boolean.TRUE.equals(e.getIsTransient())
+        && e.getErrorMessage() != null && UNSUPPORTED_IDS_MESSAGE.matcher(e.getErrorMessage().trim()).matches();
+  }
+
+  private <T> ApiResult<T> fetchObjectsIndividually(List<String> ids, Class<T> objectType, Parameter... parameters) {
+    JsonObject combinedResponse = new JsonObject();
+    for (String id : ids) {
+      RequestExecutionResult executionResult = makeRequestWithMetadata(urlEncode(id).replace("+", "%20"), parameters);
+      combinedResponse.set(id, getJsonMapper().toJavaObject(successfulResponseBody(executionResult), JsonObject.class));
+    }
+    return ApiResult.withoutMetadata(getJsonMapper().toJavaObject(combinedResponse.toString(), objectType));
+  }
+
+  private static String successfulResponseBody(RequestExecutionResult executionResult) {
+    Response response = executionResult.getResponse();
+    if (response.getStatusCode() != HTTP_OK) {
+      throw new FacebookNetworkException(response.getStatusCode());
+    }
+    return response.getBody();
   }
 
   @Override

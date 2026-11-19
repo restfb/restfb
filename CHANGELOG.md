@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Issue #1709: restore Threads multi-object GETs with `ids` and fall back to individual GETs if Threads explicitly rejects the parameter. Facebook continues to use batch requests.
 * Issue #1704: add typed Threads webhook notifications and listener callbacks using the shared change mapping and dispatcher.
 * Add `is_ads_eligible` and `on_platform_audio_preview_link` to `IgAudio` and document audio fields and cover artwork URL fallback behavior.
 * Add missing Threads media and reply field mappings for author profiles, GIFs, topic tags, reply metadata, media spoilers, ghost posts, and reply polls.
