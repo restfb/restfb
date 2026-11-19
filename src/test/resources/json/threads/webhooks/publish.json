@@ -1,0 +1,18 @@
+{
+  "app_id": "123456",
+  "topic": "interaction",
+  "target_id": "78901",
+  "time": 1723226877,
+  "subscription_id": "234567",
+  "has_uid_field": false,
+  "values": {
+    "value": {
+      "id": "8901234",
+      "media_type": "TEXT_POST",
+      "permalink": "https://www.threads.com/@test_username/post/Pp",
+      "timestamp": "2024-08-07T10:33:16+0000",
+      "username": "test_username"
+    },
+    "field": "publish"
+  }
+}

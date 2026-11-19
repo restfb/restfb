@@ -1,0 +1,20 @@
+{
+  "app_id": "123456",
+  "topic": "moderate",
+  "target_id": "78901",
+  "time": 1723226877,
+  "subscription_id": "234567",
+  "has_uid_field": false,
+  "values": {
+    "value": {
+      "id": "8901234",
+      "owner": {
+        "owner_id": "78901"
+      },
+      "deleted_at": "2024-08-07T10:33:16+0000",
+      "timestamp": "2024-08-07T10:33:16+0000",
+      "username": "test_username"
+    },
+    "field": "delete"
+  }
+}

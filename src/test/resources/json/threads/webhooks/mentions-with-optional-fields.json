@@ -1,0 +1,49 @@
+{
+  "app_id": "123456",
+  "topic": "interaction",
+  "target_id": "78901",
+  "time": 1723226877,
+  "subscription_id": "234567",
+  "has_uid_field": false,
+  "values": {
+    "value": {
+      "id": "8901234",
+      "username": "test_username",
+      "text": "Synthetic field-coverage example",
+      "media_product_type": "THREADS",
+      "media_type": "VIDEO",
+      "permalink": "https://www.threads.com/@test_username/post/Pp",
+      "shortcode": "Pp",
+      "timestamp": "2024-08-07T10:33:16+0000",
+      "alt_text": "Video description",
+      "gif_url": "https://example.org/animation.gif",
+      "media_url": "https://example.org/video.mp4",
+      "thumbnail_url": "https://example.org/thumbnail.jpg",
+      "profile_picture_url": "https://example.org/author.jpg",
+      "is_verified": false,
+      "has_replies": false,
+      "is_quote_post": true,
+      "is_reply": true,
+      "replied_to": {
+        "id": "567890"
+      },
+      "root_post": {
+        "id": "123456",
+        "owner_id": "654321",
+        "username": "test_username_2"
+      },
+      "quoted_post": {
+        "id": "456789"
+      },
+      "reposted_post": "345678",
+      "poll_attachment": {
+        "option_a": "First",
+        "option_b": "Second",
+        "option_a_votes_percentage": 0.25,
+        "option_b_votes_percentage": 0.75,
+        "expiration_timestamp": "2024-08-08T10:33:16+0000"
+      }
+    },
+    "field": "mentions"
+  }
+}

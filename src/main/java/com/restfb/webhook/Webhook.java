@@ -25,12 +25,17 @@ import com.restfb.types.webhook.*;
 import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
+import com.restfb.types.webhook.threads.ThreadsMediaValue;
+import com.restfb.types.webhook.threads.ThreadsWebhookChange;
+import com.restfb.types.webhook.threads.ThreadsWebhookObject;
 
 public class Webhook {
 
   private WebhookMessagingListener messagingListener;
 
   private WebhookChangeListener eventListener;
+
+  private ThreadsWebhookChangeListener threadsListener;
 
   /**
    * registers an listener that handles the messaging Items of an incoming webhook request
@@ -48,6 +53,57 @@ public class Webhook {
    */
   public void registerListener(WebhookChangeListener listener) {
     this.eventListener = listener;
+  }
+
+  /**
+   * Registers the listener for Threads notifications, independently of the Facebook/Instagram and messaging listeners.
+   * Registering another Threads listener replaces the previous one.
+   *
+   * @param listener
+   *          the listener, or {@code null} to disable Threads callbacks
+   */
+  public void registerListener(ThreadsWebhookChangeListener listener) {
+    this.threadsListener = listener;
+  }
+
+  /**
+   * Dispatches the single change in a <a href="https://developers.facebook.com/documentation/threads/webhooks/">Threads
+   * notification</a>. Map the received JSON to {@link ThreadsWebhookObject} before calling this method. The existing
+   * Facebook, Instagram, and messaging listeners are not invoked. Notifications without a change or value are ignored.
+   * This method neither receives nor verifies HTTP requests.
+   *
+   * @param notification
+   *          the Threads notification
+   */
+  public void process(ThreadsWebhookObject notification) {
+    if (threadsListener == null) {
+      return;
+    }
+    ThreadsWebhookChange change = notification.getValues();
+    if (change == null || change.getValue() == null) {
+      return;
+    }
+    if (!(change.getValue() instanceof ThreadsMediaValue) || change.getField() == null) {
+      threadsListener.unknown(notification, change.getValue());
+      return;
+    }
+    ThreadsMediaValue value = (ThreadsMediaValue) change.getValue();
+    switch (change.getField()) {
+    case "replies":
+      threadsListener.replies(notification, value);
+      break;
+    case "mentions":
+      threadsListener.mentions(notification, value);
+      break;
+    case "delete":
+      threadsListener.delete(notification, value);
+      break;
+    case "publish":
+      threadsListener.publish(notification, value);
+      break;
+    default:
+      threadsListener.unknown(notification, value);
+    }
   }
 
   public void process(WebhookObject webhookObject) {

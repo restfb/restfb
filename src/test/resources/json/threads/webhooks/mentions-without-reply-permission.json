@@ -1,0 +1,24 @@
+{
+  "app_id": "123456",
+  "topic": "interaction",
+  "target_id": "78901",
+  "time": 1723226877,
+  "subscription_id": "234567",
+  "has_uid_field": false,
+  "values": {
+    "value": {
+      "id": "8901234",
+      "alt_text": "test alt text",
+      "gif_url": "https://media2.giphy.com/media/v1.Y2lkPTA1NzQyMTNjd2R0MXcybjZ6bDNyam9qaXJsN3RicnVncnFsanJ2dGk3eDJiejRmbyZlcD12MV9naWZzX2dpZklkJmN0PWc/3o85xEFRBYvAnamJnG/200.gif",
+      "is_quote_post": false,
+      "media_product_type": "THREADS",
+      "media_type": "TEXT_POST",
+      "permalink": "https://www.threads.com/@test_username/post/Pp",
+      "shortcode": "Pp",
+      "text": "Reply",
+      "timestamp": "2024-08-07T10:33:16+0000",
+      "username": "test_username"
+    },
+    "field": "mentions"
+  }
+}
