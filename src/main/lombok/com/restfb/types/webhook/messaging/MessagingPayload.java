@@ -43,6 +43,14 @@ public class MessagingPayload {
   @Facebook("sticker_id")
   private String stickerId;
 
+  /**
+   * ID of the video associated with a {@code reel} or {@code ig_reel} attachment. Meta sends it as a JSON number.
+   */
+  @Getter
+  @Setter
+  @Facebook("reel_video_id")
+  private String reelVideoId;
+
   @Getter
   @Setter
   @Facebook
@@ -193,7 +201,7 @@ public class MessagingPayload {
   private String fallback;
 
   /**
-   * Title of the attachment. Applicable to attachment type: fallback
+   * Title of the attachment, used for example by {@code fallback}, {@code reel} and {@code ig_reel} attachments.
    */
   @Getter
   @Setter

@@ -1,0 +1,33 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "12345654332",
+      "time": 1518479195594,
+      "messaging": [
+        {
+          "sender": {
+            "id": "987654321432"
+          },
+          "recipient": {
+            "id": "12345654332"
+          },
+          "timestamp": 1518479195308,
+          "message": {
+            "mid": "mid.facebook-reel",
+            "attachments": [
+              {
+                "type": "reel",
+                "payload": {
+                  "title": "Facebook Reel",
+                  "url": "https://www.facebook.com/reel/12345678901234567",
+                  "reel_video_id": 12345678901234567
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

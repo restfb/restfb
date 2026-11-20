@@ -62,6 +62,16 @@ public class MessagingAttachment {
   public static final String VIDEO = "video";
 
   /**
+   * The "reel" attachment type for Facebook Reels.
+   */
+  public static final String REEL = "reel";
+
+  /**
+   * The "ig_reel" attachment type for Instagram Reels.
+   */
+  public static final String IG_REEL = "ig_reel";
+
+  /**
    * The "unsupported type" attachment type
    */
   public static final String UNSUPPORTED_TYPE = "unsupported_type";
@@ -159,6 +169,20 @@ public class MessagingAttachment {
    */
   public boolean isVideo() {
     return VIDEO.equals(type);
+  }
+
+  /**
+   * @return {@code true} if the attachment is a Facebook Reel, {@code false} otherwise
+   */
+  public boolean isReel() {
+    return REEL.equals(type);
+  }
+
+  /**
+   * @return {@code true} if the attachment is an Instagram Reel, {@code false} otherwise
+   */
+  public boolean isIgReel() {
+    return IG_REEL.equals(type);
   }
 
   /**
