@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Issue #1439: recognize Facebook and Instagram Reel attachments in messaging webhooks and expose `reel_video_id`.
 * Issue #1709: restore Threads multi-object GETs with `ids` and fall back to individual GETs if Threads explicitly rejects the parameter. Facebook continues to use batch requests.
 * Issue #1704: add typed Threads webhook notifications and listener callbacks using the shared change mapping and dispatcher.
 * Add `is_ads_eligible` and `on_platform_audio_preview_link` to `IgAudio` and document audio fields and cover artwork URL fallback behavior.

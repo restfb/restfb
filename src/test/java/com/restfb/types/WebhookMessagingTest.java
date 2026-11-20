@@ -122,7 +122,10 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     MessagingAttachment attachment = item.getAttachments().get(0);
     assertEquals("image", attachment.getType());
     assertTrue(attachment.isImage());
+    assertFalse(attachment.isReel());
+    assertFalse(attachment.isIgReel());
     assertEquals("IMAGE_URL", attachment.getPayload().getUrl());
+    assertNull(attachment.getPayload().getReelVideoId());
     AtomicBoolean found = new AtomicBoolean(false);
     webhookListener.registerListener(new AbstractWebhookMessagingListener() {
 
@@ -137,6 +140,40 @@ class WebhookMessagingTest extends AbstractJsonMapperTests {
     });
     webhookListener.process(webhookObject);
     assertTrue(found.get());
+  }
+
+  @Test
+  void messagingMessageFacebookReelAttachment() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("webhooks/messaging-message-reel-attachment"), WebhookObject.class);
+    assertTrue(webhookObject.isPage());
+    MessageItem message = webhookObject.getEntryList().get(0).getMessaging().get(0).getMessage();
+    assertEquals(1, message.getAttachments().size());
+    MessagingAttachment attachment = message.getAttachments().get(0);
+    assertEquals(MessagingAttachment.REEL, attachment.getType());
+    assertTrue(attachment.isReel());
+    assertFalse(attachment.isIgReel());
+    MessagingPayload payload = attachment.getPayload();
+    assertEquals("Facebook Reel", payload.getTitle());
+    assertEquals("https://www.facebook.com/reel/12345678901234567", payload.getUrl());
+    assertEquals("12345678901234567", payload.getReelVideoId());
+  }
+
+  @Test
+  void messagingMessageInstagramReelAttachment() {
+    WebhookObject webhookObject = createJsonMapper()
+      .toJavaObject(jsonFromClasspath("instagram/messaging-attachment-ig-reel"), WebhookObject.class);
+    assertTrue(webhookObject.isInstagram());
+    MessageItem message = webhookObject.getEntryList().get(0).getMessaging().get(0).getMessage();
+    assertEquals(1, message.getAttachments().size());
+    MessagingAttachment attachment = message.getAttachments().get(0);
+    assertEquals(MessagingAttachment.IG_REEL, attachment.getType());
+    assertFalse(attachment.isReel());
+    assertTrue(attachment.isIgReel());
+    MessagingPayload payload = attachment.getPayload();
+    assertEquals("Instagram Reel", payload.getTitle());
+    assertEquals("https://example.com/instagram-reel", payload.getUrl());
+    assertEquals("17997515821557847", payload.getReelVideoId());
   }
 
   @Test
