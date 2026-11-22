@@ -1,16 +1,16 @@
 # RestFB Changelog
 
-## Unreleased
+## 2026.10.0 (November 23, 2026)
 
-* Issue #1439: recognize Facebook and Instagram Reel attachments in messaging webhooks and expose `reel_video_id`.
-* Issue #1709: restore Threads multi-object GETs with `ids` and fall back to individual GETs if Threads explicitly rejects the parameter. Facebook continues to use batch requests.
-* Issue #1704: add typed Threads webhook notifications and listener callbacks using the shared change mapping and dispatcher.
-* Add `is_ads_eligible` and `on_platform_audio_preview_link` to `IgAudio` and document audio fields and cover artwork URL fallback behavior.
-* Add missing Threads media and reply field mappings for author profiles, GIFs, topic tags, reply metadata, media spoilers, ghost posts, and reply polls.
-* Issue #1702: redact credentials before storing exception request metadata, including getter and serialized output; also redact diagnostic request URLs and request logs. Header tokens and batch payloads are no longer exposed by diagnostic getters.
-* Include the first 16 hexadecimal SHA-256 digest characters for access tokens and app secrets in redacted diagnostics so credentials can be distinguished without exposing their original characters. Codes and other sensitive values remain fully redacted.
-* Add Graph API v27.0 and update `LATEST`
-* Correct the Graph API v26.0 Javadoc and update its minimum availability based on the v27.0 release
+* Issue #1439: support Facebook and Instagram Reel attachments in messaging webhooks and expose `reel_video_id`
+* Issue #1709: restore Threads multi-object GETs with `ids` and fall back to individual requests if Threads explicitly rejects the parameter
+* Issue #1704: add missing Threads media and reply fields, typed webhook notifications, and listener callbacks
+* Issue #1703: add Graph API v27.0, update `LATEST`, and correct the v26.0 availability documentation
+* Issue #1702: redact credentials in request diagnostics and logs, and use fingerprints to distinguish redacted tokens and app secrets
+* PR #1708: add `is_ads_eligible` and `on_platform_audio_preview_link` to `IgAudio` and document the cover artwork URL fallback
+* PR #1713: upgrade the CodeQL Action to v4
+* PR #1700: bump Spotless Maven Plugin to 3.9.0
+* PR #1701: bump Central Publishing Maven Plugin to 0.11.0
 
 ## 2026.9.0 (August 13, 2026)
 
