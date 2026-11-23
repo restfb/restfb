@@ -51,7 +51,10 @@ class GenerateThreadsCompatibility {
     Path output = Files.createDirectories(Path.of(args[1]).resolve(PACKAGE_PATH));
     for (String model : MODELS) {
       String source = Files.readString(input.resolve(model + ".java"));
-      Files.writeString(output.resolve(legacyName(model) + ".java"), generate(source, model));
+      String legacyFile = legacyName(model) + ".java";
+      Files.writeString(output.resolve(legacyFile), generate(source, model));
+      // Delombok can leave the old source behind after updating from before the rename.
+      Files.deleteIfExists(input.resolve(legacyFile));
     }
   }
 
