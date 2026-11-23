@@ -49,6 +49,7 @@ import com.restfb.types.webhook.threads.ThreadsWebhookObject;
  * Additional fixtures and mutations are synthetic mapping tests, not captured API responses or guarantees about which
  * optional fields occur together.
  */
+@SuppressWarnings("removal")
 class ThreadsWebhookTest extends AbstractJsonMapperTests {
 
   @ParameterizedTest
@@ -70,6 +71,28 @@ class ThreadsWebhookTest extends AbstractJsonMapperTests {
     assertEquals("8901234", value.getMedia().getId());
     assertEquals("test_username", value.getMedia().getUsername());
     assertEquals(Instant.parse("2024-08-07T10:33:16Z"), value.getMedia().getTimestamp().toInstant());
+    ThMedia snapshot = value.toThMedia();
+    assertEquals(value.getMedia().getId(), snapshot.getId());
+    assertEquals(value.getMedia().getUsername(), snapshot.getUsername());
+    assertEquals(value.getMedia().getTimestamp(), snapshot.getTimestamp());
+  }
+
+  @Test
+  void thMediaUsesIncomingJsonRatherThanLegacyMutations() {
+    ThreadsMediaValue value = mediaValue(notification("mentions"));
+    TdMedia legacyMedia = value.getMedia();
+    legacyMedia.setText("changed legacy text");
+    assertSame(legacyMedia, value.getMedia());
+
+    ThMedia snapshot = value.toThMedia();
+    assertEquals("Reply", snapshot.getText());
+    assertEquals(ThMediaType.TEXT_POST, snapshot.getMediaType());
+    snapshot.setText("changed snapshot text");
+
+    value.setMedia(null);
+    assertNull(value.getMedia());
+    assertEquals("Reply", value.toThMedia().getText());
+    assertNull(new ThreadsMediaValue().toThMedia());
   }
 
   @Test
@@ -129,6 +152,8 @@ class ThreadsWebhookTest extends AbstractJsonMapperTests {
 
     assertNull(media.getHasReplies());
     assertNull(media.getIsReply());
+    assertNull(value.toThMedia().getHasReplies());
+    assertNull(value.toThMedia().getIsReply());
     assertNull(value.getRepliedTo());
     assertNull(value.getRootPost());
     assertFalse(media.getIsQuotePost());

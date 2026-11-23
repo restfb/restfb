@@ -262,6 +262,8 @@
               <include>src/main/java/**/*.java</include>
               <include>src/main/lombok/**/*.java</include>
               <include>src/test/java/**/*.java</include>
+              <include>misc/scripts/GenerateThreadsCompatibility.java</include>
+              <include>src/test/resources/threads-compat/*.java</include>
             </includes>
             <eclipse>
               <file>${project.basedir}/misc/eclipse/eclipse-code-formatting-rules.xml</file>
@@ -296,6 +298,10 @@
         <version>3.5.6</version>
         <configuration>
           <skipITs>${skipTests}</skipITs>
+          <systemPropertyVariables>
+            <threadsCompatBaselineJar>${project.build.directory}/threads-compat-test/restfb-baseline.jar</threadsCompatBaselineJar>
+            <threadsCompatCurrentJar>${project.build.directory}/${project.build.finalName}.jar</threadsCompatCurrentJar>
+          </systemPropertyVariables>
         </configuration>
         <executions>
           <execution>
@@ -303,6 +309,32 @@
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.9.0</version>
+        <executions>
+          <execution>
+            <id>copy-threads-compatibility-baseline</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <skip>${skipTests}</skip>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>${project.artifactId}</artifactId>
+                  <version>2026.10.0</version>
+                  <outputDirectory>${project.build.directory}/threads-compat-test</outputDirectory>
+                  <destFileName>restfb-baseline.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -376,6 +408,30 @@
             <goals>
               <goal>delombok</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Temporary Td* compatibility layer. Keep generation after delombok and before javac. -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.6.3</version>
+        <executions>
+          <execution>
+            <id>generate-threads-compatibility</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${java.home}/bin/java</executable>
+              <sourceRoot>${project.build.directory}/generated-sources/threads-compat</sourceRoot>
+              <arguments>
+                <argument>${project.basedir}/misc/scripts/GenerateThreadsCompatibility.java</argument>
+                <argument>${project.build.directory}/generated-sources/delombok</argument>
+                <argument>${project.build.directory}/generated-sources/threads-compat</argument>
+              </arguments>
+            </configuration>
           </execution>
         </executions>
       </plugin>

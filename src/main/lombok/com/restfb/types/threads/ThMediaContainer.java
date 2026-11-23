@@ -21,9 +21,6 @@
  */
 package com.restfb.types.threads;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
 
@@ -31,45 +28,41 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Text attachment for Threads posts. As defined here:
- * https://developers.facebook.com/docs/threads/create-posts/text-attachments
+ * Represents the <a href="https://developers.facebook.com/docs/threads/troubleshooting">Ihreads Media Container</a>
  */
-public class TdTextAttachment extends AbstractFacebookType {
+@Setter
+@Getter
+public class ThMediaContainer extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
 
-  @Getter
-  @Setter
   @Facebook
-  private String plaintext;
+  private String id;
 
-  @Getter
-  @Setter
-  @Facebook("link_attachment_url")
-  private String linkAttachmentUrl;
+  @Facebook
+  private Status status;
 
-  @Getter
-  @Setter
-  @Facebook("text_with_styling_info")
-  private List<TextWithStylingInfo> textWithStylingInfo = new ArrayList<>();
+  @Facebook("error_message")
+  private ErrorMessage errorMessage;
 
-  public static class TextWithStylingInfo extends AbstractFacebookType {
+  public enum Status {
+    EXPIRED, // The container was not published within 24 hours and has expired.
+    ERROR, // The container failed to complete the publishing process.
+    FINISHED, // The container and its media object are ready to be published.
+    IN_PROGRESS, // The container is still in the publishing process.
+    PUBLISHED // The container's media object has been published.
+  }
 
-    private static final long serialVersionUID = 1L;
-
-    @Getter
-    @Setter
-    @Facebook
-    private Integer offset;
-
-    @Getter
-    @Setter
-    @Facebook
-    private Integer length;
-
-    @Getter
-    @Setter
-    @Facebook("styling_info")
-    private List<String> stylingInfo = new ArrayList<>();
+  public enum ErrorMessage {
+    FAILED_DOWNLOADING_VIDEO, //
+    FAILED_PROCESSING_AUDIO, //
+    FAILED_PROCESSING_VIDEO, //
+    INVALID_ASPEC_RATIO, //
+    INVALID_BIT_RATE, //
+    INVALID_DURATION, //
+    INVALID_FRAME_RATE, //
+    INVALID_AUDIO_CHANNELS, //
+    INVALID_AUDIO_CHANNEL_LAYOUT, //
+    UNKNOWN
   }
 }

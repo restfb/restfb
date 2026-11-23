@@ -23,37 +23,60 @@ package com.restfb.types.threads;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
- * Represents the <a href="https://developers.facebook.com/docs/threads/reply-moderation">rate limits type</a>
- *
- * Check the "Rate limits" section
+ * Poll attachment for threads. As defined here: https://developers.facebook.com/docs/threads/create-posts/polls
  */
-@Setter
-@Getter
-public class TdQuota extends AbstractFacebookType {
+public class ThPollAttachment extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
 
-  @Facebook("reply_quota_usage")
-  private Long replyQuotaUsage;
-
-  @Facebook("reply_config")
-  private TdReplyConfig replyConfig;
-
-  @Setter
   @Getter
-  public static class TdReplyConfig extends AbstractFacebookType {
+  @Setter
+  @Facebook("option_a")
+  private String optionA;
 
-    private static final long serialVersionUID = 1L;
+  @Getter
+  @Setter
+  @Facebook("option_b")
+  private String optionB;
 
-    @Facebook("quota_total")
-    private Long quotaTotal;
+  @Getter
+  @Setter
+  @Facebook("option_c")
+  private String optionC;
 
-    @Facebook("quota_duration")
-    private Long quotaDuration;
-  }
+  @Getter
+  @Setter
+  @Facebook("option_d")
+  private String optionD;
+
+  @Getter
+  @Setter
+  @Facebook("option_a_votes_percentage")
+  private Double optionAVotesPercentage;
+
+  @Getter
+  @Setter
+  @Facebook("option_b_votes_percentage")
+  private Double optionBVotesPercentage;
+
+  @Getter
+  @Setter
+  @Facebook("option_c_votes_percentage")
+  private Double optionCVotesPercentage;
+
+  @Getter
+  @Setter
+  @Facebook("option_d_votes_percentage")
+  private Double optionDVotesPercentage;
+
+  @Getter
+  @Setter
+  @Facebook("expiration_timestamp")
+  private Date expirationTimestamp;
 }

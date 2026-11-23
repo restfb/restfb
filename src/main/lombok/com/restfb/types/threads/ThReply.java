@@ -36,7 +36,7 @@ import lombok.Setter;
  * "https://developers.facebook.com/documentation/threads/retrieve-and-manage-replies/replies-and-conversations">Reply
  * or Conversation type</a>. Field availability depends on the endpoint, permissions, and reply type.
  */
-public class TdReply extends FacebookType {
+public class ThReply extends FacebookType {
 
   private static final long serialVersionUID = 1L;
 
@@ -105,7 +105,7 @@ public class TdReply extends FacebookType {
   @Getter
   @Setter
   @Facebook("media_type")
-  private TdMediaType mediaType;
+  private ThMediaType mediaType;
 
   /**
    * The post’s media URL. This only shows for image, video, and carousel replies.
@@ -137,7 +137,7 @@ public class TdReply extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<TdReply> children = new ArrayList<>();
+  private List<ThReply> children = new ArrayList<>();
 
   /**
    * Indicates if the media is a quoted reply made by another user.
@@ -169,7 +169,7 @@ public class TdReply extends FacebookType {
   @Getter
   @Setter
   @Facebook("poll_attachment")
-  private TdPollAttachment pollAttachment;
+  private ThPollAttachment pollAttachment;
 
   /**
    * Topic tag for the post. Only appears on posts with a topic tag.
@@ -193,7 +193,7 @@ public class TdReply extends FacebookType {
   @Getter
   @Setter
   @Facebook("root_post")
-  private TdReply rootPost;
+  private ThReply rootPost;
 
   /**
    * Media ID of the immediate parent of the reply. Note: This only appears on replies.
@@ -201,7 +201,7 @@ public class TdReply extends FacebookType {
   @Getter
   @Setter
   @Facebook("replied_to")
-  private TdReply repliedTo;
+  private ThReply repliedTo;
 
   /**
    * true if the Threads media is a reply. false if the Threads media is a top-level post.
@@ -226,7 +226,7 @@ public class TdReply extends FacebookType {
   @Getter
   @Setter
   @Facebook("hide_status")
-  private TdHideStatus hideStatus;
+  private ThHideStatus hideStatus;
 
   /**
    * Who can reply to your post.
@@ -234,13 +234,13 @@ public class TdReply extends FacebookType {
   @Getter
   @Setter
   @Facebook("reply_audience")
-  private TdReplyAudience replyAudience;
+  private ThReplyAudience replyAudience;
 
-  public enum TdHideStatus {
+  public enum ThHideStatus {
     NOT_HUSHED, UNHUSHED, HIDDEN, COVERED, BLOCKED, RESTRICTED
   }
 
-  public enum TdReplyAudience {
+  public enum ThReplyAudience {
     EVERYONE, //
     ACCOUNTS_YOU_FOLLOW, //
     MENTIONED_ONLY, //

@@ -37,7 +37,7 @@ import lombok.Setter;
  * <a href="https://developers.facebook.com/documentation/threads/retrieve-and-discover-posts/retrieve-posts">Threads
  * Media type</a>. Field availability depends on the endpoint, permissions, and post type.
  */
-public class TdMedia extends FacebookType {
+public class ThMedia extends FacebookType {
 
   private static final long serialVersionUID = -1L;
   /**
@@ -55,7 +55,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook("media_type")
-  private TdMediaType mediaType;
+  private ThMediaType mediaType;
 
   /**
    * The post’s media URL.
@@ -80,7 +80,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private TdProfile owner;
+  private ThProfile owner;
 
   /**
    * Threads username who created the post.
@@ -144,7 +144,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private List<TdMedia> children = new ArrayList<>();
+  private List<ThMedia> children = new ArrayList<>();
 
   /**
    * Indicates if the media is a quoted post made by another user
@@ -185,7 +185,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook("root_post")
-  private TdReply rootPost;
+  private ThReply rootPost;
 
   /**
    * The immediate parent of the reply. Only appears on replies.
@@ -193,7 +193,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook("replied_to")
-  private TdReply repliedTo;
+  private ThReply repliedTo;
 
   /**
    * Whether the reply is hidden. Only appears on replies.
@@ -201,7 +201,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook("hide_status")
-  private TdReply.TdHideStatus hideStatus;
+  private ThReply.ThHideStatus hideStatus;
 
   /**
    * Who can reply to the post. Only appears on top-level posts and replies that you own.
@@ -209,7 +209,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook("reply_audience")
-  private TdReply.TdReplyAudience replyAudience;
+  private ThReply.ThReplyAudience replyAudience;
 
   /**
    * Media ID of the post that was quoted. Note: This only appears on quote posts.
@@ -249,7 +249,7 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook
-  private TdLocation location;
+  private ThLocation location;
 
   @Getter
   @Setter
@@ -308,12 +308,12 @@ public class TdMedia extends FacebookType {
   @Getter
   @Setter
   @Facebook("poll_attachment")
-  private TdPollAttachment pollAttachment;
+  private ThPollAttachment pollAttachment;
 
   @Getter
   @Setter
   @Facebook("text_attachment")
-  private TdTextAttachment textAttachment;
+  private ThTextAttachment textAttachment;
 
   public List<Locale> getAllowlistedCountryCodesAsLocales() {
     List<Locale> locales = new ArrayList<>();

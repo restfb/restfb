@@ -1,4 +1,25 @@
 # Migration Guide
+
+## Threads models: `Td*` to `Th*`
+
+Use `Th*` model names in `com.restfb.types.threads` for new code. For example, change
+`client.fetchObject(id, TdMedia.class)` to `client.fetchObject(id, ThMedia.class)` and
+`TdMediaType.TEXT_POST` to `ThMediaType.TEXT_POST`. Nested types also follow the new model names:
+`TdReply.TdHideStatus` becomes `ThReply.ThHideStatus`, `TdReply.TdReplyAudience` becomes
+`ThReply.ThReplyAudience`, and `TdQuota.TdReplyConfig` becomes `ThQuota.ThReplyConfig`.
+
+The deprecated `Td*` types remain in the same JAR through 2027. Both families use the same Graph JSON,
+including new mapped fields, but they are separate Java types and cannot be cast to each other.
+The old types are scheduled for removal no earlier than 2028.
+For contributors, edit only the `Th*` models under `src/main/lombok`; Maven generates the
+`Td*` models from them before compilation.
+
+For webhook payloads, prefer `ThreadsMediaValue.toThMedia()`. It returns a fresh snapshot of the
+incoming media JSON; it does not reflect changes made through `getMedia()` or `setMedia(TdMedia)`.
+Use the webhook value's own reference accessors for identities such as `owner_id`.
+
+## Migrating from RestFB 1.x to 2.0
+
 Because we have a lot of API changes from version 1.x to 2.0 RestFB provides a migration guide, where the breaking changes can be found
 
 ## tl;dr

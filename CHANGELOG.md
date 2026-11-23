@@ -1,5 +1,10 @@
 # RestFB Changelog
 
+## 2026.11.0 (unreleased)
+
+* Issue #1442: introduce `Th*` names for Threads models; the deprecated `Td*` types remain compatible through 2027.
+  Use `ThreadsMediaValue.toThMedia()` for new webhook consumers.
+
 ## 2026.10.0 (November 23, 2026)
 
 * Issue #1439: support Facebook and Instagram Reel attachments in messaging webhooks and expose `reel_video_id`

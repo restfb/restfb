@@ -32,7 +32,7 @@ import lombok.Setter;
  * "https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-user-s-public-profile-information">Threads
  * reference</a>
  */
-public class TdPublicProfile extends TdProfileBase {
+public class ThPublicProfile extends ThProfileBase {
 
   private static final long serialVersionUID = 1L;
 

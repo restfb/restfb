@@ -21,62 +21,6 @@
  */
 package com.restfb.types.threads;
 
-import com.restfb.Facebook;
-import com.restfb.types.AbstractFacebookType;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.Date;
-
-/**
- * Poll attachment for threads. As defined here: https://developers.facebook.com/docs/threads/create-posts/polls
- */
-public class TdPollAttachment extends AbstractFacebookType {
-
-  private static final long serialVersionUID = 1L;
-
-  @Getter
-  @Setter
-  @Facebook("option_a")
-  private String optionA;
-
-  @Getter
-  @Setter
-  @Facebook("option_b")
-  private String optionB;
-
-  @Getter
-  @Setter
-  @Facebook("option_c")
-  private String optionC;
-
-  @Getter
-  @Setter
-  @Facebook("option_d")
-  private String optionD;
-
-  @Getter
-  @Setter
-  @Facebook("option_a_votes_percentage")
-  private Double optionAVotesPercentage;
-
-  @Getter
-  @Setter
-  @Facebook("option_b_votes_percentage")
-  private Double optionBVotesPercentage;
-
-  @Getter
-  @Setter
-  @Facebook("option_c_votes_percentage")
-  private Double optionCVotesPercentage;
-
-  @Getter
-  @Setter
-  @Facebook("option_d_votes_percentage")
-  private Double optionDVotesPercentage;
-
-  @Getter
-  @Setter
-  @Facebook("expiration_timestamp")
-  private Date expirationTimestamp;
+public enum ThMediaType {
+  TEXT_POST, IMAGE, VIDEO, CAROUSEL_ALBUM, REPOST_FACADE, AUDIO
 }

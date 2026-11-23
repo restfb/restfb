@@ -21,28 +21,55 @@
  */
 package com.restfb.types.threads;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
+
 import lombok.Getter;
 import lombok.Setter;
 
-public class TdProfileBase extends AbstractFacebookType {
+/**
+ * Text attachment for Threads posts. As defined here:
+ * https://developers.facebook.com/docs/threads/create-posts/text-attachments
+ */
+public class ThTextAttachment extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
 
-  /**
-   * Handle or unique username on Threads. This is the same as the username on Instagram.
-   */
   @Getter
   @Setter
   @Facebook
-  private String username;
+  private String plaintext;
 
-  /**
-   * name of the Threads profile
-   */
   @Getter
   @Setter
-  @Facebook
-  private String name;
+  @Facebook("link_attachment_url")
+  private String linkAttachmentUrl;
+
+  @Getter
+  @Setter
+  @Facebook("text_with_styling_info")
+  private List<TextWithStylingInfo> textWithStylingInfo = new ArrayList<>();
+
+  public static class TextWithStylingInfo extends AbstractFacebookType {
+
+    private static final long serialVersionUID = 1L;
+
+    @Getter
+    @Setter
+    @Facebook
+    private Integer offset;
+
+    @Getter
+    @Setter
+    @Facebook
+    private Integer length;
+
+    @Getter
+    @Setter
+    @Facebook("styling_info")
+    private List<String> stylingInfo = new ArrayList<>();
+  }
 }

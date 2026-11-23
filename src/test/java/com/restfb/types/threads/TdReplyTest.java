@@ -31,6 +31,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import com.restfb.AbstractJsonMapperTests;
 
+@SuppressWarnings("removal")
 class TdReplyTest extends AbstractJsonMapperTests {
 
   @Test
