@@ -31,7 +31,7 @@ import lombok.Setter;
  * "https://developers.facebook.com/docs/threads/threads-profiles#retrieve-a-threads-app-scoped-user-s-profile-information">Threads
  * profile</a>
  */
-public class TdProfile extends TdProfileBase {
+public class ThProfile extends ThProfileBase {
 
   private static final long serialVersionUID = 1L;
 

@@ -32,7 +32,7 @@ import lombok.Setter;
  * <a href="https://developers.facebook.com/docs/threads/create-posts/location-tagging#location-retrieval">Location</a>
  * in Threads.
  */
-public class TdLocation extends NamedFacebookType {
+public class ThLocation extends NamedFacebookType {
 
   private static final long serialVersionUID = 1L;
 

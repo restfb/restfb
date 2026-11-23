@@ -30,7 +30,6 @@ import com.restfb.JsonMapper;
 import com.restfb.json.Json;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
-import com.restfb.types.threads.TdMedia;
 import com.restfb.types.webhook.instagram.InstagramCommentsValue;
 import com.restfb.types.webhook.instagram.InstagramMentionsValue;
 import com.restfb.types.webhook.instagram.InstagramStoryInsightsValue;
@@ -132,11 +131,12 @@ public class ChangeValueFactory {
 
         try {
           ChangeValueEnumeration changeValueEnum = ChangeValueEnumeration.valueOf(classDefinition);
-          ChangeValue changeValue = mapper.toJavaObject(objValue.toString(), changeValueEnum.getValueClass());
-          if (changeValue instanceof ThreadsMediaValue) {
-            ((ThreadsMediaValue) changeValue).setMedia(mapper.toJavaObject(objValue.toString(), TdMedia.class));
+          Class<? extends ChangeValue> valueClass = changeValueEnum.getValueClass();
+          if (ThreadsMediaValue.class.isAssignableFrom(valueClass)) {
+            return ThreadsMediaValue.fromJson(objValue.toString(), valueClass.asSubclass(ThreadsMediaValue.class),
+              mapper);
           }
-          return changeValue;
+          return mapper.toJavaObject(objValue.toString(), valueClass);
         } catch (IllegalArgumentException iae) {
           VALUE_FACTORY_LOGGER.warn("undefined change value detected: {}", classDefinition);
           VALUE_FACTORY_LOGGER.warn("please provide this information to the restfb team: {}", objValue.toString());

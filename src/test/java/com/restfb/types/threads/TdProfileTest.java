@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import com.restfb.AbstractJsonMapperTests;
 
+@SuppressWarnings("removal")
 class TdProfileTest extends AbstractJsonMapperTests {
 
   @Test

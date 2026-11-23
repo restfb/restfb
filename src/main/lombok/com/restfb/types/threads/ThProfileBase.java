@@ -23,46 +23,26 @@ package com.restfb.types.threads;
 
 import com.restfb.Facebook;
 import com.restfb.types.AbstractFacebookType;
-
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Represents the <a href="https://developers.facebook.com/docs/threads/troubleshooting">Ihreads Media Container</a>
- */
-@Setter
-@Getter
-public class TdMediaContainer extends AbstractFacebookType {
+public class ThProfileBase extends AbstractFacebookType {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Handle or unique username on Threads. This is the same as the username on Instagram.
+   */
+  @Getter
+  @Setter
   @Facebook
-  private String id;
+  private String username;
 
+  /**
+   * name of the Threads profile
+   */
+  @Getter
+  @Setter
   @Facebook
-  private Status status;
-
-  @Facebook("error_message")
-  private ErrorMessage errorMessage;
-
-  public enum Status {
-    EXPIRED, // The container was not published within 24 hours and has expired.
-    ERROR, // The container failed to complete the publishing process.
-    FINISHED, // The container and its media object are ready to be published.
-    IN_PROGRESS, // The container is still in the publishing process.
-    PUBLISHED // The container's media object has been published.
-  }
-
-  public enum ErrorMessage {
-    FAILED_DOWNLOADING_VIDEO, //
-    FAILED_PROCESSING_AUDIO, //
-    FAILED_PROCESSING_VIDEO, //
-    INVALID_ASPEC_RATIO, //
-    INVALID_BIT_RATE, //
-    INVALID_DURATION, //
-    INVALID_FRAME_RATE, //
-    INVALID_AUDIO_CHANNELS, //
-    INVALID_AUDIO_CHANNEL_LAYOUT, //
-    UNKNOWN
-  }
+  private String name;
 }
