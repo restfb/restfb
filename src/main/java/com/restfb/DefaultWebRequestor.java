@@ -228,21 +228,23 @@ public class DefaultWebRequestor implements WebRequestor {
       String url = UrlUtils.redactSensitiveUrl(request.getUrl(), security);
       String parameters = legacy ? decodeLegacyPostParameters(request.getParameters())
           : UrlUtils.redactSensitiveParameters(request.getParameters(), security);
-      httpLogger.debug("Executing a POST to " + url + " with parameters "
-          + (!binaryAttachments.isEmpty() ? "" : "(sent in request body): ") + parameters
-          + (!binaryAttachments.isEmpty() ? " and " + binaryAttachments.size() + " binary attachment[s]." : "")
-          + (legacy ? ""
-              : " Header access token: " + UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken())));
+      String bodyPrefix = binaryAttachments.isEmpty() ? "(sent in request body): " : "";
+      String attachmentSuffix =
+          binaryAttachments.isEmpty() ? "" : " and " + binaryAttachments.size() + " binary attachment[s].";
+      String headerSuffix =
+          legacy ? "" : " Header access token: " + UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken());
+      httpLogger.debug("Executing a POST to {} with parameters {}{}{}{}", url, bodyPrefix, parameters, attachmentSuffix,
+        headerSuffix);
     }
   }
 
   private static String decodeLegacyPostParameters(String parameters) {
     try {
-      return UrlUtils.urlDecode(parameters);
+      parameters = UrlUtils.urlDecode(parameters);
     } catch (IllegalArgumentException e) {
       // Keep malformed input from aborting the request just because DEBUG is enabled.
-      return parameters;
     }
+    return parameters == null ? null : parameters.replace("\r", "\\r").replace("\n", "\\n");
   }
 
   private void closeAttachmentsOnAutoClose(List<BinaryAttachment> binaryAttachments) {
