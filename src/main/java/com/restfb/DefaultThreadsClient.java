@@ -76,6 +76,30 @@ public class DefaultThreadsClient extends DefaultFacebookClient {
   }
 
   /**
+   * @see DefaultFacebookClient#DefaultFacebookClient(String, String, WebRequestor, JsonMapper, Version, Security)
+   */
+  public DefaultThreadsClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
+      Version apiVersion, Security diagnosticSecurity) {
+    super(accessToken, appSecret, webRequestor, jsonMapper, apiVersion, diagnosticSecurity);
+  }
+
+  /**
+   * @see DefaultFacebookClient#withSecurity(String, Version, Security)
+   */
+  public static DefaultThreadsClient withSecurity(String accessToken, Version apiVersion, Security diagnosticSecurity) {
+    return withSecurity(accessToken, null, apiVersion, diagnosticSecurity);
+  }
+
+  /**
+   * @see DefaultFacebookClient#withSecurity(String, String, Version, Security)
+   */
+  public static DefaultThreadsClient withSecurity(String accessToken, String appSecret, Version apiVersion,
+      Security diagnosticSecurity) {
+    return new DefaultThreadsClient(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(),
+      apiVersion, diagnosticSecurity);
+  }
+
+  /**
    * {@inheritDoc}
    * <p>
    * Threads first tries a single GET with the {@code ids} parameter. If Threads explicitly rejects that parameter, this
@@ -206,7 +230,8 @@ public class DefaultThreadsClient extends DefaultFacebookClient {
 
   @Override
   public FacebookClient createClientWithAccessToken(String accessToken) {
-    return new DefaultThreadsClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(), this.apiVersion);
+    return new DefaultThreadsClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(), this.apiVersion,
+      getDiagnosticSecurity());
   }
 
   @Override

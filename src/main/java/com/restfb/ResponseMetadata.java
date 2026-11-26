@@ -54,12 +54,18 @@ public final class ResponseMetadata implements Serializable {
     this.responseHeaders = responseHeaders;
     this.duration = duration;
     this.httpMethod = httpMethod;
-    this.requestUrl = UrlUtils.redactSensitiveUrl(requestUrl);
+    this.requestUrl = requestUrl;
   }
 
   public static ResponseMetadata of(DebugHeaderInfo debugHeaderInfo, Map<String, List<String>> responseHeaders,
       Duration duration, String httpMethod, String requestUrl) {
-    return new ResponseMetadata(debugHeaderInfo, copyHeaders(responseHeaders), duration, httpMethod, requestUrl);
+    return of(debugHeaderInfo, responseHeaders, duration, httpMethod, requestUrl, Security.HIGH);
+  }
+
+  static ResponseMetadata of(DebugHeaderInfo debugHeaderInfo, Map<String, List<String>> responseHeaders,
+      Duration duration, String httpMethod, String requestUrl, Security diagnosticSecurity) {
+    String diagnosticUrl = UrlUtils.redactSensitiveUrl(requestUrl, diagnosticSecurity);
+    return new ResponseMetadata(debugHeaderInfo, copyHeaders(responseHeaders), duration, httpMethod, diagnosticUrl);
   }
 
   public DebugHeaderInfo getDebugHeaderInfo() {
@@ -79,7 +85,8 @@ public final class ResponseMetadata implements Serializable {
   }
 
   /**
-   * @return the diagnostic request URL with authentication parameters redacted
+   * @return the diagnostic request URL, with authentication parameters exposed according to the selected
+   *         {@link Security}
    */
   public String getRequestUrl() {
     return requestUrl;

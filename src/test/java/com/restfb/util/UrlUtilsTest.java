@@ -34,6 +34,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.restfb.Security;
+
 /**
  * Unit tests that exercise {@link com.restfb.util.UrlUtils}.
  *
@@ -89,6 +91,27 @@ class UrlUtilsTest {
   }
 
   @Test
+  void mediumKeepsOnlyNonemptyOrdinaryAccessTokensInTheirOriginalEncoding() {
+    String parameters = "ACCESS%5ftoken=first%2Btoken&access_token=second&access_token="
+        + "&appsecret%5fproof=proof&client_secret=secret&input_token=other&refresh_token=refresh&batch=payload";
+
+    assertThat(UrlUtils.redactSensitiveParameters(parameters, Security.MEDIUM))
+      .isEqualTo("ACCESS%5ftoken=first%2Btoken&access_token=second&access_token=[REDACTED]"
+          + "&appsecret%5fproof=[REDACTED]&client_secret=" + UrlUtils.redactSensitiveCredential("secret")
+          + "&input_token=" + UrlUtils.redactSensitiveCredential("other") + "&refresh_token="
+          + UrlUtils.redactSensitiveCredential("refresh") + "&batch=[REDACTED]");
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "123|private-secret", "123%7Cprivate-secret", "123%7cprivate-secret" })
+  void mediumDoesNotRevealTheSecretInAnAppAccessToken(String token) {
+    String url = "https://example.com/me?access_token=" + token + "#access_token=fragment-token";
+
+    assertThat(UrlUtils.redactSensitiveUrl(url, Security.MEDIUM)).isEqualTo(UrlUtils.redactSensitiveUrl(url));
+    assertThat(UrlUtils.redactSensitiveUrl(url, Security.LOW)).isEqualTo(url);
+  }
+
+  @Test
   void preserveOrdinaryEncodedParameterBoundaries() {
     String parameters = "fields=id%2Cname&message=one%26two%3Dthree&format=json&&";
     assertThat(UrlUtils.redactSensitiveParameters(parameters)).isEqualTo(parameters);
@@ -102,6 +125,8 @@ class UrlUtilsTest {
   void malformedParametersDoNotFallBackToRawData(String parameter) {
     assertThat(UrlUtils.redactSensitiveParameters("fields=id&" + parameter + "&format=json")).contains("[REDACTED]")
       .doesNotContain("credential-value").startsWith("fields=id&").endsWith("&format=json");
+    assertThat(UrlUtils.redactSensitiveParameters("fields=id&" + parameter + "&format=json", Security.MEDIUM))
+      .isEqualTo("fields=id&[REDACTED]&format=json");
   }
 
   @Test

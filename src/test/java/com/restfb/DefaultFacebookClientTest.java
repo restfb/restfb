@@ -261,6 +261,75 @@ class DefaultFacebookClientTest {
     assertThat(requestor.request.getParameters()).contains("access_token=request-token");
   }
 
+  @Test
+  void legacyExceptionMetadataIsUsedForRegularRequestsAndPaging() {
+    CapturingWebRequestor requestor = new CapturingWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("header-credential", null, requestor,
+      new DefaultJsonMapper(), Version.LATEST, Security.LOW);
+    client.setHeaderAuthorization(true);
+
+    assertThatThrownBy(() -> client.debugToken("test-credential")).isInstanceOf(FacebookNetworkException.class)
+      .satisfies(throwable -> {
+        FacebookException.InfoData info = ((FacebookException) throwable).getInfoData().orElseThrow();
+        assertThat(info.getParameterString()).contains("input_token=test-credential");
+        assertThat(info.getHeaderAccessToken()).isEqualTo("header-credential");
+        assertThat(requestor.request.getDiagnosticSecurity()).isEqualTo(Security.LOW);
+      });
+
+    String pageUrl = "https://graph.facebook.com/me/feed?after=cursor&access_token=paging-credential";
+    assertThatThrownBy(() -> client.fetchConnectionPage(pageUrl, JsonObject.class))
+      .isInstanceOf(FacebookNetworkException.class).satisfies(throwable -> {
+        FacebookException.InfoData info = ((FacebookException) throwable).getInfoData().orElseThrow();
+        assertThat(info.getFullEndpoint()).isEqualTo(pageUrl);
+        assertThat(info.getParameterString()).isNull();
+        assertThat(info.getHeaderAccessToken()).isEqualTo("header-credential");
+        assertThat(requestor.request.getDiagnosticSecurity()).isEqualTo(Security.LOW);
+      });
+  }
+
+  @Test
+  void mediumClientRetainsAccessTokensButNotProofsInExceptionMetadata() {
+    CapturingWebRequestor requestor = new CapturingWebRequestor();
+    DefaultFacebookClient client = new DefaultFacebookClient("request-token", "request-secret", requestor,
+      new DefaultJsonMapper(), Version.LATEST, Security.MEDIUM);
+    String proof = client.obtainAppSecretProof("request-token", "request-secret");
+
+    assertThatThrownBy(() -> client.fetchObject("me", JsonObject.class)).isInstanceOf(FacebookNetworkException.class)
+      .satisfies(throwable -> {
+        FacebookException.InfoData info = ((FacebookException) throwable).getInfoData().orElseThrow();
+        assertThat(info.getParameterString()).contains("access_token=request-token", "appsecret_proof=[REDACTED]")
+          .doesNotContain(proof);
+        assertThat(requestor.request.getParameters()).contains("appsecret_proof=" + proof);
+      });
+
+    String pageUrl = "https://graph.facebook.com/me/feed?after=cursor&access_token=request-token";
+    assertThatThrownBy(() -> client.fetchConnectionPage(pageUrl, JsonObject.class))
+      .isInstanceOf(FacebookNetworkException.class).satisfies(throwable -> {
+        FacebookException.InfoData info = ((FacebookException) throwable).getInfoData().orElseThrow();
+        assertThat(info.getFullEndpoint()).isEqualTo(pageUrl + "&appsecret_proof=[REDACTED]");
+        assertThat(requestor.request.getUrl()).isEqualTo(pageUrl + "&appsecret_proof=" + proof);
+      });
+  }
+
+  @Test
+  void clientsCreatedWithAnotherTokenKeepTheirTypeAndDiagnosticSecurity() {
+    DefaultFacebookClient[] clients = { DefaultFacebookClient.withSecurity("old-token", Version.LATEST, Security.LOW),
+        DefaultThreadsClient.withSecurity("old-token", Version.LATEST, Security.LOW),
+        DefaultInstagramLoginClient.withSecurity("old-token", Version.LATEST, Security.LOW),
+        DefaultFacebookClient.withSecurity("old-token", Version.LATEST, Security.MEDIUM),
+        new DefaultFacebookClient("old-token", Version.LATEST), new DefaultThreadsClient("old-token", Version.LATEST),
+        new DefaultInstagramLoginClient("old-token", Version.LATEST) };
+
+    for (DefaultFacebookClient original : clients) {
+      FacebookClient copy = original.createClientWithAccessToken("new-token");
+      assertThat(copy).isExactlyInstanceOf(original.getClass());
+      assertThat(((DefaultFacebookClient) copy).getDiagnosticSecurity()).isEqualTo(original.getDiagnosticSecurity());
+    }
+
+    assertThat(clients).extracting(DefaultFacebookClient::getDiagnosticSecurity).containsExactly(Security.LOW,
+      Security.LOW, Security.LOW, Security.MEDIUM, Security.HIGH, Security.HIGH, Security.HIGH);
+  }
+
   private DefaultFacebookClient credentialClient(WebRequestor requestor) {
     return new DefaultFacebookClient("request-token", "request-secret", requestor, new DefaultJsonMapper(),
       Version.LATEST);

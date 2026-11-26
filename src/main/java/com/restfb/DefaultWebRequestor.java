@@ -42,6 +42,7 @@ import java.time.Duration;
 import java.util.*;
 import java.util.Objects;
 
+import com.restfb.logging.RestFBLogger;
 import com.restfb.request.MultipartFormBodyPublisher;
 import com.restfb.request.TempFileBodyPublisher;
 import com.restfb.types.FacebookReelAttachment;
@@ -80,13 +81,20 @@ public class DefaultWebRequestor implements WebRequestor {
   private boolean autocloseBinaryAttachmentStream = true;
 
   private final HttpClient httpClient;
+  private final RestFBLogger httpLogger;
 
   public DefaultWebRequestor() {
     this.httpClient = createHttpClientBuilder().build();
+    this.httpLogger = HTTP_LOGGER;
   }
 
   protected DefaultWebRequestor(HttpClient httpClient) {
+    this(httpClient, HTTP_LOGGER);
+  }
+
+  DefaultWebRequestor(HttpClient httpClient, RestFBLogger httpLogger) {
     this.httpClient = Objects.requireNonNull(httpClient, "httpClient must not be null");
+    this.httpLogger = Objects.requireNonNull(httpLogger, "httpLogger must not be null");
   }
 
   protected HttpClient getHttpClient() {
@@ -213,13 +221,27 @@ public class DefaultWebRequestor implements WebRequestor {
         + ((!binaryAttachments.isEmpty() || request.hasBody()) ? "?" + request.getParameters() : "");
   }
 
-  private static void logRequestAndAttachmentOnDebug(Request request, List<BinaryAttachment> binaryAttachments) {
-    if (HTTP_LOGGER.isDebugEnabled()) {
-      HTTP_LOGGER.debug("Executing a POST to " + UrlUtils.redactSensitiveUrl(request.getUrl()) + " with parameters "
-          + (!binaryAttachments.isEmpty() ? "" : "(sent in request body): ")
-          + UrlUtils.redactSensitiveParameters(request.getParameters())
+  private void logRequestAndAttachmentOnDebug(Request request, List<BinaryAttachment> binaryAttachments) {
+    if (httpLogger.isDebugEnabled()) {
+      Security security = request.getDiagnosticSecurity();
+      boolean legacy = security == Security.LOW;
+      String url = UrlUtils.redactSensitiveUrl(request.getUrl(), security);
+      String parameters = legacy ? decodeLegacyPostParameters(request.getParameters())
+          : UrlUtils.redactSensitiveParameters(request.getParameters(), security);
+      httpLogger.debug("Executing a POST to " + url + " with parameters "
+          + (!binaryAttachments.isEmpty() ? "" : "(sent in request body): ") + parameters
           + (!binaryAttachments.isEmpty() ? " and " + binaryAttachments.size() + " binary attachment[s]." : "")
-          + " Header access token: " + UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken()));
+          + (legacy ? ""
+              : " Header access token: " + UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken())));
+    }
+  }
+
+  private static String decodeLegacyPostParameters(String parameters) {
+    try {
+      return UrlUtils.urlDecode(parameters);
+    } catch (IllegalArgumentException e) {
+      // Keep malformed input from aborting the request just because DEBUG is enabled.
+      return parameters;
     }
   }
 
@@ -300,7 +322,7 @@ public class DefaultWebRequestor implements WebRequestor {
       try {
         closeable.close();
       } catch (Exception t) {
-        HTTP_LOGGER.warn("Unable to close {}: ", closeable, t);
+        httpLogger.warn("Unable to close {}: ", closeable, t);
       }
     }
   }
@@ -367,10 +389,17 @@ public class DefaultWebRequestor implements WebRequestor {
   }
 
   private Response execute(HttpMethod httpMethod, Request request) throws IOException {
-    if (HTTP_LOGGER.isDebugEnabled()) {
-      HTTP_LOGGER.debug("Making a {} request to {} with parameters {}. Header access token: {}", httpMethod.name(),
-        UrlUtils.redactSensitiveUrl(request.getUrl()), UrlUtils.redactSensitiveParameters(request.getParameters()),
-        UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken()));
+    if (httpLogger.isDebugEnabled()) {
+      Security security = request.getDiagnosticSecurity();
+      if (security == Security.LOW) {
+        httpLogger.debug("Making a {} request to {} with parameters {}", httpMethod.name(), request.getUrl(),
+          request.getParameters());
+      } else {
+        httpLogger.debug("Making a {} request to {} with parameters {}. Header access token: {}", httpMethod.name(),
+          UrlUtils.redactSensitiveUrl(request.getUrl(), security),
+          UrlUtils.redactSensitiveParameters(request.getParameters(), security),
+          UrlUtils.redactSensitiveCredential(request.getHeaderAccessToken()));
+      }
     }
 
     HttpRequest.Builder builder = openConnection(new URL(request.getFullUrl()));
@@ -398,7 +427,7 @@ public class DefaultWebRequestor implements WebRequestor {
     try {
       HttpResponse<InputStream> httpResponse = getHttpClient().send(httpRequest, BodyHandlers.ofInputStream());
       Map<String, List<String>> headers = Collections.unmodifiableMap(toHeaderMap(httpResponse.headers()));
-      HTTP_LOGGER.trace("Response headers: {}", headers);
+      httpLogger.trace("Response headers: {}", headers);
       return createResponse(httpResponse, headers);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
@@ -437,7 +466,7 @@ public class DefaultWebRequestor implements WebRequestor {
       throws IOException {
     byte[] body = readResponseBody(httpResponse);
     Response response = new Response(httpResponse.statusCode(), StringUtils.toString(body), null, headers);
-    HTTP_LOGGER.debug("Facebook responded with {}", response);
+    httpLogger.debug("Facebook responded with {}", response);
     return response;
   }
 

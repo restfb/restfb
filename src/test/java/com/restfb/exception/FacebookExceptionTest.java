@@ -38,6 +38,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.restfb.Security;
 import com.restfb.exception.FacebookException.InfoData;
 
 class FacebookExceptionTest {
@@ -100,6 +101,55 @@ class FacebookExceptionTest {
       assertThat(restored.getInfoData().orElseThrow().getHeaderAccessToken())
         .isEqualTo(redactSensitiveCredential("header-credential"));
     }
+  }
+
+  @Test
+  void legacyExceptionKeepsOriginalFieldsFormatAndSerializedValues() throws Exception {
+    String endpoint = "https://graph.facebook.com/me?access_token=query%7Ccredential";
+    String parameters = "fields=id%2Cname&client_secret=form%2Bsecret";
+    String header = "header-credential";
+    InfoData info = new InfoData("POST", endpoint, parameters, header, null, Security.LOW);
+    TestFacebookException exception = new TestFacebookException("boom");
+    exception.withInfoData(info);
+
+    assertThat(info.getFullEndpoint()).isEqualTo(endpoint);
+    assertThat(info.getParameterString()).isEqualTo(parameters);
+    assertThat(info.getHeaderAccessToken()).isEqualTo(header);
+    assertThat(exception.getMessage()).isEqualTo("boom, URL: POST: "
+        + "https://graph.facebook.com/me?access_token=query|credential?fields=id,name&client_secret=form+secret"
+        + " headerAccessToken: header-credential, response-time: unknown");
+
+    StringWriter stackTrace = new StringWriter();
+    exception.printStackTrace(new PrintWriter(stackTrace));
+    assertThat(stackTrace.toString()).contains(exception.getMessage());
+
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    try (ObjectOutputStream output = new ObjectOutputStream(bytes)) {
+      output.writeObject(exception);
+    }
+    assertThat(bytes.toString(StandardCharsets.ISO_8859_1)).contains(endpoint, parameters, header);
+    try (ObjectInputStream input = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()))) {
+      FacebookException restored = (FacebookException) input.readObject();
+      assertThat(restored.getMessage()).isEqualTo(exception.getMessage());
+    }
+  }
+
+  @Test
+  void mediumExceptionSerializesOrdinaryAccessTokensButNoOtherCredentials() throws Exception {
+    String endpoint = "https://graph.facebook.com/me?access_token=replay-token";
+    String parameters = "appsecret_proof=private-proof&client_secret=private-secret&access_token=123%7Cembedded-secret";
+    TestFacebookException exception = new TestFacebookException("boom");
+    exception.withInfoData(new InfoData("POST", endpoint, parameters, "private-header", null, Security.MEDIUM));
+
+    assertThat(exception.getMessage()).contains("access_token=replay-token", "appsecret_proof=[REDACTED]")
+      .doesNotContain("private-proof", "private-secret", "embedded-secret", "private-header");
+
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    try (ObjectOutputStream output = new ObjectOutputStream(bytes)) {
+      output.writeObject(exception);
+    }
+    assertThat(bytes.toString(StandardCharsets.ISO_8859_1)).contains("access_token=replay-token")
+      .doesNotContain("private-proof", "private-secret", "embedded-secret", "private-header");
   }
 
   @Test

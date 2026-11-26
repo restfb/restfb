@@ -64,6 +64,31 @@ public class DefaultInstagramLoginClient extends DefaultFacebookClient {
     super(accessToken, appSecret, webRequestor, jsonMapper, apiVersion);
   }
 
+  /**
+   * @see DefaultFacebookClient#DefaultFacebookClient(String, String, WebRequestor, JsonMapper, Version, Security)
+   */
+  public DefaultInstagramLoginClient(String accessToken, String appSecret, WebRequestor webRequestor,
+      JsonMapper jsonMapper, Version apiVersion, Security diagnosticSecurity) {
+    super(accessToken, appSecret, webRequestor, jsonMapper, apiVersion, diagnosticSecurity);
+  }
+
+  /**
+   * @see DefaultFacebookClient#withSecurity(String, Version, Security)
+   */
+  public static DefaultInstagramLoginClient withSecurity(String accessToken, Version apiVersion,
+      Security diagnosticSecurity) {
+    return withSecurity(accessToken, null, apiVersion, diagnosticSecurity);
+  }
+
+  /**
+   * @see DefaultFacebookClient#withSecurity(String, String, Version, Security)
+   */
+  public static DefaultInstagramLoginClient withSecurity(String accessToken, String appSecret, Version apiVersion,
+      Security diagnosticSecurity) {
+    return new DefaultInstagramLoginClient(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(),
+      apiVersion, diagnosticSecurity);
+  }
+
   @Override
   public String getLoginDialogUrl(String appId, String redirectUri, ScopeBuilder scope, String state,
       Parameter... parameters) {
@@ -113,7 +138,7 @@ public class DefaultInstagramLoginClient extends DefaultFacebookClient {
   @Override
   public FacebookClient createClientWithAccessToken(String accessToken) {
     return new DefaultInstagramLoginClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(),
-      this.apiVersion);
+      this.apiVersion, getDiagnosticSecurity());
   }
 
   @Override

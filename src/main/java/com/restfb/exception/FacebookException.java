@@ -25,8 +25,10 @@ import java.io.Serializable;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Optional;
 
+import com.restfb.Security;
 import com.restfb.util.UrlUtils;
 
 /**
@@ -103,10 +105,11 @@ public abstract class FacebookException extends RuntimeException {
   }
 
   /**
-   * Aggregates optional metadata that may help diagnose a failing Facebook request. Authentication parameters are
-   * redacted before storage, including in getter and serialized output. Access tokens and app secrets retain only a
-   * diagnostic SHA-256 fingerprint. The request itself is not modified. Arbitrary exception messages, causes and
-   * application data are not sanitized here.
+   * Aggregates optional metadata that may help diagnose a failing Facebook request. By default authentication
+   * parameters are redacted before storage, including in getter and serialized output. Access tokens and app secrets
+   * retain only a diagnostic SHA-256 fingerprint. {@link Security#MEDIUM} exposes ordinary {@code access_token}
+   * parameters, while {@link Security#LOW} stores credentials without redaction. The request itself is not modified.
+   * Arbitrary exception messages, causes and application data are not sanitized here.
    */
   public static final class InfoData implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -117,13 +120,26 @@ public abstract class FacebookException extends RuntimeException {
     private final String headerAccessToken;
     private final Long startTime;
     private final long endTime;
+    private final boolean legacyDiagnostics;
 
     public InfoData(String httpMethod, String fullEndpoint, String parameterString, String headerAccessToken,
         Long startTime) {
+      this(httpMethod, fullEndpoint, parameterString, headerAccessToken, startTime, Security.HIGH);
+    }
+
+    /**
+     * Captures request metadata with the given diagnostic security mode.
+     *
+     * @see Security
+     */
+    public InfoData(String httpMethod, String fullEndpoint, String parameterString, String headerAccessToken,
+        Long startTime, Security diagnosticSecurity) {
+      this.legacyDiagnostics = Objects.requireNonNull(diagnosticSecurity, "diagnosticSecurity") == Security.LOW;
       this.httpMethod = httpMethod;
-      this.fullEndpoint = UrlUtils.redactSensitiveUrl(fullEndpoint);
-      this.parameterString = UrlUtils.redactSensitiveParameters(parameterString);
-      this.headerAccessToken = UrlUtils.redactSensitiveCredential(headerAccessToken);
+      this.fullEndpoint = UrlUtils.redactSensitiveUrl(fullEndpoint, diagnosticSecurity);
+      this.parameterString = UrlUtils.redactSensitiveParameters(parameterString, diagnosticSecurity);
+      this.headerAccessToken =
+          legacyDiagnostics ? headerAccessToken : UrlUtils.redactSensitiveCredential(headerAccessToken);
       this.startTime = startTime;
       this.endTime = System.currentTimeMillis();
     }
@@ -133,22 +149,23 @@ public abstract class FacebookException extends RuntimeException {
     }
 
     /**
-     * @return the endpoint with authentication query parameters redacted
+     * @return the endpoint, with authentication parameters exposed according to the selected {@link Security}
      */
     public String getFullEndpoint() {
       return fullEndpoint;
     }
 
     /**
-     * @return URL-encoded diagnostic parameters with authentication values redacted, or {@code null}
+     * @return URL-encoded diagnostic parameters with authentication values exposed according to the selected
+     *         {@link Security}, or {@code null}
      */
     public String getParameterString() {
       return parameterString;
     }
 
     /**
-     * @return a redacted marker with a diagnostic SHA-256 fingerprint if a nonempty header token was supplied,
-     *         {@code [REDACTED]} for an empty token, otherwise {@code null}; never the original token
+     * @return the original token in {@link Security#LOW}; otherwise a redacted marker with a diagnostic SHA-256
+     *         fingerprint for a nonempty token or {@code [REDACTED]} for an empty token; {@code null} if not supplied
      */
     public String getHeaderAccessToken() {
       return headerAccessToken;
@@ -166,6 +183,10 @@ public abstract class FacebookException extends RuntimeException {
     }
 
     public String getUrl() {
+      if (legacyDiagnostics) {
+        return decodeOrKeep(fullEndpoint) + (parameterString == null ? "" : "?" + decodeOrKeep(parameterString));
+      }
+
       String endpoint = String.valueOf(fullEndpoint);
       if (parameterString != null && !parameterString.isEmpty()) {
         int fragmentIndex = endpoint.indexOf('#');
@@ -177,11 +198,14 @@ public abstract class FacebookException extends RuntimeException {
         }
         endpoint += separator + parameterString + fragment;
       }
+      return decodeOrKeep(endpoint);
+    }
+
+    private static String decodeOrKeep(String value) {
       try {
-        return URLDecoder.decode(endpoint, StandardCharsets.UTF_8);
+        return value == null ? null : URLDecoder.decode(value, StandardCharsets.UTF_8);
       } catch (IllegalArgumentException e) {
-        // The stored URL is already redacted, even if its path cannot be decoded.
-        return endpoint;
+        return value;
       }
     }
 
