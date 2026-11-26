@@ -137,6 +137,24 @@ class DefaultWebRequestorTest {
   }
 
   @Test
+  void legacyPostLogsDecodedValuesLiterallyOnOneLineWithoutChangingTheBody() throws IOException {
+    RequestCapture capture = new RequestCapture();
+    try (TestServer server = TestServer.start("/post", exchange -> {
+      capture.capture(exchange);
+      respond(exchange, 200, "ok");
+    }); RequestLogs logs = new RequestLogs()) {
+      String url = server.url("/post");
+      String parameters = "message=%7B%7D%0D%0Asecond%20line%0A100%25";
+      WebRequestor.Request request = new WebRequestor.Request(url, null, parameters, null, Security.LOW);
+
+      assertThat(logs.requestor().executePost(request).getStatusCode()).isEqualTo(200);
+      assertThat(capture.bodyAsString()).isEqualTo(parameters);
+      assertThat(logs.messages).containsExactly(
+        "Executing a POST to " + url + " with parameters (sent in request body): message={}\\r\\nsecond line\\n100%");
+    }
+  }
+
+  @Test
   void legacyGetAndPagingDiagnosticsCanBeReplayed() throws IOException, InterruptedException {
     List<URI> received = new CopyOnWriteArrayList<>();
     try (TestServer server = TestServer.start("/feed", exchange -> {
