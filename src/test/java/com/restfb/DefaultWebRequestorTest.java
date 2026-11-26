@@ -21,20 +21,34 @@
  */
 package com.restfb;
 
-import static com.restfb.util.UrlUtils.redactSensitiveCredential;
 import static com.restfb.testutils.RestfbAssertions.assertThat;
+import static com.restfb.util.UrlUtils.redactSensitiveCredential;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import com.restfb.json.JsonObject;
+import com.restfb.logging.JulLogger;
 import com.restfb.types.FacebookReelAttachment;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -59,8 +73,9 @@ class DefaultWebRequestorTest {
     assertThat(request.getHeaderAccessToken()).isEqualTo("header-credential");
   }
 
-  @Test
-  void authenticationParametersAreSentUnchanged() throws IOException {
+  @ParameterizedTest
+  @EnumSource(Security.class)
+  void authenticationParametersAreSentUnchanged(Security security) throws IOException {
     RequestCapture capture = new RequestCapture();
     try (TestServer server = TestServer.start("/credentials", exchange -> {
       capture.capture(exchange);
@@ -68,7 +83,7 @@ class DefaultWebRequestorTest {
     })) {
       String parameters = "access_token=query-credential&appsecret_proof=proof-credential";
       WebRequestor.Request request =
-          new WebRequestor.Request(server.url("/credentials"), "header-credential", parameters);
+          new WebRequestor.Request(server.url("/credentials"), "header-credential", parameters, null, security);
       requestor.executeGet(request);
       assertThat(capture.getUri().getRawQuery()).isEqualTo(parameters);
       assertThat(capture.getHeaders().getFirst("Authorization")).isEqualTo("Bearer header-credential");
@@ -77,6 +92,131 @@ class DefaultWebRequestorTest {
       assertThat(capture.bodyAsString()).isEqualTo(parameters);
       assertThat(capture.getHeaders().getFirst("Authorization")).isEqualTo("Bearer header-credential");
     }
+  }
+
+  @Test
+  void legacyRequestDiagnosticsMatchThePreviousFormats() throws IOException {
+    try (TestServer server = TestServer.start("/credentials", exchange -> respond(exchange, 200, "ok"));
+        RequestLogs logs = new RequestLogs()) {
+      DefaultWebRequestor sharedRequestor = logs.requestor();
+      String endpoint = server.url("/credentials");
+      String url = endpoint + "?access_token=url-credential";
+      String parameters = "client_secret=form%2Bsecret&fields=id%2Cname&appsecret_proof=proof-credential";
+      WebRequestor.Request low = new WebRequestor.Request(url, "header-credential", parameters, null, Security.LOW);
+      WebRequestor.Request medium =
+          new WebRequestor.Request(url, "header-credential", parameters, null, Security.MEDIUM);
+      WebRequestor.Request high = new WebRequestor.Request(url, "header-credential", parameters);
+
+      assertThat(low.toString())
+        .isEqualTo("Request to url " + url + " with parameters " + parameters + ". Header access token: true");
+      sharedRequestor.executeGet(low);
+      sharedRequestor.executeGet(high);
+      sharedRequestor.executeGet(medium);
+      sharedRequestor.executeDelete(low);
+      sharedRequestor.executePost(low);
+      sharedRequestor.executePost(high);
+      sharedRequestor.executePost(medium);
+
+      String redactedUrl = endpoint + "?access_token=" + redactSensitiveCredential("url-credential");
+      String redactedParameters =
+          "client_secret=" + redactSensitiveCredential("form+secret") + "&fields=id%2Cname&appsecret_proof=[REDACTED]";
+      String redactedHeader = "Header access token: " + redactSensitiveCredential("header-credential");
+      assertThat(medium.toString())
+        .isEqualTo("Request to url " + url + " with parameters " + redactedParameters + ". " + redactedHeader);
+      assertThat(logs.messages).containsExactly("Making a GET request to " + url + " with parameters " + parameters,
+        "Making a GET request to " + redactedUrl + " with parameters " + redactedParameters + ". " + redactedHeader,
+        "Making a GET request to " + url + " with parameters " + redactedParameters + ". " + redactedHeader,
+        "Making a DELETE request to " + url + " with parameters " + parameters,
+        "Executing a POST to " + url
+            + " with parameters (sent in request body): client_secret=form+secret&fields=id,name&appsecret_proof=proof-credential",
+        "Executing a POST to " + redactedUrl + " with parameters (sent in request body): " + redactedParameters + " "
+            + redactedHeader,
+        "Executing a POST to " + url + " with parameters (sent in request body): " + redactedParameters + " "
+            + redactedHeader);
+    }
+  }
+
+  @Test
+  void legacyGetAndPagingDiagnosticsCanBeReplayed() throws IOException, InterruptedException {
+    List<URI> received = new CopyOnWriteArrayList<>();
+    try (TestServer server = TestServer.start("/feed", exchange -> {
+      received.add(exchange.getRequestURI());
+      respond(exchange, 200, "{\"data\":[]}");
+    }); RequestLogs logs = new RequestLogs()) {
+      String feedUrl = server.url("/feed");
+      DefaultWebRequestor sharedRequestor = logs.requestor();
+      DefaultFacebookClient low = new DefaultFacebookClient("test|token", null, sharedRequestor,
+        new DefaultJsonMapper(), Version.UNVERSIONED, Security.LOW);
+      low.setFacebookEndpointUrls(new FacebookEndpoints() {
+        @Override
+        public String getGraphEndpoint() {
+          return server.baseUrl;
+        }
+      });
+
+      ApiResult<JsonObject> result = low.fetchObjectWithResult("feed", JsonObject.class, Parameter.withFields("id"));
+      String pageUrl = feedUrl + "?after=cursor%2B1&access_token=paging%7Ctoken";
+      Connection<JsonObject> page = low.fetchConnectionPage(pageUrl, JsonObject.class);
+
+      assertThat(logs.messages).hasSize(2);
+      assertThat(result.getRequestUrl()).isEqualTo(replayUrl(logs.messages.get(0)))
+        .contains("access_token=test%7Ctoken");
+      assertThat(page.getResponseMetadata().getRequestUrl()).isEqualTo(pageUrl)
+        .isEqualTo(replayUrl(logs.messages.get(1)));
+
+      HttpClient replayClient = HttpClient.newHttpClient();
+      for (String message : logs.messages) {
+        HttpRequest replay = HttpRequest.newBuilder(URI.create(replayUrl(message))).GET().build();
+        assertThat(replayClient.send(replay, HttpResponse.BodyHandlers.discarding()).statusCode()).isEqualTo(200);
+      }
+      assertThat(received).hasSize(4);
+      assertThat(received.subList(2, 4)).containsExactlyElementsOf(received.subList(0, 2));
+    }
+  }
+
+  @Test
+  void mediumGetCanBeReplayedAfterRestoringTheProof() throws IOException, InterruptedException {
+    List<URI> received = new CopyOnWriteArrayList<>();
+    try (TestServer server = TestServer.start("/me", exchange -> {
+      received.add(exchange.getRequestURI());
+      respond(exchange, 200, "{\"id\":\"123\"}");
+    }); RequestLogs logs = new RequestLogs()) {
+      String accessToken = "test+token";
+      String appSecret = "test-app-secret";
+      DefaultFacebookClient medium = new DefaultFacebookClient(accessToken, appSecret, logs.requestor(),
+        new DefaultJsonMapper(), Version.UNVERSIONED, Security.MEDIUM);
+      medium.setFacebookEndpointUrls(new FacebookEndpoints() {
+        @Override
+        public String getGraphEndpoint() {
+          return server.baseUrl;
+        }
+      });
+
+      String proof = medium.obtainAppSecretProof(accessToken, appSecret);
+      String url = medium.fetchObjectWithResult("me", JsonObject.class).getRequestUrl();
+      assertThat(url).contains("access_token=test%2Btoken", "appsecret_proof=[REDACTED]").doesNotContain(proof);
+      assertThat(logs.messages).hasSize(1);
+      String loggedRequest = logs.messages.get(0);
+      assertThat(loggedRequest).endsWith(". Header access token: null");
+      String loggedUrl = replayUrl(loggedRequest.substring(0, loggedRequest.lastIndexOf(". Header access token: ")));
+      assertThat(loggedUrl).isEqualTo(url);
+
+      URI replayUri = URI.create(loggedUrl.replace("appsecret_proof=[REDACTED]", "appsecret_proof=" + proof));
+      HttpRequest replay = HttpRequest.newBuilder(replayUri).GET().build();
+      assertThat(HttpClient.newHttpClient().send(replay, HttpResponse.BodyHandlers.discarding()).statusCode())
+        .isEqualTo(200);
+      assertThat(received).hasSize(2);
+      assertThat(received.get(0).getRawQuery()).contains("appsecret_proof=" + proof);
+      assertThat(received.get(1)).isEqualTo(received.get(0));
+    }
+  }
+
+  private static String replayUrl(String logMessage) {
+    String prefix = "Making a GET request to ";
+    assertThat(logMessage).startsWith(prefix);
+    String[] parts = logMessage.substring(prefix.length()).split(" with parameters ", 2);
+    assertThat(parts).hasSize(2);
+    return "null".equals(parts[1]) ? parts[0] : parts[0] + "?" + parts[1];
   }
 
   @Test
@@ -206,6 +346,40 @@ class DefaultWebRequestorTest {
     exchange.sendResponseHeaders(statusCode, payload.length);
     exchange.getResponseBody().write(payload);
     exchange.close();
+  }
+
+  private static final class RequestLogs extends Handler implements Closeable {
+
+    private final Logger logger = Logger.getLogger(DefaultWebRequestorTest.class.getName() + "." + UUID.randomUUID());
+    private final List<String> messages = new ArrayList<>();
+
+    RequestLogs() {
+      logger.setUseParentHandlers(false);
+      logger.setLevel(Level.FINE);
+      logger.addHandler(this);
+    }
+
+    DefaultWebRequestor requestor() {
+      return new DefaultWebRequestor(HttpClient.newHttpClient(), new JulLogger(logger.getName()));
+    }
+
+    @Override
+    public void publish(LogRecord record) {
+      String message = record.getMessage();
+      if (message.startsWith("Making a ") || message.startsWith("Executing a POST to ")) {
+        messages.add(message);
+      }
+    }
+
+    @Override
+    public void flush() {
+      // No buffering.
+    }
+
+    @Override
+    public void close() {
+      logger.removeHandler(this);
+    }
   }
 
   private static final class RequestCapture {

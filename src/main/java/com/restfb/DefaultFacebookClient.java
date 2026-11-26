@@ -116,6 +116,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   protected boolean accessTokenInHeader;
 
+  private final Security diagnosticSecurity;
+
   protected DefaultFacebookClient() {
     this(Version.LATEST);
   }
@@ -197,10 +199,21 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
    */
   public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
       Version apiVersion) {
+    this(accessToken, appSecret, webRequestor, jsonMapper, apiVersion, Security.HIGH);
+  }
+
+  /**
+   * Creates a client with the specified request diagnostic security mode.
+   *
+   * @see Security
+   */
+  public DefaultFacebookClient(String accessToken, String appSecret, WebRequestor webRequestor, JsonMapper jsonMapper,
+      Version apiVersion, Security diagnosticSecurity) {
     super();
 
     verifyParameterPresence("jsonMapper", jsonMapper);
     verifyParameterPresence("webRequestor", webRequestor);
+    this.diagnosticSecurity = Objects.requireNonNull(diagnosticSecurity, "diagnosticSecurity");
 
     this.accessToken = trimToNull(accessToken);
     this.appSecret = trimToNull(appSecret);
@@ -210,6 +223,31 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     this.jsonMapper.setFacebookClient(this);
     this.apiVersion = Optional.ofNullable(apiVersion).orElse(Version.UNVERSIONED);
     graphFacebookExceptionGenerator = new DefaultFacebookExceptionGenerator();
+  }
+
+  /**
+   * Creates a client with the default requestor and mapper and the specified diagnostic security mode.
+   *
+   * @see Security
+   */
+  public static DefaultFacebookClient withSecurity(String accessToken, Version apiVersion,
+      Security diagnosticSecurity) {
+    return withSecurity(accessToken, null, apiVersion, diagnosticSecurity);
+  }
+
+  /**
+   * Creates a client with the default requestor and mapper, an app secret, and the specified diagnostic security mode.
+   *
+   * @see Security
+   */
+  public static DefaultFacebookClient withSecurity(String accessToken, String appSecret, Version apiVersion,
+      Security diagnosticSecurity) {
+    return new DefaultFacebookClient(accessToken, appSecret, new DefaultWebRequestor(), new DefaultJsonMapper(),
+      apiVersion, diagnosticSecurity);
+  }
+
+  protected final Security getDiagnosticSecurity() {
+    return diagnosticSecurity;
   }
 
   /**
@@ -306,24 +344,23 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
   }
 
   private RequestExecutionResult fetchConnectionPageResponse(String connectionPageUrl) {
-    WebRequestor.Request request;
+    String headerAccessToken = null;
     if (!isBlank(accessToken) && !isBlank(appSecret)) {
       if (isAppSecretProofWithTime()) {
         long now = System.currentTimeMillis() / 1000;
-        request =
-            new WebRequestor.Request(
-              String.format("%s&%s=%s&%s=%s", connectionPageUrl, urlEncode(APP_SECRET_PROOF_TIME_PARAM_NAME), now,
-                urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken + "|" + now, appSecret)),
-              null);
+        connectionPageUrl =
+            String.format("%s&%s=%s&%s=%s", connectionPageUrl, urlEncode(APP_SECRET_PROOF_TIME_PARAM_NAME), now,
+              urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken + "|" + now, appSecret));
       } else {
-        request = new WebRequestor.Request(String.format("%s&%s=%s", connectionPageUrl,
-          urlEncode(APP_SECRET_PROOF_PARAM_NAME), obtainAppSecretProof(accessToken, appSecret)), null);
+        connectionPageUrl = String.format("%s&%s=%s", connectionPageUrl, urlEncode(APP_SECRET_PROOF_PARAM_NAME),
+          obtainAppSecretProof(accessToken, appSecret));
       }
     } else {
-      request = new WebRequestor.Request(connectionPageUrl, getHeaderAccessToken());
+      headerAccessToken = getHeaderAccessToken();
     }
 
-    return executeGetRequestWithInfo(request);
+    return executeGetRequestWithInfo(
+      new WebRequestor.Request(connectionPageUrl, headerAccessToken, null, null, diagnosticSecurity));
   }
 
   /**
@@ -345,7 +382,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
   @Override
   public FacebookClient createClientWithAccessToken(String accessToken) {
-    return new DefaultFacebookClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(), this.apiVersion);
+    return new DefaultFacebookClient(accessToken, this.appSecret, getWebRequestor(), getJsonMapper(), this.apiVersion,
+      diagnosticSecurity);
   }
 
   /**
@@ -452,7 +490,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     Duration duration = Optional.ofNullable(executionResult).map(RequestExecutionResult::getDuration).orElse(null);
     String httpMethod = Optional.ofNullable(executionResult).map(RequestExecutionResult::getHttpMethod).orElse(null);
     String requestUrl = Optional.ofNullable(executionResult).map(RequestExecutionResult::getRequestUrl).orElse(null);
-    return ResponseMetadata.of(debugHeaderInfo, headers, duration, httpMethod, requestUrl);
+    return ResponseMetadata.of(debugHeaderInfo, headers, duration, httpMethod, requestUrl, diagnosticSecurity);
   }
 
   /**
@@ -961,8 +999,8 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
 
     String headerAccessToken = (hasReel) ? accessToken : getHeaderAccessToken();
 
-    WebRequestor.Request request = new WebRequestor.Request(fullEndpoint, headerAccessToken, parameterString);
-    request.setBinaryAttachments(binaryAttachments);
+    WebRequestor.Request request = new WebRequestor.Request(fullEndpoint, headerAccessToken, parameterString,
+      binaryAttachments, diagnosticSecurity);
     request.setBody(body);
 
     String httpMethod;
@@ -983,8 +1021,7 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return executeRequestWithMetadata(httpMethod, request.getFullUrl(), requestor);
     } catch (FacebookException facebookException) {
-      facebookException.withInfoData(httpMethod, request.getUrl(), parameterString, headerAccessToken,
-        requestStartTime);
+      attachRequestInfo(facebookException, httpMethod, request, requestStartTime);
       throw facebookException;
     }
   }
@@ -1013,9 +1050,19 @@ public class DefaultFacebookClient extends BaseFacebookClient implements Faceboo
     try {
       return executeGetRequest(request);
     } catch (FacebookException facebookException) {
-      facebookException.withInfoData("GET", request.getUrl(), request.getParameters(), request.getHeaderAccessToken(),
-        startTime);
+      attachRequestInfo(facebookException, "GET", request, startTime);
       throw facebookException;
+    }
+  }
+
+  private void attachRequestInfo(FacebookException exception, String httpMethod, WebRequestor.Request request,
+      long startTime) {
+    if (diagnosticSecurity == Security.HIGH) {
+      exception.withInfoData(httpMethod, request.getUrl(), request.getParameters(), request.getHeaderAccessToken(),
+        startTime);
+    } else {
+      exception.withInfoData(new FacebookException.InfoData(httpMethod, request.getUrl(), request.getParameters(),
+        request.getHeaderAccessToken(), startTime, diagnosticSecurity));
     }
   }
 

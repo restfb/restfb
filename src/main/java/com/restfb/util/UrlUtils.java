@@ -41,6 +41,8 @@ import java.util.StringJoiner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import com.restfb.Security;
+
 /**
  * @author <a href="http://restfb.com">Mark Allen</a>
  * @since 1.6.10
@@ -52,11 +54,13 @@ public final class UrlUtils {
    */
   public static final String REDACTED_VALUE = "[REDACTED]";
 
-  private static final Set<String> SENSITIVE_PARAMETERS = Set.of("access_token", "appsecret_proof", "client_secret",
+  private static final String ACCESS_TOKEN = "access_token";
+
+  private static final Set<String> SENSITIVE_PARAMETERS = Set.of(ACCESS_TOKEN, "appsecret_proof", "client_secret",
     "app_secret", "input_token", "fb_exchange_token", "code", "refresh_token", "signed_request", "sessions", "batch");
 
   private static final Set<String> FINGERPRINTED_PARAMETERS =
-      Set.of("access_token", "client_secret", "app_secret", "input_token", "fb_exchange_token", "refresh_token");
+      Set.of(ACCESS_TOKEN, "client_secret", "app_secret", "input_token", "fb_exchange_token", "refresh_token");
 
   private static final Pattern REDACTED_CREDENTIAL = Pattern.compile("\\[REDACTED(?:; sha256=[0-9a-f]{16})?\\]");
 
@@ -107,14 +111,24 @@ public final class UrlUtils {
    * @return a diagnostic URL, or {@code null} if the input is {@code null}
    */
   public static String redactSensitiveUrl(String url) {
-    if (url == null) {
-      return null;
+    return redactSensitiveUrl(url, Security.HIGH);
+  }
+
+  /**
+   * Formats a diagnostic URL using the selected policy. {@link Security#LOW} returns the original URL unchanged.
+   *
+   * @see #redactSensitiveParameters(String, Security)
+   */
+  public static String redactSensitiveUrl(String url, Security security) {
+    if (url == null || security == Security.LOW) {
+      return url;
     }
     int fragmentIndex = url.indexOf('#');
     String endpoint = fragmentIndex < 0 ? url : url.substring(0, fragmentIndex);
     int queryIndex = endpoint.indexOf('?');
     return (queryIndex < 0 ? endpoint
-        : endpoint.substring(0, queryIndex + 1) + redactSensitiveParameters(endpoint.substring(queryIndex + 1)))
+        : endpoint.substring(0, queryIndex + 1)
+            + redactSensitiveParameters(endpoint.substring(queryIndex + 1), security))
         + (fragmentIndex < 0 ? "" : "#" + REDACTED_VALUE);
   }
 
@@ -130,7 +144,16 @@ public final class UrlUtils {
    * @return redacted parameters, or {@code null} if the input is {@code null}
    */
   public static String redactSensitiveParameters(String parameters) {
-    if (parameters == null || parameters.isEmpty()) {
+    return redactSensitiveParameters(parameters, Security.HIGH);
+  }
+
+  /**
+   * Formats diagnostic parameters using the selected policy. {@link Security#MEDIUM} preserves the original encoding of
+   * nonempty {@code access_token} values, except when the decoded value contains a pipe and may include an app secret.
+   * All other redactions match {@link Security#HIGH}. {@link Security#LOW} returns the original parameters.
+   */
+  public static String redactSensitiveParameters(String parameters, Security security) {
+    if (parameters == null || parameters.isEmpty() || security == Security.LOW) {
       return parameters;
     }
     StringJoiner result = new StringJoiner("&");
@@ -148,11 +171,14 @@ public final class UrlUtils {
       String name = parameter.substring(0, separator);
       try {
         String decodedName = decode(name, StandardCharsets.UTF_8).toLowerCase(Locale.ROOT);
-        if (SENSITIVE_PARAMETERS.contains(decodedName)) {
-          String redactedValue = FINGERPRINTED_PARAMETERS.contains(decodedName)
-              ? redactSensitiveCredential(decode(parameter.substring(separator + 1), StandardCharsets.UTF_8))
-              : REDACTED_VALUE;
-          result.add(name + "=" + redactedValue);
+        if (FINGERPRINTED_PARAMETERS.contains(decodedName)) {
+          String value = decode(parameter.substring(separator + 1), StandardCharsets.UTF_8);
+          // An app access token can contain the app secret itself (appId|appSecret).
+          boolean showToken = security == Security.MEDIUM && ACCESS_TOKEN.equals(decodedName) && !value.isEmpty()
+              && value.indexOf('|') < 0;
+          result.add(showToken ? parameter : name + "=" + redactSensitiveCredential(value));
+        } else if (SENSITIVE_PARAMETERS.contains(decodedName)) {
+          result.add(name + "=" + REDACTED_VALUE);
         } else {
           // Validate both components; decoding errors must not fall back to raw diagnostic data.
           decode(parameter.substring(separator + 1), StandardCharsets.UTF_8);

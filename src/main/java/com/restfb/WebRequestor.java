@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
@@ -227,6 +228,8 @@ public interface WebRequestor {
 
     private final Optional<String> headerAccessToken;
 
+    private final Security diagnosticSecurity;
+
     private String parameters;
 
     private Body body;
@@ -272,10 +275,25 @@ public interface WebRequestor {
      *          list of binary attachments
      */
     public Request(String url, String headerAccessToken, String parameters, List<BinaryAttachment> attachments) {
+      this(url, headerAccessToken, parameters, attachments, Security.HIGH);
+    }
+
+    /**
+     * Creates a request with an explicit security mode for its diagnostics.
+     *
+     * @see Security
+     */
+    public Request(String url, String headerAccessToken, String parameters, List<BinaryAttachment> attachments,
+        Security diagnosticSecurity) {
       this.url = url;
       this.headerAccessToken = Optional.ofNullable(headerAccessToken);
       this.parameters = parameters;
+      this.diagnosticSecurity = Objects.requireNonNull(diagnosticSecurity, "diagnosticSecurity");
       setBinaryAttachments(attachments);
+    }
+
+    public Security getDiagnosticSecurity() {
+      return diagnosticSecurity;
     }
 
     public String getUrl() {
@@ -314,8 +332,13 @@ public interface WebRequestor {
 
     @Override
     public String toString() {
+      if (diagnosticSecurity == Security.LOW) {
+        return format("Request to url %s with parameters %s. Header access token: %b", getUrl(), getParameters(),
+          hasHeaderAccessToken());
+      }
       return format("Request to url %s with parameters %s. Header access token: %s",
-        UrlUtils.redactSensitiveUrl(getUrl()), UrlUtils.redactSensitiveParameters(getParameters()),
+        UrlUtils.redactSensitiveUrl(getUrl(), diagnosticSecurity),
+        UrlUtils.redactSensitiveParameters(getParameters(), diagnosticSecurity),
         UrlUtils.redactSensitiveCredential(getHeaderAccessToken()));
     }
 
