@@ -1,12 +1,12 @@
 # RestFB Changelog
 
-## 2026.11.0 (unreleased)
+## 2026.11.0 (November 27, 2026)
 
 * Issue #1442: introduce `Th*` names for Threads models; the deprecated `Td*` types remain compatible through 2027.
   Use `ThreadsMediaValue.toThMedia()` for new webhook consumers.
-* Add opt-in request diagnostics for protected replay workflows: `Security.MEDIUM` keeps ordinary `access_token`
+* PR #1722: add opt-in request diagnostics for protected replay workflows. `Security.MEDIUM` keeps ordinary `access_token`
   parameters visible but redacts `appsecret_proof`, while `Security.LOW` restores legacy output.
-  `Security.HIGH` remains the default.
+  `Security.HIGH` remains the default. Decoded POST parameters in legacy logs escape carriage returns and line feeds.
 
 ## 2026.10.0 (November 23, 2026)
 
